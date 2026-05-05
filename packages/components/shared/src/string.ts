@@ -155,6 +155,21 @@ export function underscore(str: string): string {
 // Cache for Intl.PluralRules instances to avoid repeated allocations
 const pluralRulesCache = new Map<string, Intl.PluralRules>();
 
+// Track the active @lit/localize locale so that getCharacterPluralSuffix stays
+// in sync with the locale used by msg()/str`` without requiring consumers to
+// manually keep document.documentElement.lang up-to-date.
+let litLocalizeActiveLocale: string | undefined;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('lit-localize-status', ((
+    event: CustomEvent<{ status: string; readyLocale?: string }>
+  ) => {
+    if (event.detail?.status === 'ready') {
+      litLocalizeActiveLocale = event.detail.readyLocale;
+    }
+  }) as EventListener);
+}
+
 /**
  * Returns the locale-specific pluralized form used for the "character" label. Uses Intl.PluralRules
  * API to determine the correct plural form for the current locale.
@@ -169,11 +184,14 @@ const pluralRulesCache = new Map<string, Intl.PluralRules>();
  *
  * @function getCharacterPluralSuffix
  * @param count The number of characters
+ * @param locale Optional locale override. If omitted, uses the active @lit/localize locale,
+ *   then falls back to document.documentElement.lang or navigator.language.
  * @returns The plural suffix for the word "character" in the current locale
  * ```
  */
-export function getCharacterPluralSuffix(count: number): string {
-  const locale =
+export function getCharacterPluralSuffix(count: number, locale?: string): string {
+  locale ??=
+    litLocalizeActiveLocale ||
     (typeof document !== 'undefined' && document.documentElement.lang) ||
     (typeof navigator !== 'undefined' && navigator.language) ||
     'en';
@@ -229,5 +247,39 @@ export function getCharacterPluralSuffix(count: number): string {
   } catch {
     // Fallback if Intl.PluralRules is not supported
     return count === 1 ? '' : 's';
+  }
+}
+
+/**
+ * Returns the CLDR plural category for the given count and locale. Uses Intl.PluralRules to
+ * determine the category. Falls back to a simple 'one'/'other' distinction if Intl.PluralRules is
+ * not supported.
+ *
+ * ```javascript
+ * getPluralCategory(1); // 'one'
+ * getPluralCategory(2); // 'other' in English, 'few' in Polish
+ * getPluralCategory(5); // 'other' in English, 'many' in Polish
+ * ```
+ *
+ * @function getPluralCategory
+ * @param count The number to determine the plural category for.
+ * @returns The CLDR plural category: 'zero', 'one', 'two', 'few', 'many', or 'other'.
+ */
+export function getPluralCategory(count: number): Intl.LDMLPluralRule {
+  const locale =
+    litLocalizeActiveLocale ||
+    (typeof document !== 'undefined' && document.documentElement.lang) ||
+    (typeof navigator !== 'undefined' && navigator.language) ||
+    'en';
+
+  try {
+    let pr = pluralRulesCache.get(locale);
+    if (!pr) {
+      pr = new Intl.PluralRules(locale);
+      pluralRulesCache.set(locale, pr);
+    }
+    return pr.select(count);
+  } catch {
+    return count === 1 ? 'one' : 'other';
   }
 }

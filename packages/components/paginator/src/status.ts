@@ -4,6 +4,7 @@ import {
   LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
   type ListDataSource
 } from '@sl-design-system/data-source';
+import { getPluralCategory } from '@sl-design-system/shared';
 import {
   type CSSResultGroup,
   LitElement,
@@ -130,14 +131,12 @@ export class PaginatorStatus<T = any> extends LitElement {
   }
 
   override render(): TemplateResult {
-    const [start, end] = this.range ?? [1, 1];
+    const [start, end] = this.range ?? [1, 1],
+      itemLabel = this.itemLabel ?? this.#getDefaultItemLabel(this.totalItems);
 
-    return html`${msg(
-      str`${start} - ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`,
-      {
-        id: 'sl.paginator.itemsRange'
-      }
-    )}`;
+    return html`${msg(str`${start} - ${end} of ${this.totalItems} ${itemLabel}`, {
+      id: 'sl.paginator.itemsRange'
+    })}`;
   }
 
   #onUpdate = () => {
@@ -156,17 +155,26 @@ export class PaginatorStatus<T = any> extends LitElement {
     // announcement would be with old or invalid values
     this.#timeoutId = setTimeout(() => {
       if (this.totalItems > 1) {
-        const [start, end] = this.range ?? [1, 1];
+        const [start, end] = this.range ?? [1, 1],
+          itemLabel = this.itemLabel ?? this.#getDefaultItemLabel(this.totalItems);
 
         announce(
-          msg(
-            str`Currently showing ${start} to ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`,
-            {
-              id: 'sl.paginator.currentlyShowingAmount'
-            }
-          )
+          msg(str`Currently showing ${start} to ${end} of ${this.totalItems} ${itemLabel}`, {
+            id: 'sl.paginator.currentlyShowingAmount'
+          })
         );
       }
     }, 100);
+  }
+
+  #getDefaultItemLabel(count: number): string {
+    switch (getPluralCategory(count)) {
+      case 'one':
+        return msg('item', { id: 'sl.paginator.defaultItemLabelOne' });
+      case 'few':
+        return msg('items', { id: 'sl.paginator.defaultItemLabelFew' });
+      default:
+        return msg('items', { id: 'sl.paginator.defaultItemLabelOther' });
+    }
   }
 }

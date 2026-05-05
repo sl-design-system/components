@@ -210,13 +210,29 @@
   <source>Skip to start of table</source>
   <target>Ir al inicio de la tabla</target>
 </trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabel">
+  <source>Items</source>
+  <target>Elementos</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelFew">
+  <source>items</source>
+  <target>elementos</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelOne">
+  <source>item</source>
+  <target>elemento</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelOther">
+  <source>items</source>
+  <target>elementos</target>
+</trans-unit>
 <trans-unit id="sl.paginator.itemsPerPage">
-  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per page:</source>
-  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Elementos'}"/> por página:</target>
+  <source><x id="0" equiv-text="${itemLabel}"/> per page:</source>
+  <target><x id="0" equiv-text="${itemLabel}"/> por página:</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPageOption">
-  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'items'}"/> per page</source>
-  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'elementos'}"/> por página</target>
+  <source><x id="0" equiv-text="${sizeLabel}"/> per page</source>
+  <target><x id="0" equiv-text="${itemLabelLowercase}"/> por página</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagination">
   <source>Pagination</source>
@@ -238,9 +254,21 @@
   <source><x id="0" equiv-text="${index + 1}"/>, page</source>
   <target><x id="0" equiv-text="${index + 1}"/>, página</target>
 </trans-unit>
+<trans-unit id="sl.paginator.pagesLabelFew">
+  <source>pages</source>
+  <target>páginas</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagesLabelOne">
+  <source>pages</source>
+  <target>página</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagesLabelOther">
+  <source>pages</source>
+  <target>páginas</target>
+</trans-unit>
 <trans-unit id="sl.paginator.totalPages">
-  <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
-  <target>de <x id="0" equiv-text="${this.pageCount}"/> páginas</target>
+  <source>of <x id="0" equiv-text="${this.pageCount + ' ' + this.#getPagesLabel()}"/></source>
+  <target>de <x id="0" equiv-text="${this.pageCount + ' ' + this.#getPagesLabel()}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.nextPage">
   <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
@@ -251,11 +279,11 @@
   <target>Página <x id="0" equiv-text="${this.page + 1}"/> de <x id="1" equiv-text="${this.pageCount}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsRange">
-  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></source>
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${itemLabel}"/></source>
   <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> de <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'elementos'}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.currentlyShowingAmount">
-  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></source>
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${itemLabel}"/></source>
   <target>Mostrando actualmente <x id="0" equiv-text="${start}"/> a <x id="1" equiv-text="${end}"/> de <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'elementos'}"/></target>
 </trans-unit>
 <trans-unit id="sl.progressBar.state">

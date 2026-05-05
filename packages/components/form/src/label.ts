@@ -44,6 +44,9 @@ export class Label extends LitElement {
   /** Observe the form control for changes to the required attribute. */
   #observer = new MutationObserver(() => this.#update());
 
+  /** Observe slotted content for text changes to keep the label in sync. */
+  #slotObserver = new MutationObserver(() => this.#syncLabelContent());
+
   /** Whether the form control is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
@@ -77,6 +80,7 @@ export class Label extends LitElement {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#slotObserver.disconnect();
 
     super.disconnectedCallback();
   }
@@ -164,23 +168,50 @@ export class Label extends LitElement {
   }
 
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
-    const nodes = target.assignedNodes({ flatten: true });
+    // Workaround for `??=` output missing parens around OR statement
+    this.#label =
+      this.#label ?? (this.querySelector('label[slot="label"]') || document.createElement('label'));
 
-    if (this.#label && nodes.length) {
-      this.#label.innerHTML = '';
-      this.#label.append(...nodes);
-    } else {
-      // Workaround for `??=` output missing parens around OR statement
-      this.#label =
-        this.#label ??
-        (this.querySelector('label[slot="label"]') || document.createElement('label'));
+    if (!this.#label.slot) {
       this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
-      this.#label.append(...nodes);
       this.prepend(this.#label);
     }
 
     this.#label.id ||= `sl-label-${nextUniqueId++}`;
+
+    this.#syncLabelContent();
+
+    // Observe the default slot for characterData/childList changes so the label
+    // stays in sync when Lit re-renders the parent with updated translations.
+    this.#slotObserver.disconnect();
+
+    const nodes = target.assignedNodes({ flatten: true });
+
+    for (const node of nodes) {
+      this.#slotObserver.observe(node.nodeType === Node.ELEMENT_NODE ? node : node.parentNode!, {
+        characterData: true,
+        childList: true,
+        subtree: true
+      });
+    }
+  }
+
+  #syncLabelContent(): void {
+    if (!this.#label) return;
+
+    const slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement | null;
+
+    if (!slot) {
+      return;
+    }
+
+    const nodes = slot.assignedNodes({ flatten: true }),
+      text = nodes.map(n => n.textContent).join('');
+
+    if (this.#label.textContent !== text) {
+      this.#label.textContent = text;
+    }
   }
 
   #update(): void {

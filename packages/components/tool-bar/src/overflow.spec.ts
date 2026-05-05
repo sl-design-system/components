@@ -286,7 +286,9 @@ describe('overflow (integration)', () => {
       expect(overflowSubmenuItem, 'expected overflow submenu item to exist').to.exist;
 
       (originalMenuItem as MenuItem).addEventListener('click', onClick);
-      (overflowSubmenuItem as MenuItem).click();
+      (overflowSubmenuItem as MenuItem).dispatchEvent(
+        new MouseEvent('click', { bubbles: false, composed: false })
+      );
 
       expect(onClick).to.have.been.calledOnce;
     });

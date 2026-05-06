@@ -342,7 +342,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   #getPagesLabel(): string {
     switch (getPluralCategory(this.pageCount)) {
       case 'one':
-        return msg('pages', { id: 'sl.paginator.pagesLabelOne' });
+        return msg('page', { id: 'sl.paginator.pagesLabelOne' });
       case 'few':
         return msg('pages', { id: 'sl.paginator.pagesLabelFew' });
       default:

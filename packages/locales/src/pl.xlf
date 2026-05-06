@@ -259,7 +259,7 @@
   <target>stron</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagesLabelOne">
-  <source>pages</source>
+  <source>page</source>
   <target>strony</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagesLabelOther">

@@ -274,6 +274,7 @@ export function getPluralCategory(count: number): Intl.LDMLPluralRule {
 
   try {
     let pr = pluralRulesCache.get(locale);
+
     if (!pr) {
       pr = new Intl.PluralRules(locale);
       pluralRulesCache.set(locale, pr);

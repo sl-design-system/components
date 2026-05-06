@@ -259,7 +259,7 @@
   <target>páginas</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagesLabelOne">
-  <source>pages</source>
+  <source>page</source>
   <target>página</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagesLabelOther">

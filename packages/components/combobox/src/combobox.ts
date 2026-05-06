@@ -500,7 +500,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${this.listbox?.matches(':popover-open')
+          aria-label=${this.wrapper?.matches(':popover-open')
             ? msg('Hide the options', { id: 'sl.combobox.hideOptions' })
             : msg('Show the options', { id: 'sl.combobox.showOptions' })}
           slot="suffix"
@@ -570,6 +570,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
+
+    this.requestUpdate();
   }
 
   #onButtonClick(): void {

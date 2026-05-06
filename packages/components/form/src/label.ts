@@ -41,6 +41,9 @@ export class Label extends LitElement {
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
 
+  /** Whether the label was auto-created (vs user-provided via slot="label"). */
+  #labelAutoCreated = false;
+
   /** Observe the form control for changes to the required attribute. */
   #observer = new MutationObserver(() => this.#update());
 
@@ -168,9 +171,31 @@ export class Label extends LitElement {
   }
 
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
-    // Workaround for `??=` output missing parens around OR statement
-    this.#label =
-      this.#label ?? (this.querySelector('label[slot="label"]') || document.createElement('label'));
+    const nodes = target.assignedNodes({ flatten: true });
+
+    // If there's a user-provided <label slot="label">, use it directly without syncing.
+    if (!this.#label) {
+      const existingLabel = this.querySelector('label[slot="label"]');
+
+      if (existingLabel) {
+        this.#label = existingLabel as HTMLLabelElement;
+        this.#labelAutoCreated = false;
+      } else {
+        // Only create an auto-label if the default slot has meaningful content
+        const hasContent = nodes.some(
+          n =>
+            n.nodeType === Node.ELEMENT_NODE ||
+            (n.nodeType === Node.TEXT_NODE && n.textContent?.trim())
+        );
+
+        if (!hasContent) {
+          return;
+        }
+
+        this.#label = document.createElement('label');
+        this.#labelAutoCreated = true;
+      }
+    }
 
     if (!this.#label.slot) {
       this.#label.htmlFor = this.#formControlId ?? '';
@@ -186,19 +211,25 @@ export class Label extends LitElement {
     // stays in sync when Lit re-renders the parent with updated translations.
     this.#slotObserver.disconnect();
 
-    const nodes = target.assignedNodes({ flatten: true });
-
     for (const node of nodes) {
-      this.#slotObserver.observe(node.nodeType === Node.ELEMENT_NODE ? node : node.parentNode!, {
-        characterData: true,
-        childList: true,
-        subtree: true
-      });
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        this.#slotObserver.observe(node, {
+          characterData: true,
+          childList: true,
+          subtree: true
+        });
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        this.#slotObserver.observe(node, {
+          characterData: true
+        });
+      }
     }
   }
 
   #syncLabelContent(): void {
-    if (!this.#label) return;
+    if (!this.#label || !this.#labelAutoCreated) {
+      return;
+    }
 
     const slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement | null;
 

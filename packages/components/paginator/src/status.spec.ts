@@ -22,7 +22,7 @@ describe('sl-paginator-status', () => {
     });
 
     it('should display the status', () => {
-      expect(el.renderRoot).to.have.trimmed.text('1 - 1 of 1 items');
+      expect(el.renderRoot).to.have.trimmed.text('1 - 1 of 1 item');
     });
   });
 

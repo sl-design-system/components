@@ -6,6 +6,7 @@ import {
   dasherize,
   decamelize,
   getCharacterPluralSuffix,
+  getPluralCategory,
   humanize,
   underscore
 } from './string.js';
@@ -361,9 +362,12 @@ describe('string utils', () => {
     });
 
     describe('fallback behavior', () => {
+      afterEach(() => {
+        delete (navigator as unknown as Record<string, unknown>)['language'];
+      });
+
       it('should use navigator.language if document.documentElement.lang is empty', () => {
         document.documentElement.lang = '';
-        const originalNavigatorLanguage = Object.getOwnPropertyDescriptor(navigator, 'language');
 
         Object.defineProperty(navigator, 'language', {
           value: 'en',
@@ -372,15 +376,10 @@ describe('string utils', () => {
 
         expect(getCharacterPluralSuffix(1)).to.equal('');
         expect(getCharacterPluralSuffix(2)).to.equal('s');
-
-        if (originalNavigatorLanguage) {
-          Object.defineProperty(navigator, 'language', originalNavigatorLanguage);
-        }
       });
 
       it('should default to "en" if both are empty', () => {
         document.documentElement.lang = '';
-        const originalNavigatorLanguage = Object.getOwnPropertyDescriptor(navigator, 'language');
 
         Object.defineProperty(navigator, 'language', {
           value: '',
@@ -389,16 +388,108 @@ describe('string utils', () => {
 
         expect(getCharacterPluralSuffix(1)).to.equal('');
         expect(getCharacterPluralSuffix(2)).to.equal('s');
-
-        if (originalNavigatorLanguage) {
-          Object.defineProperty(navigator, 'language', originalNavigatorLanguage);
-        }
       });
 
       it('should use simple pluralization for unsupported locales', () => {
         document.documentElement.lang = 'fr';
         expect(getCharacterPluralSuffix(1)).to.equal('');
         expect(getCharacterPluralSuffix(2)).to.equal('s');
+      });
+    });
+  });
+
+  describe('getPluralCategory', () => {
+    const originalLang = document.documentElement.lang;
+
+    afterEach(() => {
+      document.documentElement.lang = originalLang;
+    });
+
+    describe('English', () => {
+      beforeEach(() => {
+        document.documentElement.lang = 'en';
+      });
+
+      it('should return "one" for 1', () => {
+        expect(getPluralCategory(1)).to.equal('one');
+      });
+
+      it('should return "other" for 0', () => {
+        expect(getPluralCategory(0)).to.equal('other');
+      });
+
+      it('should return "other" for 2', () => {
+        expect(getPluralCategory(2)).to.equal('other');
+      });
+
+      it('should return "other" for many', () => {
+        expect(getPluralCategory(100)).to.equal('other');
+      });
+    });
+
+    describe('Polish', () => {
+      beforeEach(() => {
+        document.documentElement.lang = 'pl';
+      });
+
+      it('should return "one" for 1', () => {
+        expect(getPluralCategory(1)).to.equal('one');
+      });
+
+      it('should return "few" for 2', () => {
+        expect(getPluralCategory(2)).to.equal('few');
+      });
+
+      it('should return "few" for 3', () => {
+        expect(getPluralCategory(3)).to.equal('few');
+      });
+
+      it('should return "few" for 4', () => {
+        expect(getPluralCategory(4)).to.equal('few');
+      });
+
+      it('should return "many" for 0', () => {
+        expect(getPluralCategory(0)).to.equal('many');
+      });
+
+      it('should return "many" for 5', () => {
+        expect(getPluralCategory(5)).to.equal('many');
+      });
+
+      it('should return "many" for 11-14', () => {
+        expect(getPluralCategory(11)).to.equal('many');
+        expect(getPluralCategory(12)).to.equal('many');
+        expect(getPluralCategory(13)).to.equal('many');
+        expect(getPluralCategory(14)).to.equal('many');
+      });
+
+      it('should return "few" for 22-24', () => {
+        expect(getPluralCategory(22)).to.equal('few');
+        expect(getPluralCategory(23)).to.equal('few');
+        expect(getPluralCategory(24)).to.equal('few');
+      });
+
+      it('should return "many" for 25+', () => {
+        expect(getPluralCategory(25)).to.equal('many');
+        expect(getPluralCategory(100)).to.equal('many');
+      });
+    });
+
+    describe('fallback behavior', () => {
+      afterEach(() => {
+        delete (navigator as unknown as Record<string, unknown>)['language'];
+      });
+
+      it('should return "one" for 1 when no locale is set', () => {
+        document.documentElement.lang = '';
+
+        Object.defineProperty(navigator, 'language', {
+          value: '',
+          configurable: true
+        });
+
+        expect(getPluralCategory(1)).to.equal('one');
+        expect(getPluralCategory(2)).to.equal('other');
       });
     });
   });

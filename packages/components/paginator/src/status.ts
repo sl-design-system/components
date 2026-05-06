@@ -134,7 +134,7 @@ export class PaginatorStatus<T = any> extends LitElement {
     const [start, end] = this.range ?? [1, 1],
       itemLabel = this.itemLabel ?? this.#getDefaultItemLabel(this.totalItems);
 
-    return html`${msg(str`${start} - ${end} of ${this.totalItems} ${itemLabel}`, {
+    return html`${msg(str`${start} - ${end} of ${this.totalItems + ' ' + itemLabel}`, {
       id: 'sl.paginator.itemsRange'
     })}`;
   }
@@ -159,7 +159,7 @@ export class PaginatorStatus<T = any> extends LitElement {
           itemLabel = this.itemLabel ?? this.#getDefaultItemLabel(this.totalItems);
 
         announce(
-          msg(str`Currently showing ${start} to ${end} of ${this.totalItems} ${itemLabel}`, {
+          msg(str`Currently showing ${start} to ${end} of ${this.totalItems + ' ' + itemLabel}`, {
             id: 'sl.paginator.currentlyShowingAmount'
           })
         );

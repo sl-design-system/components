@@ -279,12 +279,12 @@
   <target>Página <x id="0" equiv-text="${this.page + 1}"/> de <x id="1" equiv-text="${this.pageCount}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsRange">
-  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${itemLabel}"/></source>
-  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> de <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'elementos'}"/></target>
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></source>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> de <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.currentlyShowingAmount">
-  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${itemLabel}"/></source>
-  <target>Mostrando actualmente <x id="0" equiv-text="${start}"/> a <x id="1" equiv-text="${end}"/> de <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'elementos'}"/></target>
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></source>
+  <target>Mostrando actualmente <x id="0" equiv-text="${start}"/> a <x id="1" equiv-text="${end}"/> de <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></target>
 </trans-unit>
 <trans-unit id="sl.progressBar.state">
   <source>state</source>

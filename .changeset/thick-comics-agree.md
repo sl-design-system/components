@@ -1,5 +1,6 @@
 ---
 '@sl-design-system/combobox': patch
+'@sl-design-system/shared': patch
 '@sl-design-system/text-area': patch
 '@sl-design-system/text-field': patch
 ---

@@ -207,10 +207,13 @@ export class Label extends LitElement {
     }
 
     const nodes = slot.assignedNodes({ flatten: true }),
-      text = nodes.map(n => n.textContent).join('');
+      currentNodes = Array.from(this.#label.childNodes),
+      isSynced =
+        currentNodes.length === nodes.length &&
+        currentNodes.every((node, index) => node.isEqualNode(nodes[index]));
 
-    if (this.#label.textContent !== text) {
-      this.#label.textContent = text;
+    if (!isSynced) {
+      this.#label.replaceChildren(...nodes.map(node => node.cloneNode(true)));
     }
   }
 

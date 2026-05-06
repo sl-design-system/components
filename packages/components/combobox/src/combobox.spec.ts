@@ -763,6 +763,25 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should reset the results when focus leaves the component without selecting an option', async () => {
+        input.focus();
+        await userEvent.keyboard('Ip');
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+
+        await userEvent.click(document.body);
+        await el.updateComplete;
+
+        expect(input.value).to.equal('');
+        expect(options[0]).to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+      });
     });
   });
 

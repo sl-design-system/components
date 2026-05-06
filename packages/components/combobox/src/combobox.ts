@@ -611,6 +611,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // If we are leaving the component, make sure the input value reflects the selected items
       this.#updateCreateCustomOption();
       this.#updateTextFieldValue();
+      this.#updateFilteredOptions();
       this.updateValidity();
     }
   }

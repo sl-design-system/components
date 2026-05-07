@@ -9,10 +9,7 @@ import { icons } from './icons.js';
 // 4. Start using the SLDS in your application
 // };
 
-/**
- * initializes all necessary things to load your theme,
- * like icons, ...
- */
+/** Initializes all necessary things to load your theme, like icons, ... */
 export const setup = (): void => {
   const config: ConfigSettings = {
     avatar: {

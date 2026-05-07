@@ -2,7 +2,12 @@ import { create, ts } from '@custom-elements-manifest/analyzer';
 import fg from 'fast-glob';
 import fs from 'fs';
 import { basename, join, resolve } from 'path';
-import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin, omitPlugin } from './cem-plugins.js';
+import {
+  methodAndFieldPlugin,
+  noPrivateFieldsPlugin,
+  sortMembersPlugin,
+  omitPlugin
+} from './cem-plugins.js';
 import { eventDecoratorPlugin } from './cem-plugin-event-decorator.js';
 
 const cwd = new URL('.', import.meta.url).pathname;
@@ -18,7 +23,8 @@ const buildManifest = async component => {
     return ts.createSourceFile(entryPoint, source, ts.ScriptTarget.ES2015, true);
   });
 
-  const { litPlugin } = await import('@custom-elements-manifest/analyzer/src/features/framework-plugins/lit/lit.js');
+  const { litPlugin } =
+    await import('@custom-elements-manifest/analyzer/src/features/framework-plugins/lit/lit.js');
 
   const plugins = [
     ...(litPlugin() || []),
@@ -32,7 +38,10 @@ const buildManifest = async component => {
 
   const customElementManifest = create({ modules, plugins });
 
-  fs.writeFileSync(join(folder, 'custom-elements.json'), `${JSON.stringify(customElementManifest, null, 2)}\n`);
+  fs.writeFileSync(
+    join(folder, 'custom-elements.json'),
+    `${JSON.stringify(customElementManifest, null, 2)}\n`
+  );
 };
 
 const buildAllManifests = async () => {

@@ -1,5 +1,8 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import {
@@ -9,8 +12,19 @@ import {
   closestElementComposed,
   event
 } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { FieldButton } from './field-button.js';
 import styles from './text-field.scss.js';
@@ -61,6 +75,7 @@ export class TextField
 
   /**
    * Specifies which type of data the browser can use to pre-fill the input.
+   *
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
    */
   @property() autocomplete?: string;
@@ -94,6 +109,7 @@ export class TextField
 
   /**
    * The size attribute of the input element.
+   *
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size
    */
   @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
@@ -124,14 +140,14 @@ export class TextField
 
   /**
    * The size of the input.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: TextFieldSize;
 
   /**
-   * The input type. Only text types are valid here. For other types,
-   * see their respective components. For the number type, please see the
-   * `<sl-number-field>` component.
+   * The input type. Only text types are valid here. For other types, see their respective
+   * components. For the number type, please see the `<sl-number-field>` component.
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
@@ -149,7 +165,9 @@ export class TextField
     super.connectedCallback();
 
     if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input =
+        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
+        document.createElement('input');
       this.input.slot = 'input';
 
       if (!this.input.parentElement) {
@@ -247,14 +265,16 @@ export class TextField
   }
 
   /**
-   * Renders the suffix slot; can be overridden to customize the suffix. Remember that if
-   * you override this method, it will no longer automatically show the valid checkmark
-   * when the input is valid.
+   * Renders the suffix slot; can be overridden to customize the suffix. Remember that if you
+   * override this method, it will no longer automatically show the valid checkmark when the input
+   * is valid.
    */
   renderSuffix(): TemplateResult | typeof nothing {
     return html`
       <slot @slotchange=${this.onSuffixSlotChange} name="suffix">
-        ${this.showValidity === 'valid' ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>` : nothing}
+        ${this.showValidity === 'valid'
+          ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
+          : nothing}
       </slot>
     `;
   }
@@ -288,8 +308,8 @@ export class TextField
   }
 
   /**
-   * Handles the blur event when the input field loses focus.
-   * Emits a `sl-blur` event if the component had focus and updates the state.
+   * Handles the blur event when the input field loses focus. Emits a `sl-blur` event if the
+   * component had focus and updates the state.
    */
   protected onBlur(): void {
     // Only emit the event if we have focus
@@ -308,8 +328,8 @@ export class TextField
   }
 
   /**
-   * Handles the focus event when the input field gains focus.
-   * Emits a focus event and updates the focus ring state.
+   * Handles the focus event when the input field gains focus. Emits a focus event and updates the
+   * focus ring state.
    */
   protected onFocus(): void {
     // Only emit the event if we don't have focus
@@ -336,8 +356,8 @@ export class TextField
   }
 
   /**
-   * Handles the `keydown` event for the field.
-   * Simulates the native behavior of submitting a form when the Enter key is pressed.
+   * Handles the `keydown` event for the field. Simulates the native behavior of submitting a form
+   * when the Enter key is pressed.
    */
   protected onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
@@ -351,8 +371,8 @@ export class TextField
   }
 
   /**
-   * Handles changes to the prefix slot. Detects and adds any `FieldButton` elements
-   * assigned to the prefix slot to the `fieldButtons` state for further processing.
+   * Handles changes to the prefix slot. Detects and adds any `FieldButton` elements assigned to the
+   * prefix slot to the `fieldButtons` state for further processing.
    */
   protected onPrefixSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const button = event.target
@@ -365,8 +385,8 @@ export class TextField
   }
 
   /**
-   * Handles changes to the input slot. Updates the `input` element reference
-   * and synchronizes its attributes with the component's properties.
+   * Handles changes to the input slot. Updates the `input` element reference and synchronizes its
+   * attributes with the component's properties.
    */
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
@@ -385,8 +405,8 @@ export class TextField
   }
 
   /**
-   * Handles changes to the suffix slot. Detects and adds any `FieldButton` elements
-   * assigned to the suffix slot to the `fieldButtons` state for further processing.
+   * Handles changes to the suffix slot. Detects and adds any `FieldButton` elements assigned to the
+   * suffix slot to the `fieldButtons` state for further processing.
    */
   protected onSuffixSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const button = event.target
@@ -419,7 +439,9 @@ export class TextField
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
       if (this.type === 'number') {
-        console.warn('The "number" type of sl-text-field has been deprecated. Please use sl-number-field instead.');
+        console.warn(
+          'The "number" type of sl-text-field has been deprecated. Please use sl-number-field instead.'
+        );
       }
 
       input.type = this.type;

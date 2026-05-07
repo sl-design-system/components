@@ -86,7 +86,11 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
       </sl-form-field>
 
       <sl-form-field label="Combobox - multiple select">
-        <sl-combobox formControlName="comboboxMultiple" multiple placeholder="Select one or more options">
+        <sl-combobox
+          formControlName="comboboxMultiple"
+          multiple
+          placeholder="Select one or more options"
+        >
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -420,7 +424,12 @@ export class AllFormControlsTemplateComponent {
       </sl-form-field>
 
       <sl-form-field label="Number field">
-        <sl-number-field [(ngModel)]="formGroup.numberField" min="5" max="15" required></sl-number-field>
+        <sl-number-field
+          [(ngModel)]="formGroup.numberField"
+          min="5"
+          max="15"
+          required
+        ></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Date field">
@@ -540,7 +549,9 @@ export class AllFormControlsEmptyTemplateComponent {
   template: `
     <sl-form #form [formGroup]="formGroup">
       @if (showValidity && formGroup.errors?.invalidCredentials) {
-        <sl-inline-message variant="danger">Please enter admin/admin to gain access.</sl-inline-message>
+        <sl-inline-message variant="danger"
+          >Please enter admin/admin to gain access.</sl-inline-message
+        >
       }
 
       <sl-form-field label="Username">
@@ -549,7 +560,9 @@ export class AllFormControlsEmptyTemplateComponent {
           placeholder="Enter your username or email address here"
           required
           [customValidity]="
-            showValidity && formGroup.controls.username.errors?.invalidUsername ? 'Invalid username, enter admin.' : ''
+            showValidity && formGroup.controls.username.errors?.invalidUsername
+              ? 'Invalid username, enter admin.'
+              : ''
           "
         ></sl-text-field>
       </sl-form-field>
@@ -654,7 +667,8 @@ export const AllReactive: StoryFn = () => ({
 });
 
 export const AllEmptyReactive: StoryFn = () => ({
-  description: 'An example form that includes all form controls using reactive forms with empty initial values.',
+  description:
+    'An example form that includes all form controls using reactive forms with empty initial values.',
   template: '<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>'
 });
 
@@ -664,7 +678,8 @@ export const AllTemplate: StoryFn = () => ({
 });
 
 export const AllEmptyTemplate: StoryFn = () => ({
-  description: 'An example form that includes all form controls using template-driven forms with empty initial values.',
+  description:
+    'An example form that includes all form controls using template-driven forms with empty initial values.',
   template: '<sla-all-form-controls-empty-template></sla-all-form-controls-empty-template>'
 });
 

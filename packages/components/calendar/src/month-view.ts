@@ -1,5 +1,8 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
@@ -9,11 +12,25 @@ import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './month-view.scss.js';
-import { type Calendar, type Day, Indicator, createCalendar, getWeekdayNames, indicatorConverter } from './utils.js';
+import {
+  type Calendar,
+  type Day,
+  Indicator,
+  createCalendar,
+  getWeekdayNames,
+  indicatorConverter
+} from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -55,7 +72,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -73,7 +93,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
 
       // If there is a selected day, focus that one
-      const selectedIndex = elements.findIndex(el => !el.disabled && el.getAttribute('aria-pressed') === 'true');
+      const selectedIndex = elements.findIndex(
+        el => !el.disabled && el.getAttribute('aria-pressed') === 'true'
+      );
       if (selectedIndex > -1) {
         return selectedIndex;
       }
@@ -111,8 +133,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
    *
-   * NOTE: Remove this property once `Intl.Locale.prototype.getWeekInfo` is widely available.
-   * See https://caniuse.com/mdn-javascript_builtins_intl_locale_getweekinfo
+   * NOTE: Remove this property once `Intl.Locale.prototype.getWeekInfo` is widely available. See
+   * https://caniuse.com/mdn-javascript_builtins_intl_locale_getweekinfo
    *
    * @default 1
    */
@@ -120,6 +142,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * Will only show the days of the current month, not the next or previous, when true.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'hide-days-other-months' }) hideDaysOtherMonths?: boolean;
@@ -128,19 +151,22 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * The list of dates that should display an indicator. Each item is an Indicator with a `date`, an
    * optional `color` and 'label' that is used to improve accessibility (added as a tooltip).
    */
-  @property({ attribute: 'indicator-dates', converter: indicatorConverter }) indicatorDates?: Indicator[];
+  @property({ attribute: 'indicator-dates', converter: indicatorConverter })
+  indicatorDates?: Indicator[];
 
   /** @internal The localized "week of year" label. */
   @state() localizedWeekOfYear?: string;
 
   /**
    * The maximum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
    * The minimum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) min?: Date;
@@ -151,6 +177,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The current month to display.
+   *
    * @default new Date()
    */
   @property({ converter: dateConverter })
@@ -160,11 +187,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * If set, will not render buttons for each day.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
-  /** You can customize how a day is rendered by providing a custom renderer callback.  */
+  /** You can customize how a day is rendered by providing a custom renderer callback. */
   @property({ attribute: false }) renderer?: MonthViewRenderer;
 
   /** @internal Emits when the user selects a day. */
@@ -172,18 +200,21 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The selected date.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) selected?: Date;
 
   /**
    * Highlights today's date when set.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
   /**
    * Will render a column with the week numbers when true.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
@@ -191,7 +222,11 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
 
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null): void {
+  override attributeChangedCallback(
+    name: string,
+    oldValue: string | null,
+    newValue: string | null
+  ): void {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     if (name === 'inert') {
@@ -211,9 +246,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     if (changes.has('locale') || changes.has('showWeekNumbers')) {
-      this.localizedWeekOfYear = new Intl.DisplayNames(this.locale, { style: 'short', type: 'dateTimeField' }).of(
-        'weekOfYear'
-      );
+      this.localizedWeekOfYear = new Intl.DisplayNames(this.locale, {
+        style: 'short',
+        type: 'dateTimeField'
+      }).of('weekOfYear');
     }
 
     if (
@@ -284,7 +320,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 </th>
               `
             : nothing}
-          ${this.weekDays.map(day => html`<th aria-label=${day.long} part="week-day"><span>${day.short}</span></th>`)}
+          ${this.weekDays.map(
+            day => html`<th aria-label=${day.long} part="week-day"><span>${day.short}</span></th>`
+          )}
         </tr>
       </thead>
     `;
@@ -319,7 +357,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
-                aria-describedby=${ifDefined(day.indicator?.label ? `indicator-${day.date.toISOString()}` : undefined)}
+                aria-describedby=${ifDefined(
+                  day.indicator?.label ? `indicator-${day.date.toISOString()}` : undefined
+                )}
                 aria-label=${this.getDayLabel(day)}
                 aria-pressed=${selected.toString()}
                 part=${parts.join(' ')}
@@ -328,7 +368,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               </button>
               ${day.indicator?.label
                 ? html`
-                    <sl-tooltip id="indicator-${day.date.toISOString()}" offset="4">${day.indicator.label}</sl-tooltip>
+                    <sl-tooltip id="indicator-${day.date.toISOString()}" offset="4">
+                      ${day.indicator.label}
+                    </sl-tooltip>
                   `
                 : nothing}
             `;
@@ -412,7 +454,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
 
       const crossesMonth =
-        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
+        possibleDay.getMonth() !== day.date.getMonth() ||
+        possibleDay.getFullYear() !== day.date.getFullYear();
 
       if (crossesMonth) {
         event.preventDefault();
@@ -430,7 +473,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       }
 
       const crossesMonth =
-        possibleDay.getMonth() !== day.date.getMonth() || possibleDay.getFullYear() !== day.date.getFullYear();
+        possibleDay.getMonth() !== day.date.getMonth() ||
+        possibleDay.getFullYear() !== day.date.getFullYear();
 
       if (crossesMonth) {
         event.preventDefault();
@@ -471,11 +515,8 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /**
-   * Determines if a button should autofocus.
-   * A button should autofocus when:
-   * - it is the selected date
-   * - or it is today
-   * - or it is the first enabled day of the month
+   * Determines if a button should autofocus. A button should autofocus when: - it is the selected
+   * date - or it is today - or it is the first enabled day of the month
    */
   #hasAutofocus(day: Day, selected: boolean): boolean {
     const isFirstEnabledDay =

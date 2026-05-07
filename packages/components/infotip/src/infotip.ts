@@ -1,5 +1,8 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
@@ -18,6 +21,7 @@ let nextUniqueId = 0;
  * An info icon button that triggers a popover showing slotted content.
  *
  * You can use it inside the `infotip` slot of `<sl-label>`:
+ *
  * ```html
  * <sl-label>
  *   Label text
@@ -68,7 +72,12 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     this.append(this.#contentCopy);
 
     this.#observer = new MutationObserver(() => this.#syncContent());
-    this.#observer.observe(this, { childList: true, characterData: true, attributes: true, subtree: true });
+    this.#observer.observe(this, {
+      childList: true,
+      characterData: true,
+      attributes: true,
+      subtree: true
+    });
   }
 
   override firstUpdated(): void {

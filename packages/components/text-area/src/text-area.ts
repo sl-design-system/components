@@ -1,10 +1,24 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './text-area.scss.js';
 
@@ -28,12 +42,10 @@ let nextUniqueId = 0;
  * @slot textarea - The slot for the textarea element
  */
 @localized()
-export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-disabled',
-  'aria-label',
-  'aria-labelledby',
-  'aria-required'
-]) {
+export class TextArea extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']
+) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -68,8 +80,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   /**
    * Specifies which type of data the browser can use to pre-fill the textarea.
    *
-   * NOTE: Declare the type this way so it is backwards compatible with 4.9.5,
-   * which we still use in `@sl-design-system/angular`.
+   * NOTE: Declare the type this way so it is backwards compatible with 4.9.5, which we still use in
+   * `@sl-design-system/angular`.
    */
   @property() autocomplete?: typeof HTMLTextAreaElement.prototype.autocomplete;
 
@@ -95,9 +107,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   @property({ reflect: true }) resize: ResizeType = 'vertical';
 
   /**
-   * The number of rows the textarea should have.
-   * For resize auto and vertical, this will determine the *minimum* height of the textarea.
-   * If not set, the component defaults to 3 rows.
+   * The number of rows the textarea should have. For resize auto and vertical, this will determine
+   * the _minimum_ height of the textarea. If not set, the component defaults to 3 rows.
    */
   @property({ type: Number }) rows?: number;
 
@@ -106,6 +117,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   /**
    * The size of the textarea.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: TextAreaSize;
@@ -121,7 +133,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
     if (!this.textarea) {
       this.textarea =
-        this.querySelector<HTMLTextAreaElement>('textarea[slot="textarea"]') || document.createElement('textarea');
+        this.querySelector<HTMLTextAreaElement>('textarea[slot="textarea"]') ||
+        document.createElement('textarea');
       this.textarea.slot = 'textarea';
       this.#syncTextarea(this.textarea);
 
@@ -168,7 +181,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   override render(): TemplateResult {
     return html`
       <slot name="suffix">
-        ${this.showValidity === 'valid' ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>` : nothing}
+        ${this.showValidity === 'valid'
+          ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
+          : nothing}
       </slot>
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
     `;
@@ -208,7 +223,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      textarea = elements.find((el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement);
+      textarea = elements.find(
+        (el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement
+      );
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textarea) {

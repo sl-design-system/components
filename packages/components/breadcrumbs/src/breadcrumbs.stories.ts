@@ -7,7 +7,9 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs(): TemplateResult };
+type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & {
+  breadcrumbs(): TemplateResult;
+};
 type Story = StoryObj<Props>;
 
 export default {
@@ -37,7 +39,11 @@ export default {
         max-width: calc(100vw - 2rem);
       }
     </style>
-    <sl-breadcrumbs .hideHomeLabel=${hideHomeLabel} .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}
+    <sl-breadcrumbs
+      .hideHomeLabel=${hideHomeLabel}
+      .homeUrl=${homeUrl}
+      ?inverted=${inverted}
+      ?no-home=${noHome}
       >${breadcrumbs()}</sl-breadcrumbs
     >
   `
@@ -125,8 +131,12 @@ export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`
       <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate.</a>
-      <a href="javascript:void(0)">Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a>
-      <a href="javascript:void(0)">Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a>
+      <a href="javascript:void(0)"
+        >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a
+      >
+      <a href="javascript:void(0)"
+        >Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a
+      >
     `
   }
 };
@@ -146,8 +156,9 @@ export const CustomStyledLinks: Story = {
         color: var(--sl-color-foreground-accent-purple-bold);
       }
     </style>
-    <a href="javascript:void(0)">Custom Styled Link</a> has css styles applied to it. This is to demonstrate that the
-    links in the breadcrumbs always have the component styling applied even when global styles are used.
+    <a href="javascript:void(0)">Custom Styled Link</a> has css styles applied to it. This is to
+    demonstrate that the links in the breadcrumbs always have the component styling applied even
+    when global styles are used.
     <sl-breadcrumbs aria-label="Breadcrumb trail 1">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
@@ -177,12 +188,16 @@ export const All: Story = {
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 3">
-      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
+      <a href="javascript:void(0)"
+        >Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a
+      >
       <a href="javascript:void(0)">
-        Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.
+        Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea
+        adipisicing.
       </a>
       <a href="javascript:void(0)">
-        Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.
+        Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim
+        in.
       </a>
     </sl-breadcrumbs>
     <sl-breadcrumbs aria-label="Breadcrumb trail 4">

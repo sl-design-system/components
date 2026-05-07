@@ -1,9 +1,22 @@
 /// <reference types="vite/client" />
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
+import {
+  FormControlMixin,
+  type SlFormControlEvent,
+  type SlUpdateStateEvent
+} from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { Listbox, type ListboxItem, Option, OptionGroup, OptionGroupHeader } from '@sl-design-system/listbox';
+import {
+  Listbox,
+  type ListboxItem,
+  Option,
+  OptionGroup,
+  OptionGroupHeader
+} from '@sl-design-system/listbox';
 import {
   EventEmitter,
   EventsController,
@@ -17,10 +30,21 @@ import {
   isPopoverOpen,
   setValueByPath
 } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -115,17 +139,17 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   });
 
   /**
-   * Flag indicating whether pointerdown event has happened. We need to know this so
-   * we know if we need to show the popover when the input receives focus. If pointerdown
-   * has happened, we know that the input is being focused as a result of a click, and we
-   * will show the popover in the click event handler, not the focus event handler.
+   * Flag indicating whether pointerdown event has happened. We need to know this so we know if we
+   * need to show the popover when the input receives focus. If pointerdown has happened, we know
+   * that the input is being focused as a result of a click, and we will show the popover in the
+   * click event handler, not the focus event handler.
    */
   #pointerDown = false;
 
   /**
-   * Flag indicating whether the popover was just closed. We need to know this so we can
-   * properly handle button clicks that close the popover. If the popover was just closed,
-   * we don't want to show it again when the button click event fires.
+   * Flag indicating whether the popover was just closed. We need to know this so we can properly
+   * handle button clicks that close the popover. If the popover was just closed, we don't want to
+   * show it again when the button click event fires.
    */
   #popoverJustClosed = false;
 
@@ -139,14 +163,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   @property({ type: Boolean, attribute: 'allow-custom-values' }) allowCustomValues?: boolean;
 
   /**
-   * The behavior of the combobox when it comes to suggesting options based on user input.
-   * - 'off': Suggest is off; the input field is read-only.
-   * - 'inline': Only suggest options inside the input
-   * - 'list': Filter options in the list based on user input
-   * - 'both': Use both inline and list suggestions
+   * The behavior of the combobox when it comes to suggesting options based on user input. - 'off':
+   * Suggest is off; the input field is read-only. - 'inline': Only suggest options inside the input
+   * - 'list': Filter options in the list based on user input - 'both': Use both inline and list
+   * suggestions
    *
-   * Note: This property is ignored when `select-only` is true, as the input field
-   * is read-only in that case.
+   * Note: This property is ignored when `select-only` is true, as the input field is read-only in
+   * that case.
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete
    */
@@ -211,6 +234,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /**
    * There are 2 ways to provide options to the combobox:
+   *
    * 1. By using this `options` property to provide an array of options.
    * 2. By rendering a listbox element in the light DOM and populate it with `<sl-option>` elements.
    *
@@ -222,11 +246,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   @property() placeholder?: string;
 
   /**
-   * Whether the component is select only. This means the input field is read-only
-   * and you cannot type to filter results but you can still select options.
+   * Whether the component is select only. This means the input field is read-only and you cannot
+   * type to filter results but you can still select options.
    *
-   * When enabled, any `autocomplete` property values are ignored and the
-   * component effectively uses `aria-autocomplete="none"`.
+   * When enabled, any `autocomplete` property values are ignored and the component effectively uses
+   * `aria-autocomplete="none"`.
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
@@ -241,13 +265,14 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /**
    * The size of the combobox.
+   *
    * @default 'md'
    */
   @property({ reflect: true }) size?: ComboboxSize;
 
   /**
-   * The value of the combobox. If `multiple` selection is enabled, then this
-   * will be an array of values. Otherwise, it will be a single value.
+   * The value of the combobox. If `multiple` selection is enabled, then this will be an array of
+   * values. Otherwise, it will be a single value.
    */
   @property() override value?: U | U[];
 
@@ -267,7 +292,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     super.connectedCallback();
 
     if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input =
+        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
+        document.createElement('input');
       this.input.autocomplete = 'off';
       this.input.slot = 'input';
 
@@ -294,6 +321,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     /**
      * Light DOM styling workarounds:
+     *
      * - `:host(:has())` in all browsers, https://github.com/w3c/csswg-drafts/issues/11859
      * - `::slotted(input)::placeholder` in Safari, https://bugs.webkit.org/show_bug.cgi?id=223814
      */
@@ -369,14 +397,21 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     }
 
-    if ((changes.has('options') || changes.has('value')) && this.items.length && this.value !== undefined) {
+    if (
+      (changes.has('options') || changes.has('value')) &&
+      this.items.length &&
+      this.value !== undefined
+    ) {
       this.#updateSelectedItems();
     }
 
     if (changes.has('selectedItems')) {
       // Workaround for Safari not allowing `::slotted(input)::placeholder`
       // See https://bugs.webkit.org/show_bug.cgi?id=223814
-      this.toggleAttribute('has-selected-items', Boolean(this.multiple && this.selectedItems.length > 0));
+      this.toggleAttribute(
+        'has-selected-items',
+        Boolean(this.multiple && this.selectedItems.length > 0)
+      );
       if (this.items.length) {
         this.#updateTextFieldValue();
         this.#updateValue(!this.#isInitialRender);
@@ -400,7 +435,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const value = this.#ariaAutocomplete;
 
       // Warn developers about conflicting configuration
-      if (import.meta.env?.DEV && this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
+      if (
+        import.meta.env?.DEV &&
+        this.selectOnly &&
+        this.autocomplete &&
+        this.autocomplete !== 'off'
+      ) {
         console.warn(
           `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
             'Select-only comboboxes have a read-only input field and therefore cannot have autocomplete. ' +
@@ -417,7 +457,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.input.disabled = !!this.disabled;
     }
 
-    if (changes.has('filterResults') && changes.get('filterResults') && !this.filterResults && this.#useVirtualList) {
+    if (
+      changes.has('filterResults') &&
+      changes.get('filterResults') &&
+      !this.filterResults &&
+      this.#useVirtualList
+    ) {
       this.items = this.items.map(o => ({ ...o, visible: true }));
       this.listbox!.items = this.items;
     }
@@ -447,7 +492,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         ?readonly=${this.selectOnly}
         ?required=${this.required}
         part="text-field"
-        placeholder=${ifDefined(this.multiple && this.selectedItems.length ? undefined : this.placeholder)}
+        placeholder=${ifDefined(
+          this.multiple && this.selectedItems.length ? undefined : this.placeholder
+        )}
         size=${ifDefined(this.size)}
       >
         ${this.multiple && this.selectedItems.length
@@ -481,9 +528,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg(str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`, {
-            id: 'sl.combobox.toggleOptions'
-          })}
+          aria-label=${msg(
+            str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`,
+            {
+              id: 'sl.combobox.toggleOptions'
+            }
+          )}
           slot="suffix"
           tabindex="-1"
         >
@@ -518,7 +568,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   override getLocalizedValidationMessage(): string {
     if (this.validity.valueMissing) {
       return this.multiple
-        ? msg('Please select at least one option.', { id: 'sl.combobox.validation.valueMissingMultiple' })
+        ? msg('Please select at least one option.', {
+            id: 'sl.combobox.validation.valueMissingMultiple'
+          })
         : msg('Please select an option.', { id: 'sl.combobox.validation.valueMissing' });
     } else {
       return super.getLocalizedValidationMessage();
@@ -560,7 +612,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onClick(event: Event): void {
-    if (event.composedPath().find(el => el instanceof HTMLElement && el.matches('button[slot="suffix"]'))) {
+    if (
+      event
+        .composedPath()
+        .find(el => el instanceof HTMLElement && el.matches('button[slot="suffix"]'))
+    ) {
       // If the user clicked the button, do nothing. The button click handler will handle it.
       return;
     }
@@ -586,6 +642,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       // If we are leaving the component, make sure the input value reflects the selected items
       this.#updateCreateCustomOption();
       this.#updateTextFieldValue();
+      this.#updateFilteredOptions();
       this.updateValidity();
     }
   }
@@ -651,9 +708,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       // Limit navigation to the visible tags
       const min =
         this.selectedItems.length -
-        Array.from(this.renderRoot.querySelectorAll('sl-tag')).filter(tag => tag.style.display !== 'none').length;
+        Array.from(this.renderRoot.querySelectorAll('sl-tag')).filter(
+          tag => tag.style.display !== 'none'
+        ).length;
 
-      let index = this.focusedTag ? this.selectedItems.indexOf(this.focusedTag) : this.selectedItems.length;
+      let index = this.focusedTag
+        ? this.selectedItems.indexOf(this.focusedTag)
+        : this.selectedItems.length;
       index += event.key === 'ArrowLeft' ? -1 : 1;
       index = Math.max(min, index);
       index = Math.min(this.selectedItems.length, index);
@@ -666,7 +727,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     } else if (event.key === 'Backspace' && this.focusedTag && this.input.selectionStart === 0) {
       this.#onRemove(this.focusedTag);
       this.focusedTag = undefined;
-    } else if (!this.wrapper?.matches(':popover-open') && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
+    } else if (
+      !this.wrapper?.matches(':popover-open') &&
+      ['ArrowDown', 'ArrowUp'].includes(event.key)
+    ) {
       this.wrapper?.showPopover();
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
       event.preventDefault();
@@ -748,9 +812,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /** Updates the list of options and the listbox link with the text input. */
   #onSlotChange(): void {
-    this.listbox = this.wrapper?.assignedElements({ flatten: true }).find(el => el instanceof Listbox) as Listbox<
-      ComboboxItem<T, U>
-    >;
+    this.listbox = this.wrapper
+      ?.assignedElements({ flatten: true })
+      .find(el => el instanceof Listbox) as Listbox<ComboboxItem<T, U>>;
 
     if (this.listbox) {
       this.listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
@@ -783,7 +847,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         // When using `@for` syntax in Angular templates to render options,the options will
         // render *after* the slotchange event has fired. In order to work around that, we
         // listen for the next slotchange event on the listbox and handle it there.
-        this.listbox.renderRoot.addEventListener('slotchange', () => this.#onSlotChange(), { once: true });
+        this.listbox.renderRoot.addEventListener('slotchange', () => this.#onSlotChange(), {
+          once: true
+        });
       }
     } else {
       this.input.removeAttribute('aria-controls');
@@ -932,7 +998,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     if (this.#useVirtualList) {
       this.listbox!.items = this.items;
     } else {
-      const el = (item.element ||= this.shadowRoot!.createElement('sl-combobox-custom-option')) as CustomOption;
+      const el = (item.element ||= this.shadowRoot!.createElement(
+        'sl-combobox-custom-option'
+      )) as CustomOption;
       el.id = item.id;
       el.innerText = value;
       el.selected = true;
@@ -987,7 +1055,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     if (this.#useVirtualList) {
       this.listbox!.items = this.items.filter(i => i.visible);
     } else {
-      const el = (groupedItem.element = this.shadowRoot!.createElement('sl-combobox-grouped-option'));
+      const el = (groupedItem.element = this.shadowRoot!.createElement(
+        'sl-combobox-grouped-option'
+      ));
       el.group = groupedItem.group;
       el.id = groupedItem.id;
       el.innerText = groupedItem.label;
@@ -1029,7 +1099,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #addSelectedGroup(): void {
     if (this.#useVirtualList) {
-      if (this.items[0].label === msg('Selected', { id: 'sl.common.selected' }) && this.items[0].type === 'group') {
+      if (
+        this.items[0].label === msg('Selected', { id: 'sl.common.selected' }) &&
+        this.items[0].type === 'group'
+      ) {
         return;
       }
 
@@ -1064,7 +1137,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #removeSelectedGroup(): void {
     if (this.#useVirtualList) {
-      if (this.items[0].label === msg('Selected', { id: 'sl.common.selected' }) && this.items[0].type === 'group') {
+      if (
+        this.items[0].label === msg('Selected', { id: 'sl.common.selected' }) &&
+        this.items[0].type === 'group'
+      ) {
         this.items = this.items.slice(1);
       } else {
         return;
@@ -1150,7 +1226,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     } else if (el instanceof OptionGroup) {
       return Array.from(el.children).flatMap(child => this.#flattenOptions(child));
     } else if (el instanceof HTMLSlotElement) {
-      return Array.from(el.assignedElements({ flatten: true })).flatMap(child => this.#flattenOptions(child));
+      return Array.from(el.assignedElements({ flatten: true })).flatMap(child =>
+        this.#flattenOptions(child)
+      );
     }
 
     return [];
@@ -1158,7 +1236,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {
     if (this.optionGroupPath) {
-      const groups = Object.groupBy(options, option => getStringByPath(option, this.optionGroupPath!));
+      const groups = Object.groupBy(options, option =>
+        getStringByPath(option, this.optionGroupPath!)
+      );
 
       return Object.keys(groups).reduce(
         (acc, group) => {
@@ -1170,7 +1250,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
               type: 'group',
               visible: true
             },
-            ...groups[group]!.map(option => this.#prepareOption(option, options.indexOf(option), group))
+            ...groups[group]!.map(option =>
+              this.#prepareOption(option, options.indexOf(option), group)
+            )
           ];
         },
         [] as Array<ComboboxItem<T, U>>
@@ -1200,7 +1282,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #renderItem(item: ComboboxItem<T, U>, index: number): Element {
     if ('option' in item) {
-      let tagName: 'sl-option' | 'sl-combobox-custom-option' | 'sl-combobox-grouped-option' = 'sl-option';
+      let tagName: 'sl-option' | 'sl-combobox-custom-option' | 'sl-combobox-grouped-option' =
+        'sl-option';
       if (item.custom) {
         tagName = 'sl-combobox-custom-option';
       } else if (this.groupSelected && item.selected) {
@@ -1232,7 +1315,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       return el;
     } else if (item.custom) {
-      const el = (item.element = this.shadowRoot!.createElement('sl-combobox-create-custom-option'));
+      const el = (item.element = this.shadowRoot!.createElement(
+        'sl-combobox-create-custom-option'
+      ));
       el.id = item.id;
       el.value = item.label;
 
@@ -1271,7 +1356,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       if (this.#useVirtualList) {
         this.listbox!.items = this.items;
       } else {
-        this.createCustomOption.element ||= this.shadowRoot!.createElement('sl-combobox-create-custom-option');
+        this.createCustomOption.element ||= this.shadowRoot!.createElement(
+          'sl-combobox-create-custom-option'
+        );
         this.createCustomOption.element.id = this.createCustomOption.id;
 
         if (!this.createCustomOption.element.parentElement) {
@@ -1378,7 +1465,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** Update the value in the text field. */
   #updateTextFieldValue(): void {
     if (this.multiple) {
-      this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || this.placeholder || '';
+      this.input.placeholder =
+        this.selectedItems.map(i => i.label).join(', ') || this.placeholder || '';
       this.input.value = '';
     } else {
       const item = this.selectedItems.at(0);

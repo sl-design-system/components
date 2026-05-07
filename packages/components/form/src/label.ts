@@ -1,5 +1,12 @@
 import { localized, msg } from '@lit/localize';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormControl } from './form-control-mixin.js';
 import styles from './label.scss.js';
@@ -50,9 +57,9 @@ export class Label extends LitElement {
   @state() formControl: (HTMLElement & FormControl & { size?: string }) | null = null;
 
   /**
-   * Indicates whether the label should indicate if the field is optional or required.
-   * If you have a form field that contains more than one control, and the "required" state
-   * is a combination of the controls, you can use this property to hide the "optional" indicator.
+   * Indicates whether the label should indicate if the field is optional or required. If you have a
+   * form field that contains more than one control, and the "required" state is a combination of
+   * the controls, you can use this property to hide the "optional" indicator.
    */
   @property() mark?: LabelMark;
 
@@ -131,10 +138,14 @@ export class Label extends LitElement {
         }
 
         if (typeof this.formControl.size === 'string') {
-          this.size = (['sm', 'md', 'lg'].find(s => s === this.formControl!.size) as LabelSize) || 'md';
+          this.size =
+            (['sm', 'md', 'lg'].find(s => s === this.formControl!.size) as LabelSize) || 'md';
         }
 
-        this.#observer.observe(target, { attributes: true, attributeFilter: ['disabled', 'required'] });
+        this.#observer.observe(target, {
+          attributes: true,
+          attributeFilter: ['disabled', 'required']
+        });
         this.#update();
 
         // Set data-label-id on the new control if the label has already been initialized
@@ -158,10 +169,18 @@ export class Label extends LitElement {
       <slot name="label"></slot>
       <slot name="infotip"></slot>
       ${this.mark === 'optional' && !this.required
-        ? html`<span class="optional">(${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})</span>`
+        ? html`
+            <span class="optional">
+              (${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})
+            </span>
+          `
         : nothing}
       ${this.mark === 'required' && this.required
-        ? html`<span class="required">(${msg('required', { id: 'sl.form.requiredLabelIndicator' })})</span>`
+        ? html`
+            <span class="required">
+              (${msg('required', { id: 'sl.form.requiredLabelIndicator' })})
+            </span>
+          `
         : nothing}
     `;
   }
@@ -174,7 +193,9 @@ export class Label extends LitElement {
       this.#label.append(...nodes);
     } else {
       // Workaround for `??=` output missing parens around OR statement
-      this.#label = this.#label ?? (this.querySelector('label[slot="label"]') || document.createElement('label'));
+      this.#label =
+        this.#label ??
+        (this.querySelector('label[slot="label"]') || document.createElement('label'));
       this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
       this.#label.append(...nodes);

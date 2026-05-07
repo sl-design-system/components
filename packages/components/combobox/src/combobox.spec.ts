@@ -741,6 +741,25 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should reset the results when focus leaves the component without selecting an option', async () => {
+        input.focus();
+        await userEvent.keyboard('Ip');
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+
+        await userEvent.click(document.body);
+        await el.updateComplete;
+
+        expect(input.value).to.equal('');
+        expect(options[0]).to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+      });
     });
   });
 
@@ -796,7 +815,11 @@ describe('sl-combobox', () => {
         el.value = ['Lorem', 'Ipsum'];
         await el.updateComplete;
 
-        expect(options.map(o => o.getAttribute('aria-selected') === 'true')).to.deep.equal([true, true, false]);
+        expect(options.map(o => o.getAttribute('aria-selected') === 'true')).to.deep.equal([
+          true,
+          true,
+          false
+        ]);
 
         options.at(0)?.click();
         await el.updateComplete;
@@ -963,7 +986,9 @@ describe('sl-combobox', () => {
           await el.updateComplete;
 
           const getVisibilityState = () =>
-            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
+              tag => tag.style.display !== 'none'
+            );
 
           // Allow initial layout/stacking to settle.
           await vi.advanceTimersByTimeAsync(300);
@@ -995,7 +1020,14 @@ describe('sl-combobox', () => {
           const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
 
           for (const count of [1, 2, 3, 4, 5, 6]) {
-            el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'].slice(0, count);
+            el.value = [
+              'Option 1',
+              'Option 2',
+              'Option 3',
+              'Option 4',
+              'Option 5',
+              'Option 6'
+            ].slice(0, count);
             await el.updateComplete;
             await vi.advanceTimersByTimeAsync(300);
             await el.updateComplete;
@@ -1070,7 +1102,9 @@ describe('sl-combobox', () => {
           await waitForNextFrame();
 
           const getVisibleCount = () =>
-            Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(tag => tag.style.display !== 'none').length;
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
+              tag => tag.style.display !== 'none'
+            ).length;
 
           const collapsedVisibleCount = getVisibleCount();
 
@@ -1294,7 +1328,9 @@ describe('sl-combobox', () => {
         expect(selectedGroup).to.exist;
         expect(selectedGroup).to.have.attribute('aria-label', 'Selected');
 
-        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option')).map(o => o.innerText);
+        const options = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(o => o.innerText);
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
       });
 

@@ -53,7 +53,9 @@ describe('mapButtonToItem', () => {
   });
 
   it('should detect an icon', async () => {
-    const button = await fixture<Button>(html`<sl-button><sl-icon name="far-save"></sl-icon> Save</sl-button>`),
+    const button = await fixture<Button>(
+        html`<sl-button><sl-icon name="far-save"></sl-icon> Save</sl-button>`
+      ),
       item = mapButtonToItem(button);
 
     expect(item.icon).to.equal('far-save');
@@ -131,6 +133,50 @@ describe('mapMenuButtonToItem', () => {
     expect(item.disabled).to.equal(false);
     expect(item.ariaDisabled).to.equal(true);
   });
+
+  it('should map label from button slot content before first render update', () => {
+    const el = document.createElement('sl-menu-button');
+    el.innerHTML = `
+      <span slot="button"><sl-icon name="far-ban"></sl-icon> Block</span>
+      <sl-menu-item>Item 1</sl-menu-item>
+    `;
+
+    const item = mapMenuButtonToItem(el);
+
+    expect(item.label).to.equal('Block');
+  });
+
+  it('should map label from host aria-labelledby before first render update', () => {
+    const container = document.createElement('div'),
+      label = document.createElement('span'),
+      el = document.createElement('sl-menu-button');
+
+    label.id = 'menu-label';
+    label.textContent = 'Visibility';
+    container.append(label, el);
+    document.body.append(container);
+
+    el.setAttribute('aria-labelledby', 'menu-label');
+    el.innerHTML = '<sl-menu-item>Item 1</sl-menu-item>';
+
+    try {
+      const item = mapMenuButtonToItem(el);
+      expect(item.label).to.equal('Visibility');
+    } finally {
+      container.remove();
+    }
+  });
+
+  it('should map label from host aria-label before first render update', () => {
+    const el = document.createElement('sl-menu-button');
+
+    el.setAttribute('aria-label', 'Visibility');
+    el.innerHTML = '<sl-menu-item>Item 1</sl-menu-item>';
+
+    const item = mapMenuButtonToItem(el);
+
+    expect(item.label).to.equal('Visibility');
+  });
 });
 
 describe('mapMenuItemToItem', () => {
@@ -152,7 +198,9 @@ describe('mapMenuItemToItem', () => {
   });
 
   it('should detect an icon in a menu item', async () => {
-    const el = await fixture<MenuItem>(html`<sl-menu-item><sl-icon name="far-pen"></sl-icon> Edit</sl-menu-item>`),
+    const el = await fixture<MenuItem>(
+        html`<sl-menu-item><sl-icon name="far-pen"></sl-icon> Edit</sl-menu-item>`
+      ),
       item = mapMenuItemToItem(el);
 
     expect(item.icon).to.equal('far-pen');

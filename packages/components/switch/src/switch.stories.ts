@@ -33,7 +33,13 @@ export default {
     }
   },
   render: ({ checked, disabled, reverse, size, text, value }) => html`
-    <sl-switch ?checked=${checked} ?disabled=${disabled} ?reverse=${reverse} size=${ifDefined(size)} .value=${value}>
+    <sl-switch
+      ?checked=${checked}
+      ?disabled=${disabled}
+      ?reverse=${reverse}
+      size=${ifDefined(size)}
+      .value=${value}
+    >
       ${text}
     </sl-switch>
   `
@@ -156,12 +162,20 @@ export const All: Story = {
         <sl-switch checked size="lg">Checked</sl-switch>
 
         <span style="justify-self: start">Custom</span>
-        <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="sm">Unchecked</sl-switch>
-        <sl-switch checked icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="sm">Checked</sl-switch>
+        <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="sm"
+          >Unchecked</sl-switch
+        >
+        <sl-switch checked icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="sm"
+          >Checked</sl-switch
+        >
         <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars">Unchecked</sl-switch>
         <sl-switch checked icon-off="fas-sun-bright" icon-on="fas-moon-stars">Checked</sl-switch>
-        <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="lg">Unchecked</sl-switch>
-        <sl-switch checked icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="lg">Checked</sl-switch>
+        <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="lg"
+          >Unchecked</sl-switch
+        >
+        <sl-switch checked icon-off="fas-sun-bright" icon-on="fas-moon-stars" size="lg"
+          >Checked</sl-switch
+        >
 
         <span style="justify-self: start">Reverse</span>
         <sl-switch reverse size="sm">Unchecked</sl-switch>

@@ -1,8 +1,24 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, ObserveAttributesMixin, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, svg } from 'lit';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  event
+} from '@sl-design-system/shared';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  svg
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './checkbox.scss.js';
@@ -35,7 +51,10 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   'aria-labelledby'
 ]) {
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -62,18 +81,21 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   /**
    * Whether the checkbox is checked.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /**
    * Whether the checkbox is disabled; when set no interaction is possible.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /**
    * Whether the checkbox has the indeterminate state.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
@@ -83,25 +105,28 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   /**
    * Whether the checkbox is required.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
   /**
    * When set will cause the control to show it is valid after reportValidity is called.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /**
    * The size of the checkbox.
+   *
    * @default 'md'
    */
   @property({ reflect: true }) size?: CheckboxSize;
 
   /**
-   * The value of the checkbox when the checkbox is checked.
-   * See the formValue property for easy access.
+   * The value of the checkbox when the checkbox is checked. See the formValue property for easy
+   * access.
    */
   @property() override value?: T;
 
@@ -117,7 +142,9 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     super.connectedCallback();
 
     if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input =
+        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
+        document.createElement('input');
       this.input.slot = 'input';
       this.input.type = 'checkbox';
       this.#syncInput(this.input);
@@ -207,7 +234,9 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       return;
     }
 
-    const label = event.composedPath().find((el): el is HTMLLabelElement => el instanceof HTMLLabelElement);
+    const label = event
+      .composedPath()
+      .find((el): el is HTMLLabelElement => el instanceof HTMLLabelElement);
     if (label?.parentElement === this) {
       this.input.click();
 

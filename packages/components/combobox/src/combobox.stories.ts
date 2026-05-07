@@ -153,7 +153,12 @@ export const All: Story = {
         </sl-listbox>
       </sl-combobox>
 
-      <sl-combobox multiple placeholder="Multiple" .value=${['Option 1', 'Option 2']} aria-label="Choose an option">
+      <sl-combobox
+        multiple
+        placeholder="Multiple"
+        .value=${['Option 1', 'Option 2']}
+        aria-label="Choose an option"
+      >
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>

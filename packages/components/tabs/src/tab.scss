@@ -3,7 +3,11 @@
   --_bg-mix-color: var(--sl-color-background-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: inline-flex;

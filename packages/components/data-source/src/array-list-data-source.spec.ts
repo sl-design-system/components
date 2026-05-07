@@ -210,7 +210,17 @@ describe('ArrayListDataSource', () => {
       it('should have group items at the start of each group', () => {
         const types = ds.items.map(({ type }) => type);
 
-        expect(types).to.deep.equal(['group', 'data', 'group', 'data', 'data', 'group', 'data', 'group', 'data']);
+        expect(types).to.deep.equal([
+          'group',
+          'data',
+          'group',
+          'data',
+          'data',
+          'group',
+          'data',
+          'group',
+          'data'
+        ]);
       });
 
       it('should have expanded groups by default', () => {
@@ -227,7 +237,16 @@ describe('ArrayListDataSource', () => {
 
         const types = ds.items.map(({ type }) => type);
 
-        expect(types).to.deep.equal(['group', 'group', 'data', 'data', 'group', 'data', 'group', 'data']);
+        expect(types).to.deep.equal([
+          'group',
+          'group',
+          'data',
+          'data',
+          'group',
+          'data',
+          'group',
+          'data'
+        ]);
       });
     });
 
@@ -235,9 +254,16 @@ describe('ArrayListDataSource', () => {
       it('should sort the groups in a descending direction', () => {
         ds = new ArrayListDataSource(people, { groupBy: 'profession', groupSortDirection: 'desc' });
 
-        const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+        const groupLabels = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .map(({ label }) => label);
 
-        expect(groupLabels).to.deep.equal(['Ophthalmologist', 'Nephrologist', 'Gastroenterologist', 'Endocrinologist']);
+        expect(groupLabels).to.deep.equal([
+          'Ophthalmologist',
+          'Nephrologist',
+          'Gastroenterologist',
+          'Endocrinologist'
+        ]);
       });
 
       it('should sort the groups using a custom function', () => {
@@ -259,19 +285,31 @@ describe('ArrayListDataSource', () => {
           }
         });
 
-        const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+        const groupLabels = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .map(({ label }) => label);
 
-        expect(groupLabels).to.deep.equal(['Nephrologist', 'Endocrinologist', 'Gastroenterologist', 'Ophthalmologist']);
+        expect(groupLabels).to.deep.equal([
+          'Nephrologist',
+          'Endocrinologist',
+          'Gastroenterologist',
+          'Ophthalmologist'
+        ]);
       });
     });
 
     describe('with a label path', () => {
       beforeEach(() => {
-        ds = new ArrayListDataSource(people, { groupBy: 'profession', groupLabelPath: 'membership' });
+        ds = new ArrayListDataSource(people, {
+          groupBy: 'profession',
+          groupLabelPath: 'membership'
+        });
       });
 
       it('should use the label path for the group label', () => {
-        const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+        const groupLabels = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .map(({ label }) => label);
 
         expect(groupLabels).to.deep.equal(['Premium', 'Regular', 'Regular', 'VIP']);
       });
@@ -488,7 +526,9 @@ describe('ArrayListDataSource', () => {
         ds.update();
 
         expect(ds.selection.size).to.equal(0);
-        expect(ds.items.filter(item => isListDataSourceDataItem(item)).every(({ selected }) => selected)).to.be.true;
+        expect(
+          ds.items.filter(item => isListDataSourceDataItem(item)).every(({ selected }) => selected)
+        ).to.be.true;
       });
 
       it('should add a selection for every not selected item', () => {
@@ -924,9 +964,16 @@ describe('ArrayListDataSource', () => {
     it('should recalculate groups after setData and update', () => {
       ds = new ArrayListDataSource(people, { groupBy: 'profession' });
 
-      const groupsBefore = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+      const groupsBefore = ds.items
+        .filter(item => isListDataSourceGroupItem(item))
+        .map(({ label }) => label);
 
-      expect(groupsBefore).to.deep.equal(['Endocrinologist', 'Gastroenterologist', 'Nephrologist', 'Ophthalmologist']);
+      expect(groupsBefore).to.deep.equal([
+        'Endocrinologist',
+        'Gastroenterologist',
+        'Nephrologist',
+        'Ophthalmologist'
+      ]);
 
       // Replace with data that has different professions
       ds.setData([
@@ -949,7 +996,9 @@ describe('ArrayListDataSource', () => {
       ]);
       ds.update();
 
-      const groupsAfter = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+      const groupsAfter = ds.items
+        .filter(item => isListDataSourceGroupItem(item))
+        .map(({ label }) => label);
 
       expect(groupsAfter).to.deep.equal(['Dermatologist', 'Surgeon']);
     });

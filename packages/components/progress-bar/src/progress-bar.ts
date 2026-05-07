@@ -1,8 +1,18 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Icon } from '@sl-design-system/icon';
-import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -63,9 +73,9 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'octagon-exclamation-solid';
-      case 'error':
         return 'triangle-exclamation-solid';
+      case 'error':
+        return 'octagon-xmark-solid';
       default:
         return 'circle-check-solid';
     }
@@ -94,7 +104,10 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         ${this.label
           ? html`
               <div id="label" class="label">
-                ${this.label} ${this.variant ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+                ${this.label}
+                ${this.variant
+                  ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
+                  : nothing}
               </div>
             `
           : nothing}
@@ -106,7 +119,9 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
               ? html`${this.#getLocalizedVariant()}`
               : html`${msg('active', { id: 'sl.progressBar.active' })}`}
           </span>
-          ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+          ${this.variant && !this.label
+            ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
+            : nothing}
         </div>
       </div>
       <div

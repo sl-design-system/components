@@ -12,8 +12,10 @@ export const multilineHtmlTemplate = {
     fixable: 'code',
     schema: [],
     messages: {
-      missingNewlineStart: 'Multiline HTML template literals should have a newline after the opening backtick',
-      missingNewlineEnd: 'Multiline HTML template literals should have a newline before the closing backtick'
+      missingNewlineStart:
+        'Multiline HTML template literals should have a newline after the opening backtick',
+      missingNewlineEnd:
+        'Multiline HTML template literals should have a newline before the closing backtick'
     }
   },
   create(context) {
@@ -63,10 +65,7 @@ export const multilineHtmlTemplate = {
                 messageId: 'missingNewlineStart',
                 fix(fixer) {
                   // Add a newline after the opening backtick
-                  return fixer.replaceText(
-                    quasi,
-                    templateText.replace(/^`/, '`\n')
-                  );
+                  return fixer.replaceText(quasi, templateText.replace(/^`/, '`\n'));
                 }
               });
             } else if (!hasNewlineBeforeBacktick) {
@@ -76,10 +75,7 @@ export const multilineHtmlTemplate = {
                 messageId: 'missingNewlineEnd',
                 fix(fixer) {
                   // Add a newline before the closing backtick
-                  return fixer.replaceText(
-                    quasi,
-                    templateText.replace(/`$/, '\n`')
-                  );
+                  return fixer.replaceText(quasi, templateText.replace(/`$/, '\n`'));
                 }
               });
             }

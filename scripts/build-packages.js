@@ -2,7 +2,7 @@ import { build } from 'esbuild';
 import fg from 'fast-glob';
 import { argv } from 'node:process';
 
-const buildPackages = async (path) => {
+const buildPackages = async path => {
   const entryPoints = await fg(path);
 
   await build({

@@ -1,5 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { TreeDataSource, type TreeDataSourceNode, type TreeDataSourceOptions } from './tree-data-source';
+import {
+  TreeDataSource,
+  type TreeDataSourceNode,
+  type TreeDataSourceOptions
+} from './tree-data-source';
 
 type TestItem = {
   id: number | string;
@@ -62,7 +66,10 @@ class TestTreeDataSource extends TreeDataSource<TestItem> {
   override items: Array<TreeDataSourceNode<TestItem>>;
   override size: number;
 
-  constructor(nodes: Array<TreeDataSourceNode<TestItem>>, options?: TreeDataSourceOptions<TestItem>) {
+  constructor(
+    nodes: Array<TreeDataSourceNode<TestItem>>,
+    options?: TreeDataSourceOptions<TestItem>
+  ) {
     super(options);
 
     this.items = this.nodes = nodes;
@@ -115,11 +122,15 @@ describe('TreeDataSource', () => {
     });
 
     it('should throw an error when calling addFilter', () => {
-      expect(() => ds.addFilter('dummy', 'dummy')).to.throw('Filtering is not yet supported in tree data sources.');
+      expect(() => ds.addFilter('dummy', 'dummy')).to.throw(
+        'Filtering is not yet supported in tree data sources.'
+      );
     });
 
     it('should throw an error when calling removeFilter', () => {
-      expect(() => ds.removeFilter('dummy')).to.throw('Filtering is not yet supported in tree data sources.');
+      expect(() => ds.removeFilter('dummy')).to.throw(
+        'Filtering is not yet supported in tree data sources.'
+      );
     });
   });
 

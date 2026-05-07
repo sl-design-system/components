@@ -68,7 +68,7 @@
 </trans-unit>
 <trans-unit id="sl.checkbox.validation.valueMissing">
   <source>Please check this box.</source>
-  <target>Marca esta casilla.</target>
+  <target>Selecciona esta opción.</target>
 </trans-unit>
 <trans-unit id="sl.combobox.validation.valueMissingMultiple">
   <source>Please select at least one option.</source>
@@ -96,7 +96,7 @@
 </trans-unit>
 <trans-unit id="sl.form.requiredLabelIndicator">
   <source>required</source>
-  <target>obligatorio</target>
+  <target>requerido</target>
 </trans-unit>
 <trans-unit id="sl.grid.cancelSelection">
   <source>Cancel selection</source>
@@ -132,15 +132,15 @@
 </trans-unit>
 <trans-unit id="sl.grid.sortDescending">
   <source>Sort descending</source>
-  <target>Ordenar descendente</target>
+  <target>Orden descendente</target>
 </trans-unit>
 <trans-unit id="sl.grid.removeSort">
   <source>Remove sort</source>
-  <target>Quitar ordenación</target>
+  <target>Quitar orden</target>
 </trans-unit>
 <trans-unit id="sl.grid.sortAscending">
   <source>Sort ascending</source>
-  <target>Ordenar ascendente</target>
+  <target>Orden ascendente</target>
 </trans-unit>
 <trans-unit id="sl.grid.blankFilterOption">
   <source>Blank</source>
@@ -168,7 +168,7 @@
 </trans-unit>
 <trans-unit id="sl.tag.listOfHiddenElements">
   <source>List of hidden elements</source>
-  <target>Lista de elementos ocultos</target>
+  <target>Lista de elementos ocultados</target>
 </trans-unit>
 <trans-unit id="sl.combobox.selectedOptions">
   <source>Selected options</source>
@@ -332,11 +332,11 @@
 </trans-unit>
 <trans-unit id="sl.progressBar.active">
   <source>active</source>
-  <target>activo</target>
+  <target>procesando</target>
 </trans-unit>
 <trans-unit id="sl.progressBar.success">
   <source>success</source>
-  <target>éxito</target>
+  <target>completado</target>
 </trans-unit>
 <trans-unit id="sl.progressBar.warning">
   <source>warning</source>
@@ -356,7 +356,7 @@
 </trans-unit>
 <trans-unit id="sl.timeField.selectMinutes">
   <source>Select minutes</source>
-  <target>Seleccionar minutos</target>
+  <target>Seleccionar los minutos</target>
 </trans-unit>
 <trans-unit id="sl.calendar.daysLabel">
   <source>Days of <x id="0" equiv-text="${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}"/></source>
@@ -416,11 +416,11 @@
 </trans-unit>
 <trans-unit id="sl.dateField.selectDate">
   <source>Select date</source>
-  <target>Seleccionar fecha</target>
+  <target>Seleccionar una fecha</target>
 </trans-unit>
 <trans-unit id="sl.timeField.toggleDropdown">
   <source>Select time</source>
-  <target>Seleccionar hora</target>
+  <target>Seleccionar una hora</target>
 </trans-unit>
 <trans-unit id="sl.dateField.empty">
   <source>Empty</source>

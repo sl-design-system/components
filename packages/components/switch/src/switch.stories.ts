@@ -92,9 +92,19 @@ export const Reverse: Story = {
 export const CustomIcons: Story = {
   render: () => {
     return html`
-      <sl-switch size="sm" icon-off="fas-sun-bright" icon-on="fas-moon-stars"></sl-switch>
-      <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars"></sl-switch>
-      <sl-switch size="lg" icon-off="fas-sun-bright" icon-on="fas-moon-stars"></sl-switch>
+      <sl-switch
+        size="sm"
+        icon-off="fas-sun-bright"
+        icon-on="fas-moon-stars"
+        aria-label="Switch with custom icons small"
+      ></sl-switch>
+      <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars" aria-label="Switch with custom icons"></sl-switch>
+      <sl-switch
+        size="lg"
+        icon-off="fas-sun-bright"
+        icon-on="fas-moon-stars"
+        aria-label="Switch with custom icons large"
+      ></sl-switch>
     `;
   }
 };

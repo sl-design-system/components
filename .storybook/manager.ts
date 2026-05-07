@@ -22,6 +22,30 @@ const display = {
   ]
 };
 
+// Add keyboard shortcuts for expand/collapse all
+document.addEventListener('keydown', (event) => {
+  // Don't trigger shortcuts when typing in input fields
+  const target = event.target as HTMLElement;
+  if (
+    target.tagName === 'INPUT' ||
+    target.tagName === 'TEXTAREA' ||
+    target.isContentEditable
+  ) {
+    return;
+  }
+
+  // Ctrl/Cmd + Shift + E: Expand All
+  if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.code === 'KeyE') {
+    event.preventDefault();
+    (window as any).storybookExpandAll?.();
+  }
+  // Ctrl/Cmd + Shift + C: Collapse All
+  if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.code === 'KeyC') {
+    event.preventDefault();
+    (window as any).storybookCollapseAll?.();
+  }
+});
+
 addons.setConfig({
   enableShortcuts: false,
   theme,

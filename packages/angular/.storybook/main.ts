@@ -16,7 +16,10 @@ const config: StorybookConfig = {
   features: {
     viewportStoryGlobals: true
   },
-  staticDirs: [{ from: '../../themes', to: '/themes' }],
+  staticDirs: [
+    { from: '../../themes', to: '/themes' },
+    { from: '../../../.storybook/public', to: '/storybook-static' }
+  ],
   docs: {
     //👇 Configure docs
     defaultName: 'Documentation',

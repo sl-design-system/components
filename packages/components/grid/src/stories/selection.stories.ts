@@ -11,6 +11,7 @@ import {
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/menu/register.js';
 import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
@@ -127,6 +128,71 @@ export const Multiple: Story = {
         <sl-button fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           This is another very long action button
+        </sl-button>
+      </sl-grid>
+    `;
+  }
+};
+
+export const MultipleWithMenuButton: Story = {
+  args: {
+    selectAll: false
+  },
+  render: ({ selectAll }, { loaded: { students } }) => {
+    return html`
+      <p>
+        This example validates click events for menu items in bulk actions when the floating
+        tool-bar is collapsed. Reduce the viewport width, select rows, open "Visibility" and click
+        "Hide" or "Show".
+      </p>
+      <sl-grid .items=${(students as Student[]).slice(0, 5)}>
+        <sl-grid-selection-column ?select-all=${selectAll}></sl-grid-selection-column>
+        <sl-grid-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+
+        <!-- These get slotted into the floating tool-bar -->
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-copy"></sl-icon>
+          Duplicate
+        </sl-button>
+
+        <sl-menu-button
+          aria-label="Visibility"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
+          <span slot="button">Visibility</span>
+          <sl-menu-item @click=${() => alert('Hide')}>Hide</sl-menu-item>
+          <sl-menu-item @click=${() => alert('Show')}>Show</sl-menu-item>
+        </sl-menu-button>
+
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
+        <sl-button disabled fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-right-to-line"></sl-icon>
+          Action 1
+        </sl-button>
+        <sl-button
+          ${tooltip('I am a tooltip')}
+          aria-disabled="true"
+          fill="outline"
+          slot="bulk-actions"
+          variant="inverted"
+        >
+          <sl-icon name="far-right-to-line"></sl-icon>
+          Action 2
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-right-to-line"></sl-icon>
+          Action 3
         </sl-button>
       </sl-grid>
     `;

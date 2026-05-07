@@ -276,6 +276,25 @@ describe('overflow (integration)', () => {
 
       expect(onClick).to.have.been.calledOnce;
     });
+
+    it('should proxy clicks on overflow submenu items to the original menu items', () => {
+      const originalMenuItem = el.querySelector('sl-menu-button sl-menu-item'),
+        onClick = spy(),
+        overflowSubmenuItem = el.renderRoot.querySelector('sl-menu[slot="submenu"] sl-menu-item');
+
+      expect(originalMenuItem, 'expected original menu item to exist').to.exist;
+      expect(overflowSubmenuItem, 'expected overflow submenu item to exist').to.exist;
+
+      (originalMenuItem as MenuItem).addEventListener('click', onClick);
+      // Use a non-bubbling click here to assert proxying behavior only.
+      // A real bubbling click can trigger the parent submenu path (with delayed showPopover),
+      // which causes teardown-related InvalidStateError noise in this test environment.
+      (overflowSubmenuItem as MenuItem).dispatchEvent(
+        new MouseEvent('click', { bubbles: false, composed: false })
+      );
+
+      expect(onClick).to.have.been.calledOnce;
+    });
   });
 });
 

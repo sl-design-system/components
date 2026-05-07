@@ -34,7 +34,6 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
-import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -129,6 +128,7 @@ export default {
       itemsOutsideContainer,
       enableLogging
     } = args;
+
     return html`
       ${description ? html`<p>${description}</p>` : nothing}
       <style>
@@ -441,23 +441,20 @@ export const Tooltips: Story = {
   args: {
     description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
     items: () => html`
-      <sl-button aria-label="Bold" aria-labelledby="tooltip-bold" fill="outline">
+      <sl-button aria-labelledby="tooltip-bold" fill="outline">
         <sl-icon name="far-bold"></sl-icon>
       </sl-button>
       <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
 
-      <sl-button aria-label="Italic" ${tooltip('Italic', { ariaRelation: 'label' })} fill="outline">
+      <sl-button aria-labelledby="tooltip-italic" fill="outline">
         <sl-icon name="far-italic"></sl-icon>
       </sl-button>
+      <sl-tooltip id="tooltip-italic">Italic</sl-tooltip>
 
-      <sl-button
-        aria-label="Underline (disabled)"
-        aria-disabled="true"
-        ${tooltip('Underline (disabled)', { ariaRelation: 'label' })}
-        fill="outline"
-      >
+      <sl-button aria-labelledby="tooltip-underline-disabled" aria-disabled="true" fill="outline">
         <sl-icon name="far-underline"></sl-icon>
       </sl-button>
+      <sl-tooltip id="tooltip-underline-disabled">Underline (disabled)</sl-tooltip>
     `
   }
 };
@@ -514,19 +511,18 @@ export const IconOnly: Story = {
           style="inline-size: ${width ?? 'auto'}"
           aria-label="Icon only tool bar with tooltips"
         >
-          <sl-button aria-label="Bold" aria-labelledby="tooltip-bold" fill="outline">
+          <sl-button aria-labelledby="tooltip-bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
 
-          <sl-button aria-label="Italic" aria-labelledby="tooltip-italic" fill="outline">
+          <sl-button aria-labelledby="tooltip-italic" fill="outline">
             <sl-icon name="far-italic"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-italic">Italic</sl-tooltip>
 
           <sl-button
             aria-disabled="true"
-            aria-label="Underline (disabled)"
             aria-labelledby="tooltip-underline-disabled"
             fill="outline"
           >
@@ -534,12 +530,12 @@ export const IconOnly: Story = {
           </sl-button>
           <sl-tooltip id="tooltip-underline-disabled">Underline (disabled)</sl-tooltip>
 
-          <sl-button aria-label="Underline" aria-labelledby="tooltip-underline" fill="outline">
+          <sl-button aria-labelledby="tooltip-underline" fill="outline">
             <sl-icon name="far-underline"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-underline">Underline</sl-tooltip>
 
-          <sl-menu-button aria-label="Settings" aria-labelledby="tooltip-settings" fill="outline">
+          <sl-menu-button aria-labelledby="tooltip-settings" fill="outline">
             <sl-icon name="far-gear" slot="button"></sl-icon>
             <sl-menu-item>
               <sl-icon name="far-pen"></sl-icon>
@@ -552,7 +548,7 @@ export const IconOnly: Story = {
           </sl-menu-button>
           <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-          <sl-menu-button aria-label="Edit" aria-labelledby="tooltip-edit" fill="outline">
+          <sl-menu-button aria-labelledby="tooltip-edit" fill="outline">
             <sl-icon name="far-pen" slot="button"></sl-icon>
             <sl-menu-item>
               <sl-icon name="far-pen"></sl-icon>

@@ -230,6 +230,22 @@ describe('ForwardAriaMixin', () => {
 
       expect(button.ariaLabelledByElements).to.deep.equal([]);
     });
+
+    it('should resolve aria-labelledby when the referenced element is added later', async () => {
+      el.setAttribute('aria-labelledby', 'late-label');
+      expect(button.ariaLabelledByElements).to.deep.equal([]);
+
+      const label = document.createElement('span');
+      label.id = 'late-label';
+      label.textContent = 'Late label';
+      el.parentElement!.prepend(label);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(button.ariaLabelledByElements).to.deep.equal([label]);
+
+      label.remove();
+    });
   });
 
   describe('aria-describedby', () => {

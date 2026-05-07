@@ -78,7 +78,9 @@ export function ForwardAriaMixin<
 
   class ForwardAriaImpl extends constructor {
     #observer?: MutationObserver;
+    #rootObserver?: MutationObserver;
     #pendingAttributes = new Set<string>();
+    #unresolvedReferenceAttributes = new Map<string, string>();
 
     static override get observedAttributes(): string[] {
       return [...(super.observedAttributes ?? []), ...(observedAttributes ?? [])];
@@ -145,6 +147,9 @@ export function ForwardAriaMixin<
     override disconnectedCallback(): void {
       this.#observer?.disconnect();
       this.#observer = undefined;
+      this.#rootObserver?.disconnect();
+      this.#rootObserver = undefined;
+      this.#unresolvedReferenceAttributes.clear();
 
       super.disconnectedCallback();
     }
@@ -190,6 +195,15 @@ export function ForwardAriaMixin<
             .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
             .filter((el): el is HTMLElement => el !== null);
 
+          // Keep track of unresolved id-based references so we can retry when matching elements
+          // are inserted later (for example sibling tooltips rendered after the control).
+          if (elements.length === 0 && value.trim().length > 0) {
+            this.#unresolvedReferenceAttributes.set(name, value);
+            this.#ensureRootObserver(root);
+          } else {
+            this.#unresolvedReferenceAttributes.delete(name);
+          }
+
           if (elementsProp.endsWith('Elements')) {
             (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
           } else {
@@ -204,6 +218,55 @@ export function ForwardAriaMixin<
       }
 
       this.#pendingAttributes.clear();
+    }
+
+    #ensureRootObserver(root: Document | ShadowRoot): void {
+      if (this.#rootObserver) {
+        return;
+      }
+
+      this.#rootObserver = new MutationObserver(() => this.#retryUnresolvedReferenceAttributes());
+      this.#rootObserver.observe(root, { childList: true, subtree: true });
+    }
+
+    #retryUnresolvedReferenceAttributes(): void {
+      const targetElement = targetElements.get(this);
+      if (!targetElement || this.#unresolvedReferenceAttributes.size === 0) {
+        return;
+      }
+
+      const root = this.getRootNode() as Document | ShadowRoot;
+
+      for (const [name, value] of this.#unresolvedReferenceAttributes) {
+        const elementsProp = ELEMENT_REFERENCES[name];
+        if (!elementsProp) {
+          this.#unresolvedReferenceAttributes.delete(name);
+          continue;
+        }
+
+        const elements = value
+          .split(/\s+/)
+          .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
+          .filter((el): el is HTMLElement => el !== null);
+
+        if (elements.length === 0) {
+          continue;
+        }
+
+        if (elementsProp.endsWith('Elements')) {
+          (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
+        } else {
+          (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
+            elements[0] ?? null;
+        }
+
+        this.#unresolvedReferenceAttributes.delete(name);
+      }
+
+      if (this.#unresolvedReferenceAttributes.size === 0) {
+        this.#rootObserver?.disconnect();
+        this.#rootObserver = undefined;
+      }
     }
   }
 

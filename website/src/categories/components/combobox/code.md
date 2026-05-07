@@ -13,7 +13,7 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-combobox multiple style="inline-size: 100%; max-inline-size: min(30vw, 500px)" value='["0","3"]'>
+<sl-combobox aria-label="Subjects" multiple style="inline-size: 100%; max-inline-size: min(30vw, 500px)" value='["0","3"]'>
   <sl-listbox>
     <sl-option-group label="Math">
       <sl-option value="0">Algebra</sl-option>
@@ -35,7 +35,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-combobox multiple value='["0","1"]'>
+  <sl-combobox aria-label="Subjects" multiple value='["0","1"]'>
     <sl-listbox>
       <sl-option-group label="Math">
         <sl-option value="0">Algebra</sl-option>
@@ -84,7 +84,7 @@ There is no difference in behavior of the combobox between the two methods.
 Use this method if you have a small to medium number of options and you want to define them directly in your HTML.
 
 ```html
-<sl-combobox>
+<sl-combobox aria-label="Subjects">
   <sl-listbox>
     <sl-option value="0">Mathematics</sl-option>
     <sl-option value="1">Geography</sl-option>
@@ -111,6 +111,7 @@ const options = [
 
 ```html
 <sl-combobox
+  aria-label="Subjects"
   .options=${options}
   option-label-path="label"
   option-value-path="value"
@@ -130,7 +131,7 @@ If you only specify a string array as the `options` property, the combobox will 
 You can group options using the `sl-option-group` element. This element can contain `sl-option` elements. It is not recommended to have nested `sl-option-group` elements.
 
 ```html
-<sl-combobox>
+<sl-combobox aria-label="Subjects">
   <sl-listbox>
     <sl-option-group label="Math">
       <sl-option value="0">Algebra</sl-option>
@@ -165,6 +166,7 @@ const options = [
 
 ```html
 <sl-combobox
+  aria-label="Subjects"
   .options=${options}
   option-group-path="group"
   option-label-path="label"

@@ -26,7 +26,8 @@ const config: StorybookConfig = {
   staticDirs: [
     { from: '../node_modules/emojibase-data', to: '/emoji' },
     { from: '../packages/themes', to: '/themes' },
-    { from: './images', to: '/images' }
+    { from: './images', to: '/images' },
+    { from: './public', to: '/storybook-static' }
   ],
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');

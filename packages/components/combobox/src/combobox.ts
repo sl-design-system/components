@@ -20,6 +20,7 @@ import {
 import {
   EventEmitter,
   EventsController,
+  ObserveAttributesMixin,
   type Path,
   type PathKeys,
   anchor,
@@ -87,7 +88,10 @@ let nextUniqueId = 0;
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-label', 'aria-describedby', 'aria-labelledby']
+) {
   /** @internal The default offset of the popover to the input. */
   static offset = 6;
 
@@ -213,6 +217,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** Will allow the selection of multiple options if true. */
   @property({ type: Boolean }) multiple?: boolean;
 
+  /** @internal The ID of the label element for this form control. */
+  @property({ attribute: 'data-label-id' }) labelId?: string;
+
   /** The path to use for grouping the options. */
   @property({ attribute: 'option-group-path' }) optionGroupPath?: PathKeys<T>;
 
@@ -310,6 +317,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.setFormControlElement(this);
 
+    this.setAttributesTarget(this.input);
+
     /**
      * Light DOM styling workarounds:
      *
@@ -348,6 +357,23 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.#addSelectedGroup();
       } else {
         this.#removeSelectedGroup();
+      }
+    }
+
+    if (changes.has('labelId')) {
+      const previousLabelId = changes.get('labelId'),
+        ariaLabel = this.input.getAttribute('aria-label'),
+        ariaLabelledBy = this.input.getAttribute('aria-labelledby'),
+        hasExplicitAccessibleName = Boolean(
+          ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId)
+        );
+
+      if (!this.labelId || ariaLabel) {
+        if (ariaLabelledBy === previousLabelId) {
+          this.input.removeAttribute('aria-labelledby');
+        }
+      } else if (!hasExplicitAccessibleName) {
+        this.input.setAttribute('aria-labelledby', this.labelId);
       }
     }
 
@@ -444,9 +470,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     if (changes.has('required')) {
-      this.input.required = !!this.required;
-
       this.updateValidity();
+    }
+
+    // Don't set name on the input - we use ElementInternals for form submission
+    // The input should not submit its value directly to avoid duplicate/incorrect submissions
+    if (changes.has('name') && this.input.hasAttribute('name')) {
+      this.input.removeAttribute('name');
     }
   }
 
@@ -598,7 +628,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #onFocus(): void {
-    if (!this.#pointerDown) {
+    if (this.#pointerDown) {
       this.wrapper?.showPopover();
     }
   }

@@ -1,7 +1,7 @@
 :host {
   --_arrow-block-size: var(--sl-size-050);
   --_arrow-inline-size: var(--sl-size-100);
-  --_fade-duration: calc(var(--sl-animation-duration-fast, 90ms) + 60ms);
+  --_fade-duration: 150ms;
   --_fade-in-easing: cubic-bezier(0, 0, 0.2, 1);
   --_fade-out-easing: cubic-bezier(0.4, 0, 1, 1);
   --_max-width: var(--sl-tooltip-max-width, auto);

@@ -213,54 +213,6 @@ export class Tooltip extends LitElement {
   /** Timer for showing/hiding the tooltip. */
   #timer?: ReturnType<typeof setTimeout>;
 
-  /** Whether a deprecation warning for the `showDelay` compatibility alias was already logged. */
-  #showDelayDeprecationWarned = false;
-
-  /** Whether a deprecation warning for the `hideDelay` compatibility alias was already logged. */
-  #hideDelayDeprecationWarned = false;
-
-  /**
-   * Legacy API alias kept for backwards compatibility.
-   *
-   * @deprecated `sl-tooltip` hover show timing is fixed and no longer configurable.
-   */
-  @property({ type: Number, attribute: 'show-delay' })
-  get showDelay(): number {
-    return Tooltip.hoverShowDelay;
-  }
-
-  set showDelay(_value: number) {
-    if (!this.#showDelayDeprecationWarned && _value !== Tooltip.hoverShowDelay) {
-      this.#showDelayDeprecationWarned = true;
-      console.warn(
-        `The 'showDelay' / 'show-delay' API on <sl-tooltip> is deprecated and ignored. Hover show timing is fixed at ${Tooltip.hoverShowDelay}ms.`
-      );
-    }
-
-    // no-op: kept only to avoid breaking existing API usage
-  }
-
-  /**
-   * Legacy API alias kept for backwards compatibility.
-   *
-   * @deprecated `sl-tooltip` hover hide timing is fixed and no longer configurable.
-   */
-  @property({ type: Number, attribute: 'hide-delay' })
-  get hideDelay(): number {
-    return Tooltip.hoverHideDelay;
-  }
-
-  set hideDelay(_value: number) {
-    if (!this.#hideDelayDeprecationWarned && _value !== Tooltip.hoverHideDelay) {
-      this.#hideDelayDeprecationWarned = true;
-      console.warn(
-        `The 'hideDelay' / 'hide-delay' API on <sl-tooltip> is deprecated and ignored. Hover hide timing is fixed at ${Tooltip.hoverHideDelay}ms.`
-      );
-    }
-
-    // no-op: kept only to avoid breaking existing API usage
-  }
-
   /** The maximum width of the tooltip. */
   @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
 
@@ -379,7 +331,7 @@ export class Tooltip extends LitElement {
 
   #onHide = (event: Event): void => {
     // Only clear the timer for focusout when the tooltip was opened by focus; otherwise,
-    // an unrelated focusout could cancel a pending hover showDelay timer.
+    // an unrelated focusout could cancel a pending hover show timer.
     if (event.type !== 'focusout' || this.#openedByFocus) {
       clearTimeout(this.#timer);
       this.#timer = undefined;

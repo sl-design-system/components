@@ -49,7 +49,7 @@ describe('sl-tooltip shared', () => {
     expect(tooltip.matches(':popover-open')).to.be.true;
     expect(tooltip.anchorElement).to.equal(buttons[0]);
 
-    // 2. Move rapidly to second button (wait less than showDelay)
+    // 2. Move rapidly to second button (wait less than hover show delay)
     // Dispatch pointerout on 0 and pointerover on 1 simultaneously (same tick)
     buttons[0].dispatchEvent(new Event('pointerout', { bubbles: true }));
     buttons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
@@ -96,7 +96,7 @@ describe('sl-tooltip shared', () => {
     const firstInsetInlineStart = tooltip.style.insetInlineStart;
 
     // 2. Move to second button
-    // The anchor should update IMMEDIATELY without waiting for showDelay again
+    // The anchor should update IMMEDIATELY without waiting for hover show delay again
     buttons[1].dispatchEvent(new Event('pointerover', { bubbles: true }));
     await tooltip.updateComplete;
     await new Promise(resolve => requestAnimationFrame(resolve));

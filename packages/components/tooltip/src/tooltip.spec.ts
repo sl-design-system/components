@@ -1301,52 +1301,6 @@ describe('sl-tooltip', () => {
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
 
-    it('should keep legacy delay aliases as no-op compatibility shims', async () => {
-      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-
-      try {
-        tooltip.showDelay = 0;
-        tooltip.hideDelay = 0;
-        tooltip.setAttribute('show-delay', '250');
-        tooltip.setAttribute('hide-delay', '50');
-        await tooltip.updateComplete;
-
-        expect(warnSpy).toHaveBeenCalledTimes(2);
-        expect(warnSpy.mock.calls[0]?.[0]).to.contain("'showDelay' / 'show-delay'");
-        expect(warnSpy.mock.calls[1]?.[0]).to.contain("'hideDelay' / 'hide-delay'");
-      } finally {
-        warnSpy.mockRestore();
-      }
-
-      expect(tooltip.showDelay).to.equal(Tooltip.hoverShowDelay);
-      expect(tooltip.hideDelay).to.equal(Tooltip.hoverHideDelay);
-    });
-
-    it('should keep declarative legacy delay aliases as no-op compatibility shims', async () => {
-      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
-
-      try {
-        el = await fixture(html`
-          <div style="display: block; width: 400px; height: 400px;">
-            <sl-button aria-describedby="tooltip">Button</sl-button>
-            <sl-tooltip id="tooltip" show-delay="0" hide-delay="0">Tooltip</sl-tooltip>
-          </div>
-        `);
-        button = el.querySelector('sl-button') as Button;
-        tooltip = el.querySelector('sl-tooltip') as Tooltip;
-        await tooltip.updateComplete;
-
-        const warnings = warnSpy.mock.calls.map(call => String(call[0] ?? ''));
-        expect(warnings.some(message => message.includes("'showDelay' / 'show-delay'"))).to.be.true;
-        expect(warnings.some(message => message.includes("'hideDelay' / 'hide-delay'"))).to.be.true;
-      } finally {
-        warnSpy.mockRestore();
-      }
-
-      expect(tooltip.showDelay).to.equal(Tooltip.hoverShowDelay);
-      expect(tooltip.hideDelay).to.equal(Tooltip.hoverHideDelay);
-    });
-
     it('should stay open before the fixed hover hide delay elapses', async () => {
       button.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 10);

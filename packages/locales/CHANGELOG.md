@@ -1,5 +1,11 @@
 # @sl-design-system/locales
 
+## 0.3.0
+
+### Minor Changes
+
+- [#3197](https://github.com/sl-design-system/components/pull/3197) [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e) - New translations for infotip
+
 ## 0.2.0
 
 ### Minor Changes

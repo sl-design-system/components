@@ -1,5 +1,14 @@
 # @sl-design-system/select
 
+## 2.1.4
+
+### Patch Changes
+
+- [#3240](https://github.com/sl-design-system/components/pull/3240) [`5993ed3`](https://github.com/sl-design-system/components/commit/5993ed3c3826cae829b7e67917a0e77399da04eb) - Observe selected `sl-option` content changes and update when mutated at runtime
+
+- Updated dependencies [[`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e)]:
+  - @sl-design-system/form@1.4.0
+
 ## 2.1.3
 
 ### Patch Changes

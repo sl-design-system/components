@@ -1,5 +1,11 @@
 # @sanomalearning/slds-kampus
 
+## 1.1.2
+
+### Patch Changes
+
+- [#3248](https://github.com/sl-design-system/components/pull/3248) [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f) - Added new `octagon-xmark-solid` icon for use in Callout, Inline message, and Progress bar. Make sure to update your theme if you updated those components
+
 ## 1.1.1
 
 ### Patch Changes

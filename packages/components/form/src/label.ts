@@ -41,17 +41,11 @@ export class Label extends LitElement {
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
 
-  /** Whether the label was auto-created (vs user-provided via slot="label"). */
-  #labelAutoCreated = false;
-
   /** Observe the form control for changes to the required attribute. */
   #observer = new MutationObserver(() => this.#update());
 
   /** Track the previous form control to clean up data-label-id when it changes. */
   #previousFormControl: (HTMLElement & FormControl & { size?: string }) | null = null;
-
-  /** Observe slotted content for text changes to keep the label in sync. */
-  #slotObserver = new MutationObserver(() => this.#syncLabelContent());
 
   /** Whether the form control is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -86,7 +80,6 @@ export class Label extends LitElement {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-    this.#slotObserver.disconnect();
 
     // Clean up data-label-id from the form control
     if (this.formControl) {
@@ -195,81 +188,29 @@ export class Label extends LitElement {
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
 
-    // If there's a user-provided <label slot="label">, use it directly without syncing.
-    if (!this.#label) {
-      const existingLabel = this.querySelector('label[slot="label"]');
+    // Only move text and element nodes to the label; leave comment nodes (Lit's
+    // internal template markers) in place so the parent component's ChildPart
+    // tracking stays intact and future re-renders (e.g. locale changes) work.
+    const contentNodes = nodes.filter(
+      n => n.nodeType === Node.TEXT_NODE || n.nodeType === Node.ELEMENT_NODE
+    );
 
-      if (existingLabel) {
-        this.#label = existingLabel as HTMLLabelElement;
-        this.#labelAutoCreated = false;
-      } else {
-        // Only create an auto-label if the default slot has meaningful content
-        const hasContent = nodes.some(
-          n =>
-            n.nodeType === Node.ELEMENT_NODE ||
-            (n.nodeType === Node.TEXT_NODE && n.textContent?.trim())
-        );
-
-        if (!hasContent) {
-          return;
-        }
-
-        this.#label = document.createElement('label');
-        this.#labelAutoCreated = true;
-      }
-    }
-
-    if (!this.#label.slot) {
+    if (this.#label && contentNodes.length) {
+      this.#label.replaceChildren(...contentNodes);
+    } else {
+      // Workaround for `??=` output missing parens around OR statement
+      this.#label =
+        this.#label ??
+        (this.querySelector('label[slot="label"]') || document.createElement('label'));
       this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
+      this.#label.append(...contentNodes);
       this.prepend(this.#label);
     }
 
     this.#label.id ||= `sl-label-${nextUniqueId++}`;
     // Communicate the label ID to the control so it can use it for aria-labelledby
     this.formControl?.setAttribute('data-label-id', this.#label.id);
-
-    this.#syncLabelContent();
-
-    // Observe the default slot for characterData/childList changes so the label
-    // stays in sync when Lit re-renders the parent with updated translations.
-    this.#slotObserver.disconnect();
-
-    for (const node of nodes) {
-      if (node.nodeType === Node.ELEMENT_NODE) {
-        this.#slotObserver.observe(node, {
-          characterData: true,
-          childList: true,
-          subtree: true
-        });
-      } else if (node.nodeType === Node.TEXT_NODE) {
-        this.#slotObserver.observe(node, {
-          characterData: true
-        });
-      }
-    }
-  }
-
-  #syncLabelContent(): void {
-    if (!this.#label || !this.#labelAutoCreated) {
-      return;
-    }
-
-    const slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement | null;
-
-    if (!slot) {
-      return;
-    }
-
-    const nodes = slot.assignedNodes({ flatten: true }),
-      currentNodes = Array.from(this.#label.childNodes),
-      isSynced =
-        currentNodes.length === nodes.length &&
-        currentNodes.every((node, index) => node.isEqualNode(nodes[index]));
-
-    if (!isSynced) {
-      this.#label.replaceChildren(...nodes.map(node => node.cloneNode(true)));
-    }
   }
 
   #update(): void {

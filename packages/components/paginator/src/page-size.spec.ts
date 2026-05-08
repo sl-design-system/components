@@ -23,7 +23,7 @@ describe('sl-paginator-page-size', () => {
 
       expect(label).to.exist;
       expect(label).to.have.attribute('for', select?.id);
-      expect(label?.querySelector('label[slot="label"]')).to.have.trimmed.text('Items per page:');
+      expect(label).to.have.trimmed.text('Items per page:');
     });
 
     it('should have a disabled select', () => {
@@ -91,9 +91,7 @@ describe('sl-paginator-page-size', () => {
       const label = el.renderRoot.querySelector('sl-label');
 
       expect(label).to.exist;
-      expect(label?.querySelector('label[slot="label"]')).to.have.trimmed.text(
-        'Students per page:'
-      );
+      expect(label).to.have.trimmed.text('Students per page:');
     });
 
     it('should have options with proper aria-label', () => {

@@ -22,7 +22,7 @@ describe('sl-form-field', () => {
     it('should render the label in the light DOM', () => {
       const label = el.querySelector('sl-label');
 
-      expect(label?.querySelector('label[slot="label"]')).to.have.text('My label');
+      expect(label).to.have.text('My label');
     });
 
     it('should slot the label in the label slot', () => {

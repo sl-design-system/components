@@ -1,5 +1,13 @@
 # @sl-design-system/accordion
 
+## 1.2.5
+
+### Patch Changes
+
+- [#3227](https://github.com/sl-design-system/components/pull/3227) [`9f34f04`](https://github.com/sl-design-system/components/commit/9f34f044dacab2fcf89744d8b13e8d825d6b7177) - Sync accessibility state on `sl-accordion-item` so disabled items are announced correctly by assistive technologies.
+
+  Disabled accordion items now expose `aria-disabled="true"` and keep `aria-expanded` in sync. This improves screen reader support in browsers where the disabled state was not announced consistently.
+
 ## 1.2.4
 
 ### Patch Changes

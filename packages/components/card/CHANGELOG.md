@@ -1,5 +1,11 @@
 # @sl-design-system/card
 
+## 2.0.2
+
+### Patch Changes
+
+- [#3222](https://github.com/sl-design-system/components/pull/3222) [`5e3f716`](https://github.com/sl-design-system/components/commit/5e3f71620a9df0d6285046fc60e71fd36fa76efb) - Fix: ensure body slot doesn't overlay button when there is no body text.
+
 ## 2.0.1
 
 ### Patch Changes
@@ -13,6 +19,7 @@
 - [#2133](https://github.com/sl-design-system/components/pull/2133) [`67df189`](https://github.com/sl-design-system/components/commit/67df189d3333051ca69a779dd1a0c2cbfd0406b0) - Complete overhaul of the card component. Some slots have the same name, but a lot of the options and css-properties have changed.
 
   Breaking:
+
   - `--sl-card-media-x` and `--sl-card-media-y` have been removed
   - `--sl-card-stretch-image` is removed, using the `fit-image` attribute has a similar effect.
   - `--sl-card-media-aspect-ratio` is removed. `--sl-card-media-size` is new and has a similar function.
@@ -24,6 +31,7 @@
   - `media-position` has been removed.
 
   New:
+
   - `--sl-card-image-backdrop` is added. This sets the background-property of the backdrop.
   - The `menu-button` slot is added for buttons in the top right of the card.
   - `subgrid` is added letting you control the layout of the card by the grid of the container where the cards are placed

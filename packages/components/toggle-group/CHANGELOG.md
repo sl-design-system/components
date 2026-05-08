@@ -1,5 +1,12 @@
 # @sl-design-system/toggle-group
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/toggle-button@0.0.15
+
 ## 0.0.14
 
 ### Patch Changes
@@ -80,6 +87,7 @@
 ### Patch Changes
 
 - [#1807](https://github.com/sl-design-system/components/pull/1807) [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768) - Incorporate the new contextual tokens and add new options:
+
   - add size `sm`
   - add shape `pill` | `square`
   - changed fill `ghost` `to solid`

@@ -1,5 +1,11 @@
 # @sl-design-system/tig
 
+## 1.1.2
+
+### Patch Changes
+
+- [#3248](https://github.com/sl-design-system/components/pull/3248) [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f) - Added new `octagon-xmark-solid` icon for use in Callout, Inline message, and Progress bar. Make sure to update your theme if you updated those components
+
 ## 1.1.1
 
 ### Patch Changes
@@ -11,9 +17,11 @@
 ### Minor Changes
 
 - [#3020](https://github.com/sl-design-system/components/pull/3020) [`738e4a7`](https://github.com/sl-design-system/components/commit/738e4a77005043de2f9977fab9fb04d4fce6369d) - Added
+
   - new elevation.surface.raised.primary token
 
   Fixed
+
   - form input interactive backgrounds (color.background.input.plain.interactive.plain) from plain to bold variants across all themes (e.g., accent.grey.interactive.bold) for better state contrast.
 
 - [#2970](https://github.com/sl-design-system/components/pull/2970) [`e92ebb1`](https://github.com/sl-design-system/components/commit/e92ebb16c596919aaa301be2604ab5f3539738a9) - Caret icons have been updated to implement the new alignment strategy used in Font Awesome 7

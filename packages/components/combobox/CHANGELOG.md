@@ -1,5 +1,29 @@
 # @sl-design-system/combobox
 
+## 0.1.8
+
+### Patch Changes
+
+- [#3211](https://github.com/sl-design-system/components/pull/3211) [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f) - Functional changes:
+
+  - The popover opens when you click in the combobox, no longer when you enter the combobox with keyboard navigation.
+
+  Accessibility improvements:
+
+  - Forward ARIA attributes (`aria-label`, `aria-describedby`, `aria-labelledby`) from host element to the input element for proper screen reader support
+  - Automatically associate label with input via `aria-labelledby` when a label is present
+
+- [#3112](https://github.com/sl-design-system/components/pull/3112) [`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56) - Fixed an issue in `sl-combobox` where tag remove icons were unclickable due to the input element overlapping them. Also resolved layout flickering in multiple selection mode by stabilizing the space distribution for the tag list.
+
+- [#3272](https://github.com/sl-design-system/components/pull/3272) [`3463445`](https://github.com/sl-design-system/components/commit/3463445833fe1d6993017c5b357ede54c34be09b) - Fix `filter-results` behavior in `sl-combobox` when leaving the field without selecting an option.
+
+  Previously, typing a search value and blurring the component could clear the input while keeping the internal filtered state, so reopening the list showed only stale filtered results.
+  Now, when focus leaves the component, filtered option visibility is reset to match the restored input value.
+
+- Updated dependencies [[`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56), [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e)]:
+  - @sl-design-system/tag@0.1.12
+  - @sl-design-system/form@1.4.0
+
 ## 0.1.7
 
 ### Patch Changes
@@ -136,6 +160,7 @@
   ```
 
   You can customize the rendering of each option by using:
+
   - `optionLabelPath` to specify the path to the label in each option object
   - `optionValuePath` to specify the path to the value in each option object
 
@@ -145,6 +170,7 @@
   the options in both scenarios by using the `sl-option { ... }` selector.
 
 - [#1642](https://github.com/sl-design-system/components/pull/1642) [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39) - Various combobox fixes:
+
   - Add `aria-owns` for linking the input to the listbox
   - Add `aria-posinset` and `aria-setsize` to the listbox options for virtual lists
   - Add focus style to tags
@@ -167,6 +193,7 @@
 ### Patch Changes
 
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes/improvements:
+
   - The label was associated with the `<sl-combobox>` element instead of the `<input>` element
   - `aria-selected="false"` was missing on the non-selected options
   - `aria-multiselectable="true"` was missing on the listbox when the multiple property is set

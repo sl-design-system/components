@@ -1,5 +1,12 @@
 # @sl-design-system/toggle-button
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/tooltip@2.0.0
+
 ## 0.0.14
 
 ### Patch Changes
@@ -93,6 +100,7 @@
 - [#1602](https://github.com/sl-design-system/components/pull/1602) [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b) - Fixed toggling `text-only` attribute.
 
 - [#1807](https://github.com/sl-design-system/components/pull/1807) [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768) - Incorporate the new contextual tokens and add new options:
+
   - add size `sm`
   - add shape `pill` | `square`
   - changed fill `ghost` `to solid`

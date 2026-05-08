@@ -1,5 +1,13 @@
 # @sl-design-system/stylelint-config
 
+## 0.4.0
+
+### Minor Changes
+
+- [#3251](https://github.com/sl-design-system/components/pull/3251) [`5f39687`](https://github.com/sl-design-system/components/commit/5f3968785eb5919c80287f2822baad971ca3baed) - Remove prettier from the ESLint and Stylelint configs. Running `oxfmt` as a separate formatting step is more performant than including prettier as a plugin in those configs.
+
+  See https://oxc.rs/docs/guide/usage/formatter.html for more information about `oxfmt`.
+
 ## 0.3.0
 
 ### Minor Changes

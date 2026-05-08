@@ -1,5 +1,29 @@
 # @sl-design-system/tool-bar
 
+## 0.2.4
+
+### Patch Changes
+
+- [#3259](https://github.com/sl-design-system/components/pull/3259) [`e19736a`](https://github.com/sl-design-system/components/commit/e19736a4334f6b260c521da7b6f77da485468ddd) - Fix missing labels for `sl-menu-button` items rendered in the tool-bar overflow menu when mapping happens before ARIA forwarding is ready (e.g. nested slot scenarios such as Grid bulk actions).
+
+  The overflow mapping now falls back from forwarded ARIA name/description to host `aria-labelledby` / `aria-label`, and finally to `slot="button"` text content, ensuring labels remain visible
+
+- [#3241](https://github.com/sl-design-system/components/pull/3241) [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411) - Fix overflow behavior:
+
+  - Refactor overflow logic to more accurately calculate visible items, reserve space for the menu button, and handle the menu button margin correctly when all items are hidden.
+  - Update `tool-bar.ts` to use the new measurement utilities (`measureMenuButtonWidth` and `measureConstrainedWidth`) for more reliable overflow calculations.
+  - Update toolbar styles to prevent layout shifts during measurement and ensure correct sizing in flexible containers.
+
+- [#3265](https://github.com/sl-design-system/components/pull/3265) [`f7ad9c9`](https://github.com/sl-design-system/components/commit/f7ad9c907f7661a542889c7140e9161774d9dc86) - Fix a bug where `sl-menu-item` click handlers did not fire from the toolbar overflow menu.
+
+  When a toolbar was collapsed, submenu actions originating from `sl-menu-button` were rendered in overflow but did not forward clicks to the original menu items. This change adds click proxying so selecting an overflow submenu item triggers the original item's click handler, restoring expected behavior in components such as Grid bulk actions.
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`3e439d2`](https://github.com/sl-design-system/components/commit/3e439d24a4905b82143fe571e198e77375df7aa0)]:
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/menu@0.3.2
+  - @sl-design-system/toggle-button@0.0.15
+  - @sl-design-system/toggle-group@0.0.15
+
 ## 0.2.3
 
 ### Patch Changes
@@ -42,15 +66,18 @@
 ### Minor Changes
 
 - [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - **Breaking Changes:**
+
   - Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
   - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
 
   **New Features:**
+
   - Added `contained` property to enable contained mode
   - Added keyboard navigation support for arrow keys when toolbar is focused
   - Added `inverted` property to the divider component
 
   **Improvements:**
+
   - Improved overall styling and fixed overflow behavior issues
 
 ### Patch Changes
@@ -129,6 +156,7 @@
 ### Patch Changes
 
 - [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Various improvements:
+
   - Add `ellipsis-vertical` icon to the icon set
   - Add `inverted` boolean property so the menu button can be inverted
   - Fix overflow calculation so we never have an unnecessary menu button

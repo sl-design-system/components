@@ -1,5 +1,14 @@
 # @sl-design-system/tag
 
+## 0.1.12
+
+### Patch Changes
+
+- [#3112](https://github.com/sl-design-system/components/pull/3112) [`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56) - Added a 0.5px buffer to the tag list visibility calculation to prevent layout oscillation (flickering) caused by sub-pixel rounding errors at certain zoom levels.
+
+- Updated dependencies [[`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/tooltip@2.0.0
+
 ## 0.1.11
 
 ### Patch Changes
@@ -114,6 +123,7 @@
 ### Minor Changes
 
 - [#1813](https://github.com/sl-design-system/components/pull/1813) [`7b2fdc6`](https://github.com/sl-design-system/components/commit/7b2fdc6ee42af1b096b6f019b0f9e9daba5ed950) - Various improvements:
+
   - Add missing `disabled` property to `<sl-tag-list>` so the stack tag can be disabled
   - Change design from a visual stack to a regular tag with a `<number>+` text
   - Use the same size (`24px` for `md`, `36px` for `lg`) that is used elsewhere in the design system
@@ -139,10 +149,12 @@
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes
 
   `<sl-tag-list>`:
+
   - Use `aria-labelledby` for the tooltip instead of `aria-describedby`
   - Do not set an `aria-label` on the host element; `role="list"` provides enough information
 
   `<sl-tag>`:
+
   - Add ability to use Delete or Backspace keys to remove the tag
   - Use `aria-description` to describe how to remove the tag using the keyboard
   - Make the delete button have `aria-hidden="true"`

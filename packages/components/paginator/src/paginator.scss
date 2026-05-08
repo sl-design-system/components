@@ -30,11 +30,24 @@
 }
 
 .page {
+  --sl-button-bg-color: transparent;
+  --sl-button-bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+  --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --sl-button-color: var(--sl-color-foreground-neutral-bold);
+
   box-sizing: border-box;
   color: var(--sl-color-foreground-neutral-bold);
   flex-shrink: 0;
   inline-size: calc(1lh + (var(--sl-size-100) * 2));
   padding-inline: 0;
+
+  &:hover {
+    --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  &:active {
+    --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
 }
 
 :host([size='sm']) {
@@ -50,30 +63,23 @@
 }
 
 .current {
-  --_bg-color: var(--sl-color-background-selected-subtle);
-  --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-
-  color: var(--sl-color-foreground-primary-bold);
+  --sl-button-bg-color: var(--sl-color-background-primary-bold);
+  --sl-button-bg-mix-color: var(--sl-color-background-primary-interactive-bold);
+  --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --sl-button-color: var(--sl-color-foreground-primary-onBold);
 
   &:hover {
-    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+    --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
   &:active {
-    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+    --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 }
 
 :host([emphasis='bold']) .current {
-  --_bg-color: var(--sl-color-background-selected-bold);
-  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
-
-  color: var(--sl-color-foreground-primary-onBold);
-}
-
-:host([emphasis='bold']) .current:not(:hover, :active) {
-  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+  --sl-button-bg-color: var(--sl-color-background-primary-bold);
+  --sl-button-bg-mix-color: var(--sl-color-background-primary-interactive-bold);
 }
 
 .wrapper {

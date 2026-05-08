@@ -164,7 +164,7 @@
 </trans-unit>
 <trans-unit id="sl.checkbox.validation.valueMissingMultiple">
   <source>Please check at least one option.</source>
-  <target>Marca al menos una opción.</target>
+  <target>Selecciona al menos una opción.</target>
 </trans-unit>
 <trans-unit id="sl.tag.listOfHiddenElements">
   <source>List of hidden elements</source>
@@ -352,11 +352,11 @@
 </trans-unit>
 <trans-unit id="sl.timeField.selectHours">
   <source>Select hours</source>
-  <target>Seleccionar horas</target>
+  <target>Selecciona una hora</target>
 </trans-unit>
 <trans-unit id="sl.timeField.selectMinutes">
   <source>Select minutes</source>
-  <target>Seleccionar los minutos</target>
+  <target>Selecciona los minutos</target>
 </trans-unit>
 <trans-unit id="sl.calendar.daysLabel">
   <source>Days of <x id="0" equiv-text="${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}"/></source>
@@ -416,11 +416,11 @@
 </trans-unit>
 <trans-unit id="sl.dateField.selectDate">
   <source>Select date</source>
-  <target>Seleccionar una fecha</target>
+  <target>Selecciona una fecha</target>
 </trans-unit>
 <trans-unit id="sl.timeField.toggleDropdown">
   <source>Select time</source>
-  <target>Seleccionar una hora</target>
+  <target>Selecciona una hora</target>
 </trans-unit>
 <trans-unit id="sl.dateField.empty">
   <source>Empty</source>

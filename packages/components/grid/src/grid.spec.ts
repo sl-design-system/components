@@ -2,7 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { type ToolBar } from '@sl-design-system/tool-bar';
-import { tooltip } from '@sl-design-system/tooltip';
+import { Tooltip, tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -212,7 +212,7 @@ describe('sl-grid', () => {
 
       await userEvent.hover(button!);
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 250));
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
 
       const lazyTooltip = findTooltipByText('I am a tooltip');
 
@@ -223,9 +223,7 @@ describe('sl-grid', () => {
 
     it('should keep showing an explicit tooltip for a bulk action button on repeated hover', async () => {
       await mountMultipleSelectGrid(html`
-        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0"
-          >Bulk action tooltip</sl-tooltip
-        >
+        <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
         <sl-button
           aria-describedby="bulk-action-tooltip"
           fill="outline"
@@ -247,29 +245,27 @@ describe('sl-grid', () => {
       await userEvent.hover(button!);
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 10));
 
       expect(isPopoverOpen(explicitTooltip!)).to.be.true;
 
       await userEvent.unhover(button!);
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverHideDelay + 10));
 
       expect(isPopoverOpen(explicitTooltip!)).to.be.false;
 
       await userEvent.hover(button!);
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 10));
 
       expect(isPopoverOpen(explicitTooltip!)).to.be.true;
     });
 
     it('should show the explicit bulk action tooltip when hovering the sl-button proxy target', async () => {
       await mountMultipleSelectGrid(html`
-        <sl-tooltip id="bulk-action-tooltip" show-delay="0" hide-delay="0"
-          >Bulk action tooltip</sl-tooltip
-        >
+        <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
         <sl-button
           aria-describedby="bulk-action-tooltip"
           fill="outline"
@@ -297,7 +293,7 @@ describe('sl-grid', () => {
       await userEvent.hover(proxyTarget!);
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 10));
 
       expect(isPopoverOpen(explicitTooltip!)).to.be.true;
     });
@@ -336,14 +332,14 @@ describe('sl-grid', () => {
 
       await userEvent.hover(cancelButton!);
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 250));
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
 
       expect(isPopoverOpen(cancelTooltip!)).to.be.true;
 
       await userEvent.hover(bulkProxyTarget!);
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, 250));
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
 
       const bulkTooltip = findTooltipByText('I am a tooltip');
 

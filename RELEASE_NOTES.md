@@ -4,6 +4,47 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# May 8, 2026
+
+A new `<sl-infotip>` component has been added in the `@sl-design-system/infotip` package. It shows an info icon button that opens a popover with extra information. Place it in the `infotip` slot of `<sl-label>` so screen readers read the info content when the user focuses the form control. Note: this component is still in `draft` status, so it may still change.
+
+## Breaking changes
+
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) now uses fixed hover delays that can no longer be changed. The `show-delay` and `hide-delay` properties have been removed. The show delay is now always `500ms` and the hide delay is `200ms`.
+
+## New features
+
+- [`infotip`](https://github.com/sl-design-system/components/blob/main/packages/components/infotip/CHANGELOG.md) is a new `draft` component that can be used to show extra information next to a form control's label. It connects its content to the input using `aria-describedby`. Since it is a draft component, it may still change.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) now supports `<sl-infotip>` in the `infotip` slot of `<sl-label>`, and passes the label ID to form controls using a `data-label-id` attribute for proper `aria-labelledby` links. The validation error icon in `sl-error` has also been changed from `circle-exclamation-solid` to `triangle-exclamation-solid` so it matches the warning/error icon style used in Callout, Inline message and Progress bar.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) now opens the popover on click instead of on keyboard focus. It also passes ARIA attributes (`aria-label`, `aria-describedby`, `aria-labelledby`) from the host element to the input so screen readers work correctly.
+- [`callout`](https://github.com/sl-design-system/components/blob/main/packages/components/callout/CHANGELOG.md), [`inline-message`](https://github.com/sl-design-system/components/blob/main/packages/components/inline-message/CHANGELOG.md) and [`progress-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/progress-bar/CHANGELOG.md) now use the same warning and error icons. Warnings use `triangle-exclamation-solid` and errors use the new `octagon-xmark-solid` icon. Make sure to update your theme when you update any of these components.
+- [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds translations for the new infotip component.
+
+## Bug fixes
+
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md) fixes disabled items not being announced correctly by screen readers (`aria-disabled` and `aria-expanded`).
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes slotted `<a href>` elements inside `<sl-button>` so application CSS can no longer override the link color and text decoration. Note: Slotting an `<a href>` inside an `<sl-button>` is considered bad practice. Use an `<a href>` directly. There are already styles for that in the theme's `global.css`.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) and [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) fix spacing, padding and width to match the updated picker layout.
+- [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) fixes the body slot covering the action button when there is no body text.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) fixes unclickable tag remove icons, layout flickering in multiple selection mode, and stale filtered results when leaving the field without selecting.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) prevents unwanted scrollbars in the bulk-actions toolbar.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes selectable menu items not always showing `aria-checked`.
+- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md) no longer clears custom error messages set via `setCustomValidity(...)` when the component checks validity internally.
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) fixes non-collapsible panels causing duplicate heading announcements in screen readers.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) now updates when the selected option's content changes at runtime.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fixes tag list flickering at certain zoom levels.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes overflow calculations, missing labels in the overflow menu, and click handlers for overflow submenu items (e.g. Grid bulk actions).
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) fixes tooltips on grid bulk action buttons inside popovers.
+
+## Theme updates
+
+- All themes have been updated with a new `octagon-xmark-solid` icon used in Callout, Inline message and Progress bar. Make sure to update your theme when you update any of those components.
+
+## Tooling
+
+- [`eslint-config`](https://github.com/sl-design-system/components/blob/main/tools/eslint-config/CHANGELOG.md) and [`stylelint-config`](https://github.com/sl-design-system/components/blob/main/tools/stylelint-config/CHANGELOG.md) no longer include Prettier. Use [`oxfmt`](https://oxc.rs/docs/guide/usage/formatter.html) as a separate, faster formatting step instead.
+- [`eslint-plugin-slds`](https://github.com/sl-design-system/components/blob/main/tools/eslint-plugin-slds/CHANGELOG.md) fixes a false positive in `slds/singleline-html-template-trimmed` where spaces between expressions were incorrectly reported as whitespace.
+
 # April 13, 2026
 
 `format-date` and `format-number` have been promoted from `draft` to `preview`.

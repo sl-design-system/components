@@ -5,6 +5,8 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 function getExample() {
+  const slot = instance.getString('slot');
+
   const buttonVariants = instance.findInstance('Button-Variants');
   if (buttonVariants.type === 'ERROR') return null;
 
@@ -54,6 +56,7 @@ function getExample() {
       ${fill !== 'solid' ? `fill="${fill}"` : ''}
       shape="pill"
       ${size !== 'md' ? `size="${size}"` : ''}
+      ${typeof slot === 'string' ? `slot="${slot}"` : ''}
       ${variant !== 'secondary' ? `variant="${variant}"` : ''}
     >
       ${iconStart ? icon?.executeTemplate().example : ''}

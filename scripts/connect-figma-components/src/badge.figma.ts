@@ -7,7 +7,8 @@ const instance = figma.selectedInstance;
 function getExample() {
   const color = instance.getString('accent') ?? 'grey',
     emphasis = instance.getString('emphasis') ?? 'subtle',
-    size = instance.getString('size') ?? 'md';
+    size = instance.getString('size') ?? 'md',
+    slot = instance.getString('slot');
 
   const badgeBase = instance.findInstance(`badge-base-${size}`);
   if (badgeBase.type === 'ERROR') return null;
@@ -16,7 +17,12 @@ function getExample() {
     label = badgeBase.getString('Text');
 
   return figma.code`
-    <sl-badge${color !== 'grey' ? ` color="${color}"` : ''}${emphasis !== 'subtle' ? ` emphasis="${emphasis}"` : ''}${size !== 'md' ? ` size="${size}"` : ''}>
+    <sl-badge
+      ${color !== 'grey' ? ` color="${color}"` : ''}
+      ${emphasis !== 'subtle' ? ` emphasis="${emphasis}"` : ''}
+      ${size !== 'md' ? ` size="${size}"` : ''}
+      ${slot ? ` slot="${slot}"` : ''}
+    >
       ${icon?.type !== 'ERROR' ? icon?.executeTemplate().example : ''}
       ${label}
     </sl-badge>

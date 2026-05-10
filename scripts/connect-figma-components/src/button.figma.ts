@@ -5,6 +5,8 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 function getExample() {
+  const slot = instance.getString('slot');
+
   const buttonVariants = instance.findInstance('Button-Variants');
   if (buttonVariants.type === 'ERROR') return null;
 
@@ -50,10 +52,11 @@ function getExample() {
 
   return figma.code`
     <sl-button
-      ${disabled ? ' disabled' : ''}
-      ${fill !== 'solid' ? ` fill="${fill}"` : ''}
-      ${size !== 'md' ? ` size="${size}"` : ''}
-      ${variant !== 'secondary' ? ` variant="${variant}"` : ''}
+      ${disabled ? 'disabled' : ''}
+      ${fill !== 'solid' ? `fill="${fill}"` : ''}
+      ${size !== 'md' ? `size="${size}"` : ''}
+      ${typeof slot === 'string' ? `slot="${slot}"` : ''}
+      ${variant !== 'secondary' ? `variant="${variant}"` : ''}
     >
       ${iconStart ? icon?.executeTemplate().example : ''}
       ${label}

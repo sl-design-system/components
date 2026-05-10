@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1014-329272&t=8JzlZk8HLo1BDjBQ-4
+// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1014-329272
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -11,7 +11,11 @@ function getExample() {
   if (menuBase.type === 'ERROR') return null;
 
   return figma.code`
-    <sl-menu-item${selected ? 'selectable selected' : ''}>Menu Item</sl-menu-item>
+    <sl-menu-item
+      ${selected ? 'selectable selected' : ''}
+    >
+      Menu Item
+    </sl-menu-item>
   `;
 }
 

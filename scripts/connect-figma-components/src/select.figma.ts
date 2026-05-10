@@ -35,7 +35,15 @@ function getExample() {
 
   return figma.code`
     <sl-form-field${label ? ` label="${label}"` : ''}>
-      <sl-select${clearable ? ' clearable' : ''}${disabled ? ' disabled' : ''}${placeholder ? ` placeholder="${placeholder}"` : ''}${required ? ' required' : ''}${value ? ` value="${value}"` : ''}>${options}</sl-select>
+      <sl-select
+        ${clearable ? ' clearable' : ''}
+        ${disabled ? ' disabled' : ''}
+        ${placeholder ? ` placeholder="${placeholder}"` : ''}
+        ${required ? ' required' : ''}
+        ${value ? ` value="${value}"` : ''}
+      >
+        ${options}
+      </sl-select>
     </sl-form-field>
   `;
 }

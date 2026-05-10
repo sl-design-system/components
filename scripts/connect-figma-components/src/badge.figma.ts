@@ -21,7 +21,7 @@ function getExample() {
       ${color !== 'grey' ? ` color="${color}"` : ''}
       ${emphasis !== 'subtle' ? ` emphasis="${emphasis}"` : ''}
       ${size !== 'md' ? ` size="${size}"` : ''}
-      ${slot ? ` slot="${slot}"` : ''}
+      ${typeof slot === 'string' ? ` slot="${slot}"` : ''}
     >
       ${icon?.type !== 'ERROR' ? icon?.executeTemplate().example : ''}
       ${label}

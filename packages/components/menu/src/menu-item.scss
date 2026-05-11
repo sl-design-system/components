@@ -13,6 +13,8 @@
   position: relative;
 }
 
+// background: var(--sl-color-background-neutral-interactive-plain);
+
 :host(:hover),
 :host(:focus-visible) {
   &::before {
@@ -117,6 +119,7 @@ sl-icon[name='chevron-right'] {
   position: relative;
 
   &:hover {
+    --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 

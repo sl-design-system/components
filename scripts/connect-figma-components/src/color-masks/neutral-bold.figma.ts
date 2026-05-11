@@ -1,0 +1,18 @@
+// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7355-28706
+/// <reference types="@figma/code-connect/figma-types" />
+import figma from 'figma';
+
+function getProps() {
+  const color = 'neutral',
+    emphasis = 'bold';
+
+  return { color, emphasis };
+}
+
+export default {
+  example: figma.code``,
+  id: 'color-mask',
+  metadata: {
+    props: getProps()
+  }
+};

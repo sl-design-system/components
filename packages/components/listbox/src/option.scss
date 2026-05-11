@@ -3,16 +3,24 @@
   --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
+  border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   display: block;
   hyphens: auto;
   inline-size: calc(100% - var(--sl-size-100) * 2);
   margin-inline: var(--sl-size-100);
-  outline: 0;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
   overflow-wrap: anywhere;
   position: relative;
   scroll-margin-block: var(--sl-size-100);
   user-select: none;
+}
+
+:host(:where(:focus, :focus-visible)) {
+  outline-color: var(--sl-color-border-focused);
+  position: relative;
+  z-index: 1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -25,7 +33,7 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
-:host(:where(:hover, :focus-visible, [current]))::before {
+:host(:where(:hover, :focus, :focus-visible, [current]))::before {
   background: var(--sl-color-background-selected-bold);
   border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child)
     var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-none);

@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1627-81163
+// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1631-139565
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -21,18 +21,18 @@ function getExample() {
   }
 
   return figma.code`
-    <sl-form-field ${label ? `label="${label}"` : ''}>
-      <sl-text-field
+    <sl-form-field${label ? ` label="${label}"` : ''}>
+      <sl-text-area
         ${disabled ? ' disabled' : ''}
         ${placeholder ? ` placeholder="${placeholder}"` : ''}
         ${required ? ' required' : ''}
         ${value ? ` value="${value}"` : ''}
-      ></sl-text-field>
+      ></sl-text-area>
     </sl-form-field>
   `;
 }
 
 export default {
   example: getExample(),
-  id: 'text-field'
+  id: 'text-area'
 };

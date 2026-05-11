@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1627-81163
+// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6608-70209
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -22,17 +22,17 @@ function getExample() {
 
   return figma.code`
     <sl-form-field ${label ? `label="${label}"` : ''}>
-      <sl-text-field
+      <sl-date-field
         ${disabled ? ' disabled' : ''}
         ${placeholder ? ` placeholder="${placeholder}"` : ''}
         ${required ? ' required' : ''}
         ${value ? ` value="${value}"` : ''}
-      ></sl-text-field>
+      ></sl-date-field>
     </sl-form-field>
   `;
 }
 
 export default {
   example: getExample(),
-  id: 'text-field'
+  id: 'date-field'
 };

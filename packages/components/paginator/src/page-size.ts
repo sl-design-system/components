@@ -122,7 +122,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
 
     return html`
       <sl-label for="sizes">
-        ${msg(str`${itemLabel} per page:`, { id: 'sl.paginator.itemsPerPage' })}
+        <span>${msg(str`${itemLabel} per page:`, { id: 'sl.paginator.itemsPerPage' })}</span>
       </sl-label>
       <sl-select
         @sl-change=${this.#onChange}

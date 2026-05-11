@@ -9,6 +9,9 @@ function getExample() {
     { color = 'grey', emphasis = 'subtle' } =
       colorInstance?.executeTemplate().metadata?.props ?? {};
 
+  const initials = instance.getString('Initals'),
+    vertical = instance.getString('Header position') === 'Under';
+
   const shape = instance.getEnum('Shape', { Circle: 'circle', Square: 'square' }) ?? 'circle';
 
   const size =
@@ -21,6 +24,12 @@ function getExample() {
       '3XL': '3xl',
       '4XL': '4xl'
     }) ?? 'md';
+
+  const header = instance.findInstance('avatar-header');
+  if (header.type === 'ERROR') return null;
+
+  const heading = header.getString('Header'),
+    subheading = header.getString('Subheader');
 
   const hasBadge = instance.getBoolean('Badge');
 
@@ -37,15 +46,20 @@ function getExample() {
     <sl-avatar
       ${color !== 'grey' ? `color="${color as string}"` : ''}
       ${emphasis !== 'subtle' ? `emphasis="${emphasis as string}"` : ''}
+      ${heading ? `display-name="${heading}"` : ''}
+      ${initials ? `display-initials="${initials}"` : ''}
       ${shape !== 'circle' ? `shape="${shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
+      ${vertical ? 'vertical' : ''}
     >
+      ${subheading}
       ${
         hasBadge
           ? `
           <sl-badge
             ${badgeColor !== 'grey' ? `color="${badgeColor}"` : ''}
             ${badgeEmphasis !== 'subtle' ? `emphasis="${badgeEmphasis}"` : ''}
+            slot="badge"
           >
             ${badgeText}
           </sl-badge>`

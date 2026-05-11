@@ -23,14 +23,10 @@ const display = {
 };
 
 // Add keyboard shortcuts for expand/collapse all
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', event => {
   // Don't trigger shortcuts when typing in input fields
   const target = event.target as HTMLElement;
-  if (
-    target.tagName === 'INPUT' ||
-    target.tagName === 'TEXTAREA' ||
-    target.isContentEditable
-  ) {
+  if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
     return;
   }
 

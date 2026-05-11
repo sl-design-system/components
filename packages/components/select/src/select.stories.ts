@@ -561,14 +561,22 @@ export const All: Story = {
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" size="lg" aria-label="Large select with placeholder">
+        <sl-select
+          placeholder="Select an option"
+          size="lg"
+          aria-label="Large select with placeholder"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Selected</span>
-        <sl-select placeholder="Select an option" value="Value 2" aria-label="Medium select with selected value">
+        <sl-select
+          placeholder="Select an option"
+          value="Value 2"
+          aria-label="Medium select with selected value"
+        >
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>

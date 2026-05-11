@@ -187,6 +187,33 @@ describe('sl-combobox', () => {
       expect(wrapper?.matches(':popover-open')).to.be.false;
     });
 
+    it('should have an aria-label of "Show the options" when the popover is closed', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.have.attribute('aria-label', 'Show the options');
+    });
+
+    it('should have an aria-label of "Hide the options" when the popover is open', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-label', 'Hide the options');
+    });
+
+    it('should switch aria-label back to "Show the options" when the popover closes', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-label', 'Show the options');
+    });
+
     it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });

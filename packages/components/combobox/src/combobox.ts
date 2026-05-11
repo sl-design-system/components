@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
@@ -364,7 +364,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const previousLabelId = changes.get('labelId'),
         ariaLabel = this.input.getAttribute('aria-label'),
         ariaLabelledBy = this.input.getAttribute('aria-labelledby'),
-        hasExplicitAccessibleName = Boolean(ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId));
+        hasExplicitAccessibleName = Boolean(
+          ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId)
+        );
 
       if (!this.labelId || ariaLabel) {
         if (ariaLabelledBy === previousLabelId) {
@@ -528,12 +530,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg(
-            str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`,
-            {
-              id: 'sl.combobox.toggleOptions'
-            }
-          )}
+          aria-label=${this.wrapper?.matches(':popover-open')
+            ? msg('Hide the options', { id: 'sl.combobox.hideOptions' })
+            : msg('Show the options', { id: 'sl.combobox.showOptions' })}
           slot="suffix"
           tabindex="-1"
         >
@@ -601,6 +600,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
+
+    this.requestUpdate();
   }
 
   #onButtonClick(): void {

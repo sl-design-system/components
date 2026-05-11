@@ -116,6 +116,77 @@ More information about the xliff files structure and generated translations can 
 The SL design system currently supports these languages:
 
 - English (default)
+- Spanish - Spain (es-ES)
+- Italian (it)
 - Dutch (nl)
+- Polish (pl)
 
 To add support for a new language, create a new xliff file with the appropriate language code.
+
+## Loading Translations
+
+The `@sl-design-system/locales` package provides locale data through subpath exports for optimal tree-shaking and code-splitting.
+
+### Recommended: Dynamic Loading with @lit/localize
+
+For optimal bundle size and performance, use dynamic imports with `@lit/localize`:
+
+```typescript
+import { configureLocalization } from '@lit/localize';
+import { sourceLocale, targetLocales } from '@sl-design-system/locales';
+
+const { setLocale } = configureLocalization({
+  sourceLocale,
+  targetLocales,
+  loadLocale: async locale => {
+    // Dynamic imports enable code-splitting per locale
+    switch (locale) {
+      case 'nl':
+        return import('@sl-design-system/locales/nl.js');
+      case 'it':
+        return import('@sl-design-system/locales/it.js');
+      case 'es-ES':
+        return import('@sl-design-system/locales/es-ES.js');
+      case 'pl':
+        return import('@sl-design-system/locales/pl.js');
+      default:
+        return import('@sl-design-system/locales/nl.js');
+    }
+  }
+});
+
+// Switch locale at runtime
+await setLocale('nl'); // Loads Dutch translations on-demand
+```
+
+**Benefits:**
+
+- Each locale is in its own bundle chunk
+- Locales are only loaded when needed
+- Reduces initial bundle size
+
+### Direct Import (Static)
+
+If you know which locale you need at build time, import directly from the subpath export:
+
+```typescript
+import * as nl from '@sl-design-system/locales/nl.js';
+import * as it from '@sl-design-system/locales/it.js';
+import * as esES from '@sl-design-system/locales/es-ES.js';
+import * as pl from '@sl-design-system/locales/pl.js';
+
+// Access translations directly
+const closeText = nl.templates['sl.common.close']; // "Sluiten"
+```
+
+**Note:** Direct imports load the locale immediately and include it in your bundle. For better performance with multiple locales, prefer dynamic loading.
+
+### Accessing Locale Metadata
+
+```typescript
+import { sourceLocale, targetLocales, allLocales } from '@sl-design-system/locales';
+
+console.log(sourceLocale); // 'en'
+console.log(targetLocales); // ['es-ES', 'it', 'nl', 'pl']
+console.log(allLocales); // ['en', 'es-ES', 'it', 'nl', 'pl']
+```

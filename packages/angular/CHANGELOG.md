@@ -86,7 +86,6 @@
 - [#2615](https://github.com/sl-design-system/components/pull/2615) [`e5fa66b`](https://github.com/sl-design-system/components/commit/e5fa66b00e9b89445a724890e28e6ba12dc19b92) - Add `ComboboxDirective` to forms
 
 - [#2512](https://github.com/sl-design-system/components/pull/2512) [`fcc7864`](https://github.com/sl-design-system/components/commit/fcc786484858d74bd8c93a40a6bb10b5f2d7664d) - - Add explicit `markForChanges()` to all `ControlValueAccessor` directives
-
   - Add support for the `<sl-number-field>` component:
     - Added `NumberFieldComponent` for exposing the web component API within Angular
     - Added `NumberFieldDirective` for Angular form integration
@@ -194,18 +193,15 @@
 ### Minor Changes
 
 - [#1210](https://github.com/sl-design-system/components/pull/1210) [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5) - Various improvements:
-
   - Remove the `FormsModule` and make all form directives standalone
 
   This is a breaking change and the reason for the minor version bump. If you are using the `FormsModule` in
   your Angular app, you will need to remove it and import the form directives you are using individually.
-
   - Generate Angular wrappers for all public web components
 
   This will make it easier to use the components in Angular apps. You only need to import a specific component
   to be able to get Angular bindings and type safety. This also removes the need for specifying the `CUSTOM_ELEMENTS_SCHEMA`
   everywhere.
-
   - Add `slTooltip` directive for ease-of-use in Angular
 
   This is syntactic sugar for the `sl-tooltip` web component. It allows you to use the `slTooltip` directive on any

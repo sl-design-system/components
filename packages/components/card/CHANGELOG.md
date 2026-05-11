@@ -19,7 +19,6 @@
 - [#2133](https://github.com/sl-design-system/components/pull/2133) [`67df189`](https://github.com/sl-design-system/components/commit/67df189d3333051ca69a779dd1a0c2cbfd0406b0) - Complete overhaul of the card component. Some slots have the same name, but a lot of the options and css-properties have changed.
 
   Breaking:
-
   - `--sl-card-media-x` and `--sl-card-media-y` have been removed
   - `--sl-card-stretch-image` is removed, using the `fit-image` attribute has a similar effect.
   - `--sl-card-media-aspect-ratio` is removed. `--sl-card-media-size` is new and has a similar function.
@@ -31,7 +30,6 @@
   - `media-position` has been removed.
 
   New:
-
   - `--sl-card-image-backdrop` is added. This sets the background-property of the backdrop.
   - The `menu-button` slot is added for buttons in the top right of the card.
   - `subgrid` is added letting you control the layout of the card by the grid of the container where the cards are placed

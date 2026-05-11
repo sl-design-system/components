@@ -22,7 +22,6 @@ function getExample() {
     .map(result => result?.code)
     .join('\n');
 
-  console.log('5');
   return figma.code`
     <sl-breadcrumbs
       ${hideHomeLabel ? 'hide-home-label' : ''}

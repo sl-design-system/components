@@ -10,7 +10,7 @@ import {
 import { Label } from '@sl-design-system/form';
 import { Option } from '@sl-design-system/listbox';
 import { Select } from '@sl-design-system/select';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, event, getPluralCategory } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -118,11 +118,11 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   }
 
   override render(): TemplateResult {
+    const itemLabel = this.itemLabel ?? msg('Items', { id: 'sl.paginator.defaultItemLabel' });
+
     return html`
       <sl-label for="sizes">
-        ${msg(str`${this.itemLabel ? this.itemLabel : 'Items'} per page:`, {
-          id: 'sl.paginator.itemsPerPage'
-        })}
+        <span>${msg(str`${itemLabel} per page:`, { id: 'sl.paginator.itemsPerPage' })}</span>
       </sl-label>
       <sl-select
         @sl-change=${this.#onChange}
@@ -130,15 +130,17 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
         id="sizes"
         value=${ifDefined(this.pageSize)}
       >
-        ${this.pageSizes?.map(
-          size => html`
+        ${this.pageSizes?.map(size => {
+          const sizeLabel = this.itemLabel ?? this.#getDefaultItemLabel(size);
+
+          return html`
             <sl-option
-              aria-label=${`${size} ${msg(str`${this.itemLabel ? this.itemLabel : 'items'} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
+              aria-label=${`${size} ${msg(str`${sizeLabel} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
               .value=${size}
               >${size}</sl-option
             >
-          `
-        )}
+          `;
+        })}
       </sl-select>
     `;
   }
@@ -149,6 +151,17 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
 
     this.dataSource?.setPageSize(pageSize);
     this.dataSource?.update();
+  }
+
+  #getDefaultItemLabel(count: number): string {
+    switch (getPluralCategory(count)) {
+      case 'one':
+        return msg('item', { id: 'sl.paginator.defaultItemLabelOne' });
+      case 'few':
+        return msg('items', { id: 'sl.paginator.defaultItemLabelFew' });
+      default:
+        return msg('items', { id: 'sl.paginator.defaultItemLabelOther' });
+    }
   }
 
   #onUpdate = () => {

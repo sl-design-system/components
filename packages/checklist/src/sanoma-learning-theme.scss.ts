@@ -96,7 +96,9 @@ export default css`
     --sl-size-lineHeight-600: var(--sl-size-600);
     --sl-size-lineHeight-800: var(--sl-size-800);
     --sl-size-lineHeight-1000: var(--sl-size-1000);
-    --sl-size-borderWidth-bold: var(--sl-size-025); /** A bold border, applied to UI elements that need to stand out. */
+    --sl-size-borderWidth-bold: var(
+      --sl-size-025
+    ); /** A bold border, applied to UI elements that need to stand out. */
     --sl-size-borderWidth-none: var(
       --sl-size-none
     ); /** A heavy border for impactful elements where heavy emphasis is needed. */
@@ -135,8 +137,10 @@ export default css`
       0 var(--sl-size-075) var(--sl-size-150) -3px var(--sl-color-shadow-overlay1),
       0 var(--sl-size-150) var(--sl-size-200) var(--sl-color-shadow-overlay2);
     --sl-elevation-shadow-overflow: 0 0 var(--sl-size-200) var(--sl-color-shadow-overflow1);
-    --sl-space-new-toggleButton-nonActive-lg-2: var(--sl-size-300) + ((var(--sl-size-100) + var(--sl-size-new-icon-md))/2);
-    --sl-space-new-toggleButton-nonActive-md-2: var(--sl-size-200) + ((var(--sl-size-100) + var(--sl-size-new-icon-md))/2);
+    --sl-space-new-toggleButton-nonActive-lg-2: var(--sl-size-300) +
+      ((var(--sl-size-100) + var(--sl-size-new-icon-md))/2);
+    --sl-space-new-toggleButton-nonActive-md-2: var(--sl-size-200) +
+      ((var(--sl-size-100) + var(--sl-size-new-icon-md))/2);
     --sl-space-100: var(--sl-size-100);
     --sl-space-125: var(--sl-size-125);
     --sl-space-150: var(--sl-size-150);
@@ -156,7 +160,8 @@ export default css`
     --sl-space-075: var(--sl-size-075);
     --sl-space-full: var(--sl-size-full);
     --sl-space-none: var(--sl-size-none);
-    --sl-text-new-icon-solid: var(--sl-icon-typeset-fontWeight-icon-solid) 16px var(--sl-icon-typeset-fontFamily-classic);
+    --sl-text-new-icon-solid: var(--sl-icon-typeset-fontWeight-icon-solid) 16px
+      var(--sl-icon-typeset-fontFamily-classic);
     --sl-text-new-icon-outline: var(--sl-icon-typeset-fontWeight-icon-regular) 16px
       var(--sl-icon-typeset-fontFamily-classic);
     --sl-text-new-typeset-fontFamily-icon: var(--sl-icon-typeset-fontFamily-classic);
@@ -194,9 +199,21 @@ export default css`
     --sl-size-text-new-heading-sm: var(--sl-size-font-175);
     --sl-size-text-new-heading-xl: var(--sl-size-font-400);
     --sl-size-text-new-heading-2xl: var(--sl-size-font-600);
-    --sl-color-shadow-overlay1: color-mix(in srgb, var(--sl-elevation-surface-shadow) 4%, transparent);
-    --sl-color-shadow-overlay2: color-mix(in srgb, var(--sl-elevation-surface-shadow) 12%, transparent);
-    --sl-color-shadow-overflow1: color-mix(in srgb, var(--sl-elevation-surface-shadow) 16%, transparent);
+    --sl-color-shadow-overlay1: color-mix(
+      in srgb,
+      var(--sl-elevation-surface-shadow) 4%,
+      transparent
+    );
+    --sl-color-shadow-overlay2: color-mix(
+      in srgb,
+      var(--sl-elevation-surface-shadow) 12%,
+      transparent
+    );
+    --sl-color-shadow-overflow1: color-mix(
+      in srgb,
+      var(--sl-elevation-surface-shadow) 16%,
+      transparent
+    );
     --sl-space-new-lg: var(--sl-space-200); /** Use when components are 'casual friends' */
     --sl-space-new-md: var(--sl-space-100); /** Use when components are 'family' */
     --sl-space-new-sm: var(--sl-space-075); /** Use when components are 'besties' */
@@ -217,19 +234,26 @@ export default css`
     ); /** Use for focusring outside of component */
     --sl-space-new-input-vertical: calc(var(--sl-space-new-xs) - var(--sl-size-010));
     --sl-space-new-input-horizontal: calc(var(--sl-space-new-md) - var(--sl-size-010));
-    --sl-text-new-body-lg: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-lg)/24px
+    --sl-text-new-body-lg: var(--sl-text-new-typeset-fontWeight-regular)
+      var(--sl-size-text-new-body-lg)/24px var(--sl-text-new-typeset-fontFamily-body);
+    --sl-text-new-body-md: var(--sl-text-new-typeset-fontWeight-regular)
+      var(--sl-size-text-new-body-md)/20px var(--sl-text-new-typeset-fontFamily-body);
+    --sl-text-new-body-sm: var(--sl-text-new-typeset-fontWeight-regular)
+      var(--sl-size-text-new-body-sm)/16px var(--sl-text-new-typeset-fontFamily-body);
+    --sl-text-new-input-lg: var(--sl-size-text-new-body-md)/32px
       var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-body-md: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-md)/20px
+    --sl-text-new-input-md: var(--sl-size-text-new-body-md)/24px
       var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-body-sm: var(--sl-text-new-typeset-fontWeight-regular) var(--sl-size-text-new-body-sm)/16px
-      var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-input-lg: var(--sl-size-text-new-body-md)/32px var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-input-md: var(--sl-size-text-new-body-md)/24px var(--sl-text-new-typeset-fontFamily-body);
-    --sl-text-new-heading-lg: var(--sl-size-text-new-heading-lg)/32px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-md: var(--sl-size-text-new-heading-md)/20px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-sm: var(--sl-size-text-new-heading-sm)/20px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-xl: var(--sl-size-text-new-heading-xl)/40px var(--sl-text-new-typeset-fontFamily-heading);
-    --sl-text-new-heading-2xl: var(--sl-size-text-new-heading-2xl)/48px var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-lg: var(--sl-size-text-new-heading-lg)/32px
+      var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-md: var(--sl-size-text-new-heading-md)/20px
+      var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-sm: var(--sl-size-text-new-heading-sm)/20px
+      var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-xl: var(--sl-size-text-new-heading-xl)/40px
+      var(--sl-text-new-typeset-fontFamily-heading);
+    --sl-text-new-heading-2xl: var(--sl-size-text-new-heading-2xl)/48px
+      var(--sl-text-new-typeset-fontFamily-heading);
   }
 
   @media (prefers-color-scheme: light) {
@@ -339,7 +363,9 @@ export default css`
       --sl-opacity-interactive-reversed-active: 1;
       --sl-theme-name: sanoma learning light;
       --sl-color-link-hover: var(--sl-color-palette-blue-600); /** Use for links in hover state. */
-      --sl-color-link-active: var(--sl-color-palette-blue-700); /** Use for links in active state. */
+      --sl-color-link-active: var(
+        --sl-color-palette-blue-700
+      ); /** Use for links in active state. */
       --sl-color-link-focused-idle: var(
         --sl-color-palette-blue-700
       ); /** Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible. */
@@ -349,8 +375,12 @@ export default css`
       --sl-color-link-focused-active: var(
         --sl-color-palette-blue-900
       ); /** Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible. */
-      --sl-color-link-inverted-hover: var(--sl-color-palette-blue-100); /** Use for inverted links in hover state. */
-      --sl-color-link-inverted-active: var(--sl-color-palette-blue-150); /** Use for inverted links in active state. */
+      --sl-color-link-inverted-hover: var(
+        --sl-color-palette-blue-100
+      ); /** Use for inverted links in hover state. */
+      --sl-color-link-inverted-active: var(
+        --sl-color-palette-blue-150
+      ); /** Use for inverted links in active state. */
       --sl-color-border-info-subtle: var(
         --sl-color-palette-blue-100
       ); /** Use for subtle borders on color.background.info background colors. */
@@ -372,13 +402,17 @@ export default css`
       --sl-color-border-neutral-subtle: var(
         --sl-color-palette-grey-200
       ); /** Use for subtle borders on color.background.neutral background colors. */
-      --sl-color-border-inverted: var(--sl-color-palette-grey-000); /** Use for borders on bold backgrounds. */
+      --sl-color-border-inverted: var(
+        --sl-color-palette-grey-000
+      ); /** Use for borders on bold backgrounds. */
       --sl-color-blanket-plain: color-mix(
         in srgb,
         var(--sl-color-palette-grey-400) calc(var(--sl-opacity-moderate) * 100%),
         transparent
       ); /** Use for screen overlay that appears with dialogs or drawers. */
-      --sl-color-skeleton-plain: var(--sl-color-palette-grey-100); /** Use for skeleton loading states. */
+      --sl-color-skeleton-plain: var(
+        --sl-color-palette-grey-100
+      ); /** Use for skeleton loading states. */
       --sl-color-skeleton-subtle: var(
         --sl-color-palette-grey-050
       ); /** Use for the pulse or shimmer effect in skeleton loading states. */
@@ -533,7 +567,9 @@ export default css`
       --sl-color-background-disabled: var(
         --sl-color-palette-grey-100
       ); /** Use for backgrounds of elements in disabled state. */
-      --sl-color-background-inverted-bold: var(--sl-color-palette-grey-000); /** A solid inverted background option. */
+      --sl-color-background-inverted-bold: var(
+        --sl-color-palette-grey-000
+      ); /** A solid inverted background option. */
       --sl-color-background-inverted-subtle: color-mix(
         in srgb,
         var(--sl-color-palette-grey-000) calc(var(--sl-opacity-subtle) * 100%),
@@ -590,11 +626,15 @@ export default css`
       --sl-color-foreground-accent-yellow-plain: var(
         --sl-color-palette-yellow-600
       ); /** Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning. */
-      --sl-color-foreground-disabled: var(--sl-color-palette-grey-500); /** Use for text in a disabled state. */
+      --sl-color-foreground-disabled: var(
+        --sl-color-palette-grey-500
+      ); /** Use for text in a disabled state. */
       --sl-color-foreground-inverted-bold: var(
         --sl-color-palette-grey-000
       ); /** Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'. */
-      --sl-color-foreground-inverted-plain: var(--sl-color-palette-grey-000); /** Use for plain inverted text. */
+      --sl-color-foreground-inverted-plain: var(
+        --sl-color-palette-grey-000
+      ); /** Use for plain inverted text. */
       --sl-color-foreground-inverted-onBold: var(
         --sl-color-palette-grey-900
       ); /** Use for inverted text on 'color.background.inverted.bold'. */
@@ -616,12 +656,18 @@ export default css`
       --sl-elevation-surface-raised-alternative: var(
         --sl-color-palette-grey-100
       ); /** An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping). */
-      --sl-elevation-surface-shadow: var(--sl-color-palette-grey-900); /** Used as color for shadows. */
+      --sl-elevation-surface-shadow: var(
+        --sl-color-palette-grey-900
+      ); /** Used as color for shadows. */
       --sl-color-link-muted-idle: var(
         --sl-color-foreground-accent-grey-subtlest
       ); /** Use for muted links in idle state. */
-      --sl-color-link-muted-hover: var(--sl-color-link-hover); /** Use for muted links in hover state. */
-      --sl-color-link-muted-active: var(--sl-color-link-active); /** Use for muted links in active state. */
+      --sl-color-link-muted-hover: var(
+        --sl-color-link-hover
+      ); /** Use for muted links in hover state. */
+      --sl-color-link-muted-active: var(
+        --sl-color-link-active
+      ); /** Use for muted links in active state. */
       --sl-color-link-inverted-idle: var(
         --sl-color-foreground-inverted-plain
       ); /** Use for inverted links in idle state. */
@@ -803,11 +849,15 @@ export default css`
       --sl-color-background-secondary-interactive-plain: var(
         --sl-color-background-accent-grey-interactive-plain
       ); /** Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state. */
-      --sl-color-foreground-bold: var(--sl-color-foreground-accent-grey-bold); /** Use for headers and labels. */
+      --sl-color-foreground-bold: var(
+        --sl-color-foreground-accent-grey-bold
+      ); /** Use for headers and labels. */
       --sl-color-foreground-info-bold: var(
         --sl-color-foreground-accent-blue-bold
       ); /** Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'. */
-      --sl-color-foreground-plain: var(--sl-color-foreground-accent-grey-plain); /** Use for body copy and menu items. */
+      --sl-color-foreground-plain: var(
+        --sl-color-foreground-accent-grey-plain
+      ); /** Use for body copy and menu items. */
       --sl-color-foreground-accent-red-plain: var(
         --sl-color-background-accent-red-bold
       ); /** Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning. */
@@ -844,7 +894,9 @@ export default css`
       --sl-color-foreground-accent-purple-onBold: var(
         --sl-color-foreground-inverted-plain
       ); /** Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning. */
-      --sl-color-foreground-subtle: var(--sl-color-foreground-accent-grey-subtle); /** Use for subheadings. */
+      --sl-color-foreground-subtle: var(
+        --sl-color-foreground-accent-grey-subtle
+      ); /** Use for subheadings. */
       --sl-color-foreground-caution-bold: var(
         --sl-color-foreground-accent-yellow-bold
       ); /** Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'. */
@@ -1099,7 +1151,9 @@ export default css`
       --sl-opacity-interactive-reversed-active: 1;
       --sl-theme-name: sanoma learning dark;
       --sl-color-link-hover: var(--sl-color-palette-blue-700); /** Use for links in hover state. */
-      --sl-color-link-active: var(--sl-color-palette-blue-800); /** Use for links in active state. */
+      --sl-color-link-active: var(
+        --sl-color-palette-blue-800
+      ); /** Use for links in active state. */
       --sl-color-link-focused-idle: var(
         --sl-color-palette-blue-700
       ); /** Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible. */
@@ -1109,8 +1163,12 @@ export default css`
       --sl-color-link-focused-active: var(
         --sl-color-palette-blue-900
       ); /** Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible. */
-      --sl-color-link-inverted-hover: var(--sl-color-palette-blue-400); /** Use for inverted links in hover state. */
-      --sl-color-link-inverted-active: var(--sl-color-palette-blue-300); /** Use for inverted links in active state. */
+      --sl-color-link-inverted-hover: var(
+        --sl-color-palette-blue-400
+      ); /** Use for inverted links in hover state. */
+      --sl-color-link-inverted-active: var(
+        --sl-color-palette-blue-300
+      ); /** Use for inverted links in active state. */
       --sl-color-border-accent-red-plain: var(
         --sl-color-palette-red-400
       ); /** Use for plain red borders for purely stylistic purposes with no specific meaning. */
@@ -1141,7 +1199,9 @@ export default css`
       --sl-color-border-accent-yellow-plain: var(
         --sl-color-palette-yellow-300
       ); /** Use for plain yellow borders for purely stylistic purposes with no specific meaning. */
-      --sl-color-border-inverted: var(--sl-color-palette-grey-000); /** Use for borders on bold backgrounds. */
+      --sl-color-border-inverted: var(
+        --sl-color-palette-grey-000
+      ); /** Use for borders on bold backgrounds. */
       --sl-color-blanket-plain: color-mix(
         in srgb,
         var(--sl-color-palette-grey-900) calc(var(--sl-opacity-moderate) * 100%),
@@ -1319,7 +1379,9 @@ export default css`
       --sl-color-background-disabled: var(
         --sl-color-palette-grey-100
       ); /** Use for backgrounds of elements in disabled state. */
-      --sl-color-background-inverted-bold: var(--sl-color-palette-grey-000); /** A solid inverted background option. */
+      --sl-color-background-inverted-bold: var(
+        --sl-color-palette-grey-000
+      ); /** A solid inverted background option. */
       --sl-color-background-inverted-subtle: color-mix(
         in srgb,
         var(--sl-color-palette-grey-000) calc(var(--sl-opacity-subtle) * 100%),
@@ -1422,7 +1484,9 @@ export default css`
       --sl-color-foreground-inverted-bold: var(
         --sl-color-palette-grey-000
       ); /** Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'. */
-      --sl-color-foreground-inverted-plain: var(--sl-color-palette-grey-000); /** Use for plain inverted text. */
+      --sl-color-foreground-inverted-plain: var(
+        --sl-color-palette-grey-000
+      ); /** Use for plain inverted text. */
       --sl-color-foreground-selected-onBold: var(
         --sl-color-palette-grey-000
       ); /** Use for text in selected states (e.g., tabs or menu items). */
@@ -1458,8 +1522,12 @@ export default css`
       --sl-color-link-muted-idle: var(
         --sl-color-foreground-accent-grey-subtlest
       ); /** Use for muted links in idle state. */
-      --sl-color-link-muted-hover: var(--sl-color-link-hover); /** Use for muted links in hover state. */
-      --sl-color-link-muted-active: var(--sl-color-link-active); /** Use for muted links in active state. */
+      --sl-color-link-muted-hover: var(
+        --sl-color-link-hover
+      ); /** Use for muted links in hover state. */
+      --sl-color-link-muted-active: var(
+        --sl-color-link-active
+      ); /** Use for muted links in active state. */
       --sl-color-link-inverted-idle: var(
         --sl-color-foreground-inverted-plain
       ); /** Use for inverted links in idle state. */
@@ -1646,7 +1714,9 @@ export default css`
       --sl-color-background-interactive-plain: var(
         --sl-color-background-accent-blue-interactive-plain
       ); /** Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state. */
-      --sl-color-foreground-bold: var(--sl-color-foreground-accent-grey-bold); /** Use for headers and labels. */
+      --sl-color-foreground-bold: var(
+        --sl-color-foreground-accent-grey-bold
+      ); /** Use for headers and labels. */
       --sl-color-foreground-info-bold: var(
         --sl-color-foreground-accent-blue-bold
       ); /** Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'. */
@@ -1656,8 +1726,12 @@ export default css`
       --sl-color-foreground-brand: var(
         --sl-color-foreground-accent-blue-plain
       ); /** Use for non-interactive brand-reinforcing text. */
-      --sl-color-foreground-plain: var(--sl-color-foreground-accent-grey-plain); /** Use for body copy and menu items. */
-      --sl-color-foreground-subtle: var(--sl-color-foreground-accent-grey-subtle); /** Use for subheadings. */
+      --sl-color-foreground-plain: var(
+        --sl-color-foreground-accent-grey-plain
+      ); /** Use for body copy and menu items. */
+      --sl-color-foreground-subtle: var(
+        --sl-color-foreground-accent-grey-subtle
+      ); /** Use for subheadings. */
       --sl-color-foreground-caution-bold: var(
         --sl-color-foreground-accent-yellow-bold
       ); /** Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'. */

@@ -188,9 +188,15 @@ export class Label extends LitElement {
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
 
-    if (this.#label && nodes.length) {
-      this.#label.innerHTML = '';
-      this.#label.append(...nodes);
+    // Only move text and element nodes to the label; leave comment nodes (Lit's
+    // internal template markers) in place so the parent component's ChildPart
+    // tracking stays intact and future re-renders (e.g. locale changes) work.
+    const contentNodes = nodes.filter(
+      n => n.nodeType === Node.TEXT_NODE || n.nodeType === Node.ELEMENT_NODE
+    );
+
+    if (this.#label && contentNodes.length) {
+      this.#label.replaceChildren(...contentNodes);
     } else {
       // Workaround for `??=` output missing parens around OR statement
       this.#label =
@@ -198,7 +204,7 @@ export class Label extends LitElement {
         (this.querySelector('label[slot="label"]') || document.createElement('label'));
       this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
-      this.#label.append(...nodes);
+      this.#label.append(...contentNodes);
       this.prepend(this.#label);
     }
 

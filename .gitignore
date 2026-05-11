@@ -20,6 +20,7 @@ node_modules/
 custom-elements.json
 dist
 storybook-static
+website/.cache
 website/build
 website/dist
 scripts/studio-export

@@ -15,6 +15,7 @@ function getExample() {
 
   const buttons = instance
     .findConnectedInstances(node => node.codeConnectId() === 'button')
+    .filter(instance => instance.type !== 'ERROR')
     .map(child => child.executeTemplate().example)
     .flatMap(results => results.find(r => r.type === 'CODE'))
     .map(result => result?.code)

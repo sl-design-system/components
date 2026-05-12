@@ -80,14 +80,9 @@ function getExample() {
     suffix = suffixInstance?.executeTemplate().example;
   }
 
-  if (!collapsible) {
-    const body = instance.findInstance('sl-base-panel-body');
-    if (body.type === 'ERROR') return null;
-  }
-
   return figma.code`
     <sl-panel
-      ${border === false ? 'no-border' : ''}
+      ${!border ? 'no-border' : ''}
       ${collapsible ? 'collapsible' : ''}
       ${collapsed ? 'collapsed' : ''}
       ${density !== 'default' ? `density="${density}"` : ''}

@@ -1,4 +1,3 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2899-302703
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -17,7 +16,7 @@ function getExample() {
   return figma.code`
     <sl-tab-group
       ${alignTabs !== 'start' ? `align-tabs="${alignTabs}"` : ''}
-      vertical
+      ${figma.batch.vertical ? 'vertical' : ''}
     >
       ${tabs}
     </sl-tab-group>
@@ -26,5 +25,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'tab-group'
+  id: figma.batch.id
 };

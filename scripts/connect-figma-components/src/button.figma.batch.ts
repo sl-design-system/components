@@ -1,4 +1,3 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=301-54273
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -54,6 +53,7 @@ function getExample() {
     <sl-button
       ${disabled ? 'disabled' : ''}
       ${fill !== 'solid' ? `fill="${fill}"` : ''}
+      ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
       ${typeof slot === 'string' ? `slot="${slot}"` : ''}
       ${variant !== 'secondary' ? `variant="${variant}"` : ''}
@@ -67,6 +67,6 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'button',
+  id: figma.batch.id,
   imports: []
 };

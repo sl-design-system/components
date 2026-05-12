@@ -1,4 +1,3 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3572-155658
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -13,7 +12,9 @@ function getExample() {
     .join('\n');
 
   return figma.code`
-    <sl-toggle-group shape="pill">
+    <sl-toggle-group
+      ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
+    >
       ${buttons}
     </sl-toggle-group>
   `;
@@ -21,5 +22,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'toggle-group'
+  id: figma.batch.id
 };

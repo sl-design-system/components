@@ -1,4 +1,3 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7650-19762
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -25,5 +24,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'accordion-item'
+  id: figma.batch.id
 };

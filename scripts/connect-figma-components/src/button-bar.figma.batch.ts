@@ -1,4 +1,3 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=8244-315333
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -24,6 +23,7 @@ function getExample() {
   return figma.code`
     <sl-button-bar
       ${fill !== 'solid' ? `fill="${fill}"` : ''}
+      ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
     >
       ${buttons}
@@ -33,5 +33,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'button-bar'
+  id: figma.batch.id
 };

@@ -1,11 +1,11 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3923-189594
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const border = instance.getBoolean('Border'),
+  const collapsible = figma.batch.collapsible,
+    border = instance.getBoolean('Border'),
     divider = instance.getBoolean('Divider'),
     elevationRaw = instance.getString('Elevation') || 'none',
     shadow = instance.getBoolean('Shadow');
@@ -16,6 +16,12 @@ function getExample() {
       Relaxed: 'relaxed'
     }) ?? 'default';
 
+  const togglePlacement = collapsible
+    ? (instance.getEnum('Toggle Position', { Start: 'start', End: 'end' }) ?? 'start')
+    : undefined;
+
+  const collapsed = collapsible ? instance.getString('State') === 'Collapsed' : false;
+
   let elevation;
   if (elevationRaw === 'Raised' && shadow) {
     elevation = 'raised';
@@ -25,10 +31,12 @@ function getExample() {
     elevation = 'none';
   }
 
-  const header = instance.findInstance('sl-panel-header-default');
+  const header = collapsible
+    ? instance.findInstance('sl-panel-header-collapsable')
+    : instance.findInstance('sl-panel-header-default');
   if (header.type === 'ERROR') return null;
 
-  const hasActions = header.getBoolean('Actions'),
+  const hasActions = collapsible ? false : header.getBoolean('Actions'),
     hasPrefix = header.getBoolean('Prefix'),
     hasSuffix = header.getBoolean('Suffix');
 
@@ -72,16 +80,21 @@ function getExample() {
     suffix = suffixInstance?.executeTemplate().example;
   }
 
-  const body = instance.findInstance('sl-base-panel-body');
-  if (body.type === 'ERROR') return null;
+  if (!collapsible) {
+    const body = instance.findInstance('sl-base-panel-body');
+    if (body.type === 'ERROR') return null;
+  }
 
   return figma.code`
     <sl-panel
       ${border === false ? 'no-border' : ''}
+      ${collapsible ? 'collapsible' : ''}
+      ${collapsed ? 'collapsed' : ''}
       ${density !== 'default' ? `density="${density}"` : ''}
       ${divider ? 'divider' : ''}
       ${elevation !== 'none' ? `elevation="${elevation}"` : ''}
       ${heading?.textContent ? `heading="${heading.textContent}"` : ''}
+      ${togglePlacement && togglePlacement !== 'start' ? `toggle-placement="${togglePlacement}"` : ''}
     >
       ${hasPrefix ? prefix : ''}
       ${hasSuffix ? suffix : ''}
@@ -92,5 +105,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'panel'
+  id: figma.batch.id
 };

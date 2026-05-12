@@ -1,4 +1,3 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2702-35398
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -19,5 +18,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'tab'
+  id: figma.batch.id
 };

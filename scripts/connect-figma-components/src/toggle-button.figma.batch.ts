@@ -1,4 +1,3 @@
-// url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=3494-119505
 /// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
@@ -13,14 +12,6 @@ function getExample() {
       Ghost: 'ghost',
       Link: 'link'
     }) || 'solid';
-
-  const hasIcon = instance.getBoolean('Icon'),
-    hasText = instance.getBoolean('Text');
-
-  let icon = '';
-  if (hasIcon) {
-    const iconInstance = instance.findInstance('Base/Icon', { traverseInstances: true });
-  }
 
   const icon = instance.findInstance('Base/Icon', { traverseInstances: true });
   if (icon.type === 'ERROR') return null;
@@ -37,15 +28,15 @@ function getExample() {
       ${disabled ? 'disabled' : ''}
       ${fill !== 'solid' ? `fill="${fill}"` : ''}
       ${selected ? 'pressed' : ''}
+      ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
       ${size !== 'md' ? `size="${size}"` : ''}
     >
       <sl-icon name="${variant ? `${variant}-` : ''}${name}" slot="default"></sl-icon>
-      ${instance.children.map(c => c.type).join(', ')}
     </sl-toggle-button>
   `;
 }
 
 export default {
   example: getExample(),
-  id: 'toggle-button'
+  id: figma.batch.id
 };

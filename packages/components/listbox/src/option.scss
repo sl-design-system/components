@@ -17,7 +17,7 @@
   user-select: none;
 }
 
-:host(:where(:focus, :focus-visible)) {
+:host(:where(:focus, :focus-visible, [current])) {
   outline-color: var(--sl-color-border-focused);
   position: relative;
   z-index: 1;
@@ -29,8 +29,14 @@
   }
 }
 
-:host(:where(:focus, :hover, [current])) {
+:host(:where(:hover, [current])) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+/* When the focus ring is visible on an unselected option, don't show the hover background */
+:host(:focus-visible:not([selected])),
+:host([current]:not([selected], :hover)) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 }
 
 :host(:where(:hover, :focus, :focus-visible, [current]))::before {

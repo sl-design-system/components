@@ -33,7 +33,8 @@ function getExample() {
   const buttonBase = buttonVariants.findInstance('Button-Base');
   if (buttonBase.type === 'ERROR') return null;
 
-  const iconStart = buttonBase.getBoolean('Icon Start'),
+  const iconOnly = buttonBase.getBoolean('Icon only'),
+    iconStart = buttonBase.getBoolean('Icon Start'),
     iconEnd = buttonBase.getBoolean('Icon End'),
     label = buttonBase.getString('𝐓 - Label');
 
@@ -51,6 +52,7 @@ function getExample() {
 
   return figma.code`
     <sl-button
+      ${iconOnly ? `aria-label="${label}"` : ''}
       ${disabled ? 'disabled' : ''}
       ${fill !== 'solid' ? `fill="${fill}"` : ''}
       ${figma.batch.shape ? `shape="${figma.batch.shape}"` : ''}
@@ -59,7 +61,7 @@ function getExample() {
       ${variant !== 'secondary' ? `variant="${variant}"` : ''}
     >
       ${iconStart ? icon?.executeTemplate().example : ''}
-      ${label}
+      ${!iconOnly ? label : ''}
       ${iconEnd ? icon?.executeTemplate().example : ''}
     </sl-button>
   `;

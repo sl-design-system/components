@@ -50,6 +50,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'select',
-  imports: []
+  id: 'select'
 };

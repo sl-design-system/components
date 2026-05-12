@@ -19,16 +19,24 @@ function getExample() {
     required = labelBase.getBoolean('Required');
   }
 
-  return figma.code`
-    <sl-form-field ${label ? `label="${label}"` : ''}>
-      <sl-search-field
-        ${disabled ? ' disabled' : ''}
-        ${placeholder ? ` placeholder="${placeholder}"` : ''}
-        ${required ? ' required' : ''}
-        ${value ? ` value="${value}"` : ''}
-      ></sl-search-field>
-    </sl-form-field>
+  const searchField = figma.code`
+    <sl-search-field
+      ${disabled ? ' disabled' : ''}
+      ${placeholder ? ` placeholder="${placeholder}"` : ''}
+      ${required ? ' required' : ''}
+      ${value ? ` value="${value}"` : ''}
+    ></sl-search-field>
   `;
+
+  if (hasLabel) {
+    return figma.code`
+      <sl-form-field ${label ? `label="${label}"` : ''}>
+        ${searchField}
+      </sl-form-field>
+    `;
+  }
+
+  return searchField;
 }
 
 export default {

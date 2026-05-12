@@ -67,6 +67,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: figma.batch.id,
-  imports: []
+  id: figma.batch.id
 };

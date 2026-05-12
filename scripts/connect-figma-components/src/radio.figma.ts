@@ -33,6 +33,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'radio',
-  imports: []
+  id: 'radio'
 };

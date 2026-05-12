@@ -31,6 +31,5 @@ function getExample() {
 
 export default {
   example: getExample(),
-  id: 'badge',
-  imports: []
+  id: 'badge'
 };

@@ -181,12 +181,7 @@
       {
         "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1631-82151",
         "id": "search-field"
-      }
-    ]
-  },
-  {
-    "templateFile": "./search-field.embedded.figma.batch.ts",
-    "components": [
+      },
       {
         "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10099-668293",
         "id": "search-field"

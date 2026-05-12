@@ -8,8 +8,6 @@ function getExample() {
     slot = instance.getString('slot'),
     variant = instance.getEnum('Variant', { Outline: 'far', Solid: 'fas' });
 
-  console.log('slot', slot);
-
   return figma.code`
     <sl-icon
       name="${variant ? `${variant}-` : ''}${name}"

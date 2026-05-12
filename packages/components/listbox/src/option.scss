@@ -25,7 +25,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   :host(:where(:hover, :active)) [part='container'] {
-    transition: background 200ms ease-in-out;
+    transition: background 100ms ease-in-out;
   }
 }
 
@@ -34,8 +34,7 @@
 }
 
 /* When the focus ring is visible on an unselected option, don't show the hover background */
-:host(:focus-visible:not([selected])),
-:host([current]:not([selected], :hover)) {
+:host(:where(:focus-visible, [current]):not([selected], :hover)) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 }
 

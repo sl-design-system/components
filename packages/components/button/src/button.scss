@@ -237,6 +237,7 @@ button {
   );
   border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary-bold);
   border-radius: var(--sl-size-borderRadius-default);
+  box-sizing: content-box;
   color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
@@ -245,6 +246,8 @@ button {
   gap: var(--sl-size-075);
   justify-content: center;
   margin: 0;
+  max-inline-size: 100%;
+  min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))

@@ -17,7 +17,7 @@
   user-select: none;
 }
 
-:host(:where(:focus, :focus-visible, [current])) {
+:host(:where(:focus-visible, [current])) {
   outline-color: var(--sl-color-border-focused);
   position: relative;
   z-index: 1;
@@ -38,7 +38,7 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 }
 
-:host(:where(:hover, :focus, :focus-visible, [current]))::before {
+:host(:where(:hover, :focus-visible, [current]))::before {
   background: var(--sl-color-background-selected-bold);
   border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child)
     var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-none);

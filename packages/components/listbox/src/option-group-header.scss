@@ -5,8 +5,9 @@
 }
 
 .wrapper {
-  padding: var(--sl-size-075);
-  padding-inline-start: var(--sl-size-300);
+  font-size: calc((12 / 14) * 1em);
+  line-height: calc((16 / 12) * 1em);
+  padding: var(--sl-size-100);
 }
 
 .divider {

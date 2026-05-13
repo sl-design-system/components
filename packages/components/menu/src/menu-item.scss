@@ -125,7 +125,8 @@ sl-icon[name='chevron-right'] {
   }
 }
 
-:host(:not([selected], [variant='danger'])) [part='wrapper']:hover {
+:host(:not([selected], [variant='danger'])) [part='wrapper']:hover,
+:host(:not([selected], [variant='danger'])) .safe-triangle:hover + [part='wrapper'] {
   --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
 }
 

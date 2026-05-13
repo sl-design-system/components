@@ -18,7 +18,14 @@ The end result is consistent quality at a fraction of the time, and a developer 
 
 ## Stage 1: Design Ingestion
 
-The command kicks off by calling the Figma MCP (`get_design_context`) with the provided URL. This returns two things: the Code Connect markup (which identifies SLDS components already mapped) and a screenshot of the design. A **design analyst agent** reads both and produces a structured manifest:
+The command kicks off by making four Figma MCP calls with the provided URL:
+
+1. **`get_metadata`** — returns a structural XML tree (node types, names, IDs, positions, sizes). Its primary role is supplying the node IDs needed to drive the other calls.
+2. **`get_code_connect_map`** — returns a flat map of node ID → Code Connect snippet for every node in the subtree. Nodes without a mapping return `null`, flagging them as unconnected. If unconnected components are detected, the pipeline must resolve them (by publishing Code Connect mappings) before proceeding — `get_design_context` will block and prompt for this rather than silently falling back to raw design data.
+3. **`get_design_context`** — the richest source. Returns CSS layout logic (grid, gap, padding), design token bindings (color, spacing, typography), Code Connect snippets for connected nodes, component usage descriptions, and documentation links. For unconnected nodes it infers content from Figma layer data directly.
+4. **`get_screenshot`** — returns a rendered image of the node as visual ground truth. The `get_design_context` tool instructs the agent to always call this as a follow-up.
+
+A **design analyst agent** reads all four outputs and produces a structured manifest:
 
 - Which parts of the design map to existing `@sl-design-system/*` components (via Code Connect)
 - Which parts are _compositions_ of existing components — these become new components

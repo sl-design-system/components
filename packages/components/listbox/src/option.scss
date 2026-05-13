@@ -19,13 +19,12 @@
 
 :host(:where(:focus-visible, [current])) {
   outline-color: var(--sl-color-border-focused);
-  position: relative;
   z-index: 1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   :host(:where(:hover, :active)) [part='container'] {
-    transition: background 100ms ease-in-out;
+    transition: background 100ms ease-in;
   }
 }
 
@@ -33,7 +32,6 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
-/* When the focus ring is visible on an unselected option, don't show the hover background */
 :host(:where(:focus-visible, [current]):not([selected], :hover)) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 }

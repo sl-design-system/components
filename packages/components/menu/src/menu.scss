@@ -104,8 +104,8 @@
 
 ::slotted(sl-menu-item-group:not(:first-child)) {
   border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-  margin-block-start: var(--sl-size-075);
-  padding-block-start: var(--sl-size-100);
+  margin-block-start: var(--sl-size-050);
+  padding-block-start: var(--sl-size-050);
 }
 
 ::slotted(hr) {

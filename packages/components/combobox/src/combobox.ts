@@ -153,6 +153,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
    */
   #popoverJustClosed = false;
 
+  /** Flag indicating whether the popover was opened via keyboard navigation. */
+  #popoverOpenedViaKeyboard = false;
+
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
 
@@ -732,6 +735,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       !this.wrapper?.matches(':popover-open') &&
       ['ArrowDown', 'ArrowUp'].includes(event.key)
     ) {
+      this.#popoverOpenedViaKeyboard = true;
       this.wrapper?.showPopover();
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
       event.preventDefault();
@@ -903,10 +907,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
-        if (this.selectedItems.length) {
+        if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
           this.#updateCurrent(this.selectedItems[0]);
         }
       }
+
+      this.#popoverOpenedViaKeyboard = false;
     } else {
       this.#popoverJustClosed = false;
       this.#updateCurrent();

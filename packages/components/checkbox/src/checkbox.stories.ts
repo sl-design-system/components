@@ -1,6 +1,8 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import { tooltip } from '@sl-design-system/tooltip';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -312,5 +314,46 @@ export const CustomAsyncValidity: Story = {
         >
       `;
     }
+  }
+};
+
+export const WithTooltip: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This story demonstrates how to use tooltips with checkboxes using both the
+        <code>tooltip()</code> directive and the manual <code>aria-describedby</code> approach with
+        a separate <code>sl-tooltip</code> element.
+      </p>
+
+      <h3>Using the tooltip directive</h3>
+      <sl-form>
+        <sl-form-field label="Subscriptions">
+          <sl-checkbox ${tooltip('Newsletter tooltip')} value="newsletter" required
+            >Newsletter</sl-checkbox
+          >
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+
+      <h3>Using aria-describedby</h3>
+      <sl-form>
+        <sl-form-field label="Subscriptions">
+          <sl-checkbox value="promotions" aria-describedby="tooltip1" required
+            >Promotions</sl-checkbox
+          >
+          <sl-tooltip id="tooltip1">Promotions tooltip</sl-tooltip>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 };

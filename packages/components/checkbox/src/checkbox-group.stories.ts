@@ -201,6 +201,12 @@ export const WithTooltips: Story = {
     };
 
     return html`
+      <p>
+        This story demonstrates how to use tooltips with checkboxes inside a checkbox group using
+        both the <code>tooltip()</code> directive and the manual
+        <code>aria-describedby</code> approach with a separate <code>sl-tooltip</code> element.
+      </p>
+
       <sl-form>
         <sl-form-field label="Subscriptions">
           <sl-checkbox-group name="subscriptions" required>

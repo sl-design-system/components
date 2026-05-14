@@ -1,6 +1,8 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import { tooltip } from '@sl-design-system/tooltip';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -189,5 +191,33 @@ export const CustomAsyncValidity: Story = {
         </sl-checkbox-group>
       `;
     }
+  }
+};
+
+export const WithTooltips: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field label="Subscriptions">
+          <sl-checkbox-group name="subscriptions" required>
+            <sl-checkbox ${tooltip('Newsletter tooltip')} value="newsletter"
+              >Newsletter</sl-checkbox
+            >
+            <sl-checkbox value="promotions" aria-describedby="tooltip1">Promotions</sl-checkbox>
+            <sl-tooltip id="tooltip1">Promotions tooltip</sl-tooltip>
+            <sl-checkbox ${tooltip('Product updates tooltip')} value="updates"
+              >Product updates</sl-checkbox
+            >
+          </sl-checkbox-group>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 };

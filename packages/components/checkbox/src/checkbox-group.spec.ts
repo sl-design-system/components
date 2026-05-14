@@ -1,5 +1,6 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -435,6 +436,31 @@ describe('sl-checkbox-group', () => {
       await fitc.updateComplete;
 
       expect(fitc.shadowRoot!.activeElement).to.equal(input);
+    });
+  });
+
+  describe('with tooltips', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-checkbox-group required>
+          <sl-checkbox value="a">A</sl-checkbox>
+          <sl-checkbox value="b" aria-describedby="tip1">B</sl-checkbox>
+          <sl-tooltip id="tip1">Tooltip</sl-tooltip>
+          <sl-checkbox value="c">C</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+    });
+
+    it('should only contain checkbox elements in the boxes property', () => {
+      expect(el.boxes).to.have.lengthOf(3);
+      expect(el.boxes?.every(box => box.tagName.toLowerCase() === 'sl-checkbox')).to.be.true;
+    });
+
+    it('should correctly reflect only checkbox values', async () => {
+      await userEvent.click(el.querySelector('sl-checkbox[value="b"]')!);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.value).to.deep.equal([null, 'b', null]);
     });
   });
 });

@@ -3,7 +3,7 @@ import { FormControlMixin } from '@sl-design-system/form';
 import {
   type EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
+  ForwardAriaMixin,
   event
 } from '@sl-design-system/shared';
 import {
@@ -45,7 +45,7 @@ let nextUniqueId = 0;
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
+export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElement), [
   'aria-describedby',
   'aria-disabled',
   'aria-label',
@@ -167,7 +167,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     }
 
     this.setFormControlElement(this.input);
-    this.setAttributesTarget(this.input);
+    this.setProxyTarget(this.input);
 
     this.#onLabelSlotChange();
   }
@@ -221,15 +221,6 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   override blur(): void {
     this.input.blur();
-  }
-
-  /**
-   * Returns the proxy target for the tooltip to anchor to.
-   *
-   * @internal
-   */
-  getProxyTarget(): HTMLInputElement {
-    return this.input;
   }
 
   override getLocalizedValidationMessage(): string {
@@ -294,7 +285,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);
-      this.setAttributesTarget(this.input);
+      this.setProxyTarget(this.input);
     }
   }
 

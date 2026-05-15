@@ -124,20 +124,34 @@ describe('sl-checkbox', () => {
       expect(el.input).to.have.attribute('aria-label', 'Label');
     });
 
-    it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
+    it('should proxy the aria-labelledby to ariaLabelledByElements on the input element', async () => {
+      const label = document.createElement('span');
+      label.id = 'my-label';
+      label.textContent = 'My label';
+      el.parentElement!.appendChild(label);
+
+      el.setAttribute('aria-labelledby', 'my-label');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+      expect(el.input.ariaLabelledByElements).to.deep.equal([label]);
+
+      label.remove();
     });
 
-    it('should proxy the aria-describedby attribute to the input element', async () => {
-      el.setAttribute('aria-describedby', 'tooltip-id');
+    it('should proxy the aria-describedby to ariaDescribedByElements on the input element', async () => {
+      const tooltip = document.createElement('span');
+      tooltip.id = 'my-tooltip';
+      tooltip.textContent = 'My tooltip';
+      el.parentElement!.appendChild(tooltip);
+
+      el.setAttribute('aria-describedby', 'my-tooltip');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-describedby');
-      expect(el.input).to.have.attribute('aria-describedby', 'tooltip-id');
+      expect(el.input.ariaDescribedByElements).to.deep.equal([tooltip]);
+
+      tooltip.remove();
     });
 
     it('should return the input element from getProxyTarget', () => {

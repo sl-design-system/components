@@ -51,10 +51,6 @@ examples/**/*.d.ts
 examples/**/*.d.ts.map
 examples/**/*.js
 examples/**/*.js.map
-packages/checklist/**/*.d.ts
-packages/checklist/**/*.d.ts.map
-packages/checklist/**/*.js
-packages/checklist/**/*.js.map
 packages/components/**/*.d.ts
 packages/components/**/*.d.ts.map
 packages/components/**/*.js

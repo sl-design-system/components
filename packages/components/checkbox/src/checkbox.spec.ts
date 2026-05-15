@@ -23,6 +23,10 @@ describe('sl-checkbox', () => {
       expect(input.type).to.equal('checkbox');
     });
 
+    it('should have aria-describedby in observedAttributes', () => {
+      expect((el.constructor as typeof Checkbox).observedAttributes).to.include('aria-describedby');
+    });
+
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
@@ -126,6 +130,18 @@ describe('sl-checkbox', () => {
 
       expect(el).to.not.have.attribute('aria-labelledby');
       expect(el.input).to.have.attribute('aria-labelledby', 'id');
+    });
+
+    it('should proxy the aria-describedby attribute to the input element', async () => {
+      el.setAttribute('aria-describedby', 'tooltip-id');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-describedby');
+      expect(el.input).to.have.attribute('aria-describedby', 'tooltip-id');
+    });
+
+    it('should return the input element from getProxyTarget', () => {
+      expect(el.getProxyTarget()).to.equal(el.input);
     });
 
     it('should be pristine', () => {

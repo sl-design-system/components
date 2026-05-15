@@ -201,7 +201,6 @@
         "build:themes:setup",
         "build:themes:code",
         "dist:angular",
-        "dist:checklist",
         "dist:components",
         "dist:themes",
         "dist:types"
@@ -211,46 +210,6 @@
       "command": "cem analyze --config cem-angular-wrapper.config.mjs",
       "dependencies": [
         "dist:components"
-      ]
-    },
-    "dist:checklist": {
-      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
-      "dependencies": [
-        "dist:checklist:code"
-      ],
-      "files": [
-        "packages/checklist/**/*.scss",
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/dist/index.js",
-        "packages/checklist/dist/index.js.map"
-      ]
-    },
-    "dist:checklist:code": {
-      "command": "node scripts/build-packages.js checklist",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "dist:checklist:styles"
-      ],
-      "files": [
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/**/*.js",
-        "packages/checklist/**/*.js.map"
-      ]
-    },
-    "dist:checklist:styles": {
-      "command": "node scripts/build-styles.js 'packages/checklist/**/*.scss'",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "dist:themes"
-      ],
-      "output": [
-        "packages/checklist/**/*.scss.ts"
       ]
     },
     "dist:components": {
@@ -281,7 +240,6 @@
       "clean": "if-file-deleted",
       "dependencies": [
         "build:locales",
-        "dist:checklist",
         "dist:components"
       ],
       "files": [

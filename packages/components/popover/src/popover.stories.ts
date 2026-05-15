@@ -134,9 +134,15 @@ export const VerticalOverflow: Story = {
   args: {
     body: () => {
       return html`
-        Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam
-        consequat pariatur exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum
-        est ullamco nostrud sit pariatur. Ex nisi ipsum et est nulla ex ex.
+        <style>
+          .wrapper {
+            background: var(--sl-color-background-accent-green-subtlest);
+            block-size: 50dvh;
+            padding-inline: var(--sl-size-200);
+            place-content: center;
+          }
+        </style>
+        <div class="wrapper">Block</div>
       `;
     }
   }

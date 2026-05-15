@@ -10,7 +10,6 @@
     "chromatic",
     "examples/lit",
     "packages/angular",
-    "packages/checklist",
     "packages/components/*",
     "packages/locales",
     "packages/themes/*",
@@ -47,37 +46,11 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:checklist",
         "build:components",
         "build:examples",
         "build:locales",
         "build:themes",
         "build:types"
-      ]
-    },
-    "build:checklist": {
-      "command": "node scripts/build-packages.js checklist",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:checklist:styles"
-      ],
-      "files": [
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/**/*.js",
-        "packages/checklist/**/*.js.map"
-      ]
-    },
-    "build:checklist:styles": {
-      "command": "node scripts/build-styles.js 'packages/checklist/src/checklist.scss'",
-      "clean": "if-file-deleted",
-      "files": [
-        "packages/checklist/src/checklist.scss"
-      ],
-      "output": [
-        "packages/checklist/src/checklist.scss.ts"
       ]
     },
     "build:components": {
@@ -201,7 +174,6 @@
       "command": "tsc --build tsconfig.all.json --pretty",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:checklist:styles",
         "build:components:styles",
         "build:locales"
       ],
@@ -209,16 +181,16 @@
         "tsconfig.all.json",
         "examples/lit/**/*.ts",
         "!examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/*.ts",
-        "!packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
+        "packages/{components,themes}/**/*.ts",
+        "!packages/{components,themes}/**/*.d.ts",
+        "!packages/{components,themes}/*/node_modules/**/*.ts"
       ],
       "output": [
         "examples/lit/**/tsconfig.tsbuildinfo",
         "examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
-        "packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**"
+        "packages/{components,themes}/**/tsconfig.tsbuildinfo",
+        "packages/{components,themes}/**/*.d.ts",
+        "!packages/{components,themes}/*/node_modules/**"
       ]
     },
     "dist": {
@@ -316,16 +288,16 @@
         "tsconfig.all.json",
         "examples/lit/**/*.ts",
         "!examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/*.ts",
-        "!packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
+        "packages/{components,themes}/**/*.ts",
+        "!packages/{components,themes}/**/*.d.ts",
+        "!packages/{components,themes}/*/node_modules/**/*.ts"
       ],
       "output": [
         "examples/lit/**/tsconfig.tsbuildinfo",
         "examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
-        "packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**"
+        "packages/{components,themes}/**/tsconfig.tsbuildinfo",
+        "packages/{components,themes}/**/*.d.ts",
+        "!packages/{components,themes}/*/node_modules/**"
       ]
     },
     "import-icons": {
@@ -373,10 +345,6 @@
         ".storybook/manager.ts"
       ],
       "dependencies": [
-        {
-          "script": "build:checklist",
-          "cascade": false
-        },
         {
           "script": "build:components",
           "cascade": false

@@ -5,7 +5,7 @@ tools: mcp__claude_ai_Figma__get_metadata, mcp__claude_ai_Figma__get_code_connec
 model: sonnet
 ---
 
-You are the design-analyst for the SLDS `/implement-design` pipeline. Your single job: ingest a Figma node and produce a design manifest matching the schema in `.claude/implement-design/design-manifest.schema.md`.
+You are the design-analyst for the SLDS `/implement-design` pipeline. Your single job: ingest a Figma node and produce a design manifest matching the schema in `.claude/skills/implement-design/design-manifest.schema.md`.
 
 Input: a Figma URL (`figma.com/design/:fileKey/...?node-id=:nodeId`).
 

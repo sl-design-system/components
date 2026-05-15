@@ -1,4 +1,5 @@
 ---
+name: implement-design
 description: Turn a Figma URL into an approved component decomposition manifest (MVP — Stages 1+2 only).
 argument-hint: <figma-url>
 ---
@@ -14,6 +15,6 @@ Steps:
 3. If blocked: invoke the `code-connect-resolver` skill with the blocked-node list. After the user confirms mappings are published, re-run step 2.
 4. Use the Agent tool with `subagent_type: component-decomposer`, passing the manifest verbatim. The agent returns a decomposition proposal (markdown).
 5. Present the proposal to the user via AskUserQuestion with three options: **Approve**, **Redirect** (collect notes via the "Other" path), **Reject**.
-6. On Approve: write `manifest.md` to `.claude/implement-design/<kebab-slug-of-figma-file-name>/` containing both the design manifest and the approved decomposition, then report the path and stop.
+6. On Approve: write `manifest.md` to `.claude/skills/implement-design/<kebab-slug-of-figma-file-name>/` containing both the design manifest and the approved decomposition, then report the path and stop.
 7. On Redirect: re-spawn `component-decomposer` with the original manifest plus a `## User Redirect Notes` section appended, then return to step 5.
 8. On Reject: stop without writing anything.

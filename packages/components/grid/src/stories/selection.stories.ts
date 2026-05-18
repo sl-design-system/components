@@ -176,7 +176,8 @@ export const MultipleInDialog: Story = {
         <code>div</code>
         with
         <code>overflow: auto</code>
-        to the overflow behave better when the content exceeds the maximum height of the dialog.
+        to make the overflow behave better when the content exceeds the maximum height of the
+        dialog.
       </p>
 
       <pre

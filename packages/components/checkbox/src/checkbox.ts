@@ -318,7 +318,11 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
     }
 
     requestAnimationFrame(() => {
-      if (!this.input.hasAttribute('aria-labelledby') && this.input.labels?.length) {
+      if (
+        !this.input.hasAttribute('aria-labelledby') &&
+        !this.input.ariaLabelledByElements?.length &&
+        this.input.labels?.length
+      ) {
         this.input.setAttribute(
           'aria-labelledby',
           Array.from(this.input.labels)

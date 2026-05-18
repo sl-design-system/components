@@ -87,8 +87,9 @@ export default {
               .showValid=${showValid}
               .value=${value}
               size=${ifDefined(size)}
-              >${text}</sl-checkbox
             >
+              ${text}
+            </sl-checkbox>
           `}
         </sl-form-field>
         ${reportValidity
@@ -195,21 +196,21 @@ export const Indeterminate: StoryObj = {
 
               <ul>
                 <li>
-                  <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1"
-                    >Andre</sl-checkbox
-                  >
+                  <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1">
+                    Andre
+                  </sl-checkbox>
                 </li>
                 <li>
-                  <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2"
-                    >Paul Bunyan</sl-checkbox
-                  >
+                  <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2">
+                    Paul Bunyan
+                  </sl-checkbox>
                 </li>
               </ul>
             </li>
             <li>
-              <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3"
-                >Two sandwiches</sl-checkbox
-              >
+              <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3">
+                Two sandwiches
+              </sl-checkbox>
             </li>
           </ul>
         </li>
@@ -220,14 +221,14 @@ export const Indeterminate: StoryObj = {
               <sl-checkbox @sl-change=${onChange} name="short-1" id="short-1">Smurfs</sl-checkbox>
             </li>
             <li>
-              <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2"
-                >Mushrooms</sl-checkbox
-              >
+              <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2">
+                Mushrooms
+              </sl-checkbox>
             </li>
             <li>
-              <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3"
-                >One Sandwich</sl-checkbox
-              >
+              <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3">
+                One Sandwich
+              </sl-checkbox>
             </li>
           </ul>
         </li>
@@ -241,8 +242,10 @@ export const NoVisibleLabel: StoryObj = {
     return html`
       <p style="margin: 0 0 1rem 0">
         This checkbox has no internal or external label. It only has an
-        <code>aria-label</code> attribute. That attribute is automatically applied to the
-        <code>input</code> element.
+        <code>aria-label</code>
+        attribute. That attribute is automatically applied to the
+        <code>input</code>
+        element.
       </p>
       <sl-checkbox aria-label="Check me"></sl-checkbox>
     `;
@@ -283,9 +286,9 @@ export const CustomValidity: Story = {
       };
 
       return html`
-        <sl-checkbox @sl-validate=${onValidate} required value="1"
-          >I agree to all terms &amp; conditions</sl-checkbox
-        >
+        <sl-checkbox @sl-validate=${onValidate} required value="1">
+          I agree to all terms &amp; conditions
+        </sl-checkbox>
       `;
     }
   }
@@ -309,9 +312,9 @@ export const CustomAsyncValidity: Story = {
       };
 
       return html`
-        <sl-checkbox @sl-validate=${onValidate} required value="1"
-          >I agree to all terms &amp; conditions</sl-checkbox
-        >
+        <sl-checkbox @sl-validate=${onValidate} required value="1">
+          I agree to all terms &amp; conditions
+        </sl-checkbox>
       `;
     }
   }
@@ -325,17 +328,26 @@ export const WithTooltip: Story = {
 
     return html`
       <p>
-        This story demonstrates how to use tooltips with checkboxes using both the
-        <code>tooltip()</code> directive and the manual <code>aria-describedby</code> approach with
-        a separate <code>sl-tooltip</code> element.
+        This story demonstrates how to use tooltips with checkboxes using the
+        <code>tooltip()</code>
+        directive,
+        <code>aria-describedby</code>
+        , and
+        <code>aria-labelledby</code>
+        with a separate
+        <code>sl-tooltip</code>
+        element. The
+        <code>ForwardAriaMixin</code>
+        resolves IDs to element references and forwards them to the focusable input element, which
+        properly crosses the shadow DOM boundary.
       </p>
 
       <h3>Using the tooltip directive</h3>
       <sl-form>
         <sl-form-field label="Subscriptions">
-          <sl-checkbox ${tooltip('Newsletter tooltip')} value="newsletter" required
-            >Newsletter</sl-checkbox
-          >
+          <sl-checkbox ${tooltip('Newsletter tooltip')} value="newsletter" required>
+            Newsletter
+          </sl-checkbox>
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
@@ -345,10 +357,23 @@ export const WithTooltip: Story = {
       <h3>Using aria-describedby</h3>
       <sl-form>
         <sl-form-field label="Subscriptions">
-          <sl-checkbox value="promotions" aria-describedby="tooltip1" required
-            >Promotions</sl-checkbox
-          >
-          <sl-tooltip id="tooltip1">Promotions tooltip</sl-tooltip>
+          <sl-checkbox aria-describedby="tooltip-promotions" value="promotions" required>
+            Promotions
+          </sl-checkbox>
+          <sl-tooltip id="tooltip-promotions">Promotions tooltip</sl-tooltip>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+
+      <h3>Using aria-labelledby</h3>
+      <sl-form>
+        <sl-form-field label="Subscriptions">
+          <sl-checkbox aria-labelledby="tooltip-updates" value="updates" required>
+            Updates
+          </sl-checkbox>
+          <sl-tooltip id="tooltip-updates">Updates tooltip</sl-tooltip>
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>

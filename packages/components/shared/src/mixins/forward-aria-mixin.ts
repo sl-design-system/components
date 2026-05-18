@@ -80,6 +80,12 @@ export function ForwardAriaMixin<
     #observer?: MutationObserver;
     #pendingAttributes = new Set<string>();
 
+    /**
+     * Stores attribute values at the time they were observed, as a fallback when Lit's ARIA
+     * reflection removes the attribute before resolution.
+     */
+    #storedValues = new Map<string, string>();
+
     static override get observedAttributes(): string[] {
       return [...(super.observedAttributes ?? []), ...(observedAttributes ?? [])];
     }
@@ -97,7 +103,11 @@ export function ForwardAriaMixin<
       const stored = propertyStorage.get(this);
       if (stored) {
         for (const [prop, value] of stored) {
-          (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+          // Skip null/empty values to avoid adding empty aria-* content attributes
+          const isEmpty = value === null || (Array.isArray(value) && value.length === 0);
+          if (!isEmpty) {
+            (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+          }
         }
       }
 
@@ -123,16 +133,21 @@ export function ForwardAriaMixin<
       // before the element upgraded or before the target is available).
       if (!observedAttributes) {
         // Collect any aria-* attributes already present on the element
-        for (const { name } of this.attributes) {
+        for (const { name, value } of this.attributes) {
           if (name.startsWith('aria-')) {
             this.#pendingAttributes.add(name);
+            this.#storedValues.set(name, value);
           }
         }
 
         this.#observer = new MutationObserver(mutations => {
           for (const { attributeName } of mutations) {
             if (attributeName?.startsWith('aria-')) {
-              this.#pendingAttributes.add(attributeName);
+              const value = this.getAttribute(attributeName);
+              if (value !== null) {
+                this.#pendingAttributes.add(attributeName);
+                this.#storedValues.set(attributeName, value);
+              }
             }
           }
 
@@ -158,8 +173,9 @@ export function ForwardAriaMixin<
 
       // Only intercept attributes from our explicit list (the MutationObserver
       // path handles the "observe everything" case in connectedCallback).
-      if (observedAttributes?.includes(name) && newValue !== null) {
+      if (observedAttributes?.includes(name) && newValue) {
         this.#pendingAttributes.add(name);
+        this.#storedValues.set(name, newValue);
         this.#forwardAttributes();
       }
     }
@@ -174,9 +190,12 @@ export function ForwardAriaMixin<
       // Resolve IDs from the host's root (light DOM document or parent shadow root),
       // not from our own shadow root.
       const root = this.getRootNode() as Document | ShadowRoot;
+      const unresolved = new Set<string>();
 
       for (const name of this.#pendingAttributes) {
-        const value = this.getAttribute(name);
+        // Read from the host attribute first; fall back to stored value if Lit's
+        // built-in ARIA reflection removed the attribute before we could process it.
+        const value = this.getAttribute(name) ?? this.#storedValues.get(name);
         if (!value) {
           continue;
         }
@@ -185,25 +204,48 @@ export function ForwardAriaMixin<
         if (elementsProp) {
           // Reference attribute: resolve space-separated IDs to DOM elements and
           // assign via the element reference property (singular or plural).
-          const elements = value
-            .split(/\s+/)
-            .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
-            .filter((el): el is HTMLElement => el !== null);
+          const ids = value.split(/\s+/),
+            elements = ids
+              .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
+              .filter((el): el is HTMLElement => el !== null);
 
-          if (elementsProp.endsWith('Elements')) {
-            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
-          } else {
-            (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
-              elements[0] ?? null;
+          // If not all IDs could be resolved, defer until the referenced elements
+          // are in the DOM (e.g. when a sibling is connected after this element).
+          if (elements.length < ids.length) {
+            unresolved.add(name);
+            continue;
           }
+
+          // Mirror the element reference in propertyStorage so that external code
+          // (e.g. tooltip anchor matching) can discover the relation via the host.
+          let stored = propertyStorage.get(this);
+          if (!stored) {
+            stored = new Map();
+            propertyStorage.set(this, stored);
+          }
+          const refValue = elementsProp.endsWith('Elements') ? elements : (elements[0] ?? null);
+          stored.set(elementsProp, refValue);
+
+          // Set element references on the target for cross-shadow-DOM accessibility.
+          (targetElement as unknown as Record<string, Element[] | Element | null>)[elementsProp] =
+            refValue;
         } else {
           targetElement.setAttribute(name, value);
         }
 
         this.removeAttribute(name);
+        this.#storedValues.delete(name);
       }
 
-      this.#pendingAttributes.clear();
+      this.#pendingAttributes = unresolved;
+
+      // If some IDs could not be resolved, retry to give sibling elements time to
+      // connect to the DOM. Use both setTimeout (new macrotask, after all synchronous
+      // rendering) and rAF (next frame) to cover different rendering pipelines.
+      if (unresolved.size > 0) {
+        setTimeout(() => this.#forwardAttributes(), 0);
+        requestAnimationFrame(() => this.#forwardAttributes());
+      }
     }
   }
 
@@ -252,7 +294,13 @@ export function ForwardAriaMixin<
 
         const target = targetElements.get(this);
         if (target) {
-          (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+          // Only forward non-empty values to the target. Forwarding null or empty arrays
+          // can cause the browser to add an empty aria-describedby/aria-labelledby content
+          // attribute on the target, which interferes with deferred ID resolution.
+          const isEmpty = value === null || (Array.isArray(value) && value.length === 0);
+          if (!isEmpty) {
+            (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+          }
         }
       }
     });

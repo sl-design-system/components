@@ -15,7 +15,7 @@ const buildPackages = async path => {
 };
 
 const packageType = argv.at(-1);
-if (['checklist', 'components', 'locales', 'themes'].includes(packageType)) {
+if (['components', 'locales', 'themes'].includes(packageType)) {
   await buildPackages(`./packages/${packageType}/**/!(*.{d,spec,stories}).ts`);
 } else if (packageType === 'examples') {
   await buildPackages(`./examples/**/!(*.{d,spec,stories}).ts`);

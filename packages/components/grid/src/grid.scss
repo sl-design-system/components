@@ -205,6 +205,7 @@
   }
 }
 
+/* stylelint-disable-next-line selector-attribute-operator-space-after */
 :host([striped]) tr[part~='even'] {
   --_body-cell-background: var(--sl-elevation-surface-raised-alternative);
 }

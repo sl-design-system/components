@@ -144,7 +144,8 @@ export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton {
     disabled: menuItem.hasAttribute('disabled'),
     icon: menuItem.querySelector('sl-icon')?.getAttribute('name'),
     label: menuItem.textContent?.trim() || undefined,
-    visible: true
+    visible: true,
+    click: () => menuItem.click()
   };
 }
 

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<file target-language="it" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="sl.breadcrumbs.home">
+  <source>Home</source>
+  <target>Home</target>
+</trans-unit>
+<trans-unit id="sl.tree.loadingMessage">
+  <source>Loading</source>
+  <target>Caricamento</target>
+</trans-unit>
+<trans-unit id="sl.tag.removalInstructions">
+  <source>Press the delete or backspace key to remove this item</source>
+  <target>Premi il tasto Canc o Backspace per rimuovere questo elemento</target>
+</trans-unit>
+<trans-unit id="sl.common.selected">
+  <source>Selected</source>
+  <target>Selezionato</target>
+</trans-unit>
+<trans-unit id="sl.common.allOptions">
+  <source>All options</source>
+  <target>Tutte le opzioni</target>
+</trans-unit>
+<trans-unit id="sl.common.close">
+  <source>Close</source>
+  <target>Chiudi</target>
+</trans-unit>
+<trans-unit id="sl.emojiBrowser.search">
+  <source>Search</source>
+  <target>Cerca</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectionStatusMessage">
+  <source><x id="0" equiv-text="${this.dataSource?.selected}"/> of <x id="1" equiv-text="${this.dataSource?.totalSize}"/> selected</source>
+  <target><x id="0" equiv-text="${this.dataSource?.selected}"/> di <x id="1" equiv-text="${this.dataSource?.totalSize}"/> selezionati</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.alertTitle">
+  <source>Alert</source>
+  <target>Avviso</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.confirmTitle">
+  <source>Confirm</source>
+  <target>Conferma</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.cancelButton">
+  <source>Cancel</source>
+  <target>Annulla</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.okButton">
+  <source>OK</source>
+  <target>OK</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.exceedsMaximum">
+  <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>Il valore deve essere minore o uguale a <x id="0" equiv-text="${this.max}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.belowMinimum">
+  <source>The value must be greater than or equal to <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>Il valore deve essere maggiore o uguale a <x id="0" equiv-text="${this.min}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.invalidNumber">
+  <source>Please enter a valid number.</source>
+  <target>Inserisci un numero valido.</target>
+</trans-unit>
+<trans-unit id="sl.common.validation.tooShort">
+  <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> character<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> (you currently have <x id="2" equiv-text="${length}"/> character<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</source>
+  <target>Inserisci almeno <x id="0" equiv-text="${this.minLength}"/> caratter<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> (attualmente ne hai <x id="2" equiv-text="${length}"/> caratter<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</target>
+</trans-unit>
+<trans-unit id="sl.checkbox.validation.valueMissing">
+  <source>Please check this box.</source>
+  <target>Seleziona questa casella.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.valueMissingMultiple">
+  <source>Please select at least one option.</source>
+  <target>Seleziona almeno un'opzione.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.valueMissing">
+  <source>Please select an option.</source>
+  <target>Seleziona un'opzione.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.createCustomOption">
+  <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
+  <target>Crea "<x id="0" equiv-text="${this.value}"/>"</target>
+</trans-unit>
+<trans-unit id="sl.emojiBrowser.frequentlyUsed">
+  <source>Frequently Used</source>
+  <target>Usati di frequente</target>
+</trans-unit>
+<trans-unit id="sl.form.allFieldsValid">
+  <source>All fields are valid.</source>
+  <target>Tutti i campi sono validi.</target>
+</trans-unit>
+<trans-unit id="sl.form.optionalLabelIndicator">
+  <source>optional</source>
+  <target>opzionale</target>
+</trans-unit>
+<trans-unit id="sl.form.requiredLabelIndicator">
+  <source>required</source>
+  <target>obbligatorio</target>
+</trans-unit>
+<trans-unit id="sl.grid.cancelSelection">
+  <source>Cancel selection</source>
+  <target>Annulla selezione</target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousMonth">
+  <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Mese precedente, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.nextMonth">
+  <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Mese successivo, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.week">
+  <source>Week</source>
+  <target>Settimana</target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousYear">
+  <source>Previous year, <x id="0" equiv-text="${currentYear - 1}"/></source>
+  <target>Anno precedente, <x id="0" equiv-text="${currentYear - 1}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.nextYear">
+  <source>Next year, <x id="0" equiv-text="${currentYear + 1}"/></source>
+  <target>Anno successivo, <x id="0" equiv-text="${currentYear + 1}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousYears">
+  <source>Go back 12 years</source>
+  <target>Torna indietro di 12 anni</target>
+</trans-unit>
+<trans-unit id="sl.calendar.nextYears">
+  <source>Go forward 12 years</source>
+  <target>Vai avanti di 12 anni</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortDescending">
+  <source>Sort descending</source>
+  <target>Ordina decrescente</target>
+</trans-unit>
+<trans-unit id="sl.grid.removeSort">
+  <source>Remove sort</source>
+  <target>Rimuovi ordinamento</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortAscending">
+  <source>Sort ascending</source>
+  <target>Ordina crescente</target>
+</trans-unit>
+<trans-unit id="sl.grid.blankFilterOption">
+  <source>Blank</source>
+  <target>Vuoto</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectAllRows">
+  <source>Select all rows</source>
+  <target>Seleziona tutte le righe</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectRow">
+  <source>Select row</source>
+  <target>Seleziona riga</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.breadcrumbTrail">
+  <source>Breadcrumb trail</source>
+  <target>Percorso di navigazione</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.moreBreadcrumbs">
+  <source>More breadcrumbs</source>
+  <target>Altri collegamenti</target>
+</trans-unit>
+<trans-unit id="sl.checkbox.validation.valueMissingMultiple">
+  <source>Please check at least one option.</source>
+  <target>Seleziona almeno un'opzione.</target>
+</trans-unit>
+<trans-unit id="sl.tag.listOfHiddenElements">
+  <source>List of hidden elements</source>
+  <target>Elenco degli elementi nascosti</target>
+</trans-unit>
+<trans-unit id="sl.combobox.selectedOptions">
+  <source>Selected options</source>
+  <target>Opzioni selezionate</target>
+</trans-unit>
+<trans-unit id="sl.radioGroup.validation.valueMissing">
+  <source>Please select an option.</source>
+  <target>Seleziona un'opzione.</target>
+</trans-unit>
+<trans-unit id="sl.tabs.showAll">
+  <source>Show all</source>
+  <target>Mostra tutto</target>
+</trans-unit>
+<trans-unit id="sl.select.clearSelection">
+  <source>Clear selection</source>
+  <target>Cancella selezione</target>
+</trans-unit>
+<trans-unit id="sl.select.validation.valueMissing">
+  <source>Please choose an option from the list.</source>
+  <target>Scegli un'opzione dall'elenco.</target>
+</trans-unit>
+<trans-unit id="sl.toolBar.showMore">
+  <source>Show more</source>
+  <target>Mostra altro</target>
+</trans-unit>
+<trans-unit id="sl.grid.filterByValue">
+  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
+  <target>Filtra per <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.toggleGroup">
+  <source>Toggle group</source>
+  <target>Mostra gruppo</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToEndOfTable">
+  <source>Skip to end of table</source>
+  <target>Vai alla fine della tabella</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToStartOfTable">
+  <source>Skip to start of table</source>
+  <target>Vai all'inizio della tabella</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabel">
+  <source>Items</source>
+  <target>Elementi</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelFew">
+  <source>items</source>
+  <target>elementi</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelOne">
+  <source>item</source>
+  <target>elemento</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelOther">
+  <source>items</source>
+  <target>elementi</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPage">
+  <source><x id="0" equiv-text="${itemLabel}"/> per page:</source>
+  <target><x id="0" equiv-text="${itemLabel}"/> per pagina:</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPageOption">
+  <source><x id="0" equiv-text="${sizeLabel}"/> per page</source>
+  <target><x id="0" equiv-text="${itemLabelLowercase}"/> per pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagination">
+  <source>Pagination</source>
+  <target>Paginazione</target>
+</trans-unit>
+<trans-unit id="sl.paginator.previousPage">
+  <source>Go to the previous page (<x id="0" equiv-text="${this.page}"/>)</source>
+  <target>Vai alla pagina precedente (<x id="0" equiv-text="${this.page}"/>)</target>
+</trans-unit>
+<trans-unit id="sl.paginator.selectPageNumber">
+  <source>Select page number</source>
+  <target>Seleziona numero di pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.currentPage">
+  <source><x id="0" equiv-text="${this.page}"/>, page</source>
+  <target><x id="0" equiv-text="${this.page}"/>, pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pageOption">
+  <source><x id="0" equiv-text="${index + 1}"/>, page</source>
+  <target><x id="0" equiv-text="${index + 1}"/>, pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagesLabelFew">
+  <source>pages</source>
+  <target>pagine</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagesLabelOne">
+  <source>page</source>
+  <target>pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagesLabelOther">
+  <source>pages</source>
+  <target>pagine</target>
+</trans-unit>
+<trans-unit id="sl.paginator.totalPages">
+  <source>of <x id="0" equiv-text="${this.pageCount + ' ' + this.#getPagesLabel()}"/></source>
+  <target>di <x id="0" equiv-text="${this.pageCount + ' ' + this.#getPagesLabel()}"/></target>
+</trans-unit>
+<trans-unit id="sl.paginator.nextPage">
+  <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
+  <target>Vai alla pagina successiva (<x id="0" equiv-text="${this.page + 2}"/>)</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pageChangeAnnouncement">
+  <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
+  <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> di <x id="1" equiv-text="${this.pageCount}"/></target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsRange">
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></source>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> di <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></target>
+</trans-unit>
+<trans-unit id="sl.paginator.currentlyShowingAmount">
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></source>
+  <target>Visualizzazione da <x id="0" equiv-text="${start}"/> a <x id="1" equiv-text="${end}"/> di <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></target>
+</trans-unit>
+<trans-unit id="sl.progressBar.state">
+  <source>state</source>
+  <target>stato</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepDown">
+  <source>Step down</source>
+  <target>Diminuisci</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepUp">
+  <source>Step up</source>
+  <target>Aumenta</target>
+</trans-unit>
+<trans-unit id="sl.searchField.clearText">
+  <source>Clear text</source>
+  <target>Cancella testo</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.invalidValue">
+  <source>Please enter a valid value.</source>
+  <target>Inserisci un valore valido.</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.patternMismatch">
+  <source>Please match the format requested.</source>
+  <target>Inserisci un valore nel formato richiesto.</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.valueMissing">
+  <source>Please fill in this field.</source>
+  <target>Compila questo campo.</target>
+</trans-unit>
+<trans-unit id="sl.form.errorsList">
+  <source>The following fields have errors:</source>
+  <target>I seguenti campi contengono errori:</target>
+</trans-unit>
+<trans-unit id="sl.combobox.noOptionsFound">
+  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
+  <target>Nessuna opzione che inizia con "<x id="0" equiv-text="${this.value}"/>" è stata trovata.</target>
+</trans-unit>
+<trans-unit id="sl.panel.expand">
+  <source>Expand panel</source>
+  <target>Espandi pannello</target>
+</trans-unit>
+<trans-unit id="sl.panel.collapse">
+  <source>Collapse panel</source>
+  <target>Riduci pannello</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.active">
+  <source>active</source>
+  <target>attivo</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.success">
+  <source>success</source>
+  <target>successo</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.warning">
+  <source>warning</source>
+  <target>avviso</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.error">
+  <source>error</source>
+  <target>errore</target>
+</trans-unit>
+<trans-unit id="sl.timeField.valueMissing">
+  <source>Please enter a time.</source>
+  <target>Inserisci un orario.</target>
+</trans-unit>
+<trans-unit id="sl.timeField.selectHours">
+  <source>Select hours</source>
+  <target>Seleziona ore</target>
+</trans-unit>
+<trans-unit id="sl.timeField.selectMinutes">
+  <source>Select minutes</source>
+  <target>Seleziona minuti</target>
+</trans-unit>
+<trans-unit id="sl.calendar.daysLabel">
+  <source>Days of <x id="0" equiv-text="${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Giorni di <x id="0" equiv-text="${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="sl.monthView.week">
+  <source>Week <x id="0" equiv-text="${week.number}"/></source>
+  <target>Settimana <x id="0" equiv-text="${week.number}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.monthsLabel">
+  <source>Months of <x id="0" equiv-text="${currentYear}"/></source>
+  <target>Mesi di <x id="0" equiv-text="${currentYear}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.announceMonthsOfYear">
+  <source>Months of the year <x id="0" equiv-text="${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}"/></source>
+  <target>Mesi dell'anno <x id="0" equiv-text="${Intl.DateTimeFormat(this.locale, { year: 'numeric' }).format(month)}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.yearsLabel">
+  <source>Years from <x id="0" equiv-text="${this.years.at(0)!}"/> to <x id="1" equiv-text="${this.years.at(-1)!}"/></source>
+  <target>Anni da <x id="0" equiv-text="${this.years.at(0)!}"/> a <x id="1" equiv-text="${this.years.at(-1)!}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.announceYears">
+  <source>Years between <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> and <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></source>
+  <target>Anni tra <x id="0" equiv-text="${yearsRange.at(0) ?? ''}"/> e <x id="1" equiv-text="${yearsRange.at(-1) ?? ''}"/></target>
+</trans-unit>
+<trans-unit id="sl.timeField.typeMismatch">
+  <source>Please enter a valid time.</source>
+  <target>Inserisci un orario valido.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.changeMonth">
+  <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { month: 'long' })}"/>, change month</source>
+  <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { month: 'long' })}"/>, cambia mese</target>
+</trans-unit>
+<trans-unit id="sl.calendar.changeYear">
+  <source><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, change year</source>
+  <target><x id="0" equiv-text="${format(this.displayMonth!, this.locale, { year: 'numeric' })}"/>, cambia anno</target>
+</trans-unit>
+<trans-unit id="sl.dateField.typeMismatch">
+  <source>Please enter a valid date.</source>
+  <target>Inserisci una data valida.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.valueMissing">
+  <source>Please enter a date.</source>
+  <target>Inserisci una data.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.rangeUnderflow">
+  <source>Please select a date that is no earlier than <x id="0" equiv-text="${formattedMin}"/>.</source>
+  <target>Seleziona una data non anteriore a <x id="0" equiv-text="${formattedMin}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.rangeOverflow">
+  <source>Please select a date that is no later than <x id="0" equiv-text="${formattedMax}"/>.</source>
+  <target>Seleziona una data non posteriore a <x id="0" equiv-text="${formattedMax}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.dateField.confirm">
+  <source>Confirm</source>
+  <target>Conferma</target>
+</trans-unit>
+<trans-unit id="sl.dateField.selectDate">
+  <source>Select date</source>
+  <target>Seleziona data</target>
+</trans-unit>
+<trans-unit id="sl.timeField.toggleDropdown">
+  <source>Select time</source>
+  <target>Seleziona orario</target>
+</trans-unit>
+<trans-unit id="sl.dateField.empty">
+  <source>Empty</source>
+  <target>Vuoto</target>
+</trans-unit>
+<trans-unit id="sl.timeField.empty">
+  <source>Empty</source>
+  <target>Vuoto</target>
+</trans-unit>
+<trans-unit id="sl.timeField.rangeUnderflow">
+  <source>Please select a time that is no earlier than <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>Seleziona un orario non anteriore a <x id="0" equiv-text="${this.min}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.timeField.rangeOverflow">
+  <source>Please select a time that is no later than <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>Seleziona un orario non posteriore a <x id="0" equiv-text="${this.max}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeBetween">
+  <source>Between <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> and <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
+  <target>Tra <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/> e <x id="1" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeNoEarlierThan">
+  <source>No earlier than <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/></source>
+  <target>Non prima di <x id="0" equiv-text="${format(this.min, this.locale, this.#helperTextFormatOptions)}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeNoLaterThan">
+  <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
+  <target>Non oltre <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
+</trans-unit>
+<trans-unit id="sl.combobox.hideOptions">
+  <source>Hide the options</source>
+  <target>Nascondi le opzioni</target>
+</trans-unit>
+<trans-unit id="sl.combobox.showOptions">
+  <source>Show the options</source>
+  <target>Mostra le opzioni</target>
+</trans-unit>
+<trans-unit id="sl.infotip.moreInformation">
+  <source>More information</source>
+  <target>Più informazioni</target>
+</trans-unit>
+</body>
+</file>
+</xliff>

@@ -1,5 +1,22 @@
 # @sl-design-system/tooltip
 
+## 2.0.0
+
+### Major Changes
+
+- [#3260](https://github.com/sl-design-system/components/pull/3260) [`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef) - Reworks tooltip hover timing to use fixed, non-configurable delays for more consistent UX:
+
+  **Breaking change:** custom tooltip hover timing is no longer supported.
+  - Show delay is now fixed at `500ms` and is no longer configurable.
+  - Hide delay is now fixed at `200ms` and is no longer configurable.
+  - Tooltip fade timing has been tuned for smoother open/close transitions.
+
+  `show-delay` and `hide-delay` have been removed from the tooltip API. Custom hover timing is no longer supported.
+
+### Patch Changes
+
+- [#3213](https://github.com/sl-design-system/components/pull/3213) [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b) - Fixes tooltips on grid bulk action buttons inside popovers and keeps them working on repeated hover
+
 ## 1.4.0
 
 ### Minor Changes

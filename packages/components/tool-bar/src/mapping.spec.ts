@@ -205,6 +205,13 @@ describe('mapMenuItemToItem', () => {
 
     expect(item.icon).to.equal('far-pen');
   });
+
+  it('should provide a click handler', async () => {
+    const el = await fixture<MenuItem>(html`<sl-menu-item>Rename...</sl-menu-item>`),
+      item = mapMenuItemToItem(el);
+
+    expect(item.click).to.be.a('function');
+  });
 });
 
 describe('mapElementsToItems', () => {

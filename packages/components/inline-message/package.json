@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/inline-message",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "status": "stable",
   "description": "Inline-message component for the SL Design System",
   "license": "Apache-2.0",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@sl-design-system/announcer": "^0.0.8",
-    "@sl-design-system/button": "^2.0.0",
+    "@sl-design-system/button": "^2.0.1",
     "@sl-design-system/icon": "^1.4.2",
     "@sl-design-system/shared": "^0.12.0"
   },

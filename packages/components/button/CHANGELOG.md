@@ -1,5 +1,13 @@
 # @sl-design-system/button
 
+## 2.0.1
+
+### Patch Changes
+
+- [#3219](https://github.com/sl-design-system/components/pull/3219) [`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333) - Fixed styling of slotted `<a href>` elements inside `<sl-button>`. Global CSS from the application could override the link color and text decoration, causing the button to render incorrectly.
+
+  > **Note:** Slotting an `<a href>` inside an `<sl-button>` is considered bad practice. Use an `<a href>` directly. There are already styles for that in the theme's `global.css`.
+
 ## 2.0.0
 
 ### Major Changes

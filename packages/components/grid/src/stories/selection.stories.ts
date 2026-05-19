@@ -143,6 +143,7 @@ export const Multiple: Story = {
 };
 
 export const MultipleInDialog: Story = {
+  tags: ['!dev'], // this is a scenario that is highly questionable, so we don't want to show it in the side bar, but keep it on hand if someone needs it
   args: {
     selectAll: false
   },

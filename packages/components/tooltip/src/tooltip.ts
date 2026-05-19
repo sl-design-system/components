@@ -168,11 +168,14 @@ export class Tooltip extends LitElement {
       removeListeners();
 
       // When the tooltip is created in response to a focusin event, the tooltip's own
-      // document-level focusin listener missed the original event. Re-dispatch a synthetic
-      // focusin so the tooltip's normal show logic kicks in.
+      // document-level focusin listener missed the original event. Dispatch a synthetic
+      // focusin on the owning document so the tooltip's normal show logic kicks in
+      // without re-triggering focusin listeners on the anchor or its ancestors.
       if (event?.type === 'focusin') {
         requestAnimationFrame(() => {
-          target.dispatchEvent(new FocusEvent('focusin', { bubbles: true, composed: true }));
+          (target.ownerDocument ?? document).dispatchEvent(
+            new FocusEvent('focusin', { bubbles: true, composed: true })
+          );
         });
       }
     };

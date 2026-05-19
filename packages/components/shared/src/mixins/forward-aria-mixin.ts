@@ -1,6 +1,17 @@
 import { type Constructor } from '@open-wc/dedupe-mixin';
 import { type ReactiveElement } from 'lit';
 
+/** Counter for generating stable unique IDs for elements that lack one. */
+let nextAutoId = 0;
+
+/** Ensures the element has an `id` attribute, auto-assigning one if missing. */
+function ensureId(el: HTMLElement): string {
+  if (!el.id) {
+    el.id = `sl-aria-ref-${nextAutoId++}`;
+  }
+  return el.id;
+}
+
 export interface ForwardAriaMixinInterface {
   getProxyTarget(): HTMLElement | undefined;
   setProxyTarget(target: HTMLElement): void;
@@ -77,8 +88,14 @@ export function ForwardAriaMixin<
     ariaDisabledStorage = new WeakMap<ForwardAriaImpl, string | null>();
 
   class ForwardAriaImpl extends constructor {
+    /** Maximum number of deferred retries before giving up on unresolved IDs. */
+    static readonly #MAX_RETRIES = 3;
+
     #observer?: MutationObserver;
     #pendingAttributes = new Set<string>();
+
+    /** Tracks the number of deferred resolution attempts per attribute. */
+    #retryCounts = new Map<string, number>();
 
     /**
      * Stores attribute values at the time they were observed, as a fallback when Lit's ARIA
@@ -120,10 +137,7 @@ export function ForwardAriaMixin<
             const attrName = Object.entries(ELEMENT_REFERENCES).find(([, p]) => p === prop)?.[0];
             if (attrName) {
               const elements = Array.isArray(value) ? value : [value];
-              const ids = elements
-                .map(el => (el as HTMLElement).id)
-                .filter(Boolean)
-                .join(' ');
+              const ids = elements.map(el => ensureId(el as HTMLElement)).join(' ');
               if (ids) {
                 target.setAttribute(attrName, ids);
               }
@@ -193,13 +207,23 @@ export function ForwardAriaMixin<
       oldValue: string | null,
       newValue: string | null
     ): void {
+      // Store the value BEFORE calling super, since Lit's ARIA reflection may
+      // remove or empty the attribute during super.attributeChangedCallback.
+      if (observedAttributes?.includes(name) && newValue) {
+        this.#pendingAttributes.add(name);
+        this.#storedValues.set(name, newValue);
+      }
+
       super.attributeChangedCallback(name, oldValue, newValue);
 
       // Only intercept attributes from our explicit list (the MutationObserver
       // path handles the "observe everything" case in connectedCallback).
       if (observedAttributes?.includes(name) && newValue) {
-        this.#pendingAttributes.add(name);
-        this.#storedValues.set(name, newValue);
+        // Attempt to forward; if #pendingAttributes was already consumed (e.g. by a
+        // re-entrant call triggered from super), re-add and retry.
+        if (!this.#pendingAttributes.has(name)) {
+          this.#pendingAttributes.add(name);
+        }
         this.#forwardAttributes();
       }
     }
@@ -218,8 +242,9 @@ export function ForwardAriaMixin<
 
       for (const name of this.#pendingAttributes) {
         // Read from the host attribute first; fall back to stored value if Lit's
-        // built-in ARIA reflection removed the attribute before we could process it.
-        const value = this.getAttribute(name) ?? this.#storedValues.get(name);
+        // built-in ARIA reflection removed the attribute (or set it to empty string)
+        // before we could process it.
+        const value = this.getAttribute(name) || this.#storedValues.get(name);
         if (!value) {
           continue;
         }
@@ -235,10 +260,25 @@ export function ForwardAriaMixin<
 
           // If not all IDs could be resolved, defer until the referenced elements
           // are in the DOM (e.g. when a sibling is connected after this element).
-          if (elements.length < ids.length) {
-            unresolved.add(name);
-            continue;
+          // Only defer when at least one element was found (partial resolution),
+          // indicating siblings are still rendering. When nothing resolves at all,
+          // forward immediately so consumers get a deterministic empty result.
+          // After MAX_RETRIES attempts, give up and forward whatever was resolved
+          // so permanently-missing IDs don't block indefinitely.
+          if (elements.length < ids.length && elements.length > 0) {
+            const retries = this.#retryCounts.get(name) ?? 0;
+            if (retries < ForwardAriaImpl.#MAX_RETRIES) {
+              this.#retryCounts.set(name, retries + 1);
+              unresolved.add(name);
+              continue;
+            }
+            // Fallback: forward partially-resolved elements.
+            // Clean up retry state since we're done trying.
+            this.#retryCounts.delete(name);
           }
+
+          // Clean up retry count on successful resolution.
+          this.#retryCounts.delete(name);
 
           // Mirror the element reference in propertyStorage so that external code
           // (e.g. tooltip anchor matching) can discover the relation via the host.
@@ -249,6 +289,22 @@ export function ForwardAriaMixin<
           }
           const refValue = elementsProp.endsWith('Elements') ? elements : (elements[0] ?? null);
           stored.set(elementsProp, refValue);
+
+          // If no elements could be resolved at all and the target is in the same
+          // scope, just remove the attribute from the host — there's nothing useful
+          // to set as a string attribute. For cross-scope targets, still forward the
+          // empty array so consumers reading the native property get a deterministic [].
+          if (elements.length === 0) {
+            const targetRoot = targetElement.getRootNode();
+            if (targetRoot !== root) {
+              (targetElement as unknown as Record<string, Element[] | Element | null>)[
+                elementsProp
+              ] = refValue;
+            }
+            this.removeAttribute(name);
+            this.#storedValues.delete(name);
+            continue;
+          }
 
           // Determine the target's root to decide how to forward the relationship.
           const targetRoot = targetElement.getRootNode();
@@ -343,10 +399,7 @@ export function ForwardAriaMixin<
               const attrName = Object.entries(ELEMENT_REFERENCES).find(([, p]) => p === prop)?.[0];
               if (attrName) {
                 const elements = Array.isArray(value) ? value : [value];
-                const ids = elements
-                  .map(el => (el as HTMLElement).id)
-                  .filter(Boolean)
-                  .join(' ');
+                const ids = elements.map(el => ensureId(el as HTMLElement)).join(' ');
                 if (ids) {
                   target.setAttribute(attrName, ids);
                 }

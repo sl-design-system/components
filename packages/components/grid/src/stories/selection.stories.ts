@@ -46,30 +46,23 @@ export const Activate: Story = {
       <p>
         This example allows you to activate a student by clicking anywhere on the row, or by using
         the keyboard to click on the button with the avatar. This behavior is enabled by setting the
-        <code>row-action</code>
-        property to
-        <code>activate</code>
-        . After activation, the activated student will be highlighted in the grid by setting the
-        <code>activeRow</code>
-        property. An
-        <code>sl-grid-active-row-change</code>
-        event is dispatched when the active row changes, which you can use to update the UI or
-        perform other actions based on the active row.
+        <code>row-action</code> property to <code>activate</code>. After activation, the activated
+        student will be highlighted in the grid by setting the <code>activeRow</code> property. An
+        <code>sl-grid-active-row-change</code> event is dispatched when the active row changes,
+        which you can use to update the UI or perform other actions based on the active row.
       </p>
       <p id="selection">You have not activated anybody yet.</p>
       <sl-grid
         @sl-grid-active-row-change=${onActiveRowChange}
         .items=${students}
-        row-action="activate"
-      >
+        row-action="activate">
         <sl-grid-column
           grow="3"
           header="Student"
           .renderer=${(student: Student) => html`
             <sl-button fill="link" variant="primary">${avatarRenderer(student)}</sl-button>
           `}
-          .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;
@@ -84,13 +77,10 @@ export const Multiple: Story = {
     return html`
       <p>
         This example shows how you can select multiple rows by toggling the checkbox in the first
-        column. If you add an
-        <code>sl-grid-selection-column</code>
-        element, it will automatically enable multi selection for you. When you have selected
-        multiple rows, you can perform bulk actions on them by using the floating tool-bar at the
-        bottom of the grid. You can add bulk actions by using the
-        <code>bulk-actions</code>
-        slot.
+        column. If you add an <code>sl-grid-selection-column</code> element, it will automatically
+        enable multi selection for you. When you have selected multiple rows, you can perform bulk
+        actions on them by using the floating tool-bar at the bottom of the grid. You can add bulk
+        actions by using the <code>bulk-actions</code> slot.
       </p>
       <sl-grid .items=${(students as Student[]).slice(0, 5)}>
         <sl-grid-selection-column ?select-all=${selectAll}></sl-grid-selection-column>
@@ -98,8 +88,7 @@ export const Multiple: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
@@ -120,8 +109,7 @@ export const Multiple: Story = {
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
         </sl-button>
@@ -177,17 +165,12 @@ export const MultipleInDialog: Story = {
         scrollable.
       </p>
       <p>
-        Also wrap the grid in a
-        <code>div</code>
-        with
-        <code>overflow: auto</code>
-        to make the overflow behave better when the content exceeds the maximum height of the
-        dialog.
+        Also wrap the grid in a <code>div</code> with <code>overflow: auto</code> to make the
+        overflow behave better when the content exceeds the maximum height of the dialog.
       </p>
 
       <pre
-        style="background: var(--sl-color-background-subtle); padding: var(--sl-size-200); border-radius: var(--sl-size-borderRadius-default); overflow: auto"
-      >
+        style="background: var(--sl-color-background-subtle); padding: var(--sl-size-200); border-radius: var(--sl-size-borderRadius-default); overflow: auto">
 sl-dialog::part(dialog) {
   anchor-name: --grid-dialog;
   max-block-size: 70vh;
@@ -201,8 +184,8 @@ sl-dialog::part(body) {
 sl-grid::part(bulk-actions) {
   inset-block-start: calc(anchor(bottom) - var(--sl-size-300));
   position-anchor: --grid-dialog;
-}
-</pre>
+}</pre
+      >
 
       <p>
         There is a known issue where the bulk actions bar gets placed under the dialog overlay when
@@ -223,21 +206,19 @@ sl-grid::part(bulk-actions) {
           <code>bulk-actions</code>
           slot.
         </p>
-        <div style="flex:0; overflow: auto">
+        <div style="flex:1; overflow: auto">
           <sl-grid .items=${(students as Student[]).slice(0, 30)}>
             <sl-grid-selection-column ?select-all=${selectAll}></sl-grid-selection-column>
             <sl-grid-column
               header="Student"
               path="fullName"
               .renderer=${avatarRenderer}
-              .scopedElements=${{ 'sl-avatar': Avatar }}
-            ></sl-grid-column>
+              .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
             <sl-grid-column path="email"></sl-grid-column>
 
             <!-- These get slotted into the floating tool-bar -->
             <sl-button fill="outline" slot="bulk-actions" variant="inverted">
-              <sl-icon name="far-copy"></sl-icon>
-              Duplicate
+              <sl-icon name="far-copy"></sl-icon> Duplicate
             </sl-button>
             <sl-button fill="outline" slot="bulk-actions" variant="inverted">
               <sl-icon name="far-trash"></sl-icon>
@@ -252,8 +233,7 @@ sl-grid::part(bulk-actions) {
               aria-disabled="true"
               fill="outline"
               slot="bulk-actions"
-              variant="inverted"
-            >
+              variant="inverted">
               <sl-icon name="far-right-to-line"></sl-icon>
               Action 2
             </sl-button>
@@ -293,8 +273,7 @@ export const MultipleWithMenuButton: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
@@ -307,8 +286,7 @@ export const MultipleWithMenuButton: Story = {
           aria-label="Visibility"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           <span slot="button">Visibility</span>
           <sl-menu-item @click=${() => alert('Hide')}>Hide</sl-menu-item>
           <sl-menu-item @click=${() => alert('Show')}>Show</sl-menu-item>
@@ -327,8 +305,7 @@ export const MultipleWithMenuButton: Story = {
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
         </sl-button>
@@ -405,11 +382,7 @@ export const MultipleRow: Story = {
       <p>
         This example shows how you can select multiple rows at a time, but not just by toggling the
         checkbox at the start of the row, but by clicking anywhere on the row. This is done by
-        setting the
-        <code>row-action</code>
-        property to the
-        <code>select</code>
-        value.
+        setting the <code>row-action</code> property to the <code>select</code> value.
       </p>
       <p>
         This example also shows how you can perform bulk actions on the selected rows by using the
@@ -427,8 +400,7 @@ export const MultipleRow: Story = {
           grow="3"
           header="Student"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
@@ -461,14 +433,12 @@ export const WithFiltering: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-filter-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
         <sl-grid-filter-column
           header="School"
           label-path="school.name"
           mode="select"
-          path="school.id"
-        ></sl-grid-filter-column>
+          path="school.id"></sl-grid-filter-column>
       </sl-grid>
     `;
   }
@@ -506,8 +476,7 @@ export const WithLinks: Story = {
         @sl-grid-active-row-change=${onActiveRowChange}
         @sl-grid-selection-change=${onSelectionChange}
         .items=${students}
-        row-action="activate"
-      >
+        row-action="activate">
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column
           grow="3"
@@ -515,8 +484,7 @@ export const WithLinks: Story = {
           .renderer=${(student: Student) => html`
             <sl-button fill="link" variant="primary">${avatarRenderer(student)}</sl-button>
           `}
-          .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->
@@ -588,8 +556,7 @@ export const Grouped: Story = {
           grow="3"
           header="Student"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
 
         <!-- These get slotted into the floating tool-bar -->

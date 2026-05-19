@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "arrowParens": "avoid",
-  "htmlWhitespaceSensitivity": "ignore",
+  "bracketSameLine": true,
+  "htmlWhitespaceSensitivity": "css",
   "ignorePatterns": [
     "*dist",
     "*generated",

@@ -210,14 +210,14 @@ export function ForwardAriaMixin<
         if (elementsProp) {
           // Reference attribute: resolve space-separated IDs to DOM elements and
           // assign via the element reference property (singular or plural).
-          const elements = value
-            .split(/\s+/)
-            .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
-            .filter((el): el is HTMLElement => el !== null);
+          const ids = value.trim().split(/\s+/),
+            elements = ids
+              .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
+              .filter((el): el is HTMLElement => el !== null);
 
           // Keep track of unresolved id-based references so we can retry when matching elements
           // are inserted later (for example sibling tooltips rendered after the control).
-          if (elements.length === 0 && value.trim().length > 0) {
+          if (elements.length < ids.length) {
             this.#unresolvedReferenceAttributes.set(name, value);
             this.#ensureRootObserver(root);
           } else {

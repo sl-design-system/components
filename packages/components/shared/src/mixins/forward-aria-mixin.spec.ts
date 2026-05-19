@@ -263,6 +263,34 @@ describe('ForwardAriaMixin', () => {
       label.remove();
     });
 
+    it('should keep observing until all aria-labelledby references resolve', async () => {
+      const staticLabel = document.createElement('span');
+      staticLabel.id = 'static-label';
+      staticLabel.textContent = 'Static label';
+      el.parentElement!.prepend(staticLabel);
+
+      el.setAttribute('aria-labelledby', 'static-label late-label');
+
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'Static label'
+      ]);
+
+      const lateLabel = document.createElement('span');
+      lateLabel.id = 'late-label';
+      lateLabel.textContent = 'Late label';
+      el.parentElement!.prepend(lateLabel);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'Static label',
+        'Late label'
+      ]);
+
+      staticLabel.remove();
+      lateLabel.remove();
+    });
+
     it('should update the mirrored aria-labelledby text when the source changes', async () => {
       const label = document.createElement('span');
       label.id = 'my-label';

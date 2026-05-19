@@ -99,13 +99,37 @@ export function ForwardAriaMixin<
     setProxyTarget(target: HTMLElement): void {
       targetElements.set(this, target);
 
-      // Forward any element reference properties that were set before the target was available
+      // Forward any element reference properties that were set before the target was available.
+      // Apply the same scope-aware logic as #forwardAttributes: when the target shares the
+      // same root as the host, use string attributes (IDs) instead of element references,
+      // because Chrome clears the content attribute when ariaLabelledByElements is assigned.
       const stored = propertyStorage.get(this);
       if (stored) {
+        const root = this.getRootNode();
+        const targetRoot = target.getRootNode();
+
         for (const [prop, value] of stored) {
           // Skip null/empty values to avoid adding empty aria-* content attributes
           const isEmpty = value === null || (Array.isArray(value) && value.length === 0);
-          if (!isEmpty) {
+          if (isEmpty) {
+            continue;
+          }
+
+          if (targetRoot === root) {
+            // Same scope: convert element references to a string ID attribute.
+            const attrName = Object.entries(ELEMENT_REFERENCES).find(([, p]) => p === prop)?.[0];
+            if (attrName) {
+              const elements = Array.isArray(value) ? value : [value];
+              const ids = elements
+                .map(el => (el as HTMLElement).id)
+                .filter(Boolean)
+                .join(' ');
+              if (ids) {
+                target.setAttribute(attrName, ids);
+              }
+            }
+          } else {
+            // Cross-scope: element references are required.
             (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
           }
         }
@@ -226,9 +250,21 @@ export function ForwardAriaMixin<
           const refValue = elementsProp.endsWith('Elements') ? elements : (elements[0] ?? null);
           stored.set(elementsProp, refValue);
 
-          // Set element references on the target for cross-shadow-DOM accessibility.
-          (targetElement as unknown as Record<string, Element[] | Element | null>)[elementsProp] =
-            refValue;
+          // Determine the target's root to decide how to forward the relationship.
+          const targetRoot = targetElement.getRootNode();
+
+          if (targetRoot === root) {
+            // Same scope: the string attribute reliably resolves IDs. Do NOT set
+            // element reference properties here — Chrome replaces the content attribute
+            // with an empty marker when ariaLabelledByElements/ariaDescribedByElements
+            // is assigned, which breaks the accessibility tree.
+            targetElement.setAttribute(name, value);
+          } else {
+            // Cross-scope (target is inside a shadow root): string IDs cannot resolve
+            // across the shadow boundary, so element references are required.
+            (targetElement as unknown as Record<string, Element[] | Element | null>)[elementsProp] =
+              refValue;
+          }
         } else {
           targetElement.setAttribute(name, value);
         }
@@ -299,7 +335,26 @@ export function ForwardAriaMixin<
           // attribute on the target, which interferes with deferred ID resolution.
           const isEmpty = value === null || (Array.isArray(value) && value.length === 0);
           if (!isEmpty) {
-            (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+            const root = (this as unknown as Element).getRootNode();
+            const targetRoot = target.getRootNode();
+
+            if (targetRoot === root) {
+              // Same scope: use string attribute to avoid Chrome clearing it.
+              const attrName = Object.entries(ELEMENT_REFERENCES).find(([, p]) => p === prop)?.[0];
+              if (attrName) {
+                const elements = Array.isArray(value) ? value : [value];
+                const ids = elements
+                  .map(el => (el as HTMLElement).id)
+                  .filter(Boolean)
+                  .join(' ');
+                if (ids) {
+                  target.setAttribute(attrName, ids);
+                }
+              }
+            } else {
+              // Cross-scope: element references required.
+              (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+            }
           }
         }
       }

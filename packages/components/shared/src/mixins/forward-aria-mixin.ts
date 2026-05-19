@@ -221,7 +221,7 @@ export function ForwardAriaMixin<
             this.#unresolvedReferenceAttributes.set(name, value);
             this.#ensureRootObserver(root);
           } else {
-            this.#unresolvedReferenceAttributes.delete(name);
+            this.#deleteUnresolvedReferenceAttribute(name);
           }
 
           this.#setElementReference(targetElement, elementsProp, elements);
@@ -255,7 +255,7 @@ export function ForwardAriaMixin<
       for (const [name, value] of this.#unresolvedReferenceAttributes) {
         const elementsProp = ELEMENT_REFERENCES[name];
         if (!elementsProp) {
-          this.#unresolvedReferenceAttributes.delete(name);
+          this.#deleteUnresolvedReferenceAttribute(name);
           continue;
         }
 
@@ -270,9 +270,12 @@ export function ForwardAriaMixin<
 
         this.#setElementReference(targetElement, elementsProp, elements);
 
-        this.#unresolvedReferenceAttributes.delete(name);
+        this.#deleteUnresolvedReferenceAttribute(name);
       }
+    }
 
+    #deleteUnresolvedReferenceAttribute(name: string): void {
+      this.#unresolvedReferenceAttributes.delete(name);
       if (this.#unresolvedReferenceAttributes.size === 0) {
         this.#rootObserver?.disconnect();
         this.#rootObserver = undefined;

@@ -15,9 +15,9 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
   'aria-owns': 'ariaOwnsElements'
 };
 
-const ELEMENT_REFERENCE_ATTRIBUTES = Object.fromEntries(
+const ELEMENT_REFERENCE_ATTRIBUTES: Partial<Record<keyof ARIAMixin, string>> = Object.fromEntries(
   Object.entries(ELEMENT_REFERENCES).map(([attribute, prop]) => [prop, attribute])
-) as Record<keyof ARIAMixin, string>;
+);
 
 const MIRRORED_REFERENCE_ATTRIBUTES = new Set(['aria-labelledby']);
 
@@ -372,7 +372,7 @@ export function ForwardAriaMixin<
             const element = ownerDocument.createElement('span');
 
             element.id = source.id || `sl-forwarded-aria-${nextMirrorId++}`;
-            element.hidden = true;
+            this.#makeVisuallyHidden(element);
             parent.appendChild(element);
 
             return element;
@@ -426,6 +426,19 @@ export function ForwardAriaMixin<
       for (const prop of this.#referenceMirrors.keys()) {
         this.#removeReferenceMirror(prop);
       }
+    }
+
+    #makeVisuallyHidden(element: HTMLElement): void {
+      element.style.position = 'absolute';
+      element.style.width = '1px';
+      element.style.height = '1px';
+      element.style.padding = '0';
+      element.style.margin = '-1px';
+      element.style.overflow = 'hidden';
+      element.style.clip = 'rect(0, 0, 0, 0)';
+      element.style.clipPath = 'inset(50%)';
+      element.style.whiteSpace = 'nowrap';
+      element.style.border = '0';
     }
   }
 

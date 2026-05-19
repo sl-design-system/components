@@ -29,7 +29,9 @@ class TooltipAssignedSlotAnchor extends LitElement {
   }
 
   override render() {
-    return html`<button type="button" aria-describedby="tooltip"><slot></slot></button>`;
+    return html`
+      <button type="button" aria-describedby="tooltip"><slot></slot></button>
+    `;
   }
 }
 
@@ -59,12 +61,12 @@ describe('sl-tooltip', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px"
-            >Button element</sl-button
-          >
-          <sl-tooltip id="tooltip"
-            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
-          >
+          <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px">
+            Button element
+          </sl-button>
+          <sl-tooltip id="tooltip">
+            Message with lots of long text, that exceeds 150px easily
+          </sl-tooltip>
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
@@ -80,9 +82,9 @@ describe('sl-tooltip', () => {
         <div style="display: block; width: 400px; height: 400px;">
           <button id="focus-target" type="button" aria-describedby="tooltip">Button element</button>
           <button id="outside-target" type="button">Outside focus target</button>
-          <sl-tooltip id="tooltip"
-            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">
+            Message with lots of long text, that exceeds 150px easily
+          </sl-tooltip>
         </div>
       `);
       const focusButton = el.querySelector<HTMLButtonElement>('#focus-target')!,
@@ -402,9 +404,9 @@ describe('sl-tooltip', () => {
             <button type="button">First child</button>
             <button type="button">Second child</button>
           </div>
-          <sl-tooltip id="tooltip"
-            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">
+            Message with lots of long text, that exceeds 150px easily
+          </sl-tooltip>
         </div>
       `);
 
@@ -434,12 +436,12 @@ describe('sl-tooltip', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
-          <sl-button aria-labelledby="tooltip" fill="outline" style="margin-top: 100px"
-            >Button element</sl-button
-          >
-          <sl-tooltip id="tooltip"
-            >Message with lots of long text, that exceeds 150px easily</sl-tooltip
-          >
+          <sl-button aria-labelledby="tooltip" fill="outline" style="margin-top: 100px">
+            Button element
+          </sl-button>
+          <sl-tooltip id="tooltip">
+            Message with lots of long text, that exceeds 150px easily
+          </sl-tooltip>
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
@@ -460,7 +462,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <span id="other-element">Other element</span>
-          <sl-button aria-describedby="other-element tooltip"> Button</sl-button>
+          <sl-button aria-describedby="other-element tooltip">Button</sl-button>
           <sl-tooltip id="tooltip">Tooltip message</sl-tooltip>
         </div>
       `);
@@ -497,8 +499,8 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <span id="other-label">Other label</span>
-          <sl-button aria-labelledby="other-label tooltip"
-            >Button with multiple label ids
+          <sl-button aria-labelledby="other-label tooltip">
+            Button with multiple label ids
           </sl-button>
           <sl-tooltip id="tooltip">Tooltip label</sl-tooltip>
         </div>
@@ -1092,9 +1094,9 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="block-size: 400px; inline-size: 400px;">
           <tooltip-assigned-slot-host>
-            <sl-button id="shadow-anchor" slot="actions" aria-describedby="tooltip"
-              >Shadow anchor</sl-button
-            >
+            <sl-button id="shadow-anchor" slot="actions" aria-describedby="tooltip">
+              Shadow anchor
+            </sl-button>
             <button id="native-anchor" aria-describedby="external-description tooltip">
               Native anchor
             </button>
@@ -1255,7 +1257,10 @@ describe('sl-tooltip', () => {
 
       expect(tooltip).to.exist;
       expect(innerButton.ariaDescribedByElements).to.be.null;
-      expect(innerButton.ariaLabelledByElements).to.include(tooltip);
+      expect(innerButton).to.have.attribute('aria-labelledby', tooltip.id);
+      expect(innerButton.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal(
+        [tooltip.textContent]
+      );
     });
 
     it('should only create the tooltip once', async () => {

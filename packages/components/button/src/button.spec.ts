@@ -19,7 +19,9 @@ describe('sl-button', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+      el = await fixture(html`
+        <sl-button>Hello world</sl-button>
+      `);
       button = el.renderRoot.querySelector('button')!;
     });
 
@@ -164,9 +166,12 @@ describe('sl-button', () => {
 
     describe('icon combined with text', () => {
       beforeEach(async () => {
-        el = await fixture(
-          html`<sl-button size="lg"><sl-icon name="star"></sl-icon> You're a star</sl-button>`
-        );
+        el = await fixture(html`
+          <sl-button size="lg">
+            <sl-icon name="star"></sl-icon>
+            You're a star
+          </sl-button>
+        `);
       });
 
       it('should not have an icon-only attribute', () => {
@@ -177,7 +182,9 @@ describe('sl-button', () => {
 
   describe('disabled', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+      el = await fixture(html`
+        <sl-button>Hello world</sl-button>
+      `);
       button = el.renderRoot.querySelector('button')!;
     });
 
@@ -190,7 +197,9 @@ describe('sl-button', () => {
     });
 
     it('should prevent click events from bubbling up the DOM', async () => {
-      const el = await fixture<Button>(html`<sl-button disabled>Hello world</sl-button>`),
+      const el = await fixture<Button>(html`
+          <sl-button disabled>Hello world</sl-button>
+        `),
         clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true }),
         stopImmediatePropagationSpy = spy(clickEvent, 'stopImmediatePropagation');
 
@@ -244,25 +253,33 @@ describe('sl-button', () => {
 
   describe('invoker API', () => {
     it('should not have a command by default', async () => {
-      el = await fixture(html`<sl-button>Click me</sl-button>`);
+      el = await fixture(html`
+        <sl-button>Click me</sl-button>
+      `);
 
       expect(el.command).to.be.undefined;
     });
 
     it('should not have a commandFor by default', async () => {
-      el = await fixture(html`<sl-button>Click me</sl-button>`);
+      el = await fixture(html`
+        <sl-button>Click me</sl-button>
+      `);
 
       expect(el.commandFor).to.be.undefined;
     });
 
     it('should not have a commandForElement by default', async () => {
-      el = await fixture(html`<sl-button>Click me</sl-button>`);
+      el = await fixture(html`
+        <sl-button>Click me</sl-button>
+      `);
 
       expect(el.commandForElement).to.be.undefined;
     });
 
     it('should pass the command to the inner button', async () => {
-      el = await fixture(html`<sl-button command="show-modal">Click me</sl-button>`);
+      el = await fixture(html`
+        <sl-button command="show-modal">Click me</sl-button>
+      `);
 
       expect(el.renderRoot.querySelector('button')).to.have.property('command', 'show-modal');
     });
@@ -284,7 +301,9 @@ describe('sl-button', () => {
     });
 
     it('should set commandForElement to null when no matching element is found', async () => {
-      el = await fixture(html`<sl-button commandfor="nonexistent">Click me</sl-button>`);
+      el = await fixture(html`
+        <sl-button commandfor="nonexistent">Click me</sl-button>
+      `);
 
       expect(el.renderRoot.querySelector('button')).to.have.property('commandForElement', null);
     });
@@ -508,14 +527,18 @@ describe('sl-button', () => {
 
   describe('tabindex', () => {
     it('should default to 0', async () => {
-      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+      el = await fixture(html`
+        <sl-button>Hello world</sl-button>
+      `);
       button = el.renderRoot.querySelector('button')!;
 
       expect(button.tabIndex).to.equal(0);
     });
 
     it('should forward tabindex="-1" to the inner button', async () => {
-      el = await fixture(html`<sl-button tabindex="-1">Hello world</sl-button>`);
+      el = await fixture(html`
+        <sl-button tabindex="-1">Hello world</sl-button>
+      `);
       button = el.renderRoot.querySelector('button')!;
 
       expect(button.tabIndex).to.equal(-1);
@@ -525,7 +548,9 @@ describe('sl-button', () => {
   describe('accessibility', () => {
     describe('aria-disabled', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-button>Hello world</sl-button>`);
+        el = await fixture(html`
+          <sl-button>Hello world</sl-button>
+        `);
         button = el.renderRoot.querySelector('button')!;
       });
 
@@ -602,16 +627,20 @@ describe('sl-button', () => {
       });
 
       it('should remove the aria-labelledby attribute from the host', async () => {
-        el = await fixture(html`<sl-button aria-labelledby="my-label">Click me</sl-button>`);
+        el = await fixture(html`
+          <sl-button aria-labelledby="my-label">Click me</sl-button>
+        `);
 
         expect(el).not.to.have.attribute('aria-labelledby');
       });
 
       it('should set ariaLabelledByElements to an empty array when the referenced element does not exist', async () => {
-        el = await fixture(html`<sl-button aria-labelledby="nonexistent">Click me</sl-button>`);
+        el = await fixture(html`
+          <sl-button aria-labelledby="nonexistent">Click me</sl-button>
+        `);
 
         expect(
-          getForwardedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)
+          getForwardedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement) ?? []
         ).to.deep.equal([]);
       });
     });
@@ -631,13 +660,17 @@ describe('sl-button', () => {
       });
 
       it('should remove the aria-describedby attribute from the host', async () => {
-        el = await fixture(html`<sl-button aria-describedby="my-desc">Click me</sl-button>`);
+        el = await fixture(html`
+          <sl-button aria-describedby="my-desc">Click me</sl-button>
+        `);
 
         expect(el).not.to.have.attribute('aria-describedby');
       });
 
       it('should set ariaDescribedByElements to an empty array when the referenced element does not exist', async () => {
-        el = await fixture(html`<sl-button aria-describedby="nonexistent">Click me</sl-button>`);
+        el = await fixture(html`
+          <sl-button aria-describedby="nonexistent">Click me</sl-button>
+        `);
 
         expect(
           getForwardedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)

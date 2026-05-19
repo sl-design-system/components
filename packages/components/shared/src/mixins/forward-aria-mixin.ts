@@ -15,6 +15,16 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
   'aria-owns': 'ariaOwnsElements'
 };
 
+const ELEMENT_REFERENCE_ATTRIBUTES = Object.fromEntries(
+  Object.entries(ELEMENT_REFERENCES).map(([attribute, prop]) => [prop, attribute])
+) as Record<keyof ARIAMixin, string>;
+
+const MIRRORED_REFERENCE_ATTRIBUTES = new Set(['aria-labelledby']);
+
+let nextMirrorId = 0;
+
+const syncReferenceAttribute = Symbol('syncReferenceAttribute');
+
 /**
  * Mixin that forwards ARIA attributes from a custom element host to a target element inside its
  * shadow DOM. This is necessary because screen readers cannot pierce the shadow boundary, so ARIA
@@ -79,6 +89,15 @@ export function ForwardAriaMixin<
   class ForwardAriaImpl extends constructor {
     #observer?: MutationObserver;
     #rootObserver?: MutationObserver;
+    #referenceMirrors = new Map<
+      keyof ARIAMixin,
+      {
+        elements: HTMLElement[];
+        observer: MutationObserver;
+        sourceIds: string[];
+        sources: HTMLElement[];
+      }
+    >();
     #pendingAttributes = new Set<string>();
     #unresolvedReferenceAttributes = new Map<string, string>();
 
@@ -149,6 +168,7 @@ export function ForwardAriaMixin<
       this.#observer = undefined;
       this.#rootObserver?.disconnect();
       this.#rootObserver = undefined;
+      this.#clearReferenceMirrors();
       this.#unresolvedReferenceAttributes.clear();
 
       super.disconnectedCallback();
@@ -204,12 +224,7 @@ export function ForwardAriaMixin<
             this.#unresolvedReferenceAttributes.delete(name);
           }
 
-          if (elementsProp.endsWith('Elements')) {
-            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
-          } else {
-            (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
-              elements[0] ?? null;
-          }
+          this.#setElementReference(targetElement, elementsProp, elements);
         } else {
           targetElement.setAttribute(name, value);
         }
@@ -253,12 +268,7 @@ export function ForwardAriaMixin<
           continue;
         }
 
-        if (elementsProp.endsWith('Elements')) {
-          (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
-        } else {
-          (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
-            elements[0] ?? null;
-        }
+        this.#setElementReference(targetElement, elementsProp, elements);
 
         this.#unresolvedReferenceAttributes.delete(name);
       }
@@ -266,6 +276,152 @@ export function ForwardAriaMixin<
       if (this.#unresolvedReferenceAttributes.size === 0) {
         this.#rootObserver?.disconnect();
         this.#rootObserver = undefined;
+      }
+    }
+
+    #setElementReference(
+      targetElement: HTMLElement,
+      elementsProp: keyof ARIAMixin,
+      elements: HTMLElement[]
+    ): void {
+      if (elementsProp.endsWith('Elements')) {
+        (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
+      } else {
+        (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
+          elements[0] ?? null;
+      }
+
+      this[syncReferenceAttribute](targetElement, elementsProp, elements);
+    }
+
+    [syncReferenceAttribute](
+      targetElement: HTMLElement,
+      elementsProp: keyof ARIAMixin,
+      elements: HTMLElement[]
+    ): void {
+      const attribute = ELEMENT_REFERENCE_ATTRIBUTES[elementsProp];
+      if (!attribute || !MIRRORED_REFERENCE_ATTRIBUTES.has(attribute)) {
+        return;
+      }
+
+      if ('getProxyTarget' in targetElement) {
+        return;
+      }
+
+      const targetRoot = targetElement.getRootNode();
+      if (targetRoot instanceof Document || targetRoot instanceof ShadowRoot) {
+        const sameRootIds = elements
+          .filter(element => element.id && element.getRootNode() === targetRoot)
+          .map(element => element.id);
+
+        if (sameRootIds.length === elements.length) {
+          this.#removeReferenceMirror(elementsProp);
+          if (sameRootIds.length) {
+            targetElement.setAttribute(attribute, sameRootIds.join(' '));
+          } else {
+            targetElement.removeAttribute(attribute);
+          }
+          return;
+        }
+      }
+
+      this.#syncReferenceMirror(targetElement, elementsProp, elements);
+    }
+
+    #syncReferenceMirror(
+      targetElement: HTMLElement,
+      elementsProp: keyof ARIAMixin,
+      elements: HTMLElement[]
+    ): void {
+      const attribute = ELEMENT_REFERENCE_ATTRIBUTES[elementsProp];
+      if (!attribute) {
+        return;
+      }
+
+      if (!elements.length) {
+        targetElement.removeAttribute(attribute);
+        this.#removeReferenceMirror(elementsProp);
+
+        if (elementsProp.endsWith('Elements')) {
+          (targetElement as unknown as Record<string, Element[]>)[elementsProp] = [];
+        } else {
+          (targetElement as unknown as Record<string, Element | null>)[elementsProp] = null;
+        }
+        return;
+      }
+
+      const root = targetElement.getRootNode(),
+        ownerDocument = targetElement.ownerDocument ?? document,
+        parent = root instanceof ShadowRoot ? root : ownerDocument.body,
+        sourceIds = elements.map(source => source.id);
+      let mirror = this.#referenceMirrors.get(elementsProp);
+
+      if (
+        !mirror ||
+        mirror.sources.length !== elements.length ||
+        mirror.sources.some((source, index) => source !== elements[index]) ||
+        mirror.sourceIds.some((id, index) => id !== sourceIds[index])
+      ) {
+        this.#removeReferenceMirror(elementsProp);
+
+        mirror = {
+          elements: elements.map(source => {
+            const element = ownerDocument.createElement('span');
+
+            element.id = source.id || `sl-forwarded-aria-${nextMirrorId++}`;
+            element.hidden = true;
+            parent.appendChild(element);
+
+            return element;
+          }),
+          observer: new MutationObserver(() =>
+            this.#updateReferenceMirrorText(elementsProp, elements)
+          ),
+          sourceIds,
+          sources: elements
+        };
+        this.#referenceMirrors.set(elementsProp, mirror);
+      }
+
+      mirror.observer.disconnect();
+      for (const element of elements) {
+        mirror.observer.observe(element, {
+          attributes: true,
+          characterData: true,
+          childList: true,
+          subtree: true
+        });
+      }
+
+      this.#updateReferenceMirrorText(elementsProp, elements);
+      targetElement.setAttribute(attribute, mirror.elements.map(element => element.id).join(' '));
+    }
+
+    #updateReferenceMirrorText(elementsProp: keyof ARIAMixin, elements: HTMLElement[]): void {
+      const mirror = this.#referenceMirrors.get(elementsProp);
+      if (!mirror) {
+        return;
+      }
+
+      mirror.elements.forEach((mirrorElement, index) => {
+        mirrorElement.textContent = elements[index]?.textContent?.trim() ?? '';
+      });
+    }
+
+    #removeReferenceMirror(elementsProp: keyof ARIAMixin): void {
+      const mirror = this.#referenceMirrors.get(elementsProp);
+      if (!mirror) {
+        return;
+      }
+
+      mirror.observer.disconnect();
+      mirror.elements.forEach(element => element.remove());
+      this.#referenceMirrors.delete(elementsProp);
+    }
+
+    #clearReferenceMirrors(): void {
+      for (const prop of this.#referenceMirrors.keys()) {
+        this.#removeReferenceMirror(prop);
       }
     }
   }
@@ -316,6 +472,13 @@ export function ForwardAriaMixin<
         const target = targetElements.get(this);
         if (target) {
           (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+          this[syncReferenceAttribute](
+            target,
+            prop,
+            (Array.isArray(value) ? value : value ? [value] : []).filter(
+              (element): element is HTMLElement => element instanceof HTMLElement
+            )
+          );
         }
       }
     });

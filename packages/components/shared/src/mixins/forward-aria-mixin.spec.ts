@@ -14,7 +14,9 @@ class TestElement extends ForwardAriaMixin(LitElement, [
   'aria-owns'
 ]) {
   override render() {
-    return html`<button><slot></slot></button>`;
+    return html`
+      <button><slot></slot></button>
+    `;
   }
 
   override firstUpdated(): void {
@@ -32,7 +34,9 @@ describe('ForwardAriaMixin', () => {
   let el: TestElement, button: HTMLButtonElement;
 
   beforeEach(async () => {
-    el = await fixture(html`<forward-aria-test>Click me</forward-aria-test>`);
+    el = await fixture(html`
+      <forward-aria-test>Click me</forward-aria-test>
+    `);
     button = el.renderRoot.querySelector('button')!;
   });
 
@@ -87,7 +91,9 @@ describe('ForwardAriaMixin', () => {
   it('should not forward the attribute if no target element is set', async () => {
     class NoTargetElement extends ForwardAriaMixin(LitElement, ['aria-label']) {
       override render() {
-        return html`<button><slot></slot></button>`;
+        return html`
+          <button><slot></slot></button>
+        `;
       }
     }
 
@@ -97,9 +103,9 @@ describe('ForwardAriaMixin', () => {
       // Already defined
     }
 
-    const noTargetEl = await fixture<NoTargetElement>(
-      html`<forward-aria-no-target-test>Click</forward-aria-no-target-test>`
-    );
+    const noTargetEl = await fixture<NoTargetElement>(html`
+      <forward-aria-no-target-test>Click</forward-aria-no-target-test>
+    `);
     noTargetEl.setAttribute('aria-label', 'Test');
 
     expect(noTargetEl).to.have.attribute('aria-label', 'Test');
@@ -147,8 +153,9 @@ describe('ForwardAriaMixin', () => {
     it('should flush to the target when set before setProxyTarget is called', async () => {
       class DeferredTargetElement extends ForwardAriaMixin(LitElement, ['aria-disabled']) {
         override render() {
-          // eslint-disable-next-line lit-a11y/accessible-name
-          return html`<button></button>`;
+          return html`
+            <button aria-label="Deferred target"></button>
+          `;
         }
         // Does NOT call setProxyTarget — caller sets it manually
       }
@@ -188,7 +195,10 @@ describe('ForwardAriaMixin', () => {
 
       el.setAttribute('aria-labelledby', 'my-label');
 
-      expect(button.ariaLabelledByElements).to.deep.equal([label]);
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'My label'
+      ]);
+      expect(button).to.have.attribute('aria-labelledby', 'my-label');
 
       label.remove();
     });
@@ -219,7 +229,11 @@ describe('ForwardAriaMixin', () => {
 
       el.setAttribute('aria-labelledby', 'label-1 label-2');
 
-      expect(button.ariaLabelledByElements).to.deep.equal([label1, label2]);
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'First',
+        'Second'
+      ]);
+      expect(button).to.have.attribute('aria-labelledby', 'label-1 label-2');
 
       label1.remove();
       label2.remove();
@@ -228,12 +242,12 @@ describe('ForwardAriaMixin', () => {
     it('should set an empty array when the referenced element does not exist', () => {
       el.setAttribute('aria-labelledby', 'nonexistent');
 
-      expect(button.ariaLabelledByElements).to.deep.equal([]);
+      expect(button.ariaLabelledByElements ?? []).to.deep.equal([]);
     });
 
     it('should resolve aria-labelledby when the referenced element is added later', async () => {
       el.setAttribute('aria-labelledby', 'late-label');
-      expect(button.ariaLabelledByElements).to.deep.equal([]);
+      expect(button.ariaLabelledByElements ?? []).to.deep.equal([]);
 
       const label = document.createElement('span');
       label.id = 'late-label';
@@ -242,7 +256,27 @@ describe('ForwardAriaMixin', () => {
 
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(button.ariaLabelledByElements).to.deep.equal([label]);
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'Late label'
+      ]);
+
+      label.remove();
+    });
+
+    it('should update the mirrored aria-labelledby text when the source changes', async () => {
+      const label = document.createElement('span');
+      label.id = 'my-label';
+      label.textContent = 'My label';
+      el.parentElement!.prepend(label);
+
+      el.setAttribute('aria-labelledby', 'my-label');
+
+      label.textContent = 'Updated label';
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'Updated label'
+      ]);
 
       label.remove();
     });
@@ -383,7 +417,9 @@ describe('ForwardAriaMixin', () => {
   describe('nested mixin', () => {
     class InnerElement extends ForwardAriaMixin(LitElement, ['aria-labelledby']) {
       override render() {
-        return html`<button><slot></slot></button>`;
+        return html`
+          <button><slot></slot></button>
+        `;
       }
 
       override firstUpdated(): void {
@@ -393,7 +429,9 @@ describe('ForwardAriaMixin', () => {
 
     class OuterElement extends ForwardAriaMixin(LitElement, ['aria-labelledby']) {
       override render() {
-        return html`<forward-aria-inner><slot></slot></forward-aria-inner>`;
+        return html`
+          <forward-aria-inner><slot></slot></forward-aria-inner>
+        `;
       }
 
       override firstUpdated(): void {
@@ -414,15 +452,17 @@ describe('ForwardAriaMixin', () => {
       label.textContent = 'Nested label';
       document.body.prepend(label);
 
-      const outer = await fixture<OuterElement>(
-        html`<forward-aria-outer>Click me</forward-aria-outer>`
-      );
+      const outer = await fixture<OuterElement>(html`
+        <forward-aria-outer>Click me</forward-aria-outer>
+      `);
       const inner = outer.renderRoot.querySelector('forward-aria-inner') as InnerElement;
       const deepButton = inner.renderRoot.querySelector('button')!;
 
       outer.setAttribute('aria-labelledby', 'nested-label');
 
-      expect(deepButton.ariaLabelledByElements).to.deep.equal([label]);
+      expect(deepButton.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'Nested label'
+      ]);
 
       label.remove();
     });
@@ -433,7 +473,9 @@ describe('ForwardAriaMixin', () => {
 
     class DefaultElement extends ForwardAriaMixin(LitElement) {
       override render() {
-        return html`<button><slot></slot></button>`;
+        return html`
+          <button><slot></slot></button>
+        `;
       }
 
       override firstUpdated(): void {
@@ -448,9 +490,9 @@ describe('ForwardAriaMixin', () => {
     }
 
     beforeEach(async () => {
-      defaultEl = await fixture(
-        html`<forward-aria-default-test>Click me</forward-aria-default-test>`
-      );
+      defaultEl = await fixture(html`
+        <forward-aria-default-test>Click me</forward-aria-default-test>
+      `);
       defaultButton = defaultEl.renderRoot.querySelector('button')!;
     });
 
@@ -475,7 +517,9 @@ describe('ForwardAriaMixin', () => {
       // MutationObserver callbacks are async
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(defaultButton.ariaLabelledByElements).to.deep.equal([label]);
+      expect(
+        defaultButton.ariaLabelledByElements?.map(element => element.textContent)
+      ).to.deep.equal(['Label']);
       expect(defaultEl).not.to.have.attribute('aria-labelledby');
 
       label.remove();

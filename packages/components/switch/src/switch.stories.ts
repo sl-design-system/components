@@ -98,7 +98,11 @@ export const CustomIcons: Story = {
         icon-on="fas-moon-stars"
         aria-label="Switch with custom icons small"
       ></sl-switch>
-      <sl-switch icon-off="fas-sun-bright" icon-on="fas-moon-stars" aria-label="Switch with custom icons"></sl-switch>
+      <sl-switch
+        icon-off="fas-sun-bright"
+        icon-on="fas-moon-stars"
+        aria-label="Switch with custom icons"
+      ></sl-switch>
       <sl-switch
         size="lg"
         icon-off="fas-sun-bright"

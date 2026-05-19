@@ -495,6 +495,12 @@ describe('sl-text-area', () => {
       );
     });
 
+    it('should have a localized validation message', () => {
+      expect(el.getLocalizedValidationMessage()).to.equal(
+        'Please enter at least 3 characters (you currently have 1 character).'
+      );
+    });
+
     it('should be valid after typing', async () => {
       el.focus();
       await userEvent.keyboard('dsf');

@@ -49,8 +49,8 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
     style.innerHTML = `
       sl-option-group:has(+ sl-option) {
         border-block-end: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);
-        margin-block-end: var(--sl-size-075);
-        padding-block-end: var(--sl-size-100);
+        margin-block-end: var(--sl-size-050);
+        padding-block-end: var(--sl-size-050);
       }
     `;
     this.prepend(style);

@@ -187,6 +187,33 @@ describe('sl-combobox', () => {
       expect(wrapper?.matches(':popover-open')).to.be.false;
     });
 
+    it('should have an aria-label of "Show the options" when the popover is closed', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.have.attribute('aria-label', 'Show the options');
+    });
+
+    it('should have an aria-label of "Hide the options" when the popover is open', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-label', 'Hide the options');
+    });
+
+    it('should switch aria-label back to "Show the options" when the popover closes', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-label', 'Show the options');
+    });
+
     it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });
@@ -759,6 +786,43 @@ describe('sl-combobox', () => {
         expect(options[0]).to.be.displayed;
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
+      });
+    });
+
+    describe('current item on open', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option selected>Ipsum</sl-option>
+              <sl-option>Dolor</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should set current on the selected option when opened via keyboard', async () => {
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).to.have.attribute('current');
+        expect(input).to.have.attribute('aria-activedescendant', options[1].id);
+      });
+
+      it('should not set current on the selected option when opened via mouse click', async () => {
+        input.click();
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).not.to.have.attribute('current');
+        expect(input).not.to.have.attribute('aria-activedescendant');
       });
     });
   });

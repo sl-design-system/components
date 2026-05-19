@@ -13,7 +13,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select } from '@sl-design-system/select';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, event, getPluralCategory } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import {
   type CSSResultGroup,
@@ -313,7 +313,11 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             `
           )}
         </sl-select>
-        <span>${msg(str`of ${this.pageCount} pages`, { id: 'sl.paginator.totalPages' })}</span>
+        <span
+          >${msg(str`of ${this.pageCount + ' ' + this.#getPagesLabel()}`, {
+            id: 'sl.paginator.totalPages'
+          })}</span
+        >
       </div>
 
       <sl-button
@@ -333,6 +337,17 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onChange(event: SlChangeEvent<number>): void {
     this.#onPageClick(event.detail);
+  }
+
+  #getPagesLabel(): string {
+    switch (getPluralCategory(this.pageCount)) {
+      case 'one':
+        return msg('page', { id: 'sl.paginator.pagesLabelOne' });
+      case 'few':
+        return msg('pages', { id: 'sl.paginator.pagesLabelFew' });
+      default:
+        return msg('pages', { id: 'sl.paginator.pagesLabelOther' });
+    }
   }
 
   #onNext() {

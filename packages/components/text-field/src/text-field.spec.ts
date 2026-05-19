@@ -384,6 +384,33 @@ describe('sl-text-field', () => {
     });
   });
 
+  describe('tooShort validation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-field minlength="5"></sl-text-field>`);
+      input = el.querySelector('input')!;
+    });
+
+    it('should return a localized tooShort message with plural forms', async () => {
+      el.focus();
+      await userEvent.keyboard('ab');
+
+      expect(input.validity.tooShort).to.be.true;
+      expect(el.getLocalizedValidationMessage()).to.equal(
+        'Please enter at least 5 characters (you currently have 2 characters).'
+      );
+    });
+
+    it('should use singular form when current length is 1', async () => {
+      el.focus();
+      await userEvent.keyboard('a');
+
+      expect(input.validity.tooShort).to.be.true;
+      expect(el.getLocalizedValidationMessage()).to.equal(
+        'Please enter at least 5 characters (you currently have 1 character).'
+      );
+    });
+  });
+
   describe('valid', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-field required value="foo"></sl-text-field>`);

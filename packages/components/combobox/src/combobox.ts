@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
@@ -152,6 +152,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
    * show it again when the button click event fires.
    */
   #popoverJustClosed = false;
+
+  /** Flag indicating whether the popover was opened via keyboard navigation. */
+  #popoverOpenedViaKeyboard = false;
 
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
@@ -364,7 +367,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const previousLabelId = changes.get('labelId'),
         ariaLabel = this.input.getAttribute('aria-label'),
         ariaLabelledBy = this.input.getAttribute('aria-labelledby'),
-        hasExplicitAccessibleName = Boolean(ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId));
+        hasExplicitAccessibleName = Boolean(
+          ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId)
+        );
 
       if (!this.labelId || ariaLabel) {
         if (ariaLabelledBy === previousLabelId) {
@@ -528,12 +533,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg(
-            str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`,
-            {
-              id: 'sl.combobox.toggleOptions'
-            }
-          )}
+          aria-label=${this.wrapper?.matches(':popover-open')
+            ? msg('Hide the options', { id: 'sl.combobox.hideOptions' })
+            : msg('Show the options', { id: 'sl.combobox.showOptions' })}
           slot="suffix"
           tabindex="-1"
         >
@@ -601,6 +603,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
+
+    this.requestUpdate();
   }
 
   #onButtonClick(): void {
@@ -731,6 +735,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       !this.wrapper?.matches(':popover-open') &&
       ['ArrowDown', 'ArrowUp'].includes(event.key)
     ) {
+      this.#popoverOpenedViaKeyboard = true;
       this.wrapper?.showPopover();
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
       event.preventDefault();
@@ -902,10 +907,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
-        if (this.selectedItems.length) {
+        if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
           this.#updateCurrent(this.selectedItems[0]);
         }
       }
+
+      this.#popoverOpenedViaKeyboard = false;
     } else {
       this.#popoverJustClosed = false;
       this.#updateCurrent();

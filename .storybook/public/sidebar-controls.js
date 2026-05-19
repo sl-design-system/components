@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   const STORAGE_KEY = 'storybook-roots-expanded';
@@ -57,7 +57,9 @@
     const collapseItems = () => {
       try {
         // Find the currently selected item to preserve its parent folder
-        const selectedItem = document.querySelector('#storybook-explorer-tree [data-selected="true"]');
+        const selectedItem = document.querySelector(
+          '#storybook-explorer-tree [data-selected="true"]'
+        );
         let activeRootButton = null;
 
         if (selectedItem) {
@@ -67,7 +69,9 @@
 
           // Keep going up until we find an item whose parent is root or has no parent
           while (parentId && parentId !== 'root') {
-            const parent = document.querySelector(`#storybook-explorer-tree [data-item-id="${parentId}"]`);
+            const parent = document.querySelector(
+              `#storybook-explorer-tree [data-item-id="${parentId}"]`
+            );
             if (!parent) break;
             currentItem = parent;
             parentId = parent.getAttribute('data-parent-id');

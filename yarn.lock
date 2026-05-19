@@ -5496,19 +5496,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checklist@workspace:packages/checklist":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/checklist@workspace:packages/checklist"
-  dependencies:
-    "@fortawesome/pro-solid-svg-icons": "npm:^7.2.0"
-    "@open-wc/scoped-elements": "npm:^3.0.6"
-    "@sl-design-system/icon": "npm:^1.0.0"
-    "@sl-design-system/skeleton": "npm:^1.0.0"
-    "@webcomponents/scoped-custom-element-registry": "npm:^0.0.10"
-    lit: "npm:^3.3.2"
-  languageName: unknown
-  linkType: soft
-
 "@sl-design-system/chromatic@workspace:chromatic":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/chromatic@workspace:chromatic"
@@ -5795,7 +5782,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/icon@npm:1.4.2, @sl-design-system/icon@npm:^1.0.0, @sl-design-system/icon@npm:^1.4.0, @sl-design-system/icon@npm:^1.4.1, @sl-design-system/icon@npm:^1.4.2, @sl-design-system/icon@workspace:packages/components/icon":
+"@sl-design-system/icon@npm:1.4.2, @sl-design-system/icon@npm:^1.4.0, @sl-design-system/icon@npm:^1.4.1, @sl-design-system/icon@npm:^1.4.2, @sl-design-system/icon@workspace:packages/components/icon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
@@ -6195,7 +6182,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/skeleton@npm:^1.0.0, @sl-design-system/skeleton@npm:^1.0.1, @sl-design-system/skeleton@workspace:packages/components/skeleton":
+"@sl-design-system/skeleton@npm:^1.0.1, @sl-design-system/skeleton@workspace:packages/components/skeleton":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/skeleton@workspace:packages/components/skeleton"
   dependencies:

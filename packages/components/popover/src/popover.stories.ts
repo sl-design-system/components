@@ -85,11 +85,12 @@ export default {
         id="button"
         variant="primary"
         style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
-        >Toggle</sl-button
       >
-      <sl-popover anchor="button" ?no-describedby=${noDescribedby} .position=${position}
-        >${typeof body === 'string' ? body : body()}</sl-popover
-      >
+        Toggle
+      </sl-button>
+      <sl-popover anchor="button" ?no-describedby=${noDescribedby} .position=${position}>
+        ${typeof body === 'string' ? body : body()}
+      </sl-popover>
     `;
   }
 } satisfies Meta<Props>;
@@ -133,43 +134,15 @@ export const VerticalOverflow: Story = {
   args: {
     body: () => {
       return html`
-        Lorem<br aria-hidden="true" />
-        ipsum<br aria-hidden="true" />
-        dolor<br aria-hidden="true" />
-        sit<br aria-hidden="true" />
-        amet,<br aria-hidden="true" />
-        qui<br aria-hidden="true" />
-        deserunt<br aria-hidden="true" />
-        esse<br aria-hidden="true" />
-        minim<br aria-hidden="true" />
-        cillum<br aria-hidden="true" />
-        nostrud<br aria-hidden="true" />
-        exercitation<br aria-hidden="true" />
-        veniam<br aria-hidden="true" />
-        consequat<br aria-hidden="true" />
-        pariatur<br aria-hidden="true" />
-        exercitation<br aria-hidden="true" />
-        laborum<br aria-hidden="true" />
-        nostrud<br aria-hidden="true" />
-        culpa<br aria-hidden="true" />
-        sunt<br aria-hidden="true" />
-        exercitation<br aria-hidden="true" />
-        pariatur.<br aria-hidden="true" />
-        Nisi<br aria-hidden="true" />
-        ipsum<br aria-hidden="true" />
-        est<br aria-hidden="true" />
-        ullamco<br aria-hidden="true" />
-        nostrud<br aria-hidden="true" />
-        sit<br aria-hidden="true" />
-        pariatur.<br aria-hidden="true" />
-        Ex<br aria-hidden="true" />
-        nisi<br aria-hidden="true" />
-        ipsum<br aria-hidden="true" />
-        et<br aria-hidden="true" />
-        est<br aria-hidden="true" />
-        nulla<br aria-hidden="true" />
-        ex<br aria-hidden="true" />
-        ex.
+        <style>
+          .wrapper {
+            background: var(--sl-color-background-accent-green-subtlest);
+            block-size: 50dvh;
+            padding-inline: var(--sl-size-200);
+            place-content: center;
+          }
+        </style>
+        <div class="wrapper">Block</div>
       `;
     }
   }
@@ -202,12 +175,15 @@ export const RichContent: Story = {
             Our longest serving math teacher, but also responsible for several extracurricular
             activities.
           </p>
-          <p><strong>Manager:</strong> Anna Johansson</p>
+          <p>
+            <strong>Manager:</strong>
+            Anna Johansson
+          </p>
         </section>
         <sl-button-bar align="end">
-          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline"
-            >Send email</sl-button
-          >
+          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline">
+            Send email
+          </sl-button>
           <sl-button @click=${onClick} size="sm" variant="primary">Send Slack message</sl-button>
         </sl-button-bar>
       `;
@@ -255,7 +231,10 @@ export const WithTooltips: Story = {
           align-items: center;
         }
       </style>
-      <p>Buttons with popovers and tooltips connected via <code>aria-labelledby</code></p>
+      <p>
+        Buttons with popovers and tooltips connected via
+        <code>aria-labelledby</code>
+      </p>
       <div class="container">
         <sl-button
           @click=${onClick}
@@ -281,7 +260,10 @@ export const WithTooltips: Story = {
         <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
       </div>
 
-      <p>Buttons with popovers and tooltips connected via <code>aria-describedby</code></p>
+      <p>
+        Buttons with popovers and tooltips connected via
+        <code>aria-describedby</code>
+      </p>
       <div class="container">
         <sl-button
           @click=${onClick}
@@ -330,54 +312,39 @@ export const All: Story = {
         }
       </style>
       <div>
-        <sl-button id="anchor" variant="primary"
-          >This is a popover anchor element (sl-button component) <br aria-hidden="true" />
-          with all top and bottom popover allowed positions shown <br aria-hidden="true" />
-          all examples at once</sl-button
-        >
+        <sl-button id="anchor" variant="primary">
+          This is a popover anchor element (sl-button component) with all top and bottom popover
+          allowed positions shown all examples at once.
+        </sl-button>
         <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="bottom">Bottom</sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="bottom-start"
-          >Bottom start</sl-popover
-        >
+        <sl-popover anchor="anchor" popover="manual" position="bottom-start">
+          Bottom start
+        </sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="bottom-end">Bottom end</sl-popover>
       </div>
 
       <div>
-        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;"
-          >This is a popover anchor element (sl-button component) with all right and left popover
-          allowed positions shown all examples at once</sl-button
-        >
-        <sl-popover anchor="anchor2" popover="manual" position="right"
-          >Right <br aria-hidden="true" />
-          example</sl-popover
-        >
-        <sl-popover anchor="anchor2" popover="manual" position="right-start"
-          >Right <br aria-hidden="true" />
-          start <br aria-hidden="true" />
-          example</sl-popover
-        >
-        <sl-popover anchor="anchor2" popover="manual" position="right-end"
-          >Right <br aria-hidden="true" />
-          end <br aria-hidden="true" />
-          example</sl-popover
-        >
-        <sl-popover anchor="anchor2" popover="manual" position="left"
-          >Left <br aria-hidden="true" />
-          example</sl-popover
-        >
-        <sl-popover anchor="anchor2" popover="manual" position="left-start"
-          >Left <br aria-hidden="true" />
-          start <br aria-hidden="true" />
-          example</sl-popover
-        >
-        <sl-popover anchor="anchor2" popover="manual" position="left-end"
-          >Left <br aria-hidden="true" />
-          end <br aria-hidden="true" />
-          example</sl-popover
-        >
+        <sl-button id="anchor2" variant="primary" style="width: 120px">
+          This is a popover anchor element (sl-button component) with all right and left popover
+          allowed positions shown all examples at once
+        </sl-button>
+        <sl-popover anchor="anchor2" popover="manual" position="right">Right example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="right-start">
+          Right start example
+        </sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="right-end">
+          Right end example
+        </sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left">Left example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left-start">
+          Left start example
+        </sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left-end">
+          Left end example
+        </sl-popover>
       </div>
     `;
   }

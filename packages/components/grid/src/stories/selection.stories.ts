@@ -201,13 +201,13 @@ sl-dialog::part(body) {
 sl-grid::part(bulk-actions) {
   inset-block-start: calc(anchor(bottom) - var(--sl-size-300));
   position-anchor: --grid-dialog;
-}</pre
-      >
+}
+</pre>
 
       <p>
-        There is a known issue where the bulk actions gets placed under the dialog overlay when you
-        close and reopen the dialog. To work around this, you can deselect all rows after closing
-        the dialog.
+        There is a known issue where the bulk actions bar gets placed under the dialog overlay when
+        you close and reopen the dialog. To work around this, you can deselect all rows after
+        closing the dialog.
         <br />
         Also, the virtual list seems to have a bit of a problem rendering the items in the dialog;
         the placement is off by a few pixels, until you select a row.

@@ -788,6 +788,43 @@ describe('sl-combobox', () => {
         expect(options[2]).to.be.displayed;
       });
     });
+
+    describe('current item on open', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option selected>Ipsum</sl-option>
+              <sl-option>Dolor</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should set current on the selected option when opened via keyboard', async () => {
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).to.have.attribute('current');
+        expect(input).to.have.attribute('aria-activedescendant', options[1].id);
+      });
+
+      it('should not set current on the selected option when opened via mouse click', async () => {
+        input.click();
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).not.to.have.attribute('current');
+        expect(input).not.to.have.attribute('aria-activedescendant');
+      });
+    });
   });
 
   describe('multiple select', () => {

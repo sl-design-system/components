@@ -13,7 +13,9 @@ describe('sl-checkbox', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+      el = await fixture(html`
+        <sl-checkbox>Hello world</sl-checkbox>
+      `);
       input = el.querySelector('input')!;
     });
 
@@ -134,7 +136,11 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.input.ariaLabelledByElements).to.deep.equal([label]);
+
+      // In same-scope mode, ForwardAriaMixin uses string attributes and
+      // #onLabelSlotChange appends the checkbox's own label IDs.
+      const ids = el.input.getAttribute('aria-labelledby')!.split(/\s+/);
+      expect(ids).to.include('my-label');
 
       label.remove();
     });
@@ -149,7 +155,9 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-describedby');
-      expect(el.input.ariaDescribedByElements).to.deep.equal([tooltip]);
+
+      // In same-scope mode, ForwardAriaMixin uses string attributes.
+      expect(el.input.getAttribute('aria-describedby')).to.equal('my-tooltip');
 
       tooltip.remove();
     });
@@ -314,7 +322,9 @@ describe('sl-checkbox', () => {
 
   describe('disabled', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-checkbox disabled>Hello world</sl-checkbox>`);
+      el = await fixture(html`
+        <sl-checkbox disabled>Hello world</sl-checkbox>
+      `);
       input = el.querySelector('input')!;
     });
 
@@ -353,7 +363,9 @@ describe('sl-checkbox', () => {
 
   describe('validation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+      el = await fixture(html`
+        <sl-checkbox>Hello world</sl-checkbox>
+      `);
     });
 
     it('should be invalid when required and no option is selected', async () => {
@@ -464,7 +476,9 @@ describe('sl-checkbox', () => {
         // empty
       }
 
-      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+      el = await fixture(html`
+        <form-integration-test-component></form-integration-test-component>
+      `);
     });
 
     it('should emit an sl-form-control event after first render', () => {

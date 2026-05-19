@@ -319,18 +319,31 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
 
     requestAnimationFrame(() => {
       if (
-        !this.hasAttribute('aria-labelledby') &&
-        !this.input.hasAttribute('aria-labelledby') &&
-        !this.input.ariaLabelledByElements?.length &&
-        !this.ariaLabelledByElements?.length &&
-        this.input.labels?.length
+        (this.hasAttribute('aria-labelledby') || this.ariaLabelledByElements?.length) &&
+        !this.input.labels?.length
       ) {
-        this.input.setAttribute(
-          'aria-labelledby',
-          Array.from(this.input.labels)
-            .map(label => label.id)
-            .join(' ')
-        );
+        // ForwardAriaMixin will handle it; no labels to append.
+        return;
+      }
+
+      if (this.input.labels?.length) {
+        const labelIds = Array.from(this.input.labels)
+          .map(label => label.id)
+          .filter(Boolean)
+          .join(' ');
+
+        const existing = this.input.getAttribute('aria-labelledby') ?? '';
+        const existingIds = existing.split(/\s+/).filter(Boolean);
+
+        // Append label IDs that aren't already present
+        const newIds = labelIds.split(/\s+/).filter(id => id && !existingIds.includes(id));
+
+        if (newIds.length) {
+          const combined = [...existingIds, ...newIds].join(' ');
+          this.input.setAttribute('aria-labelledby', combined);
+        } else if (!existing && labelIds) {
+          this.input.setAttribute('aria-labelledby', labelIds);
+        }
       }
     });
 

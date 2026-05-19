@@ -164,6 +164,10 @@ export const MultipleInDialog: Story = {
         }
       </style>
       <p>This example shows how a grid with selection behaves in a dialog.</p>
+      <p>
+        This is actually a bad idea, UX/UI wise, but we show it for demonstration/ documentation
+        purposes.
+      </p>
       <sl-button command="--show-modal" commandfor="invoker-dialog">Open dialog</sl-button>
 
       <p>
@@ -199,6 +203,15 @@ sl-grid::part(bulk-actions) {
   position-anchor: --grid-dialog;
 }</pre
       >
+
+      <p>
+        There is a known issue where the bulk actions gets placed under the dialog overlay when you
+        close and reopen the dialog. To work around this, you can deselect all rows after closing
+        the dialog.
+        <br />
+        Also, the virtual list seems to have a bit of a problem rendering the items in the dialog;
+        the placement is off by a few pixels, until you select a row.
+      </p>
       <sl-dialog id="invoker-dialog" close-button>
         <p>
           This example shows how you can select multiple rows by toggling the checkbox in the first

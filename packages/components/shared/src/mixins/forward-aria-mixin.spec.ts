@@ -245,6 +245,13 @@ describe('ForwardAriaMixin', () => {
       expect(button.ariaLabelledByElements ?? []).to.deep.equal([]);
     });
 
+    it('should treat whitespace-only aria-labelledby as an empty reference list', () => {
+      el.setAttribute('aria-labelledby', '   ');
+
+      expect(button.ariaLabelledByElements ?? []).to.deep.equal([]);
+      expect(button).not.to.have.attribute('aria-labelledby');
+    });
+
     it('should resolve aria-labelledby when the referenced element is added later', async () => {
       el.setAttribute('aria-labelledby', 'late-label');
       expect(button.ariaLabelledByElements ?? []).to.deep.equal([]);
@@ -289,6 +296,37 @@ describe('ForwardAriaMixin', () => {
 
       staticLabel.remove();
       lateLabel.remove();
+    });
+
+    it('should keep retrying when aria-labelledby references resolve one at a time', async () => {
+      el.setAttribute('aria-labelledby', 'first-label second-label');
+      expect(button.ariaLabelledByElements ?? []).to.deep.equal([]);
+
+      const firstLabel = document.createElement('span');
+      firstLabel.id = 'first-label';
+      firstLabel.textContent = 'First label';
+      el.parentElement!.prepend(firstLabel);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'First label'
+      ]);
+
+      const secondLabel = document.createElement('span');
+      secondLabel.id = 'second-label';
+      secondLabel.textContent = 'Second label';
+      el.parentElement!.prepend(secondLabel);
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(button.ariaLabelledByElements?.map(element => element.textContent)).to.deep.equal([
+        'First label',
+        'Second label'
+      ]);
+
+      firstLabel.remove();
+      secondLabel.remove();
     });
 
     it('should update the mirrored aria-labelledby text when the source changes', async () => {

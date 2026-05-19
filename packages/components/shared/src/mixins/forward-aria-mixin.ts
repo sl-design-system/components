@@ -210,10 +210,8 @@ export function ForwardAriaMixin<
         if (elementsProp) {
           // Reference attribute: resolve space-separated IDs to DOM elements and
           // assign via the element reference property (singular or plural).
-          const ids = value.trim().split(/\s+/),
-            elements = ids
-              .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
-              .filter((el): el is HTMLElement => el !== null);
+          const ids = this.#parseReferenceIds(value),
+            elements = this.#resolveReferenceElements(root, ids);
 
           // Keep track of unresolved id-based references so we can retry when matching elements
           // are inserted later (for example sibling tooltips rendered after the control).
@@ -259,10 +257,8 @@ export function ForwardAriaMixin<
           continue;
         }
 
-        const elements = value
-          .split(/\s+/)
-          .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
-          .filter((el): el is HTMLElement => el !== null);
+        const ids = this.#parseReferenceIds(value),
+          elements = this.#resolveReferenceElements(root, ids);
 
         if (elements.length === 0) {
           continue;
@@ -270,8 +266,20 @@ export function ForwardAriaMixin<
 
         this.#setElementReference(targetElement, elementsProp, elements);
 
-        this.#deleteUnresolvedReferenceAttribute(name);
+        if (elements.length === ids.length) {
+          this.#deleteUnresolvedReferenceAttribute(name);
+        }
       }
+    }
+
+    #parseReferenceIds(value: string): string[] {
+      return value.trim().split(/\s+/).filter(Boolean);
+    }
+
+    #resolveReferenceElements(root: Document | ShadowRoot, ids: string[]): HTMLElement[] {
+      return ids
+        .map(id => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
+        .filter((el): el is HTMLElement => el !== null);
     }
 
     #deleteUnresolvedReferenceAttribute(name: string): void {

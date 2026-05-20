@@ -290,13 +290,18 @@ export function ForwardAriaMixin<
           const refValue = elementsProp.endsWith('Elements') ? elements : (elements[0] ?? null);
           stored.set(elementsProp, refValue);
 
-          // If no elements could be resolved at all and the target is in the same
-          // scope, just remove the attribute from the host — there's nothing useful
-          // to set as a string attribute. For cross-scope targets, still forward the
-          // empty array so consumers reading the native property get a deterministic [].
+          // If no elements could be resolved at all, handle based on scope:
+          // - Same scope: forward the string IDREF attribute anyway — the browser's
+          //   native resolution works dynamically and will pick up elements that
+          //   appear in the DOM later.
+          // - Cross scope: forward an empty array so consumers reading the native
+          //   property get a deterministic []. Element references can't resolve
+          //   natively across shadow boundaries.
           if (elements.length === 0) {
             const targetRoot = targetElement.getRootNode();
-            if (targetRoot !== root) {
+            if (targetRoot === root) {
+              targetElement.setAttribute(name, value);
+            } else {
               (targetElement as unknown as Record<string, Element[] | Element | null>)[
                 elementsProp
               ] = refValue;

@@ -126,7 +126,7 @@ describe('sl-checkbox', () => {
       expect(el.input).to.have.attribute('aria-label', 'Label');
     });
 
-    it('should proxy the aria-labelledby to ariaLabelledByElements on the input element', async () => {
+    it('should proxy the aria-labelledby attribute to the input element', async () => {
       const label = document.createElement('span');
       label.id = 'my-label';
       label.textContent = 'My label';
@@ -145,7 +145,7 @@ describe('sl-checkbox', () => {
       label.remove();
     });
 
-    it('should proxy the aria-describedby to ariaDescribedByElements on the input element', async () => {
+    it('should proxy the aria-describedby attribute to the input element', async () => {
       const tooltip = document.createElement('span');
       tooltip.id = 'my-tooltip';
       tooltip.textContent = 'My tooltip';

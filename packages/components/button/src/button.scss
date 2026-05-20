@@ -240,12 +240,12 @@ button {
   color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
+  flex: 1;
   font: inherit;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   gap: var(--sl-size-075);
   justify-content: center;
   margin: 0;
-  max-inline-size: 100%;
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);

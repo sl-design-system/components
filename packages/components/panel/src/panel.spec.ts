@@ -112,6 +112,39 @@ describe('sl-panel', () => {
       expect(body).to.have.attribute('aria-labelledby', 'heading');
     });
 
+    it('should hide the body from assistive technology when collapsed', async () => {
+      const body = el.renderRoot.querySelector('[part="body"]');
+
+      expect(body).not.to.have.attribute('aria-hidden');
+      expect(body).not.to.have.attribute('inert');
+
+      el.toggle(true);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(body).to.have.attribute('aria-hidden', 'true');
+      expect(body).to.have.attribute('inert');
+
+      el.toggle(false);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(body).not.to.have.attribute('aria-hidden');
+      expect(body).not.to.have.attribute('inert');
+    });
+
+    it('should hide initially collapsed body from assistive technology', async () => {
+      const collapsedEl = await fixture<Panel>(
+        html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`
+      );
+      const body = collapsedEl.renderRoot.querySelector('[part="body"]');
+
+      expect(body).to.have.attribute('aria-hidden', 'true');
+      expect(body).to.have.attribute('inert');
+    });
+
     it('should emit an sl-toggle event when button is clicked', async () => {
       const button = el.renderRoot.querySelector('sl-button'),
         onToggle = spy();

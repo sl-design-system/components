@@ -146,9 +146,13 @@ StyleDictionary.registerTransform({
   transitive: true,
   filter: token => token.$type === 'lineHeight',
   transform: token => {
-    const value = token.$value;
+    const value = token.$value.replace;
 
-    return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
+    return value?.endsWith('%')
+      ? transformLineHeight(value)
+      : value?.endsWith('px')
+        ? value
+        : `${value}px`;
   }
 });
 

@@ -146,7 +146,7 @@ StyleDictionary.registerTransform({
   transitive: true,
   filter: token => token.$type === 'lineHeight',
   transform: token => {
-    const value = token.$value.replace;
+    const value = token.$value;
 
     return value?.endsWith('%')
       ? transformLineHeight(value)

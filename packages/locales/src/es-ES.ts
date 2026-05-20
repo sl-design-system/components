@@ -57,6 +57,7 @@ export const templates = {
   'sl.grid.cancelSelection': 'Cancelar selección',
   'sl.grid.filterByValue': str`Filtrar por ${0}`,
   'sl.grid.removeSort': 'Quitar orden',
+  'sl.grid.reorder': 'Reordenar',
   'sl.grid.selectAllRows': 'Seleccionar todas las filas',
   'sl.grid.selectionStatusMessage': str`${0} de ${1} seleccionados`,
   'sl.grid.selectRow': 'Seleccionar fila',

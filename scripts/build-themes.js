@@ -148,7 +148,11 @@ StyleDictionary.registerTransform({
   transform: token => {
     const value = token.$value;
 
-    return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
+    return value?.endsWith('%')
+      ? transformLineHeight(value)
+      : value?.endsWith('px')
+        ? value
+        : `${value}px`;
   }
 });
 

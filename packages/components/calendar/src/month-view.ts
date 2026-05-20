@@ -11,7 +11,6 @@ import { isDateInList, isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
-import '@sl-design-system/tooltip/register.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -282,8 +281,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           str`Days of ${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}`,
           { id: 'sl.calendar.daysLabel' }
         )}
-        role="grid"
-      >
+        role="grid">
         ${this.renderHeader()}
         <tbody>
           ${this.calendar?.weeks.map(
@@ -294,8 +292,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                       <td
                         aria-label=${msg(str`Week ${week.number}`, { id: 'sl.monthView.week' })}
                         part="week-number"
-                        role="rowheader"
-                      >
+                        role="rowheader">
                         ${week.number}
                       </td>
                     `
@@ -362,8 +359,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 )}
                 aria-label=${this.getDayLabel(day)}
                 aria-pressed=${selected.toString()}
-                part=${parts.join(' ')}
-              >
+                part=${parts.join(' ')}>
                 <span>${day.date.getDate()}</span>
               </button>
               ${day.indicator?.label

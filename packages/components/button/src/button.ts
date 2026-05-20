@@ -42,6 +42,8 @@ export type ButtonVariant =
  * ```
  *
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
+ *
+ * @csspart button - The internal <code>&lt;button&gt;</code> element.
  */
 export class Button extends ForwardAriaMixin(LitElement) {
   /** @internal */
@@ -181,8 +183,8 @@ export class Button extends ForwardAriaMixin(LitElement) {
         command=${ifDefined(this.command)}
         .commandForElement=${target}
         ?disabled=${this.disabled}
-        type="button"
-      >
+        part="button"
+        type="button">
         <slot></slot>
       </button>
     `;

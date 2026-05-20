@@ -28,6 +28,10 @@ describe('sl-button', () => {
       expect(button).to.have.attribute('type', 'button');
     });
 
+    it('should have a "button" CSS part on the inner button', () => {
+      expect(button).to.have.attribute('part', 'button');
+    });
+
     it('should not be disabled', () => {
       expect(button).not.to.have.attribute('disabled');
       expect(el).not.to.have.attribute('disabled');

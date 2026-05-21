@@ -1,4 +1,5 @@
 import '@sl-design-system/button/register.js';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { type ToolBar } from '@sl-design-system/tool-bar';
@@ -13,7 +14,7 @@ import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
 
-type Person = { firstName: string; lastName: string; email?: string };
+type Person = { firstName: string; lastName: string; email?: string; group?: string };
 
 describe('sl-grid', () => {
   let el: Grid<Person>;
@@ -735,6 +736,39 @@ describe('sl-grid', () => {
 
       expect(toolBar!.menuItems.length).to.equal(0);
       expect(toolBar!.items.filter(item => item.visible).length).to.equal(5);
+    });
+  });
+
+  describe('group headers with sticky columns', () => {
+    it('should make the group header follow the sticky start columns', async () => {
+      const dataSource = new ArrayListDataSource(
+        [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'A' }
+        ],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" sticky width="100"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="100"></sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupHeader = el.renderRoot.querySelector<HTMLElement>(
+        'tbody tr[part~="group"] sl-grid-group-header'
+      );
+
+      expect(groupHeader).to.exist;
+      expect(groupHeader?.classList.contains('sticky-start-last')).to.be.true;
+      expect(groupHeader?.style.position).to.equal('sticky');
+      expect(groupHeader?.style.insetInlineStart).to.equal('0px');
+      expect(groupHeader?.style.inlineSize).to.equal('200px');
     });
   });
 });

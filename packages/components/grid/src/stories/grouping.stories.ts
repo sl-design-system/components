@@ -280,3 +280,52 @@ export const CustomGroupHeader: Story = {
     `;
   }
 };
+
+export const StickyColumnsWithCustomGroupHeader: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+
+    const groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
+      return html`
+        <span slot="group-heading">${item.label} (${item.count})</span>
+        <sl-button size="sm">Add student</sl-button>
+      `;
+    };
+
+    return html`
+      <style>
+        html {
+          display: block;
+        }
+      </style>
+      <p>
+        This example shows grouped rows with a custom group header and sticky columns while
+        scrolling horizontally.
+      </p>
+      <sl-grid
+        .dataSource=${dataSource}
+        .groupHeaderRenderer=${groupHeaderRenderer}
+        .scopedElements=${{ 'sl-button': Button }}
+      >
+        <sl-grid-column grow="0" header="Nr." path="studentNumber" sticky></sl-grid-column>
+        <sl-grid-column path="group.name" sticky></sl-grid-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="school.name"></sl-grid-column>
+        <sl-grid-column path="school.address"></sl-grid-column>
+        <sl-grid-column path="school.city"></sl-grid-column>
+        <sl-grid-column path="school.country"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};

@@ -38,6 +38,7 @@ import {
   render
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
@@ -557,7 +558,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(tbody td, thead tr th):nth-child(${index + 1}) {
+          :where(tbody tr:not([part~='group']) td, thead tr th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
             justify-content: ${col.align ?? 'start'};
@@ -630,6 +631,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       draggable = !!this.#columnDefinitions.find(
         col => !col.hidden && col instanceof GridDragHandleColumn
       ),
+      groupHeaderClasses = this.#getGroupHeaderClasses(),
+      groupHeaderStyles = this.#getGroupHeaderStyles(),
       selectable = !!this.#columnDefinitions.find(
         col => !col.hidden && col instanceof GridSelectionColumn
       );
@@ -640,10 +643,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
+            class=${ifDefined(groupHeaderClasses.join(' ') || undefined)}
             ?collapsed=${collapsed}
             ?drag-handle=${draggable}
             ?selectable=${selectable}
             .selected=${item.selected ?? 'none'}
+            style=${ifDefined(groupHeaderStyles)}
           >
             ${this.groupHeaderRenderer?.(item) ??
             html`
@@ -1208,6 +1213,28 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #getGroupHeaderClasses(): string[] {
+    const columns = this.#getStickyStartColumns();
+
+    if (!columns.length) {
+      return [];
+    }
+
+    return [`sticky-start-${columns.length > 1 ? 'last' : 'first'}`];
+  }
+
+  #getGroupHeaderStyles(): string | undefined {
+    const columns = this.#getStickyStartColumns();
+
+    if (!columns.length) {
+      return undefined;
+    }
+
+    const inlineSize = columns.reduce((acc, { width }) => acc + (width ?? 100), 0);
+
+    return `flex-grow: 0; inline-size: ${inlineSize}px; inset-inline-start: 0px; position: sticky;`;
+  }
+
   /** Returns the left offset, taking any sticky columns into account. */
   #getStickyColumnOffset(index: number): number {
     let columns: Array<GridColumn<T>>;
@@ -1219,6 +1246,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     return columns.filter(col => !col.hidden).reduce((acc, { width = 0 }) => acc + width, 0);
+  }
+
+  #getStickyStartColumns(): Array<GridColumn<T>> {
+    return this.#columnDefinitions.filter(
+      col => !col.hidden && col.sticky && col.stickyPosition === 'start'
+    );
   }
 
   #removeColumn(col: GridColumn): void {

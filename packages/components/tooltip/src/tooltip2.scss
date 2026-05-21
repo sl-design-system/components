@@ -5,7 +5,7 @@
   box-sizing: border-box;
   color: var(--sl-color-foreground-inverted-plain);
   font-weight: var(--sl-text-new-typeset-fontWeight-regular);
-  margin: var(--sl-size-100);
+  margin: var(--sl-size-150);
   opacity: 0;
   padding: var(--sl-size-100) var(--sl-size-150);
   position-area: top;
@@ -28,4 +28,8 @@
 
   opacity: 1;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+[part='hover-extender'] {
+  position: fixed;
 }

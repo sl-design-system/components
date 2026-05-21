@@ -304,8 +304,6 @@ export class Tooltip2 extends LitElement {
       return;
     }
 
-    extender.style.display = 'block';
-    extender.style.position = 'fixed';
     extender.style.left = `${left}px`;
     extender.style.top = `${top}px`;
     extender.style.width = `${width}px`;

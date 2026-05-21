@@ -230,6 +230,9 @@ button {
 
   align-items: center;
   appearance: none;
+
+  // Allows parent components (e.g. paginator) to drive button interaction colors via --sl-button-*,
+  // while keeping the internal defaults as fallback.
   background: color-mix(
     in srgb,
     var(--sl-button-bg-color, var(--_bg-color)),

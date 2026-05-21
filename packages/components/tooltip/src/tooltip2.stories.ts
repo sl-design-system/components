@@ -12,10 +12,22 @@ export default {
   parameters: {
     layout: 'centered'
   },
-  render: () => {
+  argTypes: {
+    position: {
+      control: 'inline-radio',
+      options: ['top', 'right', 'bottom', 'left']
+    },
+    text: {
+      control: 'text'
+    }
+  },
+  args: {
+    text: 'Tooltip text'
+  },
+  render: ({ position, text }) => {
     return `
       <sl-button id="button">Hover me</sl-button>
-      <sl-tooltip2 for="button">Tooltip content</sl-tooltip2>
+      <sl-tooltip2 for="button" style="${position ? `position-area: ${position}` : ''}">${text}</sl-tooltip2>
     `;
   }
 };

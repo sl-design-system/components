@@ -70,7 +70,7 @@ export class Tooltip2 extends LitElement {
 
     // Re-establish the anchor relationship if the tooltip is moved to a different root
     if (this.anchor && this.for) {
-      this.anchor = null; // triggers #updateAnchor()
+      this.anchor = undefined; // triggers #updateAnchor()
     } else if (this.for) {
       this.#updateAnchor();
     }

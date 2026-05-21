@@ -514,3 +514,12 @@ export const All: Story = {
     `;
   }
 };
+
+export const DoubleLabel: Story = {
+  render: () => html`
+    <p id="label">This is the button's label as well.</p>
+    <sl-button aria-labelledby="label" tooltip="Hello world">
+      <sl-icon name="far-plus"></sl-icon>
+    </sl-button>
+  `
+};

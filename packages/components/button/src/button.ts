@@ -71,9 +71,6 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** Observe changes to the slotted content that aren't caught by the `slotchange` event. */
   #observer = new MutationObserver(() => this.#onUpdate());
 
-  /** Aria-labelledby elements forwarded from the host by the ForwardAriaMixin. */
-  #forwardedLabelElements: Element[] = [];
-
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
 
@@ -172,22 +169,10 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
     super.disconnectedCallback();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    this.#syncAriaLabelledBy();
-  }
-
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     this.setProxyTarget(this.button);
-
-    // Capture any aria-labelledby elements the mixin just forwarded to the inner button.
-    this.#forwardedLabelElements = [
-      ...((this.button as unknown as { ariaLabelledByElements: Element[] | null })
-        .ariaLabelledByElements ?? [])
-    ];
 
     if (this.hasAttribute('tabindex')) {
       this.tabIndex = parseInt(this.getAttribute('tabindex') ?? '0');
@@ -275,28 +260,17 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
           el.children[0].nodeName === 'SL-ICON');
     }
 
+    const hasIconOnly = this.internals.states.has('icon-only');
+
     if (iconOnly) {
       this.internals.states.add('icon-only');
     } else {
       this.internals.states.delete('icon-only');
     }
-  }
 
-  #syncAriaLabelledBy(): void {
-    if (!this.#forwardedLabelElements.length) {
-      return;
+    // Trigger an update when the icon-only state changes
+    if (hasIconOnly !== iconOnly) {
+      this.requestUpdate();
     }
-
-    const buttonEl = this.button as unknown as { ariaLabelledByElements: Element[] | null };
-
-    if (this.tooltip && this.internals.states.has('icon-only')) {
-      const tooltipEl = this.renderRoot.querySelector<Element>('sl-tooltip');
-      if (tooltipEl) {
-        buttonEl.ariaLabelledByElements = [...this.#forwardedLabelElements, tooltipEl];
-        return;
-      }
-    }
-
-    buttonEl.ariaLabelledByElements = [...this.#forwardedLabelElements];
   }
 }

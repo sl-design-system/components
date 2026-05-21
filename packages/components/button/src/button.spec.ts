@@ -696,19 +696,38 @@ describe('sl-button', () => {
       expect(el.renderRoot.querySelector('sl-tooltip')).to.be.null;
     });
 
-    it('should include both the tooltip and aria-labelledby element in ariaLabelledByElements for icon-only buttons', async () => {
+    it('should include both the tooltip and aria-describedby element in ariaDescribedByElements', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="btn-desc">Additional description</span>
+          <sl-button aria-describedby="btn-desc" tooltip="More info">Click me</sl-button>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-button')!;
+
+      const tooltipEl = el.renderRoot.querySelector('sl-tooltip')!,
+        descEl = wrapper.querySelector<HTMLElement>('#btn-desc')!,
+        ariaDescElements = getForwardedAriaProperty(
+          el,
+          'ariaDescribedByElements' as keyof HTMLElement
+        ) as Element[];
+
+      expect(ariaDescElements).to.include(descEl);
+      expect(ariaDescElements).to.include(tooltipEl);
+    });
+
+    it('should include both the tooltip and aria-labelledby element in ariaLabelledByElements', async () => {
       const wrapper = await fixture(html`
         <div>
           <span id="icon-btn-label">Favorite star</span>
-          <sl-button aria-labelledby="icon-btn-label">
-            <sl-icon name="star"></sl-icon>
+          <sl-button aria-labelledby="icon-btn-label" tooltip="Mark as favorite">
+            Hello world
           </sl-button>
         </div>
       `);
 
       el = wrapper.querySelector('sl-button')!;
-      el.tooltip = 'Mark as favorite';
-      await el.updateComplete;
 
       const tooltipEl = el.renderRoot.querySelector('sl-tooltip')!,
         labelEl = wrapper.querySelector<HTMLElement>('#icon-btn-label')!,

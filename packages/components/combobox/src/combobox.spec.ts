@@ -187,22 +187,28 @@ describe('sl-combobox', () => {
       expect(wrapper?.matches(':popover-open')).to.be.false;
     });
 
-    it('should have an aria-label of "Show the options" when the popover is closed', () => {
+    it('should have a static aria-label of "Options" on the button', () => {
       const button = el.renderRoot.querySelector('button[slot="suffix"]');
 
-      expect(button).to.have.attribute('aria-label', 'Show the options');
+      expect(button).to.have.attribute('aria-label', 'Options');
     });
 
-    it('should have an aria-label of "Hide the options" when the popover is open', async () => {
+    it('should have aria-expanded "false" on the button when the popover is closed', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should have aria-expanded "true" on the button when the popover is open', async () => {
       const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
 
       button?.click();
       await el.updateComplete;
 
-      expect(button).to.have.attribute('aria-label', 'Hide the options');
+      expect(button).to.have.attribute('aria-expanded', 'true');
     });
 
-    it('should switch aria-label back to "Show the options" when the popover closes', async () => {
+    it('should switch aria-expanded back to "false" when the popover closes', async () => {
       const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
 
       button?.click();
@@ -211,7 +217,7 @@ describe('sl-combobox', () => {
       button?.click();
       await el.updateComplete;
 
-      expect(button).to.have.attribute('aria-label', 'Show the options');
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
     it('should not be select only', () => {

@@ -500,8 +500,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         placeholder=${ifDefined(
           this.multiple && this.selectedItems.length ? undefined : this.placeholder
         )}
-        size=${ifDefined(this.size)}
-      >
+        size=${ifDefined(this.size)}>
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
@@ -509,8 +508,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                 aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
                 size=${ifDefined(this.size)}
                 slot="prefix"
-                stacked
-              >
+                stacked>
                 ${repeat(
                   this.selectedItems,
                   item => item,
@@ -520,8 +518,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
                       aria-hidden=${this.disabled ? nothing : 'true'}
-                      class=${this.focusedTag === item ? 'focused' : ''}
-                    >
+                      class=${this.focusedTag === item ? 'focused' : ''}>
                       ${item.label}
                     </sl-tag>
                   `
@@ -533,12 +530,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${this.wrapper?.matches(':popover-open')
-            ? msg('Hide the options', { id: 'sl.combobox.hideOptions' })
-            : msg('Show the options', { id: 'sl.combobox.showOptions' })}
+          aria-expanded=${this.input?.getAttribute('aria-expanded') ?? 'false'}
+          aria-label=${msg('Options', { id: 'sl.combobox.options' })}
           slot="suffix"
-          tabindex="-1"
-        >
+          tabindex="-1">
           <sl-icon name="chevron-down"></sl-icon>
         </button>
       </sl-text-field>
@@ -557,8 +552,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         @toggle=${this.#onToggle}
         part="wrapper"
         popover
-        tabindex="-1"
-      ></slot>
+        tabindex="-1"></slot>
     `;
   }
 

@@ -24,7 +24,7 @@ export default {
   args: {
     text: 'Tooltip text'
   },
-  render: ({ position, text }) => {
+  render: ({ position, text }: { position: string; text: string }) => {
     return `
       <sl-button id="button">Hover me</sl-button>
       <sl-tooltip2 for="button" style="${position ? `position-area: ${position}` : ''}">${text}</sl-tooltip2>

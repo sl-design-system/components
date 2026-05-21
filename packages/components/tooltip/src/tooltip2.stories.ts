@@ -104,7 +104,7 @@ export const HoverExtender = {
   args: {
     maxWidth: 200,
     showHoverExtender: true,
-    text: 'The hotpink area extends the hover trigger area, making it easier to keep the tooltip open'
+    text: 'The hotpink area extends the hover trigger area, making it possible to move the mouse from the anchor to the tooltip without it disappearing.'
   }
 };
 

@@ -342,6 +342,7 @@ export class Tooltip2 extends LitElement {
       newAnchor.addEventListener('mouseover', this.#onMouseOver, { signal });
       newAnchor.addEventListener('mouseout', this.#onMouseOut, { signal });
 
+      // Do not overwrite an existing anchor name, as it might be used for something else.
       const newAnchorName = newAnchor.style.anchorName || `--${this.id}`;
 
       newAnchor.style.anchorName = newAnchorName;

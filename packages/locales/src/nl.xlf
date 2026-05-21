@@ -138,6 +138,10 @@
   <source>Remove sort</source>
   <target>Verwijder sortering</target>
 </trans-unit>
+<trans-unit id="sl.grid.reorder">
+  <source>Reorder</source>
+  <target>Herschikken</target>
+</trans-unit>
 <trans-unit id="sl.grid.sortAscending">
   <source>Sort ascending</source>
   <target>Sorteer oplopend</target>
@@ -454,13 +458,9 @@
   <source>More information</source>
   <target>Meer informatie</target>
 </trans-unit>
-<trans-unit id="sl.combobox.hideOptions">
-  <source>Hide the options</source>
-  <target>Verberg de opties</target>
-</trans-unit>
-<trans-unit id="sl.combobox.showOptions">
-  <source>Show the options</source>
-  <target>Toon de opties</target>
+<trans-unit id="sl.combobox.options">
+  <source>Options</source>
+  <target>Opties</target>
 </trans-unit>
 </body>
 </file>

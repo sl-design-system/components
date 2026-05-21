@@ -138,6 +138,10 @@
   <source>Remove sort</source>
   <target>Rimuovi ordinamento</target>
 </trans-unit>
+<trans-unit id="sl.grid.reorder">
+  <source>Reorder</source>
+  <target>Riordinare</target>
+</trans-unit>
 <trans-unit id="sl.grid.sortAscending">
   <source>Sort ascending</source>
   <target>Ordina crescente</target>
@@ -450,13 +454,9 @@
   <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
   <target>Non oltre <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
-<trans-unit id="sl.combobox.hideOptions">
-  <source>Hide the options</source>
-  <target>Nascondi le opzioni</target>
-</trans-unit>
-<trans-unit id="sl.combobox.showOptions">
-  <source>Show the options</source>
-  <target>Mostra le opzioni</target>
+<trans-unit id="sl.combobox.options">
+  <source>Options</source>
+  <target>Opzioni</target>
 </trans-unit>
 <trans-unit id="sl.infotip.moreInformation">
   <source>More information</source>

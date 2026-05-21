@@ -10,6 +10,8 @@
   padding: var(--sl-size-100) var(--sl-size-150);
   position-area: top;
   position-try-fallbacks: bottom;
+  text-align: center;
+  text-wrap: pretty;
 
   @media (prefers-reduced-motion: no-preference) {
     transition-duration: 150ms;

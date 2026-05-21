@@ -138,6 +138,10 @@
   <source>Remove sort</source>
   <target>Rimuovi ordinamento</target>
 </trans-unit>
+<trans-unit id="sl.grid.reorder">
+  <source>Reorder</source>
+  <target>Riordinare</target>
+</trans-unit>
 <trans-unit id="sl.grid.sortAscending">
   <source>Sort ascending</source>
   <target>Ordina crescente</target>

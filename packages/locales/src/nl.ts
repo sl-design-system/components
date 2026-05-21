@@ -57,6 +57,7 @@ export const templates = {
   'sl.grid.cancelSelection': 'Annuleer selectie',
   'sl.grid.filterByValue': str`Filter op ${0}`,
   'sl.grid.removeSort': 'Verwijder sortering',
+  'sl.grid.reorder': 'Herschikken',
   'sl.grid.selectAllRows': 'Selecteer alle rijen',
   'sl.grid.selectionStatusMessage': str`${0} van ${1} geselecteerd`,
   'sl.grid.selectRow': 'Selecteer rij',

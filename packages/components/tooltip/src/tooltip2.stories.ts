@@ -7,7 +7,7 @@ import { Tooltip2 } from './tooltip2.js';
 type Props = Pick<Tooltip2, 'disabled' | 'open'> & {
   maxWidth: number;
   position: string;
-  showHoverExtender: boolean;
+  showHoverBridge: boolean;
   text: string;
   tooltip(): TemplateResult;
   trigger: string[];
@@ -38,7 +38,7 @@ export default {
       control: 'inline-radio',
       options: ['top', 'right', 'bottom', 'left']
     },
-    showHoverExtender: {
+    showHoverBridge: {
       control: 'boolean'
     },
     text: {
@@ -55,16 +55,7 @@ export default {
   args: {
     text: 'Tooltip text'
   },
-  render: ({
-    disabled,
-    maxWidth,
-    open,
-    position,
-    showHoverExtender,
-    text,
-    tooltip,
-    trigger
-  }) => html`
+  render: ({ disabled, maxWidth, open, position, showHoverBridge, text, tooltip, trigger }) => html`
     <sl-button id="button">Anchor</sl-button>
     ${tooltip
       ? tooltip()
@@ -80,7 +71,7 @@ export default {
     <style>
       ${maxWidth ? `sl-tooltip2 { max-inline-size: ${maxWidth}px; }` : nothing}
       ${position ? `sl-tooltip2 { position-area: ${position} }` : nothing}
-      ${showHoverExtender ? 'sl-tooltip2::part(hover-extender) { background: hotpink; }' : nothing}
+      ${showHoverBridge ? 'sl-tooltip2::part(hover-bridge) { background: hotpink; }' : nothing}
     </style>
   `
 } satisfies Meta<Props>;
@@ -100,11 +91,11 @@ export const Disabled = {
   }
 };
 
-export const HoverExtender = {
+export const HoverBridge = {
   args: {
     maxWidth: 200,
     showHoverExtender: true,
-    text: 'The hotpink area extends the hover trigger area, making it possible to move the mouse from the anchor to the tooltip without it disappearing.'
+    text: 'The hotpink area bridges the area between anchor and tooltip, making it possible to move the mouse from the anchor to the tooltip without it disappearing.'
   }
 };
 

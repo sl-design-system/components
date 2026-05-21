@@ -649,4 +649,76 @@ describe('sl-button', () => {
       });
     });
   });
+
+  describe('tooltip', () => {
+    it('should not have a tooltip by default', async () => {
+      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.be.null;
+    });
+
+    it('should render an sl-tooltip when the tooltip property is set', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.exist;
+    });
+
+    it('should set the tooltip text content', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.have.text('My tooltip');
+    });
+
+    it('should set aria-describedby on the inner button when a text button has a tooltip', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+      button = el.renderRoot.querySelector('button')!;
+
+      expect(button).to.have.attribute('aria-describedby', 'tooltip');
+      expect(button).not.to.have.attribute('aria-labelledby');
+    });
+
+    it('should set aria-labelledby on the inner button when an icon-only button has a tooltip', async () => {
+      // eslint-disable-next-line slds/button-has-label
+      el = await fixture(html`<sl-button><sl-icon name="star"></sl-icon></sl-button>`);
+      el.tooltip = 'Mark as favorite';
+      await el.updateComplete;
+      button = el.renderRoot.querySelector('button')!;
+
+      expect(button).to.have.attribute('aria-labelledby', 'tooltip');
+      expect(button).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should remove the tooltip when the tooltip property is unset', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+      el.tooltip = undefined;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.be.null;
+    });
+
+    it('should include both the tooltip and aria-labelledby element in ariaLabelledByElements for icon-only buttons', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="icon-btn-label">Favorite star</span>
+          <sl-button aria-labelledby="icon-btn-label">
+            <sl-icon name="star"></sl-icon>
+          </sl-button>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-button')!;
+      el.tooltip = 'Mark as favorite';
+      await el.updateComplete;
+
+      const tooltipEl = el.renderRoot.querySelector('sl-tooltip')!,
+        labelEl = wrapper.querySelector<HTMLElement>('#icon-btn-label')!,
+        ariaLabelElements = getForwardedAriaProperty(
+          el,
+          'ariaLabelledByElements' as keyof HTMLElement
+        ) as Element[];
+
+      expect(ariaLabelElements).to.include(labelEl);
+      expect(ariaLabelElements).to.include(tooltipEl);
+    });
+  });
 });

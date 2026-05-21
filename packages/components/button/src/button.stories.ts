@@ -1,3 +1,4 @@
+/* eslint-disable slds/button-has-label */
 import { faPlus, faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/dialog/register.js';
@@ -11,7 +12,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Button } from './button.js';
 
-interface Props extends Pick<Button, 'disabled' | 'fill' | 'shape' | 'size' | 'variant'> {
+interface Props extends Pick<
+  Button,
+  'disabled' | 'fill' | 'shape' | 'size' | 'tooltip' | 'variant'
+> {
   icon: string;
   text: string;
 }
@@ -60,9 +64,9 @@ export default {
       options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'inverted']
     }
   },
-  render: ({ disabled, fill, icon, shape, size, text, variant }) => {
-    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
-    const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+  render: ({ disabled, fill, icon, shape, size, text, tooltip, variant }) => {
+    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '',
+      endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
 
     return html`
       <sl-button
@@ -70,8 +74,8 @@ export default {
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        tooltip=${ifDefined(tooltip)}
+        variant=${ifDefined(variant)}>
         ${startIcon}${text}${endIcon}
       </sl-button>
     `;
@@ -129,8 +133,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled button
         </sl-button>
         <sl-button
@@ -138,8 +141,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled (ARIA only) button
         </sl-button>
       </div>
@@ -156,17 +158,13 @@ export const IconOnly: Story = {
         technologies can convey the purpose of the button to users.
       </p>
       <sl-button
-        aria-labelledby="tooltip"
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        tooltip="Always have a tooltip for icon-only buttons to explain their purpose."
+        variant=${ifDefined(variant)}>
         <sl-icon name="far-plus"></sl-icon>
       </sl-button>
-      <sl-tooltip id="tooltip">
-        Always have a tooltip for icon-only buttons to explain their purpose.
-      </sl-tooltip>
     `;
   }
 };

@@ -5438,7 +5438,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
   dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.6"
     "@sl-design-system/shared": "npm:^0.12.0"
+    "@sl-design-system/tooltip": "npm:^2.0.0"
+    lit: "npm:^3.3.2"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.6
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

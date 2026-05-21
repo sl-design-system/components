@@ -1,11 +1,14 @@
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { closestElementComposed } from '@sl-design-system/shared';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
   type PropertyValues,
   type TemplateResult,
-  html
+  html,
+  nothing
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -45,9 +48,16 @@ export type ButtonVariant =
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
  */
-export class Button extends ForwardAriaMixin(LitElement) {
+export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
+
+  /** @internal */
+  static get scopedElements() {
+    return {
+      'sl-tooltip': Tooltip
+    };
+  }
 
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
@@ -60,6 +70,9 @@ export class Button extends ForwardAriaMixin(LitElement) {
 
   /** Observe changes to the slotted content that aren't caught by the `slotchange` event. */
   #observer = new MutationObserver(() => this.#onUpdate());
+
+  /** Aria-labelledby elements forwarded from the host by the ForwardAriaMixin. */
+  #forwardedLabelElements: Element[] = [];
 
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
@@ -129,6 +142,9 @@ export class Button extends ForwardAriaMixin(LitElement) {
     }
   }
 
+  /** The text that will be shown in a tooltip. */
+  @property() tooltip?: string;
+
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in
    * native HTML buttons.
@@ -156,10 +172,22 @@ export class Button extends ForwardAriaMixin(LitElement) {
     super.disconnectedCallback();
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    this.#syncAriaLabelledBy();
+  }
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     this.setProxyTarget(this.button);
+
+    // Capture any aria-labelledby elements the mixin just forwarded to the inner button.
+    this.#forwardedLabelElements = [
+      ...((this.button as unknown as { ariaLabelledByElements: Element[] | null })
+        .ariaLabelledByElements ?? [])
+    ];
 
     if (this.hasAttribute('tabindex')) {
       this.tabIndex = parseInt(this.getAttribute('tabindex') ?? '0');
@@ -177,9 +205,21 @@ export class Button extends ForwardAriaMixin(LitElement) {
         (this.getRootNode() as Document | ShadowRoot).getElementById?.(this.commandFor) ?? null;
     }
 
+    // If the button is icon only, the tooltip functions as the label, otherwise it functions as the description.
+    let ariaLabelledBy: string | undefined, ariaDescribedBy: string | undefined;
+    if (this.tooltip) {
+      if (this.internals.states.has('icon-only')) {
+        ariaLabelledBy = 'tooltip';
+      } else {
+        ariaDescribedBy = 'tooltip';
+      }
+    }
+
     return html`
       <button
         @click=${this.#onClick}
+        aria-describedby=${ifDefined(ariaDescribedBy)}
+        aria-labelledby=${ifDefined(ariaLabelledBy)}
         command=${ifDefined(this.command)}
         .commandForElement=${target}
         ?disabled=${this.disabled}
@@ -187,6 +227,7 @@ export class Button extends ForwardAriaMixin(LitElement) {
         type="button">
         <slot></slot>
       </button>
+      ${this.tooltip ? html`<sl-tooltip id="tooltip">${this.tooltip}</sl-tooltip>` : nothing}
     `;
   }
 
@@ -239,5 +280,23 @@ export class Button extends ForwardAriaMixin(LitElement) {
     } else {
       this.internals.states.delete('icon-only');
     }
+  }
+
+  #syncAriaLabelledBy(): void {
+    if (!this.#forwardedLabelElements.length) {
+      return;
+    }
+
+    const buttonEl = this.button as unknown as { ariaLabelledByElements: Element[] | null };
+
+    if (this.tooltip && this.internals.states.has('icon-only')) {
+      const tooltipEl = this.renderRoot.querySelector<Element>('sl-tooltip');
+      if (tooltipEl) {
+        buttonEl.ariaLabelledByElements = [...this.#forwardedLabelElements, tooltipEl];
+        return;
+      }
+    }
+
+    buttonEl.ariaLabelledByElements = [...this.#forwardedLabelElements];
   }
 }

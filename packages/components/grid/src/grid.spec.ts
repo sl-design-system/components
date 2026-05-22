@@ -55,8 +55,7 @@ describe('sl-grid', () => {
           .items=${[
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
+          ]}>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -195,8 +194,7 @@ describe('sl-grid', () => {
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -228,8 +226,7 @@ describe('sl-grid', () => {
           aria-describedby="bulk-action-tooltip"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -270,8 +267,7 @@ describe('sl-grid', () => {
           aria-describedby="bulk-action-tooltip"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -305,8 +301,7 @@ describe('sl-grid', () => {
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -360,8 +355,7 @@ describe('sl-grid', () => {
             { firstName: 'Alice', lastName: 'Johnson' }
           ]}
           selects="single"
-          row-action="select"
-        >
+          row-action="select">
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -484,8 +478,7 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          row-action="activate"
-        >
+          row-action="activate">
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -543,6 +536,41 @@ describe('sl-grid', () => {
       expect(onActiveRowChange).to.have.been.calledOnce;
       expect(onActiveRowChange.firstCall.args[0].detail).to.deep.equal(el.items!.at(1));
     });
+
+    it('should keep sticky active row cells opaque', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}
+          row-action="activate"
+          style="
+            --sl-elevation-surface-raised-default: rgb(255 255 255);
+            --sl-color-background-input-interactive: rgb(0 0 0);
+            --sl-color-background-selected-interactive-plain: rgb(0 80 160);
+            --sl-color-background-selected-subtlest: transparent;
+            --sl-opacity-interactive-plain-idle: 0.1;
+          ">
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      el.activeRow = el.items!.at(0);
+      await el.updateComplete;
+
+      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
+        'tbody tr:first-of-type td.sticky-start-first'
+      );
+
+      const style = getComputedStyle(cell!);
+
+      expect(style.backgroundColor).to.equal('rgb(255, 255, 255)');
+      expect(style.backgroundImage).to.contain('linear-gradient');
+    });
   });
 
   describe('row action select', () => {
@@ -553,8 +581,7 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          row-action="select"
-        >
+          row-action="select">
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
@@ -651,8 +678,7 @@ describe('sl-grid', () => {
             { firstName: 'Sophie', lastName: 'Müller', email: 'sophie.muller@school1.edu' },
             { firstName: 'Luca', lastName: 'van Dijk', email: 'luca.vandijk@school4.edu' },
             { firstName: 'Clara', lastName: 'de Vries', email: 'clara.devries@school4.edu' }
-          ]}
-        >
+          ]}>
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="email"></sl-grid-column>

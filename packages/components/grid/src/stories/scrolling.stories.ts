@@ -31,8 +31,7 @@ export const Vertical: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
     </sl-grid>
   `
@@ -63,8 +62,7 @@ export const VerticalOverflow: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
     </sl-grid>
   `
@@ -142,8 +140,7 @@ export const Both: Story = {
         <sl-grid-column
           header="Student"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         ${columns.map(c => html`<sl-grid-column path=${c}></sl-grid-column>`)}
       </sl-grid>
     `;
@@ -181,7 +178,7 @@ export const BothSticky: Story = {
       or end of the grid. You cannot have sticky columns in the middle of the grid.
     </p>
     <div class="cover"></div>
-    <sl-grid .items=${students}>
+    <sl-grid .items=${students} row-action="activate">
       <sl-grid-selection-column sticky></sl-grid-selection-column>
       <sl-grid-column grow="0" header="Nr." path="studentNumber" sticky></sl-grid-column>
       <sl-grid-column path="group.name" sticky></sl-grid-column>
@@ -190,8 +187,7 @@ export const BothSticky: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>
       <sl-grid-column path="school.address"></sl-grid-column>
@@ -221,8 +217,7 @@ export const Horizontal: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column path="group.name"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>

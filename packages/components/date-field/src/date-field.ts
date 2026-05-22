@@ -13,8 +13,7 @@ import {
   EventsController,
   LocaleMixin,
   anchor,
-  event,
-  isPopoverOpen
+  event
 } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
@@ -405,7 +404,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       <dialog
         ${anchor({ element: this, position: 'bottom-start', supportCSSAnchorPositioning: true })}
         @beforetoggle=${this.#onBeforeToggle}
-        @focusout=${this.#onDialogFocusout}
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
         id="dialog"
@@ -573,23 +571,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #onDialogFocusout(event: FocusEvent): void {
-    const relatedTarget = event.relatedTarget;
-
-    // If focus is moving within the dialog or to a slotted calendar element, do nothing
-    if (
-      relatedTarget instanceof Node &&
-      (this.dialog?.contains(relatedTarget) || this.calendar?.contains(relatedTarget))
-    ) {
-      return;
-    }
-
-    // Focus is leaving the dialog - close the popover
-    if (this.dialog && isPopoverOpen(this.dialog)) {
-      this.dialog.hidePopover();
-    }
-  }
-
   #onChange(event: SlChangeEvent<Date>): void {
     event.preventDefault();
     event.stopPropagation();
@@ -652,7 +633,121 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       event.stopPropagation();
+      this.hidePicker();
+      requestAnimationFrame(() => {
+        this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
+      });
+    } else if (event.key === 'Tab') {
+      this.#trapFocus(event);
     }
+  }
+
+  /** Traps focus within the dialog when it is open. */
+  #trapFocus(event: KeyboardEvent): void {
+    if (!this.dialog) {
+      return;
+    }
+
+    const focusableElements = this.#getDialogFocusableElements();
+
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+
+      return;
+    }
+
+    const firstFocusable = focusableElements[0],
+      lastFocusable = focusableElements[focusableElements.length - 1],
+      activeElement = this.#getDeepActiveElement();
+
+    if (event.shiftKey) {
+      // Shift+Tab: if focus is on the first element, wrap to the last
+      if (activeElement === firstFocusable || !focusableElements.includes(activeElement!)) {
+        event.preventDefault();
+        lastFocusable.focus();
+      }
+    } else {
+      // Tab: if focus is on the last element, wrap to the first
+      if (activeElement === lastFocusable || !focusableElements.includes(activeElement!)) {
+        event.preventDefault();
+        firstFocusable.focus();
+      }
+    }
+  }
+
+  /** Gets all focusable elements within the dialog, including those in shadow DOMs. */
+  #getDialogFocusableElements(): HTMLElement[] {
+    const elements: HTMLElement[] = [];
+
+    const collectFocusable = (root: Element | ShadowRoot): void => {
+      const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, {
+        acceptNode(node) {
+          const el = node as HTMLElement;
+
+          // Skip inert elements and their descendants
+          if (el.inert || el.closest('[inert]')) {
+            return NodeFilter.FILTER_REJECT;
+          }
+
+          // Skip hidden elements
+          if (el.hidden || (el.getAttribute('aria-hidden') === 'true' && !el.closest('[inert]'))) {
+            return NodeFilter.FILTER_REJECT;
+          }
+
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+
+      let node = treeWalker.nextNode() as HTMLElement | null;
+      while (node) {
+        if (this.#isFocusable(node)) {
+          elements.push(node);
+        }
+
+        // Traverse into shadow roots
+        if (node.shadowRoot) {
+          collectFocusable(node.shadowRoot);
+        }
+
+        node = treeWalker.nextNode() as HTMLElement | null;
+      }
+    };
+
+    collectFocusable(this.dialog!);
+
+    // Also collect from slotted calendar element (lives in light DOM)
+    const slottedCalendar = this.querySelector('sl-calendar[slot="calendar"]');
+    if (slottedCalendar?.shadowRoot) {
+      collectFocusable(slottedCalendar.shadowRoot);
+    }
+
+    return elements;
+  }
+
+  /** Checks if an element is focusable. */
+  #isFocusable(el: HTMLElement): boolean {
+    if (el.hasAttribute('disabled') || el.getAttribute('tabindex') === '-1') {
+      return false;
+    }
+
+    const tabindex = el.getAttribute('tabindex');
+    if (tabindex !== null && parseInt(tabindex) >= 0) {
+      return true;
+    }
+
+    const focusableTags = ['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'];
+    return focusableTags.includes(el.tagName) && !el.hasAttribute('disabled');
+  }
+
+  /** Gets the deepest active element across shadow DOM boundaries. */
+  #getDeepActiveElement(): HTMLElement | null {
+    let active = document.activeElement as HTMLElement | null;
+
+    while (active?.shadowRoot?.activeElement) {
+      active = active.shadowRoot.activeElement as HTMLElement;
+    }
+
+    return active;
   }
 
   #onPartBlur(event: FocusEvent): void {

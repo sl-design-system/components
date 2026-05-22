@@ -33,20 +33,14 @@
   --sl-button-bg-color: transparent;
   --sl-button-bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
   --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --sl-button-bg-opacity-hover: var(--sl-opacity-interactive-plain-hover);
+  --sl-button-bg-opacity-active: var(--sl-opacity-interactive-plain-active);
   --sl-button-color: var(--sl-color-foreground-neutral-bold);
 
   box-sizing: border-box;
   flex-shrink: 0;
   inline-size: calc(1lh + (var(--sl-size-100) * 2));
   padding-inline: 0;
-
-  &:hover {
-    --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-hover);
-  }
-
-  &:active {
-    --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-active);
-  }
 }
 
 :host([size='sm']) {

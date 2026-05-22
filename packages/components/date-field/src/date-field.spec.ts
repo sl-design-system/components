@@ -650,6 +650,80 @@ describe('sl-date-field', () => {
     });
   });
 
+  describe('dialog focus management', () => {
+    let dialog: HTMLDialogElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field></sl-date-field>`);
+
+      el.renderRoot.querySelector<HTMLElement>('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+    });
+
+    it('should close the dialog and return focus to field button on Escape', async () => {
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog).not.to.match(':popover-open');
+
+      const fieldButton = el.renderRoot.querySelector('sl-field-button');
+      expect(fieldButton?.matches(':focus-within')).to.be.true;
+    });
+
+    it('should have focus guard elements for focus trapping', () => {
+      const guards = dialog.querySelectorAll(':scope > span[tabindex="0"]');
+
+      expect(guards.length).to.equal(2);
+    });
+
+    it('should redirect focus to the calendar when the end focus guard receives focus', async () => {
+      const guards = dialog.querySelectorAll<HTMLElement>(':scope > span[tabindex="0"]');
+
+      // Focus the end guard (simulates Tab past last element)
+      guards[1].focus();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      // Focus should be redirected back into the calendar, dialog stays open
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should redirect focus to the last element when the start focus guard receives focus', async () => {
+      const guards = dialog.querySelectorAll<HTMLElement>(':scope > span[tabindex="0"]');
+
+      // Focus the start guard (simulates Shift+Tab past first element)
+      guards[0].focus();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      // Focus should be redirected, dialog stays open
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should keep the dialog open when Tab is pressed within the calendar', async () => {
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.keyboard('{Tab}');
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+    });
+
+    it('should keep the dialog open when Shift+Tab is pressed within the calendar', async () => {
+      expect(dialog).to.match(':popover-open');
+
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+      await el.updateComplete;
+
+      expect(dialog).to.match(':popover-open');
+    });
+  });
+
   describe('form integration', () => {
     it('should use ElementInternals for form association', async () => {
       const form = await fixture(html`

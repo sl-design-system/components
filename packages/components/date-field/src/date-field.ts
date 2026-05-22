@@ -631,6 +631,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   };
 
   #onKeydown(event: KeyboardEvent): void {
+    console.log('event key', event.key);
     if (event.key === 'Escape') {
       event.stopPropagation();
       this.hidePicker();
@@ -650,6 +651,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     const focusableElements = this.#getDialogFocusableElements();
 
+    console.log('focusableElements in #trapFocus', focusableElements);
+
     if (focusableElements.length === 0) {
       event.preventDefault();
 
@@ -658,20 +661,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     const firstFocusable = focusableElements[0],
       lastFocusable = focusableElements[focusableElements.length - 1],
-      activeElement = this.#getDeepActiveElement();
+      activeElement = this.#getDeepActiveElement(),
+      activeIndex = activeElement ? focusableElements.indexOf(activeElement) : -1;
 
-    if (event.shiftKey) {
-      // Shift+Tab: if focus is on the first element, wrap to the last
-      if (activeElement === firstFocusable || !focusableElements.includes(activeElement!)) {
-        event.preventDefault();
-        lastFocusable.focus();
-      }
-    } else {
-      // Tab: if focus is on the last element, wrap to the first
-      if (activeElement === lastFocusable || !focusableElements.includes(activeElement!)) {
-        event.preventDefault();
-        firstFocusable.focus();
-      }
+    // Only intercept at the boundaries to wrap focus
+    if (event.shiftKey && activeIndex === 0) {
+      event.preventDefault();
+      lastFocusable.focus();
+    } else if (!event.shiftKey && activeIndex === focusableElements.length - 1) {
+      event.preventDefault();
+      firstFocusable.focus();
     }
   }
 
@@ -726,17 +725,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Checks if an element is focusable. */
   #isFocusable(el: HTMLElement): boolean {
-    if (el.hasAttribute('disabled') || el.getAttribute('tabindex') === '-1') {
+    if (el.hasAttribute('disabled')) {
       return false;
     }
 
-    const tabindex = el.getAttribute('tabindex');
-    if (tabindex !== null && parseInt(tabindex) >= 0) {
-      return true;
-    }
-
-    const focusableTags = ['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'];
-    return focusableTags.includes(el.tagName) && !el.hasAttribute('disabled');
+    return el.tabIndex >= 0;
   }
 
   /** Gets the deepest active element across shadow DOM boundaries. */

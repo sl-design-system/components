@@ -566,6 +566,8 @@ describe('sl-grid', () => {
         'tbody tr:first-of-type td.sticky-start-first'
       );
 
+      expect(cell).to.exist;
+
       const style = getComputedStyle(cell!);
 
       expect(style.backgroundColor).to.equal('rgb(255, 255, 255)');

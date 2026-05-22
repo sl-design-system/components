@@ -109,7 +109,7 @@
 }
 
 :host(:is(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) button {
-  border-color: transparent;
+  border-color: var(--sl-button-border-color, transparent);
 }
 
 :host([fill='ghost']) button {
@@ -262,10 +262,18 @@ button {
   }
 
   &:hover {
+    --sl-button-bg-opacity: var(
+      --sl-button-bg-opacity-hover,
+      var(--sl-opacity-interactive-bold-hover)
+    );
     --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
   }
 
   &:active {
+    --sl-button-bg-opacity: var(
+      --sl-button-bg-opacity-active,
+      var(--sl-opacity-interactive-bold-active)
+    );
     --_bg-opacity: var(--sl-opacity-interactive-bold-active);
   }
 

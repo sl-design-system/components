@@ -262,18 +262,12 @@ button {
   }
 
   &:hover {
-    --sl-button-bg-opacity: var(
-      --sl-button-bg-opacity-hover,
-      var(--sl-opacity-interactive-bold-hover)
-    );
+    --sl-button-bg-opacity: var(--sl-button-bg-opacity-hover, var(--_bg-opacity));
     --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
   }
 
   &:active {
-    --sl-button-bg-opacity: var(
-      --sl-button-bg-opacity-active,
-      var(--sl-opacity-interactive-bold-active)
-    );
+    --sl-button-bg-opacity: var(--sl-button-bg-opacity-active, var(--_bg-opacity));
     --_bg-opacity: var(--sl-opacity-interactive-bold-active);
   }
 

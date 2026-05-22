@@ -173,9 +173,10 @@ export const BothSticky: Story = {
     </style>
     <p>
       This example shows a large grid where you can both scroll horizontally as well as vertically.
-      It also has both a sticky header as well as sticky columns. You can make a column sticky by
-      adding the <code>sticky</code> attribute. Note that this only works for columns at the start
-      or end of the grid. You cannot have sticky columns in the middle of the grid.
+      It also has both a sticky header as well as sticky columns, and activates rows when you click
+      them. You can make a column sticky by adding the <code>sticky</code> attribute. Note that this
+      only works for columns at the start or end of the grid. You cannot have sticky columns in the
+      middle of the grid.
     </p>
     <div class="cover"></div>
     <sl-grid .items=${students} row-action="activate">

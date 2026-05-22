@@ -105,6 +105,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   #preserveDateParts = false;
 
+  /**
+   * Flag indicating whether the popover was just closed. We need to know this so we can properly
+   * handle button clicks that close the popover. If the popover was just closed, we don't want to
+   * show it again when the button click event fires.
+   */
+  #popoverJustClosed = false;
+
   /** The index of the active date part for roving tabindex. */
   #rovingIndex = 0;
 
@@ -559,6 +566,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onButtonClick(): void {
+    if (this.#popoverJustClosed) {
+      this.#popoverJustClosed = false;
+
+      return;
+    }
+
     if (this.dialog?.open) {
       this.hidePicker();
     } else {
@@ -956,6 +969,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onClose(): void {
+    this.#popoverJustClosed = true;
+
+    // Reset the flag after a tick so subsequent button clicks work normally
+    requestAnimationFrame(() => {
+      this.#popoverJustClosed = false;
+    });
+
     // Wait until all dialog animations have resolved before hiding the calendar
     // to prevent it being removed from the DOM too early.
     void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(

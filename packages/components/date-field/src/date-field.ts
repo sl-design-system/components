@@ -631,7 +631,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   };
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('event key', event.key);
     if (event.key === 'Escape') {
       event.stopPropagation();
       this.hidePicker();
@@ -650,8 +649,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     const focusableElements = this.#getDialogFocusableElements();
-
-    console.log('focusableElements in #trapFocus', focusableElements);
 
     if (focusableElements.length === 0) {
       event.preventDefault();
@@ -720,12 +717,29 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       collectFocusable(slottedCalendar.shadowRoot);
     }
 
+    // Also collect from slotted action buttons (light DOM children projected into button-bar)
+    const slottedButtons = Array.from(this.querySelectorAll<HTMLElement>(':scope > :not([slot])'));
+    for (const btn of slottedButtons) {
+      if (btn.shadowRoot) {
+        collectFocusable(btn.shadowRoot);
+      } else if (this.#isFocusable(btn)) {
+        elements.push(btn);
+      }
+    }
+
     return elements;
   }
 
   /** Checks if an element is focusable. */
   #isFocusable(el: HTMLElement): boolean {
     if (el.hasAttribute('disabled')) {
+      return false;
+    }
+
+    // Skip host elements with shadow roots; their internal focusable elements will be collected
+    // during shadow root recursion. This ensures the list only contains leaf-level elements
+    // that actually receive focus (matching what #getDeepActiveElement returns).
+    if (el.shadowRoot) {
       return false;
     }
 

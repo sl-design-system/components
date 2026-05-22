@@ -630,7 +630,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       );
 
     return html`
-      <tr part="group" index=${index}>
+      <tr aria-rowindex=${index + 1} part="group" index=${index}>
         <td part="group-header">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}

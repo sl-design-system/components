@@ -55,8 +55,7 @@ describe('sl-grid', () => {
           .items=${[
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
+          ]}>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -95,6 +94,14 @@ describe('sl-grid', () => {
         ['John', 'Doe'],
         ['Jane', 'Smith']
       ]);
+    });
+
+    it('should render aria-rowindex values starting at 1', () => {
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('tbody tr')).map(row =>
+        row.getAttribute('aria-rowindex')
+      );
+
+      expect(rowIndices).to.deep.equal(['1', '2']);
     });
   });
 
@@ -195,8 +202,7 @@ describe('sl-grid', () => {
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -228,8 +234,7 @@ describe('sl-grid', () => {
           aria-describedby="bulk-action-tooltip"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -270,8 +275,7 @@ describe('sl-grid', () => {
           aria-describedby="bulk-action-tooltip"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -305,8 +309,7 @@ describe('sl-grid', () => {
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -360,8 +363,7 @@ describe('sl-grid', () => {
             { firstName: 'Alice', lastName: 'Johnson' }
           ]}
           selects="single"
-          row-action="select"
-        >
+          row-action="select">
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -484,8 +486,7 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          row-action="activate"
-        >
+          row-action="activate">
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -553,8 +554,7 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          row-action="select"
-        >
+          row-action="select">
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
@@ -651,8 +651,7 @@ describe('sl-grid', () => {
             { firstName: 'Sophie', lastName: 'Müller', email: 'sophie.muller@school1.edu' },
             { firstName: 'Luca', lastName: 'van Dijk', email: 'luca.vandijk@school4.edu' },
             { firstName: 'Clara', lastName: 'de Vries', email: 'clara.devries@school4.edu' }
-          ]}
-        >
+          ]}>
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="email"></sl-grid-column>

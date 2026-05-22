@@ -449,8 +449,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <slot
         @sl-column-update=${this.#onColumnUpdate}
         @slotchange=${this.#onSlotChange}
-        style="display:none"
-      ></slot>
+        style="display:none"></slot>
       <style>
         ${this.renderStyles()}
       </style>
@@ -461,8 +460,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
               href="#table-end"
               class="skip-link-start"
               @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
-              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
-            >
+              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}>
               ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
             </a>
           `
@@ -474,8 +472,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-filter-register=${this.#onFilterRegister}
           @sl-sorter-change=${this.#onSorterChange}
           @sl-sorter-register=${this.#onSorterRegister}
-          part="thead"
-        >
+          part="thead">
           ${this.#headerRows.map(row => this.renderHeaderRow(row))}
         </thead>
         <tbody id="tbody" part="tbody">
@@ -510,8 +507,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @click=${this.#onCancelSelection}
           aria-describedby="tooltip"
           fill="ghost"
-          variant="inverted"
-        >
+          variant="inverted">
           <sl-icon name="xmark"></sl-icon>
         </sl-button>
         <sl-tooltip id="tooltip">
@@ -616,10 +612,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
-        aria-rowindex=${index}
+        aria-rowindex=${index + 1}
         index=${index}
-        part=${parts.join(' ')}
-      >
+        part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
@@ -643,8 +638,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ?collapsed=${collapsed}
             ?drag-handle=${draggable}
             ?selectable=${selectable}
-            .selected=${item.selected ?? 'none'}
-          >
+            .selected=${item.selected ?? 'none'}>
             ${this.groupHeaderRenderer?.(item) ??
             html`
               <span slot="group-heading">

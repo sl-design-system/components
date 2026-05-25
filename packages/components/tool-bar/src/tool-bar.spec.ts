@@ -120,6 +120,29 @@ describe('sl-tool-bar', () => {
       expect(children.item(3)).to.have.attribute('data-toolbar-disabled');
     });
 
+    it('should clear aria-disabled from the overflow menu button when re-enabled', async () => {
+      const toolbar = await fixture<ToolBar>(html`
+        <sl-tool-bar disabled style="inline-size: 48px">
+          <sl-button>Button 1</sl-button>
+          <sl-button>Button 2</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 150));
+      await toolbar.updateComplete;
+
+      const menuButton = toolbar.shadowRoot?.querySelector<MenuButton>('sl-menu-button'),
+        internalButton = menuButton?.renderRoot.querySelector('sl-button'),
+        nativeButton = internalButton?.renderRoot.querySelector('button');
+
+      expect(nativeButton).to.have.attribute('aria-disabled', 'true');
+
+      toolbar.disabled = false;
+      await toolbar.updateComplete;
+      await internalButton?.updateComplete;
+
+      expect(nativeButton).not.to.have.attribute('aria-disabled');
+    });
+
     it('should have made all slotted elements visible', () => {
       // When all items fit, visibility is set to 'visible' by the resize observer
       // Check that no items are hidden

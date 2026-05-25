@@ -266,7 +266,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       </div>
 
       <sl-menu-button
-        aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+        .ariaDisabled=${this.disabled ? 'true' : null}
         aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
         fill=${ifDefined(this.fill)}
         ?hidden=${this.menuItems.length === 0}

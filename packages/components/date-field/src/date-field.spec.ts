@@ -677,7 +677,7 @@ describe('sl-date-field', () => {
     });
 
     it('should open the dialog as a modal', () => {
-      expect(dialog.open).to.be.true;
+      expect(dialog).to.match(':modal');
     });
 
     it('should close the dialog when clicking the backdrop', async () => {
@@ -773,6 +773,7 @@ describe('sl-date-field', () => {
     it('should have aria-expanded true on the calendar button when the dialog is open', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
 
       const button = el.renderRoot.querySelector('sl-field-button');
 

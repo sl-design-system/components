@@ -8,13 +8,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Calendar } from '@sl-design-system/calendar';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type EventEmitter,
-  EventsController,
-  LocaleMixin,
-  anchor,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
 import {
@@ -389,7 +383,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       </div>
 
       <dialog
-        ${anchor({ element: this, position: 'bottom-start', supportCSSAnchorPositioning: true })}
         @cancel=${(e: Event) => e.preventDefault()}
         @click=${this.#onDialogClick}
         @close=${this.#onClose}
@@ -535,13 +528,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /** Show the date picker. */
-  showPicker(): void {
+  async showPicker(): Promise<void> {
     if (this.dialog?.open) {
       return;
     }
 
     this.calendarVisible = true;
+    await this.updateComplete;
+
     this.dialog?.showModal();
+    this.requestUpdate();
     requestAnimationFrame(() => this.calendar?.focus());
   }
 
@@ -556,7 +552,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (this.dialog?.open) {
       this.hidePicker();
     } else {
-      this.showPicker();
+      void this.showPicker();
     }
   }
 
@@ -859,9 +855,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onClose(): void {
     // Wait until all dialog animations have resolved before hiding the calendar
     // to prevent it being removed from the DOM too early.
-    void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(
-      () => (this.calendarVisible = false)
-    );
+    void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(() => {
+      if (!this.dialog?.open) {
+        this.calendarVisible = false;
+      }
+    });
   }
 
   /** Handles clicks on the dialog backdrop to implement light dismiss. */

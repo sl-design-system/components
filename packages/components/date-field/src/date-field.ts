@@ -23,7 +23,6 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
-import { type FocusTrap, createFocusTrap } from 'focus-trap';
 import {
   type CSSResultGroup,
   LitElement,
@@ -93,9 +92,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
-
-  /** The focus trap instance for the dialog. */
-  #focusTrap?: FocusTrap;
 
   /** Formatter for displaying the value and validation messages. */
   #formatter?: Intl.DateTimeFormat;
@@ -559,27 +555,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.calendarVisible = true;
     this.dialog?.showModal();
-
-    requestAnimationFrame(() => {
-      this.calendar?.focus();
-
-      if (this.dialog) {
-        this.#focusTrap = createFocusTrap(this.dialog, {
-          escapeDeactivates: false,
-          allowOutsideClick: true,
-          fallbackFocus: this.dialog,
-          tabbableOptions: { getShadowRoot: true }
-        });
-        this.#focusTrap.activate();
-      }
-    });
+    requestAnimationFrame(() => this.calendar?.focus());
   }
 
   /** Hide the date picker. */
   hidePicker(): void {
     if (this.dialog?.open) {
-      this.#focusTrap?.deactivate();
-      this.#focusTrap = undefined;
       this.dialog.close();
     }
   }
@@ -909,7 +890,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     );
   }
 
-  /** Handles clicks on the dialog backdrop to implement light-dismiss. */
+  /** Handles clicks on the dialog backdrop to implement light dismiss. */
   #onDialogClick(event: MouseEvent): void {
     // Clicks on the backdrop target the dialog element itself
     if (event.target === this.dialog) {

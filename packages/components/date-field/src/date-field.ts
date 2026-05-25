@@ -23,6 +23,7 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
+import { type FocusTrap, createFocusTrap } from 'focus-trap';
 import {
   type CSSResultGroup,
   LitElement,
@@ -92,6 +93,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
+
+  /** The focus trap instance for the dialog. */
+  #focusTrap?: FocusTrap;
 
   /** Formatter for displaying the value and validation messages. */
   #formatter?: Intl.DateTimeFormat;
@@ -555,12 +559,27 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.calendarVisible = true;
     this.dialog?.showModal();
-    requestAnimationFrame(() => this.calendar?.focus());
+
+    requestAnimationFrame(() => {
+      this.calendar?.focus();
+
+      if (this.dialog) {
+        this.#focusTrap = createFocusTrap(this.dialog, {
+          escapeDeactivates: false,
+          allowOutsideClick: true,
+          fallbackFocus: this.dialog,
+          tabbableOptions: { getShadowRoot: true }
+        });
+        this.#focusTrap.activate();
+      }
+    });
   }
 
   /** Hide the date picker. */
   hidePicker(): void {
     if (this.dialog?.open) {
+      this.#focusTrap?.deactivate();
+      this.#focusTrap = undefined;
       this.dialog.close();
     }
   }
@@ -642,106 +661,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     if (event.key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
+
       this.hidePicker();
+
       requestAnimationFrame(() => {
         this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
       });
-    } else if (event.key === 'Tab') {
-      this.#trapFocus(event);
     }
-  }
-
-  /** Traps focus within the dialog when it is open. */
-  #trapFocus(event: KeyboardEvent): void {
-    if (!this.dialog) {
-      return;
-    }
-
-    const focusableElements = this.#getDialogFocusableElements();
-
-    if (focusableElements.length === 0) {
-      event.preventDefault();
-
-      return;
-    }
-
-    const firstFocusable = focusableElements[0],
-      lastFocusable = focusableElements[focusableElements.length - 1],
-      activeElement = this.#getDeepActiveElement(),
-      activeIndex = activeElement ? focusableElements.indexOf(activeElement) : -1;
-
-    if (event.shiftKey && activeIndex === 0) {
-      event.preventDefault();
-      lastFocusable.focus();
-    } else if (!event.shiftKey && activeIndex === focusableElements.length - 1) {
-      event.preventDefault();
-      firstFocusable.focus();
-    }
-  }
-
-  /** Gets all focusable elements within the dialog, including those in shadow DOMs. */
-  #getDialogFocusableElements(): HTMLElement[] {
-    const elements: HTMLElement[] = [];
-
-    const collectFocusable = (root: Element | ShadowRoot): void => {
-      const treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, {
-        acceptNode(node) {
-          const el = node as HTMLElement;
-
-          if (el.inert || el.closest('[inert]')) {
-            return NodeFilter.FILTER_REJECT;
-          }
-
-          if (el.hidden || el.getAttribute('aria-hidden') === 'true') {
-            return NodeFilter.FILTER_REJECT;
-          }
-
-          return NodeFilter.FILTER_ACCEPT;
-        }
-      });
-
-      let node = treeWalker.nextNode() as HTMLElement | null;
-      while (node) {
-        // Only add leaf-level focusable elements (skip hosts that delegate focus)
-        if (node.shadowRoot) {
-          collectFocusable(node.shadowRoot);
-        } else if (!node.hasAttribute('disabled') && node.tabIndex >= 0) {
-          elements.push(node);
-        }
-
-        node = treeWalker.nextNode() as HTMLElement | null;
-      }
-    };
-
-    collectFocusable(this.dialog!);
-
-    // Also collect from slotted calendar element (lives in light DOM)
-    const slottedCalendar = this.querySelector('sl-calendar[slot="calendar"]');
-    if (slottedCalendar?.shadowRoot) {
-      collectFocusable(slottedCalendar.shadowRoot);
-    }
-
-    // Also collect from slotted action buttons (light DOM children projected into button-bar)
-    for (const btn of Array.from(this.querySelectorAll<HTMLElement>(':scope > :not([slot])'))) {
-      if (btn.shadowRoot) {
-        collectFocusable(btn.shadowRoot);
-      } else if (!btn.hasAttribute('disabled') && btn.tabIndex >= 0) {
-        elements.push(btn);
-      }
-    }
-
-    return elements;
-  }
-
-  /** Gets the deepest active element across shadow DOM boundaries. */
-  #getDeepActiveElement(): HTMLElement | null {
-    let active = document.activeElement as HTMLElement | null;
-
-    while (active?.shadowRoot?.activeElement) {
-      active = active.shadowRoot.activeElement as HTMLElement;
-    }
-
-    return active;
   }
 
   #onPartBlur(event: FocusEvent): void {

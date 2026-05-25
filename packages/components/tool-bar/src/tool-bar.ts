@@ -270,8 +270,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
         fill=${ifDefined(this.fill)}
         ?hidden=${this.menuItems.length === 0}
-        variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
-      >
+        variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
         <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
         ${this.menuItems.map(item => this.renderMenuItem(item))}
       </sl-menu-button>
@@ -294,9 +293,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return html`
         <sl-menu-item
           @click=${isDisabled ? undefined : () => item.click?.()}
-          ?disabled=${isDisabled}
-          ?selectable=${item.selectable}
-        >
+          aria-disabled=${ifDefined(isDisabled ? 'true' : undefined)}
+          ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
@@ -304,7 +302,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       const isDisabled = item.disabled || item.ariaDisabled;
 
       return html`
-        <sl-menu-item ?disabled=${isDisabled}>
+        <sl-menu-item aria-disabled=${ifDefined(isDisabled ? 'true' : undefined)}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
           <sl-menu slot="submenu"
             >${item.menuItems.map(menuItem => this.renderMenuItem(menuItem))}</sl-menu

@@ -202,6 +202,24 @@ describe('sl-menu', () => {
 
       expect(document.activeElement).to.equal(thirdItem);
     });
+
+    it('should focus aria-disabled menu items', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const firstItem = el.querySelector('sl-menu-item');
+
+      expect(document.activeElement).to.equal(firstItem);
+    });
   });
 
   describe('focusout handling', () => {

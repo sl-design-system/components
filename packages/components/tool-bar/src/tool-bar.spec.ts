@@ -4,6 +4,7 @@ import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import { type MenuButton } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { closestElementComposed } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -317,6 +318,53 @@ describe('sl-tool-bar', () => {
       await el.updateComplete;
 
       expect(document.activeElement).to.exist;
+    });
+
+    it('should keep aria-disabled overflow menu items reachable', async () => {
+      const toolbar = await fixture<ToolBar>(html`
+        <sl-tool-bar style="inline-size: 48px">
+          <sl-button>Cut</sl-button>
+          <sl-button aria-disabled="true">Copy</sl-button>
+          <sl-button>Paste</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 150));
+      await toolbar.updateComplete;
+
+      const menuButton = toolbar.shadowRoot?.querySelector<MenuButton>('sl-menu-button'),
+        items = Array.from(toolbar.shadowRoot?.querySelectorAll('sl-menu-item') ?? []),
+        copy = items.find(item => item.textContent?.trim() === 'Copy');
+
+      expect(copy).to.exist;
+      expect(copy).to.have.attribute('aria-disabled', 'true');
+      expect(copy).not.to.have.attribute('disabled');
+
+      menuButton?.menu.showPopover();
+      items[0].focus();
+      await toolbar.updateComplete;
+
+      await userEvent.keyboard('{ArrowDown}');
+      await toolbar.updateComplete;
+
+      expect(toolbar.shadowRoot?.activeElement).to.equal(copy);
+    });
+
+    it('should not activate aria-disabled overflow menu items', async () => {
+      let clicked = false;
+
+      const toolbar = await fixture<ToolBar>(html`
+        <sl-tool-bar style="inline-size: 48px">
+          <sl-button @click=${() => (clicked = true)} aria-disabled="true">Copy</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 150));
+      await toolbar.updateComplete;
+
+      const copy = toolbar.shadowRoot?.querySelector('sl-menu-item');
+
+      copy?.click();
+
+      expect(clicked).to.be.false;
     });
 
     it('should wrap focus from last to first item', async () => {

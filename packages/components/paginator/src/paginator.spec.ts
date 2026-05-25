@@ -1,6 +1,7 @@
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
+import { type Option } from '@sl-design-system/listbox';
 import '@sl-design-system/select/register.js';
 import {
   getForwardedAccessibleName,
@@ -441,6 +442,16 @@ describe('sl-paginator', () => {
         );
 
         expect(buttons).to.have.lengthOf(0);
+      });
+
+      it('should not wrap page numbers in select options when the width is xs', async () => {
+        el.width = 'xs';
+        await el.updateComplete;
+
+        const option = el.renderRoot.querySelector<Option>('sl-option:nth-of-type(10)')!,
+          wrapper = option.renderRoot.querySelector('[part="wrapper"]')!;
+
+        expect(getComputedStyle(wrapper).whiteSpace).to.equal('nowrap');
       });
     });
   });

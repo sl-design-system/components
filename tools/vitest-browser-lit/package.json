@@ -28,8 +28,8 @@
     "vitest": ">=2.1.0"
   },
   "devDependencies": {
-    "@vitest/browser": "^4.1.4",
-    "lit": "^3.3.2",
-    "vitest": "^4.1.4"
+    "@vitest/browser": "^4.1.7",
+    "lit": "^3.3.3",
+    "vitest": "^4.1.7"
   }
 }

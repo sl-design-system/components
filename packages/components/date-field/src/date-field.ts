@@ -528,11 +528,23 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /** Show the date picker. */
-  async showPicker(): Promise<void> {
+  showPicker(): void {
     if (this.dialog?.open) {
       return;
     }
 
+    void this.#openDialog();
+  }
+
+  /** Hide the date picker. */
+  hidePicker(): void {
+    if (this.dialog?.open) {
+      this.dialog.close();
+      this.requestUpdate();
+    }
+  }
+
+  async #openDialog(): Promise<void> {
     this.calendarVisible = true;
     await this.updateComplete;
 
@@ -541,18 +553,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     requestAnimationFrame(() => this.calendar?.focus());
   }
 
-  /** Hide the date picker. */
-  hidePicker(): void {
-    if (this.dialog?.open) {
-      this.dialog.close();
-    }
-  }
-
   #onButtonClick(): void {
     if (this.dialog?.open) {
       this.hidePicker();
     } else {
-      void this.showPicker();
+      this.showPicker();
     }
   }
 

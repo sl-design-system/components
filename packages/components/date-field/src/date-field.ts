@@ -564,7 +564,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.requestUpdate();
       }
 
-      requestAnimationFrame(() => this.calendar?.focus());
+      requestAnimationFrame(() => {
+        this.calendar?.focus();
+      });
     } finally {
       this.#opening = false;
     }

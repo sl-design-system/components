@@ -27,6 +27,10 @@
   sl-select {
     min-inline-size: var(--sl-size-1000);
   }
+
+  sl-option::part(wrapper) {
+    white-space: nowrap;
+  }
 }
 
 .page {

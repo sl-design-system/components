@@ -74,7 +74,7 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
 
-  /** @internal. */
+  /** @internal */
   readonly internals = this.attachInternals();
 
   /** @internal The button element. */
@@ -178,8 +178,8 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
       this.tabIndex = parseInt(this.getAttribute('tabindex') ?? '0');
     }
 
-    // Initial update
-    this.#onUpdate();
+    // Wrap in rAF so we don't trigger a lifecycle loop
+    requestAnimationFrame(() => this.#onUpdate());
   }
 
   override render(): TemplateResult {
@@ -191,28 +191,25 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
     }
 
     // If the button is icon only, the tooltip functions as the label, otherwise it functions as the description.
-    let ariaLabelledBy: string | undefined, ariaDescribedBy: string | undefined;
+    let ariaType: string | undefined;
     if (this.tooltip) {
-      if (this.internals.states.has('icon-only')) {
-        ariaLabelledBy = 'tooltip';
-      } else {
-        ariaDescribedBy = 'tooltip';
-      }
+      ariaType = this.internals.states.has('icon-only') ? 'label' : 'description';
     }
 
     return html`
       <button
         @click=${this.#onClick}
-        aria-describedby=${ifDefined(ariaDescribedBy)}
-        aria-labelledby=${ifDefined(ariaLabelledBy)}
         command=${ifDefined(this.command)}
         .commandForElement=${target}
         ?disabled=${this.disabled}
+        id="button"
         part="button"
         type="button">
         <slot></slot>
       </button>
-      ${this.tooltip ? html`<sl-tooltip id="tooltip">${this.tooltip}</sl-tooltip>` : nothing}
+      ${this.tooltip
+        ? html`<sl-tooltip for="button" type=${ifDefined(ariaType)}>${this.tooltip}</sl-tooltip>`
+        : nothing}
     `;
   }
 

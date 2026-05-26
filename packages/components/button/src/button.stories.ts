@@ -1,4 +1,3 @@
-/* eslint-disable slds/button-has-label */
 import { faPlus, faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/dialog/register.js';
@@ -154,7 +153,7 @@ export const IconOnly: Story = {
     return html`
       <p>
         This example shows an icon-only button. When using an icon-only button, it's important to
-        provide an accessible name using the <code>aria-label</code> attribute so that assistive
+        provide an accessible name using the <code>tooltip</code> property so that assistive
         technologies can convey the purpose of the button to users.
       </p>
       <sl-button

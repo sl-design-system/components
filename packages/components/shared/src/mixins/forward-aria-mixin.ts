@@ -191,7 +191,14 @@ export function ForwardAriaMixin<
             .filter((el): el is HTMLElement => el !== null);
 
           if (elementsProp.endsWith('Elements')) {
-            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
+            const elementsPropValue =
+              (targetElement as unknown as Record<string, Element[]>)[elementsProp] ?? [];
+
+            // Make sure we don't override any existing references
+            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = [
+              ...elementsPropValue,
+              ...elements
+            ];
           } else {
             (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
               elements[0] ?? null;

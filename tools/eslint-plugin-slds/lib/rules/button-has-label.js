@@ -43,7 +43,10 @@ export const buttonHasLabel = {
             if (
               hasTextContent(element) ||
               hasAccessibleName(element) ||
-              hasTooltipWithAriaRelationLabel
+              hasTooltipWithAriaRelationLabel ||
+              // The `tooltip` attribute on sl-button provides the accessible label for icon-only
+              // buttons at runtime, so it counts as an accessible name at lint time.
+              'tooltip' in (element.attribs ?? {})
             ) {
               return;
             }

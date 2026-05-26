@@ -120,7 +120,7 @@ export class Tooltip extends LitElement {
     document.removeEventListener('keydown', this.#onKeydown);
 
     if (this.anchor) {
-      this.#removeAriaRelation(this.anchor);
+      this.#removeAriaRelation(this.anchor, this.type);
     }
 
     super.disconnectedCallback();
@@ -143,6 +143,11 @@ export class Tooltip extends LitElement {
       } else {
         this.hidePopover();
       }
+    }
+
+    if (changes.has('type') && this.anchor) {
+      this.#removeAriaRelation(this.anchor, changes.get('type'));
+      this.#addAriaRelation(this.anchor, this.type);
     }
   }
 
@@ -242,8 +247,8 @@ export class Tooltip extends LitElement {
     return type === 'description' ? 'ariaDescribedByElements' : 'ariaLabelledByElements';
   }
 
-  #addAriaRelation(element: Element): void {
-    const ariaProperty = this.#getAriaPropertyFromType(this.type);
+  #addAriaRelation(element: Element, type?: 'description' | 'label'): void {
+    const ariaProperty = this.#getAriaPropertyFromType(type);
 
     const refs = element[ariaProperty] ?? [];
     if (!refs.includes(this)) {
@@ -251,8 +256,8 @@ export class Tooltip extends LitElement {
     }
   }
 
-  #removeAriaRelation(element: Element): void {
-    const ariaProperty = this.#getAriaPropertyFromType(this.type);
+  #removeAriaRelation(element: Element, type?: 'description' | 'label'): void {
+    const ariaProperty = this.#getAriaPropertyFromType(type);
 
     const refs = element[ariaProperty] ?? [];
     element[ariaProperty] = refs.filter((ref: Element) => ref !== this);
@@ -343,7 +348,7 @@ export class Tooltip extends LitElement {
     const { signal } = this.#eventController;
 
     if (newAnchor) {
-      this.#addAriaRelation(newAnchor);
+      this.#addAriaRelation(newAnchor, this.type);
 
       newAnchor.addEventListener('blur', this.#onBlur, { capture: true, signal });
       newAnchor.addEventListener('click', this.#onClick, { signal });
@@ -359,7 +364,7 @@ export class Tooltip extends LitElement {
     }
 
     if (oldAnchor) {
-      this.#removeAriaRelation(oldAnchor);
+      this.#removeAriaRelation(oldAnchor, this.type);
 
       oldAnchor.removeEventListener('blur', this.#onBlur, { capture: true });
       oldAnchor.removeEventListener('click', this.#onClick);

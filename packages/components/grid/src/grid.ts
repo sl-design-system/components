@@ -1,4 +1,3 @@
-/* eslint-disable slds/button-has-label */
 /* eslint-disable lit/prefer-static-styles */
 import { localized, msg, str } from '@lit/localize';
 import {
@@ -27,7 +26,6 @@ import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { ToolBar } from '@sl-design-system/tool-bar';
-import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -130,8 +128,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
       'sl-toggle-group': ToggleGroup,
-      'sl-tool-bar': ToolBar,
-      'sl-tooltip': Tooltip
+      'sl-tool-bar': ToolBar
     };
   }
 
@@ -449,8 +446,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <slot
         @sl-column-update=${this.#onColumnUpdate}
         @slotchange=${this.#onSlotChange}
-        style="display:none"
-      ></slot>
+        style="display:none"></slot>
       <style>
         ${this.renderStyles()}
       </style>
@@ -461,8 +457,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
               href="#table-end"
               class="skip-link-start"
               @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
-              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
-            >
+              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}>
               ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
             </a>
           `
@@ -474,8 +469,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-filter-register=${this.#onFilterRegister}
           @sl-sorter-change=${this.#onSorterChange}
           @sl-sorter-register=${this.#onSorterRegister}
-          part="thead"
-        >
+          part="thead">
           ${this.#headerRows.map(row => this.renderHeaderRow(row))}
         </thead>
         <tbody id="tbody" part="tbody">
@@ -508,15 +502,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </sl-tool-bar>
         <sl-button
           @click=${this.#onCancelSelection}
-          aria-describedby="tooltip"
           fill="ghost"
-          variant="inverted"
-        >
+          tooltip=${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}
+          variant="inverted">
           <sl-icon name="xmark"></sl-icon>
         </sl-button>
-        <sl-tooltip id="tooltip">
-          ${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}
-        </sl-tooltip>
       </div>
 
       ${!this.noSkipLinks
@@ -618,8 +608,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         aria-rowindex=${index}
         index=${index}
-        part=${parts.join(' ')}
-      >
+        part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
@@ -643,8 +632,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ?collapsed=${collapsed}
             ?drag-handle=${draggable}
             ?selectable=${selectable}
-            .selected=${item.selected ?? 'none'}
-          >
+            .selected=${item.selected ?? 'none'}>
             ${this.groupHeaderRenderer?.(item) ??
             html`
               <span slot="group-heading">

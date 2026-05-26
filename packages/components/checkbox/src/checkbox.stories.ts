@@ -242,7 +242,8 @@ export const NoVisibleLabel: StoryObj = {
         <code>aria-label</code> attribute. That attribute is automatically applied to the
         <code>input</code> element.
       </p>
-      <sl-checkbox aria-label="Check me"></sl-checkbox>
+      <sl-checkbox id="checkbox"></sl-checkbox>
+      <sl-tooltip for="checkbox">Toggle me</sl-tooltip>
     `;
   }
 };

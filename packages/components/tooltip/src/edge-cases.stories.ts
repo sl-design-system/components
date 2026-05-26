@@ -3,6 +3,7 @@ import { faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/card/register.js';
+import '@sl-design-system/dialog/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
@@ -15,6 +16,26 @@ Icon.register(faGear, faPen, faTrash, fasGear);
 
 export default {
   title: 'Overlay/Tooltip/Edge cases'
+};
+
+export const Dialog = {
+  render: () => html`
+    <style>
+      sl-button::part(tooltip) {
+        max-inline-size: 200px;
+      }
+    </style>
+    <sl-button
+      command="--show-modal"
+      commandfor="dialog"
+      tooltip="This tooltip should be visible after closing the dialog if you're using the keyboard.">
+      Open dialog
+    </sl-button>
+    <sl-dialog id="dialog" close-button>
+      <h1 slot="title">Dialog title</h1>
+      <sl-button slot="primary-actions" command="--close" commandfor="dialog">Close</sl-button>
+    </sl-dialog>
+  `
 };
 
 export const DisabledButtons = {

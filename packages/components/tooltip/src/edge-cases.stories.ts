@@ -21,10 +21,10 @@ export const DisabledButtons = {
   render: () => html`
     <sl-button-bar>
       <sl-button disabled id="button">Disabled attribute</sl-button>
-      <sl-tooltip2 for="button">Tooltip text</sl-tooltip2>
+      <sl-tooltip for="button">Tooltip text</sl-tooltip>
 
       <sl-button aria-disabled="true" id="button2">ARIA disabled</sl-button>
-      <sl-tooltip2 for="button2">Tooltip text</sl-tooltip2>
+      <sl-tooltip for="button2">Tooltip text</sl-tooltip>
     </sl-button-bar>
   `
 };
@@ -42,7 +42,7 @@ export const MenuButton = {
         Delete...
       </sl-menu-item>
     </sl-menu-button>
-    <sl-tooltip2 for="menu-button">Tooltip text</sl-tooltip2>
+    <sl-tooltip for="menu-button">Tooltip text</sl-tooltip>
   `
 };
 
@@ -52,9 +52,9 @@ export const Nested = {
       <h2>Card title</h2>
       <sl-button-bar>
         <sl-button id="button">Hover me</sl-button>
-        <sl-tooltip2 for="button">Tooltip text</sl-tooltip2>
+        <sl-tooltip for="button">Tooltip text</sl-tooltip>
       </sl-button-bar>
     </sl-card>
-    <sl-tooltip2 for="card">Card tooltip</sl-tooltip2>
+    <sl-tooltip for="card">Card tooltip</sl-tooltip>
   `
 };

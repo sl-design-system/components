@@ -669,10 +669,16 @@ describe('sl-button', () => {
       expect(el.renderRoot.querySelector('sl-tooltip')).to.exist;
     });
 
+    it('should have an sl-tooltip with a tooltip part when set', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('[part="tooltip"]')).to.exist;
+    });
+
     it('should set the tooltip text content', async () => {
       el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
 
-      expect(el.renderRoot.querySelector('sl-tooltip')).to.have.text('My tooltip');
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.have.trimmed.text('My tooltip');
     });
 
     it('should set ariaDescribedByElements on the inner button when a text button has a tooltip', async () => {

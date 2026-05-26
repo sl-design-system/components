@@ -112,6 +112,9 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
    */
   @property() size?: ButtonSize;
 
+  /** The tooltip text for the button invoking the menu. */
+  @property() tooltip?: string;
+
   /**
    * The variant of the button.
    *
@@ -141,12 +144,13 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         ?disabled=${this.disabled}
         aria-expanded="false"
         aria-haspopup="menu"
+        exportparts="button:internal-button, tooltip"
         fill=${ifDefined(this.fill)}
         part="button"
         shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}
-        variant=${ifDefined(this.variant)}
-      >
+        tooltip=${ifDefined(this.tooltip)}
+        variant=${ifDefined(this.variant)}>
         <slot name="button"></slot>
         ${iconOnly ? nothing : html`<sl-icon name="angle-down"></sl-icon>`}
       </sl-button>
@@ -156,8 +160,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
-        part="menu"
-      >
+        part="menu">
         <slot></slot>
       </sl-menu>
     `;

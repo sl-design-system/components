@@ -47,6 +47,7 @@ export type ButtonVariant =
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
+ * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
  */
 export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
@@ -191,7 +192,7 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
     }
 
     // If the button is icon only, the tooltip functions as the label, otherwise it functions as the description.
-    let ariaType: string | undefined;
+    let ariaType: 'description' | 'label' | undefined;
     if (this.tooltip) {
       ariaType = this.internals.states.has('icon-only') ? 'label' : 'description';
     }
@@ -208,7 +209,11 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
         <slot></slot>
       </button>
       ${this.tooltip
-        ? html`<sl-tooltip for="button" type=${ifDefined(ariaType)}>${this.tooltip}</sl-tooltip>`
+        ? html`
+            <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
+              ${this.tooltip}
+            </sl-tooltip>
+          `
         : nothing}
     `;
   }

@@ -1,5 +1,8 @@
 import { faArrowDownToLine, faArrowRightToBracket } from '@fortawesome/pro-regular-svg-icons';
-import { faFileSignature as fasFileSignature, faShield as fasShield } from '@fortawesome/pro-solid-svg-icons';
+import {
+  faFileSignature as fasFileSignature,
+  faShield as fasShield
+} from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -23,7 +26,6 @@ Icon.register(faArrowDownToLine, faArrowRightToBracket, fasFileSignature, fasShi
 
 export default {
   title: 'Layout/Callout',
-  tags: ['preview'],
   args: {
     variant: 'info'
   },
@@ -56,7 +58,8 @@ export default {
       }
     </style>
     <sl-callout .density=${density} variant=${ifDefined(variant)}>
-      ${title ? html`<h2 slot="title">${title}</h2>` : nothing} ${typeof body === 'string' ? body : body()}
+      ${title ? html`<h2 slot="title">${title}</h2>` : nothing}
+      ${typeof body === 'string' ? body : body()}
     </sl-callout>
   `
 } satisfies Meta<Props>;
@@ -105,7 +108,9 @@ export const Density: Story = {
         margin: 0;
       }
     </style>
-    <sl-callout density="default" variant=${ifDefined(variant)}> Default callout component. </sl-callout>
+    <sl-callout density="default" variant=${ifDefined(variant)}>
+      Default callout component.
+    </sl-callout>
     <sl-callout variant=${ifDefined(variant)}>
       <h2 slot="title">Callout title</h2>
       Default callout component.
@@ -114,7 +119,9 @@ export const Density: Story = {
       <h2 slot="title">Callout title</h2>
       Relaxed callout component.
     </sl-callout>
-    <sl-callout density="relaxed" variant=${ifDefined(variant)}> Relaxed callout component without title. </sl-callout>
+    <sl-callout density="relaxed" variant=${ifDefined(variant)}>
+      Relaxed callout component without title.
+    </sl-callout>
   `
 };
 
@@ -174,9 +181,13 @@ export const WithActions: Story = {
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
-          <p>The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.</p>
           <p>
-            Make sure you are prepared by checking the <a href="javascript:void(0)">trip details & packing list</a>.
+            The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent
+            form.
+          </p>
+          <p>
+            Make sure you are prepared by checking the
+            <a href="javascript:void(0)">trip details & packing list</a>.
           </p>
           <sl-button-bar>
             <sl-button fill="solid" variant="primary">
@@ -194,8 +205,13 @@ export const WithActions: Story = {
         <sl-icon slot="icon" name="fas-file-signature"></sl-icon>
         <h2 slot="title">Field trip consent</h2>
         <div class="content">
-          <p>The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent form.</p>
-          <p>Make sure you are prepared by checking the <a href="#">trip details & packing list</a>.</p>
+          <p>
+            The 6th-grade museum visit is on 21 Nov. Please review the details and submit a consent
+            form.
+          </p>
+          <p>
+            Make sure you are prepared by checking the <a href="#">trip details & packing list</a>.
+          </p>
           <sl-button-bar>
             <sl-button fill="solid" variant="primary">
               <sl-icon name="far-arrow-right-to-bracket"></sl-icon>
@@ -241,15 +257,18 @@ export const All: StoryObj = {
             <h2 slot="title">Callout title</h2>
             The main content of the callout
           </sl-callout>
-          <sl-callout density="relaxed" variant=${variant}> The main content of the callout </sl-callout>
+          <sl-callout density="relaxed" variant=${variant}>
+            The main content of the callout
+          </sl-callout>
           <sl-callout density="relaxed" variant=${variant}>
             <h2 slot="title">
-              The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu
-              irure.
+              The "${variant}" callout title, esse laboris nisi ut quis ullamco dolor elit do
+              commodo ea mollit eu irure.
             </h2>
             <p>
-              Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-              consequat eiusmod aliqua consequat Lorem eu culpa <a href="#">aute laboris eiusmod</a>.
+              Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad
+              anim. Incididunt non consequat eiusmod aliqua consequat Lorem eu culpa
+              <a href="#">aute laboris eiusmod</a>.
             </p>
           </sl-callout>
         `

@@ -1,5 +1,32 @@
 # @sl-design-system/button
 
+## 2.0.1
+
+### Patch Changes
+
+- [#3219](https://github.com/sl-design-system/components/pull/3219) [`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333) - Fixed styling of slotted `<a href>` elements inside `<sl-button>`. Global CSS from the application could override the link color and text decoration, causing the button to render incorrectly.
+
+  > **Note:** Slotting an `<a href>` inside an `<sl-button>` is considered bad practice. Use an `<a href>` directly. There are already styles for that in the theme's `global.css`.
+
+## 2.0.0
+
+### Major Changes
+
+- [#3139](https://github.com/sl-design-system/components/pull/3139) [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538) - Breaking changes:
+  - The component now renders a native `<button>` inside the shadow DOM, changing the DOM structure
+  - The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state
+
+  The new DOM structure with the `<button>` element now allows us to use the new [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) via the `command` and `commandfor` properties, which enables declarative opening and closing of dialogs without needing JavaScript. For example, setting `command="--show-modal"` and `commandfor="my-dialog"` on a button will automatically open the referenced `<sl-dialog>` when clicked. Alternatively, you can set `commandForElement` directly to an element reference instead of using a DOM id. Note: you also need to update `@sl-design-system/dialog` to the latest version for command support.
+
+  The `delegatesFocus` option is used to delegate focus to the inner button, ensuring proper keyboard navigation and accessibility. We also no longer need custom keyboard handling or ARIA role setup, as the native button will handle this for us.
+
+  Finally, the `icon-only` attribute and `iconOnly` property were never meant to be public API. If you were manually adding the `icon-only` attribute, you can safely remove that now.
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+
 ## 1.3.4
 
 ### Patch Changes

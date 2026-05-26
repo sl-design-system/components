@@ -38,8 +38,7 @@ describe('sl-listbox', () => {
           option-label-path="label"
           option-selected-path="selected"
           option-value-path="value"
-          style="height: 200px"
-        ></sl-listbox>
+          style="height: 200px"></sl-listbox>
       `);
 
       // Give the virtualizer time to render
@@ -71,7 +70,9 @@ describe('sl-listbox', () => {
 
       const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
 
-      expect(renderedOptions.map(o => o.textContent)).to.deep.equal(el.options.slice(0, renderedOptions.length));
+      expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
+        el.options.slice(0, renderedOptions.length)
+      );
     });
 
     it('should use the given label, selected and value path for each item', async () => {

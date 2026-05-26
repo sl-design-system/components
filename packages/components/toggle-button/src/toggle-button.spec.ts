@@ -161,6 +161,7 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when clicked', async () => {
       el.click();
+
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -170,7 +171,8 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing enter', async () => {
       el.focus();
-      userEvent.keyboard('{Enter}');
+
+      await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -180,7 +182,8 @@ describe('sl-toggle-button', () => {
 
     it('should not toggle the pressed state when pressing space', async () => {
       el.focus();
-      userEvent.keyboard('{Space}');
+
+      await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-pressed', 'false');
@@ -259,7 +262,9 @@ describe('sl-toggle-button', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(errorStub).to.have.been.calledWith('Do not use the same icon for both states of the toggle button.');
+      expect(errorStub).to.have.been.calledWith(
+        'Do not use the same icon for both states of the toggle button.'
+      );
     });
 
     it('should not log an error if only text is slotted', async () => {

@@ -14,7 +14,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Tag/Tag list',
-  tags: ['preview'],
   args: {
     count: 50,
     removable: false,
@@ -33,7 +32,8 @@ export default {
   render: ({ count, disabled, removable, size, stacked, tags, variant }) => {
     tags ??= () =>
       Array.from({ length: count }).map(
-        (_, index) => html`<sl-tag ?disabled=${disabled} ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
+        (_, index) =>
+          html`<sl-tag ?disabled=${disabled} ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
       );
 
     return html`
@@ -42,7 +42,9 @@ export default {
           max-width: calc(100vw - 2rem);
         }
       </style>
-      <sl-tag-list size=${ifDefined(size)} ?stacked=${stacked} variant=${ifDefined(variant)}>${tags()}</sl-tag-list>
+      <sl-tag-list size=${ifDefined(size)} ?stacked=${stacked} variant=${ifDefined(variant)}
+        >${tags()}</sl-tag-list
+      >
     `;
   }
 } satisfies Meta<Props>;

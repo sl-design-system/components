@@ -1,5 +1,17 @@
 # @sl-design-system/time-field
 
+## 0.1.1
+
+### Patch Changes
+
+- [#3123](https://github.com/sl-design-system/components/pull/3123) [`5d4d740`](https://github.com/sl-design-system/components/commit/5d4d740e249baa31f8dfe27055faeb8c56c8d21e) - Improved focus handling; clicking on the associated label works and the focus state when navigating to the chooser-button is improved
+
+- [#3077](https://github.com/sl-design-system/components/pull/3077) [`03d369c`](https://github.com/sl-design-system/components/commit/03d369cfb7fccd00ee0d4572b854213df138b1dd) - Changed the internal working of the input to better support assistive technology (it now uses spin-buttons). The arrow up and down keys in the input field now use the same step as is shown for hours and minutes in the dropdown.
+
+- Updated dependencies [[`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3)]:
+  - @sl-design-system/form@1.3.6
+  - @sl-design-system/text-field@1.6.9
+
 ## 0.1.0
 
 ### Minor Changes

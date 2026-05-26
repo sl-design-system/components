@@ -3,7 +3,7 @@ name: 'Chromatic'
 on:
   pull_request:
     branches: ['main']
-    types: [opened, synchronize, reopened, closed, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: ['main']
 

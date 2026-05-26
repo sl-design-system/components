@@ -41,7 +41,6 @@ Icon.register(
 
 export default {
   title: 'Actions/Menu/Menu',
-  tags: ['preview'],
   args: {
     maxWidth: '200px',
     emphasis: 'subtle'
@@ -71,8 +70,7 @@ export default {
         class="root-menu"
         popover="manual"
         style="max-width: ${maxWidth}"
-        .emphasis=${emphasis}
-      >
+        .emphasis=${emphasis}>
         ${menuItems()}
       </sl-menu>
     `;

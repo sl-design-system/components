@@ -15,7 +15,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Virtual list',
-  tags: ['draft'],
   parameters: {
     chromatic: { disableSnapshot: true },
     layout: 'fullscreen'
@@ -111,7 +110,9 @@ export default {
       </style>
       <sl-button-bar>
         <sl-button @click=${() => scrollTo(0)}>Scroll to top</sl-button>
-        <sl-button @click=${() => scrollTo(items.length / 2)}>Scroll to ${items.length / 2}</sl-button>
+        <sl-button @click=${() => scrollTo(items.length / 2)}
+          >Scroll to ${items.length / 2}</sl-button
+        >
         <sl-button @click=${() => scrollTo(items.length - 1)}>Scroll to bottom</sl-button>
       </sl-button-bar>
       <sl-virtual-list
@@ -119,8 +120,7 @@ export default {
         .gap=${gap}
         .items=${items}
         .overscan=${overscan}
-        .renderItem=${renderItem}
-      >
+        .renderItem=${renderItem}>
       </sl-virtual-list>
     `;
   }

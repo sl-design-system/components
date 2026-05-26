@@ -65,8 +65,8 @@ describe('sl-select-year', () => {
     });
 
     it('should have enabled back and forward buttons', () => {
-      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Go back 12 years"]'),
-        next = el.renderRoot.querySelector('sl-button[aria-label^="Go forward 12 years"]');
+      const prev = el.renderRoot.querySelector('header sl-button:first-of-type'),
+        next = el.renderRoot.querySelector('header sl-button:last-of-type');
 
       expect(prev).to.exist.and.not.match(':disabled');
       expect(next).to.exist.and.not.match(':disabled');
@@ -146,8 +146,7 @@ describe('sl-select-year', () => {
       el = await fixture(html`
         <sl-select-year
           .min=${new Date(currentYear - 2, 0, 1)}
-          .max=${new Date(currentYear + 2, 11, 31)}
-        ></sl-select-year>
+          .max=${new Date(currentYear + 2, 11, 31)}></sl-select-year>
       `);
     });
 
@@ -170,7 +169,20 @@ describe('sl-select-year', () => {
         button.hasAttribute('disabled')
       );
 
-      expect(disabled).to.deep.equal([true, true, true, false, false, false, false, false, true, true, true, true]);
+      expect(disabled).to.deep.equal([
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true
+      ]);
     });
   });
 

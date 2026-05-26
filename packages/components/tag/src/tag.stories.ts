@@ -12,7 +12,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Tag/Tag',
-  tags: ['preview'],
   parameters: {
     a11y: {
       config: {
@@ -46,8 +45,7 @@ export default {
       ?removable=${removable}
       size=${ifDefined(size)}
       style=${styleMap({ maxWidth })}
-      variant=${ifDefined(variant)}
-    >
+      variant=${ifDefined(variant)}>
       ${label}
     </sl-tag>
   `

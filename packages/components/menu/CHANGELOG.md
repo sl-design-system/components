@@ -1,5 +1,25 @@
 # @sl-design-system/menu
 
+## 0.3.2
+
+### Patch Changes
+
+- [#3242](https://github.com/sl-design-system/components/pull/3242) [`3e439d2`](https://github.com/sl-design-system/components/commit/3e439d24a4905b82143fe571e198e77375df7aa0) - Fix an accessibility issue where selectable `sl-menu-item` elements only exposed `aria-checked` when selected.
+
+  Selectable items now always set `aria-checked` to `"true"` or `"false"` based on state, and non-selectable items remove the attribute.
+  This improves screen reader announcements and resolves ARIA required attribute violations in menu selection variants.
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333)]:
+  - @sl-design-system/button@2.0.1
+
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/shared@0.12.0
+
 ## 0.3.0
 
 ### Minor Changes

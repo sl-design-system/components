@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/locales",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Locales for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -20,11 +20,26 @@
       "import": "./index.js",
       "types": "./index.d.ts"
     },
+    "./es-ES.xlf": "./src/es-ES.xlf",
+    "./it.js": {
+      "import": "./src/it.js",
+      "types": "./src/it.d.ts"
+    },
+    "./it.xlf": "./src/it.xlf",
     "./nl.js": {
       "import": "./src/nl.js",
       "types": "./src/nl.d.ts"
     },
     "./nl.xlf": "./src/nl.xlf",
+    "./es-ES.js": {
+      "import": "./src/es-ES.js",
+      "types": "./src/es-ES.d.ts"
+    },
+    "./pl.js": {
+      "import": "./src/pl.js",
+      "types": "./src/pl.d.ts"
+    },
+    "./pl.xlf": "./src/pl.xlf",
     "./package.json": "./package.json"
   },
   "files": [

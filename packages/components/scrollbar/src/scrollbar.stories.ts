@@ -8,7 +8,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Scrollbar',
-  tags: ['draft'],
   args: {
     vertical: false
   },

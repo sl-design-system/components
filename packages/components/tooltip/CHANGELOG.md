@@ -1,5 +1,44 @@
 # @sl-design-system/tooltip
 
+## 2.0.0
+
+### Major Changes
+
+- [#3260](https://github.com/sl-design-system/components/pull/3260) [`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef) - Reworks tooltip hover timing to use fixed, non-configurable delays for more consistent UX:
+
+  **Breaking change:** custom tooltip hover timing is no longer supported.
+  - Show delay is now fixed at `500ms` and is no longer configurable.
+  - Hide delay is now fixed at `200ms` and is no longer configurable.
+  - Tooltip fade timing has been tuned for smoother open/close transitions.
+
+  `show-delay` and `hide-delay` have been removed from the tooltip API. Custom hover timing is no longer supported.
+
+### Patch Changes
+
+- [#3213](https://github.com/sl-design-system/components/pull/3213) [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b) - Fixes tooltips on grid bulk action buttons inside popovers and keeps them working on repeated hover
+
+## 1.4.0
+
+### Minor Changes
+
+- [#3108](https://github.com/sl-design-system/components/pull/3108) [`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4) - Reworked the tooltip interaction model for hover and keyboard focus, especially for shared anchors and shadow DOM scenarios.
+
+  ### What changed
+  - Improved anchor detection across composed paths, shadow roots, `Element.aria*ByElements`, and `ElementInternals`.
+  - Added `show-delay` and `hide-delay` support to make opening/closing timing explicit and configurable. The default hover behavior now waits `showDelay` (150ms) before opening; to restore the previous immediate behavior, set `show-delay="0"` on the tooltip.
+  - Refactored hide/show flow to handle rapid pointer transitions more reliably and prevent sticky/open-state race conditions.
+  - Added guard logic so tooltips stay open when keyboard focus moves between focusable descendants inside the same composite anchor (`:focus-within` handling), while still closing when the anchor truly loses focus.
+  - Added an optimization to avoid unnecessary hide-path processing when handling `pointerout` while the tooltip is already closed.
+  - Updated `sl-close` handling to listen at the document level (`ownerDocument`/`document`) so focus-return behavior works when close events originate outside the tooltip root.
+  - Improved immediate anchor switching behavior when moving between shared anchors (pointer and keyboard).
+  - Updated the `NestedChildren` story with mobile-specific layout fixes only, including proper centering of the eye-icon trigger on small viewports.
+  - Expanded and refactored tooltip tests, including a dedicated shared-anchor test suite, to cover rapid pointer movement, focus transitions, `sl-close` behavior, and composite-anchor keyboard navigation.
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+
 ## 1.3.2
 
 ### Patch Changes

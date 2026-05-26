@@ -27,7 +27,6 @@ try {
 
 export default {
   title: 'Date & Time/Calendar/Select Day',
-  tags: ['draft'],
   args: {
     month: new Date(),
     showToday: true
@@ -87,8 +86,7 @@ export default {
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month?.toISOString())}
-      selected=${ifDefined(selected?.toISOString())}
-    ></sl-select-day>
+      selected=${ifDefined(selected?.toISOString())}></sl-select-day>
   `
 } satisfies Meta<Props>;
 
@@ -107,9 +105,21 @@ export const DisabledDates: Story = {
 export const Indicators: Story = {
   args: {
     indicatorDates: [
-      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 3), color: 'blue', label: 'Meeting' },
-      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 8), color: 'green', label: 'Event' },
-      { date: new Date(new Date().getFullYear(), new Date().getMonth(), 15), color: 'red', label: 'Deadline' }
+      {
+        date: new Date(new Date().getFullYear(), new Date().getMonth(), 3),
+        color: 'blue',
+        label: 'Meeting'
+      },
+      {
+        date: new Date(new Date().getFullYear(), new Date().getMonth(), 8),
+        color: 'green',
+        label: 'Event'
+      },
+      {
+        date: new Date(new Date().getFullYear(), new Date().getMonth(), 15),
+        color: 'red',
+        label: 'Deadline'
+      }
     ]
   }
 };
@@ -205,11 +215,18 @@ export const All: Story = {
         <h3>With Indicators</h3>
         <sl-select-day
           .indicatorDates=${[
-            { date: new Date(new Date().getFullYear(), new Date().getMonth(), 3), color: 'blue', label: 'Meeting' },
-            { date: new Date(new Date().getFullYear(), new Date().getMonth(), 8), color: 'green', label: 'Event' }
+            {
+              date: new Date(new Date().getFullYear(), new Date().getMonth(), 3),
+              color: 'blue',
+              label: 'Meeting'
+            },
+            {
+              date: new Date(new Date().getFullYear(), new Date().getMonth(), 8),
+              color: 'green',
+              label: 'Event'
+            }
           ]}
-          show-today
-        ></sl-select-day>
+          show-today></sl-select-day>
       </div>
     </div>
   `

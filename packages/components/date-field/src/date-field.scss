@@ -24,7 +24,7 @@
   opacity: 0;
 }
 
-:host(:focus-within) {
+:host(:state(has-focus)) {
   outline-color: var(--sl-color-border-focused);
 
   .parts {
@@ -36,7 +36,7 @@
   }
 }
 
-:host(:hover:not(:focus-within)) {
+:host(:hover:not(:state(has-focus))) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
@@ -71,7 +71,11 @@
 .field {
   align-items: center;
   anchor-name: --field;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border-radius: var(--sl-size-borderRadius-default);
   display: inline-flex;
   flex-grow: 1;
@@ -123,7 +127,7 @@ dialog {
   display: none;
   margin: var(--sl-size-100) 0 var(--sl-size-100) calc(-1 * var(--sl-size-borderWidth-default));
   opacity: 0;
-  padding: calc(var(--sl-size-050) - var(--sl-size-borderWidth-default));
+  padding: var(--sl-size-100);
   position-anchor: --field;
   position-area: bottom span-right;
   position-try-fallbacks: flip-block;
@@ -142,10 +146,9 @@ dialog {
 
 sl-button-bar {
   gap: var(--sl-size-300);
-
-  &:not(:state(empty)) {
-    margin: var(--sl-size-100) var(--sl-size-150);
-  }
+  margin-block-start: var(--sl-size-050);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-050) var(--sl-size-025);
 }
 
 sl-button {

@@ -3,6 +3,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import { SlSubmitEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import {
   CompositeForm as CompositeFormComponent,
   DynamicArrayForm as DynamicArrayFormComponent,
@@ -36,11 +37,16 @@ export const LogIn: Story = {
           <sl-text-field
             name="username"
             placeholder="Enter your username or email address here"
-            required
-          ></sl-text-field>
+            required></sl-text-field>
         </sl-form-field>
 
-        <sl-form-field label="Password">
+        <sl-form-field>
+          <sl-label>
+            Password
+            <sl-infotip slot="infotip">
+              Your password must be at least 8 characters long and include a number and a symbol.
+            </sl-infotip>
+          </sl-label>
           <sl-text-field name="password" type="password" required></sl-text-field>
         </sl-form-field>
 

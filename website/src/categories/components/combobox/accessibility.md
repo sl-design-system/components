@@ -14,7 +14,7 @@ eleventyNavigation:
 
 |Command|Description|
 |-|-|
-|Tab|Moves the focus into/outside of the component.|
+|Tab|Moves the focus into/outside of the component. Use arrow down to open the drop down.|
 |Arrow up/down|Moves the active option 1 position up/down. The focus indicator loops, so when you are at the last option and press "down" it will focus on the first option.|
 |Arrow left/right|When the combobox supports multiple selection, moves the focus to the tag on the left/right, assuming the caret is already at the beginning of the input.|
 |Home/End|Moves the active option to the first/last option.|

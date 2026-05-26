@@ -1,59 +1,99 @@
 name: 🐛 Bug Report
 description: File a bug report
-labels: ["triage"]
-projects: ["projects/9"]
+labels: ['triage']
+type: 'Bug'
+projects: ['projects/9']
 body:
   - type: markdown
     attributes:
-      value: "### Thanks for filing an issue! Before you submit, search open/closed issues before submitting since someone might have asked the same thing before!"
+      value: '### Thanks for filing an issue! Before you submit, search open/closed issues before submitting since someone might have asked the same thing before!'
   - type: markdown
     attributes:
-      value: "# 🐛 Bug Report "
-  - type: textarea
-    id: general-summary
-    attributes:
-      label: Provide a general summary of the issue here
-    validations:
-      required: true
-  - type: textarea
-    id: expected-behavior
-    attributes:
-      label: 🤔 Expected Behavior?
-      description: Tell us what should happen
-    validations:
-      required: true
+      value: '# 🐛 Bug Report '
   - type: textarea
     id: current-behavior
     attributes:
       label: 😯 Current Behavior
       description: |
-        Tell us what happens instead of the expected behavior.
+        Tell us what happens instead of the expected behavior. Include screenshots if possible.
     validations:
       required: true
   - type: textarea
-    id: possible-solution
+    id: expected-behavior
     attributes:
-      label: 💁 Possible Solution
-      description: Suggest a fix/reason for the bug
+      label: 🤔 Expected Behavior/possible solution?
+      description: Tell us what should happen, or suggest a fix/reason for the bug.
     validations:
-      required: false
+      required: true
   - type: textarea
     id: base-reproduction
     attributes:
       label: 🖥️ Steps to Reproduce
       description: |
+        Provide steps to reproduce the bug. Include a video if possible.
         For example: 1. Go to '...', 2. Click on '....', 3. Scroll to '....', 4. Check console, 5. See error
+    validations:
+      required: true
+  - type: dropdown
+    id: storybook-reproduced
+    attributes:
+      label: Were you able to reproduce this in our storybook?
+      description: 'Please check whether this bug is reproducible in [our storybook](https://storybook.sanomalearning.design).'
+      options:
+        - 'Yes'
+        - 'No'
+    validations:
+      required: true
+  - type: input
+    id: storybook-url
+    attributes:
+      label: If yes, provide the storybook URL
+      description: Provide the URL of the storybook story where the bug is visible.
+    validations:
+      required: false
+  - type: textarea
+    id: code-reproduction
+    attributes:
+      label: If no, provide a code reproduction
+      description: If the bug is not reproducible in storybook, please provide a code snippet or repository that reproduces the issue.
+    validations:
+      required: false
+  - type: dropdown
+    id: impact
+    attributes:
+      label: ⚖️ Impact
+      description: How impactful is this bug?
+      options:
+        - 'This blocks our release or stops us from using this component'
+        - 'Not a huge problem, we have a workaround'
+        - 'Just a visual issue / needs some polishing'
     validations:
       required: true
   - type: markdown
     attributes:
-      value: "## 🌍 Your Environment"
+      value: '## 🌍 Your Environment'
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Framework
+      description: In which framework does this bug occur?
+      options:
+        - Angular
+        - React
+        - Vue
+        - Lit
+        - Svelte
+        - Vanilla JS / HTML
+        - Other
+    validations:
+      required: true
   - type: dropdown
     id: browsers
     attributes:
-      label: What browsers are you seeing the problem on? (only for bugs in code)
+      label: What browsers are you seeing the problem on?
       multiple: true
       options:
+        - All
         - Firefox
         - Chrome
         - Safari
@@ -71,17 +111,31 @@ body:
     id: operating-system
     attributes:
       label: What operating system are you using?
+      description: Mention when the bug is OS specific; when it only happens on Chrome on Windows, not on Chrome on MacOS for example.
+    validations:
+      required: false
+  - type: input
+    id: component-version
+    attributes:
+      label: Component version
     validations:
       required: true
+  - type: input
+    id: theme-version
+    attributes:
+      label: Theme version
+      description: Only when relevant
+    validations:
+      required: false
   - type: markdown
     attributes:
-      value: "## 🦄 Other"
+      value: '## 🦄 Other'
   - type: input
     id: name
     attributes:
       label: 👤 Your name
       description: |
-        Please provide your full name
+        Please provide your full name so we can reach out to you via Slack or email for more information if needed.
     validations:
       required: true
   - type: input
@@ -89,31 +143,31 @@ body:
     attributes:
       label: 🧢 Your product/team
       description: |
-        Which product team is this bug impacting? (i.e. Bingel DC/Pokemon)
+        So we have an idea of the context of the bug.
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: theme
     attributes:
       label: 🎨 Your Theme(s)
-      description: Which theme(s) do you use?
+      description: Which theme(s) do you use? (only when relevant)
       multiple: true
       options:
-      - Bingel DC
-      - Bingel INT
-      - Clickedu
-      - Editorial Suite
-      - ItsLearning
-      - Kampus
-      - Magister
-      - Max Online
-      - My Digital Book
-      - My Van in
-      - NEON
-      - Sanoma Learning
-      - Sanoma Pro
-      - Sanoma Utbildning
-      - TEAS
-      - TIG
+        - Bingel DC
+        - Bingel INT
+        - Clickedu
+        - Editorial Suite
+        - ItsLearning
+        - Kampus
+        - Magister
+        - Max Online
+        - My Digital Book
+        - My Van in
+        - NEON
+        - Sanoma Learning
+        - Sanoma Pro
+        - Sanoma Utbildning
+        - TEAS
+        - TIG
     validations:
-      required: true
+      required: false

@@ -5,12 +5,13 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
 
-type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'variant' | 'value'> & { slot?(): TemplateResult };
+type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'variant' | 'value'> & {
+  slot?(): TemplateResult;
+};
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Progress bar',
-  tags: ['preview'],
   args: {
     label: 'This is the label of progress bar',
     value: 60,
@@ -37,7 +38,11 @@ export default {
   },
   render: ({ indeterminate, variant, value, label, slot }) => {
     return html`
-      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .variant=${variant}>
+      <sl-progress-bar
+        ?indeterminate=${indeterminate}
+        .value=${value}
+        .label=${label}
+        .variant=${variant}>
         ${slot?.() ?? html`Uploaded ${value}% of 100%`}
       </sl-progress-bar>
     `;
@@ -81,7 +86,11 @@ export const Overflow: Story = {
           margin-block-end: 32px;
         }
       </style>
-      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .variant=${variant}>
+      <sl-progress-bar
+        ?indeterminate=${indeterminate}
+        .value=${value}
+        .label=${label}
+        .variant=${variant}>
         <span>Uploaded ${value}% of 100%</span>
       </sl-progress-bar>
       <sl-button fill="outline" class="minus">Decrease</sl-button>
@@ -216,8 +225,7 @@ export const Colors: StoryObj = {
       value="60"
       label="This should be the default succes color, event though the color is set to red"
       variant="success"
-      color="red"
-    >
+      color="red">
       60% of 100%
     </sl-progress-bar>
   `
@@ -255,8 +263,13 @@ export const All: StoryObj = {
       }
     </style>
     <h2>With label</h2>
-    <sl-progress-bar value="20" label="Progress bar label in the default variant"> 20% of 100% </sl-progress-bar>
-    <sl-progress-bar value="100" label="Progress bar label in the success variant" variant="success">
+    <sl-progress-bar value="20" label="Progress bar label in the default variant">
+      20% of 100%
+    </sl-progress-bar>
+    <sl-progress-bar
+      value="100"
+      label="Progress bar label in the success variant"
+      variant="success">
       File downloaded
     </sl-progress-bar>
     <sl-progress-bar value="40" label="Progress bar label in the warning variant" variant="warning">
@@ -269,14 +282,25 @@ export const All: StoryObj = {
       Preparing download
     </sl-progress-bar>
     <h2>No label</h2>
-    <sl-progress-bar value="20" aria-label="Progress bar label in the default variant"> 20% of 100% </sl-progress-bar>
-    <sl-progress-bar value="100" variant="success" aria-label="Progress bar label in the success variant">
+    <sl-progress-bar value="20" aria-label="Progress bar label in the default variant">
+      20% of 100%
+    </sl-progress-bar>
+    <sl-progress-bar
+      value="100"
+      variant="success"
+      aria-label="Progress bar label in the success variant">
       File uploaded
     </sl-progress-bar>
-    <sl-progress-bar value="40" variant="warning" aria-label="Progress bar label in the warning variant">
+    <sl-progress-bar
+      value="40"
+      variant="warning"
+      aria-label="Progress bar label in the warning variant">
       40% of 100%
     </sl-progress-bar>
-    <sl-progress-bar value="50" variant="error" aria-label="Progress bar label in the error variant">
+    <sl-progress-bar
+      value="50"
+      variant="error"
+      aria-label="Progress bar label in the error variant">
       50% of 100%
       <span slot="error">This is a <strong>custom</strong> error</span>
     </sl-progress-bar>

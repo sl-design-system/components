@@ -1,7 +1,13 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
-import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
+import {
+  type DataSourceSortDirection,
+  type DataSourceSortFunction
+} from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -30,9 +36,7 @@ export type SlSorterChangeEvent<T = any> = CustomEvent<{
 
 export type SlSorterRegisterEvent = CustomEvent<void>;
 
-/**
- * Component that is used as the column header for a sortable column.
- */
+/** Component that is used as the column header for a sortable column. */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
@@ -47,7 +51,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The grid column.  */
+  /** The grid column. */
   @property({ attribute: false }) column!: GridColumn<T>;
 
   /** The direction in which to sort the items. */
@@ -83,8 +87,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
             : msg('Sort ascending', { id: 'sl.grid.sortAscending' })}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
-        variant=${ifDefined(this.direction ? 'primary' : undefined)}
-      >
+        variant=${ifDefined(this.direction ? 'primary' : undefined)}>
         ${choose(
           this.direction,
           [
@@ -98,8 +101,8 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Resets the sorter to its initial state. This does not emit a change event.
-   * It is used internally by the grid component to reset the sorter.
+   * Resets the sorter to its initial state. This does not emit a change event. It is used
+   * internally by the grid component to reset the sorter.
    */
   reset(): void {
     this.direction = undefined;

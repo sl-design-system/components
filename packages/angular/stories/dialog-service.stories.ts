@@ -25,7 +25,9 @@ import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storyboo
     <p>{{ data.message }}</p>
     <div>Example content.</div>
     <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
-    <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">Confirm</sl-button>
+    <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">
+      Confirm
+    </sl-button>
   `
 })
 export class ExampleDialogComponent {
@@ -224,11 +226,12 @@ export default {
 
 export const DialogServiceExample: StoryFn = () => ({
   description:
-    'This example demonstrates using the <strong>DialogService</strong> to programmatically open and manage dialogs in Angular applications. The service works with any Angular component as dialog content.<br/><br/>The dialog component receives data through @Inject(DIALOG_DATA), allowing you to pass configuration and content to your dialogs. Use DialogRef to control the dialog and return results when closing.<br/><br/>This example shows basic dialogs with and without close buttons. See the next example for implementing forms inside dialogs.',
+    'This example demonstrates using the <strong>DialogService</strong> to programmatically open and manage dialogs in Angular applications. The service works with any Angular component as dialog content.<br aria-hidden="true" /><br aria-hidden="true" />The dialog component receives data through @Inject(DIALOG_DATA), allowing you to pass configuration and content to your dialogs. Use DialogRef to control the dialog and return results when closing.<br aria-hidden="true" /><br aria-hidden="true" />This example shows basic dialogs with and without close buttons. See the next example for implementing forms inside dialogs.',
   template: '<sla-dialog-service></sla-dialog-service>'
 });
 
 export const FormInDialogExample: StoryFn = () => ({
-  description: 'This example demonstrates how to use a form inside a dialog opened with the DialogService.',
+  description:
+    'This example demonstrates how to use a form inside a dialog opened with the DialogService.',
   template: '<sla-dialog-form-example></sla-dialog-form-example>'
 });

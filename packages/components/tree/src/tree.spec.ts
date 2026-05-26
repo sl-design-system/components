@@ -161,7 +161,9 @@ describe('sl-tree', () => {
     });
 
     it('should have an aria-label for each node', () => {
-      const labels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaLabel);
+      const labels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaLabel
+      );
 
       expect(labels).to.deep.equal([
         'Actions',
@@ -174,7 +176,9 @@ describe('sl-tree', () => {
     });
 
     it('should have an aria-description for each node if provided', () => {
-      const descriptions = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaDescription);
+      const descriptions = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaDescription
+      );
 
       expect(descriptions).to.deep.equal([
         'Actions description',
@@ -187,25 +191,33 @@ describe('sl-tree', () => {
     });
 
     it('should have an aria-level for each node', () => {
-      const levels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaLevel);
+      const levels = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaLevel
+      );
 
       expect(levels).to.deep.equal(['1', '2', '1', '2', '3', '3']);
     });
 
     it('should have an aria-rowindex for each node', () => {
-      const rowIndices = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaRowIndex);
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaRowIndex
+      );
 
       expect(rowIndices).to.deep.equal(['1', '2', '3', '4', '5', '6']);
     });
 
     it('should have an aria-posinset for each node', () => {
-      const posInSet = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaPosInSet);
+      const posInSet = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaPosInSet
+      );
 
       expect(posInSet).to.deep.equal(['1', '1', '2', '1', '1', '2']);
     });
 
     it('should have an aria-setsize for each node', () => {
-      const setSize = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(node => node.ariaSetSize);
+      const setSize = Array.from(el.renderRoot.querySelectorAll('sl-tree-node')).map(
+        node => node.ariaSetSize
+      );
 
       expect(setSize).to.deep.equal(['2', '1', '2', '1', '2', '2']);
     });
@@ -229,7 +241,8 @@ describe('sl-tree', () => {
 
     beforeEach(async () => {
       ds = new FlatTreeDataSource(flatData, {
-        getIcon: ({ expandable }, expanded) => (!expandable ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+        getIcon: ({ expandable }, expanded) =>
+          !expandable ? 'far-file' : `far-folder${expanded ? '-open' : ''}`,
         getId: item => item.id,
         getLabel: ({ name }) => name,
         getLevel: ({ level }) => level,
@@ -354,7 +367,8 @@ describe('sl-tree', () => {
 
     beforeEach(async () => {
       ds = new FlatTreeDataSource(flatData, {
-        getIcon: ({ expandable }, expanded) => (!expandable ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+        getIcon: ({ expandable }, expanded) =>
+          !expandable ? 'far-file' : `far-folder${expanded ? '-open' : ''}`,
         getId: item => item.id,
         getLabel: ({ name }) => name,
         getLevel: ({ level }) => level,
@@ -370,13 +384,27 @@ describe('sl-tree', () => {
         names = nodes.map(node => node.textContent?.trim());
 
       expect(nodes).to.have.lengthOf(5);
-      expect(names).to.deep.equal(['Actions', 'Navigation', 'Tree', 'Flat Data Source', 'Nested Data Source']);
+      expect(names).to.deep.equal([
+        'Actions',
+        'Navigation',
+        'Tree',
+        'Flat Data Source',
+        'Nested Data Source'
+      ]);
     });
 
     it('should render the tree nodes with the correct icons', () => {
-      const icons = Array.from(el.renderRoot.querySelectorAll<Icon>('sl-tree-node sl-icon')).map(icon => icon.name);
+      const icons = Array.from(el.renderRoot.querySelectorAll<Icon>('sl-tree-node sl-icon')).map(
+        icon => icon.name
+      );
 
-      expect(icons).to.deep.equal(['far-folder', 'far-folder-open', 'far-folder-open', 'far-file', 'far-file']);
+      expect(icons).to.deep.equal([
+        'far-folder',
+        'far-folder-open',
+        'far-folder-open',
+        'far-file',
+        'far-file'
+      ]);
     });
 
     it('should render the tree nodes with indentation guides', () => {
@@ -410,7 +438,8 @@ describe('sl-tree', () => {
     beforeEach(async () => {
       ds = new NestedTreeDataSource(nestedData, {
         getChildren: ({ children }) => children,
-        getIcon: ({ children }, expanded) => (!children ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+        getIcon: ({ children }, expanded) =>
+          !children ? 'far-file' : `far-folder${expanded ? '-open' : ''}`,
         getId: item => item.id,
         getLabel: ({ name }) => name,
         isExpandable: ({ children }) => !!children,
@@ -425,13 +454,27 @@ describe('sl-tree', () => {
         names = nodes.map(node => node.textContent?.trim());
 
       expect(nodes).to.have.lengthOf(5);
-      expect(names).to.deep.equal(['Actions', 'Navigation', 'Tree', 'Flat Data Source', 'Nested Data Source']);
+      expect(names).to.deep.equal([
+        'Actions',
+        'Navigation',
+        'Tree',
+        'Flat Data Source',
+        'Nested Data Source'
+      ]);
     });
 
     it('should render the tree nodes with the correct icons', () => {
-      const icons = Array.from(el.renderRoot.querySelectorAll<Icon>('sl-tree-node sl-icon')).map(icon => icon.name);
+      const icons = Array.from(el.renderRoot.querySelectorAll<Icon>('sl-tree-node sl-icon')).map(
+        icon => icon.name
+      );
 
-      expect(icons).to.deep.equal(['far-folder', 'far-folder-open', 'far-folder-open', 'far-file', 'far-file']);
+      expect(icons).to.deep.equal([
+        'far-folder',
+        'far-folder-open',
+        'far-folder-open',
+        'far-file',
+        'far-file'
+      ]);
     });
 
     it('should render the tree nodes with indentation guides', () => {
@@ -461,8 +504,7 @@ describe('sl-tree', () => {
           .renderer=${(node: TreeDataSourceNode<FlatDataNode>) => html`
             <span>${node.label}</span>
             <button id="btn-${node.id}">Button</button>
-          `}
-        ></sl-tree>
+          `}></sl-tree>
       `);
       await el.updateComplete;
     });

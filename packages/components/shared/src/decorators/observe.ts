@@ -5,7 +5,10 @@ import { type ClassElement } from './base.js';
 type ObserveFunction = (oldValue: any, newValue: any, name: PropertyKey) => void;
 type ObserveLifecycle = 'update' | 'updated';
 
-class PropertyObserverController<T extends ReactiveElement, TKey extends keyof T> implements ReactiveController {
+class PropertyObserverController<
+  T extends ReactiveElement,
+  TKey extends keyof T
+> implements ReactiveController {
   private _value?: T[TKey];
 
   constructor(
@@ -52,7 +55,9 @@ export function observe(propertyName: string, lifecycle: ObserveLifecycle = 'upd
       // if (process?.env.NODE_ENV === 'development') {
       if (!(propertyName in el)) {
         throw new TypeError(
-          `@observe: property '${propertyName}' does not exist.\nPossible properties: ${Object.keys(target)
+          `@observe: property '${propertyName}' does not exist.\nPossible properties: ${Object.keys(
+            target
+          )
             .map(p => `'${p}'`)
             .join(', ')}`
         );

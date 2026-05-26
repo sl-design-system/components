@@ -1,11 +1,21 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
 import { VirtualizerController } from '@sl-design-system/virtual-list';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
@@ -23,10 +33,7 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TreeItemRenderer<T = any> = (item: TreeDataSourceNode<T>) => TemplateResult | undefined;
 
-/**
- * A tree component. Use this if you have hierarchical data that you want
- * to visualize.
- */
+/** A tree component. Use this if you have hierarchical data that you want to visualize. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
   'aria-describedby',
@@ -44,7 +51,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -71,9 +81,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   /**
-   *  The model for the tree.
-   *  @type {TreeDataSource<T> | undefined}
-   *  */
+   * The model for the tree.
+   *
+   * @type {TreeDataSource<T> | undefined}
+   */
   @property({ attribute: false })
   set dataSource(dataSource: TreeDataSource<T> | undefined) {
     if (this.#dataSource) {
@@ -94,10 +105,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 
   /**
-   * The custom elements used for rendering this tree. If you are using a custom renderer
-   * to render the tree nodes, any custom elements you use in the renderer need to be specified
-   * via this property. Otherwise those custom elements will not initialize, since the tree
-   * uses a Scoped Custom Element Registry.
+   * The custom elements used for rendering this tree. If you are using a custom renderer to render
+   * the tree nodes, any custom elements you use in the renderer need to be specified via this
+   * property. Otherwise those custom elements will not initialize, since the tree uses a Scoped
+   * Custom Element Registry.
    */
   @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
@@ -157,12 +168,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         aria-owns=${ifDefined(rootIds)}
         part="wrapper"
         role="treegrid"
-        style="block-size: ${virtualizer.getTotalSize()}px"
-      >
+        style="block-size: ${virtualizer.getTotalSize()}px">
         <div
           class="starter"
-          style="translate: 0px ${(virtualItems[0]?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)}px"
-        >
+          style="translate: 0px ${(virtualItems[0]?.start ?? 0) -
+          (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -172,10 +182,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
               /**
                * Aria-label is added to improve a11y for Safari and VO - without it the content of
-               * each row is not being read. Maybe we will be able to use in the future: ariaControlsElements
-               * and/or ariaOwnsElements instead of aria-owns and aria-controls. Aria-owns and aria-controls
-               * are not working properly with shadow DOM boundary, in the future we will need to add
-               * ariaControlsElements and ariaOwnsElements to sl-tree-node (for the gridcell inside).
+               * each row is not being read. Maybe we will be able to use in the future:
+               * ariaControlsElements and/or ariaOwnsElements instead of aria-owns and
+               * aria-controls. Aria-owns and aria-controls are not working properly with shadow DOM
+               * boundary, in the future we will need to add ariaControlsElements and
+               * ariaOwnsElements to sl-tree-node (for the gridcell inside).
                */
               return html`
                 <sl-tree-node
@@ -184,7 +195,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   @sl-toggle=${() => this.#onToggle(item)}
                   @keydown=${this.#onKeydown}
                   data-index=${virtualItem.index}
-                  ${ref(virtualizer.measureElement as RefOrCallback<Element>) /* must be *after* data-index */}
+                  ${
+                    ref(virtualizer.measureElement as RefOrCallback<Element>) /* must be *after* data-index */
+                  }
                   ?expandable=${item.expandable}
                   ?expanded=${item.expanded}
                   ?indeterminate=${item.indeterminate}
@@ -195,7 +208,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   .node=${item}
                   .selected=${item.selected}
                   .type=${item.type}
-                  aria-controls=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
+                  aria-controls=${ifDefined(
+                    item.children?.map(child => String(child.id)).join(' ')
+                  )}
                   aria-description=${ifDefined(item.description || undefined)}
                   aria-label=${item.label}
                   aria-level=${item.level + 1}
@@ -204,10 +219,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                     ? (item.parent.children?.indexOf(item) ?? -1) + 1
                     : (this.dataSource?.nodes.indexOf(item) ?? -1) + 1}
                   aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
-                  aria-setsize=${ifDefined(item.parent ? item.parent.children?.length : this.dataSource?.size)}
+                  aria-setsize=${ifDefined(
+                    item.parent ? item.parent.children?.length : this.dataSource?.size
+                  )}
                   id=${item.id}
-                  tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}
-                >
+                  tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}>
                   ${this.renderer?.(item) ??
                   html`
                     ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}

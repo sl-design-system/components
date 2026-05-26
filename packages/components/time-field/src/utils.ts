@@ -120,10 +120,7 @@ export function getTimeUnitLetter(locale: string, unit: 'hour' | 'minute' | 'sec
   return units[`${unit}s`] ?? unit.charAt(0).toUpperCase();
 }
 
-/**
- * Returns a localized time template string for a given locale.
- * For example: 'HH:MM' for en-US.
- */
+/** Returns a localized time template string for a given locale. For example: 'HH:MM' for en-US. */
 export function getTimeTemplate(locale: string): string {
   const parts = getTimeFormat(locale),
     units = getTimeUnitLetters(locale);

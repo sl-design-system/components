@@ -1,5 +1,15 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { OptionGroupHeader } from './option-group-header.js';
 import styles from './option-group.scss.js';
@@ -39,8 +49,8 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
     style.innerHTML = `
       sl-option-group:has(+ sl-option) {
         border-block-end: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);
-        margin-block-end: var(--sl-size-075);
-        padding-block-end: var(--sl-size-100);
+        margin-block-end: var(--sl-size-050);
+        padding-block-end: var(--sl-size-050);
       }
     `;
     this.prepend(style);
@@ -61,7 +71,9 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        ${this.label ? html`<sl-option-group-header>${this.label}</sl-option-group-header>` : nothing}
+        ${this.label
+          ? html`<sl-option-group-header>${this.label}</sl-option-group-header>`
+          : nothing}
         <slot></slot>
       </div>
     `;

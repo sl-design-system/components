@@ -1,17 +1,34 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, MediaController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  type MediaChangeEvent,
+  MediaController,
+  event
+} from '@sl-design-system/shared';
 import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './dialog.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
+    command: Event; // Workaround for older TypeScript versions
     'sl-close': SlCloseEvent;
   }
 
@@ -52,10 +69,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    command: this.#onCommand,
+    keydown: this.#onKeydown
+  });
+
+  /** Abort controller for the leave animation listener. */
+  #leaveAnimationAbort?: AbortController;
 
   /** Responsive behavior utility. */
-  #media = new MediaController(this);
+  #media = new MediaController(this, { onChange: event => this.#onMediaChange(event) });
 
   /** Observe size changes to the dialog. */
   #observer = new ResizeObserver(() => this.#onScroll());
@@ -71,6 +95,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /**
    * Determines whether a close button should be shown in the top right corner.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
@@ -83,14 +108,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /**
    * The role for the dialog element.
+   *
    * @default 'dialog'
    */
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /**
-   * Disables the ability to cancel the dialog by pressing the Escape key or clicking on the backdrop.
-   * We recommend setting this to true when the dialog contains a form that must be submitted or cancelled,
-   * to prevent accidental closing when clicking on the backdrop.
+   * Disables the ability to cancel the dialog by pressing the Escape key or clicking on the
+   * backdrop. We recommend setting this to true when the dialog contains a form that must be
+   * submitted or cancelled, to prevent accidental closing when clicking on the backdrop.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
@@ -103,6 +130,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#leaveAnimationAbort?.abort();
+
+    if (this.dialog?.open) {
+      // Remove dialog classes and restore scrolling only when this dialog is currently open
+      document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
+      document.documentElement.style.overflow = '';
+    }
 
     super.disconnectedCallback();
   }
@@ -120,8 +154,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @close=${this.#onClose}
         aria-labelledby="title"
         role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
-        part="dialog"
-      >
+        part="dialog">
         <div part="header">${this.renderHeader()}</div>
         <div @scroll=${this.#onScroll} part="body">${this.renderBody()}</div>
         ${this.#media.mobile ? nothing : html`<div part="footer">${this.renderFooter()}</div>`}
@@ -130,16 +163,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Override this method to customize the header of the dialog. If you only
-   * want to customize the title, you can use the `title` argument and call
-   * `super.renderHeader('My title')` to render the default header.
+   * Override this method to customize the header of the dialog. If you only want to customize the
+   * title, you can use the `title` argument and call `super.renderHeader('My title')` to render the
+   * default header.
    *
-   * Beware when customizing the header: the `<dialog>` element is labelled by
-   * the element with ID `title`. If you override this method, make sure to include
-   * an element with ID `title` in the header.
+   * Beware when customizing the header: the `<dialog>` element is labelled by the element with ID
+   * `title`. If you override this method, make sure to include an element with ID `title` in the
+   * header.
    *
-   * Only use this when extending the `Dialog` class. If you are using
-   * the `<sl-dialog>` custom element, use the slots.
+   * Only use this when extending the `Dialog` class. If you are using the `<sl-dialog>` custom
+   * element, use the slots.
    */
   renderHeader(title: string = ''): TemplateResult {
     return html`
@@ -163,8 +196,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
                 aria-label=${msg('Close', { id: 'sl.common.close' })}
                 class="sl-close"
                 fill="ghost"
-                variant="default"
-              >
+                variant="default">
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>
             `
@@ -176,8 +208,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /**
    * Override this method to customize the body of the dialog.
    *
-   * Only use this when extending the `Dialog` class. If you are using
-   * the `<sl-dialog>` custom element, use the slots.
+   * Only use this when extending the `Dialog` class. If you are using the `<sl-dialog>` custom
+   * element, use the slots.
    */
   renderBody(): TemplateResult {
     return html`
@@ -193,11 +225,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Override this method to customize the footer of the dialog. If you only
-   * want to add action buttons, see the `renderActions` method.
+   * Override this method to customize the footer of the dialog. If you only want to add action
+   * buttons, see the `renderActions` method.
    *
-   * Only use this when extending the `Dialog` class. If you are using
-   * the `<sl-dialog>` custom element, use the slots.
+   * Only use this when extending the `Dialog` class. If you are using the `<sl-dialog>` custom
+   * element, use the slots.
    */
   renderFooter(): TemplateResult {
     return html`
@@ -212,21 +244,23 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /**
    * Override this method to customize the actions in the footer of the dialog.
    *
-   * Only use this when extending the `Dialog` class. If you are using
-   * the `<sl-dialog>` custom element, use the slots.
+   * Only use this when extending the `Dialog` class. If you are using the `<sl-dialog>` custom
+   * element, use the slots.
    */
   renderActions(): TemplateResult | typeof nothing {
     return html`
       <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
-      <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">${this.renderPrimaryActions()}</slot>
+      <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
+        ${this.renderPrimaryActions()}
+      </slot>
     `;
   }
 
   /**
    * Override this method to customize the primary actions in the footer of the dialog.
    *
-   * Only use this when extending the `Dialog` class. If you are using
-   * the `<sl-dialog>` custom element, use the slots.
+   * Only use this when extending the `Dialog` class. If you are using the `<sl-dialog>` custom
+   * element, use the slots.
    */
   renderPrimaryActions(): TemplateResult | typeof nothing {
     return nothing;
@@ -235,8 +269,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /**
    * Override this method to customize the secondary actions in the footer of the dialog.
    *
-   * Only use this when extending the `Dialog` class. If you are using
-   * the `<sl-dialog>` custom element, use the slots.
+   * Only use this when extending the `Dialog` class. If you are using the `<sl-dialog>` custom
+   * element, use the slots.
    */
   renderSecondaryActions(): TemplateResult | typeof nothing {
     return nothing;
@@ -260,7 +294,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // Workaround for broken focus behavior when using <slot> inside <dialog>
     // See https://github.com/whatwg/html/issues/9245
     requestAnimationFrame(() => {
-      const focusable = this.querySelector<HTMLElement>('[autofocus], [tabindex]:not([tabindex="-1"])');
+      const focusable = this.querySelector<HTMLElement>(
+        '[autofocus], [tabindex]:not([tabindex="-1"])'
+      );
 
       if (focusable && this.shadowRoot?.activeElement !== focusable) {
         focusable.focus();
@@ -268,13 +304,46 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  /** Close the dialog. */
-  close(): void {
-    if (this.dialog?.open) {
-      this.#observer.disconnect();
-
-      this.dialog?.close();
+  /**
+   * Close the dialog.
+   *
+   * @param returnValue - Optional value to set as the dialog's return value.
+   */
+  close(returnValue?: string): void {
+    if (!this.dialog?.open || this.dialog.classList.contains('closing')) {
+      return;
     }
+
+    this.#observer.disconnect();
+    this.#updateDocumentElement(false);
+
+    if (CSS.supports('overlay', 'auto')) {
+      this.dialog.close(returnValue);
+    } else {
+      // Without overlay support (Safari/Firefox), trigger the exit transition
+      // while the dialog is still in the top layer.
+      // Start the body animation at the same time so both run in parallel.
+
+      this.dialog.classList.add('closing');
+
+      requestAnimationFrame(() => {
+        void Promise.allSettled(
+          this.dialog?.getAnimations()?.map(animation => animation.finished) ?? []
+        ).then(() => {
+          this.dialog?.close(returnValue);
+        });
+      });
+    }
+  }
+
+  /**
+   * Request the dialog to close. This will fire a `cancel` event on the `<dialog>`, which can be
+   * prevented. If not prevented, the dialog will close.
+   *
+   * @param returnValue - Optional value to set as the dialog's return value.
+   */
+  requestClose(returnValue?: string): void {
+    this.dialog?.requestClose(returnValue);
   }
 
   #onBackdropClick(event: MouseEvent): void {
@@ -308,13 +377,40 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #onCommand(event: Event): void {
+    const { command } = event as Event & { command: string };
+
+    if (command === '--show-modal') {
+      event.preventDefault();
+      this.showModal();
+    } else if (command === '--close') {
+      event.preventDefault();
+      this.close();
+    } else if (command === '--request-close') {
+      event.preventDefault();
+      this.requestClose();
+    }
+  }
+
   async #onClose(): Promise<void> {
-    this.#updateDocumentElement(false);
+    // Only needed if the dialog was closed externally (e.g. via dialog.close() directly)
+    if (document.documentElement.classList.contains('sl-dialog-enter')) {
+      this.#updateDocumentElement(false);
+    }
+
+    // Re-enable scrolling now that the dialog is actually closed
+    document.documentElement.style.overflow = '';
 
     this.inert = true;
 
     // Wait until all animations have finished before emitting the close event
-    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+    await Promise.allSettled(
+      this.dialog?.getAnimations({ subtree: true })?.map(animation => animation.finished) ?? []
+    );
+
+    // Remove only after animations complete — removing earlier would clear translate: 0 100%
+    // while Safari's display transition is still running, causing a visible flash.
+    this.dialog?.classList.remove('closing');
 
     this.closeEvent.emit();
   }
@@ -325,6 +421,24 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.close();
   }
+
+  #onMediaChange = ({ previous, current }: MediaChangeEvent): void => {
+    if (!this.dialog?.open) {
+      return;
+    }
+
+    if (previous === 'mobile') {
+      // Leaving mobile while dialog is open
+      document.documentElement.classList.remove('sl-dialog-enter');
+      document.documentElement.classList.add('sl-dialog-leave');
+
+      this.#listenForLeaveAnimationEnd();
+    } else if (current === 'mobile') {
+      // Entering mobile while dialog is open
+      document.documentElement.classList.remove('sl-dialog-leave');
+      document.documentElement.classList.add('sl-dialog-enter');
+    }
+  };
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
@@ -351,36 +465,61 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       ?.toggleAttribute('sticky', scrollTop + clientHeight < scrollHeight);
   }
 
+  #listenForLeaveAnimationEnd(): void {
+    this.#leaveAnimationAbort?.abort();
+
+    // The leave animation only plays when prefers-reduced-motion is not set;
+    // if reduced motion is preferred, remove the class immediately.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.remove('sl-dialog-leave');
+      return;
+    }
+
+    const controller = new AbortController();
+
+    this.#leaveAnimationAbort = controller;
+
+    const onLeaveAnimation = (event: AnimationEvent): void => {
+      if (event.animationName === 'sl-dialog-leave') {
+        document.documentElement.classList.remove('sl-dialog-leave');
+        controller.abort();
+      }
+    };
+
+    document.body.addEventListener('animationend', onLeaveAnimation, { signal: controller.signal });
+    document.body.addEventListener('animationcancel', onLeaveAnimation, {
+      signal: controller.signal
+    });
+  }
+
   #updateDocumentElement(opening?: boolean): void {
     if (opening) {
-      const width = window.innerWidth,
-        bodyMargin = 16;
-
-      const scale = (width - bodyMargin * 2) / width;
-
-      // Set the scale and translate values so that the body has a 16px margin on each side
-      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
-      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
-
       // Add class to `<html>` for styling purposes
+      document.documentElement.classList.remove('sl-dialog-leave');
       document.documentElement.classList.add('sl-dialog-enter');
 
       // Disable scrolling while the dialog is open
       document.documentElement.style.overflow = 'hidden';
     } else {
-      // Reenable scrolling after the dialog has closed
-      document.documentElement.style.overflow = '';
+      // Remove dialog classes
+      document.documentElement.classList.remove('sl-dialog-enter', 'sl-dialog-leave');
 
-      // Remove open class
-      document.documentElement.classList.remove('sl-dialog-enter');
+      // Only play the leave animation on mobile, where the body was scaled
+      if (this.#media.mobile) {
+        document.documentElement.classList.add('sl-dialog-leave');
+
+        this.#listenForLeaveAnimationEnd();
+      }
     }
   }
 
   #updatePrimaryButtons(): void {
     const buttons =
-      this.renderRoot.querySelector<HTMLSlotElement>('slot[name="primary-actions"]')?.assignedElements({
-        flatten: true
-      }) ?? [];
+      this.renderRoot
+        .querySelector<HTMLSlotElement>('slot[name="primary-actions"]')
+        ?.assignedElements({
+          flatten: true
+        }) ?? [];
 
     if (buttons.length > 1) {
       buttons.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'outline');

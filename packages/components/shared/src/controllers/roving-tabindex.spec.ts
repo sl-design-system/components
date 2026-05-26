@@ -289,7 +289,10 @@ describe('RovingTabindexController', () => {
   describe('mixed context elements', () => {
     beforeEach(async () => {
       config = {
-        elements: () => [...Array.from(el.renderRoot.querySelectorAll('button')), el.querySelector('button')!]
+        elements: () => [
+          ...Array.from(el.renderRoot.querySelectorAll('button')),
+          el.querySelector('button')!
+        ]
       };
 
       el = await fixture(html`

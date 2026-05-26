@@ -1,9 +1,19 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './tag.scss.js';
 
@@ -47,10 +57,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
-  /**
-   * Observe changes in size, so we can check whether we need to show tooltips
-   * for truncated links.
-   */
+  /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
   #observer = new ResizeObserver(() => this.#onResize());
 
   /** Either an instanceof of Tooltip, or a cleanup function. */
@@ -58,6 +65,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   /**
    * Whether the tag component is disabled, when set no interaction is possible.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -67,6 +75,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   /**
    * Whether the tag component is removable.
+   *
    * @default false
    */
   @property({ type: Boolean }) removable?: boolean;
@@ -76,12 +85,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   /**
    * The size of the tag.
+   *
    * @default 'md'
    */
   @property({ reflect: true }) size?: TagSize;
 
   /**
    * The variant of the tag.
+   *
    * @default 'neutral'
    */
   @property({ reflect: true }) variant?: TagVariant;
@@ -121,7 +132,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       if (this.removable) {
         this.setAttribute(
           'aria-description',
-          msg('Press the delete or backspace key to remove this item', { id: 'sl.tag.removalInstructions' })
+          msg('Press the delete or backspace key to remove this item', {
+            id: 'sl.tag.removalInstructions'
+          })
         );
       } else {
         this.removeAttribute('aria-description');
@@ -134,7 +147,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       <slot @slotchange=${this.#onSlotChange} part="label"></slot>
       ${this.removable && !this.disabled
         ? html`
-            <button @click=${this.#onRemove} ?disabled=${this.disabled} aria-hidden="true" part="button" tabindex="-1">
+            <button
+              @click=${this.#onRemove}
+              ?disabled=${this.disabled}
+              aria-hidden="true"
+              part="button"
+              tabindex="-1">
               <sl-icon name="xmark"></sl-icon>
             </button>
           `

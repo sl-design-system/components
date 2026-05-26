@@ -1,4 +1,10 @@
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -15,8 +21,8 @@ declare global {
 export type VirtualListItemRenderer<T = any> = (item: T, index: number) => TemplateResult;
 
 /**
- * A virtual list component that efficiently renders large lists by only rendering
- * items that are visible in the viewport.
+ * A virtual list component that efficiently renders large lists by only rendering items that are
+ * visible in the viewport.
  *
  * @csspart wrapper - The wrapper element that contains the entire virtual list.
  * @csspart container - The container element that holds the virtualized items.
@@ -39,12 +45,14 @@ export class VirtualList<T = any> extends LitElement {
 
   /**
    * The estimated size of each item in pixels. This doesn't have to be exact.
+   *
    * @default 32
    */
   @property({ type: Number, attribute: 'estimate-size' }) estimateSize?: number;
 
   /**
    * The gap between items in pixels.
+   *
    * @default 0
    */
   @property({ type: Number }) gap?: number;
@@ -54,6 +62,7 @@ export class VirtualList<T = any> extends LitElement {
 
   /**
    * Number of items to render outside the visible area for smoother scrolling.
+   *
    * @default 3
    */
   @property({ type: Number }) overscan?: number;
@@ -64,7 +73,12 @@ export class VirtualList<T = any> extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('estimateSize') || changes.has('gap') || changes.has('items') || changes.has('overscan')) {
+    if (
+      changes.has('estimateSize') ||
+      changes.has('gap') ||
+      changes.has('items') ||
+      changes.has('overscan')
+    ) {
       this.#virtualizer.updateOptions({
         count: this.items.length,
         estimateSize: () => this.estimateSize ?? 32,
@@ -83,8 +97,7 @@ export class VirtualList<T = any> extends LitElement {
         <div
           part="container"
           style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px"
-        >
+          (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -95,8 +108,7 @@ export class VirtualList<T = any> extends LitElement {
                 <div
                   part="item"
                   data-index=${virtualItem.index}
-                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}
-                >
+                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>
               `;

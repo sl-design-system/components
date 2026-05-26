@@ -18,7 +18,6 @@ const variants: InlineMessageVariant[] = ['info', 'success', 'warning', 'danger'
 
 export default {
   title: 'Feedback & status/Inline message',
-  tags: ['stable'],
   args: {
     variant: 'info'
   },
@@ -50,8 +49,12 @@ export default {
         margin: 0;
       }
     </style>
-    <sl-inline-message ?indismissible=${indismissible} .size=${size ?? 'auto'} variant=${ifDefined(variant)}>
-      ${title ? html`<h2 slot="title">${title}</h2>` : nothing} ${typeof body === 'string' ? body : body()}
+    <sl-inline-message
+      ?indismissible=${indismissible}
+      .size=${size ?? 'auto'}
+      variant=${ifDefined(variant)}>
+      ${title ? html`<h2 slot="title">${title}</h2>` : nothing}
+      ${typeof body === 'string' ? body : body()}
     </sl-inline-message>
   `
 } satisfies Meta<Props>;
@@ -105,7 +108,10 @@ export const Dynamic: Story = {
       buttonBar?.after(msg);
 
       // Send an announcement with the text from the inline message.
-      announce(`${title} ${count + 1} ${body.toString()}`, variant === 'danger' ? 'assertive' : 'polite');
+      announce(
+        `${title} ${count + 1} ${body.toString()}`,
+        variant === 'danger' ? 'assertive' : 'polite'
+      );
     };
 
     const onRemove = (event: Event & { target: HTMLElement }): void => {
@@ -136,13 +142,13 @@ export const Dynamic: Story = {
       <h1>Announce changes</h1>
       <p>
         In this example app the functions adding and removing the inline message we use the
-        <code>announce</code> function to announce the message and the fact that the message has been closed to users
-        using a screenreader.
+        <code>announce</code> function to announce the message and the fact that the message has
+        been closed to users using a screenreader.
       </p>
       <p>
-        When the message is closed using the close button in it (x) the announcement is done by the component itself.
-        The component itself can't announce the showing of the message because it doesn't know if it is present on page
-        load or added dynamically.
+        When the message is closed using the close button in it (x) the announcement is done by the
+        component itself. The component itself can't announce the showing of the message because it
+        doesn't know if it is present on page load or added dynamically.
       </p>
     `;
   }
@@ -185,10 +191,13 @@ export const Sizes: Story = {
         margin: 0;
       }
     </style>
-    <sl-inline-message size="sm" variant=${ifDefined(variant)}> Small inline message </sl-inline-message>
+    <sl-inline-message size="sm" variant=${ifDefined(variant)}>
+      Small inline message
+    </sl-inline-message>
     <sl-inline-message size="md" variant=${ifDefined(variant)}>
-      Medium inline message; If set explicitly (unlike auto), it will not grow automatically depending on the amount of
-      content. Sit nostrud id non commodo nostrud voluptate nostrud sunt voluptate adipisicing.
+      Medium inline message; If set explicitly (unlike auto), it will not grow automatically
+      depending on the amount of content. Sit nostrud id non commodo nostrud voluptate nostrud sunt
+      voluptate adipisicing.
     </sl-inline-message>
     <sl-inline-message size="lg" variant=${ifDefined(variant)}>
       <h2 slot="title">Inline message title</h2>
@@ -198,9 +207,9 @@ export const Sizes: Story = {
       Auto inline message is the same as md by default
     </sl-inline-message>
     <sl-inline-message variant=${ifDefined(variant)}>
-      Auto inline message will grow to large if the content span more than 2 lines; Sit nostrud id non commodo nostrud
-      voluptate nostrud sunt voluptate adipisicing. Aliqua mollit eiusmod sunt enim enim tempor cillum labore commodo
-      duis.
+      Auto inline message will grow to large if the content span more than 2 lines; Sit nostrud id
+      non commodo nostrud voluptate nostrud sunt voluptate adipisicing. Aliqua mollit eiusmod sunt
+      enim enim tempor cillum labore commodo duis.
     </sl-inline-message>
     <sl-inline-message variant=${ifDefined(variant)}>
       <h2 slot="title">Inline message title</h2>
@@ -231,18 +240,23 @@ export const All: StoryObj = {
     <div class="wrapper">
       <sl-inline-message indismissible>The main content of the message</sl-inline-message>
       <sl-inline-message>
-        Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
-        Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+        Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo
+        velit ut est sunt. Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse
+        proident.
       </sl-inline-message>
       ${variants.map(
         variant => html`
-          <sl-inline-message variant=${variant}> The main content of the message </sl-inline-message>
+          <sl-inline-message variant=${variant}>
+            The main content of the message
+          </sl-inline-message>
           <sl-inline-message variant=${variant}>
             <h2 slot="title">
-              "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+              "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea
+              mollit eu irure.
             </h2>
-            Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-            consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+            Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad
+            anim. Incididunt non consequat eiusmod aliqua consequat Lorem eu culpa labore aute
+            laboris eiusmod.
           </sl-inline-message>
         `
       )}

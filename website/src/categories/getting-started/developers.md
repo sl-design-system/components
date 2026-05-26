@@ -23,7 +23,7 @@ Please follow the steps below when first getting started:
 
 ## Make sure you have access
 
-Even though the SL Design System is open source, the packages are not publicly available. That is why you need to get access to the npm packages in order to install them locally. 
+Even though the SL Design System is open source, the packages are not publicly available. That is why you need to get access to the npm packages in order to install them locally.
 For use in a Sanoma Learning product it is possible to load the SLDS packages (and Font Awesome), via the company provided Nexus server. If you don't have access to that it is also possible to access the packages via GitHub.
 
 ### Nexus
@@ -164,22 +164,30 @@ Make sure you include the polyfills before you include the SLDS components. This
 
 The following web standards require polyfills at this time:
 - [Scoped Custom Element Registry](https://github.com/WICG/webcomponents/blob/gh-pages/proposals/Scoped-Custom-Element-Registries.md)
-- [Element Internals](https://caniuse.com/mdn-api_elementinternals)
+- [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API)
 
 To use these polyfills, you need to install the following packages:
 - `@webcomponents/scoped-custom-element-registry`
+- `invokers-polyfill` (version >= 1.0.2, earlier versions do not work properly with custom elements)
 
 Once installed you need to import the polyfills in your application. You can do this by importing the polyfills in your main JS file:
 
 ```js
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import 'invokers-polyfill';
 ```
 
 Another option is to include them in your HTML:
 
 ```html
 <script src="./node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
+<script src="./node_modules/invokers-polyfill/invokers-polyfill.min.js"></script>
 ```
+
+### No longer needed
+
+The following polyfills were previously required but are no longer needed since all major browsers now support these features:
+- [Element Internals](https://caniuse.com/mdn-api_elementinternals)
 
 </section>
 

@@ -1,5 +1,10 @@
 import { type ReactiveController, type ReactiveControllerHost } from 'lit';
-import { type PopoverPosition, type PositionPopoverOptions, isPopoverOpen, positionPopover } from '../popover.js';
+import {
+  type PopoverPosition,
+  type PositionPopoverOptions,
+  isPopoverOpen,
+  positionPopover
+} from '../popover.js';
 
 export type AnchorControllerConfig = PositionPopoverOptions;
 
@@ -10,6 +15,22 @@ export class AnchorController implements ReactiveController {
   #config: AnchorControllerConfig;
   #host: ReactiveControllerHost & HTMLElement;
 
+  #position(anchorElement: Element): void {
+    if (this.#cleanup) {
+      this.#cleanup();
+      this.#cleanup = undefined;
+    }
+
+    this.#cleanup = positionPopover(this.#host, anchorElement, {
+      ...this.#config,
+      arrowElement: this.arrowElement,
+      arrowPadding: this.arrowPadding,
+      maxWidth: this.maxWidth,
+      offset: this.offset,
+      position: this.position
+    });
+  }
+
   #onBeforeToggle = (event: Event): void => {
     const anchorElement = this.#getAnchorElement(),
       { newState, oldState } = event as ToggleEvent;
@@ -17,14 +38,7 @@ export class AnchorController implements ReactiveController {
     this.#linkAnchorWithPopover(newState === 'open');
 
     if (anchorElement && newState === 'open' && oldState === 'closed') {
-      this.#cleanup = positionPopover(this.#host, anchorElement, {
-        ...this.#config,
-        arrowElement: this.arrowElement,
-        arrowPadding: this.arrowPadding,
-        maxWidth: this.maxWidth,
-        offset: this.offset,
-        position: this.position
-      });
+      this.#position(anchorElement);
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
@@ -44,17 +58,17 @@ export class AnchorController implements ReactiveController {
     const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
 
     /**
-     * Tooltips are working in a little bit different way than popovers,
-     * the workaround was making problems with showing shared tooltip.
-     * */
+     * Tooltips are working in a little bit different way than popovers, the workaround was making
+     * problems with showing shared tooltip.
+     */
     if (this.#host.tagName === 'SL-TOOLTIP') {
       return;
     }
 
-    /**too
-     * Workaround to make it working on clicking again (togglePopover method) on the anchor element
-     * in Chrome and Safari there is the same state for new and old - open, when it's already opened
-     * and we want to close it in FF on click runs toggle event twice.
+    /**
+     * Too Workaround to make it working on clicking again (togglePopover method) on the anchor
+     * element in Chrome and Safari there is the same state for new and old - open, when it's
+     * already opened and we want to close it in FF on click runs toggle event twice.
      */
     if ((newState === 'closed' && isPopoverOpen(target)) || newState === oldState) {
       event.stopPropagation();
@@ -116,32 +130,43 @@ export class AnchorController implements ReactiveController {
     this.#host.removeAttribute('aria-details');
   }
 
+  updatePosition(): void {
+    const anchorElement = this.#getAnchorElement();
+
+    if (!anchorElement || !isPopoverOpen(this.#host)) {
+      return;
+    }
+
+    this.#position(anchorElement);
+  }
+
   #getAnchorElement(): Element | null {
     let anchorElement = this.#host.anchorElement || null;
 
     if (!anchorElement && this.#host.hasAttribute('anchor')) {
-      anchorElement = (this.#host.getRootNode() as HTMLElement)?.querySelector(`#${this.#host.getAttribute('anchor')}`);
+      anchorElement = (this.#host.getRootNode() as HTMLElement)?.querySelector(
+        `#${this.#host.getAttribute('anchor')}`
+      );
     }
 
     return anchorElement;
   }
 
   /**
-   * Normally when using the `popovertarget` attribute with popovers,
-   * the browser will automatically set the `aria-details` attribute on
-   * the anchor element and `aria-expanded` on the trigger. But since we
-   * cannot use the `popovertarget` attribute in combination with custom
-   * elements, we need to set these ourselves.
+   * Normally when using the `popovertarget` attribute with popovers, the browser will automatically
+   * set the `aria-details` attribute on the anchor element and `aria-expanded` on the trigger. But
+   * since we cannot use the `popovertarget` attribute in combination with custom elements, we need
+   * to set these ourselves.
    */
   #linkAnchorWithPopover(expanded = false): void {
     const anchorElement = this.#getAnchorElement();
     this.#host.id ||= `sl-popover-${nextUniqueId++}`;
 
     /**
-     * Tooltips should have different ARIAs than popover
-     * and the anchor element should not get active state when the tooltip is visible -
-     * should have `hover` or `focus` depending on how it was triggered.
-     * */
+     * Tooltips should have different ARIAs than popover and the anchor element should not get
+     * active state when the tooltip is visible - should have `hover` or `focus` depending on how it
+     * was triggered.
+     */
     if (this.#host.tagName === 'SL-TOOLTIP') {
       return;
     }

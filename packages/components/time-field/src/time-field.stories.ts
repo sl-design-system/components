@@ -23,12 +23,12 @@ type Props = Pick<
   hint?: string;
   label?: string;
   reportValidity?: boolean;
+  width?: string;
 };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Time field',
-  tags: ['draft'],
   args: {
     disabled: false,
     label: 'Time',
@@ -59,7 +59,8 @@ export default {
     reportValidity,
     required,
     start,
-    value
+    value,
+    width
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
@@ -71,7 +72,7 @@ export default {
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-time-field
-            style="width: fit-content;"
+            style="inline-size: ${width ? width : 'fit-content'};"
             ?disabled=${disabled}
             hour-step=${ifDefined(hourStep)}
             locale=${ifDefined(locale)}
@@ -82,8 +83,7 @@ export default {
             ?readonly=${readonly}
             ?required=${required}
             start=${ifDefined(start)}
-            .value=${value}
-          ></sl-time-field>
+            .value=${value}></sl-time-field>
         </sl-form-field>
         ${reportValidity
           ? html`
@@ -141,6 +141,13 @@ export const Required: Story = {
     hint: 'This field is required, if you leave it empty you will see an error message when clicking the button',
     reportValidity: true,
     required: true
+  }
+};
+
+export const ExplicitWidth: Story = {
+  args: {
+    hint: 'This field has been set to a width of 250px',
+    width: '250px'
   }
 };
 

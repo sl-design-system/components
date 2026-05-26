@@ -1,10 +1,11 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { page, userEvent } from 'vitest/browser';
 import '../register.js';
 import { Dialog } from './dialog.js';
 
@@ -33,14 +34,23 @@ describe('sl-dialog', () => {
     });
 
     it('should not have a close button', () => {
-      expect(dialog.querySelector('sl-button[aria-label="Close"]')).not.to.exist;
+      expect(dialog.querySelector('sl-button.sl-close')).not.to.exist;
     });
 
     it('should have a close button when set', async () => {
       el.closeButton = true;
       await el.updateComplete;
 
-      expect(dialog.querySelector('sl-button[aria-label="Close"]')).to.exist;
+      expect(dialog.querySelector('sl-button.sl-close')).to.exist;
+    });
+
+    it('should have an accessible name for the close button', async () => {
+      el.closeButton = true;
+      await el.updateComplete;
+
+      const closeButton = dialog.querySelector<Button>('sl-button.sl-close')!;
+
+      expect(getForwardedAccessibleName(closeButton)).to.equal('Close');
     });
 
     it('should not have a role of dialog', () => {
@@ -224,7 +234,7 @@ describe('sl-dialog', () => {
       const onClose = spy();
 
       el.addEventListener('sl-close', onClose);
-      el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
+      el.renderRoot.querySelector<Button>('sl-button.sl-close')?.click();
 
       // Actually wait for the `sl-close` event to be emitted
       await oneEvent(el, 'sl-close');
@@ -318,6 +328,30 @@ describe('sl-dialog', () => {
 
       expect(dialog.close).not.to.have.been.called;
     });
+
+    it('should call requestClose() on the inner dialog', () => {
+      el.showModal();
+
+      spy(dialog, 'requestClose');
+
+      el.requestClose();
+
+      expect(dialog.requestClose).to.have.been.calledOnce;
+    });
+
+    it('should set returnValue on the dialog when calling close() with a value', () => {
+      el.showModal();
+      el.close('result');
+
+      expect(dialog.returnValue).to.equal('result');
+    });
+
+    it('should set returnValue on the dialog when calling requestClose() with a value', () => {
+      el.showModal();
+      el.requestClose('result');
+
+      expect(dialog.returnValue).to.equal('result');
+    });
   });
 
   describe('inheritance', () => {
@@ -398,6 +432,200 @@ describe('sl-dialog', () => {
       expect(button).to.exist;
       expect(button).to.have.text('Custom action');
       expect(button?.parentElement).to.match('slot[name="primary-actions"]');
+    });
+  });
+
+  describe('commands', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-dialog>
+          <h1 slot="title">Dialog title</h1>
+          <p>The dialog content</p>
+        </sl-dialog>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+    });
+
+    it('should call showModal() when receiving a command event with "--show-modal"', () => {
+      const showModalSpy = spy(el, 'showModal');
+      const event = new CommandEvent('command', {
+        command: '--show-modal',
+        bubbles: true,
+        cancelable: true
+      });
+
+      el.dispatchEvent(event);
+
+      expect(showModalSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
+    });
+
+    it('should call close() when receiving a command event with "--close"', () => {
+      // First open the dialog
+      el.showModal();
+      expect(dialog.open).to.be.true;
+
+      const closeSpy = spy(el, 'close');
+      const event = new CommandEvent('command', {
+        command: '--close',
+        bubbles: true,
+        cancelable: true
+      });
+
+      el.dispatchEvent(event);
+
+      expect(closeSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
+    });
+
+    it('should not react to unknown command values', () => {
+      const showModalSpy = spy(el, 'showModal'),
+        closeSpy = spy(el, 'close');
+      const event = new CommandEvent('command', {
+        command: 'toggle',
+        bubbles: true,
+        cancelable: true
+      });
+
+      el.dispatchEvent(event);
+
+      expect(showModalSpy).not.to.have.been.called;
+      expect(closeSpy).not.to.have.been.called;
+      expect(event.defaultPrevented).to.be.false;
+    });
+
+    it('should call requestClose() when receiving a command event with "--request-close"', () => {
+      el.showModal();
+      expect(dialog.open).to.be.true;
+
+      const requestCloseSpy = spy(el, 'requestClose');
+      const event = new CommandEvent('command', {
+        command: '--request-close',
+        bubbles: true,
+        cancelable: true
+      });
+
+      el.dispatchEvent(event);
+
+      expect(requestCloseSpy).to.have.been.calledOnce;
+      expect(event.defaultPrevented).to.be.true;
+    });
+  });
+
+  describe('on mobile', () => {
+    beforeEach(async () => {
+      // iPhone 15 portrait
+      await page.viewport(393, 852);
+
+      el = await fixture(html`
+        <sl-dialog>
+          <h1 slot="title">Dialog title</h1>
+          <p>The dialog content</p>
+        </sl-dialog>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+    });
+
+    afterEach(async () => {
+      if (dialog?.open) {
+        el.close();
+
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+    });
+
+    it('should add sl-dialog-enter when opening the dialog', () => {
+      el.showModal();
+
+      expect(document.documentElement).to.have.class('sl-dialog-enter');
+    });
+
+    it('should remove sl-dialog-enter when closing the dialog', async () => {
+      el.showModal();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.close();
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+      expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+    });
+
+    it('should remove sl-dialog-enter when resizing to desktop while open', async () => {
+      el.showModal();
+
+      expect(document.documentElement).to.have.class('sl-dialog-enter');
+
+      await page.viewport(1024, 768);
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+      expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+    });
+
+    it('should not toggle classes when resizing while dialog is closed', async () => {
+      await page.viewport(1024, 768);
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+      expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+    });
+  });
+
+  describe('on desktop', () => {
+    beforeEach(async () => {
+      await page.viewport(1024, 768);
+
+      el = await fixture(html`
+        <sl-dialog>
+          <h1 slot="title">Dialog title</h1>
+          <p>The dialog content</p>
+        </sl-dialog>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+    });
+
+    afterEach(async () => {
+      if (dialog?.open) {
+        el.close();
+
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+    });
+
+    it('should not add sl-dialog-leave when closing the dialog', async () => {
+      el.showModal();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.close();
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      expect(document.documentElement).not.to.have.class('sl-dialog-enter');
+      expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+    });
+
+    it('should add sl-dialog-enter when resizing to mobile while open', async () => {
+      el.showModal();
+
+      await page.viewport(393, 852);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(document.documentElement).to.have.class('sl-dialog-enter');
+      expect(document.documentElement).not.to.have.class('sl-dialog-leave');
+    });
+
+    it('should maintain overflow hidden during viewport transitions while open', async () => {
+      el.showModal();
+
+      expect(document.documentElement.style.overflow).to.equal('hidden');
+
+      await page.viewport(393, 852);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(document.documentElement.style.overflow).to.equal('hidden');
     });
   });
 });

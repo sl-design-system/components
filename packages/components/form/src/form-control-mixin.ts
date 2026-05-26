@@ -37,7 +37,9 @@ export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 
 export type FormControlValidityState = 'valid' | 'invalid' | 'pending';
 
-export type SlFormControlEvent = CustomEvent<{ unregister?(): void }> & { target: HTMLElement & FormControl };
+export type SlFormControlEvent = CustomEvent<{ unregister?(): void }> & {
+  target: HTMLElement & FormControl;
+};
 
 export type SlUpdateStateEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
 
@@ -92,11 +94,14 @@ const isNative = (element: FormControlElement): element is NativeFormControlElem
  * @slot error-text - The error text to display
  * @slot hint-text - The hint text to display
  */
-export function FormControlMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<FormControl> {
+export function FormControlMixin<T extends Constructor<ReactiveElement>>(
+  constructor: T
+): T & Constructor<FormControl> {
   class FormControlImpl extends constructor {
     /**
      * This is necessary so we can check if an element implements this Mixin, since the
      * `FormControl` class isn't a generic class we can use in an `instanceof` comparison.
+     *
      * @internal
      */
     static readonly extendsFormControlMixin = true;
@@ -105,8 +110,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     #customValidityPromise?: Promise<string>;
 
     /**
-     * The actual element that integrates with the form; either
-     * a Form Associated Custom Element, an `<input>` or a `<textarea>`.
+     * The actual element that integrates with the form; either a Form Associated Custom Element, an
+     * `<input>` or a `<textarea>`.
      */
     #formControlElement?: FormControlElement;
 
@@ -154,7 +159,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /**
      * Whether to show the validity state.
-     * @type {'valid' | 'invalid' | undefined }
+     *
+     * @type {'valid' | 'invalid' | undefined}
      */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
@@ -162,7 +168,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     @event({ name: 'sl-update-state' }) updateStateEvent!: EventEmitter<SlUpdateStateEvent>;
 
     /** @internal Emits when the validity of the form control changes. */
-    @event({ name: 'sl-update-validity' }) updateValidityEvent!: EventEmitter<SlUpdateValidityEvent>;
+    @event({ name: 'sl-update-validity' })
+    updateValidityEvent!: EventEmitter<SlUpdateValidityEvent>;
 
     /** @internal Emits when the form control can be validated. */
     @event({ name: 'sl-validate' }) validateEvent!: EventEmitter<SlValidateEvent>;
@@ -197,6 +204,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /**
      * The labels associated with the control.
+     *
      * @type {`NodeListOf<HTMLLabelElement>` | null}
      */
     get labels(): NodeListOf<HTMLLabelElement> | null {
@@ -207,7 +215,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
-    /** Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.  */
+    /**
+     * Returns the form value as used in a native `<form>`. This is always a string, File, FormData
+     * or null.
+     */
     get nativeFormValue(): FormValue {
       if (
         this.formValue === null ||
@@ -237,8 +248,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /**
      * String representing a localized (by the browser) message that describes the validation
-     * constraints that the control does not satisfy (if any). The string is empty if the control
-     * is not a candidate for constraint validation, or it satisfies its constraints.
+     * constraints that the control does not satisfy (if any). The string is empty if the control is
+     * not a candidate for constraint validation, or it satisfies its constraints.
      *
      * For true localization, see `getLocalizedValidationMessage()` instead.
      */
@@ -261,7 +272,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /**
      * Returns the current validity state.
-     * @type { 'valid' | 'invalid' | 'pending'}
+     *
+     * @type {'valid' | 'invalid' | 'pending'}
      */
     get validityState(): FormControlValidityState {
       return this.#customValidityPromise ? 'pending' : this.valid ? 'valid' : 'invalid';
@@ -318,15 +330,16 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
             this.formControlElement.removeAttribute('aria-invalid');
           }
         } else {
-          this.formControlElement.internals.ariaInvalid = this.showValidity === 'invalid' ? 'true' : null;
+          this.formControlElement.internals.ariaInvalid =
+            this.showValidity === 'invalid' ? 'true' : null;
         }
       }
     }
 
     /**
-     * Returns whether the control is valid. If the control is invalid, calling this will
-     * also cause an `invalid` event to be dispatched. After calling this, the control
-     * will also report the validity to the user.
+     * Returns whether the control is valid. If the control is invalid, calling this will also cause
+     * an `invalid` event to be dispatched. After calling this, the control will also report the
+     * validity to the user.
      */
     reportValidity(): boolean {
       // Workaround for https://github.com/whatwg/html/issues/9878
@@ -353,8 +366,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /**
-     * Updates the state of the form control. It also emits an `sl-update-state` event to
-     * signal that the state has changed.
+     * Updates the state of the form control. It also emits an `sl-update-state` event to signal
+     * that the state has changed.
+     *
      * @internal
      */
     updateState({ dirty, touched }: { dirty?: boolean; touched?: boolean }): void {
@@ -376,20 +390,22 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /**
-     * Override this in a component to update internal validity using `setCustomValidity`.
-     * This is called during the validity check. Use this for custom validation within
-     * a component. This way, only a single `sl-update-validity` will be emitted.
+     * Override this in a component to update internal validity using `setCustomValidity`. This is
+     * called during the validity check. Use this for custom validation within a component. This
+     * way, only a single `sl-update-validity` will be emitted.
+     *
      * @internal
      */
     updateInternalValidity(): void {}
 
     /**
-     * Updates the validity of the form control. This does not *change* the `validity` of the
-     * form control, it just updates the display of any validation message. Changing the validity
-     * is up to the form control itself.
+     * Updates the validity of the form control. This does not _change_ the `validity` of the form
+     * control, it just updates the display of any validation message. Changing the validity is up
+     * to the form control itself.
      *
      * NOTE: This method updates the `showValidity` property and therefore should be called from
      * `willUpdate`, never from `updated` or you will trigger a new lifecycle update.
+     *
      * @internal
      */
     updateValidity(emitValidateEvent = true): void {
@@ -422,9 +438,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /**
-     * This returns a localized validation message. It does not support all `ValidityState` properties,
-     * since some require more context than we have here. If you need to support more, you can override
-     * this method in your own form control.
+     * This returns a localized validation message. It does not support all `ValidityState`
+     * properties, since some require more context than we have here. If you need to support more,
+     * you can override this method in your own form control.
      */
     getLocalizedValidationMessage(): string {
       if (!isNative(this.formControlElement) || this.validity.valid || this.validity.customError) {
@@ -432,7 +448,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       } else if (this.validity.badInput || this.validity.typeMismatch) {
         return msg('Please enter a valid value.', { id: 'sl.form.validation.invalidValue' });
       } else if (this.validity.patternMismatch) {
-        return msg('Please match the format requested.', { id: 'sl.form.validation.patternMismatch' });
+        return msg('Please match the format requested.', {
+          id: 'sl.form.validation.patternMismatch'
+        });
       } else if (this.validity.valueMissing) {
         return msg('Please fill in this field.', { id: 'sl.form.validation.valueMissing' });
       } else {
@@ -453,9 +471,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /**
-     * Sets a custom validation message for the form control. If the message
-     * is not an empty string, that will make the control invalid. By setting it to
-     * an empty string again, you can make the control valid again.
+     * Sets a custom validation message for the form control. If the message is not an empty string,
+     * that will make the control invalid. By setting it to an empty string again, you can make the
+     * control valid again.
+     *
      * @param message The validation message.
      */
     setCustomValidity(message: string | Promise<string>): void {
@@ -464,7 +483,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         message
-          .then(result => this.setCustomValidity(result))
+          .then(result => {
+            // Set native validity directly and update without re-emitting sl-validate.
+            // The promise was already created from an sl-validate handler, so re-emitting
+            // would cause an infinite loop.
+            this.#setNativeCustomValidity(result);
+            this.updateValidity(false);
+          })
           .finally(() => {
             this.#customValidityPromise = undefined;
           });
@@ -472,6 +497,31 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         return;
       }
 
+      this.#setNativeCustomValidity(message);
+
+      // If `setCustomValidity` is called during an `updateValidity` call, do not re-enter the method
+      if (!this.#updatingValidity) {
+        this.updateValidity();
+      }
+    }
+
+    /**
+     * This tells the mixin what the form control element is. This can either be a native input or
+     * textarea element, or a Form Associated Custom Element (FACE) with an internals property.
+     *
+     * The form control element must be either the same as the FormControlMixin host (in the case of
+     * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
+     * element, which is necessary for accessibility.
+     *
+     * @param element The form control element.
+     * @internal
+     */
+    setFormControlElement(element: FormControlElement): void {
+      this.#formControlElement = element;
+      this.#formControlElement.addEventListener('invalid', this.#onInvalid);
+    }
+
+    #setNativeCustomValidity(message: string): void {
       if (isNative(this.formControlElement)) {
         this.formControlElement.setCustomValidity(message);
       } else {
@@ -481,26 +531,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
           this.formControlElement.internals.setValidity({ customError: true }, message);
         }
       }
-
-      // If `setCustomValidity` is called during an `updateValidity` call, do not re-enter the method
-      if (!this.#updatingValidity) {
-        this.updateValidity();
-      }
-    }
-
-    /**
-     * This tells the mixin what the form control element is. This can either be a native input
-     * or textarea element, or a Form Associated Custom Element (FACE) with an internals property.
-     *
-     * The form control element must be either the same as the FormControlMixin host (in the case of
-     * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
-     * element, which is necessary for accessibility.
-     * @param element The form control element.
-     * @internal
-     */
-    setFormControlElement(element: FormControlElement): void {
-      this.#formControlElement = element;
-      this.#formControlElement.addEventListener('invalid', this.#onInvalid);
     }
   }
 

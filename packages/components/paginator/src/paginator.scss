@@ -66,8 +66,8 @@
 }
 
 :host([emphasis='bold']) .current {
-  --sl-button-bg-color: var(--sl-color-background-selected-bold);
-  --sl-button-bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --sl-button-bg-color: var(--sl-color-background-primary-bold);
+  --sl-button-bg-mix-color: var(--sl-color-background-primary-interactive-bold);
   --sl-button-border-color: transparent;
   --sl-button-color: var(--sl-color-foreground-primary-onBold);
   --sl-button-bg-opacity: var(--sl-opacity-interactive-bold-idle);

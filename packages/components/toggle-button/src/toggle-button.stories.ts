@@ -8,9 +8,8 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToggleButton, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'shape' | 'size'> & {
+type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'shape' | 'size' | 'tooltip'> & {
   icons(): TemplateResult;
-  label: string;
 };
 type Story = StoryObj<Props>;
 
@@ -20,36 +19,35 @@ export default {
   title: 'Actions/Toggle button',
   args: {
     disabled: false,
-    label: 'Show settings',
-    pressed: false
+    pressed: false,
+    tooltip: 'Show settings'
   },
   argTypes: {
     fill: {
       control: 'inline-radio',
       options: ['outline', 'solid']
     },
+    icons: {
+      table: { disable: true }
+    },
     shape: {
       control: 'inline-radio',
       options: ['pill', 'square']
-    },
-    icons: {
-      table: { disable: true }
     },
     size: {
       control: 'inline-radio',
       options: ['sm', 'md', 'lg']
     }
   },
-  render: ({ disabled, fill, icons, label, pressed, shape, size }) => {
+  render: ({ disabled, fill, icons, pressed, shape, size, tooltip }) => {
     return html`
       <sl-toggle-button
         ?disabled=${disabled}
         ?pressed=${pressed}
-        aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-      >
+        tooltip=${ifDefined(tooltip)}>
         ${icons?.()}
       </sl-toggle-button>
     `;
@@ -95,7 +93,7 @@ export const Errors: Story = {
         <strong>Note:</strong> these errors (button turning red and console errors) only show up
         when running on localhost / in development mode.
       </p>
-      <sl-toggle-button aria-label="Show settings" fill="outline">
+      <sl-toggle-button tooltip="Show settings" fill="outline">
         <sl-icon name="pinata" slot="default"></sl-icon>
       </sl-toggle-button>
 
@@ -103,7 +101,7 @@ export const Errors: Story = {
         Setting the same icon for both states as "workaround" will not work, you will get the same
         error
       </p>
-      <sl-toggle-button aria-label="Show settings" fill="outline">
+      <sl-toggle-button tooltip="Show settings" fill="outline">
         <sl-icon name="far-gear" slot="default"></sl-icon>
         <sl-icon name="far-gear" slot="pressed"></sl-icon>
       </sl-toggle-button>
@@ -117,84 +115,76 @@ export const All: Story = {
       return html`
         <div>
           <sl-toggle-button
-            aria-label="Show settings"
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
           <sl-toggle-button
-            aria-label="Show settings"
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
             shape="pill"
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
         </div>
         <div>
           <sl-toggle-button
-            aria-label="Show settings"
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
           <sl-toggle-button
-            aria-label="Show settings"
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"
             size=${ifDefined(options.size)}
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
         </div>
         <div>
           <sl-toggle-button
-            aria-label="Show settings"
             disabled
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
           <sl-toggle-button
-            aria-label="Show settings"
             disabled
             shape="pill"
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
         </div>
         <div>
           <sl-toggle-button
-            aria-label="Show settings"
             disabled
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
           <sl-toggle-button
-            aria-label="Show settings"
             disabled
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"
             size=${ifDefined(options.size)}
-          >
+            tooltip="Show settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>

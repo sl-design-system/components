@@ -70,17 +70,16 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
                 @sl-change=${this.#onChange}
                 .checked=${this.selected === 'all'}
                 .indeterminate=${this.selected === 'some'}
-                size="sm"
-              ></sl-checkbox>
+                size="sm"></sl-checkbox>
             </div>
           `
         : nothing}
       <sl-button
         @click=${this.#onClick}
+        aria-expanded=${this.collapsed ? 'false' : 'true'}
         aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
         fill="ghost"
-        size="sm"
-      >
+        size="sm">
         <sl-icon name="chevron-down"></sl-icon>
       </sl-button>
       <div part="wrapper">

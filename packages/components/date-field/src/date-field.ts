@@ -96,6 +96,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The index of the active date part for roving tabindex. */
   #rovingIndex = 0;
 
+  /** Guard to prevent concurrent #openDialog() calls. */
+  #opening = false;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -387,6 +390,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @click=${this.#onDialogClick}
         @close=${this.#onClose}
         @keydown=${this.#onKeydown}
+        aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
         id="dialog">
         ${this.calendarVisible
           ? html`
@@ -545,12 +549,25 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   async #openDialog(): Promise<void> {
-    this.calendarVisible = true;
-    await this.updateComplete;
+    if (this.#opening) {
+      return;
+    }
 
-    this.dialog?.showModal();
-    this.requestUpdate();
-    requestAnimationFrame(() => this.calendar?.focus());
+    this.#opening = true;
+
+    try {
+      this.calendarVisible = true;
+      await this.updateComplete;
+
+      if (!this.dialog?.open) {
+        this.dialog?.showModal();
+        this.requestUpdate();
+      }
+
+      requestAnimationFrame(() => this.calendar?.focus());
+    } finally {
+      this.#opening = false;
+    }
   }
 
   #onButtonClick(): void {
@@ -869,8 +886,19 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Handles clicks on the dialog backdrop to implement light dismiss. */
   #onDialogClick(event: MouseEvent): void {
-    // Clicks on the backdrop target the dialog element itself
-    if (event.target === this.dialog) {
+    if (!this.dialog || event.target !== this.dialog) {
+      return;
+    }
+
+    const rect = this.dialog.getBoundingClientRect();
+
+    // Check if the user clicked on the backdrop
+    if (
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom
+    ) {
       this.hidePicker();
     }
   }

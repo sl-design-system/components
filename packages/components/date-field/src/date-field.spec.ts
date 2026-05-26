@@ -683,11 +683,39 @@ describe('sl-date-field', () => {
     it('should close the dialog when clicking the backdrop', async () => {
       expect(dialog.open).to.be.true;
 
-      // Simulate a click on the backdrop (the dialog element itself is the target)
-      dialog.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+      const rect = dialog.getBoundingClientRect();
+
+      // Simulate a click outside the dialog rect (on the backdrop)
+      dialog.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          composed: true,
+          clientX: rect.left - 10,
+          clientY: rect.top - 10
+        })
+      );
       await el.updateComplete;
 
       expect(dialog.open).to.be.false;
+    });
+
+    it('should not close the dialog when clicking inside it', async () => {
+      expect(dialog.open).to.be.true;
+
+      const rect = dialog.getBoundingClientRect();
+
+      // Simulate a click inside the dialog rect
+      dialog.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          composed: true,
+          clientX: rect.left + rect.width / 2,
+          clientY: rect.top + rect.height / 2
+        })
+      );
+      await el.updateComplete;
+
+      expect(dialog.open).to.be.true;
     });
 
     it('should keep the dialog open when Tab is pressed within the calendar', async () => {
@@ -706,6 +734,25 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(dialog.open).to.be.true;
+    });
+
+    it('should only open the dialog once when showPicker is called multiple times rapidly', async () => {
+      // Close the dialog first (it was opened in beforeEach)
+      el.hidePicker();
+      await el.updateComplete;
+      expect(dialog.open).to.be.false;
+
+      // Call showPicker multiple times rapidly
+      el.showPicker();
+      el.showPicker();
+      el.showPicker();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog.open).to.be.true;
+
+      // Verify there's only one calendar rendered (not multiple)
+      const calendars = el.renderRoot.querySelectorAll('sl-calendar');
+      expect(calendars).to.have.length(1);
     });
   });
 

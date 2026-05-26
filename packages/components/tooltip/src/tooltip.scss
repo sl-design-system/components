@@ -5,7 +5,7 @@
   box-sizing: border-box;
   color: var(--sl-color-foreground-inverted-plain);
   font-weight: var(--sl-text-new-typeset-fontWeight-regular);
-  margin: var(--sl-size-150);
+  margin: var(--sl-size-100);
   opacity: 0;
   padding: var(--sl-size-100) var(--sl-size-150);
   position-area: top;
@@ -15,19 +15,19 @@
 
   @media (prefers-reduced-motion: no-preference) {
     transition-duration: 150ms;
-    transition-property: opacity;
+    transition-property: display, opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
   }
 }
 
 :host(:popover-open) {
+  opacity: 1;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+
   @starting-style {
     display: block;
     opacity: 0;
   }
-
-  opacity: 1;
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 [part='hover-bridge'] {

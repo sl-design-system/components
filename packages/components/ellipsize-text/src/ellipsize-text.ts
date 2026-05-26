@@ -3,7 +3,8 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { state } from 'lit/decorators.js';
 import styles from './ellipsize-text.scss.js';
 
 declare global {
@@ -30,8 +31,8 @@ export class EllipsizeText extends ScopedElementsMixin(LitElement) {
   /** Observe size changes. */
   #observer = new ResizeObserver(() => this.#onResize());
 
-  /** The lazy tooltip. */
-  #tooltip?: Tooltip | (() => void);
+  /** @internal Whether the tooltip is visible. */
+  @state() tooltip?: boolean;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -42,40 +43,19 @@ export class EllipsizeText extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
-    if (this.#tooltip instanceof Tooltip) {
-      this.#tooltip.remove();
-    } else if (this.#tooltip) {
-      this.#tooltip();
-    }
-
-    this.#tooltip = undefined;
-
     super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`
+      <slot id="slot"></slot>
+      ${this.tooltip
+        ? html`<sl-tooltip for="slot">${this.textContent?.trim()}</sl-tooltip>`
+        : nothing}
+    `;
   }
 
   #onResize(): void {
-    if (this.offsetWidth < this.scrollWidth) {
-      this.#tooltip ||= Tooltip.lazy(
-        this,
-        tooltip => {
-          this.#tooltip = tooltip;
-          tooltip.position = 'bottom';
-          tooltip.textContent = this.textContent?.trim() || '';
-        },
-        { context: this.shadowRoot! }
-      );
-    } else if (this.#tooltip instanceof Tooltip) {
-      this.removeAttribute('aria-describedby');
-
-      this.#tooltip.remove();
-      this.#tooltip = undefined;
-    } else if (this.#tooltip) {
-      this.#tooltip();
-      this.#tooltip = undefined;
-    }
+    this.tooltip = this.offsetWidth < this.scrollWidth;
   }
 }

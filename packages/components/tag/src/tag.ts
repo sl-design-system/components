@@ -60,15 +60,15 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
   #observer = new ResizeObserver(() => this.#onResize());
 
-  /** Either an instanceof of Tooltip, or a cleanup function. */
-  #tooltip?: Tooltip | (() => void);
-
   /**
    * Whether the tag component is disabled, when set no interaction is possible.
    *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** @internal Whether the tooltip is visible. */
+  @state() tooltip?: boolean;
 
   /** @internal The label of the tag component. */
   @state() label = '';
@@ -105,14 +105,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-
-    if (this.#tooltip instanceof Tooltip) {
-      this.#tooltip?.remove();
-    } else if (this.#tooltip) {
-      this.#tooltip();
-    }
-
-    this.#tooltip = undefined;
 
     super.disconnectedCallback();
   }
@@ -151,11 +143,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               @click=${this.#onRemove}
               ?disabled=${this.disabled}
               aria-hidden="true"
+              id="button"
               part="button"
-              tabindex="-1"
-            >
+              tabindex="-1">
               <sl-icon name="xmark"></sl-icon>
             </button>
+            ${this.tooltip ? html`<sl-tooltip for="button">${this.label}</sl-tooltip>` : nothing}
           `
         : nothing}
     `;
@@ -183,26 +176,11 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   #onResize(): void {
     const slot = this.renderRoot.querySelector('slot');
 
-    if (slot && slot.clientWidth < slot.scrollWidth) {
-      this.#tooltip ||= Tooltip.lazy(
-        this,
-        tooltip => {
-          this.#tooltip = tooltip;
-          tooltip.textContent = this.label;
-        },
-        { context: this.shadowRoot! }
-      );
-    } else if (this.#tooltip instanceof Tooltip) {
-      this.#tooltip.remove();
-      this.#tooltip = undefined;
-    } else if (this.#tooltip) {
-      this.#tooltip();
-      this.#tooltip = undefined;
-    }
+    this.tooltip = !!slot && slot.clientWidth < slot.scrollWidth;
 
     // If the contents of the tag overflows, make sure it is keyboard focusable,
     // so the user can tab to it.
-    if (!this.disabled && (this.removable || this.#tooltip)) {
+    if (!this.disabled && (this.removable || this.tooltip)) {
       this.setAttribute('tabindex', '0');
     } else if (!this.hasAttribute('aria-labelledby')) {
       this.removeAttribute('tabindex');

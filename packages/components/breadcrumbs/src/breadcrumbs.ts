@@ -210,8 +210,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                           isMobile() || this.hideHomeLabel
                             ? msg('Home', { id: 'sl.breadcrumbs.home' })
                             : undefined
-                        )}
-                      >
+                        )}>
                         <sl-icon name="home-blank"></sl-icon>
                         ${isMobile() || this.hideHomeLabel
                           ? ''
@@ -230,8 +229,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                   aria-label=${msg('More breadcrumbs', { id: 'sl.breadcrumbs.moreBreadcrumbs' })}
                   fill="ghost"
                   id="button"
-                  variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
-                >
+                  variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">
@@ -360,18 +358,18 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       if (link.hasAttribute('data-has-tooltip')) {
         return;
       } else {
-        const cleanup = Tooltip.lazy(
-          link,
-          tooltip => {
-            tooltip.position = 'bottom';
-            tooltip.textContent = link.textContent?.trim() || '';
-            requestAnimationFrame(() => {
-              tooltipsSlot.assign(...tooltipsSlot.assignedElements(), tooltip);
-            });
-          },
-          { context: this.shadowRoot! }
-        );
-        this.#tooltipCleanupFunctions.set(link, cleanup);
+        // const cleanup = Tooltip.lazy(
+        //   link,
+        //   tooltip => {
+        //     tooltip.position = 'bottom';
+        //     tooltip.textContent = link.textContent?.trim() || '';
+        //     requestAnimationFrame(() => {
+        //       tooltipsSlot.assign(...tooltipsSlot.assignedElements(), tooltip);
+        //     });
+        //   },
+        //   { context: this.shadowRoot! }
+        // );
+        // this.#tooltipCleanupFunctions.set(link, cleanup);
         link.dataset['hasTooltip'] = 'true';
       }
     } else if (link.hasAttribute('data-has-tooltip') && link.hasAttribute('aria-describedby')) {

@@ -2,7 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { type ToolBar } from '@sl-design-system/tool-bar';
-import { Tooltip, tooltip } from '@sl-design-system/tooltip';
+import { Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -55,8 +55,7 @@ describe('sl-grid', () => {
           .items=${[
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
-          ]}
-        >
+          ]}>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -191,12 +190,11 @@ describe('sl-grid', () => {
     it('should show a lazy tooltip on a bulk action button in the floating action bar', async () => {
       await mountMultipleSelectGrid(html`
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          tooltip="I am a tooltip"
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -228,8 +226,7 @@ describe('sl-grid', () => {
           aria-describedby="bulk-action-tooltip"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -270,8 +267,7 @@ describe('sl-grid', () => {
           aria-describedby="bulk-action-tooltip"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -301,12 +297,11 @@ describe('sl-grid', () => {
     it('should switch between the cancel tooltip and a bulk action tooltip in the floating action bar', async () => {
       await mountMultipleSelectGrid(html`
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
-          variant="inverted"
-        >
+          tooltip="I am a tooltip"
+          variant="inverted">
           Action 2
         </sl-button>
       `);
@@ -360,8 +355,7 @@ describe('sl-grid', () => {
             { firstName: 'Alice', lastName: 'Johnson' }
           ]}
           selects="single"
-          row-action="select"
-        >
+          row-action="select">
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -484,8 +478,7 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          row-action="activate"
-        >
+          row-action="activate">
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
@@ -553,8 +546,7 @@ describe('sl-grid', () => {
             { firstName: 'John', lastName: 'Doe' },
             { firstName: 'Jane', lastName: 'Smith' }
           ]}
-          row-action="select"
-        >
+          row-action="select">
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
@@ -651,8 +643,7 @@ describe('sl-grid', () => {
             { firstName: 'Sophie', lastName: 'Müller', email: 'sophie.muller@school1.edu' },
             { firstName: 'Luca', lastName: 'van Dijk', email: 'luca.vandijk@school4.edu' },
             { firstName: 'Clara', lastName: 'de Vries', email: 'clara.devries@school4.edu' }
-          ]}
-        >
+          ]}>
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="email"></sl-grid-column>

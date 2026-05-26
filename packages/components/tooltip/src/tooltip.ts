@@ -2,10 +2,13 @@ import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from
 import { property, state } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
 
-let nextUniqueId = 0;
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-tooltip': Tooltip;
+  }
+}
 
-const SHOW_DELAY = 150,
-  HIDE_DELAY = 0;
+let nextUniqueId = 0;
 
 /**
  * A tooltip component that can be used to display additional information about an element when the
@@ -21,9 +24,18 @@ const SHOW_DELAY = 150,
  * @slot - The content of the tooltip.
  *
  * @csspart arrow - The arrow element that points to the anchor.
- * @csspart safe-triangle - An invisible element used to extend the hover area of the tooltip.
+ * @csspart hover-bridge - An invisible element used to extend the hover area of the tooltip.
  */
 export class Tooltip extends LitElement {
+  /**
+   * The delay in milliseconds before showing the tooltip when the mouse hovers over the anchor
+   * element.
+   */
+  static hoverShowDelay: number = 150;
+
+  /** The delay in milliseconds before hiding the tooltip when the mouse leaves the anchor element. */
+  static hoverHideDelay: number = 0;
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -138,7 +150,7 @@ export class Tooltip extends LitElement {
     return html`
       <slot></slot>
       <div part="arrow"></div>
-      <div part="hover-extender"></div>
+      <div part="hover-bridge"></div>
     `;
   }
 
@@ -191,7 +203,7 @@ export class Tooltip extends LitElement {
 
       this.#hoverTimeout = setTimeout(() => {
         this.showPopover();
-      }, SHOW_DELAY);
+      }, Tooltip.hoverShowDelay);
     }
   };
 
@@ -209,14 +221,14 @@ export class Tooltip extends LitElement {
       if (!(anchorHovered || tooltipHovered)) {
         this.#hoverTimeout = setTimeout(() => {
           this.hidePopover();
-        }, HIDE_DELAY);
+        }, Tooltip.hoverHideDelay);
       }
     }
   };
 
   #onToggle = (event: ToggleEvent): void => {
     if (event.newState === 'open' && this.anchor) {
-      this.#positionHoverExtender(this.anchor);
+      this.#positionHoverBridge(this.anchor);
     }
   };
 
@@ -246,9 +258,9 @@ export class Tooltip extends LitElement {
     element[ariaProperty] = refs.filter((ref: Element) => ref !== this);
   }
 
-  #positionHoverExtender(anchor: Element): void {
-    const extender = this.renderRoot.querySelector<HTMLElement>('[part="hover-extender"]');
-    if (!extender) {
+  #positionHoverBridge(anchor: Element): void {
+    const bridge = this.renderRoot.querySelector<HTMLElement>('[part="hover-bridge"]');
+    if (!bridge) {
       return;
     }
 
@@ -299,15 +311,15 @@ export class Tooltip extends LitElement {
         `${width}px ${t.bottom - top}px, ${width}px ${t.top - top}px)`;
     } else {
       // Tooltip and anchor overlap; no bridge needed.
-      extender.style.display = 'none';
+      bridge.style.display = 'none';
       return;
     }
 
-    extender.style.left = `${left}px`;
-    extender.style.top = `${top}px`;
-    extender.style.width = `${width}px`;
-    extender.style.height = `${height}px`;
-    extender.style.clipPath = polygon;
+    bridge.style.left = `${left}px`;
+    bridge.style.top = `${top}px`;
+    bridge.style.width = `${width}px`;
+    bridge.style.height = `${height}px`;
+    bridge.style.clipPath = polygon;
   }
 
   #updateAnchor(): void {

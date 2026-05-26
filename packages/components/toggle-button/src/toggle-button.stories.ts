@@ -20,7 +20,7 @@ export default {
   args: {
     disabled: false,
     pressed: false,
-    tooltip: 'Show settings'
+    tooltip: 'Toggle settings'
   },
   argTypes: {
     fill: {
@@ -93,7 +93,7 @@ export const Errors: Story = {
         <strong>Note:</strong> these errors (button turning red and console errors) only show up
         when running on localhost / in development mode.
       </p>
-      <sl-toggle-button tooltip="Show settings" fill="outline">
+      <sl-toggle-button tooltip="Toggle settings" fill="outline">
         <sl-icon name="pinata" slot="default"></sl-icon>
       </sl-toggle-button>
 
@@ -101,7 +101,7 @@ export const Errors: Story = {
         Setting the same icon for both states as "workaround" will not work, you will get the same
         error
       </p>
-      <sl-toggle-button tooltip="Show settings" fill="outline">
+      <sl-toggle-button tooltip="Toggle settings" fill="outline">
         <sl-icon name="far-gear" slot="default"></sl-icon>
         <sl-icon name="far-gear" slot="pressed"></sl-icon>
       </sl-toggle-button>
@@ -117,7 +117,7 @@ export const All: Story = {
           <sl-toggle-button
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -125,7 +125,7 @@ export const All: Story = {
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
             shape="pill"
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -135,7 +135,7 @@ export const All: Story = {
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -144,7 +144,7 @@ export const All: Story = {
             pressed
             shape="pill"
             size=${ifDefined(options.size)}
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -154,7 +154,7 @@ export const All: Story = {
             disabled
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -163,7 +163,7 @@ export const All: Story = {
             shape="pill"
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -174,7 +174,7 @@ export const All: Story = {
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -184,7 +184,7 @@ export const All: Story = {
             pressed
             shape="pill"
             size=${ifDefined(options.size)}
-            tooltip="Show settings">
+            tooltip="Toggle settings">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>

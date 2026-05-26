@@ -16,6 +16,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './toggle-button.scss.js';
 
 declare global {
@@ -152,6 +153,11 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    let ariaType: 'description' | 'label' | undefined;
+    if (this.tooltip) {
+      ariaType = this.#isIconOnly() ? 'label' : 'description';
+    }
+
     return html`
       <div id="wrapper" part="wrapper">
         <slot @slotchange=${this.#onIconSlotChange} name="default"></slot>
@@ -160,7 +166,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
-      ${this.tooltip ? html`<sl-tooltip id="tooltip">${this.tooltip}</sl-tooltip>` : nothing}
+      ${this.tooltip
+        ? html`<sl-tooltip for="wrapper" type=${ifDefined(ariaType)}>${this.tooltip}</sl-tooltip>`
+        : nothing}
     `;
   }
 

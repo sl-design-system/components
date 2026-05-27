@@ -327,6 +327,18 @@ export class Tooltip extends LitElement {
 
   #updateAnchor(): void {
     if (!this.for) {
+      const oldAnchor = this.anchor;
+      if (oldAnchor) {
+        this.#removeAriaRelation(oldAnchor, this.type);
+        oldAnchor.removeEventListener('blur', this.#onBlur, { capture: true });
+        oldAnchor.removeEventListener('click', this.#onClick);
+        oldAnchor.removeEventListener('focus', this.#onFocus, { capture: true });
+        oldAnchor.removeEventListener('mouseover', this.#onMouseOver);
+        oldAnchor.removeEventListener('mouseout', this.#onMouseOut);
+        oldAnchor.style.anchorName = '';
+        this.style.positionAnchor = '';
+      }
+
       this.anchor = undefined;
       return;
     }

@@ -323,20 +323,31 @@ export class Tooltip extends LitElement {
     bridge.style.width = `${width}px`;
     bridge.style.height = `${height}px`;
     bridge.style.clipPath = polygon;
+    bridge.style.display = '';
+  }
+
+  #cleanupAnchor(anchor: HTMLElement, type: 'description' | 'label' | undefined): void {
+    this.#removeAriaRelation(anchor, type);
+
+    anchor.removeEventListener('blur', this.#onBlur, { capture: true });
+    anchor.removeEventListener('click', this.#onClick);
+    anchor.removeEventListener('focus', this.#onFocus, { capture: true });
+    anchor.removeEventListener('mouseover', this.#onMouseOver);
+    anchor.removeEventListener('mouseout', this.#onMouseOut);
+
+    // Only clear the anchorName if it was set by us.
+    if (anchor.style.anchorName === this.style.positionAnchor) {
+      anchor.style.anchorName = '';
+    }
+
+    this.style.positionAnchor = '';
   }
 
   #updateAnchor(): void {
     if (!this.for) {
       const oldAnchor = this.anchor;
       if (oldAnchor) {
-        this.#removeAriaRelation(oldAnchor, this.type);
-        oldAnchor.removeEventListener('blur', this.#onBlur, { capture: true });
-        oldAnchor.removeEventListener('click', this.#onClick);
-        oldAnchor.removeEventListener('focus', this.#onFocus, { capture: true });
-        oldAnchor.removeEventListener('mouseover', this.#onMouseOver);
-        oldAnchor.removeEventListener('mouseout', this.#onMouseOut);
-        oldAnchor.style.anchorName = '';
-        this.style.positionAnchor = '';
+        this.#cleanupAnchor(oldAnchor, this.type);
       }
 
       this.anchor = undefined;
@@ -374,15 +385,7 @@ export class Tooltip extends LitElement {
     }
 
     if (oldAnchor) {
-      this.#removeAriaRelation(oldAnchor, this.type);
-
-      oldAnchor.removeEventListener('blur', this.#onBlur, { capture: true });
-      oldAnchor.removeEventListener('click', this.#onClick);
-      oldAnchor.removeEventListener('focus', this.#onFocus, { capture: true });
-      oldAnchor.removeEventListener('mouseover', this.#onMouseOver);
-      oldAnchor.removeEventListener('mouseout', this.#onMouseOut);
-      oldAnchor.style.anchorName = '';
-      this.style.positionAnchor = '';
+      this.#cleanupAnchor(oldAnchor, this.type);
     }
 
     this.anchor = newAnchor;

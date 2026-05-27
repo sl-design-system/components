@@ -148,6 +148,18 @@ export const Disabled: Story = {
   }
 };
 
+export const DoubleLabel: Story = {
+  render: () => html`
+    <p id="label">
+      This button has two labels: this text and the tooltip set via the
+      <code>tooltip</code> property.
+    </p>
+    <sl-button aria-labelledby="label" tooltip="Hello world">
+      <sl-icon name="far-plus"></sl-icon>
+    </sl-button>
+  `
+};
+
 export const IconOnly: Story = {
   render: ({ fill, shape, size, variant }) => {
     return html`
@@ -224,31 +236,31 @@ export const All: Story = {
 
         <span>Small</span>
         <sl-button fill="outline" size="sm">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" size="sm">
+        <sl-button tooltip="Add" fill="outline" size="sm">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill" size="sm">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" shape="pill" size="sm">
+        <sl-button tooltip="Add" fill="outline" shape="pill" size="sm">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
 
         <span>Medium</span>
         <sl-button fill="outline">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline">
+        <sl-button tooltip="Add" fill="outline">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" shape="pill">
+        <sl-button tooltip="Add" fill="outline" shape="pill">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
 
         <span>Large</span>
         <sl-button fill="outline" size="lg">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" size="lg">
+        <sl-button tooltip="Add" fill="outline" size="lg">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill" size="lg">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" shape="pill" size="lg">
+        <sl-button tooltip="Add" fill="outline" shape="pill" size="lg">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
       </section>
@@ -512,13 +524,4 @@ export const All: Story = {
       </section>
     `;
   }
-};
-
-export const DoubleLabel: Story = {
-  render: () => html`
-    <p id="label">This is the button's label as well.</p>
-    <sl-button aria-labelledby="label" tooltip="Hello world">
-      <sl-icon name="far-plus"></sl-icon>
-    </sl-button>
-  `
 };

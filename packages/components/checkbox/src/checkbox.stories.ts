@@ -237,11 +237,7 @@ export const Indeterminate: StoryObj = {
 export const NoVisibleLabel: StoryObj = {
   render: () => {
     return html`
-      <p style="margin: 0 0 1rem 0">
-        This checkbox has no internal or external label. It only has an
-        <code>aria-label</code> attribute. That attribute is automatically applied to the
-        <code>input</code> element.
-      </p>
+      <p style="margin: 0 0 1rem 0">This checkbox has no label. It uses a tooltip as the label.</p>
       <sl-checkbox id="checkbox"></sl-checkbox>
       <sl-tooltip for="checkbox">Toggle me</sl-tooltip>
     `;

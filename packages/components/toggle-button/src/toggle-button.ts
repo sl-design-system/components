@@ -199,6 +199,14 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       }
     }
 
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.setAttribute('aria-disabled', 'true');
+      } else {
+        this.removeAttribute('aria-disabled');
+      }
+    }
+
     if (changes.has('pressed')) {
       this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
     }
@@ -226,7 +234,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.disabled || this.ariaDisabled === 'true') {
       event.preventDefault();
       event.stopPropagation();
 

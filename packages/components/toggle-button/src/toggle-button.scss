@@ -59,8 +59,8 @@
   color: var(--sl-color-foreground-selected-onBold);
 }
 
-:host([disabled]),
-:host([disabled][pressed]) {
+:host(:where([disabled], [aria-disabled='true'])),
+:host(:where([disabled], [aria-disabled='true'])[pressed]) {
   --_bg-color: transparent;
   --_bg-mix-color: transparent;
 
@@ -70,7 +70,7 @@
   pointer-events: none;
 }
 
-:host([disabled][pressed]) {
+:host(:where([disabled], [aria-disabled='true'])[pressed]) {
   --_bg-color: var(--sl-color-background-disabled);
 }
 

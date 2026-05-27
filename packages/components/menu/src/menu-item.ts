@@ -104,6 +104,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('disabled')) {
       this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+      if (this.disabled) {
+        this.setAttribute('aria-disabled', 'true');
+      } else {
+        this.removeAttribute('aria-disabled');
+      }
     }
 
     if (changes.has('shortcut')) {

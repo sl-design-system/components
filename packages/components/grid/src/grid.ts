@@ -594,15 +594,26 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   renderItemRow(item: ListDataSourceDataItem<T>, index: number): TemplateResult {
     const rows = this.#headerRows,
+      active = this.activeRow === item.data,
       selected = this.dataSource?.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
-        ...(this.activeRow === item.data ? ['active'] : []),
+        ...(active ? ['active'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
-      ];
+      ],
+      ariaSelected =
+        this.selects === 'single'
+          ? selected
+            ? 'true'
+            : 'false'
+          : this.rowAction === 'activate'
+            ? active
+              ? 'true'
+              : 'false'
+            : nothing;
 
     return html`
       <tr
@@ -613,6 +624,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         aria-rowindex=${index + 1}
+        aria-selected=${ariaSelected}
         index=${index}
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}

@@ -105,6 +105,14 @@ describe('sl-grid', () => {
 
       expect(rowIndices).to.deep.equal(['1', '2']);
     });
+
+    it('should not have aria-selected when selects is not set', () => {
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr');
+
+      rows.forEach(row => {
+        expect(row).not.to.have.attribute('aria-selected');
+      });
+    });
   });
 
   describe('multiple select', () => {
@@ -517,6 +525,42 @@ describe('sl-grid', () => {
 
       expect(el.dataSource?.selects).to.equal('single');
     });
+
+    it('should have aria-selected="false" on all rows by default', () => {
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr');
+
+      rows.forEach(row => {
+        expect(row).to.have.attribute('aria-selected', 'false');
+      });
+    });
+
+    it('should set aria-selected="true" on the selected row', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+      expect(row).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should set aria-selected="false" on deselected rows when selection changes', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type'),
+        secondRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:nth-of-type(2)');
+
+      expect(firstRow).to.have.attribute('aria-selected', 'false');
+      expect(secondRow).to.have.attribute('aria-selected', 'true');
+    });
   });
 
   describe('row action activate', () => {
@@ -584,6 +628,33 @@ describe('sl-grid', () => {
 
       expect(onActiveRowChange).to.have.been.calledOnce;
       expect(onActiveRowChange.firstCall.args[0].detail).to.deep.equal(el.items!.at(1));
+    });
+
+    it('should have aria-selected="false" on all rows by default', () => {
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr');
+
+      rows.forEach(row => {
+        expect(row).to.have.attribute('aria-selected', 'false');
+      });
+    });
+
+    it('should set aria-selected="true" on the active row', async () => {
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+      expect(row).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should set aria-selected="false" when the row is deactivated', async () => {
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+      expect(row).to.have.attribute('aria-selected', 'false');
     });
   });
 

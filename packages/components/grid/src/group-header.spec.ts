@@ -3,7 +3,11 @@ import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GridGroupHeader } from './group-header.js';
 
-customElements.define('sl-grid-group-header', GridGroupHeader);
+try {
+  customElements.define('sl-grid-group-header', GridGroupHeader);
+} catch {
+  // empty
+}
 
 describe('sl-grid-group-header', () => {
   let el: GridGroupHeader;

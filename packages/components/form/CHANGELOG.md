@@ -1,10 +1,22 @@
 # @sl-design-system/form
 
+## 1.4.1
+
+### Patch Changes
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Fix `sl-label` not updating when the locale changes. The label now only moves text and element nodes into the `<label>` element, leaving Lit's internal comment markers in place so the parent component can properly re-render translated content.
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
 ## 1.4.0
 
 ### Minor Changes
 
 - [#3248](https://github.com/sl-design-system/components/pull/3248) [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f) - Standardized warning and error icons:
+
   - Changed `warning` icons from `octagon-exclamation-solid` to `triangle-exclamation-solid` in Callout, Inline message, and Progress bar.
   - Changed `circle-exclamation-solid` to `triangle-exclamation-solid` in validation messages in the Form field.
   - Changed `error/danger` icons from `diamond-exclamation-solid` or `octagon-exclamation-solid` to the new `octagon-xmark-solid` icon in Callout, Inline message, and Progress bar. Make sure to update your theme if you update any of these components.

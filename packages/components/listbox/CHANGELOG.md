@@ -1,5 +1,11 @@
 # @sl-design-system/listbox
 
+## 0.1.7
+
+### Patch Changes
+
+- [#3297](https://github.com/sl-design-system/components/pull/3297) [`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a) - Align options and group styling with Figma.
+
 ## 0.1.6
 
 ### Patch Changes
@@ -56,6 +62,7 @@
 ### Patch Changes
 
 - [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Add ability to render grouped items using lit-virtualizer:
+
   - New `optionGroupPath` property to specify the path to the group name in the option object
   - New `<sl-option-group-header>` component to render the group header
   - Add `items` property for advanced customization of how options are rendered (used in combobox)

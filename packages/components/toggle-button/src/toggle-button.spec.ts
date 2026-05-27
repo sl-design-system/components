@@ -212,6 +212,21 @@ describe('sl-toggle-button', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el).not.to.have.attribute('aria-disabled');
     });
+
+    it('should preserve a consumer-provided aria-disabled value when re-enabled', async () => {
+      el = await fixture(html`
+        <sl-toggle-button aria-disabled="true" disabled>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
+    });
   });
 
   describe('aria-disabled', () => {

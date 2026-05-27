@@ -58,6 +58,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** @internal Whether the `aria-label` attribute is being changed internally. */
   #isInternalAriaLabelUpdate = false;
 
+  /** @internal The author-provided `aria-disabled` value before disabled syncing. */
+  private ariaDisabledDefinedByUser?: string | null;
+
   /** @internal The default (non-pressed) icon. */
   @state() defaultIcon?: Icon;
 
@@ -201,9 +204,14 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('disabled')) {
       if (this.disabled) {
+        this.ariaDisabledDefinedByUser ??= this.getAttribute('aria-disabled');
         this.setAttribute('aria-disabled', 'true');
-      } else {
+      } else if (this.ariaDisabledDefinedByUser === null) {
         this.removeAttribute('aria-disabled');
+        this.ariaDisabledDefinedByUser = undefined;
+      } else if (this.ariaDisabledDefinedByUser !== undefined) {
+        this.setAttribute('aria-disabled', this.ariaDisabledDefinedByUser);
+        this.ariaDisabledDefinedByUser = undefined;
       }
     }
 

@@ -606,7 +606,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
-        aria-rowindex=${index}
+        aria-rowindex=${index + 1}
         index=${index}
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
@@ -624,7 +624,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       );
 
     return html`
-      <tr part="group" index=${index}>
+      <tr aria-rowindex=${index + 1} part="group" index=${index}>
         <td part="group-header">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}

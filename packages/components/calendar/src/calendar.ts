@@ -151,8 +151,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
         min=${ifDefined(this.min?.toISOString())}
-        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}
-      ></sl-select-day>
+        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}></sl-select-day>
       ${choose(this.mode, [
         [
           'month',
@@ -165,8 +164,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               .month=${this.month}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
-              min=${ifDefined(this.min?.toISOString())}
-            ></sl-select-month>
+              min=${ifDefined(this.min?.toISOString())}></sl-select-month>
           `
         ],
         [
@@ -178,8 +176,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               .selected=${this.selected}
               .year=${this.month}
               max=${ifDefined(this.max?.toISOString())}
-              min=${ifDefined(this.min?.toISOString())}
-            ></sl-select-year>
+              min=${ifDefined(this.min?.toISOString())}></sl-select-year>
           `
         ]
       ])}
@@ -221,14 +218,24 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  /** Sets `ariaDescribedByElements` on the button that receives focus inside the calendar grid. */
+  /**
+   * Adds the helper-text to `ariaDescribedByElements` on the first button that receives focus
+   * inside the calendar grid.
+   *
+   * This is an accessibility hack necessary because of
+   * https://github.com/nvaccess/nvda/issues/13392. NVDA automatically switches to browse mode when
+   * detecting interactive elements inside grid cells. Because of that focus is not moved to another
+   * day and the ARIA descriptions aren't read. As a workaround, we're adding the helper text to the
+   * first button that receives focus, so NVDA will at least read the helper text once. Once this
+   * NVDA issue is resolved, we can remove this workaround and add the helper text to the min/max
+   * day as expected.
+   */
   #onFocusIn(event: FocusEvent): void {
     if (!this.min && !this.max) {
       return;
     }
 
     const helperText = this.renderRoot.querySelector('.helper-text');
-
     if (!helperText) {
       return;
     }

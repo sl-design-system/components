@@ -16,6 +16,8 @@ declare global {
 /**
  * Small utility component to add ellipsis to text that overflows its container. It also adds a
  * tooltip with the full text.
+ *
+ * @slot - The text to be truncated.
  */
 export class EllipsizeText extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -50,12 +52,14 @@ export class EllipsizeText extends ScopedElementsMixin(LitElement) {
     return html`
       <slot id="slot"></slot>
       ${this.tooltip
-        ? html`<sl-tooltip for="slot">${this.textContent?.trim()}</sl-tooltip>`
+        ? html`<sl-tooltip for="slot" type="description">${this.textContent?.trim()}</sl-tooltip>`
         : nothing}
     `;
   }
 
   #onResize(): void {
-    this.tooltip = this.offsetWidth < this.scrollWidth;
+    const slot = this.renderRoot.querySelector('slot');
+
+    this.tooltip = !!slot && slot.offsetWidth < slot.scrollWidth;
   }
 }

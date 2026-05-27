@@ -121,20 +121,16 @@ describe('sl-tag-list', () => {
 
     it('should have a tooltip for the stack', () => {
       const tag = el.renderRoot.querySelector('sl-tag'),
-        tooltip = el.renderRoot.querySelector('sl-tooltip');
+        container = tag?.renderRoot.querySelector('[part="container"]'),
+        tooltip = tag?.renderRoot.querySelector('sl-tooltip'),
+        text = tooltip?.textContent?.trim() ?? '';
 
+      expect(container?.ariaDescribedByElements).to.include(tooltip);
       expect(tooltip).to.exist;
-      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-labelledby'));
-
-      const tagContent = tooltip?.textContent?.trim();
-
-      expect(tagContent).to.exist;
-      expect(tagContent?.includes('List of hidden elements:')).to.be.true;
-      expect(
-        tagContent?.includes(
-          'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
-        )
-      ).to.be.true;
+      expect(text).to.include('List of hidden elements:');
+      expect(text).to.include(
+        'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
+      );
     });
 
     it('should have a stack with a tag, which contains the stack size', () => {
@@ -209,16 +205,6 @@ describe('sl-tag-list', () => {
       });
 
       expect(tag).to.have.trimmed.text('+6');
-    });
-
-    it('should clear legacy stack decoration classes', async () => {
-      const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
-      stack.classList.add('double', 'triple');
-
-      await triggerVisibilityUpdate();
-
-      expect(stack).not.to.have.class('double');
-      expect(stack).not.to.have.class('triple');
     });
 
     it('should stop observing the previous stack element when stacked mode is disabled', async () => {

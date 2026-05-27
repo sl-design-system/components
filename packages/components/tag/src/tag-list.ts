@@ -483,8 +483,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       0
     );
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
-    // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
-    this.stack.classList.remove('double', 'triple');
 
     const stackTag = this.stack.querySelector('sl-tag');
 

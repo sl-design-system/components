@@ -189,7 +189,7 @@ export class Tooltip extends LitElement {
   };
 
   #onFocus = (): void => {
-    if (this.#hasTrigger('focus')) {
+    if (this.#hasTrigger('focus') && this.anchor?.matches(':focus-visible')) {
       this.showPopover();
     }
   };

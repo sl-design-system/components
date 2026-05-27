@@ -1,5 +1,14 @@
 # @sl-design-system/panel
 
+## 0.3.6
+
+### Patch Changes
+
+- [#3365](https://github.com/sl-design-system/components/pull/3365) [`957d7c5`](https://github.com/sl-design-system/components/commit/957d7c531365a1a710d90c328e3a2e6608e7342d) - Hide collapsed panel content from assistive technology
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
 ## 0.3.5
 
 ### Patch Changes

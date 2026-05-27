@@ -1,5 +1,11 @@
 # @sl-design-system/tig
 
+## 1.1.3
+
+### Patch Changes
+
+- [#3359](https://github.com/sl-design-system/components/pull/3359) [`1dac781`](https://github.com/sl-design-system/components/commit/1dac78183220216dce0c7c8a2e2d36c6e4c7ebb8) - Fixes an issue where line-height variables had a duplicate unit (pxpx)
+
 ## 1.1.2
 
 ### Patch Changes
@@ -17,9 +23,11 @@
 ### Minor Changes
 
 - [#3020](https://github.com/sl-design-system/components/pull/3020) [`738e4a7`](https://github.com/sl-design-system/components/commit/738e4a77005043de2f9977fab9fb04d4fce6369d) - Added
+
   - new elevation.surface.raised.primary token
 
   Fixed
+
   - form input interactive backgrounds (color.background.input.plain.interactive.plain) from plain to bold variants across all themes (e.g., accent.grey.interactive.bold) for better state contrast.
 
 - [#2970](https://github.com/sl-design-system/components/pull/2970) [`e92ebb1`](https://github.com/sl-design-system/components/commit/e92ebb16c596919aaa301be2604ab5f3539738a9) - Caret icons have been updated to implement the new alignment strategy used in Font Awesome 7

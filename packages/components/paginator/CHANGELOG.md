@@ -1,5 +1,19 @@
 # @sl-design-system/paginator
 
+## 0.2.6
+
+### Patch Changes
+
+- [#3378](https://github.com/sl-design-system/components/pull/3378) [`93ce662`](https://github.com/sl-design-system/components/commit/93ce662b03d9189f121930cedd94e6552af9e666) - Prevent page numbers from wrapping in the extra small paginator page select
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/menu@0.3.3
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/shared@0.12.1
+
 ## 0.2.5
 
 ### Patch Changes
@@ -131,12 +145,14 @@
 ### Patch Changes
 
 - [#1804](https://github.com/sl-design-system/components/pull/1804) [`7a0b48e`](https://github.com/sl-design-system/components/commit/7a0b48e981ad4c7cc1a34022625e6ae3ee55c977) - - Applied new tokens to the paginator,
+
   - Paginator component changes:
     - `size` property no longer controls the width of the layout of the entire paginator, but only the size of the components within the paginator,
     - new `width` property that controls the width of the layout of the entire paginator,
     - new `emphasis` property.
 
 - [#1690](https://github.com/sl-design-system/components/pull/1690) [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d) - Various improvements:
+
   - Add missing dependencies (announcer & form)
   - Rename `<sl-paginator-size>` to `<sl-paginator-page-size>`
   - Remove `pageSizes` property from `<sl-paginator>`
@@ -153,6 +169,7 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

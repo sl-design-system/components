@@ -65,6 +65,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
 
+  /** @internal The author-provided `aria-disabled` value before disabled syncing. */
+  #ariaDisabledDefinedByUser?: string | null;
+
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -105,9 +108,14 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     if (changes.has('disabled')) {
       this.setAttribute('tabindex', this.disabled ? '-1' : '0');
       if (this.disabled) {
+        this.#ariaDisabledDefinedByUser ??= this.getAttribute('aria-disabled');
         this.setAttribute('aria-disabled', 'true');
-      } else {
+      } else if (this.#ariaDisabledDefinedByUser === null) {
         this.removeAttribute('aria-disabled');
+        this.#ariaDisabledDefinedByUser = undefined;
+      } else if (this.#ariaDisabledDefinedByUser !== undefined) {
+        this.setAttribute('aria-disabled', this.#ariaDisabledDefinedByUser);
+        this.#ariaDisabledDefinedByUser = undefined;
       }
     }
 

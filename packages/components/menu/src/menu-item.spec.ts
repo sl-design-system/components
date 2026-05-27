@@ -56,6 +56,17 @@ describe('sl-menu-item', () => {
       expect(el).to.have.attribute('tabindex', '0');
     });
 
+    it('should preserve a user-defined aria-disabled value when re-enabled', async () => {
+      el = await fixture(html`<sl-menu-item aria-disabled="true" disabled>Item 1</sl-menu-item>`);
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
+      expect(el).to.have.attribute('tabindex', '0');
+    });
+
     it('should not be selectable', () => {
       expect(el.selectable).not.to.be.true;
     });

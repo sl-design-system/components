@@ -722,27 +722,6 @@ describe('sl-button', () => {
     it('should include both the tooltip and aria-describedby element in ariaDescribedByElements', async () => {
       const wrapper = await fixture(html`
         <div>
-          <span id="btn-desc">Additional description</span>
-          <sl-button aria-describedby="btn-desc" tooltip="More info">Click me</sl-button>
-        </div>
-      `);
-
-      el = wrapper.querySelector('sl-button')!;
-
-      const tooltipEl = el.renderRoot.querySelector('sl-tooltip')!,
-        descEl = wrapper.querySelector<HTMLElement>('#btn-desc')!,
-        ariaDescElements = getForwardedAriaProperty(
-          el,
-          'ariaDescribedByElements' as keyof HTMLElement
-        ) as Element[];
-
-      expect(ariaDescElements).to.include(descEl);
-      expect(ariaDescElements).to.include(tooltipEl);
-    });
-
-    it('should include both the tooltip and aria-describedby element in ariaDescribedByElements', async () => {
-      const wrapper = await fixture(html`
-        <div>
           <span id="icon-btn-label">Favorite star</span>
           <sl-button aria-describedby="icon-btn-label" tooltip="Mark as favorite">
             Hello world

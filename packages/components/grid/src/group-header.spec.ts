@@ -1,3 +1,5 @@
+import { Button } from '@sl-design-system/button';
+import { getForwardedAriaAttribute } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -19,9 +21,10 @@ describe('sl-grid-group-header', () => {
       });
 
       it('should have aria-expanded="true" on the toggle button', () => {
-        const button = el.renderRoot.querySelector('sl-button')?.renderRoot.querySelector('button');
+        const button = el.renderRoot.querySelector<Button>('sl-button');
 
-        expect(button).to.have.attribute('aria-expanded', 'true');
+        expect(button).to.exist;
+        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
       });
     });
 
@@ -31,9 +34,10 @@ describe('sl-grid-group-header', () => {
       });
 
       it('should have aria-expanded="false" on the toggle button', () => {
-        const button = el.renderRoot.querySelector('sl-button')?.renderRoot.querySelector('button');
+        const button = el.renderRoot.querySelector<Button>('sl-button');
 
-        expect(button).to.have.attribute('aria-expanded', 'false');
+        expect(button).to.exist;
+        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
       });
     });
 
@@ -43,33 +47,34 @@ describe('sl-grid-group-header', () => {
       });
 
       it('should update aria-expanded from "true" to "false"', async () => {
-        const button = el.renderRoot.querySelector('sl-button')!;
-        const innerButton = button.renderRoot.querySelector('button');
+        const button = el.renderRoot.querySelector<Button>('sl-button');
 
-        expect(innerButton).to.have.attribute('aria-expanded', 'true');
+        expect(button).to.exist;
+        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
 
-        button.click();
+        button!.click();
         await el.updateComplete;
-        await button.updateComplete;
+        await button!.updateComplete;
 
-        expect(innerButton).to.have.attribute('aria-expanded', 'false');
+        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
       });
 
       it('should toggle aria-expanded back from "false" to "true" on second click', async () => {
-        const button = el.renderRoot.querySelector('sl-button')!;
-        const innerButton = button.renderRoot.querySelector('button');
+        const button = el.renderRoot.querySelector<Button>('sl-button');
 
-        button.click();
+        expect(button).to.exist;
+
+        button!.click();
         await el.updateComplete;
-        await button.updateComplete;
+        await button!.updateComplete;
 
-        expect(innerButton).to.have.attribute('aria-expanded', 'false');
+        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
 
-        button.click();
+        button!.click();
         await el.updateComplete;
-        await button.updateComplete;
+        await button!.updateComplete;
 
-        expect(innerButton).to.have.attribute('aria-expanded', 'true');
+        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
       });
     });
   });

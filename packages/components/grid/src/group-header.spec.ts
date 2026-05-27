@@ -1,4 +1,4 @@
-import { Button } from '@sl-design-system/button';
+import { type Button } from '@sl-design-system/button';
 import { getForwardedAriaAttribute } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -6,7 +6,9 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { GridGroupHeader } from './group-header.js';
 
 try {
-  customElements.define('sl-grid-group-header', GridGroupHeader);
+  if (!customElements.get('sl-grid-group-header')) {
+    customElements.define('sl-grid-group-header', GridGroupHeader);
+  }
 } catch {
   // empty
 }

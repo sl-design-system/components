@@ -6,15 +6,9 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
-import {
-  type CSSResultGroup,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-  html,
-  nothing
-} from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag.scss.js';
 
 declare global {
@@ -40,6 +34,11 @@ export type TagVariant = 'neutral' | 'info';
  * ```
  *
  * @slot default - The tag label.
+ *
+ * @csspart container - The component's container.
+ * @csspart label - The tag's label.
+ * @csspart button - The remove button.
+ * @csspart tooltip - The tooltip shown when the content is truncated.
  */
 @localized()
 export class Tag extends ScopedElementsMixin(LitElement) {
@@ -50,6 +49,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       'sl-tooltip': Tooltip
     };
   }
+
+  /** @internal */
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -66,9 +71,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
-
-  /** @internal Whether the tooltip is visible. */
-  @state() tooltip?: boolean;
 
   /** @internal The label of the tag component. */
   @state() label = '';
@@ -91,6 +93,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) size?: TagSize;
 
   /**
+   * The text to be shown in the tooltip. If the tooltip property isn't set explicitly to a string,
+   * the component itself will automatically determine when to show a tooltip based on the content's
+   * truncation.
+   */
+  @property() tooltip?: boolean | string;
+
+  /**
    * The variant of the tag.
    *
    * @default 'neutral'
@@ -109,46 +118,43 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disabled') || changes.has('removable')) {
-      if (this.removable) {
-        this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-      } else if (this.disabled || changes.get('removable')) {
-        this.removeAttribute('tabindex');
-      }
-    }
-
-    if (changes.has('removable')) {
-      if (this.removable) {
-        this.setAttribute(
-          'aria-description',
-          msg('Press the delete or backspace key to remove this item', {
-            id: 'sl.tag.removalInstructions'
-          })
-        );
-      } else {
-        this.removeAttribute('aria-description');
-      }
-    }
-  }
-
   override render(): TemplateResult {
+    const focusable = !this.disabled && (this.removable || this.tooltip);
+
+    let description;
+    if (focusable && this.removable) {
+      description = msg('Press the delete or backspace key to remove this item', {
+        id: 'sl.tag.removalInstructions'
+      });
+    }
+
     return html`
-      <slot @slotchange=${this.#onSlotChange} part="label"></slot>
-      ${this.removable && !this.disabled
+      <div
+        aria-description=${ifDefined(description)}
+        id="container"
+        part="container"
+        tabindex=${ifDefined(focusable ? '0' : undefined)}>
+        <div part="label">
+          <slot @slotchange=${this.#onSlotChange}></slot>
+        </div>
+        ${this.removable && !this.disabled
+          ? html`
+              <button
+                @click=${this.#onRemove}
+                ?disabled=${this.disabled}
+                aria-hidden="true"
+                part="button"
+                tabindex="-1">
+                <sl-icon name="xmark"></sl-icon>
+              </button>
+            `
+          : nothing}
+      </div>
+      ${this.tooltip
         ? html`
-            <button
-              @click=${this.#onRemove}
-              ?disabled=${this.disabled}
-              aria-hidden="true"
-              id="button"
-              part="button"
-              tabindex="-1">
-              <sl-icon name="xmark"></sl-icon>
-            </button>
-            ${this.tooltip ? html`<sl-tooltip for="button">${this.label}</sl-tooltip>` : nothing}
+            <sl-tooltip for="container" part="tooltip" type="description">
+              ${typeof this.tooltip === 'string' ? this.tooltip : this.label}
+            </sl-tooltip>
           `
         : nothing}
     `;
@@ -174,17 +180,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
-    const slot = this.renderRoot.querySelector('slot');
-
-    this.tooltip = !!slot && slot.clientWidth < slot.scrollWidth;
-
-    // If the contents of the tag overflows, make sure it is keyboard focusable,
-    // so the user can tab to it.
-    if (!this.disabled && (this.removable || this.tooltip)) {
-      this.setAttribute('tabindex', '0');
-    } else if (!this.hasAttribute('aria-labelledby')) {
-      this.removeAttribute('tabindex');
+    if (typeof this.tooltip === 'string') {
+      return;
     }
+
+    const label = this.renderRoot.querySelector('[part="label"]');
+
+    this.tooltip = !!label && label.clientWidth < label.scrollWidth;
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {

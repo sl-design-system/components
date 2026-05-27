@@ -23,7 +23,6 @@ let nextUniqueId = 0;
  *
  * @slot - The content of the tooltip.
  *
- * @csspart arrow - The arrow element that points to the anchor.
  * @csspart hover-bridge - An invisible element used to extend the hover area of the tooltip.
  */
 export class Tooltip extends LitElement {
@@ -154,7 +153,6 @@ export class Tooltip extends LitElement {
   override render(): TemplateResult {
     return html`
       <slot></slot>
-      <div part="arrow"></div>
       <div part="hover-bridge"></div>
     `;
   }

@@ -64,3 +64,7 @@
   flex-wrap: wrap;
   gap: var(--sl-size-050);
 }
+
+sl-tag::part(tooltip) {
+  max-inline-size: 300px;
+}

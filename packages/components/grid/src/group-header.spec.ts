@@ -16,68 +16,66 @@ try {
 describe('sl-grid-group-header', () => {
   let el: GridGroupHeader;
 
-  describe('aria-expanded attribute', () => {
-    describe('defaults', () => {
-      beforeEach(async () => {
-        el = await fixture(html`<sl-grid-group-header></sl-grid-group-header>`);
-      });
-
-      it('should have aria-expanded="true" on the toggle button', () => {
-        const button = el.renderRoot.querySelector<Button>('sl-button');
-
-        expect(button).to.exist;
-        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
-      });
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-grid-group-header></sl-grid-group-header>`);
     });
 
-    describe('when collapsed is true', () => {
-      beforeEach(async () => {
-        el = await fixture(html`<sl-grid-group-header collapsed></sl-grid-group-header>`);
-      });
+    it('should have aria-expanded="true" on the toggle button', () => {
+      const button = el.renderRoot.querySelector<Button>('sl-button');
 
-      it('should have aria-expanded="false" on the toggle button', () => {
-        const button = el.renderRoot.querySelector<Button>('sl-button');
+      expect(button).to.exist;
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
+    });
+  });
 
-        expect(button).to.exist;
-        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
-      });
+  describe('collapsed', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-grid-group-header collapsed></sl-grid-group-header>`);
     });
 
-    describe('when clicking the toggle button', () => {
-      beforeEach(async () => {
-        el = await fixture(html`<sl-grid-group-header></sl-grid-group-header>`);
-      });
+    it('should have aria-expanded="false" on the toggle button', () => {
+      const button = el.renderRoot.querySelector<Button>('sl-button');
 
-      it('should update aria-expanded from "true" to "false"', async () => {
-        const button = el.renderRoot.querySelector<Button>('sl-button');
+      expect(button).to.exist;
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
+    });
+  });
 
-        expect(button).to.exist;
-        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
+  describe('toggle button', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-grid-group-header></sl-grid-group-header>`);
+    });
 
-        button!.click();
-        await el.updateComplete;
-        await button!.updateComplete;
+    it('should update aria-expanded from "true" to "false"', async () => {
+      const button = el.renderRoot.querySelector<Button>('sl-button');
 
-        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
-      });
+      expect(button).to.exist;
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
 
-      it('should toggle aria-expanded back from "false" to "true" on second click', async () => {
-        const button = el.renderRoot.querySelector<Button>('sl-button');
+      button!.click();
+      await el.updateComplete;
+      await button!.updateComplete;
 
-        expect(button).to.exist;
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
+    });
 
-        button!.click();
-        await el.updateComplete;
-        await button!.updateComplete;
+    it('should toggle aria-expanded back from "false" to "true" correctly when expanding', async () => {
+      const button = el.renderRoot.querySelector<Button>('sl-button');
 
-        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
+      expect(button).to.exist;
 
-        button!.click();
-        await el.updateComplete;
-        await button!.updateComplete;
+      button!.click();
+      await el.updateComplete;
+      await button!.updateComplete;
 
-        expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
-      });
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('false');
+
+      button!.click();
+      await el.updateComplete;
+      await button!.updateComplete;
+
+      expect(getForwardedAriaAttribute(button!, 'aria-expanded')).to.equal('true');
     });
   });
 });

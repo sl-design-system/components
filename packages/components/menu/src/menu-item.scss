@@ -62,15 +62,16 @@
   --_bg-color: var(--sl-color-background-negative-subtle);
 }
 
-:host([emphasis='bold'][variant='danger']:not([disabled]):hover),
-:host([emphasis='bold'][variant='danger'][selected]:not([disabled])) {
+:host([emphasis='bold'][variant='danger']:not([disabled], [aria-disabled='true']):hover),
+:host([emphasis='bold'][variant='danger'][selected]:not([disabled], [aria-disabled='true'])) {
   --_bg-color: var(--sl-color-background-negative-bold);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 
   color: var(--sl-color-foreground-negative-onBold);
 }
 
-:host([disabled]) {
+:host([disabled]),
+:host([aria-disabled='true']) {
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 

@@ -605,7 +605,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ],
       ariaSelected =
-        this.selects === 'single'
+        (this.dataSource?.selects ?? this.selects) === 'single'
           ? selected
             ? 'true'
             : 'false'

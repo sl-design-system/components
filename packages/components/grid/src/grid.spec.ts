@@ -563,6 +563,45 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('single select via data source', () => {
+    beforeEach(async () => {
+      const ds = new ArrayListDataSource(
+        [
+          { firstName: 'John', lastName: 'Doe' },
+          { firstName: 'Jane', lastName: 'Smith' }
+        ],
+        { selects: 'single' }
+      );
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${ds} row-action="select">
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should have aria-selected="false" on all rows by default', () => {
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr');
+
+      rows.forEach(row => {
+        expect(row).to.have.attribute('aria-selected', 'false');
+      });
+    });
+
+    it('should set aria-selected="true" on the selected row', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+      expect(row).to.have.attribute('aria-selected', 'true');
+    });
+  });
+
   describe('row action activate', () => {
     beforeEach(async () => {
       el = await fixture(html`

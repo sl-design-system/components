@@ -247,7 +247,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
           .map(tag => tag.label)
           .join(', ');
 
-      tooltip = `${label}:${tags}`;
+      tooltip = `${label}: ${tags}`;
     }
 
     return html`

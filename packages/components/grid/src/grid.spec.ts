@@ -541,6 +541,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row).to.have.attribute('aria-selected', 'true');
     });
 
@@ -598,6 +599,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
       expect(row).to.have.attribute('aria-selected', 'true');
     });
   });
@@ -682,6 +684,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+
       expect(row).to.have.attribute('aria-selected', 'true');
     });
 
@@ -693,6 +696,7 @@ describe('sl-grid', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+
       expect(row).to.have.attribute('aria-selected', 'false');
     });
   });

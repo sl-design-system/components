@@ -1,5 +1,16 @@
 # @sl-design-system/form
 
+## 1.4.1
+
+### Patch Changes
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Fix `sl-label` not updating when the locale changes. The label now only moves text and element nodes into the `<label>` element, leaving Lit's internal comment markers in place so the parent component can properly re-render translated content.
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
 ## 1.4.0
 
 ### Minor Changes

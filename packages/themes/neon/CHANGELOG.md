@@ -1,5 +1,11 @@
 # @sanomalearning/slds-neon
 
+## 1.1.3
+
+### Patch Changes
+
+- [#3359](https://github.com/sl-design-system/components/pull/3359) [`1dac781`](https://github.com/sl-design-system/components/commit/1dac78183220216dce0c7c8a2e2d36c6e4c7ebb8) - Fixes an issue where line-height variables had a duplicate unit (pxpx)
+
 ## 1.1.2
 
 ### Patch Changes

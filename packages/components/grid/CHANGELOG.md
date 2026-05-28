@@ -1,5 +1,19 @@
 # @sl-design-system/grid
 
+## 0.7.3
+
+### Patch Changes
+
+- [#3377](https://github.com/sl-design-system/components/pull/3377) [`112ba2f`](https://github.com/sl-design-system/components/commit/112ba2f0c36771746beb9ea55c6ba30753984400) - Fixed Grid row accessibility by rendering `aria-rowindex` as a 1-based value for both data rows and group rows instead of using the internal zero-based virtualizer index
+
+- [#3362](https://github.com/sl-design-system/components/pull/3362) [`32cbeef`](https://github.com/sl-design-system/components/commit/32cbeef88dc3a235f18653a1767c60b2b9fd3e85) - Add a localized, visually hidden label to the drag handle column header so screen readers can announce the column's purpose properly (includes the new `sl.grid.reorder` locale key).
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7)]:
+  - @sl-design-system/listbox@0.1.7
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/shared@0.12.1
+  - @sl-design-system/text-field@1.6.10
+
 ## 0.7.2
 
 ### Patch Changes

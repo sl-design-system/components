@@ -18,7 +18,7 @@ declare global {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type VirtualListItemRenderer<T = any> = (item: T, index: number) => TemplateResult;
+export type VirtualListItemRenderer<T = any> = (item: T, index: number) => Element | TemplateResult;
 
 /**
  * A virtual list component that efficiently renders large lists by only rendering items that are
@@ -97,8 +97,7 @@ export class VirtualList<T = any> extends LitElement {
         <div
           part="container"
           style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px"
-        >
+          (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -109,8 +108,7 @@ export class VirtualList<T = any> extends LitElement {
                 <div
                   part="item"
                   data-index=${virtualItem.index}
-                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}
-                >
+                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>
               `;
@@ -132,5 +130,18 @@ export class VirtualList<T = any> extends LitElement {
     options?: { align?: 'start' | 'center' | 'end' | 'auto'; behavior?: 'auto' | 'smooth' }
   ): void {
     this.#virtualizer.instance.scrollToIndex(index, options);
+  }
+
+  /**
+   * Triggers a re-measure of item sizes and positions. Useful when a list transitions from hidden
+   * to visible.
+   */
+  async requestLayout(): Promise<void> {
+    await this.updateComplete;
+    this.#virtualizer.instance.measure();
+
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+    this.#virtualizer.instance.measure();
   }
 }

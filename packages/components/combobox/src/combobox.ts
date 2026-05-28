@@ -37,6 +37,7 @@ import {
 } from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
+import { VirtualList } from '@sl-design-system/virtual-list';
 import {
   type CSSResultGroup,
   LitElement,
@@ -109,7 +110,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       'sl-option-group-header': OptionGroupHeader,
       'sl-tag': Tag,
       'sl-tag-list': TagList,
-      'sl-text-field': TextField
+      'sl-text-field': TextField,
+      'sl-virtual-list': VirtualList
     };
   }
 
@@ -159,7 +161,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
 
-  /** Flag to indicate when to use lit-virtualizer. */
+  /** Flag to indicate when to use virtual list rendering. */
   #useVirtualList = false;
 
   /** Will allow custom values not in the listbox when set. */
@@ -1070,7 +1072,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
   }
 
-  #removeGroupedOption(item: ComboboxItem<T, U>): void {
+  #removeGroupedOption(item: ComboboxItem<T, U>, options?: { skipGroupCleanup?: boolean }): void {
     const originalItem = this.items.find(i => i.id === item.id && !i.visible);
     if (originalItem) {
       originalItem.selected = false;
@@ -1093,7 +1095,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       item.element = undefined;
     }
 
-    if (this.selectedItems.length === 0) {
+    if (!options?.skipGroupCleanup && this.selectedItems.length === 0) {
       this.#removeSelectedGroup();
     }
   }
@@ -1147,8 +1149,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         return;
       }
 
-      while (this.items[0].type !== 'group') {
-        this.#removeGroupedOption(this.items[0]);
+      while (this.items.length > 0 && this.items[0].type !== 'group') {
+        this.#removeGroupedOption(this.items[0], { skipGroupCleanup: true });
       }
 
       if (
@@ -1237,9 +1239,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {
     if (this.optionGroupPath) {
-      const groups = Object.groupBy(options, option =>
-        getStringByPath(option, this.optionGroupPath!)
-      );
+      const optionsWithIndex = options.map((option, index) => ({ index, option })),
+        groups = Object.groupBy(optionsWithIndex, entry =>
+          getStringByPath(entry.option, this.optionGroupPath!)
+        );
 
       return Object.keys(groups).reduce(
         (acc, group) => {
@@ -1251,9 +1254,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
               type: 'group',
               visible: true
             },
-            ...groups[group]!.map(option =>
-              this.#prepareOption(option, options.indexOf(option), group)
-            )
+            ...groups[group]!.map(({ index, option }) => this.#prepareOption(option, index, group))
           ];
         },
         [] as Array<ComboboxItem<T, U>>

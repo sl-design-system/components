@@ -5845,12 +5845,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/listbox@workspace:packages/components/listbox"
   dependencies:
-    "@lit-labs/virtualizer": "npm:^2.1.1"
     "@open-wc/scoped-elements": "npm:^3.0.6"
     "@sl-design-system/icon": "npm:^1.4.0"
+    "@sl-design-system/virtual-list": "npm:^0.0.5"
     lit: "npm:^3.3.2"
   peerDependencies:
-    "@lit-labs/virtualizer": ^2.0.13
     "@open-wc/scoped-elements": ^3.0.6
     lit: ^3.1.4
   languageName: unknown
@@ -6405,10 +6404,10 @@ __metadata:
   resolution: "@sl-design-system/virtual-list@workspace:packages/components/virtual-list"
   dependencies:
     "@sl-design-system/shared": "npm:^0.12.0"
-    "@tanstack/virtual-core": "npm:^3.13.23"
+    "@tanstack/virtual-core": "npm:^3.16.0"
     lit: "npm:^3.3.2"
   peerDependencies:
-    "@tanstack/virtual-core": ^3.13.12
+    "@tanstack/virtual-core": ^3.16.0
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -6720,10 +6719,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-core@npm:^3.13.23":
-  version: 3.13.23
-  resolution: "@tanstack/virtual-core@npm:3.13.23"
-  checksum: 10c0/3487089ea4e1dcbb01836f51a1b35b709f9ba03312fe600ddb97c893c16be213e1690af735717b1d6b2e22dfec691c338bc96b5965228c195840249699d5273a
+"@tanstack/virtual-core@npm:^3.16.0":
+  version: 3.16.0
+  resolution: "@tanstack/virtual-core@npm:3.16.0"
+  checksum: 10c0/03016cf464108ce8354d44d89393442e2457e0539933ee5af56691e76c0a351e268faf4f619395c5fabd3f2e4c23e5fc963b7f359d22805f2164be2403d2803e
   languageName: node
   linkType: hard
 

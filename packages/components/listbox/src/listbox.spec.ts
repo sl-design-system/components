@@ -31,6 +31,12 @@ describe('sl-listbox', () => {
       value: i
     }));
 
+    const queryVirtualized = <T extends Element = Element>(selector: string): T[] => {
+      const virtualList = el.querySelector('sl-virtual-list');
+
+      return Array.from(virtualList?.shadowRoot?.querySelectorAll<T>(selector) ?? []);
+    };
+
     beforeEach(async () => {
       el = await fixture(html`
         <sl-listbox
@@ -38,8 +44,7 @@ describe('sl-listbox', () => {
           option-label-path="label"
           option-selected-path="selected"
           option-value-path="value"
-          style="height: 200px"
-        ></sl-listbox>
+          style="height: 200px"></sl-listbox>
       `);
 
       // Give the virtualizer time to render
@@ -47,11 +52,11 @@ describe('sl-listbox', () => {
     });
 
     it('should render a virtualizer', () => {
-      expect(el.querySelector('lit-virtualizer')).to.exist;
+      expect(el.querySelector('sl-virtual-list')).to.exist;
     });
 
     it('should render options for each option', () => {
-      const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
+      const renderedOptions = queryVirtualized<Option>('sl-option');
 
       expect(renderedOptions.length).to.be.greaterThan(0);
       expect(renderedOptions.length).to.be.lessThan(options.length);
@@ -69,7 +74,7 @@ describe('sl-listbox', () => {
       // wait for virtualizer to pick up the change
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
+      const renderedOptions = queryVirtualized<Option>('sl-option');
 
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
         el.options.slice(0, renderedOptions.length)
@@ -82,7 +87,7 @@ describe('sl-listbox', () => {
       el.optionValuePath = 'value';
       await el.updateComplete;
 
-      const renderedOptions = Array.from<Option<TestOption>>(el.querySelectorAll('sl-option'));
+      const renderedOptions = queryVirtualized<Option<TestOption>>('sl-option');
 
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
         options.slice(0, renderedOptions.length).map(i => i.label)
@@ -105,13 +110,29 @@ describe('sl-listbox', () => {
       };
       await el.updateComplete;
 
-      const renderedOptions = Array.from(el.querySelectorAll('div[role="option"]'));
+      const renderedOptions = queryVirtualized<HTMLDivElement>('div[role="option"]');
 
       expect(renderedOptions.length).to.be.greaterThan(0);
       expect(renderedOptions.length).to.be.lessThan(options.length);
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
         options.slice(0, renderedOptions.length).map(i => i.label)
       );
+    });
+
+    it('should apply a fallback max block-size when virtualized without explicit height', async () => {
+      const unconstrained = await fixture<Listbox>(html`
+        <sl-listbox
+          .options=${options}
+          option-label-path="label"
+          option-selected-path="selected"
+          option-value-path="value"></sl-listbox>
+      `);
+
+      // Give the virtualizer time to initialize and apply safety constraints.
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(unconstrained.querySelector('sl-virtual-list')).to.exist;
+      expect(unconstrained.style.maxBlockSize).to.equal('20rem');
     });
   });
 });

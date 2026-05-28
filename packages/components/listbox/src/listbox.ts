@@ -1,9 +1,9 @@
-import { LitVirtualizer } from '@lit-labs/virtualizer/LitVirtualizer.js';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { VirtualList } from '@sl-design-system/virtual-list';
 import {
   type CSSResultGroup,
   LitElement,
@@ -20,7 +20,7 @@ import { Option, type OptionEmphasis } from './option.js';
 declare global {
   interface HTMLElementTagNameMap {
     'sl-listbox': Listbox;
-    'lit-virtualizer': LitVirtualizer;
+    'sl-virtual-list': VirtualList;
   }
 
   interface ShadowRoot {
@@ -58,6 +58,7 @@ export type ListboxRenderer<T = any, U = T> = (
 ) => Element | TemplateResult;
 
 let nextUniqueId = 0;
+const FALLBACK_VIRTUAL_MAX_BLOCK_SIZE = '20rem';
 
 /** Container for a list of selectable options. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,7 +66,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'lit-virtualizer': LitVirtualizer,
+      'sl-virtual-list': VirtualList,
       'sl-option': Option,
       'sl-option-group-header': OptionGroupHeader
     };
@@ -74,8 +75,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The virtualizer instance when the `options` property is set. */
-  #virtualizer?: LitVirtualizer;
+  /** The virtual list instance when the `options` or `items` property is set. */
+  #virtualizer?: VirtualList<ListboxItem<T, U>>;
 
   /**
    * The emphasis of the selected options in the listbox.
@@ -85,8 +86,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) emphasis?: ListboxEmphasis;
 
   /**
-   * Use this property if you want to have full control over how the items are rendered using
-   * lit-virtualizer. You are expected to provide an array of ListboxItem<T, U> and most likely will
+   * Use this property if you want to have full control over how the items are rendered using a
+   * virtual list. You are expected to provide an array of ListboxItem<T, U> and most likely will
    * also want to provide a custom `renderer`.
    *
    * Only use this property if you know what you are doing. If you are unsure about using this
@@ -159,11 +160,16 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('items')) {
       if (this.items) {
-        this.#virtualizer ||= this.shadowRoot!.createElement('lit-virtualizer');
-        this.#virtualizer.items = (this.items ?? []) as unknown[];
+        const renderer = this.renderer;
+
+        this.#ensureVirtualListConstraints();
+
+        this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
+        this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
-          (this.renderer?.(item as ListboxItem<T, U>, index) ??
-            this.#renderItem(item as ListboxItem<T, U>, index)) as unknown as TemplateResult;
+          renderer
+            ? renderer(item as ListboxItem<T, U>, index)
+            : this.#renderItem(item as ListboxItem<T, U>, index);
 
         if (!this.#virtualizer.parentElement) {
           this.prepend(this.#virtualizer);
@@ -175,12 +181,14 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('renderer') && this.#virtualizer) {
-      if (this.renderer) {
+      const renderer = this.renderer;
+
+      if (renderer) {
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
-          this.renderer?.(item as ListboxItem<T, U>, index) as TemplateResult;
+          renderer(item as ListboxItem<T, U>, index);
       } else {
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
-          this.#renderItem(item as ListboxItem<T, U>, index) as unknown as TemplateResult;
+          this.#renderItem(item as ListboxItem<T, U>, index);
       }
     }
   }
@@ -189,9 +197,34 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     return html`<slot @slotchange=${this.#propagateEmphasis}></slot>`;
   }
 
+  /**
+   * Request a layout update for the virtual list. Call this method after the listbox becomes
+   * visible (for example, when a popover opens) to ensure item positions are measured correctly.
+   */
+  async requestLayout(): Promise<void> {
+    if (this.#virtualizer && this.items) {
+      await this.#virtualizer.requestLayout();
+    }
+  }
+
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
     if (this.#virtualizer) {
-      this.#virtualizer.element(index)?.scrollIntoView(options);
+      const alignMap: Record<
+          NonNullable<ScrollIntoViewOptions['block']>,
+          'start' | 'center' | 'end' | 'auto'
+        > = {
+          center: 'center',
+          end: 'end',
+          nearest: 'auto',
+          start: 'start'
+        },
+        block = options?.block ?? 'nearest',
+        behavior = options?.behavior === 'instant' ? 'auto' : options?.behavior;
+
+      this.#virtualizer.scrollToIndex(index, {
+        align: alignMap[block],
+        behavior: behavior
+      });
     } else {
       Array.from(this.querySelectorAll('sl-option'))
         .filter(el => el.style.display !== 'none')
@@ -249,6 +282,22 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         el.querySelectorAll('sl-option').forEach(o => (o.emphasis = this.emphasis));
       }
     });
+  }
+
+  /**
+   * Ensures a virtualized listbox has a finite viewport when it is the scroll container. This
+   * prevents unstable behavior when consumers forget to set a height or max-height.
+   */
+  #ensureVirtualListConstraints(): void {
+    const style = getComputedStyle(this),
+      overflowY = style.overflowY,
+      isScrollable = overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay',
+      hasMaxHeight = style.maxHeight !== 'none' || style.maxBlockSize !== 'none',
+      hasFiniteViewport = this.scrollHeight > this.clientHeight;
+
+    if (isScrollable && !hasFiniteViewport && !hasMaxHeight && !this.style.maxBlockSize) {
+      this.style.maxBlockSize = FALLBACK_VIRTUAL_MAX_BLOCK_SIZE;
+    }
   }
 
   #renderItem(item: ListboxItem<T, U>, index: number): Element {

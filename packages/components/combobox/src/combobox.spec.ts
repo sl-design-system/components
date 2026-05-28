@@ -1590,6 +1590,61 @@ describe('sl-combobox', () => {
       expect(formData.get('test')).to.equal('1');
       expect(combobox.value).to.equal('Option 2');
     });
+
+    it('should open a virtual list with object options without crashing', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${options}
+          .value=${300}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should update grouped virtual list selections without recursive cleanup', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          group-selected
+          multiple
+          .options=${options}
+          .value=${[300]}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      // Switching value to empty exercises grouped-option cleanup paths.
+      combobox.value = [];
+      await combobox.updateComplete;
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
   });
 
   describe('accessibility', () => {

@@ -45,7 +45,28 @@ export default {
     `;
 
     const scrollTo = (index: number): void => {
+      const start = performance.now();
       document.querySelector('sl-virtual-list')?.scrollToIndex(index, { align: 'start' });
+      const syncTime = performance.now() - start;
+      console.log(`scrollToIndex(${index}) took ${syncTime.toFixed(2)}ms (synchronous part)`);
+
+      // Log when scroll actually completes
+      requestAnimationFrame(() => {
+        const totalTime = performance.now() - start;
+        console.log(`Total scroll operation took ${totalTime.toFixed(2)}ms`);
+      });
+    };
+
+    const scrollToSmooth = (index: number): void => {
+      const start = performance.now();
+      document.querySelector('sl-virtual-list')?.scrollToIndex(index, {
+        align: 'start',
+        behavior: 'smooth'
+      });
+      const syncTime = performance.now() - start;
+      console.log(
+        `scrollToIndex(${index}, smooth) took ${syncTime.toFixed(2)}ms (synchronous part)`
+      );
     };
 
     return html`
@@ -114,14 +135,16 @@ export default {
           >Scroll to ${items.length / 2}</sl-button
         >
         <sl-button @click=${() => scrollTo(items.length - 1)}>Scroll to bottom</sl-button>
+        <sl-button @click=${() => scrollToSmooth(items.length / 2)} fill="outline"
+          >Scroll to ${items.length / 2} (smooth)</sl-button
+        >
       </sl-button-bar>
       <sl-virtual-list
         .estimateSize=${estimateSize}
         .gap=${gap}
         .items=${items}
         .overscan=${overscan}
-        .renderItem=${renderItem}
-      >
+        .renderItem=${renderItem}>
       </sl-virtual-list>
     `;
   }

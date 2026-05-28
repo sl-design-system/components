@@ -605,12 +605,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ],
       ariaSelected =
-        (this.dataSource?.selects ?? this.selects) === 'single'
-          ? selected
+        this.rowAction === 'activate'
+          ? active || selected
             ? 'true'
             : 'false'
-          : this.rowAction === 'activate'
-            ? active
+          : (this.dataSource?.selects ?? this.selects) === 'single'
+            ? selected
               ? 'true'
               : 'false'
             : nothing;

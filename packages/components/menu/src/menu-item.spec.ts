@@ -67,6 +67,17 @@ describe('sl-menu-item', () => {
       expect(el).to.have.attribute('tabindex', '0');
     });
 
+    it('should not toggle selected when aria-disabled', async () => {
+      el = await fixture(html`
+        <sl-menu-item aria-disabled="true" selectable>Item 1</sl-menu-item>
+      `);
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+    });
+
     it('should not be selectable', () => {
       expect(el.selectable).not.to.be.true;
     });
@@ -239,6 +250,18 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
       el.disabled = true;
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Meta>}1{/Meta}');
+
+      expect(onClick).not.to.have.been.called;
+    });
+
+    it('should not trigger the menu item when the shortcut is pressed and the menu item is aria-disabled', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
       await userEvent.keyboard('{Meta>}1{/Meta}');

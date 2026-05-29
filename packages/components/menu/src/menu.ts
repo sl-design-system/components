@@ -66,8 +66,8 @@ export class Menu extends LitElement {
   #rovingTabindexController = new RovingTabindexController<MenuItem>(this, {
     direction: 'vertical',
     elements: () => this.#menuItems || [],
-    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),
-    isFocusableElement: (el: MenuItem) => !el.disabled
+    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !this.#isMenuItemDisabled(el)),
+    isFocusableElement: (el: MenuItem) => !this.#isMenuItemDisabled(el)
   });
 
   /**
@@ -127,8 +127,9 @@ export class Menu extends LitElement {
       <slot
         @slotchange=${this.#onSlotchange}
         @sl-select=${this.#onSelect}
-        style="--sl-menu-item-indent: ${this.selects || this.selectableChildren ? '1' : '0'}"
-      ></slot>
+        style="--sl-menu-item-indent: ${this.selects || this.selectableChildren
+          ? '1'
+          : '0'}"></slot>
     `;
   }
 
@@ -143,6 +144,10 @@ export class Menu extends LitElement {
   /** @internal */
   focusLastItem(): void {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
+  }
+
+  #isMenuItemDisabled(item: MenuItem): boolean {
+    return !!item.disabled || item.ariaDisabled === 'true';
   }
 
   #onFocusout(event: FocusEvent): void {

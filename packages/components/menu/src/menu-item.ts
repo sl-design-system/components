@@ -174,8 +174,12 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  #isDisabled(): boolean {
+    return !!this.disabled || this.ariaDisabled === 'true';
+  }
+
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.#isDisabled()) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -204,7 +208,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (this.disabled) {
+    if (this.#isDisabled()) {
       return;
     }
 
@@ -240,7 +244,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onShortcut(event: KeyboardEvent): void {
-    if (this.disabled) {
+    if (this.#isDisabled()) {
       return;
     }
 

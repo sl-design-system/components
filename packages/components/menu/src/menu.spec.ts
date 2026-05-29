@@ -183,25 +183,6 @@ describe('sl-menu', () => {
       expect(document.activeElement).to.equal(secondItem);
     });
 
-    it('should skip aria-disabled menu items when focusing initially', async () => {
-      el = await fixture(html`
-        <sl-menu>
-          <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
-          <sl-menu-item>Item 2</sl-menu-item>
-          <sl-menu-item>Item 3</sl-menu-item>
-        </sl-menu>
-      `);
-
-      el.showPopover();
-      await el.updateComplete;
-
-      el.focus();
-
-      const secondItem = el.querySelectorAll('sl-menu-item')[1];
-
-      expect(document.activeElement).to.equal(secondItem);
-    });
-
     it('should focus the first not disabled menu item in a menu with multiple disabled items', async () => {
       el = await fixture(html`
         <sl-menu>
@@ -220,6 +201,24 @@ describe('sl-menu', () => {
       const thirdItem = el.querySelectorAll('sl-menu-item')[2];
 
       expect(document.activeElement).to.equal(thirdItem);
+    });
+
+    it('should focus aria-disabled menu items', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const firstItem = el.querySelector('sl-menu-item');
+
+      expect(document.activeElement).to.equal(firstItem);
     });
   });
 

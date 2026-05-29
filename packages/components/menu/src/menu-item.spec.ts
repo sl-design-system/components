@@ -278,6 +278,18 @@ describe('sl-menu-item', () => {
 
       expect(onClick).not.to.have.been.called;
     });
+
+    it('should not trigger the menu item when the shortcut is pressed and the menu item is aria-disabled', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Meta>}1{/Meta}');
+
+      expect(onClick).not.to.have.been.called;
+    });
   });
 
   describe('submenu', () => {

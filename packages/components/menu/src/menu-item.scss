@@ -70,7 +70,7 @@
   color: var(--sl-color-foreground-negative-onBold);
 }
 
-:host(:where([disabled], [aria-disabled='true'])) {
+:host(:is([disabled], [aria-disabled='true'])) {
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 

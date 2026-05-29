@@ -201,6 +201,16 @@ describe('sl-toggle-button', () => {
       expect(onToggle).not.to.have.been.called;
     });
 
+    it('should not emit a click event when clicked', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.click();
+      await el.updateComplete;
+
+      expect(onClick).not.to.have.been.called;
+    });
+
     it('should set aria-disabled', () => {
       expect(el).to.have.attribute('aria-disabled', 'true');
     });
@@ -273,6 +283,16 @@ describe('sl-toggle-button', () => {
       await el.updateComplete;
 
       expect(onToggle).not.to.have.been.called;
+    });
+
+    it('should not emit a click event when clicked', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.click();
+      await el.updateComplete;
+
+      expect(onClick).not.to.have.been.called;
     });
   });
 

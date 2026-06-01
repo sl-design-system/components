@@ -111,7 +111,7 @@ jobs:
           JOB_ID=$(echo "$DEPLOYMENT" | jq -r '.jobId')
           ZIP_URL=$(echo "$DEPLOYMENT" | jq -r '.zipUploadUrl')
 
-          cd website/dist && zip -qr ../../deployment.zip . && cd ../..
+          cd docs/website/dist && zip -qr ../../../deployment.zip . && cd ../../..
           curl -sSf -T deployment.zip "$ZIP_URL"
 
           aws amplify start-deployment \

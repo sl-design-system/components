@@ -200,6 +200,100 @@ describe('sl-toggle-button', () => {
 
       expect(onToggle).not.to.have.been.called;
     });
+
+    it('should not emit a click event when clicked', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.click();
+      await el.updateComplete;
+
+      expect(onClick).not.to.have.been.called;
+    });
+
+    it('should set aria-disabled', () => {
+      expect(el).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should remove aria-disabled when re-enabled', async () => {
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should preserve a consumer-provided aria-disabled value when re-enabled', async () => {
+      el = await fixture(html`
+        <sl-toggle-button aria-disabled="true" disabled>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
+    });
+  });
+
+  describe('aria-disabled', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-toggle-button aria-disabled="true">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+    });
+
+    it('should be focusable', () => {
+      el.focus();
+
+      expect(document.activeElement).to.equal(el);
+    });
+
+    it('should not toggle the pressed state when clicked', async () => {
+      el.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-pressed', 'false');
+      expect(el).not.to.have.attribute('pressed');
+      expect(el.pressed).to.be.false;
+    });
+
+    it('should not toggle the pressed state when pressing enter', async () => {
+      el.focus();
+
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-pressed', 'false');
+      expect(el).not.to.have.attribute('pressed');
+      expect(el.pressed).to.be.false;
+    });
+
+    it('should not emit an sl-toggle event when clicked', async () => {
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', onToggle);
+      el.click();
+      await el.updateComplete;
+
+      expect(onToggle).not.to.have.been.called;
+    });
+
+    it('should not emit a click event when clicked', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.click();
+      await el.updateComplete;
+
+      expect(onClick).not.to.have.been.called;
+    });
   });
 
   describe('pressed', () => {
@@ -262,7 +356,9 @@ describe('sl-toggle-button', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(errorStub).to.have.been.calledWith('Do not use the same icon for both states of the toggle button.');
+      expect(errorStub).to.have.been.calledWith(
+        'Do not use the same icon for both states of the toggle button.'
+      );
     });
 
     it('should not log an error if only text is slotted', async () => {

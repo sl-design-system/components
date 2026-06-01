@@ -25,7 +25,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-select value="2" style="inline-size: 20rem;">
+    <sl-select aria-label="Subjects list" value="2" style="inline-size: 20rem;">
       <sl-option value="1">Biology</sl-option>
       <sl-option value="2">Mathematics</sl-option>
       <sl-option value="3">English</sl-option>

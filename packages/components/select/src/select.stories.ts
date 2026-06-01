@@ -17,7 +17,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Select, type SelectSize } from './select.js';
 
-type Props = Pick<Select, 'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'> & {
+type Props = Pick<
+  Select,
+  'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'
+> & {
   hint?: string;
   label?: string;
   options?(): TemplateResult;
@@ -49,7 +52,19 @@ export default {
       control: 'text'
     }
   },
-  render: ({ clearable, disabled, hint, label, options, placeholder, reportValidity, required, size, slot, value }) => {
+  render: ({
+    clearable,
+    disabled,
+    hint,
+    label,
+    options,
+    placeholder,
+    reportValidity,
+    required,
+    size,
+    slot,
+    value
+  }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -70,8 +85,7 @@ export default {
               ?required=${required}
               .value=${value}
               placeholder=${ifDefined(placeholder)}
-              size=${ifDefined(size)}
-            >
+              size=${ifDefined(size)}>
               ${options?.() ??
               html`
                 <sl-option value="1">Option 1</sl-option>
@@ -110,6 +124,7 @@ export const Disabled: Story = {
 
 export const EmbeddedComponents: Story = {
   args: {
+    label: 'Student',
     placeholder: 'Select a student',
     slot: () => html`
       <style>
@@ -171,23 +186,27 @@ export const CustomStyling: Story = {
       </style>
 
       <p>
-        This story shows a select component with custom styling. Each option displays a colored circle, and a label.
+        This story shows a select component with custom styling. Each option displays a colored
+        circle, and a label.
       </p>
-
-      <sl-select placeholder="Select a color">
-        <sl-option value="red">
-          <span class="colorball" style="background-color: red;"></span>
-          Red
-        </sl-option>
-        <sl-option value="blue">
-          <span class="colorball" style="background-color: blue;"></span>
-          Blue
-        </sl-option>
-        <sl-option value="green">
-          <span class="colorball" style="background-color: green;"></span>
-          Green
-        </sl-option>
-      </sl-select>
+      <sl-form>
+        <sl-form-field label="Favorite color">
+          <sl-select placeholder="Select a color">
+            <sl-option value="red">
+              <span class="colorball" style="background-color: red;"></span>
+              Red
+            </sl-option>
+            <sl-option value="blue">
+              <span class="colorball" style="background-color: blue;"></span>
+              Blue
+            </sl-option>
+            <sl-option value="green">
+              <span class="colorball" style="background-color: green;"></span>
+              Green
+            </sl-option>
+          </sl-select>
+        </sl-form-field>
+      </sl-form>
     `;
   }
 };
@@ -246,11 +265,15 @@ export const OptionsStyling: Story = {
         }
       </style>
       <p>
-        This story demonstrates select options with custom content, including icons and styled elements. Each option
-        displays a colored circle, an sl-icon, and a label. The story shows how to style the selected option display and
-        individual option containers.
+        This story demonstrates select options with custom content, including icons and styled
+        elements. Each option displays a colored circle, an sl-icon, and a label. The story shows
+        how to style the selected option display and individual option containers.
       </p>
-      <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
+      <sl-form>
+        <sl-form-field label="Favorite shape">
+          <sl-select value="circle">${options.map(optionsRenderer)} </sl-select>
+        </sl-form-field>
+      </sl-form>
     `;
   }
 };
@@ -294,8 +317,9 @@ export const NoVisibleLabel: StoryObj = {
   render: () => {
     return html`
       <p style="margin: 0 0 1rem 0">
-        This select has no internal or external label. It only has an <code>aria-label</code> attribute. That attribute
-        is automatically applied to the <code>sl-select-button</code> element.
+        This select has no internal or external label. It only has an
+        <code>aria-label</code> attribute. That attribute is automatically applied to the
+        <code>sl-select-button</code> element.
       </p>
       <sl-select aria-label="Select an option">
         <sl-option value="1">Option 1</sl-option>
@@ -310,7 +334,10 @@ export const OptionOverflow: Story = {
   args: {
     hint: 'This field has a lot of options, try scrolling through them.',
     options: () => html`
-      ${Array.from({ length: 100 }, (_, i) => html`<sl-option value=${i + 1}>Option ${i + 1}</sl-option>`)}
+      ${Array.from(
+        { length: 100 },
+        (_, i) => html`<sl-option value=${i + 1}>Option ${i + 1}</sl-option>`
+      )}
     `
   }
 };
@@ -335,12 +362,13 @@ export const TextOverflow: Story = {
       'Cupidatat adipisicing adipisicing dolore in ea ea magna culpa Lorem aute veniam in. Laboris ea pariatur velit adipisicing pariatur aliqua Lorem est aliqua Lorem minim excepteur.',
     options: () => html`
       <sl-option value="1">
-        Voluptate sint ullamco proident cillum sint nostrud laborum labore et ad minim veniam eiusmod.
+        Voluptate sint ullamco proident cillum sint nostrud laborum labore et ad minim veniam
+        eiusmod.
       </sl-option>
       <sl-option value="2">Consequat cupidatat amet sunt laborum laborum quis.</sl-option>
       <sl-option value="3">
-        Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea cillum dolor est ut
-        deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
+        Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea
+        cillum dolor est ut deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
       </sl-option>
     `
   }
@@ -374,15 +402,15 @@ export const DisplayInlineBlock: Story = {
       }
     </style>
     <section>
-      <sl-select value="2">
+      <sl-select value="2" aria-label="Select step 1">
         <sl-option value="1">short</sl-option>
         <sl-option value="2">very very long option text</sl-option>
       </sl-select>
-      <sl-select value="2">
+      <sl-select value="2" aria-label="Select step 2">
         <sl-option value="1">short</sl-option>
         <sl-option value="2">very very long option text</sl-option>
       </sl-select>
-      <sl-select value="2">
+      <sl-select value="2" aria-label="Select step 3">
         <sl-option value="1">short</sl-option>
         <sl-option value="2">very very long option text</sl-option>
       </sl-select>
@@ -427,7 +455,10 @@ export const CustomAsyncValidity: Story = {
     slot: () => {
       const onValidate = (event: Event & { target: Select }): void => {
         const promise = new Promise<string>(resolve =>
-          setTimeout(() => resolve(event.target.value === '2' ? '' : 'Select the second option'), 2000)
+          setTimeout(
+            () => resolve(event.target.value === '2' ? '' : 'Select the second option'),
+            2000
+          )
         );
 
         event.target.setCustomValidity(promise);
@@ -490,8 +521,7 @@ export const HideWhenOutOfView: StoryObj = {
         <div class="scrollcontent">
           <sl-form-field
             hint="This will hide when the container is scrolled AND when the window is scrolled"
-            label="Container scroll"
-          >
+            label="Container scroll">
             <sl-select>
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
@@ -524,72 +554,118 @@ export const All: Story = {
         <span style="justify-self: center">lg</span>
 
         <span>Placeholder</span>
-        <sl-select placeholder="Select an option">
+        <sl-select placeholder="Select an option" aria-label="Medium select with placeholder">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" size="lg">
+        <sl-select
+          placeholder="Select an option"
+          size="lg"
+          aria-label="Large select with placeholder">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Selected</span>
-        <sl-select placeholder="Select an option" value="Value 2">
+        <sl-select
+          placeholder="Select an option"
+          value="Value 2"
+          aria-label="Medium select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" value="Value 2" size="lg">
+        <sl-select
+          placeholder="Select an option"
+          value="Value 2"
+          size="lg"
+          aria-label="Large select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Clearable</span>
-        <sl-select clearable placeholder="Select an option" value="Value 2">
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          value="Value 2"
+          aria-label="Medium clearable select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select clearable placeholder="Select an option" value="Value 2" size="lg">
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          value="Value 2"
+          size="lg"
+          aria-label="Large clearable select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Valid</span>
-        <sl-select placeholder="Select an option" show-validity="valid" value="Value 2">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="valid"
+          value="Value 2"
+          aria-label="Medium valid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" show-validity="valid" value="Value 2" size="lg">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="valid"
+          value="Value 2"
+          size="lg"
+          aria-label="Large valid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Invalid</span>
-        <sl-select placeholder="Select an option" show-validity="invalid" value="Value 2">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="invalid"
+          value="Value 2"
+          aria-label="Medium invalid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select placeholder="Select an option" show-validity="invalid" value="Value 2" size="lg">
+        <sl-select
+          placeholder="Select an option"
+          show-validity="invalid"
+          value="Value 2"
+          size="lg"
+          aria-label="Large invalid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
 
         <span>Disabled</span>
-        <sl-select disabled placeholder="Select an option" value="Value 2">
+        <sl-select
+          disabled
+          placeholder="Select an option"
+          value="Value 2"
+          aria-label="Medium disabled select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
-        <sl-select disabled placeholder="Select an option" value="Value 2" size="lg">
+        <sl-select
+          disabled
+          placeholder="Select an option"
+          value="Value 2"
+          size="lg"
+          aria-label="Large disabled select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>

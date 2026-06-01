@@ -1,7 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { MessageDialog, type MessageDialogButton, type MessageDialogConfig } from './message-dialog.js';
+import {
+  MessageDialog,
+  type MessageDialogButton,
+  type MessageDialogConfig
+} from './message-dialog.js';
 
 type Props = {
   buttons: MessageDialogButton[];
@@ -55,7 +59,8 @@ export const Mobile: Story = {
       await MessageDialog.show({ buttons, message: message(), title });
     },
     title: 'Allow SLDS?',
-    message: () => 'The SL Design System is an amazing tool that will make your app look so much better.',
+    message: () =>
+      'The SL Design System is an amazing tool that will make your app look so much better.',
     buttons: [
       { text: "Don't allow", fill: 'outline', value: false, variant: 'primary' },
       { text: 'Allow', value: true, variant: 'primary' }
@@ -74,7 +79,8 @@ export const CustomButtons: Story = {
       await MessageDialog.show({ ...args, message: args.message() });
     },
     title: 'Custom buttons',
-    message: () => 'This is a message with custom buttons. Are you sure you want to press any buttons?'
+    message: () =>
+      'This is a message with custom buttons. Are you sure you want to press any buttons?'
   }
 };
 

@@ -1,7 +1,17 @@
 import { localized, msg, str } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
-import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
+  type ListDataSource
+} from '@sl-design-system/data-source';
+import { getPluralCategory } from '@sl-design-system/shared';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './status.scss.js';
 
@@ -12,8 +22,9 @@ declare global {
 }
 
 /**
- * A component that can be used with the paginator component.
- * Contains information about currently visible items on the page and total amount of items.
+ * A component that can be used with the paginator component. Contains information about currently
+ * visible items on the page and total amount of items.
+ *
  * @customElement sl-paginator-status
  */
 @localized()
@@ -33,8 +44,8 @@ export class PaginatorStatus<T = any> extends LitElement {
   }
 
   /**
-   * By setting a dataSource, the component will listen for changes on the data source
-   * and control the data source when the user selects a new page size in the component.
+   * By setting a dataSource, the component will listen for changes on the data source and control
+   * the data source when the user selects a new page size in the component.
    */
   @property({ attribute: false })
   set dataSource(dataSource: ListDataSource<T> | undefined) {
@@ -49,15 +60,15 @@ export class PaginatorStatus<T = any> extends LitElement {
   }
 
   /**
-   * The label to display for the 'items'.
-   * If not set, defaults to "Items".
-   * You can use this to set a custom label, such as "students" or "books" or something else.
-   * Please remember to provide a translation for the label in your application.
+   * The label to display for the 'items'. If not set, defaults to "Items". You can use this to set
+   * a custom label, such as "students" or "books" or something else. Please remember to provide a
+   * translation for the label in your application.
    */
   @property({ attribute: false }) itemLabel?: string;
 
   /**
    * Current page.
+   *
    * @default 0
    */
   @property({ type: Number }) page = 0;
@@ -67,6 +78,7 @@ export class PaginatorStatus<T = any> extends LitElement {
 
   /**
    * Items per page.
+   *
    * @default 10
    */
   @property({ type: Number, attribute: 'page-size' }) pageSize = LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
@@ -76,6 +88,7 @@ export class PaginatorStatus<T = any> extends LitElement {
 
   /**
    * Total number of items.
+   *
    * @default 1
    */
   @property({ type: Number, attribute: 'total-items' }) totalItems = 1;
@@ -120,9 +133,10 @@ export class PaginatorStatus<T = any> extends LitElement {
   }
 
   override render(): TemplateResult {
-    const [start, end] = this.range ?? [1, 1];
+    const [start, end] = this.range ?? [1, 1],
+      itemLabel = this.itemLabel ?? this.#getDefaultItemLabel(this.totalItems);
 
-    return html`${msg(str`${start} - ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`, {
+    return html`${msg(str`${start} - ${end} of ${this.totalItems + ' ' + itemLabel}`, {
       id: 'sl.paginator.itemsRange'
     })}`;
   }
@@ -143,17 +157,26 @@ export class PaginatorStatus<T = any> extends LitElement {
     // announcement would be with old or invalid values
     this.#timeoutId = setTimeout(() => {
       if (this.totalItems > 1) {
-        const [start, end] = this.range ?? [1, 1];
+        const [start, end] = this.range ?? [1, 1],
+          itemLabel = this.itemLabel ?? this.#getDefaultItemLabel(this.totalItems);
 
         announce(
-          msg(
-            str`Currently showing ${start} to ${end} of ${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}`,
-            {
-              id: 'sl.paginator.currentlyShowingAmount'
-            }
-          )
+          msg(str`Currently showing ${start} to ${end} of ${this.totalItems + ' ' + itemLabel}`, {
+            id: 'sl.paginator.currentlyShowingAmount'
+          })
         );
       }
     }, 100);
+  }
+
+  #getDefaultItemLabel(count: number): string {
+    switch (getPluralCategory(count)) {
+      case 'one':
+        return msg('item', { id: 'sl.paginator.defaultItemLabelOne' });
+      case 'few':
+        return msg('items', { id: 'sl.paginator.defaultItemLabelFew' });
+      default:
+        return msg('items', { id: 'sl.paginator.defaultItemLabelOther' });
+    }
   }
 }

@@ -1,8 +1,23 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type EventEmitter,
+  EventsController,
+  RovingTabindexController,
+  event
+} from '@sl-design-system/shared';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './radio-group.scss.js';
 import { type Radio, type RadioButtonSize } from './radio.js';
@@ -23,11 +38,11 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  * A group of radio buttons.
  *
  * ```html
- *   <sl-radio-group>
- *     <sl-radio value="1">Option 1</sl-radio>
- *     <sl-radio value="2">Option 2</sl-radio>
- *     <sl-radio value="3">Option 3</sl-radio>
- *   </sl-radio-group>
+ * <sl-radio-group>
+ *   <sl-radio value="1">Option 1</sl-radio>
+ *   <sl-radio value="2">Option 2</sl-radio>
+ *   <sl-radio value="3">Option 3</sl-radio>
+ * </sl-radio-group>
  * ```
  *
  * @customElement sl-radio-group
@@ -40,7 +55,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   static formAssociated = true;
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -57,7 +75,8 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
 
   /** When an option is checked, update the state. */
   #observer = new MutationObserver(mutations => {
-    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+    const { target } =
+      mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
 
     this.#observer.disconnect();
     this.#setSelectedOption(target as Radio<T>);
@@ -97,7 +116,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   /** Whether the group is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
-  /** The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. */
+  /**
+   * The orientation of the radio options; when true, the radio buttons are displayed next to each
+   * other instead of below each other.
+   */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
   /** Whether the user is required to select an option in the group. */
@@ -108,6 +130,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
 
   /**
    * The size of the radio buttons in the group.
+   *
    * @default md
    */
   @property() size?: RadioButtonSize;
@@ -131,12 +154,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  /** @ignore Stores the initial state of the radio group */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
   }
 
-  /** @ignore Resets the radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
 

@@ -2,6 +2,7 @@ import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/infotip/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/number-field/register.js';
 import '@sl-design-system/radio-group/register.js';
@@ -161,15 +162,20 @@ export const Composite: Story = {
             grid-column: 1 / -1;
           }
         </style>
-        <sl-checkbox @sl-change=${onIndefinitelyChange} name="indefinitely">Indefinitely</sl-checkbox>
+        <sl-checkbox @sl-change=${onIndefinitelyChange} name="indefinitely"
+          >Indefinitely</sl-checkbox
+        >
         <sl-number-field
           aria-label="Rental period amount"
           name="rentalPeriodAmount"
           min="1"
           placeholder="0"
-          required
-        ></sl-number-field>
-        <sl-select aria-label="Rental period unit" name="rentalPeriodUnit" placeholder="Select unit" required>
+          required></sl-number-field>
+        <sl-select
+          aria-label="Rental period unit"
+          name="rentalPeriodUnit"
+          placeholder="Select unit"
+          required>
           <sl-option value="day">Day</sl-option>
           <sl-option value="week">Week</sl-option>
           <sl-option value="month">Month</sl-option>
@@ -184,8 +190,8 @@ export const CustomError: Story = {
     slot: () => html`
       <sl-text-field required show-validity="invalid"></sl-text-field>
       <sl-error
-        >This is a <strong>custom</strong> error with a lot of text so we can see what happens when you have a lot to
-        explain. Because forms are hard!</sl-error
+        >This is a <strong>custom</strong> error with a lot of text so we can see what happens when
+        you have a lot to explain. Because forms are hard!</sl-error
       >
     `
   }
@@ -205,23 +211,11 @@ export const CustomLabel: Story = {
   args: {
     label: undefined,
     slot: () => html`
-      <style>
-        span[aria-describedby] {
-          display: inline-flex;
-          margin-inline-start: 0.25rem;
-          vertical-align: top;
-
-          sl-icon {
-            pointer-events: none;
-          }
-        }
-      </style>
       <sl-label>
         This is a <em>custom</em> label
-        <span aria-describedby="tooltip" tabindex="-1">
-          <sl-icon name="info"></sl-icon>
-        </span>
-        <sl-tooltip id="tooltip">Some information about this field</sl-tooltip>
+        <sl-infotip slot="infotip"
+          >This is some additional information about this field.</sl-infotip
+        >
       </sl-label>
       <sl-text-field></sl-text-field>
     `

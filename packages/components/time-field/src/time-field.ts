@@ -1,5 +1,8 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import {
@@ -10,9 +13,20 @@ import {
   event,
   isPopoverOpen
 } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './time-field.scss.js';
@@ -36,8 +50,8 @@ type TimePartType = 'hour' | 'minute';
 const timeSeparators = new Map<string, string>();
 
 /**
- * A form component that allows the user to pick a time.
- * Uses individual spinbutton inputs per time part for improved accessibility.
+ * A form component that allows the user to pick a time. Uses individual spinbutton inputs per time
+ * part for improved accessibility.
  *
  * @customElement sl-time-field
  * @cssState has-focus - Set when the time field has focus.
@@ -82,15 +96,15 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #enteredDigits = 0;
 
   /**
-   * Flag to prevent willUpdate from clearing timeParts when the value is set
-   * to undefined internally (e.g. when the user enters an invalid time).
+   * Flag to prevent willUpdate from clearing timeParts when the value is set to undefined
+   * internally (e.g. when the user enters an invalid time).
    */
   #preserveTimeParts = false;
 
   /**
-   * Flag indicating whether the popover was just closed. We need to know this so we can
-   * properly handle button clicks that close the popover. If the popover was just closed,
-   * we don't want to show it again when the button click event fires.
+   * Flag indicating whether the popover was just closed. We need to know this so we can properly
+   * handle button clicks that close the popover. If the popover was just closed, we don't want to
+   * show it again when the button click event fires.
    */
   #popoverJustClosed = false;
 
@@ -98,8 +112,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #rovingIndex = 0;
 
   /**
-   * The start time; the time that has the initial focus when the picker is opened when
-   * there is no value set.
+   * The start time; the time that has the initial focus when the picker is opened when there is no
+   * value set.
    */
   #startTime?: TimePart | undefined;
 
@@ -135,12 +149,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * The maximum time selectable in the field.
+   *
    * @default undefined
    */
   @property() max?: string;
 
   /**
    * The minimum time selectable in the field.
+   *
    * @default undefined
    */
   @property() min?: string;
@@ -150,6 +166,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * The placeholder for the time field.
+   *
    * @default undefined
    */
   @property() placeholder?: string;
@@ -159,12 +176,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Whether the time field is readonly.
+   *
    * @default false
    */
   @property({ type: Boolean }) readonly?: boolean;
 
   /**
    * Whether the time field is a required field.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
@@ -173,22 +192,25 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @state() selectAll?: boolean;
 
   /**
-   * Whether the component is select only. This means you cannot type in the inputs,
-   * but you can still pick a time via the popover.
+   * Whether the component is select only. This means you cannot type in the inputs, but you can
+   * still pick a time via the popover.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
   /**
-   * The start time; the time that has the initial focus when the picker is opened without
-   * a value. If will use the current time if not explicitly set.
+   * The start time; the time that has the initial focus when the picker is opened without a value.
+   * If will use the current time if not explicitly set.
+   *
    * @default undefined
    */
   @property() start?: string;
 
   /**
-   * Stores the individual time parts when the user is editing.
-   * These are stored separately from `value` to support partial times.
+   * Stores the individual time parts when the user is editing. These are stored separately from
+   * `value` to support partial times.
+   *
    * @internal
    */
   @state() timeParts: PartialTimePart = {};
@@ -285,7 +307,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.internals.setFormValue(this.value || null);
     }
 
-    if (changes.has('min') || changes.has('max') || changes.has('required') || changes.has('value')) {
+    if (
+      changes.has('min') ||
+      changes.has('max') ||
+      changes.has('required') ||
+      changes.has('value')
+    ) {
       this.updateValidity();
     }
   }
@@ -329,7 +356,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                 </div>
                 ${this.placeholder
                   ? html`
-                      <div aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')} class="placeholder">
+                      <div
+                        aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
+                        class="placeholder">
                         ${this.placeholder}
                       </div>
                     `
@@ -343,8 +372,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-expanded=${this.dialog && isPopoverOpen(this.dialog) ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select time', { id: 'sl.timeField.toggleDropdown' })}
-          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
-        >
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="clock"></sl-icon>
         </sl-field-button>
       </div>
@@ -362,14 +390,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @focusout=${this.#onDialogFocusout}
         @keydown=${this.#onKeydown}
         id="dialog"
-        popover
-      >
+        popover>
         <ul
           aria-label=${msg('Select hours', { id: 'sl.timeField.selectHours' })}
           class="hours"
           role="listbox"
-          tabindex="-1"
-        >
+          tabindex="-1">
           ${this.renderHours()}
         </ul>
         <hr aria-hidden="true" />
@@ -377,8 +403,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${msg('Select minutes', { id: 'sl.timeField.selectMinutes' })}
           class="minutes"
           role="listbox"
-          tabindex="-1"
-        >
+          tabindex="-1">
           ${this.renderMinutes()}
         </ul>
       </dialog>
@@ -389,7 +414,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   renderPart(part: DateFormatPart, locale: string, timePartIndex: number): TemplateResult {
     if (part.type === 'literal') {
       return html`
-        <span @pointerdown=${this.#onSeparatorPointerDown} class="separator" aria-hidden="true">${part.value}</span>
+        <span @pointerdown=${this.#onSeparatorPointerDown} class="separator" aria-hidden="true"
+          >${part.value}</span
+        >
       `;
     }
 
@@ -420,15 +447,17 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         contenteditable=${this.disabled || this.readonly || this.selectOnly ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
-        tabindex=${ifDefined(this.disabled ? undefined : timePartIndex === this.#rovingIndex ? '0' : '-1')}
+        tabindex=${ifDefined(
+          this.disabled ? undefined : timePartIndex === this.#rovingIndex ? '0' : '-1'
+        )}
         >${displayValue}</span
       >
     `;
   }
 
   /**
-   * Renders hour options (00–23) using hourStep, applies min/max constraints, and marks the selected hour with aria-selected.
-   * Can be overridden.
+   * Renders hour options (00–23) using hourStep, applies min/max constraints, and marks the
+   * selected hour with aria-selected. Can be overridden.
    */
   renderHours(): TemplateResult[] {
     let hours = Array.from({ length: 24 / this.hourStep }, (_, i) => i * this.hourStep);
@@ -457,8 +486,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${`${hour.toString()} ${getTimeUnitName(this.locale || 'default', 'hour')}`}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
           role="option"
-          tabindex=${index === 0 ? '0' : '-1'}
-        >
+          tabindex=${index === 0 ? '0' : '-1'}>
           ${hour.toString().padStart(2, '0')}
         </li>
       `
@@ -466,8 +494,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /**
-   * Renders minute options using minuteStep and marks the selected one with aria-selected.
-   * Can be overridden.
+   * Renders minute options using minuteStep and marks the selected one with aria-selected. Can be
+   * overridden.
    */
   renderMinutes(): TemplateResult[] {
     const minutes = Array.from({ length: 60 / this.minuteStep }, (_, i) => i * this.minuteStep);
@@ -483,8 +511,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${`${minute.toString()} ${getTimeUnitName(this.locale || 'default', 'minute')}`}
           aria-selected=${minute === this.#valueAsNumbers?.minute && !isDisabled}
           role="option"
-          tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}
-        >
+          tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}>
           ${minute.toString().padStart(2, '0')}
         </li>
       `;
@@ -553,7 +580,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    if (!hasCompleteTime && (this.timeParts.hour !== undefined || this.timeParts.minute !== undefined)) {
+    if (
+      !hasCompleteTime &&
+      (this.timeParts.hour !== undefined || this.timeParts.minute !== undefined)
+    ) {
       this.internals.setValidity(
         { badInput: true },
         msg('Please enter a valid time.', { id: 'sl.timeField.typeMismatch' })
@@ -665,7 +695,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Only emit when focus enters from outside the component
     const relatedTarget = event.relatedTarget as Node | null;
 
-    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
+    if (
+      !relatedTarget ||
+      (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))
+    ) {
       this.focusEvent.emit();
     }
 
@@ -676,7 +709,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Only emit when focus leaves the component entirely
     const relatedTarget = event.relatedTarget as Node | null;
 
-    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
+    if (
+      !relatedTarget ||
+      (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))
+    ) {
       this.placeholderShown = !this.value && !!this.placeholder;
 
       this.blurEvent.emit();
@@ -813,8 +849,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       return;
     }
 
-    this.#valueAsNumbers = { hour: this.#valueAsNumbers?.hour ?? this.#startTime?.hour ?? 0, minute: minute };
-    this.#value = this.#formatTime(this.#valueAsNumbers.hour ?? 0, this.#valueAsNumbers.minute ?? 0);
+    this.#valueAsNumbers = {
+      hour: this.#valueAsNumbers?.hour ?? this.#startTime?.hour ?? 0,
+      minute: minute
+    };
+    this.#value = this.#formatTime(
+      this.#valueAsNumbers.hour ?? 0,
+      this.#valueAsNumbers.minute ?? 0
+    );
     const { hour: normalizedHours, minute: normalizedMinutes } = this.#valueAsNumbers;
     this.timeParts = { hour: normalizedHours, minute: normalizedMinutes };
     this.requestUpdate('value');
@@ -841,7 +883,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #onPartBlur(event: FocusEvent): void {
     const relatedTarget = event.relatedTarget as HTMLElement | null,
-      isSpinbutton = relatedTarget?.getAttribute('role') === 'spinbutton' && this.renderRoot.contains(relatedTarget);
+      isSpinbutton =
+        relatedTarget?.getAttribute('role') === 'spinbutton' &&
+        this.renderRoot.contains(relatedTarget);
 
     if (!isSpinbutton) {
       this.renderRoot.ownerDocument.getSelection()?.removeAllRanges();
@@ -875,7 +919,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Check if the pressed key is a separator character
     const locale = this.locale || 'default',
       parts = getTimeFormat(locale),
-      separators = parts.filter((p: DateFormatPart) => p.type === 'literal').map((p: DateFormatPart) => p.value);
+      separators = parts
+        .filter((p: DateFormatPart) => p.type === 'literal')
+        .map((p: DateFormatPart) => p.value);
 
     if (separators.includes(event.key)) {
       event.preventDefault();
@@ -911,7 +957,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       // Auto-advance when max digits (2) reached OR when single digit makes second digit impossible
       const shouldAutoAdvance =
-        this.#enteredDigits >= 2 || (wasEmpty && this.#shouldAutoAdvanceOnSingleDigit(partType, digit));
+        this.#enteredDigits >= 2 ||
+        (wasEmpty && this.#shouldAutoAdvanceOnSingleDigit(partType, digit));
 
       if (shouldAutoAdvance) {
         this.#enteredDigits = 0;
@@ -1064,7 +1111,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #moveFocus(span: HTMLElement, direction: number): void {
-    const spans = Array.from(this.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')),
+    const spans = Array.from(
+        this.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')
+      ),
       index = spans.indexOf(span),
       next = spans[index + direction];
 
@@ -1095,11 +1144,13 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #adjustTimePart(partType: TimePartType, delta: number): void {
     const startTime = this.#getStartTime(),
-      currentValue = this.timeParts[partType] ?? (partType === 'hour' ? startTime.hour : startTime.minute),
+      currentValue =
+        this.timeParts[partType] ?? (partType === 'hour' ? startTime.hour : startTime.minute),
       maxValue = this.#getMaxForType(partType),
       minTime = this.min ? this.#parseTime(this.min) : undefined,
       maxTime = this.max ? this.#parseTime(this.max) : undefined,
-      wrapped = ((((currentValue || 0) + delta) % (maxValue + 1)) + (maxValue + 1)) % (maxValue + 1),
+      wrapped =
+        ((((currentValue || 0) + delta) % (maxValue + 1)) + (maxValue + 1)) % (maxValue + 1),
       currentHour = this.timeParts.hour ?? startTime.hour,
       effectiveMin =
         partType === 'hour'
@@ -1124,9 +1175,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Compares two time objects.
+   *
    * @param time1 The first time as a TimePart object.
    * @param time2 The second time as a TimePart object.
-   * @returns A negative number if time1 is earlier than time2, a positive number if time1 is later than time2, or 0 if they are equal.
+   * @returns A negative number if time1 is earlier than time2, a positive number if time1 is later
+   *   than time2, or 0 if they are equal.
    */
   #compareTimes(time1: TimePart, time2: TimePart): number {
     const totalMinutes1 = time1.hour * 60 + time1.minute,
@@ -1136,9 +1189,9 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   /**
-   * Determines if we should auto-advance to the next field after entering a single digit.
-   * For hours: digits 3-9 make a second digit impossible (since max hour is 23)
-   * For minutes: digits 6-9 make a second digit impossible (since max minute is 59)
+   * Determines if we should auto-advance to the next field after entering a single digit. For
+   * hours: digits 3-9 make a second digit impossible (since max hour is 23) For minutes: digits 6-9
+   * make a second digit impossible (since max minute is 59)
    */
   #shouldAutoAdvanceOnSingleDigit(partType: TimePartType, digit: number): boolean {
     if (partType === 'hour') {
@@ -1220,7 +1273,14 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #formatTime(hours: number | undefined, minutes: number | undefined): string | undefined {
-    if (hours === undefined || minutes === undefined || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+    if (
+      hours === undefined ||
+      minutes === undefined ||
+      hours < 0 ||
+      hours > 23 ||
+      minutes < 0 ||
+      minutes > 59
+    ) {
       return undefined;
     }
 
@@ -1325,7 +1385,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     time.minute = Math.round(time.minute / this.minuteStep) * this.minuteStep;
 
     // Apply min/max constraints
-    if (minTime && (time.hour < minTime.hour || (time.hour === minTime.hour && time.minute < minTime.minute))) {
+    if (
+      minTime &&
+      (time.hour < minTime.hour || (time.hour === minTime.hour && time.minute < minTime.minute))
+    ) {
       time.hour = minTime.hour;
       const roundedMinutes = Math.ceil(minTime.minute / this.minuteStep) * this.minuteStep;
 
@@ -1344,7 +1407,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    if (maxTime && (time.hour > maxTime.hour || (time.hour === maxTime.hour && time.minute > maxTime.minute))) {
+    if (
+      maxTime &&
+      (time.hour > maxTime.hour || (time.hour === maxTime.hour && time.minute > maxTime.minute))
+    ) {
       time.hour = maxTime.hour;
       time.minute = Math.floor(maxTime.minute / this.minuteStep) * this.minuteStep;
     }
@@ -1360,7 +1426,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.#focusTimeElement(time.hour, time.minute, focus);
   }
 
-  #scrollTimeIntoView(hours: number, minutes?: number, block: ScrollLogicalPosition = 'nearest'): void {
+  #scrollTimeIntoView(
+    hours: number,
+    minutes?: number,
+    block: ScrollLogicalPosition = 'nearest'
+  ): void {
     const hoursEl = this.renderRoot.querySelector<HTMLElement>('.hours')!,
       minutesEl = this.renderRoot.querySelector<HTMLElement>('.minutes')!;
 

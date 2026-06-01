@@ -1,8 +1,23 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin, type SlFormControlEvent } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type EventEmitter,
+  EventsController,
+  RovingTabindexController,
+  event
+} from '@sl-design-system/shared';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
 import { type Checkbox, type CheckboxSize } from './checkbox.js';
@@ -13,7 +28,11 @@ declare global {
   }
 }
 
-const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], attributeOldValue: true, subtree: true };
+const OBSERVER_OPTIONS: MutationObserverInit = {
+  attributeFilter: ['checked'],
+  attributeOldValue: true,
+  subtree: true
+};
 
 /**
  * Checkbox group; treat a group of checkboxes as one form input with validation, hints and errors
@@ -86,8 +105,8 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   }
 
   /**
-   * We need to override the setter as well, otherwise it won't work.
-   * See https://github.com/sl-design-system/components/issues/1441
+   * We need to override the setter as well, otherwise it won't work. See
+   * https://github.com/sl-design-system/components/issues/1441
    */
   override set formValue(value: T[]) {
     super.formValue = value;
@@ -161,8 +180,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
         @sl-change=${this.#stopEvent}
         @sl-focus=${this.#stopEvent}
         @sl-form-control=${this.#onFormControl}
-        @sl-validate=${this.#stopEvent}
-      ></slot>
+        @sl-validate=${this.#stopEvent}></slot>
     `;
   }
 
@@ -239,7 +257,9 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   #updateValidity(): void {
     this.internals.setValidity(
       { valueMissing: this.required && !this.boxes?.some(box => box.checked) },
-      msg('Please check at least one option.', { id: 'sl.checkbox.validation.valueMissingMultiple' })
+      msg('Please check at least one option.', {
+        id: 'sl.checkbox.validation.valueMissingMultiple'
+      })
     );
 
     this.updateValidity();

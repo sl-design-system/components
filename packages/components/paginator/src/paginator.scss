@@ -1,6 +1,10 @@
 :host {
   align-items: center;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   display: flex;
   gap: var(--sl-size-100);
   min-inline-size: 0;
@@ -23,11 +27,14 @@
   sl-select {
     min-inline-size: var(--sl-size-1000);
   }
+
+  sl-option::part(wrapper) {
+    white-space: nowrap;
+  }
 }
 
 .page {
   box-sizing: border-box;
-  color: var(--sl-color-foreground-neutral-bold);
   flex-shrink: 0;
   inline-size: calc(1lh + (var(--sl-size-100) * 2));
   padding-inline: 0;

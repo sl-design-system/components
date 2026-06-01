@@ -19,6 +19,8 @@ type Props = Pick<
   | 'selectOnly'
   | 'value'
 > & {
+  hint?: string;
+  label?: string;
   maxWidth?: string;
   options?: unknown[] | (() => TemplateResult);
   optionGroupPath?: string;
@@ -35,7 +37,9 @@ export default {
     autocomplete: 'both',
     disabled: false,
     filterResults: false,
-    placeholder: 'Choose a component',
+    label: 'Component',
+    hint: '',
+    placeholder: '',
     selectOnly: false,
     virtualList: false
   },
@@ -54,6 +58,8 @@ export default {
     disabled,
     filterResults,
     groupSelected,
+    hint,
+    label,
     maxWidth,
     optionGroupPath,
     optionLabelPath,
@@ -65,30 +71,35 @@ export default {
     virtualList
   }) => {
     return html`
-      <sl-combobox
-        ?allow-custom-values=${allowCustomValues}
-        ?disabled=${disabled}
-        ?filter-results=${filterResults}
-        ?group-selected=${groupSelected}
-        ?select-only=${selectOnly}
-        .options=${virtualList ? options : undefined}
-        .value=${value}
-        multiple
-        autocomplete=${ifDefined(autocomplete)}
-        option-group-path=${ifDefined(optionGroupPath)}
-        option-label-path=${ifDefined(optionLabelPath)}
-        option-value-path=${ifDefined(optionValuePath)}
-        placeholder=${ifDefined(placeholder)}
-        style=${`max-width: ${maxWidth ?? 'none'}`}
-      >
-        ${virtualList
-          ? nothing
-          : html`
-              <sl-listbox>
-                ${Array.isArray(options) ? options.map(o => html`<sl-option>${o}</sl-option>`) : options?.()}
-              </sl-listbox>
-            `}
-      </sl-combobox>
+      <sl-form>
+        <sl-form-field label=${ifDefined(label)} hint=${ifDefined(hint)}>
+          <sl-combobox
+            ?allow-custom-values=${allowCustomValues}
+            ?disabled=${disabled}
+            ?filter-results=${filterResults}
+            ?group-selected=${groupSelected}
+            ?select-only=${selectOnly}
+            .options=${virtualList ? options : undefined}
+            .value=${value}
+            multiple
+            autocomplete=${ifDefined(autocomplete)}
+            option-group-path=${ifDefined(optionGroupPath)}
+            option-label-path=${ifDefined(optionLabelPath)}
+            option-value-path=${ifDefined(optionValuePath)}
+            placeholder=${ifDefined(placeholder)}
+            style=${`max-width: ${maxWidth ?? 'none'}`}>
+            ${virtualList
+              ? nothing
+              : html`
+                  <sl-listbox>
+                    ${Array.isArray(options)
+                      ? options.map(o => html`<sl-option>${o}</sl-option>`)
+                      : options?.()}
+                  </sl-listbox>
+                `}
+          </sl-combobox>
+        </sl-form-field>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;
@@ -163,6 +174,7 @@ export const GroupsWithGroupSelected: Story = {
 
 export const RichContent: Story = {
   args: {
+    label: 'Chapter',
     options: () => html`
       <style>
         sl-option::part(wrapper) {
@@ -173,13 +185,18 @@ export const RichContent: Story = {
           margin-inline-start: auto;
         }
       </style>
-      <sl-option value="chapter-1">Chapter 1 <sl-badge size="lg" variant="info">Published</sl-badge></sl-option>
-      <sl-option value="chapter-2">Chapter 2 <sl-badge size="lg" variant="info">Published</sl-badge></sl-option>
+      <sl-option value="chapter-1"
+        >Chapter 1 - Latin <sl-badge size="lg" variant="info">Published</sl-badge></sl-option
+      >
+      <sl-option value="chapter-2"
+        >Chapter 2 - Greek <sl-badge size="lg" variant="info">Published</sl-badge></sl-option
+      >
       <sl-option value="chapter-3">
-        Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod irure ut
-        anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum et eu nisi
-        id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem. Lorem
-        quis sint et et. <sl-badge emphasis="bold" size="lg">Draft</sl-badge>
+        Chapter 3 - Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis.
+        Nisi eu nulla eiusmod irure ut anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor
+        in fugiat. Sit ullamco exercitation ipsum et eu nisi id minim ut. Labore id fugiat
+        exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem. Lorem quis sint et
+        et. <sl-badge emphasis="bold" size="lg">Draft</sl-badge>
       </sl-option>
     `
   }
@@ -194,6 +211,7 @@ export const SelectOnly: Story = {
 
 export const Selected: Story = {
   args: {
+    label: 'Your favourite nonsensical word',
     options: () => html`
       <sl-option>Lorem</sl-option>
       <sl-option selected>Ipsum</sl-option>
@@ -206,7 +224,16 @@ export const Stacked: Story = {
   args: {
     ...Basic.args,
     maxWidth: '700px',
-    value: ['Switch', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Button bar']
+    value: [
+      'Switch',
+      'Card',
+      'Checkbox',
+      'Inline message',
+      'Menu',
+      'Panel',
+      'Spinner',
+      'Button bar'
+    ]
   }
 };
 

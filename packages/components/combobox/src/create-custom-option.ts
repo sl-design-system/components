@@ -10,9 +10,8 @@ declare global {
 }
 
 /**
- * A custom element for creating a new option in a combobox.
- * This element is used in combination with the `allowCustomValues`
- * property of the `sl-combobox` element.
+ * A custom element for creating a new option in a combobox. This element is used in combination
+ * with the `allowCustomValues` property of the `sl-combobox` element.
  *
  * @slot - The option's label.
  */
@@ -25,7 +24,9 @@ export class CreateCustomOption extends Option {
     return html`
       <div part="container">
         <sl-icon name="plus"></sl-icon>
-        <div part="wrapper">${msg(str`Create "${this.value}"`, { id: 'sl.combobox.createCustomOption' })}</div>
+        <div part="wrapper">
+          ${msg(str`Create "${this.value}"`, { id: 'sl.combobox.createCustomOption' })}
+        </div>
       </div>
     `;
   }

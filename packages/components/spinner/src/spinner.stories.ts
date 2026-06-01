@@ -87,7 +87,7 @@ export const InButton: Story = {
                       <sl-button variant=${buttonVariant} size=${buttonSize}>
                         <sl-spinner></sl-spinner>
                         Sending </sl-button
-                      ><br />
+                      ><br aria-hidden="true" />
                       <sl-button variant=${buttonVariant} fill="outline" size=${buttonSize}>
                         <sl-spinner></sl-spinner>
                         Sending
@@ -100,7 +100,8 @@ export const InButton: Story = {
           )}
         </tbody>
       </table>
-      The colour of the spinner is set to CurrentColor; so the color of the text in the container wrapping the spinner.
+      The colour of the spinner is set to CurrentColor; so the color of the text in the container
+      wrapping the spinner.
     `;
   }
 };
@@ -132,7 +133,8 @@ export const All: Story = {
           )}
         </tbody>
       </table>
-      The color of the spinner is set to CurrentColor; so the color of the text in the container wrapping the spinner.
+      The color of the spinner is set to CurrentColor; so the color of the text in the container
+      wrapping the spinner.
     `;
   }
 };

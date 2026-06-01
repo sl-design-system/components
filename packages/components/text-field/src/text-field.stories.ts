@@ -229,12 +229,23 @@ export const All: Story = {
         <sl-text-field aria-label="Text field" size="lg" value="Value"></sl-text-field>
 
         <span>Invalid</span>
-        <sl-text-field aria-label="Text field" show-validity="invalid" value="Invalid"></sl-text-field>
-        <sl-text-field aria-label="Text field" show-validity="invalid" size="lg" value="Invalid"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="invalid"
+          value="Invalid"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="invalid"
+          size="lg"
+          value="Invalid"></sl-text-field>
 
         <span>Valid</span>
         <sl-text-field aria-label="Text field" show-validity="valid" value="Valid"></sl-text-field>
-        <sl-text-field aria-label="Text field" show-validity="valid" size="lg" value="Valid"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="valid"
+          size="lg"
+          value="Valid"></sl-text-field>
 
         <span>Prefix/suffix</span>
         <sl-text-field aria-label="Text field" placeholder="Placeholder">

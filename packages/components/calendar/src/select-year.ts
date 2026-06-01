@@ -1,12 +1,21 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -29,7 +38,10 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -59,12 +71,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   /**
    * The maximum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
    * The minimum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) min?: Date;
@@ -77,6 +91,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   /**
    * Highlights the current year when set.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-current' }) showCurrent?: boolean;
@@ -125,8 +140,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
           aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
         <sl-button
@@ -134,8 +148,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
           aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </header>
@@ -144,8 +157,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         aria-label=${msg(str`Years from ${this.years.at(0)!} to ${this.years.at(-1)!}`, {
           id: 'sl.calendar.yearsLabel'
         })}
-        role="grid"
-      >
+        role="grid">
         <tbody>
           ${rows.map(
             (row, rowIndex) => html`
@@ -161,7 +173,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   renderYear(year: number, rowIndex: number, colIndex: number): TemplateResult {
     const current = year === new Date().getFullYear(),
-      disabled = (this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()),
+      disabled =
+        (this.min && year < this.min.getFullYear()) || (this.max && year > this.max.getFullYear()),
       selected = !!(this.selected && this.selected.getFullYear() === year);
 
     return html`
@@ -172,8 +185,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${disabled}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
-          class=${classMap({ current, selected })}
-        >
+          class=${classMap({ current, selected })}>
           <span>${year}</span>
         </button>
       </td>
@@ -189,8 +201,8 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   /**
    * For arrow keys, we need to detect if we're at a visual boundary (first/last button position)
-   * and trying to navigate beyond it AND navigation is not blocked by min/max constraints.
-   * If we can load a new range, do so. Otherwise, let the focus group controller handle it.
+   * and trying to navigate beyond it AND navigation is not blocked by min/max constraints. If we
+   * can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
     const buttons = Array.from(this.buttons);
@@ -221,7 +233,11 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onPrevious();
-    } else if (event.key === 'ArrowDown' && currentIndex >= buttons.length - this.#cols && canGoLater) {
+    } else if (
+      event.key === 'ArrowDown' &&
+      currentIndex >= buttons.length - this.#cols &&
+      canGoLater
+    ) {
       shouldLoadNewRange = true;
       event.preventDefault();
       this.#onNext();

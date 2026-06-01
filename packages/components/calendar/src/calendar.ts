@@ -1,12 +1,26 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
-import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type SlChangeEvent,
+  type SlSelectEvent,
+  type SlToggleEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -40,7 +54,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -52,9 +69,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   });
 
   /**
-   * Tracks the previously active calendar mode (`'day' | 'month' | 'year'`) so the
-   * component can restore the correct view when closing or switching between
-   * month and year views.
+   * Tracks the previously active calendar mode (`'day' | 'month' | 'year'`) so the component can
+   * restore the correct view when closing or switching between month and year views.
    */
   #previousMode: 'day' | 'month' | 'year' = 'day';
 
@@ -71,16 +87,19 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * The list of dates that should display an indicator. Each item has a `date` and optional `color`
    * and `label` values that are used to improve accessibility.
    */
-  @property({ attribute: 'indicator-dates', converter: indicatorConverter }) indicatorDates?: Indicator[];
+  @property({ attribute: 'indicator-dates', converter: indicatorConverter })
+  indicatorDates?: Indicator[];
 
   /**
    * The maximum date selectable in the calendar.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
    * The minimum date selectable in the calendar.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) min?: Date;
@@ -136,8 +155,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
         min=${ifDefined(this.min?.toISOString())}
-        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}
-      ></sl-select-day>
+        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}></sl-select-day>
       ${choose(this.mode, [
         [
           'month',
@@ -150,8 +168,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               .month=${this.month}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
-              min=${ifDefined(this.min?.toISOString())}
-            ></sl-select-month>
+              min=${ifDefined(this.min?.toISOString())}></sl-select-month>
           `
         ],
         [
@@ -163,8 +180,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               .selected=${this.selected}
               .year=${this.month}
               max=${ifDefined(this.max?.toISOString())}
-              min=${ifDefined(this.min?.toISOString())}
-            ></sl-select-year>
+              min=${ifDefined(this.min?.toISOString())}></sl-select-year>
           `
         ]
       ])}
@@ -182,18 +198,24 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ? html`
               <div class="helper-text">
                 <sl-icon name="info"></sl-icon>
-                ${msg(str`No earlier than ${format(this.min, this.locale, this.#helperTextFormatOptions)}`, {
-                  id: 'sl.calendar.rangeNoEarlierThan'
-                })}
+                ${msg(
+                  str`No earlier than ${format(this.min, this.locale, this.#helperTextFormatOptions)}`,
+                  {
+                    id: 'sl.calendar.rangeNoEarlierThan'
+                  }
+                )}
               </div>
             `
           : this.max
             ? html`
                 <div class="helper-text">
                   <sl-icon name="info"></sl-icon>
-                  ${msg(str`No later than ${format(this.max, this.locale, this.#helperTextFormatOptions)}`, {
-                    id: 'sl.calendar.rangeNoLaterThan'
-                  })}
+                  ${msg(
+                    str`No later than ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
+                    {
+                      id: 'sl.calendar.rangeNoLaterThan'
+                    }
+                  )}
                 </div>
               `
             : nothing}
@@ -214,16 +236,24 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     const button = event
       .composedPath()
-      .find((el): el is HTMLButtonElement => el instanceof HTMLButtonElement && !!el.closest('table[role="grid"]'));
+      .find(
+        (el): el is HTMLButtonElement =>
+          el instanceof HTMLButtonElement && !!el.closest('table[role="grid"]')
+      );
 
     if (button) {
-      const existing = (button.ariaDescribedByElements ?? []).filter(el => !el.classList?.contains('helper-text'));
+      const existing = (button.ariaDescribedByElements ?? []).filter(
+        el => !el.classList?.contains('helper-text')
+      );
 
       button.ariaDescribedByElements = [...existing, helperText];
     }
   }
 
-  /** Returns the format options for the helper text, omitting the year when min and max are in the same year. */
+  /**
+   * Returns the format options for the helper text, omitting the year when min and max are in the
+   * same year.
+   */
   get #helperTextFormatOptions(): Intl.DateTimeFormatOptions {
     return this.min && this.max && this.min.getFullYear() === this.max.getFullYear()
       ? { day: 'numeric', month: 'long' }
@@ -249,7 +279,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(event.detail.getFullYear(), event.detail.getMonth(), this.month!.getDate());
+    this.month = new Date(
+      event.detail.getFullYear(),
+      event.detail.getMonth(),
+      this.month!.getDate()
+    );
     this.mode = 'day';
 
     requestAnimationFrame(() => {
@@ -261,7 +295,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(event.detail.getFullYear(), this.month!.getMonth(), this.month!.getDate());
+    this.month = new Date(
+      event.detail.getFullYear(),
+      this.month!.getMonth(),
+      this.month!.getDate()
+    );
     this.mode = this.#previousMode ?? 'day';
 
     requestAnimationFrame(() => {
@@ -290,7 +328,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     });
   }
 
-  /** Sets `ariaDescribedByElements` on the first focusable button (day, month or year depending on view) */
+  /**
+   * Sets `ariaDescribedByElements` on the first focusable button (day, month or year depending on
+   * view)
+   */
   #setHelperTextOnFirstButton(subComponent: Element): void {
     const helperText = this.renderRoot.querySelector('.helper-text');
 
@@ -298,7 +339,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const button = subComponent.shadowRoot?.querySelector<HTMLButtonElement>('table button:not(:disabled)');
+    const button = subComponent.shadowRoot?.querySelector<HTMLButtonElement>(
+      'table button:not(:disabled)'
+    );
 
     if (button) {
       const existingDescription = (button.ariaDescribedByElements ?? []).filter(

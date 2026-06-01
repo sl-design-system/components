@@ -16,12 +16,13 @@ declare global {
 export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'assertive' }>;
 
 /**
- * Utility that serves as a recipient for all live-aria notifications and supplies them for screenreaders
- * from a central place in your application.
+ * Utility that serves as a recipient for all live-aria notifications and supplies them for
+ * screenreaders from a central place in your application.
  *
  * ```html
  * <sl-live-aria></sl-live-aria>
  * ```
+ *
  * @customElement sl-announcer
  */
 @localized()
@@ -45,7 +46,9 @@ export class Announcer extends LitElement {
   }
 
   #onLiveEvent(event: SlAnnounceEvent) {
-    const container = this.renderRoot.querySelector(`[aria-live="${event.detail.urgency || 'polite'}"]`);
+    const container = this.renderRoot.querySelector(
+      `[aria-live="${event.detail.urgency || 'polite'}"]`
+    );
 
     // make sure the message is not already in the container
     if (container?.textContent?.indexOf(event.detail.message) === -1) {

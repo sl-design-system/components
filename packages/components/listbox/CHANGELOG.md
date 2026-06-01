@@ -1,5 +1,11 @@
 # @sl-design-system/listbox
 
+## 0.1.7
+
+### Patch Changes
+
+- [#3297](https://github.com/sl-design-system/components/pull/3297) [`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a) - Align options and group styling with Figma.
+
 ## 0.1.6
 
 ### Patch Changes

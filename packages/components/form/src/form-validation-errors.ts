@@ -1,7 +1,16 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { InlineMessage } from '@sl-design-system/inline-message';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormController } from './form-controller.js';
 import styles from './form-validation-errors.scss.js';
@@ -12,9 +21,7 @@ declare global {
   }
 }
 
-/**
- * @customElement sl-form-validation-errors
- */
+/** @customElement sl-form-validation-errors */
 @localized()
 export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -28,7 +35,11 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   #onUpdate = () => {
-    this.validity = this.controller?.showValidity ? (this.controller?.invalid ? 'invalid' : 'valid') : undefined;
+    this.validity = this.controller?.showValidity
+      ? this.controller?.invalid
+        ? 'invalid'
+        : 'valid'
+      : undefined;
 
     if (this.validity === 'invalid') {
       this.invalidControls =
@@ -99,7 +110,8 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
               ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
               <ul>
                 ${Object.entries(this.invalidControls).map(
-                  ([label, control]) => html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
+                  ([label, control]) =>
+                    html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
                 )}
               </ul>
               .

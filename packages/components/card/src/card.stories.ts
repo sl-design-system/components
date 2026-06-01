@@ -142,8 +142,7 @@ const card = (
       ?fit-image=${card.fitImage}
       ?media-margin=${card.mediaMargin}
       ?subgrid=${card.subgrid}
-      ?image-backdrop=${card.imageBackdrop}
-    >
+      ?image-backdrop=${card.imageBackdrop}>
       ${card.media && card.imageUrl
         ? html`<img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />`
         : nothing}
@@ -205,33 +204,36 @@ const titles = [
 
 const bodyCopy = [
   html`
-    Immerse yourself in the vibrant hues of Nyhavn, Copenhagen's iconic waterfront. This picturesque scene, adorned with
-    colorful facades and historic ships, invites you to explore the charm of Danish culture against the backdrop of
-    serene canals.
+    Immerse yourself in the vibrant hues of Nyhavn, Copenhagen's iconic waterfront. This picturesque
+    scene, adorned with colorful facades and historic ships, invites you to explore the charm of
+    Danish culture against the backdrop of serene canals.
   `,
   html`
-    Discover the allure of Nyhavn, Copenhagen's waterfront gem, where historic charm meets vibrant hues in every corner.
+    Discover the allure of Nyhavn, Copenhagen's waterfront gem, where historic charm meets vibrant
+    hues in every corner.
   `,
   html`
-    Copenhagen's skyline is a testament to architectural brilliance, seamlessly blending historic landmarks with
-    contemporary design. Wander through a cityscape where each building tells a unique story, creating a harmonious
-    fusion of past and present.
+    Copenhagen's skyline is a testament to architectural brilliance, seamlessly blending historic
+    landmarks with contemporary design. Wander through a cityscape where each building tells a
+    unique story, creating a harmonious fusion of past and present.
   `,
   html`
-    Delight in the enchanting allure of Copenhagen, where timeless elegance meets modern vibrancy. Explore the city's
-    rich tapestry of culture, history, and architectural beauty at every turn.
+    Delight in the enchanting allure of Copenhagen, where timeless elegance meets modern vibrancy.
+    Explore the city's rich tapestry of culture, history, and architectural beauty at every turn.
   `,
   html`
-    Nyhavn, the picturesque waterfront district of Copenhagen, beckons visitors with its timeless charm and vibrant
-    atmosphere. Flanked by rows of colorful townhouses dating back to the 17th century, this iconic area exudes a sense
-    of history and character. As you stroll along the cobblestone streets, the scent of freshly
-    <a href="https://junothebakery.com/" target="_blank">baked pastries</a> mingles with the salty breeze from the
-    harbor, creating a sensory symphony that captivates all who wander here. Yet Nyhavn is not merely a relic of the
-    past; it's a lively hub of activity, where locals and tourists alike gather to enjoy the numerous cafes, bars, and
-    restaurants lining the quayside. From leisurely boat tours along the picturesque canals to lively outdoor concerts
-    and events, there's always something happening in Nyhavn. Whether you're sipping a cold beer by the water's edge or
-    admiring the sunset painting the sky in hues of pink and gold, Nyhavn offers a quintessentially Danish experience
-    that is both timeless and unforgettable.
+    Nyhavn, the picturesque waterfront district of Copenhagen, beckons visitors with its timeless
+    charm and vibrant atmosphere. Flanked by rows of colorful townhouses dating back to the 17th
+    century, this iconic area exudes a sense of history and character. As you stroll along the
+    cobblestone streets, the scent of freshly
+    <a href="https://junothebakery.com/" target="_blank">baked pastries</a> mingles with the salty
+    breeze from the harbor, creating a sensory symphony that captivates all who wander here. Yet
+    Nyhavn is not merely a relic of the past; it's a lively hub of activity, where locals and
+    tourists alike gather to enjoy the numerous cafes, bars, and restaurants lining the quayside.
+    From leisurely boat tours along the picturesque canals to lively outdoor concerts and events,
+    there's always something happening in Nyhavn. Whether you're sipping a cold beer by the water's
+    edge or admiring the sunset painting the sky in hues of pink and gold, Nyhavn offers a
+    quintessentially Danish experience that is both timeless and unforgettable.
   `
 ];
 
@@ -288,13 +290,14 @@ export const SubGridHorizontal: Story = {
         }
       </style>
       <p>
-        This grid has 4 columns, because the horizontal cards span 2 columns each it will show 2 cards per row.<br />
-        Hiding the media will result in 4 cards per row, but this will look odd, because the cards columns are set to
-        200px and 1fr alternating.
+        This grid has 4 columns, because the horizontal cards span 2 columns each it will show 2
+        cards per row.<br aria-hidden="true" />
+        Hiding the media will result in 4 cards per row, but this will look odd, because the cards
+        columns are set to 200px and 1fr alternating.
       </p>
       <p>
-        The rows are set to <code>max-content 5lh max-content</code> and <code>max-content max-content</code> with and
-        without action buttons respectively
+        The rows are set to <code>max-content 5lh max-content</code> and
+        <code>max-content max-content</code> with and without action buttons respectively
       </p>
       <div class="grid${!actionButton ? ' no-buttons' : ''}">
         ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
@@ -357,7 +360,8 @@ export const SubGridVertical: Story = {
         }
       </style>
       <p>
-        This grid has 3 columns, the rows are set to <code>200px max-content 4lh max-content</code> and
+        This grid has 3 columns, the rows are set to
+        <code>200px max-content 4lh max-content</code> and
         <code>200px max-content max-content</code> with and without action buttons respectively
       </p>
       <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
@@ -480,13 +484,14 @@ export const Masonry: Story = {
         This grid has 3 columns, the rows are set to <code>masonry</code> (although this is
         <a href="https://caniuse.com/mdn-css_properties_grid-template-rows_masonry" target="_blank"
           >not supported in all browsers yet</a
-        >). <br />
-        The cards will grow as big as the text needs them to be. The height of the header might change, causing the
-        body-texts not to alight within a row. When it is important they align, use subgrid.<br />
+        >). <br aria-hidden="true" />
+        The cards will grow as big as the text needs them to be. The height of the header might
+        change, causing the body-texts not to align within a row. When it is important they align,
+        use subgrid.<br aria-hidden="true" />
       </p>
       <div class=${!actionButton ? 'grid no-buttons' : 'grid'}>
-        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)} ${card(settings, 0)}
-        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 3)}
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
+        ${card(settings, 0)} ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 3)}
       </div>
     `;
   }
@@ -543,13 +548,19 @@ export const MediaOptions: Story = {
         }
       </style>
       <div class="grid${!actionButton ? ' no-buttons' : ''}">
-        <span>Default (image is cropped to fit):</span><span>Fit image with default background-color:</span>
+        <span>Default (image is cropped to fit):</span
+        ><span>Fit image with default background-color:</span>
         ${card(settings, 0)} ${card({ ...settings, fitImage: true }, 1)}
         <span>Fit image with background-color set with <code>--sl-card-image-backdrop</code>:</span
-        ><span>Fit image with background set to gradient with <code>--sl-card-image-backdrop</code>:</span>
-        ${card({ ...settings, fitImage: true }, 2)} ${card({ ...settings, fitImage: true }, 3)}
+        ><span
+          >Fit image with background set to gradient with
+          <code>--sl-card-image-backdrop</code>:</span
+        >
+        ${card({ ...settings, fitImage: true }, 2)}
+        ${card({ ...settings, fitImage: true, bodyText: undefined }, 3)}
         <span>Fit image with imageBackdrop:</span><span>With media-margin</span>
-        ${card({ ...settings, fitImage: true, imageBackdrop: true }, 1)} ${card({ ...settings, mediaMargin: true }, 0)}
+        ${card({ ...settings, fitImage: true, imageBackdrop: true }, 1)}
+        ${card({ ...settings, mediaMargin: true }, 0)}
       </div>
     `;
   }
@@ -608,7 +619,9 @@ export const Vertical: Story = {
         }
       </style>
       <div class="grid">
-        <span>No height of media is set, either with subgrid or <code>--sl-card-media-size</code></span>
+        <span
+          >No height of media is set, either with subgrid or <code>--sl-card-media-size</code></span
+        >
         <span>Media height is set to 200px with <code>--sl-card-media-size</code></span>
         ${card(settings, 0)} ${card(settings, 0)}
       </div>
@@ -683,21 +696,27 @@ export const Responsive: Story = {
         }
       </style>
       <p>
-        This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>, which means it will
-        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br />
-        The cards will switch to horizontal layout when the column is wider than 500px. This will cause a lot of
-        "switching" between horizontal and vertical layout when the viewport is resized, this exact example is not
-        recommended for production use.<br />
+        This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>,
+        which means it will show as many cards as will fit in the available space, with a minimum
+        width of 400px per card.<br aria-hidden="true" />
+        The cards will switch to horizontal layout when the column is wider than 500px. This will
+        cause a lot of "switching" between horizontal and vertical layout when the viewport is
+        resized, this exact example is not recommended for production use.<br aria-hidden="true" />
       </p>
-      <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
+      <div class="grid">
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
+      </div>
       <p>
-        This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>, which means it will
-        show as many cards as will fit in the available space, with a minimum width of 400px per card.<br />
-        The cards will switch to horizontal layout when the column is wider than 500px. This will cause a lot of
-        "switching" between horizontal and vertical layout when the viewport is resized, this exact example is not
-        recommended for production use.<br />
+        This grid has the template columns set to <code>repeat(auto-fit, minmax(400px, 1fr))</code>,
+        which means it will show as many cards as will fit in the available space, with a minimum
+        width of 400px per card.<br aria-hidden="true" />
+        The cards will switch to horizontal layout when the column is wider than 500px. This will
+        cause a lot of "switching" between horizontal and vertical layout when the viewport is
+        resized, this exact example is not recommended for production use.<br aria-hidden="true" />
       </p>
-      <div class="grid">${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}</div>
+      <div class="grid">
+        ${card(settings, 1)} ${card(settings, 2)} ${card(settings, 0)} ${card(settings, 3)}
+      </div>
     `;
   }
 };
@@ -797,11 +816,11 @@ export const RealWorldExamples: Story = {
           <img
             slot="media"
             src="/images/card-max-1.png"
-            alt="Een baby oerang oetan die wordt vastgehouden door hun moeder"
-          />
+            alt="Een baby oerang oetan die wordt vastgehouden door hun moeder" />
           <a href="javascript:void(0);">Wat is biologie?</a>
           <span slot="header"
-            ><sl-badge size="lg">Thema 1</sl-badge> <sl-badge size="lg" color="green">last activity</sl-badge></span
+            ><sl-badge size="lg">Thema 1</sl-badge>
+            <sl-badge size="lg" color="green">last activity</sl-badge></span
           >
         </sl-card>
         <sl-card orientation="vertical">
@@ -828,8 +847,7 @@ export const RealWorldExamples: Story = {
               variant="primary"
               fill="outline"
               @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1"
-            >
+              style="flex-grow: 1">
               <sl-icon name="ellipsis"></sl-icon> More options
             </sl-button>
           </sl-button-bar>
@@ -863,7 +881,10 @@ export const RealWorldExamples: Story = {
           <h2>L'aventura più grande</h2>
           <p slot="body">Linda Cavadini, Loretta De Martin, Agnese Pianigiani</p>
           <sl-button-bar slot="actions"
-            ><sl-button variant="inverted" @click=${() => console.log('action button clicked')} style="flex-grow: 1">
+            ><sl-button
+              variant="inverted"
+              @click=${() => console.log('action button clicked')}
+              style="flex-grow: 1">
               Open 12 volumes
             </sl-button>
           </sl-button-bar>
@@ -873,7 +894,10 @@ export const RealWorldExamples: Story = {
           <h2>Gli snodi della storia</h2>
           <p slot="body">Giovanni Borgognone, Dino Carpanetto</p>
           <sl-button-bar slot="actions"
-            ><sl-button variant="inverted" @click=${() => console.log('action button clicked')} style="flex-grow: 1">
+            ><sl-button
+              variant="inverted"
+              @click=${() => console.log('action button clicked')}
+              style="flex-grow: 1">
               Open 9 volumes
             </sl-button>
           </sl-button-bar>
@@ -942,11 +966,18 @@ export const All: Story = {
         }
       </style>
       <div class="horizontal">
-        ${card(settings, 1)} ${card({ ...settings, subheaderContent: true, subheaderBadge: 'new', fitImage: true }, 1)}
+        ${card(settings, 1)}
+        ${card({ ...settings, subheaderContent: true, subheaderBadge: 'new', fitImage: true }, 1)}
         ${card({ ...settings, actionButton: true, fitImage: true, imageBackdrop: true }, 1)}
         ${card({ ...settings, menuButton: true }, 1)} ${card({ ...settings, media: false }, 1)}
         ${card(
-          { ...settings, bodyText: undefined, subheaderContent: true, subheaderBadge: 'new', actionButton: true },
+          {
+            ...settings,
+            bodyText: undefined,
+            subheaderContent: true,
+            subheaderBadge: 'new',
+            actionButton: true
+          },
           1
         )}
       </div>
@@ -956,7 +987,13 @@ export const All: Story = {
         ${card({ ...vsettings, actionButton: true, fitImage: true, imageBackdrop: true }, 2)}
         ${card({ ...vsettings, menuButton: true }, 2)} ${card({ ...vsettings, media: false }, 2)}
         ${card(
-          { ...vsettings, bodyText: undefined, subheaderContent: true, subheaderBadge: 'new', actionButton: true },
+          {
+            ...vsettings,
+            bodyText: undefined,
+            subheaderContent: true,
+            subheaderBadge: 'new',
+            actionButton: true
+          },
           2
         )}
       </div>

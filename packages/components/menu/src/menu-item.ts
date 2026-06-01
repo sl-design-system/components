@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import {
   type EventEmitter,
@@ -8,7 +11,14 @@ import {
   isPopoverOpen
 } from '@sl-design-system/shared';
 import { SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import styles from './menu-item.scss.js';
 import { Menu } from './menu.js';
@@ -56,6 +66,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
 
+  // Tracks whether aria-disabled was added internally so explicit user-provided values survive.
+  #ariaDisabledFromDisabled = false;
+
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -83,6 +96,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** The variant of the menu item. */
   @property({ reflect: true }) variant?: MenuItemVariant;
 
+  get #disabled(): boolean {
+    return this.disabled || this.ariaDisabled === 'true';
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -95,6 +112,15 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('disabled')) {
       this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+      if (this.disabled) {
+        if (this.ariaDisabled !== 'true') {
+          this.setAttribute('aria-disabled', 'true');
+          this.#ariaDisabledFromDisabled = true;
+        }
+      } else if (this.#ariaDisabledFromDisabled) {
+        this.removeAttribute('aria-disabled');
+        this.#ariaDisabledFromDisabled = false;
+      }
     }
 
     if (changes.has('shortcut')) {
@@ -108,12 +134,18 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('selectable')) {
-      const selectMode = this.parentElement?.matches('[selects="single"]') ? 'menuitemradio' : 'menuitemcheckbox';
+      const selectMode = this.parentElement?.matches('[selects="single"]')
+        ? 'menuitemradio'
+        : 'menuitemcheckbox';
       this.role = this.selectable ? selectMode : 'menuitem';
     }
 
-    if (changes.has('selected')) {
-      this.setAttribute('aria-checked', (this.selected || false).toString());
+    if (changes.has('selectable') || changes.has('selected')) {
+      if (this.selectable) {
+        this.setAttribute('aria-checked', (this.selected || false).toString());
+      } else {
+        this.removeAttribute('aria-checked');
+      }
     }
 
     if (changes.has('submenu')) {
@@ -134,7 +166,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       <div @pointermove=${this.#onPointermove} class="container">
         <div aria-hidden="true" class="safe-triangle"></div>
         <div part="wrapper">
-          ${this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
+          ${this.selectable && this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
           <slot></slot>
           ${this.shortcut
             ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`
@@ -147,7 +179,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.#disabled) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -159,13 +191,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       event.stopPropagation();
 
       /**
-       * At the moment, we cannot prevent the submenu from closing when clicking
-       * on this menu item. In the future when `beforetoggle` has a `relatedTarget`
-       * attribute, we can detect if the user clicks on this menuitem and prevent
-       * the submenu from closing.
+       * At the moment, we cannot prevent the submenu from closing when clicking on this menu item.
+       * In the future when `beforetoggle` has a `relatedTarget` attribute, we can detect if the
+       * user clicks on this menuitem and prevent the submenu from closing.
        *
-       * We need to delay the submenu opening because it may also be closing at
-       * this time.
+       * We need to delay the submenu opening because it may also be closing at this time.
        */
       setTimeout(() => this.#showSubMenu(), 100);
     } else if (this.selectable) {
@@ -178,7 +208,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (this.disabled) {
+    if (this.#disabled) {
       return;
     }
 
@@ -200,6 +230,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onPointerenter(): void {
+    if (this.#disabled) {
+      return;
+    }
+
     this.#showSubMenu();
   }
 
@@ -214,7 +248,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onShortcut(event: KeyboardEvent): void {
-    if (this.disabled) {
+    if (this.#disabled) {
       return;
     }
 
@@ -225,7 +259,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onSubmenuChange(event: Event & { target: HTMLSlotElement }): void {
-    this.submenu = event.target.assignedElements({ flatten: true }).find((node): node is Menu => node instanceof Menu);
+    this.submenu = event.target
+      .assignedElements({ flatten: true })
+      .find((node): node is Menu => node instanceof Menu);
 
     if (this.submenu) {
       this.submenu.anchorElement = this;
@@ -257,9 +293,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Calculate a "safe triangle" for the submenu to a user can safely move his cursor
-   * from the trigger to the submenu without the submenu closing.
-   * See https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
+   * Calculate a "safe triangle" for the submenu to a user can safely move his cursor from the
+   * trigger to the submenu without the submenu closing. See
+   * https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
    */
   #calculateSafeTriangle(event: PointerEvent): void {
     const actualPlacement = this.submenu?.getAttribute('actual-placement');

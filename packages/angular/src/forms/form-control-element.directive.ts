@@ -1,5 +1,16 @@
-import { type ChangeDetectorRef, type ElementRef, Injectable, type OnDestroy, type OnInit } from '@angular/core';
-import { type AbstractControl, type ControlValueAccessor, type ValidationErrors, type Validator } from '@angular/forms';
+import {
+  type ChangeDetectorRef,
+  type ElementRef,
+  Injectable,
+  type OnDestroy,
+  type OnInit
+} from '@angular/core';
+import {
+  type AbstractControl,
+  type ControlValueAccessor,
+  type ValidationErrors,
+  type Validator
+} from '@angular/forms';
 import { type FormControl } from '@sl-design-system/form';
 
 @Injectable()

@@ -1,5 +1,33 @@
 # @sl-design-system/grid
 
+## 0.7.3
+
+### Patch Changes
+
+- [#3377](https://github.com/sl-design-system/components/pull/3377) [`112ba2f`](https://github.com/sl-design-system/components/commit/112ba2f0c36771746beb9ea55c6ba30753984400) - Fixed Grid row accessibility by rendering `aria-rowindex` as a 1-based value for both data rows and group rows instead of using the internal zero-based virtualizer index
+
+- [#3362](https://github.com/sl-design-system/components/pull/3362) [`32cbeef`](https://github.com/sl-design-system/components/commit/32cbeef88dc3a235f18653a1767c60b2b9fd3e85) - Add a localized, visually hidden label to the drag handle column header so screen readers can announce the column's purpose properly (includes the new `sl.grid.reorder` locale key).
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7)]:
+  - @sl-design-system/listbox@0.1.7
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/shared@0.12.1
+  - @sl-design-system/text-field@1.6.10
+
+## 0.7.2
+
+### Patch Changes
+
+- [#3241](https://github.com/sl-design-system/components/pull/3241) [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411) - Added `overflow: clip` to the grid's table bulk-actions (toolbar) for improved layout and to prevent unwanted scrollbars or overflows.
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`e19736a`](https://github.com/sl-design-system/components/commit/e19736a4334f6b260c521da7b6f77da485468ddd), [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411), [`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`5993ed3`](https://github.com/sl-design-system/components/commit/5993ed3c3826cae829b7e67917a0e77399da04eb), [`f7ad9c9`](https://github.com/sl-design-system/components/commit/f7ad9c907f7661a542889c7140e9161774d9dc86), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/tool-bar@0.2.4
+  - @sl-design-system/tooltip@2.0.0
+  - @sl-design-system/select@2.1.4
+  - @sl-design-system/ellipsize-text@0.0.3
+  - @sl-design-system/toggle-group@0.0.15
+
 ## 0.7.1
 
 ### Patch Changes

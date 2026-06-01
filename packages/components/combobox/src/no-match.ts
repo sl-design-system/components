@@ -9,9 +9,7 @@ declare global {
   }
 }
 
-/**
- * Message component for when filtering a listbox yields no matches.
- */
+/** Message component for when filtering a listbox yields no matches. */
 @localized()
 export class NoMatch extends LitElement {
   /** @internal */

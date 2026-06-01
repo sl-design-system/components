@@ -10,7 +10,8 @@ declare global {
 }
 
 /**
- * An option in a combobox that is grouped. This is a special type of option that displays a group label.
+ * An option in a combobox that is grouped. This is a special type of option that displays a group
+ * label.
  *
  * @slot - The option's label.
  */

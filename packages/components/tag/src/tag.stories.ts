@@ -45,8 +45,7 @@ export default {
       ?removable=${removable}
       size=${ifDefined(size)}
       style=${styleMap({ maxWidth })}
-      variant=${ifDefined(variant)}
-    >
+      variant=${ifDefined(variant)}>
       ${label}
     </sl-tag>
   `

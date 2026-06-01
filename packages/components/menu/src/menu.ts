@@ -7,7 +7,13 @@ import {
   event
 } from '@sl-design-system/shared';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { MenuItemGroup } from './menu-item-group.js';
 import { MenuItem } from './menu-item.js';
@@ -33,7 +39,7 @@ export class Menu extends LitElement {
   /** @internal The default offset of the menu to its anchor. */
   static offset = 6;
 
-  /**@internal */
+  /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
@@ -43,7 +49,10 @@ export class Menu extends LitElement {
   static viewportMargin = 8;
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin });
+  #anchor = new AnchorController(this, {
+    offset: Menu.offset,
+    viewportMargin: Menu.viewportMargin
+  });
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
@@ -63,9 +72,9 @@ export class Menu extends LitElement {
   });
 
   /**
-   * The offset of the menu to its anchor. This is a property on this instance so that it can be overridden
-   * by the menu item in case of a nested menu.
-   * You should not need to set this property yourself.
+   * The offset of the menu to its anchor. This is a property on this instance so that it can be
+   * overridden by the menu item in case of a nested menu. You should not need to set this property
+   * yourself.
    */
   @property({ type: Number }) offset?: number;
 
@@ -83,6 +92,7 @@ export class Menu extends LitElement {
 
   /**
    * The emphasis of the menu.
+   *
    * @default 'subtle'
    */
   @property({ reflect: true }) emphasis?: MenuEmphasis;
@@ -118,8 +128,9 @@ export class Menu extends LitElement {
       <slot
         @slotchange=${this.#onSlotchange}
         @sl-select=${this.#onSelect}
-        style="--sl-menu-item-indent: ${this.selects || this.selectableChildren ? '1' : '0'}"
-      ></slot>
+        style="--sl-menu-item-indent: ${this.selects || this.selectableChildren
+          ? '1'
+          : '0'}"></slot>
     `;
   }
 
@@ -137,7 +148,10 @@ export class Menu extends LitElement {
   }
 
   #onFocusout(event: FocusEvent): void {
-    if (this.#shouldIgnoreFocusout(event) || this.#shouldKeepMenuOpen(event.relatedTarget as Node)) {
+    if (
+      this.#shouldIgnoreFocusout(event) ||
+      this.#shouldKeepMenuOpen(event.relatedTarget as Node)
+    ) {
       return;
     }
 
@@ -229,7 +243,8 @@ export class Menu extends LitElement {
 
     this.selectableChildren = menuItems.some(element => {
       return (
-        (element instanceof MenuItem && element.selectable) || (element instanceof MenuItemGroup && element.selects)
+        (element instanceof MenuItem && element.selectable) ||
+        (element instanceof MenuItemGroup && element.selects)
       );
     });
 
@@ -277,7 +292,10 @@ export class Menu extends LitElement {
   /** Determines if the focusout event should be ignored. */
   #shouldIgnoreFocusout(event: FocusEvent): boolean {
     // Ignore focusout if this is a submenu or the event came from a submenu (not this menu)
-    if (this.anchorElement instanceof MenuItem || (event.target instanceof Menu && event.target !== this)) {
+    if (
+      this.anchorElement instanceof MenuItem ||
+      (event.target instanceof Menu && event.target !== this)
+    ) {
       return true;
     }
 
@@ -298,7 +316,10 @@ export class Menu extends LitElement {
     if (relatedTarget instanceof HTMLElement) {
       const targetMenu = relatedTarget.closest('sl-menu');
 
-      if (targetMenu && (this.#isDirectSubmenu(targetMenu) || this.#isSubmenuOf(targetMenu, this))) {
+      if (
+        targetMenu &&
+        (this.#isDirectSubmenu(targetMenu) || this.#isSubmenuOf(targetMenu, this))
+      ) {
         return true;
       }
     }

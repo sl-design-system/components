@@ -1,7 +1,16 @@
 import { LitVirtualizer } from '@lit-labs/virtualizer/LitVirtualizer.js';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './listbox.scss.js';
 import { OptionGroupHeader } from './option-group-header.js';
@@ -43,12 +52,16 @@ export type ListboxOptionGroup = {
 export type ListboxItem<T = any, U = T> = ListboxOption<T, U> | ListboxOptionGroup;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ListboxRenderer<T = any, U = T> = (item: ListboxItem<T, U>, index: number) => Element | TemplateResult;
+export type ListboxRenderer<T = any, U = T> = (
+  item: ListboxItem<T, U>,
+  index: number
+) => Element | TemplateResult;
 
 let nextUniqueId = 0;
 
 /**
  * Container for a list of selectable options.
+ *
  * @customElement sl-listbox
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -70,34 +83,34 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
   /**
    * The emphasis of the selected options in the listbox.
+   *
    * @default 'subtle'
    */
   @property({ reflect: true }) emphasis?: ListboxEmphasis;
 
   /**
-   * Use this property if you want to have full control over how the items
-   * are rendered using lit-virtualizer. You are expected to provide an
-   * array of ListboxItem<T, U> and most likely will also want to provide a
-   * custom `renderer`.
+   * Use this property if you want to have full control over how the items are rendered using
+   * lit-virtualizer. You are expected to provide an array of ListboxItem<T, U> and most likely will
+   * also want to provide a custom `renderer`.
    *
-   * Only use this property if you know what you are doing. If you are unsure
-   * about using this property, use the `options` property instead.
+   * Only use this property if you know what you are doing. If you are unsure about using this
+   * property, use the `options` property instead.
    */
   @property({ attribute: false }) items?: Array<ListboxItem<T, U>>;
 
   /**
-   * Use this property to set an array of options to render. When you set this
-   * property, the component will render the options using a virtualizer. This means
-   * that it only renders the options that are visible in the viewport, which allows
-   * it to handle a large number of options efficiently.
+   * Use this property to set an array of options to render. When you set this property, the
+   * component will render the options using a virtualizer. This means that it only renders the
+   * options that are visible in the viewport, which allows it to handle a large number of options
+   * efficiently.
    *
-   * When using this property, you can also provide paths to the properties to use for
-   * the label, value, selected state, and group. This allows you to render options
-   * that are objects and have nested properties. See `optionGroupPath`, `optionLabelPath`,
-   * `optionSelectedPath`, and `optionValuePath` for more information.
+   * When using this property, you can also provide paths to the properties to use for the label,
+   * value, selected state, and group. This allows you to render options that are objects and have
+   * nested properties. See `optionGroupPath`, `optionLabelPath`, `optionSelectedPath`, and
+   * `optionValuePath` for more information.
    *
-   * If you don't need virtualization, you can omit this property and render the
-   * options declaratively using the default slot and `<sl-option>` and `<sl-option-group>`.
+   * If you don't need virtualization, you can omit this property and render the options
+   * declaratively using the default slot and `<sl-option>` and `<sl-option-group>`.
    */
   @property({ type: Array }) options?: T[];
 
@@ -193,7 +206,9 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
   #prepareOptions(options: T[]): Array<ListboxItem<T, U>> {
     if (this.optionGroupPath) {
-      const groups = Object.groupBy(options, option => getStringByPath(option, this.optionGroupPath!));
+      const groups = Object.groupBy(options, option =>
+        getStringByPath(option, this.optionGroupPath!)
+      );
 
       return Object.keys(groups).reduce(
         (acc, group) => {

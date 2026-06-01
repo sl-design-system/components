@@ -30,6 +30,40 @@ describe('sl-callout', () => {
     });
   });
 
+  describe('icons', () => {
+    it('should render the info icon by default', async () => {
+      el = await fixture(html`<sl-callout>Callout component</sl-callout>`);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'info');
+    });
+
+    it('should render the circle-check-solid icon for the success variant', async () => {
+      el = await fixture(html`<sl-callout variant="success">Callout component</sl-callout>`);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'circle-check-solid');
+    });
+
+    it('should render the triangle-exclamation-solid icon for the warning variant', async () => {
+      el = await fixture(html`<sl-callout variant="warning">Callout component</sl-callout>`);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+    });
+
+    it('should render the octagon-xmark-solid icon for the danger variant', async () => {
+      el = await fixture(html`<sl-callout variant="danger">Callout component</sl-callout>`);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'octagon-xmark-solid');
+    });
+  });
+
   describe('no title', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-callout>Callout component text</sl-callout>`);

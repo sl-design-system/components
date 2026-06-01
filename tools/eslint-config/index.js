@@ -7,7 +7,6 @@ import importPlugin from 'eslint-plugin-import';
 import { configs as litConfigs } from 'eslint-plugin-lit';
 import litA11y from 'eslint-plugin-lit-a11y';
 import mocha from 'eslint-plugin-mocha';
-import prettier from 'eslint-plugin-prettier/recommended';
 import storybook from 'eslint-plugin-storybook';
 import unusedImports from 'eslint-plugin-unused-imports';
 import { configs as wcConfigs } from 'eslint-plugin-wc';
@@ -28,7 +27,6 @@ export default tseslint.config(
       }
     }
   },
-  prettier,
   {
     plugins: {
       import: importPlugin,
@@ -126,17 +124,6 @@ export default tseslint.config(
       'lit-a11y/click-events-have-key-events': 'off',
       // This generates false positives for popovers
       'lit-a11y/no-autofocus': 'off',
-      'prettier/prettier': [
-        'error',
-        {
-          arrowParens: 'avoid',
-          printWidth: 120,
-          singleQuote: true,
-          tabWidth: 2,
-          trailingComma: 'none',
-          endOfLine: 'auto'
-        }
-      ],
       'unused-imports/no-unused-imports': 'error',
       // Generates false positives with `this.classList`
       'wc/no-self-class': 'off'
@@ -149,8 +136,8 @@ export default tseslint.config(
       ...chaiFriendly.configs.recommended.rules,
       ...mocha.configs.recommended.rules,
       /**
-       * The no-floating-promises rule generates false positives with
-       * chai-as-promised and the expect() method in tests.
+       * The no-floating-promises rule generates false positives with chai-as-promised and the
+       * expect() method in tests.
        */
       '@typescript-eslint/no-floating-promises': 'off',
       // False positives with `.not.to.be.true` etc.

@@ -1,6 +1,15 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
 import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
@@ -31,8 +40,8 @@ export type SlFormFieldEvent = CustomEvent<{ unregister?(): void }> & { target: 
 let nextUniqueId = 0;
 
 /**
- * A form field component that provides a label, hint, and error message for form controls.
- * It can be used with any form control that extends the `FormControl` mixin.
+ * A form field component that provides a label, hint, and error message for form controls. It can
+ * be used with any form control that extends the `FormControl` mixin.
  *
  * @customElement sl-form-field
  * @slot label - The `<sl-label>` element to use as the label for the form control.
@@ -67,6 +76,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The hint element. */
   #hint?: Hint;
 
+  /** The infotip element. */
+  #infotip?: Element & { contentId?: string };
+
   /** The label element. */
   #label?: Label;
 
@@ -86,8 +98,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<SlFormFieldEvent>;
 
   /**
-   * A hint that will be shown when there are no validation messages.
-   * You can also slot an `<sl-hint>` element.
+   * A hint that will be shown when there are no validation messages. You can also slot an
+   * `<sl-hint>` element.
    */
   @property() hint?: string;
 
@@ -100,7 +112,11 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    const event = new CustomEvent('sl-form-field', { bubbles: true, composed: true, detail: {} }) as SlFormFieldEvent;
+    const event = new CustomEvent('sl-form-field', {
+      bubbles: true,
+      composed: true,
+      detail: {}
+    }) as SlFormFieldEvent;
     this.formFieldEvent.emit(event);
     this.#unregister = event.detail.unregister;
 
@@ -128,28 +144,19 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (!this.#customError && changes.has('errors')) {
-      const errors = Object.entries(this.errors).filter((error): error is [string, string] => !!error[0] && !!error[1]);
+      const errors = Object.entries(this.errors).filter(
+        (error): error is [string, string] => !!error[0] && !!error[1]
+      );
 
       // Remove any errors that are no longer present
       Object.entries(this.#errors)
         .filter(([id]) => !errors.find(([errorId]) => errorId === id))
         .forEach(([id, error]) => {
+          const control = this.querySelector<HTMLElement & FormControl>(`#${id}`);
+          this.#updateAriaDescribedBy({ remove: error.id, control });
+
           error.remove();
           delete this.#errors[id];
-
-          // Remove the id from the `aria-describedby` attribute if it exists
-          const control = this.querySelector<HTMLElement & FormControl>(`#${id}`)!,
-            describedby = control.getAttribute('aria-describedby');
-
-          if (describedby) {
-            const describedByIds = describedby.split(' ').filter(existingId => existingId !== error.id);
-
-            if (describedByIds.length) {
-              control.formControlElement.setAttribute('aria-describedby', describedByIds.join(' '));
-            } else {
-              control.formControlElement.removeAttribute('aria-describedby');
-            }
-          }
         });
 
       // Create or update error elements for each error
@@ -173,11 +180,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
           this.prepend(this.#hint);
         }
       } else {
-        const describedby = this.control?.formControlElement.getAttribute('aria-describedby');
-        if (describedby) {
-          const ids = describedby.split(' ').filter(id => id !== this.#hint!.id);
-          this.control?.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-        }
+        this.#updateAriaDescribedBy({ remove: this.#hint?.id });
 
         this.#hint?.remove();
         this.#hint = undefined;
@@ -208,29 +211,29 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
         <slot @slotchange=${this.#onHintSlotchange} name="hint"></slot>
-        <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity} part="controls"></slot>
+        <slot
+          @slotchange=${this.#onSlotchange}
+          @sl-update-validity=${this.#onUpdateValidity}
+          part="controls"></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
       </div>
     `;
   }
 
   #onErrorSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const errors = event.target.assignedElements({ flatten: true }).filter((el): el is Error => el instanceof Error);
+    const errors = event.target
+      .assignedElements({ flatten: true })
+      .filter((el): el is Error => el instanceof Error);
 
     errors.forEach(error => {
       // Make sure every error has a unique ID
       error.id ||= `sl-form-field-error-${nextUniqueId++}`;
 
-      const control = error.for ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`) : this.control;
+      const control = error.for
+        ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`)
+        : this.control;
       if (control) {
-        const describedby = control.formControlElement.getAttribute('aria-describedby'),
-          ids = describedby ? describedby.split(' ') : [];
-
-        // Add the ID of the error to the `aria-describedby` attribute
-        if (!ids.includes(error.id)) {
-          ids.push(error.id);
-          control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-        }
+        this.#updateAriaDescribedBy({ add: error.id, control });
       }
     });
 
@@ -245,27 +248,25 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     if (hint) {
       this.#hint = hint;
       this.#hint.id ||= `sl-form-field-hint-${nextUniqueId++}`;
-
-      if (this.control) {
-        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
-        if (describedby) {
-          const ids = describedby.split(' ');
-          if (!ids.includes(this.#hint.id)) {
-            ids.push(this.#hint.id);
-            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-          }
-        } else {
-          this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
-        }
-      }
+      this.#updateAriaDescribedBy({ add: this.#hint.id });
     } else {
-      this.#label = undefined;
+      this.#updateAriaDescribedBy({ remove: this.#hint?.id });
+      this.#hint = undefined;
     }
   }
 
   #onLabelSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const assignedElements = event.target.assignedElements({ flatten: true }),
-      label = assignedElements.find((el): el is Label => el instanceof Label);
+      label = assignedElements.find((el): el is Label => el instanceof Label),
+      infotip = label?.querySelector<Element & { contentId?: string }>('sl-infotip');
+
+    if (infotip) {
+      this.#infotip = infotip;
+      this.#updateAriaDescribedBy({ add: infotip?.contentId });
+    } else {
+      this.#updateAriaDescribedBy({ remove: this.#infotip?.contentId });
+      this.#infotip = undefined;
+    }
 
     if (label) {
       this.#label = label;
@@ -301,18 +302,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.error = this.control.getLocalizedValidationMessage();
       }
 
-      if (this.#hint) {
-        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
-        if (describedby) {
-          const ids = describedby.split(' ');
-          if (!ids.includes(this.#hint.id)) {
-            ids.push(this.#hint.id);
-            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
-          }
-        } else {
-          this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
-        }
-      }
+      this.#updateAriaDescribedBy({ add: this.#hint?.id });
+      this.#updateAriaDescribedBy({ add: this.#infotip?.contentId });
 
       if (this.#label) {
         this.#label.for = this.control.id;
@@ -324,6 +315,42 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       if (this.#label) {
         this.#label.for = this.#label.mark = undefined;
       }
+    }
+  }
+
+  #updateAriaDescribedBy({
+    add,
+    remove,
+    control
+  }: {
+    add?: string;
+    remove?: string;
+    control?: (HTMLElement & FormControl) | null;
+  }): void {
+    const target = control ?? this.control;
+    if (!target) {
+      return;
+    }
+
+    const element = target.formControlElement,
+      describedby = element.getAttribute('aria-describedby'),
+      ids = describedby ? describedby.split(' ') : [];
+
+    if (add && !ids.includes(add)) {
+      ids.push(add);
+    }
+
+    if (remove) {
+      const index = ids.indexOf(remove);
+      if (index !== -1) {
+        ids.splice(index, 1);
+      }
+    }
+
+    if (ids.length) {
+      element.setAttribute('aria-describedby', ids.join(' '));
+    } else {
+      element.removeAttribute('aria-describedby');
     }
   }
 

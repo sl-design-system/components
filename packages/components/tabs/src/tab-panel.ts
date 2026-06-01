@@ -11,7 +11,7 @@ declare global {
  * A tab panel component, to be used with the tab group component for your tab content.
  *
  * ```html
- *   <sl-tab-panel>Content of the tab</sl-tab-panel>
+ * <sl-tab-panel>Content of the tab</sl-tab-panel>
  * ```
  *
  * @customElement sl-tab-panel

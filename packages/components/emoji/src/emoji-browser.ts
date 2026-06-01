@@ -11,19 +11,34 @@ import {
   faUser
 } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { SearchField } from '@sl-design-system/search-field';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Tab, TabGroup } from '@sl-design-system/tabs';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import styles from './emoji-browser.scss.js';
-import { type Emoji, type EmojiGroup, EmojiService, type SupportedLocale } from './emoji-service.js';
+import {
+  type Emoji,
+  type EmojiGroup,
+  EmojiService,
+  type SupportedLocale
+} from './emoji-service.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -56,9 +71,7 @@ const GROUP_ICONS: Record<number, string> = {
   9: 'far-flag'
 };
 
-/**
- * @customElement sl-emoji-browser
- */
+/** @customElement sl-emoji-browser */
 @localized()
 export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -90,10 +103,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal The emojis, grouped by group. */
   @state() emojis?: Map<EmojiGroup, Emoji[]>;
 
-  /**
-   * The locale for this component.
-   * TODO: Use the LocaleMixin.
-   */
+  /** The locale for this component. TODO: Use the LocaleMixin. */
   @property() locale?: string;
 
   /** The query string to filter emojis. */
@@ -111,7 +121,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     if (this.baseUrl) {
       this.service = new EmojiService(this.baseUrl);
     } else {
-      throw new Error('The `baseUrl` property is required when using the sl-emoji-browser component.');
+      throw new Error(
+        'The `baseUrl` property is required when using the sl-emoji-browser component.'
+      );
     }
   }
 
@@ -133,7 +145,8 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('query')) {
       if (this.query) {
-        this.filteredEmojis = (await this.service?.findEmojis(this.locale as SupportedLocale, this.query)) ?? [];
+        this.filteredEmojis =
+          (await this.service?.findEmojis(this.locale as SupportedLocale, this.query)) ?? [];
       } else {
         this.filteredEmojis = [];
       }
@@ -165,8 +178,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           @sl-change=${this.#onChange}
           @sl-clear=${this.#onClear}
           .placeholder=${msg('Search', { id: 'sl.emojiBrowser.search' })}
-          .value=${this.query}
-        ></sl-search-field>
+          .value=${this.query}></sl-search-field>
 
         ${this.filteredEmojis.length
           ? this.renderEmojis(this.filteredEmojis)
@@ -199,7 +211,10 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           emoji => emoji.unicode,
           emoji => html`
             <li class="emoji">
-              <sl-button @click=${() => this.#onClick(emoji)} aria-label=${emoji.label} fill="ghost">
+              <sl-button
+                @click=${() => this.#onClick(emoji)}
+                aria-label=${emoji.label}
+                fill="ghost">
                 ${emoji.unicode}
               </sl-button>
             </li>
@@ -222,7 +237,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   }
 
   #onScroll(event: Event & { target: HTMLElement }): void {
-    const headings = Array.from(this.renderRoot.querySelectorAll<HTMLElement>('.heading')).reverse(),
+    const headings = Array.from(
+        this.renderRoot.querySelectorAll<HTMLElement>('.heading')
+      ).reverse(),
       { clientHeight, offsetTop, scrollHeight, scrollTop } = event.target;
 
     if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {

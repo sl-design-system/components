@@ -3,6 +3,7 @@ import '@sl-design-system/text-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { FormField } from './form-field.js';
 
@@ -31,6 +32,25 @@ describe('sl-form-field', () => {
       expect(label?.assignedSlot?.name).to.equal('label');
     });
 
+    it('should link the label to the form control', () => {
+      const input = el.querySelector('input');
+
+      expect(el.querySelector('label')?.htmlFor).to.equal(input?.id);
+      expect(input?.labels).to.include(el.querySelector('label')!);
+    });
+
+    it('should unlink the label from the form control when the label property is cleared', async () => {
+      const input = el.querySelector('input');
+
+      expect(input).to.have.attribute('aria-describedby');
+
+      el.label = undefined;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('aria-describedby');
+      expect(input?.labels).to.have.lengthOf(0);
+    });
+
     it('should render the hint in the light DOM', () => {
       const hint = el.querySelector('sl-hint');
 
@@ -50,10 +70,15 @@ describe('sl-form-field', () => {
       expect(el.querySelector('sl-hint')?.id).to.equal(input?.getAttribute('aria-describedby'));
     });
 
-    it('should link the label to the form control', () => {
+    it('should remove the hint id from aria-describedby when the hint property is cleared', async () => {
       const input = el.querySelector('input');
 
-      expect(el.querySelector('label')?.htmlFor).to.equal(input?.id);
+      expect(input).to.have.attribute('aria-describedby');
+
+      el.hint = undefined;
+      await el.updateComplete;
+
+      expect(input).not.to.have.attribute('aria-describedby');
     });
   });
 
@@ -126,6 +151,78 @@ describe('sl-form-field', () => {
       expect(error).to.have.attribute('id');
       expect(error?.id).to.equal(input?.getAttribute('aria-describedby'));
     });
+
+    it('should remove the aria-describedby when the error is resolved', async () => {
+      const textField = el.querySelector('sl-text-field');
+
+      textField?.reportValidity();
+      await el.updateComplete;
+
+      textField?.focus();
+      await userEvent.keyboard('Valid input');
+
+      expect(el.querySelector('sl-error')).not.to.exist;
+      expect(el.querySelector('input')).not.to.have.attribute('aria-describedby');
+    });
+  });
+
+  describe('custom hint', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-hint slot="hint">Hint text</sl-hint>
+          <sl-text-field></sl-text-field>
+        </sl-form-field>
+      `);
+
+      // Wait for all slotchange microtasks to settle
+      await new Promise(resolve => setTimeout(resolve));
+    });
+
+    it('should link the slotted hint to the form control', () => {
+      const input = el.querySelector('input');
+
+      expect(input).to.have.attribute('aria-describedby');
+    });
+
+    it('should remove the hint id from aria-describedby when the slotted hint is removed', async () => {
+      const input = el.querySelector('input');
+
+      el.querySelector('sl-hint')?.remove();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(input).not.to.have.attribute('aria-describedby');
+    });
+  });
+
+  describe('custom label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-label slot="label">My label</sl-label>
+          <sl-text-field></sl-text-field>
+        </sl-form-field>
+      `);
+
+      // Wait for all slotchange microtasks to settle
+      await new Promise(resolve => setTimeout(resolve));
+    });
+
+    it('should link the slotted label to the form control', () => {
+      const input = el.querySelector('input');
+
+      expect(el.querySelector('label')?.htmlFor).to.equal(input?.id);
+      expect(input?.labels).to.include(el.querySelector('label')!);
+    });
+
+    it('should unlink the label from the form control when the slotted label is removed', async () => {
+      const input = el.querySelector('input');
+
+      el.querySelector('sl-label')?.remove();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(input?.labels).to.have.lengthOf(0);
+    });
   });
 
   describe('composite field', () => {
@@ -160,8 +257,12 @@ describe('sl-form-field', () => {
 
       const errors = el.querySelectorAll('sl-error');
       expect(errors).to.have.lengthOf(2);
-      expect(errors[1].id).to.equal(el.querySelector('sl-radio-group')?.getAttribute('aria-describedby'));
-      expect(errors[0].id).to.equal(el.querySelector('sl-text-field input')?.getAttribute('aria-describedby'));
+      expect(errors[1].id).to.equal(
+        el.querySelector('sl-radio-group')?.getAttribute('aria-describedby')
+      );
+      expect(errors[0].id).to.equal(
+        el.querySelector('sl-text-field input')?.getAttribute('aria-describedby')
+      );
     });
 
     it('should remove the error once the control is valid', async () => {

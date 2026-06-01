@@ -1,5 +1,8 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { FormatDate, format } from '@sl-design-system/format-date';
@@ -7,8 +10,19 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
-import { type SlChangeEvent, type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type SlChangeEvent,
+  type SlSelectEvent,
+  SlToggleEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { MonthView } from './month-view.js';
@@ -20,6 +34,13 @@ declare global {
     'sl-select-day': SelectDay;
   }
 }
+
+const getRequiredColumnSize = (renderedWidth: number, scrollWidth: number): number | undefined => {
+  const minimumColumnSize = Math.ceil(renderedWidth),
+    requiredColumnSize = Math.max(minimumColumnSize, Math.ceil(scrollWidth));
+
+  return requiredColumnSize > minimumColumnSize ? requiredColumnSize : undefined;
+};
 
 @localized()
 export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
@@ -34,7 +55,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -42,15 +66,19 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Timeout id, to be used with `clearTimeout`. */
   #announceTimeoutId?: ReturnType<typeof setTimeout>;
 
-  /** Use an intersection observer as a workaround until `scrollsnapchange` events are widely supported. */
+  /**
+   * Use an intersection observer as a workaround until `scrollsnapchange` events are widely
+   * supported.
+   */
   #intersectionObserver?: IntersectionObserver;
 
   /** The currently observed month views. */
   #observedMonths?: NodeListOf<MonthView>;
 
   /**
-   * Use a resize observer as a cross browser solution to know when to initialize the intersection observer
-   * and also to know when to center the current month in the scroller during initialization.
+   * Use a resize observer as a cross browser solution to know when to initialize the intersection
+   * observer and also to know when to center the current month in the scroller during
+   * initialization.
    */
   #resizeObserver = new ResizeObserver(async () => {
     if (!this.#intersectionObserver) {
@@ -88,9 +116,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
   /**
-   * The list of dates that should display an indicator.
-   * Each item is an Indicator with a `date`, an optional `color`
-   * and 'label' that is used to improve accessibility (added as a tooltip).
+   * The list of dates that should display an indicator. Each item is an Indicator with a `date`, an
+   * optional `color` and 'label' that is used to improve accessibility (added as a tooltip).
    */
   @property({
     attribute: 'indicator-dates',
@@ -103,12 +130,14 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The maximum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
    * The minimum date selectable in the month.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) min?: Date;
@@ -138,7 +167,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
   /** Shows the week numbers. */
-  @property({ type: Boolean, reflect: true, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'show-week-numbers' })
+  showWeekNumbers?: boolean;
 
   /** @internal Emits when the user clicks the month/year button. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<'month' | 'year'>>;
@@ -178,9 +208,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     if (changes.has('locale') || changes.has('showWeekNumbers')) {
-      this.localizedWeekOfYear = new Intl.DisplayNames(this.locale, { style: 'short', type: 'dateTimeField' }).of(
-        'weekOfYear'
-      );
+      this.localizedWeekOfYear = new Intl.DisplayNames(this.locale, {
+        style: 'short',
+        type: 'dateTimeField'
+      }).of('weekOfYear');
     }
 
     if (changes.has('month') && this.month) {
@@ -197,6 +228,21 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (changes.has('localizedWeekOfYear') || changes.has('showWeekNumbers')) {
+      this.#updateWeekNumberColumnSize();
+    }
+
+    const weekNumberHeader = this.renderRoot.querySelector('.days-of-week .week-number'),
+      shouldRecenterForShowWeekNumbers =
+        changes.has('showWeekNumbers') &&
+        (weekNumberHeader != null || changes.get('showWeekNumbers') === true),
+      shouldRecenterForLocalizedWeekOfYear =
+        changes.has('localizedWeekOfYear') && weekNumberHeader != null;
+
+    if (shouldRecenterForShowWeekNumbers || shouldRecenterForLocalizedWeekOfYear) {
+      requestAnimationFrame(() => this.#scrollToMonth(0));
+    }
 
     if (changes.has('max') || changes.has('min') || changes.has('month')) {
       void this.#updateMonthViews();
@@ -219,18 +265,19 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ? html`
               <sl-button
                 @click=${this.#onToggleMonthSelect}
-                aria-label=${msg(str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`, {
-                  id: 'sl.calendar.changeMonth'
-                })}
+                aria-label=${msg(
+                  str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
+                  {
+                    id: 'sl.calendar.changeMonth'
+                  }
+                )}
                 class="current-month"
                 fill="link"
-                variant="secondary"
-              >
+                variant="secondary">
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date>
+                  month="long"></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
@@ -239,26 +286,26 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date>
+                  month="long"></sl-format-date>
               </span>
             `}
         ${canSelectPreviousYear || canSelectNextYear
           ? html`
               <sl-button
                 @click=${this.#onToggleYearSelect}
-                aria-label=${msg(str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`, {
-                  id: 'sl.calendar.changeYear'
-                })}
+                aria-label=${msg(
+                  str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
+                  {
+                    id: 'sl.calendar.changeYear'
+                  }
+                )}
                 class="current-year"
                 fill="link"
-                variant="secondary"
-              >
+                variant="secondary">
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
+                  year="numeric"></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
@@ -267,8 +314,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
+                  year="numeric"></sl-format-date>
               </span>
             `}
 
@@ -281,8 +327,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )}
           class="previous-month"
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
         <sl-button
@@ -294,8 +339,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )}
           class="next-month"
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </header>
@@ -303,13 +347,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       <div class="days-of-week" role="list">
         ${this.showWeekNumbers
           ? html`
-              <span aria-label=${msg('Week', { id: 'sl.calendar.week' })} class="week-number" role="listitem">
+              <span
+                aria-label=${msg('Week', { id: 'sl.calendar.week' })}
+                class="week-number"
+                role="listitem">
                 ${this.localizedWeekOfYear}
               </span>
             `
           : nothing}
         ${this.weekDays.map(
-          day => html`<span aria-label=${day.long} class="day-of-week" role="listitem">${day.short}</span>`
+          day => html`
+            <span aria-label=${day.long} class="day-of-week" role="listitem">${day.short}</span>
+          `
         )}
       </div>
 
@@ -329,8 +378,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 max=${ifDefined(this.max?.toISOString())}
                 min=${ifDefined(this.min?.toISOString())}
                 month=${ifDefined(this.previousMonth?.toISOString())}
-                selected=${ifDefined(this.selected?.toISOString())}
-              ></sl-month-view>
+                selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
             `
           : nothing}
         <sl-month-view
@@ -347,8 +395,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
           month=${ifDefined(this.month?.toISOString())}
-          selected=${ifDefined(this.selected?.toISOString())}
-        ></sl-month-view>
+          selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
         ${canSelectNextMonth
           ? html`
               <sl-month-view
@@ -364,8 +411,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 max=${ifDefined(this.max?.toISOString())}
                 min=${ifDefined(this.min?.toISOString())}
                 month=${ifDefined(this.nextMonth?.toISOString())}
-                selected=${ifDefined(this.selected?.toISOString())}
-              ></sl-month-view>
+                selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
             `
           : nothing}
       </div>
@@ -499,7 +545,10 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return true;
     }
 
-    const previousMonthNormalized = new Date(this.previousMonth.getFullYear(), this.previousMonth.getMonth()),
+    const previousMonthNormalized = new Date(
+        this.previousMonth.getFullYear(),
+        this.previousMonth.getMonth()
+      ),
       minMonthNormalized = new Date(this.min.getFullYear(), this.min.getMonth());
 
     return previousMonthNormalized >= minMonthNormalized;
@@ -510,7 +559,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return;
     }
 
-    const width = parseInt(getComputedStyle(this).width) || 0,
+    const { width } = this.scroller.getBoundingClientRect(),
       canSelectPrevious = this.#canSelectPreviousMonth(),
       canSelectNext = this.#canSelectNextMonth();
 
@@ -541,6 +590,30 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.scroller.scrollTo({ left, behavior: 'smooth' });
     } else if (this.scroller.scrollLeft !== left) {
       this.scroller.scrollLeft = left;
+    }
+  }
+
+  /** Measures the week number header and increases the column width when text does not fit. */
+  #updateWeekNumberColumnSize(): void {
+    // Reset before measurement so the column can both grow and shrink when locale changes.
+    this.style.removeProperty('--_week-number-column-size');
+
+    if (!this.showWeekNumbers) {
+      return;
+    }
+
+    const weekNumber = this.renderRoot.querySelector<HTMLElement>('.days-of-week .week-number');
+    if (!weekNumber) {
+      return;
+    }
+
+    const requiredColumnSize = getRequiredColumnSize(
+      weekNumber.getBoundingClientRect().width,
+      weekNumber.scrollWidth
+    );
+
+    if (requiredColumnSize) {
+      this.style.setProperty('--_week-number-column-size', `${requiredColumnSize}px`);
     }
   }
 

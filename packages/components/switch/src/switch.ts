@@ -1,9 +1,28 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, ObserveAttributesMixin, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  event
+} from '@sl-design-system/shared';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
@@ -25,11 +44,10 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-disabled',
-  'aria-label',
-  'aria-labelledby'
-]) {
+export class Switch<T = any> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-disabled', 'aria-label', 'aria-labelledby']
+) {
   /** @internal */
   static formAssociated = true;
 
@@ -41,7 +59,10 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -81,19 +102,17 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** Custom icon in "on" state. */
   @property({ reflect: true, attribute: 'icon-on' }) iconOn?: string;
 
-  /** Whether the toggle should be shown *after* the text. */
+  /** Whether the toggle should be shown _after_ the text. */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
   /**
    * The size of the switch.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: SwitchSize;
 
-  /**
-   * The value of the switch when the switch is checked.
-   * See the formValue property for easy access.
-   */
+  /** The value of the switch when the switch is checked. See the formValue property for easy access. */
   @property() override value?: T;
 
   /** The input element in the light DOM. */
@@ -111,7 +130,9 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     super.connectedCallback();
 
     if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input =
+        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
+        document.createElement('input');
       this.input.slot = 'input';
       this.input.type = 'checkbox';
       this.input.role = 'switch';
@@ -138,12 +159,10 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#onLabelSlotChange();
   }
 
-  /** @ignore Stores the initial state of the switch */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
-  /** @ignore Resets the switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.formValue);
@@ -292,7 +311,10 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-switch-${nextUniqueId++}`;
-    /** input type checkbox with role switch:  https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/ */
+    /**
+     * Input type checkbox with role switch:
+     * https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/
+     */
     input.role = 'switch';
 
     input.checked = !!this.checked;

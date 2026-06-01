@@ -27,7 +27,9 @@ describe('sl-radio-group', () => {
     });
 
     it('should not be disabled', () => {
-      const allDisabled = Array.from(el.querySelectorAll('sl-radio')).every(radio => radio.disabled);
+      const allDisabled = Array.from(el.querySelectorAll('sl-radio')).every(
+        radio => radio.disabled
+      );
 
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;

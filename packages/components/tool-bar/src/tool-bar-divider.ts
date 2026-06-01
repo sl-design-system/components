@@ -8,16 +8,14 @@ declare global {
   }
 }
 
-/**
- * @customElement sl-tool-bar-divider
- */
+/** @customElement sl-tool-bar-divider */
 export class ToolBarDivider extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /**
-   * Set this to true to invert the color of the divider.
-   * This should be used when the tool-bar is displayed on a dark background.
+   * Set this to true to invert the color of the divider. This should be used when the tool-bar is
+   * displayed on a dark background.
    */
   @property({ type: Boolean, reflect: true }) inverted?: boolean;
 

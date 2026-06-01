@@ -68,7 +68,10 @@ describe('sl-tag', () => {
     });
 
     it('should have an ARIA description indicating how to remove the tag', () => {
-      expect(el).to.have.attribute('aria-description', 'Press the delete or backspace key to remove this item');
+      expect(el).to.have.attribute(
+        'aria-description',
+        'Press the delete or backspace key to remove this item'
+      );
     });
 
     it('should have a tabindex of 0', () => {
@@ -140,7 +143,9 @@ describe('sl-tag', () => {
 
   describe('overflow', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tag removable style="inline-size: 50px">My label is very long</sl-tag>`);
+      el = await fixture(
+        html`<sl-tag removable style="inline-size: 50px">My label is very long</sl-tag>`
+      );
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 50));

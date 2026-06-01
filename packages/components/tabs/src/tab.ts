@@ -1,5 +1,11 @@
 import { EventsController } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
 
@@ -13,12 +19,12 @@ declare global {
  * A tab component - part of the tab group component.
  *
  * ```html
- *   <sl-tab>
- *     <sl-icon slot="icon" name="star" size="md"></sl-icon>
- *     Tab label
- *     <span slot="subtitle">Tab subtitle</span>
- *     <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
- *   </sl-tab>
+ * <sl-tab>
+ *   <sl-icon slot="icon" name="star" size="md"></sl-icon>
+ *   Tab label
+ *   <span slot="subtitle">Tab subtitle</span>
+ *   <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
+ * </sl-tab>
  * ```
  *
  * @customElement sl-tab
@@ -38,14 +44,14 @@ export class Tab extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
-   * When set, it will render the tab contents in a link tag. Use this when you
-   * want to render the tab contents using a router and to make the tab
-   * navigable by URL.
+   * When set, it will render the tab contents in a link tag. Use this when you want to render the
+   * tab contents using a router and to make the tab navigable by URL.
    */
   @property() href?: string;
 
   /**
    * Indicates if this tab is selected.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
@@ -67,11 +73,15 @@ export class Tab extends LitElement {
 
   override render(): TemplateResult {
     return this.href && !this.disabled
-      ? html`<a href=${this.href} part="outer" role="presentation" tabindex="-1">${this.renderContent()}</a>`
+      ? html`
+          <a href=${this.href} part="outer" role="presentation" tabindex="-1">
+            ${this.renderContent()}
+          </a>
+        `
       : html`<div part="outer">${this.renderContent()}</div>`;
   }
 
-  /** @ignore */
+  /** @internal */
   renderContent(): TemplateResult {
     return html`
       <div part="inner">
@@ -101,13 +111,17 @@ export class Tab extends LitElement {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const hasTitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());
+    const hasTitle = event.target
+      .assignedNodes({ flatten: true })
+      .some(node => !!node.textContent?.trim());
 
     this.toggleAttribute('has-title', hasTitle);
   }
 
   #onSubtitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const hasSubtitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());
+    const hasSubtitle = event.target
+      .assignedNodes({ flatten: true })
+      .some(node => !!node.textContent?.trim());
 
     this.toggleAttribute('has-subtitle', hasSubtitle);
   }

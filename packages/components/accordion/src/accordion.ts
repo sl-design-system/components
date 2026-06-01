@@ -1,6 +1,12 @@
 import { FocusGroupController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
 import styles from './accordion.scss.js';
@@ -21,8 +27,8 @@ export type AccordionIconType = 'chevron' | 'plusminus';
  */
 export class Accordion extends LitElement {
   /**
-   * This determines the icons used in the accordion. You can change this to
-   * `chevron` for all accordions.
+   * This determines the icons used in the accordion. You can change this to `chevron` for all
+   * accordions.
    */
   static iconType: AccordionIconType = 'plusminus';
 
@@ -45,7 +51,10 @@ export class Accordion extends LitElement {
   /** The slotted accordion items. */
   @queryAssignedElements({ flatten: true }) items?: AccordionItem[];
 
-  /** Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened. */
+  /**
+   * Whether only one accordion item can be opened at once. By default, multiple accordion items can
+   * be opened.
+   */
   @property({ type: Boolean, reflect: true }) single?: boolean;
 
   override updated(changes: PropertyValues<this>): void {
@@ -73,7 +82,9 @@ export class Accordion extends LitElement {
       return;
     }
 
-    const item = event.composedPath().find((et): et is AccordionItem => et instanceof AccordionItem);
+    const item = event
+      .composedPath()
+      .find((et): et is AccordionItem => et instanceof AccordionItem);
 
     this.items?.filter(i => i !== item && i.open).forEach(i => i.toggle());
   }

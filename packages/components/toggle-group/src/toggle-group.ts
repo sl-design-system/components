@@ -1,7 +1,13 @@
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToggleButton } from '@sl-design-system/toggle-button';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './toggle-group.scss.js';
 
@@ -16,8 +22,9 @@ export type ToggleGroupShape = 'pill' | 'square';
 export type ToggleGroupSize = 'sm' | 'md' | 'lg';
 
 /**
- * A component for visually grouping toggle buttons together. By default, this component ensures that only one button
- * in the group is active at a time. This behavior can be disabled by setting the `multiple` property.
+ * A component for visually grouping toggle buttons together. By default, this component ensures
+ * that only one button in the group is active at a time. This behavior can be disabled by setting
+ * the `multiple` property.
  *
  * @customElement sl-toggle-group
  * @slot - The default slot for toggle buttons.
@@ -48,12 +55,12 @@ export class ToggleGroup extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
-   * By default, only a single toggle button inside the group can be active.
-   * This means that the group will automatically deactivate the other buttons when one is toggled.
+   * By default, only a single toggle button inside the group can be active. This means that the
+   * group will automatically deactivate the other buttons when one is toggled.
    *
-   * When set to true multiple buttons can be active at the same time.
-   * In this case the group does nothing when a button is toggled.
-   * Use this mode if you want to handle the toggling of buttons yourself.
+   * When set to true multiple buttons can be active at the same time. In this case the group does
+   * nothing when a button is toggled. Use this mode if you want to handle the toggling of buttons
+   * yourself.
    */
   @property({ type: Boolean }) multiple?: boolean;
 
@@ -95,7 +102,9 @@ export class ToggleGroup extends LitElement {
     if (this.multiple) {
       return;
     } else if (event.detail) {
-      this.#buttons.filter(button => button !== event.target).forEach(button => (button.pressed = false));
+      this.#buttons
+        .filter(button => button !== event.target)
+        .forEach(button => (button.pressed = false));
     }
   }
 

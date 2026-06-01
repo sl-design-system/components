@@ -75,8 +75,10 @@ export default {
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
         <h1 slot="title">${title}</h1>
         ${subtitle ? html`<span slot="subtitle">${subtitle}</span>` : nothing} ${body?.()}
-        ${headerButtons ? headerButtons(args) : nothing} ${primaryActions ? primaryActions() : nothing}
-        ${secondaryActions ? secondaryActions() : nothing} ${footerButtons ? footerButtons(args) : nothing}
+        ${headerButtons ? headerButtons(args) : nothing}
+        ${primaryActions ? primaryActions() : nothing}
+        ${secondaryActions ? secondaryActions() : nothing}
+        ${footerButtons ? footerButtons(args) : nothing}
       </sl-dialog>
     `;
   }
@@ -91,7 +93,9 @@ export const Basic: Story = {
       <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
     `,
     secondaryActions: () => html`
-      <sl-button fill="outline" slot="secondary-actions" sl-dialog-close variant="primary">Secondary action</sl-button>
+      <sl-button fill="outline" slot="secondary-actions" sl-dialog-close variant="primary"
+        >Secondary action</sl-button
+      >
     `
   }
 };
@@ -109,17 +113,22 @@ export const CloseButton: Story = {
 
 export const Commands: Story = {
   render: () => html`
-    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
+    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary"
+      >Open dialog</sl-button
+    >
     <sl-dialog id="invoker-dialog" close-button>
       <span slot="title">Invoker API</span>
       <p>
-        This dialog was opened using the Invoker Commands API. The button has a <code>command</code> attribute of
-        <code>--show-modal</code>. This is a custom command that will trigger the dialog to call
-        <code>showModal()</code> on itself. The close button inside the dialog has a <code>--close</code> command that
-        will trigger the dialog to call <code>close()</code> on itself. This way you can control things like dialogs
-        using buttons without any JavaScript needed!
+        This dialog was opened using the Invoker Commands API. The button has a
+        <code>command</code> attribute of <code>--show-modal</code>. This is a custom command that
+        will trigger the dialog to call <code>showModal()</code> on itself. The close button inside
+        the dialog has a <code>--close</code> command that will trigger the dialog to call
+        <code>close()</code> on itself. This way you can control things like dialogs using buttons
+        without any JavaScript needed!
       </p>
-      <sl-button slot="primary-actions" command="--close" commandfor="invoker-dialog">Close</sl-button>
+      <sl-button slot="primary-actions" command="--close" commandfor="invoker-dialog"
+        >Close</sl-button
+      >
     </sl-dialog>
   `
 };
@@ -201,7 +210,10 @@ export const MobileScrolling: Story = {
         </sl-form-field>
 
         <sl-form-field label="Email address">
-          <sl-text-field name="email" placeholder="Enter your email address" type="email"></sl-text-field>
+          <sl-text-field
+            name="email"
+            placeholder="Enter your email address"
+            type="email"></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Address">
@@ -222,7 +234,9 @@ export const MobileScrolling: Story = {
       <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Save</sl-button>
     `,
     secondaryActions: () => html`
-      <sl-button slot="secondary-actions" sl-dialog-close variant="danger">Delete account</sl-button>
+      <sl-button slot="secondary-actions" sl-dialog-close variant="danger"
+        >Delete account</sl-button
+      >
     `,
     title: 'Edit account'
   }
@@ -234,12 +248,16 @@ export const DialogWithOverlayComponents: Story = {
       const dialog = document.createElement('sl-dialog');
 
       const onClickPopover = (): void => {
-        const popover = document.getElementById('popover-example') as HTMLElement & { togglePopover(): void };
+        const popover = document.getElementById('popover-example') as HTMLElement & {
+          togglePopover(): void;
+        };
         popover?.togglePopover();
       };
 
       const hidePopover = (): void => {
-        const popover = document.getElementById('popover-example') as HTMLElement & { togglePopover(): void };
+        const popover = document.getElementById('popover-example') as HTMLElement & {
+          togglePopover(): void;
+        };
         popover?.hidePopover();
       };
 
@@ -273,7 +291,7 @@ export const DialogWithOverlayComponents: Story = {
             <sl-popover id="popover-example" anchor="anchor">
               <header style="font-size: 1.1em; padding-block-end: 1rem;">Word Definition</header>
               <section style="padding-block-end: 1rem;">
-                <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br/>
+                <strong>Photosynthesis</strong> is the process by which green plants and some other organisms <br aria-hidden="true" />
                 use sunlight to synthesize foods from carbon dioxide and water.
               </section>
               <footer>
@@ -323,9 +341,10 @@ export const DialogWithOverlayComponents: Story = {
         }
       </style>
       <section>
-        This example shows a dialog with overlay components (such as date fields, selects, comboboxes, popovers, and
-        menu buttons). <br />
-        The main purpose is to verify that closing any of these overlay components (for example, by pressing the
+        This example shows a dialog with overlay components (such as date fields, selects,
+        comboboxes, popovers, and menu buttons). <br aria-hidden="true" />
+        The main purpose is to verify that closing any of these overlay components (for example, by
+        pressing the
         <code>Escape</code> key) does not accidentally close the parent dialog.
       </section>
       <sl-button @click=${onClick}>Open dialog</sl-button>
@@ -345,7 +364,9 @@ export const All: Story = {
     };
 
     return html`
-      <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
+      <sl-button fill="outline" size="md" @click=${onClick} data-testid="button"
+        >Show Dialog</sl-button
+      >
       <sl-dialog close-button disable-cancel>
         <h1 slot="title">Title</h1>
         Body text

@@ -25,8 +25,7 @@ export default {
         aria-label="Search"
         ?disabled=${disabled}
         .placeholder=${placeholder}
-        .value=${value}
-      ></sl-search-field>
+        .value=${value}></sl-search-field>
     `;
   }
 } satisfies Meta<Props>;
@@ -50,7 +49,11 @@ export const CustomIcon: Story = {
     Icon.register(faPoo);
 
     return html`
-      <sl-search-field aria-label="Search" ?disabled=${disabled} .placeholder=${placeholder} .value=${value}>
+      <sl-search-field
+        aria-label="Search"
+        ?disabled=${disabled}
+        .placeholder=${placeholder}
+        .value=${value}>
         <sl-icon name="far-poo" slot="prefix"></sl-icon>
       </sl-search-field>
     `;
@@ -81,8 +84,7 @@ export const Complete: Story = {
         <sl-search-field
           aria-labelledby="search-button"
           id="search-field"
-          placeholder="Enter your query"
-        ></sl-search-field>
+          placeholder="Enter your query"></sl-search-field>
         <sl-button aria-controls="search-field" id="search-button">Search</sl-button>
       </search>
     `;

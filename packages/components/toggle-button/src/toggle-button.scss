@@ -12,7 +12,11 @@
   --_group-compensation-end: 0px;
   --_border-compensation: var(--_toggle-group-border, var(--_border-width));
 
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border: var(--_border-width) solid var(--sl-color-border-plain);
   border-radius: var(--_button-border-radius);
   color: var(--sl-color-foreground-neutral-bold);
@@ -55,8 +59,8 @@
   color: var(--sl-color-foreground-selected-onBold);
 }
 
-:host([disabled]),
-:host([disabled][pressed]) {
+:host(:is([disabled], [aria-disabled='true'])),
+:host(:is([disabled], [aria-disabled='true'])[pressed]) {
   --_bg-color: transparent;
   --_bg-mix-color: transparent;
 
@@ -66,7 +70,7 @@
   pointer-events: none;
 }
 
-:host([disabled][pressed]) {
+:host(:is([disabled], [aria-disabled='true'])[pressed]) {
   --_bg-color: var(--sl-color-background-disabled);
 }
 
@@ -98,10 +102,14 @@
   justify-content: center;
   min-block-size: 1lh;
   padding: calc(var(--sl-size-075) - var(--_border-compensation))
-    calc(var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(
+      var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) +
+        var(--_group-compensation-end)
+    )
     calc(var(--sl-size-075) - var(--_border-compensation))
     calc(
-      var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
+      var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) +
+        var(--_group-compensation-start)
     );
   transition: background var(--_transition-duration) var(--_transition-easing);
 }
@@ -114,10 +122,14 @@
   --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-new-icon-xs)) / 2);
 
   padding: calc(var(--sl-size-025) - var(--_border-compensation))
-    calc(var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(
+      var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) +
+        var(--_group-compensation-end)
+    )
     calc(var(--sl-size-025) - var(--_border-compensation))
     calc(
-      var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
+      var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) +
+        var(--_group-compensation-start)
     );
 }
 
@@ -127,10 +139,14 @@
 
 :host([size='lg']) [part='wrapper'] {
   padding: calc(var(--sl-size-125) - var(--_border-compensation))
-    calc(var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(
+      var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) +
+        var(--_group-compensation-end)
+    )
     calc(var(--sl-size-125) - var(--_border-compensation))
     calc(
-      var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
+      var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) +
+        var(--_group-compensation-start)
     );
 }
 

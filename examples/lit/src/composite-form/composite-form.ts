@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
@@ -59,8 +62,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             ?disabled=${!this.#form.value?.firstName}
             name="lastName"
             placeholder="Enter a first name first"
-            required
-          ></sl-text-field>
+            required></sl-text-field>
         </sl-form-field>
 
         <sl-form-field>
@@ -84,8 +86,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             input-size="8"
             name="otherAge"
             placeholder="Your age"
-            required
-          ></sl-number-field>
+            required></sl-number-field>
         </sl-form-field>
 
         <sl-form-field label="Remarks">
@@ -101,7 +102,9 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
         </sl-form-field>
 
         <sl-form-field label="Terms and conditions">
-          <sl-checkbox name="termsAndConditions" required> I agree to all terms and conditions </sl-checkbox>
+          <sl-checkbox name="termsAndConditions" required>
+            I agree to all terms and conditions
+          </sl-checkbox>
         </sl-form-field>
 
         <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>

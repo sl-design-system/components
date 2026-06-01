@@ -388,6 +388,19 @@ describe('sl-date-field', () => {
       expect(dialog).to.contain('sl-calendar');
     });
 
+    it('should hide the extra controls area when there are no actions', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const dialog = el.renderRoot.querySelector('dialog[popover]');
+
+      expect(dialog).to.match(':popover-open');
+      expect(dialog).to.contain('sl-calendar');
+
+      const buttonBar = el.renderRoot.querySelector('sl-button-bar');
+      expect(buttonBar).not.to.exist;
+    });
+
     it('should hide popover when calendar date is selected', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
@@ -449,7 +462,10 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('first-day-of-week', '0');
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute(
+        'first-day-of-week',
+        '0'
+      );
     });
 
     it('should pass min to calendar', async () => {
@@ -460,7 +476,10 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('min', minDate.toISOString());
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute(
+        'min',
+        minDate.toISOString()
+      );
     });
 
     it('should pass max to calendar', async () => {
@@ -471,7 +490,10 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('max', maxDate.toISOString());
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute(
+        'max',
+        maxDate.toISOString()
+      );
     });
 
     it('should pass month to calendar', async () => {
@@ -482,7 +504,10 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('month', monthDate.toISOString());
+      expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute(
+        'month',
+        monthDate.toISOString()
+      );
     });
 
     it('should have show-today on calendar', async () => {
@@ -1269,7 +1294,9 @@ describe('sl-date-field', () => {
     let spans: NodeListOf<HTMLElement>;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field readonly .value=${new Date(2026, 2, 14)}></sl-date-field>`);
+      el = await fixture(
+        html`<sl-date-field readonly .value=${new Date(2026, 2, 14)}></sl-date-field>`
+      );
       spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
     });
 
@@ -1397,7 +1424,9 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       const selectAll = el.renderRoot.querySelector('.select-all')!;
-      selectAll.dispatchEvent(new KeyboardEvent('keydown', { key: 'Control', ctrlKey: true, bubbles: true }));
+      selectAll.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Control', ctrlKey: true, bubbles: true })
+      );
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('.select-all')).to.exist;
@@ -1506,7 +1535,9 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Tab}');
       await el.updateComplete;
 
-      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(el.renderRoot.querySelector('sl-field-button'));
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(
+        el.renderRoot.querySelector('sl-field-button')
+      );
     });
 
     it('should exit select-all mode on Shift-Tab', async () => {
@@ -1562,7 +1593,11 @@ describe('sl-date-field', () => {
       dataTransfer.setData('text/plain', text);
 
       target.dispatchEvent(
-        new ClipboardEvent('paste', { clipboardData: dataTransfer, bubbles: true, cancelable: true })
+        new ClipboardEvent('paste', {
+          clipboardData: dataTransfer,
+          bubbles: true,
+          cancelable: true
+        })
       );
     };
 
@@ -1713,7 +1748,9 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
-      expect(el.validationMessage).to.equal('Please select a date that is no earlier than 06/01/2026.');
+      expect(el.validationMessage).to.equal(
+        'Please select a date that is no earlier than 06/01/2026.'
+      );
     });
 
     it('should be valid when value is equal to min date', async () => {
@@ -1738,7 +1775,9 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
-      expect(el.validationMessage).to.equal('Please select a date that is no later than 06/30/2026.');
+      expect(el.validationMessage).to.equal(
+        'Please select a date that is no later than 06/30/2026.'
+      );
     });
 
     it('should be valid when value is equal to max date', async () => {
@@ -1810,7 +1849,9 @@ describe('sl-date-field', () => {
 
       expect(el.value).to.be.undefined;
       expect(el.valid).to.be.false;
-      expect(el.validationMessage).to.equal('Please select a date that is no earlier than 03/15/2026.');
+      expect(el.validationMessage).to.equal(
+        'Please select a date that is no earlier than 03/15/2026.'
+      );
     });
 
     it('should not set value when typing a date after max', async () => {
@@ -1833,7 +1874,9 @@ describe('sl-date-field', () => {
 
       expect(el.value).to.be.undefined;
       expect(el.valid).to.be.false;
-      expect(el.validationMessage).to.equal('Please select a date that is no later than 03/15/2026.');
+      expect(el.validationMessage).to.equal(
+        'Please select a date that is no later than 03/15/2026.'
+      );
     });
   });
 
@@ -1910,6 +1953,30 @@ describe('sl-date-field', () => {
         expect(el.value).to.equalDate(new Date(2026, 2, 14));
       });
 
+      it('should show the extra controls area when confirmation is required', async () => {
+        el.renderRoot.querySelector('sl-field-button')?.click();
+        await new Promise(resolve => setTimeout(resolve));
+
+        expect(calendar.renderRoot.querySelector('sl-select-day')).to.exist;
+
+        const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
+
+        if (!buttonBar) {
+          throw new Error('Expected sl-button-bar to be rendered when confirmation is required');
+        }
+
+        await (buttonBar as HTMLElement & { updateComplete?: Promise<unknown> }).updateComplete;
+
+        let confirmButton = buttonBar.querySelector('sl-button');
+
+        for (let i = 0; i < 10 && !confirmButton; i += 1) {
+          await new Promise(resolve => setTimeout(resolve, 10));
+          confirmButton = buttonBar.querySelector('sl-button');
+        }
+
+        expect(confirmButton).to.exist;
+      });
+
       it('should not emit sl-change immediately when calendar date is selected', async () => {
         const onChange = spy();
         el.addEventListener('sl-change', onChange);
@@ -1930,6 +1997,25 @@ describe('sl-date-field', () => {
 
         expect(onChange).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe('extra controls', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-date-field>
+          <sl-button>Clear</sl-button>
+        </sl-date-field>
+      `);
+    });
+
+    it('should show the extra controls area when custom actions are slotted', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
+
+      expect(buttonBar).to.exist;
     });
   });
 

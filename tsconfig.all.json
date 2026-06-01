@@ -4,19 +4,13 @@
     "noEmit": true,
     "emitDeclarationOnly": false
   },
-  "include": [
-    "packages/checklist/**/*.ts",
-    "packages/components/**/*.ts",
-    "packages/themes/**/*.ts"
-  ],
+  "include": ["packages/components/**/*.ts", "packages/themes/**/*.ts"],
   "exclude": [
     "packages/**/node_modules/**/*.ts",
-    "packages/checklist/**/*.d.ts",
     "packages/components/**/*.d.ts",
     "packages/themes/**/*.d.ts"
   ],
   "references": [
-    { "path": "./packages/checklist" },
     { "path": "./packages/components/accordion" },
     { "path": "./packages/components/announcer" },
     { "path": "./packages/components/avatar" },
@@ -41,6 +35,7 @@
     { "path": "./packages/components/format-number" },
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
+    { "path": "./packages/components/infotip" },
     { "path": "./packages/components/inline-message" },
     { "path": "./packages/components/listbox" },
     { "path": "./packages/components/menu" },
@@ -61,8 +56,8 @@
     { "path": "./packages/components/tabs" },
     { "path": "./packages/components/tag" },
     { "path": "./packages/components/text-area" },
-    { "path": "./packages/components/text-field"},
-    { "path": "./packages/components/time-field"},
+    { "path": "./packages/components/text-field" },
+    { "path": "./packages/components/time-field" },
     { "path": "./packages/components/toggle-button" },
     { "path": "./packages/components/toggle-group" },
     { "path": "./packages/components/tool-bar" },

@@ -14,7 +14,7 @@ export default {
     In the theme is a global.css file containing styling for links. This works as a global style for
     links in your application and links in the light dom of SLDS components.
     <br />
-    <a href="https://www.sanomalearning.design" target="_blank">Sanoma Learning Design system</a>
+    <a href="https://sanomalearning.design" target="_blank">Sanoma Learning Design system</a>
   `
 } satisfies Meta<Props>;
 

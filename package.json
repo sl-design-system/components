@@ -361,7 +361,7 @@
       ]
     },
     "test:setup": {
-      "command": "playwright install --with-deps"
+      "command": "playwright install --with-deps chromium"
     },
     "test:tools": {
       "command": "yarn workspace @sl-design-system/eslint-plugin-slds test"

@@ -172,13 +172,11 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 )}
                 class="current-year"
                 fill="link"
-                variant="secondary"
-              >
+                variant="secondary">
                 <sl-format-date
                   .date=${this.month}
                   locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
+                  year="numeric"></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
@@ -191,8 +189,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               id: 'sl.calendar.previousYear'
             })}
             fill="ghost"
-            variant="secondary"
-          >
+            variant="secondary">
             <sl-icon name="chevron-left"></sl-icon>
           </sl-button>
           <sl-button
@@ -200,8 +197,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             ?disabled=${!this.#canSelectYear(1)}
             aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
             fill="ghost"
-            variant="secondary"
-          >
+            variant="secondary">
             <sl-icon name="chevron-right"></sl-icon>
           </sl-button>
         </div>
@@ -209,8 +205,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
       <table
         aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
-        role="grid"
-      >
+        role="grid">
         <tbody>
           ${rows.map(
             (row, rowIndex) => html`
@@ -242,8 +237,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?disabled=${month.disabled}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
-          class=${classMap({ current, selected })}
-        >
+          class=${classMap({ current, selected })}>
           <span>${month.long}</span>
         </button>
       </td>

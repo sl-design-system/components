@@ -253,8 +253,7 @@ export default {
         .scopedElements=${scopedElements}
         ?hide-guides=${hideGuides}
         aria-label="Tree label"
-        style="max-inline-size: ${maxWidth ?? '300px'}"
-      ></sl-tree>
+        style="max-inline-size: ${maxWidth ?? '300px'}"></sl-tree>
     `;
   }
 } satisfies Meta<Props>;
@@ -416,14 +415,12 @@ export const Filter: Story = {
         @sl-change=${onChange}
         @sl-clear=${onClear}
         placeholder="Filter the nodes in the tree"
-        style="margin-block-end: 1rem"
-      ></sl-search-field>
+        style="margin-block-end: 1rem"></sl-search-field>
       <sl-tree
         .dataSource=${dataSource}
         ?show-guides=${showGuides}
         aria-label="Filtered tree"
-        style="max-inline-size: 300px"
-      ></sl-tree>
+        style="max-inline-size: 300px"></sl-tree>
       <p id="no-results" ?hidden=${!empty}>No matching results.</p>
     `;
   }

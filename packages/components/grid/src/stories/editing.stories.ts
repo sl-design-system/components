@@ -31,8 +31,7 @@ export const Select: Story = {
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-select-column
         .options=${['Available', 'Busy']}
-        path="status"
-      ></sl-grid-select-column>
+        path="status"></sl-grid-select-column>
     </sl-grid>
   `
 };

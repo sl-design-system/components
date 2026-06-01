@@ -31,8 +31,7 @@ export const Vertical: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
     </sl-grid>
   `
@@ -63,8 +62,7 @@ export const VerticalOverflow: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
     </sl-grid>
   `
@@ -142,8 +140,7 @@ export const Both: Story = {
         <sl-grid-column
           header="Student"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         ${columns.map(c => html`<sl-grid-column path=${c}></sl-grid-column>`)}
       </sl-grid>
     `;
@@ -190,8 +187,7 @@ export const BothSticky: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>
       <sl-grid-column path="school.address"></sl-grid-column>
@@ -221,8 +217,7 @@ export const Horizontal: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column path="group.name"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>

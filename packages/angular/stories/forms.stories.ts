@@ -89,8 +89,7 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
         <sl-combobox
           formControlName="comboboxMultiple"
           multiple
-          placeholder="Select one or more options"
-        >
+          placeholder="Select one or more options">
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -428,8 +427,7 @@ export class AllFormControlsTemplateComponent {
           [(ngModel)]="formGroup.numberField"
           min="5"
           max="15"
-          required
-        ></sl-number-field>
+          required></sl-number-field>
       </sl-form-field>
 
       <sl-form-field label="Date field">
@@ -563,8 +561,7 @@ export class AllFormControlsEmptyTemplateComponent {
             showValidity && formGroup.controls.username.errors?.invalidUsername
               ? 'Invalid username, enter admin.'
               : ''
-          "
-        ></sl-text-field>
+          "></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Password">

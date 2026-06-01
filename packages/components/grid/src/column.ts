@@ -215,8 +215,7 @@ export class GridColumn<T = any> extends LitElement {
       <th
         class=${ifDefined(classes.join(' ') || undefined)}
         part=${parts.join(' ')}
-        role="columnheader"
-      >
+        role="columnheader">
         ${this.renderHeaderLabel()}
       </th>
     `;

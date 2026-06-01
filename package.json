@@ -361,7 +361,7 @@
       ]
     },
     "test:setup": {
-      "command": "playwright install --with-deps"
+      "command": "playwright install --with-deps chromium"
     },
     "test:tools": {
       "command": "yarn workspace @sl-design-system/eslint-plugin-slds test"
@@ -405,9 +405,9 @@
     "@types/chai-dom": "^1.11.3",
     "@types/sinon": "^21.0.1",
     "@types/sinon-chai": "^4.0.0",
-    "@vitest/browser-playwright": "~4.1.7",
-    "@vitest/coverage-v8": "~4.1.7",
-    "@vitest/ui": "~4.1.7",
+    "@vitest/browser-playwright": "~4.1.8",
+    "@vitest/coverage-v8": "~4.1.8",
+    "@vitest/ui": "~4.1.8",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
     "axe-html-reporter": "^2.2.11",
     "chai": "^6.2.2",
@@ -428,8 +428,8 @@
     "storybook-addon-tag-badges": "^3.1.0",
     "stylelint": "^16.19.1",
     "typescript": "^6.0.3",
-    "vite": "^8.0.14",
-    "vitest": "~4.1.7",
+    "vite": "^8.0.15",
+    "vitest": "~4.1.8",
     "wireit": "^0.14.12"
   }
 }

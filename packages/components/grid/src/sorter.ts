@@ -87,8 +87,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
             : msg('Sort ascending', { id: 'sl.grid.sortAscending' })}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
-        variant=${ifDefined(this.direction ? 'primary' : undefined)}
-      >
+        variant=${ifDefined(this.direction ? 'primary' : undefined)}>
         ${choose(
           this.direction,
           [

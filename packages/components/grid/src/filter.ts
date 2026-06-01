@@ -132,14 +132,12 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
           .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
             id: 'sl.grid.filterByValue'
           })}
-          clearable
-        >
+          clearable>
           ${this.options?.map(option => {
             return html`
               <sl-option
                 ?selected=${this.value?.includes(option.value as string)}
-                .value=${option.value}
-              >
+                .value=${option.value}>
                 ${option.label}
               </sl-option>
             `;
@@ -154,8 +152,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
           .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
             id: 'sl.grid.filterByValue'
           })}
-          .value=${this.value?.toString() ?? ''}
-        ></sl-search-field>
+          .value=${this.value?.toString() ?? ''}></sl-search-field>
       `;
     }
   }

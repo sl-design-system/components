@@ -42,8 +42,7 @@ export default {
         max=${ifDefined(max?.toISOString())}
         min=${ifDefined(min?.toISOString())}
         selected=${ifDefined(selected?.toISOString())}
-        year=${ifDefined(year?.toISOString())}
-      ></sl-select-year>
+        year=${ifDefined(year?.toISOString())}></sl-select-year>
     `;
   }
 } satisfies Meta<Props>;

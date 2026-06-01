@@ -4,6 +4,32 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# May 27, 2026
+
+## New features
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) exposes a new `button` CSS part on the inner `<button>` element, making it possible to style the native button directly from the outside using `::part(button)`.
+
+## Bug fixes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes an icon-only size regression caused by `box-sizing`, a WebKit bug where the aspect-ratio of the inner button was ignored, and a bug where the inner button would not grow with the host element.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) fixes an accidental global `<sl-tooltip>` registration.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) improves toggle button accessibility with proper `aria-label` and `aria-expanded` attributes, and aligns the "create custom option" styling with other options in the list.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) fixes `<sl-label>` not updating its text when the locale changes at runtime.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes `aria-rowindex` being 0-based (it is now correctly 1-based for both data rows and group rows), and adds a localized, visually hidden label to the drag-handle column header so screen readers can announce its purpose.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) and [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) align option and group styling with the Figma design.
+- [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) prevents page numbers from wrapping in the extra-small page select.
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) hides collapsed panel content from assistive technology.
+
+## Locales
+
+- [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds Italian, Polish and Castilian Spanish language files. It also adds translations for the new `sl.combobox.options` and `sl.grid.reorder` keys, and removes the now-obsolete `sl.combobox.hideOptions` and `sl.combobox.showOptions` keys.
+- Several components have had their internal translation keys renamed: [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md), [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md), [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md), [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md), [`text-area`](https://github.com/sl-design-system/components/blob/main/packages/components/text-area/CHANGELOG.md) and [`text-field`](https://github.com/sl-design-system/components/blob/main/packages/components/text-field/CHANGELOG.md). If you provide your own translations, make sure to update `@sl-design-system/locales` at the same time as these packages.
+
+## Theme updates
+
+- All themes fix a bug where line-height variables incorrectly had a duplicate unit (`pxpx`). Make sure to update your theme alongside this release.
+
 # May 8, 2026
 
 A new `<sl-infotip>` component has been added in the `@sl-design-system/infotip` package. It shows an info icon button that opens a popover with extra information. Place it in the `infotip` slot of `<sl-label>` so screen readers read the info content when the user focuses the form control. Note: this component is still in `draft` status, so it may still change.

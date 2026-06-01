@@ -1,4 +1,5 @@
 import '@sl-design-system/button/register.js';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { type ToolBar } from '@sl-design-system/tool-bar';
@@ -14,6 +15,7 @@ import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
 
 type Person = { firstName: string; lastName: string; email?: string };
+type Student = Person & { school: { id: number; name: string } };
 
 describe('sl-grid', () => {
   let el: Grid<Person>;
@@ -95,6 +97,14 @@ describe('sl-grid', () => {
         ['Jane', 'Smith']
       ]);
     });
+
+    it('should render aria-rowindex values starting at 1', () => {
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('tbody tr')).map(row =>
+        row.getAttribute('aria-rowindex')
+      );
+
+      expect(rowIndices).to.deep.equal(['1', '2']);
+    });
   });
 
   describe('multiple select', () => {
@@ -175,6 +185,45 @@ describe('sl-grid', () => {
       await el.updateComplete;
 
       expect(el.dataSource?.selects).to.equal('multiple');
+    });
+  });
+
+  describe('grouping', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${new ArrayListDataSource<Student>(
+            [
+              {
+                firstName: 'John',
+                lastName: 'Doe',
+                school: { id: 1, name: 'School A' }
+              },
+              {
+                firstName: 'Jane',
+                lastName: 'Smith',
+                school: { id: 2, name: 'School B' }
+              }
+            ],
+            {
+              groupBy: 'school.id',
+              groupLabelPath: 'school.name'
+            }
+          )}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should render aria-rowindex values for group and data rows', () => {
+      const rowIndices = Array.from(el.renderRoot.querySelectorAll('tbody tr')).map(row =>
+        row.getAttribute('aria-rowindex')
+      );
+
+      expect(rowIndices).to.deep.equal(['1', '2', '3', '4']);
     });
   });
 

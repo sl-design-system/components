@@ -1,13 +1,30 @@
 # @sl-design-system/combobox
 
+## 0.1.9
+
+### Patch Changes
+
+- [#3366](https://github.com/sl-design-system/components/pull/3366) [`a4fc3d8`](https://github.com/sl-design-system/components/commit/a4fc3d88a9982bc6fa3d7a750ba321ac0c31f054) - Accessibility improvements of the toggle button, now uses proper aria: aria-label and aria-expanded (includes the new `sl.combobox.options` locale key).
+
+- [#3297](https://github.com/sl-design-system/components/pull/3297) [`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a) - Align `sl-combobox-create-custom-option` styling with other options styling.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/listbox@0.1.7
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/text-field@1.6.10
+
 ## 0.1.8
 
 ### Patch Changes
 
 - [#3211](https://github.com/sl-design-system/components/pull/3211) [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f) - Functional changes:
+
   - The popover opens when you click in the combobox, no longer when you enter the combobox with keyboard navigation.
 
   Accessibility improvements:
+
   - Forward ARIA attributes (`aria-label`, `aria-describedby`, `aria-labelledby`) from host element to the input element for proper screen reader support
   - Automatically associate label with input via `aria-labelledby` when a label is present
 
@@ -158,6 +175,7 @@
   ```
 
   You can customize the rendering of each option by using:
+
   - `optionLabelPath` to specify the path to the label in each option object
   - `optionValuePath` to specify the path to the value in each option object
 
@@ -167,6 +185,7 @@
   the options in both scenarios by using the `sl-option { ... }` selector.
 
 - [#1642](https://github.com/sl-design-system/components/pull/1642) [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39) - Various combobox fixes:
+
   - Add `aria-owns` for linking the input to the listbox
   - Add `aria-posinset` and `aria-setsize` to the listbox options for virtual lists
   - Add focus style to tags
@@ -189,6 +208,7 @@
 ### Patch Changes
 
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes/improvements:
+
   - The label was associated with the `<sl-combobox>` element instead of the `<input>` element
   - `aria-selected="false"` was missing on the non-selected options
   - `aria-multiselectable="true"` was missing on the listbox when the multiple property is set

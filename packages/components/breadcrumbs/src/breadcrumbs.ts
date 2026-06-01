@@ -331,7 +331,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         el.id ||= `sl-breadcrumb-${nextUniqueId++}`;
 
         // Use an existing tooltip, or create a new one
-        let tooltip = el.ariaLabelledByElements?.at(0) as Tooltip;
+        let tooltip = el.ariaLabelledByElements?.find(
+          (el): el is Tooltip => el instanceof Tooltip && el.for === el.id
+        );
         if (!tooltip) {
           tooltip = this.shadowRoot!.createElement('sl-tooltip');
           tooltip.for = el.id;

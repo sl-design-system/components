@@ -291,15 +291,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <div class="fade fade-end"></div>
             <div
               @scroll=${(event: Event) => this.#onScroll(event.target as HTMLElement)}
-              part="scroller"
-            >
+              part="scroller">
               <div
                 @click=${this.#onClick}
                 @focusin=${this.#onFocusin}
                 @keydown=${this.#onKeydown}
                 part="tablist"
-                role="tablist"
-              >
+                role="tablist">
                 <span class="indicator" role="presentation"></span>
                 <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
@@ -310,15 +308,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                 <sl-menu-button
                   @keydown=${this.#onKeydown}
                   aria-label=${msg('Show all', { id: 'sl.tabs.showAll' })}
-                  fill="ghost"
-                >
+                  fill="ghost">
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
                   ${this.menuItems?.map(
                     menuItem => html`
                       <sl-menu-item
                         @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                        ?disabled=${menuItem.disabled}
-                      >
+                        ?disabled=${menuItem.disabled}>
                         ${menuItem.title}
                       </sl-menu-item>
                     `

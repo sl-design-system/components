@@ -85,8 +85,7 @@ export default {
               ?required=${required}
               .value=${value}
               placeholder=${ifDefined(placeholder)}
-              size=${ifDefined(size)}
-            >
+              size=${ifDefined(size)}>
               ${options?.() ??
               html`
                 <sl-option value="1">Option 1</sl-option>
@@ -522,8 +521,7 @@ export const HideWhenOutOfView: StoryObj = {
         <div class="scrollcontent">
           <sl-form-field
             hint="This will hide when the container is scrolled AND when the window is scrolled"
-            label="Container scroll"
-          >
+            label="Container scroll">
             <sl-select>
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
@@ -564,8 +562,7 @@ export const All: Story = {
         <sl-select
           placeholder="Select an option"
           size="lg"
-          aria-label="Large select with placeholder"
-        >
+          aria-label="Large select with placeholder">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -575,8 +572,7 @@ export const All: Story = {
         <sl-select
           placeholder="Select an option"
           value="Value 2"
-          aria-label="Medium select with selected value"
-        >
+          aria-label="Medium select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -585,8 +581,7 @@ export const All: Story = {
           placeholder="Select an option"
           value="Value 2"
           size="lg"
-          aria-label="Large select with selected value"
-        >
+          aria-label="Large select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -597,8 +592,7 @@ export const All: Story = {
           clearable
           placeholder="Select an option"
           value="Value 2"
-          aria-label="Medium clearable select with selected value"
-        >
+          aria-label="Medium clearable select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -608,8 +602,7 @@ export const All: Story = {
           placeholder="Select an option"
           value="Value 2"
           size="lg"
-          aria-label="Large clearable select with selected value"
-        >
+          aria-label="Large clearable select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -620,8 +613,7 @@ export const All: Story = {
           placeholder="Select an option"
           show-validity="valid"
           value="Value 2"
-          aria-label="Medium valid select with selected value"
-        >
+          aria-label="Medium valid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -631,8 +623,7 @@ export const All: Story = {
           show-validity="valid"
           value="Value 2"
           size="lg"
-          aria-label="Large valid select with selected value"
-        >
+          aria-label="Large valid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -643,8 +634,7 @@ export const All: Story = {
           placeholder="Select an option"
           show-validity="invalid"
           value="Value 2"
-          aria-label="Medium invalid select with selected value"
-        >
+          aria-label="Medium invalid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -654,8 +644,7 @@ export const All: Story = {
           show-validity="invalid"
           value="Value 2"
           size="lg"
-          aria-label="Large invalid select with selected value"
-        >
+          aria-label="Large invalid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -666,8 +655,7 @@ export const All: Story = {
           disabled
           placeholder="Select an option"
           value="Value 2"
-          aria-label="Medium disabled select with selected value"
-        >
+          aria-label="Medium disabled select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -677,8 +665,7 @@ export const All: Story = {
           placeholder="Select an option"
           value="Value 2"
           size="lg"
-          aria-label="Large disabled select with selected value"
-        >
+          aria-label="Large disabled select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>

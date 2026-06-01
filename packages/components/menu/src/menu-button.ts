@@ -145,8 +145,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         part="button"
         shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}
-        variant=${ifDefined(this.variant)}
-      >
+        variant=${ifDefined(this.variant)}>
         <slot name="button"></slot>
         ${iconOnly ? nothing : html`<sl-icon name="angle-down"></sl-icon>`}
       </sl-button>
@@ -156,8 +155,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
-        part="menu"
-      >
+        part="menu">
         <slot></slot>
       </sl-menu>
     `;

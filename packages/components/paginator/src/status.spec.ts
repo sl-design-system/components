@@ -151,8 +151,7 @@ describe('sl-paginator-status', () => {
           .itemLabel=${'books'}
           page="14"
           page-size="15"
-          total-items="209"
-        ></sl-paginator-status>
+          total-items="209"></sl-paginator-status>
       `);
     });
 

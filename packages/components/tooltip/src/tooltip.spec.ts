@@ -1042,8 +1042,7 @@ describe('sl-tooltip', () => {
             <button
               id="slotted-anchor"
               slot="actions"
-              aria-describedby="external-description tooltip"
-            >
+              aria-describedby="external-description tooltip">
               Slotted anchor
             </button>
             <button id="default-anchor" aria-describedby="external-description tooltip">

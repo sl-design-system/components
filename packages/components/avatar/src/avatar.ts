@@ -43,8 +43,7 @@ export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  * ```html
  * <sl-avatar
  *   display-name="Lynn Smith"
- *   picture-url="http://sanomalearning.design/avatars/lynn.png"
- * ></sl-avatar>
+ *   picture-url="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
  * @csspart avatar - The container for positioning the badge.
@@ -164,8 +163,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
                   @error=${this.#onError}
                   part="image"
                   src=${this.pictureUrl}
-                  alt=${ifDefined(this.imageOnly ? this.displayName : '')}
-                />
+                  alt=${ifDefined(this.imageOnly ? this.displayName : '')} />
               `
             : html`
                 <slot name="fallback">

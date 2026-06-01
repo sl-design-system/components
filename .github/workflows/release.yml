@@ -6,7 +6,6 @@ on:
       - main
 
 env:
-  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   HUSKY: 0
   TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
@@ -30,7 +29,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@sl-design-system'

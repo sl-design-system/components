@@ -193,14 +193,11 @@ export const Overflow: Story = {
   args: {
     items: () => html`
       <sl-accordion-item
-        summary="Velit Lorem nostrud anim officia adipisicing dolore incididunt esse."
-      ></sl-accordion-item>
+        summary="Velit Lorem nostrud anim officia adipisicing dolore incididunt esse."></sl-accordion-item>
       <sl-accordion-item
-        summary="Id aliquip dolore laborum eiusmod amet minim occaecat ex consequat non."
-      ></sl-accordion-item>
+        summary="Id aliquip dolore laborum eiusmod amet minim occaecat ex consequat non."></sl-accordion-item>
       <sl-accordion-item
-        summary="Elit tempor Lorem laboris qui magna excepteur nostrud quis elit eu eiusmod do. Aute ex mollit duis ullamco ut do mollit. Minim irure pariatur anim minim irure id aute. Occaecat mollit nostrud ea ipsum veniam labore cupidatat cillum exercitation. Ut ullamco id officia voluptate incididunt et sint. Officia velit sit incididunt minim ut pariatur do."
-      ></sl-accordion-item>
+        summary="Elit tempor Lorem laboris qui magna excepteur nostrud quis elit eu eiusmod do. Aute ex mollit duis ullamco ut do mollit. Minim irure pariatur anim minim irure id aute. Occaecat mollit nostrud ea ipsum veniam labore cupidatat cillum exercitation. Ut ullamco id officia voluptate incididunt et sint. Officia velit sit incididunt minim ut pariatur do."></sl-accordion-item>
     `
   }
 };
@@ -346,8 +343,7 @@ export const ToggleExternally: Story = {
                 <sl-accordion-item
                   summary="🦖"
                   .open=${this.dino}
-                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'dino')}
-                >
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'dino')}>
                   Discovering Dinosaurs: A Prehistoric Adventure Embark on a thrilling journey back
                   in time to the age of dinosaurs! 🌎🦕🌿🦖
                 </sl-accordion-item>
@@ -358,8 +354,7 @@ export const ToggleExternally: Story = {
                 <sl-accordion-item
                   summary="👽"
                   .open=${this.alien}
-                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'alien')}
-                >
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'alien')}>
                   Space Odyssey: Exploring Planets and Stars Buckle up for a cosmic adventure!
                   🚀🪐👽
                 </sl-accordion-item>

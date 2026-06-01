@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 
 env:
-  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
 
@@ -24,7 +23,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
       - name: Install dependencies
         run: yarn install --immutable

@@ -252,8 +252,7 @@ export class MessageDialogCustomComponentExampleComponent {
           >Open multiple dialogs</sl-button
         >
         <p
-          style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);"
-        >
+          style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
           You can also programmatically close all dialogs using
           <code>closeAll()</code> in your code.
         </p>

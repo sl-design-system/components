@@ -184,8 +184,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         ?last-node-in-level=${this.lastNodeInLevel}
         .level=${this.level}
         .levelGuides=${this.levelGuides}
-        ?selected=${!this.multiple && this.selected}
-      ></sl-indent-guides>
+        ?selected=${!this.multiple && this.selected}></sl-indent-guides>
       <div aria-colindex="1" role="gridcell">
         ${this.expandable
           ? html`
@@ -209,8 +208,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                 'skeleton',
                 () => html`
                   <sl-skeleton
-                    style="inline-size: ${Math.max(20, Math.random() * 60)}%"
-                  ></sl-skeleton>
+                    style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>
                 `
               ]
             ],
@@ -223,8 +221,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       ?indeterminate=${this.indeterminate}
                       exportparts="label"
                       part="checkbox"
-                      size="sm"
-                    >
+                      size="sm">
                       <input slot="input" tabindex="-1" type="checkbox" />
                       <slot></slot>
                     </sl-checkbox>

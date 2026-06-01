@@ -198,8 +198,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
             class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
             part="svg"
             version="1.1"
-            viewBox="0 0 24 24"
-          >
+            viewBox="0 0 24 24">
             ${this.indeterminate
               ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
               : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}

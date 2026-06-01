@@ -177,8 +177,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           @sl-change=${this.#onChange}
           @sl-clear=${this.#onClear}
           .placeholder=${msg('Search', { id: 'sl.emojiBrowser.search' })}
-          .value=${this.query}
-        ></sl-search-field>
+          .value=${this.query}></sl-search-field>
 
         ${this.filteredEmojis.length
           ? this.renderEmojis(this.filteredEmojis)
@@ -214,8 +213,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
               <sl-button
                 @click=${() => this.#onClick(emoji)}
                 aria-label=${emoji.label}
-                fill="ghost"
-              >
+                fill="ghost">
                 ${emoji.unicode}
               </sl-button>
             </li>

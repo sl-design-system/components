@@ -423,8 +423,7 @@ export const All: Story = {
               disabled
               fill=${ifDefined(options.fill)}
               shape="pill"
-              size="sm"
-            >
+              size="sm">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
@@ -461,8 +460,7 @@ export const All: Story = {
               disabled
               fill=${ifDefined(options.fill)}
               shape="pill"
-              size="lg"
-            >
+              size="lg">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>

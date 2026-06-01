@@ -95,8 +95,7 @@ export default {
         @sl-update-state=${onUpdate}
         @sl-update-validity=${onUpdate}
         ?disabled=${disabled}
-        .value=${value}
-      >
+        .value=${value}>
         ${fields(args)}
         <sl-button-bar>
           ${buttons?.() ??
@@ -148,8 +147,7 @@ export const Reset: Story = {
           name="input"
           placeholder="Placeholder"
           required
-          value="Value set initially"
-        ></sl-text-field>
+          value="Value set initially"></sl-text-field>
       </sl-form-field>
       <sl-form-field hint="Has no value on load" label="Text field">
         <sl-text-field name="input2" placeholder="Placeholder" required></sl-text-field>
@@ -217,8 +215,7 @@ export const CustomComponent: Story = {
           ?disabled=${disabled}
           name="customTextField"
           placeholder="Placeholder"
-          required
-        ></sl-text-field>
+          required></sl-text-field>
       </sl-form-field>
       <custom-component></custom-component>
     `
@@ -233,8 +230,7 @@ export const All: Story = {
           ?disabled=${disabled}
           name="textField"
           placeholder="Placeholder"
-          required
-        ></sl-text-field>
+          required></sl-text-field>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Date field">
@@ -250,8 +246,7 @@ export const All: Story = {
           ?disabled=${disabled}
           name="textArea"
           placeholder="Placeholder"
-          required
-        ></sl-text-area>
+          required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Checkbox">
@@ -273,8 +268,7 @@ export const All: Story = {
           ?disabled=${disabled}
           name="comboboxSingle"
           placeholder="Single select"
-          required
-        >
+          required>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -290,8 +284,7 @@ export const All: Story = {
           name="comboboxMultiple"
           multiple
           placeholder="Multiple select"
-          required
-        >
+          required>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>

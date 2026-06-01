@@ -14,6 +14,7 @@
   text-wrap: pretty;
 
   @media (prefers-reduced-motion: no-preference) {
+    transition-behavior: allow-discrete;
     transition-duration: 150ms;
     transition-property: display, opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 1, 1);

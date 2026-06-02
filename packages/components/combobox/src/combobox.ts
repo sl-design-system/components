@@ -683,7 +683,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    const isSelectOnlySpace = !!this.selectOnly && (event.key === ' ' || event.key === 'Spacebar');
+    const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
 
     if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
       if (isSelectOnlySpace) {

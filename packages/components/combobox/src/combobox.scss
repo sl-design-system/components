@@ -20,11 +20,6 @@
   block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
 }
 
-::slotted(sl-listbox) {
-  block-size: fit-content;
-  overflow: visible;
-}
-
 sl-text-field {
   flex: 1;
   inline-size: 100%;

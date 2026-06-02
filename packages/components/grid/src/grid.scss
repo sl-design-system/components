@@ -1,6 +1,24 @@
 // stylelint-disable color-no-hex
+@property --_body-cell-background-interactive-opacity {
+  inherits: true;
+  initial-value: 0;
+  syntax: '<number>';
+}
+
 :host {
   --_body-cell-background: var(--sl-elevation-surface-raised-default);
+  --_body-cell-background-interactive: linear-gradient(
+    var(--_body-cell-background-interactive-mix),
+    var(--_body-cell-background-interactive-mix)
+  );
+  --_body-cell-background-interactive-color: transparent;
+  --_body-cell-background-interactive-mix: color-mix(
+    in srgb,
+    transparent,
+    var(--_body-cell-background-interactive-color)
+      calc(100% * var(--_body-cell-background-interactive-opacity))
+  );
+  --_body-cell-background-interactive-opacity: 0;
   --_body-cell-padding-block: var(--sl-size-125);
   --_body-cell-padding-inline: var(--sl-size-150);
   --_head-cell-background: var(--sl-elevation-surface-raised-alternative);
@@ -46,23 +64,17 @@
 
 :host([row-action]) {
   [part~='row'] {
-    --_bg-color: transparent;
-    --_bg-mix-color: var(--sl-color-background-input-interactive);
-    --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-    --_body-cell-background: color-mix(
-      in srgb,
-      var(--_bg-color),
-      var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
-    );
+    --_body-cell-background-interactive-color: var(--sl-color-background-input-interactive);
+    --_body-cell-background-interactive-opacity: var(--sl-opacity-interactive-plain-idle);
 
     cursor: pointer;
 
     &:hover {
-      --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+      --_body-cell-background-interactive-opacity: var(--sl-opacity-interactive-plain-hover);
     }
 
     &:active {
-      --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+      --_body-cell-background-interactive-opacity: var(--sl-opacity-interactive-plain-active);
     }
   }
 
@@ -76,8 +88,9 @@
 
   tr[part~='active'],
   tr[part~='selected'] {
-    --_bg-color: var(--sl-color-background-selected-subtlest);
-    --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+    --_body-cell-background-interactive-color: var(
+      --sl-color-background-selected-interactive-plain
+    );
   }
 }
 
@@ -98,10 +111,12 @@
   }
 
   td {
-    background: var(--_vertical-border), var(--_body-cell-background);
+    background:
+      var(--_vertical-border), var(--_body-cell-background-interactive),
+      var(--_body-cell-background);
 
     &:first-of-type {
-      background: var(--_body-cell-background);
+      background: var(--_body-cell-background-interactive), var(--_body-cell-background);
     }
   }
 }
@@ -133,7 +148,9 @@
   }
 
   td.sticky-start-last {
-    background: var(--_vertical-border-end), var(--_body-cell-background);
+    background:
+      var(--_vertical-border-end), var(--_body-cell-background-interactive),
+      var(--_body-cell-background);
   }
 
   th.sticky-start-last {
@@ -182,7 +199,9 @@
   }
 
   td.sticky-end-first {
-    background: var(--_vertical-border), var(--_body-cell-background);
+    background:
+      var(--_vertical-border), var(--_body-cell-background-interactive),
+      var(--_body-cell-background);
   }
 
   th.sticky-end-first {
@@ -401,13 +420,15 @@ th[part~='selection'] {
 }
 
 td {
-  background: var(--_body-cell-background);
+  background: var(--_body-cell-background-interactive), var(--_body-cell-background);
   border-block-end: var(--_border);
   justify-content: start;
   padding: var(--_body-cell-padding-block) var(--_body-cell-padding-inline);
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: background-color 0.2s ease-in-out;
+    transition:
+      background-color 0.2s ease-in-out,
+      --_body-cell-background-interactive-opacity 0.2s ease-in-out;
   }
 
   &:has(> :not(sl-ellipsize-text)) {

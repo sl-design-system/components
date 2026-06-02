@@ -185,8 +185,7 @@ export const LoadingImage: Story = {
         <div class="picture" aria-label="Loading picture with New York buildings">
           <img
             src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-            alt="city"
-          />
+            alt="city" />
           <sl-skeleton .effect=${effect}></sl-skeleton>
         </div>
       </section>

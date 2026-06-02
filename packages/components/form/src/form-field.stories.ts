@@ -170,14 +170,12 @@ export const Composite: Story = {
           name="rentalPeriodAmount"
           min="1"
           placeholder="0"
-          required
-        ></sl-number-field>
+          required></sl-number-field>
         <sl-select
           aria-label="Rental period unit"
           name="rentalPeriodUnit"
           placeholder="Select unit"
-          required
-        >
+          required>
           <sl-option value="day">Day</sl-option>
           <sl-option value="week">Week</sl-option>
           <sl-option value="month">Month</sl-option>

@@ -15,6 +15,10 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
   'aria-owns': 'ariaOwnsElements'
 };
 
+function setAriaDisabled(target: HTMLElement, value: string | null): void {
+  target.ariaDisabled = value === 'true' ? 'true' : null;
+}
+
 /**
  * Mixin that forwards ARIA attributes from a custom element host to a target element inside its
  * shadow DOM. This is necessary because screen readers cannot pierce the shadow boundary, so ARIA
@@ -104,11 +108,7 @@ export function ForwardAriaMixin<
       // Forward ariaDisabled if it was set via property before the target was available
       if (ariaDisabledStorage.has(this)) {
         const value = ariaDisabledStorage.get(this) ?? null;
-        if (value === 'true') {
-          target.setAttribute('aria-disabled', 'true');
-        } else {
-          target.removeAttribute('aria-disabled');
-        }
+        setAriaDisabled(target, value);
       }
 
       // Forward any attributes that were set before the target was available
@@ -221,11 +221,7 @@ export function ForwardAriaMixin<
 
       const target = targetElements.get(this);
       if (target) {
-        if (value === 'true') {
-          target.setAttribute('aria-disabled', 'true');
-        } else {
-          target.removeAttribute('aria-disabled');
-        }
+        setAriaDisabled(target, value);
       }
     }
   });

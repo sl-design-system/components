@@ -449,8 +449,7 @@ describe('sl-number-field', () => {
       el = await fixture(html`
         <sl-number-field
           value="10.809"
-          .formatOptions=${{ style: 'percent', maximumFractionDigits: 2 }}
-        ></sl-number-field>
+          .formatOptions=${{ style: 'percent', maximumFractionDigits: 2 }}></sl-number-field>
       `);
       input = el.querySelector('input')!;
     });

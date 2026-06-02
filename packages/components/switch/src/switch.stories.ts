@@ -38,8 +38,7 @@ export default {
       ?disabled=${disabled}
       ?reverse=${reverse}
       size=${ifDefined(size)}
-      .value=${value}
-    >
+      .value=${value}>
       ${text}
     </sl-switch>
   `
@@ -70,8 +69,7 @@ export const Empty: Story = {
       ?disabled=${disabled}
       ?reverse=${reverse}
       size=${ifDefined(size)}
-      .value=${value}
-    >
+      .value=${value}>
       ${text}
     </sl-switch>
   `
@@ -96,19 +94,16 @@ export const CustomIcons: Story = {
         size="sm"
         icon-off="fas-sun-bright"
         icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons small"
-      ></sl-switch>
+        aria-label="Switch with custom icons small"></sl-switch>
       <sl-switch
         icon-off="fas-sun-bright"
         icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons"
-      ></sl-switch>
+        aria-label="Switch with custom icons"></sl-switch>
       <sl-switch
         size="lg"
         icon-off="fas-sun-bright"
         icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons large"
-      ></sl-switch>
+        aria-label="Switch with custom icons large"></sl-switch>
     `;
   }
 };
@@ -127,8 +122,7 @@ export const CustomValidity: Story = {
       <sl-form>
         <sl-form-field
           hint="This story has custom validation. If you do not toggle the switch, you will see a validation message. NOTE: This is a technical story; this is NOT meant as a functional example. The switch component should never be used in this way."
-          label="Do not do this in real code!"
-        >
+          label="Do not do this in real code!">
           <sl-switch @sl-validate=${onValidate} reverse>You must toggle me</sl-switch>
         </sl-form-field>
         <sl-button-bar>

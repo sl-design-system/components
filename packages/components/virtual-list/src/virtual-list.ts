@@ -97,8 +97,7 @@ export class VirtualList<T = any> extends LitElement {
         <div
           part="container"
           style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px"
-        >
+          (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -109,8 +108,7 @@ export class VirtualList<T = any> extends LitElement {
                 <div
                   part="item"
                   data-index=${virtualItem.index}
-                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}
-                >
+                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>
               `;

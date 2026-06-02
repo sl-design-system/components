@@ -128,8 +128,7 @@ export default {
       .timeZoneName=${timeZoneName}
       .timeZone=${timeZone}
       .hour12=${hour12}
-      locale=${ifDefined(locale)}
-    >
+      locale=${ifDefined(locale)}>
       ${fallback}
     </sl-format-date>
   `
@@ -201,8 +200,7 @@ export const Locales: Story = {
               .timeZoneName=${timeZoneName}
               .timeZone=${timeZone}
               .hour12=${hour12}
-              locale=${locale}
-            >
+              locale=${locale}>
               ${fallback}
             </sl-format-date>
           </dd>

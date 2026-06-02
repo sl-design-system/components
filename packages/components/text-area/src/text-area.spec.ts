@@ -687,8 +687,7 @@ describe('sl-text-area', () => {
             id="foo"
             placeholder="I am a custom textarea"
             spellcheck="true"
-            slot="textarea"
-          ></textarea>
+            slot="textarea"></textarea>
         </sl-text-area>
       `);
     });

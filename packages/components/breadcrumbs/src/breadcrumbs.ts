@@ -210,8 +210,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                           isMobile() || this.hideHomeLabel
                             ? msg('Home', { id: 'sl.breadcrumbs.home' })
                             : undefined
-                        )}
-                      >
+                        )}>
                         <sl-icon name="home-blank"></sl-icon>
                         ${isMobile() || this.hideHomeLabel
                           ? ''
@@ -230,8 +229,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                   aria-label=${msg('More breadcrumbs', { id: 'sl.breadcrumbs.moreBreadcrumbs' })}
                   fill="ghost"
                   id="button"
-                  variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
-                >
+                  variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">

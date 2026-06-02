@@ -1,5 +1,16 @@
 # @sl-design-system/date-field
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`6882876`](https://github.com/sl-design-system/components/commit/6882876fb35019f2b69d30dadb23780d577bb591), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/calendar@0.0.8
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/shared@0.12.1
+  - @sl-design-system/text-field@1.6.10
+
 ## 0.1.2
 
 ### Patch Changes

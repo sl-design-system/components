@@ -1,5 +1,14 @@
 # @sl-design-system/calendar
 
+## 0.0.8
+
+### Patch Changes
+
+- [#3361](https://github.com/sl-design-system/components/pull/3361) [`6882876`](https://github.com/sl-design-system/components/commit/6882876fb35019f2b69d30dadb23780d577bb591) - Fix accidental global `<sl-tooltip>` register
+
+- Updated dependencies [[`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7)]:
+  - @sl-design-system/button@2.1.0
+
 ## 0.0.7
 
 ### Patch Changes

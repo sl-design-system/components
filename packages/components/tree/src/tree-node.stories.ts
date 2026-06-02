@@ -68,8 +68,7 @@ export default {
         level=${level}
         ?multiple=${multiple}
         ?selected=${selected}
-        type=${ifDefined(type)}
-      >
+        type=${ifDefined(type)}>
         ${text}
       </sl-tree-node>
     `;

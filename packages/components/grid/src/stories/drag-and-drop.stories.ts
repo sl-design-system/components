@@ -37,8 +37,7 @@ export const Basic: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;
@@ -59,8 +58,7 @@ export const OnTop: Story = {
         @sl-grid-drop=${onDrop}
         draggable-rows="on-top"
         .dropFilter=${dropFilter}
-        .items=${people}
-      >
+        .items=${people}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

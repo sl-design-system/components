@@ -78,8 +78,7 @@ export default {
               ?required=${required}
               ?show-valid=${showValid}
               .size=${size}
-              .value=${value}
-            >
+              .value=${value}>
               ${options?.() ??
               html`
                 <sl-radio value="1">One</sl-radio>

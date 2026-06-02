@@ -70,8 +70,7 @@ export default {
         class="root-menu"
         popover="manual"
         style="max-width: ${maxWidth}"
-        .emphasis=${emphasis}
-      >
+        .emphasis=${emphasis}>
         ${menuItems()}
       </sl-menu>
     `;

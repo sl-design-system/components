@@ -685,7 +685,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' && !this.focusedTag) {
+    const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
+
+    if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
+      if (isSelectOnlySpace) {
+        event.preventDefault();
+      }
+
       if (this.allowCustomValues && this.currentItem === this.createCustomOption) {
         this.#addCustomOption(this.input.value);
       } else if (this.currentItem?.custom && this.currentItem?.option) {

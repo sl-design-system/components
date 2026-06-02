@@ -73,8 +73,7 @@ export default {
         : html`
             <sl-button
               aria-describedby="tooltip"
-              style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
-            >
+              style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
               Button
             </sl-button>
             <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}
@@ -92,8 +91,7 @@ export const Directive: Story = {
     example: ({ alignSelf, justifySelf, message }) => html`
       <sl-button
         ${tooltip(message)}
-        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
-      >
+        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
         Button
       </sl-button>
     `
@@ -124,8 +122,7 @@ export const DirectiveWithOptions: Story = {
             ariaRelation: 'label',
             position: 'bottom-start',
             maxWidth: 100
-          })}
-        >
+          })}>
           <sl-icon name="face-smile" size="lg"></sl-icon>
         </sl-button>
       </div>
@@ -142,8 +139,7 @@ export const Disabled: Story = {
           display: 'inline-flex',
           gap: '1rem',
           'justify-self': justifySelf
-        })}
-      >
+        })}>
         <sl-button ${tooltip(message)} disabled>Disabled button</sl-button>
         <sl-button ${tooltip(message)} aria-disabled="true">Disabled (ARIA only) button</sl-button>
       </div>
@@ -210,8 +206,7 @@ export const NestedChildren: Story = {
         class="nested-children-container"
         aria-describedby="task-details-not-available-tooltip"
         @click=${(e: MouseEvent) => console.log('Div clicked', e)}
-        tabindex="0"
-      >
+        tabindex="0">
         <sl-button aria-describedby="tooltip"> Some button </sl-button>
         <p>
           The div has a tooltip attached, hovering over the child elements will not cause the
@@ -236,8 +231,7 @@ export const NestedChildren: Story = {
           class="nested-children-eye-icon"
           aria-label="Look"
           fill="outline"
-          aria-describedby="tooltip"
-        >
+          aria-describedby="tooltip">
           <sl-icon name="eye"></sl-icon>
         </sl-button>
       </div>

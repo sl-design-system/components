@@ -140,8 +140,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
           aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
         <sl-button
@@ -149,8 +148,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
           aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </header>
@@ -159,8 +157,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         aria-label=${msg(str`Years from ${this.years.at(0)!} to ${this.years.at(-1)!}`, {
           id: 'sl.calendar.yearsLabel'
         })}
-        role="grid"
-      >
+        role="grid">
         <tbody>
           ${rows.map(
             (row, rowIndex) => html`
@@ -188,8 +185,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${disabled}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
-          class=${classMap({ current, selected })}
-        >
+          class=${classMap({ current, selected })}>
           <span>${year}</span>
         </button>
       </td>

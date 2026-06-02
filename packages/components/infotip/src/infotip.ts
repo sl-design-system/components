@@ -101,8 +101,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
         aria-label=${msg('More information', { id: 'sl.infotip.moreInformation' })}
         fill="ghost"
         id="trigger"
-        part="button"
-      >
+        part="button">
         <slot name="icon">
           <sl-icon name="info"></sl-icon>
         </slot>

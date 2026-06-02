@@ -60,8 +60,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @close=${this.#onClose}
         aria-labelledby="title"
-        part="dialog"
-      >
+        part="dialog">
         <div>
           <sl-button-bar>
             <sl-button

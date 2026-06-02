@@ -622,6 +622,53 @@ describe('sl-combobox', () => {
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.equal('Lorem');
       });
+
+      it('should insert spaces in the input', async () => {
+        input.focus();
+        await userEvent.keyboard('Foo{Space}Bar');
+        await el.updateComplete;
+
+        expect(input.value).to.equal('Foo Bar');
+      });
+    });
+
+    describe('select only', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox select-only>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should select the current option when pressing Space', async () => {
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Lorem');
+        expect(input.value).to.equal('Lorem');
+      });
+
+      it('should deselect the current option when pressing Space', async () => {
+        el.value = 'Lorem';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+        expect(input.value).to.equal('');
+      });
     });
 
     describe('options with values', () => {
@@ -919,6 +966,24 @@ describe('sl-combobox', () => {
 
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
+
+      it('should select and deselect the current option with Space when select-only', async () => {
+        el.selectOnly = true;
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal(['Lorem']);
+
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal([]);
       });
 
       it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {

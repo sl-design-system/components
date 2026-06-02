@@ -90,15 +90,13 @@ export class FormInDialog extends Dialog {
             ?disabled=${this.#form.value?.indefinitely}
             name="rentalPeriodAmount"
             placeholder="0"
-            ?required=${!this.#form.value?.indefinitely}
-          ></sl-number-field>
+            ?required=${!this.#form.value?.indefinitely}></sl-number-field>
           <sl-select
             aria-label="Rental period unit"
             ?disabled=${this.#form.value?.indefinitely}
             name="rentalPeriodUnit"
             placeholder="Select unit"
-            ?required=${!this.#form.value?.indefinitely}
-          >
+            ?required=${!this.#form.value?.indefinitely}>
             <sl-option value="day">Day</sl-option>
             <sl-option value="week">Week</sl-option>
             <sl-option value="month">Month</sl-option>
@@ -110,16 +108,14 @@ export class FormInDialog extends Dialog {
             format-options='{ "style": "currency", "currency": "EUR" }'
             min="0"
             name="amount"
-            required
-          ></sl-number-field>
+            required></sl-number-field>
         </sl-form-field>
         <sl-form-field class="deposit" label="Deposit">
           <sl-number-field
             format-options='{ "style": "currency", "currency": "EUR" }'
             min="0"
             name="deposit"
-            required
-          ></sl-number-field>
+            required></sl-number-field>
         </sl-form-field>
 
         ${this.#form.controls.amount?.dirty
@@ -128,8 +124,7 @@ export class FormInDialog extends Dialog {
                 The rental amount for <strong>already rented</strong> lockers will remain
                 <sl-format-number
                   .formatOptions=${{ style: 'currency', currency: 'EUR' }}
-                  .number=${15}
-                ></sl-format-number
+                  .number=${15}></sl-format-number
                 >.
               </sl-inline-message>
             `

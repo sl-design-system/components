@@ -65,8 +65,7 @@ export default {
       color=${ifDefined(color)}
       emphasis=${ifDefined(emphasis)}
       size=${ifDefined(size)}
-      variant=${ifDefined(variant)}
-    >
+      variant=${ifDefined(variant)}>
       ${icon ? html`<sl-icon name="check"></sl-icon>` : nothing} ${text}
     </sl-badge>
   `
@@ -138,8 +137,7 @@ export const All: Story = {
               <span
                 style="font-weight: ${emphasis
                   ? 'var(--sl-text-new-typeset-fontWeight-semiBold)'
-                  : 'regular'}"
-              >
+                  : 'regular'}">
                 ${color}
               </span>
               <div class="wrapper">
@@ -149,8 +147,7 @@ export const All: Story = {
                 <sl-badge
                   color=${ifDefined(color)}
                   emphasis=${ifDefined(emphasis)}
-                  size="sm"
-                ></sl-badge>
+                  size="sm"></sl-badge>
               </div>
               <div class="wrapper">
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>8</sl-badge>

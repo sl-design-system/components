@@ -152,8 +152,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               ?disabled=${this.disabled}
               aria-hidden="true"
               part="button"
-              tabindex="-1"
-            >
+              tabindex="-1">
               <sl-icon name="xmark"></sl-icon>
             </button>
           `

@@ -86,8 +86,7 @@ export default {
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month?.toISOString())}
-      selected=${ifDefined(selected?.toISOString())}
-    ></sl-select-day>
+      selected=${ifDefined(selected?.toISOString())}></sl-select-day>
   `
 } satisfies Meta<Props>;
 
@@ -227,8 +226,7 @@ export const All: Story = {
               label: 'Event'
             }
           ]}
-          show-today
-        ></sl-select-day>
+          show-today></sl-select-day>
       </div>
     </div>
   `

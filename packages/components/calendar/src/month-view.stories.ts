@@ -117,8 +117,9 @@ export default {
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month ? new Date(month).toISOString() : undefined)}
-      selected=${ifDefined(selected ? new Date(selected).toISOString() : undefined)}
-    ></sl-month-view>
+      selected=${ifDefined(
+        selected ? new Date(selected).toISOString() : undefined
+      )}></sl-month-view>
   `
 } satisfies Meta<Props>;
 
@@ -280,8 +281,7 @@ export const All: Story = {
         <sl-month-view
           .max=${new Date(2025, 0, 20)}
           .min=${new Date(2025, 0, 10)}
-          .month=${new Date(2025, 0, 1)}
-        ></sl-month-view>
+          .month=${new Date(2025, 0, 1)}></sl-month-view>
       </div>
       <div>
         <h3>Readonly</h3>
@@ -291,8 +291,7 @@ export const All: Story = {
         <h3>Selected date</h3>
         <sl-month-view
           .month=${new Date(2024, 11, 10)}
-          .selected=${new Date(2024, 11, 4)}
-        ></sl-month-view>
+          .selected=${new Date(2024, 11, 4)}></sl-month-view>
       </div>
       <div>
         <h3>Show today</h3>
@@ -309,8 +308,7 @@ export const All: Story = {
             { date: new Date('2025-08-10'), color: 'green', label: indicatorLabels.green.label }
           ]}
           .month=${new Date(1755640800000)}
-          show-today
-        ></sl-month-view>
+          show-today></sl-month-view>
       </div>
       <div>
         <h3>Disabled dates</h3>
@@ -318,8 +316,7 @@ export const All: Story = {
           .disabledDates=${[new Date('2025-10-06'), new Date('2025-10-07'), new Date('2025-10-17')]}
           .max=${new Date(2025, 9, 25)}
           .min=${new Date(2025, 9, 4)}
-          .month=${new Date(2025, 9, 1)}
-        ></sl-month-view>
+          .month=${new Date(2025, 9, 1)}></sl-month-view>
       </div>
       <div>
         <h3>Week numbers</h3>

@@ -1,5 +1,26 @@
 # @sl-design-system/button
 
+## 2.1.0
+
+### Minor Changes
+
+- [#3360](https://github.com/sl-design-system/components/pull/3360) [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7) - Add `button` part to the internal `<button>`
+
+### Patch Changes
+
+- [#3299](https://github.com/sl-design-system/components/pull/3299) [`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638) - Minor style fixes:
+
+  - fix icon-only size regression by using `box-sizing: content-box`
+  - fix `<button>` growing larger than the host `<sl-button>`
+
+- [#3360](https://github.com/sl-design-system/components/pull/3360) [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7) - Styling fixes:
+
+  - Fix WebKit bug where the aspect-ratio of the inner button is ignored
+  - Fix bug where the inner button doesn't grow with the host element
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
 ## 2.0.1
 
 ### Patch Changes
@@ -13,6 +34,7 @@
 ### Major Changes
 
 - [#3139](https://github.com/sl-design-system/components/pull/3139) [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538) - Breaking changes:
+
   - The component now renders a native `<button>` inside the shadow DOM, changing the DOM structure
   - The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state
 
@@ -67,6 +89,7 @@
 ### Minor Changes
 
 - [#2646](https://github.com/sl-design-system/components/pull/2646) [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193) - Various improvements:
+
   - Fix missing inverted + disabled styling
   - Add support for `aria-disabled="true"`
 
@@ -123,6 +146,7 @@
 ### Minor Changes
 
 - [#1675](https://github.com/sl-design-system/components/pull/1675) [`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0) - Button improvements:
+
   - Added a new `shape` property that defaults to `square` but also accepts `pill` for rounded corners
   - Added a new `inverted` variant, to be used on dark/light background (depending on light/dark mode)
   - Removed default values of `fill`, `size`, `type` and `variant` properties

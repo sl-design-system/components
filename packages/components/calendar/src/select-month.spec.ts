@@ -157,8 +157,7 @@ describe('sl-select-month', () => {
       el = await fixture(html`
         <sl-select-month
           .min=${new Date(currentYear, 3, 1)}
-          .max=${new Date(currentYear, 8, 1)}
-        ></sl-select-month>
+          .max=${new Date(currentYear, 8, 1)}></sl-select-month>
       `);
     });
 

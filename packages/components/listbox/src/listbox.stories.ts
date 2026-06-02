@@ -55,8 +55,7 @@ export default {
         .optionLabelPath=${optionLabelPath}
         .optionSelectedPath=${optionSelectedPath}
         .optionValuePath=${optionValuePath}
-        emphasis=${ifDefined(emphasis)}
-      >
+        emphasis=${ifDefined(emphasis)}>
         ${slot?.()}
       </sl-listbox>
     `;

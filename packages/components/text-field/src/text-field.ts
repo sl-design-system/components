@@ -260,8 +260,7 @@ export class TextField
         @change=${this.onChange}
         @input=${this.onInput}
         @slotchange=${this.onSlotChange}
-        name="input"
-      ></slot>
+        name="input"></slot>
     `;
   }
 

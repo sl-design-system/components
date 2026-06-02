@@ -273,13 +273,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 )}
                 class="current-month"
                 fill="link"
-                variant="secondary"
-              >
+                variant="secondary">
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date>
+                  month="long"></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
@@ -288,8 +286,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date>
+                  month="long"></sl-format-date>
               </span>
             `}
         ${canSelectPreviousYear || canSelectNextYear
@@ -304,13 +301,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 )}
                 class="current-year"
                 fill="link"
-                variant="secondary"
-              >
+                variant="secondary">
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
+                  year="numeric"></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
@@ -319,8 +314,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 <sl-format-date
                   .date=${this.displayMonth}
                   locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
+                  year="numeric"></sl-format-date>
               </span>
             `}
 
@@ -333,8 +327,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )}
           class="previous-month"
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
         <sl-button
@@ -346,8 +339,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )}
           class="next-month"
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </header>
@@ -358,8 +350,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               <span
                 aria-label=${msg('Week', { id: 'sl.calendar.week' })}
                 class="week-number"
-                role="listitem"
-              >
+                role="listitem">
                 ${this.localizedWeekOfYear}
               </span>
             `
@@ -387,8 +378,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 max=${ifDefined(this.max?.toISOString())}
                 min=${ifDefined(this.min?.toISOString())}
                 month=${ifDefined(this.previousMonth?.toISOString())}
-                selected=${ifDefined(this.selected?.toISOString())}
-              ></sl-month-view>
+                selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
             `
           : nothing}
         <sl-month-view
@@ -405,8 +395,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
           month=${ifDefined(this.month?.toISOString())}
-          selected=${ifDefined(this.selected?.toISOString())}
-        ></sl-month-view>
+          selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
         ${canSelectNextMonth
           ? html`
               <sl-month-view
@@ -422,8 +411,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 max=${ifDefined(this.max?.toISOString())}
                 min=${ifDefined(this.min?.toISOString())}
                 month=${ifDefined(this.nextMonth?.toISOString())}
-                selected=${ifDefined(this.selected?.toISOString())}
-              ></sl-month-view>
+                selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
             `
           : nothing}
       </div>

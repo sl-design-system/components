@@ -28,6 +28,22 @@ try {
   // Element may already be defined in watch / repeated test runs
 }
 
+class NestedAriaDisabledElement extends ForwardAriaMixin(LitElement, ['aria-disabled']) {
+  override render() {
+    return html`<forward-aria-test>Click me</forward-aria-test>`;
+  }
+
+  override firstUpdated(): void {
+    this.setProxyTarget(this.renderRoot.querySelector('forward-aria-test')!);
+  }
+}
+
+try {
+  customElements.define('forward-aria-nested-disabled-test', NestedAriaDisabledElement);
+} catch {
+  // Element may already be defined in watch / repeated test runs
+}
+
 describe('ForwardAriaMixin', () => {
   let el: TestElement, button: HTMLButtonElement;
 
@@ -176,6 +192,22 @@ describe('ForwardAriaMixin', () => {
       expect(btn).to.have.attribute('aria-disabled', 'true');
 
       deferredEl.remove();
+    });
+
+    it('should clear aria-disabled from a nested proxy target', async () => {
+      const nestedEl = await fixture<NestedAriaDisabledElement>(
+          html`<forward-aria-nested-disabled-test></forward-aria-nested-disabled-test>`
+        ),
+        innerEl = nestedEl.renderRoot.querySelector<TestElement>('forward-aria-test')!,
+        innerButton = innerEl.renderRoot.querySelector('button')!;
+
+      nestedEl.ariaDisabled = 'true';
+
+      expect(innerButton).to.have.attribute('aria-disabled', 'true');
+
+      nestedEl.ariaDisabled = null;
+
+      expect(innerButton).not.to.have.attribute('aria-disabled');
     });
   });
 

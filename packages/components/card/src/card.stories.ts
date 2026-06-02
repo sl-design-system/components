@@ -142,8 +142,7 @@ const card = (
       ?fit-image=${card.fitImage}
       ?media-margin=${card.mediaMargin}
       ?subgrid=${card.subgrid}
-      ?image-backdrop=${card.imageBackdrop}
-    >
+      ?image-backdrop=${card.imageBackdrop}>
       ${card.media && card.imageUrl
         ? html`<img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />`
         : nothing}
@@ -817,8 +816,7 @@ export const RealWorldExamples: Story = {
           <img
             slot="media"
             src="/images/card-max-1.png"
-            alt="Een baby oerang oetan die wordt vastgehouden door hun moeder"
-          />
+            alt="Een baby oerang oetan die wordt vastgehouden door hun moeder" />
           <a href="javascript:void(0);">Wat is biologie?</a>
           <span slot="header"
             ><sl-badge size="lg">Thema 1</sl-badge>
@@ -849,8 +847,7 @@ export const RealWorldExamples: Story = {
               variant="primary"
               fill="outline"
               @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1"
-            >
+              style="flex-grow: 1">
               <sl-icon name="ellipsis"></sl-icon> More options
             </sl-button>
           </sl-button-bar>
@@ -887,8 +884,7 @@ export const RealWorldExamples: Story = {
             ><sl-button
               variant="inverted"
               @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1"
-            >
+              style="flex-grow: 1">
               Open 12 volumes
             </sl-button>
           </sl-button-bar>
@@ -901,8 +897,7 @@ export const RealWorldExamples: Story = {
             ><sl-button
               variant="inverted"
               @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1"
-            >
+              style="flex-grow: 1">
               Open 9 volumes
             </sl-button>
           </sl-button-bar>

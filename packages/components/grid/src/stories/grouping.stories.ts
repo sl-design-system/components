@@ -42,8 +42,7 @@ export const Basic: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -154,8 +153,7 @@ export const SortedByFunction: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -179,8 +177,7 @@ export const DragAndDrop: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -205,8 +202,7 @@ export const Selection: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -231,8 +227,7 @@ export const Both: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -265,15 +260,13 @@ export const CustomGroupHeader: Story = {
       <sl-grid
         .dataSource=${dataSource}
         .groupHeaderRenderer=${groupHeaderRenderer}
-        .scopedElements=${{ 'sl-button': Button }}
-      >
+        .scopedElements=${{ 'sl-button': Button }}>
         <sl-grid-sort-column
           direction="asc"
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>

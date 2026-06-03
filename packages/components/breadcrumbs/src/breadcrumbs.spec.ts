@@ -287,13 +287,10 @@ describe('sl-breadcrumbs', () => {
           'slot[name^="breadcrumb-"]:not([name*="menu"])'
         )
       );
-      console.log('slots', slots);
 
       const visibleLinks = slots.map(slot =>
         slot.assignedElements().find(el => el instanceof HTMLAnchorElement)
       );
-
-      console.log('visibleLinks', visibleLinks);
 
       expect(visibleLinks).to.have.length(2);
       expect(visibleLinks[0]).to.have.trimmed.text('5');
@@ -315,8 +312,6 @@ describe('sl-breadcrumbs', () => {
         menuItems = menuSlots.map(slot =>
           slot.assignedElements().find(el => el instanceof HTMLAnchorElement)
         );
-
-      console.log('menuItems', menuItems);
 
       expect(menuItems).to.have.length(4);
       expect(menuItems[0]).to.have.text('1');

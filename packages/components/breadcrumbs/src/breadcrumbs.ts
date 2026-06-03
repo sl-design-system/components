@@ -326,22 +326,22 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         (el): el is HTMLElement =>
           el instanceof HTMLElement && !(el instanceof Tooltip) && !el.hasAttribute('slot')
       )
-      .map(el => {
+      .map(crumb => {
         // Make sure the breadcrumb has a unique DOM id we can reference
-        el.id ||= `sl-breadcrumb-${nextUniqueId++}`;
+        crumb.id ||= `sl-breadcrumb-${nextUniqueId++}`;
 
         // Use an existing tooltip, or create a new one
-        let tooltip = el.ariaLabelledByElements?.find(
-          (el): el is Tooltip => el instanceof Tooltip && el.for === el.id
+        let tooltip = crumb.ariaLabelledByElements?.find(
+          (el): el is Tooltip => el instanceof Tooltip && el.for === crumb.id
         );
         if (!tooltip) {
           tooltip = this.shadowRoot!.createElement('sl-tooltip');
-          tooltip.for = el.id;
-          tooltip.textContent = el.textContent?.trim() || '';
-          el.after(tooltip);
+          tooltip.for = crumb.id;
+          tooltip.textContent = crumb.textContent?.trim() || '';
+          crumb.after(tooltip);
         }
 
-        return { element: el, tooltip };
+        return { element: crumb, tooltip };
       });
 
     this.customHomeLink = children.find(el => el.getAttribute('slot') === 'home');

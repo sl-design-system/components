@@ -55,3 +55,24 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           storybookBaseDir: chromatic
           storybookBuildDir: chromatic/storybook-static
+
+  chromatic-vitest-visual:
+    runs-on: ubuntu-latest
+    if: '! github.event.pull_request.draft'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run visual Vitest
+        run: yarn test:visual
+      - name: Upload Vitest archives to Chromatic
+        run: yarn chromatic --vitest --project-token=${{ secrets.CHROMATIC_TOKEN_VISUAL }}
+        env:
+          CHROMATIC_SHA: ${{ github.sha }}
+          CHROMATIC_BRANCH: ${{ github.ref_name }}

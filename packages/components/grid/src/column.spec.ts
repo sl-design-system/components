@@ -43,6 +43,17 @@ describe('sl-column', () => {
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });
 
+    it('should visually hide the header text when set', async () => {
+      el.querySelector('sl-grid-column')!.hideHeaderText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const span = el.renderRoot.querySelector('th span');
+
+      expect(span).to.have.trimmed.text('First name');
+      expect(span).to.have.class('visually-hidden');
+    });
+
     it('should have the right justify-content value', () => {
       expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal([
         'start',

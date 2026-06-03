@@ -197,7 +197,8 @@ export const MenuButton: Story = {
         <sl-grid-column path="email"></sl-grid-column>
         <sl-grid-column
           grow="0"
-          header=""
+          header="Actions"
+          hide-header-text
           parts="menu-button"
           .renderer=${menuButtonRenderer}
           .scopedElements=${{

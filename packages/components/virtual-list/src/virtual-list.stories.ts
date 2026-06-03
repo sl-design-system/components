@@ -134,7 +134,7 @@ export default {
         <sl-button @click=${() => scrollTo(Math.floor(items.length / 2))}
           >Scroll to ${Math.floor(items.length / 2)}</sl-button
         >
-        <sl-button @click=${() => scrollTo(items.length - 1)}>Scroll to bottom</sl-button>
+        <sl-button @click=${() => scrollTo(items.length)}>Scroll to bottom</sl-button>
         <sl-button @click=${() => scrollToSmooth(Math.floor(items.length / 2))} fill="outline"
           >Scroll to ${Math.floor(items.length / 2)} (smooth)</sl-button
         >

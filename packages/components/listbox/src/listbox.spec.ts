@@ -166,5 +166,65 @@ describe('sl-listbox', () => {
       // Height in pixels, roughly 30rem = 480px at 16px base
       expect(parseFloat(computedStyle.height)).to.be.greaterThan(400);
     });
+
+    it('should respect CSS-set max-height constraints', async () => {
+      // Add CSS rule to document
+      const style = document.createElement('style');
+      style.textContent = '.custom-listbox { max-height: 25rem; }';
+      document.head.appendChild(style);
+
+      const withCssHeight = await fixture<Listbox>(html`
+        <sl-listbox class="custom-listbox"></sl-listbox>
+      `);
+
+      // Set options to trigger virtual list
+      withCssHeight.options = options;
+      withCssHeight.optionLabelPath = 'label';
+      withCssHeight.optionValuePath = 'value';
+
+      await withCssHeight.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Should NOT have attribute when consumer sets max-height via CSS
+      // This prevents the 20rem fallback from clamping the consumer's 25rem constraint
+      expect(withCssHeight.hasAttribute('data-virtual-unconstrained')).to.be.false;
+
+      // Verify the CSS max-height is respected
+      const computedStyle = getComputedStyle(withCssHeight);
+      // 25rem = 400px at 16px base
+      expect(computedStyle.maxHeight).to.not.equal('none');
+
+      // Cleanup
+      document.head.removeChild(style);
+    });
+
+    it('should NOT prevent fallback for CSS-set height (known limitation)', async () => {
+      // Add CSS rule to document
+      const style = document.createElement('style');
+      style.textContent = '.height-listbox { height: 30rem; }';
+      document.head.appendChild(style);
+
+      const withCssHeight = await fixture<Listbox>(html`
+        <sl-listbox class="height-listbox"></sl-listbox>
+      `);
+
+      // Set options to trigger virtual list
+      withCssHeight.options = options;
+      withCssHeight.optionLabelPath = 'label';
+      withCssHeight.optionValuePath = 'value';
+
+      await withCssHeight.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Known limitation: attribute IS applied when height is set via CSS
+      // We can't reliably detect explicit height from computed styles
+      expect(withCssHeight.hasAttribute('data-virtual-unconstrained')).to.be.true;
+
+      // This means the fallback clamps the CSS height
+      // Workaround: use inline style or max-height instead
+
+      // Cleanup
+      document.head.removeChild(style);
+    });
   });
 });

@@ -249,6 +249,15 @@ export const VirtualListUnconstrained: Story = {
         border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
         border-radius: var(--sl-size-borderRadius-default);
       }
+      .css-height-30 {
+        height: 30rem;
+      }
+      .css-max-height-25 {
+        max-height: 25rem;
+      }
+      .css-max-height-15 {
+        max-height: 15rem;
+      }
     </style>
     <div class="demo-container">
       <div class="demo-box">
@@ -265,10 +274,10 @@ export const VirtualListUnconstrained: Story = {
       </div>
 
       <div class="demo-box">
-        <h3>With explicit height: 30rem (not clamped)</h3>
+        <h3>With inline style: height: 30rem (not clamped)</h3>
         <p>
-          When consumers set an explicit height, the fallback is not applied. The listbox respects
-          the authored 30rem height.
+          Inline styles have the highest specificity, so they override the 20rem fallback. The
+          listbox respects the authored 30rem height.
         </p>
         <sl-listbox
           style="height: 30rem"
@@ -279,10 +288,38 @@ export const VirtualListUnconstrained: Story = {
       </div>
 
       <div class="demo-box">
-        <h3>With max-height: 15rem (shorter than fallback)</h3>
-        <p>Consumers can also set a max-height shorter than the 20rem fallback.</p>
+        <h3>With CSS class: max-height: 25rem (not clamped)</h3>
+        <p>
+          When consumers set max-height via CSS, the fallback detects it and is not applied. Use
+          max-height (not height) for CSS-based constraints.
+        </p>
         <sl-listbox
-          style="max-height: 15rem"
+          class="css-max-height-25"
+          .options=${options}
+          .optionLabelPath=${optionLabelPath}
+          .optionValuePath=${optionValuePath}>
+        </sl-listbox>
+      </div>
+
+      <div class="demo-box">
+        <h3>With CSS class: max-height: 15rem (shorter than fallback)</h3>
+        <p>Consumers can also set a max-height via CSS shorter than the 20rem fallback.</p>
+        <sl-listbox
+          class="css-max-height-15"
+          .options=${options}
+          .optionLabelPath=${optionLabelPath}
+          .optionValuePath=${optionValuePath}>
+        </sl-listbox>
+      </div>
+
+      <div class="demo-box">
+        <h3>⚠️ Limitation: CSS height (gets clamped)</h3>
+        <p>
+          Setting height via CSS class doesn't prevent the fallback (technical limitation). Use
+          inline style or max-height instead for CSS-based sizing.
+        </p>
+        <sl-listbox
+          class="css-height-30"
           .options=${options}
           .optionLabelPath=${optionLabelPath}
           .optionValuePath=${optionValuePath}>

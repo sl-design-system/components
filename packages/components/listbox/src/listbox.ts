@@ -172,7 +172,9 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   #updateVirtualConstraintAttribute(): void {
     // Only apply fallback constraint if:
     // 1. We have items (virtual list will be used)
-    // 2. Consumer hasn't set explicit inline height constraints
+    // 2. Consumer hasn't set explicit height constraints (inline or via CSS)
+
+    // Check inline styles first (highest priority)
     const hasInlineHeightConstraint = !!(
       this.style.height ||
       this.style.blockSize ||
@@ -180,7 +182,24 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       this.style.maxBlockSize
     );
 
-    if (this.items && this.items.length > 0 && !hasInlineHeightConstraint) {
+    // Also check computed styles to catch CSS-set constraints
+    let hasComputedHeightConstraint = false;
+    if (!hasInlineHeightConstraint) {
+      const computed = getComputedStyle(this);
+      // Check if max-height or max-block-size is set (not 'none')
+      // Note: We can't reliably detect explicit height from computed styles
+      // (getComputedStyle().height always returns pixels, not 'auto').
+      // Consumers should use max-height in CSS or inline styles for height.
+      hasComputedHeightConstraint =
+        computed.maxHeight !== 'none' || computed.maxBlockSize !== 'none';
+    }
+
+    if (
+      this.items &&
+      this.items.length > 0 &&
+      !hasInlineHeightConstraint &&
+      !hasComputedHeightConstraint
+    ) {
       this.setAttribute('data-virtual-unconstrained', '');
     } else {
       this.removeAttribute('data-virtual-unconstrained');
@@ -255,7 +274,6 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         },
         block = options?.block ?? 'nearest',
         behavior = options?.behavior === 'instant' ? 'auto' : options?.behavior;
-      console.log('scrollToIndex', index, { block, behavior });
       this.#virtualizer.scrollToIndex(index, {
         align: alignMap[block],
         behavior: behavior

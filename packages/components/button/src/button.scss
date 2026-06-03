@@ -129,6 +129,10 @@
   --_bg-color: transparent;
 }
 
+:host([fill='outline']) button[aria-current='page'] {
+  border-color: var(--sl-color-border-selected);
+}
+
 :host(:where([fill='ghost'], [fill='outline'])) button:hover {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }

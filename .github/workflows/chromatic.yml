@@ -70,9 +70,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run visual Vitest
-        run: yarn test:visual
+        run: yarn test:visual:ci
       - name: Upload Vitest archives to Chromatic
-        run: yarn chromatic --vitest --project-token=${{ secrets.CHROMATIC_TOKEN_VISUAL }}
+        run: yarn exec chromatic --vitest --project-token=${{ secrets.CHROMATIC_TOKEN_VISUAL }}
         env:
           CHROMATIC_SHA: ${{ github.sha }}
           CHROMATIC_BRANCH: ${{ github.ref_name }}

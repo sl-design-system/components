@@ -174,9 +174,9 @@ export class Tooltip extends LitElement {
         return;
       }
 
-      document.addEventListener('keydown', this.#onKeydown);
+      document.addEventListener('keydown', this.#onKeydown, { capture: true });
     } else {
-      document.removeEventListener('keydown', this.#onKeydown);
+      document.removeEventListener('keydown', this.#onKeydown, { capture: true });
     }
   };
 
@@ -206,6 +206,9 @@ export class Tooltip extends LitElement {
 
   #onKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+
       this.hidePopover();
     }
   };

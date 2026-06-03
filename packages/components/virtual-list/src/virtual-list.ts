@@ -67,6 +67,13 @@ export class VirtualList<T = any> extends LitElement {
    */
   @property({ type: Number }) overscan?: number;
 
+  /**
+   * Number of items to render outside the visible area for smoother scrolling.
+   *
+   * @default 3
+   */
+  @property({ type: Number, attribute: 'scroll-margin' }) scrollMargin?: number;
+
   /** Function to render each item. */
   @property({ attribute: false }) renderItem?: VirtualListItemRenderer<T>;
 
@@ -83,7 +90,8 @@ export class VirtualList<T = any> extends LitElement {
         count: this.items.length,
         estimateSize: () => this.estimateSize ?? 32,
         gap: this.gap,
-        overscan: this.overscan
+        overscan: this.overscan,
+        scrollMargin: this.scrollMargin
       });
     }
   }
@@ -131,6 +139,10 @@ export class VirtualList<T = any> extends LitElement {
   ): void {
     this.#virtualizer.instance.scrollToIndex(index, options);
   }
+
+  // setOptions(options: Partial<{ estimateSize: number; gap: number; overscan: number }>): void {
+  //   this.#virtualizer.updateOptions(options);
+  // }
 
   /**
    * Triggers a re-measure of item sizes and positions. Useful when a list transitions from hidden

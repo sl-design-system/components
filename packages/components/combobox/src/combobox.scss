@@ -20,6 +20,11 @@
   block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
 }
 
+::slotted(sl-listbox) {
+  flex: 1 1 auto;
+  max-block-size: inherit;
+}
+
 sl-text-field {
   flex: 1;
   inline-size: 100%;
@@ -88,6 +93,7 @@ sl-icon {
   }
 
   &:popover-open {
+    display: inline-flex;
     opacity: 1;
   }
 }

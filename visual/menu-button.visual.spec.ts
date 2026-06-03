@@ -24,7 +24,10 @@ describe('menu-button visual', () => {
     const trigger = document
       .querySelector('sl-menu-button')
       ?.shadowRoot?.querySelector('sl-button');
-    trigger?.click();
+    if (!trigger) {
+      throw new Error('Expected sl-menu-button to render an sl-button trigger in its shadowRoot.');
+    }
+    trigger.click();
     await new Promise(r => setTimeout(r, 50));
     await takeSnapshot('basic-open');
 

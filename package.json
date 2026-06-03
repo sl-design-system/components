@@ -381,8 +381,8 @@
         "test:setup"
       ],
       "files": [
-        "vitest.config.ts",
-        "packages/components/**/*.visual.spec.ts"
+        ".storybook/vitest.setup.ts",
+        "visual/**/*.visual.spec.ts"
       ]
     },
     "test:visual:ci": {
@@ -392,8 +392,8 @@
         "test:setup"
       ],
       "files": [
-        "vitest.config.ts",
-        "packages/components/**/*.visual.spec.ts"
+        ".storybook/vitest.setup.ts",
+        "visual/**/*.visual.spec.ts"
       ]
     },
     "version:changeset": {
@@ -454,9 +454,7 @@
     "typescript": "^6.0.3",
     "vite": "^8.0.15",
     "vitest": "~4.1.8",
-    "wireit": "^0.14.12"
-  },
-  "dependencies": {
+    "wireit": "^0.14.12",
     "@chromatic-com/vitest": "^0.0.10"
   }
 }

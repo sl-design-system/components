@@ -18,8 +18,10 @@ describe('sl-tooltip', () => {
           <sl-tooltip for="btn">Tooltip text</sl-tooltip>
         </div>
       `);
+
       anchor = el.querySelector('#btn')!;
       tooltip = el.querySelector('sl-tooltip')!;
+
       await tooltip.updateComplete;
     });
 
@@ -68,7 +70,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="anchor" type="button">Anchor</button>
-          <sl-tooltip for="anchor">Tip</sl-tooltip>
+          <sl-tooltip for="anchor" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#anchor')!;
@@ -80,8 +82,8 @@ describe('sl-tooltip', () => {
       expect(tooltip.anchor).to.equal(anchor);
     });
 
-    it('should set ariaLabelledByElements on the anchor by default', () => {
-      expect(anchor.ariaLabelledByElements).to.include(tooltip);
+    it('should set ariaDescribedByElements on the anchor', () => {
+      expect(anchor.ariaDescribedByElements).to.include(tooltip);
     });
 
     it('should set anchor-name on the anchor', () => {
@@ -103,7 +105,7 @@ describe('sl-tooltip', () => {
       tooltip.removeAttribute('for');
       await tooltip.updateComplete;
 
-      expect(anchor.ariaLabelledByElements ?? []).not.to.include(tooltip);
+      expect(anchor.ariaDescribedByElements ?? []).not.to.include(tooltip);
     });
 
     it('should clear anchor-name and position-anchor when "for" is removed', async () => {
@@ -133,7 +135,7 @@ describe('sl-tooltip', () => {
       tooltip.remove();
       await tooltip.updateComplete;
 
-      expect(anchor.ariaLabelledByElements ?? []).not.to.include(tooltip);
+      expect(anchor.ariaDescribedByElements ?? []).not.to.include(tooltip);
     });
   });
 
@@ -145,12 +147,14 @@ describe('sl-tooltip', () => {
           <sl-tooltip for="t-anchor">Tip</sl-tooltip>
         </div>
       `);
+
       anchor = el.querySelector('#t-anchor')!;
       tooltip = el.querySelector('sl-tooltip')!;
+
       await tooltip.updateComplete;
     });
 
-    it('should use ariaLabelledByElements when type is undefined (default)', () => {
+    it('should use ariaLabelledByElements by default', () => {
       expect(anchor.ariaLabelledByElements).to.include(tooltip);
       expect(anchor.ariaDescribedByElements ?? []).not.to.include(tooltip);
     });
@@ -170,28 +174,6 @@ describe('sl-tooltip', () => {
       expect(anchor.ariaDescribedByElements).to.include(tooltip);
       expect(anchor.ariaLabelledByElements ?? []).not.to.include(tooltip);
     });
-
-    it('should switch ARIA relation when type changes from label to description', async () => {
-      tooltip.type = 'label';
-      await tooltip.updateComplete;
-
-      tooltip.type = 'description';
-      await tooltip.updateComplete;
-
-      expect(anchor.ariaDescribedByElements).to.include(tooltip);
-      expect(anchor.ariaLabelledByElements ?? []).not.to.include(tooltip);
-    });
-
-    it('should switch ARIA relation when type changes from description to label', async () => {
-      tooltip.type = 'description';
-      await tooltip.updateComplete;
-
-      tooltip.type = 'label';
-      await tooltip.updateComplete;
-
-      expect(anchor.ariaLabelledByElements).to.include(tooltip);
-      expect(anchor.ariaDescribedByElements ?? []).not.to.include(tooltip);
-    });
   });
 
   describe('disabled', () => {
@@ -199,11 +181,13 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="d-anchor" type="button">Anchor</button>
-          <sl-tooltip for="d-anchor" disabled>Tip</sl-tooltip>
+          <sl-tooltip for="d-anchor" disabled type="description">Tip</sl-tooltip>
         </div>
       `);
+
       anchor = el.querySelector('#d-anchor')!;
       tooltip = el.querySelector('sl-tooltip')!;
+
       await tooltip.updateComplete;
     });
 
@@ -226,6 +210,20 @@ describe('sl-tooltip', () => {
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
+
+    it('should add/remove ariaDescribedByElements reference when enabled/disabled', async () => {
+      expect(anchor.ariaDescribedByElements ?? []).not.to.include(tooltip);
+
+      tooltip.disabled = false;
+      await tooltip.updateComplete;
+
+      expect(anchor.ariaDescribedByElements ?? []).to.include(tooltip);
+
+      tooltip.disabled = true;
+      await tooltip.updateComplete;
+
+      expect(anchor.ariaDescribedByElements ?? []).not.to.include(tooltip);
+    });
   });
 
   describe('open property', () => {
@@ -233,7 +231,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="o-anchor" type="button">Anchor</button>
-          <sl-tooltip for="o-anchor">Tip</sl-tooltip>
+          <sl-tooltip for="o-anchor" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#o-anchor')!;
@@ -264,7 +262,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="h-anchor" type="button">Anchor</button>
-          <sl-tooltip for="h-anchor">Tip</sl-tooltip>
+          <sl-tooltip for="h-anchor" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#h-anchor')!;
@@ -313,7 +311,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="f-anchor" type="button">Anchor</button>
-          <sl-tooltip for="f-anchor">Tip</sl-tooltip>
+          <sl-tooltip for="f-anchor" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#f-anchor')!;
@@ -354,7 +352,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="c-anchor" type="button">Anchor</button>
-          <sl-tooltip for="c-anchor" trigger="click">Tip</sl-tooltip>
+          <sl-tooltip for="c-anchor" trigger="click" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#c-anchor')!;
@@ -394,7 +392,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="m-anchor" type="button">Anchor</button>
-          <sl-tooltip for="m-anchor" trigger="manual">Tip</sl-tooltip>
+          <sl-tooltip for="m-anchor" trigger="manual" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#m-anchor')!;
@@ -428,7 +426,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="k-anchor" type="button">Anchor</button>
-          <sl-tooltip for="k-anchor">Tip</sl-tooltip>
+          <sl-tooltip for="k-anchor" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#k-anchor')!;
@@ -453,7 +451,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div>
           <button id="delay-anchor" type="button">Anchor</button>
-          <sl-tooltip for="delay-anchor">Tip</sl-tooltip>
+          <sl-tooltip for="delay-anchor" type="description">Tip</sl-tooltip>
         </div>
       `);
       anchor = el.querySelector('#delay-anchor')!;

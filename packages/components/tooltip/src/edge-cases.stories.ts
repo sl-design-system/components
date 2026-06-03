@@ -41,18 +41,23 @@ export const Dialog = {
 export const DisabledButtons = {
   render: () => html`
     <sl-button-bar>
-      <sl-button disabled id="button">Disabled attribute</sl-button>
-      <sl-tooltip for="button">Tooltip text</sl-tooltip>
-
-      <sl-button aria-disabled="true" id="button2">ARIA disabled</sl-button>
-      <sl-tooltip for="button2">Tooltip text</sl-tooltip>
+      <sl-button disabled tooltip="This tooltip should not be visible">
+        Disabled attribute
+      </sl-button>
+      <sl-button
+        aria-disabled="true"
+        tooltip="This tooltip is visible because the button is ARIA disabled">
+        ARIA disabled
+      </sl-button>
     </sl-button-bar>
   `
 };
 
 export const MenuButton = {
   render: () => html`
-    <sl-menu-button id="menu-button">
+    <sl-menu-button
+      id="menu-button"
+      tooltip="This tooltip should not be visible when the menu is open.">
       <sl-icon name="far-gear" slot="button"></sl-icon>
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>
@@ -63,7 +68,6 @@ export const MenuButton = {
         Delete...
       </sl-menu-item>
     </sl-menu-button>
-    <sl-tooltip for="menu-button">Tooltip text</sl-tooltip>
   `
 };
 

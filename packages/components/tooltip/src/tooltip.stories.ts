@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
 
-type Props = Pick<Tooltip, 'disabled' | 'open'> & {
+type Props = Pick<Tooltip, 'disabled' | 'open' | 'type'> & {
   maxWidth: number;
   position: string;
   showHoverBridge: boolean;
@@ -45,12 +45,27 @@ export default {
     trigger: {
       control: 'inline-check',
       options: ['click', 'hover', 'focus', 'manual']
+    },
+    type: {
+      control: 'inline-radio',
+      options: ['description', 'label']
     }
   },
   args: {
-    text: 'Tooltip text'
+    text: 'Tooltip text',
+    type: 'description'
   },
-  render: ({ disabled, maxWidth, open, position, showHoverBridge, text, tooltip, trigger }) => html`
+  render: ({
+    disabled,
+    maxWidth,
+    open,
+    position,
+    showHoverBridge,
+    text,
+    tooltip,
+    trigger,
+    type
+  }) => html`
     <sl-button id="button">Anchor</sl-button>
     ${tooltip
       ? tooltip()
@@ -59,7 +74,8 @@ export default {
             ?disabled=${disabled}
             ?open=${open}
             for="button"
-            trigger=${ifDefined(trigger?.join(' ') || undefined)}>
+            trigger=${ifDefined(trigger?.join(' ') || undefined)}
+            type=${ifDefined(type)}>
             ${text}
           </sl-tooltip>
         `}

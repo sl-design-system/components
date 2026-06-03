@@ -132,10 +132,6 @@ export class Tooltip extends LitElement {
       this.#updateAnchor();
     }
 
-    if (changes.has('disabled') && this.disabled) {
-      this.hidePopover();
-    }
-
     if (changes.has('open')) {
       if (this.open) {
         this.showPopover();
@@ -146,7 +142,21 @@ export class Tooltip extends LitElement {
 
     if (changes.has('type') && this.anchor) {
       this.#removeAriaRelation(this.anchor, changes.get('type'));
-      this.#addAriaRelation(this.anchor, this.type);
+      if (!this.disabled) {
+        this.#addAriaRelation(this.anchor, this.type);
+      }
+    }
+
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.hidePopover();
+
+        if (this.anchor) {
+          this.#removeAriaRelation(this.anchor, this.type);
+        }
+      } else if (this.anchor) {
+        this.#addAriaRelation(this.anchor, this.type);
+      }
     }
   }
 

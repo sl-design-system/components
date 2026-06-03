@@ -110,7 +110,7 @@ export const HoverBridge = {
   }
 };
 
-export const Positions = {
+export const All = {
   args: {
     tooltip: () => html`
       <sl-tooltip for="button" open style="position-area: top">Top</sl-tooltip>

@@ -6570,10 +6570,8 @@ __metadata:
   resolution: "@sl-design-system/virtual-list@workspace:packages/components/virtual-list"
   dependencies:
     "@sl-design-system/shared": "npm:^0.12.0"
-    "@tanstack/virtual-core": "npm:^3.13.23"
     lit: "npm:^3.3.2"
   peerDependencies:
-    "@tanstack/virtual-core": ^3.13.12
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -6894,13 +6892,6 @@ __metadata:
   peerDependencies:
     eslint: ">=9.0.0"
   checksum: 10c0/94160bfc172a3934dd35be87887f43f7e3ffe9d1645096860a4e4c61877bb0fb62eb20a90e50ad74767ee794ed10f334f7165952cf9bcbd8bae6b80dc10c0d62
-  languageName: node
-  linkType: hard
-
-"@tanstack/virtual-core@npm:^3.13.23":
-  version: 3.13.23
-  resolution: "@tanstack/virtual-core@npm:3.13.23"
-  checksum: 10c0/3487089ea4e1dcbb01836f51a1b35b709f9ba03312fe600ddb97c893c16be213e1690af735717b1d6b2e22dfec691c338bc96b5965228c195840249699d5273a
   languageName: node
   linkType: hard
 

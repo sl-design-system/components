@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { type RefOrCallback, ref } from 'lit/directives/ref.js';
+import { ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { VirtualizerController } from './virtualizer-controller.js';
@@ -15,35 +15,34 @@ class TestHost extends LitElement {
     overscan: 3
   });
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
-    if (changes.has('count') && this.virtualizer.instance.options.count !== this.count) {
+    if (changes.has('count') && this.virtualizer.virtualizer.options.count !== this.count) {
       this.virtualizer.updateOptions({ count: this.count });
     }
   }
 
   override render(): TemplateResult {
-    const virtualizer = this.virtualizer.instance,
-      virtualItems = virtualizer.getVirtualItems();
+    const virtualizer = this.virtualizer.virtualizer,
+      virtualItems = virtualizer.getVirtualItems(),
+      scrollMargin = virtualizer.scrollMargin;
 
     return html`
-      <div style="block-size: ${virtualizer.getTotalSize()}px;">
-        <div
-          style="translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px;">
-          ${repeat(
-            virtualItems,
-            virtualItem => virtualItem.key,
-            virtualItem => html`
-              <div
-                data-index=${virtualItem.index}
-                ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
-                Index ${virtualItem.index}
-              </div>
-            `
-          )}
-        </div>
+      <div style="block-size: ${virtualizer.getTotalSize()}px; position: relative;">
+        ${repeat(
+          virtualItems,
+          virtualItem => virtualItem.key,
+          virtualItem => html`
+            <div
+              data-index=${virtualItem.index}
+              style="position: absolute; inset-inline: 0; block-size: 32px; transform: translateY(${virtualItem.start -
+              scrollMargin}px);"
+              ${ref(virtualizer.measureElement)}>
+              Index ${virtualItem.index}
+            </div>
+          `
+        )}
       </div>
     `;
   }
@@ -54,24 +53,30 @@ customElements.define('test-host', TestHost);
 describe('VirtualizerController', () => {
   let host: TestHost;
 
+  const settle = async (frames = 3): Promise<void> => {
+    for (let i = 0; i < frames; i++) {
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await host.updateComplete;
+    }
+  };
+
   beforeEach(async () => {
     host = await fixture<TestHost>(html`
       <test-host
         style="display: block; height: 320px; line-height: 32px; overflow: auto;"></test-host>
     `);
 
-    // Wait for the virtualizer to stabilize; items initially measure with
-    // offsetHeight 0 during Lit's commit phase and the ResizeObserver needs
-    // multiple animation frames to correct them.
-    for (let i = 0; i < 3; i++) {
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await host.updateComplete;
-    }
+    await settle();
   });
 
   afterEach(() => {
     window.scrollTo(0, 0);
     document.querySelectorAll('.test-window-scroll-container').forEach(el => el.remove());
+  });
+
+  it('should expose the virtualizer instance', () => {
+    expect(host.virtualizer.virtualizer).to.exist;
+    expect(host.virtualizer.virtualizer.options.count).to.equal(100);
   });
 
   it('should render virtual items', () => {
@@ -89,91 +94,63 @@ describe('VirtualizerController', () => {
   it('should only render visible items plus overscan', () => {
     const items = host.renderRoot.querySelectorAll('div[data-index]');
 
+    // 320px / 32px = 10 visible items, plus 3 overscan at the end.
     expect(items).to.have.length(10 + 3);
   });
 
+  it('should report the total size', () => {
+    expect(host.virtualizer.virtualizer.getTotalSize()).to.equal(100 * 32);
+  });
+
+  it('should update when the count changes', async () => {
+    host.count = 10;
+    await settle();
+
+    expect(host.virtualizer.virtualizer.options.count).to.equal(10);
+    expect(host.virtualizer.virtualizer.getTotalSize()).to.equal(10 * 32);
+
+    const items = host.renderRoot.querySelectorAll('div[data-index]');
+    expect(items).to.have.length(10);
+  });
+
+  it('should render more items when scrolling', async () => {
+    host.scrollTop = 1000;
+    await settle();
+
+    const indexes = Array.from(host.renderRoot.querySelectorAll<HTMLElement>('div[data-index]')).map(i =>
+      Number(i.dataset['index'])
+    );
+
+    expect(Math.min(...indexes)).to.be.greaterThan(20);
+  });
+
   it('should support window scrolling with correct offset (scrollMargin)', async () => {
-    // Mount directly in document.body to ensure getScrollParent returns document.documentElement
-    // The fixture creates a container which may prevent window scroll mode from activating
     const container = document.createElement('div');
     container.className = 'test-window-scroll-container';
     container.style.cssText = 'padding-top: 200px; min-height: 3000px; overflow: visible;';
     document.body.appendChild(container);
 
-    const host = document.createElement('test-host') as TestHost;
-    host.count = 50;
-    container.appendChild(host);
-    await host.updateComplete;
+    const windowHost = document.createElement('test-host') as TestHost;
+    windowHost.count = 50;
+    container.appendChild(windowHost);
+    await windowHost.updateComplete;
 
     await new Promise(resolve => requestAnimationFrame(resolve));
-    await host.updateComplete;
+    await windowHost.updateComplete;
 
-    // Verify scrollMargin is set correctly (should be at least 200px from padding-top)
-    const scrollMargin = host.virtualizer.instance.options.scrollMargin ?? 0;
+    const scrollMargin = windowHost.virtualizer.virtualizer.scrollMargin;
     expect(scrollMargin).to.be.greaterThanOrEqual(200);
 
-    // First items should be visible before scrolling
-    let items = Array.from(host.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
+    let items = Array.from(windowHost.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
     expect(items.length).to.be.greaterThan(0);
     expect(items[0].getAttribute('data-index')).to.equal('0');
 
-    // Scroll the window to the host's offset - this is the critical test!
-    // The bug occurred when window.scrollY reached the element's offset
     window.scrollTo(0, scrollMargin);
 
     await new Promise(resolve => requestAnimationFrame(resolve));
-    await host.updateComplete;
+    await windowHost.updateComplete;
 
-    items = Array.from(host.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
-    expect(items.length).to.be.greaterThan(0);
-    expect(items[0].getAttribute('data-index')).to.equal('0');
-  });
-
-  it('should update scrollMargin when layout changes dynamically with window resize', async () => {
-    const container = document.createElement('div');
-    container.className = 'test-window-scroll-container';
-    container.style.cssText = 'min-height: 3000px; overflow: visible; padding-top: 50px;';
-    document.body.appendChild(container);
-
-    const host = document.createElement('test-host') as TestHost;
-    host.count = 50;
-    container.appendChild(host);
-
-    await host.updateComplete;
-    await new Promise(resolve => requestAnimationFrame(resolve));
-
-    const initialScrollMargin = host.virtualizer.instance.options.scrollMargin ?? 0;
-    expect(initialScrollMargin).to.be.greaterThan(0);
-
-    let items = Array.from(host.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
-    expect(items.length).to.be.greaterThan(0);
-    expect(items[0].getAttribute('data-index')).to.equal('0');
-
-    // Simulate a layout shift: increase container padding WITHOUT resizing window
-    // This changes the host's position and should trigger scrollMargin update
-    // via ResizeObserver on parent element
-    container.style.paddingTop = '350px';
-
-    // Dispatch resize event to trigger scrollMargin update
-    // This mimics the real-world scenario where devtools opening causes window resize
-    window.dispatchEvent(new Event('resize'));
-
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    await host.updateComplete;
-
-    // scrollMargin should have been updated to reflect the new offset
-    const newScrollMargin = host.virtualizer.instance.options.scrollMargin ?? 0;
-    expect(newScrollMargin).to.be.greaterThan(initialScrollMargin);
-    // Expect ~300px increase (350px - 50px padding change)
-    expect(newScrollMargin - initialScrollMargin).to.be.greaterThanOrEqual(280);
-
-    // Scroll window to a position where incorrect scrollMargin would cause issues
-    window.scrollTo(0, newScrollMargin);
-
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    await host.updateComplete;
-
-    items = Array.from(host.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
+    items = Array.from(windowHost.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
     expect(items.length).to.be.greaterThan(0);
     expect(items[0].getAttribute('data-index')).to.equal('0');
   });

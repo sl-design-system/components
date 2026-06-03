@@ -1,15 +1,11 @@
-import {
-  type CSSResultGroup,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-  html
-} from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { type RefOrCallback, ref } from 'lit/directives/ref.js';
+import { ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import styles from './virtual-list.scss.js';
 import { VirtualizerController } from './virtualizer-controller.js';
+import { type ScrollToOptions, type VirtualItem } from './virtualizer.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,17 +14,18 @@ declare global {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type VirtualListItemRenderer<T = any> = (item: T, index: number) => TemplateResult;
+export type VirtualListItemRenderer<T = any> = (item: T, index: number) => TemplateResult | string;
 
 /**
  * A virtual list component that efficiently renders large lists by only rendering items that are
  * visible in the viewport.
  *
- * @csspart wrapper - The wrapper element that contains the entire virtual list.
- * @csspart container - The container element that holds the virtualized items.
- * @csspart item - Each individual item in the list.
+ * It supports scrolling inside an element with `overflow` as well as scrolling on the window. It
+ * also supports sticky items, which remain rendered (and pinned to the top) until they have left
+ * the viewport.
  *
- * @slot - The default slot is not used. Items are rendered via the `renderItem` property.
+ * @csspart wrapper - The wrapper element that spans the entire (virtual) size of the list.
+ * @csspart item - Each individual item in the list.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class VirtualList<T = any> extends LitElement {
@@ -40,11 +37,14 @@ export class VirtualList<T = any> extends LitElement {
     count: 0,
     estimateSize: () => this.estimateSize ?? 32,
     gap: 0,
-    overscan: 3
+    getIsSticky: index => this.isSticky?.(this.items[index], index) ?? false,
+    overscan: 3,
+    startIndex: 0
   });
 
   /**
-   * The estimated size of each item in pixels. This doesn't have to be exact.
+   * The estimated size of each item in pixels. This doesn't have to be exact; items are measured
+   * once rendered.
    *
    * @default 32
    */
@@ -57,6 +57,9 @@ export class VirtualList<T = any> extends LitElement {
    */
   @property({ type: Number }) gap?: number;
 
+  /** Predicate that determines whether the item at the given index is sticky. */
+  @property({ attribute: false }) isSticky?: (item: T, index: number) => boolean;
+
   /** The items to render in the list. */
   @property({ attribute: false }) items: T[] = [];
 
@@ -67,8 +70,20 @@ export class VirtualList<T = any> extends LitElement {
    */
   @property({ type: Number }) overscan?: number;
 
-  /** Function to render each item. */
+  /** Function to render each item. By default the item is rendered as-is. */
   @property({ attribute: false }) renderItem?: VirtualListItemRenderer<T>;
+
+  /**
+   * The index the list should be scrolled to when first rendered.
+   *
+   * @default 0
+   */
+  @property({ type: Number, attribute: 'start-index' }) startIndex?: number;
+
+  /** The virtualizer instance. */
+  get virtualizer() {
+    return this.#virtualizer.virtualizer;
+  }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -76,59 +91,102 @@ export class VirtualList<T = any> extends LitElement {
     if (
       changes.has('estimateSize') ||
       changes.has('gap') ||
+      changes.has('isSticky') ||
       changes.has('items') ||
-      changes.has('overscan')
+      changes.has('overscan') ||
+      changes.has('startIndex')
     ) {
       this.#virtualizer.updateOptions({
         count: this.items.length,
         estimateSize: () => this.estimateSize ?? 32,
-        gap: this.gap,
-        overscan: this.overscan
+        gap: this.gap ?? 0,
+        getIsSticky: index => this.isSticky?.(this.items[index], index) ?? false,
+        overscan: this.overscan ?? 3,
+        startIndex: this.startIndex ?? 0
       });
     }
   }
 
   override render(): TemplateResult {
-    const virtualizer = this.#virtualizer.instance,
-      virtualItems = virtualizer.getVirtualItems();
+    const virtualizer = this.virtualizer,
+      virtualItems = virtualizer.getVirtualItems(),
+      scrollMargin = virtualizer.scrollMargin,
+      relativeOffset = virtualizer.scrollOffset - scrollMargin;
 
     return html`
       <div part="wrapper" style="block-size: ${virtualizer.getTotalSize()}px;">
-        <div
-          part="container"
-          style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px">
-          ${repeat(
-            virtualItems,
-            virtualItem => virtualItem.key,
-            virtualItem => {
-              const item = this.items[virtualItem.index];
+        ${repeat(
+          virtualItems,
+          virtualItem => virtualItem.key,
+          virtualItem => {
+            const item = this.items[virtualItem.index],
+              translate = this.#getTranslate(virtualItem, virtualItems, scrollMargin, relativeOffset),
+              pinned = virtualItem.sticky && translate !== virtualItem.start - scrollMargin;
 
-              return html`
-                <div
-                  part="item"
-                  data-index=${virtualItem.index}
-                  ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
-                  ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
-                </div>
-              `;
-            }
-          )}
-        </div>
+            return html`
+              <div
+                part="item${virtualItem.sticky ? ' sticky' : ''}${pinned ? ' pinned' : ''}"
+                data-index=${virtualItem.index}
+                style=${styleMap({
+                  transform: `translateY(${translate}px)`,
+                  zIndex: pinned ? '1' : undefined
+                })}
+                ${ref(this.#measureRef)}>
+                ${this.renderItem ? this.renderItem(item, virtualItem.index) : (item as unknown as string)}
+              </div>
+            `;
+          }
+        )}
       </div>
     `;
   }
 
   /**
-   * Scroll to a specific index in the list.
+   * Scroll to the item at the given index.
    *
-   * @param index - The index to scroll to
-   * @param options - Scroll options
+   * @param index - The index to scroll to.
+   * @param options - Scroll options (alignment and behavior).
    */
-  scrollToIndex(
-    index: number,
-    options?: { align?: 'start' | 'center' | 'end' | 'auto'; behavior?: 'auto' | 'smooth' }
-  ): void {
-    this.#virtualizer.instance.scrollToIndex(index, options);
+  scrollToIndex(index: number, options?: ScrollToOptions): void {
+    this.virtualizer.scrollToIndex(index, options);
+  }
+
+  /**
+   * Scroll to the given offset.
+   *
+   * @param offset - The offset in pixels to scroll to.
+   * @param options - Scroll options (alignment and behavior).
+   */
+  scrollToOffset(offset: number, options?: ScrollToOptions): void {
+    this.virtualizer.scrollToOffset(offset, options);
+  }
+
+  #measureRef = (element?: Element): void => {
+    this.virtualizer.measureElement(element ?? undefined);
+  };
+
+  #getTranslate(
+    virtualItem: VirtualItem,
+    virtualItems: VirtualItem[],
+    scrollMargin: number,
+    relativeOffset: number
+  ): number {
+    const baseY = virtualItem.start - scrollMargin;
+
+    if (!virtualItem.sticky || baseY > relativeOffset) {
+      return baseY;
+    }
+
+    // The item is sticky and would scroll above the viewport, so pin it to the top. Stop pinning
+    // it once the next sticky item pushes it out of the viewport.
+    let limit = Infinity;
+    for (const other of virtualItems) {
+      if (other.sticky && other.index > virtualItem.index) {
+        limit = other.start - scrollMargin - virtualItem.size;
+        break;
+      }
+    }
+
+    return Math.max(baseY, Math.min(relativeOffset, limit));
   }
 }

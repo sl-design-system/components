@@ -1,18 +1,20 @@
 # @sl-design-system/virtual-list
 
-Virtual list component for efficiently rendering large lists.
+Virtual list component for efficiently rendering large vertical lists.
 
 ## Features
 
 - 🚀 Efficient rendering of large lists using virtualization
-- 📦 Powered by `@tanstack/virtual-core`
+- 📦 Zero external dependencies (no `@tanstack/virtual-core` or `@lit-labs/virtualizer`)
 - 🎯 Reactive Lit controller for easy integration
-- 🔧 Customizable item rendering
-- 📏 Configurable item sizing and gaps
+- 🪟 Works with both element (`overflow`) and window scrolling
+- 🙈 Works even when the list is initially hidden
+- 📌 Supports sticky items
+- 🔧 Customizable item rendering, sizing and gaps
 
 ## Usage
 
-### Basic Example
+### Basic example
 
 ```typescript
 import '@sl-design-system/virtual-list/register.js';
@@ -23,13 +25,46 @@ const items = Array.from({ length: 10000 }, (_, i) => `Item ${i + 1}`);
 html`
   <sl-virtual-list
     .items=${items}
-    .renderItem=${item => html`<div>${item}</div>`}
+    .renderItem=${(item: string) => html`<div>${item}</div>`}
     estimate-size="50">
   </sl-virtual-list>
 `;
 ```
 
+### Start index
+
+Render the list scrolled to a specific item:
+
+```typescript
+html`<sl-virtual-list .items=${items} start-index="500"></sl-virtual-list>`;
+```
+
+### Sticky items
+
+Items can be made sticky. A sticky item stays pinned to the top of the viewport until the next
+sticky item pushes it out:
+
+```typescript
+html`
+  <sl-virtual-list
+    .items=${items}
+    .isSticky=${(item: string, index: number) => index % 10 === 0}>
+  </sl-virtual-list>
+`;
+```
+
+### Scrolling programmatically
+
+```typescript
+const list = document.querySelector('sl-virtual-list');
+
+list.scrollToIndex(500, { align: 'start' });
+list.scrollToOffset(1000, { behavior: 'smooth' });
+```
+
 ### Using VirtualizerController
+
+The `VirtualizerController` can be used to build your own virtualized component:
 
 ```typescript
 import { VirtualizerController } from '@sl-design-system/virtual-list';
@@ -46,26 +81,25 @@ class MyElement extends LitElement {
   });
 
   render() {
-    const virtualizer = this.#virtualizer.instance,
-      virtualItems = virtualizer.getVirtualItems();
+    const virtualizer = this.#virtualizer.virtualizer,
+      virtualItems = virtualizer.getVirtualItems(),
+      scrollMargin = virtualizer.scrollMargin;
 
     return html`
-      <div style="height: ${virtualizer.getTotalSize()}px; overflow: auto;">
-        <div style="translate: 0px ${virtualItems[0]?.start ?? 0}px">
-          ${repeat(
-            virtualItems,
-            virtualItem => virtualItem.key,
-            virtualItem => {
-              const item = this.items[virtualItem.index];
-
-              return html`
-                <div data-index=${virtualItem.index} ${ref(virtualizer.measureElement)}>
-                  ${item}
-                </div>
-              `;
-            }
-          )}
-        </div>
+      <div style="block-size: ${virtualizer.getTotalSize()}px; position: relative;">
+        ${repeat(
+          virtualItems,
+          virtualItem => virtualItem.key,
+          virtualItem => html`
+            <div
+              data-index=${virtualItem.index}
+              style="position: absolute; inset-inline: 0; transform: translateY(${virtualItem.start -
+              scrollMargin}px);"
+              ${ref(virtualizer.measureElement)}>
+              ${this.items[virtualItem.index]}
+            </div>
+          `
+        )}
       </div>
     `;
   }

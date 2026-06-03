@@ -1,13 +1,18 @@
 :host {
   display: block;
+  position: relative;
 }
 
-[part='container'] {
-  display: flex;
-  flex-direction: column;
+[part~='wrapper'] {
+  inline-size: 100%;
+  position: relative;
 }
 
-[part='item'] {
+[part~='item'] {
   box-sizing: border-box;
   inline-size: 100%;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  position: absolute;
+  will-change: transform;
 }

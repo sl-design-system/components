@@ -220,7 +220,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
         this.#virtualizer.items = this.items ?? [];
-        this.#virtualizer.scrollMargin = 8;
+        this.#virtualizer.scrollMargin = 0; //8;
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
           renderer
             ? renderer(item as ListboxItem<T, U>, index)

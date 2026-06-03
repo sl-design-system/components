@@ -386,15 +386,10 @@ th {
     --_vertical-border: none;
   }
 
-  > span {
+  > span:not(.visually-hidden) {
     font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
     padding-block: var(--_head-cell-padding-block);
   }
-}
-
-th[part~='drag-handle'] {
-  inline-size: var(--sl-size-600);
-  padding-inline: 0;
 
   .visually-hidden {
     block-size: 1px;
@@ -408,6 +403,11 @@ th[part~='drag-handle'] {
     position: absolute;
     white-space: nowrap;
   }
+}
+
+th[part~='drag-handle'] {
+  inline-size: var(--sl-size-600);
+  padding-inline: 0;
 }
 
 th[part~='filter'],

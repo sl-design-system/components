@@ -31,12 +31,16 @@ eleventyNavigation:
 The following guidance describes when to use the calendar component.
 
 ### Visual date selection
-Use the Calendar when users benefit from seeing a full month view to pick a date — for example, when context like weekdays, weekends, holidays or already booked days helps the choice. It works well embedded inside other components (such as the Date Field popover) or standalone in a panel.
+Use the Calendar when users benefit from seeing dates in a full month view. This is useful when context such as weekdays, weekends, holidays, deadlines, or already booked days helps users make a clear date choice.
 
 ### Browsing dates
-Use the Calendar when users need to browse and orient themselves in time, for example to see which weekday a date falls on, or to navigate between months and years before making a choice.
+Use the Calendar when users need to browse and orient themselves in time, for example to check which weekday a date falls on or to navigate between months and years before selecting a date.
+
+### Date navigation
+Use the Calendar anywhere users need to navigate through dates and make a selection. This is useful when users need to move between months or years, explore available dates, or choose a date within a broader date-based workflow.
 
 </section>
+
 
 <section>
 
@@ -44,11 +48,11 @@ Use the Calendar when users need to browse and orient themselves in time, for ex
 
 The Calendar may not be the best choice in the following scenarios:
 
-### Quick, known date entry
-When users already know the exact date and just need to type it (for example a birth date), prefer the [Date Field](/categories/components/date-field/usage) which combines free typing with a popover calendar.
+### Date selection
+Calendar is a standalone date navigation component designed for browsing and navigating days, months, and years in date-related content, rather than for simple date entry or relative timeframe selection. Use the [Date Field](/categories/components/date-field/usage) when users need to enter a specific date, and use radio buttons, a segmented control, or a select for relative periods.
 
-### Relative timeframes
-Avoid the Calendar when only approximate periods or relative notions of time are needed (e.g. "next week", "this month"). Use radio buttons, a segmented control, or a select instead.
+
+
 
 </section>
 
@@ -64,7 +68,7 @@ Avoid the Calendar when only approximate periods or relative notions of time are
 |2|Navigation buttons|Move to the previous or next month (and optionally year).|no|
 |3|Weekday row|Localized day-of-week labels.|no|
 |4|Week numbers|ISO week numbers next to each row.|yes|
-|5|Day grid|Grid of selectable days for the visible month.|no|
+|5|Grid|Grid of selectable days, month or year visible. |yes|
 |6|Today indicator|Visual marker for today's date.|yes|
 |7|Indicator dates|Visual markers for highlighted dates (e.g. events).|yes|
 
@@ -73,6 +77,7 @@ Avoid the Calendar when only approximate periods or relative notions of time are
 </div>
 
 </section>
+
 
 <section>
 
@@ -83,30 +88,106 @@ Avoid the Calendar when only approximate periods or relative notions of time are
 - **Focus:** Display the focus ring on the focused day.
 - **Selected:** Highlighted styling on the selected date.
 - **Disabled day:** Days outside `min` / `max` or in `disabled-dates` are styled as non-selectable.
-- **Indicator:** Days listed in `indicator-dates` show a visual marker.
 - **Disabled (whole calendar):** Non-interactive, muted.
 - **Read-only:** Visible state, no interaction.
 
 </section>
+
+
+<section>
+
+## Figma Properties
+
+These properties describe the Figma setup for the Calendar. Some properties represent real component behaviour, while others are only used to preview or compose the component in Figma.
+
+### sl-calendar
+
+Main component used to compose the Calendar and preview its available views.
+
+<div class="ds-table-wrapper">
+
+| Item   | Options                 | Description                                                                                                                                                |
+| ------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| View   | `Days` `Months` `Years` | Switches the Calendar preview between day, month, and year selection views.                                                                                |
+| Footer | `boolean`               | Figma-only composition property. The footer is not part of the current code component and should move to the Date Field or Range Field Picker composition. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### cal-header
+
+Nested header component used to preview which view-switching buttons are available in the Calendar header.
+
+<div class="ds-table-wrapper">
+
+| Item          | Options   | Description                                              |
+| ------------- | --------- | -------------------------------------------------------- |
+| Month Button  | `boolean` | Shows or hides the month button in the Calendar header.  |
+| Year Button   | `boolean` | Shows or hides the year button in the Calendar header.   |
+| Decade Button | `boolean` | Shows or hides the decade button in the Calendar header. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### date-cal-days_grid
+
+Nested day grid component used to preview the day view layout.
+
+<div class="ds-table-wrapper">
+
+| Item         | Options   | Description                                  |
+| ------------ | --------- | -------------------------------------------- |
+| Weeks Number | `boolean` | Shows or hides week numbers in the day grid. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### cal-months_grid
+
+Nested month grid component used to compose the month selection view.
+
+<div class="ds-table-wrapper">
+
+| Item       | Options            | Description                                                                                                                                 |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Month grid | `nested component` | Displays selectable months when the Calendar is shown in the month view. No exposed Figma property was provided in the current screenshots. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### cal-years_grid
+
+Nested year grid component used to compose the year selection view.
+
+<div class="ds-table-wrapper">
+
+| Item      | Options            | Description                                                                                                                               |
+| --------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Year grid | `nested component` | Displays selectable years when the Calendar is shown in the year view. No exposed Figma property was provided in the current screenshots. |
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+</section>
+
 
 <section>
 
 ## Behavior
 
 ### Selecting a date
-Click a day or focus it with the keyboard and press `Enter` / `Space` to select it. Selecting a date emits an `sl-change` event.
+Click a day or focus it with the keyboard and press `Enter` / `Space` to select it.
 
-### Navigating months and years
+### Navigating through dates
 Use the navigation buttons in the header, or use `Page Up` / `Page Down` (and `Shift + Page Up` / `Shift + Page Down`) to move between months and years from the keyboard.
 
-### Min and max
-Days outside the configured `min` / `max` range are visually disabled and cannot be selected.
-
-### Disabled and indicator dates
-`disabled-dates` marks specific dates as non-selectable while still showing them in the grid. `indicator-dates` adds a visual marker to specific dates without changing their interactivity, which is useful for highlighting dates with events, deadlines or notifications.
-
-### Today
-When `show-today` is set, today's date is visually highlighted to help users orient themselves in the current month.
+### Day indicators
+Calendar day buttons can display different visual indications to help users understand the status of a date. When `show-today` is set, today's date is visually highlighted to help users orient themselves in the current month. Dates included in `indicator-dates` display a visual marker without changing their interactivity, which is useful for highlighting events, deadlines, or notifications. Dates included in `disabled-dates`, or dates outside the configured `min` and `max` range, remain visible in the grid but are shown as unavailable and cannot be selected.
 
 </section>
 
@@ -117,4 +198,3 @@ When `show-today` is set, today's date is visually highlighted to help users ori
 - [Time Field](/categories/components/time-field/usage): Companion component for selecting a time.
 
 </section>
-

@@ -109,7 +109,7 @@
 }
 
 :host(:is(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) button {
-  border-color: var(--sl-button-border-color, transparent);
+  border-color: transparent;
 }
 
 :host([fill='ghost']) button {
@@ -129,11 +129,11 @@
   --_bg-color: transparent;
 }
 
-:host([fill='outline']) button:hover {
+:host(:where([fill='ghost'], [fill='outline'])) button:hover {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
-:host([fill='outline']) button:active {
+:host(:where([fill='ghost'], [fill='outline'])) button:active {
   --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
@@ -230,18 +230,14 @@ button {
 
   align-items: center;
   appearance: none;
-
-  // Allows parent components (e.g. paginator) to drive button interaction colors via --sl-button-*,
-  // while keeping the internal defaults as fallback.
   background: color-mix(
     in srgb,
-    var(--sl-button-bg-color, var(--_bg-color)),
-    var(--sl-button-bg-mix-color, var(--_bg-mix-color))
-      calc(100% * var(--sl-button-bg-opacity, var(--_bg-opacity)))
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
   );
   border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary-bold);
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-button-color, var(--sl-color-foreground-secondary-bold));
+  color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
   flex: 1;
@@ -262,12 +258,10 @@ button {
   }
 
   &:hover {
-    --sl-button-bg-opacity: var(--sl-button-bg-opacity-hover, var(--_bg-opacity));
     --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
   }
 
   &:active {
-    --sl-button-bg-opacity: var(--sl-button-bg-opacity-active, var(--_bg-opacity));
     --_bg-opacity: var(--sl-opacity-interactive-bold-active);
   }
 

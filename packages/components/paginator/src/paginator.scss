@@ -34,13 +34,6 @@
 }
 
 .page {
-  --sl-button-bg-color: transparent;
-  --sl-button-bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
-  --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-idle);
-  --sl-button-bg-opacity-hover: var(--sl-opacity-interactive-plain-hover);
-  --sl-button-bg-opacity-active: var(--sl-opacity-interactive-plain-active);
-  --sl-button-color: var(--sl-color-foreground-neutral-bold);
-
   box-sizing: border-box;
   flex-shrink: 0;
   inline-size: calc(1lh + (var(--sl-size-100) * 2));
@@ -57,26 +50,6 @@
   .page {
     inline-size: calc(1lh + (var(--sl-size-175) * 2));
   }
-}
-
-.current {
-  --sl-button-bg-color: transparent;
-  --sl-button-bg-mix-color: var(--sl-color-background-primary-interactive-plain);
-  --sl-button-bg-opacity: var(--sl-opacity-interactive-plain-idle);
-  --sl-button-bg-opacity-hover: var(--sl-opacity-interactive-plain-hover);
-  --sl-button-bg-opacity-active: var(--sl-opacity-interactive-plain-active);
-  --sl-button-border-color: var(--sl-color-border-selected);
-  --sl-button-color: var(--sl-color-foreground-primary-bold);
-}
-
-:host([emphasis='bold']) .current {
-  --sl-button-bg-color: var(--sl-color-background-primary-bold);
-  --sl-button-bg-mix-color: var(--sl-color-background-primary-interactive-bold);
-  --sl-button-border-color: transparent;
-  --sl-button-color: var(--sl-color-foreground-primary-onBold);
-  --sl-button-bg-opacity: var(--sl-opacity-interactive-bold-idle);
-  --sl-button-bg-opacity-hover: var(--sl-opacity-interactive-bold-hover);
-  --sl-button-bg-opacity-active: var(--sl-opacity-interactive-bold-active);
 }
 
 .wrapper {

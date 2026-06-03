@@ -287,7 +287,9 @@ describe('sl-breadcrumbs', () => {
           'slot[name^="breadcrumb-"]:not([name*="menu"])'
         )
       );
-      const visibleLinks = slots.map(slot => slot.assignedElements()[0]);
+      const visibleLinks = slots.map(slot =>
+        slot.assignedElements().find(el => el instanceof HTMLAnchorElement)
+      );
 
       expect(visibleLinks).to.have.length(2);
       expect(visibleLinks[0]).to.have.trimmed.text('5');
@@ -299,7 +301,9 @@ describe('sl-breadcrumbs', () => {
         menuSlots = Array.from(
           el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]')
         ),
-        menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
+        menuItems = menuSlots.map(slot =>
+          slot.assignedElements().find(el => el instanceof HTMLAnchorElement)
+        );
 
       expect(button).to.exist;
       expect(button).to.have.attribute('fill', 'ghost');

@@ -45,9 +45,6 @@ export class VirtualizerController<
   /** The parent element that scrolls. */
   #scrollElement?: Element;
 
-  /** Whether a smooth scroll is in progress. */
-  #smoothScrolling = false;
-
   /** The virtualizer instance. */
   #virtualizer!: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>;
 
@@ -167,7 +164,7 @@ export class VirtualizerController<
         this.#updateTaskId = requestAnimationFrame(() => {
           this.#updateTaskId = undefined;
 
-          if (this.#disposed || this.#smoothScrolling) {
+          if (this.#disposed) {
             return;
           }
 
@@ -181,47 +178,17 @@ export class VirtualizerController<
         });
       };
 
-      // Track smooth scrolling to prevent scrollMargin updates during animation
-      const onScroll = () => {
-        if (this.#smoothScrolling) {
-          // Clear the smooth scroll flag after a delay to ensure the animation completes
-          setTimeout(() => {
-            this.#smoothScrolling = false;
-          }, 100);
-        }
-      };
-
       // ResizeObserver handler - skips during scroll to prevent mobile jumping
       const onResize = () => {
         const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
-        if (!virtualizer.isScrolling && !this.#smoothScrolling) {
+        if (!virtualizer.isScrolling) {
           doUpdateScrollMargin();
         }
       };
 
       // Window resize handler - always updates (for devtools/layout changes)
       const onWindowResize = () => {
-        // Window resize should update immediately, not affected by smooth scroll flag
-        if (this.#disposed || this.#updateTaskId || this.#hasCustomScrollMargin) {
-          return;
-        }
-
-        this.#updateTaskId = requestAnimationFrame(() => {
-          this.#updateTaskId = undefined;
-
-          if (this.#disposed) {
-            return;
-          }
-
-          const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
-          const newMargin = getOffset();
-          if (Math.abs(newMargin - (virtualizer.options.scrollMargin || 0)) > 1) {
-            virtualizer.setOptions({
-              ...virtualizer.options,
-              scrollMargin: newMargin
-            });
-          }
-        });
+        doUpdateScrollMargin();
       };
 
       // ResizeObserver to detect layout changes that affect element position
@@ -232,9 +199,8 @@ export class VirtualizerController<
         resizeObserver.observe(this.#host.parentElement);
       }
 
-      // Window resize and scroll event listeners
+      // Window resize
       window.addEventListener('resize', onWindowResize);
-      window.addEventListener('scroll', onScroll);
 
       const originalCleanup = this.instance._didMount();
       this.#cleanup = () => {
@@ -243,7 +209,6 @@ export class VirtualizerController<
           cancelAnimationFrame(this.#updateTaskId);
         }
         window.removeEventListener('resize', onWindowResize);
-        window.removeEventListener('scroll', onScroll);
         resizeObserver.disconnect();
         originalCleanup();
       };

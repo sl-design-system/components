@@ -174,6 +174,10 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     // 1. We have items (virtual list will be used)
     // 2. Consumer hasn't set explicit height constraints (inline or via CSS)
 
+    // Temporarily remove attribute to check computed styles without our CSS rule applying
+    // This avoids circular dependency where our CSS rule affects the detection
+    this.removeAttribute('data-virtual-unconstrained');
+
     // Check inline styles first (highest priority)
     const hasInlineHeightConstraint = !!(
       this.style.height ||
@@ -182,7 +186,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       this.style.maxBlockSize
     );
 
-    // Also check computed styles to catch CSS-set constraints
+    // Check computed styles to catch CSS-set constraints (without our fallback interfering)
     let hasComputedHeightConstraint = false;
     if (!hasInlineHeightConstraint) {
       const computed = getComputedStyle(this);
@@ -194,6 +198,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         computed.maxHeight !== 'none' || computed.maxBlockSize !== 'none';
     }
 
+    // Set attribute if no constraints found
     if (
       this.items &&
       this.items.length > 0 &&
@@ -201,9 +206,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       !hasComputedHeightConstraint
     ) {
       this.setAttribute('data-virtual-unconstrained', '');
-    } else {
-      this.removeAttribute('data-virtual-unconstrained');
     }
+    // else: attribute already removed above
   }
 
   override updated(changes: PropertyValues<this>): void {

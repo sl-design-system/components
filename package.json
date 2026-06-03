@@ -38,6 +38,8 @@
     "start": "wireit",
     "storybook": "wireit",
     "test": "wireit",
+    "test:visual": "wireit",
+    "test:visual:ci": "wireit",
     "version": "wireit",
     "website": "wireit",
     "website:a11y:test": "wireit",
@@ -372,6 +374,28 @@
         "version:changeset"
       ]
     },
+    "test:visual": {
+      "command": "vitest --project=visual",
+      "dependencies": [
+        "build:components",
+        "test:setup"
+      ],
+      "files": [
+        "vitest.config.ts",
+        "packages/components/**/*.visual.spec.ts"
+      ]
+    },
+    "test:visual:ci": {
+      "command": "vitest --project=visual --run",
+      "dependencies": [
+        "build:components",
+        "test:setup"
+      ],
+      "files": [
+        "vitest.config.ts",
+        "packages/components/**/*.visual.spec.ts"
+      ]
+    },
     "version:changeset": {
       "command": "yarn changeset version"
     },
@@ -431,5 +455,8 @@
     "vite": "^8.0.15",
     "vitest": "~4.1.8",
     "wireit": "^0.14.12"
+  },
+  "dependencies": {
+    "@chromatic-com/vitest": "^0.0.10"
   }
 }

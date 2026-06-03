@@ -282,7 +282,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       }
 
       this.#assignSlotsTimeoutId = undefined;
-    }, 20);
+    }, 50);
   }
 
   #assignSlots(): void {

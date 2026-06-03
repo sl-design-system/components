@@ -19,7 +19,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have a navigation role', () => {
@@ -209,7 +209,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have all links with separators in the DOM', () => {
@@ -271,7 +271,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should only show the home icon', () => {
@@ -337,7 +337,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should render the custom home link', () => {
@@ -372,7 +372,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should update when links are added dynamically', async () => {
@@ -382,7 +382,7 @@ describe('sl-breadcrumbs', () => {
       el.appendChild(newLink);
 
       // Wait for mutation observer
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       const links = Array.from(el.querySelectorAll('a')),
@@ -398,7 +398,7 @@ describe('sl-breadcrumbs', () => {
       lastLink.remove();
 
       // Wait for mutation observer
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
       await new Promise(resolve => requestAnimationFrame(resolve));
 
       const remainingLinks = Array.from(el.querySelectorAll('a')),
@@ -465,7 +465,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // Should not show collapse button
       const button = el.renderRoot.querySelector('sl-button'),
@@ -488,7 +488,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // Should not show collapse button with exactly threshold (3) links - need MORE than threshold
       const button = el.renderRoot.querySelector('sl-button');
@@ -514,7 +514,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // Should process all elements, not just anchors
       const slots = Array.from(
@@ -530,7 +530,7 @@ describe('sl-breadcrumbs', () => {
       el = await fixture(html`<sl-breadcrumbs></sl-breadcrumbs>`);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // Should still render home link
       const homeLink = el.renderRoot.querySelector('li.home a');
@@ -552,7 +552,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Wait for the component to process slot assignments
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // Should not render home section at all when noHome is true
       const homeListItem = el.renderRoot.querySelector('li.home');

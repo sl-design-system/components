@@ -92,8 +92,8 @@ export class VirtualList<T = any> extends LitElement {
       this.#virtualizer.updateOptions({
         count: this.items.length,
         estimateSize: () => this.estimateSize ?? 32,
-        gap: this.gap,
-        overscan: this.overscan,
+        gap: this.gap || 0,
+        overscan: this.overscan || 3,
         scrollMargin: this.scrollMargin || 0
       });
     }

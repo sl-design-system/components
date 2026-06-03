@@ -18,7 +18,7 @@ The complex internal positioning logic, `AnchorController`, `EventsController`, 
 #### New API
 
 - `for` — links the tooltip to an anchor element by ID
-- `type` — controls the ARIA relationship: `'label'` (`aria-labelledby`) or `'description'` (`aria-describedby`, default)
+- `type` — controls the ARIA relationship: `'label'` (`ariaLabelledByElements`, default) or `'description'` (`ariaDescribedByElements`)
 - `trigger` — space-separated list of triggers: `'focus'`, `'hover'`, and/or `'click'` (default: `'focus hover'`)
 - `disabled` — prevents the tooltip from showing
 - `open` — reflects the current open state

@@ -119,20 +119,52 @@ describe('sl-listbox', () => {
       );
     });
 
-    it('should apply a fallback max block-size when virtualized without explicit height', async () => {
-      const unconstrained = await fixture<Listbox>(html`
-        <sl-listbox
-          .options=${options}
-          option-label-path="label"
-          option-selected-path="selected"
-          option-value-path="value"></sl-listbox>
-      `);
+    it('should apply data-virtual-unconstrained attribute when using virtual list', async () => {
+      const unconstrained = await fixture<Listbox>(html`<sl-listbox></sl-listbox>`);
 
-      // Give the virtualizer time to initialize and apply safety constraints.
+      // Initially should not have the attribute (no items)
+      expect(unconstrained.hasAttribute('data-virtual-unconstrained')).to.be.false;
+
+      // Set options to trigger virtual list
+      unconstrained.options = options;
+      unconstrained.optionLabelPath = 'label';
+      unconstrained.optionSelectedPath = 'selected';
+      unconstrained.optionValuePath = 'value';
+
+      // Wait for all updates
+      await unconstrained.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
+      // Now should have the attribute
       expect(unconstrained.querySelector('sl-virtual-list')).to.exist;
-      expect(unconstrained.style.maxBlockSize).to.equal('20rem');
+      expect(unconstrained.hasAttribute('data-virtual-unconstrained')).to.be.true;
+
+      // Verify CSS fallback is applied
+      const computedStyle = getComputedStyle(unconstrained);
+      expect(computedStyle.maxBlockSize).to.not.equal('none');
+    });
+
+    it('should allow consumers to override the fallback with inline styles', async () => {
+      const withHeight = await fixture<Listbox>(html`
+        <sl-listbox style="height: 30rem"></sl-listbox>
+      `);
+
+      // Set options to trigger virtual list
+      withHeight.options = options;
+      withHeight.optionLabelPath = 'label';
+      withHeight.optionValuePath = 'value';
+
+      await withHeight.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // Should NOT have attribute when consumer sets explicit inline height
+      // This prevents the CSS fallback from clamping the consumer's height
+      expect(withHeight.hasAttribute('data-virtual-unconstrained')).to.be.false;
+
+      // The inline height should not be clamped
+      const computedStyle = getComputedStyle(withHeight);
+      // Height in pixels, roughly 30rem = 480px at 16px base
+      expect(parseFloat(computedStyle.height)).to.be.greaterThan(400);
     });
   });
 });

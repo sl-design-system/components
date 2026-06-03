@@ -214,3 +214,80 @@ export const VirtualListWithGroups: Story = {
     }))
   }
 };
+
+export const VirtualListUnconstrained: Story = {
+  args: {
+    optionLabelPath: 'label',
+    optionValuePath: 'value',
+    options: Array.from({ length: 1000 }).map((_, i) => ({
+      label: `Option ${i + 1}`,
+      value: i
+    }))
+  },
+  render: ({ options, optionLabelPath, optionValuePath }) => html`
+    <style>
+      .demo-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .demo-box {
+        border: 2px dashed #ccc;
+        padding: 1rem;
+      }
+      .demo-box h3 {
+        margin: 0 0 0.5rem;
+        font-size: 0.875rem;
+        font-weight: bold;
+      }
+      .demo-box p {
+        margin: 0 0 1rem;
+        font-size: 0.875rem;
+        color: #666;
+      }
+      sl-listbox {
+        border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
+        border-radius: var(--sl-size-borderRadius-default);
+      }
+    </style>
+    <div class="demo-container">
+      <div class="demo-box">
+        <h3>Without explicit height (gets 20rem fallback)</h3>
+        <p>
+          Virtual lists without height constraints get a 20rem max-height fallback to prevent
+          unstable behavior.
+        </p>
+        <sl-listbox
+          .options=${options}
+          .optionLabelPath=${optionLabelPath}
+          .optionValuePath=${optionValuePath}>
+        </sl-listbox>
+      </div>
+
+      <div class="demo-box">
+        <h3>With explicit height: 30rem (not clamped)</h3>
+        <p>
+          When consumers set an explicit height, the fallback is not applied. The listbox respects
+          the authored 30rem height.
+        </p>
+        <sl-listbox
+          style="height: 30rem"
+          .options=${options}
+          .optionLabelPath=${optionLabelPath}
+          .optionValuePath=${optionValuePath}>
+        </sl-listbox>
+      </div>
+
+      <div class="demo-box">
+        <h3>With max-height: 15rem (shorter than fallback)</h3>
+        <p>Consumers can also set a max-height shorter than the 20rem fallback.</p>
+        <sl-listbox
+          style="max-height: 15rem"
+          .options=${options}
+          .optionLabelPath=${optionLabelPath}
+          .optionValuePath=${optionValuePath}>
+        </sl-listbox>
+      </div>
+    </div>
+  `
+};

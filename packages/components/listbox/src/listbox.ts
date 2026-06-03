@@ -134,6 +134,15 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     this.setAttribute('role', 'listbox');
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    // Ensure attribute is set on first render if we have items, unless consumer set height
+    if (this.items && this.items.length > 0) {
+      this.#updateVirtualConstraintAttribute();
+    }
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -146,9 +155,35 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     ) {
       if (this.options) {
         this.items = this.#prepareOptions(this.options);
+        // Update attribute after setting items
+        this.#updateVirtualConstraintAttribute();
       } else if (changes.get('options')) {
         this.items = [];
+        this.removeAttribute('data-virtual-unconstrained');
       }
+    }
+
+    // Also handle direct items assignment
+    if (changes.has('items')) {
+      this.#updateVirtualConstraintAttribute();
+    }
+  }
+
+  #updateVirtualConstraintAttribute(): void {
+    // Only apply fallback constraint if:
+    // 1. We have items (virtual list will be used)
+    // 2. Consumer hasn't set explicit inline height constraints
+    const hasInlineHeightConstraint = !!(
+      this.style.height ||
+      this.style.blockSize ||
+      this.style.maxHeight ||
+      this.style.maxBlockSize
+    );
+
+    if (this.items && this.items.length > 0 && !hasInlineHeightConstraint) {
+      this.setAttribute('data-virtual-unconstrained', '');
+    } else {
+      this.removeAttribute('data-virtual-unconstrained');
     }
   }
 
@@ -157,11 +192,12 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       this.#propagateEmphasis();
     }
 
-    if (changes.has('items')) {
+    // Check for options/items changes - items is set in willUpdate() so won't appear in changes
+    const itemsChanged = changes.has('options') || changes.has('items');
+
+    if (itemsChanged) {
       if (this.items) {
         const renderer = this.renderer;
-
-        this.#ensureVirtualListConstraints();
 
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
         this.#virtualizer.items = this.items ?? [];
@@ -173,7 +209,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         if (!this.#virtualizer.parentElement) {
           this.prepend(this.#virtualizer);
         }
-      } else if (changes.get('items')) {
+      } else if (changes.get('items') || changes.get('options')) {
         this.#virtualizer?.remove();
         this.#virtualizer = undefined;
       }
@@ -281,25 +317,6 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         el.querySelectorAll('sl-option').forEach(o => (o.emphasis = this.emphasis));
       }
     });
-  }
-
-  /**
-   * Ensures a virtualized listbox has a finite viewport when it is the scroll container. This
-   * prevents unstable behavior when consumers forget to set a height or max-height.
-   */
-  #ensureVirtualListConstraints(): void {
-    const style = getComputedStyle(this),
-      overflowY = style.overflowY,
-      isScrollable = overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay',
-      hasExplicitHeight = style.height !== 'auto' || style.blockSize !== 'auto',
-      hasMaxHeight = style.maxHeight !== 'none' || style.maxBlockSize !== 'none',
-      hasHeightConstraint = hasExplicitHeight || hasMaxHeight;
-
-    if (isScrollable && !hasHeightConstraint) {
-      this.setAttribute('data-virtual-unconstrained', '');
-    } else {
-      this.removeAttribute('data-virtual-unconstrained');
-    }
   }
 
   #renderItem(item: ListboxItem<T, U>, index: number): Element {

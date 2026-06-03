@@ -3,8 +3,6 @@
 '@sl-design-system/button': patch
 ---
 
-Fix paginator page-state styling and align selected/non-selected interaction states with design tokens.
+Fix paginator selected page styling for `emphasis="bold"` by driving page button appearance via `fill`/`variant` (selected uses `variant="primary"` with `fill="solid"` for bold and `fill="outline"` for subtle), while keeping `aria-current="page"` for accessibility.
 
-Paginator now drives page button colors via dedicated `--sl-button-*` CSS variables, including hover/active state opacity differences for subtle vs bold emphasis.
-
-Button now supports these external style overrides in its background/color rendering with safe fallbacks to internal defaults, enabling parent components (such as paginator) to control state styling without breaking existing behavior.
+Update `sl-button` interaction styling so `fill="ghost"`/`fill="outline"` use the plain hover/active opacity tokens, and outline buttons marked `aria-current="page"` get a selected border color.

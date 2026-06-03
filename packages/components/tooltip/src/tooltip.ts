@@ -116,7 +116,7 @@ export class Tooltip extends LitElement {
     this.#eventController.abort();
 
     // Remove the event handler in case the tooltip is still open when disconnected
-    document.removeEventListener('keydown', this.#onKeydown);
+    document.removeEventListener('keydown', this.#onKeydown, { capture: true });
 
     if (this.anchor) {
       this.#removeAriaRelation(this.anchor, this.type);

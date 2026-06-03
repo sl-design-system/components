@@ -1,5 +1,6 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
@@ -438,9 +439,19 @@ describe('sl-tooltip', () => {
 
     it('should hide the tooltip when pressing Escape', async () => {
       await userEvent.keyboard('{Escape}');
-      await tooltip.updateComplete;
 
       expect(tooltip.matches(':popover-open')).to.be.false;
+    });
+
+    it('should stop propagation of the Escape keydown event', async () => {
+      const onKeydown = spy();
+
+      anchor.addEventListener('keydown', onKeydown);
+      anchor.focus();
+
+      await userEvent.keyboard('{Escape}');
+
+      expect(onKeydown).to.not.have.been.called;
     });
   });
 

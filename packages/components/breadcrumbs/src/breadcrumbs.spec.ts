@@ -421,8 +421,8 @@ describe('sl-breadcrumbs', () => {
         </sl-breadcrumbs>
       `);
 
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await el.updateComplete;
+      // Wait for the component to process slot assignments
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should toggle popover when button is clicked', async () => {

@@ -40,9 +40,7 @@ export type ButtonVariant =
 /**
  * A single, simple button, with optionally an icon.
  *
- * ```html
- * <sl-button>Foo</sl-button>
- * ```
+ * @customElement sl-button
  *
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  *
@@ -110,14 +108,14 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /**
    * The fill of the button.
    *
-   * @default solid
+   * @default 'solid'
    */
   @property({ reflect: true }) fill?: ButtonFill;
 
   /**
    * The shape of the button.
    *
-   * @default square
+   * @default 'square'
    */
   @property({ reflect: true }) shape?: ButtonShape;
 
@@ -147,14 +145,14 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in
    * native HTML buttons.
    *
-   * @default button
+   * @default 'button'
    */
   @property() type?: ButtonType;
 
   /**
    * The variant of the button.
    *
-   * @default secondary
+   * @default 'secondary'
    */
   @property({ reflect: true }) variant?: ButtonVariant;
 

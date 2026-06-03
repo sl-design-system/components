@@ -3,6 +3,7 @@ import '@sl-design-system/toggle-button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { ToggleGroup } from './toggle-group.js';
 
@@ -78,19 +79,19 @@ describe('sl-toggle-group', () => {
     it('should only allow one button to be pressed at a time', async () => {
       const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
 
-      buttons[0].click();
+      await userEvent.click(buttons[0]);
       await el.updateComplete;
 
-      expect(buttons[0].pressed).to.be.true;
-      expect(buttons[1].pressed).to.be.false;
-      expect(buttons[2].pressed).to.be.false;
+      expect(buttons[0]).to.match(':state(pressed)');
+      expect(buttons[1]).not.to.match(':state(pressed)');
+      expect(buttons[2]).not.to.match(':state(pressed)');
 
-      buttons[1].click();
+      await userEvent.click(buttons[1]);
       await el.updateComplete;
 
-      expect(buttons[0].pressed).to.be.false;
-      expect(buttons[1].pressed).to.be.true;
-      expect(buttons[2].pressed).to.be.false;
+      expect(buttons[0]).not.to.match(':state(pressed)');
+      expect(buttons[1]).to.match(':state(pressed)');
+      expect(buttons[2]).not.to.match(':state(pressed)');
     });
   });
 
@@ -121,19 +122,19 @@ describe('sl-toggle-group', () => {
     it('should allow multiple buttons to be pressed at the same time', async () => {
       const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
 
-      buttons[0].click();
+      await userEvent.click(buttons[0]);
       await el.updateComplete;
 
-      expect(buttons[0].pressed).to.be.true;
-      expect(buttons[1].pressed).to.be.false;
-      expect(buttons[2].pressed).to.be.false;
+      expect(buttons[0]).to.match(':state(pressed)');
+      expect(buttons[1]).not.to.match(':state(pressed)');
+      expect(buttons[2]).not.to.match(':state(pressed)');
 
-      buttons[1].click();
+      await userEvent.click(buttons[1]);
       await el.updateComplete;
 
-      expect(buttons[0].pressed).to.be.true;
-      expect(buttons[1].pressed).to.be.true;
-      expect(buttons[2].pressed).to.be.false;
+      expect(buttons[0]).to.match(':state(pressed)');
+      expect(buttons[1]).to.match(':state(pressed)');
+      expect(buttons[2]).not.to.match(':state(pressed)');
     });
   });
 });

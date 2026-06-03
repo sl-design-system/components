@@ -9,7 +9,7 @@ import '../register.js';
 import { type ToggleButton } from './toggle-button.js';
 
 describe('sl-toggle-button', () => {
-  let el: ToggleButton;
+  let el: ToggleButton, button: HTMLButtonElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -19,10 +19,12 @@ describe('sl-toggle-button', () => {
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
       `);
+      button = el.renderRoot.querySelector('button')!;
     });
 
-    it('should have a button role', () => {
-      expect(el.role).to.equal('button');
+    it('should have a native button in the shadow DOM', () => {
+      expect(button).to.exist;
+      expect(button).to.have.attribute('type', 'button');
     });
 
     it('should not have an explicit size', () => {
@@ -38,9 +40,8 @@ describe('sl-toggle-button', () => {
     });
 
     it('should not be pressed', () => {
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should not be disabled', () => {
@@ -49,23 +50,28 @@ describe('sl-toggle-button', () => {
     });
 
     it('should be marked as icon only', () => {
-      expect(el).to.have.attribute('icon-only');
+      expect(el).to.match(':state(icon-only)');
+    });
+
+    it('should delegate focus to the inner button', () => {
+      el.focus();
+
+      expect(document.activeElement).to.equal(el);
+      expect(el.shadowRoot?.activeElement).to.equal(button);
     });
 
     it('should toggle the pressed state when clicked', async () => {
-      el.click();
+      await userEvent.click(button);
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'true');
-      expect(el).to.have.attribute('pressed');
+      expect(button).to.have.attribute('aria-pressed', 'true');
       expect(el.pressed).to.be.true;
 
-      el.click();
+      await userEvent.click(button);
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should toggle the pressed state when pressing enter', async () => {
@@ -73,17 +79,15 @@ describe('sl-toggle-button', () => {
       await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'true');
-      expect(el).to.have.attribute('pressed');
+      expect(button).to.have.attribute('aria-pressed', 'true');
       expect(el.pressed).to.be.true;
 
       el.focus();
       await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should toggle the pressed state when pressing space', async () => {
@@ -91,17 +95,15 @@ describe('sl-toggle-button', () => {
       await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'true');
-      expect(el).to.have.attribute('pressed');
+      expect(button).to.have.attribute('aria-pressed', 'true');
       expect(el.pressed).to.be.true;
 
       el.focus();
       await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should emit an sl-toggle event on click', async () => {
@@ -111,7 +113,7 @@ describe('sl-toggle-button', () => {
         onToggle(event.detail);
       });
 
-      el.click();
+      await userEvent.click(button);
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
@@ -157,16 +159,16 @@ describe('sl-toggle-button', () => {
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
       `);
+      button = el.renderRoot.querySelector('button')!;
     });
 
     it('should not toggle the pressed state when clicked', async () => {
-      el.click();
+      button.click();
 
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should not toggle the pressed state when pressing enter', async () => {
@@ -175,9 +177,8 @@ describe('sl-toggle-button', () => {
       await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should not toggle the pressed state when pressing space', async () => {
@@ -186,16 +187,15 @@ describe('sl-toggle-button', () => {
       await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should not emit an sl-toggle event when clicked', async () => {
       const onToggle = spy();
 
       el.addEventListener('sl-toggle', onToggle);
-      el.click();
+      button.click();
       await el.updateComplete;
 
       expect(onToggle).not.to.have.been.called;
@@ -205,22 +205,22 @@ describe('sl-toggle-button', () => {
       const onClick = spy();
 
       el.addEventListener('click', onClick);
-      el.click();
+      button.click();
       await el.updateComplete;
 
       expect(onClick).not.to.have.been.called;
     });
 
-    it('should set aria-disabled', () => {
-      expect(el).to.have.attribute('aria-disabled', 'true');
+    it('should disable the inner button', () => {
+      expect(button).to.have.attribute('disabled');
     });
 
-    it('should remove aria-disabled when re-enabled', async () => {
+    it('should remove disabled from the inner button when re-enabled', async () => {
       el.disabled = false;
       await el.updateComplete;
 
       expect(el).not.to.have.attribute('disabled');
-      expect(el).not.to.have.attribute('aria-disabled');
+      expect(button).not.to.have.attribute('disabled');
     });
 
     it('should preserve a consumer-provided aria-disabled value when re-enabled', async () => {
@@ -230,12 +230,13 @@ describe('sl-toggle-button', () => {
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
       `);
+      button = el.renderRoot.querySelector('button')!;
 
       el.disabled = false;
       await el.updateComplete;
 
       expect(el).not.to.have.attribute('disabled');
-      expect(el).to.have.attribute('aria-disabled', 'true');
+      expect(button).to.have.attribute('aria-disabled', 'true');
     });
   });
 
@@ -247,6 +248,15 @@ describe('sl-toggle-button', () => {
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
       `);
+      button = el.renderRoot.querySelector('button')!;
+    });
+
+    it('should proxy the aria-disabled attribute to the inner button', () => {
+      expect(button).to.have.attribute('aria-disabled', 'true');
+
+      el.removeAttribute('aria-disabled');
+
+      expect(button).not.to.have.attribute('aria-disabled');
     });
 
     it('should be focusable', () => {
@@ -256,12 +266,11 @@ describe('sl-toggle-button', () => {
     });
 
     it('should not toggle the pressed state when clicked', async () => {
-      el.click();
+      button.click();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should not toggle the pressed state when pressing enter', async () => {
@@ -270,16 +279,15 @@ describe('sl-toggle-button', () => {
       await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-pressed', 'false');
-      expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(button).to.have.attribute('aria-pressed', 'false');
+      expect(el.pressed).not.to.be.true;
     });
 
     it('should not emit an sl-toggle event when clicked', async () => {
       const onToggle = spy();
 
       el.addEventListener('sl-toggle', onToggle);
-      el.click();
+      button.click();
       await el.updateComplete;
 
       expect(onToggle).not.to.have.been.called;
@@ -289,7 +297,7 @@ describe('sl-toggle-button', () => {
       const onClick = spy();
 
       el.addEventListener('click', onClick);
-      el.click();
+      button.click();
       await el.updateComplete;
 
       expect(onClick).not.to.have.been.called;
@@ -304,10 +312,11 @@ describe('sl-toggle-button', () => {
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
       `);
+      button = el.renderRoot.querySelector('button')!;
     });
 
     it('should have an aria-pressed attribute set to true', () => {
-      expect(el).to.have.attribute('aria-pressed', 'true');
+      expect(button).to.have.attribute('aria-pressed', 'true');
     });
 
     it('should have a true pressed state when the attribute it set', () => {
@@ -391,14 +400,17 @@ describe('sl-toggle-button', () => {
         </sl-toggle-button>
       `);
 
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
 
-      const tooltip = el.renderRoot.querySelector('sl-tooltip'),
-        wrapper = el.renderRoot.querySelector('#wrapper');
+      const tooltip = el.renderRoot.querySelector('sl-tooltip')!,
+        innerButton = el.renderRoot.querySelector('button');
+
+      await tooltip.updateComplete;
 
       expect(tooltip).to.exist;
       expect(tooltip).to.have.trimmed.text('Settings');
-      expect(wrapper?.ariaLabelledByElements).to.include(tooltip);
+      expect(innerButton?.ariaLabelledByElements).to.include(tooltip);
     });
 
     it('should use the tooltip as the description for the text button', async () => {
@@ -407,11 +419,11 @@ describe('sl-toggle-button', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip'),
-        wrapper = el.renderRoot.querySelector('#wrapper');
+        innerButton = el.renderRoot.querySelector('button');
 
       expect(tooltip).to.exist;
       expect(tooltip).to.have.trimmed.text('Tooltip');
-      expect(wrapper?.ariaDescribedByElements).to.include(tooltip);
+      expect(innerButton?.ariaDescribedByElements).to.include(tooltip);
     });
   });
 });

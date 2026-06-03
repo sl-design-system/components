@@ -17,7 +17,7 @@
 
   --_border-color: var(--sl-color-border-disabled);
 
-  ::slotted(sl-toggle-button[pressed]) {
+  ::slotted(sl-toggle-button:state(pressed)) {
     --_bg-color: var(--sl-color-background-neutral-bold);
   }
 }
@@ -81,19 +81,15 @@
 }
 
 ::slotted(sl-toggle-button:first-of-type) {
-  --_button-border-radius: calc(var(--_border-radius) - var(--sl-size-borderWidth-action));
+  --_button-border-radius: calc(var(--_border-radius) - var(--sl-size-borderWidth-action)) 0 0
+    calc(var(--_border-radius) - var(--sl-size-borderWidth-action));
   --_group-compensation-start: var(--_pill-compensation);
-
-  border-end-end-radius: 0;
-  border-start-end-radius: 0;
 }
 
 ::slotted(sl-toggle-button:last-of-type) {
-  --_button-border-radius: calc(var(--_border-radius) - var(--sl-size-borderWidth-action));
+  --_button-border-radius: 0 calc(var(--_border-radius) - var(--sl-size-borderWidth-action))
+    calc(var(--_border-radius) - var(--sl-size-borderWidth-action)) 0;
   --_group-compensation-end: var(--_pill-compensation);
-
-  border-end-start-radius: 0;
-  border-start-start-radius: 0;
 
   &::after {
     display: none;

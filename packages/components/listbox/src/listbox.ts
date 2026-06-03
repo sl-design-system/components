@@ -58,7 +58,6 @@ export type ListboxRenderer<T = any, U = T> = (
 ) => Element | TemplateResult;
 
 let nextUniqueId = 0;
-const FALLBACK_VIRTUAL_MAX_BLOCK_SIZE = '20rem';
 
 /** Container for a list of selectable options. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -292,11 +291,14 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     const style = getComputedStyle(this),
       overflowY = style.overflowY,
       isScrollable = overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay',
+      hasExplicitHeight = style.height !== 'auto' || style.blockSize !== 'auto',
       hasMaxHeight = style.maxHeight !== 'none' || style.maxBlockSize !== 'none',
-      hasFiniteViewport = this.scrollHeight > this.clientHeight;
+      hasHeightConstraint = hasExplicitHeight || hasMaxHeight;
 
-    if (isScrollable && !hasFiniteViewport && !hasMaxHeight && !this.style.maxBlockSize) {
-      this.style.maxBlockSize = FALLBACK_VIRTUAL_MAX_BLOCK_SIZE;
+    if (isScrollable && !hasHeightConstraint) {
+      this.setAttribute('data-virtual-unconstrained', '');
+    } else {
+      this.removeAttribute('data-virtual-unconstrained');
     }
   }
 

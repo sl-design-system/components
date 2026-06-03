@@ -56,8 +56,8 @@ export default {
       </style>
       ${options
         ? html`
-            <sl-button @click=${() => scrollTo(options.length / 2)}
-              >Scroll to ${options.length / 2}</sl-button
+            <sl-button @click=${() => scrollTo(Math.floor(options.length / 2))}
+              >Scroll to ${Math.floor(options.length / 2)}</sl-button
             >
           `
         : nothing}

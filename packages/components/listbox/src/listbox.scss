@@ -10,6 +10,10 @@
   scrollbar-width: thin;
 }
 
+:host([data-virtual-unconstrained]) {
+  max-block-size: 20rem;
+}
+
 ::slotted(hr) {
   border: 0;
   border-block-start: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);

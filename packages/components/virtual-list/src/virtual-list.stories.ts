@@ -131,12 +131,12 @@ export default {
       </style>
       <sl-button-bar>
         <sl-button @click=${() => scrollTo(0)}>Scroll to top</sl-button>
-        <sl-button @click=${() => scrollTo(items.length / 2)}
-          >Scroll to ${items.length / 2}</sl-button
+        <sl-button @click=${() => scrollTo(Math.floor(items.length / 2))}
+          >Scroll to ${Math.floor(items.length / 2)}</sl-button
         >
         <sl-button @click=${() => scrollTo(items.length - 1)}>Scroll to bottom</sl-button>
-        <sl-button @click=${() => scrollToSmooth(items.length / 2)} fill="outline"
-          >Scroll to ${items.length / 2} (smooth)</sl-button
+        <sl-button @click=${() => scrollToSmooth(Math.floor(items.length / 2))} fill="outline"
+          >Scroll to ${Math.floor(items.length / 2)} (smooth)</sl-button
         >
       </sl-button-bar>
       <sl-virtual-list

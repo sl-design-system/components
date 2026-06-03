@@ -159,13 +159,8 @@ export class VirtualizerController<
       const doUpdateScrollMargin = () => {
         const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
 
-        // Skip if disposed, already pending update, user provided custom scrollMargin, or during smooth scroll
-        if (
-          this.#disposed ||
-          this.#updateTaskId ||
-          this.#hasCustomScrollMargin ||
-          this.#smoothScrolling
-        ) {
+        // Skip if disposed, already pending update, user provided custom scrollMargin
+        if (this.#disposed || this.#updateTaskId || this.#hasCustomScrollMargin) {
           return;
         }
 

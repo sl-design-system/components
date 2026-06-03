@@ -21,8 +21,5 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "always"
     }
-  },
-  "chat.tools.terminal.autoApprove": {
-    "yarn eslint": true
   }
 }

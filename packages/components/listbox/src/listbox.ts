@@ -225,6 +225,9 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
         this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.scrollMargin = 0;
+        this.#virtualizer.gap =
+          getComputedStyle(this).gap !== '' ? parseInt(getComputedStyle(this).gap) : 0;
+        this.#virtualizer.overscan = 3;
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
           renderer
             ? renderer(item as ListboxItem<T, U>, index)
@@ -276,7 +279,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
           nearest: 'auto',
           start: 'start'
         },
-        block = options?.block ?? 'nearest',
+        block = options?.block ?? 'start',
         behavior = options?.behavior === 'instant' ? 'auto' : options?.behavior;
       this.#virtualizer.scrollToIndex(index, {
         align: alignMap[block],

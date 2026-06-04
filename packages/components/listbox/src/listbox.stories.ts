@@ -51,12 +51,13 @@ export default {
         sl-listbox {
           border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
           border-radius: var(--sl-size-borderRadius-default);
-          max-block-size: calc(100dvh - 3rem);
+          margin-block-start: 1rem;
+          max-block-size: calc(100dvh - 7rem);
         }
       </style>
       ${options
         ? html`
-            <sl-button @click=${() => scrollTo(Math.floor(options.length / 2))}
+            <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
               >Scroll to ${Math.floor(options.length / 2)}</sl-button
             >
           `

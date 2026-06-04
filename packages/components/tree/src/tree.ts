@@ -155,7 +155,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
   override render(): TemplateResult {
     const rootIds = this.dataSource?.nodes.map(child => String(child.id)).join(' '),
-      virtualizer = this.#virtualizer.instance,
+      virtualizer = this.#virtualizer.virtualizer,
       virtualItems = virtualizer.getVirtualItems();
 
     // Use role `treegrid` instead of `tree`; treegrid is a better
@@ -172,7 +172,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         <div
           class="starter"
           style="translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px">
+          (virtualizer.options.scrollPaddingStart ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -335,7 +335,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   };
 
   #scrollAndFocusNode(index: number): void {
-    this.#virtualizer.instance.scrollToIndex(index);
+    this.#virtualizer.virtualizer.scrollToIndex(index);
 
     const currentlyFocusedNode = this.renderRoot.querySelector<HTMLElement>(
       `[data-index="${this.#indexOfFocusedNode}"]`

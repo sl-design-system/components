@@ -439,7 +439,7 @@
     "chai": "^6.2.2",
     "chai-datetime": "^1.8.1",
     "chai-dom": "^1.12.1",
-    "chromatic": "^15.3.1",
+    "chromatic": "^17.2.0",
     "eslint": "^9.27.0",
     "husky": "^9.1.7",
     "invokers-polyfill": "^1.0.3",

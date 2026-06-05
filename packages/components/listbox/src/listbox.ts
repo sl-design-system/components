@@ -225,8 +225,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
         this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.scrollMargin = 0;
-        this.#virtualizer.gap =
-          getComputedStyle(this).gap !== '' ? parseInt(getComputedStyle(this).gap) : 0;
+        const gap = getComputedStyle(this).gap;
+        this.#virtualizer.gap = gap ? parseFloat(gap) : 0;
         this.#virtualizer.overscan = 3;
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
           renderer
@@ -268,6 +268,15 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  /**
+   * Scrolls to the option at the specified index.
+   *
+   * @remarks
+   *   When using a virtual list (via `options` or `items` properties), only `block` and `behavior`
+   *   options are supported. The `inline` option is ignored for virtualized lists.
+   * @param index - The zero-based index of the option to scroll to
+   * @param options - Scroll options
+   */
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
     if (this.#virtualizer) {
       const alignMap: Record<

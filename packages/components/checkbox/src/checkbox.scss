@@ -23,18 +23,18 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
-:host(:where([checked], [indeterminate])) {
+:host(:where(:state(checked), :state(indeterminate))) {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
   --_border: var(--sl-color-border-selected);
 }
 
-:host(:where([checked], [indeterminate]):hover) {
+:host(:where(:state(checked), :state(indeterminate)):hover) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
 
-:host(:where([checked], [indeterminate]):active) {
+:host(:where(:state(checked), :state(indeterminate)):active) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
@@ -45,7 +45,7 @@
   --_stroke: var(--sl-color-foreground-negative-onBold);
 }
 
-:host(:where([checked], [indeterminate])[show-validity='invalid']) {
+:host(:where(:state(checked), :state(indeterminate))[show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-negative-bold);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 }
@@ -57,12 +57,12 @@
   --_stroke: var(--sl-color-foreground-positive-onBold);
 }
 
-:host(:where([checked], [indeterminate])[show-validity='valid']) {
+:host(:where(:state(checked), :state(indeterminate))[show-validity='valid']) {
   --_bg-color: var(--sl-color-background-positive-bold);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
 }
 
-:host([disabled]) {
+:host(:where([disabled], [aria-disabled='true'])) {
   --_border: var(--sl-color-border-disabled);
   --_stroke: var(--sl-color-foreground-disabled);
 
@@ -73,7 +73,7 @@
   }
 }
 
-:host([no-label]) {
+:host(:state(no-label)) {
   display: inline-flex;
 
   [part='outer'] {
@@ -124,20 +124,6 @@
   }
 }
 
-::slotted(input) {
-  block-size: 1px;
-  inline-size: 1px;
-  opacity: 0;
-  outline: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
-::slotted(label) {
-  cursor: pointer;
-  display: contents;
-}
-
 [part='outer'] {
   display: inline-flex;
   padding-block: var(--sl-size-050);
@@ -160,6 +146,10 @@
   justify-content: center;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+  }
 }
 
 [part='label'] {

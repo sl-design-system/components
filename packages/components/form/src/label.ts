@@ -84,6 +84,7 @@ export class Label extends LitElement {
     // Clean up data-label-id from the form control
     if (this.formControl) {
       this.formControl.removeAttribute('data-label-id');
+      this.#removeLabelAriaRef(this.formControl);
     }
 
     super.disconnectedCallback();
@@ -128,6 +129,7 @@ export class Label extends LitElement {
       // Clean up data-label-id from the previous form control
       if (this.#previousFormControl && this.#previousFormControl !== this.formControl) {
         this.#previousFormControl.removeAttribute('data-label-id');
+        this.#removeLabelAriaRef(this.#previousFormControl);
       }
 
       if (this.formControl) {
@@ -151,6 +153,7 @@ export class Label extends LitElement {
         // Set data-label-id on the new control if the label has already been initialized
         if (this.#label?.id) {
           this.formControl.setAttribute('data-label-id', this.#label.id);
+          this.#addLabelAriaRef(this.formControl);
         }
 
         // Update the previous form control reference
@@ -211,6 +214,29 @@ export class Label extends LitElement {
     this.#label.id ||= `sl-label-${nextUniqueId++}`;
     // Communicate the label ID to the control so it can use it for aria-labelledby
     this.formControl?.setAttribute('data-label-id', this.#label.id);
+    if (this.formControl) {
+      this.#addLabelAriaRef(this.formControl);
+    }
+  }
+
+  #addLabelAriaRef(target: HTMLElement): void {
+    if (!this.#label) {
+      return;
+    }
+
+    const refs = target.ariaLabelledByElements ?? [];
+    if (!refs.includes(this.#label)) {
+      target.ariaLabelledByElements = [...refs, this.#label];
+    }
+  }
+
+  #removeLabelAriaRef(target: HTMLElement): void {
+    if (!this.#label) {
+      return;
+    }
+
+    const refs = target.ariaLabelledByElements ?? [];
+    target.ariaLabelledByElements = refs.filter(ref => ref !== this.#label);
   }
 
   #update(): void {

@@ -1,11 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import {
-  type EventEmitter,
-  EventsController,
-  ObserveAttributesMixin,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -21,6 +16,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './checkbox.scss.js';
 
 declare global {
@@ -31,25 +27,27 @@ declare global {
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 
-let nextUniqueId = 0;
-
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
+ *
+ * @customElement sl-checkbox
+ *
+ * @slot - Text label of the checkbox.
  *
  * @csspart outer - The outer container of the checkbox.
  * @csspart inner - The inner container of the checkbox.
  * @csspart label - The label of the checkbox.
  *
- * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
- * @slot input - The slot for the input element
+ * @cssstate checked - The checkbox is checked.
+ * @cssstate indeterminate - The checkbox is in the indeterminate state.
+ * @cssstate no-label - The checkbox has no label.
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
-  'aria-disabled',
-  'aria-label',
-  'aria-labelledby'
-]) {
+export class Checkbox<T = any> extends FormControlMixin(LitElement) {
+  /** @internal */
+  static formAssociated = true;
+
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
@@ -59,16 +57,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    focusin: this.#onFocusin,
-    focusout: this.#onFocusout,
-    keydown: this.#onKeydown
-  });
-
-  /** The label instance in the light DOM. */
-  #label?: HTMLLabelElement;
+  /** Controller for managing event listeners. */
+  #eventController = new AbortController();
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -84,7 +74,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
    *
    * @default false
    */
-  @property({ type: Boolean, reflect: true }) checked?: boolean;
+  @property({ type: Boolean }) checked?: boolean;
 
   /**
    * Whether the checkbox is disabled; when set no interaction is possible.
@@ -98,17 +88,17 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
    *
    * @default false
    */
-  @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
+  @property({ type: Boolean }) indeterminate?: boolean;
 
-  /** The input element in the light DOM. */
-  input!: HTMLInputElement;
+  /** @internal */
+  readonly internals = this.attachInternals();
 
   /**
    * Whether the checkbox is required.
    *
    * @default false
    */
-  @property({ type: Boolean, reflect: true }) override required?: boolean;
+  @property({ type: Boolean }) override required?: boolean;
 
   /**
    * When set will cause the control to show it is valid after reportValidity is called.
@@ -141,58 +131,79 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.input) {
-      this.input =
-        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
-        document.createElement('input');
-      this.input.slot = 'input';
-      this.input.type = 'checkbox';
-      this.#syncInput(this.input);
+    this.internals.role = 'checkbox';
 
-      if (!this.input.parentElement) {
-        this.append(this.input);
-      }
-
-      // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
-      const style = document.createElement('style');
-      style.innerHTML = `
-        sl-checkbox:has(input:focus-visible)::part(inner) {
-          outline-color: var(--sl-color-border-focused);
-          transition: 200ms ease-in-out;
-          transition-property: background, border-color, color, outline-color;
-        }
-      `;
-      this.append(style);
+    if (this.#eventController.signal.aborted) {
+      this.#eventController = new AbortController();
     }
 
-    this.setFormControlElement(this.input);
+    const { signal } = this.#eventController;
 
-    this.#onLabelSlotChange();
+    this.addEventListener('blur', this.#onBlur, { signal });
+    this.addEventListener('click', this.#onClick, { signal });
+    this.addEventListener('focus', this.#onFocus, { signal });
+    this.addEventListener('keydown', this.#onKeydown, { signal });
+
+    this.setFormControlElement(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#eventController.abort();
+
+    super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.internals.ariaChecked = Boolean(this.checked).toString();
+    this.internals.ariaRequired = this.required ? 'true' : 'false';
+
+    const slot = this.shadowRoot?.querySelector('slot');
+    if (slot) {
+      this.#updateNoLabelState(slot);
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    const props: Array<keyof Checkbox> = ['checked', 'disabled', 'indeterminate', 'required'];
+    if (changes.has('checked')) {
+      this.internals.ariaChecked = Boolean(this.checked).toString();
 
-    if (props.some(prop => changes.has(prop))) {
-      this.#syncInput(this.input);
+      if (this.checked) {
+        this.internals.states.add('checked');
+      } else {
+        this.internals.states.delete('checked');
+      }
+
+      this.updateValidity();
     }
 
     if (changes.has('disabled')) {
       this.updateValidity();
     }
 
-    if (changes.has('value') && this.value !== this.input.value) {
-      this.input.value = this.value?.toString() || '';
+    if (changes.has('indeterminate')) {
+      if (this.indeterminate) {
+        this.internals.ariaChecked = 'mixed';
+        this.internals.states.add('indeterminate');
+      } else {
+        this.internals.ariaChecked = Boolean(this.checked).toString();
+        this.internals.states.delete('indeterminate');
+      }
+    }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.updateValidity();
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
       <div part="outer">
-        <div part="inner">
+        <div part="inner" tabindex=${ifDefined(this.disabled ? undefined : '0')}>
           <svg
             aria-hidden="true"
             class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
@@ -206,18 +217,24 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
         </div>
       </div>
       <span part="label">
-        <slot name="label"></slot>
-        <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+        <slot @slotchange=${this.#onSlotChange}></slot>
       </span>
     `;
   }
 
-  override focus(): void {
-    this.input.focus();
-  }
+  override updateInternalValidity(): void {
+    if (this.validity.customError) {
+      return;
+    }
 
-  override blur(): void {
-    this.input.blur();
+    if (this.required && !this.checked) {
+      this.internals.setValidity(
+        { valueMissing: true },
+        msg('Please check this box.', { id: 'sl.checkbox.validation.valueMissing' })
+      );
+    } else {
+      this.internals.setValidity({});
+    }
   }
 
   override getLocalizedValidationMessage(): string {
@@ -228,114 +245,52 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     return super.getLocalizedValidationMessage();
   }
 
-  #onClick(event: Event): void {
-    if (this.disabled) {
-      return;
-    }
+  #onBlur = (): void => {
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  };
 
-    const label = event
-      .composedPath()
-      .find((el): el is HTMLLabelElement => el instanceof HTMLLabelElement);
-    if (label?.parentElement === this) {
-      this.input.click();
-
+  #onClick = (event: Event) => {
+    if (this.disabled || this.ariaDisabled === 'true') {
       event.preventDefault();
       event.stopPropagation();
 
-      // Return early to prevent the checkbox from being toggled twice
       return;
     }
 
-    event.stopPropagation();
-
     this.checked = !this.checked;
-    this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
-    this.updateValidity();
-  }
+  };
 
-  #onFocusin(): void {
+  #onFocus = (): void => {
     this.focusEvent.emit();
-  }
+  };
 
-  #onFocusout(): void {
-    this.blurEvent.emit();
-    this.updateState({ touched: true });
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
+  #onKeydown = (event: KeyboardEvent): void => {
     if (['Enter', ' '].includes(event.key)) {
       event.preventDefault();
       event.stopPropagation();
+
       this.#onClick(event);
     }
+  };
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.#updateNoLabelState(event.target);
   }
 
-  #onInputSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const elements = event.target.assignedElements({ flatten: true }),
-      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
-
-    // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    if (input) {
-      this.input = input;
-      this.#syncInput(this.input);
-
-      this.setFormControlElement(this.input);
-    }
-  }
-
-  #onLabelSlotChange(): void {
-    const nodes = Array.from(this.childNodes).filter(
-      node =>
-        node.nodeType === Node.TEXT_NODE ||
-        (node.nodeType === Node.ELEMENT_NODE &&
-          !(node as Element).hasAttribute('slot') &&
-          !(node instanceof HTMLStyleElement))
-    );
-
-    if (!nodes.length && this.#label) {
-      // Prevent an infinite loop
-      return;
-    }
-
-    const label = nodes
+  #updateNoLabelState(slot: HTMLSlotElement): void {
+    const text = slot
+      .assignedNodes({ flatten: true })
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent?.trim())
-      .join(' ');
-    if (label.length > 0) {
-      this.#label ||= document.createElement('label');
-      this.#label.htmlFor = this.input.id;
-      this.#label.id ||= `sl-checkbox-label-${nextUniqueId++}`;
-      this.#label.setAttribute('aria-hidden', 'true');
-      this.#label.slot = 'label';
-      this.#label.append(...nodes);
-      this.append(this.#label);
+      .join('');
+
+    if (text) {
+      this.internals.states.delete('no-label');
+    } else {
+      this.internals.states.add('no-label');
     }
-
-    requestAnimationFrame(() => {
-      if (!this.input.hasAttribute('aria-labelledby') && this.input.labels?.length) {
-        this.input.setAttribute(
-          'aria-labelledby',
-          Array.from(this.input.labels)
-            .map(label => label.id)
-            .join(' ')
-        );
-      }
-    });
-
-    this.toggleAttribute('no-label', label.length === 0);
-  }
-
-  #syncInput(input: HTMLInputElement): void {
-    input.autofocus = this.autofocus;
-    input.disabled = !!this.disabled;
-    input.id ||= `sl-checkbox-${nextUniqueId++}`;
-    input.required = !!this.required;
-
-    input.checked = !!this.checked;
-    input.indeterminate = !!this.indeterminate;
-
-    this.setAttributesTarget(input);
   }
 }

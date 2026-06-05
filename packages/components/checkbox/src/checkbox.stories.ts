@@ -18,6 +18,7 @@ type Props = Pick<
   | 'size'
   | 'value'
 > & {
+  ariaDisabled?: boolean;
   hint?: string;
   label?: string;
   reportValidity?: boolean;
@@ -55,6 +56,7 @@ export default {
     }
   },
   render: ({
+    ariaDisabled,
     checked,
     disabled,
     hint,
@@ -84,6 +86,7 @@ export default {
               ?required=${required}
               .showValid=${showValid}
               .value=${value}
+              aria-disabled=${ifDefined(ariaDisabled ? 'true' : undefined)}
               size=${ifDefined(size)}
               >${text}</sl-checkbox
             >
@@ -115,10 +118,18 @@ export const Disabled: Story = {
   }
 };
 
+export const AriaDisabled: Story = {
+  args: {
+    ariaDisabled: true
+  }
+};
+
 export const Empty: Story = {
   args: {
-    hint: 'This checkbox has no text and is only as wide as the checkbox itself',
-    text: ''
+    slot: () => html`
+      <sl-checkbox id="checkbox"></sl-checkbox>
+      <sl-tooltip for="checkbox">This is a tooltip labelling the checkbox.</sl-tooltip>
+    `
   }
 };
 
@@ -230,16 +241,6 @@ export const Indeterminate: StoryObj = {
           </ul>
         </li>
       </ul>
-    `;
-  }
-};
-
-export const NoVisibleLabel: StoryObj = {
-  render: () => {
-    return html`
-      <p style="margin: 0 0 1rem 0">This checkbox has no label. It uses a tooltip as the label.</p>
-      <sl-checkbox id="checkbox"></sl-checkbox>
-      <sl-tooltip for="checkbox">Toggle me</sl-tooltip>
     `;
   }
 };

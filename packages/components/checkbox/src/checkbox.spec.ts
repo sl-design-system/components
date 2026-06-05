@@ -9,34 +9,31 @@ import '../register.js';
 import { Checkbox } from './checkbox.js';
 
 describe('sl-checkbox', () => {
-  let el: Checkbox, input: HTMLInputElement;
+  let el: Checkbox;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
-      input = el.querySelector('input')!;
     });
 
-    it('should have an input of type checkbox', () => {
-      expect(input).to.exist;
-      expect(input.id).to.match(/sl-checkbox-(\d+)/);
-      expect(input.type).to.equal('checkbox');
+    it('should be a form-associated custom element with checkbox role', () => {
+      expect(Checkbox.formAssociated).to.be.true;
+      expect(el.internals.role).to.equal('checkbox');
     });
 
     it('should not be checked', () => {
+      expect(el).not.to.match(':state(checked)');
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should be checked when set', async () => {
       el.checked = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('checked');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('true');
     });
 
     it('should not have an explicit size', () => {
@@ -65,67 +62,41 @@ describe('sl-checkbox', () => {
     });
 
     it('should not be indeterminate', () => {
-      expect(el).not.to.have.attribute('indeterminate');
       expect(el.indeterminate).not.to.be.true;
-      expect(input).not.to.match(':indeterminate');
-      expect(input.indeterminate).to.be.false;
+      expect(el).not.to.match(':state(indeterminate)');
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should be indeterminate when set', async () => {
       el.indeterminate = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('indeterminate');
-      expect(input).to.match(':indeterminate');
-      expect(input.indeterminate).to.be.true;
+      expect(el.indeterminate).to.be.true;
+      expect(el).to.match(':state(indeterminate)');
+      expect(el.internals.ariaChecked).to.equal('mixed');
     });
 
     it('should not be required', () => {
-      expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;
-      expect(input).not.to.have.attribute('required');
-      expect(input.required).not.to.be.true;
+      expect(el.internals.ariaRequired).to.equal('false');
     });
 
     it('should be required when set', async () => {
       el.required = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('required');
-      expect(input).to.have.attribute('required');
-      expect(input.required).to.be.true;
+      expect(el.required).to.be.true;
+      expect(el.internals.ariaRequired).to.equal('true');
     });
 
-    it('should link the text to the input via label', () => {
-      const label = el.querySelector('label');
+    it('should have no-label state when no label text is provided', async () => {
+      el = await fixture(html`<sl-checkbox></sl-checkbox>`);
 
-      expect(label).to.exist;
-      expect(label).to.have.text('Hello world');
-      expect(label).to.have.attribute('for', input.id);
+      expect(el).to.match(':state(no-label)');
     });
 
-    it('should proxy the aria-disabled attribute to the input element', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-disabled');
-      expect(el.input).to.have.attribute('aria-disabled', 'true');
-    });
-
-    it('should proxy the aria-label attribute to the input element', async () => {
-      el.setAttribute('aria-label', 'Label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-label');
-      expect(el.input).to.have.attribute('aria-label', 'Label');
-    });
-
-    it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+    it('should not have no-label state when label text is provided', () => {
+      expect(el).not.to.match(':state(no-label)');
     });
 
     it('should be pristine', () => {
@@ -176,40 +147,32 @@ describe('sl-checkbox', () => {
       el.click();
       await el.updateComplete;
 
-      expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
 
       el.click();
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('checked');
       expect(el.checked).to.be.false;
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el).not.to.match(':state(checked)');
     });
 
-    it('should change the state to checked on when pressing enter', async () => {
+    it('should change the state to checked when pressing enter', async () => {
       el.focus();
       await userEvent.keyboard('{Enter}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
     });
 
-    it('should change the state to checked on when pressing space', async () => {
+    it('should change the state to checked when pressing space', async () => {
       el.focus();
       await userEvent.keyboard('{Space}');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
     });
 
     it('should emit an sl-change event when clicking an option', async () => {
@@ -285,13 +248,11 @@ describe('sl-checkbox', () => {
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox disabled>Hello world</sl-checkbox>`);
-      input = el.querySelector('input')!;
     });
 
     it('should be marked as disabled', () => {
+      expect(el).to.have.attribute('disabled');
       expect(el.disabled).to.be.true;
-      expect(input.disabled).to.be.true;
-      expect(input).to.have.attribute('disabled');
     });
 
     it('should not change the state to checked when clicked', async () => {
@@ -299,7 +260,7 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
+      expect(el).not.to.match(':state(checked)');
     });
 
     it('should not change the state to checked on enter', async () => {
@@ -308,7 +269,7 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
+      expect(el).not.to.match(':state(checked)');
     });
 
     it('should not change the state to checked on space', async () => {
@@ -317,7 +278,7 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
+      expect(el).not.to.match(':state(checked)');
     });
   });
 
@@ -441,16 +402,6 @@ describe('sl-checkbox', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
     });
 
-    it('should focus the input when the label is clicked', async () => {
-      const input = el.renderRoot.querySelector('input'),
-        label = el.renderRoot.querySelector('label');
-
-      label?.click();
-      await el.updateComplete;
-
-      expect(el.shadowRoot!.activeElement).to.equal(input);
-    });
-
     it('should toggle the checkbox when the label is clicked', async () => {
       const checkbox = el.renderRoot.querySelector('sl-checkbox'),
         label = el.renderRoot.querySelector('label');
@@ -458,8 +409,8 @@ describe('sl-checkbox', () => {
       label?.click();
       await el.updateComplete;
 
-      expect(checkbox).to.have.attribute('checked');
       expect(checkbox?.checked).to.be.true;
+      expect(checkbox).to.match(':state(checked)');
     });
   });
 });

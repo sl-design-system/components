@@ -1,3 +1,4 @@
+import { type Checkbox } from '@sl-design-system/checkbox';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/switch/register.js';
 import { type TextField } from '@sl-design-system/text-field';
@@ -194,6 +195,53 @@ describe('sl-label', () => {
 
       expect(el.renderRoot.querySelector('.optional')).not.to.exist;
       expect(el.renderRoot.querySelector('.required')).to.have.trimmed.text('(required)');
+    });
+  });
+
+  describe('ariaLabelledByElements', () => {
+    let el: Form, slLabel: Label, slCheckbox: Checkbox;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field>
+            <sl-label for="checkbox">My label</sl-label>
+            <sl-checkbox id="checkbox"></sl-checkbox>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      slLabel = el.querySelector('sl-label') as Label;
+      slCheckbox = el.querySelector('sl-checkbox') as Checkbox;
+    });
+
+    it('should add the label element to the ariaLabelledByElements of the checkbox', () => {
+      const label = el.querySelector('label');
+
+      expect(slCheckbox.ariaLabelledByElements).to.include(label);
+    });
+
+    it('should remove the label element from ariaLabelledByElements when disconnected', async () => {
+      const label = el.querySelector('label');
+
+      slLabel.remove();
+      await slLabel.updateComplete;
+
+      expect(slCheckbox.ariaLabelledByElements ?? []).not.to.include(label);
+    });
+
+    it('should not add the label element to ariaLabelledByElements more than once', async () => {
+      // Re-trigger the slot change by updating the label text
+      slLabel.for = undefined;
+      await slLabel.updateComplete;
+
+      slLabel.for = 'checkbox';
+      await slLabel.updateComplete;
+
+      const label = el.querySelector('label'),
+        matches = (slCheckbox.ariaLabelledByElements ?? []).filter(ref => ref === label);
+
+      expect(matches).to.have.length(1);
     });
   });
 });

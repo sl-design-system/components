@@ -53,13 +53,13 @@ describe('menu-button visual', () => {
   it('story + extra interactions', async () => {
     mountBasicStory();
     const trigger = await getTrigger();
-    trigger.click();
+    trigger.focus();
+    await userEvent.keyboard('{Space}');
 
-    await sleep(50);
     await takeSnapshot('basic-open');
 
     await userEvent.keyboard('{Escape}');
-    await sleep(50);
+
     await takeSnapshot('basic-closed-after-escape');
   });
 });

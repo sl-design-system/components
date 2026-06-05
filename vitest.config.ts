@@ -53,7 +53,7 @@ export default defineConfig(async () => {
         },
         {
           extends: true,
-          plugins: [chromaticPlugin()],
+          plugins: [chromaticPlugin({ disableAutoSnapshot: true })],
           test: {
             name: 'visual',
             include: ['visual/*.visual.spec.ts'],

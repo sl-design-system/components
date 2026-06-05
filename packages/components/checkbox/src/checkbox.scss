@@ -62,11 +62,15 @@
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
 }
 
+:host([disabled]) {
+  pointer-events: none;
+}
+
 :host(:where([disabled], [aria-disabled='true'])) {
   --_border: var(--sl-color-border-disabled);
   --_stroke: var(--sl-color-foreground-disabled);
 
-  pointer-events: none;
+  cursor: default;
 
   [part='inner'] {
     background: var(--sl-color-background-disabled);

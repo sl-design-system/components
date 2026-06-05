@@ -10,30 +10,31 @@ import '../register.js';
 import { Switch } from './switch.js';
 
 describe('sl-switch', () => {
-  let el: Switch, input: HTMLInputElement;
+  let el: Switch;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch></sl-switch>`);
-      input = el.querySelector('input')!;
+    });
+
+    it('should be a form-associated custom element with switch role', () => {
+      expect(Switch.formAssociated).to.be.true;
+      expect(el.internals.role).to.equal('switch');
     });
 
     it('should not be checked', () => {
-      expect(el).not.to.have.attribute('checked');
       expect(el.checked).not.to.be.true;
-      expect(input).to.have.attribute('aria-checked', 'false');
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el).not.to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should be checked when set', async () => {
       el.checked = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('checked');
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('true');
     });
 
     it('should not be disabled', () => {
@@ -46,6 +47,20 @@ describe('sl-switch', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+      expect(el.disabled).to.be.true;
+    });
+
+    it('should not be required', () => {
+      expect(el.required).not.to.be.true;
+      expect(el.internals.ariaRequired).to.equal('false');
+    });
+
+    it('should be required when set', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.required).to.be.true;
+      expect(el.internals.ariaRequired).to.equal('true');
     });
 
     it('should not have an explicit size', () => {
@@ -76,35 +91,21 @@ describe('sl-switch', () => {
       expect(el.renderRoot.querySelector('sl-icon')).to.exist;
     });
 
-    it('should proxy the aria-disabled attribute to the input element', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-disabled');
-      expect(el.input).to.have.attribute('aria-disabled', 'true');
+    it('should have no-label state when no label text is provided', () => {
+      expect(el).to.match(':state(no-label)');
     });
 
-    it('should proxy the aria-label attribute to the input element', async () => {
-      el.setAttribute('aria-label', 'Label');
-      await new Promise(resolve => setTimeout(resolve, 50));
+    it('should not have no-label state when label text is provided', async () => {
+      el = await fixture(html`<sl-switch>Label</sl-switch>`);
 
-      expect(el).to.not.have.attribute('aria-label');
-      expect(el.input).to.have.attribute('aria-label', 'Label');
-    });
-
-    it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+      expect(el).not.to.match(':state(no-label)');
     });
 
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });
 
-    it('should be dirty after clicking the checkbox', () => {
+    it('should be dirty after clicking the switch', () => {
       el.click();
 
       expect(el.dirty).to.be.true;
@@ -215,9 +216,10 @@ describe('sl-switch', () => {
       expect(el.validationMessage).to.equal('');
     });
 
-    it('should have a validation message after custom validation', () => {
+    it('should have a validation message after custom validation', async () => {
       el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
       el.click();
+      await el.updateComplete;
 
       expect(el.validationMessage).to.equal('Custom validation message');
     });
@@ -227,17 +229,15 @@ describe('sl-switch', () => {
       await el.updateComplete;
 
       expect(el.checked).to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('true');
 
       el.click();
       await el.updateComplete;
 
       expect(el.checked).to.equal(false);
-      expect(input).to.have.attribute('aria-checked', 'false');
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el).not.to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should toggle the state on Enter', async () => {
@@ -245,16 +245,14 @@ describe('sl-switch', () => {
       await userEvent.keyboard('{Enter}');
 
       expect(el.checked).to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('true');
 
       await userEvent.keyboard('{Enter}');
 
       expect(el.checked).to.equal(false);
-      expect(input).to.have.attribute('aria-checked', 'false');
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el).not.to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should toggle the state on Space', async () => {
@@ -262,16 +260,14 @@ describe('sl-switch', () => {
       await userEvent.keyboard('{Space}');
 
       expect(el.checked).to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('true');
 
       await userEvent.keyboard('{Space}');
 
       expect(el.checked).to.equal(false);
-      expect(input).to.have.attribute('aria-checked', 'false');
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el).not.to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should support custom icons', async () => {
@@ -302,30 +298,24 @@ describe('sl-switch', () => {
     it('should not change the state when clicked', () => {
       el.click();
 
-      expect(el.checked).not.to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el.checked).not.to.be.true;
+      expect(el).not.to.match(':state(checked)');
     });
 
     it('should not change the state on Enter', async () => {
       el.focus();
       await userEvent.keyboard('{Enter}');
 
-      expect(el.checked).not.to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el.checked).not.to.be.true;
+      expect(el).not.to.match(':state(checked)');
     });
 
     it('should not change the state on Space', async () => {
       el.focus();
       await userEvent.keyboard('{Space}');
 
-      expect(el.checked).not.to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el.checked).not.to.be.true;
+      expect(el).not.to.match(':state(checked)');
     });
   });
 
@@ -336,9 +326,52 @@ describe('sl-switch', () => {
 
     it('should be on when the property is set', () => {
       expect(el.checked).to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el).to.match(':state(checked)');
+      expect(el.internals.ariaChecked).to.equal('true');
+    });
+  });
+
+  describe('validation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-switch></sl-switch>`);
+    });
+
+    it('should be valid by default', () => {
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be invalid when required and not checked', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+    });
+
+    it('should be valid when required and checked', async () => {
+      el.required = true;
+      el.checked = true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should have a validation message when unchecked and required', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.getLocalizedValidationMessage()).to.equal('Please enable this switch.');
+    });
+
+    it('should have a custom validation message when it has a custom-validity attribute', async () => {
+      el = await fixture(html`<sl-switch custom-validity="Custom validation message"></sl-switch>`);
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message after calling setCustomValidity', () => {
+      el.setCustomValidity('Custom validation message');
+
+      expect(el.validationMessage).to.equal('Custom validation message');
     });
   });
 
@@ -354,8 +387,6 @@ describe('sl-switch', () => {
         `);
 
         el = form.firstElementChild as Switch;
-
-        input = el.querySelector('input')!;
       });
 
       it('should revert back to the initial state', async () => {
@@ -364,18 +395,16 @@ describe('sl-switch', () => {
         await el.updateComplete;
 
         expect(el.checked).to.equal(true);
-        expect(input).to.have.attribute('aria-checked', 'true');
-        expect(input).to.match(':checked');
-        expect(input.checked).to.be.true;
+        expect(el).to.match(':state(checked)');
+        expect(el.internals.ariaChecked).to.equal('true');
 
         form.reset();
 
         await el.updateComplete;
 
         expect(el.checked).to.equal(false);
-        expect(input).to.have.attribute('aria-checked', 'false');
-        expect(input).not.to.match(':checked');
-        expect(input.checked).to.be.false;
+        expect(el).not.to.match(':state(checked)');
+        expect(el.internals.ariaChecked).to.equal('false');
       });
 
       it('should emit an sl-change event', async () => {
@@ -400,8 +429,6 @@ describe('sl-switch', () => {
         `);
 
         el = form.firstElementChild as Switch;
-
-        input = el.querySelector('input')!;
       });
 
       it('should revert back to the initial states', async () => {
@@ -410,18 +437,16 @@ describe('sl-switch', () => {
         await el.updateComplete;
 
         expect(el.checked).to.equal(false);
-        expect(input).to.have.attribute('aria-checked', 'false');
-        expect(input).not.to.match(':checked');
-        expect(input.checked).to.be.false;
+        expect(el).not.to.match(':state(checked)');
+        expect(el.internals.ariaChecked).to.equal('false');
 
         form.reset();
 
         await el.updateComplete;
 
         expect(el.checked).to.equal(true);
-        expect(input).to.have.attribute('aria-checked', 'true');
-        expect(input).to.match(':checked');
-        expect(input.checked).to.be.true;
+        expect(el).to.match(':state(checked)');
+        expect(el.internals.ariaChecked).to.equal('true');
       });
 
       it('should emit an sl-change event', async () => {
@@ -467,27 +492,6 @@ describe('sl-switch', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
     });
 
-    it('should focus the switch when the label is clicked', async () => {
-      const control = el.renderRoot.querySelector('sl-switch'),
-        label = el.renderRoot.querySelector('label');
-
-      label?.click();
-      await el.updateComplete;
-
-      expect(control).to.have.attribute('checked');
-      expect(control?.checked).to.be.true;
-    });
-
-    it('should focus the input when the label is clicked', async () => {
-      const input = el.renderRoot.querySelector('input'),
-        label = el.renderRoot.querySelector('label');
-
-      label?.click();
-      await el.updateComplete;
-
-      expect(el.shadowRoot!.activeElement).to.equal(input);
-    });
-
     it('should toggle the switch when the label is clicked', async () => {
       const control = el.renderRoot.querySelector('sl-switch'),
         label = el.renderRoot.querySelector('label');
@@ -495,11 +499,8 @@ describe('sl-switch', () => {
       label?.click();
       await el.updateComplete;
 
-      expect(control).to.have.attribute('checked');
       expect(control?.checked).to.be.true;
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(control).to.match(':state(checked)');
     });
   });
 });

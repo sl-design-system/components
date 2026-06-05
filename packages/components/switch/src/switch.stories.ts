@@ -4,6 +4,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -58,20 +59,30 @@ export const Disabled: Story = {
   }
 };
 
+export const AriaDisabled: Story = {
+  render: () => html`
+    <sl-switch aria-disabled="true" id="switch">Text inside the switch</sl-switch>
+    <sl-tooltip for="switch" type="description">
+      This switch is disabled for this reason.
+    </sl-tooltip>
+  `
+};
+
 export const Empty: Story = {
   args: {
     text: ''
   },
   render: ({ checked, disabled, reverse, size, text, value }) => html`
     <sl-switch
-      aria-label="Switch with no label"
       ?checked=${checked}
       ?disabled=${disabled}
       ?reverse=${reverse}
+      id="switch"
       size=${ifDefined(size)}
       .value=${value}>
       ${text}
     </sl-switch>
+    <sl-tooltip for="switch">This switch has no label, but it does have a tooltip.</sl-tooltip>
   `
 };
 

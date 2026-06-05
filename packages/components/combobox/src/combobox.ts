@@ -902,7 +902,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         const index = this.items.findIndex(i => i.selected);
 
         if (index !== -1) {
-          this.listbox?.scrollToIndex(index, { block: 'start' }); //ideally we would use `nearest` here, but Safari and Firefox don't support it, causing inconsistency in scroll behavior across browsers.
+          this.listbox?.scrollToIndex(index, { block: 'start' }); // ideally we would use `nearest` here, but Safari and Firefox don't support it, causing inconsistency in scroll behavior across browsers.
         } else {
           this.listbox?.scrollIntoView({ block: 'start' });
         }
@@ -1407,9 +1407,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       if (this.currentItem.element) {
         this.currentItem.element.setAttribute('current', '');
-        this.currentItem.element.scrollIntoView({ block: 'nearest' });
+        this.currentItem.element.scrollIntoView({ block: 'start' });
       } else {
-        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });
+        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'start' });
       }
     }
   }

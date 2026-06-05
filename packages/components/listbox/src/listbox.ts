@@ -158,7 +158,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         // Update attribute after setting items
         this.#updateVirtualConstraintAttribute();
       } else if (changes.get('options')) {
-        this.items = [];
+        this.items = undefined;
         this.removeAttribute('data-virtual-unconstrained');
       }
     }
@@ -283,7 +283,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         behavior = options?.behavior === 'instant' ? 'auto' : options?.behavior;
       this.#virtualizer.scrollToIndex(index, {
         align: alignMap[block],
-        behavior: behavior
+        behavior
       });
     } else {
       Array.from(this.querySelectorAll('sl-option'))

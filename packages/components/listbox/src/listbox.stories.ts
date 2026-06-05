@@ -45,12 +45,15 @@ export default {
     const scrollTo = (index: number): void => {
       document.querySelector('sl-listbox')?.scrollToIndex(index);
     };
-
     return html`
       <style>
         sl-listbox {
           border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
           border-radius: var(--sl-size-borderRadius-default);
+          max-block-size: calc(100dvh - 4rem);
+        }
+
+        sl-button + sl-listbox {
           margin-block-start: 1rem;
           max-block-size: calc(100dvh - 7rem);
         }

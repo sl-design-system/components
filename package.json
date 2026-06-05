@@ -378,6 +378,7 @@
       "command": "vitest --project=visual",
       "dependencies": [
         "build:components",
+        "build:themes",
         "test:setup"
       ],
       "files": [

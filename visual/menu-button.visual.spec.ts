@@ -7,11 +7,14 @@ import * as stories from '../packages/components/menu/src/menu-button.stories.ts
 const meta = stories.default,
   basic = stories.Basic;
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
 type MenuButtonElement = HTMLElement & {
   updateComplete?: Promise<unknown>;
   renderRoot?: ShadowRoot;
+};
+
+type MenuElement = HTMLElement & {
+  showPopover?: () => void;
+  hidePopover?: () => void;
 };
 
 const mountBasicStory = () => {
@@ -24,41 +27,45 @@ const mountBasicStory = () => {
   render(meta.render(args), document.body);
 };
 
-const getTrigger = async () => {
-  await customElements.whenDefined('sl-menu-button');
-
+const getMenuAndWaitForState = async (expectedOpen: boolean) => {
   const menuButton = document.querySelector('sl-menu-button') as MenuButtonElement | null;
   if (!menuButton) {
     throw new Error('Expected sl-menu-button to be rendered.');
   }
 
-  if (menuButton.updateComplete) {
-    await menuButton.updateComplete;
+  const menu = menuButton.renderRoot?.querySelector('sl-menu') as MenuElement | null;
+  if (!menu) {
+    throw new Error('Expected sl-menu to be rendered.');
   }
 
-  await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
-
-  const trigger =
-    menuButton.renderRoot?.querySelector('sl-button') ??
-    menuButton.shadowRoot?.querySelector('sl-button');
-
-  if (!trigger) {
-    throw new Error('Expected sl-menu-button to render an sl-button trigger.');
+  // Wait for the :popover-open state to match expected
+  let attempts = 0;
+  while (attempts < 50) {
+    const isOpen = menu.matches(':popover-open');
+    if (isOpen === expectedOpen) {
+      break;
+    }
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    attempts++;
   }
 
-  return trigger as HTMLElement;
+  return menu;
 };
 
 describe('menu-button visual', () => {
   it('story + extra interactions', async () => {
     mountBasicStory();
-    const trigger = await getTrigger();
-    trigger.focus();
-    await userEvent.keyboard('{Space}');
+
+    // Open menu explicitly
+    let menu = await getMenuAndWaitForState(false);
+    menu.showPopover?.();
+    menu = await getMenuAndWaitForState(true);
 
     await takeSnapshot('basic-open');
 
+    // Close menu
     await userEvent.keyboard('{Escape}');
+    menu = await getMenuAndWaitForState(false);
 
     await takeSnapshot('basic-closed-after-escape');
   });

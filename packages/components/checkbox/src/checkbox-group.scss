@@ -1,6 +1,9 @@
 :host {
-  align-items: start;
   display: flex;
+}
+
+[part='wrapper'] {
+  display: inline-flex;
   flex-direction: column;
   gap: var(--sl-size-050);
 }

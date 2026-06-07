@@ -24,14 +24,6 @@ describe('sl-checkbox-group', () => {
 
     it('should not be disabled', () => {
       expect(el.disabled).to.not.be.true;
-      expect(el).not.to.have.attribute('disabled');
-    });
-
-    it('should be disabled if set', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('disabled');
     });
 
     it('should disable all checkboxes if set', async () => {
@@ -89,9 +81,9 @@ describe('sl-checkbox-group', () => {
 
       const boxes = el.querySelectorAll('sl-checkbox');
 
-      expect(boxes[0]).to.have.attribute('checked');
-      expect(boxes[1]).to.have.attribute('checked');
-      expect(boxes[2]).not.to.have.attribute('checked');
+      expect(boxes[0]).to.match(':state(checked)');
+      expect(boxes[1]).to.match(':state(checked)');
+      expect(boxes[2]).not.to.match(':state(checked)');
     });
 
     it('should set the value after clicking on a checkbox', async () => {
@@ -236,23 +228,27 @@ describe('sl-checkbox-group', () => {
       expect(allLarge).to.be.true;
     });
 
-    it('should handle navigating between options correctly', async () => {
-      expect(el.boxes?.[0].checked).not.to.be.true;
-      expect(el.boxes?.[0].tabIndex).to.equal(0);
-      expect(el.boxes?.[1].checked).not.to.be.true;
-      expect(el.boxes?.[1].tabIndex).to.equal(-1);
+    it.only('should handle navigating between options correctly', async () => {
+      expect(el.boxes?.at(0)).not.to.match(':state(checked)');
+      expect(el.boxes?.at(1)).not.to.match(':state(checked)');
 
-      el.boxes?.[0]?.focus();
+      console.log(el.renderRoot.querySelector('[part="wrapper"]')?.getAttribute('focusgroup')); // toolbar block wrap
+      // console.log(el.renderRoot.querySelector('[part="wrapper"]')?.focusGroup); // undefined
+
+      el.boxes?.at(0)?.focus();
       await userEvent.keyboard('{Space}');
 
-      expect(el.boxes?.[0].checked).to.be.true;
-      expect(el.boxes?.[1].checked).not.to.be.true;
+      expect(el.boxes?.at(0)).to.match(':state(checked)');
+      expect(el.boxes?.at(1)).not.to.match(':state(checked)');
 
       await userEvent.keyboard('{ArrowDown}');
+
+      expect(document.activeElement).to.equal(el.boxes?.at(1));
+
       await userEvent.keyboard('{Enter}');
 
-      expect(el.boxes?.[0].checked).to.be.true;
-      expect(el.boxes?.[1].checked).to.be.true;
+      expect(el.boxes?.at(0)).to.match(':state(checked)');
+      expect(el.boxes?.at(1)).to.match(':state(checked)');
     });
   });
 

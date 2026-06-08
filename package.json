@@ -38,6 +38,7 @@
     "start": "wireit",
     "storybook": "wireit",
     "test": "wireit",
+    "test:storybook:interactions": "wireit",
     "test:visual": "wireit",
     "test:visual:ci": "wireit",
     "version": "wireit",
@@ -360,6 +361,18 @@
       "files": [
         "web-test-runner.config.mjs",
         "packages/components/**/*.spec.ts"
+      ]
+    },
+    "test:storybook:interactions": {
+      "command": "node scripts/run-storybook-interaction-tests.js",
+      "dependencies": [
+        "chromatic-components",
+        "test:setup"
+      ],
+      "files": [
+        "playwright.config.ts",
+        "tests/storybook/**/*.spec.ts",
+        "scripts/run-storybook-interaction-tests.js"
       ]
     },
     "test:setup": {

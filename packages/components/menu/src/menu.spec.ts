@@ -666,6 +666,23 @@ describe('sl-menu', () => {
 
         document.body.removeChild(outsideButton);
       });
+
+      it('should allow clicks from nested submenu items to bubble', async () => {
+        const onClickItem = spy(),
+          onClickMenu = spy(),
+          nestedItem = nestedSubmenu.querySelector('sl-menu-item')!;
+
+        nestedSubmenu.showPopover();
+        await nestedSubmenu.updateComplete;
+
+        nestedItem.addEventListener('click', onClickItem);
+        el.addEventListener('click', onClickMenu);
+
+        await userEvent.click(nestedItem);
+
+        expect(onClickItem).to.have.been.calledOnce;
+        expect(onClickMenu).to.have.been.calledOnce;
+      });
     });
   });
 

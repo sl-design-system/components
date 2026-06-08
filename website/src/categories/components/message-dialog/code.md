@@ -52,6 +52,13 @@ eleventyNavigation:
 <ds-install-info link-in-navigation package="message-dialog"></ds-install-info>
 <section>
 
+## Angular service
+
+Angular applications can use the `MessageDialogService` to open and manage message dialogs programmatically. See the [Message Dialog Service documentation in Storybook](https://storybook.sanomalearning.design/?path=/docs/angular_components-message-dialog-service--documentation) for Angular examples and API details.
+
+</section>
+<section>
+
 ## Alert
 
 The `MessageDialog.alert()` API is used to show a message dialog with a single "OK" button. Use this for informing the user about something important. Do not use this just for anything, as you are interrupting the workflow of the user.

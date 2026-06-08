@@ -159,7 +159,7 @@ export default {
         }
 
         .container sl-tool-bar {
-          flex: ${resizable && !width ? 1 : 0} 1 auto;
+          flex: ${resizable && !width ? '1 1 0' : '0 1 auto'};
           min-inline-size: 0;
         }
       </style>
@@ -173,8 +173,7 @@ export default {
             align=${ifDefined(align)}
             fill=${ifDefined(fill)}
             style="inline-size: ${width ?? 'auto'}"
-            aria-label="Tool bar example"
-          >
+            aria-label="Tool bar example">
             ${items?.(args)}
           </sl-tool-bar>
         </div>
@@ -420,8 +419,7 @@ export const State: Story = {
         <sl-toggle-button
           aria-controls="action-1 action-2 action-3"
           @sl-toggle=${onClick}
-          fill="outline"
-        >
+          fill="outline">
           <sl-icon name="far-universal-access" slot="default"></sl-icon>
           <sl-icon name="fas-universal-access" slot="pressed"></sl-icon>
           Toggle disabled state
@@ -508,8 +506,7 @@ export const IconOnly: Story = {
           align=${ifDefined(align)}
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
-          aria-label="Icon only tool bar with tooltips"
-        >
+          aria-label="Icon only tool bar with tooltips">
           <sl-button aria-labelledby="tooltip-bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
           </sl-button>
@@ -523,8 +520,7 @@ export const IconOnly: Story = {
           <sl-button
             aria-disabled="true"
             aria-labelledby="tooltip-underline-disabled"
-            fill="outline"
-          >
+            fill="outline">
             <sl-icon name="far-underline"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-underline-disabled">Underline (disabled)</sl-tooltip>
@@ -571,8 +567,7 @@ export const IconOnly: Story = {
           align=${ifDefined(align)}
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
-          aria-label="Icon only tool bar with aria-labels"
-        >
+          aria-label="Icon only tool bar with aria-labels">
           <sl-button aria-label="Bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
           </sl-button>
@@ -753,8 +748,7 @@ export const Examples: Story = {
             aria-label="Page options"
             contained
             fill="outline"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${pageOptions}
           </sl-tool-bar>
           <sl-tool-bar
@@ -762,8 +756,7 @@ export const Examples: Story = {
             contained
             inverted
             fill="outline"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${pageOptions}
           </sl-tool-bar>
 
@@ -776,16 +769,14 @@ export const Examples: Story = {
             contained
             inverted
             fill="ghost"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${options}
           </sl-tool-bar>
 
           <sl-tool-bar
             aria-label="Filtering and sorting"
             fill="ghost"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${filteringAndSorting}
           </sl-tool-bar>
 
@@ -793,8 +784,7 @@ export const Examples: Story = {
             aria-label="Filtering and sorting"
             inverted
             fill="ghost"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${filteringAndSorting}
           </sl-tool-bar>
         </div>
@@ -816,6 +806,10 @@ export const All: Story = {
 
         .container sl-tool-bar {
           flex: 0 1 auto;
+          min-inline-size: 0;
+        }
+
+        .wrapper > div {
           min-inline-size: 0;
         }
       </style>

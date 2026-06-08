@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
@@ -20,6 +20,7 @@ import {
 import {
   EventEmitter,
   EventsController,
+  ObserveAttributesMixin,
   type Path,
   type PathKeys,
   anchor,
@@ -87,7 +88,10 @@ let nextUniqueId = 0;
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-label', 'aria-describedby', 'aria-labelledby']
+) {
   /** @internal The default offset of the popover to the input. */
   static offset = 6;
 
@@ -148,6 +152,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
    * show it again when the button click event fires.
    */
   #popoverJustClosed = false;
+
+  /** Flag indicating whether the popover was opened via keyboard navigation. */
+  #popoverOpenedViaKeyboard = false;
 
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
@@ -212,6 +219,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Will allow the selection of multiple options if true. */
   @property({ type: Boolean }) multiple?: boolean;
+
+  /** @internal The ID of the label element for this form control. */
+  @property({ attribute: 'data-label-id' }) labelId?: string;
 
   /** The path to use for grouping the options. */
   @property({ attribute: 'option-group-path' }) optionGroupPath?: PathKeys<T>;
@@ -310,6 +320,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.setFormControlElement(this);
 
+    this.setAttributesTarget(this.input);
+
     /**
      * Light DOM styling workarounds:
      *
@@ -348,6 +360,23 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.#addSelectedGroup();
       } else {
         this.#removeSelectedGroup();
+      }
+    }
+
+    if (changes.has('labelId')) {
+      const previousLabelId = changes.get('labelId'),
+        ariaLabel = this.input.getAttribute('aria-label'),
+        ariaLabelledBy = this.input.getAttribute('aria-labelledby'),
+        hasExplicitAccessibleName = Boolean(
+          ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId)
+        );
+
+      if (!this.labelId || ariaLabel) {
+        if (ariaLabelledBy === previousLabelId) {
+          this.input.removeAttribute('aria-labelledby');
+        }
+      } else if (!hasExplicitAccessibleName) {
+        this.input.setAttribute('aria-labelledby', this.labelId);
       }
     }
 
@@ -444,9 +473,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     if (changes.has('required')) {
-      this.input.required = !!this.required;
-
       this.updateValidity();
+    }
+
+    // Don't set name on the input - we use ElementInternals for form submission
+    // The input should not submit its value directly to avoid duplicate/incorrect submissions
+    if (changes.has('name') && this.input.hasAttribute('name')) {
+      this.input.removeAttribute('name');
     }
   }
 
@@ -467,8 +500,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         placeholder=${ifDefined(
           this.multiple && this.selectedItems.length ? undefined : this.placeholder
         )}
-        size=${ifDefined(this.size)}
-      >
+        size=${ifDefined(this.size)}>
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
@@ -476,8 +508,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                 aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
                 size=${ifDefined(this.size)}
                 slot="prefix"
-                stacked
-              >
+                stacked>
                 ${repeat(
                   this.selectedItems,
                   item => item,
@@ -487,8 +518,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
                       aria-hidden=${this.disabled ? nothing : 'true'}
-                      class=${this.focusedTag === item ? 'focused' : ''}
-                    >
+                      class=${this.focusedTag === item ? 'focused' : ''}>
                       ${item.label}
                     </sl-tag>
                   `
@@ -500,15 +530,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg(
-            str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`,
-            {
-              id: 'sl.combobox.toggleOptions'
-            }
-          )}
+          aria-expanded=${this.input?.getAttribute('aria-expanded') ?? 'false'}
+          aria-label=${msg('Options', { id: 'sl.combobox.options' })}
           slot="suffix"
-          tabindex="-1"
-        >
+          tabindex="-1">
           <sl-icon name="chevron-down"></sl-icon>
         </button>
       </sl-text-field>
@@ -527,8 +552,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         @toggle=${this.#onToggle}
         part="wrapper"
         popover
-        tabindex="-1"
-      ></slot>
+        tabindex="-1"></slot>
     `;
   }
 
@@ -573,6 +597,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
+
+    this.requestUpdate();
   }
 
   #onButtonClick(): void {
@@ -599,7 +625,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #onFocus(): void {
-    if (!this.#pointerDown) {
+    if (this.#pointerDown) {
       this.wrapper?.showPopover();
     }
   }
@@ -614,6 +640,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       // If we are leaving the component, make sure the input value reflects the selected items
       this.#updateCreateCustomOption();
       this.#updateTextFieldValue();
+      this.#updateFilteredOptions();
       this.updateValidity();
     }
   }
@@ -656,7 +683,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' && !this.focusedTag) {
+    const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
+
+    if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
+      if (isSelectOnlySpace) {
+        event.preventDefault();
+      }
+
       if (this.allowCustomValues && this.currentItem === this.createCustomOption) {
         this.#addCustomOption(this.input.value);
       } else if (this.currentItem?.custom && this.currentItem?.option) {
@@ -702,6 +735,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       !this.wrapper?.matches(':popover-open') &&
       ['ArrowDown', 'ArrowUp'].includes(event.key)
     ) {
+      this.#popoverOpenedViaKeyboard = true;
       this.wrapper?.showPopover();
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
       event.preventDefault();
@@ -873,10 +907,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
-        if (this.selectedItems.length) {
+        if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
           this.#updateCurrent(this.selectedItems[0]);
         }
       }
+
+      this.#popoverOpenedViaKeyboard = false;
     } else {
       this.#popoverJustClosed = false;
       this.#updateCurrent();

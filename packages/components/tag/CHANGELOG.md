@@ -1,5 +1,14 @@
 # @sl-design-system/tag
 
+## 0.1.12
+
+### Patch Changes
+
+- [#3112](https://github.com/sl-design-system/components/pull/3112) [`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56) - Added a 0.5px buffer to the tag list visibility calculation to prevent layout oscillation (flickering) caused by sub-pixel rounding errors at certain zoom levels.
+
+- Updated dependencies [[`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/tooltip@2.0.0
+
 ## 0.1.11
 
 ### Patch Changes

@@ -93,9 +93,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'octagon-exclamation-solid';
+        return 'triangle-exclamation-solid';
       case 'danger':
-        return 'diamond-exclamation-solid';
+        return 'octagon-xmark-solid';
       default:
         return 'info';
     }
@@ -194,8 +194,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
               .size=${this.size === 'sm' ? 'sm' : 'md'}
               .variant=${this.variant ?? 'info'}
               aria-label=${msg('Close', { id: 'sl.common.close' })}
-              fill="ghost"
-            >
+              fill="ghost">
               <sl-icon name="xmark"></sl-icon>
             </sl-button>
           `}

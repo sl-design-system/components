@@ -449,8 +449,7 @@ describe('sl-number-field', () => {
       el = await fixture(html`
         <sl-number-field
           value="10.809"
-          .formatOptions=${{ style: 'percent', maximumFractionDigits: 2 }}
-        ></sl-number-field>
+          .formatOptions=${{ style: 'percent', maximumFractionDigits: 2 }}></sl-number-field>
       `);
       input = el.querySelector('input')!;
     });
@@ -480,6 +479,16 @@ describe('sl-number-field', () => {
       await userEvent.keyboard('123');
 
       expect(el.validationMessage).to.equal('');
+    });
+
+    it('should preserve externally set custom validity when reporting validity', async () => {
+      el.setCustomValidity('Custom validation message');
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+      expect(el.valid).to.be.false;
+      expect(el.showValidity).to.equal('invalid');
     });
   });
 });

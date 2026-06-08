@@ -371,8 +371,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   @keydown=${this.#onSelectAllKeydown}
                   @mousedown=${this.#onSelectAllMouseDown}
                   class="select-all"
-                  contenteditable="true"
-                >
+                  contenteditable="true">
                   ${this.#getFormattedValue()}
                 </span>
               `
@@ -382,8 +381,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   ? html`
                       <div
                         aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
-                        class="placeholder"
-                      >
+                        class="placeholder">
                         ${this.placeholder}
                       </div>
                     `
@@ -398,8 +396,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-expanded=${this.dialog?.matches(':popover-open') ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
-          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
-        >
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="calendar"></sl-icon>
         </sl-field-button>
       </div>
@@ -410,8 +407,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @toggle=${this.#onToggle}
         @keydown=${this.#onKeydown}
         id="dialog"
-        popover
-      >
+        popover>
         ${this.calendarVisible
           ? html`
               <slot @slotchange=${this.#onSlotChange} @sl-change=${this.#onChange} name="calendar">
@@ -423,8 +419,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   max=${ifDefined(this.max?.toISOString())}
                   min=${ifDefined(this.min?.toISOString())}
                   month=${ifDefined(this.month?.toISOString())}
-                  show-today
-                ></sl-calendar>
+                  show-today></sl-calendar>
               </slot>
               ${hasExtraControls
                 ? html`

@@ -1,6 +1,7 @@
 import '@sl-design-system/badge/register.js';
+import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Listbox } from './listbox.js';
@@ -41,22 +42,35 @@ export default {
     optionValuePath,
     slot
   }) => {
+    const scrollTo = (index: number): void => {
+      document.querySelector('sl-listbox')?.scrollToIndex(index);
+    };
     return html`
       <style>
         sl-listbox {
           border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
           border-radius: var(--sl-size-borderRadius-default);
-          max-block-size: calc(100dvh - 3rem);
+          max-block-size: calc(100dvh - 4rem);
+        }
+        sl-button + sl-listbox {
+          margin-block-start: 1rem;
+          max-block-size: calc(100dvh - 7rem);
         }
       </style>
+      ${options
+        ? html`
+            <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
+              >Scroll to ${Math.floor(options.length / 2)}</sl-button
+            >
+          `
+        : nothing}
       <sl-listbox
         .options=${options}
         .optionGroupPath=${optionGroupPath}
         .optionLabelPath=${optionLabelPath}
         .optionSelectedPath=${optionSelectedPath}
         .optionValuePath=${optionValuePath}
-        emphasis=${ifDefined(emphasis)}
-      >
+        emphasis=${ifDefined(emphasis)}>
         ${slot?.()}
       </sl-listbox>
     `;

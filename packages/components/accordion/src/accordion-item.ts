@@ -77,8 +77,7 @@ export class AccordionItem extends LitElement {
           aria-expanded=${this.open ? 'true' : 'false'}
           id="summary"
           part="summary"
-          tabindex=${this.disabled ? -1 : 0}
-        >
+          tabindex=${this.disabled ? -1 : 0}>
           ${this.iconType === 'chevron'
             ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
             : html`

@@ -1,5 +1,13 @@
 # @sl-design-system/breadcrumbs
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/tooltip@2.0.0
+
 ## 1.2.2
 
 ### Patch Changes

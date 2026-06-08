@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import { type LocaleModule, configureLocalization } from '@lit/localize';
+import { configureLocalization } from '@lit/localize';
 import '@sl-design-system/announcer/register.js';
-import * as locales from '@sl-design-system/locales';
+import { sourceLocale, targetLocales } from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
 import { type Mode, themes, updateTheme } from './themes.js';
@@ -24,11 +24,27 @@ if (!import.meta.env?.DEV) {
   MockDate.set('2025-06-01T00:00:00Z');
 }
 
+// Lazy-loading map for locale modules
+const locales = {
+  'es-ES': () => import('@sl-design-system/locales/es-ES.js'),
+  it: () => import('@sl-design-system/locales/it.js'),
+  nl: () => import('@sl-design-system/locales/nl.js'),
+  pl: () => import('@sl-design-system/locales/pl.js')
+} as const;
+
 const { setLocale } = configureLocalization({
-  sourceLocale: locales.sourceLocale,
-  targetLocales: locales.targetLocales,
-  loadLocale: locale =>
-    Promise.resolve((locales as Record<string, unknown>)[locale] as LocaleModule)
+  sourceLocale,
+  targetLocales,
+  loadLocale: async locale => {
+    const localeKey = locale as keyof typeof locales,
+      loader = locales[localeKey];
+
+    if (!loader) {
+      console.warn(`Unsupported locale: ${locale}`);
+      return { templates: {} };
+    }
+    return await loader();
+  }
 });
 
 const customViewports = {
@@ -76,7 +92,7 @@ const customViewports = {
 
 const preview: Preview = {
   decorators: [
-    (story, { globals: { locale = locales.sourceLocale } }) => {
+    (story, { globals: { locale = sourceLocale } }) => {
       document.documentElement.lang = locale;
 
       try {
@@ -129,7 +145,7 @@ const preview: Preview = {
         items: [
           { value: 'de', right: '🇩🇪', title: 'Deutsch' },
           { value: 'en-GB', right: '🇬🇧', title: 'English (UK)' },
-          { value: 'es', right: '🇪🇸', title: 'Español' },
+          { value: 'es-ES', right: '🇪🇸', title: 'Español' },
           { value: 'fr', right: '🇫🇷', title: 'Français' },
           { value: 'it', right: '🇮🇹', title: 'Italiano' },
           { value: 'nl', right: '🇳🇱', title: 'Nederlands' },
@@ -159,7 +175,7 @@ const preview: Preview = {
     options: {
       storySort: {
         method: 'alphabetical',
-        order: ['', 'Getting started']
+        order: ['Welcome', 'Getting started']
       }
     },
     viewport: {

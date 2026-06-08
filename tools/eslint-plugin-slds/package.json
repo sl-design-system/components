@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/eslint-plugin-slds",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ESLint plugin for SLDS components",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -34,6 +34,6 @@
   "devDependencies": {
     "eslint": "^9.27.0",
     "eslint-plugin-lit-a11y": "^4.1.4",
-    "mocha": "11.7.5"
+    "mocha": "11.7.6"
   }
 }

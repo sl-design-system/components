@@ -1,5 +1,23 @@
 # @sl-design-system/panel
 
+## 0.3.6
+
+### Patch Changes
+
+- [#3365](https://github.com/sl-design-system/components/pull/3365) [`957d7c5`](https://github.com/sl-design-system/components/commit/957d7c531365a1a710d90c328e3a2e6608e7342d) - Hide collapsed panel content from assistive technology
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
+## 0.3.5
+
+### Patch Changes
+
+- [#3235](https://github.com/sl-design-system/components/pull/3235) [`1ad7f97`](https://github.com/sl-design-system/components/commit/1ad7f97192ca54077c1c931d36db6d73223ae2d0) - Fixed an accessibility issue where non-collapsible panels rendered `aria-labelledby` on the body container without a `region` role. `aria-labelledby` is now applied only when the panel is collapsible (and the body is a `region`), preventing duplicate heading announcements in screen readers and resolving ARIA prohibited attributes warnings.
+
+- Updated dependencies [[`e19736a`](https://github.com/sl-design-system/components/commit/e19736a4334f6b260c521da7b6f77da485468ddd), [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411), [`f7ad9c9`](https://github.com/sl-design-system/components/commit/f7ad9c907f7661a542889c7140e9161774d9dc86)]:
+  - @sl-design-system/tool-bar@0.2.4
+
 ## 0.3.4
 
 ### Patch Changes

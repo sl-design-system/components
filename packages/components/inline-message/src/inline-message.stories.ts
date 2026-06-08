@@ -52,8 +52,7 @@ export default {
     <sl-inline-message
       ?indismissible=${indismissible}
       .size=${size ?? 'auto'}
-      variant=${ifDefined(variant)}
-    >
+      variant=${ifDefined(variant)}>
       ${title ? html`<h2 slot="title">${title}</h2>` : nothing}
       ${typeof body === 'string' ? body : body()}
     </sl-inline-message>

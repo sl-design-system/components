@@ -37,8 +37,7 @@ export const LogIn: Story = {
           <sl-text-field
             name="username"
             placeholder="Enter your username or email address here"
-            required
-          ></sl-text-field>
+            required></sl-text-field>
         </sl-form-field>
 
         <sl-form-field>

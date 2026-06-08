@@ -175,8 +175,7 @@ export default {
         .elevation=${elevation}
         .heading=${heading}
         .noBorder=${noBorder}
-        .togglePlacement=${togglePlacement}
-      >
+        .togglePlacement=${togglePlacement}>
         ${actions?.()}${content?.()}${prefix?.()}${suffix?.()}
       </sl-panel>
     `;
@@ -398,8 +397,7 @@ export const NoPaddingContent: Story = {
                   <sl-avatar
                     .displayName=${users[rowIndex].name}
                     .pictureUrl=${users[rowIndex].picture}
-                    size="md"
-                  ></sl-avatar>
+                    size="md"></sl-avatar>
                 </td>
                 <td class="cell">${users[rowIndex].days}</td>
                 <td class="cell">${users[rowIndex].since}</td>
@@ -460,8 +458,7 @@ export const ToggleExternally: Story = {
               <sl-panel
                 @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e)}
                 collapsible
-                heading="Discovering Dinosaurs 🦕"
-              >
+                heading="Discovering Dinosaurs 🦕">
                 Embark on a thrilling journey back in time to the age of dinosaurs, where colossal
                 creatures roamed the Earth 🌎 and ancient landscapes teemed with life. This
                 prehistoric adventure invites you to explore a world untouched by modern
@@ -477,7 +474,7 @@ export const ToggleExternally: Story = {
 
           togglePanel() {
             this.renderRoot.querySelector('sl-panel')?.toggle();
-            announce(`Panel ${this.collapsed ? 'collapsing' : 'expanding'}`);
+            announce(`Panel ${this.collapsed ? 'expanding' : 'collapsing'}`);
             this.requestUpdate();
           }
 

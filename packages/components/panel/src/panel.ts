@@ -182,12 +182,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
                 aria-controls="body"
                 aria-expanded=${this.collapsed ? 'false' : 'true'}
                 class="toggle"
-                fill="ghost"
-              >
+                fill="ghost">
                 <sl-icon
                   class=${!this.collapsed ? 'upside-down' : ''}
-                  name="chevron-down"
-                ></sl-icon>
+                  name="chevron-down"></sl-icon>
               </sl-button>
               <div part="wrapper">${this.#renderHeading()}</div>
             `
@@ -201,9 +199,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       <div
         id="body"
         part="body"
+        ?inert=${this.collapsible && !!this.collapsed}
+        aria-hidden=${ifDefined(this.collapsible && this.collapsed ? 'true' : undefined)}
         aria-labelledby=${ifDefined(this.collapsible ? 'heading' : undefined)}
-        role=${ifDefined(this.collapsible ? 'region' : undefined)}
-      >
+        role=${ifDefined(this.collapsible ? 'region' : undefined)}>
         <div part="inner">
           <div part="content">
             <slot></slot>

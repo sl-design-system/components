@@ -38,8 +38,7 @@ describe('sl-listbox', () => {
           option-label-path="label"
           option-selected-path="selected"
           option-value-path="value"
-          style="height: 200px"
-        ></sl-listbox>
+          style="height: 200px"></sl-listbox>
       `);
 
       // Give the virtualizer time to render

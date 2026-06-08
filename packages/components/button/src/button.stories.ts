@@ -70,8 +70,7 @@ export default {
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        variant=${ifDefined(variant)}>
         ${startIcon}${text}${endIcon}
       </sl-button>
     `;
@@ -129,8 +128,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled button
         </sl-button>
         <sl-button
@@ -138,8 +136,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled (ARIA only) button
         </sl-button>
       </div>
@@ -160,8 +157,7 @@ export const IconOnly: Story = {
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        variant=${ifDefined(variant)}>
         <sl-icon name="far-plus"></sl-icon>
       </sl-button>
       <sl-tooltip id="tooltip">

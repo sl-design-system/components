@@ -63,8 +63,8 @@
   <target>Voer een geldig getal in.</target>
 </trans-unit>
 <trans-unit id="sl.common.validation.tooShort">
-  <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
-  <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
+  <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> character<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> (you currently have <x id="2" equiv-text="${length}"/> character<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</source>
+  <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakter<x id="1" equiv-text="${getCharacterPluralSuffix(this.minLength ?? 0)}"/> in (je hebt op dit moment <x id="2" equiv-text="${length}"/> karakter<x id="3" equiv-text="${getCharacterPluralSuffix(length)}"/>).</target>
 </trans-unit>
 <trans-unit id="sl.checkbox.validation.valueMissing">
   <source>Please check this box.</source>
@@ -138,6 +138,10 @@
   <source>Remove sort</source>
   <target>Verwijder sortering</target>
 </trans-unit>
+<trans-unit id="sl.grid.reorder">
+  <source>Reorder</source>
+  <target>Herschikken</target>
+</trans-unit>
 <trans-unit id="sl.grid.sortAscending">
   <source>Sort ascending</source>
   <target>Sorteer oplopend</target>
@@ -173,10 +177,6 @@
 <trans-unit id="sl.combobox.selectedOptions">
   <source>Selected options</source>
   <target>Geselecteerde opties</target>
-</trans-unit>
-<trans-unit id="sl.combobox.toggleOptions">
-  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
-  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
 </trans-unit>
 <trans-unit id="sl.radioGroup.validation.valueMissing">
   <source>Please select an option.</source>
@@ -214,13 +214,29 @@
   <source>Skip to start of table</source>
   <target>Naar het begin van de tabel</target>
 </trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabel">
+  <source>Items</source>
+  <target>Items</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelFew">
+  <source>items</source>
+  <target>items</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelOne">
+  <source>item</source>
+  <target>item</target>
+</trans-unit>
+<trans-unit id="sl.paginator.defaultItemLabelOther">
+  <source>items</source>
+  <target>items</target>
+</trans-unit>
 <trans-unit id="sl.paginator.itemsPerPage">
-  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per page:</source>
-  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'Items'}"/> per pagina:</target>
+  <source><x id="0" equiv-text="${itemLabel}"/> per page:</source>
+  <target><x id="0" equiv-text="${itemLabel}"/> per pagina:</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPageOption">
-  <source><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'items'}"/> per page</source>
-  <target><x id="0" equiv-text="${this.itemLabel ? this.itemLabel : 'items'}"/> per pagina</target>
+  <source><x id="0" equiv-text="${sizeLabel}"/> per page</source>
+  <target><x id="0" equiv-text="${itemLabelLowercase}"/> per pagina</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pagination">
   <source>Pagination</source>
@@ -242,9 +258,21 @@
   <source><x id="0" equiv-text="${index + 1}"/>, page</source>
   <target><x id="0" equiv-text="${index + 1}"/>, pagina</target>
 </trans-unit>
+<trans-unit id="sl.paginator.pagesLabelFew">
+  <source>pages</source>
+  <target>pagina's</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagesLabelOne">
+  <source>page</source>
+  <target>pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagesLabelOther">
+  <source>pages</source>
+  <target>pagina's</target>
+</trans-unit>
 <trans-unit id="sl.paginator.totalPages">
-  <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
-  <target>van <x id="0" equiv-text="${this.pageCount}"/> pagina's</target>
+  <source>of <x id="0" equiv-text="${this.pageCount + ' ' + this.#getPagesLabel()}"/></source>
+  <target>van <x id="0" equiv-text="${this.pageCount + ' ' + this.#getPagesLabel()}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.nextPage">
   <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
@@ -255,12 +283,12 @@
   <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> van <x id="1" equiv-text="${this.pageCount}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsRange">
-  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></source>
-  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></target>
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></source>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></target>
 </trans-unit>
 <trans-unit id="sl.paginator.currentlyShowingAmount">
-  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/></source>
-  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems} ${this.itemLabel ? this.itemLabel : 'items'}"/> weergegeven</target>
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/></source>
+  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems + ' ' + itemLabel}"/> weergegeven</target>
 </trans-unit>
 <trans-unit id="sl.progressBar.state">
   <source>state</source>
@@ -429,6 +457,10 @@
 <trans-unit id="sl.infotip.moreInformation">
   <source>More information</source>
   <target>Meer informatie</target>
+</trans-unit>
+<trans-unit id="sl.combobox.options">
+  <source>Options</source>
+  <target>Opties</target>
 </trans-unit>
 </body>
 </file>

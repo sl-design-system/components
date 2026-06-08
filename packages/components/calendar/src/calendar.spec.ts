@@ -596,8 +596,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -610,8 +609,7 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-GB"
-          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-        ></sl-calendar>
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -624,8 +622,7 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-GB"
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -639,8 +636,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 15)).toISOString()}
-          max=${new Date(Date.UTC(2023, 5, 20)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 5, 20)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -654,8 +650,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -669,8 +664,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const monthView = el.renderRoot
@@ -691,8 +685,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       // Switch to month mode
@@ -721,8 +714,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       // Switch to year mode
@@ -755,8 +747,7 @@ describe('sl-calendar', () => {
           show-today
           min=${new Date(Date.UTC(2023, 2, 1)).toISOString()}
           max=${new Date(Date.UTC(2023, 2, 31)).toISOString()}
-          .indicatorDates=${[{ date: indicatorDate, color: 'blue', label: 'Event' }]}
-        ></sl-calendar>
+          .indicatorDates=${[{ date: indicatorDate, color: 'blue', label: 'Event' }]}></sl-calendar>
       `);
 
       const monthView = el.renderRoot

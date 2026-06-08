@@ -1,5 +1,27 @@
 # @sl-design-system/menu
 
+## 0.3.3
+
+### Patch Changes
+
+- [#3297](https://github.com/sl-design-system/components/pull/3297) [`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a) - Align options and group styling with Figma.
+
+- Updated dependencies [[`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7)]:
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/shared@0.12.1
+
+## 0.3.2
+
+### Patch Changes
+
+- [#3242](https://github.com/sl-design-system/components/pull/3242) [`3e439d2`](https://github.com/sl-design-system/components/commit/3e439d24a4905b82143fe571e198e77375df7aa0) - Fix an accessibility issue where selectable `sl-menu-item` elements only exposed `aria-checked` when selected.
+
+  Selectable items now always set `aria-checked` to `"true"` or `"false"` based on state, and non-selectable items remove the attribute.
+  This improves screen reader announcements and resolves ARIA required attribute violations in menu selection variants.
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333)]:
+  - @sl-design-system/button@2.0.1
+
 ## 0.3.1
 
 ### Patch Changes

@@ -22,7 +22,7 @@ describe('sl-paginator-status', () => {
     });
 
     it('should display the status', () => {
-      expect(el.renderRoot).to.have.trimmed.text('1 - 1 of 1 items');
+      expect(el.renderRoot).to.have.trimmed.text('1 - 1 of 1 item');
     });
   });
 
@@ -151,8 +151,7 @@ describe('sl-paginator-status', () => {
           .itemLabel=${'books'}
           page="14"
           page-size="15"
-          total-items="209"
-        ></sl-paginator-status>
+          total-items="209"></sl-paginator-status>
       `);
     });
 

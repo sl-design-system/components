@@ -26,12 +26,12 @@
     "@fortawesome/sharp-solid-svg-icons": "^7.2.0",
     "@tokens-studio/sd-transforms": "^2.0.1",
     "@tokens-studio/sdk": "^3.0.0",
-    "cssnano": "^7.1.4",
+    "cssnano": "^7.1.9",
     "esbuild": "^0.25.12",
     "fast-glob": "^3.3.3",
     "graphql": "^16.13.1",
-    "postcss": "^8.5.8",
-    "sass": "^1.99.0",
+    "postcss": "^8.5.15",
+    "sass": "^1.100.0",
     "style-dictionary": "^5.1.1"
   }
 }

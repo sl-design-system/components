@@ -37,7 +37,7 @@
   --sl-menu-item-indent: 0;
   --_bg-color: var(--sl-color-background-selected-subtle);
 
-  color: var(--sl-color-text-selected);
+  color: var(--sl-color-foreground-selected-bold);
 }
 
 :host([emphasis='bold'][selected]) {
@@ -62,15 +62,15 @@
   --_bg-color: var(--sl-color-background-negative-subtle);
 }
 
-:host([emphasis='bold'][variant='danger']:not([disabled]):hover),
-:host([emphasis='bold'][variant='danger'][selected]:not([disabled])) {
+:host([emphasis='bold'][variant='danger']:not([disabled], [aria-disabled='true']):hover),
+:host([emphasis='bold'][variant='danger'][selected]:not([disabled], [aria-disabled='true'])) {
   --_bg-color: var(--sl-color-background-negative-bold);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 
   color: var(--sl-color-foreground-negative-onBold);
 }
 
-:host([disabled]) {
+:host(:is([disabled], [aria-disabled='true'])) {
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
@@ -123,6 +123,11 @@ sl-icon[name='chevron-right'] {
   &:active {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
+}
+
+:host(:not([selected], [variant='danger'])) [part='wrapper']:hover,
+:host(:not([selected], [variant='danger'])) .safe-triangle:hover + [part='wrapper'] {
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
 }
 
 sl-icon[name='check'] {

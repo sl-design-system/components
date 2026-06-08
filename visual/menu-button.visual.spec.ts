@@ -16,6 +16,8 @@ type MenuElement = HTMLElement & {
   hidePopover?: () => void;
 };
 
+type ButtonElement = HTMLElement;
+
 const mountBasicStory = async () => {
   document.body.innerHTML = '';
   const args = { ...meta.args, ...basic.args };
@@ -30,45 +32,61 @@ const mountBasicStory = async () => {
   await menuButton?.updateComplete;
 };
 
-const getMenuAndWaitForState = async (expectedOpen: boolean) => {
+const getElements = () => {
   const menuButton = document.querySelector('sl-menu-button') as MenuButtonElement | null;
-  // if (!menuButton) {
-  //   throw new Error('Expected sl-menu-button to be rendered.');
-  // }
+  if (!menuButton) {
+    throw new Error('Expected sl-menu-button to be rendered.');
+  }
 
   const menu = menuButton.renderRoot?.querySelector('sl-menu') as MenuElement | null;
-  // if (!menu) {
-  //   throw new Error('Expected sl-menu to be rendered.');
-  // }
+  if (!menu) {
+    throw new Error('Expected sl-menu to be rendered.');
+  }
 
-  // Wait for the :popover-open state to match expected
+  const button = menuButton.renderRoot?.querySelector('sl-button') as ButtonElement | null;
+  if (!button) {
+    throw new Error('Expected sl-button trigger to be rendered.');
+  }
+
+  return { button, menu };
+};
+
+const waitForPopoverState = async (menu: MenuElement, expectedOpen: boolean) => {
   let attempts = 0;
+
   while (attempts < 50) {
     const isOpen = menu.matches(':popover-open');
     if (isOpen === expectedOpen) {
-      break;
+      return;
     }
+
     await new Promise(resolve => requestAnimationFrame(resolve));
     attempts++;
   }
 
-  return menu;
+  throw new Error(
+    `Timed out waiting for menu popover state "${expectedOpen ? 'open' : 'closed'}".`
+  );
 };
 
 describe('menu-button visual', () => {
   it('story + extra interactions', async () => {
     await mountBasicStory();
 
-    // Open menu explicitly
-    let menu = await getMenuAndWaitForState(false);
-    menu.showPopover?.();
-    menu = await getMenuAndWaitForState(true);
+    const { button, menu } = getElements();
+
+    await waitForPopoverState(menu, false);
+
+    // Use real user input so the visual baseline matches interaction behavior.
+    await userEvent.click(button);
+    await waitForPopoverState(menu, true);
 
     await takeSnapshot('basic-open');
 
-    // Close menu
+    // Close via keyboard to verify the interactive state transition.
+    menu.focus();
     await userEvent.keyboard('{Escape}');
-    menu = await getMenuAndWaitForState(false);
+    await waitForPopoverState(menu, false);
 
     await takeSnapshot('basic-closed-after-escape');
   });

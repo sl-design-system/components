@@ -268,7 +268,10 @@ const showNestedSubmenuMessage = (event: Event): void => {
     return;
   }
 
-  const message = menuItem.textContent?.trim() ?? '';
+  const clone = menuItem.cloneNode(true) as HTMLElement;
+  clone.querySelectorAll<HTMLElement>('[slot="submenu"]').forEach(el => el.remove());
+
+  const message = clone.textContent?.trim() ?? '';
 
   if (output) {
     output.textContent = `${message} clicked`;

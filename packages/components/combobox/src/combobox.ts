@@ -1098,6 +1098,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       item.element?.remove();
       item.element = undefined;
     }
+    this.#updateCurrent(this.items.find(i => i.id === item.id));
 
     if (this.selectedItems.length === 0) {
       this.#removeSelectedGroup();
@@ -1188,6 +1189,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.selectedItems.forEach(item => this.#removeSelectedOption(item));
       this.selectedItems = [item];
     }
+
+    item.current = false;
+    this.#updateCurrent(this.selectedItems.find(i => i.id === item.id));
 
     if (item.element instanceof Option) {
       item.element.selected = item.selected;
@@ -1396,6 +1400,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
       this.listbox?.querySelector('[current]')?.removeAttribute('current');
+    }
+
+    if (!option || !option.visible) {
+      this.currentItem = undefined;
+      return;
     }
 
     this.currentItem = option;

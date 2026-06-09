@@ -257,6 +257,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
               <sl-tag
                 ?disabled=${this.disabled}
                 id="stack-tag"
+                role="listitem"
                 size=${ifDefined(this.size)}
                 tooltip=${ifDefined(tooltip)}
                 variant=${ifDefined(this.variant)}>

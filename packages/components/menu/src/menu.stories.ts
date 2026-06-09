@@ -254,6 +254,87 @@ export const Submenu: Story = {
   }
 };
 
+const showNestedSubmenuMessage = (event: Event): void => {
+  const story = (event.currentTarget as HTMLElement).closest('[data-nested-submenu-story]'),
+    output = story?.querySelector<HTMLElement>('[data-nested-submenu-message]'),
+    menuItem = event.composedPath().find((element): element is HTMLElement => {
+      return element instanceof HTMLElement && element.localName === 'sl-menu-item';
+    }),
+    menus = event.composedPath().filter((element): element is HTMLElement => {
+      return element instanceof HTMLElement && element.localName === 'sl-menu';
+    });
+
+  if (!menuItem) {
+    return;
+  }
+
+  const clone = menuItem.cloneNode(true) as HTMLElement;
+  clone.querySelectorAll<HTMLElement>('[slot="submenu"]').forEach(el => el.remove());
+
+  const message = clone.textContent?.trim() ?? '';
+
+  if (output) {
+    output.textContent = `${message} clicked`;
+  }
+
+  setTimeout(() => menus.forEach(menu => menu.showPopover()));
+  window.alert(`${message} clicked`);
+};
+
+export const NestedSubmenu: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Sort by
+        <sl-menu slot="submenu">
+          <sl-menu-item>
+            Categories
+            <sl-menu slot="submenu">
+              <sl-menu-item>Category A</sl-menu-item>
+              <sl-menu-item>Category B</sl-menu-item>
+              <sl-menu-item>Category C</sl-menu-item>
+            </sl-menu>
+          </sl-menu-item>
+          <sl-menu-item>First name (A-Z)</sl-menu-item>
+          <sl-menu-item>Last name (A-Z)</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+    `
+  },
+  render: ({ maxWidth, menuItems, emphasis }) => {
+    setTimeout(() =>
+      document.querySelector<HTMLElement>('[data-nested-submenu-story] sl-menu')?.showPopover()
+    );
+
+    return html`
+      <style>
+        [data-nested-submenu-story] {
+          display: grid;
+          gap: 1rem;
+          justify-items: center;
+        }
+
+        [data-nested-submenu-story] .root-menu {
+          margin: auto !important;
+          position: static !important;
+        }
+      </style>
+      <div data-nested-submenu-story>
+        <sl-menu
+          @click=${showNestedSubmenuMessage}
+          .emphasis=${emphasis}
+          class="root-menu"
+          popover="manual"
+          style="max-width: ${maxWidth}">
+          ${menuItems()}
+        </sl-menu>
+        <p aria-live="polite" data-nested-submenu-message>No item clicked yet</p>
+      </div>
+    `;
+  }
+};
+
 export const Combination: Story = {
   args: {
     menuItems: () => {

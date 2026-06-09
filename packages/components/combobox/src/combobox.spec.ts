@@ -477,6 +477,7 @@ describe('sl-combobox', () => {
       await userEvent.keyboard('Custom value');
       el.querySelector('sl-combobox-create-custom-option')?.click();
       await el.updateComplete;
+      await waitForNextFrame();
 
       const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
 
@@ -861,6 +862,7 @@ describe('sl-combobox', () => {
         input.focus();
         await userEvent.keyboard('{ArrowDown}');
         await el.updateComplete;
+        await waitForNextFrame();
 
         const options = Array.from(el.querySelectorAll('sl-option'));
 

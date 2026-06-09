@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma__get_metadata",
+      "mcp__figma__get_code_connect_map",
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_screenshot",
+      "mcp__figma-desktop__get_metadata",
+      "mcp__figma-desktop__get_code_connect_map",
+      "mcp__figma-desktop__get_design_context",
+      "mcp__figma-desktop__get_screenshot"
+    ]
+  }
+}

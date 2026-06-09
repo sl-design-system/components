@@ -8,6 +8,7 @@
   },
   "workspaces": [
     "chromatic",
+    "examples",
     "examples/lit",
     "packages/angular",
     "packages/components/*",

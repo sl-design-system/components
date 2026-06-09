@@ -9,7 +9,7 @@
     "connect:unpublish": "figma connect unpublish"
   },
   "devDependencies": {
-    "@figma/code-connect": "^1.4.4",
+    "@figma/code-connect": "^1.4.8",
     "typescript": "^6.0.2"
   }
 }

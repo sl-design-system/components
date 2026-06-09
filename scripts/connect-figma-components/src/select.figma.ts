@@ -5,8 +5,7 @@ import figma from 'figma';
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = instance.getString('Variant') === 'Disabled',
-    hasLabel = instance.getBoolean('Label');
+  const hasLabel = instance.getBoolean('Label');
 
   let label = undefined,
     required = false;
@@ -22,6 +21,7 @@ function getExample() {
   if (selectVariants.type === 'ERROR') return null;
 
   const clearable = selectVariants.getBoolean('Clear button'),
+    disabled = selectVariants.getString('Variant') === 'Disabled',
     placeholder = selectVariants.getString('Placeholder text'),
     value = selectVariants.getString('Input value');
 

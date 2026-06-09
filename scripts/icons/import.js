@@ -22,7 +22,7 @@ const cwd = new URL('.', import.meta.url).pathname,
 
 const {
   default: { icon: coreIconTokens }
-} = await import('../packages/tokens/src/tokens/core.json', { with: { type: 'json' } });
+} = await import('../../packages/tokens/src/tokens/core.json', { with: { type: 'json' } });
 
 const coreIcons = coreIconTokens; // Keep the full icon object for getFormattedIcons
 const coreIconFontFamily = coreIconTokens.fontFamily;
@@ -83,7 +83,7 @@ const buildIcons = async theme => {
       icon: { style, themeIcons },
       text
     }
-  } = await import(`../packages/tokens/src/tokens/${theme}/base.json`, { with: { type: 'json' } });
+  } = await import(`../../packages/tokens/src/tokens/${theme}/base.json`, { with: { type: 'json' } });
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
@@ -123,7 +123,7 @@ const buildIcons = async theme => {
     };
   });
 
-  const iconsFolderPath = join(cwd, `../packages/themes/${theme}/icons/`);
+  const iconsFolderPath = join(cwd, `../../packages/themes/${theme}/icons/`);
   if (!existsSync(iconsFolderPath)) {
     await fs.mkdir(iconsFolderPath);
   }
@@ -138,7 +138,7 @@ const buildIcons = async theme => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
 
     return fs
-      .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
+      .readFile(join(cwd, `../../packages/themes/${theme}/icons/${fileName}`), 'utf8')
       .then(svg => {
         iconsCustom[iconName] = {
           svg: svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ')
@@ -150,7 +150,7 @@ const buildIcons = async theme => {
 
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
-  const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
+  const filePath = join(cwd, `../../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(
       Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
     ),
@@ -166,7 +166,7 @@ const buildIcons = async theme => {
 
 const buildIconsFromBaseNew = async theme => {
   // 1. Get icon tokens from `base-new.json` which uses routing prefixes
-  const baseNewModule = await import(`../packages/tokens/src/tokens/${theme}/base-new.json`, {
+  const baseNewModule = await import(`../../packages/tokens/src/tokens/${theme}/base-new.json`, {
     with: { type: 'json' }
   });
   const baseNewData = baseNewModule.default;
@@ -239,7 +239,7 @@ const buildIconsFromBaseNew = async theme => {
     };
   });
 
-  const iconsFolderPath = join(cwd, `../packages/themes/${theme}/icons/`);
+  const iconsFolderPath = join(cwd, `../../packages/themes/${theme}/icons/`);
   if (!existsSync(iconsFolderPath)) {
     await fs.mkdir(iconsFolderPath);
   }
@@ -254,7 +254,7 @@ const buildIconsFromBaseNew = async theme => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
 
     return fs
-      .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
+      .readFile(join(cwd, `../../packages/themes/${theme}/icons/${fileName}`), 'utf8')
       .then(svg => {
         iconsCustom[iconName] = {
           svg: svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ')
@@ -266,7 +266,7 @@ const buildIconsFromBaseNew = async theme => {
 
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
-  const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
+  const filePath = join(cwd, `../../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(
       Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
     ),
@@ -281,21 +281,21 @@ const buildIconsFromBaseNew = async theme => {
 };
 
 const buildAllIcons = async () => {
-  const folders = await fg('../packages/themes/*', { cwd, onlyDirectories: true });
+  const folders = await fg('../../packages/themes/*', { cwd, onlyDirectories: true });
 
   const themes = folders
     .map(folder => basename(folder))
     .filter(theme => theme.indexOf('core') < 0)
     .filter(
       theme =>
-        existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`)) ||
-        existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`))
+        existsSync(join(cwd, `../../packages/tokens/src/tokens/${theme}/base.json`)) ||
+        existsSync(join(cwd, `../../packages/tokens/src/tokens/${theme}/base-new.json`))
     );
 
   const buildPromises = themes.map(theme => {
-    const hasBaseJson = existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`));
+    const hasBaseJson = existsSync(join(cwd, `../../packages/tokens/src/tokens/${theme}/base.json`));
     const hasBaseNewJson = existsSync(
-      join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)
+      join(cwd, `../../packages/tokens/src/tokens/${theme}/base-new.json`)
     );
 
     if (hasBaseJson) {
@@ -309,7 +309,7 @@ const buildAllIcons = async () => {
 };
 
 const exportCoreIcons = async () => {
-  const iconsFolderPath = join(cwd, `../packages/themes/core/icons/`);
+  const iconsFolderPath = join(cwd, `../../packages/themes/core/icons/`);
   if (!existsSync(iconsFolderPath)) {
     await fs.mkdir(iconsFolderPath, { recursive: true });
   }
@@ -344,7 +344,7 @@ const exportCoreIcons = async () => {
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
 
-    return fs.readFile(join(cwd, `../packages/themes/core/icons/${fileName}`), 'utf8').then(svg => {
+    return fs.readFile(join(cwd, `../../packages/themes/core/icons/${fileName}`), 'utf8').then(svg => {
       svg = svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ');
       iconsCustom[iconName] = { svg };
     });

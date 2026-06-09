@@ -101,8 +101,8 @@ async function checkBackwardsCompatibility() {
 
   if (!referenceRoot) {
     console.error('❌ Error: Please provide a reference path as an argument');
-    console.log('\nUsage: node scripts/backwards-compatibility-check.js <reference-path>');
-    console.log('Example: node scripts/backwards-compatibility-check.js /path/to/old/themes');
+    console.log('\nUsage: node scripts/qa/backwards-compatibility-check.js <reference-path>');
+    console.log('Example: node scripts/qa/backwards-compatibility-check.js /path/to/old/themes');
     process.exit(1);
   }
 

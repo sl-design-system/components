@@ -215,7 +215,7 @@ const getThemes = async folder => {
 
 const build = async (production = false, path) => {
   const cwd = new URL('.', import.meta.url).pathname,
-    themeBase = join(cwd, '../packages/themes'),
+    themeBase = join(cwd, '../../packages/themes'),
     themes = await getThemes(join(cwd, path));
   // if you want to debug the build to see which themes are being built, uncomment the console.log line below and replace the line above with
   // themes = [<result of the console.log>];
@@ -394,4 +394,4 @@ const build = async (production = false, path) => {
   }
 };
 
-build(argv.includes('--production'), '../packages/tokens/src/tokens');
+build(argv.includes('--production'), '../../packages/tokens/src/tokens');

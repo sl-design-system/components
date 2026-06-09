@@ -1,6 +1,6 @@
 import { getTsProgram, expandTypesPlugin } from 'cem-plugin-expanded-types';
-import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin, omitPlugin } from '../scripts/cem-plugins.js';
-import { eventDecoratorPlugin } from '../scripts/cem-plugin-event-decorator.js';
+import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin, omitPlugin } from '../scripts/cem/plugins.js';
+import { eventDecoratorPlugin } from '../scripts/cem/plugin-event-decorator.js';
 
 export default {
   globs: ['../packages/components/**/*.ts'],

@@ -1,0 +1,12 @@
+{
+  "name": "@sl-design-system/scripts-docs",
+  "license": "ISC",
+  "description": "Documentation generation: i18n extraction and story template extraction",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@lit/localize-tools": "^0.8.1",
+    "fast-glob": "^3.3.3"
+  }
+}

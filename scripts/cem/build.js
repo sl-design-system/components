@@ -7,13 +7,13 @@ import {
   noPrivateFieldsPlugin,
   sortMembersPlugin,
   omitPlugin
-} from './cem-plugins.js';
-import { eventDecoratorPlugin } from './cem-plugin-event-decorator.js';
+} from './plugins.js';
+import { eventDecoratorPlugin } from './plugin-event-decorator.js';
 
 const cwd = new URL('.', import.meta.url).pathname;
 
 const buildManifest = async component => {
-  const folder = join(cwd, `../packages/components/${component}`),
+  const folder = join(cwd, `../../packages/components/${component}`),
     entryPoints = await fg(['!**/*.{d,scss,spec,stories}.ts', '**/*.ts'], { cwd: folder });
 
   const modules = entryPoints.map(entryPoint => {
@@ -45,7 +45,7 @@ const buildManifest = async component => {
 };
 
 const buildAllManifests = async () => {
-  const components = await fg('../packages/components/*', { cwd, onlyDirectories: true });
+  const components = await fg('../../packages/components/*', { cwd, onlyDirectories: true });
 
   components.forEach(component => buildManifest(basename(component)));
 };

@@ -1399,19 +1399,24 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     this.currentItem = option;
+    requestAnimationFrame(() => {
+      if (this.currentItem) {
+        this.currentItem.current = true;
 
-    if (this.currentItem) {
-      this.currentItem.current = true;
+        this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
-      this.input.setAttribute('aria-activedescendant', this.currentItem.id);
-
-      if (this.currentItem.element) {
-        this.currentItem.element.setAttribute('current', '');
-        this.currentItem.element.scrollIntoView({ block: 'start' });
-      } else {
-        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'start' });
+        if (this.currentItem.element) {
+          this.currentItem.element.setAttribute('current', '');
+          this.currentItem.element.scrollIntoView({ block: 'start' });
+        }
+        // } else {
+        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), {
+          block: 'start',
+          behavior: 'smooth'
+        });
+        // }
       }
-    }
+    });
   }
 
   #updateFilteredOptions(value?: string): void {

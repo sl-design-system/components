@@ -1,0 +1,15 @@
+{
+  "name": "@sl-design-system/scripts-tokens",
+  "license": "ISC",
+  "description": "Design token import from Tokens Studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio"
+  },
+  "devDependencies": {
+    "@tokens-studio/sdk": "^3.0.0",
+    "graphql": "^16.13.1"
+  }
+}

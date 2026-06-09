@@ -151,7 +151,7 @@ export const ExampleStory: StoryObj = {
 
 ## Configuration
 
-The script can be configured by modifying `scripts/extract-story-templates.js`:
+The script can be configured by modifying `scripts/docs/extract-story-templates.js`:
 
 - `angularStoriesPath` - Source directory for story files
 - `outputPath` - Destination for generated MDX files

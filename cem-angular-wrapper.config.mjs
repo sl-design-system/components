@@ -1,5 +1,5 @@
-import angularWrapperPlugin from './scripts/cem-plugin-angular-wrapper.js';
-import { eventDecoratorPlugin } from './scripts/cem-plugin-event-decorator.js';
+import angularWrapperPlugin from './scripts/cem/plugin-angular-wrapper.js';
+import { eventDecoratorPlugin } from './scripts/cem/plugin-event-decorator.js';
 
 export default {
   globs: ['./packages/components/**/*.ts'],

@@ -1,0 +1,14 @@
+{
+  "name": "@sl-design-system/scripts-build",
+  "license": "ISC",
+  "description": "TypeScript and SCSS compilation scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.25.12",
+    "fast-glob": "^3.3.3",
+    "sass": "^1.100.0",
+    "stylelint": "^16.19.1"
+  }
+}

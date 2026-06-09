@@ -14,7 +14,13 @@
     "packages/locales",
     "packages/themes/*",
     "packages/tokens",
-    "scripts",
+    "scripts/build",
+    "scripts/cem",
+    "scripts/docs",
+    "scripts/icons",
+    "scripts/qa",
+    "scripts/themes",
+    "scripts/tokens",
     "tools/eslint-config",
     "tools/eslint-plugin-slds",
     "tools/example-data",
@@ -31,7 +37,7 @@
     "extract-i18n": "lit-localize extract",
     "dist": "wireit",
     "import-icons": "wireit",
-    "import-tokens": "yarn workspace @sl-design-system/scripts import-tokens",
+    "import-tokens": "yarn workspace @sl-design-system/scripts-tokens import-tokens",
     "lint": "wireit",
     "postinstall": "husky || true",
     "release": "wireit",
@@ -41,7 +47,7 @@
     "version": "wireit",
     "website": "wireit",
     "website:a11y:test": "wireit",
-    "website:a11y:test:urls": "node scripts/run-website-a11y-test.js"
+    "website:a11y:test:urls": "node scripts/qa/run-website-a11y-test.js"
   },
   "wireit": {
     "build": {
@@ -54,7 +60,7 @@
       ]
     },
     "build:components": {
-      "command": "node scripts/build-packages.js components",
+      "command": "node scripts/build/packages.js components",
       "clean": "if-file-deleted",
       "dependencies": [
         "build:components:styles"
@@ -69,10 +75,10 @@
       ]
     },
     "build:components:styles": {
-      "command": "node scripts/build-styles.js 'packages/components/**/*.scss'",
+      "command": "node scripts/build/styles.js 'packages/components/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-styles.js",
+        "scripts/build/styles.js",
         "packages/components/**/*.scss"
       ],
       "output": [
@@ -80,7 +86,7 @@
       ]
     },
     "build:examples": {
-      "command": "node scripts/build-packages.js examples",
+      "command": "node scripts/build/packages.js examples",
       "clean": "if-file-deleted",
       "dependencies": [
         "build:examples:styles"
@@ -95,10 +101,10 @@
       ]
     },
     "build:examples:styles": {
-      "command": "node scripts/build-styles.js 'examples/lit/**/*.scss'",
+      "command": "node scripts/build/styles.js 'examples/lit/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-styles.js",
+        "scripts/build/styles.js",
         "examples/lit/**/*.scss"
       ],
       "output": [
@@ -106,7 +112,7 @@
       ]
     },
     "build:locales": {
-      "command": "node scripts/build-packages.js locales && oxfmt packages/locales/src",
+      "command": "node scripts/build/packages.js locales && oxfmt packages/locales/src",
       "dependencies": [
         "build:locales:code"
       ],
@@ -138,7 +144,7 @@
       ]
     },
     "build:themes:code": {
-      "command": "node scripts/build-packages.js themes",
+      "command": "node scripts/build/packages.js themes",
       "clean": "if-file-deleted",
       "files": [
         "packages/themes/**/*.ts",
@@ -150,18 +156,18 @@
       ]
     },
     "build:themes:setup": {
-      "command": "node scripts/setup-themes.js",
+      "command": "node scripts/themes/setup.js",
       "clean": false,
       "files": [
-        "scripts/setup-themes.js",
+        "scripts/themes/setup.js",
         "packages/themes/core/global.css"
       ]
     },
     "build:themes:styles": {
-      "command": "node scripts/build-themes.js --studio",
+      "command": "node scripts/themes/build.js --studio",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-themes.js",
+        "scripts/themes/build.js",
         "packages/tokens/src/**/*.json"
       ],
       "output": [
@@ -213,7 +219,7 @@
       ]
     },
     "dist:components": {
-      "command": "node scripts/build-metadata.js",
+      "command": "node scripts/cem/build.js",
       "clean": "if-file-deleted",
       "dependencies": [
         "build:components:styles"
@@ -227,7 +233,7 @@
       ]
     },
     "dist:themes": {
-      "command": "node scripts/build-themes.js --studio --production",
+      "command": "node scripts/themes/build.js --studio --production",
       "clean": "if-file-deleted",
       "output": [
         "packages/themes/**/*.{css,scss}",
@@ -259,10 +265,10 @@
       ]
     },
     "import-icons": {
-      "command": "node scripts/import-icons.js",
+      "command": "node scripts/icons/import.js",
       "clean": false,
       "files": [
-        "scripts/import-icons.js",
+        "scripts/icons/import.js",
         "packages/tokens/src/tokens/core.json",
         "packages/tokens/src/tokens/*/base.json"
       ],
@@ -381,7 +387,7 @@
       ]
     },
     "website:a11y:test": {
-      "command": "node scripts/get-changed-urls.js && yarn exec playwright test --project=website",
+      "command": "node scripts/qa/get-changed-urls.js && yarn exec playwright test --project=website",
       "dependencies": [
         "test:setup"
       ]

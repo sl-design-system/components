@@ -39,13 +39,13 @@ done
 ## Usage
 
 ```bash
-node scripts/backwards-compatibility-check.js <path-to-old-themes>
+node scripts/qa/backwards-compatibility-check.js <path-to-old-themes>
 ```
 
 ## Example
 
 ```bash
-node scripts/backwards-compatibility-check.js ../old-themes
+node scripts/qa/backwards-compatibility-check.js ../old-themes
 ```
 
 ## What it does

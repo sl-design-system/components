@@ -10,8 +10,8 @@ const __dirname = path.dirname(__filename);
 /** Extract story templates and generate MDX documentation */
 class StoryTemplateExtractor {
   constructor() {
-    this.angularStoriesPath = path.join(__dirname, '../packages/angular/stories');
-    this.outputPath = path.join(__dirname, '../packages/angular/stories/generated');
+    this.angularStoriesPath = path.join(__dirname, '../../packages/angular/stories');
+    this.outputPath = path.join(__dirname, '../../packages/angular/stories/generated');
   }
 
   /** Normalize indentation by removing common leading whitespace */

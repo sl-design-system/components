@@ -1,0 +1,16 @@
+{
+  "name": "@sl-design-system/scripts-themes",
+  "license": "ISC",
+  "description": "Theme CSS generation from design tokens and theme folder setup",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@tokens-studio/sd-transforms": "^2.0.1",
+    "change-case": "^5.3.0",
+    "cssnano": "^7.1.9",
+    "fast-glob": "^3.3.3",
+    "postcss": "^8.5.15",
+    "style-dictionary": "^5.1.1"
+  }
+}

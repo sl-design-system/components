@@ -37,7 +37,7 @@ export default {
         ],
         outputters: [
           asSvgPerPage({
-            output: `../packages/themes`,
+            output: `../../packages/themes`,
             getDirname: options => `.${sep}${options.dirname}`
           })
         ]

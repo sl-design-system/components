@@ -1,0 +1,13 @@
+{
+  "name": "@sl-design-system/scripts-cem",
+  "license": "ISC",
+  "description": "Custom Elements Manifest generation and plugins",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "fast-glob": "^3.3.3",
+    "typescript": "^6.0.3"
+  }
+}

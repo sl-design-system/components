@@ -144,6 +144,12 @@ describe('sl-tag-list', () => {
       expect(tag).to.have.trimmed.text('+7');
     });
 
+    it('should give the stack tag a listitem role', () => {
+      const tag = el.renderRoot.querySelector('sl-tag');
+
+      expect(tag).to.have.attribute('role', 'listitem');
+    });
+
     it('should have hidden tags with tabindex -1', async () => {
       // Give some time to updateVisibility
       await new Promise(resolve => setTimeout(resolve, 60));

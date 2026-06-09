@@ -248,6 +248,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
               <sl-tag
                 aria-labelledby="tooltip"
                 ?disabled=${this.disabled}
+                role="listitem"
                 size=${ifDefined(this.size)}
                 variant=${ifDefined(this.variant)}>
                 +${this.stackSize}

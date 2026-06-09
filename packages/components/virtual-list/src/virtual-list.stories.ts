@@ -37,15 +37,23 @@ export default {
     }));
 
     renderItem ??= (item: { id: number; name: string; description: string }) => html`
-      <div part="item-content">
+      <div
+        part="item-content"
+        style=${item.id === scrollToPosition
+          ? '--_outline-color: var(--sl-color-border-focused)'
+          : ''}>
         <p part="item-name">${item.name}</p>
         <p part="item-description">${item.description}</p>
       </div>
       <span part="item-id">#${item.id}</span>
     `;
+    let scrollToPosition = 0;
 
     const scrollTo = (index: number): void => {
-      document.querySelector('sl-virtual-list')?.scrollToIndex(index, { align: 'start' });
+      scrollToPosition = index;
+      document
+        .querySelector('sl-virtual-list')
+        ?.scrollToIndex(index, { align: 'start', behavior: 'smooth' });
     };
 
     const scrollToSmooth = (index: number): void => {
@@ -95,6 +103,9 @@ export default {
 
           &::part(item-content) {
             flex: 1;
+            outline-offset: 4px;
+            outline: var(--_outline-color, transparent) solid;
+            border-radius: 2px;
           }
 
           &::part(item-name) {
@@ -117,10 +128,12 @@ export default {
       </style>
       <sl-button-bar>
         <sl-button @click=${() => scrollTo(0)}>Scroll to top</sl-button>
+        <sl-button @click=${() => scrollTo(scrollToPosition - 1)}>Scroll one up</sl-button>
+        <sl-button @click=${() => scrollTo(scrollToPosition + 1)}>Scroll one down</sl-button>
+        <sl-button @click=${() => scrollTo(items.length - 1)}>Scroll to bottom</sl-button>
         <sl-button @click=${() => scrollTo(Math.floor(items.length / 2))}
           >Scroll to ${Math.floor(items.length / 2)}</sl-button
         >
-        <sl-button @click=${() => scrollTo(items.length - 1)}>Scroll to bottom</sl-button>
         <sl-button @click=${() => scrollToSmooth(Math.floor(items.length / 2))} fill="outline"
           >Scroll to ${Math.floor(items.length / 2)} (smooth)</sl-button
         >

@@ -768,7 +768,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index]);
+      this.#updateCurrent(items[index], 'smooth');
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -1391,7 +1391,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /** Updates the options to reflect the current one. */
-  #updateCurrent(option?: ComboboxItem<T, U>): void {
+  #updateCurrent(option?: ComboboxItem<T, U>, scrollBehaviour: ScrollBehavior = 'instant'): void {
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
@@ -1412,7 +1412,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         // } else {
         this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), {
           block: 'start',
-          behavior: 'smooth'
+          behavior: scrollBehaviour
         });
         // }
       }

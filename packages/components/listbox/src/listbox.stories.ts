@@ -4,7 +4,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Listbox } from './listbox.js';
+import { type Listbox, ListboxItem } from './listbox.js';
 
 type Props = Pick<
   Listbox,
@@ -42,8 +42,37 @@ export default {
     optionValuePath,
     slot
   }) => {
+    let scrollToPosition = 0;
+
+    const renderer = (
+      item: ListboxItem<{ value: number; label: string; selected: boolean }>,
+      index: number
+    ) => {
+      // Only render options, skip group headers
+      if (!('option' in item)) {
+        const header = document.createElement('sl-option-group-header');
+        header.textContent = item.label;
+        return header;
+      }
+
+      const option = document.createElement('sl-option');
+      option.textContent = item.label;
+      option.value = item.value;
+      option.selected = item.selected;
+      if (index === scrollToPosition) {
+        option.setAttribute('current', '');
+      }
+      return option;
+    };
+
     const scrollTo = (index: number): void => {
-      document.querySelector('sl-listbox')?.scrollToIndex(index);
+      scrollToPosition = index;
+      const listbox = document.querySelector('sl-listbox');
+      listbox?.scrollToIndex(index);
+      // Update renderer to trigger re-render with new current index
+      if (listbox) {
+        listbox.renderer = renderer;
+      }
     };
     return html`
       <style>
@@ -52,7 +81,6 @@ export default {
           border-radius: var(--sl-size-borderRadius-default);
           max-block-size: calc(100dvh - 4rem);
         }
-
         sl-button + sl-listbox {
           margin-block-start: 1rem;
           max-block-size: calc(100dvh - 7rem);
@@ -63,6 +91,8 @@ export default {
             <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
               >Scroll to ${Math.floor(options.length / 2)}</sl-button
             >
+            <sl-button @click=${() => scrollTo(scrollToPosition - 1)}>Scroll one up</sl-button>
+            <sl-button @click=${() => scrollTo(scrollToPosition + 1)}>Scroll one down</sl-button>
           `
         : nothing}
       <sl-listbox
@@ -71,6 +101,7 @@ export default {
         .optionLabelPath=${optionLabelPath}
         .optionSelectedPath=${optionSelectedPath}
         .optionValuePath=${optionValuePath}
+        .renderer=${options ? renderer : undefined}
         emphasis=${ifDefined(emphasis)}>
         ${slot?.()}
       </sl-listbox>

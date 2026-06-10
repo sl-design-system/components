@@ -26,12 +26,14 @@ function getExample() {
     value = selectVariants.getString('Input value');
 
   const menuPanel = instance.findInstance('sl-menu-panel', { traverseInstances: true });
-  if (menuPanel.type === 'ERROR') return null;
 
-  const options = menuPanel
-    .findConnectedInstances(node => node.codeConnectId() === 'menu-item')
-    .map(() => '<sl-option>label</sl-option>')
-    .join('\n');
+  let options: string | undefined;
+  if (menuPanel.type !== 'ERROR') {
+    options = menuPanel
+      .findConnectedInstances(node => node.codeConnectId() === 'menu-item')
+      .map(() => '<sl-option>label</sl-option>')
+      .join('\n');
+  }
 
   return figma.code`
     <sl-form-field${label ? ` label="${label}"` : ''}>
@@ -42,7 +44,7 @@ function getExample() {
         ${required ? ' required' : ''}
         ${value ? ` value="${value}"` : ''}
       >
-        ${options}
+        ${options ?? '<!-- Insert options here -->'}
       </sl-select>
     </sl-form-field>
   `;

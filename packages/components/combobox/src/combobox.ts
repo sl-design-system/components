@@ -768,7 +768,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index], 'smooth');
+      this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -1408,24 +1408,27 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     this.currentItem = option;
-    requestAnimationFrame(() => {
-      if (this.currentItem) {
-        this.currentItem.current = true;
+    if (this.currentItem) {
+      this.currentItem.current = true;
 
-        this.input.setAttribute('aria-activedescendant', this.currentItem.id);
+      this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
-        if (this.currentItem.element) {
-          this.currentItem.element.setAttribute('current', '');
-          this.currentItem.element.scrollIntoView({ block: 'start' });
+      if (this.currentItem.element) {
+        // Element exists, use scrollIntoView (avoid duplicate scrolling)
+        this.currentItem.element.setAttribute('current', '');
+        this.currentItem.element.scrollIntoView({ block: 'start' });
+      } else {
+        // Element doesn't exist (virtual list), use scrollToIndex
+        // Use the listbox's items (filtered) to get the correct index
+        const index = this.listbox?.items?.indexOf(this.currentItem) ?? -1;
+        if (index !== -1) {
+          this.listbox?.scrollToIndex(index, {
+            block: 'start',
+            behavior: scrollBehaviour
+          });
         }
-        // } else {
-        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), {
-          block: 'start',
-          behavior: scrollBehaviour
-        });
-        // }
       }
-    });
+    }
   }
 
   #updateFilteredOptions(value?: string): void {

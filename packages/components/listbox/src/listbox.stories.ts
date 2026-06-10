@@ -1,10 +1,20 @@
+import {
+  faArrowDown,
+  faArrowDownToLine,
+  faArrowUp,
+  faArrowUpToLine
+} from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Listbox, ListboxItem } from './listbox.js';
+
+Icon.register(faArrowDown, faArrowDownToLine, faArrowUp, faArrowUpToLine);
 
 type Props = Pick<
   Listbox,
@@ -16,12 +26,17 @@ type Props = Pick<
   | 'optionValuePath'
 > & {
   slot?(): TemplateResult;
+  behavior?: 'smooth' | 'auto';
 };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Listbox',
   argTypes: {
+    behavior: {
+      control: 'radio',
+      options: ['smooth', 'auto']
+    },
     emphasis: {
       control: 'inline-radio',
       options: ['subtle', 'bold']
@@ -34,6 +49,7 @@ export default {
     }
   },
   render: ({
+    behavior,
     emphasis,
     options,
     optionGroupPath,
@@ -68,7 +84,7 @@ export default {
     const scrollTo = (index: number): void => {
       scrollToPosition = index;
       const listbox = document.querySelector('sl-listbox');
-      listbox?.scrollToIndex(index);
+      listbox?.scrollToIndex(index, { behavior });
       // Update renderer to trigger re-render with new current index
       if (listbox) {
         listbox.renderer = renderer;
@@ -81,18 +97,31 @@ export default {
           border-radius: var(--sl-size-borderRadius-default);
           max-block-size: calc(100dvh - 4rem);
         }
-        sl-button + sl-listbox {
+        sl-button-bar + sl-listbox {
           margin-block-start: 1rem;
           max-block-size: calc(100dvh - 7rem);
         }
       </style>
       ${options
         ? html`
-            <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
-              >Scroll to ${Math.floor(options.length / 2)}</sl-button
-            >
-            <sl-button @click=${() => scrollTo(scrollToPosition - 1)}>Scroll one up</sl-button>
-            <sl-button @click=${() => scrollTo(scrollToPosition + 1)}>Scroll one down</sl-button>
+            <sl-button-bar>
+              Scroll:
+              <sl-button @click=${() => scrollTo(0)} aria-label="Scroll to top"
+                ><sl-icon name="far-arrow-up-to-line"></sl-icon
+              ></sl-button>
+              <sl-button @click=${() => scrollTo(scrollToPosition - 1)} aria-label="Scroll up one"
+                ><sl-icon name="far-arrow-up"></sl-icon
+              ></sl-button>
+              <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
+                >Scroll to ${Math.floor(options.length / 2)}</sl-button
+              >
+              <sl-button @click=${() => scrollTo(scrollToPosition + 1)} aria-label="Scroll down one"
+                ><sl-icon name="far-arrow-down"></sl-icon
+              ></sl-button>
+              <sl-button @click=${() => scrollTo(options.length - 1)} aria-label="Scroll to bottom"
+                ><sl-icon name="far-arrow-down-to-line"></sl-icon
+              ></sl-button>
+            </sl-button-bar>
           `
         : nothing}
       <sl-listbox

@@ -7,6 +7,13 @@ import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
 import { type Mode, themes, updateTheme } from './themes.js';
 
+// Load the CSS Anchor Positioning polyfill if needed
+if (!('anchorName' in document.documentElement.style)) {
+  const { default: polyfill } = await import('@oddbird/css-anchor-positioning/shadow');
+
+  polyfill();
+}
+
 // Load the polyfill for the Invoker API if needed
 if (!('command' in HTMLButtonElement.prototype)) {
   const { apply } = await import('invokers-polyfill/fn');

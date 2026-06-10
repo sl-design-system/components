@@ -722,6 +722,23 @@ describe('sl-combobox', () => {
         expect(input.value).to.equal('Lorem');
         expect(onChange).not.to.have.been.called;
       });
+
+      it('should prefer a strict value match over a string-coerced match', async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        expect(input.value).to.equal('String');
+      });
     });
 
     describe('allow custom values', () => {
@@ -992,6 +1009,22 @@ describe('sl-combobox', () => {
 
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
+
+      it('should select only the strict value match when coercible option values also match', async () => {
+        el = await fixture(html`
+          <sl-combobox multiple>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        el.value = ['1'];
+        await el.updateComplete;
+
+        expect(el.selectedItems.map(item => item.label)).to.deep.equal(['String']);
       });
 
       it('should select and deselect the current option with Space when select-only', async () => {

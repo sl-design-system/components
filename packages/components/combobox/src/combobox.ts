@@ -1254,7 +1254,15 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #isStringCoercibleValue(value: unknown): value is string | number | boolean | bigint {
-    return ['bigint', 'boolean', 'number', 'string'].includes(typeof value);
+    switch (typeof value) {
+      case 'bigint':
+      case 'boolean':
+      case 'number':
+      case 'string':
+        return true;
+      default:
+        return false;
+    }
   }
 
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {

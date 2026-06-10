@@ -1189,9 +1189,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.selectedItems.forEach(item => this.#removeSelectedOption(item));
       this.selectedItems = [item];
     }
-
-    item.current = false;
-
     if (item.element instanceof Option) {
       item.element.selected = item.selected;
       item.element.style.display = item.visible ? '' : 'none';

@@ -1271,8 +1271,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     predicate: (item: ComboboxItem<T, U>) => boolean = () => true
   ): ComboboxItem<T, U> | undefined {
     return (
-      this.items.find(item => predicate(item) && item.value === value) ??
-      this.items.find(item => predicate(item) && this.#isEqualValue(item.value, value))
+      this.items.find(item => item.type === 'option' && predicate(item) && item.value === value) ??
+      this.items.find(
+        item => item.type === 'option' && predicate(item) && this.#isEqualValue(item.value, value)
+      )
     );
   }
 

@@ -696,6 +696,32 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('1');
         expect(input.value).to.equal('Lorem');
       });
+
+      it('should select an option when the value matches after string coercion', async () => {
+        const onChange = spy();
+
+        el = await fixture(html`
+          <sl-combobox @sl-change=${onChange}>
+            <sl-listbox>
+              <sl-option .value=${1}>Lorem</sl-option>
+              <sl-option .value=${2}>Ipsum</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+          <input />
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{Tab}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('1');
+        expect(input.value).to.equal('Lorem');
+        expect(onChange).not.to.have.been.called;
+      });
     });
 
     describe('allow custom values', () => {
@@ -1467,6 +1493,15 @@ describe('sl-combobox', () => {
           selectedGroup.querySelectorAll('sl-combobox-grouped-option')
         ).map(o => o.innerText);
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
+      });
+
+      it('should expose the selected state for grouped options', () => {
+        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option'));
+
+        expect(options.map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+          'true',
+          'true'
+        ]);
       });
 
       it('should have group headers for both the selected and unselected options', () => {

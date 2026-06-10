@@ -663,7 +663,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.input.setSelectionRange(value.length, item.label.length);
       }
     } else {
-      item = this.items.find(option => option.value === value);
+      item = this.items.find(option => this.#isEqualValue(option.value, value as U));
     }
 
     if (this.allowCustomValues && !item) {
@@ -1241,6 +1241,22 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     return [];
   }
 
+  #isEqualValue(a: U | undefined, b: U | undefined): boolean {
+    if (a === b) {
+      return true;
+    }
+
+    if (this.#isStringCoercibleValue(a) && this.#isStringCoercibleValue(b)) {
+      return a.toString() === b.toString();
+    }
+
+    return false;
+  }
+
+  #isStringCoercibleValue(value: unknown): value is string | number | boolean | bigint {
+    return ['bigint', 'boolean', 'number', 'string'].includes(typeof value);
+  }
+
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {
     if (this.optionGroupPath) {
       const groups = Object.groupBy(options, option =>
@@ -1461,9 +1477,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.selectedItems = [];
 
     this.items.forEach(item => {
-      if (this.multiple && (this.value as U[])?.includes(item.value!)) {
+      if (
+        this.multiple &&
+        Array.isArray(this.value) &&
+        this.value.some(value => this.#isEqualValue(value, item.value))
+      ) {
         this.#addSelectedOption(item);
-      } else if (item.value === this.value) {
+      } else if (this.#isEqualValue(item.value, this.value as U | undefined)) {
         this.#addSelectedOption(item);
       }
     });
@@ -1493,8 +1513,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     const isValueEqual = this.multiple
       ? Array.isArray(this.value) &&
         this.value.length === values.length &&
-        values.every(v => (this.value as U[]).includes(v))
-      : this.value === values[0];
+        values.every(v => (this.value as U[]).some(value => this.#isEqualValue(value, v)))
+      : this.#isEqualValue(this.value as U | undefined, values[0]);
 
     // Do nothing if the value hasn't changed
     if (isValueEqual) {

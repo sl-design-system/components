@@ -8,7 +8,12 @@ You are the coordinator for the `/implement-design` pipeline (see `vision.md`). 
 
 Figma URL: $ARGUMENTS
 
-**Working directory** for all run artifacts: `.claude/implement-design/<run>/`, where `<run>` is a **unique** folder. Derive `<file-slug>` by kebab-casing the Figma file name from the URL (e.g. `Test-CC` → `test-cc`), then pick the smallest integer suffix `-N` (from `1`) for which `.claude/implement-design/<file-slug>-N/` doesn't exist. Create it at the start; the screenshot, manifest, and reports live there for the whole run.
+**Working directory** for all run artifacts: `.claude/implement-design/<run>/`, where `<run>` is a **unique** folder. Derive `<file-slug>` by kebab-casing the Figma file name from the URL (e.g. `Test-CC` → `test-cc`), then pick the smallest integer suffix `-N` (from `1`) for which `.claude/implement-design/<file-slug>-N/` doesn't exist. Create it at the start; everything for the run lives there:
+
+- `screenshot.png` — the cached Figma reference (ground truth).
+- `manifest.md` — design manifest + decomposition + localized strings.
+- `figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md` — the raw output of the analyst's Figma calls (written by design-analyst, for reproducibility).
+- `testing/` — **all** screenshots and scratch artifacts taken during implementation/validation (written by visual-validator). Keeps validation output out of the run root.
 
 Read `.claude/skills/implement-design/component-conventions.md` once up front so you can sanity-check agent output.
 
@@ -29,7 +34,7 @@ Read `.claude/skills/implement-design/component-conventions.md` once up front so
 
 ## Stage 1 — Design ingestion (standalone)
 
-3. Create the unique `<run>` folder. Spawn `design-analyst` (Agent tool) with the URL, the chosen server, and the `<run>` path (it caches the screenshot there). It returns a design manifest, or `BLOCKED_ON_CODE_CONNECT` + node list, or `BLOCKED_ON_MCP` + error.
+3. Create the unique `<run>` folder. Spawn `design-analyst` (Agent tool) with the URL, the chosen server, and the `<run>` path. It caches the screenshot there **and** writes the raw output of each Figma call (`figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md`) into the same folder. It returns a design manifest, or `BLOCKED_ON_CODE_CONNECT` + node list, or `BLOCKED_ON_MCP` + error.
 4. **`BLOCKED_ON_MCP`**: re-spawn the analyst up to 2 more times (brief waits). If still failing, **halt** and report the server is unreachable (this can't be resolved standalone) — show the error and suggest `claude mcp list` / re-auth / opening the desktop app.
 5. **`BLOCKED_ON_CODE_CONNECT`**: the design has unconnected component instances that need Code Connect mappings published in Figma — a human action the pipeline can't do. **Halt** and report the blocked-node list so the user can publish mappings and re-run.
 
@@ -47,7 +52,7 @@ Read `.claude/skills/implement-design/component-conventions.md` once up front so
 ## Stage 4 — Visual validation loop (standalone)
 
 11. Start the app once (Lit: `yarn start` Storybook; Angular: the Angular Storybook / dev server per the Angular skill) in the background and wait until ready.
-12. For each new component, spawn `visual-validator` with the component, the URL, the screenshot path, and the breakpoints. It returns `MATCH` or `NEEDS_WORK` + discrepancies.
+12. For each new component, spawn `visual-validator` with the component, the URL, the **`<run>` path**, and the breakpoints. It reads the reference at `<run>/screenshot.png` and writes all its captures into `<run>/testing/`. It returns `MATCH` or `NEEDS_WORK` + discrepancies.
 13. **On `NEEDS_WORK`**: re-spawn that implementer with the notes. **Before re-validating, make the running app serve the new code** — HMR cannot re-run `customElements.define`, and stale compiled `.js` shadows the `.ts`; so delete stale compiled output, rebuild styles, and **restart the dev server** (clear its cache) before re-running the validator. Cap at **3 iterations** per component; if still diverging, record a handoff note and move on.
 
 ## Stage 5 — Tests, stories, docs (standalone)
@@ -69,5 +74,6 @@ Read `.claude/skills/implement-design/component-conventions.md` once up front so
 ## Coordination notes
 
 - The Figma screenshot is ground truth throughout — keep diffing against it in Stage 4.
+- All run artifacts stay in the `<run>` folder: Figma call outputs + manifest + reference screenshot at the root, and every screenshot/scratch file from implementation or validation under `<run>/testing/`. Pass `<run>` to any agent that reads or writes these.
 - Spawn per-component agents **in parallel** within a stage.
 - After Stage 0, you talk to the user only in the final report (and on an exceptional halt). Don't pepper with per-agent status.

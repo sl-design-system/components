@@ -18,6 +18,10 @@ This is the framework skill for **Lit** in the `/implement-design` pipeline. The
 - **Scoped custom elements**: a component that renders other custom elements in its shadow uses `ScopedElementsMixin(LitElement)` + `static scopedElements`; child components used only inside a parent do **not** `customElements.define` — only the root/public component registers globally.
 - Accessibility: `formAssociated` / `FormControlMixin` for value-holding controls; `ForwardAriaMixin` to forward `aria-*`. Never `<main>`/`role="main"`.
 
+## Events
+
+- Emit with the **`@event` decorator + `EventEmitter`** from `@sl-design-system/shared` — **never** hand-roll `new CustomEvent(...)` + `this.dispatchEvent(...)`. Export a `CustomEvent` type alias (`export type SlSaveEvent = CustomEvent<{ value: T }>;`, `CustomEvent<void>` when no detail), add it to `GlobalEventHandlersEventMap` in the file's `declare global`, declare the emitter (`@event({ name: 'sl-save' }) saveEvent!: EventEmitter<SlSaveEvent>;`), and fire it via `this.saveEvent.emit(detail)` (or `.emit()` for void). `emit` already defaults to `bubbles: true, composed: true`. Mirror `packages/components/tabs`, `tree`, or `form`.
+
 ## Styles
 
 - `src/<name>.scss` compiled to `<name>.scss.ts` via `node scripts/build-styles.js '<base>/**/*.scss'`; the class imports `./<name>.scss.js`.

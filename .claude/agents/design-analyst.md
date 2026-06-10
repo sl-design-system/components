@@ -31,11 +31,21 @@ Whenever a step below says to "call `get_X`", call it on the correct server per 
 
 Do **not** treat a transient connection error as a legitimate tool result (e.g. don't read "connection lost" as "no Code Connect mappings"). Only a real, successful response counts. Hard errors that are _not_ transient (invalid node ID, malformed URL, permission denied) are not retryable — report them plainly and stop; don't emit `BLOCKED_ON_MCP` for those.
 
+## Persist every Figma call's output
+
+The `<run>` folder is the run's permanent artifact folder — the same folder that holds `manifest.md` and `screenshot.png`. **Write the raw output of every Figma data call into it as you go**, so the run is fully reproducible and later stages can re-read the source data without re-calling Figma. Create the folder first with `mkdir -p <run>` via Bash, then after each successful call use the `Write` tool (these responses are text) to save:
+
+- `get_metadata` → `<run>/figma-metadata.json`
+- `get_code_connect_map` → `<run>/figma-code-connect-map.json`
+- `get_design_context` → `<run>/figma-design-context.md` (or `.json` if the response is JSON)
+
+Write each file immediately after its call returns (before moving on), preserving the response verbatim. The screenshot is the one binary exception — it is downloaded with `curl`, not `Write` (see "Caching the screenshot").
+
 Steps (in order, no shortcuts):
 
-1. Parse `fileKey` and `nodeId` from the URL. Convert `-` to `:` in nodeId.
-2. Call `get_metadata` — record the structural tree, capture all descendant node IDs.
-3. Call `get_code_connect_map` for the same node. Find descendants with `null` mappings that look like component instances (not plain frames/text), then decide which are **genuinely unconnected** vs. **identifiable**. A `null`-mapped instance is **NOT** unconnected — treat it as connected — when it is clearly an existing SLDS component by any of:
+1. Parse `fileKey` and `nodeId` from the URL. Convert `-` to `:` in nodeId. `mkdir -p <run>`.
+2. Call `get_metadata` — record the structural tree, capture all descendant node IDs. **Write the raw response to `<run>/figma-metadata.json`.**
+3. Call `get_code_connect_map` for the same node. **Write the raw response to `<run>/figma-code-connect-map.json`.** Find descendants with `null` mappings that look like component instances (not plain frames/text), then decide which are **genuinely unconnected** vs. **identifiable**. A `null`-mapped instance is **NOT** unconnected — treat it as connected — when it is clearly an existing SLDS component by any of:
    - its node **name** is an `sl-*` element (e.g. a node named `sl-icon`), or
    - its **internal sub-nodes carry a Code Connect snippet** (a common pattern: the wrapper instance has a `null` snippet but its children resolve to e.g. `<sl-icon>`), or
    - a **sibling/peer instance of the same component** in the map has a non-`null` snippet you can reuse.
@@ -47,7 +57,7 @@ Steps (in order, no shortcuts):
    BLOCKED_ON_CODE_CONNECT
    ```
    followed by a markdown list of `<nodeId> — <nodeName>` for each genuinely unconnected node. Do not call `get_design_context` or `get_screenshot`. (Do **not** block on `null`-mapped nodes you identified as existing SLDS components per step 3 — those proceed normally.)
-5. Otherwise call `get_design_context` (assigned server), then `get_screenshot` (**always the remote `figma` server**), and cache the screenshot per the procedure below.
+5. Otherwise call `get_design_context` (assigned server) — **write the raw response to `<run>/figma-design-context.md`** — then `get_screenshot` (**always the remote `figma` server**), and cache the screenshot per the procedure below.
 6. Synthesize the design manifest per the schema. Sections: Overview, Existing SLDS Components Used (from CC map), Composition Candidates (multi-component groups), Net-New Primitive Candidates, Responsive Breakpoints, Designer Annotations, Token Reference.
 
 ## Caching the screenshot
@@ -64,7 +74,7 @@ A screenshot is a **binary PNG**. You cannot save it with the `Write` tool — `
 
 If the remote `get_screenshot` call fails transiently, retry it **once**. If it still fails, or the downloaded file fails verification, delete any bad file and write a marker at `<run>/screenshot-MISSING.txt` (via Write) explaining the screenshot could not be cached and that Stage 4 needs a re-fetch. A missing screenshot is **not** fatal — continue and produce the manifest; do not emit `BLOCKED_ON_MCP` for a screenshot failure. **Never** leave a non-PNG file named `screenshot.png`.
 
-In your final output, state the screenshot status: cached PNG at the path, or missing (with the reason).
+In your final output, state the screenshot status (cached PNG at the path, or missing with the reason) and confirm the persisted Figma-call files (`<run>/figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md`).
 
 Constraints:
 

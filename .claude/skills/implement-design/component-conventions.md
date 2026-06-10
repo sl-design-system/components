@@ -131,7 +131,12 @@ Rules:
 - Variant/enum properties use exported string-union types, never raw `string`.
 - JSDoc every public property. Style per CONTRIBUTING.md: "The `x` of the `component`." for options, "Whether the `component` is `x`." for boolean states. End with a period. Add `@default <value>` (no `@default` for booleans defaulting to false).
 - Slots are documented with `@slot <name> - Description` in the class-level JSDoc block, above the class.
-- Events: dispatch `sl-`-prefixed dasherized events (`sl-active-item-change`). Use the `EventEmitter` decorator from `@sl-design-system/shared` if other components use it for that pattern — check a neighbor.
+- **Events: declare them with the `@event` decorator + `EventEmitter` from `@sl-design-system/shared` — never hand-roll `new CustomEvent(...)` + `this.dispatchEvent(...)`.** This is the SLDS standard (see `tabs`, `tree`, `form`, `date-field`). The pattern:
+  - Define the event type as an exported `CustomEvent` alias: `export type SlSaveEvent = CustomEvent<{ value: FormShape }>;` (use `CustomEvent<void>` when there's no detail).
+  - Declare it in `GlobalEventHandlersEventMap` inside the file's `declare global` block so `addEventListener('sl-save', ...)` is typed.
+  - Add an emitter field: `@event({ name: 'sl-save' }) saveEvent!: EventEmitter<SlSaveEvent>;` (the `name` is the `sl-`-prefixed dasherized event name).
+  - Emit by calling `this.saveEvent.emit(detail)` (or `this.saveEvent.emit()` for a void detail). `EventEmitter.emit` already defaults to `{ bubbles: true, composed: true }`, so don't pass those manually.
+  - Still document each event with `@fires <name> - …` in the class JSDoc.
 
 ### Accessibility hooks
 

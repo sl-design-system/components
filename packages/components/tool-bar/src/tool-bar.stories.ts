@@ -784,9 +784,16 @@ export const Examples: Story = {
             aria-label="Filtering and sorting"
             inverted
             fill="ghost"
-            style="inline-size: fit-content">
+            style="inline-size: fit-content; padding: var(--sl-size-100)">
             ${filteringAndSorting}
           </sl-tool-bar>
+          <p>
+            This last example has been given extra padding for demonstration purposes. This prevents
+            the white focus outline from being invisible on the white background.<br />
+            If you use the toolbar as part of a larger UI with a non-white background, you typically
+            won't need this extra padding, as the focus outline will be visible against the
+            background.
+          </p>
         </div>
       </div>
     `;

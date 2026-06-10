@@ -1416,12 +1416,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
-      if (this.currentItem.element) {
-        // Element exists, use scrollIntoView (avoid duplicate scrolling)
+      // Check if element exists and is still connected (not a stale, disconnected element from virtualization)
+      if (this.currentItem.element?.isConnected) {
+        // Element exists and is connected, use scrollIntoView (avoid duplicate scrolling)
         this.currentItem.element.setAttribute('current', '');
-        this.currentItem.element.scrollIntoView({ block: 'start' });
+        this.currentItem.element.scrollIntoView({ block: 'start', behavior: scrollBehaviour });
       } else {
-        // Element doesn't exist (virtual list), use scrollToIndex
+        // Element doesn't exist or is disconnected (virtual list), use scrollToIndex
         // Use the listbox's items (filtered) to get the correct index
         const index = this.listbox?.items?.indexOf(this.currentItem) ?? -1;
         if (index !== -1) {

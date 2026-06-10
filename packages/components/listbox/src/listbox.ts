@@ -225,7 +225,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
         this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.scrollMargin = 0;
-        const gap = getComputedStyle(this).gap;
+        const gap = getComputedStyle(this).gap || 0;
         this.#virtualizer.gap = gap ? parseFloat(gap) : 0;
         this.#virtualizer.overscan = 3;
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
@@ -278,7 +278,17 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
    * @param options - Scroll options
    */
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
+    // Guard against negative and out-of-range indices
+    if (!Number.isInteger(index) || index < 0) {
+      return;
+    }
+
     if (this.#virtualizer) {
+      // Check if index is within range for virtual list
+      if (!this.items || index >= this.items.length) {
+        return;
+      }
+
       const alignMap: Record<
           NonNullable<ScrollIntoViewOptions['block']>,
           'start' | 'center' | 'end' | 'auto'
@@ -295,10 +305,16 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         behavior
       });
     } else {
-      Array.from(this.querySelectorAll('sl-option'))
-        .filter(el => el.style.display !== 'none')
-        .at(index)
-        ?.scrollIntoView(options);
+      const visibleOptions = Array.from(this.querySelectorAll('sl-option')).filter(
+        el => el.style.display !== 'none'
+      );
+
+      // Check if index is within range
+      if (index >= visibleOptions.length) {
+        return;
+      }
+
+      visibleOptions[index]?.scrollIntoView(options);
     }
   }
 

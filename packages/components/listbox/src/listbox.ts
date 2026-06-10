@@ -269,12 +269,18 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Scrolls to the option at the specified index.
+   * Scrolls to the item at the specified index.
    *
    * @remarks
-   *   When using a virtual list (via `options` or `items` properties), only `block` and `behavior`
-   *   options are supported. The `inline` option is ignored for virtualized lists.
-   * @param index - The zero-based index of the option to scroll to
+   *   **Indexing semantics differ between rendering modes:**
+   *
+   *   - **Virtualized (via `options` or `items` properties):** Index refers to the `items` array,
+   *     which may include both options and option-group headers. Only `block` and `behavior`
+   *     options are supported; `inline` is ignored.
+   *   - **Slotted (declarative `<sl-option>` elements):** Index refers only to visible `<sl-option>`
+   *     elements, excluding group headers and hidden options.
+   *
+   * @param index - The zero-based index into the items/options array (see remarks for details)
    * @param options - Scroll options
    */
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {

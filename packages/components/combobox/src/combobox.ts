@@ -683,6 +683,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    console.log('onKeydown event.key:', event.key);
     const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
 
     if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
@@ -907,6 +908,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
+        console.log('this.#popoverOpenedViaKeyboard:', this.#popoverOpenedViaKeyboard);
         if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
           this.#updateCurrent(this.selectedItems[0]);
         }
@@ -1191,7 +1193,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     item.current = false;
-    this.#updateCurrent(this.selectedItems.find(i => i.id === item.id));
 
     if (item.element instanceof Option) {
       item.element.selected = item.selected;
@@ -1396,6 +1397,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /** Updates the options to reflect the current one. */
   #updateCurrent(option?: ComboboxItem<T, U>, scrollBehaviour: ScrollBehavior = 'instant'): void {
+    console.log('Updating current option to', option?.label);
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');

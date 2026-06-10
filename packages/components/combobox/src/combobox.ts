@@ -683,7 +683,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('onKeydown event.key:', event.key);
     const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
 
     if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
@@ -908,7 +907,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
-        console.log('this.#popoverOpenedViaKeyboard:', this.#popoverOpenedViaKeyboard);
         if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
           this.#updateCurrent(this.selectedItems[0]);
         }

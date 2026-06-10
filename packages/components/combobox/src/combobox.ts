@@ -1397,10 +1397,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /** Updates the options to reflect the current one. */
   #updateCurrent(option?: ComboboxItem<T, U>, scrollBehaviour: ScrollBehavior = 'instant'): void {
-    console.log('Updating current option to', option?.label);
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
+
+      // Clear from tracked element (works for virtual list elements in shadow root)
+      this.currentItem.element?.removeAttribute('current');
+      // Also try querySelector for non-virtual case as fallback
       this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 

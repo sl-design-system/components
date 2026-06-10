@@ -67,7 +67,14 @@ export default {
 
     const scrollTo = (index: number): void => {
       scrollToPosition = index;
-      document.querySelector('sl-virtual-list')?.scrollToIndex(index, { align: 'start', behavior });
+      if (index < 0) {
+        scrollToPosition = 0;
+      } else if (index >= items.length) {
+        scrollToPosition = items.length - 1;
+      }
+      document
+        .querySelector('sl-virtual-list')
+        ?.scrollToIndex(scrollToPosition, { align: 'start', behavior });
     };
 
     return html`

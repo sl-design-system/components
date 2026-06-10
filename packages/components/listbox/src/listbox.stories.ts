@@ -83,13 +83,19 @@ export default {
 
     const scrollTo = (index: number): void => {
       scrollToPosition = index;
+      if (index < 0) {
+        scrollToPosition = 0;
+      } else if (index >= (options?.length ?? 0)) {
+        scrollToPosition = (options?.length ?? 1) - 1;
+      }
       const listbox = document.querySelector('sl-listbox');
-      listbox?.scrollToIndex(index, { behavior });
+      listbox?.scrollToIndex(scrollToPosition, { behavior });
       // Update renderer to trigger re-render with new current index
       if (listbox) {
         listbox.renderer = renderer;
       }
     };
+
     return html`
       <style>
         sl-listbox {

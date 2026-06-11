@@ -18,6 +18,7 @@ node_modules/
 
 # Build output
 .claude/implement-design
+.implement-design
 custom-elements.json
 dist
 storybook-static

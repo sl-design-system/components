@@ -16,15 +16,13 @@ You implement **exactly one** new component for the `/implement-design` pipeline
 - **The Shared Types / Contracts** you must export or consume (interface names + field shapes that cross component boundaries). Implement them **exactly** as given so the parent/siblings that depend on them compile against the same names and shapes — don't rename or reshape.
 - The relevant design-manifest excerpt + the Code Connect snippet for this node.
 - The path to the cached Figma screenshot.
+- **The framework-skill path and the conventions path** — absolute paths into the plugin this agent ships in (its `skills/implement-design-lit/SKILL.md` or `skills/implement-design-angular/SKILL.md`, and `skills/implement-design/component-conventions.md`).
 
 ## First, load the framework skill
 
-Read the framework skill for your assigned framework **on demand**:
+Read the framework skill for your assigned framework **on demand**, at the framework-skill path from your inputs (it ships in the same plugin as this agent; if the path is missing from your prompt, ask for it).
 
-- `lit` → `.claude/skills/implement-design-lit/SKILL.md`
-- `angular` → `.claude/skills/implement-design-angular/SKILL.md`
-
-It is the authoritative guide for _how_ to scaffold, structure, style, register, build, and type-check in that framework, and it points to the shared design principles in `.claude/skills/implement-design/component-conventions.md` (read those too). Then open the nearest existing component of the same shape in that framework's part of the repo (Lit → `packages/components/*`; Angular → `packages/angular/*`) and mirror it. View the screenshot for visual ground truth.
+It is the authoritative guide for _how_ to scaffold, structure, style, register, build, and type-check in that framework, and it points to the shared design principles in `component-conventions.md` (at the conventions path from your inputs — read those too). Then open the nearest existing component of the same shape in that framework's part of the repo (Lit → `packages/components/*`; Angular → `packages/angular/*`) and mirror it. View the screenshot for visual ground truth.
 
 > `<base>` is the target location from your inputs. Everything you create goes under `<base>`.
 

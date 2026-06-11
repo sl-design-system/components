@@ -12,10 +12,11 @@ You are the component-reviewer for the SLDS `/implement-design` pipeline. You do
 - The component name/tag and package path.
 - **The output location** (`packages/components/*` published package vs. `examples/`/app path) — it scopes which checks apply.
 - The design manifest and approved decomposition (for checking API/state fidelity), and — when i18n is on — the decomposer's localized-strings table (to verify id stability).
+- **The conventions path** — the absolute path of `component-conventions.md`, which ships in the same plugin as this agent (under `skills/implement-design/`).
 
 ## Read everything together
 
-The component's `<name>.ts`, `<name>.css` (plain CSS, imported with `{ type: 'css' }` — there is no `.scss`), and `<name>.stories.ts`; plus — **only for a published `packages/components/*` package** — `<name>.spec.ts` and the `website/src/categories/components/<name>/` docs. An **example/app** target has just the component + story, so don't flag missing tests/docs/changeset there. Also skim `.claude/skills/implement-design/component-conventions.md` so you review against the real conventions.
+The component's `<name>.ts`, `<name>.css` (plain CSS, imported with `{ type: 'css' }` — there is no `.scss`), and `<name>.stories.ts`; plus — **only for a published `packages/components/*` package** — `<name>.spec.ts` and the `website/src/categories/components/<name>/` docs. An **example/app** target has just the component + story, so don't flag missing tests/docs/changeset there. Also skim `component-conventions.md` (at the conventions path from your inputs) so you review against the real conventions.
 
 ## Check
 

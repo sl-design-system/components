@@ -9,7 +9,7 @@ This is the framework skill for **Angular** in the `/implement-design` pipeline.
 
 ## Apply the shared design principles
 
-These principles from `.claude/skills/implement-design/component-conventions.md` are framework-agnostic — follow them (ignore that file's Lit-specific mechanics: the `.css` + `{ type: 'css' }` import / no-build-step, `ScopedElementsMixin`, `Icon.register`, `@lit/localize`, `register.ts`, the `@event`/`EventEmitter` decorator):
+These principles from `../implement-design/component-conventions.md` (relative to this skill's folder; the orchestrator also passes its absolute path) are framework-agnostic — follow them (ignore that file's Lit-specific mechanics: the `.css` + `{ type: 'css' }` import / no-build-step, `ScopedElementsMixin`, `Icon.register`, `@lit/localize`, `register.ts`, the `@event`/`EventEmitter` decorator):
 
 - **Reproduce the design's content via data ownership** — the root/page component owns the data (a service / `HttpClient` fetch; a typed mock in an example with a comment) and passes subsets to **presentational** child components. Children don't fetch; the story/host doesn't fill in fixed design content.
 - **Pass a cohesive "model" object, not many scalar props** — a child that renders several related fields takes **one typed object `@Input()`** (with an exported interface), the way a real app hands a child its slice of the domain model; split into separate inputs only for genuinely independent values. Use the **Shared Types / Contracts** from the decomposition verbatim. **The model holds data + stable keys only — no translated strings (localize in the template/component keyed off the key), no structural config (column/tab/option sets are constants in the component).**

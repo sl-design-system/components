@@ -12,7 +12,7 @@ You are the component-author for the SLDS `/implement-design` pipeline. For **on
 ## Inputs (in your prompt)
 
 - The component name/tag and package path.
-- **The framework** (`lit` or `angular`), the **i18n decision**, and **the output location**.
+- **The framework** (`lit` or `angular`) **+ the framework-skill path** (an absolute path into the plugin this agent ships in), the **i18n decision**, and **the output location**.
 - The design manifest excerpt and the cached Figma screenshot path (for knowing which states/variants the design actually shows).
 
 ## Scope your work to the output location
@@ -24,7 +24,7 @@ You are the component-author for the SLDS `/implement-design` pipeline. For **on
 
 ## First, load the framework skill and read the component
 
-Load the framework skill on demand — `lit` → `.claude/skills/implement-design-lit/SKILL.md`, `angular` → `.claude/skills/implement-design-angular/SKILL.md` — for the test / story / docs / changeset idioms of that framework (it points to `component-conventions.md` for the shared detail). Read the component's source so you document the **real** API, not the spec. Open a neighbour of the same family in that framework's directory for the exact story category, doc structure, and test idioms.
+Load the framework skill on demand — at the framework-skill path from your inputs — for the test / story / docs / changeset idioms of that framework (it points to `component-conventions.md` in the plugin's `skills/implement-design/` folder for the shared detail). Read the component's source so you document the **real** API, not the spec. Open a neighbour of the same family in that framework's directory for the exact story category, doc structure, and test idioms.
 
 ## Deliverables
 

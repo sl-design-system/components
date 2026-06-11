@@ -5,7 +5,7 @@ description: Lit/LitElement implementation conventions for the /implement-design
 
 # Implementing an SLDS component in **Lit**
 
-This is the framework skill for **Lit** in the `/implement-design` pipeline. The full, detailed Lit conventions live in **`.claude/skills/implement-design/component-conventions.md`** — read that file; it is the authoritative Lit reference. This skill is a checklist of the Lit-specific essentials it covers.
+This is the framework skill for **Lit** in the `/implement-design` pipeline. The full, detailed Lit conventions live in **`../implement-design/component-conventions.md`** (relative to this skill's folder; the orchestrator also passes its absolute path) — read that file; it is the authoritative Lit reference. This skill is a checklist of the Lit-specific essentials it covers.
 
 ## Scaffolding
 

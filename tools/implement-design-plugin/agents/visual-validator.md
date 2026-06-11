@@ -10,7 +10,7 @@ You are the visual-validator for the SLDS `/implement-design` pipeline. You veri
 ## Inputs (in your prompt)
 
 - The component name/tag and its package path.
-- The **`<run>` folder** (e.g. `.claude/implement-design/test-cc-1/`) — the run's artifact folder, holding `manifest.md` and `screenshot.png`. The cached Figma screenshot is `<run>/screenshot.png`.
+- The **`<run>` folder** (e.g. `.implement-design/test-cc-1/`) — the run's artifact folder, holding `manifest.md` and `screenshot.png`. The cached Figma screenshot is `<run>/screenshot.png`.
 - And/or the Figma node URL (fallback if the cached screenshot is missing).
 - The responsive breakpoints from the manifest.
 - The Storybook URL if already running; otherwise start it (see below).
@@ -20,7 +20,7 @@ You are the visual-validator for the SLDS `/implement-design` pipeline. You veri
 
 Every screenshot you capture during validation goes into a **`testing/` subdirectory of the `<run>` folder** — `<run>/testing/` — so validation artifacts live alongside the manifest and reference screenshot without polluting the run root. `mkdir -p <run>/testing` (via Bash) before you start capturing. Name files descriptively, e.g. `<component>-<breakpoint>.png`, `<component>-hover.png`.
 
-The Playwright MCP `browser_take_screenshot` saves into its own output directory, which is the **repo root (the cwd)** — and it treats `filename` as a path **relative to that root**. So pass `filename` as the path **into the run testing dir directly**, e.g. `filename: ".claude/implement-design/<run>/testing/<component>-987.png"`. That lands the capture in the right place in one step — do **not** save to a bare name and then `cp`, because that leaves the original at the repo root and dirties the working tree. After capturing, `ls <run>/testing/` to confirm the files are there, and check that **no stray `*.png` were left at the repo root** (`ls *.png` — there should be none from you); remove any that slipped out.
+The Playwright MCP `browser_take_screenshot` saves into its own output directory, which is the **repo root (the cwd)** — and it treats `filename` as a path **relative to that root**. So pass `filename` as the path **into the run testing dir directly**, e.g. `filename: ".implement-design/<run>/testing/<component>-987.png"`. That lands the capture in the right place in one step — do **not** save to a bare name and then `cp`, because that leaves the original at the repo root and dirties the working tree. After capturing, `ls <run>/testing/` to confirm the files are there, and check that **no stray `*.png` were left at the repo root** (`ls *.png` — there should be none from you); remove any that slipped out.
 
 ## Steps
 

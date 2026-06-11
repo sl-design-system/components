@@ -170,6 +170,10 @@
   <source>List of hidden elements</source>
   <target>Lijst met verborgen elementen</target>
 </trans-unit>
+<trans-unit id="sl.tagList.navigationInstructions">
+  <source>Use arrow keys to move between removable tags.</source>
+  <target>Gebruik de pijltjestoetsen om tussen verwijderbare tags te navigeren.</target>
+</trans-unit>
 <trans-unit id="sl.combobox.selectedOptions">
   <source>Selected options</source>
   <target>Geselecteerde opties</target>

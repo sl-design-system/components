@@ -78,6 +78,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal The label of the tag component. */
   @state() label = '';
 
+  /** @internal Clarifies tag list keyboard navigation for assistive technologies. */
+  @state() navigationDescription?: string;
+
   /**
    * Whether the tag component is removable.
    *
@@ -134,11 +137,21 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               @click=${this.#onRemove}
               @focus=${this.#onFocus}
               @keydown=${this.#onKeydown}
+              aria-describedby=${ifDefined(
+                this.navigationDescription ? 'navigation-description' : undefined
+              )}
               aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
               aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
               part="button">
               <sl-icon name="xmark"></sl-icon>
             </button>
+            ${this.navigationDescription
+              ? html`
+                  <span id="navigation-description" class="sr-only"
+                    >${this.navigationDescription}</span
+                  >
+                `
+              : nothing}
           `
         : nothing}
     `;

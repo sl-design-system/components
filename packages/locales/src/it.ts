@@ -108,6 +108,8 @@ export const templates = {
   'sl.select.validation.valueMissing': "Scegli un'opzione dall'elenco.",
   'sl.tabs.showAll': 'Mostra tutto',
   'sl.tag.listOfHiddenElements': 'Elenco degli elementi nascosti',
+  'sl.tag.remove': str`Rimuovi etichetta '${0}'`,
+  'sl.tagList.navigationInstructions': 'Usa i tasti freccia per spostarti tra i tag rimovibili.',
   'sl.timeField.empty': 'Vuoto',
   'sl.timeField.rangeOverflow': str`Seleziona un orario non posteriore a ${0}.`,
   'sl.timeField.rangeUnderflow': str`Seleziona un orario non anteriore a ${0}.`,
@@ -117,6 +119,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Inserisci un orario valido.',
   'sl.timeField.valueMissing': 'Inserisci un orario.',
   'sl.toolBar.showMore': 'Mostra altro',
-  'sl.tree.loadingMessage': 'Caricamento',
-  'sl.tag.remove': str`Rimuovi etichetta '${0}'`
+  'sl.tree.loadingMessage': 'Caricamento'
 };

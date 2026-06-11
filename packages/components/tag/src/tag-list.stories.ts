@@ -51,12 +51,6 @@ export default {
 
 export const Basic: Story = {};
 
-export const Disabled: Story = {
-  args: {
-    disabled: true
-  }
-};
-
 export const Info: Story = {
   args: {
     variant: 'info'
@@ -75,12 +69,10 @@ export const Removable: Story = {
   }
 };
 
-export const Mixed: Story = {
+export const RemovableDisabled: Story = {
   args: {
-    tags: () =>
-      Array.from({ length: 10 }).map(
-        (_, index) => html`<sl-tag ?removable=${index % 2 === 0}>${`Tag ${index + 1}`}</sl-tag>`
-      )
+    disabled: true,
+    removable: true
   }
 };
 

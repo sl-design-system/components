@@ -109,6 +109,8 @@ export const templates = {
   'sl.tabs.showAll': 'Toon alles',
   'sl.tag.listOfHiddenElements': 'Lijst met verborgen elementen',
   'sl.tag.remove': str`Verwijder tag '${0}'`,
+  'sl.tagList.navigationInstructions':
+    'Gebruik de pijltjestoetsen om tussen verwijderbare tags te navigeren.',
   'sl.timeField.empty': 'Leeg',
   'sl.timeField.rangeOverflow': str`Voer een tijd in die niet later is dan ${0}.`,
   'sl.timeField.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,

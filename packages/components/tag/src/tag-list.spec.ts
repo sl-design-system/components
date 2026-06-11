@@ -85,6 +85,33 @@ describe('sl-tag-list', () => {
 
       expect(document.activeElement).to.equal(tags.at(-2));
     });
+
+    it('should include disabled removable tags in the roving tabindex', async () => {
+      el = await fixture(html`
+        <sl-tag-list>
+          <sl-tag removable>My label 1</sl-tag>
+          <sl-tag removable disabled>My label 2</sl-tag>
+          <sl-tag removable>My label 3</sl-tag>
+        </sl-tag-list>
+      `);
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      tags[0].focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(document.activeElement).to.equal(tags[1]);
+      expect(tags[1].renderRoot.querySelector('button')).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should describe arrow key navigation on remove buttons', () => {
+      const button = el.querySelector('sl-tag')?.renderRoot.querySelector('button');
+
+      expect(button).to.have.attribute('aria-describedby', 'navigation-description');
+      expect(
+        el.querySelector('sl-tag')?.renderRoot.querySelector('#navigation-description')
+      ).to.have.trimmed.text('Use arrow keys to move between removable tags.');
+    });
   });
 
   describe('stacked', () => {

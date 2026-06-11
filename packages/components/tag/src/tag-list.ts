@@ -137,14 +137,18 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
-    focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
+    focusInIndex: (elements: Tag[]) => {
+      const index = elements.findIndex(el => !el.disabled);
+
+      return index === -1 ? 0 : index;
+    },
     elements: () => [
       ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none'
         ? [this.stackTag]
         : []),
-      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !t.disabled && !!t.removable)
+      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !!t.removable)
     ],
-    isFocusableElement: (el: Tag) => !el.disabled
+    isFocusableElement: (el: Tag) => el !== this.stackTag || !el.disabled
   });
 
   /** Disables interaction with the tag list and renders the stacked tag as disabled. */
@@ -346,11 +350,18 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.tags.forEach(tag => (tag.navigationDescription = undefined));
+
     this.tags = Array.from(event.target.assignedElements({ flatten: true })).filter(
       (el): el is Tag => el instanceof Tag
     );
 
     this.tags.forEach(tag => {
+      tag.navigationDescription = tag.removable
+        ? msg('Use arrow keys to move between removable tags.', {
+            id: 'sl.tagList.navigationInstructions'
+          })
+        : undefined;
       tag.role = 'listitem';
       tag.size = this.size;
       tag.variant = this.variant;

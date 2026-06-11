@@ -1,6 +1,7 @@
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
+import { type Option } from '@sl-design-system/listbox';
 import '@sl-design-system/select/register.js';
 import {
   getForwardedAccessibleName,
@@ -80,6 +81,26 @@ describe('sl-paginator', () => {
       expect(getForwardedAriaAttribute(button!, 'aria-current')).to.equal('page');
     });
 
+    it('should render the current page as a primary outline button by default', () => {
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current'),
+        otherPage = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.page)');
+
+      expect(currentPage?.fill).to.equal('outline');
+      expect(currentPage?.variant).to.equal('primary');
+      expect(otherPage?.fill).to.equal('ghost');
+      expect(otherPage?.variant).to.be.undefined;
+    });
+
+    it('should render the current page as a primary solid button when emphasis is bold', async () => {
+      el.emphasis = 'bold';
+      await el.updateComplete;
+
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+
+      expect(currentPage?.fill).to.equal('solid');
+      expect(currentPage?.variant).to.equal('primary');
+    });
+
     it('should have a page size of 10', () => {
       const buttons = el.renderRoot.querySelectorAll('sl-button.page'),
         labels = Array.from(buttons).map(button => button.textContent?.trim());
@@ -112,7 +133,9 @@ describe('sl-paginator', () => {
 
     it('should have a menu button with hidden pages before the last page if the current page is near the start', () => {
       const menuButton = el.renderRoot.querySelector('sl-menu-button'),
-        pages = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []).map(o => o.textContent?.trim());
+        pages = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []).map(o =>
+          o.textContent?.trim()
+        );
 
       expect(menuButton).to.exist;
       expect(pages).to.have.lengthOf(10);
@@ -124,7 +147,9 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       const menuButton = el.renderRoot.querySelector('sl-menu-button'),
-        pages = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []).map(o => o.textContent?.trim());
+        pages = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []).map(o =>
+          o.textContent?.trim()
+        );
 
       expect(menuButton).to.exist;
       expect(pages).to.have.lengthOf(10);
@@ -136,8 +161,12 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       const menuButtons = Array.from(el.renderRoot.querySelectorAll('sl-menu-button')),
-        startPages = Array.from(menuButtons[0].querySelectorAll('sl-menu-item')).map(o => o.textContent?.trim()),
-        endPages = Array.from(menuButtons[1].querySelectorAll('sl-menu-item')).map(o => o.textContent?.trim());
+        startPages = Array.from(menuButtons[0].querySelectorAll('sl-menu-item')).map(o =>
+          o.textContent?.trim()
+        ),
+        endPages = Array.from(menuButtons[1].querySelectorAll('sl-menu-item')).map(o =>
+          o.textContent?.trim()
+        );
 
       expect(menuButtons).to.have.lengthOf(2);
       expect(startPages).to.deep.equal(['2', '3', '4', '5', '6', '7']);
@@ -329,7 +358,9 @@ describe('sl-paginator', () => {
     });
 
     it('should have a medium width when there is limited space', async () => {
-      el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 500px;"></sl-paginator>`);
+      el = await fixture(
+        html`<sl-paginator total-items="200" style="inline-size: 500px;"></sl-paginator>`
+      );
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(el).to.have.attribute('width', 'md');
@@ -337,7 +368,9 @@ describe('sl-paginator', () => {
     });
 
     it('should have a small width when there is very limited space', async () => {
-      el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 450px;"></sl-paginator>`);
+      el = await fixture(
+        html`<sl-paginator total-items="200" style="inline-size: 450px;"></sl-paginator>`
+      );
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(el).to.have.attribute('width', 'sm');
@@ -345,7 +378,9 @@ describe('sl-paginator', () => {
     });
 
     it('should have an extra small width when there is very limited space', async () => {
-      el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 400px;"></sl-paginator>`);
+      el = await fixture(
+        html`<sl-paginator total-items="200" style="inline-size: 400px;"></sl-paginator>`
+      );
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(el).to.have.attribute('width', 'xs');
@@ -361,7 +396,9 @@ describe('sl-paginator', () => {
     });
 
     it('should shrink smaller than the initial set width', async () => {
-      el = await fixture(html`<sl-paginator total-items="200" width="md" style="inline-size: 400px;"></sl-paginator>`);
+      el = await fixture(
+        html`<sl-paginator total-items="200" width="md" style="inline-size: 400px;"></sl-paginator>`
+      );
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(el).to.have.attribute('width', 'xs');
@@ -425,6 +462,16 @@ describe('sl-paginator', () => {
         );
 
         expect(buttons).to.have.lengthOf(0);
+      });
+
+      it('should not wrap page numbers in select options when the width is xs', async () => {
+        el.width = 'xs';
+        await el.updateComplete;
+
+        const option = el.renderRoot.querySelector<Option>('sl-option:nth-of-type(10)')!,
+          wrapper = option.renderRoot.querySelector('[part="wrapper"]')!;
+
+        expect(getComputedStyle(wrapper).whiteSpace).to.equal('nowrap');
       });
     });
   });

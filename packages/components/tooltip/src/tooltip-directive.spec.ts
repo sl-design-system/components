@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { type PopoverPosition } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -127,7 +130,7 @@ describe('tooltip()', () => {
     const tooltipEl = el.nextElementSibling as Tooltip | null;
 
     expect(tooltipEl).to.exist;
-    expect(el).to.have.attribute('aria-labelledby', tooltipEl?.id);
+    expect(el.getAttribute('aria-labelledby')).to.equal(tooltipEl?.id ?? null);
 
     lazySpy.restore();
   });
@@ -142,7 +145,9 @@ describe('tooltip()', () => {
     }
 
     const el: HTMLElement = await fixture(html`
-      <sl-button ${tooltip('Tooltip example', { position: 'bottom' as PopoverPosition, maxWidth: 150 })} tabindex="0"
+      <sl-button
+        ${tooltip('Tooltip example', { position: 'bottom' as PopoverPosition, maxWidth: 150 })}
+        tabindex="0"
         >Button</sl-button
       >
     `);

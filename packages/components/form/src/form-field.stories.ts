@@ -162,15 +162,20 @@ export const Composite: Story = {
             grid-column: 1 / -1;
           }
         </style>
-        <sl-checkbox @sl-change=${onIndefinitelyChange} name="indefinitely">Indefinitely</sl-checkbox>
+        <sl-checkbox @sl-change=${onIndefinitelyChange} name="indefinitely"
+          >Indefinitely</sl-checkbox
+        >
         <sl-number-field
           aria-label="Rental period amount"
           name="rentalPeriodAmount"
           min="1"
           placeholder="0"
-          required
-        ></sl-number-field>
-        <sl-select aria-label="Rental period unit" name="rentalPeriodUnit" placeholder="Select unit" required>
+          required></sl-number-field>
+        <sl-select
+          aria-label="Rental period unit"
+          name="rentalPeriodUnit"
+          placeholder="Select unit"
+          required>
           <sl-option value="day">Day</sl-option>
           <sl-option value="week">Week</sl-option>
           <sl-option value="month">Month</sl-option>
@@ -185,8 +190,8 @@ export const CustomError: Story = {
     slot: () => html`
       <sl-text-field required show-validity="invalid"></sl-text-field>
       <sl-error
-        >This is a <strong>custom</strong> error with a lot of text so we can see what happens when you have a lot to
-        explain. Because forms are hard!</sl-error
+        >This is a <strong>custom</strong> error with a lot of text so we can see what happens when
+        you have a lot to explain. Because forms are hard!</sl-error
       >
     `
   }
@@ -208,7 +213,9 @@ export const CustomLabel: Story = {
     slot: () => html`
       <sl-label>
         This is a <em>custom</em> label
-        <sl-infotip slot="infotip">This is some additional information about this field.</sl-infotip>
+        <sl-infotip slot="infotip"
+          >This is some additional information about this field.</sl-infotip
+        >
       </sl-label>
       <sl-text-field></sl-text-field>
     `

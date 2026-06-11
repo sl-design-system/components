@@ -44,8 +44,7 @@ export default {
       ?removable=${removable}
       size=${ifDefined(size)}
       style=${ifDefined(maxWidth ? `max-inline-size: ${maxWidth}` : undefined)}
-      variant=${ifDefined(variant)}
-    >
+      variant=${ifDefined(variant)}>
       ${label}
     </sl-tag>
   `

@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -32,11 +35,10 @@ export class Error extends ScopedElementsMixin(LitElement) {
   #slot?: HTMLSlotElement;
 
   /**
-   * The ID of the form control this error message is associated with. Use this
-   * to link the error message to a specific form control. This is useful for
-   * when a form field has more than 1 form control. If the form field has
-   * only 1 form control, the error message will automatically be associated
-   * with that form control.
+   * The ID of the form control this error message is associated with. Use this to link the error
+   * message to a specific form control. This is useful for when a form field has more than 1 form
+   * control. If the form field has only 1 form control, the error message will automatically be
+   * associated with that form control.
    */
   @property() for?: string;
 
@@ -55,7 +57,7 @@ export class Error extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-icon name="circle-exclamation-solid"></sl-icon>
+      <sl-icon name="triangle-exclamation-solid"></sl-icon>
       <slot></slot>
     `;
   }

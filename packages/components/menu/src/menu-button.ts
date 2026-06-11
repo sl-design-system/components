@@ -1,5 +1,8 @@
 import { localized } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import {
   Button,
   type ButtonFill,
@@ -11,7 +14,14 @@ import { Icon } from '@sl-design-system/icon';
 import { EventsController, type PopoverPosition } from '@sl-design-system/shared';
 import { isForwardedDisabled } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './menu-button.scss.js';
@@ -25,8 +35,7 @@ declare global {
 }
 
 /**
- * Custom element that combines a button and a menu and automatically wires them up
- * together.
+ * Custom element that combines a button and a menu and automatically wires them up together.
  *
  * @csspart button - The button element.
  *
@@ -67,12 +76,14 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
 
   /**
    * Whether the button is disabled; when set no interaction is possible.
+   *
    * @default false
    */
   @property({ type: Boolean }) disabled?: boolean;
 
   /**
    * The fill of the button.
+   *
    * @default 'outline'
    */
   @property() fill: ButtonFill = 'outline';
@@ -82,24 +93,28 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
 
   /**
    * The position of the menu relative to the button.
+   *
    * @default 'bottom-start'
    */
   @property() position?: PopoverPosition;
 
   /**
    * The shape of the button.
+   *
    * @default 'square'
    */
   @property() shape?: ButtonShape;
 
   /**
    * The size of the button.
+   *
    * @default 'md'
    */
   @property() size?: ButtonSize;
 
   /**
    * The variant of the button.
+   *
    * @default 'secondary'
    */
   @property() variant?: ButtonVariant;
@@ -130,8 +145,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         part="button"
         shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}
-        variant=${ifDefined(this.variant)}
-      >
+        variant=${ifDefined(this.variant)}>
         <slot name="button"></slot>
         ${iconOnly ? nothing : html`<sl-icon name="angle-down"></sl-icon>`}
       </sl-button>
@@ -141,8 +155,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
-        part="menu"
-      >
+        part="menu">
         <slot></slot>
       </sl-menu>
     `;

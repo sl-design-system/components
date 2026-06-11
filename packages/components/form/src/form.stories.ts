@@ -91,7 +91,11 @@ export default {
           margin-inline-start: auto;
         }
       </style>
-      <sl-form @sl-update-state=${onUpdate} @sl-update-validity=${onUpdate} ?disabled=${disabled} .value=${value}>
+      <sl-form
+        @sl-update-state=${onUpdate}
+        @sl-update-validity=${onUpdate}
+        ?disabled=${disabled}
+        .value=${value}>
         ${fields(args)}
         <sl-button-bar>
           ${buttons?.() ??
@@ -139,7 +143,11 @@ export const Reset: Story = {
     reportValidity: true,
     fields: () => html`
       <sl-form-field hint="Has value on load" label="Text field">
-        <sl-text-field name="input" placeholder="Placeholder" required value="Value set initially"></sl-text-field>
+        <sl-text-field
+          name="input"
+          placeholder="Placeholder"
+          required
+          value="Value set initially"></sl-text-field>
       </sl-form-field>
       <sl-form-field hint="Has no value on load" label="Text field">
         <sl-text-field name="input2" placeholder="Placeholder" required></sl-text-field>
@@ -203,7 +211,11 @@ export const CustomComponent: Story = {
     reportValidity: false,
     fields: ({ disabled }) => html`
       <sl-form-field hint="Hint text" label="Text field">
-        <sl-text-field ?disabled=${disabled} name="customTextField" placeholder="Placeholder" required></sl-text-field>
+        <sl-text-field
+          ?disabled=${disabled}
+          name="customTextField"
+          placeholder="Placeholder"
+          required></sl-text-field>
       </sl-form-field>
       <custom-component></custom-component>
     `
@@ -214,7 +226,11 @@ export const All: Story = {
   args: {
     fields: ({ disabled }) => html`
       <sl-form-field hint="Hint text" label="Text field">
-        <sl-text-field ?disabled=${disabled} name="textField" placeholder="Placeholder" required></sl-text-field>
+        <sl-text-field
+          ?disabled=${disabled}
+          name="textField"
+          placeholder="Placeholder"
+          required></sl-text-field>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Date field">
@@ -226,11 +242,17 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Text area">
-        <sl-text-area ?disabled=${disabled} name="textArea" placeholder="Placeholder" required></sl-text-area>
+        <sl-text-area
+          ?disabled=${disabled}
+          name="textArea"
+          placeholder="Placeholder"
+          required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Checkbox">
-        <sl-checkbox ?disabled=${disabled} name="checkbox" required value="checked">Checkbox</sl-checkbox>
+        <sl-checkbox ?disabled=${disabled} name="checkbox" required value="checked"
+          >Checkbox</sl-checkbox
+        >
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Checkbox group">
@@ -242,7 +264,11 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Combobox single">
-        <sl-combobox ?disabled=${disabled} name="comboboxSingle" placeholder="Single select" required>
+        <sl-combobox
+          ?disabled=${disabled}
+          name="comboboxSingle"
+          placeholder="Single select"
+          required>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -253,7 +279,12 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Combobox multiple">
-        <sl-combobox ?disabled=${disabled} name="comboboxMultiple" multiple placeholder="Multiple select" required>
+        <sl-combobox
+          ?disabled=${disabled}
+          name="comboboxMultiple"
+          multiple
+          placeholder="Multiple select"
+          required>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -334,7 +365,9 @@ export const AsyncValidation: Story = {
 
       select.value = undefined;
 
-      alert(`Synchronous (form.valid): ${form.valid}\n(Returns true because the update cycle hasn't finished)`);
+      alert(
+        `Synchronous (form.valid): ${form.valid}\n(Returns true because the update cycle hasn't finished)`
+      );
     };
 
     const onAsync = async (): Promise<void> => {
@@ -350,14 +383,16 @@ export const AsyncValidation: Story = {
 
       await form.updateComplete;
       const isValid = form.valid;
-      alert(`Asynchronous (form.updateComplete): ${isValid}\n(Correctly waits and reflects the invalid state)`);
+      alert(
+        `Asynchronous (form.updateComplete): ${isValid}\n(Correctly waits and reflects the invalid state)`
+      );
     };
 
     return html`
       <p style="margin-bottom: var(--sl-size-200);">
-        This demo shows how to correctly check form validity after a programmatic change. Clicking the buttons will
-        automatically set the required select to an invalid state (empty) and then immediately check the form's
-        validity.
+        This demo shows how to correctly check form validity after a programmatic change. Clicking
+        the buttons will automatically set the required select to an invalid state (empty) and then
+        immediately check the form's validity.
       </p>
       <sl-form id="async-validation-form">
         <sl-form-field label="Select (required)">

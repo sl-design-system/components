@@ -1,8 +1,18 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag-list.scss.js';
@@ -20,11 +30,11 @@ declare global {
  * A tag list component that can contain tags.
  *
  * ```html
- *   <sl-tag-list>
- *     <sl-tag>First tag</sl-tag>
- *     <sl-tag>Second tag</sl-tag>
- *     ...
- *   </sl-tag-list>
+ * <sl-tag-list>
+ *   <sl-tag>First tag</sl-tag>
+ *   <sl-tag>Second tag</sl-tag>
+ *   ...
+ * </sl-tag-list>
  * ```
  *
  * @customElement sl-tag-list
@@ -71,24 +81,23 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #observedStack?: HTMLElement;
 
   /**
-   * Stacked lists stay hidden until the first visibility calculation settles.
-   * These helpers keep that initial render stable and ensure the resize observer
-   * follows only the currently rendered stack element.
+   * Stacked lists stay hidden until the first visibility calculation settles. These helpers keep
+   * that initial render stable and ensure the resize observer follows only the currently rendered
+   * stack element.
    */
   #isStackedActive(): boolean {
     return this.stacked || this.hasAttribute('stacked');
   }
 
-  /**
-   * Expose stacked tag list only after initial visibility has been resolved.
-   */
+  /** Expose stacked tag list only after initial visibility has been resolved. */
   #syncInitialVisibilityState(): void {
-    this.toggleAttribute('data-visibility-resolved', !this.#isStackedActive() || this.#hasResolvedInitialVisibility);
+    this.toggleAttribute(
+      'data-visibility-resolved',
+      !this.#isStackedActive() || this.#hasResolvedInitialVisibility
+    );
   }
 
-  /**
-   * Restart the initial visibility flow whenever stacked mode needs a fresh layout pass.
-   */
+  /** Restart the initial visibility flow whenever stacked mode needs a fresh layout pass. */
   #resetInitialVisibilityState(): void {
     this.#hasResolvedInitialVisibility = false;
     this.#initialVisibilityPasses = 0;
@@ -100,9 +109,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  /**
-   * Keep the ResizeObserver subscribed to the current stack element only.
-   */
+  /** Keep the ResizeObserver subscribed to the current stack element only. */
   #syncStackObservation(): void {
     const nextObservedStack = this.stacked ? this.stack : undefined;
 
@@ -122,8 +129,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Observe size changes so we can determine when to display a counter
-   * with the amount of hidden tags.
+   * Observe size changes so we can determine when to display a counter with the amount of hidden
+   * tags.
    */
   #resizeObserver = new ResizeObserver(entries => this.#onResize(entries));
 
@@ -132,7 +139,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
     elements: () => [
-      ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []),
+      ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none'
+        ? [this.stackTag]
+        : []),
       ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !t.disabled && !!t.removable)
     ],
     isFocusableElement: (el: Tag) => !el.disabled
@@ -143,6 +152,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /**
    * The size of the tag-list (determines size of tags inside the tag-list).
+   *
    * @default 'md'
    */
   @property() size?: TagSize;
@@ -154,8 +164,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   stackInlineSize = 0;
 
   /**
-   * This will hide tags that do not fit inside the available space when set. It will also
-   * display a counter that indicates the number of hidden tags.
+   * This will hide tags that do not fit inside the available space when set. It will also display a
+   * counter that indicates the number of hidden tags.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
@@ -171,6 +182,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /**
    * The variant of the tag-list and tags inside.
+   *
    * @default 'neutral'
    */
   @property({ reflect: true }) variant?: TagVariant;
@@ -238,9 +250,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
               <sl-tag
                 aria-labelledby="tooltip"
                 ?disabled=${this.disabled}
+                role="listitem"
                 size=${ifDefined(this.size)}
-                variant=${ifDefined(this.variant)}
-              >
+                variant=${ifDefined(this.variant)}>
                 +${this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
@@ -467,7 +479,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#rovingTabindexController.clearElementCache();
 
     // Calculate the stack size based on the visibility of the tags
-    this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
+    this.stackSize = this.tags.reduce(
+      (acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc),
+      0
+    );
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
     // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
     this.stack.classList.remove('double', 'triple');

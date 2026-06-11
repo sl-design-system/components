@@ -70,8 +70,7 @@ export default {
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        variant=${ifDefined(variant)}>
         ${startIcon}${text}${endIcon}
       </sl-button>
     `;
@@ -86,7 +85,10 @@ export const Avatar: Story = {
     const { fullName, pictureUrl } = (students as Student[]).at(0)!;
 
     return html`
-      <p>This example shows a <code>size="sm"</code> avatar inside a default size <code>fill="link"</code> button.</p>
+      <p>
+        This example shows a <code>size="sm"</code> avatar inside a default size
+        <code>fill="link"</code> button.
+      </p>
       <sl-button fill="link" variant="primary">
         <sl-avatar .displayName=${fullName} .pictureUrl=${pictureUrl} size="sm"></sl-avatar>
       </sl-button>
@@ -96,11 +98,15 @@ export const Avatar: Story = {
 
 export const Command: Story = {
   render: () => html`
-    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary">Open dialog</sl-button>
+    <sl-button command="--show-modal" commandfor="invoker-dialog" variant="primary"
+      >Open dialog</sl-button
+    >
     <sl-dialog id="invoker-dialog">
       <h1 slot="title">Dialog opened with Invoker Commands API</h1>
       <p>This dialog was opened using the Invoker Commands API. No JavaScript needed!</p>
-      <sl-button command="--close" commandfor="invoker-dialog" slot="primary-actions">Close</sl-button>
+      <sl-button command="--close" commandfor="invoker-dialog" slot="primary-actions">
+        Close
+      </sl-button>
     </sl-dialog>
   `
 };
@@ -109,11 +115,12 @@ export const Disabled: Story = {
   render: ({ fill, shape, size, variant }) => {
     return html`
       <p>
-        This example shows 2 disabled buttons. One via the <code>disabled</code> property. You can no longer interact
-        with that button. You cannot focus it. It cannot receive pointer events. The second button is disabled using the
-        <code>aria-disabled</code> attribute. This button is also visually disabled and will not be activated when
-        clicked or when Space/Enter is pressed, but it remains focusable and can still receive pointer events. This
-        second button can be used in combination with a tooltip to explain why the button is disabled.
+        This example shows 2 disabled buttons. One via the <code>disabled</code> property. You can
+        no longer interact with that button. You cannot focus it. It cannot receive pointer events.
+        The second button is disabled using the <code>aria-disabled</code> attribute. This button is
+        also visually disabled and will not be activated when clicked or when Space/Enter is
+        pressed, but it remains focusable and can still receive pointer events. This second button
+        can be used in combination with a tooltip to explain why the button is disabled.
       </p>
       <div style="display: inline-flex; gap: 1rem">
         <sl-button
@@ -121,8 +128,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled button
         </sl-button>
         <sl-button
@@ -130,8 +136,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled (ARIA only) button
         </sl-button>
       </div>
@@ -143,20 +148,21 @@ export const IconOnly: Story = {
   render: ({ fill, shape, size, variant }) => {
     return html`
       <p>
-        This example shows an icon-only button. When using an icon-only button, it's important to provide an accessible
-        name using the <code>aria-label</code> attribute so that assistive technologies can convey the purpose of the
-        button to users.
+        This example shows an icon-only button. When using an icon-only button, it's important to
+        provide an accessible name using the <code>aria-label</code> attribute so that assistive
+        technologies can convey the purpose of the button to users.
       </p>
       <sl-button
         aria-labelledby="tooltip"
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        variant=${ifDefined(variant)}>
         <sl-icon name="far-plus"></sl-icon>
       </sl-button>
-      <sl-tooltip id="tooltip">Always have a tooltip for icon-only buttons to explain their purpose</sl-tooltip>
+      <sl-tooltip id="tooltip">
+        Always have a tooltip for icon-only buttons to explain their purpose.
+      </sl-tooltip>
     `;
   }
 };

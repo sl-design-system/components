@@ -94,8 +94,7 @@ export default {
               .showValid=${showValid}
               .size=${size}
               .value=${value}
-              .wrap=${wrap}
-            ></sl-text-area>
+              .wrap=${wrap}></sl-text-area>
           `}
         </sl-form-field>
         <sl-button-bar>
@@ -215,11 +214,19 @@ export const All: Story = {
 
         <span>Invalid</span>
         <sl-text-area aria-label="Text area" show-validity="invalid" value="Invalid"></sl-text-area>
-        <sl-text-area aria-label="Text area" show-validity="invalid" size="lg" value="Invalid"></sl-text-area>
+        <sl-text-area
+          aria-label="Text area"
+          show-validity="invalid"
+          size="lg"
+          value="Invalid"></sl-text-area>
 
         <span>Valid</span>
         <sl-text-area aria-label="Text area" show-validity="valid" value="Valid"></sl-text-area>
-        <sl-text-area aria-label="Text area" show-validity="valid" size="lg" value="Valid"></sl-text-area>
+        <sl-text-area
+          aria-label="Text area"
+          show-validity="valid"
+          size="lg"
+          value="Valid"></sl-text-area>
 
         <span>Readonly</span>
         <sl-text-area aria-label="Text area" readonly value="Value"></sl-text-area>

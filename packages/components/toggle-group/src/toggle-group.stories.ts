@@ -418,7 +418,12 @@ export const All: Story = {
             <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="sm">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill" size="sm">
+            <sl-toggle-group
+              multiple
+              disabled
+              fill=${ifDefined(options.fill)}
+              shape="pill"
+              size="sm">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
@@ -450,7 +455,12 @@ export const All: Story = {
             <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="lg">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill" size="lg">
+            <sl-toggle-group
+              multiple
+              disabled
+              fill=${ifDefined(options.fill)}
+              shape="pill"
+              size="lg">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>

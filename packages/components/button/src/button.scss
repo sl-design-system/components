@@ -129,17 +129,21 @@
   --_bg-color: transparent;
 }
 
-:host([fill='outline']) button:hover {
+:host([fill='outline']) button[aria-current='page'] {
+  border-color: var(--sl-color-border-selected);
+}
+
+:host(:where([fill='ghost'], [fill='outline'])) button:hover {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
-:host([fill='outline']) button:active {
+:host(:where([fill='ghost'], [fill='outline'])) button:active {
   --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host(:state(icon-only)) button {
   aspect-ratio: 1;
-  block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2);
+  block-size: calc(1lh + var(--sl-size-200));
   padding: 0;
 }
 
@@ -153,7 +157,7 @@
 }
 
 :host([size='sm']:state(icon-only)) button {
-  block-size: calc(1lh + (var(--sl-size-025) - var(--sl-size-borderWidth-action)) * 2);
+  block-size: calc(1lh + var(--sl-size-050));
   padding: 0;
 }
 
@@ -164,7 +168,7 @@
 }
 
 :host([size='lg']:state(icon-only)) button {
-  block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-action)) * 2);
+  block-size: calc(1lh + var(--sl-size-350));
   padding: 0;
 }
 
@@ -176,7 +180,8 @@
   background: var(--sl-color-background-disabled);
 }
 
-:host(:where([fill='ghost'], [fill='link'], [fill='outline'])) button:is(:disabled, [aria-disabled]) {
+:host(:where([fill='ghost'], [fill='link'], [fill='outline']))
+  button:is(:disabled, [aria-disabled]) {
   background: transparent;
 }
 
@@ -193,11 +198,13 @@
   opacity: var(--sl-opacity-disabled);
 }
 
-:host([variant='inverted']:where(:not([fill]), [fill='solid'])) button:is(:disabled, [aria-disabled]) {
+:host([variant='inverted']:where(:not([fill]), [fill='solid']))
+  button:is(:disabled, [aria-disabled]) {
   background: color-mix(
     in srgb,
     var(--sl-color-background-inverted-bold),
-    var(--sl-color-background-inverted-interactive-bold) calc(100% * var(--sl-opacity-interactive-bold-idle))
+    var(--sl-color-background-inverted-interactive-bold)
+      calc(100% * var(--sl-opacity-interactive-bold-idle))
   );
   color: var(--sl-color-foreground-inverted-onBold);
 }
@@ -227,17 +234,23 @@ button {
 
   align-items: center;
   appearance: none;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary-bold);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
+  flex: 1;
   font: inherit;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   gap: var(--sl-size-075);
   justify-content: center;
   margin: 0;
+  min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))

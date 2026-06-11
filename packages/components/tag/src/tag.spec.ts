@@ -55,7 +55,9 @@ describe('sl-tag', () => {
       el.focus();
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('[part="label"]')).not.to.have.attribute('aria-describedby');
+      expect(el.renderRoot.querySelector('[part="label"]')).not.to.have.attribute(
+        'aria-describedby'
+      );
       expect(el.renderRoot.querySelector('sl-tooltip')).not.to.exist;
     });
 
@@ -161,7 +163,9 @@ describe('sl-tag', () => {
 
   describe('overflow', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tag removable style="inline-size: 50px">My label is very long</sl-tag>`);
+      el = await fixture(
+        html`<sl-tag removable style="inline-size: 50px">My label is very long</sl-tag>`
+      );
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 50));

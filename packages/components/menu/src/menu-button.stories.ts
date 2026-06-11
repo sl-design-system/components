@@ -141,9 +141,9 @@ export default {
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
         style=${styleMap({ alignSelf, justifySelf })}
-        variant=${ifDefined(variant)}
-      >
-        ${typeof body === 'string' ? html`<div slot="button">${body}</div>` : body()} ${menuItems?.()}
+        variant=${ifDefined(variant)}>
+        ${typeof body === 'string' ? html`<div slot="button">${body}</div>` : body()}
+        ${menuItems?.()}
       </sl-menu-button>
     `;
   }
@@ -296,8 +296,9 @@ export const WithTooltips: Story = {
         rules: [
           {
             /**
-             * The rule is disabled for icon-only sl-menu-buttons because they use ariaLabelledByElements
-             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             * The rule is disabled for icon-only sl-menu-buttons because they use
+             * ariaLabelledByElements to set aria-labelledby across shadow DOM boundaries, which the
+             * a11y checker cannot detect.
              */
             id: 'aria-command-name',
             enabled: false,

@@ -1,5 +1,8 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -59,14 +62,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal */
   #internals = this.attachInternals();
 
-  /**
-   * Observe changes in size, so we can check whether we need to show tooltips
-   * for truncated links.
-   */
+  /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
   #observer = new ResizeObserver(() => this.#onResize());
 
   /**
    * Whether the tag component is disabled, when set no interaction is possible.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -79,6 +80,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   /**
    * Whether the tag component is removable.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) removable?: boolean;
@@ -88,12 +90,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   /**
    * The size of the tag.
+   *
    * @default 'md'
    */
   @property({ reflect: true }) size?: TagSize;
 
   /**
    * The variant of the tag.
+   *
    * @default 'neutral'
    */
   @property({ reflect: true }) variant?: TagVariant;
@@ -120,8 +124,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         @focus=${this.#onFocus}
         aria-describedby=${ifDefined(this.tooltip ? 'tooltip' : undefined)}
         part="label"
-        tabindex=${ifDefined(hasTabindex ? '0' : undefined)}
-      >
+        tabindex=${ifDefined(hasTabindex ? '0' : undefined)}>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
       ${this.removable
@@ -133,8 +136,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               @keydown=${this.#onKeydown}
               aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
               aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
-              part="button"
-            >
+              part="button">
               <sl-icon name="xmark"></sl-icon>
             </button>
           `

@@ -1,5 +1,27 @@
 # @sl-design-system/date-field
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`6882876`](https://github.com/sl-design-system/components/commit/6882876fb35019f2b69d30dadb23780d577bb591), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/calendar@0.0.8
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/shared@0.12.1
+  - @sl-design-system/text-field@1.6.10
+
+## 0.1.2
+
+### Patch Changes
+
+- [#3084](https://github.com/sl-design-system/components/pull/3084) [`a0cf57d`](https://github.com/sl-design-system/components/commit/a0cf57dc9617a8d484b89e6fe3b21770f4e0856e) - Align calendar and date-field spacing, padding and width behavior with the updated picker layout
+
+- Updated dependencies [[`a0cf57d`](https://github.com/sl-design-system/components/commit/a0cf57dc9617a8d484b89e6fe3b21770f4e0856e), [`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e)]:
+  - @sl-design-system/calendar@0.0.7
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/form@1.4.0
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @sl-design-system/number-field
 
+## 0.1.9
+
+### Patch Changes
+
+- [#3249](https://github.com/sl-design-system/components/pull/3249) [`d80e747`](https://github.com/sl-design-system/components/commit/d80e74722b5229782b663d3b583beaeb1e48fb96) - Fix `sl-number-field` so custom validity messages set externally via `setCustomValidity(...)` are preserved when `reportValidity()` runs. This prevents internal validity updates from clearing user-defined errors. Also adds a regression test for this behavior.
+
 ## 0.1.8
 
 ### Patch Changes

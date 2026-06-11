@@ -1,5 +1,21 @@
 # @sl-design-system/locales
 
+## 0.3.1
+
+### Patch Changes
+
+- [#3366](https://github.com/sl-design-system/components/pull/3366) [`a4fc3d8`](https://github.com/sl-design-system/components/commit/a4fc3d88a9982bc6fa3d7a750ba321ac0c31f054) - Add translations for `sl.combobox.options` in Dutch, Italian, Polish and Spanish. Remove obsolete translations for `sl.combobox.hideOptions` and `sl.combobox.showOptions`, as these keys have been replaced by `sl.combobox.options` for the combobox toggle button.
+
+- [#3362](https://github.com/sl-design-system/components/pull/3362) [`32cbeef`](https://github.com/sl-design-system/components/commit/32cbeef88dc3a235f18653a1767c60b2b9fd3e85) - Add translations for `sl.grid.reorder` in Dutch, Italian, Polish and Spanish.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Added Italian, Polish and Castilian Spanish language files
+
+## 0.3.0
+
+### Minor Changes
+
+- [#3197](https://github.com/sl-design-system/components/pull/3197) [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e) - New translations for infotip
+
 ## 0.2.0
 
 ### Minor Changes

@@ -130,8 +130,11 @@ describe('sl-tag-list', () => {
 
       expect(tagContent).to.exist;
       expect(tagContent?.includes('List of hidden elements:')).to.be.true;
-      expect(tagContent?.includes('My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'))
-        .to.be.true;
+      expect(
+        tagContent?.includes(
+          'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
+        )
+      ).to.be.true;
     });
 
     it('should have a stack with a tag, which contains the stack size', () => {
@@ -139,6 +142,12 @@ describe('sl-tag-list', () => {
 
       expect(tag).to.exist;
       expect(tag).to.have.trimmed.text('+7');
+    });
+
+    it('should give the stack tag a listitem role', () => {
+      const tag = el.renderRoot.querySelector('sl-tag');
+
+      expect(tag).to.have.attribute('role', 'listitem');
     });
 
     it('should have hidden tags with tabindex -1', async () => {
@@ -149,13 +158,26 @@ describe('sl-tag-list', () => {
 
       expect(tag).to.exist;
 
-      const tabindexes = [tag!.tabIndex, ...Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.tabIndex)],
+      const tabindexes = [
+          tag!.tabIndex,
+          ...Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.tabIndex)
+        ],
         visibility = [
           getComputedStyle(tag!).display,
           ...Array.from(el.querySelectorAll('sl-tag')).map(tag => getComputedStyle(tag).display)
         ];
 
-      expect(visibility).to.deep.equal(['flex', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'flex']);
+      expect(visibility).to.deep.equal([
+        'flex',
+        'none',
+        'none',
+        'none',
+        'none',
+        'none',
+        'none',
+        'none',
+        'flex'
+      ]);
       expect(tabindexes).to.deep.equal([0, -1, -1, -1, -1, -1, -1, -1, -1]);
     });
 
@@ -220,7 +242,8 @@ describe('sl-tag-list', () => {
 
   describe('sub-pixel buffer', () => {
     const listStyles = 'gap: 0px; padding: 0; margin: 0; border: none;',
-      tagStyles = 'inline-size: 100px; margin: 0; padding: 0; border: none; box-sizing: border-box;';
+      tagStyles =
+        'inline-size: 100px; margin: 0; padding: 0; border: none; box-sizing: border-box;';
 
     it('should not collapse when contents exceed container width by less than 0.5px', async () => {
       // We create a scenario where we can precisely control the width.

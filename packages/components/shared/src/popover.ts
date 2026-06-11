@@ -74,7 +74,9 @@ export const positionPopover = (
             currentMaxInlineSize > 0
               ? Math.min(currentMaxInlineSize, Math.floor(availableWidth))
               : Math.floor(availableWidth);
-          maxInlineSize = options.maxWidth ? Math.min(options.maxWidth, maxInlineSize) : maxInlineSize;
+          maxInlineSize = options.maxWidth
+            ? Math.min(options.maxWidth, maxInlineSize)
+            : maxInlineSize;
 
           Object.assign((elements as Elements).floating.style, {
             maxInlineSize: `${maxInlineSize}px`,

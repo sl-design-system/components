@@ -1,13 +1,19 @@
 import '@sl-design-system/badge/register.js';
+import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Listbox } from './listbox.js';
 
 type Props = Pick<
   Listbox,
-  'emphasis' | 'options' | 'optionGroupPath' | 'optionLabelPath' | 'optionSelectedPath' | 'optionValuePath'
+  | 'emphasis'
+  | 'options'
+  | 'optionGroupPath'
+  | 'optionLabelPath'
+  | 'optionSelectedPath'
+  | 'optionValuePath'
 > & {
   slot?(): TemplateResult;
 };
@@ -27,23 +33,44 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ emphasis, options, optionGroupPath, optionLabelPath, optionSelectedPath, optionValuePath, slot }) => {
+  render: ({
+    emphasis,
+    options,
+    optionGroupPath,
+    optionLabelPath,
+    optionSelectedPath,
+    optionValuePath,
+    slot
+  }) => {
+    const scrollTo = (index: number): void => {
+      document.querySelector('sl-listbox')?.scrollToIndex(index);
+    };
     return html`
       <style>
         sl-listbox {
           border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
           border-radius: var(--sl-size-borderRadius-default);
-          max-block-size: calc(100dvh - 3rem);
+          max-block-size: calc(100dvh - 4rem);
+        }
+        sl-button + sl-listbox {
+          margin-block-start: 1rem;
+          max-block-size: calc(100dvh - 7rem);
         }
       </style>
+      ${options
+        ? html`
+            <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
+              >Scroll to ${Math.floor(options.length / 2)}</sl-button
+            >
+          `
+        : nothing}
       <sl-listbox
         .options=${options}
         .optionGroupPath=${optionGroupPath}
         .optionLabelPath=${optionLabelPath}
         .optionSelectedPath=${optionSelectedPath}
         .optionValuePath=${optionValuePath}
-        emphasis=${ifDefined(emphasis)}
-      >
+        emphasis=${ifDefined(emphasis)}>
         ${slot?.()}
       </sl-listbox>
     `;
@@ -108,22 +135,23 @@ export const Overflow: Story = {
   args: {
     slot: () => html`
       <sl-option>
-        Magna ea amet aute est ullamco elit. Culpa fugiat commodo exercitation nulla sunt et ea eiusmod et duis sit.
-        Labore ad laborum esse mollit nulla amet fugiat incididunt. Velit aliquip amet nostrud aliquip labore velit
-        consectetur sint aute. Nostrud aliquip dolore minim commodo ea. Ut veniam dolor laborum sunt voluptate voluptate
-        adipisicing.
+        Magna ea amet aute est ullamco elit. Culpa fugiat commodo exercitation nulla sunt et ea
+        eiusmod et duis sit. Labore ad laborum esse mollit nulla amet fugiat incididunt. Velit
+        aliquip amet nostrud aliquip labore velit consectetur sint aute. Nostrud aliquip dolore
+        minim commodo ea. Ut veniam dolor laborum sunt voluptate voluptate adipisicing.
       </sl-option>
       <sl-option selected>
-        Excepteur nisi tempor nisi sint. Deserunt esse eiusmod tempor aliqua. Adipisicing est est nostrud pariatur eu
-        dolore veniam exercitation. Anim labore et ea non sunt irure excepteur ad. Ex duis aliqua et esse. Adipisicing
-        id laboris cupidatat ullamco fugiat in. Sunt deserunt sint veniam labore reprehenderit magna mollit commodo id
-        irure ut excepteur.
+        Excepteur nisi tempor nisi sint. Deserunt esse eiusmod tempor aliqua. Adipisicing est est
+        nostrud pariatur eu dolore veniam exercitation. Anim labore et ea non sunt irure excepteur
+        ad. Ex duis aliqua et esse. Adipisicing id laboris cupidatat ullamco fugiat in. Sunt
+        deserunt sint veniam labore reprehenderit magna mollit commodo id irure ut excepteur.
       </sl-option>
       <sl-option>
-        Nisi ut cupidatat do qui dolore aliquip reprehenderit ad proident laboris pariatur in nostrud laborum. Mollit
-        esse occaecat ex duis dolore officia laboris quis. Duis eiusmod sint exercitation enim consequat eu occaecat eu
-        magna dolore nulla ut proident non. Anim Lorem reprehenderit consectetur duis quis exercitation cupidatat
-        laboris cupidatat fugiat consectetur culpa.
+        Nisi ut cupidatat do qui dolore aliquip reprehenderit ad proident laboris pariatur in
+        nostrud laborum. Mollit esse occaecat ex duis dolore officia laboris quis. Duis eiusmod sint
+        exercitation enim consequat eu occaecat eu magna dolore nulla ut proident non. Anim Lorem
+        reprehenderit consectetur duis quis exercitation cupidatat laboris cupidatat fugiat
+        consectetur culpa.
       </sl-option>
     `
   }
@@ -142,15 +170,20 @@ export const RichContent: Story = {
         }
       </style>
       <sl-option-group label="Module 1">
-        <sl-option>Chapter 1 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
-        <sl-option>Chapter 2 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+        <sl-option
+          >Chapter 1 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option
+        >
+        <sl-option
+          >Chapter 2 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option
+        >
       </sl-option-group>
       <sl-option-group label="Module 2">
         <sl-option selected>
-          Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod irure ut
-          anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum et eu
-          nisi id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem.
-          Lorem quis sint et et. <sl-badge emphasis="bold">Draft</sl-badge>
+          Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu
+          nulla eiusmod irure ut anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in
+          fugiat. Sit ullamco exercitation ipsum et eu nisi id minim ut. Labore id fugiat
+          exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem. Lorem quis sint
+          et et. <sl-badge emphasis="bold">Draft</sl-badge>
         </sl-option>
       </sl-option-group>
     `

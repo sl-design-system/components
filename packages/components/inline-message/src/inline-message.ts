@@ -1,10 +1,20 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
 
@@ -83,17 +93,17 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'octagon-exclamation-solid';
+        return 'triangle-exclamation-solid';
       case 'danger':
-        return 'diamond-exclamation-solid';
+        return 'octagon-xmark-solid';
       default:
         return 'info';
     }
   }
 
   /**
-   * If set, will remove the ability to dismiss the inline message by removing
-   * the close button.
+   * If set, will remove the ability to dismiss the inline message by removing the close button.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) indismissible?: boolean;
@@ -112,10 +122,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
    * The size of the inline message. By default, this is set to `'auto'` which means the component
    * will automatically determine the size based on the content. If the content spans more than 2
    * lines, the size will be set to `'lg'`. If a title is present, the size will be set to `'lg'`.
-   * Otherwise, the size will be set to `'md'`.
-   * If you want to explicitly set the size the `'sm'`, `'md'`, or `'lg'`, you can do so. But beware
-   * that some sizes may not work well with the content. `'sm'` and `'md'` for example are not meant
-   * to be used with a title.
+   * Otherwise, the size will be set to `'md'`. If you want to explicitly set the size the `'sm'`,
+   * `'md'`, or `'lg'`, you can do so. But beware that some sizes may not work well with the
+   * content. `'sm'` and `'md'` for example are not meant to be used with a title.
+   *
    * @default 'auto'
    */
   @property({ reflect: true })
@@ -125,6 +135,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   /**
    * The variant of the inline message.
+   *
    * @default 'info'
    */
   @property({ reflect: true }) variant?: InlineMessageVariant;
@@ -183,8 +194,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
               .size=${this.size === 'sm' ? 'sm' : 'md'}
               .variant=${this.variant ?? 'info'}
               aria-label=${msg('Close', { id: 'sl.common.close' })}
-              fill="ghost"
-            >
+              fill="ghost">
               <sl-icon name="xmark"></sl-icon>
             </sl-button>
           `}
@@ -207,7 +217,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       if (this.#breakResizeObserverLoop) {
         clearTimeout(this.#breakResizeObserverLoop);
 
-        this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
+        this.#breakResizeObserverLoop = setTimeout(
+          () => (this.#breakResizeObserverLoop = undefined),
+          200
+        );
       }
     } else if (this.#breakResizeObserverLoop) {
       return;
@@ -216,7 +229,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
       // Break the loop if it keeps switching between sizes; workaround is to
       // just wait a little bit before updating the size again.
-      this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
+      this.#breakResizeObserverLoop = setTimeout(
+        () => (this.#breakResizeObserverLoop = undefined),
+        200
+      );
     }
   }
 
@@ -265,11 +281,17 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
     // Set a short timeout to debounce multiple calls, announce only when content actually changed
     this.#announceTimeoutId = setTimeout(() => {
-      if (this.#content !== this.#lastAnnouncedContent || this.#title !== this.#lastAnnouncedTitle) {
+      if (
+        this.#content !== this.#lastAnnouncedContent ||
+        this.#title !== this.#lastAnnouncedTitle
+      ) {
         this.#lastAnnouncedContent = this.#content;
         this.#lastAnnouncedTitle = this.#title;
 
-        announce(`${this.#title ?? ''} ${this.#content ?? ''}`, this.variant === 'danger' ? 'assertive' : 'polite');
+        announce(
+          `${this.#title ?? ''} ${this.#content ?? ''}`,
+          this.variant === 'danger' ? 'assertive' : 'polite'
+        );
       }
 
       this.#announceTimeoutId = undefined;

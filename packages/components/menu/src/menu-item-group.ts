@@ -1,4 +1,11 @@
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './menu-item-group.scss.js';
 import { MenuItem } from './menu-item.js';
@@ -10,8 +17,7 @@ declare global {
 }
 
 /**
- * A group of menu items, use this if you want to group menu items in a menu with
- * other menu items.
+ * A group of menu items, use this if you want to group menu items in a menu with other menu items.
  *
  * @slot default - The menu items within a group.
  * @slot header - The header of the group.
@@ -48,7 +54,9 @@ export class MenuItemGroup extends LitElement {
     return html`
       <div part="wrapper">
         <slot name="header" @slotchange=${this.#onHeaderSlotchange}
-          >${this.heading ? html`<div class="heading" aria-hidden="true">${this.heading}</div>` : nothing}</slot
+          >${this.heading
+            ? html`<div class="heading" aria-hidden="true">${this.heading}</div>`
+            : nothing}</slot
         >
         <slot @slotchange=${this.#onSlotchange} @sl-select=${this.#onSelect}></slot>
       </div>

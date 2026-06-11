@@ -45,7 +45,10 @@ export default {
   },
   render: ({ activation, alignTabs, tabs, tabPanels, vertical }) => {
     return html`
-      <sl-tab-group activation=${ifDefined(activation)} align-tabs=${ifDefined(alignTabs)} ?vertical=${vertical}>
+      <sl-tab-group
+        activation=${ifDefined(activation)}
+        align-tabs=${ifDefined(alignTabs)}
+        ?vertical=${vertical}>
         ${tabs?.()}${tabPanels?.()}
       </sl-tab-group>
     `;
@@ -119,8 +122,9 @@ export const Lazy: Story = {
         <sl-tab>Third tab</sl-tab>
         <sl-tab>Last tab that is longer than the rest</sl-tab>
         <p>
-          This example does not have any tab panels. Instead it listens for the <code>sl-tab-change</code> event on the
-          tab group and then programmatically updates this text. You can use this event to lazy load a tab's content.
+          This example does not have any tab panels. Instead it listens for the
+          <code>sl-tab-change</code> event on the tab group and then programmatically updates this
+          text. You can use this event to lazy load a tab's content.
         </p>
         <p>The selected tab is: <strong></strong></p>
       </sl-tab-group>
@@ -136,9 +140,9 @@ export const Links: Story = {
       <sl-tab disabled href="javascript:alert('clicked')">Disabled</sl-tab>
       <sl-tab href="javascript:alert('clicked')">Last tab that is longer than the rest</sl-tab>
       <p>
-        The tabs in this example all have links. There are no tab panels present in this example. If you right click a
-        tab, you will notice the browser will prompt you to open the link in a new tab. This can be useful if you want
-        to use a router in your application for the tabs.
+        The tabs in this example all have links. There are no tab panels present in this example. If
+        you right click a tab, you will notice the browser will prompt you to open the link in a new
+        tab. This can be useful if you want to use a router in your application for the tabs.
       </p>
     `
   }
@@ -225,9 +229,9 @@ export const Responsive: Story = {
       <sl-tab>Third tab</sl-tab>
       <sl-tab>Last tab that is longer than the rest</sl-tab>
       <sl-tab-panel>
-        This example demonstrates how you can have a responsive tab group that adjusts to the width of the page. The
-        scroll container of the tabs has a max width and is centered on the page. There will always be an inline margin,
-        so the tabs never contact the edge of the viewport.
+        This example demonstrates how you can have a responsive tab group that adjusts to the width
+        of the page. The scroll container of the tabs has a max width and is centered on the page.
+        There will always be an inline margin, so the tabs never contact the edge of the viewport.
       </sl-tab-panel>
     </sl-tab-group>
   `

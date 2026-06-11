@@ -1,7 +1,7 @@
 ---
 name: design-analyst
-description: Ingests a Figma node via the four Figma MCP calls and produces a structured design manifest. Returns BLOCKED_ON_CODE_CONNECT if unconnected nodes are detected.
-tools: mcp__figma__get_metadata, mcp__figma__get_code_connect_map, mcp__figma__get_design_context, mcp__figma__get_screenshot, mcp__figma-desktop__get_metadata, mcp__figma-desktop__get_code_connect_map, mcp__figma-desktop__get_design_context, mcp__figma-desktop__get_screenshot, Read, Write, Bash
+description: Ingests a Figma node via the Figma MCP calls and produces a structured design manifest. Returns BLOCKED_ON_CODE_CONNECT if unconnected nodes are detected.
+tools: mcp__figma__get_metadata, mcp__figma__get_code_connect_map, mcp__figma__get_design_context, mcp__figma__get_variable_defs, mcp__figma__get_screenshot, mcp__figma-desktop__get_metadata, mcp__figma-desktop__get_code_connect_map, mcp__figma-desktop__get_design_context, mcp__figma-desktop__get_variable_defs, mcp__figma-desktop__get_screenshot, Read, Write, Bash
 model: sonnet
 ---
 
@@ -14,10 +14,10 @@ Input: a Figma URL (`figma.com/design/:fileKey/...?node-id=:nodeId`), **the Figm
 Two rules, and they differ by call:
 
 - **`get_screenshot` ALWAYS uses the remote server** (`mcp__figma__get_screenshot`), regardless of the assigned server. Only the remote server returns a downloadable URL, which is the only way to cache a real PNG to disk (the desktop server returns the image inline-only, which can't be persisted). See "Caching the screenshot" below.
-- **`get_metadata`, `get_code_connect_map`, and `get_design_context` use the server you were assigned.** Do not try the other server for these — server selection is the orchestrator's job, not yours.
+- **`get_metadata`, `get_code_connect_map`, `get_design_context`, and `get_variable_defs` use the server you were assigned.** Do not try the other server for these — server selection is the orchestrator's job, not yours.
   - If assigned **`figma-desktop`**: use the `mcp__figma-desktop__*` tools (talks to the running Figma desktop app).
   - If assigned **`figma`**: use the `mcp__figma__*` tools (remote server).
-  - If no server was specified in your prompt, default to **`figma-desktop`** for these three.
+  - If no server was specified in your prompt, default to **`figma-desktop`** for these.
 
 Whenever a step below says to "call `get_X`", call it on the correct server per the rules above and apply this policy:
 
@@ -38,6 +38,7 @@ The `<run>` folder is the run's permanent artifact folder — the same folder th
 - `get_metadata` → `<run>/figma-metadata.json`
 - `get_code_connect_map` → `<run>/figma-code-connect-map.json`
 - `get_design_context` → `<run>/figma-design-context.md` (or `.json` if the response is JSON)
+- `get_variable_defs` → `<run>/figma-variable-defs.json`
 
 Write each file immediately after its call returns (before moving on), preserving the response verbatim. The screenshot is the one binary exception — it is downloaded with `curl`, not `Write` (see "Caching the screenshot").
 
@@ -57,8 +58,10 @@ Steps (in order, no shortcuts):
    BLOCKED_ON_CODE_CONNECT
    ```
    followed by a markdown list of `<nodeId> — <nodeName>` for each genuinely unconnected node. Do not call `get_design_context` or `get_screenshot`. (Do **not** block on `null`-mapped nodes you identified as existing SLDS components per step 3 — those proceed normally.)
-5. Otherwise call `get_design_context` (assigned server) — **write the raw response to `<run>/figma-design-context.md`** — then `get_screenshot` (**always the remote `figma` server**), and cache the screenshot per the procedure below.
-6. Synthesize the design manifest per the schema. Sections: Overview, Existing SLDS Components Used (from CC map), Composition Candidates (multi-component groups), Net-New Primitive Candidates, Responsive Breakpoints, Designer Annotations, Token Reference.
+5. Otherwise call `get_design_context` (assigned server) — **write the raw response to `<run>/figma-design-context.md`**.
+6. **ALWAYS call `get_variable_defs`** (assigned server) — this is a **required call on every run that isn't blocked**, never optional or skipped. **Write the raw response to `<run>/figma-variable-defs.json`.** It returns the design's bound token variables, which are the basis for the Token Reference. (Apply the same retry/`BLOCKED_ON_MCP` policy as the other data calls if it errors transiently.)
+7. Call `get_screenshot` (**always the remote `figma` server**) and cache the screenshot per the procedure below.
+8. Synthesize the design manifest per the schema. Sections: Overview, Existing SLDS Components Used (from CC map), Composition Candidates (multi-component groups), Net-New Primitive Candidates, Responsive Breakpoints, Designer Annotations, Token Reference. **Build the Token Reference primarily from `get_variable_defs`** — those are the design's actual _bound variable names_, which map far more reliably to `--sl-*` tokens than reverse-engineering raw hex/px out of `get_design_context`. Quote variable names verbatim; only fall back to raw values (flagged as "unbound, needs a token") where a value isn't backed by a variable.
 
 ## Caching the screenshot
 
@@ -74,7 +77,7 @@ A screenshot is a **binary PNG**. You cannot save it with the `Write` tool — `
 
 If the remote `get_screenshot` call fails transiently, retry it **once**. If it still fails, or the downloaded file fails verification, delete any bad file and write a marker at `<run>/screenshot-MISSING.txt` (via Write) explaining the screenshot could not be cached and that Stage 4 needs a re-fetch. A missing screenshot is **not** fatal — continue and produce the manifest; do not emit `BLOCKED_ON_MCP` for a screenshot failure. **Never** leave a non-PNG file named `screenshot.png`.
 
-In your final output, state the screenshot status (cached PNG at the path, or missing with the reason) and confirm the persisted Figma-call files (`<run>/figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md`).
+In your final output, state the screenshot status (cached PNG at the path, or missing with the reason) and confirm the persisted Figma-call files (`<run>/figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md`, `figma-variable-defs.json`).
 
 Constraints:
 

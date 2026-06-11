@@ -23,7 +23,7 @@ A markdown table sourced from the `get_code_connect_map` response. One row per c
 | ------- | ------------- | ------------------------------- | -------------------------------------------------- |
 | 12:34   | PrimaryButton | `<sl-button variant="primary">` | `<sl-button variant="primary">{label}</sl-button>` |
 
-Only include nodes that have a non-`null` mapping. Snippet excerpts may be truncated to one line.
+Include every node the analyst resolves to an existing SLDS component — both nodes with a non-`null` mapping **and** `null`-mapped nodes the analyst identifies as an existing SLDS component (by `sl-*` node name, a child's resolved snippet, or a peer instance's snippet — see the analyst's Code-Connect heuristic). For an identified `null`-mapped node, list the resolved component and note "(identified)" in the snippet cell. Snippet excerpts may be truncated to one line.
 
 ## Composition Candidates
 
@@ -60,11 +60,11 @@ Verbatim quotes from any annotation/comment layer in the design, attributed by n
 
 ## Token Reference
 
-Flat deduplicated list of every design token referenced in the `get_design_context` response, grouped:
+Flat deduplicated list of every design token the design binds, **built primarily from `get_variable_defs`** (the design's actual bound variable names) and supplemented by `get_design_context`, grouped:
 
 - **Color**: `--sl-color-*` tokens, one per line
 - **Size / Spacing**: `--sl-size-*` tokens
 - **Typography**: `--sl-font-*`, `--sl-text-*` tokens
 - **Other**: anything else
 
-Token names must be quoted verbatim from `get_design_context`. Do not paraphrase, normalize, or guess.
+Token/variable names must be quoted verbatim — do not paraphrase, normalize, or guess. Where a value is **not** backed by a bound variable (a raw hex/px), list it under the closest group and mark it `(unbound — needs a token)` so the implementer knows to find one rather than hardcode it. Note the `--sl-text-new-*` typography namespace exists alongside `--sl-text-*` (don't assume a `--sl-text-typeset-*` name that may not exist).

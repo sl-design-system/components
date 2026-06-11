@@ -12,14 +12,23 @@ When the task is to implement a specific Figma design (this whole pipeline — a
 
 Achieve that through **data ownership**, not by hardcoding content in every component:
 
-- The **root / page component owns the data** — it obtains it (fetches from an endpoint / data-source; in an example, holds a realistic mock object with a comment noting where the fetch would go) and **passes the appropriate subset to each child as input properties**.
-- **Child components are presentational** — they take data via input properties and render it; they do not fetch their own data and the story does not fill them in (the root does).
-- So a header that shows breadcrumbs + a meta row receives `breadcrumbs` and the schedule fields as **properties from the page** and renders them — it is fed by the data owner, not by the story, and not via consumer slots. Repeated rows are mapped from a passed-in array.
+- The **root / page component owns the data** — it obtains it (fetches from an endpoint / data-source; in an example, holds a realistic mock object with a comment noting where the fetch would go) and **passes the appropriate subset to each child**.
+- **Pass a cohesive "model" object, not a long list of scalar properties.** A child that renders several related fields takes **one typed object input** (e.g. `header.model = { breadcrumbs, heading, subheading, status }`), not four separate `@property`s. That's how real apps pass data — a child receives the slice of the domain model it's responsible for, as a single object. Define an exported interface for each such model. Only split into individual properties when a value is genuinely independent (e.g. a single boolean `open` flag unrelated to the data).
+- **The model is _domain data_ — values and stable keys only. Keep two things OUT of it:**
+  - **Translated/UI strings.** Don't bake localized labels into the model. The model carries data and **stable keys** (`status: 'present'`, `toolId: 'groups'`); each component localizes its own visible strings **in its `render` via `msg()`, keyed off those values** (e.g. `msg('Present', { id: 'x.present' })` chosen by the `status` key). So translation lives in the component that displays it, not in the data owner. (Genuinely per-record text that the data source provides — a person's name, a free-text title — is data and is rendered directly, not `msg()`’d.)
+  - **Structural / presentation config.** Things like the set of table columns (their order, abbreviations, icons), a fixed set of tabs, or option lists are **structure, not data** — define them as constants **inside the component** that renders them, not as model fields the parent passes in. The model says _which student has which status_; the component knows _what the status columns are_.
+- **Child components are presentational** — they take their model (data) via input and render it, localizing their own labels; they do not fetch their own data and the story does not fill them in (the root does).
+- So a header that shows breadcrumbs + a title + a status receives a single `model` object **from the page** and renders it — it is fed by the data owner, not by the story, and not via consumer slots. Repeated rows are mapped from an array on the model.
 - Reserve **slots** for genuinely arbitrary consumer content, never for the design's own data. A genuinely app-global feature list that isn't part of the fetched record may stay with the component that renders it — but call that out.
 
-## Package layout
+## Output location & package layout
 
-A component lives in `packages/components/<name>/` (kebab-case, singular). The hand-authored files are:
+**The layout depends on where the run generates code** (the orchestrator asks). The two shapes:
+
+- **Published design-system package** → `packages/components/<name>/` (kebab-case, singular): a full package with `package.json`, `register.ts`, `src/`, Vitest spec, website docs, and a changeset.
+- **App / example path** (e.g. `examples/<root>/`): a lightweight, co-located set — the component(s) + a story, nested folders for children, one `index.ts`/`tsconfig.json` for the example, and **no** `package.json` / `register.ts` / website docs / changeset (the example is part of an existing private package). Mirror a neighbour under `examples/`.
+
+Hand-authored files for a **published package**:
 
 ```
 packages/components/<name>/
@@ -29,12 +38,14 @@ packages/components/<name>/
 ├── register.ts              # defines the custom element
 └── src/
     ├── <name>.ts            # the LitElement class
-    ├── <name>.scss          # styles (compiled to <name>.scss.js by the build)
+    ├── <name>.css           # styles (imported with { type: 'css' } — no build step)
     ├── <name>.spec.ts       # Vitest browser tests
-    └── <name>.stories.ts    # Storybook stories
+    └── <name>.stories.ts    # Storybook stories (authored during implementation, see below)
 ```
 
-Everything else (`*.js`, `*.d.ts`, `*.scss.js`, `custom-elements.json`, `CHANGELOG.md`) is **generated** — never hand-write it.
+For an **example**, drop `package.json`/`register.ts`/`src/`-nesting to taste and match the sibling examples; the `.ts` + `.css` + `.stories.ts` co-locate in the component's folder.
+
+Everything else (`*.js`, `*.d.ts`, `custom-elements.json`, `CHANGELOG.md`) is **generated** — never hand-write it. **Styles are plain `.css` now (not `.scss`) and are imported directly via an import attribute — there is no `.scss.ts`/`build-styles` step.**
 
 ### `package.json`
 
@@ -87,7 +98,7 @@ Mirror this skeleton:
 ````ts
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './<name>.scss.js';
+import styles from './<name>.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -126,7 +137,7 @@ export class <ClassName> extends LitElement {
 
 Rules:
 
-- **Import styles from the compiled `./<name>.scss.js`**, not the `.scss`. The class won't type-check until the SCSS is built (see below).
+- **Import styles from the plain `./<name>.css` with an import attribute**: `import styles from './<name>.css' with { type: 'css' };`. This yields a `CSSStyleSheet` (typed via the repo's `*.css` module declaration in `vite-env.d.ts`); assign it directly to `static styles`. There is **no `.scss` and no `build-styles` step** — Storybook/Vite and the example `tsdown` build both transform the `{ type: 'css' }` import into a constructable stylesheet, and edits to the `.css` **hot-reload automatically** (no dev-server restart).
 - Properties that drive a CSS selector (`:host([size='lg'])`) must be `{ reflect: true }`.
 - Variant/enum properties use exported string-union types, never raw `string`.
 - JSDoc every public property. Style per CONTRIBUTING.md: "The `x` of the `component`." for options, "Whether the `component` is `x`." for boolean states. End with a period. Add `@default <value>` (no `@default` for booleans defaulting to false).
@@ -169,10 +180,15 @@ When a component is composed of other custom elements — child components you a
   }
   ```
 - Scoped registries only govern tags the component renders in **its own shadow template**. So a child you want scoped must be **rendered by the parent**, not slotted in from light DOM. Repeated structured children become a **data property** the parent maps over (e.g. `items: ItemInfo[]`) and renders, not a slot of `<child>` elements. Reserve slots for _content_ (arbitrary consumer markup) and forward it into internally-rendered scoped children with `<slot name="x" slot="x">`.
+- **For a list, be conservative: a plain `<ul>`/`<li>` (or the right semantic list) + CSS is usually enough — don't make a component per row.** Map the data array straight to `<li>`s in the parent and style them; reach for a dedicated `<sl-foo-row>` child **only** when the row has genuine internal complexity (its own interactive state, multiple event-wired controls, or real reuse elsewhere). A row that's just icon + text + link/avatar is an `<li>`, not a component. Likewise, don't wrap list items in extra `<div>`s when an `<li>` styled with CSS does the job. Prefer the smaller tree.
 - Only the **top-level / public-entry** component registers globally (a `register.ts` for an SLDS package; a guarded `customElements.define` for a standalone example). Its internal children never do.
 - Light-DOM elements the consumer writes themselves — including slotted `@sl-design-system/*` components — still need the **global** registry, so import those `register.js` side-effects where the consumer markup lives (the story / app / example entry), never inside a scoped child.
 
 Reference implementations: `examples/lit/src/composite-form` and `examples/lesson-detail-page`.
+
+### Choosing an SLDS container for a "card"
+
+A design "card" (a bordered, rounded surface with a heading and stacked content) is almost always an **`sl-panel`** — it has a `heading` property, a default content slot, and a stylable `::part(content)`. Reserve **`sl-card`** for its specific media/title/actions layout (image + title + body + actions slots); it does **not** fit a generic titled content section, so don't force it. There is **no `sl-divider`** — render a divider as a styled `<hr>` or a bottom border. Check the component's own `@slot`/`@csspart`/`@property` docs before assuming an API.
 
 ## Icons (`sl-icon`)
 
@@ -192,6 +208,8 @@ Name-prefix ↔ package: `far-*` → `@fortawesome/pro-regular-svg-icons`, `fas-
 
 Only when the run's i18n decision is **on** (the orchestrator asks before decomposition). The repo is configured in `lit-localize.json`: `sourceLocale: "en"`, target locales `nl`, `it`, `es-ES`, `pl`, runtime mode, translations in `packages/locales`.
 
+**Authoritative reference for the Lit localization API:** <https://lit.dev/docs/localization/overview/> — `@lit/localize` (`msg()`, `@localized()`, `str`, `configureLocalization`/`configureTransformLocalization`, runtime vs. transform mode) and the `lit-localize` CLI (extraction → XLIFF, the `id`/source-string requirements). Read it before reaching for an unfamiliar part of the API.
+
 - Import from `@lit/localize` and decorate the component class:
 
   ```ts
@@ -203,19 +221,33 @@ Only when the run's i18n decision is **on** (the orchestrator asks before decomp
   }
   ```
 
-- Wrap **every** user-visible string in `msg()` with a stable, namespaced `id`:
+- Wrap **every** user-visible string in `msg()` with a stable, namespaced `id`, **in the `render` of the component that displays it**:
   ```ts
   html`<span>${msg('Show all', { id: 'sl.tabs.showAll' })}</span>`;
   ```
-- The string passed to `msg()` is the **English source** (sourceLocale is `en`). If the design's original language isn't English, use the English source from the decomposer's Localized strings table; the original-language text is a _translation_ of the `nl` (etc.) locale, not the source in code.
+- **Localization belongs to the displaying component, not the data owner — never pass translated strings through a model.** A parent passes down **data + stable keys**; the child `msg()`’s its labels in `render`, choosing the string by the key. For an enum/key value, switch on it: e.g. a `status: 'present' | 'absent'` field maps to `{ present: msg('Present', { id: 'x.present' }), absent: msg('Absent', { id: 'x.absent' }) }[status]` inside the child. Every component that shows user-visible text carries `@localized()`. (Free-text the data source owns — names, titles — is data, rendered directly without `msg()`.)
+- **`msg()` needs a LITERAL source string AND a literal `id` at the call site** — lit-localize extracts statically, so neither argument may be a variable or member expression. `msg(map[key].en, { id: map[key].id })` silently **fails to extract** (the string never reaches the locale files) — a bug invisible to type-check and to a literal-id grep. When the label depends on a data key, switch on the key and return a literal `msg()` per case (or a small set of literal-`msg()` thunks); keep only the non-string parts (icon names, etc.) in a map. Example:
+  ```ts
+  #label(status: Status): string {
+    switch (status) {
+      case 'present': return msg('Present', { id: 'x.present' });
+      case 'absent':  return msg('Absent',  { id: 'x.absent' });
+    }
+  }
+  ```
+- The string passed to `msg()` is the **English source** (sourceLocale is `en`). If the design's original language isn't English, use the English source from the decomposer's Localized strings table; the original-language text is a _translation_ of the `nl` (etc.) locale, not the source in code. **A component built from a non-English design therefore renders English (the source) at runtime until the translated locale is built and loaded** — that's correct, not a bug.
 - Ids are namespaced `<scope>.<component>.<key>` (e.g. `sl.tabs.showAll`). Keep them stable — they key the translations.
 - Translations are extracted with `yarn extract-i18n` (lit-localize) into the xliff files under `packages/locales`; you don't hand-write locale bundles.
 - When i18n is **off** for the run, render the design's text directly (no `msg()`), as the rest of this doc describes.
+- **In an example built from a non-English design, write the MOCK DATA values in the source locale (English) too** — not the design's original language. The chrome localizes to the English source, so Dutch (etc.) mock values for dates, places, names, free-text bodies would leave the rendered example mixing languages (English chrome + foreign data). Translate the mock data to English so the example reads consistently; the original-language wording belongs only in the translated locale bundle, not in the component's mock data.
 
-## SCSS (`src/<name>.scss`)
+## Styles (`<name>.css`)
+
+Plain CSS — **not SCSS**. Imported with `import styles from './<name>.css' with { type: 'css' };` (no build step; native CSS nesting is fine if you want it).
 
 - Style the host with `:host` and state with attribute selectors: `:host([size='lg'])`, `:host([disabled])`.
 - **Every visual value comes from a design token.** Colors → `var(--sl-color-*)`. Spacing/sizing/radius → `var(--sl-size-*)`. Typography → `var(--sl-text-*)` / `var(--sl-font-*)`. Never hard-code a hex, px, or rem that a token exists for. Use the exact token names quoted in the design manifest's Token Reference.
+- **A `--sl-text-new-*` token is a `font:` _shorthand_ — it RESETS `font-weight` (and the other `font` longhands) to `normal`.** So `font: var(--sl-text-new-heading-sm)` renders at weight 400 even though the heading should be semibold/bold. For any non-regular text, **add an explicit `font-weight: var(--sl-fontWeight-600)` (semibold) or `var(--sl-fontWeight-700)` (bold) after the shorthand**. This has bitten multiple runs (un-bold headings, badge numbers) — set the weight whenever the design text isn't regular.
 - **No `var()` fallback values.** Write `var(--sl-color-foreground-plain)`, never `var(--sl-color-foreground-plain, #121721)`. The token must exist; if you can't find the right one, that's a flag to raise (note it in your report), not a hex to fall back to.
 - **Always use light-mode color tokens — even when the design is dark mode.** Pick the semantic token by its _role_ (page background, foreground, subtle text, accent…) from the light theme. Do **not** hard-code dark colors or reach for dark-variant tokens to match a dark mock-up. Theme switching (Storybook, and the app) remaps those same semantic tokens to dark automatically, so a correctly-tokenized light-mode component renders correctly in dark mode for free. (This is why a dark design that surfaces only raw hex should map to semantic light tokens, not to the dark hex.)
 - **Don't set `display` (e.g. `:host { display: block }`) unless it intentionally changes the component's default rendering** — and when it does, say why in a comment. Don't add it as reflexive boilerplate.
@@ -224,15 +256,18 @@ Only when the run's i18n decision is **on** (the orchestrator asks before decomp
 - Style slotted children with `::slotted(...)`.
 - Logical properties throughout (`padding-inline`, `block-size`, `inline-size`, `margin-block-start`) — never `width`/`height`/`left`/`top`.
 
-### Compiling SCSS
+### Finding the right token
 
-The class imports `./<name>.scss.js`, which is generated from the `.scss`. After writing or changing any `.scss`, run from the repo root:
+Don't guess token names from memory — the namespaces have real gotchas. Resolve them against the catalog:
 
-```bash
-node scripts/build-styles.js 'packages/components/<name>/**/*.scss'
-```
+- **Where they live**: the design tokens resolve in the theme files at `packages/themes/<theme>/light.css` (every `--sl-*` custom property is declared there), and the source definitions are under `packages/tokens/src/`. The manifest's Token Reference (built from the design's `get_variable_defs`) is your first source; confirm each name exists by grepping a `light.css`.
+- **Namespace gotcha**: typography lives under **`--sl-text-new-*`** (e.g. `--sl-text-new-body-md`) as well as the older `--sl-text-*` — there is generally **no `--sl-text-typeset-*`** custom property even though the Figma variable path may read `text-new/typeset/...`. Color/size/foreground roles are `--sl-color-*` / `--sl-size-*`. Grep before you commit a name.
+- **camelCase suffix gotcha**: token name segments are **camelCase**, not kebab — e.g. `--sl-color-foreground-primary-onBold` (not `-on-bold` or `-on`), `--sl-size-borderRadius-full`, `--sl-fontWeight-700`. When verifying a token exists, grep the **full name followed by `:`** (its declaration) — `grep -F -- '--sl-color-foreground-primary-onBold:' light.css`. A loose/prefix grep silently "passes" a truncated wrong name (`--sl-color-foreground-primary-on` looks fine but doesn't exist).
+- **No exact match?** Pick the nearest semantic token by role and **note the gap in your report** (e.g. "design heading is 28px; nearest is `--sl-text-new-heading-xl` ≈ 32px"). Never invent a token name and never hardcode the raw value as a fallback.
 
-This must succeed before the component will type-check or render.
+### No build step
+
+The class imports `./<name>.css` directly via the `{ type: 'css' }` attribute. There is **nothing to compile** — no `.scss`, no `.scss.ts`, no `build-styles.js`. Storybook/Vite and the example `tsdown` build read the `.css` at import time, and changes **hot-reload automatically** in the running dev server (no restart needed).
 
 ---
 
@@ -266,7 +301,9 @@ Cover: default render, each reflected property (set → `await el.updateComplete
 
 ---
 
-## Stories (`src/<name>.stories.ts`)
+## Stories (`<name>.stories.ts`)
+
+**A basic story is authored during implementation (Stage 3), before visual validation** — the visual-validator needs a rendered story to diff against, and `.css`/Lit HMR means iterating on it requires no dev-server restart. Stage 5 then adds variant stories (one per significant state) alongside tests/docs. For a **page** component, the basic story renders the root with no args (`<sl-...-page></sl-...-page>`) and sets `parameters: { layout: 'fullscreen' }`.
 
 ```ts
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
@@ -307,9 +344,13 @@ Keep prose grounded in the design and the component's real API — do not invent
 
 ---
 
+## Tests / docs / changeset apply per output location
+
+The sections above (Vitest spec, website docs, changeset) are for a **published `packages/components/*` package**. When the run generates into an **app/example path** (e.g. `examples/`), Stage 5 is scoped to what that location actually uses — typically just the component + a fleshed-out story — and **skips** `package.json`, website docs, and the changeset, because the code lives inside an existing private package, not a new published one. Match what the neighbouring code in that location does rather than forcing the published-package set.
+
 ## Changeset
 
-New components need a changeset. Create `.changeset/<random-slug>.md`:
+New **published-package** components need a changeset (skip for examples/apps). Create `.changeset/<random-slug>.md`:
 
 ```md
 ---

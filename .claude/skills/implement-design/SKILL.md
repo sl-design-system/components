@@ -12,7 +12,7 @@ Figma URL: $ARGUMENTS
 
 - `screenshot.png` — the cached Figma reference (ground truth).
 - `manifest.md` — design manifest + decomposition + localized strings.
-- `figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md` — the raw output of the analyst's Figma calls (written by design-analyst, for reproducibility).
+- `figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md`, `figma-variable-defs.json` — the raw output of the analyst's Figma calls (written by design-analyst, for reproducibility).
 - `testing/` — **all** screenshots and scratch artifacts taken during implementation/validation (written by visual-validator). Keeps validation output out of the run root.
 
 Read `.claude/skills/implement-design/component-conventions.md` once up front so you can sanity-check agent output.
@@ -34,40 +34,46 @@ Read `.claude/skills/implement-design/component-conventions.md` once up front so
 
 ## Stage 1 — Design ingestion (standalone)
 
-3. Create the unique `<run>` folder. Spawn `design-analyst` (Agent tool) with the URL, the chosen server, and the `<run>` path. It caches the screenshot there **and** writes the raw output of each Figma call (`figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md`) into the same folder. It returns a design manifest, or `BLOCKED_ON_CODE_CONNECT` + node list, or `BLOCKED_ON_MCP` + error.
+3. Create the unique `<run>` folder. Spawn `design-analyst` (Agent tool) with the URL, the chosen server, and the `<run>` path. It caches the screenshot there **and** writes the raw output of each Figma call (`figma-metadata.json`, `figma-code-connect-map.json`, `figma-design-context.md`, `figma-variable-defs.json`) into the same folder. It returns a design manifest, or `BLOCKED_ON_CODE_CONNECT` + node list, or `BLOCKED_ON_MCP` + error.
 4. **`BLOCKED_ON_MCP`**: re-spawn the analyst up to 2 more times (brief waits). If still failing, **halt** and report the server is unreachable (this can't be resolved standalone) — show the error and suggest `claude mcp list` / re-auth / opening the desktop app.
 5. **`BLOCKED_ON_CODE_CONNECT`**: the design has unconnected component instances that need Code Connect mappings published in Figma — a human action the pipeline can't do. **Halt** and report the blocked-node list so the user can publish mappings and re-run.
 
 ## Stage 2 — Decomposition (standalone, no approval gate)
 
-6. Spawn `component-decomposer` with the manifest, the **i18n decision**, and the **framework**. It returns the component tree, per-component APIs (with data ownership + nested default locations), open questions, and — if i18n is on — the localized-strings table. **Proceed automatically** (no approval checkpoint). Record the open questions for the final report.
+6. Spawn `component-decomposer` with the manifest, the **i18n decision**, and the **framework**. It returns the component tree, per-component APIs (with data ownership + nested default locations), a **Shared Types / Contracts** section (every interface that crosses a component boundary — its fields + which component exports it), open questions, and — if i18n is on — the localized-strings table. **Proceed automatically** (no approval checkpoint). For each open question, pick a sensible default and proceed; record **both the question and the default you chose** for the final report.
 7. Write `manifest.md` into the `<run>` folder (design manifest + decomposition + localized strings).
 8. If the decomposition has **no new components** (everything maps to existing components), say so in the final report and stop — nothing to generate.
 
-## Stage 3 — Parallel implementation (standalone)
+## Stage 3 — Implementation (dependency-ordered)
 
-9. Resolve each component's target path from the **chosen output location** + the decomposition's nested defaults (root component's tag minus `sl-`, kebab-cased, as the folder; children nested under it — unless the location is the flat `packages/components/` monorepo, where each is a sibling package). Then spawn one `component-implementer` per new component, in parallel. Give each: its spec, **its resolved target path**, **the framework**, **the i18n decision** (+ localized strings if on), the manifest excerpt + Code Connect snippet, and the screenshot path. Each loads the framework skill, scaffolds, implements, builds, and type-checks.
-10. Collect reports. Re-spawn any implementer that reported an unresolved build/type-check failure (once) with the error. Note flagged spec gaps for the final report.
+9. Resolve each component's target path from the **chosen output location** + the decomposition's nested defaults (root component's tag minus `sl-`, kebab-cased, as the folder; children nested under it — unless the location is the flat `packages/components/` monorepo, where each is a sibling package).
+10. **Spawn implementers in dependency order, not all at once.** A parent imports its children's classes _and_ their exported types, so a parent can't type-check until its children exist. Walk the decomposition tree **leaves-first**: implement all components at the deepest level in parallel, then their parents, … up to the root last. Components with no dependency on each other (siblings) still go in parallel within a level. Give each implementer: its spec, **its resolved target path**, **the framework**, **the i18n decision** (+ verbatim localized strings if on), **the Shared Types / Contracts** it must export or consume (so parallel siblings don't drift), the manifest excerpt + Code Connect snippet, and the screenshot path. Each scaffolds, implements (component + **a basic Storybook story** so Stage 4 can render it), and reports **the exact Storybook story id** it created. **Styles are plain `.css` imported with `{ type: 'css' }` — no style-build step.** Children take a cohesive **model object**, not a pile of scalar props.
+11. **Consolidated gate (orchestrator owns this) — must pass before Stage 4.** A leaf can't `tsc` standalone (no tsconfig until the package is wired), so after all implementers return, run **one** package-wide check yourself — `npx tsc -p <package>/tsconfig.json --noEmit` — and route any errors back to the responsible implementer (cap one retry each). **Two hard gates** that block Stage 4:
+    - **Type-check is clean** (`tsc` exit 0).
+    - **If i18n is on, the i18n-id check is clean**: grep every generated **literal** `msg(… { id: '…' })` id and diff it against the decomposer's localized-strings table, **both directions** — a generated id missing from the table is drift; a table id with no matching _literal_ generated id usually means the implementer used a **variable** `msg(x, { id: y })` (which lit-localize can't extract — a real bug). Route either back. Don't enter Stage 4 until both gates pass.
+      Note flagged spec gaps for the final report.
 
 ## Stage 4 — Visual validation loop (standalone)
 
-11. Start the app once (Lit: `yarn start` Storybook; Angular: the Angular Storybook / dev server per the Angular skill) in the background and wait until ready.
-12. For each new component, spawn `visual-validator` with the component, the URL, the **`<run>` path**, and the breakpoints. It reads the reference at `<run>/screenshot.png` and writes all its captures into `<run>/testing/`. It returns `MATCH` or `NEEDS_WORK` + discrepancies.
-13. **On `NEEDS_WORK`**: re-spawn that implementer with the notes. **Before re-validating, make the running app serve the new code** — HMR cannot re-run `customElements.define`, and stale compiled `.js` shadows the `.ts`; so delete stale compiled output, rebuild styles, and **restart the dev server** (clear its cache) before re-running the validator. Cap at **3 iterations** per component; if still diverging, record a handoff note and move on.
+12. Start the app once (Lit: `yarn start` Storybook; Angular: the Angular Storybook / dev server per the Angular skill) in the background and wait until ready.
+13. **Validate the page/root (and any component that's independently meaningful), not every leaf.** Pure presentational children only render inside their parent, so diffing them in isolation wastes spawns — they're covered by the page's validation. Spawn `visual-validator` for each such component with the component + **its story id** (from Stage 3), the URL, the **`<run>` path**, and the breakpoints. It reads the reference at `<run>/screenshot.png` **and the intended values from `<run>/manifest.md` (Token Reference + per-component specs)**, and writes all its captures into `<run>/testing/`. It returns `MATCH` or `NEEDS_WORK` + discrepancies — and its `MATCH` must be backed by the **measured comparison table** (per-element built-vs-expected), not a gestalt impression.
+14. **On `NEEDS_WORK`**: re-spawn the responsible implementer with the notes, then re-run the validator. With plain `.css` (imported via `{ type: 'css' }`) and Lit, **edits hot-reload in the running dev server — do not restart Storybook**, and there's no style-build step to redo. If a discrepancy traces to a composed SLDS component's own built-in behavior (e.g. a collapse threshold, a slot you didn't use), tell the implementer to **read that component's source/stories for the right API rather than re-tweaking CSS**. Cap at **3 iterations** per component; if still diverging, record a handoff note and move on.
 
 ## Stage 5 — Tests, stories, docs (standalone)
 
-14. Once a component is stable, spawn `component-author` for it (parallel across components), passing the **framework** and **i18n decision**. It writes the spec, stories, docs, and a changeset as the framework allows, and runs the tests.
-15. If an author reports an implementation bug (not a test bug), route it back to that `component-implementer`, then re-run Stages 4–5 for that component.
+15. Once a component is stable, spawn `component-author` for it (parallel across components), passing the **framework**, the **i18n decision**, and **the output location**. The basic story already exists (Stage 3); the author **scopes its work to where the code lives**:
+    - **`packages/components/*` (published package)**: write the Vitest spec, add variant stories, write website docs, add a changeset, run the tests, and — when i18n is on — run `yarn extract-i18n` so the new `msg()` ids land in the locale files.
+    - **`examples/` or another app path**: produce only what that location uses — typically just enrich the story (variants/states); **skip** tests/website-docs/changeset (and i18n extraction) unless the neighbouring code there has them. Don't force the published-package set onto an example.
+16. If an author reports an implementation bug (not a test bug), route it back to that `component-implementer`, then re-run Stages 4–5 for that component.
 
 ## Stage 6 — Review (standalone, no approval gate)
 
-16. For each component, spawn `component-reviewer`. It returns a punch list split into **[CRITICAL]** and **[MINOR]**.
-17. **Automatically** route **[CRITICAL]** items back to the responsible implementer/author and re-validate (loop, capped at a sensible number). Do not wait for user approval. Carry remaining **[MINOR]** items into the final report.
+17. For each component, spawn `component-reviewer`, passing the package path **and the output location** (so it scopes published-package-only checks correctly). It returns a punch list split into **[CRITICAL]** and **[MINOR]**.
+18. **Automatically** route **[CRITICAL]** items back to the responsible implementer/author and re-validate (loop, capped at a sensible number). Do not wait for user approval. Carry remaining **[MINOR]** items into the final report.
 
 ## Final report
 
-18. Present one summary: components created (paths), framework, manifest location, validator verdicts, test results, unresolved handoff notes, the decomposer's open questions, and the **[MINOR]** punch list (suggest these as PR comments). Do not open a PR or commit unless asked.
+19. Before reporting, **verify the working tree is clean of stray artifacts**: run `git status` and confirm nothing landed outside the intended trees (the `<run>` folder and the generated component path) — in particular no scratch screenshots at the repo root; remove any that slipped out. Then present one summary: components created (paths), framework, manifest location, validator verdicts, test results, unresolved handoff notes, the decomposer's open questions **with the default you chose for each**, and the **[MINOR]** punch list (suggest these as PR comments). Do not open a PR or commit unless asked.
 
 ---
 
@@ -75,5 +81,5 @@ Read `.claude/skills/implement-design/component-conventions.md` once up front so
 
 - The Figma screenshot is ground truth throughout — keep diffing against it in Stage 4.
 - All run artifacts stay in the `<run>` folder: Figma call outputs + manifest + reference screenshot at the root, and every screenshot/scratch file from implementation or validation under `<run>/testing/`. Pass `<run>` to any agent that reads or writes these.
-- Spawn per-component agents **in parallel** within a stage.
+- Spawn per-component agents **in parallel within a dependency level** — in Stage 3 that means leaves-first up the tree (a parent needs its children's types to type-check); in Stages 5–6 siblings can all go at once.
 - After Stage 0, you talk to the user only in the final report (and on an exceptional halt). Don't pepper with per-agent status.

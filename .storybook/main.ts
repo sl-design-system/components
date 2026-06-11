@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { argv } from 'node:process';
 import { URL } from 'node:url';
 import { type StorybookConfig } from '@storybook/web-components-vite';
+import { type Plugin } from 'vite';
 import { injectComponentMetadata } from './helpers.ts';
 
 // Check if this is a CSS import with type: 'css' attribute
@@ -9,7 +10,7 @@ const cssImportRegex =
   /import\s+(\w+)\s+from\s+['"]([^'"]+\.css)['"]\s+with\s+\{\s*type:\s*['"]css['"]\s*\}/g;
 
 // This plugin handles CSS imports with { type: 'css' } and converts them to CSSStyleSheet
-const cssPlugin = {
+const cssPlugin: Plugin = {
   name: 'css-stylesheet',
   transform(code: string, id: string) {
     if (!id.startsWith('/') || !id.includes('/examples/')) return null;
@@ -26,6 +27,10 @@ const cssPlugin = {
 
         try {
           const cssContent = readFileSync(resolvedPath, 'utf-8');
+
+          // Watch the .css so editing it invalidates this module and hot-reloads in dev
+          // (without this, Vite caches the inlined CSS and edits don't take effect).
+          this.addWatchFile(resolvedPath);
 
           return `
   const ${varName} = new CSSStyleSheet();

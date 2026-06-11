@@ -9,11 +9,14 @@ This is the framework skill for **Angular** in the `/implement-design` pipeline.
 
 ## Apply the shared design principles
 
-These principles from `.claude/skills/implement-design/component-conventions.md` are framework-agnostic — follow them (ignore that file's Lit-specific mechanics, listed there: `.scss.js` build, `ScopedElementsMixin`, `Icon.register`, `@lit/localize`, register.ts):
+These principles from `.claude/skills/implement-design/component-conventions.md` are framework-agnostic — follow them (ignore that file's Lit-specific mechanics: the `.css` + `{ type: 'css' }` import / no-build-step, `ScopedElementsMixin`, `Icon.register`, `@lit/localize`, `register.ts`, the `@event`/`EventEmitter` decorator):
 
-- **Reproduce the design's content via data ownership** — the root/page component owns the data (a service / `HttpClient` fetch; a typed mock in an example with a comment) and passes subsets to **presentational** child components via `@Input()`s. Children don't fetch; the story/host doesn't fill in fixed design content.
+- **Reproduce the design's content via data ownership** — the root/page component owns the data (a service / `HttpClient` fetch; a typed mock in an example with a comment) and passes subsets to **presentational** child components. Children don't fetch; the story/host doesn't fill in fixed design content.
+- **Pass a cohesive "model" object, not many scalar props** — a child that renders several related fields takes **one typed object `@Input()`** (with an exported interface), the way a real app hands a child its slice of the domain model; split into separate inputs only for genuinely independent values. Use the **Shared Types / Contracts** from the decomposition verbatim. **The model holds data + stable keys only — no translated strings (localize in the template/component keyed off the key), no structural config (column/tab/option sets are constants in the component).**
+- **Lists: be conservative** — a repeated row is usually a `<ul>`/`<li>` (or semantic list) + CSS with `@for`, not a component per row; build a row component only for genuine internal complexity.
 - **Design tokens only** — no `var()` fallbacks; **light-mode semantic tokens** even for a dark design (theme switching handles dark); logical properties; prefer styling a component's `::part()` over wrapper `<div>`s.
-- **No `<main>`** (host app owns it); **one `<sl-form>`** wrapping all controls + the action buttons; **tabs** use `<sl-tab-group>` + `<sl-tab>` only (no `<sl-tab-panel>`), rendering the active tab's content on demand.
+- **No `<main>`** (host app owns it); **one `<sl-form>`** wrapping all controls + the action buttons, **colocated in the same component as the controls** (not a parent wrapping a child); **tabs** use `<sl-tab-group>` + `<sl-tab>` only (no `<sl-tab-panel>`), rendering the active tab's content on demand.
+- **A basic Storybook story is authored during implementation** (before visual validation), and **Stage 5 scope follows the output location** — full test/docs/changeset set only for a published package; an example gets just the component + an enriched story.
 
 ## Angular component conventions
 
@@ -22,7 +25,7 @@ These principles from `.claude/skills/implement-design/component-conventions.md`
 - **Inputs/Outputs**: presentational data in via `@Input()` (or `input()` signals on Angular ≥17); user actions out via `@Output() ... = new EventEmitter<…>()`. The root page emits the form-level events (save/cancel).
 - **Templates**: bind SLDS element attributes/properties with Angular binding (`[heading]="…"`, `[value]="…"`, `(sl-change)="…"`). Component-owned children compose in the template; there is no scoped-registry concern (custom elements register globally via their `register.js` import — import `@sl-design-system/<x>/register.js` in `main.ts`/the component, or rely on the Angular wrapper's import).
 - **Forms**: for a page of controls + actions, wrap them in a single `<sl-form>` and read its value / call `reportValidity()` via a `@ViewChild('form')` ref, or use Angular reactive forms bound to the SLDS controls — match the established pattern in `packages/angular/stories/forms.stories.ts`.
-- **Styles**: `<name>.component.scss`, `ViewEncapsulation` default; SLDS design tokens as above. No build step beyond Angular's own.
+- **Styles**: `<name>.component.scss`, `ViewEncapsulation` default; SLDS design tokens as above. **Angular intentionally keeps `.scss`** (its compiler handles it) — the Lit `.css` + `{ type: 'css' }` import-attribute approach is a Vite/Lit-only mechanism and does **not** apply here. No build step beyond Angular's own.
 
 ## Icons
 
@@ -30,7 +33,7 @@ These principles from `.claude/skills/implement-design/component-conventions.md`
 
 ## i18n (when enabled)
 
-- Use Angular's built-in i18n: `i18n` attributes in templates (or `$localize` tagged strings in TS) with stable `@@id`s (e.g. `@@courseSettings.tabOverview`). Source locale `en`; a non-English design's strings become English sources with the original as a translation.
+- Use Angular's built-in i18n: `i18n` attributes in templates (or `$localize` tagged strings in TS) with stable `@@id`s (e.g. `@@courseSettings.tabOverview`). Source locale `en`; a non-English design's strings become English sources with the original as a translation. Localize **in the displaying component, keyed off the model's data/keys** — don't pass translated text through `@Input()` models. Per-record free text (names/titles) is rendered directly.
 
 ## Build / verify
 

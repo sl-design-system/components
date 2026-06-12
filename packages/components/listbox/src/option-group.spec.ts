@@ -11,8 +11,9 @@ describe('sl-option-group', () => {
     el = await fixture(html`<sl-option-group></sl-option-group>`);
   });
 
-  it('should have a group role', () => {
-    expect(el).to.have.attribute('role', 'group');
+  it('should not have a group role for Safari/VoiceOver compatibility', () => {
+    // We removed role="group" because it breaks Safari/VoiceOver when inside role="listbox"
+    expect(el).not.to.have.attribute('role', 'group');
   });
 
   it('should not have a label by default', () => {
@@ -28,5 +29,14 @@ describe('sl-option-group', () => {
 
     expect(header).to.exist;
     expect(header).to.have.text('Group label');
+  });
+
+  it('should have aria-hidden="true" on the group header for Safari/VoiceOver compatibility', async () => {
+    el.label = 'Group label';
+    await el.updateComplete;
+
+    const header = el.renderRoot.querySelector('sl-option-group-header');
+
+    expect(header).to.have.attribute('aria-hidden', 'true');
   });
 });

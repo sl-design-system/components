@@ -42,7 +42,10 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('role', 'group');
+    // NOTE: We do NOT set role="group" here because it breaks Safari/VoiceOver.
+    // When role="group" is inside role="listbox", Safari loses track of the
+    // listbox/option relationship, causing incorrect item counts and aria-selected
+    // announcements. Instead, we flatten the structure and use aria-hidden headers.
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -59,13 +62,8 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('label')) {
-      if (this.label) {
-        this.setAttribute('aria-label', this.label);
-      } else {
-        this.removeAttribute('aria-label');
-      }
-    }
+    // NOTE: We no longer set aria-label on the group element because we removed
+    // role="group". Group context is now conveyed through option labels instead.
   }
 
   override render(): TemplateResult {

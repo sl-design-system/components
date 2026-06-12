@@ -962,12 +962,24 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         }
 
         // Ensure the option has an aria-selected attribute
-        if (!el.hasAttribute('aria-selected')) {
-          el.setAttribute('aria-selected', Boolean(el.selected).toString());
-        }
+        el.setAttribute('aria-selected', Boolean(el.selected).toString());
 
         return item;
       });
+
+    // Update aria-posinset and aria-setsize for flattened list structure
+    // Also add group context to accessible names
+    items.forEach((item, flattenedIndex) => {
+      if (item.element) {
+        item.element.setAttribute('aria-posinset', (flattenedIndex + 1).toString());
+        item.element.setAttribute('aria-setsize', items.length.toString());
+
+        // Add group context to accessible name for Safari/VoiceOver compatibility
+        if (item.group) {
+          item.element.setAttribute('aria-label', `${item.group}, ${item.label}`);
+        }
+      }
+    });
 
     return { hasSelected, items, selectedItems };
   }
@@ -1304,12 +1316,18 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       el.value = item.value;
       el.setAttribute('aria-selected', item.selected ? 'true' : 'false');
 
-      if (typeof item.index === 'number') {
-        el.setAttribute('aria-posinset', (item.index + 1).toString());
+      // Calculate flattened position: only count options, not group headers
+      const allOptions = this.items.filter(i => 'option' in i);
+      const flattenedPosition = allOptions.indexOf(item);
+
+      if (flattenedPosition !== -1) {
+        el.setAttribute('aria-posinset', (flattenedPosition + 1).toString());
+        el.setAttribute('aria-setsize', allOptions.length.toString());
       }
 
-      if (this.options) {
-        el.setAttribute('aria-setsize', this.options.length.toString());
+      // Add group context to accessible name for Safari/VoiceOver compatibility
+      if (item.group) {
+        el.setAttribute('aria-label', `${item.group}, ${item.label}`);
       }
 
       if (el instanceof GroupedOption) {

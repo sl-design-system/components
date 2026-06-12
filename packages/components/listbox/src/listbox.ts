@@ -260,6 +260,23 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       element.selected = item.selected;
       element.value = item.value;
 
+      // Calculate flattened position: only count options, not group headers
+      const allOptions = (this.items || []).filter((i): i is ListboxOption<T, U> => 'option' in i);
+      const flattenedPosition = allOptions.indexOf(item);
+
+      if (flattenedPosition !== -1) {
+        element.setAttribute('aria-posinset', (flattenedPosition + 1).toString());
+        element.setAttribute('aria-setsize', allOptions.length.toString());
+      }
+
+      // Ensure aria-selected is always set for Safari/VoiceOver compatibility
+      element.setAttribute('aria-selected', item.selected ? 'true' : 'false');
+
+      // Add group context to accessible name for Safari/VoiceOver compatibility
+      if (item.group) {
+        element.setAttribute('aria-label', `${item.label} (${item.group})`);
+      }
+
       return element;
     } else {
       const element = this.shadowRoot!.createElement('sl-option-group-header');

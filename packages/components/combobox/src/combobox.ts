@@ -680,6 +680,23 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #onInputClick(): void {
     this.wrapper?.showPopover();
+
+    if (!this.multiple && !this.#popoverOpenedViaKeyboard) {
+      const selectedItem = this.selectedItems[0] ?? this.items.find(i => i.selected);
+
+      if (selectedItem) {
+        this.#updateCurrent(selectedItem, { visual: false });
+      } else {
+        const selectedOption =
+          this.querySelector<Option>('sl-option[selected]') ??
+          this.querySelector<Option>('sl-option');
+
+        if (selectedOption) {
+          selectedOption.id ||= `sl-combobox-option-${nextUniqueId++}`;
+          this.input.setAttribute('aria-activedescendant', selectedOption.id);
+        }
+      }
+    }
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -824,7 +841,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     if (this.listbox) {
       this.listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
       this.input.setAttribute('aria-controls', this.listbox.id);
-      this.input.setAttribute('aria-owns', this.listbox.id);
 
       if (this.multiple) {
         this.listbox.setAttribute('aria-multiselectable', 'true');
@@ -858,7 +874,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     } else {
       this.input.removeAttribute('aria-controls');
-      this.input.removeAttribute('aria-owns');
       this.items = [];
     }
   }
@@ -907,8 +922,21 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
-        if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
-          this.#updateCurrent(this.selectedItems[0]);
+        const selectedOptionElement = this.listbox?.querySelector<Option>('sl-option[selected]');
+        const selectedItem =
+          this.selectedItems[0] ??
+          this.items.find(
+            i => i.selected || (selectedOptionElement && i.id === selectedOptionElement.id)
+          );
+
+        if (selectedItem) {
+          this.#updateCurrent(selectedItem, {
+            visual: this.#popoverOpenedViaKeyboard
+          });
+        } else if (selectedOptionElement?.id) {
+          // Fallback for timing-sensitive open paths where internal item state
+          // has not synchronized yet. Keep AT context without visual highlight.
+          this.input.setAttribute('aria-activedescendant', selectedOptionElement.id);
         }
       }
 
@@ -966,20 +994,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
         return item;
       });
-
-    // Update aria-posinset and aria-setsize for flattened list structure
-    // Also add group context to accessible names
-    items.forEach((item, flattenedIndex) => {
-      if (item.element) {
-        item.element.setAttribute('aria-posinset', (flattenedIndex + 1).toString());
-        item.element.setAttribute('aria-setsize', items.length.toString());
-
-        // Add group context to accessible name for Safari/VoiceOver compatibility
-        if (item.group) {
-          item.element.setAttribute('aria-label', `${item.group}, ${item.label}`);
-        }
-      }
-    });
 
     return { hasSelected, items, selectedItems };
   }
@@ -1409,7 +1423,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /** Updates the options to reflect the current one. */
-  #updateCurrent(option?: ComboboxItem<T, U>): void {
+  #updateCurrent(option?: ComboboxItem<T, U>, { visual = true }: { visual?: boolean } = {}): void {
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
@@ -1419,12 +1433,17 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.currentItem = option;
 
     if (this.currentItem) {
-      this.currentItem.current = true;
+      this.currentItem.current = visual;
 
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
       if (this.currentItem.element) {
-        this.currentItem.element.setAttribute('current', '');
+        if (visual) {
+          this.currentItem.element.setAttribute('current', '');
+        } else {
+          this.currentItem.element.removeAttribute('current');
+        }
+
         this.currentItem.element.scrollIntoView({ block: 'nearest' });
       } else {
         this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });

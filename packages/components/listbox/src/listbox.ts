@@ -157,6 +157,12 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       this.#propagateEmphasis();
     }
 
+    // Keep slotted options normalized out of the box, even if consumers don't
+    // explicitly trigger listbox-specific slotchange timing.
+    if (!this.options && !this.items) {
+      this.#onSlotChange();
+    }
+
     if (changes.has('items')) {
       if (this.items) {
         this.#virtualizer ||= this.shadowRoot!.createElement('lit-virtualizer');
@@ -186,7 +192,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#propagateEmphasis}></slot>`;
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
@@ -198,6 +204,16 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         .at(index)
         ?.scrollIntoView(options);
     }
+  }
+
+  /**
+   * Applies flattened accessibility metadata to options.
+   *
+   * Kept public so composed consumers can trigger deterministic timing when options are projected
+   * through nested slots.
+   */
+  applyFlattenedOptionAccessibility(options: Option[]): void {
+    this.#applyFlattenedOptionAccessibility(options);
   }
 
   #prepareOptions(options: T[]): Array<ListboxItem<T, U>> {
@@ -251,6 +267,34 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     });
   }
 
+  #onSlotChange(): void {
+    this.#propagateEmphasis();
+
+    const options = Array.from(this.querySelectorAll('sl-option')).filter(
+      (el): el is Option => el instanceof Option
+    );
+
+    this.#applyFlattenedOptionAccessibility(options);
+  }
+
+  #applyFlattenedOptionAccessibility(options: Option[]): void {
+    const metadata = options.map(option => ({
+      group: option.closest<OptionGroup>('sl-option-group')?.label,
+      label: option.textContent?.trim() || '',
+      option
+    }));
+
+    metadata.forEach((item, index) => {
+      this.#applyOptionAccessibility(item.option, {
+        group: item.group,
+        label: item.label,
+        position: index + 1,
+        setSize: metadata.length,
+        selected: item.option.selected
+      });
+    });
+  }
+
   #renderItem(item: ListboxItem<T, U>, index: number): Element {
     if ('option' in item) {
       const element = this.shadowRoot!.createElement('sl-option');
@@ -265,16 +309,13 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       const flattenedPosition = allOptions.indexOf(item);
 
       if (flattenedPosition !== -1) {
-        element.setAttribute('aria-posinset', (flattenedPosition + 1).toString());
-        element.setAttribute('aria-setsize', allOptions.length.toString());
-      }
-
-      // Ensure aria-selected is always set for Safari/VoiceOver compatibility
-      element.setAttribute('aria-selected', item.selected ? 'true' : 'false');
-
-      // Add group context to accessible name for Safari/VoiceOver compatibility
-      if (item.group) {
-        element.setAttribute('aria-label', `${item.label} (${item.group})`);
+        this.#applyOptionAccessibility(element, {
+          group: item.group,
+          label: item.label,
+          position: flattenedPosition + 1,
+          setSize: allOptions.length,
+          selected: item.selected
+        });
       }
 
       return element;
@@ -285,6 +326,31 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       element.innerText = item.label;
 
       return element;
+    }
+  }
+
+  #applyOptionAccessibility(
+    option: Option,
+    {
+      group,
+      label,
+      position,
+      selected,
+      setSize
+    }: {
+      group?: string;
+      label: string;
+      position: number;
+      selected?: boolean;
+      setSize: number;
+    }
+  ): void {
+    option.setAttribute('aria-posinset', position.toString());
+    option.setAttribute('aria-setsize', setSize.toString());
+    option.setAttribute('aria-selected', Boolean(selected).toString());
+
+    if (group) {
+      option.setAttribute('aria-label', `${label} (${group})`);
     }
   }
 }

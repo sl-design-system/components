@@ -26,6 +26,22 @@ declare global {
  * @slot default - The option's label.
  */
 export class OptionGroup extends ScopedElementsMixin(LitElement) {
+  /** Watches for `label` attribute updates so we can consume and remove it from the host. */
+  #labelObserver = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.type !== 'attributes' || mutation.attributeName !== 'label') {
+        return;
+      }
+
+      const value = this.getAttribute('label');
+
+      if (value !== null) {
+        this.label = value;
+        this.removeAttribute('label');
+      }
+    });
+  });
+
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -37,10 +53,19 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** The optional label for the group. */
-  @property() label?: string;
+  @property({ attribute: false }) label?: string;
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    // Consume `label` from markup and remove it from the host element to avoid
+    // exposing group labels in Safari/VoiceOver's listbox parsing path.
+    if (this.hasAttribute('label')) {
+      this.label = this.getAttribute('label') || undefined;
+      this.removeAttribute('label');
+    }
+
+    this.#labelObserver.observe(this, { attributes: true, attributeFilter: ['label'] });
 
     // NOTE: We do NOT set role="group" here because it breaks Safari/VoiceOver.
     // When role="group" is inside role="listbox", Safari loses track of the
@@ -57,6 +82,12 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
       }
     `;
     this.prepend(style);
+  }
+
+  override disconnectedCallback(): void {
+    this.#labelObserver.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {

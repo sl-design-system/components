@@ -875,7 +875,7 @@ describe('sl-combobox', () => {
         const options = Array.from(el.querySelectorAll('sl-option'));
 
         expect(options[1]).not.to.have.attribute('current');
-        expect(input).not.to.have.attribute('aria-activedescendant');
+        expect(input).to.have.attribute('aria-activedescendant', options[1].id);
       });
     });
   });
@@ -1637,10 +1637,10 @@ describe('sl-combobox', () => {
 
         const options = el.querySelectorAll('sl-option');
 
-        expect(options[0]).to.have.attribute('aria-label', 'Group 1, Option 1');
-        expect(options[1]).to.have.attribute('aria-label', 'Group 1, Option 2');
-        expect(options[2]).to.have.attribute('aria-label', 'Group 2, Option 3');
-        expect(options[3]).to.have.attribute('aria-label', 'Group 2, Option 4');
+        expect(options[0]).to.have.attribute('aria-label', 'Option 1 (Group 1)');
+        expect(options[1]).to.have.attribute('aria-label', 'Option 2 (Group 1)');
+        expect(options[2]).to.have.attribute('aria-label', 'Option 3 (Group 2)');
+        expect(options[3]).to.have.attribute('aria-label', 'Option 4 (Group 2)');
       });
     });
 

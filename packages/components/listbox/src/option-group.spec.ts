@@ -39,4 +39,24 @@ describe('sl-option-group', () => {
 
     expect(header).to.have.attribute('aria-hidden', 'true');
   });
+
+  it('should consume and remove the label attribute from markup', async () => {
+    const group = await fixture<OptionGroup>(
+      html`<sl-option-group label="Group label"></sl-option-group>`
+    );
+    await group.updateComplete;
+
+    expect(group).not.to.have.attribute('label');
+    expect(group.label).to.equal('Group label');
+    expect(group.renderRoot.querySelector('sl-option-group-header')).to.have.text('Group label');
+  });
+
+  it('should consume and remove label when attribute is set later', async () => {
+    el.setAttribute('label', 'Later label');
+    await el.updateComplete;
+
+    expect(el).not.to.have.attribute('label');
+    expect(el.label).to.equal('Later label');
+    expect(el.renderRoot.querySelector('sl-option-group-header')).to.have.text('Later label');
+  });
 });

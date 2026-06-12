@@ -632,22 +632,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   #onSlotchange(): void {
     this.#verifyRegisteredListboxElements();
 
-    // Update all options with flattened accessibility attributes
-    this.options.forEach((option, flattenedIndex) => {
-      // Ensure aria-selected is always set for Safari/VoiceOver compatibility
-      option.setAttribute('aria-selected', 'false');
-
-      // Set flattened position in the listbox
-      option.setAttribute('aria-posinset', (flattenedIndex + 1).toString());
-      option.setAttribute('aria-setsize', this.options.length.toString());
-
-      // Add group context to accessible name for Safari/VoiceOver compatibility
-      const group = option.closest('sl-option-group');
-      if (group?.label) {
-        const label = option.textContent?.trim() || '';
-        option.setAttribute('aria-label', `${group.label}, ${label}`);
-      }
-    });
+    this.listbox?.applyFlattenedOptionAccessibility(this.options);
 
     if (this.value !== undefined && this.value !== null) {
       this.#setSelectedOption(

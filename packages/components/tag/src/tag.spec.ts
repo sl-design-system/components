@@ -89,6 +89,13 @@ describe('sl-tag', () => {
       expect(el).to.match(':state(focus-visible)');
     });
 
+    it('should not have the focus-visible state when focus is not focus-visible', async () => {
+      button.dispatchEvent(new FocusEvent('focus'));
+      await el.updateComplete;
+
+      expect(el).not.to.match(':state(focus-visible)');
+    });
+
     it('should have a button', () => {
       expect(button).to.exist;
     });
@@ -101,6 +108,13 @@ describe('sl-tag', () => {
     });
 
     it('should have an accessible label on the remove button', () => {
+      expect(button).to.have.attribute('aria-label', "Remove tag 'My label'");
+    });
+
+    it('should derive the accessible label from slotted element text', async () => {
+      el = await fixture(html`<sl-tag removable><span>My label</span></sl-tag>`);
+      button = el.renderRoot.querySelector('button')!;
+
       expect(button).to.have.attribute('aria-label', "Remove tag 'My label'");
     });
 

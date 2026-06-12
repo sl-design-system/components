@@ -161,8 +161,10 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     this.#internals.states.delete('focus-visible');
   }
 
-  #onFocus(): void {
-    this.#internals.states.add('focus-visible');
+  #onFocus(event: FocusEvent): void {
+    if ((event.target as HTMLElement).matches(':focus-visible')) {
+      this.#internals.states.add('focus-visible');
+    }
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -193,8 +195,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.label = event.target
       .assignedNodes({ flatten: true })
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent?.trim())
-      .join('');
+      .map(node => node.textContent ?? '')
+      .join('')
+      .trim()
+      .replaceAll(/\s+/g, ' ');
   }
 }

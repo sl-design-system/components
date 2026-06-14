@@ -55,6 +55,7 @@
     "@sl-design-system/icon": "workspace:^",
     "@sl-design-system/search-field": "workspace:^",
     "@sl-design-system/switch": "workspace:^",
+    "minisearch": "^7.2.0",
     "prismjs": "^1.30.0"
   },
   "devDependencies": {

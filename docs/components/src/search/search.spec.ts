@@ -82,10 +82,16 @@ describe('doc-search', () => {
       expect(searchField?.getAttribute('aria-label')).to.equal('Search documentation');
     });
 
-    it('should contain placeholder results', () => {
+    it('should not contain any results before a query is entered', () => {
       const results = el.renderRoot.querySelectorAll('.results li');
 
-      expect(results.length).to.be.greaterThan(0);
+      expect(results.length).to.equal(0);
+    });
+
+    it('should show a prompt message before a query is entered', () => {
+      const message = el.renderRoot.querySelector('.message');
+
+      expect(message).to.exist;
     });
 
     it('should close when the Escape key is pressed', () => {
@@ -106,7 +112,9 @@ describe('doc-search', () => {
       const dialog = el.renderRoot.querySelector('dialog')!;
       const showModalSpy = vi.spyOn(dialog, 'showModal');
 
-      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true }));
+      document.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })
+      );
 
       expect(showModalSpy).toHaveBeenCalled();
     });
@@ -115,7 +123,9 @@ describe('doc-search', () => {
       const dialog = el.renderRoot.querySelector('dialog')!;
       const showModalSpy = vi.spyOn(dialog, 'showModal');
 
-      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true }));
+      document.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true })
+      );
 
       expect(showModalSpy).toHaveBeenCalled();
     });
@@ -137,7 +147,9 @@ describe('doc-search', () => {
 
       el.remove();
 
-      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true }));
+      document.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })
+      );
 
       expect(showModalSpy).not.toHaveBeenCalled();
     });

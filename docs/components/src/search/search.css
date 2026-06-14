@@ -25,7 +25,8 @@ button {
     background: color-mix(
       in srgb,
       var(--sl-color-background-input-plain),
-      var(--sl-color-background-input-interactive) calc(100% * var(--sl-opacity-interactive-plain-hover))
+      var(--sl-color-background-input-interactive)
+        calc(100% * var(--sl-opacity-interactive-plain-hover))
     );
   }
 
@@ -95,6 +96,13 @@ dialog {
 sl-search-field {
   flex: none;
   margin: var(--sl-size-200);
+}
+
+.message {
+  color: var(--sl-color-foreground-subtle);
+  font: var(--sl-text-body-md);
+  margin: 0;
+  padding: 0 var(--sl-size-200) var(--sl-size-300);
 }
 
 .results {

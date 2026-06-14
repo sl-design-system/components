@@ -7,6 +7,7 @@ import { parse as HTMLParse } from 'node-html-parser';
 import { anchorHeadingsTransformer } from './src/transformers/anchor-headings.js';
 import { codeExamplesTransformer } from './src/transformers/code-examples.js';
 import { highlightCodeTransformer } from './src/transformers/highlight-code.js';
+import { searchPlugin } from './src/plugins/search.js';
 import { getComponents, getCustomElements } from './src/utils/manifest.js';
 import { markdown } from './src/utils/markdown.js';
 
@@ -104,6 +105,17 @@ export default async function (eleventyConfig) {
 
     return doc.toString();
   });
+
+  // Build the client-side search index. Registered after the `component` transform
+  // so headings and other content transforms are already applied.
+  eleventyConfig.addPlugin(
+    searchPlugin({
+      selectorsToIgnore: ['doc-code-example', 'doc-page-toc', 'pre'],
+      getTitle: doc => (doc.querySelector('title')?.textContent ?? '').replace(/\s*\|\s*SL Design System\s*$/, ''),
+      getDescription: doc => doc.querySelector('main.content p')?.textContent ?? '',
+      getContent: doc => doc.querySelector('main.content')?.textContent ?? ''
+    })
+  );
 
   eleventyConfig.on('eleventy.before', async () => {
     // Scan pages for icon names in eleventyNavigation frontmatter

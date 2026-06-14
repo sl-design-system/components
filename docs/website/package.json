@@ -40,6 +40,7 @@
     "markdown-it-attrs": "^4.3.1",
     "markdown-it-container": "^4.0.0",
     "markdown-it-deflist": "^3.0.0",
+    "minisearch": "^7.2.0",
     "node-html-parser": "^7.1.0",
     "prismjs": "^1.30.0",
     "slugify": "^1.6.9",

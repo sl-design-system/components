@@ -6220,6 +6220,7 @@ __metadata:
     "@types/prismjs": "npm:^1.26.6"
     "@typescript/native-preview": "npm:^7.0.0-dev.20260413.1"
     lit: "npm:^3.3.2"
+    minisearch: "npm:^7.2.0"
     prismjs: "npm:^1.30.0"
     sass-embedded: "npm:^1.99.0"
     storybook: "npm:^10.3.5"
@@ -7091,6 +7092,7 @@ __metadata:
     markdown-it-attrs: "npm:^4.3.1"
     markdown-it-container: "npm:^4.0.0"
     markdown-it-deflist: "npm:^3.0.0"
+    minisearch: "npm:^7.2.0"
     node-html-parser: "npm:^7.1.0"
     prismjs: "npm:^1.30.0"
     slugify: "npm:^1.6.9"
@@ -18071,6 +18073,13 @@ __metadata:
   version: 7.1.2
   resolution: "minipass@npm:7.1.2"
   checksum: 10c0/b0fd20bb9fb56e5fa9a8bfac539e8915ae07430a619e4b86ff71f5fc757ef3924b23b2c4230393af1eda647ed3d75739e4e0acb250a6b1eb277cf7f8fe449557
+  languageName: node
+  linkType: hard
+
+"minisearch@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "minisearch@npm:7.2.0"
+  checksum: 10c0/64efaf30ead2acb19eb8be49c78352c527812dd2927a0981c9d666339d5d206d132b83038d2bfa756f5161cae5d98f15b07cc7e7b7be6b8278d35d2ecdc2628c
   languageName: node
   linkType: hard
 

@@ -147,7 +147,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               )}
               aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
               aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
-              part="button">
+              part="button"
+              type="button">
               <sl-icon name="xmark"></sl-icon>
             </button>
             ${this.navigationDescription

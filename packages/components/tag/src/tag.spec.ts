@@ -97,6 +97,7 @@ describe('sl-tag', () => {
 
     it('should have a button', () => {
       expect(button).to.exist;
+      expect(button).to.have.attribute('type', 'button');
     });
 
     it('should focus the button when the tag is focused', async () => {

@@ -45,9 +45,9 @@ When a remove button is focused, the tag can be removed by activating the button
 |`aria-label`|string|String that labels the tag list. Use this to label what the tag list indicates, such as the selected options in a combobox.|
 |`aria-labelledby`|string|Can be used to connect with a single header/element that describes the tag list.|
 
-Do not mix static and removable tags in the same tag list. Use a static tag list when no tags can be removed, and a removable tag list when users can remove tags.
-
 {.ds-table .ds-table-align-top}
+
+Do not mix static and removable tags in the same tag list. Use a static tag list when no tags can be removed, and a removable tag list when users can remove tags.
 
 </div>
 

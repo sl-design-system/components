@@ -357,11 +357,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     );
 
     this.tags.forEach(tag => {
-      tag.navigationDescription = tag.removable
-        ? msg('Use arrow keys to move between removable tags.', {
-            id: 'sl.tagList.navigationInstructions'
-          })
-        : undefined;
+      tag.navigationDescription = msg('Use arrow keys to move between removable tags.', {
+        id: 'sl.tagList.navigationInstructions'
+      });
       tag.role = 'listitem';
       tag.size = this.size;
       tag.variant = this.variant;

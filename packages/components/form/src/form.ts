@@ -31,14 +31,14 @@ export type SlSubmitEvent = CustomEvent<void> & { target: Form };
 /**
  * This component is a wrapper for the form controls.
  *
- * @customElement sl-form
- *
- * It is used to provide the ability to report the validity of all the form controls,
- * not just the invalid ones. By calling the `reportValidity()` method, it in turn will
- * call the `reportValidity()` methods of all the form controls.
+ * It is used to provide the ability to report the validity of all the form controls, not just the
+ * invalid ones. By calling the `reportValidity()` method, it in turn will call the
+ * `reportValidity()` methods of all the form controls.
  *
  * This wrapper is necessary because the native form lacks this behavior. See
  * https://github.com/whatwg/html/issues/9878
+ *
+ * @customElement sl-form
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Form<T extends Record<string, any> = Record<string, any>> extends LitElement {

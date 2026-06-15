@@ -6,4 +6,3 @@ generate:
   exclude:
     - 'packages/components/*/src/**/*.spec.ts'
     - 'packages/components/*/src/**/*.stories.ts'
-  output: 'custom-elements.json'

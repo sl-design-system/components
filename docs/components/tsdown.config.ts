@@ -1,4 +1,4 @@
-import { importCssSheet } from '@magister/rolldown-plugin-css-sheet';
+import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({

@@ -5130,10 +5130,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pwrs/cem-darwin-arm64@npm:0.10.3":
+  version: 0.10.3
+  resolution: "@pwrs/cem-darwin-arm64@npm:0.10.3"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@pwrs/cem-darwin-arm64@npm:0.10.6":
   version: 0.10.6
   resolution: "@pwrs/cem-darwin-arm64@npm:0.10.6"
   conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@pwrs/cem-darwin-x64@npm:0.10.3":
+  version: 0.10.3
+  resolution: "@pwrs/cem-darwin-x64@npm:0.10.3"
+  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -5144,10 +5158,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pwrs/cem-linux-arm64@npm:0.10.3":
+  version: 0.10.3
+  resolution: "@pwrs/cem-linux-arm64@npm:0.10.3"
+  conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@pwrs/cem-linux-arm64@npm:0.10.6":
   version: 0.10.6
   resolution: "@pwrs/cem-linux-arm64@npm:0.10.6"
   conditions: os=linux & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@pwrs/cem-linux-x64@npm:0.10.3":
+  version: 0.10.3
+  resolution: "@pwrs/cem-linux-x64@npm:0.10.3"
+  conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
@@ -5158,6 +5186,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pwrs/cem-win32-arm64@npm:0.10.3":
+  version: 0.10.3
+  resolution: "@pwrs/cem-win32-arm64@npm:0.10.3"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@pwrs/cem-win32-arm64@npm:0.10.6":
   version: 0.10.6
   resolution: "@pwrs/cem-win32-arm64@npm:0.10.6"
@@ -5165,10 +5200,46 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pwrs/cem-win32-x64@npm:0.10.3":
+  version: 0.10.3
+  resolution: "@pwrs/cem-win32-x64@npm:0.10.3"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@pwrs/cem-win32-x64@npm:0.10.6":
   version: 0.10.6
   resolution: "@pwrs/cem-win32-x64@npm:0.10.6"
   conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@pwrs/cem@npm:0.10.3":
+  version: 0.10.3
+  resolution: "@pwrs/cem@npm:0.10.3"
+  dependencies:
+    "@pwrs/cem-darwin-arm64": "npm:0.10.3"
+    "@pwrs/cem-darwin-x64": "npm:0.10.3"
+    "@pwrs/cem-linux-arm64": "npm:0.10.3"
+    "@pwrs/cem-linux-x64": "npm:0.10.3"
+    "@pwrs/cem-win32-arm64": "npm:0.10.3"
+    "@pwrs/cem-win32-x64": "npm:0.10.3"
+  dependenciesMeta:
+    "@pwrs/cem-darwin-arm64":
+      optional: true
+    "@pwrs/cem-darwin-x64":
+      optional: true
+    "@pwrs/cem-linux-arm64":
+      optional: true
+    "@pwrs/cem-linux-x64":
+      optional: true
+    "@pwrs/cem-win32-arm64":
+      optional: true
+    "@pwrs/cem-win32-x64":
+      optional: true
+  bin:
+    cem: bin/cem.js
+  checksum: 10c0/9cb505822dd0b2b82326980aec34109518024d40325e4ed0e02e8529d2157369b45d5145c7ce54647a58061cac7af084ea9bc3c63f4444ecfa5b92bb44e5b98f
   languageName: node
   linkType: hard
 
@@ -7092,7 +7163,7 @@ __metadata:
     "@11ty/eleventy": "npm:^4.0.0-alpha.7"
     "@11ty/eleventy-navigation": "npm:^1.0.5"
     "@fortawesome/pro-regular-svg-icons": "npm:^7.2.0"
-    "@pwrs/cem": "npm:^0.10.6"
+    "@pwrs/cem": "npm:0.10.3"
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.10"
     esbuild: "npm:^0.25.0"
     lit: "npm:^3.3.2"

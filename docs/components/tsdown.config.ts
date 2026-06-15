@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs';
 import { URL } from 'node:url';
-import { defineConfig } from 'tsdown'
+import { defineConfig } from 'tsdown';
 
 // This plugin handles CSS imports with { type: 'css' } and converts them to CSSStyleSheet
 const cssPlugin = {
   name: 'css-stylesheet',
   transform(code, id) {
     // Check if this is a CSS import with type: 'css' attribute
-    const cssImportRegex = /import\s+(\w+)\s+from\s+['"]([^'"]+\.css)['"]\s+with\s+\{\s*type:\s*['"]css['"]\s*\}/g;
+    const cssImportRegex =
+      /import\s+(\w+)\s+from\s+['"]([^'"]+\.css)['"]\s+with\s+\{\s*type:\s*['"]css['"]\s*\}/g;
 
     let transformedCode = code,
       hasTransformations = false;
@@ -43,12 +44,13 @@ export default defineConfig({
     onlyBundle: false
   },
   dts: {
-    tsgo: true,
+    tsgo: true
   },
   entry: [
     'src/code/code.ts',
     'src/code-block/code-block.ts',
     'src/code-example/code-example.ts',
+    'src/command-palette/command-palette.ts',
     'src/copy-button/copy-button.ts',
     'src/heading/heading.ts',
     'src/install-info/install-info.ts',
@@ -78,4 +80,4 @@ export default defineConfig({
   hash: false,
   platform: 'browser',
   plugins: [cssPlugin]
-})
+});

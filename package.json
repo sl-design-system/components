@@ -398,7 +398,7 @@
     "@faker-js/faker": "^10.4.0",
     "@lit/localize-tools": "^0.8.1",
     "@playwright/test": "^1.60.0",
-    "@pwrs/cem": "^0.9.18",
+    "@pwrs/cem": "^0.10.6",
     "@storybook/addon-a11y": "^10.4.1",
     "@storybook/addon-docs": "^10.4.1",
     "@storybook/addon-vitest": "^10.4.1",

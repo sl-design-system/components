@@ -1,0 +1,28 @@
+{
+  "name": "@sl-design-system/rolldown-plugin-css-sheet",
+  "version": "0.0.0",
+  "description": "Rolldown/Vite plugin that imports .css files (with { type: 'css' }) as constructable CSSStyleSheet instances",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "tools/rolldown-plugin-css-sheet"
+  },
+  "homepage": "https://sanomalearning.design",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "peerDependencies": {
+    "vite": ">=8"
+  }
+}

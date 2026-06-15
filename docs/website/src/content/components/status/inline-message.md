@@ -1,25 +1,25 @@
 ---
 title: Inline message
-layout: docs
+layout: component
 eleventyNavigation:
   key: Inline message
   parent: Status
 ---
+
+```html {.example .show-source}
+<sl-inline-message variant="info">
+  <h2 slot="title">Heads up</h2>
+  The main content of the message.
+</sl-inline-message>
+```
+
+## Usage
 
 `<sl-inline-message>` is a prominent, in-page message that informs the user about the result of an
 action or the state of a part of the interface. Unlike a toast, it stays in the layout next to the
 content it relates to.
 
 Put the main content in the default slot, and an optional heading in the `title` slot.
-
-## Usage
-
-```html
-<sl-inline-message variant="info">
-  <h2 slot="title">Heads up</h2>
-  The main content of the message.
-</sl-inline-message>
-```
 
 ## Examples
 

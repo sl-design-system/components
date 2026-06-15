@@ -1,10 +1,18 @@
 ---
 title: Form field
-layout: docs
+layout: component
 eleventyNavigation:
   key: Form field
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-form-field label="Username" hint="Choose a unique name">
+  <sl-text-field></sl-text-field>
+</sl-form-field>
+```
+
+## Usage
 
 `<sl-form-field>` wraps a form control and provides the surrounding structure: a label, an optional
 hint, and the validation messages. It works with any of the form controls and keeps their labelling
@@ -12,14 +20,6 @@ and error handling consistent.
 
 In most cases you only need the `label` and `hint` attributes; the form field generates the
 `<sl-label>`, `<sl-hint>` and error elements for you.
-
-## Usage
-
-```html
-<sl-form-field label="Username" hint="Choose a unique name">
-  <sl-text-field></sl-text-field>
-</sl-form-field>
-```
 
 ## Examples
 

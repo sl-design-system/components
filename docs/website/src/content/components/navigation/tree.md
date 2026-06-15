@@ -1,22 +1,10 @@
 ---
 title: Tree
-layout: docs
+layout: component
 eleventyNavigation:
   key: Tree
   parent: Navigation
 ---
-
-`<sl-tree>` displays hierarchical data as a tree that can be expanded, collapsed and selected. It is
-virtualized, so it stays performant even with very large data sets.
-
-The data is provided through a **data source** rather than slotted markup. Use `FlatTreeDataSource`
-when your data is a flat array with a level on each item, or `NestedTreeDataSource` when your data is
-already nested with children.
-
-## Usage
-
-Set the `dataSource` property to a configured data source. The configuration tells the tree how to
-read each item — its id, label, level, and whether it is expandable, expanded or selected.
 
 ```html
 <sl-tree id="tree"></sl-tree>
@@ -41,6 +29,18 @@ read each item — its id, label, level, and whether it is expandable, expanded 
   });
 </script>
 ```
+
+## Usage
+
+`<sl-tree>` displays hierarchical data as a tree that can be expanded, collapsed and selected. It is
+virtualized, so it stays performant even with very large data sets.
+
+The data is provided through a **data source** rather than slotted markup. Use `FlatTreeDataSource`
+when your data is a flat array with a level on each item, or `NestedTreeDataSource` when your data is
+already nested with children.
+
+Set the `dataSource` property to a configured data source. The configuration tells the tree how to
+read each item — its id, label, level, and whether it is expandable, expanded or selected.
 
 ## Nested data
 

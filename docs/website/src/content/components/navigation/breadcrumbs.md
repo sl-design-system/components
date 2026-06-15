@@ -1,26 +1,26 @@
 ---
 title: Breadcrumbs
-layout: docs
+layout: component
 eleventyNavigation:
   key: Breadcrumbs
   parent: Navigation
 ---
 
-`<sl-breadcrumbs>` shows the path to the current page and lets the user navigate back up the
-hierarchy. By default it prepends a link to the home page.
-
-Provide the trail as plain `<a>` elements in the default slot; the component adds the separators and,
-on small screens, collapses the middle of the trail to save space.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-breadcrumbs>
   <a href="/products">Products</a>
   <a href="/products/books">Books</a>
   <a href="/products/books/123">The Great Gatsby</a>
 </sl-breadcrumbs>
 ```
+
+## Usage
+
+`<sl-breadcrumbs>` shows the path to the current page and lets the user navigate back up the
+hierarchy. By default it prepends a link to the home page.
+
+Provide the trail as plain `<a>` elements in the default slot; the component adds the separators and,
+on small screens, collapses the middle of the trail to save space.
 
 ## Examples
 

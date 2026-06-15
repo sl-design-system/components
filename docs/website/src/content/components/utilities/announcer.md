@@ -1,10 +1,14 @@
 ---
 title: Announcer
-layout: docs
+layout: component
 eleventyNavigation:
   key: Announcer
   parent: Utilities
 ---
+
+```html
+<sl-announcer></sl-announcer>
+```
 
 The announcer sends messages to assistive technology (such as screen readers) through an ARIA
 [live region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions).
@@ -13,10 +17,6 @@ users — for example "5 results found", "Item added to cart" or "Changes saved"
 
 There should be a single `<sl-announcer>` instance on the page (typically in your app shell). All
 components and code share that one instance, so you never create it more than once.
-
-```html
-<sl-announcer></sl-announcer>
-```
 
 ::: info
 Avoid sending messages too quickly after one another — screen readers may skip messages that arrive

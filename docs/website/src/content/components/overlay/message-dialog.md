@@ -1,10 +1,17 @@
 ---
 title: Message dialog
-layout: docs
+layout: component
 eleventyNavigation:
   key: Message dialog
   parent: Overlay
 ---
+
+```js
+import { MessageDialog } from '@sl-design-system/message-dialog';
+
+// Show a simple alert dialog and wait for the user to dismiss it
+await MessageDialog.alert('Your changes have been saved.');
+```
 
 The message dialog is a convenience API for showing simple alert and confirmation dialogs — the
 design system equivalent of `window.alert()` and `window.confirm()`. Rather than placing an element

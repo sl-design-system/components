@@ -1,10 +1,20 @@
 ---
 title: Card
-layout: docs
+layout: component
 eleventyNavigation:
   key: Card
   parent: Layout
 ---
+
+```html {.example .show-source}
+<sl-card>
+  <img slot="media" src="image.jpg" alt="" />
+  Card title
+  <span slot="body">A short description of the card's content.</span>
+</sl-card>
+```
+
+## Usage
 
 `<sl-card>` is a flexible container for a single piece of content, such as an article, product or
 result. It provides slots for media, a title, supporting header content, body text and actions, and
@@ -26,16 +36,6 @@ default
 
 `actions`
 : Actions shown at the bottom — a single button or a button bar.
-
-## Usage
-
-```html
-<sl-card>
-  <img slot="media" src="image.jpg" alt="" />
-  Card title
-  <span slot="body">A short description of the card's content.</span>
-</sl-card>
-```
 
 ## Examples
 

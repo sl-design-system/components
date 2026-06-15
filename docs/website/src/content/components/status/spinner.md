@@ -1,22 +1,22 @@
 ---
 title: Spinner
-layout: docs
+layout: component
 eleventyNavigation:
   key: Spinner
   parent: Status
 ---
+
+```html {.example .show-source}
+<sl-spinner></sl-spinner>
+```
+
+## Usage
 
 `<sl-spinner>` indicates that something is loading when you don't know how long it will take. For
 tasks where you can measure progress, use a [progress bar](/components/status/progress-bar) instead.
 
 The spinner uses `currentColor`, so it takes the text color of its container — which makes it easy
 to use inside buttons and other colored surfaces.
-
-## Usage
-
-```html
-<sl-spinner></sl-spinner>
-```
 
 ## Examples
 

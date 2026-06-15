@@ -1,24 +1,24 @@
 ---
 title: Text area
-layout: docs
+layout: component
 eleventyNavigation:
   key: Text area
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-form-field label="Comments">
+  <sl-text-area placeholder="Type something here"></sl-text-area>
+</sl-form-field>
+```
+
+## Usage
 
 `<sl-text-area>` is a multi-line text input for longer, free-form content such as comments or
 descriptions. For a single line of text, use a [text field](/components/form/text-field) instead.
 
 Wrap it in an [`<sl-form-field>`](/components/form/form-field) to add a label, hint and validation
 messages.
-
-## Usage
-
-```html
-<sl-form-field label="Comments">
-  <sl-text-area placeholder="Type something here"></sl-text-area>
-</sl-form-field>
-```
 
 ## Examples
 

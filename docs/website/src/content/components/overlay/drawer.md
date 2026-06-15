@@ -1,20 +1,10 @@
 ---
 title: Drawer
-layout: docs
+layout: component
 eleventyNavigation:
   key: Drawer
   parent: Overlay
 ---
-
-`<sl-drawer>` is a panel that slides in from the edge of the screen. Use it for secondary content or
-tasks that benefit from more room than a [dialog](/components/overlay/dialog) — such as filters,
-details or settings — while keeping the user in context.
-
-Put a heading in the `title` slot and the panel content in the default slot.
-
-## Usage
-
-Open the drawer by calling `showModal()` on it, and close it with `close()`.
 
 ```html
 <sl-button id="open">Show drawer</sl-button>
@@ -31,6 +21,16 @@ Open the drawer by calling `showModal()` on it, and close it with `close()`.
   button.addEventListener('click', () => drawer.showModal());
 </script>
 ```
+
+## Usage
+
+`<sl-drawer>` is a panel that slides in from the edge of the screen. Use it for secondary content or
+tasks that benefit from more room than a [dialog](/components/overlay/dialog) — such as filters,
+details or settings — while keeping the user in context.
+
+Put a heading in the `title` slot and the panel content in the default slot.
+
+Open the drawer by calling `showModal()` on it, and close it with `close()`.
 
 ## Examples
 

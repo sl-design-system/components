@@ -1,6 +1,6 @@
 ---
 title: Form
-layout: docs
+layout: component
 eleventyNavigation:
   key: Form
   parent: Components

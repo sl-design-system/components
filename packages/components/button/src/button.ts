@@ -38,17 +38,9 @@ export type ButtonVariant =
  * @customElement sl-button
  * @summary Buttons are used to trigger an action or event.
  *
- * <<<<<<< HEAD
  * @slot - Text label of the button. Optionally an `<sl-icon>` can be added
- * =======
- * ```html
- * <sl-button>Foo</sl-button>
- * ```
- *
- * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
- * >>>>>>> main
  */
 export class Button extends ForwardAriaMixin(LitElement) {
   /** @internal */

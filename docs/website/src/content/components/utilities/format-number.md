@@ -1,10 +1,16 @@
 ---
 title: Format number
-layout: docs
+layout: component
 eleventyNavigation:
   key: Format number
   parent: Utilities
 ---
+
+```html {.example .show-source}
+<sl-format-number number="1234.5"></sl-format-number>
+```
+
+## Usage
 
 `<sl-format-number>` formats a number according to a locale. It is a thin wrapper around the native
 [`Intl.NumberFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
@@ -12,12 +18,6 @@ API, so it can format plain numbers, currencies, percentages and units.
 
 Set the value with the `number` attribute. If the value is not a valid number, the slotted content
 is shown instead.
-
-## Usage
-
-```html
-<sl-format-number number="1234.5"></sl-format-number>
-```
 
 ## Examples
 

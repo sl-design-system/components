@@ -1,10 +1,18 @@
 ---
 title: Time field
-layout: docs
+layout: component
 eleventyNavigation:
   key: Time field
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-form-field label="Start time">
+  <sl-time-field></sl-time-field>
+</sl-form-field>
+```
+
+## Usage
 
 `<sl-time-field>` is an input for selecting a time. It formats the time according to the locale and
 can be constrained to a range and to specific step increments. For selecting a date, use a
@@ -12,14 +20,6 @@ can be constrained to a range and to specific step increments. For selecting a d
 
 Wrap it in an [`<sl-form-field>`](/components/form/form-field) to add a label, hint and validation
 messages.
-
-## Usage
-
-```html
-<sl-form-field label="Start time">
-  <sl-time-field></sl-time-field>
-</sl-form-field>
-```
 
 ## Examples
 

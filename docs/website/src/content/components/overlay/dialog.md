@@ -1,21 +1,10 @@
 ---
 title: Dialog
-layout: docs
+layout: component
 eleventyNavigation:
   key: Dialog
   parent: Overlay
 ---
-
-`<sl-dialog>` is a modal window that appears on top of the page for a focused task, such as
-confirming an action or filling in a short form. It has a `title` slot, a body (the default slot)
-and slots for action buttons. For simple alert/confirm messages, the
-[message dialog](/components/overlay/message-dialog) is more convenient.
-
-## Opening and closing
-
-The dialog works with the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API),
-so you can open and close it from buttons without writing any JavaScript. Point a button at the
-dialog with `commandfor` and use the `--show-modal` and `--close` commands:
 
 ```html {.example .show-source}
 <sl-button command="--show-modal" commandfor="example-dialog" variant="primary">Open dialog</sl-button>
@@ -27,6 +16,17 @@ dialog with `commandfor` and use the `--show-modal` and `--close` commands:
   <sl-button slot="primary-actions" variant="primary" command="--close" commandfor="example-dialog">Confirm</sl-button>
 </sl-dialog>
 ```
+
+`<sl-dialog>` is a modal window that appears on top of the page for a focused task, such as
+confirming an action or filling in a short form. It has a `title` slot, a body (the default slot)
+and slots for action buttons. For simple alert/confirm messages, the
+[message dialog](/components/overlay/message-dialog) is more convenient.
+
+## Opening and closing
+
+The dialog works with the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API),
+so you can open and close it from buttons without writing any JavaScript. Point a button at the
+dialog with `commandfor` and use the `--show-modal` and `--close` commands.
 
 You can also open it from JavaScript by calling `showModal()` on the dialog, and close it with
 `close()`.

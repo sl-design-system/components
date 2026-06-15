@@ -1,25 +1,25 @@
 ---
 title: Accordion
-layout: docs
+layout: component
 eleventyNavigation:
   key: Accordion
   parent: Layout
 ---
+
+```html {.example .show-source}
+<sl-accordion>
+  <sl-accordion-item summary="Section 1">Content of the first section.</sl-accordion-item>
+  <sl-accordion-item summary="Section 2">Content of the second section.</sl-accordion-item>
+</sl-accordion>
+```
+
+## Usage
 
 `<sl-accordion>` is a stack of collapsible sections. Use it to organise related content into
 sections that the user can expand and collapse, keeping long pages manageable.
 
 Each section is an `<sl-accordion-item>` with a `summary` (the clickable header) and its content in
 the default slot.
-
-## Usage
-
-```html
-<sl-accordion>
-  <sl-accordion-item summary="Section 1">Content of the first section.</sl-accordion-item>
-  <sl-accordion-item summary="Section 2">Content of the second section.</sl-accordion-item>
-</sl-accordion>
-```
 
 ## Examples
 

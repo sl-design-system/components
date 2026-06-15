@@ -1,21 +1,12 @@
 ---
 title: Select
-layout: docs
+layout: component
 eleventyNavigation:
   key: Select
   parent: Form
 ---
 
-`<sl-select>` lets the user choose a single option from a dropdown list. Use it when there are more
-options than is practical for a [radio group](/components/form/radio-group), or when space is
-limited. For free-text filtering, use a [combobox](/components/form/combobox).
-
-Provide the choices as `<sl-option>` elements in the default slot, and group them with
-`<sl-option-group>`.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-form-field label="Country">
   <sl-select placeholder="Select an option">
     <sl-option value="nl">Netherlands</sl-option>
@@ -24,6 +15,15 @@ Provide the choices as `<sl-option>` elements in the default slot, and group the
   </sl-select>
 </sl-form-field>
 ```
+
+## Usage
+
+`<sl-select>` lets the user choose a single option from a dropdown list. Use it when there are more
+options than is practical for a [radio group](/components/form/radio-group), or when space is
+limited. For free-text filtering, use a [combobox](/components/form/combobox).
+
+Provide the choices as `<sl-option>` elements in the default slot, and group them with
+`<sl-option-group>`.
 
 ## Examples
 

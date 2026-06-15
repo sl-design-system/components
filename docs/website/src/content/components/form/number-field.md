@@ -1,24 +1,24 @@
 ---
 title: Number field
-layout: docs
+layout: component
 eleventyNavigation:
   key: Number field
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-form-field label="Quantity">
+  <sl-number-field min="0" step="1"></sl-number-field>
+</sl-form-field>
+```
+
+## Usage
 
 `<sl-number-field>` is an input for numeric values. It supports minimum and maximum bounds, a step
 increment, optional step buttons, and locale-aware formatting for currencies, percentages and units.
 
 Wrap it in an [`<sl-form-field>`](/components/form/form-field) to add a label, hint and validation
 messages.
-
-## Usage
-
-```html
-<sl-form-field label="Quantity">
-  <sl-number-field min="0" step="1"></sl-number-field>
-</sl-form-field>
-```
 
 ## Examples
 

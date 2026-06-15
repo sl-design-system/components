@@ -1,22 +1,12 @@
 ---
 title: Combobox
-layout: docs
+layout: component
 eleventyNavigation:
   key: Combobox
   parent: Form
 ---
 
-`<sl-combobox>` combines a text input with a filterable list of options. As the user types, the list
-narrows to matching options. It supports selecting a single value or multiple values, and can
-optionally accept custom values that aren't in the list.
-
-Use a combobox when there are many options to choose from; for a short, fixed set use a
-[select](/components/form/select). Provide the options as `<sl-option>` elements inside an
-`<sl-listbox>`.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-form-field label="Country">
   <sl-combobox placeholder="Choose a country">
     <sl-listbox>
@@ -27,6 +17,16 @@ Use a combobox when there are many options to choose from; for a short, fixed se
   </sl-combobox>
 </sl-form-field>
 ```
+
+## Usage
+
+`<sl-combobox>` combines a text input with a filterable list of options. As the user types, the list
+narrows to matching options. It supports selecting a single value or multiple values, and can
+optionally accept custom values that aren't in the list.
+
+Use a combobox when there are many options to choose from; for a short, fixed set use a
+[select](/components/form/select). Provide the options as `<sl-option>` elements inside an
+`<sl-listbox>`.
 
 ## Examples
 

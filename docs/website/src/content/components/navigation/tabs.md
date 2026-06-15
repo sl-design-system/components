@@ -6,13 +6,7 @@ eleventyNavigation:
   parent: Navigation
 ---
 
-`<sl-tab-group>` organises related content into tabs, letting the user switch between views within
-the same context. Each `<sl-tab>` is paired, in order, with an `<sl-tab-panel>` that holds its
-content.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-tab-group>
   <sl-tab selected>First tab</sl-tab>
   <sl-tab>Second tab</sl-tab>
@@ -21,6 +15,12 @@ content.
   <sl-tab-panel>Contents of the second tab</sl-tab-panel>
 </sl-tab-group>
 ```
+
+## Usage
+
+`<sl-tab-group>` organises related content into tabs, letting the user switch between views within
+the same context. Each `<sl-tab>` is paired, in order, with an `<sl-tab-panel>` that holds its
+content.
 
 Mark the initial tab with `selected`, and disable a tab with `disabled`.
 

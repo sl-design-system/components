@@ -1,10 +1,19 @@
 ---
 title: Scrollbar
-layout: docs
+layout: component
 eleventyNavigation:
   key: Scrollbar
   parent: Utilities
 ---
+
+```html {.example .show-source}
+<div id="scroller" style="block-size: 100px; overflow: auto; scrollbar-width: none;">
+  <div style="inline-size: 400%; block-size: 100px;">…wide content…</div>
+</div>
+<sl-scrollbar scroller="scroller"></sl-scrollbar>
+```
+
+## Usage
 
 `<sl-scrollbar>` renders a custom, themable scrollbar that controls a separate scrolling container.
 It is intended for components that need a scrollbar that looks consistent across browsers and
@@ -15,18 +24,9 @@ When in doubt, **always** prefer the native scrollbar. Only reach for `<sl-scrol
 specifically need a custom one.
 :::
 
-## Usage
-
 Point the scrollbar at the scroll container using the `scroller` attribute, which takes the `id` of
 the element to control. The container itself usually hides its native scrollbar with
 `scrollbar-width: none`.
-
-```html
-<div id="scroller" style="block-size: 100px; overflow: auto; scrollbar-width: none;">
-  <div style="inline-size: 400%; block-size: 100px;">…wide content…</div>
-</div>
-<sl-scrollbar scroller="scroller"></sl-scrollbar>
-```
 
 ## Examples
 

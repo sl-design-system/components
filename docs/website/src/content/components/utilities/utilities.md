@@ -28,6 +28,9 @@ components rather than used on their own.
 [Ellipsize text](/components/utilities/ellipsize-text)
 : Truncate text that overflows its container and reveal the full text in a tooltip.
 
+[Icon](/components/utilities/icon)
+: A single icon from Font Awesome or a custom Figma icon.
+
 [Infotip](/components/utilities/infotip)
 : An info icon button that reveals additional information in a popover.
 

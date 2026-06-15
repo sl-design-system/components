@@ -1,22 +1,10 @@
 ---
 title: Virtual list
-layout: docs
+layout: component
 eleventyNavigation:
   key: Virtual list
   parent: Utilities
 ---
-
-`<sl-virtual-list>` efficiently renders very large lists by only rendering the items that are
-currently visible (plus a small overscan buffer). This keeps the DOM small and scrolling smooth,
-even with tens of thousands of items.
-
-You provide the data through the `items` property and a `renderItem` function that returns the
-markup for a single item.
-
-## Usage
-
-Because `items` and `renderItem` are properties (not attributes), the virtual list is configured
-from JavaScript.
 
 ```html
 <sl-virtual-list id="list" style="block-size: 400px; overflow: auto;"></sl-virtual-list>
@@ -41,6 +29,18 @@ from JavaScript.
   `;
 </script>
 ```
+
+## Usage
+
+`<sl-virtual-list>` efficiently renders very large lists by only rendering the items that are
+currently visible (plus a small overscan buffer). This keeps the DOM small and scrolling smooth,
+even with tens of thousands of items.
+
+You provide the data through the `items` property and a `renderItem` function that returns the
+markup for a single item.
+
+Because `items` and `renderItem` are properties (not attributes), the virtual list is configured
+from JavaScript.
 
 ## Options
 

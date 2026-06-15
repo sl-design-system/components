@@ -1,10 +1,16 @@
 ---
 title: Skeleton
-layout: docs
+layout: component
 eleventyNavigation:
   key: Skeleton
   parent: Status
 ---
+
+```html {.example .show-source}
+<sl-skeleton style="width: 200px; height: 1rem;"></sl-skeleton>
+```
+
+## Usage
 
 `<sl-skeleton>` is a placeholder that mimics the shape of content while it is loading. Showing the
 rough layout up front reduces the perceived loading time and avoids large layout shifts when the
@@ -12,12 +18,6 @@ real content arrives.
 
 Size a skeleton with regular CSS (`width`/`height` or `inline-size`/`block-size`) so it matches the
 content it stands in for.
-
-## Usage
-
-```html
-<sl-skeleton style="width: 200px; height: 1rem;"></sl-skeleton>
-```
 
 ## Examples
 

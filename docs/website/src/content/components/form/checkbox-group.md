@@ -1,20 +1,12 @@
 ---
 title: Checkbox group
-layout: docs
+layout: component
 eleventyNavigation:
   key: Checkbox group
   parent: Form
 ---
 
-`<sl-checkbox-group>` groups several [checkboxes](/components/form/checkbox) so they are labelled and
-validated together, and so their values are collected into a single array. Use it when the user can
-select more than one option from a set.
-
-Place `<sl-checkbox>` elements in the default slot, each with a `value`.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-form-field label="Toppings">
   <sl-checkbox-group>
     <sl-checkbox value="cheese">Cheese</sl-checkbox>
@@ -23,6 +15,14 @@ Place `<sl-checkbox>` elements in the default slot, each with a `value`.
   </sl-checkbox-group>
 </sl-form-field>
 ```
+
+## Usage
+
+`<sl-checkbox-group>` groups several [checkboxes](/components/form/checkbox) so they are labelled and
+validated together, and so their values are collected into a single array. Use it when the user can
+select more than one option from a set.
+
+Place `<sl-checkbox>` elements in the default slot, each with a `value`.
 
 ## Examples
 

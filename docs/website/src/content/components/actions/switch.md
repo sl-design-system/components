@@ -1,22 +1,22 @@
 ---
 title: Switch
-layout: docs
+layout: component
 eleventyNavigation:
   key: Switch
   parent: Actions
 ---
+
+```html {.example .show-source}
+<sl-switch>Enable notifications</sl-switch>
+```
+
+## Usage
 
 `<sl-switch>` is a single on/off toggle. Use it for settings that take effect immediately, such as
 enabling a feature. When the choice is part of a form that is submitted later, a
 [checkbox](/components/form/checkbox) is usually more appropriate.
 
 The label goes in the default slot.
-
-## Usage
-
-```html
-<sl-switch>Enable notifications</sl-switch>
-```
 
 ## Examples
 

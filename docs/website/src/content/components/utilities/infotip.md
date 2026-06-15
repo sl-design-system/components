@@ -6,17 +6,17 @@ eleventyNavigation:
   parent: Utilities
 ---
 
+```html {.example .show-source}
+<sl-infotip>This field requires a unique identifier used for account login.</sl-infotip>
+```
+
+## Usage
+
 `<sl-infotip>` is an info icon button that reveals additional information in a popover. Use it to
 offer optional, supporting context next to a label or piece of content — without cluttering the
 interface.
 
 The content of the popover is slotted, so it can be plain text or richer markup.
-
-## Usage
-
-```html
-<sl-infotip>This field requires a unique identifier used for account login.</sl-infotip>
-```
 
 ## Examples
 

@@ -1,20 +1,12 @@
 ---
 title: Radio group
-layout: docs
+layout: component
 eleventyNavigation:
   key: Radio group
   parent: Form
 ---
 
-`<sl-radio-group>` presents a set of mutually exclusive choices — the user can pick exactly one. Use
-it when all the options benefit from being visible at once; if there are many options or space is
-limited, use a [select](/components/form/select) instead.
-
-Place `<sl-radio>` elements in the default slot, each with a `value`.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-form-field label="Size">
   <sl-radio-group>
     <sl-radio value="s">Small</sl-radio>
@@ -23,6 +15,14 @@ Place `<sl-radio>` elements in the default slot, each with a `value`.
   </sl-radio-group>
 </sl-form-field>
 ```
+
+## Usage
+
+`<sl-radio-group>` presents a set of mutually exclusive choices — the user can pick exactly one. Use
+it when all the options benefit from being visible at once; if there are many options or space is
+limited, use a [select](/components/form/select) instead.
+
+Place `<sl-radio>` elements in the default slot, each with a `value`.
 
 ## Examples
 

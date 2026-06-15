@@ -1,23 +1,10 @@
 ---
 title: Popover
-layout: docs
+layout: component
 eleventyNavigation:
   key: Popover
   parent: Overlay
 ---
-
-`<sl-popover>` is a lightweight, anchored container that appears on top of other content to show
-extra information or actions. Unlike a [dialog](/components/overlay/dialog) it is non-modal: the rest
-of the page stays interactive. Unlike a [tooltip](/components/overlay/tooltip) it can contain rich,
-interactive content.
-
-Anchor the popover to a trigger with the `anchor` attribute (the trigger's `id`), and control its
-placement with `position`.
-
-## Usage
-
-The popover is built on the native [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API),
-so you toggle it by calling `togglePopover()` (or `showPopover()` / `hidePopover()`).
 
 ```html
 <sl-button id="trigger">Toggle popover</sl-button>
@@ -34,6 +21,19 @@ so you toggle it by calling `togglePopover()` (or `showPopover()` / `hidePopover
   button.addEventListener('click', () => popover.togglePopover());
 </script>
 ```
+
+## Usage
+
+`<sl-popover>` is a lightweight, anchored container that appears on top of other content to show
+extra information or actions. Unlike a [dialog](/components/overlay/dialog) it is non-modal: the rest
+of the page stays interactive. Unlike a [tooltip](/components/overlay/tooltip) it can contain rich,
+interactive content.
+
+Anchor the popover to a trigger with the `anchor` attribute (the trigger's `id`), and control its
+placement with `position`.
+
+The popover is built on the native [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API),
+so you toggle it by calling `togglePopover()` (or `showPopover()` / `hidePopover()`).
 
 ## Position
 

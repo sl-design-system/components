@@ -1,10 +1,16 @@
 ---
 title: Paginator
-layout: docs
+layout: component
 eleventyNavigation:
   key: Paginator
   parent: Navigation
 ---
+
+```html {.example .show-source}
+<sl-paginator total-items="200" page-size="10" page="0"></sl-paginator>
+```
+
+## Usage
 
 `<sl-paginator>` splits a large list of items across multiple pages and lets the user move between
 them. It comes with two companion components: `<sl-paginator-status>`, which shows a "showing X–Y of
@@ -13,12 +19,6 @@ page.
 
 Configure the paginator with the total number of items (`total-items`), the page size (`page-size`)
 and the current page (`page`, zero-based).
-
-## Usage
-
-```html
-<sl-paginator total-items="200" page-size="10" page="0"></sl-paginator>
-```
 
 The paginator emits an `sl-page-change` event with the new page index whenever the user navigates.
 

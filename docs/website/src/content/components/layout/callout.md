@@ -1,25 +1,25 @@
 ---
 title: Callout
-layout: docs
+layout: component
 eleventyNavigation:
   key: Callout
   parent: Layout
 ---
+
+```html {.example .show-source}
+<sl-callout variant="info">
+  <h2 slot="title">Good to know</h2>
+  The main content of the callout.
+</sl-callout>
+```
+
+## Usage
 
 `<sl-callout>` is a prominent, in-page message that draws attention to important information. Unlike
 an [inline message](/components/status/inline-message), a callout is not dismissible and is meant for
 information that should stay visible, such as a tip or an important note within content.
 
 Put the main content in the default slot and an optional heading in the `title` slot.
-
-## Usage
-
-```html
-<sl-callout variant="info">
-  <h2 slot="title">Good to know</h2>
-  The main content of the callout.
-</sl-callout>
-```
 
 ## Examples
 

@@ -14,6 +14,9 @@ feedback so users always know what is happening.
 
 ## Overview
 
+[Avatar](/components/status/avatar)
+: A picture, initials or icon that gives a recognizable representation of a user.
+
 [Badge](/components/status/badge)
 : A small label that highlights a status, category or count.
 

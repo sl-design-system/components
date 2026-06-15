@@ -1,22 +1,22 @@
 ---
 title: Checkbox
-layout: docs
+layout: component
 eleventyNavigation:
   key: Checkbox
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-checkbox>I agree to the terms</sl-checkbox>
+```
+
+## Usage
 
 `<sl-checkbox>` is a single on/off choice, for example to accept terms or toggle an option. To offer
 several related choices where more than one can be selected, use a
 [checkbox group](/components/form/checkbox-group).
 
 The label goes in the default slot.
-
-## Usage
-
-```html
-<sl-checkbox>I agree to the terms</sl-checkbox>
-```
 
 ## Examples
 

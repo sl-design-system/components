@@ -1,10 +1,16 @@
 ---
 title: Format date
-layout: docs
+layout: component
 eleventyNavigation:
   key: Format date
   parent: Utilities
 ---
+
+```html {.example .show-source}
+<sl-format-date date="2024-01-15T09:30:00"></sl-format-date>
+```
+
+## Usage
 
 `<sl-format-date>` formats a date and/or time according to a locale. It is a thin wrapper around the
 native [`Intl.DateTimeFormat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat)
@@ -12,12 +18,6 @@ API, so anything you can do with `Intl.DateTimeFormat` you can do declaratively 
 
 The `date` attribute accepts anything the `Date` constructor understands — an ISO string, a
 timestamp, or a `Date` object set via the property.
-
-## Usage
-
-```html
-<sl-format-date date="2024-01-15T09:30:00"></sl-format-date>
-```
 
 If no valid date is set, the slotted content is shown instead, which makes it easy to provide a
 fallback message.

@@ -1,10 +1,18 @@
 ---
 title: Editor
-layout: docs
+layout: component
 eleventyNavigation:
   key: Editor
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-form-field label="Description">
+  <sl-editor></sl-editor>
+</sl-form-field>
+```
+
+## Usage
 
 `<sl-editor>` is a rich text editor for formatted content. It provides a toolbar for common
 formatting — bold, italic, lists and more — and integrates with `<sl-form>` like any other form
@@ -12,14 +20,6 @@ control.
 
 Wrap it in an [`<sl-form-field>`](/components/form/form-field) to add a label, hint and validation
 messages.
-
-## Usage
-
-```html
-<sl-form-field label="Description">
-  <sl-editor></sl-editor>
-</sl-form-field>
-```
 
 ## Examples
 

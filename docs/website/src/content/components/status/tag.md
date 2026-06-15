@@ -1,22 +1,22 @@
 ---
 title: Tag
-layout: docs
+layout: component
 eleventyNavigation:
   key: Tag
   parent: Status
 ---
+
+```html {.example .show-source}
+<sl-tag>Tag label</sl-tag>
+```
+
+## Usage
 
 `<sl-tag>` is a compact label that represents a keyword, filter or selection. Tags are often
 removable, so users can clear individual selections. To show several tags together, use the
 [tag list](/components/status/tag-list).
 
 The tag's text goes in the default slot.
-
-## Usage
-
-```html
-<sl-tag>Tag label</sl-tag>
-```
 
 ## Examples
 

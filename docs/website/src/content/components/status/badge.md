@@ -1,19 +1,19 @@
 ---
 title: Badge
-layout: docs
+layout: component
 eleventyNavigation:
   key: Badge
   parent: Status
 ---
 
-`<sl-badge>` is a small label used to highlight a status, category or count next to other content.
-It draws attention to a short piece of information without taking up much space.
+```html {.example .show-source}
+<sl-badge>Status</sl-badge>
+```
 
 ## Usage
 
-```html
-<sl-badge>Status</sl-badge>
-```
+`<sl-badge>` is a small label used to highlight a status, category or count next to other content.
+It draws attention to a short piece of information without taking up much space.
 
 ## Examples
 

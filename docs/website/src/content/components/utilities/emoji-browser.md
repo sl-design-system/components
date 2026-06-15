@@ -1,22 +1,22 @@
 ---
 title: Emoji browser
-layout: docs
+layout: component
 eleventyNavigation:
   key: Emoji browser
   parent: Utilities
 ---
+
+```html {.example .show-source}
+<sl-emoji-browser base-url="/emoji" style="height: 400px"></sl-emoji-browser>
+```
+
+## Usage
 
 `<sl-emoji-browser>` is a searchable emoji picker. It shows emojis grouped by category, supports
 searching by name, and can highlight a set of frequently used emojis at the top.
 
 The emoji data is loaded at runtime, so you must tell the component where to find it through the
 `base-url` attribute.
-
-## Usage
-
-```html
-<sl-emoji-browser base-url="/emoji" style="height: 400px"></sl-emoji-browser>
-```
 
 Make sure the emoji data files are served from the URL you pass to `base-url`.
 

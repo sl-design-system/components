@@ -1,20 +1,12 @@
 ---
 title: Panel
-layout: docs
+layout: component
 eleventyNavigation:
   key: Panel
   parent: Layout
 ---
 
-`<sl-panel>` is a container with a heading and an area for actions, used to group related content
-into a labelled section. It can optionally be collapsed.
-
-Set the heading with the `heading` attribute (or the `heading` slot for richer content), put the
-content in the default slot, and place buttons in the `actions` slot.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-panel heading="Panel heading">
   <sl-button fill="ghost" slot="actions" aria-label="Remove">
     <sl-icon name="far-trash"></sl-icon>
@@ -22,6 +14,14 @@ content in the default slot, and place buttons in the `actions` slot.
   Panel content goes here.
 </sl-panel>
 ```
+
+## Usage
+
+`<sl-panel>` is a container with a heading and an area for actions, used to group related content
+into a labelled section. It can optionally be collapsed.
+
+Set the heading with the `heading` attribute (or the `heading` slot for richer content), put the
+content in the default slot, and place buttons in the `actions` slot.
 
 ## Examples
 

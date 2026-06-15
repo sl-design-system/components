@@ -1,10 +1,17 @@
 ---
 title: Tooltip
-layout: docs
+layout: component
 eleventyNavigation:
   key: Tooltip
   parent: Overlay
 ---
+
+```html {.example .show-source}
+<sl-button aria-describedby="tip">Hover me</sl-button>
+<sl-tooltip id="tip">This is a tooltip</sl-tooltip>
+```
+
+## Usage
 
 `<sl-tooltip>` shows a small label when the user hovers over or focuses an element. Use it for short,
 supplementary hints. Because tooltips only appear on hover/focus, never put essential information or
@@ -12,13 +19,6 @@ interactive content in them.
 
 Associate a tooltip with its trigger by giving the trigger an `aria-describedby` (or, for icon-only
 controls, `aria-labelledby`) that matches the tooltip's `id`.
-
-## Usage
-
-```html
-<sl-button aria-describedby="tip">Hover me</sl-button>
-<sl-tooltip id="tip">This is a tooltip</sl-tooltip>
-```
 
 ## Examples
 

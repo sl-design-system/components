@@ -1,10 +1,18 @@
 ---
 title: Date field
-layout: docs
+layout: component
 eleventyNavigation:
   key: Date field
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-form-field label="Date of birth">
+  <sl-date-field></sl-date-field>
+</sl-form-field>
+```
+
+## Usage
 
 `<sl-date-field>` is a text input with an attached calendar for selecting a date. Users can either
 type a date or pick one from the calendar. For selecting a time, use a
@@ -12,14 +20,6 @@ type a date or pick one from the calendar. For selecting a time, use a
 
 Wrap it in an [`<sl-form-field>`](/components/form/form-field) to add a label, hint and validation
 messages.
-
-## Usage
-
-```html
-<sl-form-field label="Date of birth">
-  <sl-date-field></sl-date-field>
-</sl-form-field>
-```
 
 ## Examples
 

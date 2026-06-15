@@ -1,10 +1,18 @@
 ---
 title: Text field
-layout: docs
+layout: component
 eleventyNavigation:
   key: Text field
   parent: Form
 ---
+
+```html {.example .show-source}
+<sl-form-field label="Name">
+  <sl-text-field placeholder="Your name"></sl-text-field>
+</sl-form-field>
+```
+
+## Usage
 
 `<sl-text-field>` is a single-line text input. Use it for short, free-form text such as a name, email
 address or URL. For longer text, use a [text area](/components/form/text-area); for numbers, use a
@@ -12,14 +20,6 @@ address or URL. For longer text, use a [text area](/components/form/text-area); 
 
 Wrap it in an [`<sl-form-field>`](/components/form/form-field) to add a label, hint and validation
 messages.
-
-## Usage
-
-```html
-<sl-form-field label="Name">
-  <sl-text-field placeholder="Your name"></sl-text-field>
-</sl-form-field>
-```
 
 ## Examples
 

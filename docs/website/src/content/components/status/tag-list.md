@@ -1,26 +1,26 @@
 ---
 title: Tag list
-layout: docs
+layout: component
 eleventyNavigation:
   key: Tag list
   parent: Status
 ---
 
-`<sl-tag-list>` displays a collection of [tags](/components/status/tag) together. It handles
-overflow for you: tags that don't fit are collapsed behind a counter, and you can optionally stack
-them to save space.
-
-Place `<sl-tag>` elements in the default slot.
-
-## Usage
-
-```html
+```html {.example .show-source}
 <sl-tag-list>
   <sl-tag>Tag 1</sl-tag>
   <sl-tag>Tag 2</sl-tag>
   <sl-tag>Tag 3</sl-tag>
 </sl-tag-list>
 ```
+
+## Usage
+
+`<sl-tag-list>` displays a collection of [tags](/components/status/tag) together. It handles
+overflow for you: tags that don't fit are collapsed behind a counter, and you can optionally stack
+them to save space.
+
+Place `<sl-tag>` elements in the default slot.
 
 ## Examples
 

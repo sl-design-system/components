@@ -1,10 +1,16 @@
 ---
 title: Progress bar
-layout: docs
+layout: component
 eleventyNavigation:
   key: Progress bar
   parent: Status
 ---
+
+```html {.example .show-source}
+<sl-progress-bar value="60" label="Uploading file">Uploaded 60% of 100%</sl-progress-bar>
+```
+
+## Usage
 
 `<sl-progress-bar>` shows the progress of a task. Use it when you can measure how far along
 something is (for example an upload). When the duration is unknown, use the `indeterminate` state or
@@ -12,12 +18,6 @@ a [spinner](/components/status/spinner) instead.
 
 Set the progress with the `value` attribute (0–100), describe the task with the `label` attribute,
 and optionally add helper text in the default slot.
-
-## Usage
-
-```html
-<sl-progress-bar value="60" label="Uploading file">Uploaded 60% of 100%</sl-progress-bar>
-```
 
 ## Examples
 

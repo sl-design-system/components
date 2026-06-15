@@ -2,14 +2,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
-import {
-  type CSSResultGroup,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-  html,
-  nothing
-} from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { OptionGroupHeader } from './option-group-header.js';
 import styles from './option-group.scss.js';
@@ -88,13 +81,6 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
     this.#labelObserver.disconnect();
 
     super.disconnectedCallback();
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    // NOTE: We no longer set aria-label on the group element because we removed
-    // role="group". Group context is now conveyed through option labels instead.
   }
 
   override render(): TemplateResult {

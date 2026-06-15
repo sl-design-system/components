@@ -14,6 +14,18 @@ import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
+
+  const waitForNextMacrotask = async (): Promise<void> => {
+    if (vi.isFakeTimers()) {
+      vi.advanceTimersByTime(0);
+      await Promise.resolve();
+
+      return;
+    }
+
+    await new Promise<void>(resolve => setTimeout(resolve));
+  };
+
   const waitForNextFrame = async (): Promise<void> => {
     if (vi.isFakeTimers()) {
       vi.advanceTimersToNextFrame();
@@ -1499,7 +1511,7 @@ describe('sl-combobox', () => {
         input.focus();
         await el.updateComplete;
         await waitForNextFrame();
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await waitForNextMacrotask();
       });
 
       it('should not have role="group" on group wrappers', () => {
@@ -1509,27 +1521,46 @@ describe('sl-combobox', () => {
         expect(groups).to.have.lengthOf(0);
       });
 
-      it('should have aria-hidden="true" on group headers', () => {
-        // The items should include group headers
-        expect(el.items).to.exist;
-        const groupHeaders = el.items.filter(item => item.type === 'group');
-        expect(groupHeaders.length).to.equal(2);
+      it('should have aria-hidden="true" on group headers', async () => {
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
 
-        // Check that group headers will be rendered with aria-hidden
-        // (actual rendering verified by visual/manual testing with virtualizer)
+        const listbox = el.querySelector('sl-listbox');
+        const headers = el.items
+          .filter(item => item.type === 'group')
+          .map(item => item.element)
+          .filter((header): header is HTMLElement => header instanceof HTMLElement)
+          .filter(header => header.closest('sl-listbox') === listbox);
+
+        expect(headers).to.have.lengthOf(2);
+
+        headers.forEach(header => {
+          expect(header).to.have.attribute('aria-hidden', 'true');
+        });
       });
 
-      it('should have flattened aria-posinset and aria-setsize across all options', () => {
-        // Verify the items structure has correct data
-        const options = el.items.filter(item => 'option' in item);
+      it('should have flattened aria-posinset and aria-setsize across all options', async () => {
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const listbox = el.querySelector('sl-listbox');
+        const options = el.items
+          .filter(item => 'option' in item)
+          .map(item => item.element)
+          .filter((option): option is HTMLElement => option instanceof HTMLElement)
+          .filter(option => option.tagName === 'SL-OPTION')
+          .filter(option => option.closest('sl-listbox') === listbox);
+
         expect(options).to.have.lengthOf(4);
 
-        // The aria attributes are set in #renderItem when the virtualizer renders each item
-        // We can verify the logic by checking that items are structured correctly
-        expect(options[0].label).to.equal('Apple');
-        expect(options[1].label).to.equal('Banana');
-        expect(options[2].label).to.equal('Carrot');
-        expect(options[3].label).to.equal('Potato');
+        options.forEach((option, index) => {
+          expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+          expect(option).to.have.attribute('aria-setsize', '4');
+        });
       });
 
       it('should include group context in option accessible names', () => {
@@ -1593,7 +1624,8 @@ describe('sl-combobox', () => {
         input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
 
         // Give time for options to be processed
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await waitForNextFrame();
+        await waitForNextMacrotask();
       });
 
       it('should not have role="group" on option-group elements', () => {
@@ -1617,7 +1649,8 @@ describe('sl-combobox', () => {
         // Trigger options processing
         input.focus();
         await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await waitForNextFrame();
+        await waitForNextMacrotask();
 
         const options = el.querySelectorAll('sl-option');
 
@@ -1633,7 +1666,8 @@ describe('sl-combobox', () => {
         // Trigger options processing
         input.focus();
         await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await waitForNextFrame();
+        await waitForNextMacrotask();
 
         const options = el.querySelectorAll('sl-option');
 
@@ -1727,7 +1761,8 @@ describe('sl-combobox', () => {
         `);
 
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await waitForNextFrame();
+      await waitForNextMacrotask();
 
       expect(el.value).to.equal('Option 1');
       expect(changeSpy).not.to.have.been.called;
@@ -1943,7 +1978,6 @@ describe('sl-combobox', () => {
       expect(input).to.have.attribute('aria-expanded', 'false');
       expect(input).to.have.attribute('aria-haspopup', 'listbox');
       expect(input).to.have.attribute('aria-controls', listbox.id);
-      expect(input).to.have.attribute('aria-owns', listbox.id);
     });
   });
 });

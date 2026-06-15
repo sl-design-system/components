@@ -10,6 +10,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import {
   ArrayListDataSource,
@@ -234,6 +235,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
+  /** The last row that was announced for focus-based announcements. */
+  #lastAnnouncedRow?: HTMLTableRowElement;
+
   /** The current active row. */
   @property({ attribute: false }) activeRow?: T;
 
@@ -406,6 +410,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
     this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
+    this.tbody.addEventListener('focusin', (event: FocusEvent) => this.#onFocusIn(event));
+    this.tbody.addEventListener('focusout', () => {
+      this.#lastAnnouncedRow = undefined;
+    });
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
@@ -604,15 +612,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ],
-      ariaSelected =
+      ariaCurrent =
         this.rowAction === 'activate'
           ? active || selected
             ? 'true'
-            : 'false'
+            : nothing
           : (this.dataSource?.selects ?? this.selects) === 'single'
             ? selected
               ? 'true'
-              : 'false'
+              : nothing
             : nothing;
 
     return html`
@@ -624,7 +632,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         aria-rowindex=${index + 1}
-        aria-selected=${ariaSelected}
+        aria-current=${ariaCurrent}
         index=${index}
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
@@ -748,10 +756,48 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
     }
+
+    const index = (this.dataSource?.items.indexOf(item) ?? -1) + 1;
+
+    this.#announceSelection(item, index);
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
     this.#addScopedElements(event.target.scopedElements);
+  }
+
+  #announceSelection(item: ListDataSourceDataItem<T>, index: number): void {
+    const selected =
+      this.rowAction === 'activate' ? !!this.activeRow : !!this.dataSource?.isSelected(item);
+
+    announce(
+      selected
+        ? msg(str`Row ${index} selected`, { id: 'sl.grid.rowSelected' })
+        : msg(str`Row ${index} deselected`, { id: 'sl.grid.rowDeselected' }),
+      'assertive'
+    );
+  }
+
+  #onFocusIn(event: FocusEvent): void {
+    const row = (event.target as HTMLElement)?.closest?.('tr');
+
+    if (!row || !row.hasAttribute('aria-current')) {
+      this.#lastAnnouncedRow = undefined;
+      return;
+    }
+
+    // Don't re-announce if focus stays within the same row
+    if (row === this.#lastAnnouncedRow) {
+      return;
+    }
+
+    this.#lastAnnouncedRow = row;
+
+    const index = row.getAttribute('aria-rowindex');
+
+    if (index) {
+      announce(msg(str`Row ${index} selected`, { id: 'sl.grid.rowSelected' }), 'polite');
+    }
   }
 
   #onDataSourceUpdate = () => {

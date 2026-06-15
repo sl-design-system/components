@@ -55,9 +55,8 @@ describe('sl-tag', () => {
       el.focus();
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('[part="label"]')).not.to.have.attribute(
-        'aria-describedby'
-      );
+      expect(el.renderRoot.querySelector('[part="label"]')?.hasAttribute('aria-describedby')).to.be
+        .false;
       expect(el.renderRoot.querySelector('sl-tooltip')).not.to.exist;
     });
 
@@ -195,6 +194,27 @@ describe('sl-tag', () => {
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
       expect(tooltip).to.have.trimmed.text('My label is very long');
+    });
+
+    it('should update the tooltip when the label changes without resizing', async () => {
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.exist;
+
+      const label = el.renderRoot.querySelector('[part="label"]')!;
+      Object.defineProperties(label, {
+        clientWidth: { configurable: true, get: () => 100 },
+        scrollWidth: {
+          configurable: true,
+          get: () => (el.textContent?.trim() === 'A' ? 50 : 150)
+        }
+      });
+
+      el.textContent = 'A';
+      await new Promise(resolve => setTimeout(resolve, 0));
+      await el.updateComplete;
+      await el.updateComplete;
+
+      expect(label.hasAttribute('aria-describedby')).to.be.false;
+      expect(el.renderRoot.querySelector('sl-tooltip')).not.to.exist;
     });
   });
 });

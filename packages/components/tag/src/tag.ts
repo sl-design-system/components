@@ -65,6 +65,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
   #observer = new ResizeObserver(() => this.#onResize());
 
+  /** Observe label text changes that do not trigger a resize or slotchange. */
+  #mutationObserver = new MutationObserver(() => this.#updateLabel());
+
   /**
    * Whether the tag component is disabled, when set no interaction is possible.
    *
@@ -109,10 +112,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.#observer.observe(this);
+    this.#mutationObserver.observe(this, { characterData: true, childList: true, subtree: true });
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
   }
@@ -193,11 +198,21 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.label = event.target
+    this.#updateLabel(event.target);
+  }
+
+  #updateLabel(slot = this.renderRoot.querySelector('slot')): void {
+    if (!slot) {
+      return;
+    }
+
+    this.label = slot
       .assignedNodes({ flatten: true })
       .map(node => node.textContent ?? '')
       .join('')
       .trim()
       .replaceAll(/\s+/g, ' ');
+
+    void this.updateComplete.then(() => this.#onResize());
   }
 }

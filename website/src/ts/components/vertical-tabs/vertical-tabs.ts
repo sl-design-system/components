@@ -183,11 +183,11 @@ export class VerticalTabs extends LitElement {
   }
 
   #setActiveTab(verticalTab: HTMLElement): void {
-    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-current="true"]'),
+    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-current="page"]'),
       verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
 
     currentVerticalTabLink?.removeAttribute('aria-current');
-    verticalTab.setAttribute('aria-current', 'true');
+    verticalTab.setAttribute('aria-current', 'page');
 
     verticalTabs.forEach(v => v.classList.remove('active'));
     verticalTab.classList.add('active');

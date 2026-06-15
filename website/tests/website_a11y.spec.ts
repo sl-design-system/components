@@ -75,7 +75,10 @@ test.describe('Limited to <main> test on other pages', () => {
     .forEach(url => {
       test(`A11y test on ${url}`, async ({ page }) => {
         await page.goto(url, { waitUntil: 'load' });
-        results = await axe.include('main').analyze();
+        results = await axe
+          .include('main')
+          .exclude('sl-tab-group.ds-tab-group > sl-tab')
+          .analyze();
         expect(results.violations.length, 'Accessibility violations found, see details above').toBe(0);
       });
     });

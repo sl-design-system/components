@@ -140,22 +140,18 @@ export class VerticalTabs extends LitElement {
     return html`
       <div vertical class="ds-tabs">
         <div class="ds-tabs__container">
-          <div class="ds-tabs-wrapper" role="tablist" aria-orientation="vertical">
+          <nav class="ds-tabs-wrapper" aria-label="Contents">
             ${links.map(
               (variant: Element | null) =>
                 html` <a
                   href=${`#${variant?.id}`}
                   class="ds-tab--vertical"
-                  role="tab"
-                  tabindex="0"
                   id=${`ds-vertical-tab-${this.nextUniqueId++}`}
-                  aria-selected="false"
-                  aria-controls=${(variant as HTMLElement)?.id}
                   @click=${this.#onClick}
                   >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
                 >`
             )}
-          </div>
+          </nav>
           <div class="ds-tabs__vertical-slider">
             <div class="ds-tabs__vertical-indicator"></div>
           </div>
@@ -187,11 +183,11 @@ export class VerticalTabs extends LitElement {
   }
 
   #setActiveTab(verticalTab: HTMLElement): void {
-    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]'),
+    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-current="true"]'),
       verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
 
-    currentVerticalTabLink?.setAttribute('aria-selected', 'false');
-    verticalTab.setAttribute('aria-selected', 'true');
+    currentVerticalTabLink?.removeAttribute('aria-current');
+    verticalTab.setAttribute('aria-current', 'true');
 
     verticalTabs.forEach(v => v.classList.remove('active'));
     verticalTab.classList.add('active');

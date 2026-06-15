@@ -154,8 +154,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @close=${this.#onClose}
         aria-labelledby="title"
         role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
-        part="dialog"
-      >
+        part="dialog">
         <div part="header">${this.renderHeader()}</div>
         <div @scroll=${this.#onScroll} part="body">${this.renderBody()}</div>
         ${this.#media.mobile ? nothing : html`<div part="footer">${this.renderFooter()}</div>`}
@@ -197,8 +196,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
                 aria-label=${msg('Close', { id: 'sl.common.close' })}
                 class="sl-close"
                 fill="ghost"
-                variant="default"
-              >
+                variant="default">
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>
             `

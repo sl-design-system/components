@@ -1,5 +1,20 @@
 # @sl-design-system/combobox
 
+## 0.1.9
+
+### Patch Changes
+
+- [#3366](https://github.com/sl-design-system/components/pull/3366) [`a4fc3d8`](https://github.com/sl-design-system/components/commit/a4fc3d88a9982bc6fa3d7a750ba321ac0c31f054) - Accessibility improvements of the toggle button, now uses proper aria: aria-label and aria-expanded (includes the new `sl.combobox.options` locale key).
+
+- [#3297](https://github.com/sl-design-system/components/pull/3297) [`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a) - Align `sl-combobox-create-custom-option` styling with other options styling.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/listbox@0.1.7
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/text-field@1.6.10
+
 ## 0.1.8
 
 ### Patch Changes

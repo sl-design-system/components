@@ -84,8 +84,7 @@ export default {
         @click=${onClick}
         id="button"
         variant="primary"
-        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
-      >
+        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
         Toggle
       </sl-button>
       <sl-popover anchor="button" ?no-describedby=${noDescribedby} .position=${position}>
@@ -167,8 +166,7 @@ export const RichContent: Story = {
         <header>
           <sl-avatar
             display-name="Yousef van der Schaaf"
-            picture-url="https://randomuser.me/api/portraits/thumb/men/19.jpg"
-          ></sl-avatar>
+            picture-url="https://randomuser.me/api/portraits/thumb/men/19.jpg"></sl-avatar>
         </header>
         <section>
           <p>
@@ -240,8 +238,7 @@ export const WithTooltips: Story = {
           @click=${onClick}
           aria-labelledby="tooltip-settings"
           variant="primary"
-          id="btn-settings"
-        >
+          id="btn-settings">
           <sl-icon name="far-gear"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-settings">Popover content for Settings</sl-popover>
@@ -252,8 +249,7 @@ export const WithTooltips: Story = {
           aria-labelledby="tooltip-edit"
           variant="primary"
           size="lg"
-          id="btn-edit"
-        >
+          id="btn-edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-edit">Popover content for Edit</sl-popover>
@@ -269,8 +265,7 @@ export const WithTooltips: Story = {
           @click=${onClick}
           aria-describedby="tooltip-settings-1"
           variant="primary"
-          id="btn-settings-1"
-        >
+          id="btn-settings-1">
           <sl-icon name="far-gear"></sl-icon>
           Settings
         </sl-button>
@@ -282,8 +277,7 @@ export const WithTooltips: Story = {
           aria-describedby="tooltip-edit-1"
           variant="primary"
           size="lg"
-          id="btn-edit-1"
-        >
+          id="btn-edit-1">
           <sl-icon name="far-pen"></sl-icon>
           Edit
         </sl-button>

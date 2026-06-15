@@ -213,8 +213,7 @@ export const MobileScrolling: Story = {
           <sl-text-field
             name="email"
             placeholder="Enter your email address"
-            type="email"
-          ></sl-text-field>
+            type="email"></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Address">

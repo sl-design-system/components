@@ -20,8 +20,7 @@ export default {
         .itemLabel=${itemLabel}
         .page=${page}
         .pageSize=${pageSize}
-        .totalItems=${totalItems}
-      ></sl-paginator-status>
+        .totalItems=${totalItems}></sl-paginator-status>
     `;
   }
 } satisfies Meta<Props>;

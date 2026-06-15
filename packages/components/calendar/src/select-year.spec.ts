@@ -146,8 +146,7 @@ describe('sl-select-year', () => {
       el = await fixture(html`
         <sl-select-year
           .min=${new Date(currentYear - 2, 0, 1)}
-          .max=${new Date(currentYear + 2, 11, 31)}
-        ></sl-select-year>
+          .max=${new Date(currentYear + 2, 11, 31)}></sl-select-year>
       `);
     });
 

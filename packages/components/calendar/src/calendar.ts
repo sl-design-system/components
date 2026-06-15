@@ -151,8 +151,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         locale=${ifDefined(this.locale)}
         max=${ifDefined(this.max?.toISOString())}
         min=${ifDefined(this.min?.toISOString())}
-        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}
-      ></sl-select-day>
+        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}></sl-select-day>
       ${choose(this.mode, [
         [
           'month',
@@ -165,8 +164,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               .month=${this.month}
               locale=${ifDefined(this.locale)}
               max=${ifDefined(this.max?.toISOString())}
-              min=${ifDefined(this.min?.toISOString())}
-            ></sl-select-month>
+              min=${ifDefined(this.min?.toISOString())}></sl-select-month>
           `
         ],
         [
@@ -178,8 +176,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               .selected=${this.selected}
               .year=${this.month}
               max=${ifDefined(this.max?.toISOString())}
-              min=${ifDefined(this.min?.toISOString())}
-            ></sl-select-year>
+              min=${ifDefined(this.min?.toISOString())}></sl-select-year>
           `
         ]
       ])}

@@ -41,6 +41,7 @@ import {
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/accordion/register.js';
+import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/badge/register.js';

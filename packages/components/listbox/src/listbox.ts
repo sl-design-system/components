@@ -77,6 +77,18 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance when the `options` property is set. */
   #virtualizer?: LitVirtualizer;
 
+  /** Cache mapping each option item to its 0-based flattened position (excludes group headers). */
+  #flattenedPositionCache?: WeakMap<ListboxItem<T, U>, number>;
+
+  /** Cache version matching the items version when the cache was last built. */
+  #flattenedPositionCacheVersion = -1;
+
+  /** Monotonically increasing version, incremented whenever `items` changes. */
+  #itemsVersion = 0;
+
+  /** Total number of option items in the last built cache. */
+  #flattenedSetSize = 0;
+
   /**
    * The emphasis of the selected options in the listbox.
    *
@@ -164,6 +176,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('items')) {
+      this.#itemsVersion++;
+
       if (this.items) {
         this.#virtualizer ||= this.shadowRoot!.createElement('lit-virtualizer');
         this.#virtualizer.items = (this.items ?? []) as unknown[];
@@ -214,6 +228,57 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
    */
   applyFlattenedOptionAccessibility(options: Option[]): void {
     this.#applyFlattenedOptionAccessibility(options);
+  }
+
+  /**
+   * Returns the 0-based flattened position of an option item among all option items (group headers
+   * are excluded). Returns -1 if the item is a group header or is not in `items`.
+   *
+   * @internal Used by virtual-list consumers (e.g. combobox) so they don't need a duplicate cache.
+   */
+  getFlattenedPosition(item: ListboxItem<T, U>): number {
+    if (!this.items || !('option' in item)) return -1;
+
+    if (
+      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
+      !this.#flattenedPositionCache
+    ) {
+      this.#buildFlattenedPositionCache();
+    }
+
+    return this.#flattenedPositionCache!.get(item) ?? -1;
+  }
+
+  /**
+   * Returns the total number of option items (group headers excluded) in the current `items` array.
+   *
+   * @internal Companion to `getFlattenedPosition`.
+   */
+  getFlattenedSetSize(): number {
+    if (!this.items) return 0;
+
+    if (
+      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
+      !this.#flattenedPositionCache
+    ) {
+      this.#buildFlattenedPositionCache();
+    }
+
+    return this.#flattenedSetSize;
+  }
+
+  #buildFlattenedPositionCache(): void {
+    this.#flattenedPositionCache = new WeakMap<ListboxItem<T, U>, number>();
+    this.#flattenedPositionCacheVersion = this.#itemsVersion;
+
+    let position = 0;
+    (this.items ?? []).forEach(i => {
+      if ('option' in i) {
+        this.#flattenedPositionCache!.set(i, position++);
+      }
+    });
+
+    this.#flattenedSetSize = position;
   }
 
   #prepareOptions(options: T[]): Array<ListboxItem<T, U>> {
@@ -304,16 +369,14 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       element.selected = item.selected;
       element.value = item.value;
 
-      // Calculate flattened position: only count options, not group headers
-      const allOptions = (this.items || []).filter((i): i is ListboxOption<T, U> => 'option' in i);
-      const flattenedPosition = allOptions.indexOf(item);
+      const flattenedPosition = this.getFlattenedPosition(item);
 
       if (flattenedPosition !== -1) {
         this.#applyOptionAccessibility(element, {
           group: item.group,
           label: item.label,
           position: flattenedPosition + 1,
-          setSize: allOptions.length,
+          setSize: this.getFlattenedSetSize(),
           selected: item.selected
         });
       }

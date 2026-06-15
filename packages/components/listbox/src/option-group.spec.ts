@@ -53,6 +53,8 @@ describe('sl-option-group', () => {
 
   it('should consume and remove label when attribute is set later', async () => {
     el.setAttribute('label', 'Later label');
+    // Wait for MutationObserver to fire and set the property
+    await new Promise(resolve => setTimeout(resolve, 0));
     await el.updateComplete;
 
     expect(el).not.to.have.attribute('label');

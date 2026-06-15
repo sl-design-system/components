@@ -159,18 +159,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
 
-  /** Cache for flattened option positions used during item rendering. */
-  #flattenedOptionPositions?: WeakMap<ComboboxItem<T, U>, number>;
-
-  /** Version of the items snapshot for which the flattened position cache is valid. */
-  #flattenedPositionCacheVersion = -1;
-
-  /** Monotonically increasing version for combobox-owned items mutations. */
-  #itemsVersion = 0;
-
-  /** Cached flattened option set size matching #flattenedOptionPositions. */
-  #flattenedOptionSetSize = 0;
-
   /** Flag to indicate when to use lit-virtualizer. */
   #useVirtualList = false;
 
@@ -400,7 +388,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     ) {
       if (this.options) {
         this.items = this.#prepareOptions(this.options);
-        this.#invalidateFlattenedOptionCache();
 
         this.listbox?.remove();
         this.listbox = this.shadowRoot!.createElement('sl-listbox');
@@ -411,7 +398,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.#useVirtualList = true;
       } else if (changes.get('options')) {
         this.items = [];
-        this.#invalidateFlattenedOptionCache();
         this.#useVirtualList = false;
       }
     }
@@ -483,7 +469,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.#useVirtualList
     ) {
       this.items = this.items.map(o => ({ ...o, visible: true }));
-      this.#invalidateFlattenedOptionCache();
       this.listbox!.items = this.items;
     }
 
@@ -869,7 +854,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         const { hasSelected, items, selectedItems } = this.#getListboxOptions(this.listbox);
 
         this.items = items;
-        this.#invalidateFlattenedOptionCache();
         this.selectedItems = selectedItems;
 
         // The selected option can be set either via:
@@ -891,7 +875,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     } else {
       this.input.removeAttribute('aria-controls');
       this.items = [];
-      this.#invalidateFlattenedOptionCache();
     }
   }
 
@@ -1044,7 +1027,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     };
 
     this.items = [item, ...this.items];
-    this.#invalidateFlattenedOptionCache();
 
     if (this.#useVirtualList) {
       this.listbox!.items = this.items;
@@ -1074,7 +1056,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     this.items = this.items.filter(i => i !== item);
-    this.#invalidateFlattenedOptionCache();
 
     this.selectedItems = this.selectedItems.filter(i => i !== item);
 
@@ -1101,7 +1082,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     // Insert the new grouped option *after* any existing grouped options
     this.items = [...this.items.slice(0, index), groupedItem, ...this.items.slice(index)];
-    this.#invalidateFlattenedOptionCache();
 
     this.selectedItems = [...this.selectedItems, groupedItem];
 
@@ -1136,7 +1116,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     this.items = this.items.filter(i => i !== item);
-    this.#invalidateFlattenedOptionCache();
     this.selectedItems = this.selectedItems.filter(i => i !== item);
 
     if (this.#useVirtualList) {
@@ -1169,7 +1148,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       if (this.optionGroupPath) {
         this.items = [selectedHeader, ...this.items];
-        this.#invalidateFlattenedOptionCache();
       } else {
         const allOptionsHeader: ComboboxItem = {
           id: `sl-combobox-option-group-${nextUniqueId++}`,
@@ -1179,7 +1157,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         };
 
         this.items = [selectedHeader, allOptionsHeader, ...this.items];
-        this.#invalidateFlattenedOptionCache();
       }
     } else {
       this.#selectedGroup ||= this.shadowRoot!.createElement('sl-combobox-selected-group');
@@ -1198,7 +1175,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.items[0].type === 'group'
       ) {
         this.items = this.items.slice(1);
-        this.#invalidateFlattenedOptionCache();
       } else {
         return;
       }
@@ -1212,7 +1188,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.items[0].type === 'group'
       ) {
         this.items = this.items.slice(1);
-        this.#invalidateFlattenedOptionCache();
       }
 
       this.listbox!.items = this.items;
@@ -1355,13 +1330,14 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       el.value = item.value;
       el.setAttribute('aria-selected', item.selected ? 'true' : 'false');
 
-      // Read flattened option metadata from a per-items cache to avoid O(n²)
-      // work when many options are rendered by the virtualizer.
-      const flattenedPosition = this.#getFlattenedOptionPosition(item);
+      // aria-posinset / aria-setsize for the virtual list: delegate to the listbox cache so the
+      // logic lives in one place. For non-virtual (slotted) options the listbox already applies
+      // these in its #onSlotChange → #applyFlattenedOptionAccessibility path.
+      const flattenedPosition = this.listbox!.getFlattenedPosition(item);
 
       if (flattenedPosition !== -1) {
         el.setAttribute('aria-posinset', (flattenedPosition + 1).toString());
-        el.setAttribute('aria-setsize', this.#flattenedOptionSetSize.toString());
+        el.setAttribute('aria-setsize', this.listbox!.getFlattenedSetSize().toString());
       }
 
       // Add group context to accessible name for Safari/VoiceOver compatibility
@@ -1399,31 +1375,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
   }
 
-  #getFlattenedOptionPosition(item: ComboboxItem<T, U>): number {
-    if (
-      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
-      !this.#flattenedOptionPositions
-    ) {
-      this.#flattenedOptionPositions = new WeakMap<ComboboxItem<T, U>, number>();
-      this.#flattenedPositionCacheVersion = this.#itemsVersion;
-
-      let position = 0;
-      this.items.forEach(i => {
-        if ('option' in i) {
-          this.#flattenedOptionPositions!.set(i, position++);
-        }
-      });
-
-      this.#flattenedOptionSetSize = position;
-    }
-
-    return this.#flattenedOptionPositions.get(item) ?? -1;
-  }
-
-  #invalidateFlattenedOptionCache(): void {
-    this.#itemsVersion += 1;
-  }
-
   #updateCreateCustomOption(labelAndValue?: string): void {
     if (labelAndValue?.trim()) {
       if (this.createCustomOption) {
@@ -1440,7 +1391,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         };
 
         this.items = [this.createCustomOption, ...this.items];
-        this.#invalidateFlattenedOptionCache();
       }
 
       if (this.#useVirtualList) {
@@ -1462,7 +1412,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     } else if (this.createCustomOption) {
       this.items = this.items.filter(i => i !== this.createCustomOption);
-      this.#invalidateFlattenedOptionCache();
 
       if (this.#useVirtualList) {
         this.listbox!.items = this.items;

@@ -179,6 +179,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
+    if (this.submenu && event.composedPath().includes(this.submenu)) {
+      return;
+    }
+
     if (this.#disabled) {
       event.preventDefault();
       event.stopPropagation();

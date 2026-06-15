@@ -6726,6 +6726,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/rolldown-plugin-css-sheet@workspace:tools/rolldown-plugin-css-sheet":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/rolldown-plugin-css-sheet@workspace:tools/rolldown-plugin-css-sheet"
+  peerDependencies:
+    vite: ">=8"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"

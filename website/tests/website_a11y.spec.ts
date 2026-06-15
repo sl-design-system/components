@@ -77,6 +77,7 @@ test.describe('Limited to <main> test on other pages', () => {
         await page.goto(url, { waitUntil: 'load' });
         results = await axe
           .include('main')
+          // Exclude known Axe violation(s) in DS tab group tabs; keep this scoped and remove when fixed.
           .exclude('sl-tab-group.ds-tab-group > sl-tab')
           .analyze();
         expect(results.violations.length, 'Accessibility violations found, see details above').toBe(0);

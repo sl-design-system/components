@@ -118,9 +118,9 @@ dialog {
   }
 }
 
-.legend {
+footer {
   align-items: center;
-  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-subtlest);
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   color: var(--sl-color-foreground-subtlest);
   display: flex;
   flex: none;

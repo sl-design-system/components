@@ -103,11 +103,11 @@ export class CommandPalette extends ScopedElementsMixin(LitElement) {
 
         ${this.#renderResults(results)}
 
-        <footer class="legend">
+        <footer>
           <span><kbd>↑</kbd><kbd>↓</kbd> to navigate</span>
-          <span
-            ><kbd><sl-icon name="far-arrow-turn-down-left"></sl-icon></kbd> to select</span
-          >
+          <span>
+            <kbd><sl-icon name="far-arrow-turn-down-left"></sl-icon></kbd> to select
+          </span>
           <span><kbd>esc</kbd> to close</span>
         </footer>
       </dialog>

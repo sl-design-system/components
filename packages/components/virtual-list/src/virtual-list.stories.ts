@@ -120,8 +120,7 @@ export default {
         .gap=${gap}
         .items=${items}
         .overscan=${overscan}
-        .renderItem=${renderItem}
-      >
+        .renderItem=${renderItem}>
       </sl-virtual-list>
     `;
   }

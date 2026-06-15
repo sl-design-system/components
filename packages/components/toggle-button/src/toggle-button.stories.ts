@@ -48,8 +48,7 @@ export default {
         aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
-        size=${ifDefined(size)}
-      >
+        size=${ifDefined(size)}>
         ${icons?.()}
       </sl-toggle-button>
     `;
@@ -119,8 +118,7 @@ export const All: Story = {
           <sl-toggle-button
             aria-label="Show settings"
             fill=${ifDefined(options.fill)}
-            size=${ifDefined(options.size)}
-          >
+            size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -128,8 +126,7 @@ export const All: Story = {
             aria-label="Show settings"
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
-            shape="pill"
-          >
+            shape="pill">
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -139,8 +136,7 @@ export const All: Story = {
             aria-label="Show settings"
             fill=${ifDefined(options.fill)}
             pressed
-            size=${ifDefined(options.size)}
-          >
+            size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -149,8 +145,7 @@ export const All: Story = {
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"
-            size=${ifDefined(options.size)}
-          >
+            size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -160,8 +155,7 @@ export const All: Story = {
             aria-label="Show settings"
             disabled
             fill=${ifDefined(options.fill)}
-            size=${ifDefined(options.size)}
-          >
+            size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -170,8 +164,7 @@ export const All: Story = {
             disabled
             shape="pill"
             fill=${ifDefined(options.fill)}
-            size=${ifDefined(options.size)}
-          >
+            size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -182,8 +175,7 @@ export const All: Story = {
             disabled
             fill=${ifDefined(options.fill)}
             pressed
-            size=${ifDefined(options.size)}
-          >
+            size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -193,8 +185,7 @@ export const All: Story = {
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"
-            size=${ifDefined(options.size)}
-          >
+            size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>

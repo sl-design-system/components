@@ -115,8 +115,7 @@ export default {
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
         style=${ifDefined(maxWidth ? `max-width: ${maxWidth}` : undefined)}
-        tabindex=${ifDefined(tabIndex)}
-      >
+        tabindex=${ifDefined(tabIndex)}>
         ${subheading} ${badge?.() ?? nothing} ${fallback?.() ?? nothing}
       </sl-avatar>
     `;
@@ -147,15 +146,13 @@ export const Colors: Story = {
             color=${color}
             display-name=${`${color.at(0)?.toUpperCase() + color.slice(1)} subtle`}
             shape=${ifDefined(shape)}
-            size=${ifDefined(size)}
-          ></sl-avatar>
+            size=${ifDefined(size)}></sl-avatar>
           <sl-avatar
             color=${color}
             display-name=${`${color.at(0)?.toUpperCase() + color.slice(1)} bold`}
             emphasis="bold"
             shape=${ifDefined(shape)}
-            size=${ifDefined(size)}
-          ></sl-avatar>
+            size=${ifDefined(size)}></sl-avatar>
         `
       )}
     </div>
@@ -337,8 +334,7 @@ export const Sizes: Story = {
             picture-url=${ifDefined(pictureUrl)}
             shape=${ifDefined(shape)}
             size=${size}
-            ?vertical=${vertical}
-          >
+            ?vertical=${vertical}>
             ${subheading ? html`<span>${subheading}</span>` : nothing}
             <sl-badge .size=${badgeSizes[size]} color="red" emphasis="bold" slot="badge">
               ${badgeSizes[size] === 'sm' ? nothing : '2'}

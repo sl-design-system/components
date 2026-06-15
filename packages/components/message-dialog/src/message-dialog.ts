@@ -165,8 +165,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         aria-labelledby="title"
-        role="alertdialog"
-      >
+        role="alertdialog">
         <h1 id="title">${title}</h1>
         <p>${message}</p>
         <sl-button-bar align="end">
@@ -176,8 +175,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
                 @click=${() => this.#onButtonClick(button)}
                 ?autofocus=${button.autofocus}
                 fill=${ifDefined(button.fill)}
-                variant=${ifDefined(button.variant)}
-              >
+                variant=${ifDefined(button.variant)}>
                 ${button.text}
               </sl-button>
             `

@@ -118,6 +118,9 @@ export class GridColumn<T = any> extends LitElement {
   /** The label for the column header. Can contain custom HTML. */
   @property() header?: string | GridColumnHeaderRenderer;
 
+  /** Whether the column header text should be visually hidden. */
+  @property({ type: Boolean, attribute: 'hide-header-text' }) hideHeaderText?: boolean;
+
   /** The number of header rows for this column. */
   headerRowCount = 1;
 
@@ -215,8 +218,7 @@ export class GridColumn<T = any> extends LitElement {
       <th
         class=${ifDefined(classes.join(' ') || undefined)}
         part=${parts.join(' ')}
-        role="columnheader"
-      >
+        role="columnheader">
         ${this.renderHeaderLabel()}
       </th>
     `;
@@ -228,12 +230,14 @@ export class GridColumn<T = any> extends LitElement {
    * override this if you only want to change the classes, contents or parts of the header.
    */
   renderHeaderLabel(): string | undefined | TemplateResult {
+    const className = this.hideHeaderText ? 'visually-hidden' : undefined;
+
     if (this.header) {
       return typeof this.header === 'string'
-        ? html`<span>${this.header}</span>`
+        ? html`<span class=${ifDefined(className)}>${this.header}</span>`
         : this.header(this);
     } else if (this.path) {
-      return html`<span>${getNameByPath(this.path)}</span>`;
+      return html`<span class=${ifDefined(className)}>${getNameByPath(this.path)}</span>`;
     }
 
     return undefined;

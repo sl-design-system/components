@@ -699,6 +699,43 @@ describe('sl-grid', () => {
 
       expect(row).to.have.attribute('aria-selected', 'false');
     });
+
+    it('should keep sticky active row cells opaque', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}
+          row-action="activate"
+          style="
+            --sl-elevation-surface-raised-default: rgb(255 255 255);
+            --sl-color-background-input-interactive: rgb(0 0 0);
+            --sl-color-background-selected-interactive-plain: rgb(0 80 160);
+            --sl-color-background-selected-subtlest: transparent;
+            --sl-opacity-interactive-plain-idle: 0.1;
+          ">
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      el.activeRow = el.items!.at(0);
+      await el.updateComplete;
+
+      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
+        'tbody tr:first-of-type td.sticky-start-first'
+      );
+
+      expect(cell).to.exist;
+
+      const style = getComputedStyle(cell!);
+
+      expect(style.backgroundColor).to.equal('rgb(255, 255, 255)');
+      expect(style.backgroundImage).to.contain('linear-gradient');
+    });
   });
 
   describe('row action select', () => {

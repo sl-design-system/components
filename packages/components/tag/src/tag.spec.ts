@@ -164,6 +164,24 @@ describe('sl-tag', () => {
       expect(onRemove).to.have.been.calledOnce;
     });
 
+    it('should prevent backspace and delete key events from leaking', () => {
+      const onKeydown = spy();
+
+      el.addEventListener('keydown', onKeydown);
+
+      const event = new KeyboardEvent('keydown', {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        key: 'Backspace'
+      });
+
+      button.dispatchEvent(event);
+
+      expect(event.defaultPrevented).to.be.true;
+      expect(onKeydown).not.to.have.been.called;
+    });
+
     it('should emit an sl-remove event when a remove button is clicked', async () => {
       const onRemove = spy();
 

@@ -175,6 +175,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Backspace' || event.key === 'Delete') {
+      event.preventDefault();
+      event.stopPropagation();
+
       this.#onRemove(event);
     }
   }

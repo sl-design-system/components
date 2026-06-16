@@ -67,6 +67,17 @@ describe('sl-tag', () => {
       expect(el).not.to.match(':focus');
       expect(el).not.to.match(':state(focus-visible)');
     });
+
+    it('should show a focus ring when the host itself is focus-visible', async () => {
+      const tag = await fixture<Tag>(html`
+        <sl-tag style="--sl-color-border-focused: rgb(1, 2, 3)" tabindex="0">My label</sl-tag>
+      `);
+
+      tag.focus({ focusVisible: true } as FocusOptions);
+      expect(document.activeElement).to.equal(tag);
+      expect(tag).to.match(':focus-visible');
+      expect(getComputedStyle(tag).outlineColor).to.equal('rgb(1, 2, 3)');
+    });
   });
 
   describe('removable', () => {

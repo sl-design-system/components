@@ -43,7 +43,7 @@
   color: var(--sl-color-foreground-info-bold);
 }
 
-:host(:not([removable]):state(focus-visible)) {
+:host(:not([removable]):where(:focus-visible, :state(focus-visible))) {
   outline-color: var(--sl-color-border-focused);
   position: relative;
   z-index: 1; // Make sure the focus ring is above other elements

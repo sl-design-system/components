@@ -51,12 +51,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = {
-    ...LitElement.shadowRootOptions,
-    delegatesFocus: true
-  };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal */
@@ -120,6 +114,18 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
+  }
+
+  override focus(options?: FocusOptions): void {
+    const focusTarget = this.removable
+      ? this.renderRoot.querySelector<HTMLElement>('button')
+      : this.renderRoot.querySelector<HTMLElement>('[part="label"][tabindex]');
+
+    if (focusTarget) {
+      focusTarget.focus(options);
+    } else {
+      super.focus(options);
+    }
   }
 
   override render(): TemplateResult {

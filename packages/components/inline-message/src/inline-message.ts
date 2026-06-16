@@ -37,7 +37,8 @@ export type SlDismissEvent = CustomEvent<void>;
 /**
  * An inline message component for displaying additional information.
  *
- * @slot default - The body of the inline-message
+ * @customElement sl-inline-message
+ * @slot - The body of the inline-message
  * @slot icon - Icon shown on the left side of the component
  * @slot title - Title content for the inline message
  */

@@ -44,6 +44,7 @@ let nextUniqueId = 0;
 /**
  * Multi line text area component.
  *
+ * @customElement sl-text-area
  * @slot textarea - The slot for the textarea element
  */
 @localized()

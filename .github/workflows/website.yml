@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - docs/website-v2
     paths-ignore:
       - 'packages/tokens/src/**'
     types: [opened, synchronize, reopened, closed]
@@ -11,6 +12,7 @@ on:
   push:
     branches:
       - main
+      - docs/website-v2
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -50,7 +52,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: 'website/dist'
+          path: 'docs/website/dist'
 
       - id: deployment
         uses: actions/deploy-pages@v5
@@ -109,7 +111,7 @@ jobs:
           JOB_ID=$(echo "$DEPLOYMENT" | jq -r '.jobId')
           ZIP_URL=$(echo "$DEPLOYMENT" | jq -r '.zipUploadUrl')
 
-          cd website/dist && zip -qr ../../deployment.zip . && cd ../..
+          cd docs/website/dist && zip -qr ../../../deployment.zip . && cd ../../..
           curl -sSf -T deployment.zip "$ZIP_URL"
 
           aws amplify start-deployment \

@@ -244,7 +244,7 @@ button {
   color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
-  flex: 1;
+  flex-grow: 1;
   font: inherit;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
   gap: var(--sl-size-075);

@@ -21,6 +21,7 @@ declare global {
   }
 }
 
+/** @customElement sl-form-validation-errors */
 @localized()
 export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   /** @internal */

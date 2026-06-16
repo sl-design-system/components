@@ -1,0 +1,8 @@
+sourceControlRootUrl: 'https://github.com/sl-design-system/components/tree/main'
+
+generate:
+  files:
+    - 'packages/components/*/src/**/*.ts'
+  exclude:
+    - 'packages/components/*/src/**/*.spec.ts'
+    - 'packages/components/*/src/**/*.stories.ts'

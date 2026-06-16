@@ -20,9 +20,10 @@ let nextUniqueId = 0;
 /**
  * A floating overlay that appears on top of other elements.
  *
+ * @customElement sl-popover
  * @csspart arrow - The arrow linking the popover to its anchor
  * @csspart container - The container for the popover
- * @slot default - Body content for the popover
+ * @slot - Body content for the popover
  */
 export class Popover extends LitElement {
   /** @internal The default padding of the arrow. */

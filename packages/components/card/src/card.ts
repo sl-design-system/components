@@ -26,11 +26,13 @@ export type CardOrientation = 'horizontal' | 'vertical';
  * <sl-card></sl-card>
  * ```
  *
+ * @customElement sl-card
+ *
  * @cssprop --sl-card-media-size - Depending on the orientation, this will set the height or width of the media. Can be set in pixels, percentage or `fr`.
  * @cssprop --sl-card-horizontal-breakpoint - When card is smaller than this size it will switch from horizontal (when set) to vertical layout.
  * @cssprop --sl-card-image-backdrop - Color of the image backdrop when `fit-image` is set.
  *
- * @slot default - Title of the card
+ * @slot - Title of the card
  * @slot media - Image of the card.
  * @slot header - Subtitle or badges
  * @slot body - Body text of the card

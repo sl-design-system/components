@@ -17,8 +17,11 @@ export type BadgeColor =
   | 'red'
   | 'teal'
   | 'yellow';
+
 export type BadgeEmphasis = 'subtle' | 'bold';
+
 export type BadgeSize = 'sm' | 'md' | 'lg';
+
 export type BadgeVariant =
   | 'neutral'
   | 'primary'
@@ -29,13 +32,11 @@ export type BadgeVariant =
   | 'accent';
 
 /**
- * Show totals at a glance or labels contents with a tag.
+ * Badges are used to display a small amount of information, such as a status or a count.
  *
- * ```html
- * <sl-badge>99+</sl-badge>
- * ```
+ * @customElement sl-badge
  *
- * @slot default - Contents of the badge
+ * @slot - Contents of the badge
  */
 export class Badge extends LitElement {
   /** @internal */
@@ -44,14 +45,14 @@ export class Badge extends LitElement {
   /**
    * The color of the badge.
    *
-   * @default grey
+   * @default 'grey'
    */
   @property({ reflect: true }) color?: BadgeColor;
 
   /**
    * The emphasis of the badge.
    *
-   * @default subtle
+   * @default 'subtle'
    */
   @property({ reflect: true }) emphasis?: BadgeEmphasis;
 
@@ -66,7 +67,7 @@ export class Badge extends LitElement {
    * The variant of the badge. This property is deprecated. Use the color property instead.
    *
    * @deprecated Use the color property instead.
-   * @default neutral
+   * @default 'neutral'
    */
   @property({ reflect: true }) variant?: BadgeVariant;
 

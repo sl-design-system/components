@@ -37,6 +37,8 @@ export type SlSubmitEvent = CustomEvent<void> & { target: Form };
  *
  * This wrapper is necessary because the native form lacks this behavior. See
  * https://github.com/whatwg/html/issues/9878
+ *
+ * @customElement sl-form
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Form<T extends Record<string, any> = Record<string, any>> extends LitElement {

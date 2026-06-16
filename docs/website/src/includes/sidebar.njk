@@ -1,0 +1,62 @@
+{%- macro renderItems(entries, activePage) -%}
+  {%- for entry in entries -%}
+    {%- set isActive = (entry.url == activePage) -%}
+    {%- set isOpen = entry.open | default(false) -%}
+    {%- set hasChildren = entry.children | length -%}
+    {%- set hasActiveChild = false -%}
+    {%- if hasChildren -%}
+      {%- for child in entry.children -%}
+        {%- if child.url == activePage -%}
+          {%- set hasActiveChild = true -%}
+        {%- endif -%}
+        {%- if child.children | length -%}
+          {%- for grandchild in child.children -%}
+            {%- if grandchild.url == activePage -%}
+              {%- set hasActiveChild = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    <doc-nav-item
+      heading="{{ entry.title }}"
+      {%- if entry.url %} href="{{ entry.url }}"{% endif %}
+      {%- if entry.icon %} icon="far-{{ entry.icon }}"{% endif %}
+      {%- if isActive %} active{% endif %}
+      {%- if isOpen %} open{% endif %}
+      {%- if hasChildren and (isActive or hasActiveChild) %} open{% endif %}
+    >
+      {%- if hasChildren -%}
+        {{ renderItems(entry.children | sort(false, false, "title"), activePage) }}
+      {%- endif -%}
+    </doc-nav-item>
+  {%- endfor -%}
+{%- endmacro -%}
+
+{%- set navPages = collections.all | eleventyNavigation -%}
+<doc-site-nav>
+  {%- for entry in navPages -%}
+    {%- if entry.children | length -%}
+      {%- set groupHasActiveChild = false -%}
+      {%- for child in entry.children -%}
+        {%- if child.url == page.url -%}{%- set groupHasActiveChild = true -%}{%- endif -%}
+        {%- for grandchild in child.children -%}
+          {%- if grandchild.url == page.url -%}{%- set groupHasActiveChild = true -%}{%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
+      <doc-nav-group heading="{{ entry.title }}"
+        {%- if entry.collapsible %} collapsible{% endif %}
+        {%- if entry.collapsed and not groupHasActiveChild %} collapsed{% endif %}>
+        {{ renderItems(entry.children, page.url) }}
+      </doc-nav-group>
+    {%- else -%}
+      <doc-nav-item
+        heading="{{ entry.title }}"
+        {%- if entry.url %} href="{{ entry.url }}"{% endif %}
+        {%- if entry.url == page.url %} active{% endif %}
+        {%- if entry.data.icon %} icon="far-{{ entry.data.icon }}"{% endif %}
+        {%- if entry.data.open %} open="{{entry.data.open }}"{% endif %}
+      ></doc-nav-item>
+    {%- endif -%}
+  {%- endfor -%}
+</doc-site-nav>

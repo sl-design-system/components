@@ -30,6 +30,8 @@ declare global {
 /**
  * A component that can be used with the paginator. The component adds a possibility to
  * select/change the amount of items that would be visible per page.
+ *
+ * @customElement sl-paginator-page-size
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

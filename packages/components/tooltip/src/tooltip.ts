@@ -63,7 +63,8 @@ let nextUniqueId = 0;
 /**
  * Tooltip component.
  *
- * @slot default - The slot for the tooltip content.
+ * @customElement sl-tooltip
+ * @slot - The slot for the tooltip content.
  */
 export class Tooltip extends LitElement {
   /** @internal The default padding of the arrow. */

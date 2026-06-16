@@ -1,0 +1,55 @@
+:host {
+  align-items: center;
+  color: var(--sl-color-foreground-plain);
+  display: flex;
+  gap: 0.5rem;
+}
+
+:host(:hover) doc-copy-button,
+:host(:focus-within) doc-copy-button {
+  opacity: 1;
+}
+
+:host([level='2']) {
+  margin-block: var(--sl-size-400) var(--sl-size-150);
+}
+
+:host([level='3']) {
+  margin-block: var(--sl-size-300) var(--sl-size-100);
+}
+
+::slotted(a) {
+  border-radius: var(--sl-size-borderRadius-default);
+  color: inherit !important;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  text-decoration: none !important;
+}
+
+::slotted(a:focus-visible) {
+  outline-color: var(--sl-color-border-focused);
+}
+
+h2,
+h3 {
+  font-family: the-message, sans-serif;
+  margin: 0;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 36px;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+doc-copy-button {
+  opacity: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 0.2s ease;
+  }
+}

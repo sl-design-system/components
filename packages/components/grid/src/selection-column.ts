@@ -16,7 +16,11 @@ declare global {
   }
 }
 
-/** A grid column that can be used to select items in the grid. */
+/**
+ * A grid column that can be used to select items in the grid.
+ *
+ * @customElement sl-grid-selection-column
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
   /** @internal */

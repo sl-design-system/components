@@ -55,6 +55,7 @@ type DatePartType = 'day' | 'month' | 'year';
  * A form component that allows the user to pick a date from a calendar. Uses individual spinbutton
  * inputs per date part for improved accessibility.
  *
+ * @customElement sl-date-field
  * @cssState has-focus - Set when the date field has focus.
  * @cssState has-value - Set when the date field has a value.
  * @cssState placeholder-shown - Set when the date field is empty and has a placeholder.

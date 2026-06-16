@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+.panel {
+  align-items: center;
+  background: var(--sl-elevation-surface-raised-sunken);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-lg);
+  display: flex;
+  gap: var(--sl-size-100);
+  padding: var(--sl-size-150) var(--sl-size-200);
+}
+
+code {
+  flex: 1;
+  font-family:
+    ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace',
+    'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  white-space: pre;
+}
+
+.command {
+  color: var(--sl-color-foreground-accent-teal-plain);
+}
+
+.scope {
+  color: var(--sl-color-foreground-accent-grey-subtlest);
+}
+
+.package {
+  color: var(--sl-color-foreground-accent-blue-plain);
+}
+
+.copy {
+  background: none;
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
+  font: var(--sl-text-new-body-sm);
+  padding: var(--sl-size-025) var(--sl-size-100);
+
+  &:hover {
+    background: var(--sl-elevation-surface-raised-alternative);
+  }
+}

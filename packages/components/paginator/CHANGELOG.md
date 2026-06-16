@@ -145,14 +145,12 @@
 ### Patch Changes
 
 - [#1804](https://github.com/sl-design-system/components/pull/1804) [`7a0b48e`](https://github.com/sl-design-system/components/commit/7a0b48e981ad4c7cc1a34022625e6ae3ee55c977) - - Applied new tokens to the paginator,
-
   - Paginator component changes:
     - `size` property no longer controls the width of the layout of the entire paginator, but only the size of the components within the paginator,
     - new `width` property that controls the width of the layout of the entire paginator,
     - new `emphasis` property.
 
 - [#1690](https://github.com/sl-design-system/components/pull/1690) [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d) - Various improvements:
-
   - Add missing dependencies (announcer & form)
   - Rename `<sl-paginator-size>` to `<sl-paginator-page-size>`
   - Remove `pageSizes` property from `<sl-paginator>`
@@ -169,7 +167,6 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
-
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

@@ -8,6 +8,9 @@ declare global {
   }
 }
 
+/**
+ * @customElement sl-grid-column-group
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumnGroup<T = any> extends GridColumn<T> {
   #width?: number;

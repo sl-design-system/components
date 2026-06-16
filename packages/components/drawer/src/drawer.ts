@@ -19,8 +19,9 @@ export type DrawerAttachment = 'right' | 'left' | 'top' | 'bottom';
 /**
  * A drawer component for displaying UI at the side of the screen.
  *
+ * @customElement sl-drawer
  * @cssprop --sl-drawer-max-inline-size - The maximum inline size of the drawer
- * @slot default - Body content for the drawer
+ * @slot - Body content for the drawer
  * @slot header - Header content for the drawer
  * @slot title - The title of the drawer
  */

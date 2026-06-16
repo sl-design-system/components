@@ -71,6 +71,7 @@ const GROUP_ICONS: Record<number, string> = {
   9: 'far-flag'
 };
 
+/** @customElement sl-emoji-browser */
 @localized()
 export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal */

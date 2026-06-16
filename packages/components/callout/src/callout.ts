@@ -25,7 +25,9 @@ export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
  * rather than appearing or disappearing based on user interaction. There is no aria role on this
  * component as it is not meant to interrupt the user.
  *
- * @slot default - The body of the callout.
+ * @customElement sl-callout
+ *
+ * @slot - The body of the callout.
  * @slot icon - Icon shown on the left side of the component.
  * @slot title - Title content for the callout.
  */

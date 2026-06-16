@@ -37,7 +37,8 @@ declare global {
  * </sl-tag-list>
  * ```
  *
- * @slot default - The place for tags.
+ * @customElement sl-tag-list
+ * @slot - The place for tags.
  */
 @localized()
 export class TagList extends ScopedElementsMixin(LitElement) {

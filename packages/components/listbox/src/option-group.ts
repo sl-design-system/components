@@ -23,7 +23,8 @@ declare global {
 /**
  * An option group in a list, such as select or combobox.
  *
- * @slot default - The option's label.
+ * @customElement sl-option-group
+ * @slot - The option's label.
  */
 export class OptionGroup extends ScopedElementsMixin(LitElement) {
   /** @internal */

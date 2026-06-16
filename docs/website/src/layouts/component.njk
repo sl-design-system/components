@@ -1,0 +1,88 @@
+{% extends './docs.njk' %}
+{% set component = getComponent('sl-' + page.fileSlug) %}
+
+{% block beforeContent %}
+<dl class="metadata">
+  <dt>Component</dt>
+  <dd>
+    <ul>
+      <li><code>&lt;{{ component.tagName }}&gt;</code></li>
+      <li>
+        <sl-badge size="lg"
+          {% if component.status === 'stable' %}color="green"{% endif %}
+          {% if component.status === 'preview' %}color="blue"{% endif %}
+          {% if component.status === 'draft' %}color="grey"{% endif %}
+        >
+          {{ component.status | capitalize }}
+        </sl-badge>
+      </li>
+      <li><sl-badge color="grey" emphasis="bold" size="lg">v{{ component.version }}</sl-badge></li>
+    </ul>
+  </dd>
+
+  <dt>Import</dt>
+  <dd>
+    <code id="import-snippet">import '{{ component.packageName }}/register.js';</code>
+    <doc-copy-button target="import-snippet"></doc-copy-button>
+  </dd>
+
+  <dt>GitHub</dt>
+  <dd>
+    <ul>
+      <li>
+        <a href="{{ component.repositoryUrl }}/blob/main/{{component.repositoryDirectory}}">
+          <sl-icon name="fab-github"></sl-icon>
+          <span>{{ component.repositoryDirectory }}</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ component.repositoryUrl }}/issues/new?title=[{{ component.name | capitalize }}]%20&template=1-bug_report.yaml">
+          <sl-icon name="far-bug"></sl-icon>
+          <span>Issue</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ component.repositoryUrl }}/issues/{{ issueNumber }}">
+          <sl-icon name="far-circle-exclamation"></sl-icon>
+          <span>Open issues <doc-open-issue-count issue="{{ issueNumber }}"></doc-open-issue-count></span>
+        </a>
+      </li>
+    </ul>
+  </dd>
+
+  <dt>Docs</dt>
+  <dd>
+    <ul>
+      <li>
+        <a href="/api-reference/{{ component.tagName }}">
+          <sl-icon name="far-code"></sl-icon>
+          <span>API</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ component.repositoryUrl }}/blob/main/{{ component.repositoryDirectory }}/CHANGELOG.md">
+          <sl-icon name="far-file-lines"></sl-icon>
+          <span>CHANGELOG.md</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://storybook.sanomalearning.design/?path=/story/{{ storybook }}">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.56188 23.4257L2.77435 2.44167C2.74834 1.74865 3.27973 1.16132 3.97189 1.11806L21.8203 0.0025325C22.5248 -0.0415009 23.1317 0.493941 23.1757 1.19848C23.1774 1.22502 23.1782 1.25161 23.1782 1.27821V24.1441C23.1782 24.85 22.6059 25.4222 21.9 25.4222C21.8809 25.4222 21.8618 25.4218 21.8427 25.4209L4.7818 24.6547C4.11734 24.6248 3.58683 24.0904 3.56188 23.4257Z" fill="var(--sl-color-foreground-subtlest)"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.4172 0.090332L17.9608 0.243857L17.841 3.12489C17.8391 3.16918 17.8528 3.21273 17.8796 3.24804C17.9432 3.33194 18.0628 3.34836 18.1467 3.28472L19.2659 2.43579L20.2111 3.18041C20.2465 3.20831 20.2907 3.22276 20.3357 3.22118C20.441 3.21751 20.5233 3.12922 20.5196 3.02398L20.4172 0.090332ZM18.5054 9.73835C18.0558 10.0877 14.7062 10.326 14.7062 9.8287C14.7769 7.93118 13.9274 7.848 13.4555 7.848C13.0071 7.848 12.252 7.98353 12.252 9.00006C12.252 10.036 13.3555 10.6208 14.6508 11.3072C16.4908 12.2823 18.7178 13.4624 18.7178 16.432C18.7178 19.2783 16.4052 20.8506 13.4555 20.8506C10.4113 20.8506 7.75109 19.619 8.05154 15.3491C8.16953 14.8477 12.0396 14.9668 12.0396 15.3491C11.9924 17.1111 12.3936 17.6293 13.4083 17.6293C14.187 17.6293 14.541 17.2001 14.541 16.4772C14.541 15.3832 13.3912 14.7377 12.0685 13.9951C10.2775 12.9895 8.16953 11.806 8.16953 9.09042C8.16953 6.37967 10.0338 4.57251 13.3611 4.57251C16.6884 4.57251 18.5054 6.35199 18.5054 9.73835Z" fill="white"/>
+          </svg>
+          <span>Storybook</span>
+        </a>
+      </li>
+    </ul>
+  </dd>
+</dl>
+
+<p class="summary">{{ component.summary }}</p>
+{% endblock %}
+
+{% block afterContent %}
+<h2>Installation</h2>
+<p>Install the component via npm:</p>
+<pre><code class="language-bash">npm add {{ component.packageName }}</code></pre>
+{% endblock %}

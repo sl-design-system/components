@@ -37,13 +37,10 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
 let nextUniqueId = 0;
 
 /**
- * A toggle switch.
+ * @customElement sl-switch
+ * @summary A toggle switch.
  *
- * ```html
- * <sl-switch>Foo</sl-switch>
- * ```
- *
- * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
+ * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

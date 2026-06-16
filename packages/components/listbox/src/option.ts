@@ -18,7 +18,8 @@ export type OptionEmphasis = 'subtle' | 'bold';
 /**
  * An option in a list, such as select or combobox.
  *
- * @slot default - The option's label.
+ * @customElement sl-option
+ * @slot - The option's label.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Option<T = any> extends ScopedElementsMixin(LitElement) {

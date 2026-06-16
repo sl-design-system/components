@@ -18,6 +18,7 @@ export type NumberFieldButtonsAlignment = 'end' | 'edges';
 /**
  * A number field component.
  *
+ * @customElement sl-number-field
  * @omit type - We should not document the type property from TextField in the NumberField, as it is always 'text' internally.
  *
  * @slot prefix - Used for step buttons when `stepButtons` is set to 'edges'. If overridden, the step down button will not be rendered automatically, and you will need to implement your own button logic.

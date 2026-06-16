@@ -20,14 +20,17 @@ declare global {
 }
 
 /**
- * An accordion item component.
+ * @customElement sl-accordion-item
+ * @summary An accordion item component.
+ *
+ * @event sl-toggle - Emitted when the accordion item is toggled.
  *
  * @csspart details - Details element of the accordion-item
  * @csspart summary - Header element of the accordion-item
  * @csspart icon - The icon in the header of the accordion-item
  * @csspart panel - The body of the accordion-item
  *
- * @slot default - Body content for the accordion
+ * @slot - Body content for the accordion
  * @slot summary - Header content for the accordion; use this if the `summary` property is not enough
  * @slot summary-extras - Extra content in the header of the accordion item
  */
@@ -106,7 +109,10 @@ export class AccordionItem extends LitElement {
 
   /**
    * This is a workaround for `delegatesFocus` not allowing you to select any text in the content of
-   * the accordion item. See https://issues.chromium.org/issues/40622041
+   * the accordion item.
+   *
+   * @ignore
+   * @see https://issues.chromium.org/issues/40622041
    */
   override focus(options?: FocusOptions): void {
     this.renderRoot.querySelector('summary')?.focus(options);

@@ -124,7 +124,9 @@ export default tseslint.config(
       'lit-a11y/click-events-have-key-events': 'off',
       // This generates false positives for popovers
       'lit-a11y/no-autofocus': 'off',
-      'unused-imports/no-unused-imports': 'error'
+      'unused-imports/no-unused-imports': 'error',
+      // Generates false positives with `this.classList`
+      'wc/no-self-class': 'off'
     }
   },
   {

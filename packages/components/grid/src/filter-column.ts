@@ -34,6 +34,8 @@ let nextUniqueId = 0;
 /**
  * A column that can be used to filter the data in the grid. This column extends the sortable
  * column, so it can be used to sort the data as well.
+ *
+ * @customElement sl-grid-filter-column
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

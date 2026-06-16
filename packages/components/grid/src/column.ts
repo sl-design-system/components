@@ -45,6 +45,7 @@ export type GridColumnParts<T = any> = (model: T) => string | undefined;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
+/** @customElement sl-grid-column */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
   /** The parent grid. */

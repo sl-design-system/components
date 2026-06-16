@@ -33,7 +33,11 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TreeItemRenderer<T = any> = (item: TreeDataSourceNode<T>) => TemplateResult | undefined;
 
-/** A tree component. Use this if you have hierarchical data that you want to visualize. */
+/**
+ * A tree component. Use this if you have hierarchical data that you want to visualize.
+ *
+ * @customElement sl-tree
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
   'aria-describedby',

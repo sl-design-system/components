@@ -15,6 +15,8 @@ declare global {
 /**
  * Small utility component to add ellipsis to text that overflows its container. It also adds a
  * tooltip with the full text.
+ *
+ * @customElement sl-ellipsize-text
  */
 export class EllipsizeText extends ScopedElementsMixin(LitElement) {
   /** @internal */

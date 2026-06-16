@@ -26,6 +26,7 @@ declare global {
   }
 }
 
+/** @customElement sl-editor */
 export class Editor extends FormControlMixin(LitElement) {
   /** @internal */
   static formAssociated = true;

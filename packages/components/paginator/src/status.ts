@@ -24,6 +24,8 @@ declare global {
 /**
  * A component that can be used with the paginator component. Contains information about currently
  * visible items on the page and total amount of items.
+ *
+ * @customElement sl-paginator-status
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

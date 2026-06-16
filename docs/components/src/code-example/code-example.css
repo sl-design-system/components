@@ -1,0 +1,105 @@
+:host {
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-050);
+  display: block;
+}
+
+:host([inverted]) .demo {
+  background: var(--sl-color-foreground-accent-grey-bold);
+  color: var(--sl-color-foreground-inverted-bold);
+}
+
+:host([justify='center']) {
+  --_justify: center;
+}
+
+:host([justify='end']) {
+  --_justify: end;
+}
+
+:host([justify='stretch']) {
+  --_justify: stretch;
+}
+
+:host([show-source]) doc-code-block {
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+}
+
+:host([orientation='horizontal']) .demo {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sl-size-100);
+  justify-content: var(--_justify, start);
+}
+
+:host([orientation='vertical']) .demo {
+  gap: var(--sl-size-200);
+}
+
+::slotted(sl-menu) {
+  display: flex !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+  position: static !important;
+}
+
+.demo {
+  display: grid;
+  justify-items: var(--_justify, start);
+  padding: var(--sl-size-200);
+  position: relative;
+}
+
+doc-code-block {
+  border-radius: 0;
+}
+
+details {
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+summary {
+  align-items: center;
+  border-end-end-radius: var(--sl-size-borderRadius-default);
+  border-end-start-radius: var(--sl-size-borderRadius-default);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  gap: var(--sl-size-050);
+  justify-content: center;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: var(--sl-size-100) var(--sl-size-200);
+  user-select: none;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background 0.2s ease-in-out;
+  }
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+  }
+
+  &:hover {
+    background: var(--sl-color-background-accent-grey-subtlest);
+  }
+
+  &:active {
+    background: var(--sl-color-background-accent-grey-subtle);
+  }
+}
+
+details[open] summary {
+  border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+
+  sl-icon {
+    rotate: 180deg;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: rotate 0.2s ease-in-out;
+    }
+  }
+}

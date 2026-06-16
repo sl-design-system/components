@@ -56,6 +56,7 @@ declare global {
  * components. Use the `contained` attribute for a toolbar with spacing. Make sure there is enough
  * space around the toolbar to show focus outlines.
  *
+ * @customElement sl-tool-bar
  * @csspart wrapper - The wrapper element that contains the tool bar items.
  *
  * @slot default - The tool bar items.

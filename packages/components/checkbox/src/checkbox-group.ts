@@ -37,7 +37,9 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
 /**
  * Checkbox group; treat a group of checkboxes as one form input with validation, hints and errors
  *
- * @slot default - A list of `sl-checkbox` elements.
+ * @customElement sl-checkbox-group
+ *
+ * @slot - A list of `sl-checkbox` elements.
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -37,9 +37,10 @@ declare global {
 /**
  * Custom element that combines a button and a menu and automatically wires them up together.
  *
+ * @customElement sl-menu-button
  * @csspart button - The button element.
  *
- * @slot default - The menu items should be slotted in the default slot.
+ * @slot - The menu items should be slotted in the default slot.
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()

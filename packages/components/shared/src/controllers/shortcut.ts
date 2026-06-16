@@ -50,10 +50,17 @@ export class ShortcutController implements ReactiveController {
 
     return keys
       .map(key => {
-        if (key === '$mod') {
-          return isMac() ? '⌘' : 'Ctrl';
-        } else {
-          return key;
+        switch (key) {
+          case '$mod':
+            return isMac() ? '⌘' : '⌃';
+          case 'Shift':
+            return '⇧';
+          case 'Control':
+            return '⌃';
+          case 'Alt':
+            return '⌥';
+          default:
+            return key;
         }
       })
       .join('');

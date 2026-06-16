@@ -59,7 +59,11 @@ export type ListboxRenderer<T = any, U = T> = (
 
 let nextUniqueId = 0;
 
-/** Container for a list of selectable options. */
+/**
+ * Container for a list of selectable options.
+ *
+ * @customElement sl-listbox
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** @internal */

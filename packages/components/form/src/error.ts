@@ -18,6 +18,7 @@ export type ErrorSize = 'sm' | 'md' | 'lg';
 /**
  * Component for displaying an error message for a form control.
  *
+ * @customElement sl-error
  * @slot error-text - The error message to display.
  */
 export class Error extends ScopedElementsMixin(LitElement) {

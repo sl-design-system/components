@@ -38,6 +38,7 @@ const isIconDefinition = (icon: IconDefinition | IconLibrary): icon is IconDefin
  * <sl-icon name="unicorn"></sl-icon>
  * ```
  *
+ * @customElement sl-icon
  * @cssprop --sl-icon-fill-accent - Accent color, only used for multicolor icons
  * @cssprop --sl-icon-fill-default - Default fill color
  * @cssprop --sl-icon-size - The size of the icon, defaults to md

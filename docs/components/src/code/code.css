@@ -1,0 +1,24 @@
+:host {
+  display: inline;
+}
+
+:host(:hover) doc-copy-button,
+doc-copy-button:focus-within {
+  opacity: 1;
+}
+
+code {
+  anchor-name: --code;
+  background: var(--sl-color-background-neutral-subtle);
+  border-radius: var(--sl-size-borderRadius-default);
+  padding-block: var(--sl-size-025);
+  padding-inline: var(--sl-size-075);
+}
+
+doc-copy-button {
+  opacity: 0;
+  position: absolute;
+  position-anchor: --code;
+  position-area: center end;
+  transition: opacity 0.15s;
+}

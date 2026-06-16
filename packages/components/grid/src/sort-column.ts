@@ -18,7 +18,11 @@ declare global {
 
 let nextUniqueId = 0;
 
-/** A grid column that can be sorted. */
+/**
+ * A grid column that can be sorted.
+ *
+ * @customElement sl-grid-sort-column
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSortColumn<T = any> extends GridColumn<T> {
   /** Reference to the rendered `<sl-grid-sorter>` element. */

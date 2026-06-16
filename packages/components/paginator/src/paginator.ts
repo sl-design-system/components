@@ -56,6 +56,8 @@ export type PaginatorEmphasis = 'subtle' | 'bold';
  * A paginator component used when there is a lot of data that needs to be shown and cannot be shown
  * at once, in one view/page. Can be used separately or together with paginator page size component
  * and/or paginator status component.
+ *
+ * @customElement sl-paginator
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

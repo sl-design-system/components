@@ -18,6 +18,7 @@ declare global {
  * Scrollbar component for custom scrollbars. When in doubt, _always_ use the native scrollbar. This
  * component is intended for use in components that require a custom scrollbar, such as the grid.
  *
+ * @customElement sl-scrollbar
  * @csspart track - The track of the scrollbar.
  * @csspart thumb - The thumb of the scrollbar.
  */

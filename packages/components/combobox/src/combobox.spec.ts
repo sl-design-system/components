@@ -1113,14 +1113,14 @@ describe('sl-combobox', () => {
         expect(tags.every(tag => tag.hasAttribute('aria-hidden'))).to.be.false;
       });
 
-      it('should set aria-hidden on sl-tag elements when not disabled', async () => {
+      it('should not set aria-hidden on sl-tag elements when not disabled', async () => {
         el.disabled = false;
         await el.updateComplete;
 
         const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
 
         expect(tags).to.have.lengthOf(2);
-        expect(tags.every(tag => tag.getAttribute('aria-hidden') === 'true')).to.be.true;
+        expect(tags.every(tag => tag.hasAttribute('aria-hidden'))).to.be.false;
       });
     });
 
@@ -1259,6 +1259,18 @@ describe('sl-combobox', () => {
         expect(removable).to.be.true;
       });
 
+      it('should not show fake tag focus when navigating remove buttons', async () => {
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+          button = tags[0].renderRoot.querySelector('button');
+
+        button?.dispatchEvent(
+          new KeyboardEvent('keydown', { bubbles: true, composed: true, key: 'ArrowRight' })
+        );
+        await el.updateComplete;
+
+        expect(tags.some(tag => tag.classList.contains('focused'))).to.be.false;
+      });
+
       it('should stack options when there is limited space', async () => {
         vi.useFakeTimers();
 
@@ -1354,6 +1366,41 @@ describe('sl-combobox', () => {
 
         // Verify the tag was removed
         expect(el.value).to.deep.equal([]);
+      });
+
+      it('should focus the next tag after removing a tag', async () => {
+        el.value = ['Option 1', 'Option 2', 'Option 3'];
+        await el.updateComplete;
+
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        tags[0].renderRoot.querySelector<HTMLElement>('button')?.focus();
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        const remainingTags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        expect(el.value).to.deep.equal(['Option 2', 'Option 3']);
+        expect((el.renderRoot as ShadowRoot).activeElement).to.equal(remainingTags[0]);
+        expect(remainingTags[0].shadowRoot?.activeElement).to.equal(
+          remainingTags[0].renderRoot.querySelector('button')
+        );
+      });
+
+      it('should focus the input after removing the last tag', async () => {
+        el.value = ['Option 1'];
+        await el.updateComplete;
+
+        const tag = el.renderRoot.querySelector('sl-tag')!;
+
+        tag.renderRoot.querySelector<HTMLElement>('button')?.focus();
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        expect(el.value).to.deep.equal([]);
+        expect(document.activeElement).to.equal(input);
       });
     });
 

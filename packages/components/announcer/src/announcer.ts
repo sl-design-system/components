@@ -55,25 +55,21 @@ export class Announcer extends LitElement {
       `[aria-live="${event.detail.urgency || 'polite'}"]`
     );
 
+    const messageNode = document.createElement('li');
+
     if (event.detail.force) {
       this.#forceCounter++;
-
-      const messageNode = document.createElement('li');
-      // Append invisible zero width spaces to make each message unique for screen readers (to re-force the announcements)
+      // Append invisible zero-width spaces to make each message unique for screen readers
       messageNode.innerText = event.detail.message + '\u200B'.repeat((this.#forceCounter % 2) + 1);
-
-      container?.appendChild(messageNode);
-      setTimeout(() => {
-        messageNode.remove();
-      }, 500);
     } else if (container?.textContent?.indexOf(event.detail.message) === -1) {
-      const messageNode = document.createElement('li');
       messageNode.innerText = event.detail.message;
-
-      container?.appendChild(messageNode);
-      setTimeout(() => {
-        messageNode.remove();
-      }, 500);
+    } else {
+      return;
     }
+
+    container?.appendChild(messageNode);
+    setTimeout(() => {
+      messageNode.remove();
+    }, 500);
   }
 }

@@ -770,8 +770,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     announce(
       selected
-        ? msg(str`Row ${index} selected`, { id: 'sl.grid.rowSelected' })
-        : msg(str`Row ${index} deselected`, { id: 'sl.grid.rowDeselected' }),
+        ? msg(str`Row ${index} activated`, { id: 'sl.grid.rowActivated' })
+        : msg(str`Row ${index} deactivated`, { id: 'sl.grid.rowDeactivated' }),
       'assertive'
     );
   }
@@ -793,7 +793,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (index) {
       announce(
-        msg(str`In selected row ${index}`, { id: 'sl.grid.inSelectedRow' }),
+        msg(str`In activated row ${index}`, { id: 'sl.grid.inActivatedRow' }),
         'assertive',
         true
       );

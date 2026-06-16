@@ -130,7 +130,9 @@ export class SiteNav extends LitElement {
       activeItem =
         clickedItem ??
         Array.from(this.querySelectorAll<NavItem>('doc-nav-item')).find(
-          item => item.href && new URL(item.href, location.href).pathname.replace(/\/$/, '') === destinationPath
+          item =>
+            item.href &&
+            new URL(item.href, location.href).pathname.replace(/\/$/, '') === destinationPath
         ) ??
         null;
 
@@ -179,6 +181,12 @@ export class SiteNav extends LitElement {
         }
       }
       oldParent = oldParent.parentElement;
+    }
+
+    // If the active item is itself an expandable category, expand it as well so
+    // navigating to a category page also reveals its children.
+    if (activeItem instanceof NavItem && activeItem.expandable) {
+      activeItem.open = true;
     }
 
     let parent: Element | null = activeItem?.parentElement ?? null;

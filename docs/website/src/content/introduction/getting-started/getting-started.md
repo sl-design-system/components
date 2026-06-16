@@ -1,6 +1,8 @@
 ---
 title: Getting started
-layout: docs
+# This file only defines the "Getting started" navigation group; it is not a page
+# of its own. Clicking it in the sidebar expands/collapses its children.
+permalink: false
 eleventyNavigation:
   key: Getting started
   parent: Introduction
@@ -8,5 +10,3 @@ eleventyNavigation:
   icon: rocket
   open: true
 ---
-
-How to get started.

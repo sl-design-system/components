@@ -15,6 +15,11 @@ eleventyNavigation:
 `<sl-badge>` is a small label used to highlight a status, category or count next to other content.
 It draws attention to a short piece of information without taking up much space.
 
+::: info
+The `variant` attribute is deprecated. Use the `color` attribute instead — existing variants are
+mapped to the matching color.
+:::
+
 ## Examples
 
 ### Colors
@@ -58,14 +63,11 @@ A badge can also hold a number or a single icon, which makes it useful as a coun
 
 ```html {.example .show-source .horizontal}
 <sl-badge color="red" emphasis="bold">8</sl-badge>
-<sl-badge color="green" emphasis="bold"><sl-icon name="check"></sl-icon></sl-badge>
+<sl-badge color="green" emphasis="bold">
+  <sl-icon name="check"></sl-icon>
+</sl-badge>
 <sl-badge color="blue" emphasis="bold">100</sl-badge>
 ```
-
-::: info
-The `variant` attribute is deprecated. Use the `color` attribute instead — existing variants are
-mapped to the matching color.
-:::
 
 ## API
 

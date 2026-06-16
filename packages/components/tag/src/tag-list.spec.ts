@@ -112,6 +112,21 @@ describe('sl-tag-list', () => {
         el.querySelector('sl-tag')?.renderRoot.querySelector('#navigation-description')
       ).to.have.trimmed.text('Use arrow keys to move between removable tags.');
     });
+
+    it('should resync the navigation description when the list updates', async () => {
+      const tag = el.querySelector('sl-tag')!;
+
+      tag.navigationDescription = 'Stale navigation description';
+      await tag.updateComplete;
+
+      el.requestUpdate();
+      await el.updateComplete;
+      await tag.updateComplete;
+
+      expect(tag.renderRoot.querySelector('#navigation-description')).to.have.trimmed.text(
+        'Use arrow keys to move between removable tags.'
+      );
+    });
   });
 
   describe('stacked', () => {

@@ -226,9 +226,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('size')) {
-      this.tags?.forEach(tag => (tag.size = this.size));
-    }
+    this.#syncTags();
 
     if (changes.has('stacked')) {
       if (this.stacked && this.stack) {
@@ -240,10 +238,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
 
     this.#syncStackObservation();
-
-    if (changes.has('variant')) {
-      this.tags?.forEach(tag => (tag.variant = this.variant));
-    }
   }
 
   override render(): TemplateResult {
@@ -356,15 +350,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       (el): el is Tag => el instanceof Tag
     );
 
-    this.tags.forEach(tag => {
-      tag.navigationDescription = msg('Use arrow keys to move between removable tags.', {
-        id: 'sl.tagList.navigationInstructions'
-      });
-      tag.role = 'listitem';
-      tag.size = this.size;
-      tag.variant = this.variant;
-      tag.setAttribute('role', 'listitem');
-    });
+    this.#syncTags();
 
     this.#rovingTabindexController.clearElementCache();
 
@@ -381,6 +367,20 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#scheduleVisibilityUpdate = requestAnimationFrame(() => {
       this.#runVisibilityUpdate();
       this.#scheduleVisibilityUpdate = undefined;
+    });
+  }
+
+  #syncTags(): void {
+    const navigationDescription = msg('Use arrow keys to move between removable tags.', {
+      id: 'sl.tagList.navigationInstructions'
+    });
+
+    this.tags.forEach(tag => {
+      tag.navigationDescription = navigationDescription;
+      tag.role = 'listitem';
+      tag.size = this.size;
+      tag.variant = this.variant;
+      tag.setAttribute('role', 'listitem');
     });
   }
 

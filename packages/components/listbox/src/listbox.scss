@@ -11,6 +11,9 @@
 }
 
 :host([data-virtual-unconstrained]) {
+  // This is mainly just a fallback; The virtualizer needs a bounded viewport to calculate which items are visible.
+  // Without a max-height, the list would expand to fit all items, defeating the purpose of virtualization.
+  // It can be overwritten in multiple ways, as can be seen in the "Virtual list Unconstrained" stories
   max-block-size: 20rem;
 }
 

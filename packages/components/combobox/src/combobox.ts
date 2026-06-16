@@ -769,6 +769,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       index = (index + delta + items.length) % items.length;
 
       this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
+      // This setup now ignores prefers-reduced-motion and can cause unwanted motion for users who explicitly disable animations.
+      // When the reliability issue is resolved, we should switch back to using 'auto' and respect prefers-reduced-motion again.
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).

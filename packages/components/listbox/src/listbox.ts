@@ -207,7 +207,6 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     ) {
       this.setAttribute('data-virtual-unconstrained', '');
     }
-    // else: attribute already removed above
   }
 
   override updated(changes: PropertyValues<this>): void {

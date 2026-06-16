@@ -5,6 +5,14 @@ import '../register.js';
 import { type Listbox, type ListboxItem } from './listbox.js';
 import { type Option } from './option.js';
 
+const waitForNextFrame = (): Promise<void> =>
+  new Promise(resolve => requestAnimationFrame(() => resolve()));
+
+const waitForVirtualizer = async (): Promise<void> => {
+  await waitForNextFrame();
+  await waitForNextFrame();
+};
+
 describe('sl-listbox', () => {
   let el: Listbox;
 
@@ -48,7 +56,7 @@ describe('sl-listbox', () => {
       `);
 
       // Give the virtualizer time to render
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
     });
 
     it('should render a virtualizer', () => {
@@ -72,7 +80,7 @@ describe('sl-listbox', () => {
       el.optionValuePath = undefined;
 
       // wait for virtualizer to pick up the change
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
 
       const renderedOptions = queryVirtualized<Option>('sl-option');
 
@@ -133,7 +141,7 @@ describe('sl-listbox', () => {
 
       // Wait for all updates
       await unconstrained.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
 
       // Now should have the attribute
       expect(unconstrained.querySelector('sl-virtual-list')).to.exist;
@@ -155,7 +163,7 @@ describe('sl-listbox', () => {
       withHeight.optionValuePath = 'value';
 
       await withHeight.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
 
       // Should NOT have attribute when consumer sets explicit inline height
       // This prevents the CSS fallback from clamping the consumer's height
@@ -183,7 +191,7 @@ describe('sl-listbox', () => {
       withCssHeight.optionValuePath = 'value';
 
       await withCssHeight.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
 
       // Should NOT have attribute when consumer sets max-height via CSS
       // This prevents the 20rem fallback from clamping the consumer's 25rem constraint
@@ -214,7 +222,7 @@ describe('sl-listbox', () => {
       withCssHeight.optionValuePath = 'value';
 
       await withCssHeight.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
 
       // Known limitation: attribute IS applied when height is set via CSS
       // We can't reliably detect explicit height from computed styles

@@ -685,7 +685,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const selectedItem = this.selectedItems[0] ?? this.items.find(i => i.selected);
 
       if (selectedItem) {
-        this.#updateCurrent(selectedItem, { visual: false });
+        this.#updateCurrent(selectedItem, 'instant');
       } else {
         const selectedOption =
           this.querySelector<Option>('sl-option[selected]') ??
@@ -785,7 +785,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index]);
+      this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
+      // This setup now ignores prefers-reduced-motion and can cause unwanted motion for users who explicitly disable animations.
+      // When the reliability issue is resolved, we should switch back to using 'auto' and respect prefers-reduced-motion again.
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -917,7 +919,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         const index = this.items.findIndex(i => i.selected);
 
         if (index !== -1) {
-          this.listbox?.scrollToIndex(index, { block: 'nearest' });
+          this.listbox?.scrollToIndex(index, { block: 'start' }); // ideally we would use `nearest` here, but Safari and Firefox don't support it, causing inconsistency in scroll behavior across browsers.
         } else {
           this.listbox?.scrollIntoView({ block: 'start' });
         }
@@ -930,9 +932,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           );
 
         if (selectedItem) {
-          this.#updateCurrent(selectedItem, {
-            visual: this.#popoverOpenedViaKeyboard
-          });
+          this.#updateCurrent(selectedItem, 'instant');
         } else if (selectedOptionElement?.id) {
           // Fallback for timing-sensitive open paths where internal item state
           // has not synchronized yet. Keep AT context without visual highlight.
@@ -1124,6 +1124,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       item.element?.remove();
       item.element = undefined;
     }
+    this.#updateCurrent(this.items.find(i => i.id === item.id));
 
     if (this.selectedItems.length === 0) {
       this.#removeSelectedGroup();
@@ -1214,7 +1215,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.selectedItems.forEach(item => this.#removeSelectedOption(item));
       this.selectedItems = [item];
     }
-
     if (item.element instanceof Option) {
       item.element.selected = item.selected;
       item.element.style.display = item.visible ? '' : 'none';
@@ -1424,30 +1424,43 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /** Updates the options to reflect the current one. */
-  #updateCurrent(option?: ComboboxItem<T, U>, { visual = true }: { visual?: boolean } = {}): void {
+  #updateCurrent(option?: ComboboxItem<T, U>, scrollBehaviour: ScrollBehavior = 'instant'): void {
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
+
+      // Clear from tracked element (works for virtual list elements in shadow root)
+      this.currentItem.element?.removeAttribute('current');
+      // Also try querySelector for non-virtual case as fallback
       this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 
-    this.currentItem = option;
+    if (!option || !option.visible) {
+      this.currentItem = undefined;
+      return;
+    }
 
+    this.currentItem = option;
     if (this.currentItem) {
-      this.currentItem.current = visual;
+      this.currentItem.current = true;
 
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
-      if (this.currentItem.element) {
-        if (visual) {
-          this.currentItem.element.setAttribute('current', '');
-        } else {
-          this.currentItem.element.removeAttribute('current');
-        }
-
-        this.currentItem.element.scrollIntoView({ block: 'nearest' });
+      // Check if element exists and is still connected (not a stale, disconnected element from virtualization)
+      if (this.currentItem.element?.isConnected) {
+        // Element exists and is connected, use scrollIntoView (avoid duplicate scrolling)
+        this.currentItem.element.setAttribute('current', '');
+        this.currentItem.element.scrollIntoView({ block: 'start', behavior: scrollBehaviour });
       } else {
-        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });
+        // Element doesn't exist or is disconnected (virtual list), use scrollToIndex
+        // Use the listbox's items (filtered) to get the correct index
+        const index = this.listbox?.items?.indexOf(this.currentItem) ?? -1;
+        if (index !== -1) {
+          this.listbox?.scrollToIndex(index, {
+            block: 'start',
+            behavior: scrollBehaviour
+          });
+        }
       }
     }
   }

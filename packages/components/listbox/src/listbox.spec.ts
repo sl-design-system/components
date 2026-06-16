@@ -5,6 +5,14 @@ import '../register.js';
 import { type Listbox, type ListboxItem } from './listbox.js';
 import { type Option } from './option.js';
 
+const waitForNextFrame = (): Promise<void> =>
+  new Promise(resolve => requestAnimationFrame(() => resolve()));
+
+const waitForVirtualizer = async (): Promise<void> => {
+  await waitForNextFrame();
+  await waitForNextFrame();
+};
+
 describe('sl-listbox', () => {
   let el: Listbox;
 
@@ -31,6 +39,12 @@ describe('sl-listbox', () => {
       value: i
     }));
 
+    const queryVirtualized = <T extends Element = Element>(selector: string): T[] => {
+      const virtualList = el.querySelector('sl-virtual-list');
+
+      return Array.from(virtualList?.shadowRoot?.querySelectorAll<T>(selector) ?? []);
+    };
+
     beforeEach(async () => {
       el = await fixture(html`
         <sl-listbox
@@ -42,15 +56,15 @@ describe('sl-listbox', () => {
       `);
 
       // Give the virtualizer time to render
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
     });
 
     it('should render a virtualizer', () => {
-      expect(el.querySelector('lit-virtualizer')).to.exist;
+      expect(el.querySelector('sl-virtual-list')).to.exist;
     });
 
     it('should render options for each option', () => {
-      const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
+      const renderedOptions = queryVirtualized<Option>('sl-option');
 
       expect(renderedOptions.length).to.be.greaterThan(0);
       expect(renderedOptions.length).to.be.lessThan(options.length);
@@ -66,9 +80,9 @@ describe('sl-listbox', () => {
       el.optionValuePath = undefined;
 
       // wait for virtualizer to pick up the change
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await waitForVirtualizer();
 
-      const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
+      const renderedOptions = queryVirtualized<Option>('sl-option');
 
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
         el.options.slice(0, renderedOptions.length)
@@ -81,7 +95,7 @@ describe('sl-listbox', () => {
       el.optionValuePath = 'value';
       await el.updateComplete;
 
-      const renderedOptions = Array.from<Option<TestOption>>(el.querySelectorAll('sl-option'));
+      const renderedOptions = queryVirtualized<Option<TestOption>>('sl-option');
 
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
         options.slice(0, renderedOptions.length).map(i => i.label)
@@ -104,13 +118,121 @@ describe('sl-listbox', () => {
       };
       await el.updateComplete;
 
-      const renderedOptions = Array.from(el.querySelectorAll('div[role="option"]'));
+      const renderedOptions = queryVirtualized<HTMLDivElement>('div[role="option"]');
 
       expect(renderedOptions.length).to.be.greaterThan(0);
       expect(renderedOptions.length).to.be.lessThan(options.length);
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
         options.slice(0, renderedOptions.length).map(i => i.label)
       );
+    });
+
+    it('should apply data-virtual-unconstrained attribute when using virtual list', async () => {
+      const unconstrained = await fixture<Listbox>(html`<sl-listbox></sl-listbox>`);
+
+      // Initially should not have the attribute (no items)
+      expect(unconstrained.hasAttribute('data-virtual-unconstrained')).to.be.false;
+
+      // Set options to trigger virtual list
+      unconstrained.options = options;
+      unconstrained.optionLabelPath = 'label';
+      unconstrained.optionSelectedPath = 'selected';
+      unconstrained.optionValuePath = 'value';
+
+      // Wait for all updates
+      await unconstrained.updateComplete;
+      await waitForVirtualizer();
+
+      // Now should have the attribute
+      expect(unconstrained.querySelector('sl-virtual-list')).to.exist;
+      expect(unconstrained.hasAttribute('data-virtual-unconstrained')).to.be.true;
+
+      // Verify CSS fallback is applied
+      const computedStyle = getComputedStyle(unconstrained);
+      expect(computedStyle.maxBlockSize).to.not.equal('none');
+    });
+
+    it('should allow consumers to override the fallback with inline styles', async () => {
+      const withHeight = await fixture<Listbox>(html`
+        <sl-listbox style="height: 30rem"></sl-listbox>
+      `);
+
+      // Set options to trigger virtual list
+      withHeight.options = options;
+      withHeight.optionLabelPath = 'label';
+      withHeight.optionValuePath = 'value';
+
+      await withHeight.updateComplete;
+      await waitForVirtualizer();
+
+      // Should NOT have attribute when consumer sets explicit inline height
+      // This prevents the CSS fallback from clamping the consumer's height
+      expect(withHeight.hasAttribute('data-virtual-unconstrained')).to.be.false;
+
+      // The inline height should not be clamped
+      const computedStyle = getComputedStyle(withHeight);
+      // Height in pixels, roughly 30rem = 480px at 16px base
+      expect(parseFloat(computedStyle.height)).to.be.greaterThan(400);
+    });
+
+    it('should respect CSS-set max-height constraints', async () => {
+      // Add CSS rule to document
+      const style = document.createElement('style');
+      style.textContent = '.custom-listbox { max-height: 25rem; }';
+      document.head.appendChild(style);
+
+      const withCssHeight = await fixture<Listbox>(html`
+        <sl-listbox class="custom-listbox"></sl-listbox>
+      `);
+
+      // Set options to trigger virtual list
+      withCssHeight.options = options;
+      withCssHeight.optionLabelPath = 'label';
+      withCssHeight.optionValuePath = 'value';
+
+      await withCssHeight.updateComplete;
+      await waitForVirtualizer();
+
+      // Should NOT have attribute when consumer sets max-height via CSS
+      // This prevents the 20rem fallback from clamping the consumer's 25rem constraint
+      expect(withCssHeight.hasAttribute('data-virtual-unconstrained')).to.be.false;
+
+      // Verify the CSS max-height is respected
+      const computedStyle = getComputedStyle(withCssHeight);
+      // 25rem = 400px at 16px base
+      expect(computedStyle.maxHeight).to.not.equal('none');
+
+      // Cleanup
+      document.head.removeChild(style);
+    });
+
+    it('should NOT prevent fallback for CSS-set height (known limitation)', async () => {
+      // Add CSS rule to document
+      const style = document.createElement('style');
+      style.textContent = '.height-listbox { height: 30rem; }';
+      document.head.appendChild(style);
+
+      const withCssHeight = await fixture<Listbox>(html`
+        <sl-listbox class="height-listbox"></sl-listbox>
+      `);
+
+      // Set options to trigger virtual list
+      withCssHeight.options = options;
+      withCssHeight.optionLabelPath = 'label';
+      withCssHeight.optionValuePath = 'value';
+
+      await withCssHeight.updateComplete;
+      await waitForVirtualizer();
+
+      // Known limitation: attribute IS applied when height is set via CSS
+      // We can't reliably detect explicit height from computed styles
+      expect(withCssHeight.hasAttribute('data-virtual-unconstrained')).to.be.true;
+
+      // This means the fallback clamps the CSS height
+      // Workaround: use inline style or max-height instead
+
+      // Cleanup
+      document.head.removeChild(style);
     });
   });
 

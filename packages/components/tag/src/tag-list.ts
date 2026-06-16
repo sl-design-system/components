@@ -138,10 +138,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => {
-      const index = elements.findIndex(el => !el.disabled);
+      const index = elements.findIndex(el => el !== this.stackTag || !el.disabled);
 
       return index === -1 ? 0 : index;
-    },
+    }
     elements: () => [
       ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none'
         ? [this.stackTag]

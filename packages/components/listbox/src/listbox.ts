@@ -345,7 +345,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   #applyFlattenedOptionAccessibility(options: Option[]): void {
     const metadata = options.map(option => ({
       group: option.closest<OptionGroup>('sl-option-group')?.label,
-      label: option.textContent?.trim() || '',
+      label: this.#getOptionLabel(option),
       option
     }));
 
@@ -358,6 +358,39 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         selected: item.option.selected
       });
     });
+
+    // Clean up stale aria-label on any options that moved out of groups.
+    // This ensures that if an option was previously grouped and had a generated
+    // aria-label, but then moved out of the group, the stale label is removed.
+    const processedOptions = new Set(metadata.map(m => m.option));
+
+    this.querySelectorAll('sl-option').forEach(option => {
+      if (!processedOptions.has(option)) {
+        const currentGroup = option.closest<OptionGroup>('sl-option-group')?.label;
+        const hasGeneratedLabel =
+          option.hasAttribute('aria-label') &&
+          option.getAttribute('aria-label')!.includes('(') &&
+          option.getAttribute('aria-label')!.includes(')');
+
+        // If option has a generated aria-label but no current group, it's stale
+        if (hasGeneratedLabel && !currentGroup) {
+          option.removeAttribute('aria-label');
+        }
+      }
+    });
+  }
+
+  #getOptionLabel(option: Option): string {
+    const assignedNodes =
+      option.shadowRoot?.querySelector('slot')?.assignedNodes({ flatten: true }) ??
+      Array.from(option.childNodes);
+
+    const label = assignedNodes
+      .map(node => node.textContent || '')
+      .join('')
+      .trim();
+
+    return label || option.innerText?.trim() || option.textContent?.trim() || '';
   }
 
   #renderItem(item: ListboxItem<T, U>, index: number): Element {
@@ -412,8 +445,10 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     option.setAttribute('aria-setsize', setSize.toString());
     option.setAttribute('aria-selected', Boolean(selected).toString());
 
-    if (group) {
+    if (group && label.trim()) {
       option.setAttribute('aria-label', `${label} (${group})`);
+    } else {
+      option.removeAttribute('aria-label');
     }
   }
 }

@@ -1515,8 +1515,8 @@ describe('sl-combobox', () => {
       });
 
       it('should not have role="group" on group wrappers', () => {
-        const listbox = el.querySelector('sl-listbox');
-        const groups = listbox?.shadowRoot?.querySelectorAll('[role="group"]');
+        // sl-option-group elements are in the light DOM, not the listbox shadow root
+        const groups = el.querySelectorAll('sl-option-group[role="group"]');
 
         expect(groups).to.have.lengthOf(0);
       });

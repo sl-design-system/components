@@ -113,4 +113,49 @@ describe('sl-listbox', () => {
       );
     });
   });
+
+  describe('slotted options accessibility', () => {
+    it('should derive grouped option aria-label from nested slotted content', async () => {
+      el = await fixture(html`
+        <sl-listbox>
+          <sl-option-group label="Group">
+            <sl-option><span>Label</span></sl-option>
+          </sl-option-group>
+        </sl-listbox>
+      `);
+      await el.updateComplete;
+
+      const option = el.querySelector<Option>('sl-option');
+
+      expect(option).to.exist;
+      expect(option).to.have.attribute('aria-label', 'Label (Group)');
+    });
+
+    it('should clear stale aria-label when option moves out of a group', async () => {
+      const listbox = await fixture<Listbox>(html`
+        <sl-listbox>
+          <sl-option-group label="Group">
+            <sl-option id="opt1">Option 1</sl-option>
+          </sl-option-group>
+          <div id="container"></div>
+        </sl-listbox>
+      `);
+      await listbox.updateComplete;
+
+      const option = listbox.querySelector<Option>('#opt1')!;
+      const container = listbox.querySelector<HTMLElement>('#container')!;
+
+      // Initially in group, should have generated aria-label and marker
+      expect(option).to.have.attribute('aria-label', 'Option 1 (Group)');
+      expect(option).to.have.attribute('data-generated-aria-label', 'true');
+
+      // Move option out of group and re-apply accessibility (public API)
+      container.appendChild(option);
+      await listbox.updateComplete;
+      listbox.applyFlattenedOptionAccessibility([option]);
+
+      // aria-label should be cleared since option is no longer in a group
+      expect(option).not.to.have.attribute('aria-label');
+    });
+  });
 });

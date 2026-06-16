@@ -43,7 +43,7 @@
   color: var(--sl-color-foreground-info-bold);
 }
 
-:host(:state(focus-visible)) {
+:host(:not([removable]):state(focus-visible)) {
   outline-color: var(--sl-color-border-focused);
   position: relative;
   z-index: 1; // Make sure the focus ring is above other elements
@@ -100,6 +100,13 @@ button {
     background: var(--sl-color-background-disabled);
     color: var(--sl-color-foreground-disabled);
     cursor: default;
+  }
+
+  &:focus-visible {
+    outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+    outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
+    position: relative;
+    z-index: 1; // Make sure the focus ring is above other elements
   }
 }
 

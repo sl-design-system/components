@@ -107,6 +107,24 @@ describe('sl-tag', () => {
       expect(button).to.match(':focus');
     });
 
+    it('should focus the remove button when tabbing to the tag', async () => {
+      const wrapper = await fixture<HTMLDivElement>(html`
+          <div>
+            <button>Before</button>
+            <sl-tag removable>My label</sl-tag>
+          </div>
+        `),
+        before = wrapper.querySelector('button')!,
+        tag = wrapper.querySelector('sl-tag')!,
+        removeButton = tag.renderRoot.querySelector('button')!;
+
+      before.focus();
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(tag);
+      expect(tag.shadowRoot?.activeElement).to.equal(removeButton);
+    });
+
     it('should have an accessible label on the remove button', () => {
       expect(button).to.have.attribute('aria-label', "Remove tag 'My label'");
     });
@@ -132,6 +150,16 @@ describe('sl-tag', () => {
       await el.updateComplete;
 
       button.click();
+      await el.updateComplete;
+
+      expect(onRemove).not.to.have.been.called;
+    });
+
+    it('should not be removed when the label is clicked', async () => {
+      const onRemove = spy(el, 'remove'),
+        label = el.renderRoot.querySelector<HTMLElement>('[part="label"]')!;
+
+      label.click();
       await el.updateComplete;
 
       expect(onRemove).not.to.have.been.called;

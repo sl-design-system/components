@@ -1,0 +1,161 @@
+---js
+{
+  layout: 'design-tokens',
+  pagination: {
+    data: 'designTokens',
+    size: 1,
+    alias: 'category',
+    addAllPagesToCollections: true
+  },
+  permalink: data => `design-tokens/${data.category.slug}/index.html`,
+  eleventyComputed: {
+    title: data => data.category.title,
+    eleventyNavigation: {
+      key: data => data.category.title,
+      parent: 'Design tokens',
+      order: data => data.category.order,
+      icon: data => data.category.icon
+    }
+  }
+}
+---
+
+{% macro tokenTable(tokens, category) %}
+{% set isColor = category.category === 'color' %}
+<table class="token-table">
+  <thead>
+    <tr>
+      <th>Preview</th>
+      <th>Token</th>
+      {% if not isColor %}<th>Value</th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for token in tokens %}
+    <tr>
+      <td class="token-preview">
+        {% if token.swatch %}
+          <span class="swatch" style="background: {{ token.swatch }}"></span>
+        {% elif token.shadow %}
+          <span class="swatch shadow" style="box-shadow: {{ token.shadow }}"></span>
+        {% elif category.category === 'size' or category.category === 'space' %}
+          <span class="bar" style="inline-size: {{ token.value }}"></span>
+        {% else %}
+          <span class="muted">—</span>
+        {% endif %}
+      </td>
+      <td class="token-name">
+        {% if isColor %}
+          <code>{{ token.cssVariable }}</code>
+        {% else %}
+          <code>{{ token.name }}</code>
+          <code class="token-css-var">{{ token.cssVariable }}</code>
+        {% endif %}
+        {% if token.description %}<p class="token-description">{{ token.description }}</p>{% endif %}
+      </td>
+      {% if not isColor %}
+      <td class="token-value">
+        <span class="value">{{ token.value }}</span>
+        {% if token.reference %}<span class="token-alias">alias of <code>{{ token.reference }}</code></span>{% endif %}
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endmacro %}
+
+<p>
+  The {{ category.title | lower }} design tokens for the Sanoma Learning theme. Each token is
+  documented once, with its name, the matching CSS custom property and its resolved value.
+</p>
+
+{% if category.groups %}
+  {% if category.leadTokens.length %}
+{{ tokenTable(category.leadTokens, category) }}
+  {% endif %}
+  {% for group in category.groups %}
+<h2>{{ group.title }}</h2>
+{{ tokenTable(group.tokens, category) }}
+  {% endfor %}
+{% else %}
+{{ tokenTable(category.tokens, category) }}
+{% endif %}
+
+<style>
+  .token-table {
+    border-collapse: collapse;
+    inline-size: 100%;
+  }
+
+  .token-table th,
+  .token-table td {
+    border-block-end: 1px solid var(--sl-color-border-subtlest, #e0e0e0);
+    padding: var(--sl-size-150, 12px) var(--sl-size-200, 16px);
+    text-align: start;
+    vertical-align: middle;
+  }
+
+  .token-preview {
+    inline-size: 80px;
+  }
+
+  .token-preview .swatch {
+    block-size: 40px;
+    border: 1px solid var(--sl-color-border-subtlest, #e0e0e0);
+    border-radius: var(--sl-size-borderRadius-sm, 4px);
+    display: inline-block;
+    inline-size: 40px;
+    vertical-align: middle;
+  }
+
+  .token-preview .swatch.shadow {
+    background: var(--sl-elevation-surface-raised-default, #fff);
+    border: 0;
+  }
+
+  .token-preview .bar {
+    background: var(--sl-color-background-accent-blue-bold, #3366ff);
+    block-size: 16px;
+    border-radius: 2px;
+    display: inline-block;
+    max-inline-size: 100%;
+    min-inline-size: 1px;
+    vertical-align: middle;
+  }
+
+  .token-preview .muted {
+    color: var(--sl-color-foreground-subtlest, #999);
+  }
+
+  .token-name {
+    gap: var(--sl-size-050, 4px);
+  }
+
+  .token-name code {
+    inline-size: fit-content;
+  }
+
+  .token-css-var,
+  .token-alias,
+  .token-description {
+    color: var(--sl-color-foreground-subtle, #666);
+    font-size: var(--sl-text-body-sm, 0.875rem);
+  }
+
+  .token-table .token-description {
+    margin: 0;
+  }
+
+  .token-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .token-value .value {
+    display: block;
+  }
+
+  .token-alias {
+    display: block;
+  }
+</style>

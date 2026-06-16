@@ -8,6 +8,7 @@ import { anchorHeadingsTransformer } from './src/transformers/anchor-headings.js
 import { codeExamplesTransformer } from './src/transformers/code-examples.js';
 import { highlightCodeTransformer } from './src/transformers/highlight-code.js';
 import { searchPlugin } from './src/plugins/search.js';
+import { buildDesignTokens, designTokenIcons } from './src/utils/design-tokens.js';
 import { getComponents, getCustomElements } from './src/utils/manifest.js';
 import { markdown } from './src/utils/markdown.js';
 
@@ -20,6 +21,10 @@ export default async function (eleventyConfig) {
     customElements = await getCustomElements();
 
   eleventyConfig.addGlobalData('customElements', customElements);
+
+  // Design token documentation, grouped by category and generated from the
+  // token JSON in packages/tokens. See src/utils/design-tokens.js.
+  eleventyConfig.addGlobalData('designTokens', buildDesignTokens());
 
   eleventyConfig.addPassthroughCopy({ 'src/assets': 'assets' });
   eleventyConfig.addPassthroughCopy({ 'src/css': 'css' });
@@ -133,6 +138,10 @@ export default async function (eleventyConfig) {
         icons.add(iconMatch[1]);
       }
     }
+
+    // The design token pages are generated from a template, so their nav icons
+    // aren't picked up by the frontmatter scan above; register them explicitly.
+    designTokenIcons.forEach(icon => icons.add(icon));
 
     // Generate icon registration module
     let iconsJs = '// Auto-generated from page frontmatter icons\n';

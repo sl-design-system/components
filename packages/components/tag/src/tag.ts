@@ -147,12 +147,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               @blur=${this.#onBlur}
               @click=${this.#onRemove}
               @focus=${this.#onFocus}
-              @keydown=${this.#onKeydown}
               aria-describedby=${ifDefined(
-                this.navigationDescription ? 'navigation-description' : undefined
+                [
+                  this.tooltip ? 'tooltip' : undefined,
+                  this.navigationDescription ? 'navigation-description' : undefined
+                ]
+                  .filter(Boolean)
+                  .join(' ') || undefined
               )}
-              aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
-              aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
               part="button"
               type="button">
               <sl-icon name="xmark"></sl-icon>

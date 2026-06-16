@@ -223,6 +223,33 @@ describe('sl-tag-list', () => {
       expect(tabindexes).to.deep.equal([0, -1, -1, -1, -1, -1, -1, -1, -1]);
     });
 
+    it('should not use a disabled stack tag as the initial tab stop', async () => {
+      el = await fixture(html`
+        <sl-tag-list disabled stacked style="inline-size: 200px;">
+          <sl-tag disabled removable>My label 1</sl-tag>
+          <sl-tag disabled removable>My label 2</sl-tag>
+          <sl-tag disabled removable>My label 3</sl-tag>
+          <sl-tag disabled removable>My label 4</sl-tag>
+          <sl-tag disabled removable>My label 5</sl-tag>
+          <sl-tag disabled removable>My label 6</sl-tag>
+          <sl-tag disabled removable>My label 7</sl-tag>
+          <sl-tag disabled removable>My label 8</sl-tag>
+        </sl-tag-list>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 60));
+
+      const stackTag = el.renderRoot.querySelector('sl-tag')!,
+        visibleTag = Array.from(el.querySelectorAll('sl-tag')).find(
+          tag => getComputedStyle(tag).display !== 'none'
+        );
+
+      expect(stackTag).to.have.attribute('disabled');
+      expect(stackTag.tabIndex).to.equal(-1);
+      expect(visibleTag).to.exist;
+      expect(visibleTag?.tabIndex).to.equal(0);
+    });
+
     it('should not have a stack when there is enough space', async () => {
       // Give the `#breakResizeObserverLoop` time to do its thing
       await new Promise(resolve => setTimeout(resolve, 60));

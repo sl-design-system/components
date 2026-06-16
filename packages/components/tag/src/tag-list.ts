@@ -141,7 +141,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       const index = elements.findIndex(el => el !== this.stackTag || !el.disabled);
 
       return index === -1 ? 0 : index;
-    }
+    },
     elements: () => [
       ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none'
         ? [this.stackTag]

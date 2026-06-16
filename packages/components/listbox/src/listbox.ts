@@ -1,9 +1,9 @@
-import { LitVirtualizer } from '@lit-labs/virtualizer/LitVirtualizer.js';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { VirtualList } from '@sl-design-system/virtual-list';
 import {
   type CSSResultGroup,
   LitElement,
@@ -20,7 +20,7 @@ import { Option, type OptionEmphasis } from './option.js';
 declare global {
   interface HTMLElementTagNameMap {
     'sl-listbox': Listbox;
-    'lit-virtualizer': LitVirtualizer;
+    'sl-virtual-list': VirtualList;
   }
 
   interface ShadowRoot {
@@ -65,7 +65,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'lit-virtualizer': LitVirtualizer,
+      'sl-virtual-list': VirtualList,
       'sl-option': Option,
       'sl-option-group-header': OptionGroupHeader
     };
@@ -74,8 +74,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The virtualizer instance when the `options` property is set. */
-  #virtualizer?: LitVirtualizer;
+  /** The virtual list instance when the `options` or `items` property is set. */
+  #virtualizer?: VirtualList<ListboxItem<T, U>>;
 
   /**
    * The emphasis of the selected options in the listbox.
@@ -85,8 +85,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) emphasis?: ListboxEmphasis;
 
   /**
-   * Use this property if you want to have full control over how the items are rendered using
-   * lit-virtualizer. You are expected to provide an array of ListboxItem<T, U> and most likely will
+   * Use this property if you want to have full control over how the items are rendered using a
+   * virtual list. You are expected to provide an array of ListboxItem<T, U> and most likely will
    * also want to provide a custom `renderer`.
    *
    * Only use this property if you know what you are doing. If you are unsure about using this
@@ -134,6 +134,15 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     this.setAttribute('role', 'listbox');
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    // Ensure attribute is set on first render if we have items, unless consumer set height
+    if (this.items && this.items.length > 0) {
+      this.#updateVirtualConstraintAttribute();
+    }
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -146,9 +155,57 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     ) {
       if (this.options) {
         this.items = this.#prepareOptions(this.options);
+        // Update attribute after setting items
+        this.#updateVirtualConstraintAttribute();
       } else if (changes.get('options')) {
-        this.items = [];
+        this.items = undefined;
+        this.removeAttribute('data-virtual-unconstrained');
       }
+    }
+
+    // Also handle direct items assignment
+    if (changes.has('items')) {
+      this.#updateVirtualConstraintAttribute();
+    }
+  }
+
+  #updateVirtualConstraintAttribute(): void {
+    // Only apply fallback constraint if:
+    // 1. We have items (virtual list will be used)
+    // 2. Consumer hasn't set explicit height constraints (inline or via CSS)
+
+    // Temporarily remove attribute to check computed styles without our CSS rule applying
+    // This avoids circular dependency where our CSS rule affects the detection
+    this.removeAttribute('data-virtual-unconstrained');
+
+    // Check inline styles first (highest priority)
+    const hasInlineHeightConstraint = !!(
+      this.style.height ||
+      this.style.blockSize ||
+      this.style.maxHeight ||
+      this.style.maxBlockSize
+    );
+
+    // Check computed styles to catch CSS-set constraints (without our fallback interfering)
+    let hasComputedHeightConstraint = false;
+    if (!hasInlineHeightConstraint) {
+      const computed = getComputedStyle(this);
+      // Check if max-height or max-block-size is set (not 'none')
+      // Note: We can't reliably detect explicit height from computed styles
+      // (getComputedStyle().height always returns pixels, not 'auto').
+      // Consumers should use max-height in CSS or inline styles for height.
+      hasComputedHeightConstraint =
+        computed.maxHeight !== 'none' || computed.maxBlockSize !== 'none';
+    }
+
+    // Set attribute if no constraints found
+    if (
+      this.items &&
+      this.items.length > 0 &&
+      !hasInlineHeightConstraint &&
+      !hasComputedHeightConstraint
+    ) {
+      this.setAttribute('data-virtual-unconstrained', '');
     }
   }
 
@@ -157,30 +214,41 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       this.#propagateEmphasis();
     }
 
-    if (changes.has('items')) {
-      if (this.items) {
-        this.#virtualizer ||= this.shadowRoot!.createElement('lit-virtualizer');
-        this.#virtualizer.items = (this.items ?? []) as unknown[];
-        this.#virtualizer.renderItem = (item: unknown, index: number) =>
-          (this.renderer?.(item as ListboxItem<T, U>, index) ??
-            this.#renderItem(item as ListboxItem<T, U>, index)) as unknown as TemplateResult;
+    // Check for options/items changes - items is set in willUpdate() so won't appear in changes
+    const itemsChanged = changes.has('options') || changes.has('items');
 
+    if (itemsChanged) {
+      if (this.items) {
+        const renderer = this.renderer;
+
+        this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
+        this.#virtualizer.items = this.items ?? [];
+        this.#virtualizer.scrollMargin = 0;
+        const gapValue = parseFloat(getComputedStyle(this).gap);
+        this.#virtualizer.gap = Number.isFinite(gapValue) ? gapValue : 0;
+        this.#virtualizer.overscan = 3;
+        this.#virtualizer.renderItem = (item: unknown, index: number) =>
+          renderer
+            ? renderer(item as ListboxItem<T, U>, index)
+            : this.#renderItem(item as ListboxItem<T, U>, index);
         if (!this.#virtualizer.parentElement) {
           this.prepend(this.#virtualizer);
         }
-      } else if (changes.get('items')) {
+      } else if (changes.get('items') || changes.get('options')) {
         this.#virtualizer?.remove();
         this.#virtualizer = undefined;
       }
     }
 
     if (changes.has('renderer') && this.#virtualizer) {
-      if (this.renderer) {
+      const renderer = this.renderer;
+
+      if (renderer) {
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
-          this.renderer?.(item as ListboxItem<T, U>, index) as TemplateResult;
+          renderer(item as ListboxItem<T, U>, index);
       } else {
         this.#virtualizer.renderItem = (item: unknown, index: number) =>
-          this.#renderItem(item as ListboxItem<T, U>, index) as unknown as TemplateResult;
+          this.#renderItem(item as ListboxItem<T, U>, index);
       }
     }
   }
@@ -189,14 +257,69 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     return html`<slot @slotchange=${this.#propagateEmphasis}></slot>`;
   }
 
+  /**
+   * Request a layout update for the virtual list. Call this method after the listbox becomes
+   * visible (for example, when a popover opens) to ensure item positions are measured correctly.
+   */
+  async requestLayout(): Promise<void> {
+    if (this.#virtualizer && this.items) {
+      await this.#virtualizer.requestLayout();
+    }
+  }
+
+  /**
+   * Scrolls to the item at the specified index.
+   *
+   * @remarks
+   *   **Indexing semantics differ between rendering modes:**
+   *
+   *   - **Virtualized (via `options` or `items` properties):** Index refers to the `items` array,
+   *     which may include both options and option-group headers. Only `block` and `behavior`
+   *     options are supported; `inline` is ignored.
+   *   - **Slotted (declarative `<sl-option>` elements):** Index refers only to visible `<sl-option>`
+   *     elements, excluding group headers and hidden options.
+   *
+   * @param index - The zero-based index into the items/options array (see remarks for details)
+   * @param options - Scroll options
+   */
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
+    // Guard against negative and out-of-range indices
+    if (!Number.isInteger(index) || index < 0) {
+      return;
+    }
+
     if (this.#virtualizer) {
-      this.#virtualizer.element(index)?.scrollIntoView(options);
+      // Check if index is within range for virtual list
+      if (!this.items || index >= this.items.length) {
+        return;
+      }
+
+      const alignMap: Record<
+          NonNullable<ScrollIntoViewOptions['block']>,
+          'start' | 'center' | 'end' | 'auto'
+        > = {
+          center: 'center',
+          end: 'end',
+          nearest: 'auto',
+          start: 'start'
+        },
+        block = options?.block ?? 'start',
+        behavior = options?.behavior === 'instant' ? 'auto' : options?.behavior;
+      this.#virtualizer.scrollToIndex(index, {
+        align: alignMap[block],
+        behavior
+      });
     } else {
-      Array.from(this.querySelectorAll('sl-option'))
-        .filter(el => el.style.display !== 'none')
-        .at(index)
-        ?.scrollIntoView(options);
+      const visibleOptions = Array.from(this.querySelectorAll('sl-option')).filter(
+        el => el.style.display !== 'none'
+      );
+
+      // Check if index is within range
+      if (index >= visibleOptions.length) {
+        return;
+      }
+
+      visibleOptions[index]?.scrollIntoView(options);
     }
   }
 

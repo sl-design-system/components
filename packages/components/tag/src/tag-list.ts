@@ -389,7 +389,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.tags.forEach(tag => {
       tag.navigationDescription = navigationDescription;
-      tag.role = 'listitem';
       tag.size = this.size;
       tag.variant = this.variant;
       tag.setAttribute('role', 'listitem');

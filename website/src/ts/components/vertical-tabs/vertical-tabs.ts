@@ -30,8 +30,6 @@ export class VerticalTabs extends LitElement {
   /** Used to render vertical links content - tagElement is a source of links text, H2 is the default */
   @property() tagElement = 'H2';
 
-  nextUniqueId = 0;
-
   observer = new IntersectionObserver(
     entries => {
       let updated = false;
@@ -141,16 +139,17 @@ export class VerticalTabs extends LitElement {
       <div vertical class="ds-tabs">
         <div class="ds-tabs__container">
           <nav class="ds-tabs-wrapper" aria-label="Contents">
-            ${links.map(
-              (variant: Element | null) =>
-                html` <a
-                  href=${`#${variant?.id}`}
-                  class="ds-tab--vertical"
-                  id=${`ds-vertical-tab-${this.nextUniqueId++}`}
-                  @click=${this.#onClick}
-                  >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
-                >`
-            )}
+            ${links.map((variant: Element | null, index) => {
+              const id = variant?.id ? `ds-vertical-tab-${variant.id}` : `ds-vertical-tab-${index}`;
+
+              return html` <a
+                href=${`#${variant?.id}`}
+                class="ds-tab--vertical"
+                id=${id}
+                @click=${this.#onClick}
+                >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
+              >`;
+            })}
           </nav>
           <div class="ds-tabs__vertical-slider">
             <div class="ds-tabs__vertical-indicator"></div>

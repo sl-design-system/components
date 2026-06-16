@@ -81,6 +81,12 @@ describe('sl-tag', () => {
       expect(tag).to.match(':state(focus-visible)');
       expect(getComputedStyle(tag).outlineColor).to.equal('rgb(1, 2, 3)');
     });
+
+    it('should respect the host tabindex on the label wrapper', async () => {
+      const tag = await fixture<Tag>(html`<sl-tag tabindex="-1">My label</sl-tag>`);
+
+      expect(tag.renderRoot.querySelector('[part="label"]')).to.have.attribute('tabindex', '-1');
+    });
   });
 
   describe('removable', () => {

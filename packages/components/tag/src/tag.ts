@@ -148,8 +148,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const hasTabindex =
-        !this.disabled && !this.removable && (this.tooltip || this.hasAttribute('tabindex')),
+    const labelTabIndex =
+        !this.disabled && !this.removable
+          ? this.hasAttribute('tabindex')
+            ? this.tabIndex.toString()
+            : this.tooltip
+              ? '0'
+              : undefined
+          : undefined,
       buttonDescription = [
         this.tooltip ? 'tooltip' : undefined,
         this.navigationDescription ? 'navigation-description' : undefined
@@ -164,7 +170,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         @focus=${this.#onFocus}
         aria-describedby=${ifDefined(this.tooltip ? 'tooltip' : undefined)}
         part="label"
-        tabindex=${ifDefined(hasTabindex ? '0' : undefined)}>
+        tabindex=${ifDefined(labelTabIndex)}>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
       ${this.removable

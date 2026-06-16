@@ -663,7 +663,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.input.setSelectionRange(value.length, item.label.length);
       }
     } else {
-      item = this.items.find(option => option.value === value);
+      item = this.#findItemByValue(value as U);
     }
 
     if (this.allowCustomValues && !item) {
@@ -768,7 +768,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index]);
+      this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
+      // This setup now ignores prefers-reduced-motion and can cause unwanted motion for users who explicitly disable animations.
+      // When the reliability issue is resolved, we should switch back to using 'auto' and respect prefers-reduced-motion again.
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -902,7 +904,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         const index = this.items.findIndex(i => i.selected);
 
         if (index !== -1) {
-          this.listbox?.scrollToIndex(index, { block: 'nearest' });
+          this.listbox?.scrollToIndex(index, { block: 'start' }); // ideally we would use `nearest` here, but Safari and Firefox don't support it, causing inconsistency in scroll behavior across browsers.
         } else {
           this.listbox?.scrollIntoView({ block: 'start' });
         }
@@ -1069,6 +1071,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       el.id = groupedItem.id;
       el.innerText = groupedItem.label;
       el.selected = true;
+      el.setAttribute('aria-selected', 'true');
 
       if (!el.parentElement) {
         this.#selectedGroup?.append(el);
@@ -1098,6 +1101,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       item.element?.remove();
       item.element = undefined;
     }
+    this.#updateCurrent(this.items.find(i => i.id === item.id));
 
     if (this.selectedItems.length === 0) {
       this.#removeSelectedGroup();
@@ -1188,7 +1192,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.selectedItems.forEach(item => this.#removeSelectedOption(item));
       this.selectedItems = [item];
     }
-
     if (item.element instanceof Option) {
       item.element.selected = item.selected;
       item.element.style.display = item.visible ? '' : 'none';
@@ -1239,6 +1242,42 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     return [];
+  }
+
+  #isEqualValue(a: U | undefined, b: U | undefined): boolean {
+    if (a === b) {
+      return true;
+    }
+
+    if (this.#isStringCoercibleValue(a) && this.#isStringCoercibleValue(b)) {
+      return a.toString() === b.toString();
+    }
+
+    return false;
+  }
+
+  #isStringCoercibleValue(value: unknown): value is string | number | boolean | bigint {
+    switch (typeof value) {
+      case 'bigint':
+      case 'boolean':
+      case 'number':
+      case 'string':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  #findItemByValue(
+    value: U | undefined,
+    predicate: (item: ComboboxItem<T, U>) => boolean = () => true
+  ): ComboboxItem<T, U> | undefined {
+    return (
+      this.items.find(item => item.type === 'option' && predicate(item) && item.value === value) ??
+      this.items.find(
+        item => item.type === 'option' && predicate(item) && this.#isEqualValue(item.value, value)
+      )
+    );
   }
 
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {
@@ -1391,25 +1430,43 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /** Updates the options to reflect the current one. */
-  #updateCurrent(option?: ComboboxItem<T, U>): void {
+  #updateCurrent(option?: ComboboxItem<T, U>, scrollBehaviour: ScrollBehavior = 'instant'): void {
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
+
+      // Clear from tracked element (works for virtual list elements in shadow root)
+      this.currentItem.element?.removeAttribute('current');
+      // Also try querySelector for non-virtual case as fallback
       this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 
-    this.currentItem = option;
+    if (!option || !option.visible) {
+      this.currentItem = undefined;
+      return;
+    }
 
+    this.currentItem = option;
     if (this.currentItem) {
       this.currentItem.current = true;
 
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
-      if (this.currentItem.element) {
+      // Check if element exists and is still connected (not a stale, disconnected element from virtualization)
+      if (this.currentItem.element?.isConnected) {
+        // Element exists and is connected, use scrollIntoView (avoid duplicate scrolling)
         this.currentItem.element.setAttribute('current', '');
-        this.currentItem.element.scrollIntoView({ block: 'nearest' });
+        this.currentItem.element.scrollIntoView({ block: 'start', behavior: scrollBehaviour });
       } else {
-        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });
+        // Element doesn't exist or is disconnected (virtual list), use scrollToIndex
+        // Use the listbox's items (filtered) to get the correct index
+        const index = this.listbox?.items?.indexOf(this.currentItem) ?? -1;
+        if (index !== -1) {
+          this.listbox?.scrollToIndex(index, {
+            block: 'start',
+            behavior: scrollBehaviour
+          });
+        }
       }
     }
   }
@@ -1460,13 +1517,28 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.selectedItems.forEach(item => this.#removeSelectedOption(item));
     this.selectedItems = [];
 
-    this.items.forEach(item => {
-      if (this.multiple && (this.value as U[])?.includes(item.value!)) {
-        this.#addSelectedOption(item);
-      } else if (item.value === this.value) {
+    if (this.multiple) {
+      if (!Array.isArray(this.value)) {
+        return;
+      }
+
+      const selectedItems = new Set<ComboboxItem<T, U>>();
+      this.value.forEach(value => {
+        const item = this.#findItemByValue(value, item => !selectedItems.has(item));
+
+        if (item) {
+          selectedItems.add(item);
+        }
+      });
+
+      selectedItems.forEach(item => this.#addSelectedOption(item));
+    } else {
+      const item = this.#findItemByValue(this.value as U | undefined);
+
+      if (item) {
         this.#addSelectedOption(item);
       }
-    });
+    }
   }
 
   /** Update the value in the text field. */
@@ -1493,8 +1565,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     const isValueEqual = this.multiple
       ? Array.isArray(this.value) &&
         this.value.length === values.length &&
-        values.every(v => (this.value as U[]).includes(v))
-      : this.value === values[0];
+        values.every(v => (this.value as U[]).some(value => this.#isEqualValue(value, v)))
+      : this.#isEqualValue(this.value as U | undefined, values[0]);
 
     // Do nothing if the value hasn't changed
     if (isValueEqual) {

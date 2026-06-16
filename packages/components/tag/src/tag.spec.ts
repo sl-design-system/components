@@ -75,7 +75,10 @@ describe('sl-tag', () => {
 
       tag.focus({ focusVisible: true } as FocusOptions);
       expect(document.activeElement).to.equal(tag);
-      expect(tag).to.match(':focus-visible');
+      expect(tag.shadowRoot?.activeElement).to.equal(
+        tag.renderRoot.querySelector('[part="label"]')
+      );
+      expect(tag).to.match(':state(focus-visible)');
       expect(getComputedStyle(tag).outlineColor).to.equal('rgb(1, 2, 3)');
     });
   });

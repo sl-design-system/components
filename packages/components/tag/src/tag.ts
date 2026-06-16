@@ -54,6 +54,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
+  /** @internal */
   #internals = this.attachInternals();
 
   /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
@@ -102,6 +108,15 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) variant?: TagVariant;
 
+  override get tabIndex(): number {
+    return super.tabIndex;
+  }
+
+  override set tabIndex(tabIndex: number) {
+    super.tabIndex = tabIndex;
+    this.#syncButtonTabIndex();
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -128,8 +143,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  protected override updated(): void {
+    this.#syncButtonTabIndex();
+  }
+
   override render(): TemplateResult {
-    const hasTabindex = !this.disabled && !this.removable && this.tooltip,
+    const hasTabindex =
+        !this.disabled && !this.removable && (this.tooltip || this.hasAttribute('tabindex')),
       buttonDescription = [
         this.tooltip ? 'tooltip' : undefined,
         this.navigationDescription ? 'navigation-description' : undefined
@@ -203,6 +223,24 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     // Emit remove event *before* removing the tag, so consumers can react to the event.
     this.removeEvent.emit();
     this.remove();
+  }
+
+  #syncButtonTabIndex(): void {
+    const button = this.renderRoot.querySelector<HTMLButtonElement>('button');
+
+    if (!button) {
+      return;
+    }
+
+    if (this.navigationDescription) {
+      if (button.matches(':focus') && this.tabIndex === -1) {
+        return;
+      }
+
+      button.tabIndex = this.tabIndex;
+    } else {
+      button.removeAttribute('tabindex');
+    }
   }
 
   #onResize(): void {

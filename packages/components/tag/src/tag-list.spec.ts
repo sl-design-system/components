@@ -113,6 +113,40 @@ describe('sl-tag-list', () => {
       ).to.have.trimmed.text('Use arrow keys to move between removable tags.');
     });
 
+    it('should use a single tab stop for removable tag buttons', async () => {
+      el = await fixture(html`
+        <div>
+          <button>Before</button>
+          <sl-tag-list>
+            <sl-tag removable>My label 1</sl-tag>
+            <sl-tag removable>My label 2</sl-tag>
+            <sl-tag removable>My label 3</sl-tag>
+          </sl-tag-list>
+          <button>After</button>
+        </div>
+      `).then(wrapper => wrapper.querySelector('sl-tag-list')!);
+
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const wrapper = el.parentElement!,
+        before = wrapper.querySelector('button')!,
+        after = wrapper.querySelector('button:last-child')!,
+        tags = Array.from(el.querySelectorAll('sl-tag')),
+        buttons = tags.map(tag => tag.renderRoot.querySelector('button')!);
+
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, -1, -1]);
+
+      before.focus();
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(tags[0]);
+      expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(after);
+    });
+
     it('should resync the navigation description when the list updates', async () => {
       const tag = el.querySelector('sl-tag')!;
 

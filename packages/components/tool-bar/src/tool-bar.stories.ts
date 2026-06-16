@@ -780,14 +780,26 @@ export const Examples: Story = {
             ${filteringAndSorting}
           </sl-tool-bar>
 
-          <sl-tool-bar
-            aria-label="Filtering and sorting"
-            inverted
-            fill="ghost"
-            style="inline-size: fit-content">
-            ${filteringAndSorting}
-          </sl-tool-bar>
+          <div
+            style="background: var(--sl-elevation-surface-raised-primary);  padding: var(--sl-size-100); inline-size: fit-content;">
+            <sl-tool-bar
+              aria-label="Filtering and sorting"
+              inverted
+              fill="ghost"
+              style="inline-size: fit-content;">
+              ${filteringAndSorting}
+            </sl-tool-bar>
+          </div>
         </div>
+        <p>
+          This last example has put in a div with extra padding for demonstration purposes. This
+          prevents the white focus outline that overflows the toolbar from being invisible on the
+          white background.
+        </p>
+        <p>
+          Make sure that a toolbar with the inverted variant is on a dark background, because
+          otherwise the focus outline will not be sufficiently visible against the background.
+        </p>
       </div>
     `;
   }

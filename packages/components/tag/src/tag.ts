@@ -129,7 +129,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const hasTabindex = !this.disabled && !this.removable && this.tooltip;
+    const hasTabindex = !this.disabled && !this.removable && this.tooltip,
+      buttonDescription = [
+        this.tooltip ? 'tooltip' : undefined,
+        this.navigationDescription ? 'navigation-description' : undefined
+      ]
+        .filter(Boolean)
+        .join(' ');
 
     return html`
       ${this.tooltip ? html`<sl-tooltip id="tooltip">${this.label}</sl-tooltip>` : nothing}
@@ -147,14 +153,10 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               @blur=${this.#onBlur}
               @click=${this.#onRemove}
               @focus=${this.#onFocus}
-              aria-describedby=${ifDefined(
-                [
-                  this.tooltip ? 'tooltip' : undefined,
-                  this.navigationDescription ? 'navigation-description' : undefined
-                ]
-                  .filter(Boolean)
-                  .join(' ') || undefined
-              )}
+              @keydown=${this.#onKeydown}
+              aria-describedby=${ifDefined(buttonDescription || undefined)}
+              aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+              aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
               part="button"
               type="button">
               <sl-icon name="xmark"></sl-icon>

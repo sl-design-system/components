@@ -246,12 +246,23 @@ describe('sl-tag', () => {
       el.focus();
       await el.updateComplete;
 
-      const label = el.renderRoot.querySelector('[part="label"]')!;
+      const label = el.renderRoot.querySelector('[part="label"]')!,
+        button = el.renderRoot.querySelector('button')!;
+
       expect(label).to.have.attribute('aria-describedby');
+      expect(button).to.have.attribute('aria-describedby', 'tooltip');
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
       expect(tooltip).to.have.trimmed.text('My label is very long');
+    });
+
+    it('should include both the tooltip and navigation description on the remove button', async () => {
+      el.navigationDescription = 'Use arrow keys to move between removable tags.';
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector('button')!;
+      expect(button).to.have.attribute('aria-describedby', 'tooltip navigation-description');
     });
 
     it('should update the tooltip when the label changes without resizing', async () => {

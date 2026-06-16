@@ -234,6 +234,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         const renderer = this.renderer;
 
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
+        this.#virtualizer.setAttribute('data-virtual-list', '');
         this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.scrollMargin = 0;
         const gapValue = parseFloat(getComputedStyle(this).gap);
@@ -562,8 +563,13 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
     if (group && label.trim()) {
       option.setAttribute('aria-label', `${label} (${group})`);
+      option.setAttribute('data-generated-aria-label', 'true');
     } else {
-      option.removeAttribute('aria-label');
+      if (option.getAttribute('data-generated-aria-label') === 'true') {
+        option.removeAttribute('aria-label');
+      }
+
+      option.removeAttribute('data-generated-aria-label');
     }
   }
 }

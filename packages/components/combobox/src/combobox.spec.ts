@@ -1533,8 +1533,18 @@ describe('sl-combobox', () => {
         const headers = el.items
           .filter(item => item.type === 'group')
           .map(item => item.element)
-          .filter((header): header is HTMLElement => header instanceof HTMLElement)
-          .filter(header => header.closest('sl-listbox') === listbox);
+          .filter(
+            (header): header is NonNullable<Combobox['items'][number]['element']> =>
+              header !== undefined
+          )
+          .filter(header => {
+            const root = header.getRootNode();
+
+            return (
+              header.closest('sl-listbox') === listbox ||
+              (root instanceof ShadowRoot && root.host.hasAttribute('data-virtual-list'))
+            );
+          });
 
         expect(headers).to.have.lengthOf(2);
 
@@ -1553,9 +1563,19 @@ describe('sl-combobox', () => {
         const options = el.items
           .filter(item => 'option' in item)
           .map(item => item.element)
-          .filter((option): option is HTMLElement => option instanceof HTMLElement)
-          .filter(option => option.tagName === 'SL-OPTION')
-          .filter(option => option.closest('sl-listbox') === listbox);
+          .filter(
+            (option): option is NonNullable<Combobox['items'][number]['element']> =>
+              option !== undefined
+          )
+          .filter(option => option.getAttribute('role') === 'option')
+          .filter(option => {
+            const root = option.getRootNode();
+
+            return (
+              option.closest('sl-listbox') === listbox ||
+              (root instanceof ShadowRoot && root.host.hasAttribute('data-virtual-list'))
+            );
+          });
 
         expect(options).to.have.lengthOf(4);
 

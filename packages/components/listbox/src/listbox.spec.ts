@@ -13,6 +13,13 @@ const waitForVirtualizer = async (): Promise<void> => {
   await waitForNextFrame();
 };
 
+const getVirtualizer = (listbox: Listbox): Element | undefined =>
+  Array.from(listbox.children).find(
+    child =>
+      child.hasAttribute('data-virtual-list') ||
+      child.tagName.toLowerCase().includes('virtual-list')
+  );
+
 describe('sl-listbox', () => {
   let el: Listbox;
 
@@ -40,7 +47,7 @@ describe('sl-listbox', () => {
     }));
 
     const queryVirtualized = <T extends Element = Element>(selector: string): T[] => {
-      const virtualList = el.querySelector('sl-virtual-list');
+      const virtualList = getVirtualizer(el);
 
       return Array.from(virtualList?.shadowRoot?.querySelectorAll<T>(selector) ?? []);
     };
@@ -60,7 +67,7 @@ describe('sl-listbox', () => {
     });
 
     it('should render a virtualizer', () => {
-      expect(el.querySelector('sl-virtual-list')).to.exist;
+      expect(getVirtualizer(el)).to.exist;
     });
 
     it('should render options for each option', () => {
@@ -144,7 +151,7 @@ describe('sl-listbox', () => {
       await waitForVirtualizer();
 
       // Now should have the attribute
-      expect(unconstrained.querySelector('sl-virtual-list')).to.exist;
+      expect(getVirtualizer(unconstrained)).to.exist;
       expect(unconstrained.hasAttribute('data-virtual-unconstrained')).to.be.true;
 
       // Verify CSS fallback is applied

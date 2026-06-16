@@ -682,10 +682,17 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.wrapper?.showPopover();
 
     if (!this.multiple && !this.#popoverOpenedViaKeyboard) {
+      // Mouse-open should keep AT context without applying visual current highlight.
+      if (this.currentItem) {
+        this.currentItem.current = false;
+      }
+      this.currentItem?.element?.removeAttribute('current');
+      this.listbox?.querySelector('[current]')?.removeAttribute('current');
+
       const selectedItem = this.selectedItems[0] ?? this.items.find(i => i.selected);
 
       if (selectedItem) {
-        this.#updateCurrent(selectedItem, 'instant');
+        this.#updateCurrent(selectedItem, 'instant', { visual: false });
       } else {
         const selectedOption =
           this.querySelector<Option>('sl-option[selected]') ??
@@ -932,7 +939,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           );
 
         if (selectedItem) {
-          this.#updateCurrent(selectedItem, 'instant');
+          this.#updateCurrent(selectedItem, 'instant', {
+            visual: this.#popoverOpenedViaKeyboard
+          });
         } else if (selectedOptionElement?.id) {
           // Fallback for timing-sensitive open paths where internal item state
           // has not synchronized yet. Keep AT context without visual highlight.
@@ -1424,7 +1433,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /** Updates the options to reflect the current one. */
-  #updateCurrent(option?: ComboboxItem<T, U>, scrollBehaviour: ScrollBehavior = 'instant'): void {
+  #updateCurrent(
+    option?: ComboboxItem<T, U>,
+    scrollBehaviour: ScrollBehavior = 'instant',
+    { visual = true }: { visual?: boolean } = {}
+  ): void {
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
@@ -1442,14 +1455,19 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     this.currentItem = option;
     if (this.currentItem) {
-      this.currentItem.current = true;
+      this.currentItem.current = visual;
 
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
       // Check if element exists and is still connected (not a stale, disconnected element from virtualization)
       if (this.currentItem.element?.isConnected) {
         // Element exists and is connected, use scrollIntoView (avoid duplicate scrolling)
-        this.currentItem.element.setAttribute('current', '');
+        if (visual) {
+          this.currentItem.element.setAttribute('current', '');
+        } else {
+          this.currentItem.element.removeAttribute('current');
+        }
+
         this.currentItem.element.scrollIntoView({ block: 'start', behavior: scrollBehaviour });
       } else {
         // Element doesn't exist or is disconnected (virtual list), use scrollToIndex

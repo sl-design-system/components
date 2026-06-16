@@ -138,17 +138,25 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => {
-      const index = elements.findIndex(el => el !== this.stackTag || !el.disabled);
+      const index = elements.findIndex(el => this.#isFocusableElement(el));
 
       return index === -1 ? 0 : index;
     },
-    elements: () => [
-      ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none'
-        ? [this.stackTag]
-        : []),
-      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !!t.removable)
-    ],
-    isFocusableElement: (el: Tag) => el !== this.stackTag || !el.disabled
+    elements: () => {
+      const stackTags =
+        this.stacked &&
+        this.stackTag &&
+        this.stackTag.style.display !== 'none' &&
+        this.#isFocusableElement(this.stackTag)
+          ? [this.stackTag]
+          : [];
+
+      return [
+        ...stackTags,
+        ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !!t.removable)
+      ];
+    },
+    isFocusableElement: (el: Tag) => this.#isFocusableElement(el)
   });
 
   /** Disables interaction with the tag list and renders the stacked tag as disabled. */
@@ -294,6 +302,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     const inlineSize = (value as { inlineSize: unknown }).inlineSize;
 
     return typeof inlineSize === 'number';
+  }
+
+  #isFocusableElement(el: Tag): boolean {
+    return el !== this.stackTag || !el.disabled;
   }
 
   #getBorderBoxInlineSize(entry: ResizeObserverEntry): number | undefined {

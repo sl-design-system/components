@@ -518,7 +518,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                       @sl-remove=${(event: SlRemoveEvent) => this.#onRemove(item, event)}
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
-                      aria-hidden=${this.disabled ? nothing : 'true'}
                       class=${this.focusedTag === item ? 'focused' : ''}>
                       ${item.label}
                     </sl-tag>

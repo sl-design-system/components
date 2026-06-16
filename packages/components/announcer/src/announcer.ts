@@ -13,7 +13,11 @@ declare global {
   }
 }
 
-export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'assertive' }>;
+export type SlAnnounceEvent = CustomEvent<{
+  message: string;
+  urgency?: 'polite' | 'assertive';
+  force?: boolean;
+}>;
 
 /**
  * Utility that serves as a recipient for all live-aria notifications and supplies them for
@@ -29,6 +33,9 @@ export class Announcer extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   #events = new EventsController(this, {});
+
+  /** Counter used to make forced announcements unique for screen reader deduplication. */
+  #forceCounter = 0;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -48,8 +55,18 @@ export class Announcer extends LitElement {
       `[aria-live="${event.detail.urgency || 'polite'}"]`
     );
 
-    // make sure the message is not already in the container
-    if (container?.textContent?.indexOf(event.detail.message) === -1) {
+    if (event.detail.force) {
+      this.#forceCounter++;
+
+      const messageNode = document.createElement('li');
+      // Append invisible zero width spaces to make each message unique for screen readers (to re-force the announcements)
+      messageNode.innerText = event.detail.message + '\u200B'.repeat((this.#forceCounter % 2) + 1);
+
+      container?.appendChild(messageNode);
+      setTimeout(() => {
+        messageNode.remove();
+      }, 500);
+    } else if (container?.textContent?.indexOf(event.detail.message) === -1) {
       const messageNode = document.createElement('li');
       messageNode.innerText = event.detail.message;
 

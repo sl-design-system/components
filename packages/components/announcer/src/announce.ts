@@ -6,7 +6,10 @@
  *
  * @param message - The message to send to the live aria.
  * @param urgency - The urgency of the message. Default is 'polite'.
+ * @param force - If true, bypasses deduplication and always announces the message.
  */
-export function announce(message: string, urgency?: 'polite' | 'assertive'): void {
-  document.body.dispatchEvent(new CustomEvent('sl-announce', { detail: { message, urgency } }));
+export function announce(message: string, urgency?: 'polite' | 'assertive', force?: boolean): void {
+  document.body.dispatchEvent(
+    new CustomEvent('sl-announce', { detail: { message, urgency, force } })
+  );
 }

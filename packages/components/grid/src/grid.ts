@@ -235,8 +235,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
-  /** The last row that was announced for focus-based announcements. */
-  #lastAnnouncedRow?: HTMLTableRowElement;
+  /** Flag to skip the next focus announcement (e.g. after a click that already announced). */
+  #skipNextFocusAnnounce = false;
 
   /** The current active row. */
   @property({ attribute: false }) activeRow?: T;
@@ -411,9 +411,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
     this.tbody.addEventListener('focusin', (event: FocusEvent) => this.#onFocusIn(event));
-    this.tbody.addEventListener('focusout', () => {
-      this.#lastAnnouncedRow = undefined;
-    });
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
@@ -625,7 +622,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     return html`
       <tr
-        @click=${() => this.#onClickRow(item)}
+        @click=${() => this.#onClickRow(item, index + 1)}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragenter=${(event: DragEvent) => this.#onDragEnter(event, item)}
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
@@ -740,7 +737,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
-  #onClickRow(item: ListDataSourceDataItem<T>): void {
+  #onClickRow(item: ListDataSourceDataItem<T>, index: number): void {
     if (this.rowAction === 'activate') {
       this.dataSource?.deselectAll();
       this.dataSource?.update();
@@ -755,11 +752,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     } else if (this.rowAction === 'select') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
+    } else {
+      return;
     }
 
-    const index = (this.dataSource?.items.indexOf(item) ?? -1) + 1;
-
     this.#announceSelection(item, index);
+    this.#skipNextFocusAnnounce = true;
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
@@ -779,24 +777,26 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onFocusIn(event: FocusEvent): void {
+    // Skip the focus announcement if it was triggered by a click that is already announced
+    if (this.#skipNextFocusAnnounce) {
+      this.#skipNextFocusAnnounce = false;
+      return;
+    }
+
     const row = (event.target as HTMLElement)?.closest?.('tr');
 
     if (!row || !row.hasAttribute('aria-current')) {
-      this.#lastAnnouncedRow = undefined;
       return;
     }
-
-    // Don't re-announce if focus stays within the same row
-    if (row === this.#lastAnnouncedRow) {
-      return;
-    }
-
-    this.#lastAnnouncedRow = row;
 
     const index = row.getAttribute('aria-rowindex');
 
     if (index) {
-      announce(msg(str`Row ${index} selected`, { id: 'sl.grid.rowSelected' }), 'polite');
+      announce(
+        msg(str`In selected row ${index}`, { id: 'sl.grid.inSelectedRow' }),
+        'assertive',
+        true
+      );
     }
   }
 

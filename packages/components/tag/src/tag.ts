@@ -238,7 +238,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    if (this.navigationDescription) {
+    if (this.navigationDescription || this.hasAttribute('tabindex')) {
       button.tabIndex = this.tabIndex;
     } else {
       button.removeAttribute('tabindex');

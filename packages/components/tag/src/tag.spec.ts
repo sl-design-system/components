@@ -145,6 +145,13 @@ describe('sl-tag', () => {
       expect(tag.shadowRoot?.activeElement).to.equal(removeButton);
     });
 
+    it('should respect the host tabindex on the remove button', async () => {
+      el = await fixture(html`<sl-tag removable tabindex="-1">My label</sl-tag>`);
+      button = el.renderRoot.querySelector('button')!;
+
+      expect(button).to.have.attribute('tabindex', '-1');
+    });
+
     it('should have an accessible label on the remove button', () => {
       expect(button).to.have.attribute('aria-label', "Remove tag 'My label'");
     });

@@ -356,8 +356,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
               @click=${this.#onClearButtonClick}
               @focusin=${this.#onClearButtonFocusin}
               @focusout=${this.#onClearButtonFocusout}
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
-            >
+              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
               <sl-icon name="circle-xmark"></sl-icon>
               <sl-icon name="circle-xmark-solid"></sl-icon>
             </button>
@@ -377,8 +376,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
         @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
         part="listbox"
-        popover
-      >
+        popover>
         <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-listbox>
     `;

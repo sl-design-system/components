@@ -4,7 +4,7 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
-import { Button } from '@sl-design-system/button';
+import { Button, type ButtonFill, type ButtonVariant } from '@sl-design-system/button';
 import {
   LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
   type ListDataSource
@@ -13,7 +13,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select } from '@sl-design-system/select';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, event, getPluralCategory } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import {
   type CSSResultGroup,
@@ -217,8 +217,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         })}
         class="nav"
         fill="ghost"
-        size=${ifDefined(this.size)}
-      >
+        size=${ifDefined(this.size)}>
         <sl-icon name="caret-left-solid"></sl-icon>
       </sl-button>
 
@@ -226,9 +225,9 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${() => this.#onPageClick(0)}
         aria-current=${ifDefined(this.page === 0 ? 'page' : undefined)}
         class=${classMap({ current: this.page === 0, page: true })}
-        fill="ghost"
+        fill=${this.#getPageFill(0)}
         size=${ifDefined(this.size)}
-      >
+        variant=${ifDefined(this.#getPageVariant(0))}>
         1
       </sl-button>
 
@@ -237,8 +236,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             <sl-menu-button
               aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
               fill="ghost"
-              size=${ifDefined(this.size)}
-            >
+              size=${ifDefined(this.size)}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.windowStart + 1 }).map(
                 (_, i) => html`
@@ -254,12 +252,12 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             @click=${() => this.#onPageClick(index + 1)}
             aria-current=${ifDefined(this.page === index + 1 ? 'page' : undefined)}
             class=${classMap({ current: this.page === index + 1, page: true })}
-            fill="ghost"
+            fill=${this.#getPageFill(index + 1)}
             size=${ifDefined(this.size)}
             style=${styleMap({
               display: index <= this.windowStart || index >= this.windowEnd ? 'none' : undefined
             })}
-          >
+            variant=${ifDefined(this.#getPageVariant(index + 1))}>
             ${index + 2}
           </sl-button>
         `
@@ -269,8 +267,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             <sl-menu-button
               aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
               fill="ghost"
-              size=${ifDefined(this.size)}
-            >
+              size=${ifDefined(this.size)}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
                 (_, i) => html`
@@ -288,9 +285,9 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
               @click=${() => this.#onPageClick(this.pageCount - 1)}
               aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
               class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
-              fill="ghost"
+              fill=${this.#getPageFill(this.pageCount - 1)}
               size=${ifDefined(this.size)}
-            >
+              variant=${ifDefined(this.#getPageVariant(this.pageCount - 1))}>
               ${this.pageCount}
             </sl-button>
           `
@@ -301,8 +298,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-change=${this.#onChange}
           .value=${this.page}
           aria-label=${`${msg(str`${this.page}, page`, { id: 'sl.paginator.currentPage' })}`}
-          size=${this.size === 'lg' ? this.size : 'md'}
-        >
+          size=${this.size === 'lg' ? this.size : 'md'}>
           ${Array.from({ length: this.pageCount }).map(
             (_, index) => html`
               <sl-option
@@ -313,7 +309,11 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             `
           )}
         </sl-select>
-        <span>${msg(str`of ${this.pageCount} pages`, { id: 'sl.paginator.totalPages' })}</span>
+        <span
+          >${msg(str`of ${this.pageCount + ' ' + this.#getPagesLabel()}`, {
+            id: 'sl.paginator.totalPages'
+          })}</span
+        >
       </div>
 
       <sl-button
@@ -324,8 +324,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         })}
         class="nav"
         fill="ghost"
-        size=${ifDefined(this.size)}
-      >
+        size=${ifDefined(this.size)}>
         <sl-icon name="caret-right-solid"></sl-icon>
       </sl-button>
     `;
@@ -333,6 +332,29 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onChange(event: SlChangeEvent<number>): void {
     this.#onPageClick(event.detail);
+  }
+
+  #getPagesLabel(): string {
+    switch (getPluralCategory(this.pageCount)) {
+      case 'one':
+        return msg('page', { id: 'sl.paginator.pagesLabelOne' });
+      case 'few':
+        return msg('pages', { id: 'sl.paginator.pagesLabelFew' });
+      default:
+        return msg('pages', { id: 'sl.paginator.pagesLabelOther' });
+    }
+  }
+
+  #getPageFill(page: number): ButtonFill {
+    if (this.page === page) {
+      return this.emphasis === 'bold' ? 'solid' : 'outline';
+    }
+
+    return 'ghost';
+  }
+
+  #getPageVariant(page: number): ButtonVariant | undefined {
+    return this.page === page ? 'primary' : undefined;
   }
 
   #onNext() {

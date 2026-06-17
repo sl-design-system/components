@@ -141,8 +141,7 @@ export default {
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
         style=${styleMap({ alignSelf, justifySelf })}
-        variant=${ifDefined(variant)}
-      >
+        variant=${ifDefined(variant)}>
         ${typeof body === 'string' ? html`<div slot="button">${body}</div>` : body()}
         ${menuItems?.()}
       </sl-menu-button>

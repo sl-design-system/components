@@ -1,5 +1,11 @@
 # @sl-design-system/card
 
+## 2.0.2
+
+### Patch Changes
+
+- [#3222](https://github.com/sl-design-system/components/pull/3222) [`5e3f716`](https://github.com/sl-design-system/components/commit/5e3f71620a9df0d6285046fc60e71fd36fa76efb) - Fix: ensure body slot doesn't overlay button when there is no body text.
+
 ## 2.0.1
 
 ### Patch Changes

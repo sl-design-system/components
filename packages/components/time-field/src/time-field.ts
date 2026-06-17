@@ -357,8 +357,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   ? html`
                       <div
                         aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
-                        class="placeholder"
-                      >
+                        class="placeholder">
                         ${this.placeholder}
                       </div>
                     `
@@ -372,8 +371,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-expanded=${this.dialog && isPopoverOpen(this.dialog) ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select time', { id: 'sl.timeField.toggleDropdown' })}
-          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
-        >
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="clock"></sl-icon>
         </sl-field-button>
       </div>
@@ -391,14 +389,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @focusout=${this.#onDialogFocusout}
         @keydown=${this.#onKeydown}
         id="dialog"
-        popover
-      >
+        popover>
         <ul
           aria-label=${msg('Select hours', { id: 'sl.timeField.selectHours' })}
           class="hours"
           role="listbox"
-          tabindex="-1"
-        >
+          tabindex="-1">
           ${this.renderHours()}
         </ul>
         <hr aria-hidden="true" />
@@ -406,8 +402,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${msg('Select minutes', { id: 'sl.timeField.selectMinutes' })}
           class="minutes"
           role="listbox"
-          tabindex="-1"
-        >
+          tabindex="-1">
           ${this.renderMinutes()}
         </ul>
       </dialog>
@@ -490,8 +485,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${`${hour.toString()} ${getTimeUnitName(this.locale || 'default', 'hour')}`}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
           role="option"
-          tabindex=${index === 0 ? '0' : '-1'}
-        >
+          tabindex=${index === 0 ? '0' : '-1'}>
           ${hour.toString().padStart(2, '0')}
         </li>
       `
@@ -516,8 +510,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${`${minute.toString()} ${getTimeUnitName(this.locale || 'default', 'minute')}`}
           aria-selected=${minute === this.#valueAsNumbers?.minute && !isDisabled}
           role="option"
-          tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}
-        >
+          tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}>
           ${minute.toString().padStart(2, '0')}
         </li>
       `;

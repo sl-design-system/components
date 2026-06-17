@@ -89,8 +89,7 @@ describe('sl-grid-filter', () => {
           .options=${[
             { label: 'Option 1', value: 'option1' },
             { label: 'Option 2', value: 'option2' }
-          ]}
-        ></sl-grid-filter>
+          ]}></sl-grid-filter>
       `);
     });
 
@@ -175,8 +174,7 @@ describe('sl-grid-filter', () => {
     it('should use the column header value as the filter label', async () => {
       el = await fixture(html`
         <sl-grid-filter
-          .column=${{ header: html`Lorem<sl-button>Ipsum</sl-button>` }}
-        ></sl-grid-filter>
+          .column=${{ header: html`Lorem<sl-button>Ipsum</sl-button>` }}></sl-grid-filter>
       `);
 
       expect(el.renderRoot.querySelector('sl-search-field')).to.have.property(

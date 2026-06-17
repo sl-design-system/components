@@ -1,5 +1,24 @@
 # @sl-design-system/calendar
 
+## 0.0.8
+
+### Patch Changes
+
+- [#3361](https://github.com/sl-design-system/components/pull/3361) [`6882876`](https://github.com/sl-design-system/components/commit/6882876fb35019f2b69d30dadb23780d577bb591) - Fix accidental global `<sl-tooltip>` register
+
+- Updated dependencies [[`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7)]:
+  - @sl-design-system/button@2.1.0
+
+## 0.0.7
+
+### Patch Changes
+
+- [#3084](https://github.com/sl-design-system/components/pull/3084) [`a0cf57d`](https://github.com/sl-design-system/components/commit/a0cf57dc9617a8d484b89e6fe3b21770f4e0856e) - Align calendar and date-field spacing, padding and width behavior with the updated picker layout
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/tooltip@2.0.0
+
 ## 0.0.6
 
 ### Patch Changes

@@ -5,7 +5,7 @@ import '@sl-design-system/menu/register.js';
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
@@ -52,7 +52,7 @@ describe('sl-tooltip', () => {
     const pointerOverEvent = new Event('pointerover', { bubbles: true });
     button?.dispatchEvent(pointerOverEvent);
     await tooltip.updateComplete;
-    return await waitFor((tooltip.showDelay ?? 0) + 10);
+    return await waitFor(Tooltip.hoverShowDelay + 10);
   };
 
   describe('defaults', () => {
@@ -69,8 +69,6 @@ describe('sl-tooltip', () => {
       `);
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
     });
 
     it('should not show the tooltip by default', () => {
@@ -90,8 +88,6 @@ describe('sl-tooltip', () => {
       const focusButton = el.querySelector<HTMLButtonElement>('#focus-target')!,
         outsideButton = el.querySelector<HTMLButtonElement>('#outside-target')!;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
       await tooltip.updateComplete;
 
       const originalMatches = Element.prototype.matches;
@@ -131,12 +127,12 @@ describe('sl-tooltip', () => {
     it('should toggle the tooltip on pointerover and pointerout', async () => {
       const pointerOver = new Event('pointerover', { bubbles: true });
       button?.dispatchEvent(pointerOver);
-      await waitFor((tooltip.showDelay ?? 0) + 10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       const pointerEvent = new Event('pointerout', { bubbles: true });
       button?.dispatchEvent(pointerEvent);
-      await waitFor((tooltip.hideDelay ?? 0) + 10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
@@ -157,7 +153,7 @@ describe('sl-tooltip', () => {
 
     it('should ignore unrelated focusout events while open', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      await waitFor((tooltip.showDelay ?? 0) + 10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       const other = document.createElement('input');
@@ -170,7 +166,7 @@ describe('sl-tooltip', () => {
 
     it('should not switch to focus-open mode on focusin without focus-visible when already open', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      await waitFor((tooltip.showDelay ?? 0) + 10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button?.dispatchEvent(new Event('focusin', { bubbles: true, composed: true }));
@@ -289,8 +285,6 @@ describe('sl-tooltip', () => {
       const firstButton = el.querySelector<HTMLButtonElement>('#first')!,
         secondButton = el.querySelector<HTMLButtonElement>('#second')!;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
       await tooltip.updateComplete;
 
       const originalMatches = Element.prototype.matches;
@@ -316,13 +310,13 @@ describe('sl-tooltip', () => {
       expect(tooltip.anchorElement).to.equal(firstButton);
 
       secondButton.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.anchorElement).to.equal(secondButton);
 
       secondButton.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.anchorElement).to.equal(firstButton);
@@ -342,7 +336,7 @@ describe('sl-tooltip', () => {
 
     it('should toggle the tooltip on pointerover and Escape key pressed', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      await waitFor((tooltip?.showDelay ?? 150) + 10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       await userEvent.keyboard('{Escape}');
@@ -415,8 +409,6 @@ describe('sl-tooltip', () => {
       `);
 
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
 
       const [firstChildButton, secondChildButton] = Array.from(
         el.querySelectorAll<HTMLButtonElement>('button')
@@ -452,14 +444,12 @@ describe('sl-tooltip', () => {
       `);
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
     });
 
     it('should show the tooltip on pointerover', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor((tooltip?.showDelay ?? 150) + 10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -477,14 +467,12 @@ describe('sl-tooltip', () => {
 
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
     });
 
     it('should show the tooltip when its id is one of multiple ids in aria-describedby', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -492,13 +480,13 @@ describe('sl-tooltip', () => {
     it('should hide the tooltip on pointerout when its id is one of multiple ids', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -518,14 +506,12 @@ describe('sl-tooltip', () => {
 
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
     });
 
     it('should show the tooltip when its id is one of multiple ids in aria-labelledby', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -542,8 +528,6 @@ describe('sl-tooltip', () => {
 
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
 
       // Manually set ariaDescribedByElements
       if (button.internals) {
@@ -554,7 +538,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip when referenced via ElementInternals ariaDescribedByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -562,13 +546,13 @@ describe('sl-tooltip', () => {
     it('should hide tooltip on pointerout when referenced via ElementInternals', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -594,8 +578,6 @@ describe('sl-tooltip', () => {
 
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
 
       // Manually set ariaLabelledByElements
       if (button.internals) {
@@ -606,7 +588,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip when referenced via ElementInternals ariaLabelledByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -614,13 +596,13 @@ describe('sl-tooltip', () => {
     it('should hide tooltip on pointerout when referenced via ElementInternals ariaLabelledByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -640,8 +622,6 @@ describe('sl-tooltip', () => {
 
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
       otherElement = el.querySelector('#other-element') as HTMLElement;
 
       // Set multiple elements in ariaDescribedByElements
@@ -653,7 +633,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip when it is one of multiple elements in ariaDescribedByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -670,8 +650,6 @@ describe('sl-tooltip', () => {
 
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
 
       // Set ariaDescribedByElements directly on the element (not via ElementInternals)
       button.ariaDescribedByElements = [tooltip];
@@ -680,7 +658,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip when referenced via Element ariaDescribedByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -688,13 +666,13 @@ describe('sl-tooltip', () => {
     it('should hide tooltip on pointerout when referenced via Element ariaDescribedByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -720,8 +698,6 @@ describe('sl-tooltip', () => {
 
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
 
       // Set ariaLabelledByElements directly on the element (not via ElementInternals)
       button.ariaLabelledByElements = [tooltip];
@@ -730,7 +706,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip when referenced via Element ariaLabelledByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -738,13 +714,13 @@ describe('sl-tooltip', () => {
     it('should hide tooltip on pointerout when referenced via Element ariaLabelledByElements', async () => {
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -778,8 +754,6 @@ describe('sl-tooltip', () => {
 
       menuButton = el.querySelector('sl-menu-button') as MenuButton;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
-      tooltip.showDelay = 0;
-      tooltip.hideDelay = 0;
 
       // Wait for menu-button to set up aria references on the inner button
       await tooltip.updateComplete;
@@ -791,7 +765,7 @@ describe('sl-tooltip', () => {
     it('should show tooltip on pointerover of the menu-button', async () => {
       menuButton.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -834,7 +808,7 @@ describe('sl-tooltip', () => {
 
       menuButton.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
@@ -855,9 +829,7 @@ describe('sl-tooltip', () => {
             <sl-button aria-describedby="tooltip">Anchor</sl-button>
           </tooltip-assigned-slot-host>
           <button id="outside-focus-target" type="button">Outside</button>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
-            >Tooltip via assigned slot</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">Tooltip via assigned slot</sl-tooltip>
         </div>
       `);
 
@@ -935,9 +907,7 @@ describe('sl-tooltip', () => {
               <span id="anchor-content">Anchor</span>
             </tooltip-assigned-slot-anchor>
           </tooltip-assigned-slot-host>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
-            >Tooltip via nested slot path</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">Tooltip via nested slot path</sl-tooltip>
         </div>
       `);
 
@@ -953,7 +923,7 @@ describe('sl-tooltip', () => {
     it('should ignore unrelated slots from the event path when finding the assigned slot root', async () => {
       anchorContent.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.anchorElement).to.equal(anchor);
@@ -977,9 +947,7 @@ describe('sl-tooltip', () => {
               <span id="shared-anchor-content-2">Anchor 2</span>
             </tooltip-assigned-slot-anchor>
           </tooltip-assigned-slot-host>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
-            >Shared tooltip via proxy targets</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">Shared tooltip via proxy targets</sl-tooltip>
         </div>
       `);
 
@@ -998,7 +966,7 @@ describe('sl-tooltip', () => {
     it('should reopen for another shared proxy anchor after moving into the assigned slot root', async () => {
       anchorContents[0].dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.anchorElement).to.equal(anchors[0]);
@@ -1006,13 +974,13 @@ describe('sl-tooltip', () => {
 
       anchorContents[0].dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
 
       anchorContents[1].dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.anchorElement).to.equal(anchors[1]);
@@ -1034,9 +1002,7 @@ describe('sl-tooltip', () => {
             </button>
           </tooltip-assigned-slot-host>
           <span id="external-description">External description</span>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
-            >Tooltip via assigned slot</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">Tooltip via assigned slot</sl-tooltip>
         </div>
       `);
 
@@ -1054,7 +1020,7 @@ describe('sl-tooltip', () => {
 
       anchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.getRootNode()).to.equal(anchor.ownerDocument);
@@ -1076,8 +1042,7 @@ describe('sl-tooltip', () => {
             <button
               id="slotted-anchor"
               slot="actions"
-              aria-describedby="external-description tooltip"
-            >
+              aria-describedby="external-description tooltip">
               Slotted anchor
             </button>
             <button id="default-anchor" aria-describedby="external-description tooltip">
@@ -1085,9 +1050,7 @@ describe('sl-tooltip', () => {
             </button>
           </tooltip-assigned-slot-host>
           <span id="external-description">External description</span>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
-            >Tooltip via assigned slot</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">Tooltip via assigned slot</sl-tooltip>
         </div>
       `);
 
@@ -1102,17 +1065,17 @@ describe('sl-tooltip', () => {
     it('should sync and clear the tooltip slot when reparenting is skipped', async () => {
       slottedAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.getAttribute('slot')).to.equal('actions');
 
       slottedAnchor.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       defaultAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.hasAttribute('slot')).to.be.false;
     });
@@ -1136,9 +1099,7 @@ describe('sl-tooltip', () => {
             </button>
           </tooltip-assigned-slot-host>
           <span id="external-description">External description</span>
-          <sl-tooltip id="tooltip" show-delay="0" hide-delay="0"
-            >Tooltip via assigned slot</sl-tooltip
-          >
+          <sl-tooltip id="tooltip">Tooltip via assigned slot</sl-tooltip>
         </div>
       `);
 
@@ -1155,14 +1116,14 @@ describe('sl-tooltip', () => {
     it('should move back into the current anchor tree when reparenting is not allowed', async () => {
       shadowAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.getRootNode()).to.equal(assignedSlotHost.shadowRoot);
 
       shadowAnchor.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
       nativeAnchor.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(tooltip.getRootNode()).to.equal(nativeAnchor.getRootNode());
@@ -1220,7 +1181,7 @@ describe('sl-tooltip', () => {
       ).to.be.true;
       expect(button.hasAttribute('aria-labelledby')).to.be.false;
 
-      await waitFor((tooltip.showDelay ?? 150) + 10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(innerButton.ariaDescribedByElements).to.include(tooltip);
       expect(innerButton.ariaLabelledByElements).to.be.null;
@@ -1229,7 +1190,6 @@ describe('sl-tooltip', () => {
     it('should keep pending hover show timer cancellable after unrelated focusout', async () => {
       Tooltip.lazy(button, createdTooltip => {
         tooltip = createdTooltip;
-        tooltip.showDelay = 150;
       });
 
       button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
@@ -1240,7 +1200,7 @@ describe('sl-tooltip', () => {
       other.dispatchEvent(new Event('focusout', { bubbles: true, composed: true }));
 
       button?.dispatchEvent(new Event('pointerout', { bubbles: true }));
-      await waitFor((tooltip.showDelay ?? 150) + 50);
+      await waitFor(Tooltip.hoverShowDelay + 50);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
@@ -1248,26 +1208,24 @@ describe('sl-tooltip', () => {
     it('should reopen on repeated hover for a button that forwards ARIA to an inner control', async () => {
       Tooltip.lazy(button, createdTooltip => {
         tooltip = createdTooltip;
-        tooltip.showDelay = 0;
-        tooltip.hideDelay = 0;
       });
 
       button.dispatchEvent(new Event('pointerover', { bubbles: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(innerButton.ariaDescribedByElements).to.include(tooltip);
 
       innerButton.dispatchEvent(new Event('pointerout', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.false;
 
       innerButton.dispatchEvent(new Event('pointerover', { bubbles: true, composed: true }));
       await tooltip.updateComplete;
-      await waitFor(10);
+      await waitFor(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.matches(':popover-open')).to.be.true;
       expect(innerButton.ariaDescribedByElements).to.include(tooltip);
@@ -1313,36 +1271,45 @@ describe('sl-tooltip', () => {
   });
 
   describe('delay semantics', () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
     beforeEach(async () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
           <sl-button aria-describedby="tooltip">Button</sl-button>
-          <sl-tooltip id="tooltip" show-delay="100" hide-delay="100">Tooltip</sl-tooltip>
+          <sl-tooltip id="tooltip">Tooltip</sl-tooltip>
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
       tooltip = el.querySelector('sl-tooltip') as Tooltip;
     });
 
-    it('should stay closed before showDelay elapses', async () => {
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('should stay closed before the fixed hover show delay elapses', async () => {
+      const preShowWait = Math.max(0, Math.floor(Tooltip.hoverShowDelay * 0.5));
       button.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await vi.advanceTimersByTimeAsync(preShowWait);
       expect(tooltip.matches(':popover-open')).to.be.false;
 
-      await new Promise(resolve => setTimeout(resolve, 60));
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay - preShowWait + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
     });
 
-    it('should stay open before hideDelay elapses', async () => {
+    it('should stay open before the fixed hover hide delay elapses', async () => {
       button.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      await new Promise(resolve => setTimeout(resolve, 110));
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 10);
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       button.dispatchEvent(new Event('pointerout', { bubbles: true }));
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await vi.advanceTimersByTimeAsync(Math.max(0, Tooltip.hoverHideDelay - 50));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
-      await new Promise(resolve => setTimeout(resolve, 60));
+      await vi.advanceTimersByTimeAsync(100);
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
   });

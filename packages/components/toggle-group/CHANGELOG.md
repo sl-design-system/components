@@ -1,5 +1,12 @@
 # @sl-design-system/toggle-group
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/toggle-button@0.0.15
+
 ## 0.0.14
 
 ### Patch Changes

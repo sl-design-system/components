@@ -178,8 +178,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
         @sl-change=${this.#stopEvent}
         @sl-focus=${this.#stopEvent}
         @sl-form-control=${this.#onFormControl}
-        @sl-validate=${this.#stopEvent}
-      ></slot>
+        @sl-validate=${this.#stopEvent}></slot>
     `;
   }
 

@@ -1,6 +1,7 @@
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
+import { type Option } from '@sl-design-system/listbox';
 import '@sl-design-system/select/register.js';
 import {
   getForwardedAccessibleName,
@@ -78,6 +79,26 @@ describe('sl-paginator', () => {
       expect(button).to.exist;
       expect(getForwardedAccessibleName(button!)).to.equal('1');
       expect(getForwardedAriaAttribute(button!, 'aria-current')).to.equal('page');
+    });
+
+    it('should render the current page as a primary outline button by default', () => {
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current'),
+        otherPage = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.page)');
+
+      expect(currentPage?.fill).to.equal('outline');
+      expect(currentPage?.variant).to.equal('primary');
+      expect(otherPage?.fill).to.equal('ghost');
+      expect(otherPage?.variant).to.be.undefined;
+    });
+
+    it('should render the current page as a primary solid button when emphasis is bold', async () => {
+      el.emphasis = 'bold';
+      await el.updateComplete;
+
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+
+      expect(currentPage?.fill).to.equal('solid');
+      expect(currentPage?.variant).to.equal('primary');
     });
 
     it('should have a page size of 10', () => {
@@ -441,6 +462,16 @@ describe('sl-paginator', () => {
         );
 
         expect(buttons).to.have.lengthOf(0);
+      });
+
+      it('should not wrap page numbers in select options when the width is xs', async () => {
+        el.width = 'xs';
+        await el.updateComplete;
+
+        const option = el.renderRoot.querySelector<Option>('sl-option:nth-of-type(10)')!,
+          wrapper = option.renderRoot.querySelector('[part="wrapper"]')!;
+
+        expect(getComputedStyle(wrapper).whiteSpace).to.equal('nowrap');
       });
     });
   });

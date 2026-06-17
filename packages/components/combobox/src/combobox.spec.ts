@@ -187,6 +187,39 @@ describe('sl-combobox', () => {
       expect(wrapper?.matches(':popover-open')).to.be.false;
     });
 
+    it('should have a static aria-label of "Options" on the button', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.have.attribute('aria-label', 'Options');
+    });
+
+    it('should have aria-expanded "false" on the button when the popover is closed', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should have aria-expanded "true" on the button when the popover is open', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should switch aria-expanded back to "false" when the popover closes', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
     it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });
@@ -207,6 +240,11 @@ describe('sl-combobox', () => {
     it('should be required when set', async () => {
       el.required = true;
       await el.updateComplete;
+
+      const textField = el.renderRoot.querySelector('sl-text-field');
+      if (textField) {
+        await (textField as unknown as { updateComplete: Promise<boolean> }).updateComplete;
+      }
 
       expect(el).to.have.attribute('required');
       expect(input).to.have.attribute('required');
@@ -439,6 +477,7 @@ describe('sl-combobox', () => {
       await userEvent.keyboard('Custom value');
       el.querySelector('sl-combobox-create-custom-option')?.click();
       await el.updateComplete;
+      await waitForNextFrame();
 
       const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
 
@@ -584,6 +623,53 @@ describe('sl-combobox', () => {
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.equal('Lorem');
       });
+
+      it('should insert spaces in the input', async () => {
+        input.focus();
+        await userEvent.keyboard('Foo{Space}Bar');
+        await el.updateComplete;
+
+        expect(input.value).to.equal('Foo Bar');
+      });
+    });
+
+    describe('select only', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox select-only>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should select the current option when pressing Space', async () => {
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Lorem');
+        expect(input.value).to.equal('Lorem');
+      });
+
+      it('should deselect the current option when pressing Space', async () => {
+        el.value = 'Lorem';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+        expect(input.value).to.equal('');
+      });
     });
 
     describe('options with values', () => {
@@ -610,6 +696,49 @@ describe('sl-combobox', () => {
 
         expect(el.value).to.equal('1');
         expect(input.value).to.equal('Lorem');
+      });
+
+      it('should select an option when the value matches after string coercion', async () => {
+        const onChange = spy();
+
+        el = await fixture(html`
+          <sl-combobox @sl-change=${onChange}>
+            <sl-listbox>
+              <sl-option .value=${1}>Lorem</sl-option>
+              <sl-option .value=${2}>Ipsum</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+          <input />
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{Tab}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('1');
+        expect(input.value).to.equal('Lorem');
+        expect(onChange).not.to.have.been.called;
+      });
+
+      it('should prefer a strict value match over a string-coerced match', async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        expect(input.value).to.equal('String');
       });
     });
 
@@ -756,6 +885,44 @@ describe('sl-combobox', () => {
         expect(options[2]).to.be.displayed;
       });
     });
+
+    describe('current item on open', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option selected>Ipsum</sl-option>
+              <sl-option>Dolor</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should set current on the selected option when opened via keyboard', async () => {
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).to.have.attribute('current');
+        expect(input).to.have.attribute('aria-activedescendant', options[1].id);
+      });
+
+      it('should not set current on the selected option when opened via mouse click', async () => {
+        input.click();
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).not.to.have.attribute('current');
+        expect(input).not.to.have.attribute('aria-activedescendant');
+      });
+    });
   });
 
   describe('multiple select', () => {
@@ -844,6 +1011,40 @@ describe('sl-combobox', () => {
 
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
+
+      it('should select only the strict value match when coercible option values also match', async () => {
+        el = await fixture(html`
+          <sl-combobox multiple>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        el.value = ['1'];
+        await el.updateComplete;
+
+        expect(el.selectedItems.map(item => item.label)).to.deep.equal(['String']);
+      });
+
+      it('should select and deselect the current option with Space when select-only', async () => {
+        el.selectOnly = true;
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal(['Lorem']);
+
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal([]);
       });
 
       it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
@@ -1329,6 +1530,15 @@ describe('sl-combobox', () => {
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
       });
 
+      it('should expose the selected state for grouped options', () => {
+        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option'));
+
+        expect(options.map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+          'true',
+          'true'
+        ]);
+      });
+
       it('should have group headers for both the selected and unselected options', () => {
         const headers = selectedGroup.renderRoot.querySelectorAll('sl-option-group-header');
 
@@ -1514,6 +1724,185 @@ describe('sl-combobox', () => {
       const formData = new FormData(form);
       expect(formData.get('test')).to.equal('1');
       expect(combobox.value).to.equal('Option 2');
+    });
+
+    it('should open a virtual list with object options without crashing', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${options}
+          .value=${300}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should update grouped virtual list selections without recursive cleanup', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          group-selected
+          multiple
+          .options=${options}
+          .value=${[300]}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      // Switching value to empty exercises grouped-option cleanup paths.
+      combobox.value = [];
+      await combobox.updateComplete;
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+  });
+
+  describe('accessibility', () => {
+    it('should forward aria-label from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-label="Search options">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(el).to.exist;
+      expect(input).to.exist;
+      expect(el).to.have.attribute('aria-label', 'Search options');
+      expect(input).not.to.have.attribute('aria-label', 'Search options');
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      expect(input).to.have.attribute('aria-label', 'Search options');
+      expect(el).not.to.have.attribute('aria-label');
+    });
+
+    it('should forward aria-describedby from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-describedby="hint-id">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('aria-describedby', 'hint-id');
+      expect(el).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should forward aria-labelledby from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-labelledby="label-id">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('aria-labelledby', 'label-id');
+      expect(el).not.to.have.attribute('aria-labelledby');
+    });
+
+    it('should update aria-label on input when changed on host', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-label="Initial label">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const input = el.querySelector('input[slot="input"]')!;
+      expect(input).to.have.attribute('aria-label', 'Initial label');
+      expect(el).not.to.have.attribute('aria-label');
+
+      el.setAttribute('aria-label', 'Updated label');
+      await el.updateComplete;
+      // Wait for ObserveAttributesMixin's requestAnimationFrame
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      expect(input).to.have.attribute('aria-label', 'Updated label');
+      expect(el).not.to.have.attribute('aria-label');
+    });
+
+    it('should set aria-labelledby on input when data-label-id is set', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      el.setAttribute('data-label-id', 'sl-label-123');
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('aria-labelledby', 'sl-label-123');
+    });
+    it('should have proper ARIA roles and attributes', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      const input = el.querySelector('input[slot="input"]')!;
+      const listbox = el.querySelector('sl-listbox')!;
+
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete');
+      expect(input).to.have.attribute('aria-expanded', 'false');
+      expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      expect(input).to.have.attribute('aria-controls', listbox.id);
+      expect(input).to.have.attribute('aria-owns', listbox.id);
     });
   });
 });

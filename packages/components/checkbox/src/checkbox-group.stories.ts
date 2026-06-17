@@ -61,8 +61,7 @@ export default {
               ?required=${required}
               .label=${label}
               .size=${size}
-              .value=${value}
-            >
+              .value=${value}>
               ${boxes?.() ??
               html`
                 <sl-checkbox value="0">Option 1</sl-checkbox>

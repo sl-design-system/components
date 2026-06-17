@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
@@ -20,6 +20,7 @@ import {
 import {
   EventEmitter,
   EventsController,
+  ObserveAttributesMixin,
   type Path,
   type PathKeys,
   anchor,
@@ -87,7 +88,10 @@ let nextUniqueId = 0;
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-label', 'aria-describedby', 'aria-labelledby']
+) {
   /** @internal The default offset of the popover to the input. */
   static offset = 6;
 
@@ -148,6 +152,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
    * show it again when the button click event fires.
    */
   #popoverJustClosed = false;
+
+  /** Flag indicating whether the popover was opened via keyboard navigation. */
+  #popoverOpenedViaKeyboard = false;
 
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
@@ -212,6 +219,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Will allow the selection of multiple options if true. */
   @property({ type: Boolean }) multiple?: boolean;
+
+  /** @internal The ID of the label element for this form control. */
+  @property({ attribute: 'data-label-id' }) labelId?: string;
 
   /** The path to use for grouping the options. */
   @property({ attribute: 'option-group-path' }) optionGroupPath?: PathKeys<T>;
@@ -310,6 +320,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.setFormControlElement(this);
 
+    this.setAttributesTarget(this.input);
+
     /**
      * Light DOM styling workarounds:
      *
@@ -348,6 +360,23 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.#addSelectedGroup();
       } else {
         this.#removeSelectedGroup();
+      }
+    }
+
+    if (changes.has('labelId')) {
+      const previousLabelId = changes.get('labelId'),
+        ariaLabel = this.input.getAttribute('aria-label'),
+        ariaLabelledBy = this.input.getAttribute('aria-labelledby'),
+        hasExplicitAccessibleName = Boolean(
+          ariaLabel || (ariaLabelledBy && ariaLabelledBy !== previousLabelId)
+        );
+
+      if (!this.labelId || ariaLabel) {
+        if (ariaLabelledBy === previousLabelId) {
+          this.input.removeAttribute('aria-labelledby');
+        }
+      } else if (!hasExplicitAccessibleName) {
+        this.input.setAttribute('aria-labelledby', this.labelId);
       }
     }
 
@@ -444,9 +473,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     if (changes.has('required')) {
-      this.input.required = !!this.required;
-
       this.updateValidity();
+    }
+
+    // Don't set name on the input - we use ElementInternals for form submission
+    // The input should not submit its value directly to avoid duplicate/incorrect submissions
+    if (changes.has('name') && this.input.hasAttribute('name')) {
+      this.input.removeAttribute('name');
     }
   }
 
@@ -467,8 +500,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         placeholder=${ifDefined(
           this.multiple && this.selectedItems.length ? undefined : this.placeholder
         )}
-        size=${ifDefined(this.size)}
-      >
+        size=${ifDefined(this.size)}>
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
@@ -476,8 +508,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                 aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
                 size=${ifDefined(this.size)}
                 slot="prefix"
-                stacked
-              >
+                stacked>
                 ${repeat(
                   this.selectedItems,
                   item => item,
@@ -487,8 +518,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
                       aria-hidden=${this.disabled ? nothing : 'true'}
-                      class=${this.focusedTag === item ? 'focused' : ''}
-                    >
+                      class=${this.focusedTag === item ? 'focused' : ''}>
                       ${item.label}
                     </sl-tag>
                   `
@@ -500,15 +530,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg(
-            str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`,
-            {
-              id: 'sl.combobox.toggleOptions'
-            }
-          )}
+          aria-expanded=${this.input?.getAttribute('aria-expanded') ?? 'false'}
+          aria-label=${msg('Options', { id: 'sl.combobox.options' })}
           slot="suffix"
-          tabindex="-1"
-        >
+          tabindex="-1">
           <sl-icon name="chevron-down"></sl-icon>
         </button>
       </sl-text-field>
@@ -527,8 +552,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         @toggle=${this.#onToggle}
         part="wrapper"
         popover
-        tabindex="-1"
-      ></slot>
+        tabindex="-1"></slot>
     `;
   }
 
@@ -573,6 +597,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
+
+    this.requestUpdate();
   }
 
   #onButtonClick(): void {
@@ -599,7 +625,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #onFocus(): void {
-    if (!this.#pointerDown) {
+    if (this.#pointerDown) {
       this.wrapper?.showPopover();
     }
   }
@@ -637,7 +663,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.input.setSelectionRange(value.length, item.label.length);
       }
     } else {
-      item = this.items.find(option => option.value === value);
+      item = this.#findItemByValue(value as U);
     }
 
     if (this.allowCustomValues && !item) {
@@ -657,7 +683,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' && !this.focusedTag) {
+    const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
+
+    if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
+      if (isSelectOnlySpace) {
+        event.preventDefault();
+      }
+
       if (this.allowCustomValues && this.currentItem === this.createCustomOption) {
         this.#addCustomOption(this.input.value);
       } else if (this.currentItem?.custom && this.currentItem?.option) {
@@ -703,6 +735,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       !this.wrapper?.matches(':popover-open') &&
       ['ArrowDown', 'ArrowUp'].includes(event.key)
     ) {
+      this.#popoverOpenedViaKeyboard = true;
       this.wrapper?.showPopover();
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
       event.preventDefault();
@@ -735,7 +768,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index]);
+      this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
+      // This setup now ignores prefers-reduced-motion and can cause unwanted motion for users who explicitly disable animations.
+      // When the reliability issue is resolved, we should switch back to using 'auto' and respect prefers-reduced-motion again.
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -869,15 +904,17 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         const index = this.items.findIndex(i => i.selected);
 
         if (index !== -1) {
-          this.listbox?.scrollToIndex(index, { block: 'nearest' });
+          this.listbox?.scrollToIndex(index, { block: 'start' }); // ideally we would use `nearest` here, but Safari and Firefox don't support it, causing inconsistency in scroll behavior across browsers.
         } else {
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
-        if (this.selectedItems.length) {
+        if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
           this.#updateCurrent(this.selectedItems[0]);
         }
       }
+
+      this.#popoverOpenedViaKeyboard = false;
     } else {
       this.#popoverJustClosed = false;
       this.#updateCurrent();
@@ -1034,6 +1071,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       el.id = groupedItem.id;
       el.innerText = groupedItem.label;
       el.selected = true;
+      el.setAttribute('aria-selected', 'true');
 
       if (!el.parentElement) {
         this.#selectedGroup?.append(el);
@@ -1063,6 +1101,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       item.element?.remove();
       item.element = undefined;
     }
+    this.#updateCurrent(this.items.find(i => i.id === item.id));
 
     if (this.selectedItems.length === 0) {
       this.#removeSelectedGroup();
@@ -1153,7 +1192,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.selectedItems.forEach(item => this.#removeSelectedOption(item));
       this.selectedItems = [item];
     }
-
     if (item.element instanceof Option) {
       item.element.selected = item.selected;
       item.element.style.display = item.visible ? '' : 'none';
@@ -1204,6 +1242,42 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     return [];
+  }
+
+  #isEqualValue(a: U | undefined, b: U | undefined): boolean {
+    if (a === b) {
+      return true;
+    }
+
+    if (this.#isStringCoercibleValue(a) && this.#isStringCoercibleValue(b)) {
+      return a.toString() === b.toString();
+    }
+
+    return false;
+  }
+
+  #isStringCoercibleValue(value: unknown): value is string | number | boolean | bigint {
+    switch (typeof value) {
+      case 'bigint':
+      case 'boolean':
+      case 'number':
+      case 'string':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  #findItemByValue(
+    value: U | undefined,
+    predicate: (item: ComboboxItem<T, U>) => boolean = () => true
+  ): ComboboxItem<T, U> | undefined {
+    return (
+      this.items.find(item => item.type === 'option' && predicate(item) && item.value === value) ??
+      this.items.find(
+        item => item.type === 'option' && predicate(item) && this.#isEqualValue(item.value, value)
+      )
+    );
   }
 
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {
@@ -1356,25 +1430,43 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   /** Updates the options to reflect the current one. */
-  #updateCurrent(option?: ComboboxItem<T, U>): void {
+  #updateCurrent(option?: ComboboxItem<T, U>, scrollBehaviour: ScrollBehavior = 'instant'): void {
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
+
+      // Clear from tracked element (works for virtual list elements in shadow root)
+      this.currentItem.element?.removeAttribute('current');
+      // Also try querySelector for non-virtual case as fallback
       this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 
-    this.currentItem = option;
+    if (!option || !option.visible) {
+      this.currentItem = undefined;
+      return;
+    }
 
+    this.currentItem = option;
     if (this.currentItem) {
       this.currentItem.current = true;
 
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
-      if (this.currentItem.element) {
+      // Check if element exists and is still connected (not a stale, disconnected element from virtualization)
+      if (this.currentItem.element?.isConnected) {
+        // Element exists and is connected, use scrollIntoView (avoid duplicate scrolling)
         this.currentItem.element.setAttribute('current', '');
-        this.currentItem.element.scrollIntoView({ block: 'nearest' });
+        this.currentItem.element.scrollIntoView({ block: 'start', behavior: scrollBehaviour });
       } else {
-        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });
+        // Element doesn't exist or is disconnected (virtual list), use scrollToIndex
+        // Use the listbox's items (filtered) to get the correct index
+        const index = this.listbox?.items?.indexOf(this.currentItem) ?? -1;
+        if (index !== -1) {
+          this.listbox?.scrollToIndex(index, {
+            block: 'start',
+            behavior: scrollBehaviour
+          });
+        }
       }
     }
   }
@@ -1425,13 +1517,28 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     this.selectedItems.forEach(item => this.#removeSelectedOption(item));
     this.selectedItems = [];
 
-    this.items.forEach(item => {
-      if (this.multiple && (this.value as U[])?.includes(item.value!)) {
-        this.#addSelectedOption(item);
-      } else if (item.value === this.value) {
+    if (this.multiple) {
+      if (!Array.isArray(this.value)) {
+        return;
+      }
+
+      const selectedItems = new Set<ComboboxItem<T, U>>();
+      this.value.forEach(value => {
+        const item = this.#findItemByValue(value, item => !selectedItems.has(item));
+
+        if (item) {
+          selectedItems.add(item);
+        }
+      });
+
+      selectedItems.forEach(item => this.#addSelectedOption(item));
+    } else {
+      const item = this.#findItemByValue(this.value as U | undefined);
+
+      if (item) {
         this.#addSelectedOption(item);
       }
-    });
+    }
   }
 
   /** Update the value in the text field. */
@@ -1458,8 +1565,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     const isValueEqual = this.multiple
       ? Array.isArray(this.value) &&
         this.value.length === values.length &&
-        values.every(v => (this.value as U[]).includes(v))
-      : this.value === values[0];
+        values.every(v => (this.value as U[]).some(value => this.#isEqualValue(value, v)))
+      : this.#isEqualValue(this.value as U | undefined, values[0]);
 
     // Do nothing if the value hasn't changed
     if (isValueEqual) {

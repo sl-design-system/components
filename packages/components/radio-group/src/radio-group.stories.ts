@@ -78,8 +78,7 @@ export default {
               ?required=${required}
               ?show-valid=${showValid}
               .size=${size}
-              .value=${value}
-            >
+              .value=${value}>
               ${options?.() ??
               html`
                 <sl-radio value="1">One</sl-radio>
@@ -160,7 +159,11 @@ export const CustomValidity: Story = {
     reportValidity: true,
     slot: () => {
       const onValidate = (event: Event & { target: RadioGroup }): void => {
-        event.target.setCustomValidity(event.target.value === '2' ? '' : 'Pick the middle option');
+        if (event.target.value) {
+          event.target.setCustomValidity(
+            event.target.value === '2' ? '' : 'Pick the middle option'
+          );
+        }
       };
 
       return html`

@@ -69,6 +69,13 @@ export const Removable: Story = {
   }
 };
 
+export const InfoRemovable: Story = {
+  args: {
+    removable: true,
+    variant: 'info'
+  }
+};
+
 export const RemovableDisabled: Story = {
   args: {
     disabled: true,

@@ -52,12 +52,6 @@ export default {
 
 export const Basic: Story = {};
 
-export const Disabled: Story = {
-  args: {
-    disabled: true
-  }
-};
-
 export const Info: Story = {
   args: {
     variant: 'info'
@@ -81,6 +75,13 @@ export const OverflowRemovable: Story = {
 export const Removable: Story = {
   args: {
     removable: true
+  }
+};
+
+export const InfoRemovable: Story = {
+  args: {
+    removable: true,
+    variant: 'info'
   }
 };
 

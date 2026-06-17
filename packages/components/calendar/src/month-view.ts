@@ -46,8 +46,15 @@ const DAYS_IN_WEEK = 7;
  *
  * @csspart day - The day button.
  * @csspart disabled - The day button when shown as disabled.
+ * @csspart header - The thead element with week day names.
  * @csspart indicator - The day button for a date with an indicator.
+ * @csspart indicator-blue - The day button for a date with a blue indicator.
+ * @csspart indicator-red - The day button for a date with a red indicator.
+ * @csspart indicator-yellow - The day button for a date with a yellow indicator.
+ * @csspart indicator-green - The day button for a date with a green indicator.
+ * @csspart indicator-grey - The day button for a date with a grey indicator.
  * @csspart next-month - The day button for a day in the next month.
+ * @csspart out-of-range - The day button for a date outside the min/max range.
  * @csspart previous-month - The day button for a day in the previous month.
  * @csspart selected - The day button for the selected date.
  * @csspart today - The day button for today's date.
@@ -148,7 +155,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The list of dates that should display an indicator. Each item is an Indicator with a `date`, an
-   * optional `color` and 'label' that is used to improve accessibility (added as a tooltip).
+   * optional `color` and `label` that is used to improve accessibility (added as a tooltip).
    */
   @property({ attribute: 'indicator-dates', converter: indicatorConverter })
   indicatorDates?: Indicator[];
@@ -306,6 +313,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
+  /** Renders the header row with week day names. Override this to customize the header. */
   renderHeader(): TemplateResult {
     return html`
       <thead part="header">
@@ -325,6 +333,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
+  /** Renders a single day cell. You can also use the `renderer` property to customize how days look. */
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
@@ -395,8 +404,11 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     ].filter(part => part !== '');
   };
 
+  /** @internal */
   override focus(options?: FocusOptions): void;
+  /** @internal */
   override focus(date: Date): void;
+  /** @internal */
   override focus(dateOrOptions?: Date | FocusOptions): void {
     if (dateOrOptions instanceof Date) {
       const button = this.renderRoot.querySelector<HTMLButtonElement>(

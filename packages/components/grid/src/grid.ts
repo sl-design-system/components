@@ -758,6 +758,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.#announceSelection(item, index);
     this.#skipNextFocusAnnounce = true;
+
+    // Reset the flag soon so it only skips focus events from this click (e.g. focus moving to a button in the row)
+    setTimeout(() => (this.#skipNextFocusAnnounce = false));
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {

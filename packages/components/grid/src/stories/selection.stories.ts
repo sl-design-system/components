@@ -79,9 +79,9 @@ export const Activate: Story = {
                 aria-description=${isActive ? 'Deactivate row' : 'Activate row'}
                 aria-pressed=${isActive ? 'true' : 'false'}
                 fill="link"
-                variant="primary"
-                >${avatarRenderer(student)}</sl-button
-              >
+                variant="primary">
+                ${avatarRenderer(student)}
+              </sl-button>
             `;
           }}
           .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}></sl-grid-column>
@@ -524,9 +524,9 @@ export const WithLinks: Story = {
                 aria-description=${isActive ? 'Deactivate row' : 'Activate row'}
                 aria-pressed=${isActive ? 'true' : 'false'}
                 fill="link"
-                variant="primary"
-                >${avatarRenderer(student)}</sl-button
-              >
+                variant="primary">
+                ${avatarRenderer(student)}
+              </sl-button>
             `;
           }}
           .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}></sl-grid-column>

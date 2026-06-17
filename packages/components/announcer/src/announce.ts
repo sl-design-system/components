@@ -10,6 +10,6 @@
  */
 export function announce(message: string, urgency?: 'polite' | 'assertive', force?: boolean): void {
   document.body.dispatchEvent(
-    new CustomEvent('sl-announce', { detail: { message, urgency, force } })
+    new CustomEvent('sl-announce', { detail: { message, urgency, ...(force ? { force } : {}) } })
   );
 }

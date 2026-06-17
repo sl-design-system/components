@@ -215,7 +215,6 @@ describe('sl-inline-message', () => {
       const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
 
       expect(announcement.detail).to.deep.equal({
-        force: undefined,
         message: 'Title  Inline message',
         urgency: 'polite'
       });

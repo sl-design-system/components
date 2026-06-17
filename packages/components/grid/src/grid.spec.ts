@@ -642,7 +642,7 @@ describe('sl-grid', () => {
         urgency: string;
       }>;
 
-      expect(event.detail.message).to.equal('Row 2 activated');
+      expect(event.detail.message).to.equal('Row 3 activated');
       expect(event.detail.urgency).to.equal('polite');
 
       document.body.removeEventListener('sl-announce', announceSpy);
@@ -664,7 +664,7 @@ describe('sl-grid', () => {
         urgency: string;
       }>;
 
-      expect(event.detail.message).to.equal('Row 2 deactivated');
+      expect(event.detail.message).to.equal('Row 3 deactivated');
       expect(event.detail.urgency).to.equal('polite');
 
       document.body.removeEventListener('sl-announce', announceSpy);
@@ -693,7 +693,7 @@ describe('sl-grid', () => {
         force: boolean;
       }>;
 
-      expect(event.detail.message).to.equal('In activated row 1');
+      expect(event.detail.message).to.equal('In activated row 2');
       expect(event.detail.urgency).to.equal('assertive');
       expect(event.detail.force).to.be.true;
 
@@ -848,7 +848,7 @@ describe('sl-grid', () => {
         message: string;
         urgency: string;
       }>;
-      expect(event.detail.message).to.equal('Row 1 activated');
+      expect(event.detail.message).to.equal('Row 2 activated');
       expect(event.detail.urgency).to.equal('polite');
 
       document.body.removeEventListener('sl-announce', announceSpy);
@@ -874,7 +874,7 @@ describe('sl-grid', () => {
         message: string;
         urgency: string;
       }>;
-      expect(event.detail.message).to.equal('Row 1 deactivated');
+      expect(event.detail.message).to.equal('Row 2 deactivated');
       expect(event.detail.urgency).to.equal('polite');
 
       document.body.removeEventListener('sl-announce', announceSpy);

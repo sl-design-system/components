@@ -771,10 +771,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const selected =
       this.rowAction === 'activate' ? !!this.activeRow : !!this.dataSource?.isSelected(item);
 
+    // Add 1 to account for the header row
+    const rowNumber = index + 1;
+
     announce(
       selected
-        ? msg(str`Row ${index} activated`, { id: 'sl.grid.rowActivated' })
-        : msg(str`Row ${index} deactivated`, { id: 'sl.grid.rowDeactivated' }),
+        ? msg(str`Row ${rowNumber} activated`, { id: 'sl.grid.rowActivated' })
+        : msg(str`Row ${rowNumber} deactivated`, { id: 'sl.grid.rowDeactivated' }),
       'polite'
     );
   }
@@ -795,9 +798,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const index = row.getAttribute('aria-rowindex');
 
     if (index) {
+      // Add 1 to account for the header row
+      const rowNumber = Number(index) + 1;
+
       // Use 'assertive' so the user knows right away which row they are in
       announce(
-        msg(str`In activated row ${index}`, { id: 'sl.grid.inActivatedRow' }),
+        msg(str`In activated row ${rowNumber}`, { id: 'sl.grid.inActivatedRow' }),
         'assertive',
         true
       );

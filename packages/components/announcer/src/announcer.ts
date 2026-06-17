@@ -59,8 +59,10 @@ export class Announcer extends LitElement {
 
     if (event.detail.force) {
       this.#forceCounter++;
-      // Append invisible zero-width spaces to make each message unique for screen readers
-      messageNode.innerText = event.detail.message + '\u200B'.repeat((this.#forceCounter % 2) + 1);
+      // Append invisible zero width spaces to make each message unique for screen readers.
+      // We use % 4 so the suffix cycles through 1 – 4 characters, which is enough to avoid
+      // duplicates while messages are still in the live region (removed after 500ms).
+      messageNode.innerText = event.detail.message + '\u200B'.repeat((this.#forceCounter % 4) + 1);
     } else if (container?.textContent?.indexOf(event.detail.message) === -1) {
       // make sure the message is not already in the container
       messageNode.innerText = event.detail.message;

@@ -62,6 +62,7 @@ export class Announcer extends LitElement {
       // Append invisible zero-width spaces to make each message unique for screen readers
       messageNode.innerText = event.detail.message + '\u200B'.repeat((this.#forceCounter % 2) + 1);
     } else if (container?.textContent?.indexOf(event.detail.message) === -1) {
+      // make sure the message is not already in the container
       messageNode.innerText = event.detail.message;
     } else {
       return;

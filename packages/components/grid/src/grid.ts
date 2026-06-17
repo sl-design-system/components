@@ -611,7 +611,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ],
       ariaCurrent =
         this.rowAction === 'activate'
-          ? active || selected
+          ? active
             ? 'true'
             : nothing
           : (this.dataSource?.selects ?? this.selects) === 'single'
@@ -785,7 +785,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     const row = (event.target as HTMLElement)?.closest?.('tr');
 
-    if (!row || !row.hasAttribute('aria-current')) {
+    if (!row || this.rowAction !== 'activate' || !row.part.contains('active')) {
       return;
     }
 

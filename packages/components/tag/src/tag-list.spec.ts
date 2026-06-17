@@ -64,6 +64,22 @@ describe('sl-tag-list', () => {
       expect(el).not.to.have.attribute('stacked');
       expect(el.stacked).not.to.be.true;
     });
+
+    it('should ignore arrow key navigation when there are no removable tags', async () => {
+      const tag = el.querySelector('sl-tag')!,
+        label = tag.renderRoot.querySelector<HTMLElement>('[part="label"]')!;
+
+      tag.tabIndex = 0;
+      await tag.updateComplete;
+
+      label.focus();
+
+      expect(() =>
+        label.dispatchEvent(
+          new KeyboardEvent('keydown', { bubbles: true, composed: true, key: 'ArrowRight' })
+        )
+      ).not.to.throw;
+    });
   });
 
   describe('removable', () => {

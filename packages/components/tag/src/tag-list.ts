@@ -74,6 +74,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Animation frame used to run an additional initial stabilization pass. */
   #initialVisibilityPassFrame?: number;
 
+  /** Whether the roving tabindex controller is currently listening for keyboard navigation. */
+  #rovingTabindexManaged = true;
+
   /** Number of completed passes before the initial visibility is considered stable. */
   #initialVisibilityPasses = 0;
 
@@ -235,6 +238,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     this.#syncTags();
+    this.#syncRovingTabindexController();
 
     if (changes.has('stacked')) {
       if (this.stacked && this.stack) {
@@ -364,7 +368,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.#syncTags();
 
-    this.#rovingTabindexController.clearElementCache();
+    this.#clearRovingTabindexCache();
 
     // Resolve the first layout immediately, without timers.
     if (!this.#hasResolvedInitialVisibility) {
@@ -496,7 +500,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.#rovingTabindexController.clearElementCache();
+    this.#clearRovingTabindexCache();
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce(
@@ -514,6 +518,23 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
+    this.#clearRovingTabindexCache();
+  }
+
+  #clearRovingTabindexCache(): void {
     this.#rovingTabindexController.clearElementCache();
+    this.#syncRovingTabindexController();
+  }
+
+  #syncRovingTabindexController(): void {
+    const hasManagedElements = this.#rovingTabindexController.elements.length > 0;
+
+    if (hasManagedElements && !this.#rovingTabindexManaged) {
+      this.#rovingTabindexController.manage();
+      this.#rovingTabindexManaged = true;
+    } else if (!hasManagedElements && this.#rovingTabindexManaged) {
+      this.#rovingTabindexController.unmanage();
+      this.#rovingTabindexManaged = false;
+    }
   }
 }

@@ -142,6 +142,12 @@ describe('sl-tag-list', () => {
       expect(document.activeElement).to.equal(tags[0]);
       expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
 
+      await userEvent.tab({ shift: true });
+
+      expect(document.activeElement).to.equal(before);
+
+      before.focus();
+      await userEvent.tab();
       await userEvent.tab();
 
       expect(document.activeElement).to.equal(after);

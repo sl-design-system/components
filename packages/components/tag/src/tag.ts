@@ -239,10 +239,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     }
 
     if (this.navigationDescription) {
-      if (button.matches(':focus') && this.tabIndex === -1) {
-        return;
-      }
-
       button.tabIndex = this.tabIndex;
     } else {
       button.removeAttribute('tabindex');

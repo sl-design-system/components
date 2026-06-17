@@ -775,7 +775,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       selected
         ? msg(str`Row ${index} activated`, { id: 'sl.grid.rowActivated' })
         : msg(str`Row ${index} deactivated`, { id: 'sl.grid.rowDeactivated' }),
-      'assertive'
+      'polite'
     );
   }
 
@@ -795,6 +795,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const index = row.getAttribute('aria-rowindex');
 
     if (index) {
+      // Use 'assertive' so the user knows right away which row they are in
       announce(
         msg(str`In activated row ${index}`, { id: 'sl.grid.inActivatedRow' }),
         'assertive',

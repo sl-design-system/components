@@ -287,4 +287,140 @@ describe('sl-listbox', () => {
       expect(option).not.to.have.attribute('aria-label');
     });
   });
+
+  describe('flattened position cache', () => {
+    it('should compute flattened positions correctly with grouped options', async () => {
+      type GroupedOption = {
+        group: string;
+        label: string;
+        selected: boolean;
+        value: string;
+      };
+
+      const listbox = await fixture<Listbox<GroupedOption>>(html`
+        <sl-listbox
+          option-group-path="group"
+          option-label-path="label"
+          option-selected-path="selected"
+          option-value-path="value"></sl-listbox>
+      `);
+
+      listbox.options = [
+        { group: 'Fruits', label: 'Apple', selected: false, value: 'apple' },
+        { group: 'Fruits', label: 'Banana', selected: true, value: 'banana' },
+        { group: 'Vegetables', label: 'Carrot', selected: false, value: 'carrot' },
+        { group: 'Vegetables', label: 'Potato', selected: false, value: 'potato' }
+      ];
+      await listbox.updateComplete;
+
+      const items = listbox.items!,
+        optionItems = items.filter(
+          (item): item is Extract<ListboxItem<GroupedOption, string>, { option: GroupedOption }> =>
+            'option' in item
+        ),
+        groupItems = items.filter(item => !('option' in item));
+
+      expect(listbox.getFlattenedSetSize()).to.equal(4);
+      expect(optionItems.map(item => listbox.getFlattenedPosition(item))).to.deep.equal([
+        0, 1, 2, 3
+      ]);
+      expect(groupItems.map(item => listbox.getFlattenedPosition(item))).to.deep.equal([-1, -1]);
+    });
+
+    it('should resolve flattened position for payload items with same id but different object instance', async () => {
+      const listbox = await fixture<Listbox<string>>(html`<sl-listbox></sl-listbox>`),
+        items: Array<ListboxItem<string, string>> = [
+          { id: 'group-a', label: 'Group A' },
+          { id: 'opt-a', label: 'Option A', option: 'A', selected: false, value: 'A' },
+          { id: 'opt-b', label: 'Option B', option: 'B', selected: true, value: 'B' }
+        ];
+
+      listbox.items = items;
+      await listbox.updateComplete;
+      await waitForVirtualizer();
+
+      const payloadWithSameId: ListboxItem<string, string> = {
+        id: 'opt-b',
+        label: 'Option B (payload clone)',
+        option: 'B',
+        selected: false,
+        value: 'B'
+      };
+
+      expect(payloadWithSameId).not.to.equal(items[2]);
+      expect(listbox.getFlattenedPosition(payloadWithSameId)).to.equal(1);
+    });
+
+    it('should refresh flattened positions across options/items changes and after clearing items', async () => {
+      type SimpleOption = { label: string; value: string };
+
+      const listbox = await fixture<Listbox<SimpleOption, string>>(html`
+        <sl-listbox option-label-path="label" option-value-path="value"></sl-listbox>
+      `);
+
+      listbox.options = [
+        { label: 'One', value: 'one' },
+        { label: 'Two', value: 'two' }
+      ];
+      await listbox.updateComplete;
+      await waitForVirtualizer();
+
+      const firstOptionItems = listbox.items!.filter(
+          (item): item is Extract<ListboxItem<SimpleOption, string>, { option: SimpleOption }> =>
+            'option' in item
+        ),
+        firstPayload = { ...firstOptionItems[0] };
+
+      expect(listbox.getFlattenedSetSize()).to.equal(2);
+      expect(listbox.getFlattenedPosition(firstPayload)).to.equal(0);
+
+      listbox.options = [{ label: 'Three', value: 'three' }];
+      await listbox.updateComplete;
+      await waitForVirtualizer();
+
+      const secondOptionItems = listbox.items!.filter(
+        (item): item is Extract<ListboxItem<SimpleOption, string>, { option: SimpleOption }> =>
+          'option' in item
+      );
+
+      expect(listbox.getFlattenedSetSize()).to.equal(1);
+      expect(listbox.getFlattenedPosition(secondOptionItems[0])).to.equal(0);
+      expect(listbox.getFlattenedPosition(firstPayload)).to.equal(-1);
+
+      listbox.items = [
+        { id: 'manual-group', label: 'Manual Group' },
+        {
+          id: 'manual-opt-1',
+          label: 'Manual One',
+          option: { label: 'M1', value: 'm1' },
+          value: 'm1'
+        },
+        {
+          id: 'manual-opt-2',
+          label: 'Manual Two',
+          option: { label: 'M2', value: 'm2' },
+          value: 'm2'
+        }
+      ];
+      await listbox.updateComplete;
+      await waitForVirtualizer();
+
+      const manualPayload: ListboxItem<SimpleOption, string> = {
+        id: 'manual-opt-2',
+        label: 'Manual Two clone',
+        option: { label: 'M2', value: 'm2' },
+        value: 'm2'
+      };
+
+      expect(listbox.getFlattenedSetSize()).to.equal(2);
+      expect(listbox.getFlattenedPosition(manualPayload)).to.equal(1);
+
+      listbox.items = undefined;
+      await listbox.updateComplete;
+      await waitForVirtualizer();
+
+      expect(listbox.getFlattenedSetSize()).to.equal(0);
+      expect(listbox.getFlattenedPosition(manualPayload)).to.equal(-1);
+    });
+  });
 });

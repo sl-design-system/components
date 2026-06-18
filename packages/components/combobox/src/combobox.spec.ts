@@ -10,6 +10,7 @@ import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
+import { type GroupedOption } from './grouped-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
@@ -1473,6 +1474,17 @@ describe('sl-combobox', () => {
         expect(el.groupSelected).to.be.true;
       });
 
+      it('should prepend the selected group as the first child in the listbox', () => {
+        const listbox = el.querySelector('sl-listbox');
+
+        expect(listbox?.firstElementChild).to.equal(selectedGroup);
+      });
+
+      it('should set has-groups to false when source options are not grouped', () => {
+        expect(selectedGroup.hasGroups).to.be.false;
+        expect(selectedGroup).not.to.have.attribute('has-groups');
+      });
+
       it('should group the selected options', () => {
         expect(selectedGroup).to.exist;
         // Note: aria-label is no longer set since we removed role="group" for Safari/VoiceOver compatibility
@@ -1489,6 +1501,56 @@ describe('sl-combobox', () => {
         expect(headers).to.have.lengthOf(2);
         expect(headers.item(0)).to.have.trimmed.text('Selected');
         expect(headers.item(1)).to.have.trimmed.text('All options');
+      });
+
+      it('should remove the selected group when all selections are cleared', async () => {
+        el.value = [];
+        await el.updateComplete;
+
+        expect(el.querySelector('sl-combobox-selected-group')).not.to.exist;
+      });
+
+      describe('with grouped source options', () => {
+        beforeEach(async () => {
+          el = await fixture(html`
+            <sl-combobox group-selected multiple .value=${['Option 1', 'Option 3']}>
+              <sl-listbox>
+                <sl-option-group label="Group 1">
+                  <sl-option>Option 1</sl-option>
+                  <sl-option>Option 2</sl-option>
+                </sl-option-group>
+                <sl-option-group label="Group 2">
+                  <sl-option>Option 3</sl-option>
+                  <sl-option>Option 4</sl-option>
+                </sl-option-group>
+              </sl-listbox>
+            </sl-combobox>
+          `);
+
+          selectedGroup = el.querySelector('sl-combobox-selected-group')!;
+        });
+
+        it('should set has-groups to true when source options are grouped', () => {
+          expect(selectedGroup.hasGroups).to.be.true;
+          expect(selectedGroup).to.have.attribute('has-groups');
+        });
+
+        it('should render only the selected header when has-groups is true', () => {
+          const headers = selectedGroup.renderRoot.querySelectorAll('sl-option-group-header');
+
+          expect(headers).to.have.lengthOf(1);
+          expect(headers.item(0)).to.have.trimmed.text('Selected');
+        });
+
+        it('should preserve original group labels on grouped selected options', () => {
+          const options = Array.from(
+            selectedGroup.querySelectorAll<GroupedOption>('sl-combobox-grouped-option')
+          );
+
+          expect(options).to.have.lengthOf(2);
+          expect(options[0].group).to.equal('Group 1');
+          expect(options[1].group).to.equal('Group 2');
+        });
       });
     });
 
@@ -1585,7 +1647,7 @@ describe('sl-combobox', () => {
         });
       });
 
-      it('should include group context in option accessible names', () => {
+      it('should have set the group name in the option items', () => {
         // Verify that items have group information
         const options = el.items.filter(item => 'option' in item);
 

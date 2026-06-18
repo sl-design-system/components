@@ -1351,7 +1351,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       // Add group context to accessible name for Safari/VoiceOver compatibility
       if (item.group) {
-        el.setAttribute('aria-label', `${item.group}, ${item.label}`);
+        el.setAttribute('aria-label', `${item.label} (${item.group})`);
       }
 
       if (el instanceof GroupedOption) {

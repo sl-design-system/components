@@ -77,8 +77,8 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** The virtual list instance when the `options` or `items` property is set. */
   #virtualizer?: VirtualList<ListboxItem<T, U>>;
 
-  /** Cache mapping each option item to its 0-based flattened position (excludes group headers). */
-  #flattenedPositionCache?: WeakMap<ListboxItem<T, U>, number>;
+  /** Cache mapping each option id to its 0-based flattened position (excludes group headers). */
+  #flattenedPositionCache?: Map<string, number>;
 
   /** Cache version matching the items version when the cache was last built. */
   #flattenedPositionCacheVersion = -1;
@@ -88,6 +88,9 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
   /** Total number of option items in the last built cache. */
   #flattenedSetSize = 0;
+
+  /** Cache mapping items array index to flattened option position, or -1 for non-option rows. */
+  #flattenedIndexCache?: number[];
 
   /**
    * The emphasis of the selected options in the listbox.
@@ -167,16 +170,29 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     ) {
       if (this.options) {
         this.items = this.#prepareOptions(this.options);
+        this.#itemsVersion++;
         // Update attribute after setting items
         this.#updateVirtualConstraintAttribute();
       } else if (changes.get('options')) {
         this.items = undefined;
+        this.#itemsVersion++;
+        this.#flattenedPositionCache = undefined;
+        this.#flattenedIndexCache = undefined;
+        this.#flattenedSetSize = 0;
         this.removeAttribute('data-virtual-unconstrained');
       }
     }
 
     // Also handle direct items assignment
     if (changes.has('items')) {
+      this.#itemsVersion++;
+
+      if (!this.items) {
+        this.#flattenedPositionCache = undefined;
+        this.#flattenedIndexCache = undefined;
+        this.#flattenedSetSize = 0;
+      }
+
       this.#updateVirtualConstraintAttribute();
     }
   }
@@ -353,7 +369,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
    * @internal Used by virtual-list consumers (e.g. combobox) so they don't need a duplicate cache.
    */
   getFlattenedPosition(item: ListboxItem<T, U>): number {
-    if (!this.items || !('option' in item)) return -1;
+    if (!this.items) return -1;
 
     if (
       this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
@@ -362,7 +378,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       this.#buildFlattenedPositionCache();
     }
 
-    return this.#flattenedPositionCache!.get(item) ?? -1;
+    return this.#flattenedPositionCache!.get(item.id) ?? -1;
   }
 
   /**
@@ -384,17 +400,37 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   }
 
   #buildFlattenedPositionCache(): void {
-    this.#flattenedPositionCache = new WeakMap<ListboxItem<T, U>, number>();
+    this.#flattenedPositionCache = new Map<string, number>();
     this.#flattenedPositionCacheVersion = this.#itemsVersion;
 
+    const items = this.items ?? [];
+    this.#flattenedIndexCache = new Array(items.length).fill(-1);
+
     let position = 0;
-    (this.items ?? []).forEach(i => {
+    items.forEach((i, index) => {
       if ('option' in i) {
-        this.#flattenedPositionCache!.set(i, position++);
+        this.#flattenedPositionCache!.set(i.id, position++);
+        this.#flattenedIndexCache![index] = position - 1;
       }
     });
 
     this.#flattenedSetSize = position;
+  }
+
+  #getFlattenedPositionByIndex(index: number): number {
+    if (!this.items || index < 0 || index >= this.items.length) {
+      return -1;
+    }
+
+    if (
+      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
+      !this.#flattenedPositionCache ||
+      !this.#flattenedIndexCache
+    ) {
+      this.#buildFlattenedPositionCache();
+    }
+
+    return this.#flattenedIndexCache![index] ?? -1;
   }
 
   #prepareOptions(options: T[]): Array<ListboxItem<T, U>> {
@@ -520,11 +556,16 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
       const flattenedPosition = this.getFlattenedPosition(item);
 
-      if (flattenedPosition !== -1) {
+      // Virtual-list integrations may render from an item payload that does not round-trip through
+      // the exact cache lookup path. Fall back to an O(1) index-based lookup.
+      const resolvedFlattenedPosition =
+        flattenedPosition !== -1 ? flattenedPosition : this.#getFlattenedPositionByIndex(index);
+
+      if (resolvedFlattenedPosition !== -1) {
         this.#applyOptionAccessibility(element, {
           group: item.group,
           label: item.label,
-          position: flattenedPosition + 1,
+          position: resolvedFlattenedPosition + 1,
           setSize: this.getFlattenedSetSize(),
           selected: item.selected
         });

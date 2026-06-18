@@ -10,14 +10,14 @@ eleventyNavigation:
 
 <div class="ds-example">
   <sl-calendar
-    aria-label="Choose a date"
+    aria-label="Choose exam date"
   ></sl-calendar>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-calendar aria-label="Choose a date"></sl-calendar>
+    <sl-calendar aria-label="Choose exam date"></sl-calendar>
   ```
 
 </div>

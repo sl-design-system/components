@@ -9,7 +9,7 @@ eleventyNavigation:
 
 ## Keyboard interactions
 
-The calendar supports full keyboard navigation through the month view, with shortcuts for moving between months and years.
+The calendar supports keyboard navigation through the month view.
 
 <div class="ds-table-wrapper">
 
@@ -18,9 +18,7 @@ The calendar supports full keyboard navigation through the month view, with shor
 |Tab| Moves focus into and out of the calendar grid and the month/year navigation controls.                                                                                    |
 |Arrow Left/Right| Moves focus to the previous or next day.                                                                                                                                 |
 |Arrow Up/Down| Moves focus to the same day in the previous or next week.                                                                                                                |
-|Page Up/Down| Moves focus to the same day in the previous or next month.                                                                                                               |
-|Shift + Page Up/Down| Moves focus to the same day in the previous or next year.                                                                                                                |
-|Home/End| Moves focus to the first or last day of the current week.                                                                                                                |
+|Home/End| Moves focus to the first or last focusable day in the calendar grid.                                                                                                     |
 |Enter/Space| Selects the currently focused date.                                                                                                                                      |
 
 {.ds-table .ds-table-align-top}
@@ -47,4 +45,3 @@ The calendar supports full keyboard navigation through the month view, with shor
 </div>
 
 </section>
-

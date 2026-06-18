@@ -10,14 +10,14 @@ eleventyNavigation:
 
 <div class="ds-example">
   <sl-date-field
-    aria-label="Start date"
+    aria-label="School year start date"
   ></sl-date-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-date-field aria-label="Start date"></sl-date-field>
+    <sl-date-field aria-label="School year start date"></sl-date-field>
   ```
 
 </div>

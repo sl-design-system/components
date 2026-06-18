@@ -20,9 +20,7 @@ The date field supports keyboard navigation for both the input and the calendar 
 |Escape| Closes the calendar popover.                                                                                                                                             |
 |Arrow Left/Right (in calendar)| Moves focus to the previous or next day.                                                                                                                                 |
 |Arrow Up/Down (in calendar)| Moves focus to the same day in the previous or next week.                                                                                                                |
-|Page Up/Down (in calendar)| Moves focus to the same day in the previous or next month.                                                                                                               |
-|Shift + Page Up/Down (in calendar)| Moves focus to the same day in the previous or next year.                                                                                                                |
-|Home/End (in calendar)| Moves focus to the first or last day of the current month.                                                                                                               |
+|Home/End (in calendar)| Moves focus to the first or last focusable day in the calendar grid.                                                                                                     |
 |Enter (in calendar)| Selects the currently focused date and closes the popover.                                                                                                               |
 
 {.ds-table .ds-table-align-top}

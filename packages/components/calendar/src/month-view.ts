@@ -155,7 +155,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The list of dates that should display an indicator. Each item is an Indicator with a `date`, an
-   * optional `color` and `label` that is used to improve accessibility (added as a tooltip).
+   * optional `color` and `label` that is used to improve accessibility (added as a tooltip). Use
+   * `indicator-dates` to highlight specific dates with a visual indicator (for example, exam dates
+   * or assignment deadlines) without disabling them.
    */
   @property({ attribute: 'indicator-dates', converter: indicatorConverter })
   indicatorDates?: Indicator[];
@@ -164,14 +166,16 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @state() localizedWeekOfYear?: string;
 
   /**
-   * The maximum date selectable in the month.
+   * The maximum date selectable in the month. Dates outside the range are visually disabled and
+   * cannot be selected.
    *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
-   * The minimum date selectable in the month.
+   * The minimum date selectable in the month. Dates outside the range are visually disabled and
+   * cannot be selected.
    *
    * @default undefined
    */

@@ -663,7 +663,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.input.setSelectionRange(value.length, item.label.length);
       }
     } else {
-      item = this.items.find(option => option.value === value);
+      item = this.#findItemByValue(value as U);
     }
 
     if (this.allowCustomValues && !item) {
@@ -1104,6 +1104,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       el.id = groupedItem.id;
       el.innerText = groupedItem.label;
       el.selected = true;
+      el.setAttribute('aria-selected', 'true');
 
       if (!el.parentElement) {
         this.#selectedGroup?.append(el);
@@ -1274,6 +1275,42 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     return [];
+  }
+
+  #isEqualValue(a: U | undefined, b: U | undefined): boolean {
+    if (a === b) {
+      return true;
+    }
+
+    if (this.#isStringCoercibleValue(a) && this.#isStringCoercibleValue(b)) {
+      return a.toString() === b.toString();
+    }
+
+    return false;
+  }
+
+  #isStringCoercibleValue(value: unknown): value is string | number | boolean | bigint {
+    switch (typeof value) {
+      case 'bigint':
+      case 'boolean':
+      case 'number':
+      case 'string':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  #findItemByValue(
+    value: U | undefined,
+    predicate: (item: ComboboxItem<T, U>) => boolean = () => true
+  ): ComboboxItem<T, U> | undefined {
+    return (
+      this.items.find(item => item.type === 'option' && predicate(item) && item.value === value) ??
+      this.items.find(
+        item => item.type === 'option' && predicate(item) && this.#isEqualValue(item.value, value)
+      )
+    );
   }
 
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {
@@ -1529,13 +1566,28 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.selectedItems.forEach(item => this.#removeSelectedOption(item));
     this.selectedItems = [];
 
-    this.items.forEach(item => {
-      if (this.multiple && (this.value as U[])?.includes(item.value!)) {
-        this.#addSelectedOption(item);
-      } else if (item.value === this.value) {
+    if (this.multiple) {
+      if (!Array.isArray(this.value)) {
+        return;
+      }
+
+      const selectedItems = new Set<ComboboxItem<T, U>>();
+      this.value.forEach(value => {
+        const item = this.#findItemByValue(value, item => !selectedItems.has(item));
+
+        if (item) {
+          selectedItems.add(item);
+        }
+      });
+
+      selectedItems.forEach(item => this.#addSelectedOption(item));
+    } else {
+      const item = this.#findItemByValue(this.value as U | undefined);
+
+      if (item) {
         this.#addSelectedOption(item);
       }
-    });
+    }
   }
 
   /** Update the value in the text field. */
@@ -1562,8 +1614,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     const isValueEqual = this.multiple
       ? Array.isArray(this.value) &&
         this.value.length === values.length &&
-        values.every(v => (this.value as U[]).includes(v))
-      : this.value === values[0];
+        values.every(v => (this.value as U[]).some(value => this.#isEqualValue(value, v)))
+      : this.#isEqualValue(this.value as U | undefined, values[0]);
 
     // Do nothing if the value hasn't changed
     if (isValueEqual) {

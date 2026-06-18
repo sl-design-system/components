@@ -41,7 +41,6 @@ Use the Calendar anywhere users need to navigate through dates and make a select
 
 </section>
 
-
 <section>
 
 ## When not to use
@@ -50,9 +49,6 @@ The Calendar may not be the best choice in the following scenarios:
 
 ### Date selection
 Calendar is a standalone date navigation component designed for browsing and navigating days, months, and years in date-related content, rather than for simple date entry or relative timeframe selection. Use the [Date Field](/categories/components/date-field/usage) when users need to enter a specific date, and use radio buttons, a segmented control, or a select for relative periods.
-
-
-
 
 </section>
 
@@ -78,7 +74,6 @@ Calendar is a standalone date navigation component designed for browsing and nav
 
 </section>
 
-
 <section>
 
 ## States
@@ -92,7 +87,6 @@ Calendar is a standalone date navigation component designed for browsing and nav
 - **Read-only:** Visible state, no interaction.
 
 </section>
-
 
 <section>
 
@@ -175,7 +169,6 @@ Nested year grid component used to compose the year selection view.
 
 </section>
 
-
 <section>
 
 ## Behavior
@@ -184,7 +177,7 @@ Nested year grid component used to compose the year selection view.
 Click a day or focus it with the keyboard and press `Enter` / `Space` to select it.
 
 ### Navigating through dates
-Use the navigation buttons in the header, or use `Page Up` / `Page Down` (and `Shift + Page Up` / `Shift + Page Down`) to move between months and years from the keyboard.
+Use the navigation buttons in the header to move between months and years. In the calendar grid, use arrow keys to move by day or week, and `Home` / `End` to move to the first or last focusable day in the grid.
 
 ### Day indicators
 Calendar day buttons can display different visual indications to help users understand the status of a date. When `show-today` is set, today's date is visually highlighted to help users orient themselves in the current month. Dates included in `indicator-dates` display a visual marker without changing their interactivity, which is useful for highlighting events, deadlines, or notifications. Dates included in `disabled-dates`, or dates outside the configured `min` and `max` range, remain visible in the grid but are shown as unavailable and cannot be selected.

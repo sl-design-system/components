@@ -3,7 +3,7 @@ title: Calendar code
 tags: code
 APIdescription: {
   sl-calendar: "Calendar component that combines day, month and year selection views to pick a date. Used internally by the date field, but can also be used standalone.",
-  sl-month-view: "A component that renders a single month grid without navigation controls. Used internally by select-day and can be used to compose custom calendar layouts."
+  sl-month-view: "A component that renders a single month grid without navigation controls. Used internally by sl-select-day and can be used to compose custom calendar layouts."
 }
 eleventyNavigation:
   parent: Calendar

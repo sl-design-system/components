@@ -46,7 +46,7 @@ const DAYS_IN_WEEK = 7;
  *
  * @csspart day - The day button.
  * @csspart disabled - The day button when shown as disabled.
- * @csspart header - The thead element with week day names.
+ * @csspart header - The thead element with weekday names.
  * @csspart indicator - The day button for a date with an indicator.
  * @csspart indicator-blue - The day button for a date with a blue indicator.
  * @csspart indicator-red - The day button for a date with a red indicator.

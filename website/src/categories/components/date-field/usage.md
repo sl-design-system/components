@@ -46,10 +46,10 @@ Use the Date Field when only a specific date range is valid, for example, future
 Date fields may not be the best choice in the following scenarios:
 
 ### Relative timeframes
-Avoid the Date Field when only approximate periods or relative notions of time are needed (e.g., "next week", "this month", "in three days"). In these cases, prefer select or radio buttons that reflects a relative period.
+Avoid the Date Field when only approximate periods or relative notions of time are needed (e.g., "next week", "this month", "in three days"). In these cases, prefer select or radio buttons that reflect a relative period.
 
 ### Date ranges
-For selecting a start and end date together, prefer a dedicated date range picker rather than two separate date fields, when vailable.
+For selecting a start and end date together, prefer a dedicated date range picker rather than two separate date fields, when available.
 
 ### Only calendar
 Do not use the Date Field when the date selection needs to be shown directly in the layout instead of inside a dropdown. Use the [Calendar](/categories/components/calendar/) when the visual date picker is the main interaction.
@@ -85,7 +85,7 @@ Do not use the Date Field when the date selection needs to be shown directly in 
 
 These states describe what users see when the Date Field is available.
 
-- **Idle:** Empty, showing the placeholder, or with a formatted date as the value if the the field is filled.
+- **Idle:** Empty, showing the placeholder, or with a formatted date as the value if the field is filled.
 - **Hover:** Visual hover effects that show the user that the field is interactive.
 - **Focus:** Display the focus ring. It's shown when the field is active by clicking or keyboard navigation.
 - **Invalid:** When an incorrect or out-of-range value is entered, the field is styled to indicate the error.

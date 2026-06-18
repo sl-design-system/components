@@ -521,16 +521,16 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     const processedOptions = new Set(metadata.map(m => m.option));
 
     this.querySelectorAll('sl-option').forEach(option => {
-      if (!processedOptions.has(option)) {
+      if (
+        !processedOptions.has(option) &&
+        option.getAttribute('data-generated-aria-label') === 'true'
+      ) {
         const currentGroup = option.closest<OptionGroup>('sl-option-group')?.label;
-        const hasGeneratedLabel =
-          option.hasAttribute('aria-label') &&
-          option.getAttribute('aria-label')!.includes('(') &&
-          option.getAttribute('aria-label')!.includes(')');
 
         // If option has a generated aria-label but no current group, it's stale
-        if (hasGeneratedLabel && !currentGroup) {
+        if (!currentGroup) {
           option.removeAttribute('aria-label');
+          option.removeAttribute('data-generated-aria-label');
         }
       }
     });

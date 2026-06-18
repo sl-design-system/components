@@ -36,7 +36,7 @@ eleventyNavigation:
 ## Localization
 
 Month names, day names and the first day of the week follow the active locale (via `Intl.DateTimeFormat`).
-\
+
 You can override the first day of the week with the `first-day-of-week` attribute (`0` for Sunday, `1` for Monday, etc.).
 
 </section>

@@ -13,15 +13,15 @@ The date field supports keyboard navigation for both the input and the calendar 
 
 <div class="ds-table-wrapper">
 
-|Command| Description                                                                                                                                                              |
-|-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|Tab| When focus is outside the date field, moves focus to the input. If focus is on the input, pressing Tab moves to the calendar trigger button, then to the next focusable element. |
-|Space/Enter (on button)| Toggles the calendar popover when the button has focus.                                                                                                                  |
-|Escape| Closes the calendar popover.                                                                                                                                             |
-|Arrow Left/Right (in calendar)| Moves focus to the previous or next day.                                                                                                                                 |
-|Arrow Up/Down (in calendar)| Moves focus to the same day in the previous or next week.                                                                                                                |
-|Home/End (in calendar)| Moves focus to the first or last focusable day in the calendar grid.                                                                                                     |
-|Enter (in calendar)| Selects the currently focused date and closes the popover.                                                                                                               |
+| Command                        | Description                                                                                                                                                                      |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Tab                            | When focus is outside the date field, moves focus to the input. If focus is on the input, pressing Tab moves to the calendar trigger button, then to the next focusable element. |
+| Space/Enter (on button)        | Toggles the calendar popover when the button has focus.                                                                                                                          |
+| Escape                         | Closes the calendar popover.                                                                                                                                                     |
+| Arrow Left/Right (in calendar) | Moves focus to the previous or next day.                                                                                                                                         |
+| Arrow Up/Down (in calendar)    | Moves focus to the same day in the previous or next week.                                                                                                                        |
+| Home/End (in calendar)         | Moves focus to the first or last focusable day in the calendar grid.                                                                                                             |
+| Enter/Space (in calendar)      | Selects the currently focused date. Closes the popover unless `require-confirmation` is set.                                                                                                                                             |
 
 {.ds-table .ds-table-align-top}
 

@@ -13,7 +13,6 @@ eleventyNavigation:
 <div class="ds-example">
   <sl-date-field
     aria-label="Appointment date"
-    show-today
     show-week-numbers
   ></sl-date-field>
 </div>
@@ -21,7 +20,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-date-field aria-label="Appointment date" show-today show-week-numbers></sl-date-field>
+    <sl-date-field aria-label="Appointment date" show-week-numbers></sl-date-field>
   ```
 
 </div>

@@ -215,7 +215,7 @@ Nested Calendar properties are used to compose and preview date, month, and year
 ## Behavior
 
 ### Free Typing (Default)
-Users can type any valid date matching the locale-aware format. The component validates for format, parsability, and the optional `min` / `max` range when the field loses focus.
+Users can type only numbers in the day, month, and year segments. The date is checked when focus leaves the field, and errors are shown then.
 
 ### Calendar popover
 Click the calendar icon button or press `Space`/`Enter` on it to open the popover. Use the keyboard or pointer to focus a date and press `Enter` to select it. Pressing `Escape` closes the popover and returns focus to the input.

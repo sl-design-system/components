@@ -80,6 +80,9 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** Cache mapping each option id to its 0-based flattened position (excludes group headers). */
   #flattenedPositionCache?: Map<string, number>;
 
+  /** Items reference used when the flattened cache was last built. */
+  #flattenedPositionCacheItems?: Array<ListboxItem<T, U>>;
+
   /** Cache version matching the items version when the cache was last built. */
   #flattenedPositionCacheVersion = -1;
 
@@ -177,6 +180,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         this.items = undefined;
         this.#itemsVersion++;
         this.#flattenedPositionCache = undefined;
+        this.#flattenedPositionCacheItems = undefined;
         this.#flattenedIndexCache = undefined;
         this.#flattenedSetSize = 0;
         this.removeAttribute('data-virtual-unconstrained');
@@ -189,6 +193,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
       if (!this.items) {
         this.#flattenedPositionCache = undefined;
+        this.#flattenedPositionCacheItems = undefined;
         this.#flattenedIndexCache = undefined;
         this.#flattenedSetSize = 0;
       }
@@ -371,10 +376,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   getFlattenedPosition(item: ListboxItem<T, U>): number {
     if (!this.items) return -1;
 
-    if (
-      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
-      !this.#flattenedPositionCache
-    ) {
+    if (this.#shouldRebuildFlattenedPositionCache()) {
       this.#buildFlattenedPositionCache();
     }
 
@@ -389,18 +391,24 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   getFlattenedSetSize(): number {
     if (!this.items) return 0;
 
-    if (
-      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
-      !this.#flattenedPositionCache
-    ) {
+    if (this.#shouldRebuildFlattenedPositionCache()) {
       this.#buildFlattenedPositionCache();
     }
 
     return this.#flattenedSetSize;
   }
 
+  #shouldRebuildFlattenedPositionCache(): boolean {
+    return (
+      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
+      this.#flattenedPositionCacheItems !== this.items ||
+      !this.#flattenedPositionCache
+    );
+  }
+
   #buildFlattenedPositionCache(): void {
     this.#flattenedPositionCache = new Map<string, number>();
+    this.#flattenedPositionCacheItems = this.items;
     this.#flattenedPositionCacheVersion = this.#itemsVersion;
 
     const items = this.items ?? [];
@@ -422,11 +430,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       return -1;
     }
 
-    if (
-      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
-      !this.#flattenedPositionCache ||
-      !this.#flattenedIndexCache
-    ) {
+    if (this.#shouldRebuildFlattenedPositionCache() || !this.#flattenedIndexCache) {
       this.#buildFlattenedPositionCache();
     }
 

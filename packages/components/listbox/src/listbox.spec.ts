@@ -422,5 +422,33 @@ describe('sl-listbox', () => {
       expect(listbox.getFlattenedSetSize()).to.equal(0);
       expect(listbox.getFlattenedPosition(manualPayload)).to.equal(-1);
     });
+
+    it('should refresh flattened cache immediately when items is replaced', async () => {
+      const listbox = await fixture<Listbox<string, string>>(html`<sl-listbox></sl-listbox>`);
+
+      listbox.items = [
+        { id: 'initial-opt-1', label: 'Initial One', option: 'one', value: 'one' },
+        { id: 'initial-opt-2', label: 'Initial Two', option: 'two', value: 'two' }
+      ];
+      await listbox.updateComplete;
+
+      expect(listbox.getFlattenedSetSize()).to.equal(2);
+
+      listbox.items = [
+        { id: 'replacement-group', label: 'Replacement Group' },
+        { id: 'replacement-opt-1', label: 'Replacement One', option: 'one', value: 'one' }
+      ];
+      await listbox.updateComplete;
+
+      const replacementPayload: ListboxItem<string, string> = {
+        id: 'replacement-opt-1',
+        label: 'Replacement One payload',
+        option: 'one',
+        value: 'one'
+      };
+
+      expect(listbox.getFlattenedPosition(replacementPayload)).to.equal(0);
+      expect(listbox.getFlattenedSetSize()).to.equal(1);
+    });
   });
 });

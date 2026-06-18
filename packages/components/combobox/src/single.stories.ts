@@ -208,6 +208,18 @@ export const Value: Story = {
   }
 };
 
+export const NumericOptionValues: Story = {
+  args: {
+    label: 'Chapter',
+    options: () => html`
+      <sl-option .value=${1}>Chapter 1</sl-option>
+      <sl-option .value=${2}>Chapter 2</sl-option>
+      <sl-option .value=${3}>Chapter 3</sl-option>
+    `,
+    value: '1'
+  }
+};
+
 export const VirtualList: Story = {
   args: {
     optionLabelPath: 'label',

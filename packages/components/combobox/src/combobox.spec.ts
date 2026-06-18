@@ -477,6 +477,7 @@ describe('sl-combobox', () => {
       await userEvent.keyboard('Custom value');
       el.querySelector('sl-combobox-create-custom-option')?.click();
       await el.updateComplete;
+      await waitForNextFrame();
 
       const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
 
@@ -696,6 +697,49 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('1');
         expect(input.value).to.equal('Lorem');
       });
+
+      it('should select an option when the value matches after string coercion', async () => {
+        const onChange = spy();
+
+        el = await fixture(html`
+          <sl-combobox @sl-change=${onChange}>
+            <sl-listbox>
+              <sl-option .value=${1}>Lorem</sl-option>
+              <sl-option .value=${2}>Ipsum</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+          <input />
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{Tab}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('1');
+        expect(input.value).to.equal('Lorem');
+        expect(onChange).not.to.have.been.called;
+      });
+
+      it('should prefer a strict value match over a string-coerced match', async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        expect(input.value).to.equal('String');
+      });
     });
 
     describe('allow custom values', () => {
@@ -861,6 +905,7 @@ describe('sl-combobox', () => {
         input.focus();
         await userEvent.keyboard('{ArrowDown}');
         await el.updateComplete;
+        await waitForNextFrame();
 
         const options = Array.from(el.querySelectorAll('sl-option'));
 
@@ -966,6 +1011,22 @@ describe('sl-combobox', () => {
 
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
+
+      it('should select only the strict value match when coercible option values also match', async () => {
+        el = await fixture(html`
+          <sl-combobox multiple>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        el.value = ['1'];
+        await el.updateComplete;
+
+        expect(el.selectedItems.map(item => item.label)).to.deep.equal(['String']);
       });
 
       it('should select and deselect the current option with Space when select-only', async () => {
@@ -1469,6 +1530,15 @@ describe('sl-combobox', () => {
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
       });
 
+      it('should expose the selected state for grouped options', () => {
+        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option'));
+
+        expect(options.map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+          'true',
+          'true'
+        ]);
+      });
+
       it('should have group headers for both the selected and unselected options', () => {
         const headers = selectedGroup.renderRoot.querySelectorAll('sl-option-group-header');
 
@@ -1654,6 +1724,61 @@ describe('sl-combobox', () => {
       const formData = new FormData(form);
       expect(formData.get('test')).to.equal('1');
       expect(combobox.value).to.equal('Option 2');
+    });
+
+    it('should open a virtual list with object options without crashing', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${options}
+          .value=${300}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should update grouped virtual list selections without recursive cleanup', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          group-selected
+          multiple
+          .options=${options}
+          .value=${[300]}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      // Switching value to empty exercises grouped-option cleanup paths.
+      combobox.value = [];
+      await combobox.updateComplete;
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
     });
   });
 

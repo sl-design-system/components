@@ -257,17 +257,32 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
       await this.updateComplete;
 
       const newButtons = Array.from(this.buttons),
-        newEnabledButtons = newButtons.filter(b => !b.disabled);
+        column = currentIndex % this.#cols,
+        sameColumnFromBottom = newButtons.length - this.#cols + column,
+        sameColumnFromTop = column,
+        preferredIndices =
+          event.key === 'ArrowUp'
+            ? [sameColumnFromBottom]
+            : event.key === 'ArrowDown'
+              ? [sameColumnFromTop]
+              : [];
 
-      let targetButton: HTMLButtonElement | undefined;
-
+      // Fallback: preserve directional behavior if same-column target isn't focusable.
       if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        targetButton = newEnabledButtons.at(-1);
+        preferredIndices.push(...newButtons.map((_, i) => newButtons.length - 1 - i));
       } else {
-        targetButton = newEnabledButtons.at(0);
+        preferredIndices.push(...newButtons.map((_, i) => i));
       }
 
-      targetButton?.focus();
+      const targetIndex = preferredIndices.find(index => {
+        const button = newButtons[index];
+
+        return !!button && !button.disabled;
+      });
+
+      if (targetIndex !== undefined) {
+        this.#focusGroupController.focusToElement(targetIndex);
+      }
     }
 
     // Otherwise, let the event bubble to the focus group controller
@@ -294,25 +309,13 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #prepareForwardTabEscape(event: KeyboardEvent): void {
-    console.log('event', event);
-    const body = this.ownerDocument.body;
+    event.preventDefault();
 
     const headerButtons = Array.from(
-        this.renderRoot.querySelectorAll<HTMLElement>('header sl-button')
-      ),
-      gridButtons = Array.from(this.buttons);
+      this.renderRoot.querySelectorAll<HTMLElement>('header sl-button')
+    );
 
-    headerButtons.forEach(el => (el.tabIndex = -1));
-    gridButtons.forEach(el => (el.tabIndex = -1));
-
-    body.tabIndex = -1;
-    body.focus();
-
-    requestAnimationFrame(() => {
-      body.removeAttribute('tabindex');
-      headerButtons.forEach(el => el.removeAttribute('tabindex'));
-      this.#focusGroupController.clearElementCache();
-    });
+    this.#focusGroupController.escapeFocus(headerButtons);
   }
 
   // Announce if needed, we don't want to have the same message announced twice

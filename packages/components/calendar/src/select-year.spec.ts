@@ -230,6 +230,18 @@ describe('sl-select-year', () => {
       expect(el.years[0]).to.equal(initialFirst - 12);
     });
 
+    it('should keep column focus when ArrowUp loads previous years', async () => {
+      buttons.at(1)?.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      const newButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>('table button')
+      );
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons.at(10));
+    });
+
     it('should increment year range by 12 when ArrowDown is pressed on a last-row button', async () => {
       const initialFirst = el.years[0];
 
@@ -238,6 +250,18 @@ describe('sl-select-year', () => {
       await el.updateComplete;
 
       expect(el.years[0]).to.equal(initialFirst + 12);
+    });
+
+    it('should keep column focus when ArrowDown loads next years', async () => {
+      buttons.at(10)?.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const newButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>('table button')
+      );
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons.at(1));
     });
 
     describe('when min/max are set', () => {

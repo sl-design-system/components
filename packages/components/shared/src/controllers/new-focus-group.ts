@@ -245,6 +245,27 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     this.#manageIndexesAnimationFrame = requestAnimationFrame(() => this.#manageTabindexes());
   }
 
+  /**
+   * Temporarily removes focus management from all managed elements plus any additional elements,
+   * moves focus to the document body, then restores tabindexes in the next animation frame. Useful
+   * for allowing Tab key to escape a focus trap (e.g. inside a dialog).
+   */
+  escapeFocus(additionalElements: HTMLElement[] = []): void {
+    const body = this.#host.ownerDocument.body;
+
+    this.elements.forEach(el => (el.tabIndex = -1));
+    additionalElements.forEach(el => (el.tabIndex = -1));
+
+    body.tabIndex = -1;
+    body.focus();
+
+    requestAnimationFrame(() => {
+      body.removeAttribute('tabindex');
+      additionalElements.forEach(el => el.removeAttribute('tabindex'));
+      this.clearElementCache();
+    });
+  }
+
   manage(): void {
     this.#managed = true;
     this.#manageTabindexes();

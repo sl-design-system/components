@@ -11,6 +11,7 @@ import {
   type EventEmitter,
   LocaleMixin,
   NewFocusGroupController,
+  closestElementComposed,
   event
 } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
@@ -70,7 +71,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
     wrap: false
   });
 
@@ -159,7 +159,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     return html`
-      <header>
+      <header @keydown=${this.#onHeaderKeydown}>
         ${this.#canSelectYear(-1) || this.#canSelectYear(1)
           ? html`
               <sl-button
@@ -255,6 +255,12 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
+    if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
+      this.#prepareForwardTabEscape(event);
+
+      return;
+    }
+
     const buttons = Array.from(this.buttons),
       currentIndex = buttons.indexOf(event.target);
 
@@ -333,6 +339,35 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onToggleYearSelect(): void {
     this.toggleEvent.emit('year');
+  }
+
+  #onHeaderKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
+      this.#prepareForwardTabEscape(event);
+    }
+  }
+
+  #prepareForwardTabEscape(event: KeyboardEvent): void {
+    event.preventDefault();
+
+    const body = this.ownerDocument.body;
+
+    const headerButtons = Array.from(
+        this.renderRoot.querySelectorAll<HTMLElement>('header sl-button')
+      ),
+      gridButtons = Array.from(this.buttons);
+
+    headerButtons.forEach(el => (el.tabIndex = -1));
+    gridButtons.forEach(el => (el.tabIndex = -1));
+
+    body.tabIndex = -1;
+    body.focus();
+
+    requestAnimationFrame(() => {
+      body.removeAttribute('tabindex');
+      headerButtons.forEach(el => el.removeAttribute('tabindex'));
+      this.#focusGroupController.clearElementCache();
+    });
   }
 
   #isDisabled(year: number, month: number): boolean {

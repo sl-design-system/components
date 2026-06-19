@@ -6,7 +6,12 @@ import {
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  NewFocusGroupController,
+  closestElementComposed,
+  event
+} from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import {
@@ -62,7 +67,6 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
     wrap: false
   });
 
@@ -132,7 +136,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
 
     return html`
-      <header>
+      <header @keydown=${this.#onHeaderKeydown}>
         <span>${this.years.at(0)} - ${this.years.at(-1)}</span>
 
         <sl-button
@@ -205,6 +209,12 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
    * can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
+    if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
+      this.#prepareForwardTabEscape(event);
+
+      return;
+    }
+
     const buttons = Array.from(this.buttons);
 
     const currentIndex = buttons.indexOf(event.target);
@@ -275,6 +285,34 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #setYears(start: number, end: number): void {
     this.years = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  }
+
+  #onHeaderKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
+      this.#prepareForwardTabEscape(event);
+    }
+  }
+
+  #prepareForwardTabEscape(event: KeyboardEvent): void {
+    console.log('event', event);
+    const body = this.ownerDocument.body;
+
+    const headerButtons = Array.from(
+        this.renderRoot.querySelectorAll<HTMLElement>('header sl-button')
+      ),
+      gridButtons = Array.from(this.buttons);
+
+    headerButtons.forEach(el => (el.tabIndex = -1));
+    gridButtons.forEach(el => (el.tabIndex = -1));
+
+    body.tabIndex = -1;
+    body.focus();
+
+    requestAnimationFrame(() => {
+      body.removeAttribute('tabindex');
+      headerButtons.forEach(el => el.removeAttribute('tabindex'));
+      this.#focusGroupController.clearElementCache();
+    });
   }
 
   // Announce if needed, we don't want to have the same message announced twice

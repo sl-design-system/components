@@ -1,4 +1,5 @@
 import { type ReactiveController, type ReactiveElement } from 'lit';
+import { closestElementComposed } from '../dom.js';
 
 type DirectionTypes = 'horizontal' | 'vertical' | 'both' | 'grid';
 
@@ -319,11 +320,18 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     this.focused = true;
   }
 
-  #hostNoLongerContainsFocus(): void {
+  #hostNoLongerContainsFocus(preserveCurrentTabStop = false): void {
     const scope = this.#scope();
     scope.addEventListener('focusin', this.#onFocusin);
     scope.removeEventListener('focusout', this.#onFocusout);
     scope.removeEventListener('keydown', this.#onKeydown);
+
+    if (preserveCurrentTabStop) {
+      this.#updateTabindexes(() => ({ tabIndex: -1 }));
+      this.#focused = false;
+      return;
+    }
+
     this.currentIndex = this.focusInIndex;
     this.focused = false;
   }
@@ -345,21 +353,23 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
 
   // Event handlers
   #onFocusin = (event: FocusEvent): void => {
-    if (!this.#isFocusMovingOutOfScope(event)) {
-      this.#hostContainsFocus();
-    }
     const path = event.composedPath() as T[];
     let targetIndex = -1;
     path.find(el => {
       targetIndex = this.elements.indexOf(el);
       return targetIndex !== -1;
     });
+
+    if (!this.#isFocusMovingOutOfScope(event) && targetIndex > -1) {
+      this.#hostContainsFocus();
+    }
+
     this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
   };
 
   #onFocusout = (event: FocusEvent): void => {
     if (this.#isFocusMovingOutOfScope(event)) {
-      this.#hostNoLongerContainsFocus();
+      this.#hostNoLongerContainsFocus(closestElementComposed(this.#host, 'dialog[open]') !== null);
     }
   };
 

@@ -256,33 +256,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     if (shouldLoadNewRange) {
       await this.updateComplete;
 
-      const newButtons = Array.from(this.buttons),
-        column = currentIndex % this.#cols,
-        sameColumnFromBottom = newButtons.length - this.#cols + column,
-        sameColumnFromTop = column,
-        preferredIndices =
-          event.key === 'ArrowUp'
-            ? [sameColumnFromBottom]
-            : event.key === 'ArrowDown'
-              ? [sameColumnFromTop]
-              : [];
-
-      // Fallback: preserve directional behavior if same-column target isn't focusable.
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        preferredIndices.push(...newButtons.map((_, i) => newButtons.length - 1 - i));
-      } else {
-        preferredIndices.push(...newButtons.map((_, i) => i));
-      }
-
-      const targetIndex = preferredIndices.find(index => {
-        const button = newButtons[index];
-
-        return !!button && !button.disabled;
-      });
-
-      if (targetIndex !== undefined) {
-        this.#focusGroupController.focusToElement(targetIndex);
-      }
+      this.#focusAfterRangeChange(event.key, currentIndex);
     }
 
     // Otherwise, let the event bubble to the focus group controller
@@ -300,6 +274,39 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #setYears(start: number, end: number): void {
     this.years = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  }
+
+  #focusAfterRangeChange(key: string, currentIndex: number): void {
+    const buttons = Array.from(this.buttons),
+      preferredIndices = this.#getPreferredBoundaryIndices(key, currentIndex, buttons.length),
+      targetIndex = preferredIndices.find(index => {
+        const button = buttons[index];
+
+        return !!button && !button.disabled;
+      });
+
+    if (targetIndex !== undefined) {
+      this.#focusGroupController.focusToElement(targetIndex);
+    }
+  }
+
+  #getPreferredBoundaryIndices(key: string, currentIndex: number, length: number): number[] {
+    const column = currentIndex % this.#cols,
+      preferredIndices =
+        key === 'ArrowUp' ? [length - this.#cols + column] : key === 'ArrowDown' ? [column] : [];
+
+    // Fallback: preserve directional behavior if same-column target isn't focusable.
+    if (key === 'ArrowLeft' || key === 'ArrowUp') {
+      for (let i = length - 1; i >= 0; i -= 1) {
+        preferredIndices.push(i);
+      }
+    } else {
+      for (let i = 0; i < length; i += 1) {
+        preferredIndices.push(i);
+      }
+    }
+
+    return preferredIndices;
   }
 
   #onHeaderKeydown(event: KeyboardEvent): void {

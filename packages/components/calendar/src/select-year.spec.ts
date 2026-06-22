@@ -242,6 +242,21 @@ describe('sl-select-year', () => {
       expect(el.shadowRoot?.activeElement).to.equal(newButtons.at(10));
     });
 
+    it('should continue arrow navigation after loading a new range', async () => {
+      buttons.at(1)?.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      const newButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>('table button')
+      );
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons.at(11));
+    });
+
     it('should increment year range by 12 when ArrowDown is pressed on a last-row button', async () => {
       const initialFirst = el.years[0];
 

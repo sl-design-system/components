@@ -23,7 +23,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property, queryAll, state } from 'lit/decorators.js';
+import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-month.scss.js';
@@ -71,11 +71,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
+    scope: () => this.table,
     wrap: false
   });
 
   /** The buttons representing each month. */
   @queryAll('button') buttons!: NodeListOf<HTMLButtonElement>;
+
+  /** The months grid table used as focus scope. */
+  @query('table') table!: HTMLTableElement;
 
   /**
    * The maximum date selectable in the month.
@@ -255,7 +259,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
-    if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
+    if (this.#isForwardTabInDialog(event)) {
       this.#prepareForwardTabEscape(event);
 
       return;
@@ -332,9 +336,14 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** Handles Tab in the header so focus can leave the calendar in a dialog. */
   #onHeaderKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
+    if (this.#isForwardTabInDialog(event)) {
       this.#prepareForwardTabEscape(event);
     }
+  }
+
+  /** Checks whether the key event is a forward Tab while the component is inside an open dialog. */
+  #isForwardTabInDialog(event: KeyboardEvent): boolean {
+    return event.key === 'Tab' && !event.shiftKey && !!closestElementComposed(this, 'dialog[open]');
   }
 
   /** Prepares focus so the next Tab can move out of the calendar header. */

@@ -348,7 +348,9 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     scope.removeEventListener('keydown', this.#onKeydown);
 
     if (preserveCurrentTabStop) {
-      this.#updateTabindexes(() => ({ tabIndex: -1 }));
+      const activeElement = this.elements[this.currentIndex];
+
+      this.#updateTabindexes(el => ({ tabIndex: el === activeElement ? 0 : -1 }));
       this.#focused = false;
       return;
     }
@@ -380,6 +382,15 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
       targetIndex = this.elements.indexOf(el);
       return targetIndex !== -1;
     });
+
+    if (targetIndex === -1) {
+      // Elements can be replaced during range/page changes; retry with a fresh query.
+      this.#cachedElements = undefined;
+      path.find(el => {
+        targetIndex = this.elements.indexOf(el);
+        return targetIndex !== -1;
+      });
+    }
 
     if (!this.#isFocusMovingOutOfScope(event) && targetIndex > -1) {
       this.#hostContainsFocus();

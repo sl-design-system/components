@@ -632,7 +632,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   #onSlotchange(): void {
     this.#verifyRegisteredListboxElements();
 
-    this.options.forEach(option => option.setAttribute('aria-selected', 'false'));
+    this.listbox?.applyFlattenedOptionAccessibility(this.options);
 
     if (this.value !== undefined && this.value !== null) {
       this.#setSelectedOption(

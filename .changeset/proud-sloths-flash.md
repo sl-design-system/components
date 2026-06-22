@@ -3,10 +3,7 @@
 '@sl-design-system/inline-message': patch
 '@sl-design-system/message-dialog': patch
 '@sl-design-system/toggle-button': patch
-'@sl-design-system/number-field': patch
 '@sl-design-system/progress-bar': patch
-'@sl-design-system/search-field': patch
-'@sl-design-system/toggle-group': patch
 '@sl-design-system/breadcrumbs': patch
 '@sl-design-system/date-field': patch
 '@sl-design-system/text-field': patch

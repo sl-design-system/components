@@ -96,7 +96,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-combobox-create-custom-option': CreateCustomOption,
       'sl-combobox-custom-option': CustomOption,

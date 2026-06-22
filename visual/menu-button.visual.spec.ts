@@ -3,6 +3,7 @@ import { render } from 'lit';
 import { describe, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import * as stories from '../packages/components/menu/src/menu-button.stories.js';
+
 const meta = stories.default,
   basic = stories.Basic;
 

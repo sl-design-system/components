@@ -27,6 +27,7 @@
     "build": "wireit",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "wireit",
+    "chromatic-visual-storybook": "wireit",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
     "extract-i18n": "lit-localize extract",
     "dist": "wireit",
@@ -36,6 +37,7 @@
     "postinstall": "husky || true",
     "release": "wireit",
     "start": "wireit",
+    "start:visual-storybook": "wireit",
     "storybook": "wireit",
     "test": "wireit",
     "test:storybook:interactions": "wireit",
@@ -332,6 +334,42 @@
       "command": "storybook build --stats-json",
       "dependencies": [
         "build"
+      ]
+    },
+    "chromatic-visual-storybook": {
+      "command": "storybook build -c visual/.storybook -o visual/storybook-static --stats-json",
+      "dependencies": [
+        "build:components",
+        "build:examples",
+        "build:themes"
+      ]
+    },
+    "start:visual-storybook": {
+      "command": "storybook dev -c visual/.storybook -p 6009 --no-open",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "Storybook ready!"
+        }
+      },
+      "files": [
+        "visual/.storybook/main.ts",
+        "visual/.storybook/preview.ts",
+        "visual/.storybook/stories/all.stories.ts",
+        "visual/.storybook/modes.ts"
+      ],
+      "dependencies": [
+        {
+          "script": "build:components",
+          "cascade": false
+        },
+        {
+          "script": "build:examples",
+          "cascade": false
+        },
+        {
+          "script": "build:themes",
+          "cascade": false
+        }
       ]
     },
     "storybook": {

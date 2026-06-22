@@ -330,12 +330,14 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.toggleEvent.emit('year');
   }
 
+  /** Handles Tab in the header so focus can leave the calendar in a dialog. */
   #onHeaderKeydown(event: KeyboardEvent): void {
     if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
       this.#prepareForwardTabEscape(event);
     }
   }
 
+  /** Prepares focus so the next Tab can move out of the calendar header. */
   #prepareForwardTabEscape(event: KeyboardEvent): void {
     event.preventDefault();
 
@@ -346,6 +348,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.#focusGroupController.escapeFocus(headerButtons);
   }
 
+  /** Moves focus to the right month button after loading a new year range. */
   #focusAfterRangeChange(key: string, currentIndex: number): void {
     const buttons = Array.from(this.buttons),
       preferredIndices = this.#getPreferredBoundaryIndices(key, currentIndex, buttons.length),
@@ -360,12 +363,13 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
+  /** Builds a list of preferred focus positions for boundary key navigation. */
   #getPreferredBoundaryIndices(key: string, currentIndex: number, length: number): number[] {
     const column = currentIndex % this.#cols,
       preferredIndices =
         key === 'ArrowUp' ? [length - this.#cols + column] : key === 'ArrowDown' ? [column] : [];
 
-    // Fallback: preserve directional behavior if same-column target isn't focusable.
+    // If that target cannot be focused, fall back to the same arrow direction.
     if (key === 'ArrowLeft' || key === 'ArrowUp') {
       for (let i = length - 1; i >= 0; i -= 1) {
         preferredIndices.push(i);

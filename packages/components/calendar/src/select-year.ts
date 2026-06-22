@@ -276,6 +276,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     this.years = Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
+  /** Moves focus to the right year button after loading a new year range. */
   #focusAfterRangeChange(key: string, currentIndex: number): void {
     const buttons = Array.from(this.buttons),
       preferredIndices = this.#getPreferredBoundaryIndices(key, currentIndex, buttons.length),
@@ -290,6 +291,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  /** Builds a list of preferred focus positions for boundary key navigation. */
   #getPreferredBoundaryIndices(key: string, currentIndex: number, length: number): number[] {
     const column = currentIndex % this.#cols,
       preferredIndices =
@@ -309,12 +311,14 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     return preferredIndices;
   }
 
+  /** Handles Tab in the header so focus can leave the calendar in a dialog. */
   #onHeaderKeydown(event: KeyboardEvent): void {
     if (event.key === 'Tab' && !event.shiftKey && closestElementComposed(this, 'dialog[open]')) {
       this.#prepareForwardTabEscape(event);
     }
   }
 
+  /** Prepares focus so the next Tab can move out of the calendar header. */
   #prepareForwardTabEscape(event: KeyboardEvent): void {
     event.preventDefault();
 

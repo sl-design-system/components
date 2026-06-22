@@ -1578,6 +1578,44 @@ describe('sl-combobox', () => {
         expect(el.querySelector('sl-combobox-selected-group')).not.to.exist;
       });
 
+      it('should move current to the grouped option so Enter toggles it off instead of selecting it twice', async () => {
+        input.focus();
+        await userEvent.keyboard('Option 3');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const currentGroupedOption = selectedGroup.querySelector(
+          'sl-combobox-grouped-option[current]'
+        );
+        const groupedLabelsAfterFirstEnter = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(option => option.textContent?.trim());
+
+        expect(currentGroupedOption).to.exist;
+        expect(currentGroupedOption).to.have.trimmed.text('Option 3');
+        expect(groupedLabelsAfterFirstEnter.filter(label => label === 'Option 3')).to.have.lengthOf(
+          1
+        );
+
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const groupedLabelsAfterSecondEnter = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(option => option.textContent?.trim());
+
+        expect(
+          groupedLabelsAfterSecondEnter.filter(label => label === 'Option 3')
+        ).to.have.lengthOf(0);
+      });
+
       describe('with grouped source options', () => {
         beforeEach(async () => {
           el = await fixture(html`

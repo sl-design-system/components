@@ -2,10 +2,7 @@ import { takeSnapshot } from '@chromatic-com/vitest';
 import { render } from 'lit';
 import { describe, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import * as stories from '../packages/components/menu/src/menu-button.stories.js';
-
-const meta = stories.default,
-  basic = stories.Basic;
+import { MenuButton as MenuButtonStory } from './.storybook/stories/all.stories.js';
 
 type MenuButtonElement = HTMLElement & {
   updateComplete?: Promise<unknown>;
@@ -21,13 +18,12 @@ type ButtonElement = HTMLElement;
 
 const mountBasicStory = async () => {
   document.body.innerHTML = '';
-  const args = { ...meta.args, ...basic.args };
 
-  if (!meta.render) {
-    throw new Error('Expected menu-button stories default export to include a render function.');
+  if (!MenuButtonStory.render) {
+    throw new Error('Expected visual all.stories MenuButton export to include a render function.');
   }
 
-  render(meta.render(args), document.body);
+  render(MenuButtonStory.render(), document.body);
 
   const menuButton = document.querySelector('sl-menu-button') as MenuButtonElement | null;
   await menuButton?.updateComplete;

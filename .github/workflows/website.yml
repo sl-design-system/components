@@ -68,9 +68,7 @@ jobs:
 
       - run: yarn install --immutable
 
-      - env:
-          YARN_ENABLE_HARDENED_MODE: false
-        run: NODE_ENV=production yarn website
+      - run: NODE_ENV=production yarn website
 
       - uses: aws-actions/configure-aws-credentials@v6
         with:

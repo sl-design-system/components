@@ -143,7 +143,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  protected override updated(): void {
+  protected override updated(changes: Map<PropertyKey, unknown>): void {
+    super.updated(changes);
     this.#syncButtonTabIndex();
   }
 

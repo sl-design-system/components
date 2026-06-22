@@ -66,11 +66,11 @@ jobs:
           node-version: 24
           cache: 'yarn'
 
+      - run: yarn install --immutable
+
       - env:
           YARN_ENABLE_HARDENED_MODE: false
-        run: yarn install --immutable
-
-      - run: NODE_ENV=production yarn website
+        run: NODE_ENV=production yarn website
 
       - uses: aws-actions/configure-aws-credentials@v6
         with:

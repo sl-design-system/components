@@ -11,7 +11,6 @@
 '@sl-design-system/date-field': patch
 '@sl-design-system/text-field': patch
 '@sl-design-system/time-field': patch
-'@sl-design-system/accordion': patch
 '@sl-design-system/paginator': patch
 '@sl-design-system/text-area': patch
 '@sl-design-system/calendar': patch

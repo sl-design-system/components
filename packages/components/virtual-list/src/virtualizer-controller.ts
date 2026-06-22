@@ -156,7 +156,7 @@ export class VirtualizerController<
       const doUpdateScrollMargin = () => {
         const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
 
-        // Skip if disposed, already pending update, or user provided custom scrollMargin
+        // Skip if disposed, already pending update, user provided custom scrollMargin
         if (this.#disposed || this.#updateTaskId || this.#hasCustomScrollMargin) {
           return;
         }
@@ -199,7 +199,7 @@ export class VirtualizerController<
         resizeObserver.observe(this.#host.parentElement);
       }
 
-      // Window resize always triggers update
+      // Window resize
       window.addEventListener('resize', onWindowResize);
 
       const originalCleanup = this.instance._didMount();

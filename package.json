@@ -20,6 +20,7 @@
     "tools/eslint-config",
     "tools/eslint-plugin-slds",
     "tools/example-data",
+    "tools/rolldown-plugin-css-sheet",
     "tools/stylelint-config",
     "tools/theme-selector-plugin",
     "tools/vitest-browser-lit",

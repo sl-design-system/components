@@ -37,4 +37,4 @@
 
 Update `@open-wc/scoped-elements` due to typing fix
 
-This update fixes the export of the typing, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typing and does not introduce any breaking changes.
+This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.

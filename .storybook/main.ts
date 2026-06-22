@@ -1,50 +1,7 @@
-import { readFileSync } from 'node:fs';
 import { argv } from 'node:process';
-import { URL } from 'node:url';
+import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
 import { type StorybookConfig } from '@storybook/web-components-vite';
-import { type Plugin } from 'vite';
 import { injectComponentMetadata } from './helpers.ts';
-
-// Check if this is a CSS import with type: 'css' attribute
-const cssImportRegex =
-  /import\s+(\w+)\s+from\s+['"]([^'"]+\.css)['"]\s+with\s+\{\s*type:\s*['"]css['"]\s*\}/g;
-
-// This plugin handles CSS imports with { type: 'css' } and converts them to CSSStyleSheet
-const cssPlugin: Plugin = {
-  name: 'css-stylesheet',
-  transform(code: string, id: string) {
-    if (!id.startsWith('/') || !id.includes('/examples/')) return null;
-
-    let transformedCode = code,
-      hasTransformations = false;
-
-    transformedCode = transformedCode.replace(
-      cssImportRegex,
-      (_match: string, varName: string, cssPath: string) => {
-        hasTransformations = true;
-
-        const resolvedPath = new URL(cssPath, `file://${id}`).pathname;
-
-        try {
-          const cssContent = readFileSync(resolvedPath, 'utf-8');
-
-          // Watch the .css so editing it invalidates this module and hot-reloads in dev
-          // (without this, Vite caches the inlined CSS and edits don't take effect).
-          this.addWatchFile(resolvedPath);
-
-          return `
-  const ${varName} = new CSSStyleSheet();
-  ${varName}.replaceSync(${JSON.stringify(cssContent)});
-`;
-        } catch (error: unknown) {
-          throw new Error(`Failed to read CSS file ${resolvedPath}: ${(error as Error).message}`);
-        }
-      }
-    );
-
-    return hasTransformations ? { code: transformedCode, map: null } : null;
-  }
-};
 
 const devMode = !argv.includes('build');
 
@@ -81,7 +38,7 @@ const config: StorybookConfig = {
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');
 
-    return mergeConfig(config, { logLevel: 'warn', plugins: [cssPlugin] });
+    return mergeConfig(config, { logLevel: 'warn', plugins: [importCssSheet] });
   }
 };
 

@@ -57,7 +57,7 @@
   "devDependencies": {
     "@floating-ui/dom": "^1.7.6",
     "@open-wc/dedupe-mixin": "^2.0.1",
-    "lit": "^3.3.2"
+    "lit": "^3.3.3"
   },
   "peerDependencies": {
     "@floating-ui/dom": "^1.6.5",

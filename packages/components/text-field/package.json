@@ -44,9 +44,9 @@
     "@sl-design-system/shared": "^0.12.1"
   },
   "devDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   },
   "peerDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   }
 }

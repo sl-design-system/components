@@ -1,5 +1,18 @@
 # @sl-design-system/time-field
 
+## 0.1.2
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
 ## 0.1.1
 
 ### Patch Changes
@@ -38,6 +51,7 @@
 ### Patch Changes
 
 - [#2824](https://github.com/sl-design-system/components/pull/2824) [`ff5b844`](https://github.com/sl-design-system/components/commit/ff5b8447d854505f9d8619f2d7489d909dd757d0) - Multiple fixes:
+
   - For `required` time-field, native validation message is now used. The custom message "Please enter a time." appears only when the entered value is not a valid time.
   - Fixed an issue where the dialog time picker value did not update when the user typed a new value.
 

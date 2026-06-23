@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/rolldown-plugin-css-sheet",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Rolldown/Vite plugin that imports .css files (with { type: 'css' }) as constructable CSSStyleSheet instances",
   "license": "Apache-2.0",
   "publishConfig": {

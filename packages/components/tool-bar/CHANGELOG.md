@@ -1,5 +1,21 @@
 # @sl-design-system/tool-bar
 
+## 0.2.5
+
+### Patch Changes
+
+- [#3383](https://github.com/sl-design-system/components/pull/3383) [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba) - Expose `aria-disabled="true"` on disabled menu items so assistive technologies announce them as unavailable. Toolbar overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. Forwarded `ariaDisabled` now clears correctly through nested proxy targets
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`f2d2914`](https://github.com/sl-design-system/components/commit/f2d2914f4622de01b49e49b78abc17956e7438d3), [`db96be2`](https://github.com/sl-design-system/components/commit/db96be26709e837b1a4e3e6ea176b75c0823be2a), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/menu@0.3.4
+  - @sl-design-system/toggle-button@0.0.16
+  - @sl-design-system/toggle-group@0.0.16
+  - @sl-design-system/button@2.1.1
+
 ## 0.2.4
 
 ### Patch Changes
@@ -9,6 +25,7 @@
   The overflow mapping now falls back from forwarded ARIA name/description to host `aria-labelledby` / `aria-label`, and finally to `slot="button"` text content, ensuring labels remain visible
 
 - [#3241](https://github.com/sl-design-system/components/pull/3241) [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411) - Fix overflow behavior:
+
   - Refactor overflow logic to more accurately calculate visible items, reserve space for the menu button, and handle the menu button margin correctly when all items are hidden.
   - Update `tool-bar.ts` to use the new measurement utilities (`measureMenuButtonWidth` and `measureConstrainedWidth`) for more reliable overflow calculations.
   - Update toolbar styles to prevent layout shifts during measurement and ensure correct sizing in flexible containers.
@@ -65,15 +82,18 @@
 ### Minor Changes
 
 - [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - **Breaking Changes:**
+
   - Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
   - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
 
   **New Features:**
+
   - Added `contained` property to enable contained mode
   - Added keyboard navigation support for arrow keys when toolbar is focused
   - Added `inverted` property to the divider component
 
   **Improvements:**
+
   - Improved overall styling and fixed overflow behavior issues
 
 ### Patch Changes
@@ -152,6 +172,7 @@
 ### Patch Changes
 
 - [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Various improvements:
+
   - Add `ellipsis-vertical` icon to the icon set
   - Add `inverted` boolean property so the menu button can be inverted
   - Fix overflow calculation so we never have an unnecessary menu button

@@ -36,7 +36,7 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
   });
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-option-group-header': OptionGroupHeader
     };

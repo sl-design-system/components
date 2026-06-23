@@ -72,7 +72,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-field-button': FieldButton,
       'sl-icon': Icon

@@ -52,7 +52,7 @@ export class TextArea extends ObserveAttributesMixin(
   ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']
 ) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };

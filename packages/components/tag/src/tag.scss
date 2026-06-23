@@ -110,6 +110,8 @@ button {
   }
 
   &:focus-visible {
+    border-radius: 0 var(--sl-size-borderRadius-focusRing-inside)
+      var(--sl-size-borderRadius-focusRing-inside) 0;
     outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
     outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
     position: relative;

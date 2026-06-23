@@ -4,7 +4,7 @@
 
 Accessibility improvements for row activation and selection:
 
-- Added `aria-current` to the active/selected row in activate and single-select modes.
+- Added `aria-selected` to the active/selected row in activate and single-select modes.
 - The grid now announces row activation and deactivation to screen readers.
 - When you focus an already active row with the keyboard, the grid reannounces it (using `force`).
 

@@ -771,8 +771,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const selected =
       this.rowAction === 'activate' ? !!this.activeRow : !!this.dataSource?.isSelected(item);
 
-    // Add 1 to account for the header row
-    const rowNumber = index + 1;
+    const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
+      rowNumber = index + headerRowCount;
 
     announce(
       selected
@@ -798,8 +798,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const index = row.getAttribute('aria-rowindex');
 
     if (index) {
-      // Add 1 to account for the header row
-      const rowNumber = Number(index) + 1;
+      const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
+        rowNumber = Number(index) + headerRowCount;
 
       // Use 'assertive' so the user knows right away which row they are in
       announce(

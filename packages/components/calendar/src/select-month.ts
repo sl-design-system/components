@@ -259,8 +259,8 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
-    if (this.#isForwardTabInDialog(event)) {
-      this.#prepareForwardTabEscape(event);
+    if (this.#isTabInDialog(event)) {
+      this.#prepareTabEscape(event);
 
       return;
     }
@@ -334,20 +334,23 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.toggleEvent.emit('year');
   }
 
-  /** Handles Tab in the header so focus can leave the calendar in a dialog. */
+  /** Handles Tab/Shift+Tab in the header so focus can leave the calendar in a dialog. */
   #onHeaderKeydown(event: KeyboardEvent): void {
-    if (this.#isForwardTabInDialog(event)) {
-      this.#prepareForwardTabEscape(event);
+    if (this.#isTabInDialog(event)) {
+      this.#prepareTabEscape(event);
     }
   }
 
-  /** Checks whether the key event is a forward Tab while the component is inside an open dialog. */
-  #isForwardTabInDialog(event: KeyboardEvent): boolean {
-    return event.key === 'Tab' && !event.shiftKey && !!closestElementComposed(this, 'dialog[open]');
+  /**
+   * Checks whether the key event is a Tab (forward or backward) while the component is inside an
+   * open dialog.
+   */
+  #isTabInDialog(event: KeyboardEvent): boolean {
+    return event.key === 'Tab' && !!closestElementComposed(this, 'dialog[open]');
   }
 
-  /** Prepares focus so the next Tab can move out of the calendar header. */
-  #prepareForwardTabEscape(event: KeyboardEvent): void {
+  /** Prepares focus so the next Tab/Shift+Tab can move out of the calendar. */
+  #prepareTabEscape(event: KeyboardEvent): void {
     event.preventDefault();
 
     const headerButtons = Array.from(

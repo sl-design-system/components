@@ -56,6 +56,19 @@ jobs:
           storybookBaseDir: chromatic
           storybookBuildDir: chromatic/storybook-static
 
+      - name: Build Visual Storybook
+        run: yarn run chromatic-visual-storybook
+
+      - name: Publish to Chromatic - Visual Storybook
+        uses: chromaui/action@latest
+        with:
+          autoAcceptChanges: main
+          exitOnceUploaded: true
+          onlyChanged: true
+          projectToken: ${{ secrets.CHROMATIC_TOKEN_VISUAL }}
+          storybookBaseDir: .
+          storybookBuildDir: visual/storybook-static
+
   chromatic-vitest-visual:
     runs-on: ubuntu-latest
     if: '! github.event.pull_request.draft'
@@ -71,7 +84,7 @@ jobs:
         run: yarn install --immutable
       - name: Run visual Vitest
         run: yarn test:visual:ci
-      - name: Upload Vitest archives to Chromatic
+      - name: Upload Vitest archives to Chromatic Visual Storybook
         run: yarn exec chromatic --vitest --project-token=${{ secrets.CHROMATIC_TOKEN_VISUAL }}
         env:
           CHROMATIC_SHA: ${{ github.sha }}

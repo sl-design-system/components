@@ -4,7 +4,7 @@ import menuButtonMeta, {
 import { All as AllDialog } from '../../../packages/components/dialog/src/dialog.stories';
 import { All as AllTooltip } from '../../../packages/components/tooltip/src/tooltip.stories';
 import { nothing } from 'lit';
-import { expect, userEvent } from 'storybook/test';
+import { userEvent } from 'storybook/test';
 import { allModes } from '../modes';
 
 type PlayContext = {
@@ -20,6 +20,24 @@ const getCanvasRoot = (context: PlayContext): ParentNode => {
   }
 
   return document.body;
+};
+
+const waitForCondition = async (
+  condition: () => boolean,
+  timeout = 5000,
+  checkInterval = 50
+): Promise<void> => {
+  const startTime = Date.now();
+
+  while (Date.now() - startTime < timeout) {
+    if (condition()) {
+      return;
+    }
+
+    await new Promise(resolve => setTimeout(resolve, checkInterval));
+  }
+
+  throw new Error(`Condition not met within ${timeout}ms`);
 };
 
 export default {
@@ -56,7 +74,7 @@ export const MenuButton = {
 
     const menu = menuButton?.shadowRoot?.querySelector('sl-menu');
 
-    await expect.poll(() => Boolean(menu?.matches(':popover-open'))).toBe(true);
+    await waitForCondition(() => Boolean(menu?.matches(':popover-open')));
   },
   render: () => {
     if (!menuButtonMeta.render) {
@@ -82,7 +100,7 @@ export const Dialog = {
     const dialogHost = root.querySelector('sl-dialog'),
       nativeDialog = dialogHost?.shadowRoot?.querySelector('dialog');
 
-    await expect.poll(() => Boolean(nativeDialog?.open)).toBe(true);
+    await waitForCondition(() => Boolean(nativeDialog?.open));
   },
   render: AllDialog.render
 };
@@ -100,7 +118,7 @@ export const Tooltip = {
 
     const tooltip = root.querySelector('sl-tooltip');
 
-    await expect.poll(() => Boolean(tooltip?.matches(':popover-open'))).toBe(true);
+    await waitForCondition(() => Boolean(tooltip?.matches(':popover-open')));
   },
   render: AllTooltip.render
 };

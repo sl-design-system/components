@@ -748,15 +748,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.activeRow = item.data;
       }
 
+      // Capture the clicked row state before emitting: listeners may synchronously mutate activeRow.
+      const isNowActive = this.activeRow === item.data;
+
       this.activeRowChangeEvent.emit(this.activeRow);
+      this.#announceSelection(item, index, isNowActive);
     } else if (this.rowAction === 'select') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
+      this.#announceSelection(item, index);
     } else {
       return;
     }
 
-    this.#announceSelection(item, index);
     this.#skipNextFocusAnnounce = true;
 
     // Reset the flag soon so it only skips focus events from this click (e.g. focus moving to a button in the row)
@@ -767,15 +771,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#addScopedElements(event.target.scopedElements);
   }
 
-  #announceSelection(item: ListDataSourceDataItem<T>, index: number): void {
-    const selected =
-      this.rowAction === 'activate' ? !!this.activeRow : !!this.dataSource?.isSelected(item);
+  #announceSelection(item: ListDataSourceDataItem<T>, index: number, selected?: boolean): void {
+    const isSelected =
+      selected !== undefined
+        ? selected
+        : this.rowAction === 'activate'
+          ? this.activeRow === item.data
+          : !!this.dataSource?.isSelected(item);
 
     const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
       rowNumber = index + headerRowCount;
 
     announce(
-      selected
+      isSelected
         ? msg(str`Row ${rowNumber} activated`, { id: 'sl.grid.rowActivated' })
         : msg(str`Row ${rowNumber} deactivated`, { id: 'sl.grid.rowDeactivated' }),
       'polite'

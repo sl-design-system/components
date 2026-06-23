@@ -1,11 +1,7 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import {
-  type EventEmitter,
-  EventsController,
-  ObserveAttributesMixin,
-  event
-} from '@sl-design-system/shared';
+import { type Infotip } from '@sl-design-system/infotip';
+import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -19,7 +15,7 @@ import {
   html,
   svg
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './checkbox.scss.js';
 
@@ -59,13 +55,12 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    focusin: this.#onFocusin,
-    focusout: this.#onFocusout,
-    keydown: this.#onKeydown
-  });
+  // #events = new EventsController(this.renderRoot.querySelector('.wrapper'), {
+  //   click: this.#onClick,
+  //   focusin: this.#onFocusin,
+  //   focusout: this.#onFocusout,
+  //   keydown: this.#onKeydown
+  // });
 
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
@@ -116,6 +111,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
+
+  @state() infotip?: Infotip;
 
   /**
    * The size of the checkbox.
@@ -190,25 +187,37 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   override render(): TemplateResult {
     return html`
-      <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
-      <div part="outer">
-        <div part="inner">
-          <svg
-            aria-hidden="true"
-            class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
-            part="svg"
-            version="1.1"
-            viewBox="0 0 24 24">
-            ${this.indeterminate
-              ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
-              : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
-          </svg>
+      <div
+        part="wrapper"
+        class="wrapper"
+        @click=${this.#onClick}
+        @focusin=${this.#onFocusin}
+        @focusout=${this.#onFocusout}
+        @keydown=${this.#onKeydown}>
+        <slot
+          @keydown=${this.#onKeydown}
+          @slotchange=${this.#onInputSlotChange}
+          name="input"></slot>
+        <div part="outer">
+          <div part="inner">
+            <svg
+              aria-hidden="true"
+              class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
+              part="svg"
+              version="1.1"
+              viewBox="0 0 24 24">
+              ${this.indeterminate
+                ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
+                : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
+            </svg>
+          </div>
         </div>
+        <span part="label">
+          <slot name="label"></slot>
+          <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot
+          ><slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
+        </span>
       </div>
-      <span part="label">
-        <slot name="label"></slot>
-        <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
-      </span>
     `;
   }
 
@@ -266,6 +275,16 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
+      console.log(event.target);
+      if (event.target === this.infotip) {
+        console.log('infotip clicked');
+        this.infotip?.toggleInfotip();
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        return;
+      }
+
       event.preventDefault();
       event.stopPropagation();
       this.#onClick(event);
@@ -325,6 +344,14 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     });
 
     this.toggleAttribute('no-label', label.length === 0);
+  }
+
+  #onInfotipSlotChange(): void {
+    const slot: HTMLSlotElement | undefined | null =
+      this.shadowRoot?.querySelector('slot[name="infotip"]');
+    const assignedElements = slot?.assignedElements({ flatten: true }) || [];
+    this.infotip =
+      assignedElements.find((el): el is Infotip => el instanceof HTMLElement) || undefined;
   }
 
   #syncInput(input: HTMLInputElement): void {

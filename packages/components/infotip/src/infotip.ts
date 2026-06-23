@@ -98,6 +98,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     return html`
       <sl-button
         @click=${this.#onClick}
+        @keydown=${this.#onKeydown}
         aria-label=${msg('More information', { id: 'sl.infotip.moreInformation' })}
         fill="ghost"
         id="trigger"
@@ -112,8 +113,21 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onClick(): void {
+  toggleInfotip(): void {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggleInfotip();
+    }
+  }
+
+  #onClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.toggleInfotip();
   }
 
   #syncContent(): void {

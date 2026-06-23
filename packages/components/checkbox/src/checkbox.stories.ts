@@ -247,6 +247,18 @@ export const NoVisibleLabel: StoryObj = {
   }
 };
 
+export const Infotip: StoryObj = {
+  render: () => {
+    return html`
+      <sl-checkbox
+        >Option 1<sl-infotip slot="infotip"
+          >This is an info tip for option 1</sl-infotip
+        ></sl-checkbox
+      >
+    `;
+  }
+};
+
 export const Overflow: Story = {
   args: {
     hint: 'The checkbox should be aligned with the first row of text',

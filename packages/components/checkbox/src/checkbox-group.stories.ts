@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -109,9 +110,17 @@ export const ImplicitValue: Story = {
   args: {
     slot: () => html`
       <sl-checkbox-group>
-        <sl-checkbox checked value="0">Option 1</sl-checkbox>
+        <sl-checkbox checked value="0"
+          >Option 1 with infotip and a very long label that should wrap to the next line. So we need
+          to add some extra text, otherwise it won't wrap. This is a long label that should wrap to
+          the next line.
+          <sl-infotip slot="infotip">This is an info tip for option 1</sl-infotip>
+        </sl-checkbox>
         <sl-checkbox checked value="1">Option 2</sl-checkbox>
-        <sl-checkbox value="2">Option 3</sl-checkbox>
+        <sl-checkbox value="2"
+          >Option 3
+          <sl-infotip slot="infotip">This is an info tip for option 2</sl-infotip></sl-checkbox
+        >
       </sl-checkbox-group>
     `
   }

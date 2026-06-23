@@ -6294,6 +6294,7 @@ __metadata:
     "@lit-labs/virtualizer": "npm:^2.1.1"
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
+    "@sl-design-system/announcer": "npm:^0.0.8"
     "@sl-design-system/button": "npm:^2.1.0"
     "@sl-design-system/checkbox": "npm:^2.1.10"
     "@sl-design-system/data-source": "npm:^0.4.0"

@@ -1,5 +1,16 @@
 # @sl-design-system/button
 
+## 2.1.1
+
+### Patch Changes
+
+- [#3289](https://github.com/sl-design-system/components/pull/3289) [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68) - Fix paginator selected page styling for `emphasis="bold"` by driving page button appearance via `fill`/`variant` (selected uses `variant="primary"` with `fill="solid"` for bold and `fill="outline"` for subtle), while keeping `aria-current="page"` for accessibility.
+
+  Update `sl-button` interaction styling so `fill="ghost"`/`fill="outline"` use the plain hover/active opacity tokens, and outline buttons marked `aria-current="page"` get a selected border color.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/shared@0.12.2
+
 ## 2.1.0
 
 ### Minor Changes

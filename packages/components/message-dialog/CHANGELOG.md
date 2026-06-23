@@ -1,5 +1,17 @@
 # @sl-design-system/message-dialog
 
+## 1.1.5
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/dialog@2.1.1
+  - @sl-design-system/button@2.1.1
+
 ## 1.1.4
 
 ### Patch Changes
@@ -75,6 +87,7 @@
 ### Patch Changes
 
 - [#1379](https://github.com/sl-design-system/components/pull/1379) [`4242ea2`](https://github.com/sl-design-system/components/commit/4242ea24a85d758a71bb8c88aa6ae8a0aba442b5) - Various improvements:
+
   - Add `autofocus` attribute to `MessageDialogButton` config
   - Per the documentation, cancel buttons must use `fill="outline"` and `variant="primary"`
   - Improve API documentation

@@ -1,5 +1,27 @@
 # @sl-design-system/select
 
+## 2.1.5
+
+### Patch Changes
+
+- [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for select screen reader support
+
+  - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
+  - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
+  - Remove `aria-owns` from the select trigger/input because it is not needed for this implementation
+  - Always set `aria-selected` on options, including grouped options in the selected group
+  - Set correct `aria-posinset` and `aria-setsize` on virtualized options, excluding group headers from the count
+  - Add group label context to the accessible name of grouped options for Safari/VoiceOver compatibility
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
 ## 2.1.4
 
 ### Patch Changes
@@ -14,6 +36,7 @@
 ### Patch Changes
 
 - [#3109](https://github.com/sl-design-system/components/pull/3109) [`01c7740`](https://github.com/sl-design-system/components/commit/01c7740ba9f15a3cbee3065a798424d783b2c452) - Accessibility improvements:
+
   - Moved the clear button from `sl-select-button` to `sl-select`, the clear button is now focusable on its own,
   - Added `aria-keyshortcuts` attribute to announce Backspace/Delete shortcuts to assistive technology,
   - Added `sl-clear` event to `sl-select` with consistent event ordering across click and keyboard interactions.
@@ -83,6 +106,7 @@
 ### Patch Changes
 
 - [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various fixes:
+
   - Fix built-in validation bug when there already is a custom error
   - Fix disabled select getting keyboard focus
   - Fix missing label in `<sl-form-validation-errors>`
@@ -156,6 +180,7 @@
   Make sure you have those custom elements loaded. If not, you can import them from the `@sl-design-system/listbox` package.
 
   Various improvements:
+
   - Add `clearable` property for clearing the selection
   - Hide the listbox popover when focus leaves the `<sl-select>` component
   - Show the listbox popover immediately; only animate it when closing
@@ -388,6 +413,7 @@
   This add a new `sl-validate` event that is fired when the validity of the form control is updated. It fires _after_ any builtin validation has been performed, so it can be used to override the validity of the control.
 
 - [#828](https://github.com/sl-design-system/components/pull/828) [`974e2a3`](https://github.com/sl-design-system/components/commit/974e2a305431be631be3b72a685dcf72199ea031) - Refactor `<sl-select>` to
+
   - use new `FormControlMixin` from the form package
   - use `aria-activedescendant` to indicate the currently focused option
 

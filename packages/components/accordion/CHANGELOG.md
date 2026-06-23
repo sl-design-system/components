@@ -1,5 +1,14 @@
 # @sl-design-system/accordion
 
+## 1.2.6
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Remove unused `@open-wc/scoped-elements` dependency.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/shared@0.12.2
+
 ## 1.2.5
 
 ### Patch Changes

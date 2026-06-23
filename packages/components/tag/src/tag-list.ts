@@ -360,7 +360,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.tags.forEach(tag => (tag.navigationDescription = undefined));
+    this.tags.forEach(tag => {
+      tag.navigationDescription = undefined;
+      tag.removeAttribute('role');
+    });
 
     this.tags = Array.from(event.target.assignedElements({ flatten: true })).filter(
       (el): el is Tag => el instanceof Tag

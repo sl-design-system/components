@@ -68,7 +68,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,

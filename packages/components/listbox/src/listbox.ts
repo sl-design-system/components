@@ -63,7 +63,7 @@ let nextUniqueId = 0;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-virtual-list': VirtualList,
       'sl-option': Option,
@@ -76,6 +76,24 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
   /** The virtual list instance when the `options` or `items` property is set. */
   #virtualizer?: VirtualList<ListboxItem<T, U>>;
+
+  /** Cache mapping each option id to its 0-based flattened position (excludes group headers). */
+  #flattenedPositionCache?: Map<string, number>;
+
+  /** Items reference used when the flattened cache was last built. */
+  #flattenedPositionCacheItems?: Array<ListboxItem<T, U>>;
+
+  /** Cache version matching the items version when the cache was last built. */
+  #flattenedPositionCacheVersion = -1;
+
+  /** Monotonically increasing version, incremented whenever `items` changes. */
+  #itemsVersion = 0;
+
+  /** Total number of option items in the last built cache. */
+  #flattenedSetSize = 0;
+
+  /** Cache mapping items array index to flattened option position, or -1 for non-option rows. */
+  #flattenedIndexCache?: number[];
 
   /**
    * The emphasis of the selected options in the listbox.
@@ -155,16 +173,31 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     ) {
       if (this.options) {
         this.items = this.#prepareOptions(this.options);
+        this.#itemsVersion++;
         // Update attribute after setting items
         this.#updateVirtualConstraintAttribute();
       } else if (changes.get('options')) {
         this.items = undefined;
+        this.#itemsVersion++;
+        this.#flattenedPositionCache = undefined;
+        this.#flattenedPositionCacheItems = undefined;
+        this.#flattenedIndexCache = undefined;
+        this.#flattenedSetSize = 0;
         this.removeAttribute('data-virtual-unconstrained');
       }
     }
 
     // Also handle direct items assignment
     if (changes.has('items')) {
+      this.#itemsVersion++;
+
+      if (!this.items) {
+        this.#flattenedPositionCache = undefined;
+        this.#flattenedPositionCacheItems = undefined;
+        this.#flattenedIndexCache = undefined;
+        this.#flattenedSetSize = 0;
+      }
+
       this.#updateVirtualConstraintAttribute();
     }
   }
@@ -222,6 +255,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
         const renderer = this.renderer;
 
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
+        this.#virtualizer.setAttribute('data-virtual-list', '');
         this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.scrollMargin = 0;
         const gapValue = parseFloat(getComputedStyle(this).gap);
@@ -254,7 +288,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#propagateEmphasis}></slot>`;
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
   /**
@@ -323,6 +357,86 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  /**
+   * Applies flattened accessibility metadata to options.
+   *
+   * Kept public so composed consumers can trigger deterministic timing when options are projected
+   * through nested slots.
+   */
+  applyFlattenedOptionAccessibility(options: Option[]): void {
+    this.#applyFlattenedOptionAccessibility(options);
+  }
+
+  /**
+   * Returns the 0-based flattened position of an option item among all option items (group headers
+   * are excluded). Returns -1 if the item is a group header or is not in `items`.
+   *
+   * @internal Used by virtual-list consumers (e.g. combobox) so they don't need a duplicate cache.
+   */
+  getFlattenedPosition(item: ListboxItem<T, U>): number {
+    if (!this.items) return -1;
+
+    if (this.#shouldRebuildFlattenedPositionCache()) {
+      this.#buildFlattenedPositionCache();
+    }
+
+    return this.#flattenedPositionCache!.get(item.id) ?? -1;
+  }
+
+  /**
+   * Returns the total number of option items (group headers excluded) in the current `items` array.
+   *
+   * @internal Companion to `getFlattenedPosition`.
+   */
+  getFlattenedSetSize(): number {
+    if (!this.items) return 0;
+
+    if (this.#shouldRebuildFlattenedPositionCache()) {
+      this.#buildFlattenedPositionCache();
+    }
+
+    return this.#flattenedSetSize;
+  }
+
+  #shouldRebuildFlattenedPositionCache(): boolean {
+    return (
+      this.#flattenedPositionCacheVersion !== this.#itemsVersion ||
+      this.#flattenedPositionCacheItems !== this.items ||
+      !this.#flattenedPositionCache
+    );
+  }
+
+  #buildFlattenedPositionCache(): void {
+    this.#flattenedPositionCache = new Map<string, number>();
+    this.#flattenedPositionCacheItems = this.items;
+    this.#flattenedPositionCacheVersion = this.#itemsVersion;
+
+    const items = this.items ?? [];
+    this.#flattenedIndexCache = new Array(items.length).fill(-1);
+
+    let position = 0;
+    items.forEach((i, index) => {
+      if ('option' in i) {
+        this.#flattenedPositionCache!.set(i.id, position++);
+        this.#flattenedIndexCache![index] = position - 1;
+      }
+    });
+
+    this.#flattenedSetSize = position;
+  }
+
+  #getFlattenedPositionByIndex(index: number): number {
+    if (!this.items || index < 0 || index >= this.items.length) {
+      return -1;
+    }
+
+    if (this.#shouldRebuildFlattenedPositionCache() || !this.#flattenedIndexCache) {
+      this.#buildFlattenedPositionCache();
+    }
+
+    return this.#flattenedIndexCache![index] ?? -1;
+  }
+
   #prepareOptions(options: T[]): Array<ListboxItem<T, U>> {
     if (this.optionGroupPath) {
       const groups = Object.groupBy(options, option =>
@@ -374,6 +488,67 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     });
   }
 
+  #onSlotChange(): void {
+    this.#propagateEmphasis();
+
+    const options = Array.from(this.querySelectorAll('sl-option')).filter(
+      (el): el is Option => el instanceof Option
+    );
+
+    this.#applyFlattenedOptionAccessibility(options);
+  }
+
+  #applyFlattenedOptionAccessibility(options: Option[]): void {
+    const metadata = options.map(option => ({
+      group: option.closest<OptionGroup>('sl-option-group')?.label,
+      label: this.#getOptionLabel(option),
+      option
+    }));
+
+    metadata.forEach((item, index) => {
+      this.#applyOptionAccessibility(item.option, {
+        group: item.group,
+        label: item.label,
+        position: index + 1,
+        setSize: metadata.length,
+        selected: item.option.selected
+      });
+    });
+
+    // Clean up stale aria-label on any options that moved out of groups.
+    // This ensures that if an option was previously grouped and had a generated
+    // aria-label, but then moved out of the group, the stale label is removed.
+    const processedOptions = new Set(metadata.map(m => m.option));
+
+    this.querySelectorAll('sl-option').forEach(option => {
+      if (
+        !processedOptions.has(option) &&
+        option.getAttribute('data-generated-aria-label') === 'true'
+      ) {
+        const currentGroup = option.closest<OptionGroup>('sl-option-group')?.label;
+
+        // If option has a generated aria-label but no current group, it's stale
+        if (!currentGroup) {
+          option.removeAttribute('aria-label');
+          option.removeAttribute('data-generated-aria-label');
+        }
+      }
+    });
+  }
+
+  #getOptionLabel(option: Option): string {
+    const assignedNodes =
+      option.shadowRoot?.querySelector('slot')?.assignedNodes({ flatten: true }) ??
+      Array.from(option.childNodes);
+
+    const label = assignedNodes
+      .map(node => node.textContent || '')
+      .join('')
+      .trim();
+
+    return label || option.innerText?.trim() || option.textContent?.trim() || '';
+  }
+
   #renderItem(item: ListboxItem<T, U>, index: number): Element {
     if ('option' in item) {
       const element = this.shadowRoot!.createElement('sl-option');
@@ -383,6 +558,23 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       element.selected = item.selected;
       element.value = item.value;
 
+      const flattenedPosition = this.getFlattenedPosition(item);
+
+      // Virtual-list integrations may render from an item payload that does not round-trip through
+      // the exact cache lookup path. Fall back to an O(1) index-based lookup.
+      const resolvedFlattenedPosition =
+        flattenedPosition !== -1 ? flattenedPosition : this.#getFlattenedPositionByIndex(index);
+
+      if (resolvedFlattenedPosition !== -1) {
+        this.#applyOptionAccessibility(element, {
+          group: item.group,
+          label: item.label,
+          position: resolvedFlattenedPosition + 1,
+          setSize: this.getFlattenedSetSize(),
+          selected: item.selected
+        });
+      }
+
       return element;
     } else {
       const element = this.shadowRoot!.createElement('sl-option-group-header');
@@ -391,6 +583,38 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       element.innerText = item.label;
 
       return element;
+    }
+  }
+
+  #applyOptionAccessibility(
+    option: Option,
+    {
+      group,
+      label,
+      position,
+      selected,
+      setSize
+    }: {
+      group?: string;
+      label: string;
+      position: number;
+      selected?: boolean;
+      setSize: number;
+    }
+  ): void {
+    option.setAttribute('aria-posinset', position.toString());
+    option.setAttribute('aria-setsize', setSize.toString());
+    option.setAttribute('aria-selected', Boolean(selected).toString());
+
+    if (group && label.trim()) {
+      option.setAttribute('aria-label', `${label} (${group})`);
+      option.setAttribute('data-generated-aria-label', 'true');
+    } else {
+      if (option.getAttribute('data-generated-aria-label') === 'true') {
+        option.removeAttribute('aria-label');
+      }
+
+      option.removeAttribute('data-generated-aria-label');
     }
   }
 }

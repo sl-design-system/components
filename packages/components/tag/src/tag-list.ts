@@ -50,7 +50,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-tag': Tag,
       'sl-tooltip': Tooltip

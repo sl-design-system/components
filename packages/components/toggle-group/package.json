@@ -43,8 +43,7 @@
     "@sl-design-system/toggle-button": "^0.0.15"
   },
   "devDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6",
-    "lit": "^3.3.2"
+    "lit": "^3.3.3"
   },
   "peerDependencies": {
     "lit": "^3.1.4"

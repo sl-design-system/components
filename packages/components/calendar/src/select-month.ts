@@ -38,7 +38,7 @@ declare global {
 @localized()
 export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-format-date': FormatDate,

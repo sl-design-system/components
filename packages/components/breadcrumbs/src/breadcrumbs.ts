@@ -84,7 +84,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   static noHome = false;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,

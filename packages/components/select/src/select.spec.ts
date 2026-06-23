@@ -352,6 +352,67 @@ describe('sl-select', () => {
 
       expect(el.value).to.equal('5');
     });
+
+    it('should not have role="group" on option-group elements', () => {
+      const groups = el.querySelectorAll('sl-option-group');
+
+      groups.forEach(group => {
+        expect(group).not.to.have.attribute('role', 'group');
+      });
+    });
+
+    it('should have aria-hidden="true" on group headers', () => {
+      const groups = el.querySelectorAll('sl-option-group');
+
+      groups.forEach(group => {
+        const header = group.shadowRoot?.querySelector('sl-option-group-header');
+        expect(header).to.have.attribute('aria-hidden', 'true');
+      });
+    });
+
+    it('should have flattened aria-posinset and aria-setsize across all options', () => {
+      const options = el.options;
+
+      expect(options).to.have.lengthOf(4);
+
+      options.forEach((option, index) => {
+        expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+        expect(option).to.have.attribute('aria-setsize', '4');
+      });
+    });
+
+    it('should include group context in option accessible names', () => {
+      const options = el.options;
+
+      expect(options[0]).to.have.attribute('aria-label', 'Option 1 (Group 1)');
+      expect(options[1]).to.have.attribute('aria-label', 'Option 2 (Group 1)');
+      expect(options[2]).to.have.attribute('aria-label', 'Option 3 (Group 1)');
+      expect(options[3]).to.have.attribute('aria-label', 'Option 4 (Group 2)');
+    });
+
+    it('should have aria-selected="false" on all unselected options', () => {
+      const options = el.options;
+
+      options.forEach(option => {
+        expect(option).to.have.attribute('aria-selected', 'false');
+      });
+    });
+
+    it('should have aria-selected="true" only on the selected option', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      const options = el.options;
+
+      expect(options[0]).to.have.attribute('aria-selected', 'true');
+      expect(options[1]).to.have.attribute('aria-selected', 'false');
+      expect(options[2]).to.have.attribute('aria-selected', 'false');
+      expect(options[3]).to.have.attribute('aria-selected', 'false');
+    });
   });
 
   describe('disabled', () => {
@@ -1301,7 +1362,7 @@ describe('sl-select', () => {
 
     it('should upgrade any cloned custom elements of the selected option', async () => {
       class ScopedSelectWrapper extends ScopedElementsMixin(LitElement) {
-        static get scopedElements(): ScopedElementsMap {
+        static override get scopedElements(): ScopedElementsMap {
           return {
             'sl-icon': Icon,
             'sl-option': Option,

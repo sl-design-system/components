@@ -20,7 +20,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
   static formAssociated = true;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-form': Form,
       'sl-form-field': FormField,

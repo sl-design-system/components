@@ -50,7 +50,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button-bar': ButtonBar,
       'sl-checkbox': Checkbox,

@@ -171,7 +171,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-fetch": "^4.0.1",
-    "@11ty/eleventy-img": "^3.1.8",
+    "@11ty/eleventy-img": "^4.0.2",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",
@@ -189,7 +189,7 @@
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
-    "sass": "^1.100.0",
+    "sass": "^1.101.0",
     "slugify": "^1.6.8",
     "tiny-glob": "^0.2.9",
     "typescript": "^6.0.3",

@@ -106,11 +106,11 @@ describe('sl-grid', () => {
       expect(rowIndices).to.deep.equal(['1', '2']);
     });
 
-    it('should not have aria-current when no row action or selection is configured', () => {
+    it('should not have aria-selected when no row action or selection is configured', () => {
       const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr');
 
       rows.forEach(row => {
-        expect(row).not.to.have.attribute('aria-current');
+        expect(row).not.to.have.attribute('aria-selected');
       });
     });
   });
@@ -426,7 +426,7 @@ describe('sl-grid', () => {
       expect(el.dataSource?.selects).to.equal('single');
     });
 
-    it('should set aria-current="true" on the selected row', async () => {
+    it('should set aria-selected="true" on the selected row', async () => {
       el.renderRoot
         .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
         ?.click();
@@ -435,8 +435,8 @@ describe('sl-grid', () => {
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type'),
         otherRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:nth-of-type(2)');
 
-      expect(row).to.have.attribute('aria-current', 'true');
-      expect(otherRow).not.to.have.attribute('aria-current');
+      expect(row).to.have.attribute('aria-selected', 'true');
+      expect(otherRow).to.have.attribute('aria-selected', 'false');
     });
 
     it('should toggle the "selected" part of the row when clicking in the row', async () => {
@@ -601,31 +601,31 @@ describe('sl-grid', () => {
       expect(onActiveRowChange.firstCall.args[0].detail).to.deep.equal(el.items!.at(1));
     });
 
-    it('should set aria-current="true" on the active row', async () => {
+    it('should set aria-selected="true" on the active row', async () => {
       el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type'),
         otherRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
 
-      expect(row).to.have.attribute('aria-current', 'true');
-      expect(otherRow).not.to.have.attribute('aria-current');
+      expect(row).to.have.attribute('aria-selected', 'true');
+      expect(otherRow).to.have.attribute('aria-selected', 'false');
     });
 
-    it('should remove aria-current when deactivating', async () => {
+    it('should set aria-selected="false" when deactivating', async () => {
       el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
 
-      expect(row).to.have.attribute('aria-current', 'true');
+      expect(row).to.have.attribute('aria-selected', 'true');
 
       row?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
 
-      expect(row).not.to.have.attribute('aria-current');
+      expect(row).to.have.attribute('aria-selected', 'false');
     });
 
     it('should dispatch sl-announce event when activating a row', async () => {

@@ -609,15 +609,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
       ],
-      ariaCurrent =
+      ariaSelected =
         this.rowAction === 'activate'
           ? active
             ? 'true'
-            : nothing
+            : 'false'
           : (this.dataSource?.selects ?? this.selects) === 'single'
             ? selected
               ? 'true'
-              : nothing
+              : 'false'
             : nothing;
 
     return html`
@@ -629,7 +629,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         aria-rowindex=${index + 1}
-        aria-current=${ariaCurrent}
+        aria-selected=${ariaSelected}
         index=${index}
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}

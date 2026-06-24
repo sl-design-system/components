@@ -1,5 +1,4 @@
 import { type ReactiveController, type ReactiveElement } from 'lit';
-import { closestElementComposed } from '../dom.js';
 
 type DirectionTypes = 'horizontal' | 'vertical' | 'both' | 'grid';
 
@@ -320,19 +319,11 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     this.focused = true;
   }
 
-  #hostNoLongerContainsFocus(preserveCurrentTabStop = false): void {
+  #hostNoLongerContainsFocus(): void {
     const scope = this.#scope();
     scope.addEventListener('focusin', this.#onFocusin);
     scope.removeEventListener('focusout', this.#onFocusout);
     scope.removeEventListener('keydown', this.#onKeydown);
-
-    if (preserveCurrentTabStop) {
-      const activeElement = this.elements[this.currentIndex];
-
-      this.#updateTabindexes(el => ({ tabIndex: el === activeElement ? 0 : -1 }));
-      this.#focused = false;
-      return;
-    }
 
     this.currentIndex = this.focusInIndex;
     this.focused = false;
@@ -380,7 +371,7 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
 
   #onFocusout = (event: FocusEvent): void => {
     if (this.#isFocusMovingOutOfScope(event)) {
-      this.#hostNoLongerContainsFocus(closestElementComposed(this.#host, 'dialog[open]') !== null);
+      this.#hostNoLongerContainsFocus();
     }
   };
 

@@ -324,7 +324,6 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     scope.addEventListener('focusin', this.#onFocusin);
     scope.removeEventListener('focusout', this.#onFocusout);
     scope.removeEventListener('keydown', this.#onKeydown);
-
     this.currentIndex = this.focusInIndex;
     this.focused = false;
   }
@@ -354,7 +353,7 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     });
 
     if (targetIndex === -1) {
-      // Elements can be replaced during range/page changes; retry with a fresh query.
+      // Elements may change when the range or page updates, so query again.
       this.#cachedElements = undefined;
       path.find(el => {
         targetIndex = this.elements.indexOf(el);

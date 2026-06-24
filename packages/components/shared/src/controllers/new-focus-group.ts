@@ -371,11 +371,11 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
       });
     }
 
+    this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
+
     if (!this.#isFocusMovingOutOfScope(event) && targetIndex > -1) {
       this.#hostContainsFocus();
     }
-
-    this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
   };
 
   #onFocusout = (event: FocusEvent): void => {

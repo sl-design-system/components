@@ -284,13 +284,13 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  /** Builds a list of preferred focus positions for boundary key navigation. */
+  /** Returns preferred button indexes to focus after crossing a grid edge. */
   #getPreferredBoundaryIndices(key: string, currentIndex: number, length: number): number[] {
     const column = currentIndex % this.#cols,
       preferredIndices =
         key === 'ArrowUp' ? [length - this.#cols + column] : key === 'ArrowDown' ? [column] : [];
 
-    // Fallback: preserve directional behavior if same-column target isn't focusable.
+    // If that button cannot be focused, keep moving in the pressed direction.
     if (key === 'ArrowLeft' || key === 'ArrowUp') {
       for (let i = length - 1; i >= 0; i -= 1) {
         preferredIndices.push(i);

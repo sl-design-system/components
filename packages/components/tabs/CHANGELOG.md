@@ -1,5 +1,17 @@
 # @sl-design-system/tabs
 
+## 1.2.8
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`f2d2914`](https://github.com/sl-design-system/components/commit/f2d2914f4622de01b49e49b78abc17956e7438d3), [`db96be2`](https://github.com/sl-design-system/components/commit/db96be26709e837b1a4e3e6ea176b75c0823be2a), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/menu@0.3.4
+  - @sl-design-system/shared@0.12.2
+
 ## 1.2.7
 
 ### Patch Changes
@@ -112,11 +124,13 @@
 - [#1798](https://github.com/sl-design-system/components/pull/1798) [`99a9ad9`](https://github.com/sl-design-system/components/commit/99a9ad9503a6dcf1b92838e46aafd2f1c5d3dc58) - Tabs improvements
 
   Features:
+
   - Refactor styling to use new contextual tokens
   - Add activation property for auto or manual activation (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
   - Simplify `<sl-tab>` styling using grid layout; makes the tab more flexible
 
   Fixes:
+
   - Scroll to the focused tab when using the keyboard
   - Make sure the selected tab is fully visible on initial render and doesn't smooth scroll
   - Fix bug where the RovingTabIndexController on `<sl-tab-group>` caused the inability to focus anything other than a tab
@@ -166,6 +180,7 @@
 ### Patch Changes
 
 - [#1354](https://github.com/sl-design-system/components/pull/1354) [`07d4437`](https://github.com/sl-design-system/components/commit/07d443778cf46b80c0f89fb2e7fdc8d11b5c335a) - Various improvements:
+
   - Fix tab group to not always select a tab by default
   - Fix tab group component to allow for removing the selected attribute from a tab
   - Fade in the selected tab indicator on first selected tab
@@ -186,6 +201,7 @@
 ### Patch Changes
 
 - [#1208](https://github.com/sl-design-system/components/pull/1208) [`b48b108`](https://github.com/sl-design-system/components/commit/b48b108c4873b6bbbea7636988a663f92c0ee242) - Improvements and bug fixes:
+
   - Add possibility of changing tab with URL by keyboard
   - Add missing background for `container` part: `--_tablist-background: var(--sl-color-tab-tabbar-background)`
   - Fix scrolling - only horizontally

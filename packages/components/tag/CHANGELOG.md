@@ -1,5 +1,19 @@
 # @sl-design-system/tag
 
+## 0.1.13
+
+### Patch Changes
+
+- [#3408](https://github.com/sl-design-system/components/pull/3408) [`d6f8588`](https://github.com/sl-design-system/components/commit/d6f858895428de34e4398e275c4e6246b2088882) - Fixed stacked tag lists so the generated stack counter tag has `role="listitem"`, matching the slotted tags and satisfying ARIA list semantics
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tooltip@2.0.1
+
 ## 0.1.12
 
 ### Patch Changes
@@ -123,6 +137,7 @@
 ### Minor Changes
 
 - [#1813](https://github.com/sl-design-system/components/pull/1813) [`7b2fdc6`](https://github.com/sl-design-system/components/commit/7b2fdc6ee42af1b096b6f019b0f9e9daba5ed950) - Various improvements:
+
   - Add missing `disabled` property to `<sl-tag-list>` so the stack tag can be disabled
   - Change design from a visual stack to a regular tag with a `<number>+` text
   - Use the same size (`24px` for `md`, `36px` for `lg`) that is used elsewhere in the design system
@@ -148,10 +163,12 @@
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes
 
   `<sl-tag-list>`:
+
   - Use `aria-labelledby` for the tooltip instead of `aria-describedby`
   - Do not set an `aria-label` on the host element; `role="list"` provides enough information
 
   `<sl-tag>`:
+
   - Add ability to use Delete or Backspace keys to remove the tag
   - Use `aria-description` to describe how to remove the tag using the keyboard
   - Make the delete button have `aria-hidden="true"`

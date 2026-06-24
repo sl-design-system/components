@@ -503,7 +503,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.#clearRovingTabindexCache();
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce(

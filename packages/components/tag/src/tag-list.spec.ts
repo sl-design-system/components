@@ -121,12 +121,14 @@ describe('sl-tag-list', () => {
     });
 
     it('should describe arrow key navigation on remove buttons', () => {
-      const button = el.querySelector('sl-tag')?.renderRoot.querySelector('button');
+      const button = el.querySelector('sl-tag')?.renderRoot.querySelector('button'),
+        description = el
+          .querySelector('sl-tag')
+          ?.renderRoot.querySelector('#navigation-description');
 
       expect(button).to.have.attribute('aria-describedby', 'navigation-description');
-      expect(
-        el.querySelector('sl-tag')?.renderRoot.querySelector('#navigation-description')
-      ).to.have.trimmed.text('Use arrow keys to move between removable tags.');
+      expect(description).to.have.attribute('aria-hidden', 'true');
+      expect(description).to.have.trimmed.text('Use arrow keys to move between removable tags.');
     });
 
     it('should use a single tab stop for removable tag buttons', async () => {

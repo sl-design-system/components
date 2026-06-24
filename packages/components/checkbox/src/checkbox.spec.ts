@@ -1,5 +1,6 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -10,6 +11,19 @@ import { Checkbox } from './checkbox.js';
 
 describe('sl-checkbox', () => {
   let el: Checkbox, input: HTMLInputElement;
+
+  it('should ignore non-infotip elements assigned to the infotip slot', async () => {
+    el = await fixture(html`
+      <sl-checkbox>
+        Label
+        <span slot="infotip">Not an infotip</span>
+      </sl-checkbox>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip).to.be.undefined;
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {

@@ -113,6 +113,17 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  override focus(options?: FocusOptions): void {
+    const trigger = this.renderRoot.querySelector<Button>('sl-button');
+
+    if (trigger) {
+      trigger.focus(options);
+      return;
+    }
+
+    super.focus(options);
+  }
+
   toggleInfotip(): void {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   }

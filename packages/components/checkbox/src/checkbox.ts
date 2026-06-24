@@ -275,9 +275,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
-      console.log(event.target);
       if (event.target === this.infotip) {
-        console.log('infotip clicked');
         this.infotip?.toggleInfotip();
         event.preventDefault();
         event.stopPropagation();
@@ -351,7 +349,9 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       this.shadowRoot?.querySelector('slot[name="infotip"]');
     const assignedElements = slot?.assignedElements({ flatten: true }) || [];
     this.infotip =
-      assignedElements.find((el): el is Infotip => el instanceof HTMLElement) || undefined;
+      assignedElements.find(
+        (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
+      ) || undefined;
   }
 
   #syncInput(input: HTMLInputElement): void {

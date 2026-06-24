@@ -11,7 +11,6 @@ import {
   type EventEmitter,
   LocaleMixin,
   NewFocusGroupController,
-  closestElementComposed,
   event
 } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
@@ -163,7 +162,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     return html`
-      <header @keydown=${this.#onHeaderKeydown}>
+      <header>
         ${this.#canSelectYear(-1) || this.#canSelectYear(1)
           ? html`
               <sl-button
@@ -259,12 +258,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    * can load a new range, do so. Otherwise, let the focus group controller handle it.
    */
   async #onKeydown(event: KeyboardEvent & { target: HTMLButtonElement }): Promise<void> {
-    if (this.#isTabInDialog(event)) {
-      this.#prepareTabEscape(event);
-
-      return;
-    }
-
     const buttons = Array.from(this.buttons),
       currentIndex = buttons.indexOf(event.target);
 
@@ -332,32 +325,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onToggleYearSelect(): void {
     this.toggleEvent.emit('year');
-  }
-
-  /** Handles Tab/Shift+Tab in the header so focus can leave the calendar in a dialog. */
-  #onHeaderKeydown(event: KeyboardEvent): void {
-    if (this.#isTabInDialog(event)) {
-      this.#prepareTabEscape(event);
-    }
-  }
-
-  /**
-   * Checks whether the key event is a Tab (forward or backward) while the component is inside an
-   * open dialog.
-   */
-  #isTabInDialog(event: KeyboardEvent): boolean {
-    return event.key === 'Tab' && !!closestElementComposed(this, 'dialog[open]');
-  }
-
-  /** Prepares focus so the next Tab/Shift+Tab can move out of the calendar. */
-  #prepareTabEscape(event: KeyboardEvent): void {
-    event.preventDefault();
-
-    const headerButtons = Array.from(
-      this.renderRoot.querySelectorAll<HTMLElement>('header sl-button')
-    );
-
-    this.#focusGroupController.escapeFocus(headerButtons);
   }
 
   /** Moves focus to the right month button after loading a new year range. */

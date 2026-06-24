@@ -562,7 +562,9 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
   // Tabindex management
   #manageTabindexes(): void {
     if (this.focused) {
-      this.#updateTabindexes(() => ({ tabIndex: -1 }));
+      const activeElement = this.elements[this.currentIndex] ?? this.focusInElement;
+
+      this.#updateTabindexes(el => ({ tabIndex: el === activeElement ? 0 : -1 }));
     } else {
       // Find the first focusable element for tabindex=0
       let focusableElement = this.focusInElement;

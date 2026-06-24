@@ -359,4 +359,32 @@ describe('sl-select-year', () => {
       });
     });
   });
+
+  describe('dialog tab escape', () => {
+    it('should not cycle back to header when tabbing forward from the grid', async () => {
+      const dialog = await fixture<HTMLDialogElement>(html`
+        <dialog open>
+          <sl-select-year></sl-select-year>
+        </dialog>
+      `);
+      const yearPicker = dialog.querySelector<SelectYear>('sl-select-year')!;
+
+      await yearPicker.updateComplete;
+
+      const rightArrow = yearPicker.renderRoot.querySelector<HTMLElement>(
+        'header sl-button:last-of-type'
+      );
+
+      rightArrow?.focus();
+      await userEvent.keyboard('{Tab}');
+      await yearPicker.updateComplete;
+
+      await userEvent.keyboard('{Tab}');
+      await yearPicker.updateComplete;
+
+      const activeInsideShadow = yearPicker.shadowRoot?.activeElement as HTMLElement | null;
+
+      expect(activeInsideShadow === null || activeInsideShadow === undefined).to.be.true;
+    });
+  });
 });

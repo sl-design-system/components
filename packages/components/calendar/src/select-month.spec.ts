@@ -376,4 +376,32 @@ describe('sl-select-month', () => {
       });
     });
   });
+
+  describe('dialog tab escape', () => {
+    it('should not cycle back to header when tabbing forward from the grid', async () => {
+      const dialog = await fixture<HTMLDialogElement>(html`
+        <dialog open>
+          <sl-select-month></sl-select-month>
+        </dialog>
+      `);
+      const monthPicker = dialog.querySelector<SelectMonth>('sl-select-month')!;
+
+      await monthPicker.updateComplete;
+
+      const rightArrow = monthPicker.renderRoot.querySelector<HTMLElement>(
+        '.arrows sl-button:last-of-type'
+      );
+
+      rightArrow?.focus();
+      await userEvent.keyboard('{Tab}');
+      await monthPicker.updateComplete;
+
+      await userEvent.keyboard('{Tab}');
+      await monthPicker.updateComplete;
+
+      const activeInsideShadow = monthPicker.shadowRoot?.activeElement as HTMLElement | null;
+
+      expect(activeInsideShadow === null || activeInsideShadow === undefined).to.be.true;
+    });
+  });
 });

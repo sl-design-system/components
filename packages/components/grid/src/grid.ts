@@ -10,6 +10,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import {
   ArrayListDataSource,
@@ -234,6 +235,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
+  /** Flag to skip the next focus announcement (e.g. after a click that already announced). */
+  #skipNextFocusAnnounce = false;
+
   /** The current active row. */
   @property({ attribute: false }) activeRow?: T;
 
@@ -406,6 +410,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
     this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
+    this.tbody.addEventListener('focusin', (event: FocusEvent) => this.#onFocusIn(event));
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
@@ -594,25 +599,37 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   renderItemRow(item: ListDataSourceDataItem<T>, index: number): TemplateResult {
     const rows = this.#headerRows,
+      active = this.activeRow === item.data,
       selected = this.dataSource?.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
-        ...(this.activeRow === item.data ? ['active'] : []),
+        ...(active ? ['active'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
-      ];
+      ],
+      ariaSelected =
+        this.rowAction === 'activate'
+          ? active
+            ? 'true'
+            : 'false'
+          : (this.dataSource?.selects ?? this.selects) === 'single'
+            ? selected
+              ? 'true'
+              : 'false'
+            : nothing;
 
     return html`
       <tr
-        @click=${() => this.#onClickRow(item)}
+        @click=${() => this.#onClickRow(item, index + 1)}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragenter=${(event: DragEvent) => this.#onDragEnter(event, item)}
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         aria-rowindex=${index + 1}
+        aria-selected=${ariaSelected}
         index=${index}
         part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
@@ -720,7 +737,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
-  #onClickRow(item: ListDataSourceDataItem<T>): void {
+  #onClickRow(item: ListDataSourceDataItem<T>, index: number): void {
     if (this.rowAction === 'activate') {
       this.dataSource?.deselectAll();
       this.dataSource?.update();
@@ -731,15 +748,74 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.activeRow = item.data;
       }
 
+      // Capture the clicked row state before emitting: listeners may synchronously mutate activeRow.
+      const isNowActive = this.activeRow === item.data;
+
       this.activeRowChangeEvent.emit(this.activeRow);
+      this.#announceSelection(item, index, isNowActive);
     } else if (this.rowAction === 'select') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
+      this.#announceSelection(item, index);
+    } else {
+      return;
     }
+
+    this.#skipNextFocusAnnounce = true;
+
+    // Reset the flag soon so it only skips focus events from this click (e.g. focus moving to a button in the row)
+    setTimeout(() => (this.#skipNextFocusAnnounce = false));
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
     this.#addScopedElements(event.target.scopedElements);
+  }
+
+  #announceSelection(item: ListDataSourceDataItem<T>, index: number, selected?: boolean): void {
+    const isSelected =
+      selected !== undefined
+        ? selected
+        : this.rowAction === 'activate'
+          ? this.activeRow === item.data
+          : !!this.dataSource?.isSelected(item);
+
+    const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
+      rowNumber = index + headerRowCount;
+
+    announce(
+      isSelected
+        ? msg(str`Row ${rowNumber} activated`, { id: 'sl.grid.rowActivated' })
+        : msg(str`Row ${rowNumber} deactivated`, { id: 'sl.grid.rowDeactivated' }),
+      'polite'
+    );
+  }
+
+  #onFocusIn(event: FocusEvent): void {
+    // Skip the focus announcement if it was triggered by a click that is already announced
+    if (this.#skipNextFocusAnnounce) {
+      this.#skipNextFocusAnnounce = false;
+      return;
+    }
+
+    const row = (event.target as HTMLElement)?.closest?.('tr');
+
+    if (!row || this.rowAction !== 'activate' || !row.part.contains('active')) {
+      return;
+    }
+
+    const index = row.getAttribute('aria-rowindex');
+
+    if (index) {
+      const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
+        rowNumber = Number(index) + headerRowCount;
+
+      // Use 'assertive' so the user knows right away which row they are in
+      announce(
+        msg(str`In activated row ${rowNumber}`, { id: 'sl.grid.inActivatedRow' }),
+        'assertive',
+        true
+      );
+    }
   }
 
   #onDataSourceUpdate = () => {

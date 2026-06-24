@@ -87,6 +87,7 @@
 ### Patch Changes
 
 - [#1379](https://github.com/sl-design-system/components/pull/1379) [`4242ea2`](https://github.com/sl-design-system/components/commit/4242ea24a85d758a71bb8c88aa6ae8a0aba442b5) - Various improvements:
+
   - Add `autofocus` attribute to `MessageDialogButton` config
   - Per the documentation, cancel buttons must use `fill="outline"` and `variant="primary"`
   - Improve API documentation

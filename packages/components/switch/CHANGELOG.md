@@ -277,6 +277,7 @@
 - [#835](https://github.com/sl-design-system/components/pull/835) [`3cb1452`](https://github.com/sl-design-system/components/commit/3cb1452546a717f475c628077301ce218165cb9e) - Linked to the correct custom icons page in Figma so some new/changed icons are available.
 
 - [#834](https://github.com/sl-design-system/components/pull/834) [`5e1aa71`](https://github.com/sl-design-system/components/commit/5e1aa7142d3d5e48e4f21b05224e7ee95a4dad60) - Refactor `<sl-switch>` to
+
   - use new `FormControlMixin` from the form package
   - simplify the component by removing the `hint` and `orientation` properties
 

@@ -18,6 +18,7 @@
 - [#3260](https://github.com/sl-design-system/components/pull/3260) [`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef) - Reworks tooltip hover timing to use fixed, non-configurable delays for more consistent UX:
 
   **Breaking change:** custom tooltip hover timing is no longer supported.
+
   - Show delay is now fixed at `500ms` and is no longer configurable.
   - Hide delay is now fixed at `200ms` and is no longer configurable.
   - Tooltip fade timing has been tuned for smoother open/close transitions.
@@ -35,6 +36,7 @@
 - [#3108](https://github.com/sl-design-system/components/pull/3108) [`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4) - Reworked the tooltip interaction model for hover and keyboard focus, especially for shared anchors and shadow DOM scenarios.
 
   ### What changed
+
   - Improved anchor detection across composed paths, shadow roots, `Element.aria*ByElements`, and `ElementInternals`.
   - Added `show-delay` and `hide-delay` support to make opening/closing timing explicit and configurable. The default hover behavior now waits `showDelay` (150ms) before opening; to restore the previous immediate behavior, set `show-delay="0"` on the tooltip.
   - Refactored hide/show flow to handle rapid pointer transitions more reliably and prevent sticky/open-state race conditions.
@@ -276,6 +278,7 @@
 ### Patch Changes
 
 - [#883](https://github.com/sl-design-system/components/pull/883) [`b941f99`](https://github.com/sl-design-system/components/commit/b941f9943782a5a823bac0bf8433bb77c664e752) - Several small changes:
+
   - Hide subheader on horizontal orientation and size small.
   - Show tooltip with full name when name is truncated
   - Changed font size to improve readability

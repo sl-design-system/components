@@ -395,7 +395,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     });
 
     this.tags.forEach(tag => {
-      tag.navigationDescription = navigationDescription;
+      tag.navigationDescription = tag.removable ? navigationDescription : undefined;
       tag.size = this.size;
       tag.variant = this.variant;
       tag.setAttribute('role', 'listitem');
@@ -502,7 +502,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         tag.tabIndex = -1;
       }
     });
-
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce(

@@ -185,6 +185,22 @@ describe('sl-tag-list', () => {
         'Use arrow keys to move between removable tags.'
       );
     });
+
+    it('should only set the navigation description on removable tags', async () => {
+      const tag = el.querySelector('sl-tag')!;
+
+      expect(tag.navigationDescription).to.equal('Use arrow keys to move between removable tags.');
+
+      tag.removable = false;
+      await tag.updateComplete;
+
+      el.requestUpdate();
+      await el.updateComplete;
+      await tag.updateComplete;
+
+      expect(tag.navigationDescription).to.be.undefined;
+      expect(tag.renderRoot.querySelector('#navigation-description')).not.to.exist;
+    });
   });
 
   describe('stacked', () => {

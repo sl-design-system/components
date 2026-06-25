@@ -62,7 +62,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: () => this.table,
+    scope: (): HTMLTableElement => this.table,
     wrap: false
   });
 

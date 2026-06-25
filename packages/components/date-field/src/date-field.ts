@@ -649,7 +649,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.hidePicker();
 
       requestAnimationFrame(() => {
-        this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
+        this.renderRoot.querySelector<FieldButton>('sl-field-button')?.focus();
       });
     }
   }
@@ -827,7 +827,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       if (!event.shiftKey) {
         requestAnimationFrame(() => {
-          this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
+          this.renderRoot.querySelector<FieldButton>('sl-field-button')?.focus();
         });
       }
 

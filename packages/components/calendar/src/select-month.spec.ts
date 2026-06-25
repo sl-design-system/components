@@ -361,7 +361,7 @@ describe('sl-select-month', () => {
         expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
       });
 
-      it('should navigate to the second to last enabled button when you press ArrowRight and then ArrowLeft on the last enabled button', async () => {
+      it('should move focus to the previous enabled button after ArrowRight then ArrowLeft on the last enabled button', async () => {
         const enabledButtons = buttons.filter(b => !b.disabled),
           lastEnabled = enabledButtons.at(-1),
           secondToLastEnabled = enabledButtons.at(-2);
@@ -369,16 +369,18 @@ describe('sl-select-month', () => {
         lastEnabled?.focus();
 
         await userEvent.keyboard('{ArrowRight}');
+
         expect(el.shadowRoot?.activeElement).to.equal(lastEnabled);
 
         await userEvent.keyboard('{ArrowLeft}');
+
         expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
       });
     });
   });
 
   describe('dialog tab escape', () => {
-    it('should not cycle back to header when tabbing forward from the grid', async () => {
+    it('should not cycle back to the header when tabbing forward from the table', async () => {
       const dialog = await fixture<HTMLDialogElement>(html`
         <dialog open>
           <sl-select-month></sl-select-month>
@@ -401,7 +403,7 @@ describe('sl-select-month', () => {
 
       const activeInsideShadow = monthPicker.shadowRoot?.activeElement as HTMLElement | null;
 
-      expect(activeInsideShadow === null || activeInsideShadow === undefined).to.be.true;
+      expect(activeInsideShadow).to.be.null;
     });
   });
 });

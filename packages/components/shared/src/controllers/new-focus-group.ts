@@ -353,7 +353,7 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     });
 
     if (targetIndex === -1) {
-      // Elements may change when the range or page updates, so query again.
+      // Elements may change when the range or page updates, so check again.
       this.#cachedElements = undefined;
       path.find(el => {
         targetIndex = this.elements.indexOf(el);

@@ -341,18 +341,19 @@ describe('sl-select-year', () => {
         expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
       });
 
-      it('should navigate to the second to last enabled button when you press ArrowRight and then ArrowLeft on the last enabled button', async () => {
+      it('should move focus to the previous enabled button after ArrowRight then ArrowLeft on the last enabled button', async () => {
         const enabledButtons = buttons.filter(b => !b.disabled),
           lastEnabled = enabledButtons.at(-1),
           secondToLastEnabled = enabledButtons.at(-2);
 
         lastEnabled?.focus();
 
-        // ArrowRight on last button - should do nothing (boundary)
+        // ArrowRight on last button - should do nothing
         await userEvent.keyboard('{ArrowRight}');
+
         expect(el.shadowRoot?.activeElement).to.equal(lastEnabled);
 
-        // ArrowLeft should now work and move to second-to-last button
+        // ArrowLeft should now move focus to the previous enabled button
         await userEvent.keyboard('{ArrowLeft}');
 
         expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
@@ -361,7 +362,7 @@ describe('sl-select-year', () => {
   });
 
   describe('dialog tab escape', () => {
-    it('should not cycle back to header when tabbing forward from the grid', async () => {
+    it('should not cycle back to header when tabbing forward from the table', async () => {
       const dialog = await fixture<HTMLDialogElement>(html`
         <dialog open>
           <sl-select-year></sl-select-year>
@@ -384,7 +385,7 @@ describe('sl-select-year', () => {
 
       const activeInsideShadow = yearPicker.shadowRoot?.activeElement as HTMLElement | null;
 
-      expect(activeInsideShadow === null || activeInsideShadow === undefined).to.be.true;
+      expect(activeInsideShadow).to.be.null;
     });
   });
 });

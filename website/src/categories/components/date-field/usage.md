@@ -221,7 +221,9 @@ Users can type only numbers in the day, month, and year segments. The date is ch
 Click the calendar icon button or press `Space`/`Enter` on it to open the popover. Use the keyboard or pointer to focus a date and press `Enter` to select it. Pressing `Escape` closes the popover and returns focus to the input.
 
 ### Select-only mode
-When `select-only` is set, the input becomes read-only and users can only pick a date through the calendar popover. This is useful when you want to enforce valid input without relying on typed values.
+When `select-only` is set, the input becomes read-only and users can only pick a date through the calendar popover. Use it when typed values could be invalid or when users benefit from selecting from the available dates.
+
+Avoid this mode when users know the exact date or need to reach a distant one. Free typing is faster, while keyboard and pointer navigation can help when browsing the Calendar.
 
 ### Min and max dates
 Dates outside the configured `min` / `max` range are disabled in the calendar and rejected by validation when typed.

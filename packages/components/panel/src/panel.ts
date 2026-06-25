@@ -105,7 +105,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /**
    * The placement of the toggle button when it's collapsible.
    *
-   * @default 'start'
+   * @default `start`
    */
   @property({ reflect: true, attribute: 'toggle-placement' }) togglePlacement?: TogglePlacement;
 

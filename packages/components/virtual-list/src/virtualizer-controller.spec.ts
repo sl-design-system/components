@@ -63,7 +63,7 @@ describe('VirtualizerController', () => {
     // Wait for the virtualizer to stabilize; items initially measure with
     // offsetHeight 0 during Lit's commit phase and the ResizeObserver needs
     // multiple animation frames to correct them.
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 10; i++) {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await host.updateComplete;
     }

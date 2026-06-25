@@ -13,7 +13,6 @@
 - [#3379](https://github.com/sl-design-system/components/pull/3379) [`a470889`](https://github.com/sl-design-system/components/commit/a47088978b07ef027090972b93394c6c2ad58b01) - Added a `hide-header-text` property to Grid columns so header text can be visually hidden while remaining available to assistive technologies.
 
 - [#3390](https://github.com/sl-design-system/components/pull/3390) [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f) - Accessibility improvements for row activation and selection:
-
   - Added `aria-selected` to the active/selected row in activate and single-select modes.
   - The grid now announces row activation and deactivation to screen readers.
   - When you focus an already active row with the keyboard, the grid reannounces it (using `force`).

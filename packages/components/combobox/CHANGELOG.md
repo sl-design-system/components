@@ -7,12 +7,10 @@
 - [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Improve scroll-to-item behavior and virtual list handling
 
   Internal improvements to scrolling and virtual list constraints for better user experience. These improvements depend on the updated `@sl-design-system/listbox` and `@sl-design-system/virtual-list` packages.
-
   - Improved scroll-to-item behavior when selecting options
   - Better handling of virtual list constraints
 
 - [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for combobox screen reader support
-
   - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
   - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
   - Remove `aria-owns` from the combobox input because it is not needed for this implementation

@@ -7,6 +7,7 @@
 
   align-items: flex-start;
   display: flex;
+  gap: var(--sl-size-025);
 }
 
 [part='wrapper'] {
@@ -165,7 +166,10 @@
   outline-offset: var(--sl-size-outlineOffset-default);
 }
 
-::slotted(sl-infotip),
+::slotted(sl-infotip) {
+  margin-block-start: var(--sl-size-050);
+}
+
 [part='label'] {
   margin-block-start: calc((var(--sl-size-400) - 1lh) / 2);
 }

@@ -9,11 +9,17 @@
 
   align-items: center;
   color: var(--sl-color-foreground-plain);
+  display: inline-flex;
+  gap: var(--sl-size-025);
+  outline: none;
+  vertical-align: middle;
+}
+
+[part='wrapper'] {
+  align-items: center;
   cursor: pointer;
   display: inline-flex;
   gap: var(--sl-size-100);
-  outline: none;
-  vertical-align: middle;
 }
 
 :host(:hover) {
@@ -82,6 +88,10 @@
 
 ::slotted(label) {
   cursor: pointer;
+}
+
+::slotted(sl-infotip) {
+  margin-block-start: var(--sl-size-050);
 }
 
 [part='toggle'] {

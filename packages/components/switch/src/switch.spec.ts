@@ -1,6 +1,7 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/infotip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -11,6 +12,33 @@ import { Switch } from './switch.js';
 
 describe('sl-switch', () => {
   let el: Switch, input: HTMLInputElement;
+
+  it('should ignore non-infotip elements assigned to the infotip slot', async () => {
+    el = await fixture(html`
+      <sl-switch>
+        Label
+        <span slot="infotip">Not an infotip</span>
+      </sl-switch>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip).to.be.undefined;
+  });
+
+  it('should set an infotip describe label based on the switch label', async () => {
+    el = await fixture(html`
+      <sl-switch>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-switch>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip?.size).to.equal('sm');
+    expect(el.infotip?.describes).to.equal('Label');
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {

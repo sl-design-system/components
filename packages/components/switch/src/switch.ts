@@ -4,12 +4,8 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type EventEmitter,
-  EventsController,
-  ObserveAttributesMixin,
-  event
-} from '@sl-design-system/shared';
+import { type Infotip } from '@sl-design-system/infotip';
+import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -23,7 +19,7 @@ import {
   html,
   nothing
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
 declare global {
@@ -70,14 +66,6 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    focusin: this.#onFocusin,
-    focusout: this.#onFocusout,
-    keydown: this.#onKeydown
-  });
-
   /** The initial state of the switch. */
   #initialState = false;
 
@@ -107,6 +95,8 @@ export class Switch<T = any> extends ObserveAttributesMixin(
 
   /** Whether the toggle should be shown _after_ the text. */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
+
+  @state() infotip?: Infotip;
 
   /**
    * The size of the switch.
@@ -174,6 +164,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    this.#onInfotipSlotChange();
     this.updateValidity();
   }
 
@@ -200,16 +191,29 @@ export class Switch<T = any> extends ObserveAttributesMixin(
       size = this.size === 'md' ? 'xs' : 'md';
 
     return html`
-      <slot></slot>
-      <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
-      <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
-      <div part="toggle">
-        <div part="track">
-          <div part="handle">
-            ${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
+      <div
+        part="wrapper"
+        @click=${this.#onClick}
+        @focusin=${this.#onFocusin}
+        @focusout=${this.#onFocusout}
+        @keydown=${this.#onKeydown}>
+        <slot></slot>
+        <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+        <slot
+          @keydown=${this.#onKeydown}
+          @slotchange=${this.#onInputSlotChange}
+          name="input"></slot>
+        <div part="toggle">
+          <div part="track">
+            <div part="handle">
+              ${this.size === 'sm'
+                ? nothing
+                : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
+            </div>
           </div>
         </div>
       </div>
+      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
     `;
   }
 
@@ -307,7 +311,29 @@ export class Switch<T = any> extends ObserveAttributesMixin(
             .join(' ')
         );
       }
+
+      if (this.infotip && !this.infotip.describes) {
+        this.infotip.describes = this.#label?.textContent?.trim() || '';
+      }
     });
+  }
+
+  #onInfotipSlotChange(): void {
+    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="infotip"]'),
+      assignedElements = slot?.assignedElements({ flatten: true }) || [];
+
+    this.infotip =
+      assignedElements.find(
+        (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
+      ) || undefined;
+
+    if (this.infotip) {
+      this.infotip.setAttribute('size', 'sm');
+
+      if (!this.infotip.describes) {
+        this.infotip.describes = this.#label?.textContent?.trim() || '';
+      }
+    }
   }
 
   #syncInput(input: HTMLInputElement): void {

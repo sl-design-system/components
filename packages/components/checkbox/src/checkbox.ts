@@ -275,14 +275,6 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
-      if (event.target === this.infotip) {
-        this.infotip?.toggleInfotip();
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        return;
-      }
-
       event.preventDefault();
       event.stopPropagation();
       this.#onClick(event);

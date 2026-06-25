@@ -110,7 +110,7 @@ export const ImplicitValue: Story = {
   args: {
     slot: () => html`
       <sl-checkbox-group>
-        <sl-checkbox checked value="0">Option 1 </sl-checkbox>
+        <sl-checkbox checked value="0">Option 1</sl-checkbox>
         <sl-checkbox checked value="1">Option 2</sl-checkbox>
         <sl-checkbox value="2">Option 3</sl-checkbox>
       </sl-checkbox-group>
@@ -136,7 +136,7 @@ export const Infotip: Story = {
         <sl-checkbox checked value="1">Option 2</sl-checkbox>
         <sl-checkbox value="2"
           >Option 3
-          <sl-infotip slot="infotip">This is an info tip for option 2</sl-infotip></sl-checkbox
+          <sl-infotip slot="infotip">This is an info tip for option 3</sl-infotip></sl-checkbox
         >
       </sl-checkbox-group>
     `

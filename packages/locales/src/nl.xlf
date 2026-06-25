@@ -462,6 +462,10 @@
   <source>Options</source>
   <target>Opties</target>
 </trans-unit>
+<trans-unit id="sl.infotip.moreInformationAbout">
+  <source>More information about</source>
+  <target>Meer informatie over</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

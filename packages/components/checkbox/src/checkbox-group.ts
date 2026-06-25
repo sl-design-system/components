@@ -227,11 +227,9 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     const focusableBoxes: Array<Checkbox | Infotip> = [];
 
     this.boxes?.forEach(box => {
-      if (!box.disabled) {
-        focusableBoxes.push(box);
-      }
+      focusableBoxes.push(box);
 
-      if (box.infotip && !box.disabled) {
+      if (box.infotip) {
         focusableBoxes.push(box.infotip);
       }
     });

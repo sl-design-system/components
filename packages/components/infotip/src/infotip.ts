@@ -60,7 +60,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   @property() describes?: string;
 
   /** The size of the infotip button. */
-  @property() size: ButtonSize = 'md';
+  @property({ reflect: true }) size: ButtonSize = 'md';
 
   /** Light DOM div that holds a copy of the content; manually assigned to the default slot. */
   #contentCopy?: HTMLElement;
@@ -150,10 +150,12 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   }
 
   #buttonLabel(): string {
-    if (!this.describes) {
+    const describes = this.describes?.trim();
+
+    if (!describes) {
       return msg('More information', { id: 'sl.infotip.moreInformation' });
     }
-    return `${msg('More information about', { id: 'sl.infotip.moreInformationAbout' })} ${this.describes}`;
+    return `${msg('More information about', { id: 'sl.infotip.moreInformationAbout' })} ${describes}`;
   }
 
   #syncContent(): void {

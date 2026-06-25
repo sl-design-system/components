@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/grid",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "status": "draft",
   "description": "Grid components for the SL Design System",
   "license": "Apache-2.0",
@@ -40,33 +40,34 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^2.1.0",
+    "@sl-design-system/announcer": "^0.1.0",
+    "@sl-design-system/button": "^2.1.1",
     "@sl-design-system/checkbox": "^2.1.10",
     "@sl-design-system/data-source": "^0.4.0",
-    "@sl-design-system/ellipsize-text": "^0.0.3",
+    "@sl-design-system/ellipsize-text": "^0.0.4",
     "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/listbox": "^0.1.7",
+    "@sl-design-system/listbox": "^0.2.0",
     "@sl-design-system/scrollbar": "^0.1.2",
-    "@sl-design-system/search-field": "^0.2.5",
-    "@sl-design-system/select": "^2.1.4",
-    "@sl-design-system/shared": "^0.12.1",
+    "@sl-design-system/search-field": "^0.2.6",
+    "@sl-design-system/select": "^2.1.5",
+    "@sl-design-system/shared": "^0.12.2",
     "@sl-design-system/skeleton": "^1.0.1",
-    "@sl-design-system/text-field": "^1.6.10",
-    "@sl-design-system/toggle-group": "^0.0.15",
-    "@sl-design-system/tool-bar": "^0.2.4",
-    "@sl-design-system/tooltip": "^2.0.0"
+    "@sl-design-system/text-field": "^1.6.11",
+    "@sl-design-system/toggle-group": "^0.0.16",
+    "@sl-design-system/tool-bar": "^0.2.5",
+    "@sl-design-system/tooltip": "^2.0.1"
   },
   "devDependencies": {
     "@lit-labs/virtualizer": "^2.1.1",
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.6",
+    "@open-wc/scoped-elements": "^3.0.10",
     "@sl-design-system/example-data": "^1.0.0",
-    "lit": "^3.3.2"
+    "lit": "^3.3.3"
   },
   "peerDependencies": {
     "@lit-labs/virtualizer": "^2.0.13",
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.6",
+    "@open-wc/scoped-elements": "^3.0.10",
     "lit": "^3.1.4"
   }
 }

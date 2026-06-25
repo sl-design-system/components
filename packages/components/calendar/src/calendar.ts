@@ -40,7 +40,7 @@ declare global {
 @localized()
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-select-day': SelectDay,

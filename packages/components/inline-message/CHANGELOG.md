@@ -1,5 +1,20 @@
 # @sl-design-system/inline-message
 
+## 2.1.1
+
+### Patch Changes
+
+- [#3414](https://github.com/sl-design-system/components/pull/3414) [`e07c746`](https://github.com/sl-design-system/components/commit/e07c746bec373ae9fe9d0e7c274d9deeadca9544) - Layer `elevation.surface.raised.default` underneath the semantic inline message background so text remains readable on bold, patterned, and image backgrounds
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/announcer@0.1.0
+  - @sl-design-system/button@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

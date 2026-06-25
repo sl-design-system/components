@@ -1,5 +1,39 @@
 # @sl-design-system/grid
 
+## 0.7.4
+
+### Patch Changes
+
+- [#3376](https://github.com/sl-design-system/components/pull/3376) [`54e1beb`](https://github.com/sl-design-system/components/commit/54e1bebbb047dadca5213ce0fcb5049319c1f5e0) - Fixed sticky grid columns becoming transparent when using `row-action="activate"`
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- [#3379](https://github.com/sl-design-system/components/pull/3379) [`a470889`](https://github.com/sl-design-system/components/commit/a47088978b07ef027090972b93394c6c2ad58b01) - Added a `hide-header-text` property to Grid columns so header text can be visually hidden while remaining available to assistive technologies.
+
+- [#3390](https://github.com/sl-design-system/components/pull/3390) [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f) - Accessibility improvements for row activation and selection:
+  - Added `aria-selected` to the active/selected row in activate and single-select modes.
+  - The grid now announces row activation and deactivation to screen readers.
+  - When you focus an already active row with the keyboard, the grid reannounces it (using `force`).
+
+  **Note:** If you use a button to trigger row activation, you should add `aria-pressed` and `aria-description` to it yourself. The grid does not set these for you. See the `'Activate'` story for an example of how to do this.
+
+- [#3385](https://github.com/sl-design-system/components/pull/3385) [`5210ab7`](https://github.com/sl-design-system/components/commit/5210ab73ef22fed783135a1aa93dc73b32112f3a) - Accessibility improvement: added `aria-expanded` to the toggle group button in the group header.
+
+- Updated dependencies [[`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/search-field@0.2.6
+  - @sl-design-system/toggle-group@0.0.16
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tool-bar@0.2.5
+  - @sl-design-system/select@2.1.5
+  - @sl-design-system/ellipsize-text@0.0.4
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/tooltip@2.0.1
+  - @sl-design-system/announcer@0.1.0
+  - @sl-design-system/button@2.1.1
+
 ## 0.7.3
 
 ### Patch Changes

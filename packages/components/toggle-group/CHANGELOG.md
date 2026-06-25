@@ -1,5 +1,15 @@
 # @sl-design-system/toggle-group
 
+## 0.0.16
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Remove unused `@open-wc/scoped-elements` dependency.
+
+- Updated dependencies [[`f2d2914`](https://github.com/sl-design-system/components/commit/f2d2914f4622de01b49e49b78abc17956e7438d3), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/toggle-button@0.0.16
+  - @sl-design-system/shared@0.12.2
+
 ## 0.0.15
 
 ### Patch Changes

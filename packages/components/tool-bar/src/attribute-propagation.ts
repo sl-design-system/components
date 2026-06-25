@@ -18,6 +18,8 @@ export function updateChildAttributes(
 function updateButtonFillAndVariant(el: Element, fill?: ButtonFill, inverted?: boolean): void {
   const targets: Element[] = [];
 
+  // TODO: when there is already set fill on buttons, menu buttons, or tool-bar-dividers, we should not override it. We should only set the fill and variant on those elements that do not have it set already.
+  // TODO: same with variant... what about inverted?
   if (el.tagName === 'SL-BUTTON' || el.tagName === 'SL-MENU-BUTTON') {
     targets.push(el);
   }
@@ -26,6 +28,7 @@ function updateButtonFillAndVariant(el: Element, fill?: ButtonFill, inverted?: b
 
   targets.forEach(btn => {
     if (fill) {
+      console.log('button fill', btn.hasAttribute('fill'), fill);
       btn.setAttribute('fill', fill);
     }
 

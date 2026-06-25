@@ -1,44 +1,39 @@
 import menuButtonMeta, {
-  Submenu as AllMenuButton
+  Submenu as MenuStory
 } from '../../../packages/components/menu/src/menu-button.stories';
-import { All as AllDialog } from '../../../packages/components/dialog/src/dialog.stories';
-import { All as AllTooltip } from '../../../packages/components/tooltip/src/tooltip.stories';
+import dialogMeta, {
+  Basic as DialogStory
+} from '../../../packages/components/dialog/src/dialog.stories';
+import singleComboboxMeta, {
+  Basic as SingleComboboxStory
+} from '../../../packages/components/combobox/src/single.stories.ts';
+import multipleComboboxMeta, {
+  Basic as MultipleComboboxStory
+} from '../../../packages/components/combobox/src/multiple.stories.ts';
+import dateFieldMeta, {
+  Basic as DateFieldStory
+} from '../../../packages/components/date-field/src/date-field.stories';
+import selectMeta, {
+  Basic as SelectStory
+} from '../../../packages/components/select/src/select.stories';
+import timeFieldMeta, {
+  Basic as TimeFieldStory
+} from '../../../packages/components/time-field/src/time-field.stories';
+import panelMeta, {
+  OverflowActions as PanelStory
+} from '../../../packages/components/panel/src/panel.stories';
+import treeMeta, { Buttons as TreeStory } from '../../../packages/components/tree/src/tree.stories';
+import popoverMeta, {
+  Basic as PopoverStory
+} from '../../../packages/components/popover/src/popover.stories';
+import messageDialogMeta, {
+  Alert as MessageDialogStory
+} from '../../../packages/components/message-dialog/src/message-dialog.stories';
+import tooltipMeta, {
+  Basic as TooltipStory
+} from '../../../packages/components/tooltip/src/tooltip.stories';
 import { nothing } from 'lit';
-import { userEvent } from 'storybook/test';
 import { allModes } from '../modes';
-
-type PlayContext = {
-  canvasElement?: unknown;
-};
-
-const getCanvasRoot = (context: PlayContext): ParentNode => {
-  if (
-    context.canvasElement instanceof Element ||
-    context.canvasElement instanceof DocumentFragment
-  ) {
-    return context.canvasElement;
-  }
-
-  return document.body;
-};
-
-const waitForCondition = async (
-  condition: () => boolean,
-  timeout = 5000,
-  checkInterval = 50
-): Promise<void> => {
-  const startTime = Date.now();
-
-  while (Date.now() - startTime < timeout) {
-    if (condition()) {
-      return;
-    }
-
-    await new Promise(resolve => setTimeout(resolve, checkInterval));
-  }
-
-  throw new Error(`Condition not met within ${timeout}ms`);
-};
 
 export default {
   title: 'All',
@@ -53,72 +48,173 @@ export default {
   }
 };
 
-/**
- * When adding an "All" story of a component you need to only include all variants that can have
- * changes per style; so when multiple variants or scenarios use the exact same styling or, more
- * specifically, tokens, there is no need to include all those scenarios.
- *
- * The All story always needs its own `render` function, otherwise this doesn't work.
- */
 export const MenuButton = {
-  play: async (context: PlayContext) => {
-    const root = getCanvasRoot(context),
-      menuButton = root.querySelector('sl-menu-button'),
-      trigger = menuButton?.shadowRoot?.querySelector('sl-button');
-
-    if (!trigger) {
-      throw new Error('Expected sl-menu-button trigger to be rendered.');
-    }
-
-    await userEvent.click(trigger);
-
-    const menu = menuButton?.shadowRoot?.querySelector('sl-menu');
-
-    await waitForCondition(() => Boolean(menu?.matches(':popover-open')));
-  },
   render: () => {
     if (!menuButtonMeta.render) {
       return nothing;
     }
 
-    const args = { ...(menuButtonMeta.args ?? {}), ...(AllMenuButton.args ?? {}) };
+    const args = {
+      ...(menuButtonMeta.args ?? {}),
+      ...(MenuStory.args ?? {})
+    } as Parameters<NonNullable<typeof menuButtonMeta.render>>[0];
 
     return menuButtonMeta.render(args);
   }
 };
-export const Dialog = {
-  play: async (context: PlayContext) => {
-    const root = getCanvasRoot(context),
-      trigger = root.querySelector('sl-button');
-
-    if (!trigger) {
-      throw new Error('Expected dialog trigger button to be rendered.');
+export const SingleCombobox = {
+  render: () => {
+    if (!singleComboboxMeta.render) {
+      return nothing;
     }
 
-    await userEvent.click(trigger);
+    const args = {
+      ...(singleComboboxMeta.args ?? {}),
+      ...(SingleComboboxStory.args ?? {})
+    } as Parameters<NonNullable<typeof singleComboboxMeta.render>>[0];
 
-    const dialogHost = root.querySelector('sl-dialog'),
-      nativeDialog = dialogHost?.shadowRoot?.querySelector('dialog');
+    return singleComboboxMeta.render(args);
+  }
+};
+export const MultipleCombobox = {
+  render: () => {
+    if (!multipleComboboxMeta.render) {
+      return nothing;
+    }
 
-    await waitForCondition(() => Boolean(nativeDialog?.open));
-  },
-  render: AllDialog.render
+    const args = {
+      ...(multipleComboboxMeta.args ?? {}),
+      ...(MultipleComboboxStory.args ?? {})
+    } as Parameters<NonNullable<typeof multipleComboboxMeta.render>>[0];
+
+    return multipleComboboxMeta.render(args);
+  }
+};
+export const DateField = {
+  render: () => {
+    if (!dateFieldMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(dateFieldMeta.args ?? {}),
+      ...(DateFieldStory.args ?? {})
+    } as Parameters<NonNullable<typeof dateFieldMeta.render>>[0];
+
+    return dateFieldMeta.render(args);
+  }
+};
+export const Select = {
+  render: () => {
+    if (!selectMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(selectMeta.args ?? {}),
+      ...(SelectStory.args ?? {})
+    } as Parameters<NonNullable<typeof selectMeta.render>>[0];
+
+    return selectMeta.render(args);
+  }
+};
+export const TimeField = {
+  render: () => {
+    if (!timeFieldMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(timeFieldMeta.args ?? {}),
+      ...(TimeFieldStory.args ?? {})
+    } as Parameters<NonNullable<typeof timeFieldMeta.render>>[0];
+
+    return timeFieldMeta.render(args);
+  }
+};
+export const Panel = {
+  render: () => {
+    if (!panelMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(panelMeta.args ?? {}),
+      ...(PanelStory.args ?? {})
+    } as Parameters<NonNullable<typeof panelMeta.render>>[0];
+
+    return panelMeta.render(args);
+  }
+};
+export const Tree = {
+  render: () => {
+    if (!treeMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(treeMeta.args ?? {}),
+      ...(TreeStory.args ?? {})
+    } as Parameters<NonNullable<typeof treeMeta.render>>[0];
+
+    return treeMeta.render(args);
+  }
+};
+export const Dialog = {
+  render: () => {
+    if (!dialogMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(dialogMeta.args ?? {}),
+      ...(DialogStory.args ?? {})
+    } as Parameters<NonNullable<typeof dialogMeta.render>>[0];
+
+    return dialogMeta.render(args);
+  }
+};
+
+export const Popover = {
+  render: () => {
+    if (!popoverMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(popoverMeta.args ?? {}),
+      ...(PopoverStory.args ?? {})
+    } as Parameters<NonNullable<typeof popoverMeta.render>>[0];
+
+    return popoverMeta.render(args);
+  }
+};
+
+export const MessageDialog = {
+  render: () => {
+    if (!messageDialogMeta.render) {
+      return nothing;
+    }
+
+    const args = {
+      ...(MessageDialogStory.args ?? {})
+    } as Parameters<NonNullable<typeof messageDialogMeta.render>>[0];
+
+    return messageDialogMeta.render(args);
+  }
 };
 
 export const Tooltip = {
-  play: async (context: PlayContext) => {
-    const root = getCanvasRoot(context),
-      trigger = root.querySelector('sl-button');
-
-    if (!trigger) {
-      throw new Error('Expected tooltip trigger button to be rendered.');
+  render: () => {
+    if (!tooltipMeta.render) {
+      return nothing;
     }
 
-    await userEvent.hover(trigger);
+    const args = {
+      ...(tooltipMeta.args ?? {}),
+      ...(TooltipStory.args ?? {})
+    } as Parameters<NonNullable<typeof tooltipMeta.render>>[0];
 
-    const tooltip = root.querySelector('sl-tooltip');
-
-    await waitForCondition(() => Boolean(tooltip?.matches(':popover-open')));
-  },
-  render: AllTooltip.render
+    return tooltipMeta.render(args);
+  }
 };

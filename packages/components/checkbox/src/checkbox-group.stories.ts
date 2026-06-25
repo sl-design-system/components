@@ -110,11 +110,28 @@ export const ImplicitValue: Story = {
   args: {
     slot: () => html`
       <sl-checkbox-group>
+        <sl-checkbox checked value="0">Option 1 </sl-checkbox>
+        <sl-checkbox checked value="1">Option 2</sl-checkbox>
+        <sl-checkbox value="2">Option 3</sl-checkbox>
+      </sl-checkbox-group>
+    `
+  }
+};
+
+export const Infotip: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group>
         <sl-checkbox checked value="0"
-          >Option 1 with infotip and a very long label that should wrap to the next line. So we need
-          to add some extra text, otherwise it won't wrap. This is a long label that should wrap to
-          the next line.
-          <sl-infotip slot="infotip">This is an info tip for option 1</sl-infotip>
+          >Option 1 with infotip and a very long label that should wrap to the next line. This label
+          is way too long to be used in the label for the "more info" button, so we have provided a
+          custom label for the button that is more descriptive and shorter than the label of the
+          checkbox. The label of the checkbox is way too long to be used in the label for the "more
+          info" button, so we have provided a custom label for the button that is and shorter than
+          the label of the checkbox.
+          <sl-infotip slot="infotip" describes="Option 1"
+            >This is an info tip for option 1</sl-infotip
+          >
         </sl-checkbox>
         <sl-checkbox checked value="1">Option 2</sl-checkbox>
         <sl-checkbox value="2"

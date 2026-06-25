@@ -55,7 +55,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // #events = new EventsController(this.renderRoot.querySelector('.wrapper'), {
+  // #events = new EventsController(this, {
   //   click: this.#onClick,
   //   focusin: this.#onFocusin,
   //   focusout: this.#onFocusout,
@@ -214,10 +214,10 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
         </div>
         <span part="label">
           <slot name="label"></slot>
-          <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot
-          ><slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
+          <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
         </span>
       </div>
+      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
     `;
   }
 
@@ -352,6 +352,12 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       assignedElements.find(
         (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
       ) || undefined;
+    if (this.infotip) {
+      this.infotip.setAttribute('size', 'sm');
+    }
+    if (this.infotip && !this.infotip.describes) {
+      this.infotip.describes = this.#label?.textContent?.trim() || '';
+    }
   }
 
   #syncInput(input: HTMLInputElement): void {

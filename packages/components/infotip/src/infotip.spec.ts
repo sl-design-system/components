@@ -58,7 +58,7 @@ describe('sl-infotip', () => {
       el.focus();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(el.renderRoot.activeElement).to.equal(button);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(button);
     });
 
     it('should open the popover when clicking the trigger button', async () => {

@@ -251,11 +251,10 @@ export const NoVisibleLabel: StoryObj = {
 export const Infotip: StoryObj = {
   render: () => {
     return html`
-      <sl-checkbox
-        >Option 1<sl-infotip slot="infotip"
-          >This is an info tip for option 1</sl-infotip
-        ></sl-checkbox
-      >
+      <sl-checkbox>
+        Option 1
+        <sl-infotip slot="infotip">This is an info tip for option 1</sl-infotip>
+      </sl-checkbox>
     `;
   }
 };

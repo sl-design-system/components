@@ -5,6 +5,18 @@ import { html } from 'lit';
 import { themes, updateTheme, type Mode } from '../../.storybook/themes';
 import MockDate from 'mockdate';
 
+// Load the polyfill for the Invoker API if needed.
+if (!('command' in HTMLButtonElement.prototype)) {
+  const { apply } = await import('invokers-polyfill/fn');
+
+  apply();
+}
+
+// Load the polyfill for the scrollend event if needed.
+if (!('onscrollend' in window)) {
+  await import('@af-utils/scrollend-polyfill' as any);
+}
+
 // Id's of components that only need to be rendered once, not in all mock states.
 const singleState = [
   'all--badge',
@@ -13,6 +25,8 @@ const singleState = [
   'all--dialog',
   'all--icon',
   'all--inline-message',
+  'all--menu',
+  'all--menu-button',
   'all--message-dialog',
   'all--month-view',
   'all--popover',

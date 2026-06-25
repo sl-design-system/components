@@ -2,52 +2,81 @@ import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 
-export default defineConfig({
-  test: {
-    onConsoleLog: log => !(log.startsWith('Lit is in dev mode') || log === 'null'),
-    projects: [
-      {
-        extends: true,
-        plugins: [
-          // The plugin will run tests for the stories defined in your Storybook config
-          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-          storybookTest({ configDir: '.storybook' })
-        ],
-        test: {
-          name: 'storybook',
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: playwright(),
-            instances: [{ browser: 'chromium' }]
-          },
-          setupFiles: ['.storybook/vitest.setup.ts']
+export default defineConfig(async () => {
+  const { chromaticPlugin } = await import('@chromatic-com/vitest/plugin');
+
+  return {
+    test: {
+      onConsoleLog: log => !(log.startsWith('Lit is in dev mode') || log === 'null'),
+      projects: [
+        {
+          extends: true,
+          plugins: [
+            // The plugin will run tests for the stories defined in your Storybook config
+            // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+            storybookTest({ configDir: '.storybook' })
+          ],
+          test: {
+            name: 'storybook',
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright(),
+              instances: [{ browser: 'chromium' }]
+            },
+            setupFiles: ['.storybook/vitest.setup.ts']
+          }
+        },
+        {
+          extends: true,
+          test: {
+            name: 'unit',
+            include: ['packages/components/**/*.spec.ts'],
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright({
+                contextOptions: {
+                  locale: 'en',
+                  reducedMotion: 'reduce'
+                }
+              }),
+              instances: [
+                {
+                  browser: 'chromium'
+                }
+              ],
+              viewport: { width: 1024, height: 768 }
+            },
+            setupFiles: 'vitest.setup.ts'
+          }
+        },
+        {
+          extends: true,
+          plugins: [chromaticPlugin({ disableAutoSnapshot: true })],
+          test: {
+            name: 'visual',
+            include: ['visual/**/*.visual.spec.ts'],
+            browser: {
+              enabled: true,
+              headless: true,
+              provider: playwright({
+                contextOptions: {
+                  locale: 'en',
+                  reducedMotion: 'reduce'
+                }
+              }),
+              instances: [
+                {
+                  browser: 'chromium'
+                }
+              ],
+              viewport: { width: 1024, height: 768 }
+            },
+            setupFiles: ['.storybook/vitest.setup.ts']
+          }
         }
-      },
-      {
-        extends: true,
-        test: {
-          name: 'unit',
-          include: ['packages/components/**/*.spec.ts'],
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: playwright({
-              contextOptions: {
-                locale: 'en',
-                reducedMotion: 'reduce'
-              }
-            }),
-            instances: [
-              {
-                browser: 'chromium'
-              }
-            ],
-            viewport: { width: 1024, height: 768 }
-          },
-          setupFiles: 'vitest.setup.ts'
-        }
-      }
-    ]
-  }
+      ]
+    }
+  };
 });

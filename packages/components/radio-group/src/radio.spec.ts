@@ -1,3 +1,4 @@
+import '@sl-design-system/infotip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -7,6 +8,33 @@ import { Radio } from './radio.js';
 
 describe('sl-radio', () => {
   let el: Radio;
+
+  it('should ignore non-infotip elements assigned to the infotip slot', async () => {
+    el = await fixture(html`
+      <sl-radio>
+        Label
+        <span slot="infotip">Not an infotip</span>
+      </sl-radio>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip).to.be.undefined;
+  });
+
+  it('should set an infotip describe label based on the radio label', async () => {
+    el = await fixture(html`
+      <sl-radio>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-radio>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip?.size).to.equal('sm');
+    expect(el.infotip?.describes).to.equal('Label');
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {

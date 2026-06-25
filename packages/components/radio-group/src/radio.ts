@@ -1,5 +1,5 @@
 import { type FormControlShowValidity } from '@sl-design-system/form';
-import { EventsController } from '@sl-design-system/shared';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -7,7 +7,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './radio.scss.js';
 
 declare global {
@@ -23,12 +23,6 @@ export class Radio<T = any> extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
-  });
-
   /** Whether the radio button is checked. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
@@ -37,6 +31,8 @@ export class Radio<T = any> extends LitElement {
 
   /** Indicates if the radio button shows it is (in)valid. */
   @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
+
+  @state() infotip?: Infotip;
 
   /**
    * The size of the radio button.
@@ -75,19 +71,27 @@ export class Radio<T = any> extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div part="box">
-        ${this.checked
-          ? html`
-              <svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="6"></circle>
-              </svg>
-            `
-          : html`<svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24"></svg>`}
+      <div part="wrapper" class="wrapper" @click=${this.#onClick} @keydown=${this.#onKeydown}>
+        <div part="box">
+          ${this.checked
+            ? html`
+                <svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="6"></circle>
+                </svg>
+              `
+            : html`<svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24"></svg>`}
+        </div>
+        <span part="label">
+          <slot @slotchange=${() => this.#onLabelSlotChange()}></slot>
+        </span>
       </div>
-      <span part="label">
-        <slot></slot>
-      </span>
+      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
     `;
+  }
+
+  override firstUpdated(): void {
+    this.#onLabelSlotChange();
+    this.#onInfotipSlotChange();
   }
 
   #onClick(event: Event): void {
@@ -104,6 +108,41 @@ export class Radio<T = any> extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
       this.#onClick(event);
+    }
+  }
+
+  #labelText(): string {
+    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot:not([name])'),
+      nodes = slot?.assignedNodes({ flatten: true }) || [];
+
+    return nodes
+      .map(node => node.textContent?.trim() || '')
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  #onLabelSlotChange(): void {
+    if (this.infotip && !this.infotip.describes) {
+      this.infotip.describes = this.#labelText();
+    }
+  }
+
+  #onInfotipSlotChange(): void {
+    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="infotip"]'),
+      assignedElements = slot?.assignedElements({ flatten: true }) || [];
+
+    this.infotip =
+      assignedElements.find(
+        (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
+      ) || undefined;
+
+    if (this.infotip) {
+      this.infotip.setAttribute('size', 'sm');
+
+      if (!this.infotip.describes) {
+        this.infotip.describes = this.#labelText();
+      }
     }
   }
 }

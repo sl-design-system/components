@@ -389,6 +389,31 @@ describe('sl-date-field', () => {
       expect(dialog).to.contain('sl-calendar');
     });
 
+    it('should cancel a pending open when hidePicker is called before updateComplete resolves', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
+
+      el.showPicker();
+      el.hidePicker();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog?.open).to.be.false;
+      expect(el.renderRoot.querySelector('sl-calendar')).not.to.exist;
+    });
+
+    it('should keep dialog closed when toggled open and immediately closed', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog'),
+        button = el.renderRoot.querySelector<HTMLElement>('sl-field-button');
+
+      button?.click();
+      button?.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog?.open).to.be.false;
+      expect(el.renderRoot.querySelector('sl-calendar')).not.to.exist;
+    });
+
     it('should hide the extra controls area when there are no actions', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));

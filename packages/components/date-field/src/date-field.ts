@@ -545,6 +545,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Hide the date picker. */
   hidePicker(): void {
+    this.#openDialogCancelled = true;
+
+    if (this.#opening && !this.dialog?.open) {
+      this.calendarVisible = false;
+      this.requestUpdate();
+
+      return;
+    }
+
     if (this.dialog?.open) {
       this.dialog.close();
       this.requestUpdate();
@@ -583,7 +592,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #onButtonClick(): void {
-    if (this.dialog?.open) {
+    if (this.dialog?.open || this.#opening) {
       this.hidePicker();
     } else {
       this.showPicker();

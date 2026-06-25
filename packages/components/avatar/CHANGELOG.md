@@ -128,6 +128,7 @@
 ### Patch Changes
 
 - [#1389](https://github.com/sl-design-system/components/pull/1389) [`f03971b`](https://github.com/sl-design-system/components/commit/f03971b7b338a4248df292060b91b6b903b6c8ed) - Minor style fixes:
+
   - Fix the title and subtitle text being cutoff for certain characters due not enough line-height
   - Use a different color for the subtitle text
 
@@ -263,6 +264,7 @@
 ### Patch Changes
 
 - [#883](https://github.com/sl-design-system/components/pull/883) [`b941f99`](https://github.com/sl-design-system/components/commit/b941f9943782a5a823bac0bf8433bb77c664e752) - Several small changes:
+
   - Hide subheader on horizontal orientation and size small.
   - Show tooltip with full name when name is truncated
   - Changed font size to improve readability

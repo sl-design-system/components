@@ -10,6 +10,6 @@ storybookCategory: layout
 eleventyNavigation:
   parent: Components
   key: Callout
-  status: new
+  status: ready
 ---
 

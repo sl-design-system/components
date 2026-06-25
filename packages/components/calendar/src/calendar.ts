@@ -81,20 +81,24 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The list of dates that should display an indicator. Each item has a `date` and optional `color`
-   * and `label` values that are used to improve accessibility.
+   * and `label` values that are used to improve accessibility. Use `indicator-dates` to highlight
+   * specific dates with a visual indicator (for example, exam dates or assignment deadlines)
+   * without disabling them.
    */
   @property({ attribute: 'indicator-dates', converter: indicatorConverter })
   indicatorDates?: Indicator[];
 
   /**
-   * The maximum date selectable in the calendar.
+   * The maximum date selectable in the calendar. Dates outside the range are visually disabled and
+   * cannot be selected.
    *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
-   * The minimum date selectable in the calendar.
+   * The minimum date selectable in the calendar. Dates outside the range are visually disabled and
+   * cannot be selected.
    *
    * @default undefined
    */

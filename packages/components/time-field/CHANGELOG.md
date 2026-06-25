@@ -51,7 +51,6 @@
 ### Patch Changes
 
 - [#2824](https://github.com/sl-design-system/components/pull/2824) [`ff5b844`](https://github.com/sl-design-system/components/commit/ff5b8447d854505f9d8619f2d7489d909dd757d0) - Multiple fixes:
-
   - For `required` time-field, native validation message is now used. The custom message "Please enter a time." appears only when the entered value is not a valid time.
   - Fixed an issue where the dialog time picker value did not update when the user typed a new value.
 

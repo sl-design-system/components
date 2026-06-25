@@ -7,12 +7,10 @@
 - [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Improve scroll-to-item behavior and virtual list handling
 
   Internal improvements to scrolling and virtual list constraints for better user experience. These improvements depend on the updated `@sl-design-system/listbox` and `@sl-design-system/virtual-list` packages.
-
   - Improved scroll-to-item behavior when selecting options
   - Better handling of virtual list constraints
 
 - [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for combobox screen reader support
-
   - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
   - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
   - Remove `aria-owns` from the combobox input because it is not needed for this implementation
@@ -54,11 +52,9 @@
 ### Patch Changes
 
 - [#3211](https://github.com/sl-design-system/components/pull/3211) [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f) - Functional changes:
-
   - The popover opens when you click in the combobox, no longer when you enter the combobox with keyboard navigation.
 
   Accessibility improvements:
-
   - Forward ARIA attributes (`aria-label`, `aria-describedby`, `aria-labelledby`) from host element to the input element for proper screen reader support
   - Automatically associate label with input via `aria-labelledby` when a label is present
 
@@ -209,7 +205,6 @@
   ```
 
   You can customize the rendering of each option by using:
-
   - `optionLabelPath` to specify the path to the label in each option object
   - `optionValuePath` to specify the path to the value in each option object
 
@@ -219,7 +214,6 @@
   the options in both scenarios by using the `sl-option { ... }` selector.
 
 - [#1642](https://github.com/sl-design-system/components/pull/1642) [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39) - Various combobox fixes:
-
   - Add `aria-owns` for linking the input to the listbox
   - Add `aria-posinset` and `aria-setsize` to the listbox options for virtual lists
   - Add focus style to tags
@@ -242,7 +236,6 @@
 ### Patch Changes
 
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes/improvements:
-
   - The label was associated with the `<sl-combobox>` element instead of the `<input>` element
   - `aria-selected="false"` was missing on the non-selected options
   - `aria-multiselectable="true"` was missing on the listbox when the multiple property is set

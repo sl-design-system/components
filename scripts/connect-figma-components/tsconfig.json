@@ -9,5 +9,5 @@
     "noEmit": true,
     "types": ["@figma/code-connect/figma-types"]
   },
-  "include": ["**/*.figma.ts"]
+  "include": ["**/*.figma.ts", "**/*.figma.batch.ts"]
 }

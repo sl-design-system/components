@@ -15,7 +15,7 @@ function getExample() {
   }
 
   return figma.code`
-    <a href="javascript:void(0)">${title}</a>
+    <a href="#">${title}</a>
   `;
 }
 

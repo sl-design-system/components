@@ -3,7 +3,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: ['*/index.ts'],
-  plugins: [importCssSheet],
+  plugins: [importCssSheet()],
 
   clean: !process.argv.includes('--watch'),
   deps: {

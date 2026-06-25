@@ -38,7 +38,7 @@ const config: StorybookConfig = {
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');
 
-    return mergeConfig(config, { logLevel: 'warn', plugins: [importCssSheet] });
+    return mergeConfig(config, { logLevel: 'warn', plugins: [importCssSheet()] });
   }
 };
 

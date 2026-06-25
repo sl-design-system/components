@@ -61,7 +61,7 @@ function getExample() {
   let prefix;
   if (hasPrefix) {
     const prefixInstance = header.getInstanceSwap('Prefix instance');
-    if (!prefixInstance) return null;
+    if (!prefixInstance || prefixInstance.type === 'ERROR') return null;
 
     // Set the slot property to ensure the slot attribute is rendered
     prefixInstance.properties.slot = { value: 'prefix' };
@@ -72,7 +72,7 @@ function getExample() {
   let suffix;
   if (hasSuffix) {
     const suffixInstance = header.getInstanceSwap('Suffix instance');
-    if (!suffixInstance) return null;
+    if (!suffixInstance || suffixInstance.type === 'ERROR') return null;
 
     // Set the slot property to ensure the slot attribute is rendered
     suffixInstance.properties.slot = { value: 'suffix' };

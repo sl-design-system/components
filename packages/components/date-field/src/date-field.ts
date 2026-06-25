@@ -99,6 +99,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** Guard to prevent concurrent #openDialog() calls. */
   #opening = false;
 
+  /** Used to cancel a pending #openDialog() before showModal() runs. */
+  #openDialogCancelled = false;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -554,10 +557,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#opening = true;
+    this.#openDialogCancelled = false;
 
     try {
       this.calendarVisible = true;
       await this.updateComplete;
+
+      if (this.#openDialogCancelled) {
+        return;
+      }
 
       if (!this.dialog?.open) {
         this.dialog?.showModal();

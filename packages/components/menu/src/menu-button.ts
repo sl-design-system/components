@@ -45,7 +45,7 @@ declare global {
 @localized()
 export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,

@@ -1362,7 +1362,7 @@ describe('sl-select', () => {
 
     it('should upgrade any cloned custom elements of the selected option', async () => {
       class ScopedSelectWrapper extends ScopedElementsMixin(LitElement) {
-        static get scopedElements(): ScopedElementsMap {
+        static override get scopedElements(): ScopedElementsMap {
           return {
             'sl-icon': Icon,
             'sl-option': Option,

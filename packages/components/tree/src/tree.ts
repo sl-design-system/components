@@ -41,7 +41,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   'aria-labelledby'
 ]) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-skeleton': Skeleton,

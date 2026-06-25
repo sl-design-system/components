@@ -20,7 +20,7 @@ type Profile = {
 
 export class NestedForm extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'example-child-form': ChildForm,
       'sl-button': Button,

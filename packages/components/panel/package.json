@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/panel",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "status": "draft",
   "description": "Panel component for the SL Design System",
   "license": "Apache-2.0",
@@ -40,15 +40,15 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/shared": "^0.12.1",
-    "@sl-design-system/tool-bar": "^0.2.4"
+    "@sl-design-system/shared": "^0.12.2",
+    "@sl-design-system/tool-bar": "^0.2.5"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   }
 }

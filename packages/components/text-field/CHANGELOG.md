@@ -1,5 +1,17 @@
 # @sl-design-system/text-field
 
+## 1.6.11
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/form@1.4.2
+
 ## 1.6.10
 
 ### Patch Changes
@@ -44,7 +56,6 @@
 - [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
 
 - [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - - Refactor internals to help fix `<sl-number-field>` behavior
-
   - Adding warning when `type="number"` is used that points to `<sl-number-field>`
 
 - [#2561](https://github.com/sl-design-system/components/pull/2561) [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9) - Remove duplication of `observedAttributes` from the components and into the `ObserveAttributesMixin`
@@ -119,7 +130,6 @@
 ### Patch Changes
 
 - [#1785](https://github.com/sl-design-system/components/pull/1785) [`4e80437`](https://github.com/sl-design-system/components/commit/4e804374c3a02e88b04e4c1df662967740461f7c) - - Styling buttons improvements,
-
   - Formatting value changes - using `formattedValue` instead of `formatValue`.
 
 - [#1805](https://github.com/sl-design-system/components/pull/1805) [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb) - Fix able to submit a parent form using the enter key in readonly mode

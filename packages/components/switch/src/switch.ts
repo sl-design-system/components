@@ -56,7 +56,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   static formAssociated = true;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };

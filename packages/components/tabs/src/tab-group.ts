@@ -84,7 +84,7 @@ let nextUniqueId = 0;
 @localized()
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-menu-button': MenuButton,

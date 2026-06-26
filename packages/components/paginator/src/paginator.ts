@@ -61,7 +61,7 @@ export type PaginatorEmphasis = 'subtle' | 'bold';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,

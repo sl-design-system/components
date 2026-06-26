@@ -71,7 +71,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-listbox': Listbox,

@@ -1,5 +1,26 @@
 # @sl-design-system/select
 
+## 2.1.5
+
+### Patch Changes
+
+- [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for select screen reader support
+  - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
+  - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
+  - Remove `aria-owns` from the select trigger/input because it is not needed for this implementation
+  - Always set `aria-selected` on options, including grouped options in the selected group
+  - Set correct `aria-posinset` and `aria-setsize` on virtualized options, excluding group headers from the count
+  - Add group label context to the accessible name of grouped options for Safari/VoiceOver compatibility
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
 ## 2.1.4
 
 ### Patch Changes

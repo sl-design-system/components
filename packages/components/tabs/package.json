@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tabs",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "status": "stable",
   "description": "Tabs components for the SL Design System",
   "license": "Apache-2.0",
@@ -40,15 +40,15 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/menu": "^0.3.1",
-    "@sl-design-system/shared": "^0.12.0"
+    "@sl-design-system/menu": "^0.3.4",
+    "@sl-design-system/shared": "^0.12.2"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   }
 }

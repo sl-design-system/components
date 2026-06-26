@@ -1,0 +1,19 @@
+{
+  "name": "@sl-design-system/examples",
+  "version": "0.0.0",
+  "description": "Examples for the SL Design System",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsdown"
+  },
+  "dependencies": {
+    "@lit/localize": "^0.12.2",
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.3.2"
+  },
+  "devDependencies": {
+    "tsdown": "^0.22.2",
+    "typescript": "^6.0.3"
+  }
+}

@@ -466,6 +466,18 @@
   <source>More information about</source>
   <target>Więcej informacji o</target>
 </trans-unit>
+<trans-unit id="sl.grid.rowActivated">
+  <source>Row <x id="0" equiv-text="${index}"/> activated</source>
+  <target>Wiersz <x id="0" equiv-text="${index}"/> aktywowany</target>
+</trans-unit>
+<trans-unit id="sl.grid.rowDeactivated">
+  <source>Row <x id="0" equiv-text="${index}"/> deactivated</source>
+  <target>Wiersz <x id="0" equiv-text="${index}"/> dezaktywowany</target>
+</trans-unit>
+<trans-unit id="sl.grid.inActivatedRow">
+  <source>In activated row <x id="0" equiv-text="${index}"/></source>
+  <target>W aktywowanym wierszu <x id="0" equiv-text="${index}"/></target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -1,5 +1,18 @@
 # @sl-design-system/callout
 
+## 0.2.1
+
+### Patch Changes
+
+- [#3413](https://github.com/sl-design-system/components/pull/3413) [`69d0bf0`](https://github.com/sl-design-system/components/commit/69d0bf0f48c0a29c05f27b0f9f6511ddc72843bf) - Layer `elevation.surface.raised.default` underneath the semantic callout background so text remains readable on bold, patterned, and image backgrounds
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/shared@0.12.2
+
 ## 0.2.0
 
 ### Minor Changes

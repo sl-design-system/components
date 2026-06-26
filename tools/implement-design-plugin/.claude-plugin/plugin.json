@@ -1,0 +1,12 @@
+{
+  "name": "implement-design",
+  "description": "Turn a Figma URL into fully implemented SLDS components — scaffolded, styled with design tokens, visually validated against the design, tested, documented, and reviewed. Supports Lit and Angular. Works in Claude Code, GitHub Copilot CLI, and VS Code.",
+  "version": "1.0.0",
+  "author": {
+    "name": "SL Design System"
+  },
+  "homepage": "https://sanomalearning.design",
+  "repository": "https://github.com/sl-design-system/components",
+  "license": "Apache-2.0",
+  "keywords": ["figma", "design-to-code", "design-system", "lit", "angular", "storybook"]
+}

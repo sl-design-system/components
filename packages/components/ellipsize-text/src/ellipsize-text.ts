@@ -18,7 +18,7 @@ declare global {
  */
 export class EllipsizeText extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-tooltip': Tooltip
     };

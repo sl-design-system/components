@@ -1,5 +1,4 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=961-67272
-/// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

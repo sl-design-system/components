@@ -1,4 +1,3 @@
-/// <reference types="@figma/code-connect/figma-types" />
 import figma from 'figma';
 
 const instance = figma.selectedInstance;

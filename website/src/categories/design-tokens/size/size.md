@@ -10,11 +10,14 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">Design Tokens</h1>
   <p class="ds-tokens__heading-description">
-  Design tokens are named entities that store visual and functional information. They take the place of hardcoded values, such as hex values for color or pixel values for spacing.
+  Design tokens are named entities that store visual and functional information. They take the place of hardcoded values, such as hex values for color or pixel values for spacing. Presented token values are based on the Sanoma Learning theme.
   </p>
 </div>
 </header>
 
 <section class="ds-subpage-section ds-tokens__wrapper">
-{% include "./size-tokens-table.njk" %}
+  <section class="ds-subpage-section__wrapper">
+  {% include "./size-tokens-table.njk" %}
+  </section>
+  <ds-vertical-tabs></ds-vertical-tabs>
 </section>

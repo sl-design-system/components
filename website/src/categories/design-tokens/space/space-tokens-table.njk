@@ -1,8 +1,33 @@
 <section class="ds-tokens">
-<h2 class="ds-tokens__heading">Space</h2>
+<h2 id="space-tokens" class="ds-tokens__heading"><a class="header-anchor" href="#space-tokens">Space</a></h2>
 <table class="ds-table"><thead>
 <tr>
-  <th>Example</th>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.spaceTokens.space -%}
+<tr>
+  <td>
+    <div class="ds-tokens__space-example">
+      <div class="ds-tokens__space" style="width: min(var({{ item.token }}), 15rem); height: min(var({{ item.token }}), 15rem);"></div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.title }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="space" class="ds-tokens__heading"><a class="header-anchor" href="#space">Space - deprecated</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
   <th>Token title</th>
   <th>Token</th>
 </tr></thead>
@@ -11,7 +36,7 @@
 <tr>
   <td>
     <div class="ds-tokens__space-example">
-      <div class="ds-tokens__space" style="width: {{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}; height: {{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}"></div>
+      <div class="ds-tokens__space" style="width: min({{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}, 15rem); height: min({{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}, 15rem)"></div>
       <code>{{ property[1]['$value'] }}{% if property[1]['$value'] | hasNoUnit %}px{% endif %}</code>
     </div>
   </td>

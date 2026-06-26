@@ -1,9 +1,9 @@
 ---
-title: Text
+title: Elevation
 eleventyNavigation:
   parent: Design Tokens
-  key: Text
-  order: 2
+  key: Elevation
+  order: 8
 ---
 
 <header class="ds-tokens__main-heading">
@@ -17,7 +17,8 @@ eleventyNavigation:
 
 <section class="ds-subpage-section ds-tokens__wrapper">
   <section class="ds-subpage-section__wrapper">
-  {% include "./text-tokens-table.njk" %}
+  {% include "./elevation-tokens-table.njk" %}
   </section>
   <ds-vertical-tabs></ds-vertical-tabs>
 </section>
+

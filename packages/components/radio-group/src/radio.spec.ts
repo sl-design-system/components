@@ -64,7 +64,7 @@ describe('sl-radio', () => {
     });
 
     it('should be checked when clicked', async () => {
-      el.click();
+      (el.renderRoot.querySelector('[part="wrapper"]') as HTMLElement)?.click();
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-checked', 'true');

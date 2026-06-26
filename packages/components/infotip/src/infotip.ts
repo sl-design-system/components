@@ -139,11 +139,13 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
+      event.stopPropagation();
       this.toggleInfotip();
     }
   }
 
   #onClick(event: Event): void {
+    console.log('infotip click', event);
     event.preventDefault();
     event.stopPropagation();
     this.toggleInfotip();

@@ -1,7 +1,12 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type Infotip } from '@sl-design-system/infotip';
-import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  event
+} from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -55,12 +60,13 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // #events = new EventsController(this, {
-  //   click: this.#onClick,
-  //   focusin: this.#onFocusin,
-  //   focusout: this.#onFocusout,
-  //   keydown: this.#onKeydown
-  // });
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    focusin: this.#onFocusin,
+    focusout: this.#onFocusout,
+    keydown: this.#onKeydown
+  });
 
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
@@ -187,13 +193,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   override render(): TemplateResult {
     return html`
-      <div
-        part="wrapper"
-        class="wrapper"
-        @click=${this.#onClick}
-        @focusin=${this.#onFocusin}
-        @focusout=${this.#onFocusout}
-        @keydown=${this.#onKeydown}>
+      <div part="wrapper">
         <slot
           @keydown=${this.#onKeydown}
           @slotchange=${this.#onInputSlotChange}
@@ -238,7 +238,15 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    console.log(
+      'click',
+      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement),
+      event.composedPath()
+    );
+    if (
+      this.disabled ||
+      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
+    ) {
       return;
     }
 

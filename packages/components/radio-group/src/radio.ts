@@ -1,5 +1,6 @@
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { type Infotip } from '@sl-design-system/infotip';
+import { EventsController } from '@sl-design-system/shared';
 import {
   type CSSResultGroup,
   LitElement,
@@ -22,6 +23,12 @@ export type RadioButtonSize = 'md' | 'lg';
 export class Radio<T = any> extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  });
 
   /** Whether the radio button is checked. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
@@ -71,7 +78,7 @@ export class Radio<T = any> extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div part="wrapper" class="wrapper" @click=${this.#onClick} @keydown=${this.#onKeydown}>
+      <div part="wrapper" class="wrapper">
         <div part="box">
           ${this.checked
             ? html`
@@ -95,7 +102,17 @@ export class Radio<T = any> extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    console.log(
+      'click',
+      event.composedPath(),
+      event
+        .composedPath()
+        .includes(this.renderRoot.querySelector('[part="wrapper"]') as HTMLElement)
+    );
+    if (
+      this.disabled ||
+      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
+    ) {
       return;
     }
 

@@ -227,8 +227,14 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   }
 
   #onClick(event: Event): void {
-    console.log('click', event);
-    if (this.disabled) {
+    console.log(
+      'click',
+      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
+    );
+    if (
+      this.disabled ||
+      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
+    ) {
       return;
     }
 

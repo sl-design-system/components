@@ -9,8 +9,10 @@ import { type Mode, themes, updateTheme } from './themes.js';
 
 // Load the CSS Anchor Positioning polyfill if needed
 if (!('anchorName' in document.documentElement.style)) {
-  const { default: polyfill } = await import('@oddbird/css-anchor-positioning/shadow');
+  const { default: polyfill, patchAndPolyfillConstructedStylesheets } =
+    await import('@oddbird/css-anchor-positioning/fn');
 
+  patchAndPolyfillConstructedStylesheets();
   polyfill();
 }
 

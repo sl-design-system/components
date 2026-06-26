@@ -398,7 +398,7 @@
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "@faker-js/faker": "^10.5.0",
     "@lit/localize-tools": "^0.8.2",
-    "@oddbird/css-anchor-positioning": "^0.10.0-alpha",
+    "@oddbird/css-anchor-positioning": "0.10.0-alpha.1",
     "@playwright/test": "^1.61.0",
     "@storybook/addon-a11y": "^10.4.6",
     "@storybook/addon-docs": "^10.4.6",

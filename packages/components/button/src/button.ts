@@ -52,7 +52,7 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   static formAssociated = true;
 
   /** @internal */
-  static get scopedElements() {
+  static override get scopedElements() {
     return {
       'sl-tooltip': Tooltip
     };

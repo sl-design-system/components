@@ -6,6 +6,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
     "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,7 +31,7 @@
     "fast-glob": "^3.3.3",
     "graphql": "^16.13.1",
     "postcss": "^8.5.15",
-    "sass": "^1.100.0",
+    "sass": "^1.101.0",
     "style-dictionary": "^5.1.1"
   }
 }

@@ -1,11 +1,17 @@
 import { argv } from 'node:process';
+import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
 import { type StorybookConfig } from '@storybook/web-components-vite';
 import { injectComponentMetadata } from './helpers.ts';
 
 const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
-  stories: ['*.mdx', 'stories/*.stories.ts', '../packages/components/**/*.stories.ts'],
+  stories: [
+    '*.mdx',
+    'stories/*.stories.ts',
+    '../packages/components/**/*.stories.ts',
+    '../examples/**/*.stories.ts'
+  ],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
@@ -32,7 +38,7 @@ const config: StorybookConfig = {
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');
 
-    return mergeConfig(config, { logLevel: 'warn' });
+    return mergeConfig(config, { logLevel: 'warn', plugins: [importCssSheet()] });
   }
 };
 

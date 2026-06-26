@@ -71,7 +71,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-listbox': Listbox,
@@ -632,7 +632,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   #onSlotchange(): void {
     this.#verifyRegisteredListboxElements();
 
-    this.options.forEach(option => option.setAttribute('aria-selected', 'false'));
+    this.listbox?.applyFlattenedOptionAccessibility(this.options);
 
     if (this.value !== undefined && this.value !== null) {
       this.#setSelectedOption(

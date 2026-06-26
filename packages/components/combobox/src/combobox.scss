@@ -21,8 +21,8 @@
 }
 
 ::slotted(sl-listbox) {
-  block-size: fit-content;
-  overflow: visible;
+  flex: 1 1 auto;
+  max-block-size: inherit;
 }
 
 sl-text-field {
@@ -93,6 +93,7 @@ sl-icon {
   }
 
   &:popover-open {
+    display: inline-flex;
     opacity: 1;
   }
 }

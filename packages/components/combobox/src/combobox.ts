@@ -96,7 +96,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-combobox-create-custom-option': CreateCustomOption,
       'sl-combobox-custom-option': CustomOption,
@@ -663,7 +663,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.input.setSelectionRange(value.length, item.label.length);
       }
     } else {
-      item = this.items.find(option => option.value === value);
+      item = this.#findItemByValue(value as U);
     }
 
     if (this.allowCustomValues && !item) {
@@ -680,6 +680,30 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #onInputClick(): void {
     this.wrapper?.showPopover();
+
+    if (!this.multiple && !this.#popoverOpenedViaKeyboard) {
+      // Mouse-open should keep AT context without applying visual current highlight.
+      if (this.currentItem) {
+        this.currentItem.current = false;
+      }
+      this.currentItem?.element?.removeAttribute('current');
+      this.listbox?.querySelector('[current]')?.removeAttribute('current');
+
+      const selectedItem = this.selectedItems[0] ?? this.items.find(i => i.selected);
+
+      if (selectedItem) {
+        this.#updateCurrent(selectedItem, 'instant', { visual: false });
+      } else {
+        const selectedOption =
+          this.querySelector<Option>('sl-option[selected]') ??
+          this.querySelector<Option>('sl-option');
+
+        if (selectedOption) {
+          selectedOption.id ||= `sl-combobox-option-${nextUniqueId++}`;
+          this.input.setAttribute('aria-activedescendant', selectedOption.id);
+        }
+      }
+    }
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -768,7 +792,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index]);
+      this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
+      // This setup now ignores prefers-reduced-motion and can cause unwanted motion for users who explicitly disable animations.
+      // When the reliability issue is resolved, we should switch back to using 'auto' and respect prefers-reduced-motion again.
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -824,7 +850,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     if (this.listbox) {
       this.listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
       this.input.setAttribute('aria-controls', this.listbox.id);
-      this.input.setAttribute('aria-owns', this.listbox.id);
 
       if (this.multiple) {
         this.listbox.setAttribute('aria-multiselectable', 'true');
@@ -858,7 +883,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     } else {
       this.input.removeAttribute('aria-controls');
-      this.input.removeAttribute('aria-owns');
       this.items = [];
     }
   }
@@ -902,13 +926,26 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         const index = this.items.findIndex(i => i.selected);
 
         if (index !== -1) {
-          this.listbox?.scrollToIndex(index, { block: 'nearest' });
+          this.listbox?.scrollToIndex(index, { block: 'start' }); // ideally we would use `nearest` here, but Safari and Firefox don't support it, causing inconsistency in scroll behavior across browsers.
         } else {
           this.listbox?.scrollIntoView({ block: 'start' });
         }
 
-        if (this.selectedItems.length && this.#popoverOpenedViaKeyboard) {
-          this.#updateCurrent(this.selectedItems[0]);
+        const selectedOptionElement = this.listbox?.querySelector<Option>('sl-option[selected]');
+        const selectedItem =
+          this.selectedItems[0] ??
+          this.items.find(
+            i => i.selected || (selectedOptionElement && i.id === selectedOptionElement.id)
+          );
+
+        if (selectedItem) {
+          this.#updateCurrent(selectedItem, 'instant', {
+            visual: this.#popoverOpenedViaKeyboard
+          });
+        } else if (selectedOptionElement?.id) {
+          // Fallback for timing-sensitive open paths where internal item state
+          // has not synchronized yet. Keep AT context without visual highlight.
+          this.input.setAttribute('aria-activedescendant', selectedOptionElement.id);
         }
       }
 
@@ -962,9 +999,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         }
 
         // Ensure the option has an aria-selected attribute
-        if (!el.hasAttribute('aria-selected')) {
-          el.setAttribute('aria-selected', Boolean(el.selected).toString());
-        }
+        el.setAttribute('aria-selected', Boolean(el.selected).toString());
 
         return item;
       });
@@ -1069,6 +1104,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       el.id = groupedItem.id;
       el.innerText = groupedItem.label;
       el.selected = true;
+      el.setAttribute('aria-selected', 'true');
 
       if (!el.parentElement) {
         this.#selectedGroup?.append(el);
@@ -1098,6 +1134,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       item.element?.remove();
       item.element = undefined;
     }
+    this.#updateCurrent(this.items.find(i => i.id === item.id));
 
     if (this.selectedItems.length === 0) {
       this.#removeSelectedGroup();
@@ -1189,6 +1226,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       this.selectedItems = [item];
     }
 
+    item.current = false;
+    this.#updateCurrent(this.selectedItems.find(i => i.id === item.id));
+
     if (item.element instanceof Option) {
       item.element.selected = item.selected;
       item.element.style.display = item.visible ? '' : 'none';
@@ -1239,6 +1279,42 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     return [];
+  }
+
+  #isEqualValue(a: U | undefined, b: U | undefined): boolean {
+    if (a === b) {
+      return true;
+    }
+
+    if (this.#isStringCoercibleValue(a) && this.#isStringCoercibleValue(b)) {
+      return a.toString() === b.toString();
+    }
+
+    return false;
+  }
+
+  #isStringCoercibleValue(value: unknown): value is string | number | boolean | bigint {
+    switch (typeof value) {
+      case 'bigint':
+      case 'boolean':
+      case 'number':
+      case 'string':
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  #findItemByValue(
+    value: U | undefined,
+    predicate: (item: ComboboxItem<T, U>) => boolean = () => true
+  ): ComboboxItem<T, U> | undefined {
+    return (
+      this.items.find(item => item.type === 'option' && predicate(item) && item.value === value) ??
+      this.items.find(
+        item => item.type === 'option' && predicate(item) && this.#isEqualValue(item.value, value)
+      )
+    );
   }
 
   #prepareOptions(options: T[]): Array<ComboboxItem<T, U>> {
@@ -1304,12 +1380,19 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       el.value = item.value;
       el.setAttribute('aria-selected', item.selected ? 'true' : 'false');
 
-      if (typeof item.index === 'number') {
-        el.setAttribute('aria-posinset', (item.index + 1).toString());
+      // aria-posinset / aria-setsize for the virtual list: delegate to the listbox cache so the
+      // logic lives in one place. For non-virtual (slotted) options the listbox already applies
+      // these in its #onSlotChange → #applyFlattenedOptionAccessibility path.
+      const flattenedPosition = this.listbox!.getFlattenedPosition(item);
+
+      if (flattenedPosition !== -1) {
+        el.setAttribute('aria-posinset', (flattenedPosition + 1).toString());
+        el.setAttribute('aria-setsize', this.listbox!.getFlattenedSetSize().toString());
       }
 
-      if (this.options) {
-        el.setAttribute('aria-setsize', this.options.length.toString());
+      // Add group context to accessible name for Safari/VoiceOver compatibility
+      if (item.group) {
+        el.setAttribute('aria-label', `${item.label} (${item.group})`);
       }
 
       if (el instanceof GroupedOption) {
@@ -1391,25 +1474,52 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   /** Updates the options to reflect the current one. */
-  #updateCurrent(option?: ComboboxItem<T, U>): void {
+  #updateCurrent(
+    option?: ComboboxItem<T, U>,
+    scrollBehaviour: ScrollBehavior = 'instant',
+    { visual = true }: { visual?: boolean } = {}
+  ): void {
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
+
+      // Clear from tracked element (works for virtual list elements in shadow root)
+      this.currentItem.element?.removeAttribute('current');
+      // Also try querySelector for non-virtual case as fallback
       this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 
-    this.currentItem = option;
+    if (!option || !option.visible) {
+      this.currentItem = undefined;
+      return;
+    }
 
+    this.currentItem = option;
     if (this.currentItem) {
-      this.currentItem.current = true;
+      this.currentItem.current = visual;
 
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
-      if (this.currentItem.element) {
-        this.currentItem.element.setAttribute('current', '');
-        this.currentItem.element.scrollIntoView({ block: 'nearest' });
+      // Check if element exists and is still connected (not a stale, disconnected element from virtualization)
+      if (this.currentItem.element?.isConnected) {
+        // Element exists and is connected, use scrollIntoView (avoid duplicate scrolling)
+        if (visual) {
+          this.currentItem.element.setAttribute('current', '');
+        } else {
+          this.currentItem.element.removeAttribute('current');
+        }
+
+        this.currentItem.element.scrollIntoView({ block: 'start', behavior: scrollBehaviour });
       } else {
-        this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });
+        // Element doesn't exist or is disconnected (virtual list), use scrollToIndex
+        // Use the listbox's items (filtered) to get the correct index
+        const index = this.listbox?.items?.indexOf(this.currentItem) ?? -1;
+        if (index !== -1) {
+          this.listbox?.scrollToIndex(index, {
+            block: 'start',
+            behavior: scrollBehaviour
+          });
+        }
       }
     }
   }
@@ -1460,13 +1570,28 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.selectedItems.forEach(item => this.#removeSelectedOption(item));
     this.selectedItems = [];
 
-    this.items.forEach(item => {
-      if (this.multiple && (this.value as U[])?.includes(item.value!)) {
-        this.#addSelectedOption(item);
-      } else if (item.value === this.value) {
+    if (this.multiple) {
+      if (!Array.isArray(this.value)) {
+        return;
+      }
+
+      const selectedItems = new Set<ComboboxItem<T, U>>();
+      this.value.forEach(value => {
+        const item = this.#findItemByValue(value, item => !selectedItems.has(item));
+
+        if (item) {
+          selectedItems.add(item);
+        }
+      });
+
+      selectedItems.forEach(item => this.#addSelectedOption(item));
+    } else {
+      const item = this.#findItemByValue(this.value as U | undefined);
+
+      if (item) {
         this.#addSelectedOption(item);
       }
-    });
+    }
   }
 
   /** Update the value in the text field. */
@@ -1493,8 +1618,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     const isValueEqual = this.multiple
       ? Array.isArray(this.value) &&
         this.value.length === values.length &&
-        values.every(v => (this.value as U[]).includes(v))
-      : this.value === values[0];
+        values.every(v => (this.value as U[]).some(value => this.#isEqualValue(value, v)))
+      : this.#isEqualValue(this.value as U | undefined, values[0]);
 
     // Do nothing if the value hasn't changed
     if (isValueEqual) {

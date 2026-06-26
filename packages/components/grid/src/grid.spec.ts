@@ -91,6 +91,14 @@ describe('sl-grid', () => {
 
       expect(rowIndices).to.deep.equal(['1', '2']);
     });
+
+    it('should not have aria-selected when no row action or selection is configured', () => {
+      const rows = el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr');
+
+      rows.forEach(row => {
+        expect(row).not.to.have.attribute('aria-selected');
+      });
+    });
   });
 
   describe('multiple select', () => {
@@ -237,6 +245,19 @@ describe('sl-grid', () => {
       expect(el.dataSource?.selects).to.equal('single');
     });
 
+    it('should set aria-selected="true" on the selected row', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type'),
+        otherRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:nth-of-type(2)');
+
+      expect(row).to.have.attribute('aria-selected', 'true');
+      expect(otherRow).to.have.attribute('aria-selected', 'false');
+    });
+
     it('should toggle the "selected" part of the row when clicking in the row', async () => {
       el.renderRoot
         .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
@@ -248,7 +269,6 @@ describe('sl-grid', () => {
     });
 
     it('should allow only one row to be selected at a time', async () => {
-      // Select first row
       el.renderRoot
         .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
         ?.click();
@@ -259,7 +279,6 @@ describe('sl-grid', () => {
       );
       expect(selectedRows).to.have.lengthOf(1);
 
-      // Select second row - should deselect first row
       el.renderRoot
         .querySelector<HTMLTableCellElement>('tbody tr:nth-of-type(2) td:last-of-type')
         ?.click();
@@ -270,17 +289,14 @@ describe('sl-grid', () => {
       );
       expect(selectedRows).to.have.lengthOf(1);
 
-      // Verify first row is no longer selected
       const firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(firstRow?.part.contains('selected')).to.be.false;
 
-      // Verify second row is selected
       const secondRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:nth-of-type(2)');
       expect(secondRow?.part.contains('selected')).to.be.true;
     });
 
     it('should deselect a row when clicking it again', async () => {
-      // Select a row
       el.renderRoot
         .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
         ?.click();
@@ -289,7 +305,6 @@ describe('sl-grid', () => {
       let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
       expect(row?.part.contains('selected')).to.be.true;
 
-      // Click again to deselect
       el.renderRoot
         .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
         ?.click();
@@ -403,6 +418,105 @@ describe('sl-grid', () => {
 
       expect(onActiveRowChange).to.have.been.calledOnce;
       expect(onActiveRowChange.firstCall.args[0].detail).to.deep.equal(el.items!.at(1));
+    });
+
+    it('should set aria-selected="true" on the active row', async () => {
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type'),
+        otherRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type');
+
+      expect(row).to.have.attribute('aria-selected', 'true');
+      expect(otherRow).to.have.attribute('aria-selected', 'false');
+    });
+
+    it('should set aria-selected="false" when deactivating', async () => {
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      let row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+
+      expect(row).to.have.attribute('aria-selected', 'true');
+
+      row?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type');
+
+      expect(row).to.have.attribute('aria-selected', 'false');
+    });
+
+    it('should dispatch sl-announce event when activating a row', async () => {
+      const announceSpy = spy();
+      document.body.addEventListener('sl-announce', announceSpy);
+
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(announceSpy).to.have.been.calledOnce;
+
+      const event = announceSpy.firstCall.args[0] as CustomEvent<{
+        message: string;
+        urgency: string;
+      }>;
+
+      expect(event.detail.message).to.equal('Row 3 activated');
+      expect(event.detail.urgency).to.equal('polite');
+
+      document.body.removeEventListener('sl-announce', announceSpy);
+    });
+
+    it('should dispatch sl-announce event when deactivating a row', async () => {
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const announceSpy = spy();
+      document.body.addEventListener('sl-announce', announceSpy);
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:last-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(announceSpy).to.have.been.calledOnce;
+
+      const event = announceSpy.firstCall.args[0] as CustomEvent<{
+        message: string;
+        urgency: string;
+      }>;
+
+      expect(event.detail.message).to.equal('Row 3 deactivated');
+      expect(event.detail.urgency).to.equal('polite');
+
+      document.body.removeEventListener('sl-announce', announceSpy);
+    });
+
+    it('should dispatch sl-announce with force=true when focusing into an active row', async () => {
+      el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr:first-of-type')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const tbody = el.renderRoot.querySelector('tbody')!;
+      tbody.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+      await new Promise(resolve => setTimeout(resolve));
+
+      const announceSpy = spy();
+      document.body.addEventListener('sl-announce', announceSpy);
+
+      const td = el.renderRoot.querySelector<HTMLTableCellElement>('tbody tr:first-of-type td');
+      td?.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(announceSpy).to.have.been.calledOnce;
+
+      const event = announceSpy.firstCall.args[0] as CustomEvent<{
+        message: string;
+        urgency: string;
+        force: boolean;
+      }>;
+
+      expect(event.detail.message).to.equal('In activated row 2');
+      expect(event.detail.urgency).to.equal('assertive');
+      expect(event.detail.force).to.be.true;
+
+      document.body.removeEventListener('sl-announce', announceSpy);
     });
 
     it('should keep sticky active row cells opaque', async () => {
@@ -536,6 +650,53 @@ describe('sl-grid', () => {
 
       expect(toggleSpy).to.have.been.calledOnce;
       expect(toggleSpy.firstCall.args[0]).to.have.property('data', el.items?.at(0));
+    });
+
+    it('should dispatch sl-announce event when selecting a row', async () => {
+      const announceSpy = spy();
+      document.body.addEventListener('sl-announce', announceSpy);
+
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(announceSpy).to.have.been.calledOnce;
+
+      const event = announceSpy.firstCall.args[0] as CustomEvent<{
+        message: string;
+        urgency: string;
+      }>;
+      expect(event.detail.message).to.equal('Row 2 activated');
+      expect(event.detail.urgency).to.equal('polite');
+
+      document.body.removeEventListener('sl-announce', announceSpy);
+    });
+
+    it('should dispatch sl-announce event when deselecting a row', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      const announceSpy = spy();
+      document.body.addEventListener('sl-announce', announceSpy);
+
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td:last-of-type')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(announceSpy).to.have.been.calledOnce;
+
+      const event = announceSpy.firstCall.args[0] as CustomEvent<{
+        message: string;
+        urgency: string;
+      }>;
+      expect(event.detail.message).to.equal('Row 2 deactivated');
+      expect(event.detail.urgency).to.equal('polite');
+
+      document.body.removeEventListener('sl-announce', announceSpy);
     });
   });
 

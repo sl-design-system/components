@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.12.2
+
+### Patch Changes
+
+- [#3383](https://github.com/sl-design-system/components/pull/3383) [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba) - Expose `aria-disabled="true"` on disabled menu items so assistive technologies announce them as unavailable. Toolbar overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. Forwarded `ariaDisabled` now clears correctly through nested proxy targets
+
 ## 0.12.1
 
 ### Patch Changes

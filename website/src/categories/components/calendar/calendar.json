@@ -1,0 +1,16 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "calendar",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Calendar",
+      "selector": "sl-calendar"
+    },
+    {
+      "name": "Month view",
+      "selector": "sl-month-view"
+    }
+  ]
+}
+

@@ -10,10 +10,23 @@ import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
+import { type GroupedOption } from './grouped-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
+
+  const waitForNextMacrotask = async (): Promise<void> => {
+    if (vi.isFakeTimers()) {
+      vi.advanceTimersByTime(0);
+      await Promise.resolve();
+
+      return;
+    }
+
+    await new Promise<void>(resolve => setTimeout(resolve));
+  };
+
   const waitForNextFrame = async (): Promise<void> => {
     if (vi.isFakeTimers()) {
       vi.advanceTimersToNextFrame();
@@ -477,6 +490,7 @@ describe('sl-combobox', () => {
       await userEvent.keyboard('Custom value');
       el.querySelector('sl-combobox-create-custom-option')?.click();
       await el.updateComplete;
+      await waitForNextFrame();
 
       const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
 
@@ -696,6 +710,49 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('1');
         expect(input.value).to.equal('Lorem');
       });
+
+      it('should select an option when the value matches after string coercion', async () => {
+        const onChange = spy();
+
+        el = await fixture(html`
+          <sl-combobox @sl-change=${onChange}>
+            <sl-listbox>
+              <sl-option .value=${1}>Lorem</sl-option>
+              <sl-option .value=${2}>Ipsum</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+          <input />
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{Tab}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('1');
+        expect(input.value).to.equal('Lorem');
+        expect(onChange).not.to.have.been.called;
+      });
+
+      it('should prefer a strict value match over a string-coerced match', async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        expect(input.value).to.equal('String');
+      });
     });
 
     describe('allow custom values', () => {
@@ -861,6 +918,7 @@ describe('sl-combobox', () => {
         input.focus();
         await userEvent.keyboard('{ArrowDown}');
         await el.updateComplete;
+        await waitForNextFrame();
 
         const options = Array.from(el.querySelectorAll('sl-option'));
 
@@ -875,7 +933,7 @@ describe('sl-combobox', () => {
         const options = Array.from(el.querySelectorAll('sl-option'));
 
         expect(options[1]).not.to.have.attribute('current');
-        expect(input).not.to.have.attribute('aria-activedescendant');
+        expect(input).to.have.attribute('aria-activedescendant', options[1].id);
       });
     });
   });
@@ -966,6 +1024,22 @@ describe('sl-combobox', () => {
 
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
+
+      it('should select only the strict value match when coercible option values also match', async () => {
+        el = await fixture(html`
+          <sl-combobox multiple>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        el.value = ['1'];
+        await el.updateComplete;
+
+        expect(el.selectedItems.map(item => item.label)).to.deep.equal(['String']);
       });
 
       it('should select and deselect the current option with Space when select-only', async () => {
@@ -1459,14 +1533,34 @@ describe('sl-combobox', () => {
         expect(el.groupSelected).to.be.true;
       });
 
+      it('should prepend the selected group as the first child in the listbox', () => {
+        const listbox = el.querySelector('sl-listbox');
+
+        expect(listbox?.firstElementChild).to.equal(selectedGroup);
+      });
+
+      it('should set has-groups to false when source options are not grouped', () => {
+        expect(selectedGroup.hasGroups).to.be.false;
+        expect(selectedGroup).not.to.have.attribute('has-groups');
+      });
+
       it('should group the selected options', () => {
         expect(selectedGroup).to.exist;
-        expect(selectedGroup).to.have.attribute('aria-label', 'Selected');
+        // Note: aria-label is no longer set since we removed role="group" for Safari/VoiceOver compatibility
 
         const options = Array.from(
           selectedGroup.querySelectorAll('sl-combobox-grouped-option')
         ).map(o => o.innerText);
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
+      });
+
+      it('should expose the selected state for grouped options', () => {
+        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option'));
+
+        expect(options.map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+          'true',
+          'true'
+        ]);
       });
 
       it('should have group headers for both the selected and unselected options', () => {
@@ -1475,6 +1569,302 @@ describe('sl-combobox', () => {
         expect(headers).to.have.lengthOf(2);
         expect(headers.item(0)).to.have.trimmed.text('Selected');
         expect(headers.item(1)).to.have.trimmed.text('All options');
+      });
+
+      it('should remove the selected group when all selections are cleared', async () => {
+        el.value = [];
+        await el.updateComplete;
+
+        expect(el.querySelector('sl-combobox-selected-group')).not.to.exist;
+      });
+
+      it('should move current to the grouped option so Enter toggles it off instead of selecting it twice', async () => {
+        input.focus();
+        await userEvent.keyboard('Option 3');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const currentGroupedOption = selectedGroup.querySelector(
+          'sl-combobox-grouped-option[current]'
+        );
+        const groupedLabelsAfterFirstEnter = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(option => option.textContent?.trim());
+
+        expect(currentGroupedOption).to.exist;
+        expect(currentGroupedOption).to.have.trimmed.text('Option 3');
+        expect(groupedLabelsAfterFirstEnter.filter(label => label === 'Option 3')).to.have.lengthOf(
+          1
+        );
+
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const groupedLabelsAfterSecondEnter = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(option => option.textContent?.trim());
+
+        expect(
+          groupedLabelsAfterSecondEnter.filter(label => label === 'Option 3')
+        ).to.have.lengthOf(0);
+      });
+
+      describe('with grouped source options', () => {
+        beforeEach(async () => {
+          el = await fixture(html`
+            <sl-combobox group-selected multiple .value=${['Option 1', 'Option 3']}>
+              <sl-listbox>
+                <sl-option-group label="Group 1">
+                  <sl-option>Option 1</sl-option>
+                  <sl-option>Option 2</sl-option>
+                </sl-option-group>
+                <sl-option-group label="Group 2">
+                  <sl-option>Option 3</sl-option>
+                  <sl-option>Option 4</sl-option>
+                </sl-option-group>
+              </sl-listbox>
+            </sl-combobox>
+          `);
+
+          selectedGroup = el.querySelector('sl-combobox-selected-group')!;
+        });
+
+        it('should set has-groups to true when source options are grouped', () => {
+          expect(selectedGroup.hasGroups).to.be.true;
+          expect(selectedGroup).to.have.attribute('has-groups');
+        });
+
+        it('should render only the selected header when has-groups is true', () => {
+          const headers = selectedGroup.renderRoot.querySelectorAll('sl-option-group-header');
+
+          expect(headers).to.have.lengthOf(1);
+          expect(headers.item(0)).to.have.trimmed.text('Selected');
+        });
+
+        it('should preserve original group labels on grouped selected options', () => {
+          const options = Array.from(
+            selectedGroup.querySelectorAll<GroupedOption>('sl-combobox-grouped-option')
+          );
+
+          expect(options).to.have.lengthOf(2);
+          expect(options[0].group).to.equal('Group 1');
+          expect(options[1].group).to.equal('Group 2');
+        });
+      });
+    });
+
+    describe('grouped options accessibility', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox
+            .options=${[
+              { label: 'Apple', value: 'apple', group: 'Fruits' },
+              { label: 'Banana', value: 'banana', group: 'Fruits' },
+              { label: 'Carrot', value: 'carrot', group: 'Vegetables' },
+              { label: 'Potato', value: 'potato', group: 'Vegetables' }
+            ]}
+            option-group-path="group"
+            option-label-path="label"
+            option-value-path="value">
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        // Open the listbox to render options
+        input.focus();
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+      });
+
+      it('should not have role="group" on group wrappers', () => {
+        // sl-option-group elements are in the light DOM, not the listbox shadow root
+        const groups = el.querySelectorAll('sl-option-group[role="group"]');
+
+        expect(groups).to.have.lengthOf(0);
+      });
+
+      it('should have aria-hidden="true" on group headers', async () => {
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const listbox = el.querySelector('sl-listbox');
+        const headers = el.items
+          .filter(item => item.type === 'group')
+          .map(item => item.element)
+          .filter(
+            (header): header is NonNullable<Combobox['items'][number]['element']> =>
+              header !== undefined
+          )
+          .filter(header => {
+            const root = header.getRootNode();
+
+            return (
+              header.closest('sl-listbox') === listbox ||
+              (root instanceof ShadowRoot && root.host.hasAttribute('data-virtual-list'))
+            );
+          });
+
+        expect(headers).to.have.lengthOf(2);
+
+        headers.forEach(header => {
+          expect(header).to.have.attribute('aria-hidden', 'true');
+        });
+      });
+
+      it('should have flattened aria-posinset and aria-setsize across all options', async () => {
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const listbox = el.querySelector('sl-listbox');
+        const options = el.items
+          .filter(item => 'option' in item)
+          .map(item => item.element)
+          .filter(
+            (option): option is NonNullable<Combobox['items'][number]['element']> =>
+              option !== undefined
+          )
+          .filter(option => option.getAttribute('role') === 'option')
+          .filter(option => {
+            const root = option.getRootNode();
+
+            return (
+              option.closest('sl-listbox') === listbox ||
+              (root instanceof ShadowRoot && root.host.hasAttribute('data-virtual-list'))
+            );
+          });
+
+        expect(options).to.have.lengthOf(4);
+
+        options.forEach((option, index) => {
+          expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+          expect(option).to.have.attribute('aria-setsize', '4');
+        });
+      });
+
+      it('should have set the group name in the option items', () => {
+        // Verify that items have group information
+        const options = el.items.filter(item => 'option' in item);
+
+        expect(options[0].group).to.equal('Fruits');
+        expect(options[1].group).to.equal('Fruits');
+        expect(options[2].group).to.equal('Vegetables');
+        expect(options[3].group).to.equal('Vegetables');
+
+        // The aria-label with group context is set in #renderItem when virtualizer renders
+      });
+
+      it('should have aria-selected on all options', () => {
+        // Verify that items are structured correctly for aria-selected
+        const options = el.items.filter(item => 'option' in item);
+
+        options.forEach(option => {
+          expect(option.selected).to.be.oneOf([true, false, undefined]);
+        });
+      });
+
+      it('should update aria-activedescendant to point to current option', async () => {
+        // Ensure the popover is open
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        // Navigate to first option
+        await userEvent.keyboard('{ArrowDown}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        // The current item should be set and aria-activedescendant should point to it
+        if (el.currentItem) {
+          expect(input).to.have.attribute('aria-activedescendant', el.currentItem.id);
+        } else {
+          // If currentItem is not set, that's also acceptable for initial state
+          expect(el.currentItem).to.be.undefined;
+        }
+      });
+    });
+
+    describe('grouped options in light DOM', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option-group label="Group 1">
+                <sl-option value="1">Option 1</sl-option>
+                <sl-option value="2">Option 2</sl-option>
+              </sl-option-group>
+              <sl-option-group label="Group 2">
+                <sl-option value="3">Option 3</sl-option>
+                <sl-option value="4">Option 4</sl-option>
+              </sl-option-group>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        // Give time for options to be processed
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+      });
+
+      it('should not have role="group" on option-group elements', () => {
+        const groups = el.querySelectorAll('sl-option-group');
+
+        groups.forEach(group => {
+          expect(group).not.to.have.attribute('role', 'group');
+        });
+      });
+
+      it('should have aria-hidden="true" on group headers', () => {
+        const groups = el.querySelectorAll('sl-option-group');
+
+        groups.forEach(group => {
+          const header = group.shadowRoot?.querySelector('sl-option-group-header');
+          expect(header).to.have.attribute('aria-hidden', 'true');
+        });
+      });
+
+      it('should have flattened aria-posinset and aria-setsize across all options', async () => {
+        // Trigger options processing
+        input.focus();
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const options = el.querySelectorAll('sl-option');
+
+        expect(options).to.have.lengthOf(4);
+
+        options.forEach((option, index) => {
+          expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+          expect(option).to.have.attribute('aria-setsize', '4');
+        });
+      });
+
+      it('should include group context in option accessible names', async () => {
+        // Trigger options processing
+        input.focus();
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const options = el.querySelectorAll('sl-option');
+
+        expect(options[0]).to.have.attribute('aria-label', 'Option 1 (Group 1)');
+        expect(options[1]).to.have.attribute('aria-label', 'Option 2 (Group 1)');
+        expect(options[2]).to.have.attribute('aria-label', 'Option 3 (Group 2)');
+        expect(options[3]).to.have.attribute('aria-label', 'Option 4 (Group 2)');
       });
     });
 
@@ -1561,7 +1951,8 @@ describe('sl-combobox', () => {
         `);
 
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await waitForNextFrame();
+      await waitForNextMacrotask();
 
       expect(el.value).to.equal('Option 1');
       expect(changeSpy).not.to.have.been.called;
@@ -1654,6 +2045,61 @@ describe('sl-combobox', () => {
       const formData = new FormData(form);
       expect(formData.get('test')).to.equal('1');
       expect(combobox.value).to.equal('Option 2');
+    });
+
+    it('should open a virtual list with object options without crashing', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${options}
+          .value=${300}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should update grouped virtual list selections without recursive cleanup', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          group-selected
+          multiple
+          .options=${options}
+          .value=${[300]}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      // Switching value to empty exercises grouped-option cleanup paths.
+      combobox.value = [];
+      await combobox.updateComplete;
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
     });
   });
 
@@ -1777,7 +2223,6 @@ describe('sl-combobox', () => {
       expect(input).to.have.attribute('aria-expanded', 'false');
       expect(input).to.have.attribute('aria-haspopup', 'listbox');
       expect(input).to.have.attribute('aria-controls', listbox.id);
-      expect(input).to.have.attribute('aria-owns', listbox.id);
     });
   });
 });

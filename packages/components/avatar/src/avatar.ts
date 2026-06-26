@@ -59,7 +59,7 @@ export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-tooltip': Tooltip
     };

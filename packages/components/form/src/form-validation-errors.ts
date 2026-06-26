@@ -24,7 +24,7 @@ declare global {
 @localized()
 export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-inline-message': InlineMessage
     };

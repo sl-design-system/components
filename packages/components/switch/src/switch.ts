@@ -5,7 +5,12 @@ import {
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Infotip } from '@sl-design-system/infotip';
-import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  event
+} from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -65,6 +70,14 @@ export class Switch<T = any> extends ObserveAttributesMixin(
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    focusin: this.#onFocusin,
+    focusout: this.#onFocusout,
+    keydown: this.#onKeydown
+  });
 
   /** The initial state of the switch. */
   #initialState = false;
@@ -191,29 +204,17 @@ export class Switch<T = any> extends ObserveAttributesMixin(
       size = this.size === 'md' ? 'xs' : 'md';
 
     return html`
-      <div
-        part="wrapper"
-        @click=${this.#onClick}
-        @focusin=${this.#onFocusin}
-        @focusout=${this.#onFocusout}
-        @keydown=${this.#onKeydown}>
-        <slot></slot>
-        <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
-        <slot
-          @keydown=${this.#onKeydown}
-          @slotchange=${this.#onInputSlotChange}
-          name="input"></slot>
-        <div part="toggle">
-          <div part="track">
-            <div part="handle">
-              ${this.size === 'sm'
-                ? nothing
-                : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
-            </div>
+      <slot></slot>
+      <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
+      <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
+      <div part="toggle">
+        <div part="track">
+          <div part="handle">
+            ${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
           </div>
         </div>
       </div>
-      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
     `;
   }
 
@@ -226,6 +227,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   }
 
   #onClick(event: Event): void {
+    console.log('click', event);
     if (this.disabled) {
       return;
     }

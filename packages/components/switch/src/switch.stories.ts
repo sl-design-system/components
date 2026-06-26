@@ -89,16 +89,57 @@ export const Reverse: Story = {
 };
 
 export const Infotip: Story = {
-  render: ({ checked, disabled, reverse, size, value }) => html`
-    <sl-switch
-      ?checked=${checked}
-      ?disabled=${disabled}
-      ?reverse=${reverse}
-      size=${ifDefined(size)}
-      .value=${value}>
-      Receive notifications
-      <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
-    </sl-switch>
+  render: ({ checked, disabled, size, value }) => html`
+    <style>
+      .wrapper {
+        flex-direction: column;
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      sl-switch {
+        border: 1px solid red;
+      }
+
+      .stretched {
+        align-self: stretch;
+      }
+    </style>
+    <div class="wrapper">
+      <sl-switch ?checked=${checked} ?disabled=${disabled} size=${ifDefined(size)} .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        class="stretched"
+        ?checked=${checked}
+        ?disabled=${disabled}
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        ?checked=${checked}
+        ?disabled=${disabled}
+        reverse
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        class="stretched"
+        ?checked=${checked}
+        ?disabled=${disabled}
+        reverse
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+    </div>
   `
 };
 

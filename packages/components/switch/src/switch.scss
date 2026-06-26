@@ -9,17 +9,11 @@
 
   align-items: center;
   color: var(--sl-color-foreground-plain);
-  display: inline-flex;
-  gap: var(--sl-size-025);
-  outline: none;
-  vertical-align: middle;
-}
-
-[part='wrapper'] {
-  align-items: center;
   cursor: pointer;
   display: inline-flex;
   gap: var(--sl-size-100);
+  outline: none;
+  vertical-align: middle;
 }
 
 :host(:hover) {
@@ -62,10 +56,6 @@
   }
 }
 
-:host([reverse]) [part='toggle'] {
-  order: -1;
-}
-
 :host([size='sm']) {
   --_handle-size: var(--sl-size-150);
   --_track-size: var(--sl-size-400);
@@ -95,7 +85,15 @@
 }
 
 [part='toggle'] {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
   padding: var(--sl-size-050);
+}
+
+:host([reverse]) [part='toggle'] {
+  justify-content: flex-start;
+  order: -1;
 }
 
 [part='track'] {

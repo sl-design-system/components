@@ -40,6 +40,38 @@ describe('sl-switch', () => {
     expect(el.infotip?.describes).to.equal('Label');
   });
 
+  it('should not toggle when clicking the infotip', async () => {
+    el = await fixture(html`
+      <sl-switch>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-switch>
+    `);
+
+    el.querySelector<HTMLElement>('sl-infotip')?.click();
+    await el.updateComplete;
+
+    expect(el.checked).not.to.be.true;
+  });
+
+  it('should toggle when clicking the label', async () => {
+    el = await fixture(html`<sl-switch>Label</sl-switch>`);
+
+    await userEvent.click(el.querySelector('label')!);
+    await el.updateComplete;
+
+    expect(el.checked).to.be.true;
+  });
+
+  it('should toggle when clicking the toggle', async () => {
+    el = await fixture(html`<sl-switch>Label</sl-switch>`);
+
+    await userEvent.click(el.renderRoot.querySelector('[part="toggle"]')!);
+    await el.updateComplete;
+
+    expect(el.checked).to.be.true;
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch></sl-switch>`);
@@ -266,6 +298,16 @@ describe('sl-switch', () => {
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
       expect(input.checked).to.be.false;
+    });
+
+    it('should toggle the state when clicking the toggle', async () => {
+      el.renderRoot.querySelector<HTMLElement>('[part="toggle"]')?.click();
+      await el.updateComplete;
+
+      expect(el.checked).to.equal(true);
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
+      expect(input.checked).to.be.true;
     });
 
     it('should toggle the state on Enter', async () => {

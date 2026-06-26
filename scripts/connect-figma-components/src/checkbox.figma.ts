@@ -6,7 +6,7 @@ const instance = figma.selectedInstance;
 function getExample() {
   const checked = instance.getBoolean('Checked'),
     disabled = instance.getString('State') === 'Disabled',
-    intermediate = instance.getBoolean('Intermediate'),
+    indeterminate = instance.getBoolean('Intermediate'),
     hasLabel = instance.getBoolean('Label');
 
   const checkboxBase = instance.findInstance('checkbox-base');
@@ -28,7 +28,7 @@ function getExample() {
     <sl-checkbox
       ${checked ? ' checked' : ''}
       ${disabled ? ' disabled' : ''}
-      ${!checked && intermediate ? ' intermediate' : ''}
+      ${!checked && indeterminate ? ' indeterminate' : ''}
       ${size !== 'md' ? ` size="${size}"` : ''}
     >
       ${label}

@@ -1,0 +1,17 @@
+{
+  "name": "sl-design-system",
+  "owner": {
+    "name": "SL Design System",
+    "url": "https://github.com/sl-design-system"
+  },
+  "metadata": {
+    "description": "Plugins from the Sanoma Learning Design System team."
+  },
+  "plugins": [
+    {
+      "name": "implement-design",
+      "source": "./tools/implement-design-plugin",
+      "description": "Turn a Figma URL into fully implemented SLDS components — scaffolded, styled with design tokens, visually validated against the design, tested, documented, and reviewed. Supports Lit and Angular."
+    }
+  ]
+}

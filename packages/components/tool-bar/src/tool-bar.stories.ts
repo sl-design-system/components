@@ -656,6 +656,201 @@ export const Combination: Story = {
   `
 };
 
+export const MixedButtons: Story = {
+  render: () => {
+    const makeMixedButtons = (inverted = false) =>
+      inverted
+        ? html`
+            <sl-button aria-label="Copy to clipboard"
+              ><sl-icon name="far-copy"></sl-icon
+            ></sl-button>
+            <sl-button variant="primary" fill="outline">Save</sl-button>
+            <sl-button variant="secondary" fill="ghost">Secondary</sl-button>
+            <sl-button variant="success" fill="outline">Approve</sl-button>
+            <sl-button variant="warning" fill="ghost">Review</sl-button>
+            <sl-button variant="info" fill="ghost">Info</sl-button>
+            <sl-button variant="danger" fill="outline">Delete</sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-menu-button variant="secondary" fill="ghost">
+              <sl-icon name="far-gear" slot="button"></sl-icon>
+              <span slot="button">Settings</span>
+              <sl-menu-item>
+                <sl-icon name="far-pen"></sl-icon>
+                Rename
+              </sl-menu-item>
+              <sl-menu-item>
+                <sl-icon name="far-box-archive"></sl-icon>
+                Archive
+              </sl-menu-item>
+            </sl-menu-button>
+            <sl-menu-button variant="primary" fill="outline">
+              <span slot="button">Create</span>
+              <sl-menu-item>New document</sl-menu-item>
+              <sl-menu-item>Duplicate</sl-menu-item>
+            </sl-menu-button>
+            <sl-button aria-label="Accessibility settings"
+              ><sl-icon name="far-universal-access"></sl-icon
+            ></sl-button>
+          `
+        : html`
+            <sl-button aria-label="Copy to clipboard"
+              ><sl-icon name="far-copy"></sl-icon
+            ></sl-button>
+            <sl-button aria-label="Edit item"><sl-icon name="far-pen"></sl-icon></sl-button>
+            <sl-button aria-label="Paste from clipboard"
+              ><sl-icon name="far-paste"></sl-icon
+            ></sl-button>
+            <sl-button fill="solid" variant="primary">Publish</sl-button>
+            <sl-button variant="secondary" fill="outline">Secondary</sl-button>
+            <sl-button variant="success" fill="ghost">Approve</sl-button>
+            <sl-button variant="warning" fill="outline">Review</sl-button>
+            <sl-button variant="info" fill="link">Info</sl-button>
+            <sl-button variant="danger" fill="solid">Delete</sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-button fill="ghost">Archive</sl-button>
+            <sl-menu-button variant="secondary" fill="outline">
+              <sl-icon name="far-gear" slot="button"></sl-icon>
+              <span slot="button">Settings</span>
+              <sl-menu-item>
+                <sl-icon name="far-pen"></sl-icon>
+                Rename
+              </sl-menu-item>
+              <sl-menu-item>
+                <sl-icon name="far-box-archive"></sl-icon>
+                Archive
+              </sl-menu-item>
+            </sl-menu-button>
+            <sl-menu-button variant="primary" fill="link">
+              <span slot="button">Create</span>
+              <sl-menu-item>New document</sl-menu-item>
+              <sl-menu-item>Duplicate</sl-menu-item>
+            </sl-menu-button>
+            <sl-button aria-label="Accessibility settings"
+              ><sl-icon name="far-universal-access"></sl-icon
+            ></sl-button>
+            <sl-button fill="outline">Share</sl-button>
+          `;
+    return html`
+      <style>
+        sl-tool-bar[inverted]:not([contained]) {
+          background: var(--sl-elevation-surface-raised-primary);
+        }
+        .mixed-grid {
+          display: grid;
+          gap: 1rem;
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .mixed-grid .item {
+          min-inline-size: 0;
+          overflow: auto;
+          resize: horizontal;
+          padding: 4px; /* room for focus outlines */
+        }
+        .mixed-grid .item.non-contained-space {
+          padding: 6px; /* extra room for non-contained focus outlines */
+        }
+        .mixed-grid .non-contained-surface {
+          padding: 6px;
+        }
+        .mixed-grid .inverted-surface {
+          background: var(--sl-elevation-surface-raised-primary);
+          padding: var(--sl-size-100);
+        }
+        .mixed-grid sl-tool-bar {
+          min-inline-size: 0;
+        }
+        .label {
+          font-weight: 600;
+          font-size: 0.875rem;
+          color: var(--sl-color-text-subtle);
+          margin: 0 0 0.5rem 0;
+        }
+      </style>
+      <div class="container">
+        <p>
+          This story shows toolbars with mixed button variants and fill values. Buttons with
+          explicit <code>fill</code> or <code>variant</code> keep their own value regardless of what
+          the toolbar propagates. Drag the right edge of each toolbar to see overflow behavior.
+        </p>
+        <div class="mixed-grid">
+          <!-- With fill set on toolbar -->
+          <div class="item">
+            <div class="label">With fill="outline" (inherited)</div>
+            <sl-tool-bar aria-label="Mixed buttons with fill" contained fill="outline">
+              ${makeMixedButtons()}
+            </sl-tool-bar>
+          </div>
+
+          <!-- Without fill set on toolbar -->
+          <div class="item">
+            <div class="label">Without fill on toolbar (mixed explicit fills)</div>
+            <sl-tool-bar aria-label="Mixed buttons without toolbar fill" contained>
+              ${makeMixedButtons()}
+            </sl-tool-bar>
+          </div>
+
+          <!-- With ghost fill -->
+          <div class="item">
+            <div class="label">With fill="ghost" (inherited)</div>
+            <sl-tool-bar aria-label="Mixed buttons with ghost fill" contained fill="ghost">
+              ${makeMixedButtons()}
+            </sl-tool-bar>
+          </div>
+
+          <!-- Inverted with explicit button fill -->
+          <div class="item">
+            <div class="label">Inverted with fill="outline"</div>
+            <sl-tool-bar aria-label="Inverted mixed buttons" contained inverted fill="outline">
+              ${makeMixedButtons(true)}
+            </sl-tool-bar>
+          </div>
+
+          <!-- Non-contained without fill -->
+          <div class="item non-contained-space">
+            <div class="label">Non-contained without fill</div>
+            <div class="non-contained-surface">
+              <sl-tool-bar aria-label="Non-contained mixed buttons">
+                ${makeMixedButtons()}
+              </sl-tool-bar>
+            </div>
+          </div>
+
+          <!-- Non-contained inverted -->
+          <div class="item non-contained-space">
+            <div class="label">Non-contained inverted without fill</div>
+            <div class="inverted-surface">
+              <sl-tool-bar aria-label="Non-contained inverted mixed buttons" inverted>
+                ${makeMixedButtons(true)}
+              </sl-tool-bar>
+            </div>
+          </div>
+        </div>
+        <p>
+          <strong>Key observations:</strong>
+        </p>
+        <ul>
+          <li>
+            This story mixes all supported button fills: <code>outline</code>, <code>solid</code>,
+            <code>ghost</code>, and <code>link</code>.
+          </li>
+          <li>
+            It also mixes variants <code>primary</code>, <code>secondary</code>,
+            <code>success</code>, <code>warning</code>, <code>info</code>, and
+            <code>danger</code> on both buttons and menu buttons.
+          </li>
+          <li>
+            In the inverted examples, combinations are intentionally limited to maintain readable
+            contrast (for example, no <code>link</code> fill there).
+          </li>
+          <li>
+            Icon-only controls use descriptive <code>aria-label</code> values for accessible names.
+          </li>
+        </ul>
+      </div>
+    `;
+  }
+};
+
 export const Examples: Story = {
   render: () => {
     const pageOptions = html`

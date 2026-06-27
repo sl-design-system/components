@@ -8,6 +8,7 @@
   },
   "workspaces": [
     "chromatic",
+    "examples",
     "examples/lit",
     "packages/angular",
     "packages/components/*",
@@ -15,6 +16,7 @@
     "packages/themes/*",
     "packages/tokens",
     "scripts",
+    "scripts/connect-figma-components",
     "tools/eslint-config",
     "tools/eslint-plugin-slds",
     "tools/example-data",

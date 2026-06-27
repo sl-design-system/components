@@ -33,8 +33,6 @@ export type TagVariant = 'neutral' | 'info';
  * <sl-tag>Tag label</sl-tag>
  * ```
  *
- * @customElement sl-tag
- *
  * @slot default - The tag label.
  *
  * @csspart label - The wrapper around the tag label.
@@ -190,7 +188,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
             </button>
             ${this.navigationDescription
               ? html`
-                  <span id="navigation-description" class="sr-only" aria-hidden="true"
+                  <span id="navigation-description" class="visually-hidden"
                     >${this.navigationDescription}</span
                   >
                 `

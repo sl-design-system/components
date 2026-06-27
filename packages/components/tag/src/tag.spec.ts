@@ -70,7 +70,11 @@ describe('sl-tag', () => {
 
     it('should show a focus ring when the host itself is focus-visible', async () => {
       const tag = await fixture<Tag>(html`
-        <sl-tag style="--sl-color-border-focused: rgb(1, 2, 3)" tabindex="0">My label</sl-tag>
+        <sl-tag
+          style="--sl-color-border-focused: rgb(1, 2, 3); --sl-size-borderWidth-focusRing: 3px"
+          tabindex="0">
+          My label
+        </sl-tag>
       `);
 
       tag.focus({ focusVisible: true } as FocusOptions);
@@ -80,6 +84,7 @@ describe('sl-tag', () => {
       );
       expect(tag).to.match(':state(focus-visible)');
       expect(getComputedStyle(tag).outlineColor).to.equal('rgb(1, 2, 3)');
+      expect(getComputedStyle(tag).outlineOffset).to.equal('-3px');
     });
 
     it('should respect the host tabindex on the label wrapper', async () => {
@@ -108,7 +113,7 @@ describe('sl-tag', () => {
       expect(el).to.match(':state(focus-visible)');
     });
 
-    it('should not have the focus-visible state when focus is not focus-visible', async () => {
+    it('should not set the focus-visible state when the focused element does not match :focus-visible', async () => {
       button.dispatchEvent(new FocusEvent('focus'));
       await el.updateComplete;
 

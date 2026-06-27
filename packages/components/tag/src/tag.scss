@@ -50,6 +50,7 @@
 
 :host(:not([removable]):where(:focus-visible, :state(focus-visible))) {
   outline-color: var(--sl-color-border-focused);
+  outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
   position: relative;
   z-index: 1; // Make sure the focus ring is above other elements
 }
@@ -119,7 +120,7 @@ button {
   }
 }
 
-.sr-only {
+.visually-hidden {
   block-size: 1px;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -130,7 +131,7 @@ button {
 }
 
 sl-icon {
-  --sl-icon-size: var(--sl-size-new-icon-xs);
+  --sl-icon-size: var(--sl-size-new-icon-sm);
 
   pointer-events: none;
 }

@@ -8,33 +8,29 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-tag>Mathematics</sl-tag>
-<sl-tag>History</sl-tag>
-<sl-tag>Science</sl-tag>
+<sl-tag-list>
+  <sl-tag>Mathematics</sl-tag>
+  <sl-tag>History</sl-tag>
+</sl-tag-list>
+
+<sl-tag-list>
+  <sl-tag removable>Mathematics</sl-tag>
+  <sl-tag removable>History</sl-tag>
+</sl-tag-list>
 </div>
 
 <div class="ds-code">
 
   ```html
-<sl-tag>Mathematics</sl-tag>
-<sl-tag>History</sl-tag>
-<sl-tag>Science</sl-tag>
-  ```
+<sl-tag-list>
+  <sl-tag>Mathematics</sl-tag>
+  <sl-tag>History</sl-tag>
+</sl-tag-list>
 
-</div>
-
-<div class="ds-example">
-<sl-tag removable>Mathematics</sl-tag>
-<sl-tag removable>History</sl-tag>
-<sl-tag disabled removable>Science</sl-tag>
-</div>
-
-<div class="ds-code">
-
-  ```html
-<sl-tag removable>Mathematics</sl-tag>
-<sl-tag removable>History</sl-tag>
-<sl-tag disabled removable>Science</sl-tag>
+<sl-tag-list>
+  <sl-tag removable>Mathematics</sl-tag>
+  <sl-tag removable>History</sl-tag>
+</sl-tag-list>
   ```
 
 </div>
@@ -49,7 +45,7 @@ Use tags to categorize and label course content, enhancing organization, discove
 
 
 ### User-Generated Tags
-Enable users to create and manage their own custom labels, allowing for a personalized organization system. In a student dashboard, for example, users might tag their notes or assignments with custom labels like "Exam Prep," "Homework," "Group Project," or "To Review," facilitating better organization. Use removable tags when users can edit or remove those labels.
+Enable users to create and manage their own custom labels, allowing for a personalized organization system. In a student dashboard, for example, users might tag their notes or assignments with custom labels like "Exam Prep," "Homework," "Group Project," or "To Review," facilitating better organization.
 
 ### Tag lists
 Keep tag lists consistent: use either static tags or removable tags in a single list, but do not mix both types in the same list. A tag should only be disabled when it is also removable.

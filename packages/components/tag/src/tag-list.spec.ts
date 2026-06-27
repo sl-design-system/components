@@ -127,7 +127,8 @@ describe('sl-tag-list', () => {
           ?.renderRoot.querySelector('#navigation-description');
 
       expect(button).to.have.attribute('aria-describedby', 'navigation-description');
-      expect(description).to.have.attribute('aria-hidden', 'true');
+      expect(description).to.have.class('visually-hidden');
+      expect(description).not.to.have.attribute('aria-hidden');
       expect(description).to.have.trimmed.text('Use arrow keys to move between removable tags.');
     });
 

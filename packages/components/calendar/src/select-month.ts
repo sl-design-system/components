@@ -22,7 +22,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property, queryAll, state } from 'lit/decorators.js';
+import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-month.scss.js';
@@ -70,12 +70,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
+    scope: (): HTMLTableElement => this.table,
     wrap: false
   });
 
   /** The buttons representing each month. */
   @queryAll('button') buttons!: NodeListOf<HTMLButtonElement>;
+
+  /** The months grid table used as focus scope. */
+  @query('table') table!: HTMLTableElement;
 
   /**
    * The maximum date selectable in the month.
@@ -294,18 +297,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (shouldLoadNewRange) {
       await this.updateComplete;
 
-      const newButtons = Array.from(this.buttons),
-        newEnabledButtons = newButtons.filter(b => !b.disabled);
-
-      let targetButton: HTMLButtonElement | undefined;
-
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        targetButton = newEnabledButtons.at(-1);
-      } else {
-        targetButton = newEnabledButtons.at(0);
-      }
-
-      targetButton?.focus();
+      this.#focusAfterRangeChange(event.key, currentIndex);
     }
 
     // Otherwise, let the event bubble to the focus group controller
@@ -333,6 +325,41 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onToggleYearSelect(): void {
     this.toggleEvent.emit('year');
+  }
+
+  /** Moves focus to the right month button after loading a new year range. */
+  #focusAfterRangeChange(key: string, currentIndex: number): void {
+    const buttons = Array.from(this.buttons),
+      preferredIndices = this.#getPreferredBoundaryIndices(key, currentIndex, buttons.length),
+      targetIndex = preferredIndices.find(index => {
+        const button = buttons[index];
+
+        return !!button && !button.disabled;
+      });
+
+    if (targetIndex !== undefined) {
+      this.#focusGroupController.focusToElement(targetIndex);
+    }
+  }
+
+  /** Builds a list of preferred focus positions for boundary key navigation. */
+  #getPreferredBoundaryIndices(key: string, currentIndex: number, length: number): number[] {
+    const column = currentIndex % this.#cols,
+      preferredIndices =
+        key === 'ArrowUp' ? [length - this.#cols + column] : key === 'ArrowDown' ? [column] : [];
+
+    // If that target cannot be focused, fall back to the same arrow direction.
+    if (key === 'ArrowLeft' || key === 'ArrowUp') {
+      for (let i = length - 1; i >= 0; i -= 1) {
+        preferredIndices.push(i);
+      }
+    } else {
+      for (let i = 0; i < length; i += 1) {
+        preferredIndices.push(i);
+      }
+    }
+
+    return preferredIndices;
   }
 
   #isDisabled(year: number, month: number): boolean {

@@ -2161,23 +2161,28 @@ describe('sl-combobox', () => {
       listbox.scrollToIndex(900, { block: 'start' });
       await waitForVirtualList();
 
-      const option = getRenderedVirtualOptions(combobox).find(
+      const scrollToIndex = spy(listbox, 'scrollToIndex');
+
+      try {
+        const option = getRenderedVirtualOptions(combobox).find(
           option => option.textContent?.trim() === 'Option 901'
-        ),
-        scrollToIndex = spy(listbox, 'scrollToIndex');
+        );
 
-      expect(option).to.exist;
+        expect(option).to.exist;
 
-      option!.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
-      await combobox.updateComplete;
-      await waitForVirtualList();
+        option!.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await combobox.updateComplete;
+        await waitForVirtualList();
 
-      expect(scrollToIndex).to.have.been.called;
-      expect(scrollToIndex.lastCall.args[0]).to.equal(0);
-      expect(scrollToIndex.lastCall.args[1]).to.deep.equal({
-        block: 'start',
-        behavior: 'auto'
-      });
+        expect(scrollToIndex).to.have.been.called;
+        expect(scrollToIndex.lastCall.args[0]).to.equal(0);
+        expect(scrollToIndex.lastCall.args[1]).to.deep.equal({
+          block: 'start',
+          behavior: 'auto'
+        });
+      } finally {
+        scrollToIndex.restore();
+      }
     });
 
     it('should update grouped virtual list selections without recursive cleanup', async () => {

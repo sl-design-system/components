@@ -25,6 +25,75 @@ describe('sl-checkbox', () => {
     expect(el.infotip).to.be.undefined;
   });
 
+  it('should set an infotip describe label based on the checkbox label', async () => {
+    el = await fixture(html`
+      <sl-checkbox>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-checkbox>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip?.size).to.equal('sm');
+    expect(el.infotip?.describes).to.equal('Label');
+  });
+
+  it('should not overwrite user-set describes on infotip', async () => {
+    el = await fixture(html`
+      <sl-checkbox>
+        Label
+        <sl-infotip slot="infotip" describes="Custom description">More info</sl-infotip>
+      </sl-checkbox>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip?.describes).to.equal('Custom description');
+  });
+
+  it('should extract text from multiple nodes for infotip describes', async () => {
+    el = await fixture(html`
+      <sl-checkbox>
+        <span>Part 1</span> <span>Part 2</span>
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-checkbox>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip?.describes).to.equal('Part 1 Part 2');
+  });
+
+  it('should normalize whitespace in label text for infotip describes', async () => {
+    el = await fixture(html`
+      <sl-checkbox>
+        Label with extra spaces
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-checkbox>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip?.describes).to.equal('Label with extra spaces');
+  });
+
+  it('should not check checkbox when clicking infotip', async () => {
+    el = await fixture(html`
+      <sl-checkbox>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-checkbox>
+    `);
+
+    const infotip = el.querySelector('sl-infotip') as HTMLElement;
+
+    await userEvent.click(infotip);
+    await el.updateComplete;
+
+    expect(el.checked).not.to.be.true;
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);

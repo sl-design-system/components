@@ -40,20 +40,19 @@ describe('sl-switch', () => {
     expect(el.infotip?.describes).to.equal('Label');
   });
 
-  // it('should not toggle when clicking the infotip', async () => {
-  //   el = await fixture(html`
-  //     <sl-switch>
-  //       Label
-  //       <sl-infotip slot="infotip">More info</sl-infotip>
-  //     </sl-switch>
-  //   `);
-  //   console.log('el', el.checked);
+  it('should not toggle when clicking the infotip', async () => {
+    el = await fixture(html`
+      <sl-switch>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-switch>
+    `);
 
-  //   el.querySelector<HTMLElement>('sl-infotip')?.click();
-  //   await el.updateComplete;
+    el.querySelector<HTMLElement>('sl-infotip')?.click();
+    await el.updateComplete;
 
-  //   expect(el.checked).not.to.be.true;
-  // });
+    expect(el.checked).not.to.be.true;
+  });
 
   it('should toggle when clicking the label', async () => {
     el = await fixture(html`<sl-switch>Label</sl-switch>`);

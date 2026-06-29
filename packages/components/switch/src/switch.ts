@@ -227,14 +227,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   }
 
   #onClick(event: Event): void {
-    console.log(
-      'click',
-      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
-    );
-    if (
-      this.disabled ||
-      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
-    ) {
+    if (this.disabled || (this.infotip && event.composedPath().includes(this.infotip))) {
       return;
     }
 
@@ -339,6 +332,8 @@ export class Switch<T = any> extends ObserveAttributesMixin(
       this.infotip.setAttribute('size', 'sm');
 
       if (!this.infotip.describes) {
+        // Ensure label is synthesized before reading it
+        this.#onLabelSlotChange();
         this.infotip.describes = this.#label?.textContent?.trim() || '';
       }
     }

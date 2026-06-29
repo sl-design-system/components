@@ -1,9 +1,9 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
-import { Button, ButtonSize } from '@sl-design-system/button';
+import { Button, type ButtonSize } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -145,7 +145,6 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
-    console.log('infotip click', event);
     event.preventDefault();
     event.stopPropagation();
     this.toggleInfotip();
@@ -157,7 +156,7 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     if (!describes) {
       return msg('More information', { id: 'sl.infotip.moreInformation' });
     }
-    return `${msg('More information about', { id: 'sl.infotip.moreInformationAbout' })} ${describes}`;
+    return msg(str`More information about ${describes}`, { id: 'sl.infotip.moreInformationAbout' });
   }
 
   #syncContent(): void {

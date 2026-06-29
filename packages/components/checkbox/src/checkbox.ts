@@ -238,11 +238,6 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   }
 
   #onClick(event: Event): void {
-    console.log(
-      'click',
-      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement),
-      event.composedPath()
-    );
     if (
       this.disabled ||
       event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
@@ -356,6 +351,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       this.infotip.setAttribute('size', 'sm');
     }
     if (this.infotip && !this.infotip.describes) {
+      // Ensure label is synthesized before reading it
+      this.#onLabelSlotChange();
       this.infotip.describes = this.#label?.textContent?.trim() || '';
     }
   }

@@ -463,8 +463,8 @@
   <target>Più informazioni</target>
 </trans-unit>
 <trans-unit id="sl.infotip.moreInformationAbout">
-  <source>More information about</source>
-  <target>Più informazioni su</target>
+  <source>More information about <x id="0" equiv-text="${describes}"/></source>
+  <target>Più informazioni su <x id="0" equiv-text="${describes}"/></target>
 </trans-unit>
 <trans-unit id="sl.grid.rowActivated">
   <source>Row <x id="0" equiv-text="${rowNumber}"/> activated</source>

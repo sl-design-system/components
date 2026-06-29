@@ -4,7 +4,6 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { RovingTabindexController } from '@sl-design-system/shared';
-import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -52,8 +51,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-tag': Tag,
-      'sl-tooltip': Tooltip
+      'sl-tag': Tag
     };
   }
 
@@ -241,25 +239,30 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    let tooltip;
+    if (this.stacked) {
+      const label = msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' }),
+        tags = this.tags
+          .filter(tag => tag.style.display === 'none')
+          .map(tag => tag.label)
+          .join(', ');
+
+      tooltip = `${label}: ${tags}`;
+    }
+
     return html`
       ${this.stacked
         ? html`
             <div class="stack">
               <sl-tag
-                aria-labelledby="tooltip"
                 ?disabled=${this.disabled}
+                id="stack-tag"
                 role="listitem"
                 size=${ifDefined(this.size)}
+                tooltip=${ifDefined(tooltip)}
                 variant=${ifDefined(this.variant)}>
                 +${this.stackSize}
               </sl-tag>
-              <sl-tooltip id="tooltip" position="bottom" max-width="300">
-                ${msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' })}:
-                ${this.tags
-                  .filter(tag => tag.style.display === 'none')
-                  .map(tag => tag.label)
-                  .join(', ')}
-              </sl-tooltip>
             </div>
           `
         : nothing}
@@ -481,8 +484,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       0
     );
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
-    // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
-    this.stack.classList.remove('double', 'triple');
 
     const stackTag = this.stack.querySelector('sl-tag');
 

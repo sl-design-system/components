@@ -33,6 +33,12 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     },
     {
       code: "html`<sl-button variant=\"primary\" fill=\"solid\" ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}>\n`;"
+    },
+    // tooltip attribute on sl-button (new feature)
+    { code: "html`<sl-button tooltip='Save'><sl-icon name='save'></sl-icon></sl-button>`;" },
+    { code: 'html`<sl-button tooltip="Settings"><sl-icon name="gear"></sl-icon></sl-button>`;' },
+    {
+      code: 'html`<sl-button variant="primary" tooltip="Submit form"><sl-icon name="check"></sl-icon></sl-button>`;'
     }
   ],
   invalid: [
@@ -75,6 +81,14 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     {
       code: "html`<sl-button ${tooltip('Tip', { ariaRelation: 'sth else but not label', position: 'bottom-start' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;",
       errors: [{ messageId: 'mustBeAriaRelationLabel' }]
+    },
+    {
+      code: "html`<sl-button tooltip=''><sl-icon name='save'></sl-icon></sl-button>`;",
+      errors: [{ messageId: 'missingText' }]
+    },
+    {
+      code: 'html`<sl-button tooltip=""><sl-icon name="save"></sl-icon></sl-button>`;',
+      errors: [{ messageId: 'missingText' }]
     }
   ]
 });

@@ -500,11 +500,11 @@ describe('sl-month-view', () => {
         tooltip = button?.nextElementSibling;
 
       expect(button).to.exist;
-      expect(button).to.have.attribute('aria-describedby', tooltip?.id);
+      expect(button?.ariaDescribedByElements).to.have.length(1);
+      expect(button?.ariaDescribedByElements).to.include(tooltip);
 
       expect(tooltip).to.match('sl-tooltip');
-      expect(tooltip).to.have.attribute('id');
-      expect(tooltip?.textContent?.trim()).to.equal('Special day');
+      expect(tooltip).to.have.trimmed.text('Special day');
     });
 
     it('should only show one tooltip at a time and maintain ARIA stability', async () => {
@@ -525,8 +525,8 @@ describe('sl-month-view', () => {
       const tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
 
       expect(tooltips).to.have.length(2);
-      expect(button13).to.have.attribute('aria-describedby', tooltips[0].id);
-      expect(button14).to.have.attribute('aria-describedby', tooltips[1].id);
+      expect(button13?.ariaDescribedByElements).to.include(tooltips[0]);
+      expect(button14?.ariaDescribedByElements).to.include(tooltips[1]);
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
       // 1. Hover first button
@@ -552,8 +552,8 @@ describe('sl-month-view', () => {
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
       // 4. ARIA stability check (even when closed)
-      expect(button13).to.have.attribute('aria-describedby', tooltips[0].id);
-      expect(button14).to.have.attribute('aria-describedby', tooltips[1].id);
+      expect(button13?.ariaDescribedByElements).to.include(tooltips[0]);
+      expect(button14?.ariaDescribedByElements).to.include(tooltips[1]);
     });
 
     it('should render no tooltip when no color or label provided', async () => {

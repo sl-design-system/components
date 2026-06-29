@@ -134,10 +134,13 @@ describe('sl-button', () => {
     describe('icon only, directly in button', () => {
       beforeEach(async () => {
         el = await fixture(html`
-          <sl-button aria-label="Mark as favorite">
+          <sl-button tooltip="Tooltip">
             <sl-icon name="star"></sl-icon>
           </sl-button>
         `);
+
+        // Wait for the MutationObserver to detect the sl-icon and update the icon-only state.
+        await new Promise(resolve => setTimeout(resolve, 50));
       });
 
       it('should have the icon-only state', () => {
@@ -155,10 +158,13 @@ describe('sl-button', () => {
     describe('icon only, wrapped in container', () => {
       beforeEach(async () => {
         el = await fixture(html`
-          <sl-button aria-label="Mark as favorite">
+          <sl-button tooltip="Tooltip">
             <span><sl-icon name="star"></sl-icon></span>
           </sl-button>
         `);
+
+        // Wait for the MutationObserver to detect the sl-icon and update the icon-only state.
+        await new Promise(resolve => setTimeout(resolve, 50));
       });
 
       it('should have the icon-only state', () => {
@@ -647,6 +653,90 @@ describe('sl-button', () => {
           getForwardedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)
         ).to.deep.equal([]);
       });
+    });
+  });
+
+  describe('tooltip', () => {
+    it('should not have a tooltip by default', async () => {
+      el = await fixture(html`<sl-button>Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.be.null;
+    });
+
+    it('should render an sl-tooltip when the tooltip property is set', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.exist;
+    });
+
+    it('should have an sl-tooltip with a tooltip part when set', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('[part="tooltip"]')).to.exist;
+    });
+
+    it('should set the tooltip text content', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.have.trimmed.text('My tooltip');
+    });
+
+    it('should set ariaDescribedByElements on the inner button when a text button has a tooltip', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+      button = el.renderRoot.querySelector('button')!;
+
+      const tooltipEl = el.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      expect(button.ariaDescribedByElements).to.include(tooltipEl);
+      expect(button.ariaLabelledByElements).not.to.include(tooltipEl);
+    });
+
+    it('should set ariaLabelledByElements on the inner button when an icon-only button has a tooltip', async () => {
+      el = await fixture(
+        html`<sl-button tooltip="Mark as favorite"><sl-icon name="star"></sl-icon></sl-button>`
+      );
+
+      // The first render uses type="description" because icon-only is detected asynchronously via
+      // requestAnimationFrame. Wait for that rAF and the resulting re-render, which changes the
+      // tooltip type to "label" and updates its ARIA relations.
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      button = el.renderRoot.querySelector('button')!;
+      const tooltipEl = el.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      expect(button.ariaLabelledByElements).to.include(tooltipEl);
+      expect(button.ariaDescribedByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should remove the tooltip when the tooltip property is unset', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+      el.tooltip = undefined;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.be.null;
+    });
+
+    it('should include both the tooltip and aria-describedby element in ariaDescribedByElements', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="icon-btn-label">Favorite star</span>
+          <sl-button aria-describedby="icon-btn-label" tooltip="Mark as favorite">
+            Hello world
+          </sl-button>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-button')!;
+
+      const button = el.renderRoot.querySelector('button')!,
+        tooltip = el.renderRoot.querySelector('sl-tooltip')!,
+        span = wrapper.querySelector<HTMLElement>('#icon-btn-label')!;
+
+      expect(button.ariaDescribedByElements).to.include(span);
+      expect(button.ariaDescribedByElements).to.include(tooltip);
     });
   });
 });

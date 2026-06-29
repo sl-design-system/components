@@ -367,17 +367,15 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
-                aria-describedby=${ifDefined(
-                  day.indicator?.label ? `indicator-${day.date.toISOString()}` : undefined
-                )}
                 aria-label=${this.getDayLabel(day)}
                 aria-pressed=${selected.toString()}
+                id=${day.date.toISOString()}
                 part=${parts.join(' ')}>
                 <span>${day.date.getDate()}</span>
               </button>
               ${day.indicator?.label
                 ? html`
-                    <sl-tooltip id="indicator-${day.date.toISOString()}" offset="4">
+                    <sl-tooltip for=${day.date.toISOString()} type="description">
                       ${day.indicator.label}
                     </sl-tooltip>
                   `

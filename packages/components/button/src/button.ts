@@ -1,11 +1,14 @@
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { closestElementComposed } from '@sl-design-system/shared';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
   type PropertyValues,
   type TemplateResult,
-  html
+  html,
+  nothing
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -37,17 +40,23 @@ export type ButtonVariant =
 /**
  * A single, simple button, with optionally an icon.
  *
- * ```html
- * <sl-button>Foo</sl-button>
- * ```
+ * @customElement sl-button
  *
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
+ * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
  */
-export class Button extends ForwardAriaMixin(LitElement) {
+export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
+
+  /** @internal */
+  static override get scopedElements() {
+    return {
+      'sl-tooltip': Tooltip
+    };
+  }
 
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
@@ -64,7 +73,7 @@ export class Button extends ForwardAriaMixin(LitElement) {
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
 
-  /** @internal. */
+  /** @internal */
   readonly internals = this.attachInternals();
 
   /** @internal The button element. */
@@ -99,14 +108,14 @@ export class Button extends ForwardAriaMixin(LitElement) {
   /**
    * The fill of the button.
    *
-   * @default solid
+   * @default 'solid'
    */
   @property({ reflect: true }) fill?: ButtonFill;
 
   /**
    * The shape of the button.
    *
-   * @default square
+   * @default 'square'
    */
   @property({ reflect: true }) shape?: ButtonShape;
 
@@ -129,18 +138,21 @@ export class Button extends ForwardAriaMixin(LitElement) {
     }
   }
 
+  /** The text that will be shown in a tooltip. */
+  @property() tooltip?: string;
+
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in
    * native HTML buttons.
    *
-   * @default button
+   * @default 'button'
    */
   @property() type?: ButtonType;
 
   /**
    * The variant of the button.
    *
-   * @default secondary
+   * @default 'secondary'
    */
   @property({ reflect: true }) variant?: ButtonVariant;
 
@@ -165,8 +177,8 @@ export class Button extends ForwardAriaMixin(LitElement) {
       this.tabIndex = parseInt(this.getAttribute('tabindex') ?? '0');
     }
 
-    // Initial update
-    this.#onUpdate();
+    // Wrap in rAF so we don't trigger a lifecycle loop
+    requestAnimationFrame(() => this.#onUpdate());
   }
 
   override render(): TemplateResult {
@@ -177,16 +189,30 @@ export class Button extends ForwardAriaMixin(LitElement) {
         (this.getRootNode() as Document | ShadowRoot).getElementById?.(this.commandFor) ?? null;
     }
 
+    // If the button is icon only, the tooltip functions as the label, otherwise it functions as the description.
+    let ariaType: 'description' | 'label' | undefined;
+    if (this.tooltip) {
+      ariaType = this.internals.states.has('icon-only') ? 'label' : 'description';
+    }
+
     return html`
       <button
         @click=${this.#onClick}
         command=${ifDefined(this.command)}
         .commandForElement=${target}
         ?disabled=${this.disabled}
+        id="button"
         part="button"
         type="button">
         <slot></slot>
       </button>
+      ${this.tooltip
+        ? html`
+            <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
+              ${this.tooltip}
+            </sl-tooltip>
+          `
+        : nothing}
     `;
   }
 
@@ -234,10 +260,17 @@ export class Button extends ForwardAriaMixin(LitElement) {
           el.children[0].nodeName === 'SL-ICON');
     }
 
+    const hasIconOnly = this.internals.states.has('icon-only');
+
     if (iconOnly) {
       this.internals.states.add('icon-only');
     } else {
       this.internals.states.delete('icon-only');
+    }
+
+    // Trigger an update when the icon-only state changes
+    if (hasIconOnly !== iconOnly) {
+      this.requestUpdate();
     }
   }
 }

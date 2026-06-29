@@ -13,8 +13,6 @@ import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
-import { tooltip } from '@sl-design-system/tooltip';
-import '@sl-design-system/tooltip/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
@@ -127,10 +125,10 @@ export const Multiple: Story = {
           Action 1
         </sl-button>
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
+          tooltip="I am a tooltip"
           variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
@@ -251,10 +249,10 @@ sl-grid::part(bulk-actions) {
               Action 1
             </sl-button>
             <sl-button
-              ${tooltip('I am a tooltip')}
               aria-disabled="true"
               fill="outline"
               slot="bulk-actions"
+              tooltip="I am a tooltip"
               variant="inverted">
               <sl-icon name="far-right-to-line"></sl-icon>
               Action 2
@@ -323,10 +321,10 @@ export const MultipleWithMenuButton: Story = {
           Action 1
         </sl-button>
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
+          tooltip="I am a tooltip"
           variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2

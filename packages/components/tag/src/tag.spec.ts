@@ -50,15 +50,45 @@ describe('sl-tag', () => {
       expect(el.renderRoot.querySelector('button')).to.exist;
     });
 
-    it('should not have a tabindex', () => {
-      expect(el).not.to.have.attribute('tabindex');
+    it('should not have a tooltip', () => {
+      expect(el.tooltip).to.be.undefined;
+      expect(el.renderRoot.querySelector('sl-tooltip')).not.to.exist;
     });
 
-    it('should not have a tooltip', async () => {
-      el.focus();
+    it('should have a tooltip when set', async () => {
+      el.tooltip = 'Tooltip text';
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('aria-describedby');
+      const container = el.renderRoot.querySelector('[part="container"]'),
+        tooltip = el.renderRoot.querySelector('sl-tooltip');
+
+      expect(container?.ariaDescribedByElements).to.include(tooltip);
+      expect(tooltip).to.exist;
+      expect(tooltip).to.have.trimmed.text('Tooltip text');
+    });
+
+    it('should not be focusable', () => {
+      const container = el.renderRoot.querySelector('[part="container"]');
+
+      expect(container).not.to.have.attribute('tabindex');
+    });
+
+    it('should be focusable when removable', async () => {
+      el.removable = true;
+      await el.updateComplete;
+
+      const container = el.renderRoot.querySelector('[part="container"]');
+
+      expect(container).to.have.attribute('tabindex', '0');
+    });
+
+    it('should be focusable when there is a tooltip', async () => {
+      el.tooltip = 'Tooltip text';
+      await el.updateComplete;
+
+      const container = el.renderRoot.querySelector('[part="container"]');
+
+      expect(container).to.have.attribute('tabindex', '0');
     });
   });
 
@@ -68,25 +98,12 @@ describe('sl-tag', () => {
     });
 
     it('should have an ARIA description indicating how to remove the tag', () => {
-      expect(el).to.have.attribute(
+      const container = el.renderRoot.querySelector('[part="container"]');
+
+      expect(container).to.have.attribute(
         'aria-description',
         'Press the delete or backspace key to remove this item'
       );
-    });
-
-    it('should have a tabindex of 0', () => {
-      expect(el).to.have.attribute('tabindex', '0');
-    });
-
-    it('should have a tabindex of -1 when disabled', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('tabindex', '-1');
-    });
-
-    it('should have a button', () => {
-      expect(el.renderRoot.querySelector('button')).to.exist;
     });
 
     it('should hide the button for ARIA', () => {
@@ -101,15 +118,6 @@ describe('sl-tag', () => {
       await el.updateComplete;
 
       expect(el).to.exist;
-    });
-
-    it('should be removed when the button is clicked using the keyboard', async () => {
-      const onRemove = spy(el, 'remove');
-
-      el.renderRoot.querySelector('button')?.focus();
-      await userEvent.keyboard('{Enter}');
-
-      expect(onRemove).to.have.been.calledOnce;
     });
 
     it('should be removed when the backspace key is pressed', async () => {
@@ -130,12 +138,11 @@ describe('sl-tag', () => {
       expect(onRemove).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-remove event when a remove button is clicked', async () => {
+    it('should emit an sl-remove event when a remove button is clicked', () => {
       const onRemove = spy();
 
       el.addEventListener('sl-remove', onRemove);
       el.renderRoot.querySelector('button')?.click();
-      await el.updateComplete;
 
       expect(onRemove).to.have.been.calledOnce;
     });
@@ -151,13 +158,11 @@ describe('sl-tag', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
     });
 
-    it('should have a tooltip when the label is too long', async () => {
-      el.focus();
-      await el.updateComplete;
+    it('should have a tooltip when the label is too long', () => {
+      const container = el.renderRoot.querySelector('[part="container"]'),
+        tooltip = el.renderRoot.querySelector('sl-tooltip');
 
-      expect(el).to.have.attribute('aria-describedby');
-
-      const tooltip = document.getElementById(el.getAttribute('aria-describedby')!);
+      expect(container?.ariaDescribedByElements).to.include(tooltip);
       expect(tooltip).to.exist;
       expect(tooltip).to.have.trimmed.text('My label is very long');
     });

@@ -444,6 +444,44 @@ describe('ForwardAriaMixin', () => {
     });
   });
 
+  describe('removeAttribute', () => {
+    it('should remove a plain attribute from the proxy target', () => {
+      el.setAttribute('aria-label', 'Test label');
+      el.removeAttribute('aria-label');
+
+      expect(button).not.to.have.attribute('aria-label');
+    });
+
+    it('should remove aria-disabled from the proxy target', () => {
+      el.setAttribute('aria-disabled', 'true');
+      el.removeAttribute('aria-disabled');
+
+      expect(button).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should clear element references from the proxy target', () => {
+      const label = document.createElement('span');
+      label.id = 'remove-label';
+      el.parentElement!.prepend(label);
+
+      el.setAttribute('aria-labelledby', 'remove-label');
+      el.removeAttribute('aria-labelledby');
+
+      expect(button.ariaLabelledByElements).to.be.null;
+
+      label.remove();
+    });
+
+    it('should not affect the proxy for attributes not in the observed list', () => {
+      button.setAttribute('aria-hidden', 'true');
+      el.removeAttribute('aria-hidden');
+
+      expect(button).to.have.attribute('aria-hidden', 'true');
+
+      button.removeAttribute('aria-hidden');
+    });
+  });
+
   describe('no observedAttributes specified', () => {
     let defaultEl: InstanceType<typeof DefaultElement>, defaultButton: HTMLButtonElement;
 

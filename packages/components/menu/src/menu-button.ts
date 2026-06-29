@@ -68,8 +68,12 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
     }
   });
 
-  /** The state of the menu popover. */
-  #popoverState?: string;
+  /**
+   * Flag indicating whether the popover was just closed. We need to know this so we can properly
+   * handle button clicks that close the popover. If the popover was just closed, we don't want to
+   * show it again when the button click event fires.
+   */
+  #popoverJustClosed = false;
 
   /** @internal The button. */
   @query('sl-button') button!: Button;
@@ -112,6 +116,9 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
    */
   @property() size?: ButtonSize;
 
+  /** The tooltip text for the button invoking the menu. */
+  @property() tooltip?: string;
+
   /**
    * The variant of the button.
    *
@@ -138,22 +145,26 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
       <sl-button
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
+        @pointerdown=${this.#onPointerDown}
         ?disabled=${this.disabled}
         aria-expanded="false"
         aria-haspopup="menu"
+        exportparts="button:internal-button, tooltip"
         fill=${ifDefined(this.fill)}
         part="button"
         shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}
+        tooltip=${ifDefined(this.tooltip)}
         variant=${ifDefined(this.variant)}>
         <slot name="button"></slot>
         ${iconOnly ? nothing : html`<sl-icon name="angle-down"></sl-icon>`}
       </sl-button>
       <sl-menu
+        @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onMenuClick}
         @keydown=${this.#onKeydownMenu}
-        @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
+        @toggle=${this.#onToggle}
         .position=${this.position ?? 'bottom-start'}
         part="menu">
         <slot></slot>
@@ -161,12 +172,22 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
     `;
   }
 
+  #onBeforeToggle(event: ToggleEvent): void {
+    if (event.newState === 'closed') {
+      this.#popoverJustClosed = true;
+    }
+  }
+
   #onClick(): void {
-    if (this.#isDisabled()) {
+    if (this.#isDisabled() || this.#popoverJustClosed) {
       return;
     }
 
     this.menu.togglePopover();
+
+    if (this.menu.matches(':popover-open')) {
+      this.menu.focus();
+    }
   }
 
   #onHostClick(event: Event): void {
@@ -197,7 +218,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the menu
       // does not close parent containers (such as dialogs).
       event.stopPropagation();
-    } else if (this.#popoverState !== 'open' && event.key === 'ArrowDown') {
+    } else if (event.key === 'ArrowDown' && !this.menu.matches(':popover-open')) {
       this.menu.showPopover();
       this.menu.focus();
     } else {
@@ -219,10 +240,25 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
     }
   }
 
-  #onMenuClick(event: Event & { target: HTMLElement }): void {
+  #onMenuClick(event: Event): void {
+    const menuItem = event.composedPath().find(el => el instanceof MenuItem);
+
     // Only hide the menu if the user clicked on a menu item
-    if (event.composedPath().find(el => el instanceof MenuItem)) {
-      this.menu.hidePopover();
+    if (menuItem) {
+      const focusVisible = menuItem.matches(':focus-visible');
+
+      // Pass the source, so we know if we need to focus the button in #onToggle
+      this.menu.togglePopover({ source: menuItem });
+
+      // Focus the button again after clicking a menu item
+      this.button.focus({ focusVisible });
+    }
+  }
+
+  #onPointerDown(event: PointerEvent): void {
+    if (this.menu.matches(':popover-open')) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
     }
   }
 
@@ -231,13 +267,13 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   }
 
   #onToggle(event: ToggleEvent): void {
-    this.#popoverState = event.newState;
+    if (event.newState === 'closed') {
+      this.#popoverJustClosed = false;
 
-    if (event.newState === 'closed' && this.menu.matches(':focus-within')) {
-      this.button.focus();
-    } else if (event.newState === 'open' && this.button.matches(':focus-within')) {
-      // If the menu is opening and the button is focused, move focus to the menu
-      this.menu.focus();
+      // Only focus the button again if there is no source, aka Escape was pressed
+      if (!event.source && this.menu.matches(':focus-within')) {
+        this.button.focus();
+      }
     }
   }
 

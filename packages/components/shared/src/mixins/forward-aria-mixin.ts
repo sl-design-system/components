@@ -164,6 +164,37 @@ export function ForwardAriaMixin<
       }
     }
 
+    override removeAttribute(name: string): void {
+      if (observedAttributes ? observedAttributes.includes(name) : name.startsWith('aria-')) {
+        // Always remove from pending so a queued forward doesn't re-add it.
+        this.#pendingAttributes.delete(name);
+
+        // If the attribute is still present on the host, this call came from
+        // #forwardAttributes cleaning up after forwarding — the proxy was just
+        // set correctly, so don't touch it. Only clear the proxy when the
+        // attribute is already absent (i.e. an explicit external removal call).
+        if (!this.hasAttribute(name)) {
+          const target = targetElements.get(this);
+          if (target) {
+            if (name === 'aria-disabled') {
+              setAriaDisabled(target, null);
+              ariaDisabledStorage.set(this, null);
+            } else {
+              const elementsProp = ELEMENT_REFERENCES[name];
+              if (elementsProp) {
+                (target as unknown as Record<string, Element[] | Element | null>)[elementsProp] =
+                  null;
+              } else {
+                target.removeAttribute(name);
+              }
+            }
+          }
+        }
+      }
+
+      super.removeAttribute(name);
+    }
+
     #forwardAttributes(): void {
       const targetElement = targetElements.get(this);
 
@@ -191,7 +222,14 @@ export function ForwardAriaMixin<
             .filter((el): el is HTMLElement => el !== null);
 
           if (elementsProp.endsWith('Elements')) {
-            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
+            const elementsPropValue =
+              (targetElement as unknown as Record<string, Element[]>)[elementsProp] ?? [];
+
+            // Make sure we don't override any existing references
+            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = [
+              ...elementsPropValue,
+              ...elements
+            ];
           } else {
             (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
               elements[0] ?? null;

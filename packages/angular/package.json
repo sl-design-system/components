@@ -117,7 +117,7 @@
     "@storybook/angular": "^10.4.6",
     "@types/jasmine": "~6.0.0",
     "baseline-browser-mapping": "^2.10.38",
-    "jasmine-core": "~6.1.0",
+    "jasmine-core": "~6.2.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",

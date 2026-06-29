@@ -8,7 +8,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import styles from './radio.scss.js';
 
 declare global {
@@ -41,6 +41,9 @@ export class Radio<T = any> extends LitElement {
 
   @state() infotip?: Infotip;
 
+  /** @internal The wrapper element that carries the radio role. */
+  @query('[part="wrapper"]') private wrapper!: HTMLElement;
+
   /**
    * The size of the radio button.
    *
@@ -56,29 +59,30 @@ export class Radio<T = any> extends LitElement {
 
     // Make sure aria-checked is always set
     this.checked ??= false;
-
-    this.setAttribute('role', 'radio');
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = this.disabled ? -1 : 0;
-    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('checked')) {
-      this.setAttribute('aria-checked', Boolean(this.checked).toString());
-    }
+    if (this.wrapper) {
+      if (changes.has('checked')) {
+        this.wrapper.setAttribute('aria-checked', Boolean(this.checked).toString());
+      }
 
-    if (changes.has('disabled')) {
-      this.tabIndex = this.disabled ? -1 : 0;
+      if (changes.has('disabled')) {
+        this.wrapper.tabIndex = this.disabled ? -1 : 0;
+      }
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <div part="wrapper" class="wrapper">
+      <div
+        part="wrapper"
+        class="wrapper"
+        role="radio"
+        tabindex=${this.disabled ? -1 : 0}
+        aria-checked=${Boolean(this.checked)}>
         <div part="box">
           ${this.checked
             ? html`
@@ -101,14 +105,15 @@ export class Radio<T = any> extends LitElement {
     this.#onInfotipSlotChange();
   }
 
+  override focus(): void {
+    this.wrapper?.focus();
+  }
+
+  override blur(): void {
+    this.wrapper?.blur();
+  }
+
   #onClick(event: Event): void {
-    console.log(
-      'click',
-      event.composedPath(),
-      event
-        .composedPath()
-        .includes(this.renderRoot.querySelector('[part="wrapper"]') as HTMLElement)
-    );
     if (
       this.disabled ||
       event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)

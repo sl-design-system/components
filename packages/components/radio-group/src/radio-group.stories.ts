@@ -149,7 +149,7 @@ export const Infotip: Story = {
         Consequat ex dolor nostrud duis veniam ut est. Commodo dolor incididunt laborum cupidatat
         anim magna voluptate Lorem eu elit eiusmod mollit irure.
         <sl-infotip slot="infotip" describes="Amet consequat veniam nostrud labore.">
-          >This text sounds latin but is just nonsensical placeholder text.</sl-infotip
+          This text sounds latin but is just nonsensical placeholder text.</sl-infotip
         >
       </sl-radio>
     `

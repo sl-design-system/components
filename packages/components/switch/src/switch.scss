@@ -80,10 +80,6 @@
   cursor: pointer;
 }
 
-::slotted(sl-infotip) {
-  margin-block-start: var(--sl-size-050);
-}
-
 [part='toggle'] {
   display: flex;
   flex: 1 1 auto;

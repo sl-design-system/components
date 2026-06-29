@@ -69,7 +69,7 @@
   --_fill: var(--sl-color-foreground-positive-onBold);
 }
 
-:host(:focus-visible) [part='box'] {
+[part='wrapper']:focus-visible [part='box'] {
   outline-color: var(--sl-color-border-focused);
 }
 

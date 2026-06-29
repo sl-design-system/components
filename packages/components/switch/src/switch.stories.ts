@@ -98,10 +98,6 @@ export const Infotip: Story = {
         align-items: flex-start;
       }
 
-      sl-switch {
-        border: 1px solid red;
-      }
-
       .stretched {
         align-self: stretch;
       }

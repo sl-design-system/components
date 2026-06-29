@@ -75,6 +75,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Whether the roving tabindex controller is currently listening for keyboard navigation. */
   #rovingTabindexManaged = true;
 
+  /** Original disabled state of tags temporarily disabled through the tag list. */
+  #tagDisabledState = new WeakMap<Tag, boolean | undefined>();
+
   /** Number of completed passes before the initial visibility is considered stable. */
   #initialVisibilityPasses = 0;
 
@@ -160,7 +163,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     isFocusableElement: (el: Tag) => this.#isFocusableElement(el)
   });
 
-  /** Disables interaction with the tag list. */
+  /** Disables removable tags in the tag list. */
   @property({ type: Boolean }) disabled?: boolean;
 
   /**
@@ -359,6 +362,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.tags.forEach(tag => {
       tag.navigationDescription = undefined;
+      this.#restoreTagDisabledState(tag);
       tag.removeAttribute('role');
     });
 
@@ -393,10 +397,32 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.tags.forEach(tag => {
       tag.navigationDescription = tag.removable ? navigationDescription : undefined;
+      this.#syncTagDisabledState(tag);
       tag.size = this.size;
       tag.variant = this.variant;
       tag.setAttribute('role', 'listitem');
     });
+  }
+
+  #syncTagDisabledState(tag: Tag): void {
+    if (this.disabled && tag.removable) {
+      if (!this.#tagDisabledState.has(tag)) {
+        this.#tagDisabledState.set(tag, tag.disabled);
+      }
+
+      tag.disabled = true;
+    } else {
+      this.#restoreTagDisabledState(tag);
+    }
+  }
+
+  #restoreTagDisabledState(tag: Tag): void {
+    if (!this.#tagDisabledState.has(tag)) {
+      return;
+    }
+
+    tag.disabled = this.#tagDisabledState.get(tag);
+    this.#tagDisabledState.delete(tag);
   }
 
   #runVisibilityUpdate(): void {

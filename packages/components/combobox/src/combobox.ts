@@ -547,7 +547,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onOptionClick}
-        @keydown=${this.#onKeydown}
         @slotchange=${() => this.#onSlotChange()}
         @toggle=${this.#onToggle}
         part="wrapper"

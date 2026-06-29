@@ -120,6 +120,31 @@ describe('sl-tag-list', () => {
       expect(tags[1].renderRoot.querySelector('button')).to.have.attribute('aria-disabled', 'true');
     });
 
+    it('should disable removable tags when the list is disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      expect(tags.map(tag => tag.disabled)).to.deep.equal([true, true, true]);
+      expect(
+        tags.map(tag => tag.renderRoot.querySelector('button')?.getAttribute('aria-disabled'))
+      ).to.deep.equal(['true', 'true', 'true']);
+    });
+
+    it('should restore removable tag disabled states when the list is enabled again', async () => {
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+      tags[1].disabled = true;
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(tags.map(tag => tag.disabled)).to.deep.equal([undefined, true, undefined]);
+    });
+
     it('should describe arrow key navigation on remove buttons', () => {
       const button = el.querySelector('sl-tag')?.renderRoot.querySelector('button'),
         description = el

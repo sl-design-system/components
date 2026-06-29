@@ -26,17 +26,12 @@ type Props = Pick<
   | 'optionValuePath'
 > & {
   slot?(): TemplateResult;
-  behavior?: 'smooth' | 'auto';
 };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Listbox',
   argTypes: {
-    behavior: {
-      control: 'radio',
-      options: ['smooth', 'auto']
-    },
     emphasis: {
       control: 'inline-radio',
       options: ['subtle', 'bold']
@@ -49,7 +44,6 @@ export default {
     }
   },
   render: ({
-    behavior,
     emphasis,
     options,
     optionGroupPath,
@@ -89,11 +83,9 @@ export default {
         scrollToPosition = (options?.length ?? 1) - 1;
       }
       const listbox = document.querySelector('sl-listbox');
-      listbox?.scrollToIndex(scrollToPosition, { behavior });
+      listbox?.scrollToIndex(scrollToPosition, { behavior: 'auto' });
       // Update renderer to trigger re-render with new current index
-      if (listbox) {
-        listbox.renderer = renderer;
-      }
+      listbox?.requestUpdate();
     };
 
     return html`

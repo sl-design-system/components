@@ -20,7 +20,6 @@ type Props = Pick<VirtualList, 'estimateSize' | 'gap' | 'overscan' | 'renderItem
   itemCount?: number;
   items?: unknown[];
   overflow?: boolean;
-  behavior?: 'smooth' | 'auto';
 };
 type Story = StoryObj<Props>;
 
@@ -31,7 +30,6 @@ export default {
     layout: 'fullscreen'
   },
   args: {
-    behavior: 'auto',
     estimateSize: 65,
     gap: 0,
     itemCount: 10000,
@@ -39,13 +37,9 @@ export default {
   },
   argTypes: {
     renderItem: { table: { disable: true } },
-    items: { table: { disable: true } },
-    behavior: {
-      control: { type: 'radio' },
-      options: ['auto', 'smooth']
-    }
+    items: { table: { disable: true } }
   },
-  render: ({ estimateSize, gap, itemCount, items, overflow, overscan, renderItem, behavior }) => {
+  render: ({ estimateSize, gap, itemCount, items, overflow, overscan, renderItem }) => {
     items ??= Array.from({ length: itemCount ?? 10000 }, (_, i) => ({
       id: i,
       name: `Item ${i}`,
@@ -72,9 +66,10 @@ export default {
       } else if (index >= items.length) {
         scrollToPosition = items.length - 1;
       }
-      document
-        .querySelector('sl-virtual-list')
-        ?.scrollToIndex(scrollToPosition, { align: 'start', behavior });
+      const list = document.querySelector<VirtualList>('sl-virtual-list');
+
+      list?.scrollToIndex(scrollToPosition, { align: 'start', behavior: 'auto' });
+      list?.requestUpdate();
     };
 
     return html`

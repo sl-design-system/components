@@ -177,4 +177,29 @@ describe('VirtualizerController', () => {
     expect(items.length).to.be.greaterThan(0);
     expect(items[0].getAttribute('data-index')).to.equal('0');
   });
+
+  it('should reset scrollMargin to auto when the option is cleared', async () => {
+    const container = document.createElement('div');
+    container.className = 'test-window-scroll-container';
+    container.style.cssText = 'min-height: 3000px; overflow: visible; padding-top: 200px;';
+    document.body.appendChild(container);
+
+    const host = document.createElement('test-host') as TestHost;
+    host.count = 50;
+    container.appendChild(host);
+
+    await host.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    const autoScrollMargin = host.virtualizer.instance.options.scrollMargin ?? 0;
+    expect(autoScrollMargin).to.be.greaterThanOrEqual(200);
+
+    host.virtualizer.updateOptions({ scrollMargin: 10 });
+    expect(host.virtualizer.instance.options.scrollMargin).to.equal(10);
+
+    host.virtualizer.updateOptions({ scrollMargin: undefined });
+    await host.updateComplete;
+
+    expect(host.virtualizer.instance.options.scrollMargin).to.be.closeTo(autoScrollMargin, 1);
+  });
 });

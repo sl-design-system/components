@@ -94,8 +94,8 @@ export class VirtualList<T = any> extends LitElement {
         estimateSize: () => this.estimateSize ?? 32,
         gap: this.gap ?? 0,
         overscan: this.overscan ?? 3,
-        useCachedMeasurements: true,
-        ...(this.scrollMargin !== undefined ? { scrollMargin: this.scrollMargin } : {})
+        scrollMargin: this.scrollMargin,
+        useCachedMeasurements: true
       });
     }
   }

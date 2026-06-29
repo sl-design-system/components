@@ -468,15 +468,15 @@
 </trans-unit>
 <trans-unit id="sl.grid.rowActivated">
   <source>Row <x id="0" equiv-text="${rowNumber}"/> activated</source>
-  <target>Riga <x id="0" equiv-text="${index}"/> attivata</target>
+  <target>Riga <x id="0" equiv-text="${rowNumber}"/> attivata</target>
 </trans-unit>
 <trans-unit id="sl.grid.rowDeactivated">
   <source>Row <x id="0" equiv-text="${rowNumber}"/> deactivated</source>
-  <target>Riga <x id="0" equiv-text="${index}"/> disattivata</target>
+  <target>Riga <x id="0" equiv-text="${rowNumber}"/> disattivata</target>
 </trans-unit>
 <trans-unit id="sl.grid.inActivatedRow">
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
-  <target>Nella riga attivata <x id="0" equiv-text="${index}"/></target>
+  <target>Nella riga attivata <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
 </body>
 </file>

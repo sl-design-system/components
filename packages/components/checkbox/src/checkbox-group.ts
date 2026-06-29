@@ -1,6 +1,6 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin, type SlFormControlEvent } from '@sl-design-system/form';
-import { Infotip } from '@sl-design-system/infotip';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type EventEmitter,
   EventsController,

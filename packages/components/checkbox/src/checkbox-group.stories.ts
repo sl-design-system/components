@@ -127,8 +127,8 @@ export const Infotip: Story = {
           is way too long to be used in the label for the "more info" button, so we have provided a
           custom label for the button that is more descriptive and shorter than the label of the
           checkbox. The label of the checkbox is way too long to be used in the label for the "more
-          info" button, so we have provided a custom label for the button that is and shorter than
-          the label of the checkbox.
+          info" button, so we have provided a custom label for the button that is shorter than the
+          label of the checkbox.
           <sl-infotip slot="infotip" describes="Option 1"
             >This is an info tip for option 1</sl-infotip
           >

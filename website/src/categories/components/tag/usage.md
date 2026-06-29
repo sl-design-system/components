@@ -8,12 +8,12 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-tag-list>
+<sl-tag-list aria-label="Subjects">
   <sl-tag>Mathematics</sl-tag>
   <sl-tag>History</sl-tag>
 </sl-tag-list>
 
-<sl-tag-list>
+<sl-tag-list aria-label="Selected subjects">
   <sl-tag removable>Mathematics</sl-tag>
   <sl-tag removable>History</sl-tag>
 </sl-tag-list>
@@ -22,12 +22,12 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-<sl-tag-list>
+<sl-tag-list aria-label="Subjects">
   <sl-tag>Mathematics</sl-tag>
   <sl-tag>History</sl-tag>
 </sl-tag-list>
 
-<sl-tag-list>
+<sl-tag-list aria-label="Selected subjects">
   <sl-tag removable>Mathematics</sl-tag>
   <sl-tag removable>History</sl-tag>
 </sl-tag-list>

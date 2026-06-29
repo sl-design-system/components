@@ -160,7 +160,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     isFocusableElement: (el: Tag) => this.#isFocusableElement(el)
   });
 
-  /** Disables interaction with the tag list and renders the stacked tag as disabled. */
+  /** Disables interaction with the tag list. */
   @property({ type: Boolean }) disabled?: boolean;
 
   /**
@@ -257,7 +257,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
             <div class="stack">
               <sl-tag
                 aria-labelledby="tooltip"
-                ?disabled=${this.disabled}
                 role="listitem"
                 size=${ifDefined(this.size)}
                 variant=${ifDefined(this.variant)}>
@@ -307,7 +306,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #isFocusableElement(el: Tag): boolean {
-    return el !== this.stackTag || !el.disabled;
+    return el === this.stackTag || !el.disabled || !!el.removable;
   }
 
   #getBorderBoxInlineSize(entry: ResizeObserverEntry): number | undefined {

@@ -227,13 +227,13 @@ describe('sl-tag-list', () => {
       expect(el.renderRoot.querySelector('.stack')).to.exist;
     });
 
-    it('should disable the stack tag when the list is disabled', async () => {
+    it('should keep the stack tag enabled when the list is disabled', async () => {
       el.disabled = true;
       await el.updateComplete;
 
       const tag = el.renderRoot.querySelector('sl-tag');
 
-      expect(tag).to.have.attribute('disabled');
+      expect(tag).not.to.have.attribute('disabled');
     });
 
     it('should have a tooltip for the stack', () => {
@@ -298,7 +298,7 @@ describe('sl-tag-list', () => {
       expect(tabindexes).to.deep.equal([0, -1, -1, -1, -1, -1, -1, -1, -1]);
     });
 
-    it('should not use a disabled stack tag as the initial tab stop', async () => {
+    it('should use the stack tag as the initial tab stop when the list is disabled', async () => {
       el = await fixture(html`
         <sl-tag-list disabled stacked style="inline-size: 200px;">
           <sl-tag disabled removable>My label 1</sl-tag>
@@ -319,13 +319,13 @@ describe('sl-tag-list', () => {
           tag => getComputedStyle(tag).display !== 'none'
         );
 
-      expect(stackTag).to.have.attribute('disabled');
-      expect(stackTag.tabIndex).to.equal(-1);
+      expect(stackTag).not.to.have.attribute('disabled');
+      expect(stackTag.tabIndex).to.equal(0);
       expect(visibleTag).to.exist;
-      expect(visibleTag?.tabIndex).to.equal(0);
+      expect(visibleTag?.tabIndex).to.equal(-1);
     });
 
-    it('should not add a disabled stack tag to the tab order when all regular tags are hidden', async () => {
+    it('should keep the stack tag in the tab order when all regular tags are hidden', async () => {
       el = await fixture(html`
         <sl-tag-list disabled stacked style="inline-size: 1px;">
           <sl-tag disabled removable>My very long label 1</sl-tag>
@@ -341,9 +341,9 @@ describe('sl-tag-list', () => {
           tag => getComputedStyle(tag).display !== 'none'
         );
 
-      expect(stackTag).to.have.attribute('disabled');
+      expect(stackTag).not.to.have.attribute('disabled');
       expect(stackTag).to.be.displayed;
-      expect(stackTag.tabIndex).to.equal(-1);
+      expect(stackTag.tabIndex).to.equal(0);
       expect(visibleTags).to.have.length(0);
     });
 

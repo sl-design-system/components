@@ -17,7 +17,7 @@
 
   @media (prefers-reduced-motion: no-preference) {
     transition: 200ms ease-in-out;
-    transition-property: background, outline-color;
+    transition-property: background;
   }
 }
 
@@ -32,6 +32,10 @@
 
   button {
     inline-size: calc(var(--sl-size-450) - var(--sl-size-borderWidth-default) * 2);
+  }
+
+  sl-icon {
+    --sl-icon-size: var(--sl-size-new-icon-sm);
   }
 }
 
@@ -131,7 +135,7 @@ button {
 }
 
 sl-icon {
-  --sl-icon-size: var(--sl-size-new-icon-sm);
+  --sl-icon-size: var(--sl-size-new-icon-xs);
 
   pointer-events: none;
 }

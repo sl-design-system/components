@@ -106,10 +106,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) variant?: TagVariant;
 
+  /** @internal */
   override get tabIndex(): number {
     return super.tabIndex;
   }
 
+  /** @internal */
   override set tabIndex(tabIndex: number) {
     super.tabIndex = tabIndex;
     this.#syncButtonTabIndex();

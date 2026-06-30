@@ -153,7 +153,7 @@ describe('sl-tag-list', () => {
 
       expect(button).to.have.attribute('aria-describedby', 'navigation-description');
       expect(description).to.have.class('visually-hidden');
-      expect(description).not.to.have.attribute('aria-hidden');
+      expect(description).to.have.attribute('aria-hidden', 'true');
       expect(description).to.have.trimmed.text('Use arrow keys to move between removable tags.');
     });
 
@@ -195,6 +195,51 @@ describe('sl-tag-list', () => {
       await userEvent.tab();
 
       expect(document.activeElement).to.equal(after);
+    });
+
+    it('should allow tabbing through removable tag buttons when keyboard navigation is disabled', async () => {
+      el = await fixture(html`
+        <div>
+          <button>Before</button>
+          <sl-tag-list .keyboardNavigation=${false}>
+            <sl-tag removable>My label 1</sl-tag>
+            <sl-tag removable>My label 2</sl-tag>
+            <sl-tag removable>My label 3</sl-tag>
+          </sl-tag-list>
+          <button>After</button>
+        </div>
+      `).then(wrapper => wrapper.querySelector('sl-tag-list')!);
+
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const wrapper = el.parentElement!,
+        before = wrapper.querySelector('button')!,
+        tags = Array.from(el.querySelectorAll('sl-tag')),
+        buttons = tags.map(tag => tag.renderRoot.querySelector('button')!);
+
+      expect(tags.map(tag => tag.hasAttribute('tabindex'))).to.deep.equal([false, false, false]);
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, 0, 0]);
+      expect(tags.map(tag => tag.navigationDescription)).to.deep.equal([
+        undefined,
+        undefined,
+        undefined
+      ]);
+
+      before.focus();
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(tags[0]);
+      expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(tags[1]);
+      expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
+
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(document.activeElement).to.equal(tags[1]);
+      expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
     });
 
     it('should resync the navigation description when the list updates', async () => {

@@ -1272,16 +1272,69 @@ describe('sl-combobox', () => {
         expect(removable).to.be.true;
       });
 
-      it('should not show fake tag focus when navigating remove buttons', async () => {
-        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
-          button = tags[0].renderRoot.querySelector('button');
+      it('should use the first removable tag button and input as combobox tab stops', async () => {
+        const wrapper = await fixture<HTMLDivElement>(html`
+            <div>
+              <button>Before</button>
+              <sl-combobox multiple .value=${['Option 1', 'Option 2']}>
+                <sl-listbox>
+                  <sl-option>Option 1</sl-option>
+                  <sl-option>Option 2</sl-option>
+                  <sl-option>Option 3</sl-option>
+                </sl-listbox>
+              </sl-combobox>
+              <button>After</button>
+            </div>
+          `),
+          combobox = wrapper.querySelector('sl-combobox')!,
+          input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
 
-        button?.dispatchEvent(
-          new KeyboardEvent('keydown', { bubbles: true, composed: true, key: 'ArrowRight' })
-        );
+        await combobox.updateComplete;
+        await waitForNextFrame();
+        await combobox.updateComplete;
+
+        const tags = Array.from(combobox.renderRoot.querySelectorAll('sl-tag')),
+          buttons = tags.map(tag => tag.renderRoot.querySelector('button'));
+
+        expect(tags).to.have.lengthOf(2);
+
+        wrapper.querySelector('button')!.focus();
+
+        await userEvent.tab();
+
+        expect(combobox.renderRoot.activeElement).to.equal(tags[0]);
+        expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(combobox.renderRoot.activeElement).to.equal(tags[1]);
+        expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
+
+        await userEvent.keyboard('{ArrowLeft}');
+
+        expect(combobox.renderRoot.activeElement).to.equal(tags[0]);
+        expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+
+        await userEvent.tab();
+
+        expect(document.activeElement).to.equal(input);
+
+        await userEvent.tab();
+
+        expect(document.activeElement).to.equal(wrapper.querySelector('button:last-child'));
+      });
+
+      it('should not show fake tag focus when navigating from the input with arrow keys', async () => {
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        input.focus();
+        input.setSelectionRange(0, 0);
+
+        await userEvent.keyboard('{ArrowLeft}');
         await el.updateComplete;
 
         expect(tags.some(tag => tag.classList.contains('focused'))).to.be.false;
+        expect(document.activeElement).to.equal(input);
       });
 
       it('should stack options when there is limited space', async () => {

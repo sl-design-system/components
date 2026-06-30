@@ -190,7 +190,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
             </button>
             ${this.navigationDescription
               ? html`
-                  <span id="navigation-description" class="visually-hidden"
+                  <span id="navigation-description" class="visually-hidden" aria-hidden="true"
                     >${this.navigationDescription}</span
                   >
                 `

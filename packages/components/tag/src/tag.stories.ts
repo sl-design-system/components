@@ -1,7 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type Tag } from './tag.js';
 
@@ -12,7 +11,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Tag/Tag',
-  tags: ['preview'],
   parameters: {
     a11y: {
       config: {
@@ -45,21 +43,14 @@ export default {
       ?disabled=${disabled}
       ?removable=${removable}
       size=${ifDefined(size)}
-      style=${styleMap({ maxWidth })}
-      variant=${ifDefined(variant)}
-    >
+      style=${ifDefined(maxWidth ? `max-inline-size: ${maxWidth}` : undefined)}
+      variant=${ifDefined(variant)}>
       ${label}
     </sl-tag>
   `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true
-  }
-};
 
 export const Info: Story = {
   args: {
@@ -74,8 +65,29 @@ export const Overflow: Story = {
   }
 };
 
+export const OverflowRemovable: Story = {
+  args: {
+    ...Overflow.args,
+    removable: true
+  }
+};
+
 export const Removable: Story = {
   args: {
+    removable: true
+  }
+};
+
+export const InfoRemovable: Story = {
+  args: {
+    removable: true,
+    variant: 'info'
+  }
+};
+
+export const RemovableDisabled: Story = {
+  args: {
+    disabled: true,
     removable: true
   }
 };

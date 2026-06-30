@@ -81,7 +81,6 @@ Icon.register(
 
 export default {
   title: 'Actions/Tool bar',
-  tags: ['draft'],
   args: {
     resizable: true,
     enableLogging: false
@@ -160,7 +159,7 @@ export default {
         }
 
         .container sl-tool-bar {
-          flex: ${resizable && !width ? 1 : 0} 1 auto;
+          flex: ${resizable && !width ? '1 1 0' : '0 1 auto'};
           min-inline-size: 0;
         }
       </style>
@@ -174,8 +173,7 @@ export default {
             align=${ifDefined(align)}
             fill=${ifDefined(fill)}
             style="inline-size: ${width ?? 'auto'}"
-            aria-label="Tool bar example"
-          >
+            aria-label="Tool bar example">
             ${items?.(args)}
           </sl-tool-bar>
         </div>
@@ -263,7 +261,8 @@ export const Disabled: Story = {
 
 export const Empty: Story = {
   args: {
-    description: 'This example shows an empty (contained) tool bar. It should not take up any space.',
+    description:
+      'This example shows an empty (contained) tool bar. It should not take up any space.',
     contained: true
   }
 };
@@ -300,9 +299,9 @@ export const Inverted: Story = {
   args: {
     description: html`
       This example shows a tool bar with inverted buttons. You have to set the
-      <code>inverted</code> attribute on the tool bar, otherwise the menu button will not be inverted. By default, a
-      tool bar does not have any padding and has no border. Please make sure that the focus outlines of the buttons are
-      still visible.
+      <code>inverted</code> attribute on the tool bar, otherwise the menu button will not be
+      inverted. By default, a tool bar does not have any padding and has no border. Please make sure
+      that the focus outlines of the buttons are still visible.
     `,
     inverted: true,
     items: () => html`
@@ -322,7 +321,9 @@ export const Inverted: Story = {
 export const InvertedContained: Story = {
   args: {
     contained: true,
-    description: html`This example shows a contained tool bar with inverted buttons and a width set to 400px.`,
+    description: html`
+      This example shows a contained tool bar with inverted buttons and a width set to 400px.
+    `,
     inverted: true,
     items: () => html`
       <sl-button fill="outline">Action 1</sl-button>
@@ -355,7 +356,9 @@ export const ClickEvents: Story = {
       };
 
       return html`
-        <sl-button @click=${(e: Event) => handleClick(e, 'Button 1')} fill="outline">Button 1</sl-button>
+        <sl-button @click=${(e: Event) => handleClick(e, 'Button 1')} fill="outline"
+          >Button 1</sl-button
+        >
         <sl-button @click=${(e: Event) => handleClick(e, 'Button 2')} fill="outline">
           <sl-icon name="far-gear"></sl-icon>
           Button 2
@@ -413,7 +416,10 @@ export const State: Story = {
             height: var(--sl-size-450);
           }
         </style>
-        <sl-toggle-button aria-controls="action-1 action-2 action-3" @sl-toggle=${onClick} fill="outline">
+        <sl-toggle-button
+          aria-controls="action-1 action-2 action-3"
+          @sl-toggle=${onClick}
+          fill="outline">
           <sl-icon name="far-universal-access" slot="default"></sl-icon>
           <sl-icon name="fas-universal-access" slot="pressed"></sl-icon>
           Toggle disabled state
@@ -457,8 +463,9 @@ export const IconOnly: Story = {
         rules: [
           {
             /**
-             * The rule is disabled for icon-only sl-menu-buttons because they use ariaLabelledByElements
-             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             * The rule is disabled for icon-only sl-menu-buttons because they use
+             * ariaLabelledByElements to set aria-labelledby across shadow DOM boundaries, which the
+             * a11y checker cannot detect.
              */
             id: 'aria-command-name',
             enabled: false,
@@ -499,8 +506,7 @@ export const IconOnly: Story = {
           align=${ifDefined(align)}
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
-          aria-label="Icon only tool bar with tooltips"
-        >
+          aria-label="Icon only tool bar with tooltips">
           <sl-button aria-labelledby="tooltip-bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
           </sl-button>
@@ -511,7 +517,10 @@ export const IconOnly: Story = {
           </sl-button>
           <sl-tooltip id="tooltip-italic">Italic</sl-tooltip>
 
-          <sl-button aria-disabled="true" aria-labelledby="tooltip-underline-disabled" fill="outline">
+          <sl-button
+            aria-disabled="true"
+            aria-labelledby="tooltip-underline-disabled"
+            fill="outline">
             <sl-icon name="far-underline"></sl-icon>
           </sl-button>
           <sl-tooltip id="tooltip-underline-disabled">Underline (disabled)</sl-tooltip>
@@ -558,8 +567,7 @@ export const IconOnly: Story = {
           align=${ifDefined(align)}
           fill=${ifDefined(fill)}
           style="inline-size: ${width ?? 'auto'}"
-          aria-label="Icon only tool bar with aria-labels"
-        >
+          aria-label="Icon only tool bar with aria-labels">
           <sl-button aria-label="Bold" fill="outline">
             <sl-icon name="far-bold"></sl-icon>
           </sl-button>
@@ -630,8 +638,8 @@ export const Combination: Story = {
       }
     </style>
     <p>
-      This example shows a tool bar with a combination of other elements and styles. The container has a max inline
-      size, which the tool bar should respect.
+      This example shows a tool bar with a combination of other elements and styles. The container
+      has a max inline size, which the tool bar should respect.
     </p>
     <div class="container">
       <span>Some text in front</span>
@@ -688,17 +696,23 @@ export const Examples: Story = {
         <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
         <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
         <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-button aria-label="Archive"><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button>
+        <sl-button aria-label="Archive"
+          ><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button
+        >
         <sl-button aria-label="Delete"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
         <sl-tool-bar-divider></sl-tool-bar-divider>
         <sl-button aria-label="Send"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
       `,
       filteringAndSorting = html`
         <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-        <sl-button aria-label="Enter"><sl-icon name="far-arrow-turn-left-down"></sl-icon></sl-button>
+        <sl-button aria-label="Enter"
+          ><sl-icon name="far-arrow-turn-left-down"></sl-icon
+        ></sl-button>
         <sl-tool-bar-divider></sl-tool-bar-divider>
         <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
-        <sl-button aria-label="Sort descending"><sl-icon name="far-arrow-down-wide-short"></sl-icon></sl-button>
+        <sl-button aria-label="Sort descending"
+          ><sl-icon name="far-arrow-down-wide-short"></sl-icon
+        ></sl-button>
 
         <sl-tool-bar-divider></sl-tool-bar-divider>
 
@@ -725,14 +739,24 @@ export const Examples: Story = {
       </style>
       <div class="container">
         <p>
-          This story shows various real-world toolbar configurations: icon-only buttons, menu buttons with icons,
-          buttons with ARIA labels, primary/danger/inverted variants, and toolbar fills such as outline and ghost.
+          This story shows various real-world toolbar configurations: icon-only buttons, menu
+          buttons with icons, buttons with ARIA labels, primary/danger/inverted variants, and
+          toolbar fills such as outline and ghost.
         </p>
         <div class="grid">
-          <sl-tool-bar aria-label="Page options" contained fill="outline" style="inline-size: fit-content">
+          <sl-tool-bar
+            aria-label="Page options"
+            contained
+            fill="outline"
+            style="inline-size: fit-content">
             ${pageOptions}
           </sl-tool-bar>
-          <sl-tool-bar aria-label="Page options" contained inverted fill="outline" style="inline-size: fit-content">
+          <sl-tool-bar
+            aria-label="Page options"
+            contained
+            inverted
+            fill="outline"
+            style="inline-size: fit-content">
             ${pageOptions}
           </sl-tool-bar>
 
@@ -740,18 +764,42 @@ export const Examples: Story = {
             >${options}</sl-tool-bar
           >
 
-          <sl-tool-bar aria-label="Options" contained inverted fill="ghost" style="inline-size: fit-content">
+          <sl-tool-bar
+            aria-label="Options"
+            contained
+            inverted
+            fill="ghost"
+            style="inline-size: fit-content">
             ${options}
           </sl-tool-bar>
 
-          <sl-tool-bar aria-label="Filtering and sorting" fill="ghost" style="inline-size: fit-content">
+          <sl-tool-bar
+            aria-label="Filtering and sorting"
+            fill="ghost"
+            style="inline-size: fit-content">
             ${filteringAndSorting}
           </sl-tool-bar>
 
-          <sl-tool-bar aria-label="Filtering and sorting" inverted fill="ghost" style="inline-size: fit-content">
-            ${filteringAndSorting}
-          </sl-tool-bar>
+          <div
+            style="background: var(--sl-elevation-surface-raised-primary);  padding: var(--sl-size-100); inline-size: fit-content;">
+            <sl-tool-bar
+              aria-label="Filtering and sorting"
+              inverted
+              fill="ghost"
+              style="inline-size: fit-content;">
+              ${filteringAndSorting}
+            </sl-tool-bar>
+          </div>
         </div>
+        <p>
+          This last example has put in a div with extra padding for demonstration purposes. This
+          prevents the white focus outline that overflows the toolbar from being invisible on the
+          white background.
+        </p>
+        <p>
+          Make sure that a toolbar with the inverted variant is on a dark background, because
+          otherwise the focus outline will not be sufficiently visible against the background.
+        </p>
       </div>
     `;
   }
@@ -770,6 +818,10 @@ export const All: Story = {
 
         .container sl-tool-bar {
           flex: 0 1 auto;
+          min-inline-size: 0;
+        }
+
+        .wrapper > div {
           min-inline-size: 0;
         }
       </style>

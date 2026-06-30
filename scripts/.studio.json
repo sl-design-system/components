@@ -18,6 +18,15 @@
       },
       "output": "../packages/tokens/src/deprecated",
       "format": "raw"
+    },
+    "typography-sizing-spacing": {
+      "project": "4bd4e23d-8c0e-48b5-80c1-9ce27bf71839",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "src/tokens/typography-sizing-spacing",
+      "format": "raw"
     }
   }
 }

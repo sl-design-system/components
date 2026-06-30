@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -20,7 +23,7 @@ export type OptionEmphasis = 'subtle' | 'bold';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -37,6 +40,7 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * The emphasis style when selected.
+   *
    * @default 'subtle'
    */
   @property({ reflect: true }) emphasis?: OptionEmphasis;
@@ -59,8 +63,8 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * The value for this option. If not explicitly set, the getter will
-   * return the text content of the option.
+   * The value for this option. If not explicitly set, the getter will return the text content of
+   * the option.
    */
   @property()
   set value(value: T | undefined) {
@@ -90,7 +94,8 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     const nodes =
-      this.shadowRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ?? Array.from(this.childNodes);
+      this.shadowRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ??
+      Array.from(this.childNodes);
 
     return nodes
       .filter(node => node.nodeType === Node.TEXT_NODE)

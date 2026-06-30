@@ -1,4 +1,10 @@
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './scrollbar.scss.js';
 
@@ -9,9 +15,8 @@ declare global {
 }
 
 /**
- * Scrollbar component for custom scrollbars. When in doubt, *always* use
- * the native scrollbar. This component is intended for use in components
- * that require a custom scrollbar, such as the grid.
+ * Scrollbar component for custom scrollbars. When in doubt, _always_ use the native scrollbar. This
+ * component is intended for use in components that require a custom scrollbar, such as the grid.
  *
  * @csspart track - The track of the scrollbar.
  * @csspart thumb - The thumb of the scrollbar.
@@ -48,8 +53,8 @@ export class Scrollbar extends LitElement {
   #trackSize?: number;
 
   /**
-   * The scroll container; either the DOM id of an element within
-   * the same context, or the element itself.
+   * The scroll container; either the DOM id of an element within the same context, or the element
+   * itself.
    */
   @property() scroller?: string | HTMLElement;
 
@@ -105,10 +110,9 @@ export class Scrollbar extends LitElement {
   }
 
   /**
-   * Recalculates the size and position of the thumb. A parent element
-   * can use this method to force a recalculation of the thumb size and
-   * position. This is useful when the contents of the scroller changes,
-   * but not the size of the scroller itself.
+   * Recalculates the size and position of the thumb. A parent element can use this method to force
+   * a recalculation of the thumb size and position. This is useful when the contents of the
+   * scroller changes, but not the size of the scroller itself.
    */
   updateThumbSize(): void {
     if (!this.#scroller) {
@@ -121,7 +125,9 @@ export class Scrollbar extends LitElement {
     this.#scrollerSize = rect[this.vertical ? 'height' : 'width'];
     this.#scrollerContentSize = this.#scroller[this.vertical ? 'scrollHeight' : 'scrollWidth'];
     this.#trackSize = track.getBoundingClientRect()[this.vertical ? 'height' : 'width'];
-    this.#thumbSize = Math.round(this.#trackSize * (this.#scrollerSize / this.#scrollerContentSize));
+    this.#thumbSize = Math.round(
+      this.#trackSize * (this.#scrollerSize / this.#scrollerContentSize)
+    );
     this.#max = this.#trackSize - this.#thumbSize;
 
     this.style.setProperty('--sl-thumb-size', this.#thumbSize + 'px');

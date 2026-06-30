@@ -1,90 +1,936 @@
 {
-  "text": {
-    "avatar": {
-      "initials": {
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "textCase": "{text.typeset.textCase.uppercase}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "$type": "typography"
+  "animation": {
+    "button": {
+      "duration": {
+        "$value": "{animation.duration.normal}",
+        "$type": "text",
+        "$description": "animation.button.duration"
+      },
+      "easing": {
+        "$value": "{animation.easing.ease-in-out}",
+        "$type": "text",
+        "$description": "animation.button.easing"
+      }
+    }
+  },
+  "border": {
+    "width": {
+      "border": {
+        "tab": {
+          "$value": "{border.width.xs}",
+          "$type": "borderWidth"
         },
-        "2xl": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.2xl}",
-            "textCase": "{text.typeset.textCase.uppercase}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.2xl}"
-          },
-          "$type": "typography"
-        },
-        "xl": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.xl}",
-            "textCase": "{text.typeset.textCase.uppercase}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.xl}"
-          },
-          "$type": "typography"
-        },
-        "3xl": {
-          "$value": {
-            "fontSize": "{icon.typeset.fontSize.2xl}",
-            "textCase": "{text.typeset.textCase.uppercase}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.2xl}"
-          },
-          "$type": "typography"
-        },
-        "4xl": {
-          "$value": {
-            "fontSize": "{icon.typeset.fontSize.4xl}",
-            "textCase": "{text.typeset.textCase.uppercase}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.2xl}"
-          },
-          "$type": "typography"
-        },
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.xs}",
-            "textCase": "{text.typeset.textCase.uppercase}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.xs}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "textCase": "{text.typeset.textCase.uppercase}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "$type": "typography"
+        "tabbar": {
+          "$value": "{border.width.xs}",
+          "$type": "borderWidth"
         }
       },
-      "header": {
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "18px"
-          },
-          "$type": "typography"
+      "button": {
+        "ghost": {
+          "$value": "{border.width.sm}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.ghost"
         },
-        "xl": {
+        "link": {
+          "$value": "{border.width.sm}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.link"
+        },
+        "outline": {
+          "$value": "{border.width.sm}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.outline"
+        },
+        "solid": {
+          "$value": "{border.width.sm}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.solid"
+        }
+      },
+      "card": {
+        "border": {
+          "$value": "{border.width.xs}",
+          "$type": "borderWidth"
+        }
+      },
+      "dialog": {
+        "default": {
+          "$value": "{border.width.none}",
+          "$type": "borderWidth"
+        }
+      },
+      "divider": {
+        "$value": "{border.width.xs}",
+        "$type": "borderWidth"
+      },
+      "focusring": {
+        "default": {
+          "$value": "{border.width.sm}",
+          "$type": "borderWidth"
+        },
+        "offset": {
+          "$value": "{border.width.sm}",
+          "$type": "borderWidth"
+        }
+      },
+      "inline-message": {
+        "default": {
+          "$value": "{conceptual.border.width.default}",
+          "$type": "borderWidth"
+        },
+        "start": {
+          "$value": "{border.width.2xl}",
+          "$type": "borderWidth"
+        }
+      },
+      "input": {
+        "border": {
+          "$value": "{conceptual.border.width.default}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.outline"
+        },
+        "none": {
+          "$value": "{border.width.none}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.default"
+        },
+        "option": {
+          "$value": "{border.width.xs}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.outline"
+        }
+      },
+      "popover": {
+        "border": {
+          "$value": "{border.width.xs}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.outline"
+        },
+        "none": {
+          "$value": "{border.width.none}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.default"
+        }
+      },
+      "select": {
+        "listbox": {
+          "$value": "{conceptual.border.width.default}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.default"
+        }
+      },
+      "tooltip": {
+        "border": {
+          "$value": "{border.width.xs}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.outline"
+        },
+        "none": {
+          "$value": "{border.width.none}",
+          "$type": "borderWidth",
+          "$description": "border.width.button.default"
+        }
+      }
+    }
+  },
+  "borderRadius": {
+    "avatar": {
+      "square": {
+        "$value": "{borderRadius.default}",
+        "$type": "borderRadius"
+      }
+    },
+    "badge": {
+      "full": {
+        "$value": "{border.radius.full}",
+        "$type": "borderRadius"
+      }
+    },
+    "button": {
+      "icon-only": {
+        "lg": {
+          "$value": "{border.radius.full}",
+          "$type": "borderRadius",
+          "$description": "borderRadius.button"
+        },
+        "md": {
+          "$value": "{border.radius.full}",
+          "$type": "borderRadius",
+          "$description": "borderRadius.button"
+        },
+        "sm": {
+          "$value": "{border.radius.full}",
+          "$type": "borderRadius",
+          "$description": "borderRadius.button"
+        }
+      },
+      "lg": {
+        "$value": "{border.radius.full}",
+        "$type": "borderRadius",
+        "$description": "borderRadius.button"
+      },
+      "md": {
+        "$value": "{border.radius.full}",
+        "$type": "borderRadius",
+        "$description": "borderRadius.button"
+      },
+      "sm": {
+        "$value": "{border.radius.full}",
+        "$type": "borderRadius",
+        "$description": "borderRadius.button"
+      }
+    },
+    "card": {
+      "default": {
+        "$value": "{borderRadius.default}",
+        "$type": "borderRadius"
+      },
+      "image-margin": {
+        "$value": "{borderRadius.default}",
+        "$type": "borderRadius"
+      }
+    },
+    "checkbox": {
+      "$value": "{border.radius.2xs}",
+      "$type": "borderRadius"
+    },
+    "circle": {
+      "$value": "{border.radius.full}",
+      "$type": "borderRadius",
+      "$description": "borderRadius.button"
+    },
+    "default": {
+      "$value": "{border.radius.2xs}",
+      "$type": "borderRadius",
+      "$description": "borderRadius.button"
+    },
+    "dialog": {
+      "desktop": {
+        "$value": "{borderRadius.default}",
+        "$type": "borderRadius"
+      },
+      "mobile": {
+        "$value": "{border.radius.none}",
+        "$type": "borderRadius"
+      }
+    },
+    "focusring": {
+      "default": {
+        "$value": "{borderRadius.default} + 1",
+        "$type": "borderRadius"
+      },
+      "full": {
+        "$value": "{border.radius.full}",
+        "$type": "borderRadius"
+      }
+    },
+    "inline-message": {
+      "default": {
+        "$value": "{borderRadius.default}",
+        "$type": "borderRadius",
+        "$description": "borderRadius.button"
+      }
+    },
+    "popover": {
+      "default": {
+        "$value": "{borderRadius.default}",
+        "$type": "borderRadius",
+        "$description": "borderRadius.button"
+      }
+    },
+    "select": {
+      "item": {
+        "$value": "{border.radius.xs}",
+        "$type": "borderRadius"
+      },
+      "listbox": {
+        "$value": "{border.radius.sm}",
+        "$type": "borderRadius"
+      }
+    },
+    "skeleton": {
+      "default": {
+        "$value": "{borderRadius.default}",
+        "$type": "borderRadius"
+      }
+    }
+  },
+  "color": {
+    "palette": {
+      "accent": {
+        "50": {
+          "$value": "#E6F1FB",
+          "$type": "color",
+          "$description": "color.palette.accent.50"
+        },
+        "100": {
+          "$value": "#ACD2F5",
+          "$type": "color",
+          "$description": "color.palette.accent.100"
+        },
+        "150": {
+          "$value": "#81BAEF",
+          "$type": "color",
+          "$description": "color.palette.accent.150"
+        },
+        "200": {
+          "$value": "#56A3EA",
+          "$type": "color",
+          "$description": "color.palette.accent.200"
+        },
+        "300": {
+          "$value": "#2B8BE4",
+          "$type": "color",
+          "$description": "color.palette.accent.300"
+        },
+        "400": {
+          "$value": "#0074DF",
+          "$type": "color",
+          "$description": "color.palette.accent.400"
+        },
+        "500": {
+          "$value": "#0060B9",
+          "$type": "color",
+          "$description": "color.palette.accent.500"
+        },
+        "600": {
+          "$value": "#004D94",
+          "$type": "color",
+          "$description": "color.palette.accent.600"
+        },
+        "700": {
+          "$value": "{color.palette.accent.base}",
+          "$type": "color",
+          "$description": "color.palette.accent.700"
+        },
+        "800": {
+          "$value": "#002649",
+          "$type": "color",
+          "$description": "color.palette.accent.800"
+        },
+        "900": {
+          "$value": "#001223",
+          "$type": "color",
+          "$description": "color.palette.accent.900"
+        },
+        "base": {
+          "$value": "#002F62",
+          "$type": "color",
+          "$description": "color.palette.accent.base"
+        }
+      },
+      "black": {
+        "base": {
+          "$value": "{color.palette.primary.800}",
+          "$type": "color",
+          "$description": "color.palette.black.base"
+        }
+      },
+      "danger": {
+        "50": {
+          "$value": "#FBD9DD",
+          "$type": "color",
+          "$description": "color.palette.danger.50"
+        },
+        "100": {
+          "$value": "#F6AFB9",
+          "$type": "color",
+          "$description": "color.palette.danger.100"
+        },
+        "150": {
+          "$value": "#F18694",
+          "$type": "color",
+          "$description": "color.palette.danger.150"
+        },
+        "200": {
+          "$value": "#EC5D70",
+          "$type": "color",
+          "$description": "color.palette.danger.200"
+        },
+        "300": {
+          "$value": "#E8334B",
+          "$type": "color",
+          "$description": "color.palette.danger.300"
+        },
+        "400": {
+          "$value": "{color.palette.danger.base}",
+          "$type": "color",
+          "$description": "color.palette.danger.400"
+        },
+        "500": {
+          "$value": "#BD0820",
+          "$type": "color",
+          "$description": "color.palette.danger.500"
+        },
+        "600": {
+          "$value": "#96071A",
+          "$type": "color",
+          "$description": "color.palette.danger.600"
+        },
+        "700": {
+          "$value": "#700513",
+          "$type": "color",
+          "$description": "color.palette.danger.700"
+        },
+        "800": {
+          "$value": "#4A030D",
+          "$type": "color",
+          "$description": "color.palette.danger.800"
+        },
+        "900": {
+          "$value": "#240206",
+          "$type": "color",
+          "$description": "color.palette.danger.900"
+        },
+        "base": {
+          "$value": "#E30A27",
+          "$type": "color",
+          "$description": "color.palette.danger.base"
+        }
+      },
+      "info": {
+        "50": {
+          "$value": "{color.palette.info.base}",
+          "$type": "color",
+          "$description": "color.palette.info.50"
+        },
+        "100": {
+          "$value": "#ACD2F5",
+          "$type": "color",
+          "$description": "color.palette.info.100"
+        },
+        "150": {
+          "$value": "#81BAEF",
+          "$type": "color",
+          "$description": "color.palette.info.150"
+        },
+        "200": {
+          "$value": "#56A3EA",
+          "$type": "color",
+          "$description": "color.palette.info.200"
+        },
+        "300": {
+          "$value": "#2B8BE4",
+          "$type": "color",
+          "$description": "color.palette.info.300"
+        },
+        "400": {
+          "$value": "#0074DF",
+          "$type": "color",
+          "$description": "color.palette.info.400"
+        },
+        "500": {
+          "$value": "#0060B9",
+          "$type": "color",
+          "$description": "color.palette.info.500"
+        },
+        "600": {
+          "$value": "#004D94",
+          "$type": "color",
+          "$description": "color.palette.info.600"
+        },
+        "700": {
+          "$value": "#002F62",
+          "$type": "color",
+          "$description": "color.palette.info.700"
+        },
+        "800": {
+          "$value": "#002649",
+          "$type": "color",
+          "$description": "color.palette.info.800"
+        },
+        "900": {
+          "$value": "#001223",
+          "$type": "color",
+          "$description": "color.palette.info.900"
+        },
+        "base": {
+          "$value": "#E6F1FB",
+          "$type": "color",
+          "$description": "color.palette.info.base"
+        }
+      },
+      "neutral": {
+        "50": {
+          "$value": "#F2F3F5",
+          "$type": "color",
+          "$description": "color.palette.neutral.50"
+        },
+        "100": {
+          "$value": "#E3E6EA",
+          "$type": "color",
+          "$description": "color.palette.neutral.100"
+        },
+        "150": {
+          "$value": "#D5D9DE",
+          "$type": "color",
+          "$description": "color.palette.neutral.150"
+        },
+        "200": {
+          "$value": "#C7CDD3",
+          "$type": "color",
+          "$description": "color.palette.neutral.200"
+        },
+        "300": {
+          "$value": "#B8C0C8",
+          "$type": "color",
+          "$description": "color.palette.neutral.300"
+        },
+        "400": {
+          "$value": "{color.palette.neutral.base}",
+          "$type": "color",
+          "$description": "color.palette.neutral.400"
+        },
+        "500": {
+          "$value": "#8D959D",
+          "$type": "color",
+          "$description": "color.palette.neutral.500"
+        },
+        "600": {
+          "$value": "#71777D",
+          "$type": "color",
+          "$description": "color.palette.neutral.600"
+        },
+        "700": {
+          "$value": "#54585D",
+          "$type": "color",
+          "$description": "color.palette.neutral.700"
+        },
+        "800": {
+          "$value": "#373A3E",
+          "$type": "color",
+          "$description": "color.palette.neutral.800"
+        },
+        "900": {
+          "$value": "#1B1C1E",
+          "$type": "color",
+          "$description": "color.palette.neutral.900"
+        },
+        "base": {
+          "$value": "#AAB3BD",
+          "$type": "color",
+          "$description": "color.palette.neutral.base"
+        }
+      },
+      "primary": {
+        "50": {
+          "$value": "#E6F1FB",
+          "$type": "color",
+          "$description": "color.palette.primary.50"
+        },
+        "100": {
+          "$value": "#ACD2F5",
+          "$type": "color",
+          "$description": "color.palette.primary.100"
+        },
+        "150": {
+          "$value": "#81BAEF",
+          "$type": "color",
+          "$description": "color.palette.primary.150"
+        },
+        "200": {
+          "$value": "#56A3EA",
+          "$type": "color",
+          "$description": "color.palette.primary.200"
+        },
+        "300": {
+          "$value": "#2B8BE4",
+          "$type": "color",
+          "$description": "color.palette.primary.300"
+        },
+        "400": {
+          "$value": "{color.palette.primary.base}",
+          "$type": "color",
+          "$description": "color.palette.primary.400"
+        },
+        "500": {
+          "$value": "#0060B9",
+          "$type": "color",
+          "$description": "color.palette.primary.500"
+        },
+        "600": {
+          "$value": "#004D94",
+          "$type": "color",
+          "$description": "color.palette.primary.600"
+        },
+        "700": {
+          "$value": "#002F62",
+          "$type": "color",
+          "$description": "color.palette.primary.700"
+        },
+        "800": {
+          "$value": "#002649",
+          "$type": "color",
+          "$description": "color.palette.primary.800"
+        },
+        "900": {
+          "$value": "#001223",
+          "$type": "color",
+          "$description": "color.palette.primary.900"
+        },
+        "base": {
+          "$value": "#0074DF",
+          "$type": "color",
+          "$description": "color.palette.primary.base"
+        }
+      },
+      "success": {
+        "50": {
+          "$value": "#E2F2D7",
+          "$type": "color",
+          "$description": "color.palette.success.50"
+        },
+        "100": {
+          "$value": "#C3E4AC",
+          "$type": "color",
+          "$description": "color.palette.success.100"
+        },
+        "150": {
+          "$value": "#A4D681",
+          "$type": "color",
+          "$description": "color.palette.success.150"
+        },
+        "200": {
+          "$value": "#84C856",
+          "$type": "color",
+          "$description": "color.palette.success.200"
+        },
+        "300": {
+          "$value": "#65BA2B",
+          "$type": "color",
+          "$description": "color.palette.success.300"
+        },
+        "400": {
+          "$value": "{color.palette.success.base}",
+          "$type": "color",
+          "$description": "color.palette.success.400"
+        },
+        "500": {
+          "$value": "#3A8F00",
+          "$type": "color",
+          "$description": "color.palette.success.500"
+        },
+        "600": {
+          "$value": "#2E7200",
+          "$type": "color",
+          "$description": "color.palette.success.600"
+        },
+        "700": {
+          "$value": "#235500",
+          "$type": "color",
+          "$description": "color.palette.success.700"
+        },
+        "800": {
+          "$value": "#173800",
+          "$type": "color",
+          "$description": "color.palette.success.800"
+        },
+        "900": {
+          "$value": "#0B1B00",
+          "$type": "color",
+          "$description": "color.palette.success.900"
+        },
+        "base": {
+          "$value": "#46AC00",
+          "$type": "color",
+          "$description": "color.palette.success.base"
+        }
+      },
+      "transparent": {
+        "base": {
+          "$value": "#00000000",
+          "$type": "color",
+          "$description": "color.palette.transparent.base"
+        }
+      },
+      "warning": {
+        "50": {
+          "$value": "#FFF0D7",
+          "$type": "color",
+          "$description": "color.palette.warning.50"
+        },
+        "100": {
+          "$value": "#FFDFAC",
+          "$type": "color",
+          "$description": "color.palette.warning.100"
+        },
+        "150": {
+          "$value": "#FFCF81",
+          "$type": "color",
+          "$description": "color.palette.warning.150"
+        },
+        "200": {
+          "$value": "#FFBE56",
+          "$type": "color",
+          "$description": "color.palette.warning.200"
+        },
+        "300": {
+          "$value": "#FFAE2B",
+          "$type": "color",
+          "$description": "color.palette.warning.300"
+        },
+        "400": {
+          "$value": "{color.palette.warning.base}",
+          "$type": "color",
+          "$description": "color.palette.warning.400"
+        },
+        "500": {
+          "$value": "#D48300",
+          "$type": "color",
+          "$description": "color.palette.warning.500"
+        },
+        "600": {
+          "$value": "#A96800",
+          "$type": "color",
+          "$description": "color.palette.warning.600"
+        },
+        "700": {
+          "$value": "#7E4E00",
+          "$type": "color",
+          "$description": "color.palette.warning.700"
+        },
+        "800": {
+          "$value": "#533300",
+          "$type": "color",
+          "$description": "color.palette.warning.800"
+        },
+        "900": {
+          "$value": "#281900",
+          "$type": "color",
+          "$description": "color.palette.warning.900"
+        },
+        "base": {
+          "$value": "#FF9D00",
+          "$type": "color",
+          "$description": "color.palette.warning.base"
+        }
+      },
+      "white": {
+        "base": {
+          "$value": "#ffffff",
+          "$type": "color",
+          "$description": "color.palette.white.base"
+        }
+      }
+    }
+  },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "$value": "{border.width.sm}",
+          "$type": "borderWidth",
+          "$description": "Conceptual Theme Border Token"
+        }
+      }
+    }
+  },
+  "icon": {
+    "style": {
+      "outline": {
+        "$value": "{text.typeset.fontWeight.icon-regular}",
+        "$type": "fontWeight"
+      },
+      "solid": {
+        "$value": "{text.typeset.fontWeight.icon-solid}",
+        "$type": "fontWeight"
+      }
+    }
+  },
+  "opacity": {
+    "spinner": {
+      "shadow": {
+        "$value": "{opacity.600}",
+        "$type": "opacity"
+      }
+    }
+  },
+  "size": {
+    "accordion": {
+      "icon": {
+        "height": {
+          "$value": "28",
+          "$type": "size"
+        }
+      }
+    },
+    "inline-message": {
+      "start": {
+        "$value": "{size.2xs}",
+        "$type": "size"
+      }
+    },
+    "select": {
+      "indicator": {
+        "$value": "{size.3xs}",
+        "$type": "size"
+      }
+    }
+  },
+  "space": {
+    "accordion": {
+      "block": {
+        "$value": "{space.lg}",
+        "$type": "space"
+      },
+      "content": {
+        "block": {
+          "$value": "{space.lg}",
+          "$type": "space"
+        },
+        "inline": {
+          "$value": "{space.3xl}",
+          "$type": "space"
+        }
+      },
+      "gap": {
+        "$value": "{space.md}",
+        "$type": "space"
+      },
+      "inline": {
+        "$value": "{space.3xl}",
+        "$type": "space"
+      },
+      "title": {
+        "block": {
+          "$value": "{space.lg}",
+          "$type": "space"
+        },
+        "gap": {
+          "$value": "{space.sm}",
+          "$type": "space"
+        },
+        "inline": {
+          "$value": "{space.sm}",
+          "$type": "space"
+        }
+      }
+    },
+    "card": {
+      "content": {
+        "block": {
+          "$value": "{space.xl}",
+          "$type": "space"
+        },
+        "inline": {
+          "$value": "{space.xl}",
+          "$type": "space"
+        }
+      },
+      "gap": {
+        "content": {
+          "block": {
+            "$value": "{space.lg}",
+            "$type": "space"
+          },
+          "inline": {
+            "$value": "{space.sm}",
+            "$type": "space"
+          }
+        },
+        "header": {
+          "block": {
+            "$value": "{space.none}",
+            "$type": "space"
+          },
+          "inline": {
+            "$value": "{space.none}",
+            "$type": "space"
+          }
+        }
+      },
+      "horizontal": {
+        "block": {
+          "$value": "{space.xl}",
+          "$type": "space"
+        },
+        "gap": {
+          "$value": "{space.none}",
+          "$type": "space"
+        },
+        "inline": {
+          "$value": "{space.none}",
+          "$type": "space"
+        }
+      },
+      "media": {
+        "full": {
+          "$value": "{space.none}",
+          "$type": "space"
+        },
+        "margins": {
+          "$value": "{space.sm}",
+          "$type": "space"
+        }
+      },
+      "vertical": {
+        "block": {
+          "$value": "{space.xl}",
+          "$type": "space"
+        },
+        "gap": {
+          "$value": "{space.none}",
+          "$type": "space"
+        },
+        "inline": {
+          "$value": "{space.none}",
+          "$type": "space"
+        }
+      }
+    },
+    "popover": {
+      "arrow": {
+        "offset": {
+          "$value": "{space.lg}",
+          "$type": "space"
+        }
+      },
+      "offset": {
+        "$value": "{space.xs}",
+        "$type": "space"
+      }
+    },
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "$value": "{space.sm}",
+          "$type": "space"
+        }
+      }
+    }
+  },
+  "text": {
+    "accordion": {
+      "body": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.md}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
+        },
+        "$type": "typography"
+      },
+      "title": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.xl}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
+        },
+        "$type": "typography"
+      }
+    },
+    "avatar": {
+      "header": {
+        "2xl": {
           "$value": {
             "fontSize": "{text.typeset.fontSize.lg}",
             "textCase": "{text.typeset.textCase.none}",
@@ -94,13 +940,13 @@
           },
           "$type": "typography"
         },
-        "lg": {
+        "3xl": {
           "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
+            "fontSize": "{text.typeset.fontSize.lg}",
             "textCase": "{text.typeset.textCase.none}",
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "18px"
+            "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "$type": "typography"
         },
@@ -114,23 +960,13 @@
           },
           "$type": "typography"
         },
-        "2xl": {
+        "lg": {
           "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
+            "fontSize": "{text.typeset.fontSize.md}",
             "textCase": "{text.typeset.textCase.none}",
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "$type": "typography"
-        },
-        "3xl": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
+            "lineHeight": "18px"
           },
           "$type": "typography"
         },
@@ -143,33 +979,29 @@
             "lineHeight": "18px"
           },
           "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "18px"
+          },
+          "$type": "typography"
+        },
+        "xl": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "$type": "typography"
         }
       },
       "icon": {
-        "xl": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.2xl}",
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{icon.style.outline}"
-          },
-          "$type": "typography"
-        },
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{icon.style.outline}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.xl}",
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{icon.style.outline}"
-          },
-          "$type": "typography"
-        },
         "2xl": {
           "$value": {
             "fontSize": "{icon.typeset.fontSize.2xl}",
@@ -194,6 +1026,22 @@
           },
           "$type": "typography"
         },
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.xl}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{icon.style.outline}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{icon.style.outline}"
+          },
+          "$type": "typography"
+        },
         "sm": {
           "$value": {
             "fontSize": "{text.typeset.fontSize.md}",
@@ -201,12 +1049,102 @@
             "fontWeight": "{icon.style.outline}"
           },
           "$type": "typography"
+        },
+        "xl": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.2xl}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{icon.style.outline}"
+          },
+          "$type": "typography"
         }
       },
-      "subheader": {
+      "initials": {
+        "2xl": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.2xl}",
+            "textCase": "{text.typeset.textCase.uppercase}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.2xl}"
+          },
+          "$type": "typography"
+        },
+        "3xl": {
+          "$value": {
+            "fontSize": "{icon.typeset.fontSize.2xl}",
+            "textCase": "{text.typeset.textCase.uppercase}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.2xl}"
+          },
+          "$type": "typography"
+        },
+        "4xl": {
+          "$value": {
+            "fontSize": "{icon.typeset.fontSize.4xl}",
+            "textCase": "{text.typeset.textCase.uppercase}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.2xl}"
+          },
+          "$type": "typography"
+        },
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.uppercase}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "$type": "typography"
+        },
         "md": {
           "$value": {
             "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.uppercase}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.xs}",
+            "textCase": "{text.typeset.textCase.uppercase}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.xs}"
+          },
+          "$type": "typography"
+        },
+        "xl": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.xl}",
+            "textCase": "{text.typeset.textCase.uppercase}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.xl}"
+          },
+          "$type": "typography"
+        }
+      },
+      "subheader": {
+        "2xl": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "18px"
+          },
+          "$type": "typography"
+        },
+        "3xl": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
             "textCase": "{text.typeset.textCase.none}",
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
@@ -224,7 +1162,7 @@
           },
           "$type": "typography"
         },
-        "2xl": {
+        "lg": {
           "$value": {
             "fontSize": "{text.typeset.fontSize.md}",
             "textCase": "{text.typeset.textCase.none}",
@@ -234,9 +1172,9 @@
           },
           "$type": "typography"
         },
-        "lg": {
+        "md": {
           "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
+            "fontSize": "{text.typeset.fontSize.sm}",
             "textCase": "{text.typeset.textCase.none}",
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
@@ -251,16 +1189,6 @@
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.regular}",
             "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "$type": "typography"
-        },
-        "3xl": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "18px"
           },
           "$type": "typography"
         },
@@ -276,9 +1204,695 @@
         }
       }
     },
+    "body": {
+      "lg": {
+        "bold": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.lg.bold"
+        },
+        "demibold": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.lg.demibold"
+        },
+        "normal": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.lg.normal"
+        }
+      },
+      "md": {
+        "bold": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "letterSpacing": "{text.typeset.letterSpacing.lg}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.md.bold"
+        },
+        "demibold": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.md.demibold"
+        },
+        "normal": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.md.normal"
+        }
+      },
+      "sm": {
+        "bold": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.lg}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.sm.bold"
+        },
+        "demibold": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.sm.demibold"
+        },
+        "normal": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
+          },
+          "$type": "typography",
+          "$description": "text.typeset.body.sm.normal"
+        }
+      }
+    },
+    "breadcrumb": {
+      "current": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{button.label.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}"
+        },
+        "$type": "typography"
+      },
+      "disabled": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{button.label.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}"
+        },
+        "$type": "typography"
+      },
+      "link": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{button.label.md}",
+          "textDecoration": "{text.typeset.textDecoration.underline}"
+        },
+        "$type": "typography"
+      }
+    },
+    "button": {
+      "fontIcon": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.xs}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
+          },
+          "$type": "typography"
+        }
+      },
+      "link": {
+        "active": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.lg}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.md}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "$type": "typography"
+          },
+          "sm": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.sm}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "$type": "typography"
+          }
+        },
+        "disabled": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.lg}",
+              "textDecoration": "{text.typeset.textDecoration.none}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.md}",
+              "textDecoration": "{text.typeset.textDecoration.none}"
+            },
+            "$type": "typography"
+          },
+          "sm": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.sm}",
+              "textDecoration": "{text.typeset.textDecoration.none}"
+            },
+            "$type": "typography"
+          }
+        },
+        "hover": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.lg}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.md}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "$type": "typography"
+          },
+          "sm": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.sm}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "$type": "typography"
+          }
+        },
+        "idle": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.lg}",
+              "textDecoration": "{text.typeset.textDecoration.none}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.md}",
+              "textDecoration": "{text.typeset.textDecoration.none}"
+            },
+            "$type": "typography"
+          },
+          "sm": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{button.label.sm}",
+              "textDecoration": "{text.typeset.textDecoration.none}"
+            },
+            "$type": "typography"
+          }
+        }
+      },
+      "text": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.lg}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.md}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.sm}"
+          },
+          "$type": "typography"
+        }
+      }
+    },
+    "card": {
+      "body": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.md}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
+        },
+        "$type": "typography"
+      },
+      "subtitle": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.lg}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
+        },
+        "$type": "typography"
+      },
+      "title": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.xl}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
+        },
+        "$type": "typography"
+      }
+    },
+    "dialog": {
+      "heading": {
+        "$value": {
+          "fontSize": "{icon.typeset.fontSize.xl}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.2xl}"
+        },
+        "$type": "typography"
+      },
+      "subheading": {
+        "$value": {
+          "fontSize": "{icon.typeset.fontSize.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.md}"
+        },
+        "$type": "typography"
+      }
+    },
+    "heading": {
+      "0": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.4xl}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.4xl}",
+          "letterSpacing": "{text.typeset.letterSpacing.xs}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
+        },
+        "$type": "typography",
+        "$description": "text.typeset.heading.0"
+      },
+      "1": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.3xl}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.3xl}",
+          "letterSpacing": "{text.typeset.letterSpacing.sm}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
+        },
+        "$type": "typography",
+        "$description": "text.typeset.heading.1"
+      },
+      "2": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.2xl}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.2xl}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
+        },
+        "$type": "typography",
+        "$description": "text.typeset.heading.2"
+      },
+      "3": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.xl}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
+        },
+        "$type": "typography",
+        "$description": "text.typeset.heading.3"
+      },
+      "4": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.lg}",
+          "textCase": "{text.typeset.textCase.none}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
+          "letterSpacing": "{text.typeset.letterSpacing.lg}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
+        },
+        "$type": "typography",
+        "$description": "text.typeset.heading.4"
+      }
+    },
+    "href": {
+      "active": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.lg}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.md}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.sm}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "$type": "typography"
+        }
+      },
+      "disabled": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.lg}",
+            "textDecoration": "{text.typeset.textDecoration.none}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.sm}",
+            "textDecoration": "{text.typeset.textDecoration.none}"
+          },
+          "$type": "typography"
+        }
+      },
+      "hover": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.lg}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.md}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.sm}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "$type": "typography"
+        }
+      },
+      "idle": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.lg}",
+            "textDecoration": "{text.typeset.textDecoration.none}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.md}",
+            "textDecoration": "{text.typeset.textDecoration.none}"
+          },
+          "$type": "typography"
+        },
+        "sm": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{button.label.sm}",
+            "textDecoration": "{text.typeset.textDecoration.none}"
+          },
+          "$type": "typography"
+        }
+      },
+      "lg": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.lg}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{button.label.lg}",
+          "textDecoration": "{text.typeset.textDecoration.underline}"
+        },
+        "$type": "typography"
+      },
+      "md": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{button.label.md}",
+          "textDecoration": "{text.typeset.textDecoration.underline}"
+        },
+        "$type": "typography"
+      },
+      "sm": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.sm}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{button.label.sm}",
+          "textDecoration": "{text.typeset.textDecoration.underline}"
+        },
+        "$type": "typography"
+      }
+    },
+    "icon": {
+      "font": {
+        "icon": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.lg}",
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.sm}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xs}"
+            },
+            "$type": "typography"
+          },
+          "sm": {
+            "$value": {
+              "fontSize": "13",
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xxs}"
+            },
+            "$type": "typography"
+          }
+        }
+      }
+    },
     "input": {
       "fieldLabel": {
-        "tag": {
+        "hint": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}"
+            },
+            "$type": "typography",
+            "$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+          },
           "md": {
             "$value": {
               "fontSize": "{text.typeset.fontSize.md}",
@@ -288,16 +1902,6 @@
             },
             "$type": "typography",
             "$description": "UPDATED - Line height md from 22px to 20px"
-          },
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.lg}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.lg}"
-            },
-            "$type": "typography",
-            "$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
           },
           "sm": {
             "$value": {
@@ -321,7 +1925,7 @@
             "$type": "typography",
             "$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
           },
-          "sm": {
+          "md": {
             "$value": {
               "fontSize": "{text.typeset.fontSize.md}",
               "fontFamily": "{text.typeset.fontFamily.body}",
@@ -331,7 +1935,7 @@
             "$type": "typography",
             "$description": "UPDATED - Line height md from 22px to 20px"
           },
-          "md": {
+          "sm": {
             "$value": {
               "fontSize": "{text.typeset.fontSize.md}",
               "fontFamily": "{text.typeset.fontFamily.body}",
@@ -342,16 +1946,16 @@
             "$description": "UPDATED - Line height md from 22px to 20px"
           }
         },
-        "hint": {
-          "sm": {
+        "tag": {
+          "lg": {
             "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
+              "fontSize": "{text.typeset.fontSize.lg}",
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.md}"
+              "lineHeight": "{text.typeset.lineHeight.lg}"
             },
             "$type": "typography",
-            "$description": "UPDATED - Line height md from 22px to 20px"
+            "$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
           },
           "md": {
             "$value": {
@@ -363,7 +1967,7 @@
             "$type": "typography",
             "$description": "UPDATED - Line height md from 22px to 20px"
           },
-          "lg": {
+          "sm": {
             "$value": {
               "fontSize": "{text.typeset.fontSize.md}",
               "fontFamily": "{text.typeset.fontFamily.body}",
@@ -371,8 +1975,83 @@
               "lineHeight": "{text.typeset.lineHeight.md}"
             },
             "$type": "typography",
-            "$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+            "$description": "UPDATED - Line height md from 22px to 20px"
           }
+        }
+      },
+      "helper": {
+        "fontIcon": {
+          "lg": {
+            "$value": {
+              "fontSize": "18",
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.md}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "15",
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.sm}"
+            },
+            "$type": "typography"
+          }
+        },
+        "text": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}"
+            },
+            "$type": "typography",
+            "$description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "sm": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}"
+            },
+            "$type": "typography",
+            "$description": "UPDATED - Line height md from 22px to 20px"
+          }
+        }
+      },
+      "option": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.lg}"
+          },
+          "$type": "typography",
+          "$description": "Is use in Radio and Checkbox"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "$type": "typography",
+          "$description": "Is use in Radio and Checkbox"
         }
       },
       "switch": {
@@ -388,22 +2067,22 @@
               "$type": "typography",
               "$description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
             },
-            "sm": {
-              "$value": {
-                "fontSize": "{text.typeset.fontSize.md}",
-                "fontFamily": "{text.typeset.fontFamily.body}",
-                "fontWeight": "{text.typeset.fontWeight.demibold}",
-                "lineHeight": "{text.typeset.lineHeight.sm}"
-              },
-              "$type": "typography",
-              "$description": "UPDATED - Line height md from 22px to 20px"
-            },
             "md": {
               "$value": {
                 "fontSize": "{text.typeset.fontSize.lg}",
                 "fontFamily": "{text.typeset.fontFamily.body}",
                 "fontWeight": "{text.typeset.fontWeight.demibold}",
                 "lineHeight": "{text.typeset.lineHeight.lg}"
+              },
+              "$type": "typography",
+              "$description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "sm": {
+              "$value": {
+                "fontSize": "{text.typeset.fontSize.md}",
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.demibold}",
+                "lineHeight": "{text.typeset.lineHeight.sm}"
               },
               "$type": "typography",
               "$description": "UPDATED - Line height md from 22px to 20px"
@@ -443,81 +2122,6 @@
           }
         }
       },
-      "helper": {
-        "text": {
-          "sm": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.md}"
-            },
-            "$type": "typography",
-            "$description": "UPDATED - Line height md from 22px to 20px"
-          },
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.md}"
-            },
-            "$type": "typography"
-          },
-          "md": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.md}"
-            },
-            "$type": "typography",
-            "$description": "UPDATED - Line height md from 22px to 20px"
-          }
-        },
-        "fontIcon": {
-          "md": {
-            "$value": {
-              "fontSize": "15",
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-              "lineHeight": "{text.typeset.lineHeight.sm}"
-            },
-            "$type": "typography"
-          },
-          "lg": {
-            "$value": {
-              "fontSize": "18",
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-              "lineHeight": "{text.typeset.lineHeight.md}"
-            },
-            "$type": "typography"
-          }
-        }
-      },
-      "option": {
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.lg}"
-          },
-          "$type": "typography",
-          "$description": "Is use in Radio and Checkbox"
-        },
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "$type": "typography",
-          "$description": "Is use in Radio and Checkbox"
-        }
-      },
       "textField": {
         "fontIcon": {
           "lg": {
@@ -540,6 +2144,15 @@
           }
         },
         "text": {
+          "lg": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.lg}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}"
+            },
+            "$type": "typography"
+          },
           "md": {
             "$value": {
               "fontSize": "{text.typeset.fontSize.md}",
@@ -549,7 +2162,52 @@
             },
             "$type": "typography",
             "$description": "UPDATED - Line height md from 22px to 20px"
+          }
+        }
+      }
+    },
+    "list": {
+      "sm": {
+        "normal": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "textDecoration": "list",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
           },
+          "$type": "typography"
+        }
+      }
+    },
+    "popover": {
+      "text": {
+        "text": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "$type": "typography"
+        },
+        "title": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "$type": "typography"
+        }
+      }
+    },
+    "select": {
+      "selectbox": {
+        "text": {
           "lg": {
             "$value": {
               "fontSize": "{text.typeset.fontSize.lg}",
@@ -558,7 +2216,101 @@
               "lineHeight": "{text.typeset.lineHeight.lg}"
             },
             "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{text.typeset.fontSize.md}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}"
+            },
+            "$type": "typography",
+            "$description": "UPDATED - Line height md from 22px to 20px"
           }
+        },
+        "title": {
+          "lg": {
+            "$value": {
+              "fontSize": "{icon.typeset.fontSize.sm}",
+              "textCase": "{text.typeset.textCase.uppercase}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xs}"
+            },
+            "$type": "typography"
+          },
+          "md": {
+            "$value": {
+              "fontSize": "{icon.typeset.fontSize.xs}",
+              "textCase": "{text.typeset.textCase.uppercase}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xxs}"
+            },
+            "$type": "typography"
+          }
+        }
+      }
+    },
+    "tab": {
+      "subtitle": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}"
+        },
+        "$type": "typography"
+      },
+      "title": {
+        "$value": {
+          "fontSize": "{text.typeset.fontSize.lg}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.md}"
+        },
+        "$type": "typography"
+      }
+    },
+    "tag": {
+      "close": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "$type": "typography"
+        }
+      },
+      "label": {
+        "lg": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "$type": "typography"
+        },
+        "md": {
+          "$value": {
+            "fontSize": "{text.typeset.fontSize.md}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "$type": "typography"
         }
       }
     },
@@ -582,78 +2334,6 @@
           },
           "$type": "typography"
         }
-      }
-    },
-    "heading": {
-      "2": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.2xl}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.2xl}",
-          "letterSpacing": "{text.typeset.letterSpacing.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-        },
-        "$type": "typography",
-        "$description": "text.typeset.heading.2"
-      },
-      "1": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.3xl}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.3xl}",
-          "letterSpacing": "{text.typeset.letterSpacing.sm}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-        },
-        "$type": "typography",
-        "$description": "text.typeset.heading.1"
-      },
-      "0": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.4xl}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.4xl}",
-          "letterSpacing": "{text.typeset.letterSpacing.xs}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-        },
-        "$type": "typography",
-        "$description": "text.typeset.heading.0"
-      },
-      "4": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.lg}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.lg}",
-          "letterSpacing": "{text.typeset.letterSpacing.lg}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-        },
-        "$type": "typography",
-        "$description": "text.typeset.heading.4"
-      },
-      "3": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.xl}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.xl}",
-          "letterSpacing": "{text.typeset.letterSpacing.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-        },
-        "$type": "typography",
-        "$description": "text.typeset.heading.3"
       }
     },
     "typeset": {
@@ -680,1633 +2360,6 @@
           "$type": "fontWeight"
         }
       }
-    },
-    "button": {
-      "link": {
-        "idle": {
-          "md": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.md}",
-              "textDecoration": "{text.typeset.textDecoration.none}"
-            },
-            "$type": "typography"
-          },
-          "sm": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.sm}",
-              "textDecoration": "{text.typeset.textDecoration.none}"
-            },
-            "$type": "typography"
-          },
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.lg}",
-              "textDecoration": "{text.typeset.textDecoration.none}"
-            },
-            "$type": "typography"
-          }
-        },
-        "disabled": {
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.lg}",
-              "textDecoration": "{text.typeset.textDecoration.none}"
-            },
-            "$type": "typography"
-          },
-          "sm": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.sm}",
-              "textDecoration": "{text.typeset.textDecoration.none}"
-            },
-            "$type": "typography"
-          },
-          "md": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.md}",
-              "textDecoration": "{text.typeset.textDecoration.none}"
-            },
-            "$type": "typography"
-          }
-        },
-        "active": {
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.lg}",
-              "textDecoration": "{text.typeset.textDecoration.underline}"
-            },
-            "$type": "typography"
-          },
-          "md": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.md}",
-              "textDecoration": "{text.typeset.textDecoration.underline}"
-            },
-            "$type": "typography"
-          },
-          "sm": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.sm}",
-              "textDecoration": "{text.typeset.textDecoration.underline}"
-            },
-            "$type": "typography"
-          }
-        },
-        "hover": {
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.lg}",
-              "textDecoration": "{text.typeset.textDecoration.underline}"
-            },
-            "$type": "typography"
-          },
-          "sm": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.sm}",
-              "textDecoration": "{text.typeset.textDecoration.underline}"
-            },
-            "$type": "typography"
-          },
-          "md": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{button.label.md}",
-              "textDecoration": "{text.typeset.textDecoration.underline}"
-            },
-            "$type": "typography"
-          }
-        }
-      },
-      "fontIcon": {
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "$type": "typography"
-        },
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.xs}"
-          },
-          "$type": "typography"
-        },
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.xxs}"
-          },
-          "$type": "typography"
-        }
-      },
-      "text": {
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.sm}"
-          },
-          "$type": "typography"
-        },
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.md}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.lg}"
-          },
-          "$type": "typography"
-        }
-      }
-    },
-    "href": {
-      "active": {
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.lg}",
-            "textDecoration": "{text.typeset.textDecoration.underline}"
-          },
-          "$type": "typography"
-        },
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.md}",
-            "textDecoration": "{text.typeset.textDecoration.underline}"
-          },
-          "$type": "typography"
-        },
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.sm}",
-            "textDecoration": "{text.typeset.textDecoration.underline}"
-          },
-          "$type": "typography"
-        }
-      },
-      "disabled": {
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}"
-          },
-          "$type": "typography"
-        },
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.sm}",
-            "textDecoration": "{text.typeset.textDecoration.none}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.lg}",
-            "textDecoration": "{text.typeset.textDecoration.none}"
-          },
-          "$type": "typography"
-        }
-      },
-      "idle": {
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.sm}",
-            "textDecoration": "{text.typeset.textDecoration.none}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.lg}",
-            "textDecoration": "{text.typeset.textDecoration.none}"
-          },
-          "$type": "typography"
-        },
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}"
-          },
-          "$type": "typography"
-        }
-      },
-      "hover": {
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.md}",
-            "textDecoration": "{text.typeset.textDecoration.underline}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.lg}",
-            "textDecoration": "{text.typeset.textDecoration.underline}"
-          },
-          "$type": "typography"
-        },
-        "sm": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{button.label.sm}",
-            "textDecoration": "{text.typeset.textDecoration.underline}"
-          },
-          "$type": "typography"
-        }
-      },
-      "sm": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.sm}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{button.label.sm}",
-          "textDecoration": "{text.typeset.textDecoration.underline}"
-        },
-        "$type": "typography"
-      },
-      "md": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.md}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{button.label.md}",
-          "textDecoration": "{text.typeset.textDecoration.underline}"
-        },
-        "$type": "typography"
-      },
-      "lg": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.lg}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{button.label.lg}",
-          "textDecoration": "{text.typeset.textDecoration.underline}"
-        },
-        "$type": "typography"
-      }
-    },
-    "list": {
-      "sm": {
-        "normal": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "list",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
-          },
-          "$type": "typography"
-        }
-      }
-    },
-    "body": {
-      "md": {
-        "bold": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "letterSpacing": "{text.typeset.letterSpacing.lg}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.md.bold"
-        },
-        "normal": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.md.normal"
-        },
-        "demibold": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.md}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.md.demibold"
-        }
-      },
-      "sm": {
-        "demibold": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.sm.demibold"
-        },
-        "bold": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "letterSpacing": "{text.typeset.letterSpacing.lg}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.sm.bold"
-        },
-        "normal": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.sm}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.sm.normal"
-        }
-      },
-      "lg": {
-        "bold": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.lg.bold"
-        },
-        "normal": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.lg.normal"
-        },
-        "demibold": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.lg}",
-            "textCase": "{text.typeset.textCase.none}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.lg}",
-            "letterSpacing": "{text.typeset.letterSpacing.md}",
-            "textDecoration": "{text.typeset.textDecoration.none}",
-            "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
-          },
-          "$type": "typography",
-          "$description": "text.typeset.body.lg.demibold"
-        }
-      }
-    },
-    "breadcrumb": {
-      "disabled": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.md}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{button.label.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}"
-        },
-        "$type": "typography"
-      },
-      "current": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.md}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{button.label.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}"
-        },
-        "$type": "typography"
-      },
-      "link": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.md}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{button.label.md}",
-          "textDecoration": "{text.typeset.textDecoration.underline}"
-        },
-        "$type": "typography"
-      }
-    },
-    "tag": {
-      "close": {
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "$type": "typography"
-        }
-      },
-      "label": {
-        "md": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "$type": "typography"
-        },
-        "lg": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "$type": "typography"
-        }
-      }
-    },
-    "dialog": {
-      "subheading": {
-        "$value": {
-          "fontSize": "{icon.typeset.fontSize.md}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.md}"
-        },
-        "$type": "typography"
-      },
-      "heading": {
-        "$value": {
-          "fontSize": "{icon.typeset.fontSize.xl}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.2xl}"
-        },
-        "$type": "typography"
-      }
-    },
-    "card": {
-      "subtitle": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.lg}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.lg}",
-          "letterSpacing": "{text.typeset.letterSpacing.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}"
-        },
-        "$type": "typography"
-      },
-      "body": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.md}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.md}",
-          "letterSpacing": "{text.typeset.letterSpacing.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
-        },
-        "$type": "typography"
-      },
-      "title": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.xl}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.xl}",
-          "letterSpacing": "{text.typeset.letterSpacing.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-        },
-        "$type": "typography"
-      }
-    },
-    "select": {
-      "selectbox": {
-        "title": {
-          "lg": {
-            "$value": {
-              "fontSize": "{icon.typeset.fontSize.sm}",
-              "textCase": "{text.typeset.textCase.uppercase}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xs}"
-            },
-            "$type": "typography"
-          },
-          "md": {
-            "$value": {
-              "fontSize": "{icon.typeset.fontSize.xs}",
-              "textCase": "{text.typeset.textCase.uppercase}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xxs}"
-            },
-            "$type": "typography"
-          }
-        },
-        "text": {
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.lg}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.lg}"
-            },
-            "$type": "typography"
-          },
-          "md": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.md}"
-            },
-            "$type": "typography",
-            "$description": "UPDATED - Line height md from 22px to 20px"
-          }
-        }
-      }
-    },
-    "popover": {
-      "text": {
-        "title": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "$type": "typography"
-        },
-        "text": {
-          "$value": {
-            "fontSize": "{text.typeset.fontSize.md}",
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "$type": "typography"
-        }
-      }
-    },
-    "accordion": {
-      "title": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.xl}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.xl}",
-          "letterSpacing": "{text.typeset.letterSpacing.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}"
-        },
-        "$type": "typography"
-      },
-      "body": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.md}",
-          "textCase": "{text.typeset.textCase.none}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.md}",
-          "letterSpacing": "{text.typeset.letterSpacing.md}",
-          "textDecoration": "{text.typeset.textDecoration.none}",
-          "paragraphSpacing": "{text.typeset.paragraphSpacing.md}"
-        },
-        "$type": "typography"
-      }
-    },
-    "tab": {
-      "subtitle": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.md}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
-          "lineHeight": "{text.typeset.lineHeight.md}"
-        },
-        "$type": "typography"
-      },
-      "title": {
-        "$value": {
-          "fontSize": "{text.typeset.fontSize.lg}",
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
-          "lineHeight": "{text.typeset.lineHeight.md}"
-        },
-        "$type": "typography"
-      }
-    },
-    "icon": {
-      "font": {
-        "icon": {
-          "lg": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.lg}",
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.sm}"
-            },
-            "$type": "typography"
-          },
-          "sm": {
-            "$value": {
-              "fontSize": "13",
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xxs}"
-            },
-            "$type": "typography"
-          },
-          "md": {
-            "$value": {
-              "fontSize": "{text.typeset.fontSize.md}",
-              "fontFamily": "{text.typeset.fontFamily.icon}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xs}"
-            },
-            "$type": "typography"
-          }
-        }
-      }
-    }
-  },
-  "border": {
-    "width": {
-      "input": {
-        "none": {
-          "$value": "{border.width.none}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.default"
-        },
-        "option": {
-          "$value": "{border.width.xs}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.outline"
-        },
-        "border": {
-          "$value": "{conceptual.border.width.default}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.outline"
-        }
-      },
-      "inline-message": {
-        "start": {
-          "$value": "{border.width.2xl}",
-          "$type": "borderWidth"
-        },
-        "default": {
-          "$value": "{conceptual.border.width.default}",
-          "$type": "borderWidth"
-        }
-      },
-      "border": {
-        "tab": {
-          "$value": "{border.width.xs}",
-          "$type": "borderWidth"
-        },
-        "tabbar": {
-          "$value": "{border.width.xs}",
-          "$type": "borderWidth"
-        }
-      },
-      "button": {
-        "solid": {
-          "$value": "{border.width.sm}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.solid"
-        },
-        "link": {
-          "$value": "{border.width.sm}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.link"
-        },
-        "outline": {
-          "$value": "{border.width.sm}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.outline"
-        },
-        "ghost": {
-          "$value": "{border.width.sm}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.ghost"
-        }
-      },
-      "divider": {
-        "$value": "{border.width.xs}",
-        "$type": "borderWidth"
-      },
-      "card": {
-        "border": {
-          "$value": "{border.width.xs}",
-          "$type": "borderWidth"
-        }
-      },
-      "focusring": {
-        "default": {
-          "$value": "{border.width.sm}",
-          "$type": "borderWidth"
-        },
-        "offset": {
-          "$value": "{border.width.sm}",
-          "$type": "borderWidth"
-        }
-      },
-      "popover": {
-        "border": {
-          "$value": "{border.width.xs}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.outline"
-        },
-        "none": {
-          "$value": "{border.width.none}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.default"
-        }
-      },
-      "select": {
-        "listbox": {
-          "$value": "{conceptual.border.width.default}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.default"
-        }
-      },
-      "tooltip": {
-        "border": {
-          "$value": "{border.width.xs}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.outline"
-        },
-        "none": {
-          "$value": "{border.width.none}",
-          "$type": "borderWidth",
-          "$description": "border.width.button.default"
-        }
-      },
-      "dialog": {
-        "default": {
-          "$value": "{border.width.none}",
-          "$type": "borderWidth"
-        }
-      }
-    }
-  },
-  "color": {
-    "palette": {
-      "neutral": {
-        "150": {
-          "$value": "#D5D9DE",
-          "$type": "color",
-          "$description": "color.palette.neutral.150"
-        },
-        "400": {
-          "$value": "{color.palette.neutral.base}",
-          "$type": "color",
-          "$description": "color.palette.neutral.400"
-        },
-        "500": {
-          "$value": "#8D959D",
-          "$type": "color",
-          "$description": "color.palette.neutral.500"
-        },
-        "700": {
-          "$value": "#54585D",
-          "$type": "color",
-          "$description": "color.palette.neutral.700"
-        },
-        "100": {
-          "$value": "#E3E6EA",
-          "$type": "color",
-          "$description": "color.palette.neutral.100"
-        },
-        "200": {
-          "$value": "#C7CDD3",
-          "$type": "color",
-          "$description": "color.palette.neutral.200"
-        },
-        "800": {
-          "$value": "#373A3E",
-          "$type": "color",
-          "$description": "color.palette.neutral.800"
-        },
-        "900": {
-          "$value": "#1B1C1E",
-          "$type": "color",
-          "$description": "color.palette.neutral.900"
-        },
-        "base": {
-          "$value": "#AAB3BD",
-          "$type": "color",
-          "$description": "color.palette.neutral.base"
-        },
-        "600": {
-          "$value": "#71777D",
-          "$type": "color",
-          "$description": "color.palette.neutral.600"
-        },
-        "300": {
-          "$value": "#B8C0C8",
-          "$type": "color",
-          "$description": "color.palette.neutral.300"
-        },
-        "50": {
-          "$value": "#F2F3F5",
-          "$type": "color",
-          "$description": "color.palette.neutral.50"
-        }
-      },
-      "info": {
-        "400": {
-          "$value": "#0074DF",
-          "$type": "color",
-          "$description": "color.palette.info.400"
-        },
-        "600": {
-          "$value": "#004D94",
-          "$type": "color",
-          "$description": "color.palette.info.600"
-        },
-        "150": {
-          "$value": "#81BAEF",
-          "$type": "color",
-          "$description": "color.palette.info.150"
-        },
-        "300": {
-          "$value": "#2B8BE4",
-          "$type": "color",
-          "$description": "color.palette.info.300"
-        },
-        "base": {
-          "$value": "#E6F1FB",
-          "$type": "color",
-          "$description": "color.palette.info.base"
-        },
-        "500": {
-          "$value": "#0060B9",
-          "$type": "color",
-          "$description": "color.palette.info.500"
-        },
-        "800": {
-          "$value": "#002649",
-          "$type": "color",
-          "$description": "color.palette.info.800"
-        },
-        "700": {
-          "$value": "#002F62",
-          "$type": "color",
-          "$description": "color.palette.info.700"
-        },
-        "50": {
-          "$value": "{color.palette.info.base}",
-          "$type": "color",
-          "$description": "color.palette.info.50"
-        },
-        "900": {
-          "$value": "#001223",
-          "$type": "color",
-          "$description": "color.palette.info.900"
-        },
-        "100": {
-          "$value": "#ACD2F5",
-          "$type": "color",
-          "$description": "color.palette.info.100"
-        },
-        "200": {
-          "$value": "#56A3EA",
-          "$type": "color",
-          "$description": "color.palette.info.200"
-        }
-      },
-      "danger": {
-        "base": {
-          "$value": "#E30A27",
-          "$type": "color",
-          "$description": "color.palette.danger.base"
-        },
-        "50": {
-          "$value": "#FBD9DD",
-          "$type": "color",
-          "$description": "color.palette.danger.50"
-        },
-        "400": {
-          "$value": "{color.palette.danger.base}",
-          "$type": "color",
-          "$description": "color.palette.danger.400"
-        },
-        "100": {
-          "$value": "#F6AFB9",
-          "$type": "color",
-          "$description": "color.palette.danger.100"
-        },
-        "150": {
-          "$value": "#F18694",
-          "$type": "color",
-          "$description": "color.palette.danger.150"
-        },
-        "700": {
-          "$value": "#700513",
-          "$type": "color",
-          "$description": "color.palette.danger.700"
-        },
-        "800": {
-          "$value": "#4A030D",
-          "$type": "color",
-          "$description": "color.palette.danger.800"
-        },
-        "200": {
-          "$value": "#EC5D70",
-          "$type": "color",
-          "$description": "color.palette.danger.200"
-        },
-        "900": {
-          "$value": "#240206",
-          "$type": "color",
-          "$description": "color.palette.danger.900"
-        },
-        "600": {
-          "$value": "#96071A",
-          "$type": "color",
-          "$description": "color.palette.danger.600"
-        },
-        "500": {
-          "$value": "#BD0820",
-          "$type": "color",
-          "$description": "color.palette.danger.500"
-        },
-        "300": {
-          "$value": "#E8334B",
-          "$type": "color",
-          "$description": "color.palette.danger.300"
-        }
-      },
-      "accent": {
-        "300": {
-          "$value": "#2B8BE4",
-          "$type": "color",
-          "$description": "color.palette.accent.300"
-        },
-        "700": {
-          "$value": "{color.palette.accent.base}",
-          "$type": "color",
-          "$description": "color.palette.accent.700"
-        },
-        "50": {
-          "$value": "#E6F1FB",
-          "$type": "color",
-          "$description": "color.palette.accent.50"
-        },
-        "200": {
-          "$value": "#56A3EA",
-          "$type": "color",
-          "$description": "color.palette.accent.200"
-        },
-        "400": {
-          "$value": "#0074DF",
-          "$type": "color",
-          "$description": "color.palette.accent.400"
-        },
-        "500": {
-          "$value": "#0060B9",
-          "$type": "color",
-          "$description": "color.palette.accent.500"
-        },
-        "600": {
-          "$value": "#004D94",
-          "$type": "color",
-          "$description": "color.palette.accent.600"
-        },
-        "800": {
-          "$value": "#002649",
-          "$type": "color",
-          "$description": "color.palette.accent.800"
-        },
-        "150": {
-          "$value": "#81BAEF",
-          "$type": "color",
-          "$description": "color.palette.accent.150"
-        },
-        "100": {
-          "$value": "#ACD2F5",
-          "$type": "color",
-          "$description": "color.palette.accent.100"
-        },
-        "900": {
-          "$value": "#001223",
-          "$type": "color",
-          "$description": "color.palette.accent.900"
-        },
-        "base": {
-          "$value": "#002F62",
-          "$type": "color",
-          "$description": "color.palette.accent.base"
-        }
-      },
-      "primary": {
-        "100": {
-          "$value": "#ACD2F5",
-          "$type": "color",
-          "$description": "color.palette.primary.100"
-        },
-        "900": {
-          "$value": "#001223",
-          "$type": "color",
-          "$description": "color.palette.primary.900"
-        },
-        "800": {
-          "$value": "#002649",
-          "$type": "color",
-          "$description": "color.palette.primary.800"
-        },
-        "300": {
-          "$value": "#2B8BE4",
-          "$type": "color",
-          "$description": "color.palette.primary.300"
-        },
-        "50": {
-          "$value": "#E6F1FB",
-          "$type": "color",
-          "$description": "color.palette.primary.50"
-        },
-        "500": {
-          "$value": "#0060B9",
-          "$type": "color",
-          "$description": "color.palette.primary.500"
-        },
-        "150": {
-          "$value": "#81BAEF",
-          "$type": "color",
-          "$description": "color.palette.primary.150"
-        },
-        "base": {
-          "$value": "#0074DF",
-          "$type": "color",
-          "$description": "color.palette.primary.base"
-        },
-        "700": {
-          "$value": "#002F62",
-          "$type": "color",
-          "$description": "color.palette.primary.700"
-        },
-        "600": {
-          "$value": "#004D94",
-          "$type": "color",
-          "$description": "color.palette.primary.600"
-        },
-        "400": {
-          "$value": "{color.palette.primary.base}",
-          "$type": "color",
-          "$description": "color.palette.primary.400"
-        },
-        "200": {
-          "$value": "#56A3EA",
-          "$type": "color",
-          "$description": "color.palette.primary.200"
-        }
-      },
-      "success": {
-        "50": {
-          "$value": "#E2F2D7",
-          "$type": "color",
-          "$description": "color.palette.success.50"
-        },
-        "400": {
-          "$value": "{color.palette.success.base}",
-          "$type": "color",
-          "$description": "color.palette.success.400"
-        },
-        "100": {
-          "$value": "#C3E4AC",
-          "$type": "color",
-          "$description": "color.palette.success.100"
-        },
-        "150": {
-          "$value": "#A4D681",
-          "$type": "color",
-          "$description": "color.palette.success.150"
-        },
-        "500": {
-          "$value": "#3A8F00",
-          "$type": "color",
-          "$description": "color.palette.success.500"
-        },
-        "600": {
-          "$value": "#2E7200",
-          "$type": "color",
-          "$description": "color.palette.success.600"
-        },
-        "700": {
-          "$value": "#235500",
-          "$type": "color",
-          "$description": "color.palette.success.700"
-        },
-        "300": {
-          "$value": "#65BA2B",
-          "$type": "color",
-          "$description": "color.palette.success.300"
-        },
-        "900": {
-          "$value": "#0B1B00",
-          "$type": "color",
-          "$description": "color.palette.success.900"
-        },
-        "base": {
-          "$value": "#46AC00",
-          "$type": "color",
-          "$description": "color.palette.success.base"
-        },
-        "800": {
-          "$value": "#173800",
-          "$type": "color",
-          "$description": "color.palette.success.800"
-        },
-        "200": {
-          "$value": "#84C856",
-          "$type": "color",
-          "$description": "color.palette.success.200"
-        }
-      },
-      "warning": {
-        "base": {
-          "$value": "#FF9D00",
-          "$type": "color",
-          "$description": "color.palette.warning.base"
-        },
-        "600": {
-          "$value": "#A96800",
-          "$type": "color",
-          "$description": "color.palette.warning.600"
-        },
-        "50": {
-          "$value": "#FFF0D7",
-          "$type": "color",
-          "$description": "color.palette.warning.50"
-        },
-        "100": {
-          "$value": "#FFDFAC",
-          "$type": "color",
-          "$description": "color.palette.warning.100"
-        },
-        "200": {
-          "$value": "#FFBE56",
-          "$type": "color",
-          "$description": "color.palette.warning.200"
-        },
-        "900": {
-          "$value": "#281900",
-          "$type": "color",
-          "$description": "color.palette.warning.900"
-        },
-        "800": {
-          "$value": "#533300",
-          "$type": "color",
-          "$description": "color.palette.warning.800"
-        },
-        "150": {
-          "$value": "#FFCF81",
-          "$type": "color",
-          "$description": "color.palette.warning.150"
-        },
-        "400": {
-          "$value": "{color.palette.warning.base}",
-          "$type": "color",
-          "$description": "color.palette.warning.400"
-        },
-        "500": {
-          "$value": "#D48300",
-          "$type": "color",
-          "$description": "color.palette.warning.500"
-        },
-        "300": {
-          "$value": "#FFAE2B",
-          "$type": "color",
-          "$description": "color.palette.warning.300"
-        },
-        "700": {
-          "$value": "#7E4E00",
-          "$type": "color",
-          "$description": "color.palette.warning.700"
-        }
-      },
-      "white": {
-        "base": {
-          "$value": "#ffffff",
-          "$type": "color",
-          "$description": "color.palette.white.base"
-        }
-      },
-      "black": {
-        "base": {
-          "$value": "{color.palette.primary.800}",
-          "$type": "color",
-          "$description": "color.palette.black.base"
-        }
-      },
-      "transparent": {
-        "base": {
-          "$value": "#00000000",
-          "$type": "color",
-          "$description": "color.palette.transparent.base"
-        }
-      }
-    }
-  },
-  "borderRadius": {
-    "button": {
-      "lg": {
-        "$value": "{border.radius.full}",
-        "$type": "borderRadius",
-        "$description": "borderRadius.button"
-      },
-      "md": {
-        "$value": "{border.radius.full}",
-        "$type": "borderRadius",
-        "$description": "borderRadius.button"
-      },
-      "icon-only": {
-        "lg": {
-          "$value": "{border.radius.full}",
-          "$type": "borderRadius",
-          "$description": "borderRadius.button"
-        },
-        "sm": {
-          "$value": "{border.radius.full}",
-          "$type": "borderRadius",
-          "$description": "borderRadius.button"
-        },
-        "md": {
-          "$value": "{border.radius.full}",
-          "$type": "borderRadius",
-          "$description": "borderRadius.button"
-        }
-      },
-      "sm": {
-        "$value": "{border.radius.full}",
-        "$type": "borderRadius",
-        "$description": "borderRadius.button"
-      }
-    },
-    "select": {
-      "listbox": {
-        "$value": "{border.radius.sm}",
-        "$type": "borderRadius"
-      },
-      "item": {
-        "$value": "{border.radius.xs}",
-        "$type": "borderRadius"
-      }
-    },
-    "card": {
-      "default": {
-        "$value": "{borderRadius.default}",
-        "$type": "borderRadius"
-      },
-      "image-margin": {
-        "$value": "{borderRadius.default}",
-        "$type": "borderRadius"
-      }
-    },
-    "focusring": {
-      "default": {
-        "$value": "{borderRadius.default} + 1",
-        "$type": "borderRadius"
-      },
-      "full": {
-        "$value": "{border.radius.full}",
-        "$type": "borderRadius"
-      }
-    },
-    "skeleton": {
-      "default": {
-        "$value": "{borderRadius.default}",
-        "$type": "borderRadius"
-      }
-    },
-    "inline-message": {
-      "default": {
-        "$value": "{borderRadius.default}",
-        "$type": "borderRadius",
-        "$description": "borderRadius.button"
-      }
-    },
-    "avatar": {
-      "square": {
-        "$value": "{borderRadius.default}",
-        "$type": "borderRadius"
-      }
-    },
-    "circle": {
-      "$value": "{border.radius.full}",
-      "$type": "borderRadius",
-      "$description": "borderRadius.button"
-    },
-    "default": {
-      "$value": "{border.radius.2xs}",
-      "$type": "borderRadius",
-      "$description": "borderRadius.button"
-    },
-    "checkbox": {
-      "$value": "{border.radius.2xs}",
-      "$type": "borderRadius"
-    },
-    "popover": {
-      "default": {
-        "$value": "{borderRadius.default}",
-        "$type": "borderRadius",
-        "$description": "borderRadius.button"
-      }
-    },
-    "dialog": {
-      "mobile": {
-        "$value": "{border.radius.none}",
-        "$type": "borderRadius"
-      },
-      "desktop": {
-        "$value": "{borderRadius.default}",
-        "$type": "borderRadius"
-      }
-    },
-    "badge": {
-      "full": {
-        "$value": "{border.radius.full}",
-        "$type": "borderRadius"
-      }
-    }
-  },
-  "space": {
-    "card": {
-      "content": {
-        "inline": {
-          "$value": "{space.xl}",
-          "$type": "space"
-        },
-        "block": {
-          "$value": "{space.xl}",
-          "$type": "space"
-        }
-      },
-      "gap": {
-        "content": {
-          "block": {
-            "$value": "{space.lg}",
-            "$type": "space"
-          },
-          "inline": {
-            "$value": "{space.sm}",
-            "$type": "space"
-          }
-        },
-        "header": {
-          "block": {
-            "$value": "{space.none}",
-            "$type": "space"
-          },
-          "inline": {
-            "$value": "{space.none}",
-            "$type": "space"
-          }
-        }
-      },
-      "horizontal": {
-        "gap": {
-          "$value": "{space.none}",
-          "$type": "space"
-        },
-        "block": {
-          "$value": "{space.xl}",
-          "$type": "space"
-        },
-        "inline": {
-          "$value": "{space.none}",
-          "$type": "space"
-        }
-      },
-      "media": {
-        "full": {
-          "$value": "{space.none}",
-          "$type": "space"
-        },
-        "margins": {
-          "$value": "{space.sm}",
-          "$type": "space"
-        }
-      },
-      "vertical": {
-        "block": {
-          "$value": "{space.xl}",
-          "$type": "space"
-        },
-        "gap": {
-          "$value": "{space.none}",
-          "$type": "space"
-        },
-        "inline": {
-          "$value": "{space.none}",
-          "$type": "space"
-        }
-      }
-    },
-    "accordion": {
-      "inline": {
-        "$value": "{space.3xl}",
-        "$type": "space"
-      },
-      "title": {
-        "inline": {
-          "$value": "{space.sm}",
-          "$type": "space"
-        },
-        "gap": {
-          "$value": "{space.sm}",
-          "$type": "space"
-        },
-        "block": {
-          "$value": "{space.lg}",
-          "$type": "space"
-        }
-      },
-      "content": {
-        "block": {
-          "$value": "{space.lg}",
-          "$type": "space"
-        },
-        "inline": {
-          "$value": "{space.3xl}",
-          "$type": "space"
-        }
-      },
-      "gap": {
-        "$value": "{space.md}",
-        "$type": "space"
-      },
-      "block": {
-        "$value": "{space.lg}",
-        "$type": "space"
-      }
-    },
-    "tooltip": {
-      "arrow": {
-        "offset": {
-          "$value": "{space.sm}",
-          "$type": "space"
-        }
-      }
-    },
-    "popover": {
-      "offset": {
-        "$value": "{space.xs}",
-        "$type": "space"
-      },
-      "arrow": {
-        "offset": {
-          "$value": "{space.lg}",
-          "$type": "space"
-        }
-      }
-    }
-  },
-  "animation": {
-    "button": {
-      "duration": {
-        "$value": "{animation.duration.normal}",
-        "$type": "text",
-        "$description": "animation.button.duration"
-      },
-      "easing": {
-        "$value": "{animation.easing.ease-in-out}",
-        "$type": "text",
-        "$description": "animation.button.easing"
-      }
     }
   },
   "textCase": {
@@ -2314,59 +2367,6 @@
       "textTransform": {
         "$value": "{text.typeset.textCase.uppercase}",
         "$type": "textCase"
-      }
-    }
-  },
-  "conceptual": {
-    "border": {
-      "width": {
-        "default": {
-          "$value": "{border.width.sm}",
-          "$type": "borderWidth",
-          "$description": "Conceptual Theme Border Token"
-        }
-      }
-    }
-  },
-  "size": {
-    "select": {
-      "indicator": {
-        "$value": "{size.3xs}",
-        "$type": "size"
-      }
-    },
-    "inline-message": {
-      "start": {
-        "$value": "{size.2xs}",
-        "$type": "size"
-      }
-    },
-    "accordion": {
-      "icon": {
-        "height": {
-          "$value": "28",
-          "$type": "size"
-        }
-      }
-    }
-  },
-  "opacity": {
-    "spinner": {
-      "shadow": {
-        "$value": "{opacity.600}",
-        "$type": "opacity"
-      }
-    }
-  },
-  "icon": {
-    "style": {
-      "outline": {
-        "$value": "{text.typeset.fontWeight.icon-regular}",
-        "$type": "fontWeight"
-      },
-      "solid": {
-        "$value": "{text.typeset.fontWeight.icon-solid}",
-        "$type": "fontWeight"
       }
     }
   }

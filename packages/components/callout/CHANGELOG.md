@@ -1,5 +1,34 @@
 # @sl-design-system/callout
 
+## 0.2.1
+
+### Patch Changes
+
+- [#3413](https://github.com/sl-design-system/components/pull/3413) [`69d0bf0`](https://github.com/sl-design-system/components/commit/69d0bf0f48c0a29c05f27b0f9f6511ddc72843bf) - Layer `elevation.surface.raised.default` underneath the semantic callout background so text remains readable on bold, patterned, and image backgrounds
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/shared@0.12.2
+
+## 0.2.0
+
+### Minor Changes
+
+- [#3248](https://github.com/sl-design-system/components/pull/3248) [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f) - Standardized warning and error icons:
+  - Changed `warning` icons from `octagon-exclamation-solid` to `triangle-exclamation-solid` in Callout, Inline message, and Progress bar.
+  - Changed `circle-exclamation-solid` to `triangle-exclamation-solid` in validation messages in the Form field.
+  - Changed `error/danger` icons from `diamond-exclamation-solid` or `octagon-exclamation-solid` to the new `octagon-xmark-solid` icon in Callout, Inline message, and Progress bar. Make sure to update your theme if you update any of these components.
+
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+
 ## 0.1.0
 
 ### Minor Changes

@@ -1,5 +1,43 @@
 # @sl-design-system/panel
 
+## 0.3.7
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tool-bar@0.2.5
+
+## 0.3.6
+
+### Patch Changes
+
+- [#3365](https://github.com/sl-design-system/components/pull/3365) [`957d7c5`](https://github.com/sl-design-system/components/commit/957d7c531365a1a710d90c328e3a2e6608e7342d) - Hide collapsed panel content from assistive technology
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
+## 0.3.5
+
+### Patch Changes
+
+- [#3235](https://github.com/sl-design-system/components/pull/3235) [`1ad7f97`](https://github.com/sl-design-system/components/commit/1ad7f97192ca54077c1c931d36db6d73223ae2d0) - Fixed an accessibility issue where non-collapsible panels rendered `aria-labelledby` on the body container without a `region` role. `aria-labelledby` is now applied only when the panel is collapsible (and the body is a `region`), preventing duplicate heading announcements in screen readers and resolving ARIA prohibited attributes warnings.
+
+- Updated dependencies [[`e19736a`](https://github.com/sl-design-system/components/commit/e19736a4334f6b260c521da7b6f77da485468ddd), [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411), [`f7ad9c9`](https://github.com/sl-design-system/components/commit/f7ad9c907f7661a542889c7140e9161774d9dc86)]:
+  - @sl-design-system/tool-bar@0.2.4
+
+## 0.3.4
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/tool-bar@0.2.3
+
 ## 0.3.3
 
 ### Patch Changes

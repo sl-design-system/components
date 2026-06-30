@@ -149,7 +149,11 @@
     --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
     --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
-    background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+    background: color-mix(
+      in srgb,
+      var(--_bg-color),
+      var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+    );
     border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   }
 
@@ -163,6 +167,10 @@
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-line-clamp: var(--_line-clamp, 9999);
     overflow: hidden;
+  }
+
+  :host(:not(.sl-has-article)) slot[name='body'] {
+    display: contents;
   }
 
   slot.title::slotted(*),
@@ -218,7 +226,8 @@
   :host(.sl-has-menu-button) {
     .header {
       padding-inline-end: calc(
-        2 * var(--sl-size-100) + calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2)
+        2 * var(--sl-size-100) +
+          calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2)
       );
       position: relative;
     }

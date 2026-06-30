@@ -1,9 +1,9 @@
 import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/avatar/register.js';
 import { ListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { Person } from '@sl-design-system/example-data';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { Person } from 'tools/example-data/index.js';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { GridColumnDataRenderer } from './column.js';
@@ -36,13 +36,30 @@ describe('sl-column', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col =>
+        col.textContent?.trim()
+      );
 
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });
 
+    it('should visually hide the header text when set', async () => {
+      el.querySelector('sl-grid-column')!.hideHeaderText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const span = el.renderRoot.querySelector('th span');
+
+      expect(span).to.have.trimmed.text('First name');
+      expect(span).to.have.class('visually-hidden');
+    });
+
     it('should have the right justify-content value', () => {
-      expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal(['start', 'start', 'end']);
+      expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal([
+        'start',
+        'start',
+        'end'
+      ]);
     });
 
     it('should have the right grow value', () => {
@@ -103,7 +120,9 @@ describe('sl-column', () => {
     });
 
     it('should render "No path set" for the column that has no path', () => {
-      const cells = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+      const cells = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el =>
+        el.textContent?.trim()
+      );
 
       expect(cells).to.deep.equal(['Foo', '', 'No path set']);
     });
@@ -125,7 +144,9 @@ describe('sl-column', () => {
     });
 
     it('should render nothing', () => {
-      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el =>
+        el.textContent?.trim()
+      );
 
       expect(data).to.deep.equal(['Bar', '']);
     });
@@ -134,7 +155,9 @@ describe('sl-column', () => {
   describe('custom renderer', () => {
     beforeEach(async () => {
       const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
-        return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
+        return html`
+          <sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>
+        `;
       };
 
       el = await fixture(html`
@@ -142,8 +165,7 @@ describe('sl-column', () => {
           <sl-grid-column
             header="Person"
             .renderer=${avatarRenderer}
-            .scopedElements=${{ 'sl-avatar': Avatar }}
-          ></sl-grid-column>
+            .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
           <sl-grid-column path="age" parts="number"></sl-grid-column>
         </sl-grid>
       `);
@@ -168,7 +190,10 @@ describe('sl-column', () => {
     });
 
     it('should have the right parts, including one set on the column', () => {
-      expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal(['data', 'data number age']);
+      expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal([
+        'data',
+        'data number age'
+      ]);
     });
   });
 
@@ -194,6 +219,95 @@ describe('sl-column', () => {
       const skeletons = Array.from(el.renderRoot.querySelectorAll('td > *')).map(el => el.tagName);
 
       expect(skeletons).to.deep.equal(['SL-SKELETON', 'SL-SKELETON']);
+    });
+  });
+
+  describe('sticky columns', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="age"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [
+        { firstName: 'John', lastName: 'Doe', age: 20 },
+        { firstName: 'Jane', lastName: 'Smith', age: 40 }
+      ];
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+    });
+
+    it('should add sticky class when sticky is set on first column', () => {
+      expect(cells[0].classList.contains('sticky-start-first')).to.be.true;
+    });
+
+    it('should not add sticky class to non-sticky columns', () => {
+      expect(cells[1].className).to.not.match(/sticky/);
+      expect(cells[2].className).to.not.match(/sticky/);
+    });
+
+    it('should add sticky classes to header cells', () => {
+      const headerCells = Array.from(el.renderRoot.querySelectorAll('thead tr th'));
+
+      expect(headerCells[0].classList.contains('sticky-start-first')).to.be.true;
+      expect(headerCells[1].className).to.not.match(/sticky/);
+      expect(headerCells[2].className).to.not.match(/sticky/);
+    });
+
+    it('should update classes when sticky property changes', async () => {
+      const column = el.querySelector('sl-grid-column');
+      column!.sticky = false;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const updatedCells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+
+      expect(updatedCells[0].className).to.not.match(/sticky/);
+    });
+
+    it('should support sticky on last column', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="age" sticky></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [{ firstName: 'John', lastName: 'Doe', age: 20 }];
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      const endCells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+
+      expect(endCells[2].classList.contains('sticky-end-first')).to.be.true;
+    });
+
+    it('should support multiple consecutive sticky columns', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName" sticky></sl-grid-column>
+          <sl-grid-column path="lastName" sticky></sl-grid-column>
+          <sl-grid-column path="age"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [{ firstName: 'John', lastName: 'Doe', age: 20 }];
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      const allCells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+
+      expect(allCells[0].classList.contains('sticky-start-first')).to.be.true;
+      expect(allCells[1].classList.contains('sticky-start-last')).to.be.true;
+      expect(allCells[2].className).to.not.match(/sticky/);
     });
   });
 });

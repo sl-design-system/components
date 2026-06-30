@@ -9,7 +9,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Paginator/Status',
-  tags: ['draft'],
   args: {
     totalItems: 100,
     pageSize: 10,
@@ -21,8 +20,7 @@ export default {
         .itemLabel=${itemLabel}
         .page=${page}
         .pageSize=${pageSize}
-        .totalItems=${totalItems}
-      ></sl-paginator-status>
+        .totalItems=${totalItems}></sl-paginator-status>
     `;
   }
 } satisfies Meta<Props>;

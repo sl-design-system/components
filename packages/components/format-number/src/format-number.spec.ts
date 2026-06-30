@@ -68,6 +68,99 @@ describe('sl-format-number', () => {
 
       expect(el.renderRoot).to.have.text('1,234.560');
     });
+
+    it('should pad integer digits according to minimumIntegerDigits', async () => {
+      el.number = 5;
+      el.minimumIntegerDigits = 3;
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('005');
+    });
+
+    it('should render according to minimumSignificantDigits', async () => {
+      el.number = 1.5;
+      el.minimumSignificantDigits = 4;
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('1.500');
+    });
+
+    it('should render according to maximumSignificantDigits', async () => {
+      el.number = 1234.56;
+      el.maximumSignificantDigits = 3;
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('1,230');
+    });
+
+    it('should render in compact notation', async () => {
+      el.notation = 'compact';
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('1.2K');
+    });
+
+    it('should render in scientific notation', async () => {
+      el.number = 1230;
+      el.notation = 'scientific';
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('1.23E3');
+    });
+
+    it('should always show the sign', async () => {
+      el.signDisplay = 'always';
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('+1,234.56');
+    });
+
+    it('should never show the sign', async () => {
+      el.number = -42;
+      el.signDisplay = 'never';
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('42');
+    });
+
+    it('should render a negative number', async () => {
+      el.number = -1234.56;
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('-1,234.56');
+    });
+
+    it('should render zero', async () => {
+      el.number = 0;
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('0');
+    });
+
+    it('should render currency with code display', async () => {
+      el.numberStyle = 'currency';
+      el.currency = 'USD';
+      el.currencyDisplay = 'code';
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('USD\u00a01,234.56');
+    });
+
+    it('should render currency with name display', async () => {
+      el.numberStyle = 'currency';
+      el.currency = 'USD';
+      el.currencyDisplay = 'name';
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('1,234.56 US dollars');
+    });
+
+    it('should use grouping if useGrouping is set to true', async () => {
+      el.useGrouping = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.text('1,234.56');
+    });
   });
 
   describe('fallback', () => {
@@ -80,6 +173,21 @@ describe('sl-format-number', () => {
       await el.updateComplete;
 
       expect(el.renderRoot).to.have.text('1,234');
+    });
+
+    it('should render the slotted content if the number is NaN', async () => {
+      el.number = NaN;
+      await el.updateComplete;
+
+      const slot = el.renderRoot.querySelector('slot');
+
+      expect(slot).to.exist;
+      expect(
+        slot!
+          .assignedNodes()
+          .map(n => n.textContent)
+          .join('')
+      ).to.equal('Hello world');
     });
 
     it('should render the slotted content if the number is not a number', async () => {
@@ -95,6 +203,28 @@ describe('sl-format-number', () => {
           .map(n => n.textContent)
           .join('')
       ).to.equal('Hello world');
+    });
+
+    it('should render the slotted content if no number is set', () => {
+      const slot = el.renderRoot.querySelector('slot');
+
+      expect(slot).to.exist;
+      expect(
+        slot!
+          .assignedNodes()
+          .map(n => n.textContent)
+          .join('')
+      ).to.equal('Hello world');
+    });
+  });
+
+  describe('locale', () => {
+    it('should format using the element locale attribute', async () => {
+      el = await fixture(
+        html`<sl-format-number number="1234.56" locale="nl-NL"></sl-format-number>`
+      );
+
+      expect(el.renderRoot).to.have.text('1.234,56');
     });
   });
 });

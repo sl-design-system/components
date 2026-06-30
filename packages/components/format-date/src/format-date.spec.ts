@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { FormatDate } from './format-date.js';
 
-describe('sl-format-number', () => {
+describe('sl-format-date', () => {
   let el: FormatDate;
   const date = new Date(2022, 11, 17, 14, 5, 42);
 
@@ -123,6 +123,86 @@ describe('sl-format-number', () => {
       await el.updateComplete;
       expect(el.renderRoot).to.have.trimmed.text('14:05');
     });
+
+    it('should format date (time) with 12h time when hour12 is true', async () => {
+      el.hour = 'numeric';
+      el.minute = 'numeric';
+      el.hour12 = true;
+
+      await el.updateComplete;
+      expect(el.renderRoot).to.have.trimmed.text('2:05 PM');
+    });
+
+    it('should use dateStyle and timeStyle together when both are set', async () => {
+      el.dateStyle = 'long';
+      el.timeStyle = 'medium';
+
+      await el.updateComplete;
+      expect(el.renderRoot).to.have.trimmed.text('December 17, 2022 at 2:05:42 PM');
+    });
+
+    it('should prefer individual options over dateStyle/timeStyle when any individual option is set', async () => {
+      el.dateStyle = 'long';
+      el.timeStyle = 'medium';
+      el.year = 'numeric';
+
+      await el.updateComplete;
+      // Only year is rendered — dateStyle/timeStyle are ignored
+      expect(el.renderRoot).to.have.trimmed.text('2022');
+    });
+
+    it('should apply dateTimeOptions when set', async () => {
+      el.dateTimeOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+
+      await el.updateComplete;
+      expect(el.renderRoot).to.have.trimmed.text('December 17, 2022');
+    });
+
+    it('should merge dateTimeOptions with other properties, with dateTimeOptions taking precedence', async () => {
+      el.year = 'numeric';
+      el.dateTimeOptions = { month: 'long' };
+
+      await el.updateComplete;
+      // dateTimeOptions merges with individual options: year from property, month from dateTimeOptions
+      expect(el.renderRoot).to.have.trimmed.text('December 2022');
+    });
+  });
+
+  describe('date setter', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-format-date>fallback</sl-format-date>`);
+    });
+
+    it('should accept a numeric timestamp', async () => {
+      el.date = new Date(2022, 11, 17).getTime();
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.trimmed.text('12/17/2022');
+    });
+
+    it('should accept a valid ISO date string', async () => {
+      el.date = '2022-12-17';
+      await el.updateComplete;
+
+      expect(el.renderRoot).to.have.trimmed.text('12/17/2022');
+    });
+
+    it('should fall back to slot content when date is set to null', async () => {
+      el.date = null;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('slot')).to.exist;
+    });
+
+    it('should fall back to slot content when date is set to undefined', async () => {
+      el.date = new Date(2022, 11, 17);
+      await el.updateComplete;
+
+      el.date = undefined;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('slot')).to.exist;
+    });
   });
 
   describe('fallback', () => {
@@ -150,6 +230,35 @@ describe('sl-format-number', () => {
           .map(n => n.textContent)
           .join('')
       ).to.equal('This is not a proper date.');
+    });
+  });
+
+  describe('empty style attributes', () => {
+    it('should treat an empty date-style attribute as undefined when formatting', async () => {
+      el = await fixture(html`<sl-format-date date-style .date=${date}></sl-format-date>`);
+
+      // el.dateStyle is '' (raw Lit attribute reflection), but '' is falsy so it is
+      // coerced to undefined before being passed to Intl.DateTimeFormat. The rendered
+      // output should match the numeric default (same as when the attribute is absent).
+      expect(el.dateStyle).to.equal('');
+      expect(el.renderRoot).to.have.trimmed.text('12/17/2022');
+    });
+
+    it('should treat an empty time-style attribute as undefined when formatting', async () => {
+      el = await fixture(html`<sl-format-date time-style .date=${date}></sl-format-date>`);
+
+      expect(el.timeStyle).to.equal('');
+      expect(el.renderRoot).to.have.trimmed.text('12/17/2022');
+    });
+
+    it('should treat empty date-style and time-style attributes as undefined when formatting', async () => {
+      el = await fixture(
+        html`<sl-format-date date-style time-style .date=${date}></sl-format-date>`
+      );
+
+      expect(el.dateStyle).to.equal('');
+      expect(el.timeStyle).to.equal('');
+      expect(el.renderRoot).to.have.trimmed.text('12/17/2022');
     });
   });
 });

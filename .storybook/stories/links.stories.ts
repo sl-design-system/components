@@ -11,10 +11,12 @@ export default {
   args: {},
   argTypes: {},
   render: () => html`
-    In the theme is a global.css file containing styling for links.
-    This works as a global style for links in your application and links in the light dom of SLDS components.
-    <br/>
-    <a href="https://www.sanomalearning.design" target="_blank">Sanoma Learning Design system</a>
+    In the theme is a global.css file containing styling for links. This works as a global style for
+    links in your application and links in the light dom of SLDS components.
+    <br />
+    <a href="https://sanomalearning.design" target="_blank" rel="noopener noreferrer"
+      >Sanoma Learning Design system</a
+    >
   `
 } satisfies Meta<Props>;
 

@@ -1,5 +1,54 @@
 # @sl-design-system/tool-bar
 
+## 0.2.5
+
+### Patch Changes
+
+- [#3383](https://github.com/sl-design-system/components/pull/3383) [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba) - Expose `aria-disabled="true"` on disabled menu items so assistive technologies announce them as unavailable. Toolbar overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. Forwarded `ariaDisabled` now clears correctly through nested proxy targets
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`f2d2914`](https://github.com/sl-design-system/components/commit/f2d2914f4622de01b49e49b78abc17956e7438d3), [`db96be2`](https://github.com/sl-design-system/components/commit/db96be26709e837b1a4e3e6ea176b75c0823be2a), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/menu@0.3.4
+  - @sl-design-system/toggle-button@0.0.16
+  - @sl-design-system/toggle-group@0.0.16
+  - @sl-design-system/button@2.1.1
+
+## 0.2.4
+
+### Patch Changes
+
+- [#3259](https://github.com/sl-design-system/components/pull/3259) [`e19736a`](https://github.com/sl-design-system/components/commit/e19736a4334f6b260c521da7b6f77da485468ddd) - Fix missing labels for `sl-menu-button` items rendered in the tool-bar overflow menu when mapping happens before ARIA forwarding is ready (e.g. nested slot scenarios such as Grid bulk actions).
+
+  The overflow mapping now falls back from forwarded ARIA name/description to host `aria-labelledby` / `aria-label`, and finally to `slot="button"` text content, ensuring labels remain visible
+
+- [#3241](https://github.com/sl-design-system/components/pull/3241) [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411) - Fix overflow behavior:
+  - Refactor overflow logic to more accurately calculate visible items, reserve space for the menu button, and handle the menu button margin correctly when all items are hidden.
+  - Update `tool-bar.ts` to use the new measurement utilities (`measureMenuButtonWidth` and `measureConstrainedWidth`) for more reliable overflow calculations.
+  - Update toolbar styles to prevent layout shifts during measurement and ensure correct sizing in flexible containers.
+
+- [#3265](https://github.com/sl-design-system/components/pull/3265) [`f7ad9c9`](https://github.com/sl-design-system/components/commit/f7ad9c907f7661a542889c7140e9161774d9dc86) - Fix a bug where `sl-menu-item` click handlers did not fire from the toolbar overflow menu.
+
+  When a toolbar was collapsed, submenu actions originating from `sl-menu-button` were rendered in overflow but did not forward clicks to the original menu items. This change adds click proxying so selecting an overflow submenu item triggers the original item's click handler, restoring expected behavior in components such as Grid bulk actions.
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`3e439d2`](https://github.com/sl-design-system/components/commit/3e439d24a4905b82143fe571e198e77375df7aa0)]:
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/menu@0.3.2
+  - @sl-design-system/toggle-button@0.0.15
+  - @sl-design-system/toggle-group@0.0.15
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`5773ea6`](https://github.com/sl-design-system/components/commit/5773ea6399073ba3f212b5fbfdbab3138b8d1894)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/toggle-button@0.0.14
+  - @sl-design-system/menu@0.3.1
+  - @sl-design-system/toggle-group@0.0.14
+
 ## 0.2.2
 
 ### Patch Changes

@@ -9,7 +9,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Emoji browser',
-  tags: ['draft'],
   parameters: {
     layout: 'fullscreen'
   },
@@ -31,8 +30,7 @@ export default {
         frequently-used=${ifDefined(frequentlyUsed)}
         locale=${ifDefined(locale)}
         query=${ifDefined(query)}
-        style="height: 100dvh"
-      ></sl-emoji-browser>
+        style="height: 100dvh"></sl-emoji-browser>
     `;
   }
 } satisfies Meta<Props>;

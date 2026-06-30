@@ -1,5 +1,28 @@
 # @sl-design-system/tree
 
+## 0.2.5
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/virtual-list@0.1.0
+  - @sl-design-system/shared@0.12.2
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`f2493fb`](https://github.com/sl-design-system/components/commit/f2493fb09e2f6c31cd84826351078ea324621640)]:
+  - @sl-design-system/button-bar@1.5.0
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/data-source@0.4.0
+  - @sl-design-system/checkbox@2.1.10
+  - @sl-design-system/virtual-list@0.0.5
+
 ## 0.2.3
 
 ### Patch Changes

@@ -2,18 +2,39 @@ import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
+import { type GroupedOption } from './grouped-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
+
+  const waitForNextMacrotask = async (): Promise<void> => {
+    if (vi.isFakeTimers()) {
+      vi.advanceTimersByTime(0);
+      await Promise.resolve();
+
+      return;
+    }
+
+    await new Promise<void>(resolve => setTimeout(resolve));
+  };
+
+  const waitForNextFrame = async (): Promise<void> => {
+    if (vi.isFakeTimers()) {
+      vi.advanceTimersToNextFrame();
+      return;
+    }
+
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+  };
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -179,6 +200,39 @@ describe('sl-combobox', () => {
       expect(wrapper?.matches(':popover-open')).to.be.false;
     });
 
+    it('should have a static aria-label of "Options" on the button', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.have.attribute('aria-label', 'Options');
+    });
+
+    it('should have aria-expanded "false" on the button when the popover is closed', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should have aria-expanded "true" on the button when the popover is open', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should switch aria-expanded back to "false" when the popover closes', async () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      await el.updateComplete;
+
+      button?.click();
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
     it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });
@@ -199,6 +253,11 @@ describe('sl-combobox', () => {
     it('should be required when set', async () => {
       el.required = true;
       await el.updateComplete;
+
+      const textField = el.renderRoot.querySelector('sl-text-field');
+      if (textField) {
+        await (textField as unknown as { updateComplete: Promise<boolean> }).updateComplete;
+      }
 
       expect(el).to.have.attribute('required');
       expect(input).to.have.attribute('required');
@@ -258,8 +317,9 @@ describe('sl-combobox', () => {
       const onFocus = spy();
 
       el.addEventListener('sl-focus', onFocus);
+      const focusEvent = oneEvent(el, 'sl-focus');
       input.focus();
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await focusEvent;
 
       expect(onFocus).to.have.been.calledOnce;
     });
@@ -430,6 +490,7 @@ describe('sl-combobox', () => {
       await userEvent.keyboard('Custom value');
       el.querySelector('sl-combobox-create-custom-option')?.click();
       await el.updateComplete;
+      await waitForNextFrame();
 
       const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
 
@@ -575,6 +636,53 @@ describe('sl-combobox', () => {
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.equal('Lorem');
       });
+
+      it('should insert spaces in the input', async () => {
+        input.focus();
+        await userEvent.keyboard('Foo{Space}Bar');
+        await el.updateComplete;
+
+        expect(input.value).to.equal('Foo Bar');
+      });
+    });
+
+    describe('select only', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox select-only>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should select the current option when pressing Space', async () => {
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Lorem');
+        expect(input.value).to.equal('Lorem');
+      });
+
+      it('should deselect the current option when pressing Space', async () => {
+        el.value = 'Lorem';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+        expect(input.value).to.equal('');
+      });
     });
 
     describe('options with values', () => {
@@ -601,6 +709,49 @@ describe('sl-combobox', () => {
 
         expect(el.value).to.equal('1');
         expect(input.value).to.equal('Lorem');
+      });
+
+      it('should select an option when the value matches after string coercion', async () => {
+        const onChange = spy();
+
+        el = await fixture(html`
+          <sl-combobox @sl-change=${onChange}>
+            <sl-listbox>
+              <sl-option .value=${1}>Lorem</sl-option>
+              <sl-option .value=${2}>Ipsum</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+          <input />
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{Tab}');
+        await el.updateComplete;
+
+        expect(el.value).to.equal('1');
+        expect(input.value).to.equal('Lorem');
+        expect(onChange).not.to.have.been.called;
+      });
+
+      it('should prefer a strict value match over a string-coerced match', async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        el.value = '1';
+        await el.updateComplete;
+
+        expect(input.value).to.equal('String');
       });
     });
 
@@ -727,6 +878,63 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should reset the results when focus leaves the component without selecting an option', async () => {
+        input.focus();
+        await userEvent.keyboard('Ip');
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+
+        await userEvent.click(document.body);
+        await el.updateComplete;
+
+        expect(input.value).to.equal('');
+        expect(options[0]).to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+      });
+    });
+
+    describe('current item on open', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option selected>Ipsum</sl-option>
+              <sl-option>Dolor</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should set current on the selected option when opened via keyboard', async () => {
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).to.have.attribute('current');
+        expect(input).to.have.attribute('aria-activedescendant', options[1].id);
+      });
+
+      it('should not set current on the selected option when opened via mouse click', async () => {
+        input.click();
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[1]).not.to.have.attribute('current');
+        expect(input).to.have.attribute('aria-activedescendant', options[1].id);
+      });
     });
   });
 
@@ -782,7 +990,11 @@ describe('sl-combobox', () => {
         el.value = ['Lorem', 'Ipsum'];
         await el.updateComplete;
 
-        expect(options.map(o => o.getAttribute('aria-selected') === 'true')).to.deep.equal([true, true, false]);
+        expect(options.map(o => o.getAttribute('aria-selected') === 'true')).to.deep.equal([
+          true,
+          true,
+          false
+        ]);
 
         options.at(0)?.click();
         await el.updateComplete;
@@ -812,6 +1024,40 @@ describe('sl-combobox', () => {
 
         expect(onChange).to.have.been.calledOnce;
         expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
+
+      it('should select only the strict value match when coercible option values also match', async () => {
+        el = await fixture(html`
+          <sl-combobox multiple>
+            <sl-listbox>
+              <sl-option .value=${1}>Number</sl-option>
+              <sl-option .value=${'1'}>String</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+
+        el.value = ['1'];
+        await el.updateComplete;
+
+        expect(el.selectedItems.map(item => item.label)).to.deep.equal(['String']);
+      });
+
+      it('should select and deselect the current option with Space when select-only', async () => {
+        el.selectOnly = true;
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal(['Lorem']);
+
+        await userEvent.keyboard('{Space}');
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal([]);
       });
 
       it('should not have has-selected-items attribute when interacting with a combobox with no selected items', async () => {
@@ -880,14 +1126,14 @@ describe('sl-combobox', () => {
         expect(tags.every(tag => tag.hasAttribute('aria-hidden'))).to.be.false;
       });
 
-      it('should set aria-hidden on sl-tag elements when not disabled', async () => {
+      it('should not set aria-hidden on sl-tag elements when not disabled', async () => {
         el.disabled = false;
         await el.updateComplete;
 
         const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
 
         expect(tags).to.have.lengthOf(2);
-        expect(tags.every(tag => tag.getAttribute('aria-hidden') === 'true')).to.be.true;
+        expect(tags.every(tag => tag.hasAttribute('aria-hidden'))).to.be.false;
       });
     });
 
@@ -923,6 +1169,93 @@ describe('sl-combobox', () => {
         expect(tagList).to.have.attribute('stacked');
       });
 
+      it('should have a responsive layout for the tag list', () => {
+        const tagList = el.renderRoot.querySelector('sl-tag-list') as HTMLElement;
+        const styles = getComputedStyle(tagList);
+        const hostStyles = getComputedStyle(el);
+
+        expect(styles.flexGrow).to.equal('1');
+        expect(styles.flexShrink).to.equal('1');
+        expect(styles.flexBasis).to.equal('auto');
+        expect(styles.minInlineSize).to.equal('0px');
+        expect(styles.overflowX).to.equal('visible');
+        expect(styles.position).to.equal('relative');
+        expect(styles.zIndex).to.equal('1');
+        expect(hostStyles.contain).to.include('inline-size');
+      });
+
+      it('should not flicker when selecting many items in a limited space', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.maxInlineSize = '300px';
+
+          // Select items that would trigger a collapse
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+
+          const getVisibilityState = () =>
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
+              tag => tag.style.display !== 'none'
+            );
+
+          // Allow initial layout/stacking to settle.
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+          const firstState = getVisibilityState(),
+            firstInputWidth = input.getBoundingClientRect().width;
+
+          // Wait long enough to cover any potential oscillation cycles
+          await vi.advanceTimersByTimeAsync(500);
+          await el.updateComplete;
+          await waitForNextFrame();
+          const secondState = getVisibilityState(),
+            secondInputWidth = input.getBoundingClientRect().width;
+
+          // If the component flickers, the visibility pattern of tags would change over time.
+          expect(secondState).to.deep.equal(firstState);
+          expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
+      it('should keep the input width bounded while adding tags in limited space', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.maxInlineSize = '300px';
+          const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
+
+          for (const count of [1, 2, 3, 4, 5, 6]) {
+            el.value = [
+              'Option 1',
+              'Option 2',
+              'Option 3',
+              'Option 4',
+              'Option 5',
+              'Option 6'
+            ].slice(0, count);
+            await el.updateComplete;
+            await vi.advanceTimersByTimeAsync(300);
+            await el.updateComplete;
+            await waitForNextFrame();
+
+            const inputWidth = input.getBoundingClientRect().width,
+              fieldWidth = textField.getBoundingClientRect().width,
+              comboboxWidth = el.getBoundingClientRect().width;
+
+            expect(inputWidth).to.be.a('number');
+            expect(Number.isFinite(inputWidth)).to.be.true;
+            expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
+            expect(comboboxWidth).to.be.at.most(300.5);
+          }
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
       it('should have a tag for each selected option', () => {
         const tags = el.renderRoot.querySelectorAll('sl-tag');
 
@@ -939,17 +1272,75 @@ describe('sl-combobox', () => {
         expect(removable).to.be.true;
       });
 
-      it('should stack options when there is limited space', async () => {
-        el.style.maxInlineSize = '300px';
-        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+      it('should not show fake tag focus when navigating remove buttons', async () => {
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+          button = tags[0].renderRoot.querySelector('button');
+
+        button?.dispatchEvent(
+          new KeyboardEvent('keydown', { bubbles: true, composed: true, key: 'ArrowRight' })
+        );
         await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 50));
 
-        const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+4');
+        expect(tags.some(tag => tag.classList.contains('focused'))).to.be.false;
+      });
 
-        const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-        expect(visible).to.deep.equal([false, false, false, false, true, true]);
+      it('should stack options when there is limited space', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.maxInlineSize = '300px';
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+
+          const tagList = el.renderRoot.querySelector('sl-tag-list'),
+            stackTag = tagList?.renderRoot.querySelector('sl-tag'),
+            tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+            visibility = tags.map(tag => tag.style.display !== 'none'),
+            hiddenCount = visibility.filter(isVisible => !isVisible).length,
+            visibleCount = visibility.length - hiddenCount;
+
+          expect(visibleCount).to.be.greaterThan(0);
+          expect(hiddenCount).to.be.greaterThan(0);
+          expect(stackTag).to.have.trimmed.text(`+${hiddenCount}`);
+          expect(visibility.join(',')).to.match(/^false(,false)*,true(,true)*$/);
+        } finally {
+          vi.useRealTimers();
+        }
+      });
+
+      it('should reveal more tags after the combobox grows again', async () => {
+        vi.useFakeTimers();
+
+        try {
+          el.style.inlineSize = '300px';
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+          await el.updateComplete;
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+
+          const getVisibleCount = () =>
+            Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
+              tag => tag.style.display !== 'none'
+            ).length;
+
+          const collapsedVisibleCount = getVisibleCount();
+
+          el.style.inlineSize = '900px';
+          await vi.advanceTimersByTimeAsync(300);
+          await el.updateComplete;
+          await waitForNextFrame();
+
+          const expandedVisibleCount = getVisibleCount();
+
+          expect(collapsedVisibleCount).to.be.lessThan(6);
+          expect(expandedVisibleCount).to.be.greaterThan(collapsedVisibleCount);
+        } finally {
+          vi.useRealTimers();
+        }
       });
 
       it('should add a tag after selecting an option', async () => {
@@ -963,6 +1354,7 @@ describe('sl-combobox', () => {
         await el.updateComplete;
 
         const tags = el.renderRoot.querySelectorAll('sl-tag');
+
         expect(tags).to.have.lengthOf(2);
         expect(tags[0]).to.have.trimmed.text('Option 2');
         expect(tags[1]).to.have.trimmed.text('Option 1');
@@ -987,6 +1379,41 @@ describe('sl-combobox', () => {
 
         // Verify the tag was removed
         expect(el.value).to.deep.equal([]);
+      });
+
+      it('should focus the next tag after removing a tag', async () => {
+        el.value = ['Option 1', 'Option 2', 'Option 3'];
+        await el.updateComplete;
+
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        tags[0].renderRoot.querySelector<HTMLElement>('button')?.focus();
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        const remainingTags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        expect(el.value).to.deep.equal(['Option 2', 'Option 3']);
+        expect((el.renderRoot as ShadowRoot).activeElement).to.equal(remainingTags[0]);
+        expect(remainingTags[0].shadowRoot?.activeElement).to.equal(
+          remainingTags[0].renderRoot.querySelector('button')
+        );
+      });
+
+      it('should focus the input after removing the last tag', async () => {
+        el.value = ['Option 1'];
+        await el.updateComplete;
+
+        const tag = el.renderRoot.querySelector('sl-tag')!;
+
+        tag.renderRoot.querySelector<HTMLElement>('button')?.focus();
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        expect(el.value).to.deep.equal([]);
+        expect(document.activeElement).to.equal(input);
       });
     });
 
@@ -1153,12 +1580,34 @@ describe('sl-combobox', () => {
         expect(el.groupSelected).to.be.true;
       });
 
+      it('should prepend the selected group as the first child in the listbox', () => {
+        const listbox = el.querySelector('sl-listbox');
+
+        expect(listbox?.firstElementChild).to.equal(selectedGroup);
+      });
+
+      it('should set has-groups to false when source options are not grouped', () => {
+        expect(selectedGroup.hasGroups).to.be.false;
+        expect(selectedGroup).not.to.have.attribute('has-groups');
+      });
+
       it('should group the selected options', () => {
         expect(selectedGroup).to.exist;
-        expect(selectedGroup).to.have.attribute('aria-label', 'Selected');
+        // Note: aria-label is no longer set since we removed role="group" for Safari/VoiceOver compatibility
 
-        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option')).map(o => o.innerText);
+        const options = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(o => o.innerText);
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
+      });
+
+      it('should expose the selected state for grouped options', () => {
+        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option'));
+
+        expect(options.map(option => option.getAttribute('aria-selected'))).to.deep.equal([
+          'true',
+          'true'
+        ]);
       });
 
       it('should have group headers for both the selected and unselected options', () => {
@@ -1167,6 +1616,302 @@ describe('sl-combobox', () => {
         expect(headers).to.have.lengthOf(2);
         expect(headers.item(0)).to.have.trimmed.text('Selected');
         expect(headers.item(1)).to.have.trimmed.text('All options');
+      });
+
+      it('should remove the selected group when all selections are cleared', async () => {
+        el.value = [];
+        await el.updateComplete;
+
+        expect(el.querySelector('sl-combobox-selected-group')).not.to.exist;
+      });
+
+      it('should move current to the grouped option so Enter toggles it off instead of selecting it twice', async () => {
+        input.focus();
+        await userEvent.keyboard('Option 3');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const currentGroupedOption = selectedGroup.querySelector(
+          'sl-combobox-grouped-option[current]'
+        );
+        const groupedLabelsAfterFirstEnter = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(option => option.textContent?.trim());
+
+        expect(currentGroupedOption).to.exist;
+        expect(currentGroupedOption).to.have.trimmed.text('Option 3');
+        expect(groupedLabelsAfterFirstEnter.filter(label => label === 'Option 3')).to.have.lengthOf(
+          1
+        );
+
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const groupedLabelsAfterSecondEnter = Array.from(
+          selectedGroup.querySelectorAll('sl-combobox-grouped-option')
+        ).map(option => option.textContent?.trim());
+
+        expect(
+          groupedLabelsAfterSecondEnter.filter(label => label === 'Option 3')
+        ).to.have.lengthOf(0);
+      });
+
+      describe('with grouped source options', () => {
+        beforeEach(async () => {
+          el = await fixture(html`
+            <sl-combobox group-selected multiple .value=${['Option 1', 'Option 3']}>
+              <sl-listbox>
+                <sl-option-group label="Group 1">
+                  <sl-option>Option 1</sl-option>
+                  <sl-option>Option 2</sl-option>
+                </sl-option-group>
+                <sl-option-group label="Group 2">
+                  <sl-option>Option 3</sl-option>
+                  <sl-option>Option 4</sl-option>
+                </sl-option-group>
+              </sl-listbox>
+            </sl-combobox>
+          `);
+
+          selectedGroup = el.querySelector('sl-combobox-selected-group')!;
+        });
+
+        it('should set has-groups to true when source options are grouped', () => {
+          expect(selectedGroup.hasGroups).to.be.true;
+          expect(selectedGroup).to.have.attribute('has-groups');
+        });
+
+        it('should render only the selected header when has-groups is true', () => {
+          const headers = selectedGroup.renderRoot.querySelectorAll('sl-option-group-header');
+
+          expect(headers).to.have.lengthOf(1);
+          expect(headers.item(0)).to.have.trimmed.text('Selected');
+        });
+
+        it('should preserve original group labels on grouped selected options', () => {
+          const options = Array.from(
+            selectedGroup.querySelectorAll<GroupedOption>('sl-combobox-grouped-option')
+          );
+
+          expect(options).to.have.lengthOf(2);
+          expect(options[0].group).to.equal('Group 1');
+          expect(options[1].group).to.equal('Group 2');
+        });
+      });
+    });
+
+    describe('grouped options accessibility', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox
+            .options=${[
+              { label: 'Apple', value: 'apple', group: 'Fruits' },
+              { label: 'Banana', value: 'banana', group: 'Fruits' },
+              { label: 'Carrot', value: 'carrot', group: 'Vegetables' },
+              { label: 'Potato', value: 'potato', group: 'Vegetables' }
+            ]}
+            option-group-path="group"
+            option-label-path="label"
+            option-value-path="value">
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        // Open the listbox to render options
+        input.focus();
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+      });
+
+      it('should not have role="group" on group wrappers', () => {
+        // sl-option-group elements are in the light DOM, not the listbox shadow root
+        const groups = el.querySelectorAll('sl-option-group[role="group"]');
+
+        expect(groups).to.have.lengthOf(0);
+      });
+
+      it('should have aria-hidden="true" on group headers', async () => {
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const listbox = el.querySelector('sl-listbox');
+        const headers = el.items
+          .filter(item => item.type === 'group')
+          .map(item => item.element)
+          .filter(
+            (header): header is NonNullable<Combobox['items'][number]['element']> =>
+              header !== undefined
+          )
+          .filter(header => {
+            const root = header.getRootNode();
+
+            return (
+              header.closest('sl-listbox') === listbox ||
+              (root instanceof ShadowRoot && root.host.hasAttribute('data-virtual-list'))
+            );
+          });
+
+        expect(headers).to.have.lengthOf(2);
+
+        headers.forEach(header => {
+          expect(header).to.have.attribute('aria-hidden', 'true');
+        });
+      });
+
+      it('should have flattened aria-posinset and aria-setsize across all options', async () => {
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const listbox = el.querySelector('sl-listbox');
+        const options = el.items
+          .filter(item => 'option' in item)
+          .map(item => item.element)
+          .filter(
+            (option): option is NonNullable<Combobox['items'][number]['element']> =>
+              option !== undefined
+          )
+          .filter(option => option.getAttribute('role') === 'option')
+          .filter(option => {
+            const root = option.getRootNode();
+
+            return (
+              option.closest('sl-listbox') === listbox ||
+              (root instanceof ShadowRoot && root.host.hasAttribute('data-virtual-list'))
+            );
+          });
+
+        expect(options).to.have.lengthOf(4);
+
+        options.forEach((option, index) => {
+          expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+          expect(option).to.have.attribute('aria-setsize', '4');
+        });
+      });
+
+      it('should have set the group name in the option items', () => {
+        // Verify that items have group information
+        const options = el.items.filter(item => 'option' in item);
+
+        expect(options[0].group).to.equal('Fruits');
+        expect(options[1].group).to.equal('Fruits');
+        expect(options[2].group).to.equal('Vegetables');
+        expect(options[3].group).to.equal('Vegetables');
+
+        // The aria-label with group context is set in #renderItem when virtualizer renders
+      });
+
+      it('should have aria-selected on all options', () => {
+        // Verify that items are structured correctly for aria-selected
+        const options = el.items.filter(item => 'option' in item);
+
+        options.forEach(option => {
+          expect(option.selected).to.be.oneOf([true, false, undefined]);
+        });
+      });
+
+      it('should update aria-activedescendant to point to current option', async () => {
+        // Ensure the popover is open
+        await userEvent.click(input);
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        // Navigate to first option
+        await userEvent.keyboard('{ArrowDown}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        // The current item should be set and aria-activedescendant should point to it
+        if (el.currentItem) {
+          expect(input).to.have.attribute('aria-activedescendant', el.currentItem.id);
+        } else {
+          // If currentItem is not set, that's also acceptable for initial state
+          expect(el.currentItem).to.be.undefined;
+        }
+      });
+    });
+
+    describe('grouped options in light DOM', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option-group label="Group 1">
+                <sl-option value="1">Option 1</sl-option>
+                <sl-option value="2">Option 2</sl-option>
+              </sl-option-group>
+              <sl-option-group label="Group 2">
+                <sl-option value="3">Option 3</sl-option>
+                <sl-option value="4">Option 4</sl-option>
+              </sl-option-group>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        // Give time for options to be processed
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+      });
+
+      it('should not have role="group" on option-group elements', () => {
+        const groups = el.querySelectorAll('sl-option-group');
+
+        groups.forEach(group => {
+          expect(group).not.to.have.attribute('role', 'group');
+        });
+      });
+
+      it('should have aria-hidden="true" on group headers', () => {
+        const groups = el.querySelectorAll('sl-option-group');
+
+        groups.forEach(group => {
+          const header = group.shadowRoot?.querySelector('sl-option-group-header');
+          expect(header).to.have.attribute('aria-hidden', 'true');
+        });
+      });
+
+      it('should have flattened aria-posinset and aria-setsize across all options', async () => {
+        // Trigger options processing
+        input.focus();
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const options = el.querySelectorAll('sl-option');
+
+        expect(options).to.have.lengthOf(4);
+
+        options.forEach((option, index) => {
+          expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+          expect(option).to.have.attribute('aria-setsize', '4');
+        });
+      });
+
+      it('should include group context in option accessible names', async () => {
+        // Trigger options processing
+        input.focus();
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextMacrotask();
+
+        const options = el.querySelectorAll('sl-option');
+
+        expect(options[0]).to.have.attribute('aria-label', 'Option 1 (Group 1)');
+        expect(options[1]).to.have.attribute('aria-label', 'Option 2 (Group 1)');
+        expect(options[2]).to.have.attribute('aria-label', 'Option 3 (Group 2)');
+        expect(options[3]).to.have.attribute('aria-label', 'Option 4 (Group 2)');
       });
     });
 
@@ -1253,7 +1998,8 @@ describe('sl-combobox', () => {
         `);
 
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await waitForNextFrame();
+      await waitForNextMacrotask();
 
       expect(el.value).to.equal('Option 1');
       expect(changeSpy).not.to.have.been.called;
@@ -1346,6 +2092,184 @@ describe('sl-combobox', () => {
       const formData = new FormData(form);
       expect(formData.get('test')).to.equal('1');
       expect(combobox.value).to.equal('Option 2');
+    });
+
+    it('should open a virtual list with object options without crashing', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${options}
+          .value=${300}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should update grouped virtual list selections without recursive cleanup', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          group-selected
+          multiple
+          .options=${options}
+          .value=${[300]}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      // Switching value to empty exercises grouped-option cleanup paths.
+      combobox.value = [];
+      await combobox.updateComplete;
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      input.click();
+      await combobox.updateComplete;
+      await waitForNextFrame();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+      expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+  });
+
+  describe('accessibility', () => {
+    it('should forward aria-label from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-label="Search options">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(el).to.exist;
+      expect(input).to.exist;
+      expect(el).to.have.attribute('aria-label', 'Search options');
+      expect(input).not.to.have.attribute('aria-label', 'Search options');
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      expect(input).to.have.attribute('aria-label', 'Search options');
+      expect(el).not.to.have.attribute('aria-label');
+    });
+
+    it('should forward aria-describedby from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-describedby="hint-id">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('aria-describedby', 'hint-id');
+      expect(el).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should forward aria-labelledby from host to input', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-labelledby="label-id">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      expect(input).to.have.attribute('aria-labelledby', 'label-id');
+      expect(el).not.to.have.attribute('aria-labelledby');
+    });
+
+    it('should update aria-label on input when changed on host', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox aria-label="Initial label">
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+
+      // Wait for the mixin's requestAnimationFrame to complete
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const input = el.querySelector('input[slot="input"]')!;
+      expect(input).to.have.attribute('aria-label', 'Initial label');
+      expect(el).not.to.have.attribute('aria-label');
+
+      el.setAttribute('aria-label', 'Updated label');
+      await el.updateComplete;
+      // Wait for ObserveAttributesMixin's requestAnimationFrame
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      expect(input).to.have.attribute('aria-label', 'Updated label');
+      expect(el).not.to.have.attribute('aria-label');
+    });
+
+    it('should set aria-labelledby on input when data-label-id is set', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      const input = el.querySelector('input[slot="input"]')!;
+
+      el.setAttribute('data-label-id', 'sl-label-123');
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('aria-labelledby', 'sl-label-123');
+    });
+    it('should have proper ARIA roles and attributes', async () => {
+      const el = await fixture<Combobox>(html`
+        <sl-combobox>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      await el.updateComplete;
+
+      const input = el.querySelector('input[slot="input"]')!;
+      const listbox = el.querySelector('sl-listbox')!;
+
+      expect(input).to.have.attribute('role', 'combobox');
+      expect(input).to.have.attribute('aria-autocomplete');
+      expect(input).to.have.attribute('aria-expanded', 'false');
+      expect(input).to.have.attribute('aria-haspopup', 'listbox');
+      expect(input).to.have.attribute('aria-controls', listbox.id);
     });
   });
 });

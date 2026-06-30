@@ -1,5 +1,17 @@
 # @sl-design-system/myvanin
 
+## 1.0.4
+
+### Patch Changes
+
+- [#3359](https://github.com/sl-design-system/components/pull/3359) [`1dac781`](https://github.com/sl-design-system/components/commit/1dac78183220216dce0c7c8a2e2d36c6e4c7ebb8) - Fixes an issue where line-height variables had a duplicate unit (pxpx)
+
+## 1.0.3
+
+### Patch Changes
+
+- [#3142](https://github.com/sl-design-system/components/pull/3142) [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c) - Updated `global.css` file - improved dialog animations.
+
 ## 1.0.2
 
 ### Patch Changes

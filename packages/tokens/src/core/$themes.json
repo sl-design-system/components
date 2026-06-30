@@ -78,6 +78,71 @@
     }
   },
   {
+    "name": "Sanoma Learning",
+    "group": "Collection I",
+    "selectedTokenSets": {
+      "sanoma-utbildning/base-new": "disabled",
+      "teas/base-new": "disabled",
+      "sanoma-utbildning/light-new": "disabled",
+      "max/theme-new": "disabled",
+      "bingel-int/base-new": "disabled",
+      "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "neon/dark-new": "disabled",
+      "tig/base-new": "disabled",
+      "editorial-suite/base-new": "disabled",
+      "sanoma-learning/base-new": "enabled",
+      "teas/light-new": "disabled",
+      "itslearning/light-new": "disabled",
+      "sanoma-utbildning/theme-new": "disabled",
+      "sanoma-pro/base-new": "disabled",
+      "sanoma-pro/light-new": "disabled",
+      "II/theme-new": "disabled",
+      "max/light-new": "disabled",
+      "max/base-new": "disabled",
+      "magister/dark-new": "disabled",
+      "I/theme-new": "disabled",
+      "top-level/base-new": "disabled",
+      "neon/base-new": "disabled",
+      "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "editorial-suite/theme-new": "disabled",
+      "bingel-dc/base-new": "disabled",
+      "clickedu/base-new": "disabled",
+      "neon/theme-new": "disabled",
+      "clickedu/light-new": "disabled",
+      "clickedu/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "kampus/base-new": "disabled",
+      "bingel-dc/light-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "tig/light-new": "disabled",
+      "I/base-new": "disabled",
+      "sanoma-learning/light-new": "disabled",
+      "tig/theme-new": "disabled",
+      "editorial-suite/light-new": "disabled",
+      "itslearning/base-new": "disabled",
+      "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
+      "top-level/primitives": "disabled",
+      "neon/light-new": "disabled",
+      "magister/light-new": "disabled",
+      "sanoma-learning/theme-new": "enabled",
+      "top-level/system": "disabled",
+      "sanoma-learning/dark-new": "disabled",
+      "teas/theme-new": "disabled",
+      "sanoma-pro/theme-new": "disabled",
+      "my-digital-book/light-new": "disabled",
+      "bingel-int/light-new": "disabled",
+      "my-digital-book/base-new": "disabled",
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
+    }
+  },
+  {
     "name": "Bingel DC",
     "group": "Collection I",
     "selectedTokenSets": {
@@ -87,6 +152,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -105,6 +171,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "enabled",
@@ -123,6 +190,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -134,7 +202,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -147,6 +217,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "enabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "enabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -165,6 +236,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -183,6 +255,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -194,7 +267,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -207,6 +282,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -225,6 +301,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -243,6 +320,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -254,7 +332,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -267,6 +347,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -285,6 +366,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "enabled",
       "bingel-dc/base-new": "disabled",
@@ -303,6 +385,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -314,7 +397,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -327,6 +412,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -345,6 +431,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -363,6 +450,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "enabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -374,7 +462,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "enabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "enabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -387,6 +477,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -405,6 +496,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -423,6 +515,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -434,7 +527,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -466,6 +561,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -484,6 +580,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -495,7 +592,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -508,6 +607,7 @@
       "max/theme-new": "enabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -526,6 +626,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -544,6 +645,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -555,7 +657,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -568,6 +672,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -586,6 +691,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "enabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -604,6 +710,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -615,7 +722,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "enabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -628,6 +737,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -646,6 +756,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "enabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -664,6 +775,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -675,67 +787,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
-    }
-  },
-  {
-    "name": "Sanoma Learning",
-    "group": "Collection I",
-    "selectedTokenSets": {
-      "sanoma-utbildning/base-new": "disabled",
-      "teas/base-new": "disabled",
-      "sanoma-utbildning/light-new": "disabled",
-      "max/theme-new": "disabled",
-      "bingel-int/base-new": "disabled",
-      "magister/base-new": "disabled",
-      "bingel-int/theme-new": "disabled",
-      "neon/dark-new": "disabled",
-      "tig/base-new": "disabled",
-      "editorial-suite/base-new": "disabled",
-      "sanoma-learning/base-new": "enabled",
-      "teas/light-new": "disabled",
-      "itslearning/light-new": "disabled",
-      "sanoma-utbildning/theme-new": "disabled",
-      "sanoma-pro/base-new": "disabled",
-      "sanoma-pro/light-new": "disabled",
-      "II/theme-new": "disabled",
-      "max/light-new": "disabled",
-      "max/base-new": "disabled",
-      "magister/dark-new": "disabled",
-      "I/theme-new": "disabled",
-      "top-level/base-new": "disabled",
-      "neon/base-new": "disabled",
-      "kampus/light-new": "disabled",
-      "my-digital-book/theme-new": "disabled",
-      "editorial-suite/theme-new": "disabled",
-      "bingel-dc/base-new": "disabled",
-      "clickedu/base-new": "disabled",
-      "neon/theme-new": "disabled",
-      "clickedu/light-new": "disabled",
-      "clickedu/theme-new": "disabled",
-      "kampus/theme-new": "disabled",
-      "kampus/base-new": "disabled",
-      "bingel-dc/light-new": "disabled",
-      "bingel-dc/theme-new": "disabled",
-      "tig/light-new": "disabled",
-      "I/base-new": "disabled",
-      "sanoma-learning/light-new": "disabled",
-      "tig/theme-new": "disabled",
-      "editorial-suite/light-new": "disabled",
-      "itslearning/base-new": "disabled",
-      "II/base-new": "disabled",
-      "top-level/primitives": "disabled",
-      "neon/light-new": "disabled",
-      "magister/light-new": "disabled",
-      "sanoma-learning/theme-new": "enabled",
-      "top-level/system": "disabled",
-      "sanoma-learning/dark-new": "disabled",
-      "teas/theme-new": "disabled",
-      "sanoma-pro/theme-new": "disabled",
-      "my-digital-book/light-new": "disabled",
-      "bingel-int/light-new": "disabled",
-      "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -748,6 +802,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -766,6 +821,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -784,6 +840,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -795,7 +852,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -808,6 +867,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -826,6 +886,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -844,6 +905,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -855,7 +917,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -868,6 +932,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "disabled",
@@ -886,6 +951,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -904,6 +970,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -915,7 +982,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {
@@ -928,6 +997,7 @@
       "max/theme-new": "disabled",
       "bingel-int/base-new": "disabled",
       "magister/base-new": "disabled",
+      "magister/theme-new": "disabled",
       "bingel-int/theme-new": "disabled",
       "neon/dark-new": "disabled",
       "tig/base-new": "enabled",
@@ -946,6 +1016,7 @@
       "top-level/base-new": "disabled",
       "neon/base-new": "disabled",
       "kampus/light-new": "disabled",
+      "placeholder/light-new": "disabled",
       "my-digital-book/theme-new": "disabled",
       "editorial-suite/theme-new": "disabled",
       "bingel-dc/base-new": "disabled",
@@ -964,6 +1035,7 @@
       "editorial-suite/light-new": "disabled",
       "itslearning/base-new": "disabled",
       "II/base-new": "disabled",
+      "placeholder/base-new": "disabled",
       "top-level/primitives": "disabled",
       "neon/light-new": "disabled",
       "magister/light-new": "disabled",
@@ -975,7 +1047,9 @@
       "my-digital-book/light-new": "disabled",
       "bingel-int/light-new": "disabled",
       "my-digital-book/base-new": "disabled",
-      "itslearning/theme-new": "disabled"
+      "placeholder/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "top-level/theme-new": "disabled"
     }
   },
   {

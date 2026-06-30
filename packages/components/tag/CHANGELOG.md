@@ -1,5 +1,36 @@
 # @sl-design-system/tag
 
+## 0.1.13
+
+### Patch Changes
+
+- [#3408](https://github.com/sl-design-system/components/pull/3408) [`d6f8588`](https://github.com/sl-design-system/components/commit/d6f858895428de34e4398e275c4e6246b2088882) - Fixed stacked tag lists so the generated stack counter tag has `role="listitem"`, matching the slotted tags and satisfying ARIA list semantics
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tooltip@2.0.1
+
+## 0.1.12
+
+### Patch Changes
+
+- [#3112](https://github.com/sl-design-system/components/pull/3112) [`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56) - Added a 0.5px buffer to the tag list visibility calculation to prevent layout oscillation (flickering) caused by sub-pixel rounding errors at certain zoom levels.
+
+- Updated dependencies [[`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/tooltip@2.0.0
+
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/tooltip@1.4.0
+  - @sl-design-system/shared@0.12.0
+
 ## 0.1.10
 
 ### Patch Changes

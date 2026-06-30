@@ -9,7 +9,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Paginator/Page size',
-  tags: ['draft'],
   args: {
     pageSize: 10,
     pageSizes: [5, 10, 15]
@@ -19,8 +18,7 @@ export default {
       <sl-paginator-page-size
         .itemLabel=${itemLabel}
         .pageSize=${pageSize}
-        .pageSizes=${pageSizes}
-      ></sl-paginator-page-size>
+        .pageSizes=${pageSizes}></sl-paginator-page-size>
     `;
   }
 } satisfies Meta<Props>;
@@ -37,7 +35,11 @@ export const DataSource: Story = {
     dataSource.setPageSize(5);
     dataSource.update();
 
-    return html`<sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
+    return html`
+      <sl-paginator-page-size
+        .dataSource=${dataSource}
+        .pageSizes=${pageSizes}></sl-paginator-page-size>
+    `;
   }
 };
 

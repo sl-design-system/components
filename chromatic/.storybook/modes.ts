@@ -1,7 +1,7 @@
 export const allModes = {
   default: {
     // integer is just width
-    viewport: 1280,
+    viewport: 1280
   },
   'bingel-dc': {
     theme: 'bingel-dc'
@@ -9,37 +9,43 @@ export const allModes = {
   'bingel-int': {
     theme: 'bingel-int'
   },
-  'clickedu': {
+  clickedu: {
     theme: 'clickedu'
   },
   'editorial-suite': {
     theme: 'editorial-suite'
   },
-  'itslearning': {
+  itslearning: {
     theme: 'itslearning'
   },
-  'kampus': {
+  kampus: {
     theme: 'kampus'
   },
-  'magister': {
+  magister: {
     theme: 'magister'
   },
-  'max': {
+  max: {
     theme: 'max'
   },
   'my-digital-book': {
     theme: 'my-digital-book'
   },
-  'neon': {
+  neon: {
     theme: 'neon'
   },
   'sanoma-learning': {
     theme: 'sanoma-learning'
   },
-  'teas': {
+  'sanoma-pro': {
+    theme: 'sanoma-pro'
+  },
+  'sanoma-utbildning': {
+    theme: 'sanoma-utbildning'
+  },
+  teas: {
     theme: 'teas'
   },
-  'tig': {
+  tig: {
     theme: 'tig'
-  },
+  }
 };

@@ -1,5 +1,52 @@
 # @sl-design-system/shared
 
+## 0.12.2
+
+### Patch Changes
+
+- [#3383](https://github.com/sl-design-system/components/pull/3383) [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba) - Expose `aria-disabled="true"` on disabled menu items so assistive technologies announce them as unavailable. Toolbar overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. Forwarded `ariaDisabled` now clears correctly through nested proxy targets
+
+## 0.12.1
+
+### Patch Changes
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+## 0.12.0
+
+### Minor Changes
+
+- [#3139](https://github.com/sl-design-system/components/pull/3139) [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538) - Add `ForwardAriaMixin` that forwards ARIA attributes from a custom element host to a target element inside its shadow DOM.
+  - **Reference attributes** (`aria-labelledby`, `aria-describedby`, `aria-controls`, etc.) are resolved to DOM elements and set via element reference properties (e.g. `ariaLabelledByElements`) on the target.
+  - **Value attributes** (`aria-label`, `aria-disabled`, etc.) are forwarded as regular attributes on the target.
+  - **`ariaDisabled` property** is explicitly intercepted: setting it to `'true'` sets `aria-disabled="true"` on the target; setting it to `null` removes `aria-disabled` from the target. This fixes a bug where the `MutationObserver` path could not propagate attribute _removal_, leaving the target in a stale disabled state.
+  - Supports **nesting**: when two components using this mixin are nested, element reference properties propagate all the way to the deepest native element.
+  - Supports an optional list of observed attributes; when omitted, all `aria-*` attributes are proxied automatically via a `MutationObserver`.
+
+  `ForwardAriaMixin` is the successor to `ObserveAttributesMixin`; `ObserveAttributesMixin` remains exported for backwards compatibility and may be removed in a future release.
+
+  Also add helper functions exported from `@sl-design-system/shared/helpers/forward-aria.js` for inspecting the accessible state of elements that use `ForwardAriaMixin`:
+  - `getForwardedAccessibleName(host)` — resolves the accessible name via `aria-labelledby` → `aria-label` → slotted text content
+  - `getForwardedDescription(host)` — resolves the accessible description via `aria-describedby` → `aria-description`
+  - `isForwardedDisabled(host)` — returns `false`, `true`, or `'aria'`
+  - `getForwardedAriaAttribute(host, name)` — reads a forwarded ARIA attribute from the forwarding target
+  - `getForwardedAriaProperty(host, name)` — reads a forwarded ARIA element-reference property from the forwarding target
+
+- [#3142](https://github.com/sl-design-system/components/pull/3142) [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c) - Improved `MediaController` (used in `sl-dialog`):
+  - Added `device` getter to query the current breakpoint
+  - Added `MediaControllerConfig` with an `onChange` callback that fires when the viewport crosses a breakpoint
+  - Added `MediaChangeEvent` interface with `previous` and `current` device info
+
+- [#3139](https://github.com/sl-design-system/components/pull/3139) [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538) - Add helper functions for inspecting accessible state of elements using `ForwardAriaMixin`. Import from `@sl-design-system/shared/helpers/forward-aria.js`.
+
+  | Function                                | Description                                                                                                  |
+  | --------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+  | `getForwardedAccessibleName(host)`      | Resolves the accessible name following: `aria-labelledby` → `aria-label` → slotted text content.             |
+  | `getForwardedDescription(host)`         | Resolves the accessible description following: `aria-describedby` → `aria-description`.                      |
+  | `isForwardedDisabled(host)`             | Returns `false`, `true` (natively disabled), or `'aria'` (disabled via `aria-disabled`).                     |
+  | `getForwardedAriaAttribute(host, name)` | Returns the value of a given ARIA attribute from the forwarding target where `ForwardAriaMixin` forwards it. |
+  | `getForwardedAriaProperty(host, name)`  | Returns the value of a given ARIA property (e.g. `ariaLabelledByElements`) from the forwarding target.       |
+
 ## 0.11.0
 
 ### Minor Changes

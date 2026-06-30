@@ -32,6 +32,7 @@ describe('sl-menu-item', () => {
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.have.attribute('aria-disabled');
       expect(el.disabled).not.to.be.true;
     });
 
@@ -40,7 +41,31 @@ describe('sl-menu-item', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
       expect(el.disabled).to.be.true;
+    });
+
+    it('should remove aria-disabled when re-enabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('aria-disabled');
+      expect(el).to.have.attribute('tabindex', '0');
+    });
+
+    it('should preserve aria-disabled when re-enabled if it was set explicitly', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-disabled', 'true');
+      expect(el).to.have.attribute('tabindex', '0');
     });
 
     it('should not be selectable', () => {
@@ -139,6 +164,67 @@ describe('sl-menu-item', () => {
     });
   });
 
+  describe('selectable aria state', () => {
+    it('should set aria-checked to false for not selected selectable item', async () => {
+      el = await fixture(html`<sl-menu-item selectable>Item 1</sl-menu-item>`);
+
+      expect(el).to.have.attribute('aria-checked', 'false');
+    });
+
+    it('should set aria-checked to true for selected selectable item', async () => {
+      el = await fixture(html`<sl-menu-item selectable selected>Item 1</sl-menu-item>`);
+
+      expect(el).to.have.attribute('aria-checked', 'true');
+    });
+
+    it('should remove aria-checked when item is no longer selectable', async () => {
+      el = await fixture(html`<sl-menu-item selectable>Item 1</sl-menu-item>`);
+
+      el.selectable = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('aria-checked');
+    });
+
+    it('should not render a check icon when selected but not selectable', async () => {
+      el = await fixture(html`<sl-menu-item selected>Item 1</sl-menu-item>`);
+
+      expect(el.renderRoot.querySelector('sl-icon[name="check"]')).not.to.exist;
+    });
+  });
+
+  describe('aria-disabled', () => {
+    it('should remain focusable when aria-disabled', async () => {
+      el = await fixture(html`<sl-menu-item aria-disabled="true">Item 1</sl-menu-item>`);
+
+      expect(el).to.have.attribute('tabindex', '0');
+      expect(el).not.to.have.attribute('disabled');
+    });
+
+    it('should not toggle selected when clicked', async () => {
+      el = await fixture(html`
+        <sl-menu-item aria-disabled="true" selectable selected>Item 1</sl-menu-item>
+      `);
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.selected).to.be.true;
+    });
+
+    it('should not toggle selected when pressing enter', async () => {
+      el = await fixture(html`
+        <sl-menu-item aria-disabled="true" selectable selected>Item 1</sl-menu-item>
+      `);
+
+      el.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.selected).to.be.true;
+    });
+  });
+
   describe('shortcut', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-menu-item shortcut="$mod+Digit1">Item 1</sl-menu-item>`);
@@ -149,7 +235,10 @@ describe('sl-menu-item', () => {
     });
 
     it('should have an aria-keyshortcuts attribute', () => {
-      expect(el).to.have.attribute('aria-keyshortcuts', navigator.platform.indexOf('Mac') > -1 ? 'Meta+1' : 'Ctrl+1');
+      expect(el).to.have.attribute(
+        'aria-keyshortcuts',
+        navigator.platform.indexOf('Mac') > -1 ? 'Meta+1' : 'Ctrl+1'
+      );
     });
 
     it('should hide the kbd element from assistive technologies', () => {
@@ -171,7 +260,9 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
 
-      await userEvent.keyboard(navigator.platform.indexOf('Mac') > -1 ? '{Meta>}1{/Meta}' : '{Control>}1{/Control}');
+      await userEvent.keyboard(
+        navigator.platform.indexOf('Mac') > -1 ? '{Meta>}1{/Meta}' : '{Control>}1{/Control}'
+      );
 
       expect(onClick).to.have.been.calledOnce;
     });
@@ -181,6 +272,18 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
       el.disabled = true;
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Meta>}1{/Meta}');
+
+      expect(onClick).not.to.have.been.called;
+    });
+
+    it('should not trigger the menu item when the shortcut is pressed and the menu item is aria-disabled', async () => {
+      const onClick = spy();
+
+      el.addEventListener('click', onClick);
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
       await userEvent.keyboard('{Meta>}1{/Meta}');

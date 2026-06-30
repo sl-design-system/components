@@ -1,16 +1,30 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Calendar } from '@sl-design-system/calendar';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
 import { FieldButton } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
@@ -32,9 +46,10 @@ declare global {
 type DatePartType = 'day' | 'month' | 'year';
 
 /**
- * A form component that allows the user to pick a date from a calendar.
- * Uses individual spinbutton inputs per date part for improved accessibility.
+ * A form component that allows the user to pick a date from a calendar. Uses individual spinbutton
+ * inputs per date part for improved accessibility.
  *
+ * @cssState has-focus - Set when the date field has focus.
  * @cssState has-value - Set when the date field has a value.
  * @cssState placeholder-shown - Set when the date field is empty and has a placeholder.
  */
@@ -43,11 +58,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal */
   static formAssociated = true;
 
-  /** @internal The default offset of the popover to the field. */
-  static offset = 6;
-
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
@@ -60,8 +72,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal The default margin between the popover and the viewport. */
-  static viewportMargin = 8;
+  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
 
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
@@ -69,48 +84,56 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** Formatter for displaying the value and validation messages. */
   #formatter?: Intl.DateTimeFormat;
 
+  /** Watches light DOM changes so action controls can be rendered only when needed. */
+  #slotObserver = new MutationObserver(() => this.#updateHasActionSlotContent());
+
   /**
-   * Flag to prevent willUpdate from clearing dateParts when the value is set
-   * to undefined internally (e.g. when the user enters an invalid date).
+   * Flag to prevent willUpdate from clearing dateParts when the value is set to undefined
+   * internally (e.g. when the user enters an invalid date).
    */
   #preserveDateParts = false;
 
-  /**
-   * Flag indicating whether the popover was just closed. We need to know this so we can
-   * properly handle button clicks that close the popover. If the popover was just closed,
-   * we don't want to show it again when the button click event fires.
-   */
-  #popoverJustClosed = false;
-
   /** The index of the active date part for roving tabindex. */
   #rovingIndex = 0;
+
+  /** Guard to prevent concurrent #openDialog() calls. */
+  #opening = false;
+
+  /** Used to cancel a pending #openDialog() before showModal() runs. */
+  #openDialogCancelled = false;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /**
-   * The calendar element. This will return an instance of the calendar
-   * when the popover is shown or always when the calendar is slotted. Otherwise
-   * it will return undefined.
+   * The calendar element. This will return an instance of the calendar when the dialog is shown or
+   * always when the calendar is slotted. Otherwise it will return undefined.
    */
   get calendar(): Calendar | null {
-    return this.querySelector('sl-calendar[slot="calendar"]') ?? this.renderRoot.querySelector('sl-calendar');
+    return (
+      this.querySelector('sl-calendar[slot="calendar"]') ??
+      this.renderRoot.querySelector('sl-calendar')
+    );
   }
 
-  /** @internal Whether the calendar popover is currently visible. */
+  /** @internal Whether the calendar dialog is currently visible. */
   @state() calendarVisible?: boolean;
+
+  /** @internal Whether the default slot contains action controls. */
+  @state() hasActionSlotContent?: boolean;
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date | undefined>>;
 
   /**
-   * Stores the individual date parts when the user is editing.
-   * These are stored separately from `value` to support partial dates.
+   * Stores the individual date parts when the user is editing. These are stored separately from
+   * `value` to support partial dates.
+   *
    * @internal
    */
   @state() dateParts: { day?: number; month?: number; year?: number } = {};
 
-  /** @internal The dialog element that is also the popover. */
+  /** @internal The dialog element. */
   @query('dialog') dialog?: HTMLDialogElement;
 
   /** Whether the date field is disabled; when set no interaction is possible. */
@@ -118,6 +141,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
+   *
    * @default 1
    */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
@@ -152,12 +176,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * The maximum date selectable in the calendar.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
    * The minimum date selectable in the calendar.
+   *
    * @default undefined
    */
   @property({ converter: dateConverter }) min?: Date;
@@ -167,6 +193,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Placeholder text shown when there is no value and the field is not focused.
+   *
    * @default undefined
    */
   @property() placeholder?: string;
@@ -176,18 +203,20 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /**
    * Whether the date field is readonly.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
   /**
-   * When set, a "Confirm" button will be shown in the popover, and the user will
-   * need to click it to confirm their date selection.
+   * When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to
+   * confirm their date selection.
    */
   @property({ type: Boolean, attribute: 'require-confirmation' }) requireConfirmation?: boolean;
 
   /**
    * Whether the date field is a required field.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
@@ -196,14 +225,16 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @state() selectAll?: boolean;
 
   /**
-   * Whether the component is select only. This means you cannot type in the inputs,
-   * but you can still pick a date via the popover.
+   * Whether the component is select only. This means you cannot type in the inputs, but you can
+   * still pick a date via the dialog.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
   /**
    * Shows the week numbers.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
@@ -219,6 +250,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.addEventListener('focusin', this.#onFocusIn);
     this.addEventListener('focusout', this.#onFocusOut);
+
+    this.#slotObserver.observe(this, {
+      attributeFilter: ['slot'],
+      attributes: true,
+      childList: true,
+      subtree: true
+    });
+    this.#updateHasActionSlotContent();
   }
 
   override disconnectedCallback(): void {
@@ -226,13 +265,18 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.removeEventListener('focusin', this.#onFocusIn);
     this.removeEventListener('focusout', this.#onFocusOut);
+    this.#slotObserver.disconnect();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
     if (changes.has('locale')) {
-      this.#formatter = new Intl.DateTimeFormat(this.locale, { day: '2-digit', month: '2-digit', year: 'numeric' });
+      this.#formatter = new Intl.DateTimeFormat(this.locale, {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
     }
 
     if (changes.has('locale') || changes.has('value')) {
@@ -283,14 +327,26 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.internals.setFormValue(this.formValue);
     }
 
-    if (changes.has('min') || changes.has('max') || changes.has('required') || changes.has('value')) {
+    if (
+      changes.has('min') ||
+      changes.has('max') ||
+      changes.has('required') ||
+      changes.has('value')
+    ) {
       this.updateValidity();
     }
   }
 
+  /** @internal */
+  override focus(): void {
+    this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
+    this.internals.states.add('has-focus');
+  }
+
   override render(): TemplateResult {
     const locale = this.locale ?? 'default',
-      parts = getDateFormat(locale);
+      parts = getDateFormat(locale),
+      hasExtraControls = this.requireConfirmation || this.hasActionSlotContent;
 
     return html`
       <div class="field">
@@ -302,8 +358,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   @keydown=${this.#onSelectAllKeydown}
                   @mousedown=${this.#onSelectAllMouseDown}
                   class="select-all"
-                  contenteditable="true"
-                >
+                  contenteditable="true">
                   ${this.#getFormattedValue()}
                 </span>
               `
@@ -311,7 +366,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                 <div class="parts">${parts.map(part => this.renderPart(part, locale))}</div>
                 ${this.placeholder
                   ? html`
-                      <div aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')} class="placeholder">
+                      <div
+                        aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
+                        class="placeholder">
                         ${this.placeholder}
                       </div>
                     `
@@ -323,23 +380,21 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
           aria-controls="dialog"
-          aria-expanded=${this.dialog?.matches(':popover-open') ? 'true' : 'false'}
+          aria-expanded=${this.dialog?.open ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
-          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
-        >
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="calendar"></sl-icon>
         </sl-field-button>
       </div>
 
       <dialog
-        ${anchor({ element: this, position: 'bottom-start', supportCSSAnchorPositioning: true })}
-        @beforetoggle=${this.#onBeforeToggle}
-        @toggle=${this.#onToggle}
+        @cancel=${(e: Event) => e.preventDefault()}
+        @click=${this.#onDialogClick}
+        @close=${this.#onClose}
         @keydown=${this.#onKeydown}
-        id="dialog"
-        popover
-      >
+        aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
+        id="dialog">
         ${this.calendarVisible
           ? html`
               <slot @slotchange=${this.#onSlotChange} @sl-change=${this.#onChange} name="calendar">
@@ -351,20 +406,23 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   max=${ifDefined(this.max?.toISOString())}
                   min=${ifDefined(this.min?.toISOString())}
                   month=${ifDefined(this.month?.toISOString())}
-                  show-today
-                ></sl-calendar>
+                  show-today></sl-calendar>
               </slot>
-              <sl-button-bar>
-                <slot></slot>
-                ${this.requireConfirmation
-                  ? html`
-                      <sl-button @click=${this.#onConfirm} variant="primary">
-                        ${msg('Confirm', { id: 'sl.dateField.confirm' })}
-                        <sl-icon name="check"></sl-icon>
-                      </sl-button>
-                    `
-                  : nothing}
-              </sl-button-bar>
+              ${hasExtraControls
+                ? html`
+                    <sl-button-bar>
+                      <slot></slot>
+                      ${this.requireConfirmation
+                        ? html`
+                            <sl-button @click=${this.#onConfirm} variant="primary">
+                              ${msg('Confirm', { id: 'sl.dateField.confirm' })}
+                              <sl-icon name="check"></sl-icon>
+                            </sl-button>
+                          `
+                        : nothing}
+                    </sl-button-bar>
+                  `
+                : nothing}
             `
           : nothing}
       </dialog>
@@ -374,7 +432,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal */
   renderPart(part: DateFormatPart, locale: string): TemplateResult {
     if (part.type === 'literal') {
-      return html`<span @pointerdown=${this.#onSeparatorPointerDown} class="separator">${part.value}</span>`;
+      return html`
+        <span @pointerdown=${this.#onSeparatorPointerDown} class="separator">${part.value}</span>
+      `;
     }
 
     const partType = part.type as DatePartType,
@@ -386,7 +446,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       hasValue = currentValue !== undefined,
       displayValue = hasValue ? String(currentValue).padStart(part.value.length, '0') : placeholder,
       isMonth = partType === 'month',
-      isValidMonth = isMonth && typeof currentValue === 'number' && currentValue >= 1 && currentValue <= 12,
+      isValidMonth =
+        isMonth && typeof currentValue === 'number' && currentValue >= 1 && currentValue <= 12,
       valueText = hasValue
         ? isMonth
           ? isValidMonth
@@ -413,7 +474,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         contenteditable=${this.disabled || this.readonly || this.selectOnly ? 'false' : 'true'}
         inputmode="numeric"
         role="spinbutton"
-        tabindex=${ifDefined(this.disabled ? undefined : datePartIndex === this.#rovingIndex ? '0' : '-1')}
+        tabindex=${ifDefined(
+          this.disabled ? undefined : datePartIndex === this.#rovingIndex ? '0' : '-1'
+        )}
         >${displayValue}</span
       >
     `;
@@ -444,7 +507,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           })
         );
       } else {
-        this.setCustomValidity(msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' }));
+        this.setCustomValidity(
+          msg('Please enter a valid date.', { id: 'sl.dateField.typeMismatch' })
+        );
       }
     } else if (this.required && !this.value) {
       this.setCustomValidity(msg('Please enter a date.', { id: 'sl.dateField.valueMissing' }));
@@ -471,25 +536,66 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Show the date picker. */
   showPicker(): void {
-    this.dialog?.showPopover();
+    if (this.dialog?.open) {
+      return;
+    }
+
+    void this.#openDialog();
   }
 
   /** Hide the date picker. */
   hidePicker(): void {
-    this.dialog?.hidePopover();
+    this.#openDialogCancelled = true;
+
+    if (this.#opening && !this.dialog?.open) {
+      this.calendarVisible = false;
+      this.requestUpdate();
+
+      return;
+    }
+
+    if (this.dialog?.open) {
+      this.dialog.close();
+      this.requestUpdate();
+    }
   }
 
-  #onBeforeToggle(event: ToggleEvent): void {
-    if (event.newState !== 'open') {
-      this.#popoverJustClosed = true;
-    } else {
+  async #openDialog(): Promise<void> {
+    if (this.#opening) {
+      return;
+    }
+
+    this.#opening = true;
+    this.#openDialogCancelled = false;
+
+    try {
       this.calendarVisible = true;
+      await this.updateComplete;
+
+      if (this.#openDialogCancelled) {
+        return;
+      }
+
+      if (!this.dialog?.open) {
+        this.dialog?.showModal();
+        this.requestUpdate();
+      }
+
+      requestAnimationFrame(() => {
+        if (this.dialog?.open) {
+          this.calendar?.focus();
+        }
+      });
+    } finally {
+      this.#opening = false;
     }
   }
 
   #onButtonClick(): void {
-    if (!this.#popoverJustClosed) {
-      this.dialog?.togglePopover();
+    if (this.dialog?.open || this.#opening) {
+      this.hidePicker();
+    } else {
+      this.showPicker();
     }
   }
 
@@ -502,6 +608,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#setValueAndCloseDialog(event.detail);
+  }
+
+  #onClick(event: Event): void {
+    // this is needed to get the link between the label and the input working,
+    // because that doesn't work when the input is actually a contenteditable span
+    if (!this.disabled && event.composedPath()[0] === this) {
+      this.focus();
+    }
   }
 
   #onConfirm(): void {
@@ -518,7 +632,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Only emit when focus enters from outside the component
     const relatedTarget = event.relatedTarget as Node | null;
 
-    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
+    if (
+      !relatedTarget ||
+      (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))
+    ) {
       this.focusEvent.emit();
     }
 
@@ -529,7 +646,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     // Only emit when focus leaves the component entirely
     const relatedTarget = event.relatedTarget as Node | null;
 
-    if (!relatedTarget || (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))) {
+    if (
+      !relatedTarget ||
+      (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget))
+    ) {
       this.placeholderShown = !this.value && !!this.placeholder;
 
       this.blurEvent.emit();
@@ -540,16 +660,29 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
+      event.preventDefault();
       event.stopPropagation();
+
+      this.hidePicker();
+
+      requestAnimationFrame(() => {
+        this.renderRoot.querySelector<FieldButton>('sl-field-button')?.focus();
+      });
     }
   }
 
   #onPartBlur(event: FocusEvent): void {
     const relatedTarget = event.relatedTarget as HTMLElement | null,
-      isSpinbutton = relatedTarget?.getAttribute('role') === 'spinbutton' && this.renderRoot.contains(relatedTarget);
+      isSpinbutton =
+        relatedTarget?.getAttribute('role') === 'spinbutton' &&
+        this.renderRoot.contains(relatedTarget);
 
     if (!isSpinbutton) {
       this.renderRoot.ownerDocument.getSelection()?.removeAllRanges();
+    }
+
+    if (!this.selectAll && !isSpinbutton) {
+      this.internals.states.delete('has-focus');
     }
   }
 
@@ -564,6 +697,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#enteredDigits = 0;
+    this.internals.states.add('has-focus');
 
     // Workaround for WebKit changing the selection on focus.
     requestAnimationFrame(() => this.#selectContent(span));
@@ -710,7 +844,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       if (!event.shiftKey) {
         requestAnimationFrame(() => {
-          this.renderRoot.querySelector<HTMLElement>('sl-field-button')?.focus();
+          this.renderRoot.querySelector<FieldButton>('sl-field-button')?.focus();
         });
       }
 
@@ -755,22 +889,44 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.calendar.selected = this.value;
   }
 
-  #onToggle(event: ToggleEvent): void {
-    if (event.newState === 'closed') {
-      this.#popoverJustClosed = false;
+  #updateHasActionSlotContent(): void {
+    this.hasActionSlotContent = Array.from(this.children).some(
+      child => child.slot !== 'calendar' && child.tagName !== 'STYLE'
+    );
+  }
 
-      // Wait until all dialog animations have resolved before hiding the calendar
-      // to prevent it being removed from the DOM too early.
-      void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(
-        () => (this.calendarVisible = false)
-      );
-    } else {
-      requestAnimationFrame(() => this.calendar?.focus());
+  #onClose(): void {
+    // Wait until all dialog animations have resolved before hiding the calendar
+    // to prevent it being removed from the DOM too early.
+    void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(() => {
+      if (!this.dialog?.open) {
+        this.calendarVisible = false;
+      }
+    });
+  }
+
+  /** Handles clicks on the dialog backdrop to implement light dismiss. */
+  #onDialogClick(event: MouseEvent): void {
+    if (!this.dialog || event.target !== this.dialog) {
+      return;
+    }
+
+    const rect = this.dialog.getBoundingClientRect();
+
+    // Check if the user clicked on the backdrop
+    if (
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom
+    ) {
+      this.hidePicker();
     }
   }
 
   /**
    * Adjusts a date part by the given delta, with wrapping.
+   *
    * @param partType The type of part to adjust
    * @param delta The amount to adjust by (1 or -1)
    */
@@ -803,7 +959,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.dateParts = { ...this.dateParts, [partType]: newValue };
   }
 
-  /** Applies a new digit to the specified date part, combining with existing digits if continuing to type. */
+  /**
+   * Applies a new digit to the specified date part, combining with existing digits if continuing to
+   * type.
+   */
   #applyDigitToDatePart(partType: DatePartType, newDigit: number): void {
     const maxDigits = partType === 'year' ? 4 : 2,
       currentValue = this.dateParts[partType];
@@ -822,6 +981,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #exitSelectAll(refocus = false): void {
     this.selectAll = false;
+    this.internals.states.delete('has-focus');
 
     if (refocus) {
       requestAnimationFrame(() => {
@@ -875,7 +1035,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   #hasPartialDate(): boolean {
-    return this.dateParts.day !== undefined || this.dateParts.month !== undefined || this.dateParts.year !== undefined;
+    return (
+      this.dateParts.day !== undefined ||
+      this.dateParts.month !== undefined ||
+      this.dateParts.year !== undefined
+    );
   }
 
   /** Selects all text content in a contenteditable element. */
@@ -889,7 +1053,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** Moves focus to the next or previous spinbutton input. */
   #moveFocus(current: HTMLElement, direction: 1 | -1): void {
-    const spans = Array.from(this.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')),
+    const spans = Array.from(
+        this.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]')
+      ),
       index = spans.indexOf(current),
       target = spans[index + direction];
 
@@ -907,7 +1073,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.updateState({ dirty: true });
     this.updateValidity();
 
-    this.dialog?.hidePopover();
+    this.hidePicker();
 
     // Focus the first spinbutton after closing the dialog
     requestAnimationFrame(() => {

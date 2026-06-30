@@ -1,10 +1,10 @@
 export type Mode = 'light' | 'dark';
 
 export interface Theme {
-  id: string,
+  id: string;
   name: string;
   fonts: string[];
-  setup: () => Promise<void>;
+  setup(): Promise<void>;
 }
 
 export const themes: Theme[] = [
@@ -31,10 +31,7 @@ export const themes: Theme[] = [
   {
     id: 'clickedu',
     name: 'Clickedu',
-    fonts: [
-      'https://use.typekit.net/xps8gfu.css',
-      '/themes/clickedu/fonts.css'
-    ],
+    fonts: ['https://use.typekit.net/xps8gfu.css', '/themes/clickedu/fonts.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/clickedu');
 
@@ -74,10 +71,7 @@ export const themes: Theme[] = [
   {
     id: 'magister',
     name: 'Magister',
-    fonts: [
-      'https://use.typekit.net/zkq0zzv.css',
-      '/themes/sanoma-learning/fonts.css'
-    ],
+    fonts: ['https://use.typekit.net/zkq0zzv.css', '/themes/sanoma-learning/fonts.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/magister');
 
@@ -97,10 +91,7 @@ export const themes: Theme[] = [
   {
     id: 'my-digital-book',
     name: 'My Digital Book',
-    fonts: [
-      'https://use.typekit.net/pdw7rxd.css',
-      '/themes/my-digital-book/fonts.css'
-    ],
+    fonts: ['https://use.typekit.net/pdw7rxd.css', '/themes/my-digital-book/fonts.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/my-digital-book');
 
@@ -120,10 +111,7 @@ export const themes: Theme[] = [
   {
     id: 'neon',
     name: 'NEON',
-    fonts: [
-      'https://use.typekit.net/ghy4rhf.css',
-      'https://use.typekit.net/qod6igq.css'
-    ],
+    fonts: ['https://use.typekit.net/ghy4rhf.css', 'https://use.typekit.net/qod6igq.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/neon');
 
@@ -133,26 +121,33 @@ export const themes: Theme[] = [
   {
     id: 'sanoma-learning',
     name: 'Sanoma Learning',
-    fonts: [
-      'https://use.typekit.net/kes1hoh.css',
-      '/themes/sanoma-learning/fonts.css'
-    ],
+    fonts: ['https://use.typekit.net/kes1hoh.css', '/themes/sanoma-learning/fonts.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sanoma-learning');
 
       setup();
     }
   },
-  // {
-  //   id: 'sanoma-utbildning',
-  //   name: 'Sanoma Utbildning',
-  //   fonts: ['https://use.typekit.net/zjd4wix.css'],
-  //   setup: async () => {
-  //     const { setup } = await import('@sl-design-system/sanoma-utbildning');
+  {
+    id: 'sanoma-pro',
+    name: 'Sanoma Pro',
+    fonts: ['https://use.typekit.net/qxz3bgp.css', '/themes/sanoma-pro/fonts.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/sanoma-pro');
 
-  //     setup();
-  //   }
-  // },
+      setup();
+    }
+  },
+  {
+    id: 'sanoma-utbildning',
+    name: 'Sanoma Utbildning',
+    fonts: ['https://use.typekit.net/nia2gqh.css', '/themes/sanoma-utbildning/fonts.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/sanoma-utbildning');
+
+      setup();
+    }
+  },
   {
     id: 'teas',
     name: 'TEAS',
@@ -166,7 +161,7 @@ export const themes: Theme[] = [
   {
     id: 'tig',
     name: 'TIG',
-    fonts: ['https://use.typekit.net/itp5bbb.css','https://use.typekit.net/ghy4rhf.css'],
+    fonts: ['https://use.typekit.net/itp5bbb.css', 'https://use.typekit.net/ghy4rhf.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/tig');
 
@@ -175,7 +170,8 @@ export const themes: Theme[] = [
   }
 ];
 
-const resources: { mode?: HTMLLinkElement, fonts?: HTMLLinkElement[], global?: HTMLLinkElement } = {};
+const resources: { mode?: HTMLLinkElement; fonts?: HTMLLinkElement[]; global?: HTMLLinkElement } =
+  {};
 
 let currentThemeId: string | undefined;
 let currentMode: Mode | undefined;
@@ -213,8 +209,8 @@ export const updateTheme = async (themeId: string, mode: Mode = 'light'): Promis
   }
 
   await Promise.allSettled([
-    new Promise(resolve => resources.mode!.onload = resolve),
-    ...(resources.fonts?.map(font => new Promise(resolve => font.onload = resolve)) ?? []),
+    new Promise(resolve => (resources.mode!.onload = resolve)),
+    ...(resources.fonts?.map(font => new Promise(resolve => (font.onload = resolve))) ?? []),
     theme.setup()
-  ])
+  ]);
 };

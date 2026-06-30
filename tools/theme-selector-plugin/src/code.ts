@@ -8,7 +8,7 @@
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__, {
   width: 280,
-  height: 436,
+  height: 478,
   themeColors: true
 });
 
@@ -39,7 +39,7 @@ const themeFonts = {
   'Sanoma Learning': [{ family: 'Roboto', style: 'SemiBold' }],
   'Bingel DC': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
   'Bingel Int': [{ family: 'Proxima Nova', style: 'Semibold' }], // doens't exist in the library
-  'Click edu': [{ family: 'Open Sans', style: 'SemiBold' }],
+  'Click Edu': [{ family: 'Open Sans', style: 'SemiBold' }],
   'Editorial Suite': [
     { family: 'Open Sans', style: 'SemiBold' },
     { family: 'Raleway', style: 'SemiBold' }
@@ -53,6 +53,14 @@ const themeFonts = {
   Max: [{ family: 'Open Sans', style: 'SemiBold' }],
   'My Digital Book': [{ family: 'Open Sans', style: 'SemiBold' }],
   Neon: [{ family: 'Open Sans', style: 'SemiBold' }],
+  'Sanoma Pro': [
+    { family: 'Roboto', style: 'SemiBold' },
+    { family: 'The Message', style: 'SemiBold' }
+  ],
+  'Sanoma Utbildning': [
+    { family: 'Roboto', style: 'SemiBold' },
+    { family: 'The Message', style: 'SemiBold' }
+  ],
   Teas: [{ family: 'Open Sans', style: 'SemiBold' }],
   Tig: [
     { family: 'Open Sans', style: 'SemiBold' },
@@ -108,7 +116,9 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
         figma.notify(`Mode variable not found for ${mode.name}`, { error: true });
         return;
       }
-      const modeCollection = (await getCollectionFromKey(modeVariable.key)) as VariableCollectionWithModeId;
+      const modeCollection = (await getCollectionFromKey(
+        modeVariable.key
+      )) as VariableCollectionWithModeId;
       if (!modeCollection) {
         figma.notify(`Mode collection not found for ${mode.name}`, { error: true });
         return;
@@ -136,7 +146,13 @@ const getCollectionFromKey = async (key: string): Promise<VariableCollection | n
   // loop through the variables and try to import them until we find one that works
   while (!variableByKey && i < variables.length) {
     variableByKey = await figma.variables.importVariableByKeyAsync(variables[i].key);
-    console.log('[slds]', 'variableByKey:', variables[i].name, `(${i + 1} of ${variables.length})`, variableByKey);
+    console.log(
+      '[slds]',
+      'variableByKey:',
+      variables[i].name,
+      `(${i + 1} of ${variables.length})`,
+      variableByKey
+    );
     i++;
   }
 
@@ -144,14 +160,20 @@ const getCollectionFromKey = async (key: string): Promise<VariableCollection | n
     const baseId = variableByKey.variableCollectionId;
     return await figma.variables.getVariableCollectionByIdAsync(baseId);
   } else {
-    figma.notify(`Could not find a variable to load the collection for collection ${variables[i].name}`, {
-      error: true
-    });
+    figma.notify(
+      `Could not find a variable to load the collection for collection ${variables[i].name}`,
+      {
+        error: true
+      }
+    );
     return await new Promise<VariableCollection>(() => {});
   }
 };
 
-/** Create the list of themes with all the id's of relevant parents and children and send it to the UI */
+/**
+ * Create the list of themes with all the id's of relevant parents and children and send it to the
+ * UI
+ */
 const sendCollections = () => {
   //find all collections that have a theme as a direct child
   variableCollections
@@ -180,7 +202,9 @@ const sendCollections = () => {
       // find the modeId of the themes collection so it can be set on the parent collection
       const themeCollectionAsMode = collection.modes.find(sc => sc.name === themesCollection.name);
       if (!themeCollectionAsMode) {
-        figma.notify(`Theme collection mode id not found for ${themesCollection.name}`, { error: true });
+        figma.notify(`Theme collection mode id not found for ${themesCollection.name}`, {
+          error: true
+        });
         return;
       }
 
@@ -236,7 +260,7 @@ const sendCollections = () => {
   figma.ui.postMessage(themes, { origin: '*' });
 };
 
-/** use this to find the collection based on the mode name */
+/** Use this to find the collection based on the mode name */
 const findCollectionByName = (name: string) => {
   return variableCollections.find(c => c.name === name);
 };
@@ -246,7 +270,10 @@ const findCollectionById = (id: string) => {
   return variableCollections.find(c => c.id === id);
 };
 
-/** Find the parent collection of a child collection by looking for the child in the modes of the parent collection, based on name or modeId */
+/**
+ * Find the parent collection of a child collection by looking for the child in the modes of the
+ * parent collection, based on name or modeId
+ */
 const findParentCollection = (child: string) => {
   const parent = variableCollections.find(c => {
     const collectionsWithChild = c.modes.filter(mode => {
@@ -258,7 +285,10 @@ const findParentCollection = (child: string) => {
 };
 
 /** Removes all explicit variable modes from the current page. */
-const removeCurrentVariableModes = (keys: { [collectionId: string]: string }, node: PageNode | FrameNode) => {
+const removeCurrentVariableModes = (
+  keys: { [collectionId: string]: string },
+  node: PageNode | FrameNode
+) => {
   Object.keys(keys).forEach(key => {
     const collectionForKey = variableCollections.find(c => c.id === key);
 
@@ -320,7 +350,9 @@ const setFrameTheme = (
   themeIds: Theme,
   frames: FrameNode[]
 ) => {
-  Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
+  Promise.all(
+    themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style }))
+  )
     .then(() => {
       frames.forEach(frame => {
         console.log('[slds]', frame.name, 'setting theme to', theme.name);
@@ -335,14 +367,19 @@ const setFrameTheme = (
         }
       });
 
-      figma.notify(`Theme is set to ${theme.name} on ${frames.length} frame${frames.length === 1 ? '' : 's'}`);
+      figma.notify(
+        `Theme is set to ${theme.name} on ${frames.length} frame${frames.length === 1 ? '' : 's'}`
+      );
       figma.closePlugin();
     })
     .catch(() => {
       const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
-      figma.notify(`Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`, {
-        error: true
-      });
+      figma.notify(
+        `Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`,
+        {
+          error: true
+        }
+      );
     });
 };
 
@@ -355,10 +392,15 @@ const setPageTheme = (
 ) => {
   removeCurrentVariableModes(figma.currentPage.explicitVariableModes, figma.currentPage);
 
-  Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
+  Promise.all(
+    themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style }))
+  )
     .then(() => {
       figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
-      figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
+      figma.currentPage.setExplicitVariableModeForCollection(
+        collection,
+        themeIds.themeCollectionModeId
+      );
       figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
 
       if (theme && themeIds.variantId) {
@@ -370,9 +412,12 @@ const setPageTheme = (
     })
     .catch(() => {
       const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
-      figma.notify(`Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`, {
-        error: true
-      });
+      figma.notify(
+        `Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`,
+        {
+          error: true
+        }
+      );
     });
 };
 

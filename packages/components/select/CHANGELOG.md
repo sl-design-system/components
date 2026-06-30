@@ -1,5 +1,50 @@
 # @sl-design-system/select
 
+## 2.1.5
+
+### Patch Changes
+
+- [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for select screen reader support
+  - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
+  - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
+  - Remove `aria-owns` from the select trigger/input because it is not needed for this implementation
+  - Always set `aria-selected` on options, including grouped options in the selected group
+  - Set correct `aria-posinset` and `aria-setsize` on virtualized options, excluding group headers from the count
+  - Add group label context to the accessible name of grouped options for Safari/VoiceOver compatibility
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
+## 2.1.4
+
+### Patch Changes
+
+- [#3240](https://github.com/sl-design-system/components/pull/3240) [`5993ed3`](https://github.com/sl-design-system/components/commit/5993ed3c3826cae829b7e67917a0e77399da04eb) - Observe selected `sl-option` content changes and update when mutated at runtime
+
+- Updated dependencies [[`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e)]:
+  - @sl-design-system/form@1.4.0
+
+## 2.1.3
+
+### Patch Changes
+
+- [#3109](https://github.com/sl-design-system/components/pull/3109) [`01c7740`](https://github.com/sl-design-system/components/commit/01c7740ba9f15a3cbee3065a798424d783b2c452) - Accessibility improvements:
+  - Moved the clear button from `sl-select-button` to `sl-select`, the clear button is now focusable on its own,
+  - Added `aria-keyshortcuts` attribute to announce Backspace/Delete shortcuts to assistive technology,
+  - Added `sl-clear` event to `sl-select` with consistent event ordering across click and keyboard interactions.
+
+- [#3160](https://github.com/sl-design-system/components/pull/3160) [`0d948ac`](https://github.com/sl-design-system/components/commit/0d948ac198645410455b47037fea89b25117e537) - Prevent the select from closing when interacting with the listbox surface (including scrollbar area) by handling `mousedown` on the listbox element itself and preventing focus from moving off the trigger.
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/form@1.3.6
+
 ## 2.1.2
 
 ### Patch Changes

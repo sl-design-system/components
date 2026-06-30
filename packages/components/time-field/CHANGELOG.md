@@ -1,5 +1,30 @@
 # @sl-design-system/time-field
 
+## 0.1.2
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
+## 0.1.1
+
+### Patch Changes
+
+- [#3123](https://github.com/sl-design-system/components/pull/3123) [`5d4d740`](https://github.com/sl-design-system/components/commit/5d4d740e249baa31f8dfe27055faeb8c56c8d21e) - Improved focus handling; clicking on the associated label works and the focus state when navigating to the chooser-button is improved
+
+- [#3077](https://github.com/sl-design-system/components/pull/3077) [`03d369c`](https://github.com/sl-design-system/components/commit/03d369cfb7fccd00ee0d4572b854213df138b1dd) - Changed the internal working of the input to better support assistive technology (it now uses spin-buttons). The arrow up and down keys in the input field now use the same step as is shown for hours and minutes in the dropdown.
+
+- Updated dependencies [[`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3)]:
+  - @sl-design-system/form@1.3.6
+  - @sl-design-system/text-field@1.6.9
+
 ## 0.1.0
 
 ### Minor Changes

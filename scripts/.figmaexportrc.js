@@ -1,7 +1,7 @@
-import asSvgPerPage from './output-pages-to-folders-svg.js'
 import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo';
 import { argv } from 'node:process';
 import { sep } from 'path';
+import asSvgPerPage from './output-pages-to-folders-svg.js';
 
 const fileId = argv.at(4);
 
@@ -38,7 +38,7 @@ export default {
         outputters: [
           asSvgPerPage({
             output: `../packages/themes`,
-            getDirname: (options) => `.${sep}${options.dirname}`
+            getDirname: options => `.${sep}${options.dirname}`
           })
         ]
       }

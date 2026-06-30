@@ -1,7 +1,17 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Badge } from '@sl-design-system/badge';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -13,16 +23,27 @@ declare global {
   }
 }
 
-export type AvatarColor = 'blue' | 'green' | 'grey' | 'orange' | 'purple' | 'red' | 'teal' | 'yellow';
+export type AvatarColor =
+  | 'blue'
+  | 'green'
+  | 'grey'
+  | 'orange'
+  | 'purple'
+  | 'red'
+  | 'teal'
+  | 'yellow';
 export type AvatarEmphasis = 'subtle' | 'bold';
 export type AvatarShape = 'circle' | 'square';
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /**
- * An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.
+ * An avatar component to show a picture, initials or icon, to provide a quickly recognizable
+ * representation of a user.
  *
  * ```html
- *   <sl-avatar display-name="Lynn Smith" picture-url="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
+ * <sl-avatar
+ *   display-name="Lynn Smith"
+ *   picture-url="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
  * @csspart avatar - The container for positioning the badge.
@@ -37,7 +58,7 @@ export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-tooltip': Tooltip
     };
@@ -57,11 +78,15 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   /**
    * The color of the avatar.
+   *
    * @default grey
    */
   @property({ reflect: true }) color?: AvatarColor;
 
-  /** The initials that need to be displayed. If none are set they are determined based on the displayName .*/
+  /**
+   * The initials that need to be displayed. If none are set they are determined based on the
+   * displayName .
+   */
   @property({ attribute: 'display-initials' }) displayInitials?: string;
 
   /** The name that needs to be displayed. */
@@ -69,6 +94,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   /**
    * The emphasis of the avatar.
+   *
    * @default subtle
    */
   @property({ reflect: true }) emphasis?: AvatarEmphasis;
@@ -137,8 +163,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
                   @error=${this.#onError}
                   part="image"
                   src=${this.pictureUrl}
-                  alt=${ifDefined(this.imageOnly ? this.displayName : '')}
-                />
+                  alt=${ifDefined(this.imageOnly ? this.displayName : '')} />
               `
             : html`
                 <slot name="fallback">
@@ -193,7 +218,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
     // Check if the name overflows and if so, enable the tooltip
     const name = this.renderRoot.querySelector<HTMLElement>('[part="name"]');
-    if (name && (name?.offsetWidth < name.scrollWidth || name.offsetHeight + 4 < name.scrollHeight)) {
+    if (
+      name &&
+      (name?.offsetWidth < name.scrollWidth || name.offsetHeight + 4 < name.scrollHeight)
+    ) {
       name.setAttribute('aria-describedby', 'avatar-tooltip');
     } else {
       name?.removeAttribute('aria-describedby');
@@ -201,7 +229,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.badge = event.target.assignedElements({ flatten: true }).find((el): el is Badge => el instanceof Badge);
+    this.badge = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is Badge => el instanceof Badge);
 
     if (this.badge) {
       this.#observer.observe(this.badge);

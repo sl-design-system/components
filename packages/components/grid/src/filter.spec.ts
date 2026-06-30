@@ -89,8 +89,7 @@ describe('sl-grid-filter', () => {
           .options=${[
             { label: 'Option 1', value: 'option1' },
             { label: 'Option 2', value: 'option2' }
-          ]}
-        ></sl-grid-filter>
+          ]}></sl-grid-filter>
       `);
     });
 
@@ -157,27 +156,42 @@ describe('sl-grid-filter', () => {
     it('should default to the filter label property', async () => {
       el = await fixture(html`<sl-grid-filter filter-label="Lorem"></sl-grid-filter>`);
 
-      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by Lorem');
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property(
+        'placeholder',
+        'Filter by Lorem'
+      );
     });
 
     it('should use the lowercase column header value as the filter label', async () => {
       el = await fixture(html`<sl-grid-filter .column=${{ header: 'Lorem' }}></sl-grid-filter>`);
 
-      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by lorem');
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property(
+        'placeholder',
+        'Filter by lorem'
+      );
     });
 
     it('should use the column header value as the filter label', async () => {
-      el = await fixture(
-        html`<sl-grid-filter .column=${{ header: html`Lorem<sl-button>Ipsum</sl-button>` }}></sl-grid-filter>`
-      );
+      el = await fixture(html`
+        <sl-grid-filter
+          .column=${{ header: html`Lorem<sl-button>Ipsum</sl-button>` }}></sl-grid-filter>
+      `);
 
-      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by lorem');
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property(
+        'placeholder',
+        'Filter by lorem'
+      );
     });
 
     it('should use the column path name as the filter label', async () => {
-      el = await fixture(html`<sl-grid-filter .column=${{ path: 'school.name' }}></sl-grid-filter>`);
+      el = await fixture(
+        html`<sl-grid-filter .column=${{ path: 'school.name' }}></sl-grid-filter>`
+      );
 
-      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property('placeholder', 'Filter by name');
+      expect(el.renderRoot.querySelector('sl-search-field')).to.have.property(
+        'placeholder',
+        'Filter by name'
+      );
     });
   });
 });

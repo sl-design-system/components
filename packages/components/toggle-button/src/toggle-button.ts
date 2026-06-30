@@ -1,5 +1,8 @@
 /// <reference types="vite/client" />
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { ButtonShape } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
@@ -22,10 +25,10 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
  * Lets the user toggle between two states.
  *
  * ```html
- *  <sl-toggle-button>
- *    <sl-icon name="far-gear" slot="default"></sl-icon>
- *    <sl-icon name="fas-gear" slot="pressed"></sl-icon>
- *  </sl-toggle-button>
+ * <sl-toggle-button>
+ *   <sl-icon name="far-gear" slot="default"></sl-icon>
+ *   <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+ * </sl-toggle-button>
  * ```
  *
  * @slot default - The icon shown in the default state of the button
@@ -33,7 +36,7 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
  */
 export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-tooltip': Tooltip
@@ -55,6 +58,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** @internal Whether the `aria-label` attribute is being changed internally. */
   #isInternalAriaLabelUpdate = false;
 
+  /** @internal The author-provided `aria-disabled` value before disabled syncing. */
+  #ariaDisabledDefinedByUser?: string | null;
+
   /** @internal The default (non-pressed) icon. */
   @state() defaultIcon?: Icon;
 
@@ -71,8 +77,8 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true, attribute: 'aria-label' }) label?: string;
 
   /**
-   * The pressed state of the button. Set the default value, so the
-   * `aria-pressed` attribute is added to the element.
+   * The pressed state of the button. Set the default value, so the `aria-pressed` attribute is
+   * added to the element.
    */
   @property({ type: Boolean, reflect: true }) pressed = false;
 
@@ -128,10 +134,14 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
         if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && !this.hasText) {
           if (!this.defaultIcon) {
-            console.error('There needs to be an sl-icon in the "default" slot for the component to work');
+            console.error(
+              'There needs to be an sl-icon in the "default" slot for the component to work'
+            );
             this.setAttribute('error', '');
           } else if (!this.pressedIcon) {
-            console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
+            console.error(
+              'There needs to be an sl-icon in the "pressed" slot for the component to work'
+            );
             this.setAttribute('error', '');
           } else if (this.defaultIcon.name === this.pressedIcon.name) {
             console.error('Do not use the same icon for both states of the toggle button.');
@@ -192,11 +202,29 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       }
     }
 
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.#ariaDisabledDefinedByUser ??= this.getAttribute('aria-disabled');
+        this.setAttribute('aria-disabled', 'true');
+      } else if (this.#ariaDisabledDefinedByUser === null) {
+        this.removeAttribute('aria-disabled');
+        this.#ariaDisabledDefinedByUser = undefined;
+      } else if (this.#ariaDisabledDefinedByUser !== undefined) {
+        this.setAttribute('aria-disabled', this.#ariaDisabledDefinedByUser);
+        this.#ariaDisabledDefinedByUser = undefined;
+      }
+    }
+
     if (changes.has('pressed')) {
       this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
     }
 
-    if (changes.has('label') || changes.has('hasText') || changes.has('defaultIcon') || changes.has('pressedIcon')) {
+    if (
+      changes.has('label') ||
+      changes.has('hasText') ||
+      changes.has('defaultIcon') ||
+      changes.has('pressedIcon')
+    ) {
       this.#updateAriaAttributes();
     }
   }
@@ -214,9 +242,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.disabled || this.ariaDisabled === 'true') {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
 
       return;
     }
@@ -250,10 +278,10 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Update aria-label, aria-describedby and aria-labelledby.
-   * For icon-only buttons, aria-label is removed only after the tooltip is created,
-   * setting aria-labelledby as the accessible name. Otherwise, aria-label is used
-   * as the accessible name, and the tooltip provides a description via aria-describedby.
+   * Update aria-label, aria-describedby and aria-labelledby. For icon-only buttons, aria-label is
+   * removed only after the tooltip is created, setting aria-labelledby as the accessible name.
+   * Otherwise, aria-label is used as the accessible name, and the tooltip provides a description
+   * via aria-describedby.
    */
   #updateAriaAttributes(): void {
     if (!this.label) {

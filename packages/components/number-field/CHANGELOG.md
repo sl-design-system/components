@@ -1,5 +1,30 @@
 # @sl-design-system/number-field
 
+## 0.1.10
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Remove unused `@open-wc/scoped-elements` dependency.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/text-field@1.6.11
+
+## 0.1.9
+
+### Patch Changes
+
+- [#3249](https://github.com/sl-design-system/components/pull/3249) [`d80e747`](https://github.com/sl-design-system/components/commit/d80e74722b5229782b663d3b583beaeb1e48fb96) - Fix `sl-number-field` so custom validity messages set externally via `setCustomValidity(...)` are preserved when `reportValidity()` runs. This prevents internal validity updates from clearing user-defined errors. Also adds a regression test for this behavior.
+
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`a2cd742`](https://github.com/sl-design-system/components/commit/a2cd742cd2ea01ab773c21499f9c0fddcff34ab2), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/format-number@0.0.8
+  - @sl-design-system/text-field@1.6.9
+
 ## 0.1.7
 
 ### Patch Changes

@@ -1,5 +1,59 @@
 # @sl-design-system/form
 
+## 1.4.2
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`e07c746`](https://github.com/sl-design-system/components/commit/e07c746bec373ae9fe9d0e7c274d9deeadca9544), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/inline-message@2.1.1
+  - @sl-design-system/shared@0.12.2
+
+## 1.4.1
+
+### Patch Changes
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Fix `sl-label` not updating when the locale changes. The label now only moves text and element nodes into the `<label>` element, leaving Lit's internal comment markers in place so the parent component can properly re-render translated content.
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
+## 1.4.0
+
+### Minor Changes
+
+- [#3248](https://github.com/sl-design-system/components/pull/3248) [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f) - Standardized warning and error icons:
+  - Changed `warning` icons from `octagon-exclamation-solid` to `triangle-exclamation-solid` in Callout, Inline message, and Progress bar.
+  - Changed `circle-exclamation-solid` to `triangle-exclamation-solid` in validation messages in the Form field.
+  - Changed `error/danger` icons from `diamond-exclamation-solid` or `octagon-exclamation-solid` to the new `octagon-xmark-solid` icon in Callout, Inline message, and Progress bar. Make sure to update your theme if you update any of these components.
+
+- [#3197](https://github.com/sl-design-system/components/pull/3197) [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e) - Add support for `<sl-infotip>`
+
+  This adds support for the new `sl-infotip` component, which is designed to be placed in the `infotip` slot of `<sl-label>`. When used, it automatically links its content to the associated form control's native input via `aria-describedby`, ensuring that screen readers announce the infotip content when the input receives focus.
+
+### Patch Changes
+
+- [#3211](https://github.com/sl-design-system/components/pull/3211) [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f) - Accessibility improvements:
+  - Automatically communicate label ID to associated form controls via `data-label-id` attribute, enabling proper `aria-labelledby` associations
+  - Clean up `data-label-id` attribute when label is disconnected or form control changes
+- Updated dependencies [[`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f)]:
+  - @sl-design-system/inline-message@2.1.0
+
+## 1.3.6
+
+### Patch Changes
+
+- [#3193](https://github.com/sl-design-system/components/pull/3193) [`99c1464`](https://github.com/sl-design-system/components/commit/99c1464e46f0f6c2f17d7d8ccd62f58bacaceeb3) - Fixed an infinite loop in `FormControlMixin` where resolving an async custom validity promise would re-emit the `sl-validate` event, causing the validation handler to create a new promise every 2 seconds indefinitely. The promise resolution now updates validity without re-emitting `sl-validate`.
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+  - @sl-design-system/inline-message@2.0.5
+
 ## 1.3.5
 
 ### Patch Changes

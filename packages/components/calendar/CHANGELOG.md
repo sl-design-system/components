@@ -1,5 +1,45 @@
 # @sl-design-system/calendar
 
+## 0.0.9
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/tooltip@2.0.1
+  - @sl-design-system/button@2.1.1
+
+## 0.0.8
+
+### Patch Changes
+
+- [#3361](https://github.com/sl-design-system/components/pull/3361) [`6882876`](https://github.com/sl-design-system/components/commit/6882876fb35019f2b69d30dadb23780d577bb591) - Fix accidental global `<sl-tooltip>` register
+
+- Updated dependencies [[`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7)]:
+  - @sl-design-system/button@2.1.0
+
+## 0.0.7
+
+### Patch Changes
+
+- [#3084](https://github.com/sl-design-system/components/pull/3084) [`a0cf57d`](https://github.com/sl-design-system/components/commit/a0cf57dc9617a8d484b89e6fe3b21770f4e0856e) - Align calendar and date-field spacing, padding and width behavior with the updated picker layout
+
+- Updated dependencies [[`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/tooltip@2.0.0
+
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4), [`7fe0989`](https://github.com/sl-design-system/components/commit/7fe09894e806c3817599e6b0e53b749a01111117)]:
+  - @sl-design-system/button@2.0.0
+  - @sl-design-system/tooltip@1.4.0
+  - @sl-design-system/format-date@0.1.6
+
 ## 0.0.5
 
 ### Patch Changes

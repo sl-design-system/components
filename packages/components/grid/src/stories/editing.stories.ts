@@ -7,7 +7,6 @@ type Story = StoryObj;
 
 export default {
   title: 'Grid/Editing',
-  tags: ['draft'],
   loaders: [async () => ({ people: (await getPeople()).people })],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
@@ -30,7 +29,9 @@ export const Select: Story = {
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-select-column .options=${['Available', 'Busy']} path="status"></sl-grid-select-column>
+      <sl-grid-select-column
+        .options=${['Available', 'Busy']}
+        path="status"></sl-grid-select-column>
     </sl-grid>
   `
 };

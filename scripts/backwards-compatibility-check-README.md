@@ -15,7 +15,7 @@ mkdir -p old-themes && cd old-themes
 ### 2. Download all theme packages at their 3rd most recent version (oldest of the 3 latest)
 
 ```bash
-for theme in bingel-dc bingel-int clickedu editorial-suite itslearning kampus magister max my-digital-book neon sanoma-learning teas tig; do
+for theme in bingel-dc bingel-int clickedu editorial-suite itslearning kampus magister max my-digital-book neon sanoma-learning sanoma-pro sanoma-utbildning teas tig; do
   version=$(npm view @sl-design-system/$theme versions --json --registry=https://npm.pkg.github.com 2>/dev/null | jq -r '.[-3]' 2>/dev/null)
   if [ "$version" != "null" ] && [ -n "$version" ]; then
     echo "📦 Downloading @sl-design-system/$theme@$version..."
@@ -51,6 +51,7 @@ node scripts/backwards-compatibility-check.js ../old-themes
 ## What it does
 
 The script will:
+
 1. Compare CSS variables in `light.css` + `light-deprecated.css` (and dark variants) from current themes
 2. Check against the reference `light.css` (and dark variants) from the old theme packages
 3. Report any CSS variables that are present in the old but missing in the current themes

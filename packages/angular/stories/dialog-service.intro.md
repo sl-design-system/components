@@ -4,12 +4,12 @@ The **DialogService** provides an API for programmatically opening and managing 
 
 ### Main Methods
 
-
 #### `showModal<T, R>(config: DialogConfig<T>): DialogRef<R>`
 
-Opens a dialog with a custom Angular component. 
+Opens a dialog with a custom Angular component.
 
 **Configuration:**
+
 - `component` (required) - The Angular component class to render.
 - `data` (optional) - Data to pass to the component via `@Inject('DIALOG_DATA')`.
 
@@ -24,7 +24,7 @@ For general dialog configuration options like `closeButton`, `disableCancel`, et
 @Component({
   selector: 'app-user-dialog',
   template: `
-    <h2 slot="title">User Details</h2>
+    <h1 slot="title">User Details</h1>
     <p>User ID: {{ data.userId }}</p>
     <sl-button slot="primary-actions" (click)="dialogRef.close('saved')">Save</sl-button>
     <sl-button slot="primary-actions" (click)="dialogRef.close('cancelled')">Cancel</sl-button>
@@ -57,6 +57,7 @@ dialogRef.afterClosed().subscribe(result => {
 Closes all currently opened dialogs at once. This could be useful when you need to close multiple dialogs simultaneously.
 
 **Parameters:**
+
 - `result` - Optional result value to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
 
 **Example:**
@@ -103,20 +104,23 @@ dialogRef.afterClosed().subscribe(result => {
 Closes the dialog with an optional result value. The result will be emitted to all `afterClosed()` subscribers.
 
 **Parameters:**
+
 - `result` - Optional result value to pass to subscribers
 
 **Example:**
 
 ```typescript
 // In the dialog component:
-@Component({ /* ... */ })
+@Component({
+  /* ... */
+})
 export class MyDialogComponent {
   constructor(public dialogRef: DialogRef<string>) {}
-  
+
   save() {
     this.dialogRef.close('saved');
   }
-  
+
   cancel() {
     this.dialogRef.close('cancelled');
   }
@@ -137,7 +141,7 @@ import { DialogRef } from '@sl-design-system/angular';
 
 @Component({
   template: `
-    <h2 slot="title">{{ data.title }}</h2>
+    <h1 slot="title">{{ data.title }}</h1>
     <p>{{ data.message }}</p>
     <sl-button (click)="dialogRef.close('ok')" slot="primary-actions">OK</sl-button>
   `
@@ -172,7 +176,7 @@ this.dialogService.showModal<MyDialogComponent, string>({
 interface DialogConfig<T> extends Partial<DialogProps> {
   /** Angular component to render in the dialog */
   component: Type<T>;
-  
+
   /** Data to pass to the component via @Inject('DIALOG_DATA') */
   data?: unknown;
 }

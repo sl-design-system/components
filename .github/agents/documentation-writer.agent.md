@@ -30,6 +30,7 @@ You are a documentation writer specialist for the SL Design System. You create, 
 ## Documentation Structure
 
 The website is located in `/website` and built with 11ty (Eleventy):
+
 - `/website/src/` - Source files for documentation
 - `/website/src/categories/components/` - Component documentation
 - `/website/src/categories/guidelines/` - Design guidelines
@@ -50,6 +51,7 @@ Each component requires **5 files** in its directory under `/website/src/categor
 ### Example Structure
 
 For a button component:
+
 ```
 /website/src/categories/components/button/
 ├── button.json
@@ -82,7 +84,7 @@ For a button component:
 ---
 title: Button
 description: Buttons allow users to take actions with a single tap or click.
-layout: "categories/components/components.njk"
+layout: 'categories/components/components.njk'
 tags: component
 eleventyNavigation:
   parent: Components
@@ -93,6 +95,7 @@ eleventyNavigation:
 ```
 
 **YAML Frontmatter:**
+
 - `title` - Component name (displayed at top of page)
 - `description` - Short description (displayed under title)
 - `layout` - Always `"categories/components/components.njk"`
@@ -116,6 +119,7 @@ eleventyNavigation:
   parent: Button
   key: ButtonAccessibility
 ---
+
 <section>
 
 ## Keyboard navigation
@@ -131,6 +135,7 @@ eleventyNavigation:
 ## Screen reader support
 
 Buttons are announced with their role and label. Ensure:
+
 - All buttons have accessible labels
 - Icon-only buttons use `aria-label`
 - Button state changes are announced
@@ -158,6 +163,7 @@ eleventyNavigation:
   parent: Button
   key: ButtonCode
 ---
+
 <section>
 
 ## Installation
@@ -202,8 +208,8 @@ import '@sl-design-system/button/register.js';
 
 \`\`\`html
 <sl-button>
-  <sl-icon name="check"></sl-icon>
-  Submit
+<sl-icon name="check"></sl-icon>
+Submit
 </sl-button>
 \`\`\`
 
@@ -220,19 +226,23 @@ eleventyNavigation:
   parent: Button
   key: ButtonUsage
 ---
+
 <section>
 
 ## Best practices
 
 ### Clear labels
+
 Use action-oriented, concise labels that clearly describe what happens when clicked.
 
 ### Appropriate variants
+
 - Use **primary** for the main action
 - Use **secondary** for supporting actions
 - Use **danger** only for destructive actions
 
 ### Placement
+
 - Place primary action button on the right (in LTR languages)
 - Group related buttons together
 - Maintain consistent spacing
@@ -244,8 +254,10 @@ Use action-oriented, concise labels that clearly describe what happens when clic
 ## Common patterns
 
 ### Form submission
+
 \`\`\`html
 <sl-form>
+
   <!-- form fields -->
   <sl-button-bar>
     <sl-button>Cancel</sl-button>
@@ -255,9 +267,11 @@ Use action-oriented, concise labels that clearly describe what happens when clic
 \`\`\`
 
 ### Dialog actions
+
 \`\`\`html
 <sl-dialog>
-  <span slot="title">Confirm action</span>
+
+  <h1 slot="title">Confirm action</h1>
   <p>Are you sure you want to continue?</p>
   <sl-button-bar slot="actions">
     <sl-button>Cancel</sl-button>
@@ -284,6 +298,7 @@ Use action-oriented, concise labels that clearly describe what happens when clic
 ### Sections
 
 Always wrap content in sections:
+
 ```markdown
 <section>
 
@@ -309,7 +324,7 @@ Content goes here...
 
 \`\`\`html
 <sl-component property="value">
-  Content
+Content
 </sl-component>
 \`\`\`
 
@@ -323,7 +338,7 @@ Content goes here...
 
 <div class="ds-success">
 
-![Description](/assets/images/example-do.svg "Do"){.ds-do-dont__picture}
+![Description](/assets/images/example-do.svg 'Do'){.ds-do-dont\_\_picture}
 
 **Do** use proper pattern
 
@@ -331,7 +346,7 @@ Content goes here...
 
 <div class="ds-danger">
 
-![Description](/assets/images/example-dont.svg "Don't"){.ds-do-dont__picture}
+![Description](/assets/images/example-dont.svg "Don't"){.ds-do-dont\_\_picture}
 
 **Don't** use anti-pattern
 
@@ -343,17 +358,17 @@ Content goes here...
 ### Tables
 
 ```markdown
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| variant  | string | 'secondary' | Visual style |
-| size     | string | 'md' | Component size |
-| disabled | boolean | false | Disables interaction |
+| Property | Type    | Default     | Description          |
+| -------- | ------- | ----------- | -------------------- |
+| variant  | string  | 'secondary' | Visual style         |
+| size     | string  | 'md'        | Component size       |
+| disabled | boolean | false       | Disables interaction |
 ```
 
 ### Images
 
 ```markdown
-![Alt text](/assets/images/example.svg "Image title"){.custom-class}
+![Alt text](/assets/images/example.svg 'Image title'){.custom-class}
 ```
 
 Images should be placed in `/website/src/assets/images/`
@@ -362,9 +377,11 @@ Images should be placed in `/website/src/assets/images/`
 
 ```markdown
 <!-- Internal component links -->
+
 [Button bar](#/components/button-bar)
 
 <!-- External links -->
+
 [WCAG Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 ```
 
@@ -376,13 +393,14 @@ Set component status in the main `<component>.md` file:
 
 ```markdown
 eleventyNavigation:
-  parent: Components
-  key: Button
-  order: 2
-  status: stable  # or 'new', or 'planned'
+parent: Components
+key: Button
+order: 2
+status: stable # or 'new', or 'planned'
 ```
 
 **Status Values:**
+
 - `stable` - Production ready (no badge shown)
 - `new` - Recently added (NEW badge in sidebar)
 - `planned` - Coming soon (PLANNED badge, link disabled)
@@ -392,6 +410,7 @@ eleventyNavigation:
 The `order` property determines sidebar position. Lower numbers appear first.
 
 Common categories:
+
 - Getting Started: order 1-2
 - Guidelines: order 3
 - Design Tokens: order 4
@@ -410,6 +429,7 @@ Common categories:
 ### Documentation Checklist
 
 For each component, ensure:
+
 - ✅ All 5 files are created
 - ✅ YAML frontmatter is correct
 - ✅ Live examples work correctly
@@ -443,6 +463,7 @@ Outputs to `/website/dist`
 ### Validate
 
 After making changes:
+
 1. Check that the component page renders correctly
 2. Verify all tabs (Accessibility, Code, Usage) display
 3. Test live component examples work
@@ -494,6 +515,7 @@ Components are automatically collected via the `component` tag and available as 
 ### Filters
 
 Custom filters available:
+
 - `svgImage` - Inline SVG images
 - `recurringText` - Include reusable text snippets
 

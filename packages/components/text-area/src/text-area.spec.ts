@@ -310,6 +310,101 @@ describe('sl-text-area', () => {
     });
   });
 
+  describe('rows', () => {
+    it('should default to 3 rows when not set', async () => {
+      el = await fixture(html`<sl-text-area></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.rows).to.equal(3);
+    });
+
+    it('should set the --_sl-text-area-rows CSS variable to 3 by default', async () => {
+      el = await fixture(html`<sl-text-area></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('3');
+    });
+
+    it('should use the specified number of rows when set', async () => {
+      el = await fixture(html`<sl-text-area rows="5"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(el.rows).to.equal(5);
+      expect(textArea.rows).to.equal(5);
+    });
+
+    it('should update the --_sl-text-area-rows CSS variable when rows is set', async () => {
+      el = await fixture(html`<sl-text-area rows="5"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('5');
+    });
+
+    it('should fall back to 3 rows when set to 0', async () => {
+      el = await fixture(html`<sl-text-area rows="0"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.rows).to.equal(3);
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('3');
+    });
+
+    it('should fall back to 3 rows when set to a negative value', async () => {
+      el = await fixture(html`<sl-text-area rows="-5"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.rows).to.equal(3);
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('3');
+    });
+
+    it('should update rows and CSS variable when property changes', async () => {
+      el = await fixture(html`<sl-text-area rows="3"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      el.rows = 7;
+      await el.updateComplete;
+
+      expect(textArea.rows).to.equal(7);
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('7');
+    });
+
+    it('should fall back to 3 when property changes to invalid value', async () => {
+      el = await fixture(html`<sl-text-area rows="5"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      el.rows = 0;
+      await el.updateComplete;
+
+      expect(textArea.rows).to.equal(3);
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('3');
+    });
+
+    it('should maintain CSS variable with resize="vertical"', async () => {
+      el = await fixture(html`<sl-text-area rows="6" resize="vertical"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.rows).to.equal(6);
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('6');
+      expect(textArea.style.resize).to.equal('vertical');
+    });
+
+    it('should maintain CSS variable with resize="auto"', async () => {
+      el = await fixture(html`<sl-text-area rows="4" resize="auto"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.rows).to.equal(4);
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('4');
+    });
+
+    it('should maintain CSS variable with resize="none"', async () => {
+      el = await fixture(html`<sl-text-area rows="8" resize="none"></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
+
+      expect(textArea.rows).to.equal(8);
+      expect(textArea.style.getPropertyValue('--_sl-text-area-rows')).to.equal('8');
+      expect(textArea.style.resize).to.equal('none');
+    });
+  });
+
   describe('required', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-area required></sl-text-area>`);
@@ -397,6 +492,12 @@ describe('sl-text-area', () => {
     it('should have a validation message', () => {
       expect(el.validationMessage).to.equal(
         'Please lengthen this text to 3 characters or more (you are currently using 1 character).'
+      );
+    });
+
+    it('should have a localized validation message', () => {
+      expect(el.getLocalizedValidationMessage()).to.equal(
+        'Please enter at least 3 characters (you currently have 1 character).'
       );
     });
 
@@ -559,7 +660,9 @@ describe('sl-text-area', () => {
 
       const shortHeight = textArea.style.height;
 
-      await userEvent.keyboard('\nLonger text that spans multiple lines\nAnd another line\nAnd yet another line');
+      await userEvent.keyboard(
+        '\nLonger text that spans multiple lines\nAnd another line\nAnd yet another line'
+      );
       await el.updateComplete;
 
       const longHeight = textArea.style.height;
@@ -580,7 +683,11 @@ describe('sl-text-area', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-text-area>
-          <textarea id="foo" placeholder="I am a custom textarea" spellcheck="true" slot="textarea"></textarea>
+          <textarea
+            id="foo"
+            placeholder="I am a custom textarea"
+            spellcheck="true"
+            slot="textarea"></textarea>
         </sl-text-area>
       `);
     });

@@ -185,12 +185,8 @@ describe('FlatTreeDataSource', () => {
   describe('level guides', () => {
     beforeEach(() => {
       /**
-       * A (level 0, not last)
-       * ├─ A.1 (level 1, not last)
-       * └─ A.2 (level 1, last child)
-       *    └─ A.2.a (level 2, last child)
-       *       └─ A.2.a.1 (level 3, last child)
-       * B (level 0, last child)
+       * A (level 0, not last) ├─ A.1 (level 1, not last) └─ A.2 (level 1, last child) └─ A.2.a
+       * (level 2, last child) └─ A.2.a.1 (level 3, last child) B (level 0, last child)
        */
       ds = new FlatTreeDataSource(
         [
@@ -423,14 +419,17 @@ describe('FlatTreeDataSource', () => {
     it('should handle lazy loading errors gracefully', async () => {
       const errorSpy = spy(() => Promise.reject(new Error('Failed to load children')));
 
-      const errorDs = new FlatTreeDataSource<TestItem>([{ id: 1, name: 'Parent 1', level: 0, expandable: true }], {
-        getId: ({ id }) => id,
-        getLabel: ({ name }) => name,
-        getLevel: ({ level }) => level,
-        isExpandable: ({ expandable }) => expandable,
-        isExpanded: ({ expanded }) => expanded ?? false,
-        loadChildren: errorSpy as (node: TestItem) => Promise<TestItem[]>
-      });
+      const errorDs = new FlatTreeDataSource<TestItem>(
+        [{ id: 1, name: 'Parent 1', level: 0, expandable: true }],
+        {
+          getId: ({ id }) => id,
+          getLabel: ({ name }) => name,
+          getLevel: ({ level }) => level,
+          isExpandable: ({ expandable }) => expandable,
+          isExpanded: ({ expanded }) => expanded ?? false,
+          loadChildren: errorSpy as (node: TestItem) => Promise<TestItem[]>
+        }
+      );
       errorDs.update();
 
       const parentNode = errorDs.items[0];

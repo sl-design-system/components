@@ -27,7 +27,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Text area',
-  tags: ['stable'],
   args: {
     disabled: false,
     label: 'Label',
@@ -95,8 +94,7 @@ export default {
               .showValid=${showValid}
               .size=${size}
               .value=${value}
-              .wrap=${wrap}
-            ></sl-text-area>
+              .wrap=${wrap}></sl-text-area>
           `}
         </sl-form-field>
         <sl-button-bar>
@@ -139,8 +137,15 @@ export const Required: Story = {
 
 export const Resize: Story = {
   args: {
-    hint: 'This field will resize automatically as you type.',
+    hint: 'This field will resize automatically as you type. By default, the minimum height is determined by the rows attribute (default: 3).',
     resize: 'auto'
+  }
+};
+
+export const Rows: Story = {
+  args: {
+    hint: 'This field will have a specific number of rows. By default, the number of rows is 3. When the resize property is set to auto or vertical, the field will have a minimum height based on the number of rows.',
+    rows: 4
   }
 };
 
@@ -209,11 +214,19 @@ export const All: Story = {
 
         <span>Invalid</span>
         <sl-text-area aria-label="Text area" show-validity="invalid" value="Invalid"></sl-text-area>
-        <sl-text-area aria-label="Text area" show-validity="invalid" size="lg" value="Invalid"></sl-text-area>
+        <sl-text-area
+          aria-label="Text area"
+          show-validity="invalid"
+          size="lg"
+          value="Invalid"></sl-text-area>
 
         <span>Valid</span>
         <sl-text-area aria-label="Text area" show-validity="valid" value="Valid"></sl-text-area>
-        <sl-text-area aria-label="Text area" show-validity="valid" size="lg" value="Valid"></sl-text-area>
+        <sl-text-area
+          aria-label="Text area"
+          show-validity="valid"
+          size="lg"
+          value="Valid"></sl-text-area>
 
         <span>Readonly</span>
         <sl-text-area aria-label="Text area" readonly value="Value"></sl-text-area>

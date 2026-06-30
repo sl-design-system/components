@@ -1,4 +1,5 @@
 import { Button } from '@sl-design-system/button';
+import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -47,7 +48,9 @@ describe('sl-select-month', () => {
       const currentMonthButton = el.renderRoot.querySelector<HTMLButtonElement>('button.current');
 
       expect(currentMonthButton).to.exist;
-      expect(currentMonthButton).to.have.trimmed.text(new Date().toLocaleString('default', { month: 'long' }));
+      expect(currentMonthButton).to.have.trimmed.text(
+        new Date().toLocaleString('default', { month: 'long' })
+      );
     });
 
     it('should not have a selected month', () => {
@@ -68,11 +71,23 @@ describe('sl-select-month', () => {
     });
 
     it('should have enabled previous and next year buttons', () => {
-      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]'),
-        next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
+      const prev = el.renderRoot.querySelector('.arrows sl-button:first-of-type'),
+        next = el.renderRoot.querySelector('.arrows sl-button:last-of-type');
 
       expect(prev).to.exist.and.not.match(':disabled');
       expect(next).to.exist.and.not.match(':disabled');
+    });
+
+    it('should have an accessible name for the previous year button', () => {
+      const prev = el.renderRoot.querySelector<Button>('.arrows sl-button:first-of-type')!;
+
+      expect(getForwardedAccessibleName(prev)).to.equal(`Previous year, ${currentYear - 1}`);
+    });
+
+    it('should have an accessible name for the next year button', () => {
+      const next = el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')!;
+
+      expect(getForwardedAccessibleName(next)).to.equal(`Next year, ${currentYear + 1}`);
     });
 
     it('should emit sl-select with selected month when clicked', () => {
@@ -122,14 +137,14 @@ describe('sl-select-month', () => {
     });
 
     it('should increment year when next is clicked', async () => {
-      el.renderRoot.querySelector<Button>('sl-button[aria-label^="Next year"]')?.click();
+      el.renderRoot.querySelector<Button>('.arrows sl-button:last-of-type')?.click();
       await el.updateComplete;
 
       expect(el.month.getFullYear()).to.equal(currentYear + 1);
     });
 
     it('should decrement year when previous is clicked', async () => {
-      el.renderRoot.querySelector<Button>('sl-button[aria-label^="Previous year"]')?.click();
+      el.renderRoot.querySelector<Button>('.arrows sl-button:first-of-type')?.click();
       await el.updateComplete;
 
       expect(el.month.getFullYear()).to.equal(currentYear - 1);
@@ -140,7 +155,9 @@ describe('sl-select-month', () => {
     beforeEach(async () => {
       // Allow only months April (3) through September (8)
       el = await fixture(html`
-        <sl-select-month .min=${new Date(currentYear, 3, 1)} .max=${new Date(currentYear, 8, 1)}></sl-select-month>
+        <sl-select-month
+          .min=${new Date(currentYear, 3, 1)}
+          .max=${new Date(currentYear, 8, 1)}></sl-select-month>
       `);
     });
 
@@ -152,14 +169,14 @@ describe('sl-select-month', () => {
     });
 
     it('should disable navigating to a previous year (since min is current year)', () => {
-      const prev = el.renderRoot.querySelector('sl-button[aria-label^="Previous year"]');
+      const prev = el.renderRoot.querySelector('.arrows sl-button:first-of-type');
 
       expect(prev).to.have.attribute('disabled');
       expect(prev).to.match(':disabled');
     });
 
     it('should disable navigating to a next year (since max is current year)', () => {
-      const next = el.renderRoot.querySelector('sl-button[aria-label^="Next year"]');
+      const next = el.renderRoot.querySelector('.arrows sl-button:last-of-type');
 
       expect(next).to.have.attribute('disabled');
       expect(next).to.match(':disabled');
@@ -220,6 +237,18 @@ describe('sl-select-month', () => {
       expect(el.month.getFullYear()).to.equal(month.getFullYear() - 1);
     });
 
+    it('should keep column focus when ArrowUp loads previous year months', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button');
+
+      (buttons[1] as HTMLButtonElement).focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      const newButtons = el.renderRoot.querySelectorAll('table button');
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons[10]);
+    });
+
     it('should increment year when ArrowDown is pressed on a last row button', async () => {
       const buttons = el.renderRoot.querySelectorAll('table button');
       // For 12 months and 3 columns, lastRowStart is index 9, choose index 10
@@ -230,6 +259,151 @@ describe('sl-select-month', () => {
 
       await el.updateComplete;
       expect(el.month.getFullYear()).to.equal(month.getFullYear() + 1);
+    });
+
+    it('should keep column focus when ArrowDown loads next year months', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button');
+
+      (buttons[10] as HTMLButtonElement).focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const newButtons = el.renderRoot.querySelectorAll('table button');
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons[1]);
+    });
+
+    it('should move focus to next month when ArrowRight is pressed on a non-last button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        marButton = buttons[2] as HTMLButtonElement;
+
+      febButton.focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(marButton);
+    });
+
+    it('should move focus to previous month when ArrowLeft is pressed on a non-first button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        marButton = buttons[2] as HTMLButtonElement;
+
+      marButton.focus();
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(febButton);
+    });
+
+    it('should move focus down one row when ArrowDown is pressed on a non-last-row button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        mayButton = buttons[4] as HTMLButtonElement;
+
+      febButton.focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(mayButton);
+    });
+
+    it('should move focus up one row when ArrowUp is pressed on a non-first-row button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        mayButton = buttons[4] as HTMLButtonElement;
+
+      mayButton.focus();
+      await userEvent.keyboard('{ArrowUp}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(febButton);
+    });
+
+    describe('when min/max are set', () => {
+      let buttons: HTMLButtonElement[];
+
+      beforeEach(async () => {
+        el.min = new Date(month.getFullYear(), 3, 1); // April
+        el.max = new Date(month.getFullYear(), 8, 1); // September
+        await el.updateComplete;
+
+        buttons = Array.from(el.renderRoot.querySelectorAll('table button'));
+      });
+
+      it('should do nothing when ArrowLeft is pressed on the first enabled button', async () => {
+        const firstEnabledButton = buttons.find(b => !b.disabled);
+
+        firstEnabledButton?.focus();
+        await userEvent.keyboard('{ArrowLeft}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(firstEnabledButton);
+      });
+
+      it('should do nothing when ArrowRight is pressed on the last enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          lastEnabledButton = enabledButtons.at(-1);
+
+        lastEnabledButton?.focus();
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(lastEnabledButton);
+      });
+
+      it('should navigate to the second enabled button when you press ArrowLeft and then ArrowRight on the first enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          firstEnabled = enabledButtons[0],
+          secondEnabled = enabledButtons[1];
+
+        firstEnabled?.focus();
+
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(el.shadowRoot?.activeElement).to.equal(firstEnabled);
+
+        await userEvent.keyboard('{ArrowRight}');
+        expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
+      });
+
+      it('should move focus to the previous enabled button after ArrowRight then ArrowLeft on the last enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          lastEnabled = enabledButtons.at(-1),
+          secondToLastEnabled = enabledButtons.at(-2);
+
+        lastEnabled?.focus();
+
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(lastEnabled);
+
+        await userEvent.keyboard('{ArrowLeft}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
+      });
+    });
+  });
+
+  describe('dialog tab escape', () => {
+    it('should not cycle back to the header when tabbing forward from the table', async () => {
+      const dialog = await fixture<HTMLDialogElement>(html`
+        <dialog open>
+          <sl-select-month></sl-select-month>
+        </dialog>
+      `);
+      const monthPicker = dialog.querySelector<SelectMonth>('sl-select-month')!;
+
+      await monthPicker.updateComplete;
+
+      const rightArrow = monthPicker.renderRoot.querySelector<HTMLElement>(
+        '.arrows sl-button:last-of-type'
+      );
+
+      rightArrow?.focus();
+      await userEvent.keyboard('{Tab}');
+      await monthPicker.updateComplete;
+
+      await userEvent.keyboard('{Tab}');
+      await monthPicker.updateComplete;
+
+      const activeInsideShadow = monthPicker.shadowRoot?.activeElement as HTMLElement | null;
+
+      expect(activeInsideShadow).to.be.null;
     });
   });
 });

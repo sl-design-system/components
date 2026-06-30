@@ -4,6 +4,137 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# June 23, 2026
+
+## New features
+
+- [`announcer`](https://github.com/sl-design-system/components/blob/main/packages/components/announcer/CHANGELOG.md) adds a `force` option to the `announce()` function, allowing repeated announcements of the same message even when it has not changed — useful for re-focusing an active grid row.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) adds a `hide-header-text` property to columns, allowing header text to be visually hidden while remaining available to assistive technologies.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) now uses the virtual-list component to efficiently render large option lists, providing better performance, smoother scrolling, and support for CSS `max-height` constraints.
+- [`virtual-list`](https://github.com/sl-design-system/components/blob/main/packages/components/virtual-list/CHANGELOG.md) has been migrated to TanStack Virtual for improved performance and reliability. This includes a new `scrollMargin` property to control the scroll offset when scrolling items into view, a `requestLayout()` method to trigger re-measurement of item sizes, and support for both `Element` and `TemplateResult` return types in `VirtualListItemRenderer`.
+
+## Bug fixes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) and [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) fix the selected page button styling for `emphasis="bold"`. The selected page now uses `variant="primary"` with `fill="solid"` for bold and `fill="outline"` for subtle pagination. Ghost and outline buttons marked `aria-current="page"` now get a selected border color.
+- [`callout`](https://github.com/sl-design-system/components/blob/main/packages/components/callout/CHANGELOG.md) and [`inline-message`](https://github.com/sl-design-system/components/blob/main/packages/components/inline-message/CHANGELOG.md) now layer `elevation.surface.raised.default` beneath their semantic background color so text remains readable on bold, patterned, and image backgrounds.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) improves scroll-to-item behaviour when selecting options, fixes selection matching when the combobox value and option values use different primitive types (e.g. `1` vs `"1"`), and fixes select-only comboboxes so Space selects or deselects the current option while editable comboboxes still insert spaces. It also sets `aria-activedescendant` when the popover opens so screen readers immediately announce the current option, and removes the unnecessary `aria-owns` attribute.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md), [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) and [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) always set `aria-selected` on options (including grouped options in the selected group), set correct `aria-posinset` and `aria-setsize` on virtualised options (excluding group headers from the count), and add group label context to the accessible name of grouped options for Safari/VoiceOver compatibility.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes sticky columns becoming transparent when using `row-action="activate"`, adds `aria-selected` to the active or selected row in activate and single-select modes, announces row activation and deactivation to screen readers (and re-announces when you keyboard-focus an already active row), and adds `aria-expanded` to the toggle group button in the group header.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes nested submenu item clicks being intercepted by the parent menu item, and exposes `aria-disabled="true"` on disabled items so assistive technologies can announce them as unavailable while keeping them focusable.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) sets `aria-activedescendant` when the popover opens so screen readers immediately announce the current option, and removes the unnecessary `aria-owns` attribute.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fixes stacked tag lists so the generated stack counter tag has `role="listitem"`, matching the slotted tags and satisfying ARIA list semantics.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) now exposes `aria-disabled="true"` on disabled buttons so assistive technologies can announce them as unavailable while keeping them focusable.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md) also fixes `ariaDisabled` forwarding so it clears correctly through nested proxy targets.
+
+# May 27, 2026
+
+## New features
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) exposes a new `button` CSS part on the inner `<button>` element, making it possible to style the native button directly from the outside using `::part(button)`.
+
+## Bug fixes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes an icon-only size regression caused by `box-sizing`, a WebKit bug where the aspect-ratio of the inner button was ignored, and a bug where the inner button would not grow with the host element.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) fixes an accidental global `<sl-tooltip>` registration.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) improves toggle button accessibility with proper `aria-label` and `aria-expanded` attributes, and aligns the "create custom option" styling with other options in the list.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) fixes `<sl-label>` not updating its text when the locale changes at runtime.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes `aria-rowindex` being 0-based (it is now correctly 1-based for both data rows and group rows), and adds a localized, visually hidden label to the drag-handle column header so screen readers can announce its purpose.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) and [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) align option and group styling with the Figma design.
+- [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) prevents page numbers from wrapping in the extra-small page select.
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) hides collapsed panel content from assistive technology.
+
+## Locales
+
+- [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds Italian, Polish and Castilian Spanish language files. It also adds translations for the new `sl.combobox.options` and `sl.grid.reorder` keys, and removes the now-obsolete `sl.combobox.hideOptions` and `sl.combobox.showOptions` keys.
+- Several components have had their internal translation keys renamed: [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md), [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md), [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md), [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md), [`text-area`](https://github.com/sl-design-system/components/blob/main/packages/components/text-area/CHANGELOG.md) and [`text-field`](https://github.com/sl-design-system/components/blob/main/packages/components/text-field/CHANGELOG.md). If you provide your own translations, make sure to update `@sl-design-system/locales` at the same time as these packages.
+
+## Theme updates
+
+- All themes fix a bug where line-height variables incorrectly had a duplicate unit (`pxpx`). Make sure to update your theme alongside this release.
+
+# May 8, 2026
+
+A new `<sl-infotip>` component has been added in the `@sl-design-system/infotip` package. It shows an info icon button that opens a popover with extra information. Place it in the `infotip` slot of `<sl-label>` so screen readers read the info content when the user focuses the form control. Note: this component is still in `draft` status, so it may still change.
+
+## Breaking changes
+
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) now uses fixed hover delays that can no longer be changed. The `show-delay` and `hide-delay` properties have been removed. The show delay is now always `500ms` and the hide delay is `200ms`.
+
+## New features
+
+- [`infotip`](https://github.com/sl-design-system/components/blob/main/packages/components/infotip/CHANGELOG.md) is a new `draft` component that can be used to show extra information next to a form control's label. It connects its content to the input using `aria-describedby`. Since it is a draft component, it may still change.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) now supports `<sl-infotip>` in the `infotip` slot of `<sl-label>`, and passes the label ID to form controls using a `data-label-id` attribute for proper `aria-labelledby` links. The validation error icon in `sl-error` has also been changed from `circle-exclamation-solid` to `triangle-exclamation-solid` so it matches the warning/error icon style used in Callout, Inline message and Progress bar.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) now opens the popover on click instead of on keyboard focus. It also passes ARIA attributes (`aria-label`, `aria-describedby`, `aria-labelledby`) from the host element to the input so screen readers work correctly.
+- [`callout`](https://github.com/sl-design-system/components/blob/main/packages/components/callout/CHANGELOG.md), [`inline-message`](https://github.com/sl-design-system/components/blob/main/packages/components/inline-message/CHANGELOG.md) and [`progress-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/progress-bar/CHANGELOG.md) now use the same warning and error icons. Warnings use `triangle-exclamation-solid` and errors use the new `octagon-xmark-solid` icon. Make sure to update your theme when you update any of these components.
+- [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds translations for the new infotip component.
+
+## Bug fixes
+
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md) fixes disabled items not being announced correctly by screen readers (`aria-disabled` and `aria-expanded`).
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes slotted `<a href>` elements inside `<sl-button>` so application CSS can no longer override the link color and text decoration. Note: Slotting an `<a href>` inside an `<sl-button>` is considered bad practice. Use an `<a href>` directly. There are already styles for that in the theme's `global.css`.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) and [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) fix spacing, padding and width to match the updated picker layout.
+- [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) fixes the body slot covering the action button when there is no body text.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) fixes unclickable tag remove icons, layout flickering in multiple selection mode, and stale filtered results when leaving the field without selecting.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) prevents unwanted scrollbars in the bulk-actions toolbar.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes selectable menu items not always showing `aria-checked`.
+- [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md) no longer clears custom error messages set via `setCustomValidity(...)` when the component checks validity internally.
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) fixes non-collapsible panels causing duplicate heading announcements in screen readers.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) now updates when the selected option's content changes at runtime.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) fixes tag list flickering at certain zoom levels.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes overflow calculations, missing labels in the overflow menu, and click handlers for overflow submenu items (e.g. Grid bulk actions).
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) fixes tooltips on grid bulk action buttons inside popovers.
+
+## Theme updates
+
+- All themes have been updated with a new `octagon-xmark-solid` icon used in Callout, Inline message and Progress bar. Make sure to update your theme when you update any of those components.
+
+## Tooling
+
+- [`eslint-config`](https://github.com/sl-design-system/components/blob/main/tools/eslint-config/CHANGELOG.md) and [`stylelint-config`](https://github.com/sl-design-system/components/blob/main/tools/stylelint-config/CHANGELOG.md) no longer include Prettier. Use [`oxfmt`](https://oxc.rs/docs/guide/usage/formatter.html) as a separate, faster formatting step instead.
+- [`eslint-plugin-slds`](https://github.com/sl-design-system/components/blob/main/tools/eslint-plugin-slds/CHANGELOG.md) fixes a false positive in `slds/singleline-html-template-trimmed` where spaces between expressions were incorrectly reported as whitespace.
+
+# April 13, 2026
+
+`format-date` and `format-number` have been promoted from `draft` to `preview`.
+
+## Breaking changes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) has been updated to `v2.0.0` with the following breaking changes:
+  - The component now renders a native `<button>` inside the shadow DOM, changing the DOM structure. `delegatesFocus` is used to delegate focus to the inner button, so keyboard navigation and accessibility remain intact.
+  - The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state.
+  - The new DOM structure allows using the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) via the `command` and `commandfor` attributes, and the `commandFor` and `commandForElement` properties, for declaratively opening and closing dialogs without JavaScript. Requires `@sl-design-system/dialog` to be updated to the latest version.
+
+  > **Note for Safari on macOS users:** Because `<sl-button>` now uses a native `<button>` element internally, it follows native browser/OS behavior for keyboard focus. By default, Safari on macOS does not allow focusing buttons with the TAB key. Users who need TAB-focusable buttons must enable "Press Tab to highlight each item on a webpage" in Safari's accessibility settings (Settings → Advanced → Accessibility).
+
+## New features
+
+- [`button-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md) replaces the `icon-only` attribute with a `:state(icon-only)` CSS custom state. The component remains backward compatible with older button versions that still use the `icon-only` attribute.
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) adds a `getSelectedItems()` method to `ArrayListDataSource` that returns the raw data objects of all currently selected items.
+- [`dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md) adds support for the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API). The dialog now responds to `--show-modal`, `--close`, and `--request-close` commands, allowing buttons to open and close dialogs declaratively without JavaScript. `close()` and `requestClose()` now also accept an optional `returnValue` parameter.
+- [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md) adds a new `ForwardAriaMixin` that forwards ARIA attributes from a custom element host to a target element inside its shadow DOM (successor to `ObserveAttributesMixin`). Also includes new helper functions (`getForwardedAccessibleName`, `getForwardedDescription`, `isForwardedDisabled`, etc.) exported from `@sl-design-system/shared/helpers/forward-aria.js`. The `MediaController` has been improved with a `device` getter and an `onChange` callback for breakpoint changes.
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) has a reworked interaction model for hover and keyboard focus. New `show-delay` and `hide-delay` properties make open/close timing explicit and configurable (default hover delay is now 150ms; set `show-delay="0"` to restore the previous immediate behavior). Improved anchor detection across shadow DOM and composite anchors.
+
+## Bug fixes
+
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md) fixes alignment of the +/- icon in Firefox due to `text-box` not yet being supported.
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) fixes a rare incorrect value display when dragging and dropping text into input parts, improves focus handling so clicking an associated label works correctly, and fixes the field not growing when it has an explicit width.
+- [`dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md) fixes flickering on viewport resize between mobile and desktop, and fixes the close animation in Safari and Firefox. The dialog title now always uses `<h1>` with `slot="title"` and heading styles are reset so the title displays correctly regardless of global heading styles.
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) fixes an infinite loop in `FormControlMixin` where resolving an async custom validity promise would continuously re-emit the `sl-validate` event.
+- [`format-date`](https://github.com/sl-design-system/components/blob/main/packages/components/format-date/CHANGELOG.md) fixes an error thrown when `date-style` or `time-style` is set to an empty string; empty strings are now treated as `undefined` and fall back to default formatting.
+- [`format-number`](https://github.com/sl-design-system/components/blob/main/packages/components/format-number/CHANGELOG.md) fixes unreachable dead code in `render()`.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes a z-index issue where columns containing an avatar would appear on top of sticky columns when scrolled.
+- [`message-dialog`](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md) updates the dialog title to use `<h1>` instead of `<h2>`, since a dialog has its own independent heading hierarchy.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) accessibility improvements: the clear button has been moved from `sl-select-button` to `sl-select` so it is independently focusable, `aria-keyshortcuts` is added to announce Backspace/Delete shortcuts to screen readers, and a new `sl-clear` event is dispatched consistently. Also fixes the select closing unexpectedly when interacting with the listbox scrollbar area.
+- [`text-area`](https://github.com/sl-design-system/components/blob/main/packages/components/text-area/CHANGELOG.md) changes the default number of rows to 3 (previously it mimicked the browser default of 2). The `--sl-text-area-rows` CSS custom property has been removed; use the `rows` property instead. Note: if you previously set `--sl-text-area-rows` to a value larger than `rows`, the component will now be smaller.
+- [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) improves focus handling (clicking an associated label now works) and reworks the internal input to use spin-buttons for better assistive technology support.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) now uses `aria-labelledby` to connect the tooltip in icon-only mode, preventing duplicate labels for screen readers.
+
+## Theme updates
+
+- All themes have updated `global.css` with improved dialog open/close animations, including a fix for browsers without `overlay` support (Safari, Firefox).
+- [Sanoma Pro](https://github.com/sl-design-system/components/blob/main/packages/themes/sanoma-pro/CHANGELOG.md) is a new theme that has been added.
+- [Sanoma Utbildning](https://github.com/sl-design-system/components/blob/main/packages/themes/sanoma-utbildning/CHANGELOG.md) has also received the new theme addition alongside the dialog animation updates.
+
 # March 18, 2026
 
 `Callout` has been promoted from `draft` to `preview`.
@@ -121,8 +252,8 @@ For all components the dependencies have been updated as well.
 - [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) fixes data not being invalidated when calling `FetchListDataSource.update()`.
 - [`emoji`](https://github.com/sl-design-system/components/blob/main/packages/components/emoji/CHANGELOG.md) refactored tokens for headings that were still using deprecated tokens.
 - [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) improves reliability of selection mode. When you add an `<sl-grid-selection-column>` to a grid, the selection column automatically enables multiple selection mode on the data source.
-- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) changes `IconPrefix` type so we no longer get errors every time a new prefix is added in FontAwesome, and refactored token for multi-colour icons.
-- [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) inverted onBold colour changed to blue.
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) changes `IconPrefix` type so we no longer get errors every time a new prefix is added in FontAwesome, and refactored token for multi-color icons.
+- [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) inverted onBold color changed to blue.
 - [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md), [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md), [`progress-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/progress-bar/CHANGELOG.md), [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md), [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md), [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) refactored tokens that were still using deprecated tokens.
 - [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) fixes several issues: for `required` time-field, native validation message is now used; fixes an issue where the dialog time picker value did not update when the user typed a new value; fixes toggling time picker when clicking on the clock button.
 - [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fixes lazy loaded children to inherit the selected state of the parent node.

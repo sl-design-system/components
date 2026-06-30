@@ -1,5 +1,36 @@
 # @sl-design-system/toggle-button
 
+## 0.0.16
+
+### Patch Changes
+
+- [#3392](https://github.com/sl-design-system/components/pull/3392) [`f2d2914`](https://github.com/sl-design-system/components/commit/f2d2914f4622de01b49e49b78abc17956e7438d3) - Expose and enforce `aria-disabled="true"` on disabled menu items and toggle buttons so assistive technologies announce them as unavailable and the components remain non-interactive
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tooltip@2.0.1
+
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/tooltip@2.0.0
+
+## 0.0.14
+
+### Patch Changes
+
+- [#3089](https://github.com/sl-design-system/components/pull/3089) [`5773ea6`](https://github.com/sl-design-system/components/commit/5773ea6399073ba3f212b5fbfdbab3138b8d1894) - Updated sl-toggle-button to use aria-labelledby for its tooltip connection when in icon-only mode. This ensures better accessibility and prevents duplicate labels by removing the redundant aria-label attribute from the host element while preserving its `label` property value.
+
+- Updated dependencies [[`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/tooltip@1.4.0
+  - @sl-design-system/shared@0.12.0
+
 ## 0.0.13
 
 ### Patch Changes

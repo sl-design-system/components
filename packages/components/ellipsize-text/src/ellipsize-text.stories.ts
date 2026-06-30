@@ -7,8 +7,8 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Ellipsize Text',
-  tags: ['draft'],
-  render: ({ text, width }) => html`<sl-ellipsize-text style="width: ${width}px">${text}</sl-ellipsize-text>`
+  render: ({ text, width }) =>
+    html`<sl-ellipsize-text style="width: ${width}px">${text}</sl-ellipsize-text>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {

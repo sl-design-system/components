@@ -1,5 +1,12 @@
 import { localized, msg } from '@lit/localize';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormControl } from './form-control-mixin.js';
 import styles from './label.scss.js';
@@ -19,6 +26,9 @@ let nextUniqueId = 0;
 /**
  * Label component that hooks a `<label>` element up with the input element of the form control,
  * assuming the input element is in the light DOM (same context of the label).
+ *
+ * @slot infotip - The infotip element to show next to the label.
+ * @slot label - The label element, which is rendered in the light DOM.
  */
 @localized()
 export class Label extends LitElement {
@@ -34,6 +44,9 @@ export class Label extends LitElement {
   /** Observe the form control for changes to the required attribute. */
   #observer = new MutationObserver(() => this.#update());
 
+  /** Track the previous form control to clean up data-label-id when it changes. */
+  #previousFormControl: (HTMLElement & FormControl & { size?: string }) | null = null;
+
   /** Whether the form control is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
@@ -44,9 +57,9 @@ export class Label extends LitElement {
   @state() formControl: (HTMLElement & FormControl & { size?: string }) | null = null;
 
   /**
-   * Indicates whether the label should indicate if the field is optional or required.
-   * If you have a form field that contains more than one control, and the "required" state
-   * is a combination of the controls, you can use this property to hide the "optional" indicator.
+   * Indicates whether the label should indicate if the field is optional or required. If you have a
+   * form field that contains more than one control, and the "required" state is a combination of
+   * the controls, you can use this property to hide the "optional" indicator.
    */
   @property() mark?: LabelMark;
 
@@ -67,6 +80,11 @@ export class Label extends LitElement {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+
+    // Clean up data-label-id from the form control
+    if (this.formControl) {
+      this.formControl.removeAttribute('data-label-id');
+    }
 
     super.disconnectedCallback();
   }
@@ -107,6 +125,11 @@ export class Label extends LitElement {
     }
 
     if (changes.has('formControl')) {
+      // Clean up data-label-id from the previous form control
+      if (this.#previousFormControl && this.#previousFormControl !== this.formControl) {
+        this.#previousFormControl.removeAttribute('data-label-id');
+      }
+
       if (this.formControl) {
         let target: HTMLElement = this.formControl;
 
@@ -115,14 +138,27 @@ export class Label extends LitElement {
         }
 
         if (typeof this.formControl.size === 'string') {
-          this.size = (['sm', 'md', 'lg'].find(s => s === this.formControl!.size) as LabelSize) || 'md';
+          this.size =
+            (['sm', 'md', 'lg'].find(s => s === this.formControl!.size) as LabelSize) || 'md';
         }
 
-        this.#observer.observe(target, { attributes: true, attributeFilter: ['disabled', 'required'] });
+        this.#observer.observe(target, {
+          attributes: true,
+          attributeFilter: ['disabled', 'required']
+        });
         this.#update();
+
+        // Set data-label-id on the new control if the label has already been initialized
+        if (this.#label?.id) {
+          this.formControl.setAttribute('data-label-id', this.#label.id);
+        }
+
+        // Update the previous form control reference
+        this.#previousFormControl = this.formControl;
       } else {
         this.#observer.disconnect();
         this.required = undefined;
+        this.#previousFormControl = null;
       }
     }
   }
@@ -131,11 +167,20 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
+      <slot name="infotip"></slot>
       ${this.mark === 'optional' && !this.required
-        ? html`<span class="optional">(${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})</span>`
+        ? html`
+            <span class="optional">
+              (${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})
+            </span>
+          `
         : nothing}
       ${this.mark === 'required' && this.required
-        ? html`<span class="required">(${msg('required', { id: 'sl.form.requiredLabelIndicator' })})</span>`
+        ? html`
+            <span class="required">
+              (${msg('required', { id: 'sl.form.requiredLabelIndicator' })})
+            </span>
+          `
         : nothing}
     `;
   }
@@ -143,19 +188,29 @@ export class Label extends LitElement {
   #onSlotchange({ target }: Event & { target: HTMLSlotElement }): void {
     const nodes = target.assignedNodes({ flatten: true });
 
-    if (this.#label && nodes.length) {
-      this.#label.innerHTML = '';
-      this.#label.append(...nodes);
+    // Only move text and element nodes to the label; leave comment nodes (Lit's
+    // internal template markers) in place so the parent component's ChildPart
+    // tracking stays intact and future re-renders (e.g. locale changes) work.
+    const contentNodes = nodes.filter(
+      n => n.nodeType === Node.TEXT_NODE || n.nodeType === Node.ELEMENT_NODE
+    );
+
+    if (this.#label && contentNodes.length) {
+      this.#label.replaceChildren(...contentNodes);
     } else {
       // Workaround for `??=` output missing parens around OR statement
-      this.#label = this.#label ?? (this.querySelector('label[slot="label"]') || document.createElement('label'));
+      this.#label =
+        this.#label ??
+        (this.querySelector('label[slot="label"]') || document.createElement('label'));
       this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
-      this.#label.append(...nodes);
+      this.#label.append(...contentNodes);
       this.prepend(this.#label);
     }
 
     this.#label.id ||= `sl-label-${nextUniqueId++}`;
+    // Communicate the label ID to the control so it can use it for aria-labelledby
+    this.formControl?.setAttribute('data-label-id', this.#label.id);
   }
 
   #update(): void {

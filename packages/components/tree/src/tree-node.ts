@@ -1,14 +1,28 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type Menu } from '@sl-design-system/menu';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
-import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import {
+  type SlChangeEvent,
+  type SlSelectEvent,
+  type SlToggleEvent
+} from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { IndentGuides } from './indent-guides.js';
@@ -26,8 +40,8 @@ export type TreeNodeContextMenu<T> = (node: TreeDataSourceNode<T>) => Menu | und
 export type TreeNodeType = 'node' | 'placeholder' | 'skeleton';
 
 /**
- * A tree node component. Used to represent a node in a tree. This component
- * is not public API and is used internally by `<sl-tree>`.
+ * A tree node component. Used to represent a node in a tree. This component is not public API and
+ * is used internally by `<sl-tree>`.
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,7 +50,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button-bar': ButtonBar,
       'sl-checkbox': Checkbox,
@@ -58,47 +72,52 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * Whether the node is disabled.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
    * If true, will render an indicator whether the node is expanded or collapsed.
+   *
    * @default false
    */
   @property({ type: Boolean }) expandable?: boolean;
 
   /**
    * Indicates whether the node is expanded or collapsed.
+   *
    * @default false
    */
   @property({ type: Boolean }) expanded?: boolean;
 
   /**
    * Indeterminate state of the checkbox. Used when not all children are checked.
+   *
    * @default false
    */
   @property({ type: Boolean }) indeterminate?: boolean;
 
   /**
    * Whether this node is the last one on this level; used for styling.
+   *
    * @default false
    */
   @property({ type: Boolean, attribute: 'last-node-in-level' }) lastNodeInLevel?: boolean;
 
   /**
    * The depth level of this node, 0 being the root of the tree.
+   *
    * @default 0
    */
   @property({ type: Number }) level = 0;
 
-  /**
-   * An array indicating which levels have a next sibling; used to render indentation guides.
-   */
+  /** An array indicating which levels have a next sibling; used to render indentation guides. */
   @property({ type: Array, attribute: 'level-guides' }) levelGuides?: number[];
 
   /**
    * Will render a checkbox to allow for multiple selections.
+   *
    * @default false
    */
   @property({ type: Boolean, reflect: true }) multiple?: boolean;
@@ -108,6 +127,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * Determines whether the node is selected or not.
+   *
    * @default false
    */
   @property({ type: Boolean }) selected?: boolean;
@@ -119,10 +139,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   /**
-   * The type of tree node:
-   * - 'node': A regular tree node.
-   * - 'placeholder': A placeholder node used for loading children.
-   * - 'skeleton': A skeleton node used for loading individual nodes.
+   * The type of tree node: - 'node': A regular tree node. - 'placeholder': A placeholder node used
+   * for loading children. - 'skeleton': A skeleton node used for loading individual nodes.
    *
    * @default 'node'
    */
@@ -131,7 +149,10 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    /** We cannot use treeitem role, due to a11y issues with tree role and no group role with Virtualizer. */
+    /**
+     * We cannot use treeitem role, due to a11y issues with tree role and no group role with
+     * Virtualizer.
+     */
     this.setAttribute('role', 'row');
 
     this.setAttribute('aria-selected', Boolean(this.selected).toString());
@@ -163,8 +184,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         ?last-node-in-level=${this.lastNodeInLevel}
         .level=${this.level}
         .levelGuides=${this.levelGuides}
-        ?selected=${!this.multiple && this.selected}
-      ></sl-indent-guides>
+        ?selected=${!this.multiple && this.selected}></sl-indent-guides>
       <div aria-colindex="1" role="gridcell">
         ${this.expandable
           ? html`
@@ -179,10 +199,17 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
           ${choose(
             this.type,
             [
-              ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading', { id: 'sl.tree.loadingMessage' })}`],
+              [
+                'placeholder',
+                () =>
+                  html`<sl-spinner></sl-spinner>${msg('Loading', { id: 'sl.tree.loadingMessage' })}`
+              ],
               [
                 'skeleton',
-                () => html`<sl-skeleton style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>`
+                () => html`
+                  <sl-skeleton
+                    style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>
+                `
               ]
             ],
             () =>
@@ -194,8 +221,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       ?indeterminate=${this.indeterminate}
                       exportparts="label"
                       part="checkbox"
-                      size="sm"
-                    >
+                      size="sm">
                       <input slot="input" tabindex="-1" type="checkbox" />
                       <slot></slot>
                     </sl-checkbox>
@@ -231,9 +257,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * If the user clicked on the wrapper part of the tree node,
-   * emit the select event. Otherwise, if the node is expandable,
-   * toggle the expanded state.
+   * If the user clicked on the wrapper part of the tree node, emit the select event. Otherwise, if
+   * the node is expandable, toggle the expanded state.
    */
   #onClick(event: Event): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');

@@ -1,10 +1,17 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import {
+  type SlChangeEvent,
+  type SlSelectEvent,
+  type SlToggleEvent
+} from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './group-header.scss.js';
@@ -18,7 +25,7 @@ declare global {
 @localized()
 export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-checkbox': Checkbox,
@@ -63,17 +70,16 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
                 @sl-change=${this.#onChange}
                 .checked=${this.selected === 'all'}
                 .indeterminate=${this.selected === 'some'}
-                size="sm"
-              ></sl-checkbox>
+                size="sm"></sl-checkbox>
             </div>
           `
         : nothing}
       <sl-button
         @click=${this.#onClick}
+        aria-expanded=${this.collapsed ? 'false' : 'true'}
         aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
         fill="ghost"
-        size="sm"
-      >
+        size="sm">
         <sl-icon name="chevron-down"></sl-icon>
       </sl-button>
       <div part="wrapper">

@@ -9,8 +9,8 @@ declare global {
 }
 
 /**
- * A header for an option group. Split out as a separate component so it can
- * be used both with `<lit-virtualizer>` and without.
+ * A header for an option group. Split out as a separate component so it can be used both with
+ * `<lit-virtualizer>` and without.
  */
 export class OptionGroupHeader extends LitElement {
   /** @internal */
@@ -18,6 +18,14 @@ export class OptionGroupHeader extends LitElement {
 
   /** Will render a horizontal divider when set. */
   @property({ type: Boolean, reflect: true }) divider?: boolean;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Group headers are presentational and should be hidden from assistive technology
+    // to maintain a flat listbox structure for Safari/VoiceOver compatibility.
+    this.setAttribute('aria-hidden', 'true');
+  }
 
   override render(): TemplateResult {
     return html`

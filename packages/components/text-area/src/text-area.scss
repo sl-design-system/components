@@ -3,10 +3,13 @@
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
-  --sl-text-area-rows: 3;
 
   align-items: start;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border: var(--sl-size-borderWidth-default) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
@@ -62,6 +65,10 @@
   }
 }
 
+:host(:where([resize='vertical'], [resize='auto'])) slot[name='textarea']::slotted(textarea) {
+  min-block-size: calc(var(--_sl-text-area-rows, 3) * 1lh);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :host(:where(:hover, :focus-within)) {
     transition: 200ms ease-in-out;
@@ -78,7 +85,7 @@ slot[name='textarea']::slotted(textarea) {
   flex: 1;
   font: inherit;
   margin: 0;
-  min-block-size: calc(var(--sl-text-area-rows, 3) * 1lh);
+  min-block-size: 1lh;
   outline: none;
   padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));

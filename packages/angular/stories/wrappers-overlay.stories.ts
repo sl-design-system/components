@@ -11,7 +11,13 @@ export default {
   title: 'Wrappers/Overlay',
   decorators: [
     moduleMetadata({
-      imports: [ButtonComponent, DialogComponent, MessageDialogComponent, PopoverComponent, TooltipComponent]
+      imports: [
+        ButtonComponent,
+        DialogComponent,
+        MessageDialogComponent,
+        PopoverComponent,
+        TooltipComponent
+      ]
     })
   ]
 } as Meta;
@@ -25,11 +31,10 @@ export const Dialog: StoryObj = {
         (event.target.nextElementSibling as DialogElement).showModal();
       }
     },
-    styles: ['h2 { font-size: inherit; font-weight: inherit; margin: 0; }'],
     template: `
         <sl-button (click)="onClick($event)">Open dialog</sl-button>
         <sl-dialog>
-          <h2 slot="title">Title</h2>
+          <h1 slot="title">Title</h1>
           <span slot="subtitle">Subtitle</span>
           <p>Proident nulla enim est excepteur exercitation minim ea proident nisi.</p>
           <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
@@ -95,7 +100,9 @@ export const MessageDialogConfirm: StoryObj = {
           'Confirm Delete'
         );
         console.log('Confirmation result:', result);
-        alert(`User selected: ${result === true ? 'OK' : result === false ? 'Cancel' : 'Closed dialog'}`);
+        alert(
+          `User selected: ${result === true ? 'OK' : result === false ? 'Cancel' : 'Closed dialog'}`
+        );
       }
     },
     template: `
@@ -159,7 +166,8 @@ export const MessageDialogDeclarative: StoryObj = {
     props: {
       dialogConfig: {
         title: 'Declarative Dialog',
-        message: 'This message dialog was created using the Angular wrapper component declaratively.',
+        message:
+          'This message dialog was created using the Angular wrapper component declaratively.',
         buttons: [
           { text: 'Cancel', fill: 'ghost' },
           { text: 'OK', variant: 'primary', autofocus: true }

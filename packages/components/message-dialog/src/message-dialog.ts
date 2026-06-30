@@ -1,5 +1,8 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonVariant } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Dialog } from '@sl-design-system/dialog';
@@ -37,7 +40,9 @@ export interface MessageDialogButton<T = any> {
 /**
  * Use this component to show alerts, confirmations, or custom dialogs.
  *
- * This component is meant to be used as a static class. Not as a declarative component. For example:
+ * This component is meant to be used as a static class. Not as a declarative component. For
+ * example:
+ *
  * ```js
  * await MessageDialog.alert('Hello, world!');
  * // Dialog has been closed or cancelled at this point
@@ -47,7 +52,7 @@ export interface MessageDialogButton<T = any> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       ...Dialog.scopedElements,
       'sl-button': Button,
@@ -64,9 +69,18 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
    * @param message - The message to display.
    * @param title - The title of the dialog.
    */
-  static async alert(message: string, title = msg('Alert', { id: 'sl.messageDialog.alertTitle' })): Promise<void> {
+  static async alert(
+    message: string,
+    title = msg('Alert', { id: 'sl.messageDialog.alertTitle' })
+  ): Promise<void> {
     return await this.show({
-      buttons: [{ autofocus: true, text: msg('OK', { id: 'sl.messageDialog.okButton' }), variant: 'primary' }],
+      buttons: [
+        {
+          autofocus: true,
+          text: msg('OK', { id: 'sl.messageDialog.okButton' }),
+          variant: 'primary'
+        }
+      ],
       title,
       message
     });
@@ -75,7 +89,8 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   /**
    * Shows a confirmation dialog to the user with OK and Cancel buttons by default.
    *
-   * Returns a promise that resolves with `true` if the user clicks OK, `false` if the user clicks Cancel, or `undefined` if the user closes the dialog.
+   * Returns a promise that resolves with `true` if the user clicks OK, `false` if the user clicks
+   * Cancel, or `undefined` if the user closes the dialog.
    *
    * @param message - The message to display.
    * @param title - The title of the dialog.
@@ -101,9 +116,11 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * Shows a message dialog to the user. Use this method to display custom dialogs with any number of buttons.
+   * Shows a message dialog to the user. Use this method to display custom dialogs with any number
+   * of buttons.
    *
-   * Returns a promise that resolves with the value of the button that was clicked, or `undefined` if the dialog was closed.
+   * Returns a promise that resolves with the value of the button that was clicked, or `undefined`
+   * if the dialog was closed.
    *
    * @param config - The configuration for the dialog.
    */
@@ -148,9 +165,8 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         aria-labelledby="title"
-        role="alertdialog"
-      >
-        <h2 id="title">${title}</h2>
+        role="alertdialog">
+        <h1 id="title">${title}</h1>
         <p>${message}</p>
         <sl-button-bar align="end">
           ${buttons?.map(
@@ -159,8 +175,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
                 @click=${() => this.#onButtonClick(button)}
                 ?autofocus=${button.autofocus}
                 fill=${ifDefined(button.fill)}
-                variant=${ifDefined(button.variant)}
-              >
+                variant=${ifDefined(button.variant)}>
                 ${button.text}
               </sl-button>
             `
@@ -184,7 +199,9 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
     this.dialog?.close();
 
     // Wait until all animations have finished before triggering the action
-    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+    await Promise.allSettled(
+      this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []
+    );
 
     button.action?.();
   }
@@ -194,7 +211,9 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
     await new Promise(resolve => setTimeout(resolve));
 
     // Wait until all animations have finished before triggering the action
-    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+    await Promise.allSettled(
+      this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []
+    );
 
     this.cancelEvent.emit();
   }
@@ -219,7 +238,9 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
       this.dialog?.close();
 
       // Wait until all animations have finished before triggering the action
-      await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+      await Promise.allSettled(
+        this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []
+      );
 
       this.cancelEvent.emit();
     }

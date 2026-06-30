@@ -1,5 +1,74 @@
 # @sl-design-system/combobox
 
+## 0.1.10
+
+### Patch Changes
+
+- [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Improve scroll-to-item behavior and virtual list handling
+
+  Internal improvements to scrolling and virtual list constraints for better user experience. These improvements depend on the updated `@sl-design-system/listbox` and `@sl-design-system/virtual-list` packages.
+  - Improved scroll-to-item behavior when selecting options
+  - Better handling of virtual list constraints
+
+- [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for combobox screen reader support
+  - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
+  - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
+  - Remove `aria-owns` from the combobox input because it is not needed for this implementation
+  - Fixes issue where you can select an option multiple times when the "group selected" option is true
+
+- [#3427](https://github.com/sl-design-system/components/pull/3427) [`a2713a8`](https://github.com/sl-design-system/components/commit/a2713a8fd882d7672816aef39e09581c7ab559b0) - Fix combobox selection matching when option values and the combobox value use different primitive types.
+
+  The combobox now treats primitive values such as `1` and "1" as equivalent when resolving selected options. This prevents the selected option from being cleared when a value is provided as a string while the matching `sl-option` value is a number.
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- [#3398](https://github.com/sl-design-system/components/pull/3398) [`0b948e2`](https://github.com/sl-design-system/components/commit/0b948e282dedb6787eb116d991233b4b2a766225) - Fixed select-only comboboxes so keyboard users can select and deselect the current option with Space while editable comboboxes still insert spaces in the input field
+
+- Updated dependencies [[`d6f8588`](https://github.com/sl-design-system/components/commit/d6f858895428de34e4398e275c4e6246b2088882), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/tag@0.1.13
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
+## 0.1.9
+
+### Patch Changes
+
+- [#3366](https://github.com/sl-design-system/components/pull/3366) [`a4fc3d8`](https://github.com/sl-design-system/components/commit/a4fc3d88a9982bc6fa3d7a750ba321ac0c31f054) - Accessibility improvements of the toggle button, now uses proper aria: aria-label and aria-expanded (includes the new `sl.combobox.options` locale key).
+
+- [#3297](https://github.com/sl-design-system/components/pull/3297) [`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a) - Align `sl-combobox-create-custom-option` styling with other options styling.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/listbox@0.1.7
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/text-field@1.6.10
+
+## 0.1.8
+
+### Patch Changes
+
+- [#3211](https://github.com/sl-design-system/components/pull/3211) [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f) - Functional changes:
+  - The popover opens when you click in the combobox, no longer when you enter the combobox with keyboard navigation.
+
+  Accessibility improvements:
+  - Forward ARIA attributes (`aria-label`, `aria-describedby`, `aria-labelledby`) from host element to the input element for proper screen reader support
+  - Automatically associate label with input via `aria-labelledby` when a label is present
+
+- [#3112](https://github.com/sl-design-system/components/pull/3112) [`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56) - Fixed an issue in `sl-combobox` where tag remove icons were unclickable due to the input element overlapping them. Also resolved layout flickering in multiple selection mode by stabilizing the space distribution for the tag list.
+
+- [#3272](https://github.com/sl-design-system/components/pull/3272) [`3463445`](https://github.com/sl-design-system/components/commit/3463445833fe1d6993017c5b357ede54c34be09b) - Fix `filter-results` behavior in `sl-combobox` when leaving the field without selecting an option.
+
+  Previously, typing a search value and blurring the component could clear the input while keeping the internal filtered state, so reopening the list showed only stale filtered results.
+  Now, when focus leaves the component, filtered option visibility is reset to match the restored input value.
+
+- Updated dependencies [[`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56), [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e)]:
+  - @sl-design-system/tag@0.1.12
+  - @sl-design-system/form@1.4.0
+
 ## 0.1.7
 
 ### Patch Changes

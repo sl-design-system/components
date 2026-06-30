@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -349,6 +352,67 @@ describe('sl-select', () => {
 
       expect(el.value).to.equal('5');
     });
+
+    it('should not have role="group" on option-group elements', () => {
+      const groups = el.querySelectorAll('sl-option-group');
+
+      groups.forEach(group => {
+        expect(group).not.to.have.attribute('role', 'group');
+      });
+    });
+
+    it('should have aria-hidden="true" on group headers', () => {
+      const groups = el.querySelectorAll('sl-option-group');
+
+      groups.forEach(group => {
+        const header = group.shadowRoot?.querySelector('sl-option-group-header');
+        expect(header).to.have.attribute('aria-hidden', 'true');
+      });
+    });
+
+    it('should have flattened aria-posinset and aria-setsize across all options', () => {
+      const options = el.options;
+
+      expect(options).to.have.lengthOf(4);
+
+      options.forEach((option, index) => {
+        expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+        expect(option).to.have.attribute('aria-setsize', '4');
+      });
+    });
+
+    it('should include group context in option accessible names', () => {
+      const options = el.options;
+
+      expect(options[0]).to.have.attribute('aria-label', 'Option 1 (Group 1)');
+      expect(options[1]).to.have.attribute('aria-label', 'Option 2 (Group 1)');
+      expect(options[2]).to.have.attribute('aria-label', 'Option 3 (Group 1)');
+      expect(options[3]).to.have.attribute('aria-label', 'Option 4 (Group 2)');
+    });
+
+    it('should have aria-selected="false" on all unselected options', () => {
+      const options = el.options;
+
+      options.forEach(option => {
+        expect(option).to.have.attribute('aria-selected', 'false');
+      });
+    });
+
+    it('should have aria-selected="true" only on the selected option', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      const options = el.options;
+
+      expect(options[0]).to.have.attribute('aria-selected', 'true');
+      expect(options[1]).to.have.attribute('aria-selected', 'false');
+      expect(options[2]).to.have.attribute('aria-selected', 'false');
+      expect(options[3]).to.have.attribute('aria-selected', 'false');
+    });
   });
 
   describe('disabled', () => {
@@ -663,6 +727,45 @@ describe('sl-select', () => {
       otherButton.remove();
     });
 
+    it('should prevent default on listbox mousedown when the listbox itself is the target', async () => {
+      const listbox = el.renderRoot.querySelector('sl-listbox')!;
+
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const event = new MouseEvent('mousedown', {
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      });
+
+      listbox.dispatchEvent(event);
+      await el.updateComplete;
+
+      expect(event.defaultPrevented).to.be.true;
+      expect(listbox).to.match(':popover-open');
+    });
+
+    it('should not prevent default on listbox mousedown when an option is the target', async () => {
+      const option = el.querySelector<Option>('sl-option')!;
+
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const event = new MouseEvent('mousedown', {
+        bubbles: true,
+        cancelable: true,
+        composed: true
+      });
+
+      option.dispatchEvent(event);
+      await el.updateComplete;
+
+      expect(event.defaultPrevented).to.be.false;
+    });
+
     it('should focus the button after the popover closes', async () => {
       button.focus();
 
@@ -763,7 +866,9 @@ describe('sl-select', () => {
       await userEvent.keyboard('{Escape}');
       await el.updateComplete;
 
-      const escapeEvents = onKeydown.getCalls().filter(call => (call.args[0] as KeyboardEvent).key === 'Escape');
+      const escapeEvents = onKeydown
+        .getCalls()
+        .filter(call => (call.args[0] as KeyboardEvent).key === 'Escape');
 
       expect(escapeEvents).to.have.length(0);
 
@@ -796,8 +901,8 @@ describe('sl-select', () => {
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>
             <sl-option value="very-long"
-              >This is an extremely long option text that should be much wider than the parent max-width
-              constraint</sl-option
+              >This is an extremely long option text that should be much wider than the parent
+              max-width constraint</sl-option
             >
           </sl-select>
         </div>
@@ -890,6 +995,239 @@ describe('sl-select', () => {
 
       container = button.querySelector('[slot="selected-content"]');
       expect(container).to.be.null;
+    });
+
+    it('should update selected content when the selected option text is mutated', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated Option 1';
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(container).to.have.trimmed.text('Updated Option 1');
+    });
+
+    it('should keep observing selected option content after detach/attach with unchanged value', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const parent = el.parentElement!;
+      parent.removeChild(el);
+      parent.appendChild(el);
+      await el.updateComplete;
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated After Reattach';
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(container).to.have.trimmed.text('Updated After Reattach');
+    });
+
+    it('should refresh selected content after reconnect when selected option changed while detached', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Option 1');
+
+      const parent = el.parentElement!;
+      parent.removeChild(el);
+
+      const option = el.querySelector('sl-option[value="1"]')!;
+      option.textContent = 'Updated While Detached';
+
+      parent.appendChild(el);
+      await el.updateComplete;
+
+      expect(container).to.have.trimmed.text('Updated While Detached');
+    });
+
+    it('should batch largest option width recalculation while a frame is pending', async () => {
+      el.value = '1';
+      await el.updateComplete;
+
+      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(button),
+        'optionSize'
+      );
+      if (!optionSizeDescriptor?.get || !optionSizeDescriptor.set) {
+        throw new Error('Expected optionSize accessor descriptor on SelectButton prototype');
+      }
+
+      const originalRequestAnimationFrame = window.requestAnimationFrame;
+      const frameCallbacks: FrameRequestCallback[] = [];
+      let optionSizeSetCalls = 0;
+      const getOptionSize = optionSizeDescriptor.get.bind(button) as () => number | undefined;
+      const setOptionSize = optionSizeDescriptor.set.bind(button) as (
+        value: number | undefined
+      ) => void;
+      try {
+        Object.defineProperty(button, 'optionSize', {
+          configurable: true,
+          get() {
+            return getOptionSize();
+          },
+          set(value: number | undefined) {
+            optionSizeSetCalls += 1;
+            setOptionSize(value);
+          }
+        });
+
+        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+          frameCallbacks.push(callback);
+
+          return frameCallbacks.length;
+        }) as typeof window.requestAnimationFrame;
+
+        const option = el.querySelector('sl-option[value="1"]')!;
+        option.textContent = 'Update 1';
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        option.textContent = 'Update 2';
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        expect(optionSizeSetCalls).to.equal(0);
+
+        frameCallbacks.forEach(callback => callback(performance.now()));
+        expect(optionSizeSetCalls).to.equal(1);
+      } finally {
+        delete (button as SelectButton & { optionSize?: number }).optionSize;
+        window.requestAnimationFrame = originalRequestAnimationFrame;
+      }
+    });
+
+    it('should sync value and form value when selected option implicit value changes', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-select name="fruit">
+            <sl-option>Apple</sl-option>
+            <sl-option>Banana</sl-option>
+          </sl-select>
+        </form>
+      `);
+
+      el = form.querySelector<Select>('sl-select')!;
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = 'Apple';
+      await el.updateComplete;
+
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      const container = button.querySelector('[slot="selected-content"]');
+      expect(container).to.have.trimmed.text('Apple');
+
+      const option = el.querySelector('sl-option')!;
+      option.textContent = 'Green Apple';
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+      await el.updateComplete;
+
+      expect(container).to.have.trimmed.text('Green Apple');
+      expect(el.value).to.equal('Green Apple');
+      expect(onChange).not.to.have.been.called;
+      expect(new FormData(form).get('fruit')).to.equal('Green Apple');
+    });
+
+    it('should sync value when selected option value attribute changes', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-select name="fruit">
+            <sl-option value="apple">Apple</sl-option>
+            <sl-option value="banana">Banana</sl-option>
+          </sl-select>
+        </form>
+      `);
+
+      el = form.querySelector<Select>('sl-select')!;
+      button = el.querySelector('sl-select-button')!;
+
+      el.value = 'apple';
+      await el.updateComplete;
+
+      const onChange = spy();
+      el.addEventListener('sl-change', onChange);
+
+      const option = el.querySelector('sl-option[value="apple"]')!;
+      option.setAttribute('value', 'green-apple');
+
+      // Wait for MutationObserver callback to fire
+      await new Promise(resolve => setTimeout(resolve, 0));
+      await el.updateComplete;
+
+      expect(el.value).to.equal('green-apple');
+      expect(onChange).not.to.have.been.called;
+      expect(new FormData(form).get('fruit')).to.equal('green-apple');
+    });
+
+    it('should not recalculate width when only selected option value attribute changes', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="apple">Apple</sl-option>
+          <sl-option value="banana">Banana</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+      el.value = 'apple';
+      await el.updateComplete;
+
+      const optionSizeDescriptor = Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(button),
+        'optionSize'
+      );
+      if (!optionSizeDescriptor?.get || !optionSizeDescriptor.set) {
+        throw new Error('Expected optionSize accessor descriptor on SelectButton prototype');
+      }
+
+      const originalRequestAnimationFrame = window.requestAnimationFrame;
+      const frameCallbacks: FrameRequestCallback[] = [];
+      let optionSizeSetCalls = 0;
+      const getOptionSize = optionSizeDescriptor.get.bind(button) as () => number | undefined;
+      const setOptionSize = optionSizeDescriptor.set.bind(button) as (
+        value: number | undefined
+      ) => void;
+      try {
+        Object.defineProperty(button, 'optionSize', {
+          configurable: true,
+          get() {
+            return getOptionSize();
+          },
+          set(value: number | undefined) {
+            optionSizeSetCalls += 1;
+            setOptionSize(value);
+          }
+        });
+
+        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+          frameCallbacks.push(callback);
+
+          return frameCallbacks.length;
+        }) as typeof window.requestAnimationFrame;
+
+        const option = el.querySelector('sl-option[value="apple"]')!;
+        option.setAttribute('value', 'green-apple');
+        await new Promise(resolve => setTimeout(resolve, 0));
+
+        frameCallbacks.forEach(callback => callback(performance.now()));
+        expect(optionSizeSetCalls).to.equal(0);
+      } finally {
+        delete (button as SelectButton & { optionSize?: number }).optionSize;
+        window.requestAnimationFrame = originalRequestAnimationFrame;
+      }
     });
 
     it('should handle options with slotted element content', async () => {
@@ -1024,7 +1362,7 @@ describe('sl-select', () => {
 
     it('should upgrade any cloned custom elements of the selected option', async () => {
       class ScopedSelectWrapper extends ScopedElementsMixin(LitElement) {
-        static get scopedElements(): ScopedElementsMap {
+        static override get scopedElements(): ScopedElementsMap {
           return {
             'sl-icon': Icon,
             'sl-option': Option,
@@ -1054,7 +1392,9 @@ describe('sl-select', () => {
       // Ensure the test is set up correctly and the icon is not registered globally
       expect(window.customElements.get('sl-icon')).to.be.undefined;
 
-      const wrapper = await fixture<ScopedSelectWrapper>(html`<scoped-select-wrapper></scoped-select-wrapper>`);
+      const wrapper = await fixture<ScopedSelectWrapper>(
+        html`<scoped-select-wrapper></scoped-select-wrapper>`
+      );
 
       el = wrapper.renderRoot.querySelector('sl-select')!;
       button = el.querySelector('sl-select-button')!;

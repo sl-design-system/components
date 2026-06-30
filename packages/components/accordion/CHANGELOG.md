@@ -1,5 +1,31 @@
 # @sl-design-system/accordion
 
+## 1.2.6
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Remove unused `@open-wc/scoped-elements` dependency.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/shared@0.12.2
+
+## 1.2.5
+
+### Patch Changes
+
+- [#3227](https://github.com/sl-design-system/components/pull/3227) [`9f34f04`](https://github.com/sl-design-system/components/commit/9f34f044dacab2fcf89744d8b13e8d825d6b7177) - Sync accessibility state on `sl-accordion-item` so disabled items are announced correctly by assistive technologies.
+
+  Disabled accordion items now expose `aria-disabled="true"` and keep `aria-expanded` in sync. This improves screen reader support in browsers where the disabled state was not announced consistently.
+
+## 1.2.4
+
+### Patch Changes
+
+- [#3145](https://github.com/sl-design-system/components/pull/3145) [`c0b8da4`](https://github.com/sl-design-system/components/commit/c0b8da46e135c0961fd585c8a06b51589adc9ff1) - Fix alignment of +/- in Firefox due to not yet supporting `text-box`
+
+- Updated dependencies [[`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538), [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c), [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538)]:
+  - @sl-design-system/shared@0.12.0
+
 ## 1.2.3
 
 ### Patch Changes

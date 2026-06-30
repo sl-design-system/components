@@ -1,5 +1,8 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
@@ -18,7 +21,14 @@ import {
   type SlClearEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
@@ -50,11 +60,10 @@ export type SelectSize = 'md' | 'lg';
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-describedby',
-  'aria-label',
-  'aria-labelledby'
-]) {
+export class Select<T = any> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-describedby', 'aria-label', 'aria-labelledby']
+) {
   /** @internal */
   static formAssociated = true;
 
@@ -62,7 +71,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-listbox': Listbox,
@@ -87,17 +96,29 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #initialState?: T;
 
   /**
-   * Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing away).
-   * Set to true in #onFocusout when the listbox is open, and we're not already programmatically closing it.
-   * Used to prevent restoring focus to the button when the user intentionally moved focus elsewhere.
+   * Track when focus is intentionally leaving the component (e.g. by clicking outside or tabbing
+   * away). Set to true in #onFocusout when the listbox is open, and we're not already
+   * programmatically closing it. Used to prevent restoring focus to the button when the user
+   * intentionally moved focus elsewhere.
    */
   #focusLeavingComponent = false;
 
-  /** The last option that was rendered in the button's selected content. Used to avoid unnecessary DOM updates. */
+  /**
+   * The last option that was rendered in the button's selected content. Used to avoid unnecessary
+   * DOM updates.
+   */
   #lastRenderedOption?: Option | null;
 
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
+
+  /** Detect when the selected option content changes, so the button can refresh its cloned content. */
+  #selectedOptionObserver = new MutationObserver(records =>
+    this.#onSelectedOptionContentChange(records)
+  );
+
+  /** Tracks a scheduled largest-option-width recalculation frame. */
+  #widthCalculationFrame?: number;
 
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
@@ -142,8 +163,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
   /**
-   * The current option in the listbox. This is the option that will become the
-   * selected option if the user presses Enter/Space.
+   * The current option in the listbox. This is the option that will become the selected option if
+   * the user presses Enter/Space.
+   *
    * @internal
    */
   @state() currentOption?: Option<T>;
@@ -164,12 +186,15 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   @query('sl-listbox') listbox?: Listbox;
 
   /** @internal */
-  @queryAssignedElements({ selector: 'sl-option-group', flatten: true }) optionGroups?: OptionGroup[];
+  @queryAssignedElements({ selector: 'sl-option-group', flatten: true })
+  optionGroups?: OptionGroup[];
 
   /** @internal A flattened array of all options (even grouped ones). */
   get options(): Array<Option<T>> {
     const elements =
-      this.renderRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({ flatten: true }) ?? [];
+      this.renderRoot
+        .querySelector<HTMLSlotElement>('slot:not([name])')
+        ?.assignedElements({ flatten: true }) ?? [];
 
     return elements.flatMap(element => this.#getAllOptions(element));
   }
@@ -188,13 +213,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /**
    * The size of the select.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: SelectSize;
 
   /**
-   * The number of pixels from the top of the viewport the select should be hidden on scroll.
-   * Use this when there is a sticky header you don't want dropdowns to fall on top of.
+   * The number of pixels from the top of the viewport the select should be hidden on scroll. Use
+   * this when there is a sticky header you don't want dropdowns to fall on top of.
    */
   @property({ type: Number, attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
 
@@ -229,6 +255,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.setAttributesTarget(this.button);
 
     this.#observer.observe(this, { childList: true, subtree: true });
+    this.#observeSelectedOptionContent();
+    this.#onSelectedOptionContentChange();
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
@@ -236,16 +264,19 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#selectedOptionObserver.disconnect();
+    if (this.#widthCalculationFrame !== undefined) {
+      cancelAnimationFrame(this.#widthCalculationFrame);
+      this.#widthCalculationFrame = undefined;
+    }
 
     super.disconnectedCallback();
   }
 
-  /** @ignore Stores the initial state of the select */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
   }
 
-  /** @ignore Resets the select to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
     this.changeEvent.emit(this.value);
@@ -325,8 +356,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
               @click=${this.#onClearButtonClick}
               @focusin=${this.#onClearButtonFocusin}
               @focusout=${this.#onClearButtonFocusout}
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
-            >
+              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
               <sl-icon name="circle-xmark"></sl-icon>
               <sl-icon name="circle-xmark-solid"></sl-icon>
             </button>
@@ -343,10 +373,10 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @keydown=${this.#onListboxKeydown}
+        @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
         part="listbox"
-        popover
-      >
+        popover>
         <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-listbox>
     `;
@@ -413,6 +443,29 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
 
     this.#lastRenderedOption = this.selectedOption;
+  }
+
+  #onSelectedOptionContentChange(records?: MutationRecord[]): void {
+    if (!this.selectedOption) {
+      return;
+    }
+
+    const selectedOptionValue = this.selectedOption.value;
+    if (selectedOptionValue !== this.value) {
+      this.value = selectedOptionValue;
+      this.#updateValueAndValidity();
+    }
+
+    const hasSelectedContentChange =
+      !records ||
+      records.some(record => record.type !== 'attributes' || record.attributeName !== 'value');
+    if (!hasSelectedContentChange) {
+      return;
+    }
+
+    this.#lastRenderedOption = undefined;
+    this.#renderSelectedContent();
+    this.#scheduleLargestOptionWidthCalculation();
   }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
@@ -484,7 +537,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     const leavingComponent =
       event.relatedTarget !== this.button &&
       event.relatedTarget !== this.clearButton &&
-      (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
+      (!(event.relatedTarget instanceof Element) ||
+        event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
       const listboxIsOpen = this.listbox && isPopoverOpen(this.listbox);
@@ -541,6 +595,24 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
   }
 
+  /**
+   * Mousedown on the listbox surface (including scrollbar area) can move focus away from the
+   * trigger button, which fires `focusout` on `<sl-select>` and closes the popover.
+   *
+   * We intentionally use `mousedown` (not `pointerdown`) to keep this fix scoped to the
+   * mouse-triggered focus-transfer path that causes the regression.
+   */
+  #onListboxMousedown(event: MouseEvent): void {
+    if (event.button !== 0 || !this.listbox || event.target !== this.listbox) {
+      return;
+    }
+
+    // Prevent focus from moving off the trigger when interacting with the listbox surface.
+    // We only do this when the mousedown targets the listbox itself to avoid suppressing
+    // default pointer behavior for option interactions.
+    event.preventDefault();
+  }
+
   #onListboxKeydown(event: KeyboardEvent): void {
     if (event.target instanceof Option && [' ', 'Enter'].includes(event.key)) {
       event.preventDefault();
@@ -560,7 +632,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onSlotchange(): void {
     this.#verifyRegisteredListboxElements();
 
-    this.options.forEach(option => option.setAttribute('aria-selected', 'false'));
+    this.listbox?.applyFlattenedOptionAccessibility(this.options);
 
     if (this.value !== undefined && this.value !== null) {
       this.#setSelectedOption(
@@ -623,9 +695,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         measureElement.textContent = textContent;
 
         /**
-         * Add extra space for the icon and gap in the option:
-         * - icon width: 16px, --sl-icon-size: var(--sl-size-200) in icon.scss
-         * - gap: 8px, gap: var(--sl-size-100) in option.scss
+         * Add extra space for the icon and gap in the option: - icon width: 16px, --sl-icon-size:
+         * var(--sl-size-200) in icon.scss - gap: 8px, gap: var(--sl-size-100) in option.scss
          */
         const totalWidth = measureElement.getBoundingClientRect().width + 16 + 8;
         maxWidth = Math.max(maxWidth, totalWidth);
@@ -686,6 +757,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       this.selectedOption.selected = true;
       this.selectedOption.setAttribute('aria-selected', 'true');
     }
+    this.#observeSelectedOptionContent();
 
     this.button.selected = this.selectedOption;
     this.value = this.selectedOption?.value;
@@ -700,6 +772,33 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     this.#updateValueAndValidity();
     this.#updateAriaKeyShortcuts();
+  }
+
+  #observeSelectedOptionContent(): void {
+    this.#selectedOptionObserver.disconnect();
+
+    if (!this.selectedOption) {
+      return;
+    }
+
+    this.#selectedOptionObserver.observe(this.selectedOption, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ['value']
+    });
+  }
+
+  #scheduleLargestOptionWidthCalculation(): void {
+    if (this.#widthCalculationFrame !== undefined) {
+      return;
+    }
+
+    this.#widthCalculationFrame = requestAnimationFrame(() => {
+      this.#widthCalculationFrame = undefined;
+      this.#calculateLargestOptionWidth();
+    });
   }
 
   #updateAriaKeyShortcuts(): void {

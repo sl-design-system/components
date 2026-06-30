@@ -1,4 +1,10 @@
-import { faFileLines, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faFileLines,
+  faFolder,
+  faFolderOpen,
+  faPen,
+  faTrash
+} from '@fortawesome/pro-regular-svg-icons';
 import { Badge } from '@sl-design-system/badge';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
@@ -38,7 +44,10 @@ export interface NestedDataNode {
 export interface LazyNestedDataNode {
   id: string;
   expandable?: boolean;
-  children?: LazyNestedDataNode[] | Promise<LazyNestedDataNode[]> | Array<Promise<LazyNestedDataNode>>;
+  children?:
+    | LazyNestedDataNode[]
+    | Promise<LazyNestedDataNode[]>
+    | Array<Promise<LazyNestedDataNode>>;
 }
 
 Icon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
@@ -188,7 +197,6 @@ export const nestedData: NestedDataNode[] = [
 
 export default {
   title: 'Navigation/Tree',
-  tags: ['preview'],
   excludeStories: ['flatData', 'nestedData'],
   parameters: {
     a11y: {
@@ -196,8 +204,9 @@ export default {
         rules: [
           {
             /**
-             * The rule is disabled due to unnecessary Storybook a11y bug.
-             * The role `treegrid` has children with proper role `row`, but the error appears even then (but it should not).
+             * The rule is disabled due to unnecessary Storybook a11y bug. The role `treegrid` has
+             * children with proper role `row`, but the error appears even then (but it should
+             * not).
              */
             id: 'aria-required-children',
             enabled: false
@@ -219,7 +228,8 @@ export default {
   },
   render: ({ dataSource, hideGuides, maxWidth, renderer, scopedElements, styles }) => {
     const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
-      onToggleDescendants = () => dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
+      onToggleDescendants = () =>
+        dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
       onExpandAll = () => dataSource?.expandAll(),
       onCollapseAll = () => dataSource?.collapseAll();
 
@@ -243,8 +253,7 @@ export default {
         .scopedElements=${scopedElements}
         ?hide-guides=${hideGuides}
         aria-label="Tree label"
-        style="max-inline-size: ${maxWidth ?? '300px'}"
-      ></sl-tree>
+        style="max-inline-size: ${maxWidth ?? '300px'}"></sl-tree>
     `;
   }
 } satisfies Meta<Props>;
@@ -327,7 +336,8 @@ export const Icons: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
@@ -337,43 +347,81 @@ export const Icons: Story = {
 };
 
 export const Filter: Story = {
-  tags: ['!dev'],
   args: {
     ...Icons.args
   },
-  render: ({ dataSource, hideGuides: showGuides }) => {
-    const onChange = (event: SlChangeEvent<string | undefined>): void => {
-      const value = event.detail ?? '';
+  render: ({ hideGuides: showGuides }) => {
+    const filterTree = (nodes: NestedDataNode[], regex: RegExp): NestedDataNode[] => {
+      return nodes.reduce<NestedDataNode[]>((acc, node) => {
+        const filteredChildren = node.children ? filterTree(node.children, regex) : undefined;
+        const hasMatchingChildren = filteredChildren && filteredChildren.length > 0;
+        const isLeafMatch = !node.children && regex.test(node.name);
 
-      if (value) {
-        const regex = new RegExp(value, 'i');
+        if (isLeafMatch || hasMatchingChildren) {
+          acc.push({ ...node, children: filteredChildren });
+        }
 
-        dataSource?.addFilter('search', (item: NestedDataNode) => regex.test(item.name));
-      } else {
-        dataSource?.removeFilter('search');
+        return acc;
+      }, []);
+    };
+
+    const createDataSource = (filter?: string) => {
+      const data = filter ? filterTree(nestedData, new RegExp(filter, 'i')) : nestedData;
+
+      return new NestedTreeDataSource(data, {
+        getChildren: ({ children }) => children,
+        getIcon: ({ name }, expanded) =>
+          name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+        getId: item => item.id,
+        getLabel: ({ name }) => name,
+        isExpandable: ({ children }) => !!children,
+        isExpanded: filter ? () => true : ({ name }) => ['components', 'tree', 'src'].includes(name)
+      });
+    };
+
+    let dataSource = createDataSource(),
+      empty = false;
+
+    const updateTree = (filter?: string) => {
+      dataSource = createDataSource(filter);
+      empty = !!filter && dataSource.size === 0;
+
+      const tree = document.querySelector('sl-tree') as Tree;
+      if (tree) {
+        tree.dataSource = dataSource;
       }
 
-      dataSource?.update();
+      const msg = document.getElementById('no-results');
+      if (msg) {
+        msg.hidden = !empty;
+      }
+    };
+
+    const onChange = (event: SlChangeEvent<string | undefined>): void => {
+      updateTree(event.detail || undefined);
     };
 
     const onClear = () => {
-      dataSource?.removeFilter('search');
-      dataSource?.update();
+      updateTree();
     };
 
     return html`
+      <p style="margin-block: 0 1rem">
+        This example shows how filtering can be implemented by creating a new data source with the
+        filtered data and assigning it to the tree. Note that this <strong>does not</strong> use the
+        Filter API of DataSource. That API hasn't been implemented yet.
+      </p>
       <sl-search-field
         @sl-change=${onChange}
         @sl-clear=${onClear}
         placeholder="Filter the nodes in the tree"
-        style="margin-block-end: 1rem"
-      ></sl-search-field>
+        style="margin-block-end: 1rem"></sl-search-field>
       <sl-tree
         .dataSource=${dataSource}
         ?show-guides=${showGuides}
-        aria-label="Tree label"
-        style="max-inline-size: 300px"
-      ></sl-tree>
+        aria-label="Filtered tree"
+        style="max-inline-size: 300px"></sl-tree>
+      <p id="no-results" ?hidden=${!empty}>No matching results.</p>
     `;
   }
 };
@@ -416,7 +464,8 @@ export const Multiple: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name),
@@ -453,7 +502,10 @@ export const PageScrolling: Story = {
       [1, 2, 3].map(id => ({
         id,
         name: `Root ${id}`,
-        children: Array.from({ length: 1000 }).map((_, i) => ({ id: 1000 * id + i, name: `Child ${i}` }))
+        children: Array.from({ length: 1000 }).map((_, i) => ({
+          id: 1000 * id + i,
+          name: `Child ${i}`
+        }))
       })),
       {
         getChildren: ({ children }) => children,
@@ -504,7 +556,8 @@ export const Sorting: Story = {
   render: () => {
     const ds = new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) =>
+        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
@@ -514,6 +567,8 @@ export const Sorting: Story = {
     ds.setSort('name', 'asc');
     ds.update();
 
-    return html`<sl-tree .dataSource=${ds} aria-label="Tree label" style="max-inline-size: 300px"></sl-tree>`;
+    return html`
+      <sl-tree .dataSource=${ds} aria-label="Tree label" style="max-inline-size: 300px"></sl-tree>
+    `;
   }
 };

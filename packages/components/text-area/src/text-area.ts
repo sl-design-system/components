@@ -1,10 +1,29 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type EventEmitter,
+  ObserveAttributesMixin,
+  event,
+  getCharacterPluralSuffix
+} from '@sl-design-system/shared';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './text-area.scss.js';
 
@@ -25,18 +44,15 @@ let nextUniqueId = 0;
 /**
  * Multi line text area component.
  *
- * @cssprop --sl-text-area-rows - The number of rows initially visible in the textarea
  * @slot textarea - The slot for the textarea element
  */
 @localized()
-export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-disabled',
-  'aria-label',
-  'aria-labelledby',
-  'aria-required'
-]) {
+export class TextArea extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']
+) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -69,8 +85,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   /**
    * Specifies which type of data the browser can use to pre-fill the textarea.
    *
-   * NOTE: Declare the type this way so it is backwards compatible with 4.9.5,
-   * which we still use in `@sl-design-system/angular`.
+   * NOTE: Declare the type this way so it is backwards compatible with 4.9.5, which we still use in
+   * `@sl-design-system/angular`.
    */
   @property() autocomplete?: typeof HTMLTextAreaElement.prototype.autocomplete;
 
@@ -96,8 +112,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   @property({ reflect: true }) resize: ResizeType = 'vertical';
 
   /**
-   * The number of rows the textarea should initially have.
-   * If not set, the browser defaults to 2 rows.
+   * The number of rows the textarea should have. For resize auto and vertical, this will determine
+   * the _minimum_ height of the textarea. If not set, the component defaults to 3 rows.
    */
   @property({ type: Number }) rows?: number;
 
@@ -106,6 +122,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   /**
    * The size of the textarea.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: TextAreaSize;
@@ -121,7 +138,8 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
     if (!this.textarea) {
       this.textarea =
-        this.querySelector<HTMLTextAreaElement>('textarea[slot="textarea"]') || document.createElement('textarea');
+        this.querySelector<HTMLTextAreaElement>('textarea[slot="textarea"]') ||
+        document.createElement('textarea');
       this.textarea.slot = 'textarea';
       this.#syncTextarea(this.textarea);
 
@@ -168,7 +186,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   override render(): TemplateResult {
     return html`
       <slot name="suffix">
-        ${this.showValidity === 'valid' ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>` : nothing}
+        ${this.showValidity === 'valid'
+          ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
+          : nothing}
       </slot>
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
     `;
@@ -183,9 +203,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       const length = this.value.length;
 
       return msg(
-        str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
-          length > 1 ? 's' : ''
-        }).`,
+        str`Please enter at least ${this.minLength} character${getCharacterPluralSuffix(
+          this.minLength ?? 0
+        )} (you currently have ${length} character${getCharacterPluralSuffix(length)}).`,
         { id: 'sl.common.validation.tooShort' }
       );
     }
@@ -208,7 +228,9 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      textarea = elements.find((el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement);
+      textarea = elements.find(
+        (el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement
+      );
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textarea) {
@@ -226,8 +248,10 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       this.textarea.style.height = 'auto';
       this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       this.textarea.style.resize = 'none';
-    } else {
+    } else if (this.resize === 'vertical') {
       (this.textarea.style.height as string | undefined) = undefined;
+    } else {
+      this.textarea.style.removeProperty('height');
     }
   }
 
@@ -239,9 +263,11 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.placeholder = this.placeholder ?? '';
     textarea.readOnly = !!this.readonly;
     textarea.required = !!this.required;
-    textarea.rows = this.rows ?? 2;
+    textarea.rows = this.rows && this.rows > 0 ? this.rows : 3;
     textarea.style.resize = this.resize ?? 'vertical';
     textarea.wrap = this.wrap ?? 'soft';
+
+    textarea.style.setProperty('--_sl-text-area-rows', textarea.rows?.toString());
 
     this.setAttributesTarget(textarea);
 

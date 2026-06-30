@@ -418,7 +418,9 @@ describe('sl-checkbox-group', () => {
         // empty
       }
 
-      fitc = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+      fitc = await fixture(
+        html`<form-integration-test-component></form-integration-test-component>`
+      );
     });
 
     it('should emit an sl-form-control event after first render', () => {

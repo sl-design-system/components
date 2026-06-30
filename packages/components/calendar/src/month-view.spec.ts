@@ -1,5 +1,6 @@
 import { isPopoverOpen } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { type TemplateResult, html } from 'lit';
@@ -167,8 +168,8 @@ describe('sl-month-view', () => {
         dayNumbers = dayButtons.map(button => Number(button.textContent?.trim()));
 
       expect(dayNumbers).to.deep.equal([
-        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-        29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+        24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
       ]);
     });
 
@@ -215,7 +216,11 @@ describe('sl-month-view', () => {
     it('should render custom content from the renderer', async () => {
       el.renderer = (day: Day, monthView: MonthView): TemplateResult | undefined => {
         if (day.today) {
-          return html`<button .part=${monthView.getDayParts(day).join(' ')}><span>TODAY</span></button>`;
+          return html`
+            <button .part=${monthView.getDayParts(day).join(' ')}>
+              <span>TODAY</span>
+            </button>
+          `;
         }
 
         return undefined;
@@ -279,8 +284,8 @@ describe('sl-month-view', () => {
         dayNumbers = dayButtons.map(button => Number(button.textContent?.trim()));
 
       expect(dayNumbers).to.deep.equal([
-        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
-        29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+        24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
       ]);
     });
   });
@@ -315,13 +320,17 @@ describe('sl-month-view', () => {
     });
 
     it('should apply "previous-month" to days from previous month', () => {
-      const prevMonthDays = Array.from(el.renderRoot.querySelectorAll('button[part~="previous-month"]'));
+      const prevMonthDays = Array.from(
+        el.renderRoot.querySelectorAll('button[part~="previous-month"]')
+      );
 
       expect(prevMonthDays).to.have.length(2);
     });
 
     it('should apply "next-month" to days from next month', () => {
-      const nextMonthDays = Array.from(el.renderRoot.querySelectorAll('button[part~="next-month"]'));
+      const nextMonthDays = Array.from(
+        el.renderRoot.querySelectorAll('button[part~="next-month"]')
+      );
 
       expect(nextMonthDays).to.have.length(9);
     });
@@ -354,7 +363,9 @@ describe('sl-month-view', () => {
     });
 
     it('should apply "indicator-<color>" part when indicator with color is provided', async () => {
-      el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 20), color: 'red' }];
+      el.indicatorDates = [
+        { date: new Date(el.month.getFullYear(), el.month.getMonth(), 20), color: 'red' }
+      ];
       await el.updateComplete;
 
       const indicator = el.renderRoot.querySelector('button[part~="indicator-red"]');
@@ -382,7 +393,8 @@ describe('sl-month-view', () => {
         outOfRangeDays = outOfRange.map(button => Number(button.textContent?.trim()));
 
       expect(outOfRangeDays).to.deep.equal([
-        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        27, 28, 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4,
+        5, 6, 7, 8, 9
       ]);
     });
   });
@@ -479,7 +491,9 @@ describe('sl-month-view', () => {
     });
 
     it('should render a tooltip for the indicator with label', async () => {
-      el.indicatorDates = [{ date: new Date(el.month.getFullYear(), el.month.getMonth(), 13), label: 'Special day' }];
+      el.indicatorDates = [
+        { date: new Date(el.month.getFullYear(), el.month.getMonth(), 13), label: 'Special day' }
+      ];
       await el.updateComplete;
 
       const button = el.renderRoot.querySelector<HTMLElement>('button[part~="indicator"]'),
@@ -502,8 +516,12 @@ describe('sl-month-view', () => {
 
       const date13 = new Date(2023, 2, 13).toISOString();
       const date14 = new Date(2023, 2, 14).toISOString();
-      const button13 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date13}"] button`)!;
-      const button14 = el.renderRoot.querySelector<HTMLElement>(`td[data-date="${date14}"] button`)!;
+      const button13 = el.renderRoot.querySelector<HTMLElement>(
+        `td[data-date="${date13}"] button`
+      )!;
+      const button14 = el.renderRoot.querySelector<HTMLElement>(
+        `td[data-date="${date14}"] button`
+      )!;
       const tooltips = el.renderRoot.querySelectorAll('sl-tooltip');
 
       expect(tooltips).to.have.length(2);
@@ -514,18 +532,23 @@ describe('sl-month-view', () => {
       // 1. Hover first button
       await userEvent.hover(button13);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
+
       expect(isPopoverOpen(tooltips[0])).to.be.true;
       expect(isPopoverOpen(tooltips[1])).to.be.false;
 
       // 2. Transition to second button
       await userEvent.hover(button14);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
+
       expect(isPopoverOpen(tooltips[0])).to.be.false;
       expect(isPopoverOpen(tooltips[1])).to.be.true;
 
       // 3. Unhover
       await userEvent.unhover(button14);
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverHideDelay + 50));
       expect(Array.from(tooltips).every(t => !isPopoverOpen(t))).to.be.true;
 
       // 4. ARIA stability check (even when closed)
@@ -564,7 +587,9 @@ describe('sl-month-view', () => {
       el.min = new Date(el.month.getFullYear(), el.month.getMonth(), 10);
       await el.updateComplete;
 
-      const buttons = Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')),
+      const buttons = Array.from(
+          el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')
+        ),
         days = buttons.map(button => Number(button.textContent?.trim()));
 
       expect(buttons.every(b => b.disabled)).to.be.true;
@@ -575,11 +600,15 @@ describe('sl-month-view', () => {
       el.max = new Date(el.month.getFullYear(), el.month.getMonth(), 20);
       await el.updateComplete;
 
-      const buttons = Array.from(el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')),
+      const buttons = Array.from(
+          el.renderRoot.querySelectorAll<HTMLButtonElement>('button[part~="out-of-range"]')
+        ),
         days = buttons.map(button => Number(button.textContent?.trim()));
 
       expect(buttons.every(b => b.disabled)).to.be.true;
-      expect(days).to.deep.equal([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+      expect(days).to.deep.equal([
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9
+      ]);
     });
   });
 
@@ -604,14 +633,29 @@ describe('sl-month-view', () => {
       const weekNumberCells = Array.from(el.renderRoot.querySelectorAll('td[part~="week-number"]')),
         labels = weekNumberCells.map(td => td.getAttribute('aria-label'));
 
-      expect(labels).to.deep.equal(['Week 9', 'Week 10', 'Week 11', 'Week 12', 'Week 13', 'Week 14']);
+      expect(labels).to.deep.equal([
+        'Week 9',
+        'Week 10',
+        'Week 11',
+        'Week 12',
+        'Week 13',
+        'Week 14'
+      ]);
     });
 
     it('should have an aria-label for the days of the week headers', () => {
       const weekDayHeaders = Array.from(el.renderRoot.querySelectorAll('th[part~="week-day"]')),
         labels = weekDayHeaders.map(th => th.getAttribute('aria-label'));
 
-      expect(labels).to.deep.equal(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
+      expect(labels).to.deep.equal([
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+      ]);
     });
 
     it('should set aria-current="date" on today', () => {
@@ -642,7 +686,9 @@ describe('sl-month-view', () => {
 
         el.addEventListener('sl-select', (event: SlChangeEvent<Date>) => (date = event.detail));
         el.renderRoot
-          .querySelector<HTMLElement>('button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])')
+          .querySelector<HTMLElement>(
+            'button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])'
+          )
           ?.click();
 
         expect(date).to.equalDate(new Date(2023, 2, 1));
@@ -657,7 +703,9 @@ describe('sl-month-view', () => {
 
         el.addEventListener('sl-select', onSelect);
         el.renderRoot
-          .querySelector<HTMLElement>('button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])')
+          .querySelector<HTMLElement>(
+            'button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])'
+          )
           ?.click();
         await el.updateComplete;
 
@@ -693,7 +741,9 @@ describe('sl-month-view', () => {
         await el.updateComplete;
 
         el.renderRoot
-          .querySelector<HTMLElement>('button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])')
+          .querySelector<HTMLElement>(
+            'button[part~="day"]:not([part~="previous-month"]):not([part~="next-month"])'
+          )
           ?.click();
         await el.updateComplete;
 

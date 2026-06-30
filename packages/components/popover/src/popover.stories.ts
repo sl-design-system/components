@@ -24,7 +24,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Popover',
-  tags: ['stable'],
   args: {
     alignSelf: 'center',
     body: "I'm a popover example",
@@ -85,12 +84,12 @@ export default {
         @click=${onClick}
         id="button"
         variant="primary"
-        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
-        >Toggle</sl-button
-      >
-      <sl-popover anchor="button" ?no-describedby=${noDescribedby} .position=${position}
-        >${typeof body === 'string' ? body : body()}</sl-popover
-      >
+        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
+        Toggle
+      </sl-button>
+      <sl-popover anchor="button" ?no-describedby=${noDescribedby} .position=${position}>
+        ${typeof body === 'string' ? body : body()}
+      </sl-popover>
     `;
   }
 } satisfies Meta<Props>;
@@ -106,8 +105,9 @@ export const Basic: Story = {
         <header style="font:var(--sl-text-new-heading-sm);">Hello! I am a popover!</header>
         <section>
           <p>
-            I'm a lightweight and flexible UI element that appears on top of other content. I am often used to display
-            additional information, actions, or contextual content without disrupting the main flow of the interface.
+            I'm a lightweight and flexible UI element that appears on top of other content. I am
+            often used to display additional information, actions, or contextual content without
+            disrupting the main flow of the interface.
           </p>
         </section>
         <sl-button @click=${onClick} variant="primary">Button</sl-button>
@@ -121,9 +121,9 @@ export const NoDescribedBy: Story = {
     noDescribedby: true,
     body: () => {
       return html`
-        Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam consequat pariatur
-        exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum est ullamco nostrud sit pariatur. Ex
-        nisi ipsum et est nulla ex ex.
+        Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam
+        consequat pariatur exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum
+        est ullamco nostrud sit pariatur. Ex nisi ipsum et est nulla ex ex.
       `;
     }
   }
@@ -133,43 +133,15 @@ export const VerticalOverflow: Story = {
   args: {
     body: () => {
       return html`
-        Lorem<br />
-        ipsum<br />
-        dolor<br />
-        sit<br />
-        amet,<br />
-        qui<br />
-        deserunt<br />
-        esse<br />
-        minim<br />
-        cillum<br />
-        nostrud<br />
-        exercitation<br />
-        veniam<br />
-        consequat<br />
-        pariatur<br />
-        exercitation<br />
-        laborum<br />
-        nostrud<br />
-        culpa<br />
-        sunt<br />
-        exercitation<br />
-        pariatur.<br />
-        Nisi<br />
-        ipsum<br />
-        est<br />
-        ullamco<br />
-        nostrud<br />
-        sit<br />
-        pariatur.<br />
-        Ex<br />
-        nisi<br />
-        ipsum<br />
-        et<br />
-        est<br />
-        nulla<br />
-        ex<br />
-        ex.
+        <style>
+          .wrapper {
+            background: var(--sl-color-background-accent-green-subtlest);
+            block-size: 50dvh;
+            padding-inline: var(--sl-size-200);
+            place-content: center;
+          }
+        </style>
+        <div class="wrapper">Block</div>
       `;
     }
   }
@@ -194,15 +166,22 @@ export const RichContent: Story = {
         <header>
           <sl-avatar
             display-name="Yousef van der Schaaf"
-            picture-url="https://randomuser.me/api/portraits/thumb/men/19.jpg"
-          ></sl-avatar>
+            picture-url="https://randomuser.me/api/portraits/thumb/men/19.jpg"></sl-avatar>
         </header>
         <section>
-          <p>Our longest serving math teacher, but also responsible for several extracurricular activities.</p>
-          <p><strong>Manager:</strong> Anna Johansson</p>
+          <p>
+            Our longest serving math teacher, but also responsible for several extracurricular
+            activities.
+          </p>
+          <p>
+            <strong>Manager:</strong>
+            Anna Johansson
+          </p>
         </section>
         <sl-button-bar align="end">
-          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline">Send email</sl-button>
+          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline">
+            Send email
+          </sl-button>
           <sl-button @click=${onClick} size="sm" variant="primary">Send Slack message</sl-button>
         </sl-button-bar>
       `;
@@ -218,7 +197,8 @@ export const WithTooltips: Story = {
           {
             /**
              * The rule is disabled for icon-only sl-buttons because they use ariaLabelledByElements
-             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot detect.
+             * to set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot
+             * detect.
              */
             id: 'button-name',
             enabled: false,
@@ -234,7 +214,9 @@ export const WithTooltips: Story = {
         popover =
           button.nextElementSibling?.tagName === 'SL-POPOVER'
             ? (button.nextElementSibling as HTMLElement)
-            : (button.parentElement?.querySelector(`sl-popover[anchor="${button.id}"]`) as HTMLElement);
+            : (button.parentElement?.querySelector(
+                `sl-popover[anchor="${button.id}"]`
+              ) as HTMLElement);
 
       popover?.togglePopover();
     };
@@ -247,31 +229,55 @@ export const WithTooltips: Story = {
           align-items: center;
         }
       </style>
-      <p>Buttons with popovers and tooltips connected via <code>aria-labelledby</code></p>
+      <p>
+        Buttons with popovers and tooltips connected via
+        <code>aria-labelledby</code>
+      </p>
       <div class="container">
-        <sl-button @click=${onClick} aria-labelledby="tooltip-settings" variant="primary" id="btn-settings">
+        <sl-button
+          @click=${onClick}
+          aria-labelledby="tooltip-settings"
+          variant="primary"
+          id="btn-settings">
           <sl-icon name="far-gear"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-settings">Popover content for Settings</sl-popover>
         <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
-        <sl-button @click=${onClick} aria-labelledby="tooltip-edit" variant="primary" size="lg" id="btn-edit">
+        <sl-button
+          @click=${onClick}
+          aria-labelledby="tooltip-edit"
+          variant="primary"
+          size="lg"
+          id="btn-edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-edit">Popover content for Edit</sl-popover>
         <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
       </div>
 
-      <p>Buttons with popovers and tooltips connected via <code>aria-describedby</code></p>
+      <p>
+        Buttons with popovers and tooltips connected via
+        <code>aria-describedby</code>
+      </p>
       <div class="container">
-        <sl-button @click=${onClick} aria-describedby="tooltip-settings-1" variant="primary" id="btn-settings-1">
+        <sl-button
+          @click=${onClick}
+          aria-describedby="tooltip-settings-1"
+          variant="primary"
+          id="btn-settings-1">
           <sl-icon name="far-gear"></sl-icon>
           Settings
         </sl-button>
         <sl-popover anchor="btn-settings-1">Popover content for Settings</sl-popover>
         <sl-tooltip id="tooltip-settings-1" position="bottom">Open settings popover</sl-tooltip>
 
-        <sl-button @click=${onClick} aria-describedby="tooltip-edit-1" variant="primary" size="lg" id="btn-edit-1">
+        <sl-button
+          @click=${onClick}
+          aria-describedby="tooltip-edit-1"
+          variant="primary"
+          size="lg"
+          id="btn-edit-1">
           <sl-icon name="far-pen"></sl-icon>
           Edit
         </sl-button>
@@ -300,23 +306,39 @@ export const All: Story = {
         }
       </style>
       <div>
-        <sl-button id="anchor" variant="primary">This is a popover anchor element (sl-button component) </br> with all top and bottom popover allowed positions shown <br> all examples at once</sl-button>
+        <sl-button id="anchor" variant="primary">
+          This is a popover anchor element (sl-button component) with all top and bottom popover
+          allowed positions shown all examples at once.
+        </sl-button>
         <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="bottom">Bottom</sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="bottom-start">Bottom start</sl-popover>
+        <sl-popover anchor="anchor" popover="manual" position="bottom-start">
+          Bottom start
+        </sl-popover>
         <sl-popover anchor="anchor" popover="manual" position="bottom-end">Bottom end</sl-popover>
       </div>
 
       <div>
-        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
-        <sl-popover anchor="anchor2" popover="manual" position="right">Right <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-start">Right <br> start <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-end">Right <br> end <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left">Left <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-start">Left <br> start <br> example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-end">Left <br> end <br> example</sl-popover>
+        <sl-button id="anchor2" variant="primary" style="width: 120px">
+          This is a popover anchor element (sl-button component) with all right and left popover
+          allowed positions shown all examples at once
+        </sl-button>
+        <sl-popover anchor="anchor2" popover="manual" position="right">Right example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="right-start">
+          Right start example
+        </sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="right-end">
+          Right end example
+        </sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left">Left example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left-start">
+          Left start example
+        </sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left-end">
+          Left end example
+        </sl-popover>
       </div>
     `;
   }

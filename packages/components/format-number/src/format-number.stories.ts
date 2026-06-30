@@ -27,7 +27,6 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Format number',
-  tags: ['draft'],
   argTypes: {
     currency: {
       type: 'string'

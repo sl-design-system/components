@@ -238,10 +238,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   }
 
   #onClick(event: Event): void {
-    if (
-      this.disabled ||
-      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
-    ) {
+    if (this.disabled || (this.infotip && event.composedPath().includes(this.infotip))) {
       return;
     }
 
@@ -353,7 +350,22 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     if (this.infotip && !this.infotip.describes) {
       // Ensure label is synthesized before reading it
       this.#onLabelSlotChange();
-      this.infotip.describes = this.#label?.textContent?.trim() || '';
+
+      // Extract label text from all label content (text and element nodes)
+      const labelNodes = Array.from(this.childNodes).filter(
+        node =>
+          node.nodeType === Node.TEXT_NODE ||
+          (node.nodeType === Node.ELEMENT_NODE &&
+            !(node as Element).hasAttribute('slot') &&
+            !(node instanceof HTMLStyleElement))
+      );
+
+      const labelText = labelNodes
+        .map(node => node.textContent?.trim())
+        .filter(text => text)
+        .join(' ');
+
+      this.infotip.describes = labelText || '';
     }
   }
 

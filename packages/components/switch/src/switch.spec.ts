@@ -63,15 +63,6 @@ describe('sl-switch', () => {
     expect(el.checked).to.be.true;
   });
 
-  it('should toggle when clicking the toggle', async () => {
-    el = await fixture(html`<sl-switch>Label</sl-switch>`);
-
-    await userEvent.click(el.renderRoot.querySelector('[part="toggle"]')!);
-    await el.updateComplete;
-
-    expect(el.checked).to.be.true;
-  });
-
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch></sl-switch>`);

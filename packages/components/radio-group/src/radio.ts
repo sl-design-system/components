@@ -59,6 +59,11 @@ export class Radio<T = any> extends LitElement {
 
     // Make sure aria-checked is always set
     this.checked ??= false;
+
+    // Initialize host tabIndex (will be overridden by RovingTabindexController in groups)
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -69,20 +74,20 @@ export class Radio<T = any> extends LitElement {
         this.wrapper.setAttribute('aria-checked', Boolean(this.checked).toString());
       }
 
+      // Manage host tabIndex based on disabled state (when not in a group)
+      // RovingTabindexController will override this when in a group
       if (changes.has('disabled')) {
-        this.wrapper.tabIndex = this.disabled ? -1 : 0;
+        this.tabIndex = this.disabled ? -1 : 0;
       }
+
+      // Sync wrapper tabIndex with host tabIndex
+      this.wrapper.tabIndex = this.tabIndex;
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <div
-        part="wrapper"
-        class="wrapper"
-        role="radio"
-        tabindex=${this.disabled ? -1 : 0}
-        aria-checked=${Boolean(this.checked)}>
+      <div part="wrapper" role="radio" aria-checked=${Boolean(this.checked)}>
         <div part="box">
           ${this.checked
             ? html`
@@ -114,10 +119,7 @@ export class Radio<T = any> extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (
-      this.disabled ||
-      event.composedPath().includes(this.renderRoot.querySelector('sl-infotip') as HTMLElement)
-    ) {
+    if (this.disabled || (this.infotip && event.composedPath().includes(this.infotip))) {
       return;
     }
 

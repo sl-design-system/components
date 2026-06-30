@@ -2135,6 +2135,54 @@ describe('sl-combobox', () => {
       expect(combobox.querySelector('sl-listbox')).to.exist;
     });
 
+    it('should not select a group header when typing a group name', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-combobox
+            name="test"
+            .options=${[
+              { group: 'Fruits', label: 'Apple', value: 'apple' },
+              { group: 'Fruits', label: 'Banana', value: 'banana' },
+              { group: 'Vegetables', label: 'Carrot', value: 'carrot' }
+            ]}
+            option-group-path="group"
+            option-label-path="label"
+            option-value-path="value">
+          </sl-combobox>
+        </form>
+      `);
+
+      const combobox = form.querySelector<Combobox>('sl-combobox')!,
+        input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      form.addEventListener('submit', event => event.preventDefault());
+
+      input.focus();
+      input.value = 'Fruits';
+      input.dispatchEvent(
+        new InputEvent('input', {
+          bubbles: true,
+          composed: true,
+          inputType: 'insertText'
+        })
+      );
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      expect(combobox.currentItem).to.be.undefined;
+
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          bubbles: true,
+          composed: true,
+          key: 'Enter'
+        })
+      );
+      await combobox.updateComplete;
+
+      expect(combobox.value).to.be.undefined;
+      expect(new FormData(form).get('test')).to.be.null;
+    });
+
     it('should scroll back to the selected group after selecting a virtual option', async () => {
       const options = Array.from({ length: 1000 }, (_, i) => ({
         label: `Option ${i + 1}`,

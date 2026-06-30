@@ -655,7 +655,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       event.inputType !== 'deleteContentBackward' &&
       (this.autocomplete === 'inline' || this.autocomplete === 'both')
     ) {
-      item = this.items.find(i => i.label.toLowerCase().startsWith(value.toLowerCase()));
+      item = this.items.find(
+        i => i.type === 'option' && i.label.toLowerCase().startsWith(value.toLowerCase())
+      );
 
       if (item) {
         this.input.value = item.label;
@@ -1292,7 +1294,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #toggleSelectedOption(item?: ComboboxItem<T, U>, force?: boolean): void {
-    if (!item) {
+    if (!item || item.type !== 'option') {
       return;
     }
 

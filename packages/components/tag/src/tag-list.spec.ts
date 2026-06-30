@@ -64,6 +64,22 @@ describe('sl-tag-list', () => {
       expect(el).not.to.have.attribute('stacked');
       expect(el.stacked).not.to.be.true;
     });
+
+    it('should ignore arrow key navigation when there are no removable tags', async () => {
+      const tag = el.querySelector('sl-tag')!,
+        label = tag.renderRoot.querySelector<HTMLElement>('[part="label"]')!;
+
+      tag.tabIndex = 0;
+      await tag.updateComplete;
+
+      label.focus();
+
+      expect(() =>
+        label.dispatchEvent(
+          new KeyboardEvent('keydown', { bubbles: true, composed: true, key: 'ArrowRight' })
+        )
+      ).not.to.throw;
+    });
   });
 
   describe('removable', () => {
@@ -84,6 +100,132 @@ describe('sl-tag-list', () => {
       await userEvent.keyboard('{Backspace}');
 
       expect(document.activeElement).to.equal(tags.at(-2));
+    });
+
+    it('should include disabled removable tags in the roving tabindex', async () => {
+      el = await fixture(html`
+        <sl-tag-list>
+          <sl-tag removable>My label 1</sl-tag>
+          <sl-tag removable disabled>My label 2</sl-tag>
+          <sl-tag removable>My label 3</sl-tag>
+        </sl-tag-list>
+      `);
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      tags[0].focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(document.activeElement).to.equal(tags[1]);
+      expect(tags[1].renderRoot.querySelector('button')).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should disable removable tags when the list is disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      expect(tags.map(tag => tag.disabled)).to.deep.equal([true, true, true]);
+      expect(
+        tags.map(tag => tag.renderRoot.querySelector('button')?.getAttribute('aria-disabled'))
+      ).to.deep.equal(['true', 'true', 'true']);
+    });
+
+    it('should restore removable tag disabled states when the list is enabled again', async () => {
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+      tags[1].disabled = true;
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(tags.map(tag => tag.disabled)).to.deep.equal([undefined, true, undefined]);
+    });
+
+    it('should describe arrow key navigation on remove buttons', () => {
+      const button = el.querySelector('sl-tag')?.renderRoot.querySelector('button'),
+        description = el
+          .querySelector('sl-tag')
+          ?.renderRoot.querySelector('#navigation-description');
+
+      expect(button).to.have.attribute('aria-describedby', 'navigation-description');
+      expect(description).to.have.class('visually-hidden');
+      expect(description).not.to.have.attribute('aria-hidden');
+      expect(description).to.have.trimmed.text('Use arrow keys to move between removable tags.');
+    });
+
+    it('should use a single tab stop for removable tag buttons', async () => {
+      el = await fixture(html`
+        <div>
+          <button>Before</button>
+          <sl-tag-list>
+            <sl-tag removable>My label 1</sl-tag>
+            <sl-tag removable>My label 2</sl-tag>
+            <sl-tag removable>My label 3</sl-tag>
+          </sl-tag-list>
+          <button>After</button>
+        </div>
+      `).then(wrapper => wrapper.querySelector('sl-tag-list')!);
+
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const wrapper = el.parentElement!,
+        before = wrapper.querySelector('button')!,
+        after = wrapper.querySelector('button:last-child')!,
+        tags = Array.from(el.querySelectorAll('sl-tag')),
+        buttons = tags.map(tag => tag.renderRoot.querySelector('button')!);
+
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, -1, -1]);
+
+      before.focus();
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(tags[0]);
+      expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+
+      await userEvent.tab({ shift: true });
+
+      expect(document.activeElement).to.equal(before);
+
+      before.focus();
+      await userEvent.tab();
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(after);
+    });
+
+    it('should resync the navigation description when the list updates', async () => {
+      const tag = el.querySelector('sl-tag')!;
+
+      tag.navigationDescription = 'Stale navigation description';
+      await tag.updateComplete;
+
+      el.requestUpdate();
+      await el.updateComplete;
+      await tag.updateComplete;
+
+      expect(tag.renderRoot.querySelector('#navigation-description')).to.have.trimmed.text(
+        'Use arrow keys to move between removable tags.'
+      );
+    });
+
+    it('should only set the navigation description on removable tags', async () => {
+      const tag = el.querySelector('sl-tag')!;
+
+      expect(tag.navigationDescription).to.equal('Use arrow keys to move between removable tags.');
+
+      tag.removable = false;
+      await tag.updateComplete;
+
+      el.requestUpdate();
+      await el.updateComplete;
+      await tag.updateComplete;
+
+      expect(tag.navigationDescription).to.be.undefined;
+      expect(tag.renderRoot.querySelector('#navigation-description')).not.to.exist;
     });
   });
 
@@ -110,13 +252,13 @@ describe('sl-tag-list', () => {
       expect(el.renderRoot.querySelector('.stack')).to.exist;
     });
 
-    it('should disable the stack tag when the list is disabled', async () => {
+    it('should keep the stack tag enabled when the list is disabled', async () => {
       el.disabled = true;
       await el.updateComplete;
 
       const tag = el.renderRoot.querySelector('sl-tag');
 
-      expect(tag).to.have.attribute('disabled');
+      expect(tag).not.to.have.attribute('disabled');
     });
 
     it('should have a tooltip for the stack', () => {
@@ -179,6 +321,55 @@ describe('sl-tag-list', () => {
         'flex'
       ]);
       expect(tabindexes).to.deep.equal([0, -1, -1, -1, -1, -1, -1, -1, -1]);
+    });
+
+    it('should use the stack tag as the initial tab stop when the list is disabled', async () => {
+      el = await fixture(html`
+        <sl-tag-list disabled stacked style="inline-size: 200px;">
+          <sl-tag disabled removable>My label 1</sl-tag>
+          <sl-tag disabled removable>My label 2</sl-tag>
+          <sl-tag disabled removable>My label 3</sl-tag>
+          <sl-tag disabled removable>My label 4</sl-tag>
+          <sl-tag disabled removable>My label 5</sl-tag>
+          <sl-tag disabled removable>My label 6</sl-tag>
+          <sl-tag disabled removable>My label 7</sl-tag>
+          <sl-tag disabled removable>My label 8</sl-tag>
+        </sl-tag-list>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 60));
+
+      const stackTag = el.renderRoot.querySelector('sl-tag')!,
+        visibleTag = Array.from(el.querySelectorAll('sl-tag')).find(
+          tag => getComputedStyle(tag).display !== 'none'
+        );
+
+      expect(stackTag).not.to.have.attribute('disabled');
+      expect(stackTag.tabIndex).to.equal(0);
+      expect(visibleTag).to.exist;
+      expect(visibleTag?.tabIndex).to.equal(-1);
+    });
+
+    it('should keep the stack tag in the tab order when all regular tags are hidden', async () => {
+      el = await fixture(html`
+        <sl-tag-list disabled stacked style="inline-size: 1px;">
+          <sl-tag disabled removable>My very long label 1</sl-tag>
+          <sl-tag disabled removable>My very long label 2</sl-tag>
+          <sl-tag disabled removable>My very long label 3</sl-tag>
+        </sl-tag-list>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 60));
+
+      const stackTag = el.renderRoot.querySelector('sl-tag')!,
+        visibleTags = Array.from(el.querySelectorAll('sl-tag')).filter(
+          tag => getComputedStyle(tag).display !== 'none'
+        );
+
+      expect(stackTag).not.to.have.attribute('disabled');
+      expect(stackTag).to.be.displayed;
+      expect(stackTag.tabIndex).to.equal(0);
+      expect(visibleTags).to.have.length(0);
     });
 
     it('should not have a stack when there is enough space', async () => {

@@ -336,6 +336,17 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     this.toggleAttribute('no-label', label.length === 0);
   }
 
+  #labelText(): string {
+    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
+      nodes = slot?.assignedNodes({ flatten: true }) || [];
+
+    return nodes
+      .map(node => node.textContent?.trim() || '')
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
   #onInfotipSlotChange(): void {
     const slot: HTMLSlotElement | undefined | null =
       this.shadowRoot?.querySelector('slot[name="infotip"]');
@@ -351,21 +362,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       // Ensure label is synthesized before reading it
       this.#onLabelSlotChange();
 
-      // Extract label text from all label content (text and element nodes)
-      const labelNodes = Array.from(this.childNodes).filter(
-        node =>
-          node.nodeType === Node.TEXT_NODE ||
-          (node.nodeType === Node.ELEMENT_NODE &&
-            !(node as Element).hasAttribute('slot') &&
-            !(node instanceof HTMLStyleElement))
-      );
-
-      const labelText = labelNodes
-        .map(node => node.textContent?.trim())
-        .filter(text => text)
-        .join(' ');
-
-      this.infotip.describes = labelText || '';
+      this.infotip.describes = this.#labelText();
     }
   }
 

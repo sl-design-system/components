@@ -249,6 +249,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('keyboardNavigation')) {
       this.#rovingTabindexController.clearElementCache();
+
+      if (!this.keyboardNavigation) {
+        this.#clearManagedTabindexes();
+      }
     }
 
     this.#syncRovingTabindexController();
@@ -562,6 +566,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #clearRovingTabindexCache(): void {
     this.#rovingTabindexController.clearElementCache();
     this.#syncRovingTabindexController();
+  }
+
+  #clearManagedTabindexes(): void {
+    this.tags.forEach(tag => tag.removeAttribute('tabindex'));
+    this.stackTag?.removeAttribute('tabindex');
   }
 
   #syncRovingTabindexController(): void {

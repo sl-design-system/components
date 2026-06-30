@@ -242,6 +242,19 @@ describe('sl-tag-list', () => {
       expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
     });
 
+    it('should clear managed tabindexes when keyboard navigation is disabled', async () => {
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      expect(tags.map(tag => tag.getAttribute('tabindex'))).to.deep.equal(['0', '-1', '-1']);
+
+      el.keyboardNavigation = false;
+      await el.updateComplete;
+
+      expect(tags.map(tag => tag.hasAttribute('tabindex'))).to.deep.equal([false, false, false]);
+    });
+
     it('should resync the navigation description when the list updates', async () => {
       const tag = el.querySelector('sl-tag')!;
 

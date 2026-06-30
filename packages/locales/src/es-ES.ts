@@ -112,7 +112,9 @@ export const templates = {
   'sl.select.validation.valueMissing': 'Elige una opción de la lista.',
   'sl.tabs.showAll': 'Mostrar todo',
   'sl.tag.listOfHiddenElements': 'Lista de elementos ocultados',
-  'sl.tag.removalInstructions': 'Pulsa la tecla Supr o Retroceso para eliminar este elemento',
+  'sl.tag.remove': str`Eliminar etiqueta '${0}'`,
+  'sl.tagList.navigationInstructions':
+    'Usa las teclas de flecha para moverte entre etiquetas eliminables.',
   'sl.timeField.empty': 'Vacío',
   'sl.timeField.rangeOverflow': str`Selecciona una hora que no sea posterior a ${0}.`,
   'sl.timeField.rangeUnderflow': str`Selecciona una hora que no sea anterior a ${0}.`,

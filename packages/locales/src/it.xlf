@@ -10,10 +10,6 @@
   <source>Loading</source>
   <target>Caricamento</target>
 </trans-unit>
-<trans-unit id="sl.tag.removalInstructions">
-  <source>Press the delete or backspace key to remove this item</source>
-  <target>Premi il tasto Canc o Backspace per rimuovere questo elemento</target>
-</trans-unit>
 <trans-unit id="sl.common.selected">
   <source>Selected</source>
   <target>Selezionato</target>
@@ -173,6 +169,10 @@
 <trans-unit id="sl.tag.listOfHiddenElements">
   <source>List of hidden elements</source>
   <target>Elenco degli elementi nascosti</target>
+</trans-unit>
+<trans-unit id="sl.tagList.navigationInstructions">
+  <source>Use arrow keys to move between removable tags.</source>
+  <target>Usa i tasti freccia per spostarti tra i tag rimovibili.</target>
 </trans-unit>
 <trans-unit id="sl.combobox.selectedOptions">
   <source>Selected options</source>
@@ -453,6 +453,10 @@
 <trans-unit id="sl.calendar.rangeNoLaterThan">
   <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
   <target>Non oltre <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
+</trans-unit>
+<trans-unit id="sl.tag.remove">
+  <source>Remove tag '<x id="0" equiv-text="${this.label}"/>'</source>
+  <target>Rimuovi etichetta '<x id="0" equiv-text="${this.label}"/>'</target>
 </trans-unit>
 <trans-unit id="sl.combobox.options">
   <source>Options</source>

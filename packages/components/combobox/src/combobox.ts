@@ -35,7 +35,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { Tag, TagList } from '@sl-design-system/tag';
+import { type SlRemoveEvent, Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,
@@ -504,6 +504,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
+                @focusin=${this.#onTagListFocusIn}
                 ?disabled=${this.disabled}
                 aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
                 size=${ifDefined(this.size)}
@@ -514,10 +515,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                   item => item,
                   item => html`
                     <sl-tag
-                      @sl-remove=${() => this.#onRemove(item)}
+                      @sl-remove=${(event: SlRemoveEvent) => this.#onRemove(item, event)}
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
-                      aria-hidden=${this.disabled ? nothing : 'true'}
                       class=${this.focusedTag === item ? 'focused' : ''}>
                       ${item.label}
                     </sl-tag>
@@ -547,7 +547,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onOptionClick}
-        @keydown=${this.#onKeydown}
         @slotchange=${() => this.#onSlotChange()}
         @toggle=${this.#onToggle}
         part="wrapper"
@@ -707,6 +706,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (!event.composedPath().includes(this.input)) {
+      return;
+    }
+
     const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
 
     if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
@@ -831,13 +834,50 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.#pointerDown = false;
   }
 
-  #onRemove(item: ComboboxItem<T, U>): void {
+  #onRemove(item: ComboboxItem<T, U>, event?: SlRemoveEvent): void {
+    const nextFocusedItem = event ? this.#getNextSelectedTagItem(item) : undefined;
+
     this.#removeSelectedOption(item);
     this.#updateFilteredOptions();
     this.#updateCurrent();
 
     if (this.#popoverJustClosed) {
       this.wrapper?.showPopover();
+    }
+
+    if (event) {
+      void this.updateComplete.then(() => {
+        requestAnimationFrame(() => this.#focusSelectedTag(nextFocusedItem));
+      });
+    }
+  }
+
+  #onTagListFocusIn(): void {
+    this.focusedTag = undefined;
+  }
+
+  #getNextSelectedTagItem(item: ComboboxItem<T, U>): ComboboxItem<T, U> | undefined {
+    const tags = Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')),
+      visibleTagItems = tags
+        .map((tag, index) => ({ item: this.selectedItems[index], tag }))
+        .filter(({ item, tag }) => item && tag.removable && tag.style.display !== 'none'),
+      index = visibleTagItems.findIndex(({ item: tagItem }) => tagItem === item);
+
+    return visibleTagItems[index + 1]?.item ?? visibleTagItems[index - 1]?.item;
+  }
+
+  #focusSelectedTag(item?: ComboboxItem<T, U>): void {
+    const tags = Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')),
+      tag = item ? tags[this.selectedItems.indexOf(item)] : undefined,
+      focusTarget =
+        tag && tag.style.display !== 'none'
+          ? tag
+          : tags.find(tag => tag.removable && tag.style.display !== 'none');
+
+    if (focusTarget) {
+      focusTarget.focus();
+    } else {
+      this.input.focus();
     }
   }
 

@@ -22,6 +22,12 @@ export type RadioButtonSize = 'md' | 'lg';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Radio<T = any> extends LitElement {
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members

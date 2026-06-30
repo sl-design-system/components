@@ -127,16 +127,16 @@ describe('fill', () => {
   });
 
   it('should not override an explicit child fill attribute', async () => {
-    const explicitButton = document.createElement('sl-button');
-    explicitButton.setAttribute('fill', 'solid');
-    explicitButton.textContent = 'Explicit fill';
-    el.appendChild(explicitButton);
+    const button = document.createElement('sl-button');
+    button.setAttribute('fill', 'solid');
+    button.textContent = 'Explicit fill';
+    el.appendChild(button);
     await el.updateComplete;
 
     el.fill = 'ghost';
     await el.updateComplete;
 
-    expect(explicitButton).to.have.attribute('fill', 'solid');
+    expect(button).to.have.attribute('fill', 'solid');
   });
 });
 
@@ -220,16 +220,16 @@ describe('inverted', () => {
   });
 
   it('should not override an explicit child variant attribute when inverted is true', async () => {
-    const explicitButton = document.createElement('sl-button');
-    explicitButton.setAttribute('variant', 'primary');
-    explicitButton.textContent = 'Explicit variant';
-    el.appendChild(explicitButton);
+    const button = document.createElement('sl-button');
+    button.setAttribute('variant', 'primary');
+    button.textContent = 'Explicit variant';
+    el.appendChild(button);
     await el.updateComplete;
 
     el.inverted = true;
     await el.updateComplete;
 
-    expect(explicitButton).to.have.attribute('variant', 'primary');
+    expect(button).to.have.attribute('variant', 'primary');
   });
 
   it('should not override an explicit child divider inverted attribute', async () => {

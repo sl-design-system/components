@@ -60,6 +60,32 @@ export class Radio<T = any> extends LitElement {
   /** The value for this radio button. */
   @property() value?: T;
 
+  #tabIndex = 0;
+
+  override get tabIndex(): number {
+    return this.#tabIndex;
+  }
+
+  override set tabIndex(value: number) {
+    const oldValue = this.#tabIndex;
+    this.#tabIndex = value;
+
+    // Sync wrapper tabIndex immediately when host tabIndex changes
+    // This ensures RovingTabindexController changes are reflected in the wrapper
+    if (this.wrapper && oldValue !== value) {
+      this.wrapper.tabIndex = value;
+    }
+
+    // Also update the attribute for proper serialization
+    if (value === -1) {
+      this.setAttribute('tabindex', '-1');
+    } else if (value === 0) {
+      this.setAttribute('tabindex', '0');
+    } else {
+      this.removeAttribute('tabindex');
+    }
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -68,7 +94,7 @@ export class Radio<T = any> extends LitElement {
 
     // Initialize host tabIndex (will be overridden by RovingTabindexController in groups)
     if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = this.disabled ? -1 : 0;
+      this.#tabIndex = this.disabled ? -1 : 0;
     }
   }
 
@@ -86,7 +112,7 @@ export class Radio<T = any> extends LitElement {
         this.tabIndex = this.disabled ? -1 : 0;
       }
 
-      // Sync wrapper tabIndex with host tabIndex
+      // Always ensure wrapper tabIndex is synced (especially on first render)
       this.wrapper.tabIndex = this.tabIndex;
     }
   }

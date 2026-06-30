@@ -1174,7 +1174,7 @@ describe('sl-combobox', () => {
         const styles = getComputedStyle(tagList);
         const hostStyles = getComputedStyle(el);
 
-        expect(styles.flexGrow).to.equal('1');
+        expect(styles.flexGrow).to.equal('0');
         expect(styles.flexShrink).to.equal('1');
         expect(styles.flexBasis).to.equal('auto');
         expect(styles.minInlineSize).to.equal('0px');
@@ -1182,6 +1182,21 @@ describe('sl-combobox', () => {
         expect(styles.position).to.equal('relative');
         expect(styles.zIndex).to.equal('1');
         expect(hostStyles.contain).to.include('inline-size');
+      });
+
+      it('should keep the input caret next to the visible tags', async () => {
+        await waitForNextFrame();
+
+        const visibleTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
+            tag => getComputedStyle(tag).display !== 'none'
+          ),
+          lastTag = visibleTags.at(-1)!,
+          inputRect = input.getBoundingClientRect(),
+          lastTagRect = lastTag.getBoundingClientRect(),
+          gap = inputRect.left - lastTagRect.right;
+
+        expect(gap).to.be.at.least(0);
+        expect(gap).to.be.lessThan(16);
       });
 
       it('should not flicker when selecting many items in a limited space', async () => {

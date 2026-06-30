@@ -544,6 +544,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       (acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc),
       0
     );
+    this.toggleAttribute('data-stacked-active', this.stackSize > 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
     // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
     this.stack.classList.remove('double', 'triple');

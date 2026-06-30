@@ -46,11 +46,15 @@ sl-text-field {
 }
 
 sl-tag-list {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   max-inline-size: 66%;
   min-inline-size: 0;
   position: relative;
   z-index: 1;
+}
+
+sl-tag-list[data-stacked-active] {
+  flex-grow: 1;
 }
 
 sl-tag {

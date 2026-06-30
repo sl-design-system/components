@@ -576,6 +576,7 @@ describe('sl-tag-list', () => {
 
       expect(visibility).to.deep.equal(['none', 'none', '']);
       expect(el.stackSize).to.equal(2);
+      expect(el).to.have.attribute('data-stacked-active');
     });
 
     it('should keep the last tag visible when it fits in the remaining width', async () => {
@@ -685,6 +686,7 @@ describe('sl-tag-list', () => {
 
       expect(tags.map(tag => tag.style.display)).to.deep.equal(['', '']);
       expect(el.stackSize).to.equal(0);
+      expect(el).not.to.have.attribute('data-stacked-active');
       expect(stack.style.display).to.equal('none');
     });
   });

@@ -656,22 +656,23 @@ export const Combination: Story = {
   `
 };
 
-export const MixedButtons: Story = {
+export const MixedVariantsAndFills: Story = {
   render: () => {
     const makeMixedButtons = (inverted = false) =>
       inverted
         ? html`
-            <sl-button aria-label="Copy to clipboard"
+            <sl-button aria-label="Copy to clipboard" inverted fill="outline"
               ><sl-icon name="far-copy"></sl-icon
             ></sl-button>
-            <sl-button variant="primary" fill="outline">Save</sl-button>
-            <sl-button variant="secondary" fill="ghost">Secondary</sl-button>
-            <sl-button variant="success" fill="outline">Approve</sl-button>
-            <sl-button variant="warning" fill="ghost">Review</sl-button>
-            <sl-button variant="info" fill="ghost">Info</sl-button>
-            <sl-button variant="danger" fill="outline">Delete</sl-button>
             <sl-tool-bar-divider></sl-tool-bar-divider>
-            <sl-menu-button variant="secondary" fill="ghost">
+            <sl-button inverted fill="solid">Save</sl-button>
+            <sl-button inverted fill="ghost">Approve</sl-button>
+            <sl-button inverted fill="link">Details</sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-button inverted fill="outline">Share</sl-button>
+            <sl-button inverted fill="outline">Delete</sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-menu-button aria-label="Settings" inverted fill="outline">
               <sl-icon name="far-gear" slot="button"></sl-icon>
               <span slot="button">Settings</span>
               <sl-menu-item>
@@ -683,12 +684,12 @@ export const MixedButtons: Story = {
                 Archive
               </sl-menu-item>
             </sl-menu-button>
-            <sl-menu-button variant="primary" fill="outline">
-              <span slot="button">Create</span>
-              <sl-menu-item>New document</sl-menu-item>
-              <sl-menu-item>Duplicate</sl-menu-item>
+            <sl-menu-button aria-label="More options" inverted fill="link">
+              <span slot="button">More</span>
+              <sl-menu-item>History</sl-menu-item>
+              <sl-menu-item>Activity</sl-menu-item>
             </sl-menu-button>
-            <sl-button aria-label="Accessibility settings"
+            <sl-button aria-label="Accessibility settings" inverted fill="outline"
               ><sl-icon name="far-universal-access"></sl-icon
             ></sl-button>
           `
@@ -700,15 +701,16 @@ export const MixedButtons: Story = {
             <sl-button aria-label="Paste from clipboard"
               ><sl-icon name="far-paste"></sl-icon
             ></sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
             <sl-button fill="solid" variant="primary">Publish</sl-button>
             <sl-button variant="secondary" fill="outline">Secondary</sl-button>
             <sl-button variant="success" fill="ghost">Approve</sl-button>
-            <sl-button variant="warning" fill="outline">Review</sl-button>
+            <sl-button variant="warning" fill="solid">Review</sl-button>
             <sl-button variant="info" fill="link">Info</sl-button>
             <sl-button variant="danger" fill="solid">Delete</sl-button>
             <sl-tool-bar-divider></sl-tool-bar-divider>
             <sl-button fill="ghost">Archive</sl-button>
-            <sl-menu-button variant="secondary" fill="outline">
+            <sl-menu-button aria-label="Settings" variant="secondary" fill="outline">
               <sl-icon name="far-gear" slot="button"></sl-icon>
               <span slot="button">Settings</span>
               <sl-menu-item>
@@ -720,11 +722,12 @@ export const MixedButtons: Story = {
                 Archive
               </sl-menu-item>
             </sl-menu-button>
-            <sl-menu-button variant="primary" fill="link">
+            <sl-menu-button aria-label="Create options" variant="primary" fill="ghost">
               <span slot="button">Create</span>
               <sl-menu-item>New document</sl-menu-item>
               <sl-menu-item>Duplicate</sl-menu-item>
             </sl-menu-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
             <sl-button aria-label="Accessibility settings"
               ><sl-icon name="far-universal-access"></sl-icon
             ></sl-button>
@@ -767,11 +770,21 @@ export const MixedButtons: Story = {
         }
       </style>
       <div class="container">
+        <h2>Overview</h2>
         <p>
-          This story shows toolbars with mixed button variants and fill values. Buttons with
+          This story demonstrates toolbars with mixed button variants and fill values. Buttons with
           explicit <code>fill</code> or <code>variant</code> keep their own value regardless of what
           the toolbar propagates. Drag the right edge of each toolbar to see overflow behavior.
         </p>
+        <p>
+          <strong>Inverted accessibility note:</strong> The inverted example shows only buttons with
+          sufficient color contrast on dark backgrounds. It uses explicit
+          <code>inverted</code> controls in multiple fills (<code>outline</code>,
+          <code>solid</code>, <code>ghost</code>, <code>link</code>). Icon-only controls and menu
+          buttons include explicit accessible names.
+        </p>
+
+        <h3>Examples</h3>
         <div class="mixed-grid">
           <!-- With fill set on toolbar -->
           <div class="item">
@@ -797,9 +810,9 @@ export const MixedButtons: Story = {
             </sl-tool-bar>
           </div>
 
-          <!-- Inverted with explicit button fill -->
+          <!-- Inverted with mixed fills -->
           <div class="item">
-            <div class="label">Inverted with fill="outline"</div>
+            <div class="label">Inverted with mixed fills (accessible names)</div>
             <sl-tool-bar aria-label="Inverted mixed buttons" contained inverted fill="outline">
               ${makeMixedButtons(true)}
             </sl-tool-bar>
@@ -825,8 +838,9 @@ export const MixedButtons: Story = {
             </div>
           </div>
         </div>
+
         <p>
-          <strong>Key observations:</strong>
+          <strong>Note:</strong>
         </p>
         <ul>
           <li>
@@ -834,16 +848,13 @@ export const MixedButtons: Story = {
             <code>ghost</code>, and <code>link</code>.
           </li>
           <li>
-            It also mixes variants <code>primary</code>, <code>secondary</code>,
-            <code>success</code>, <code>warning</code>, <code>info</code>, and
-            <code>danger</code> on both buttons and menu buttons.
+            It mixes variants <code>primary</code>, <code>secondary</code>, <code>success</code>,
+            <code>warning</code>, <code>info</code>, and <code>danger</code> on both buttons and
+            menu buttons.
           </li>
           <li>
             In the inverted examples, combinations are intentionally limited to maintain readable
-            contrast (for example, no <code>link</code> fill there).
-          </li>
-          <li>
-            Icon-only controls use descriptive <code>aria-label</code> values for accessible names.
+            contrast while still demonstrating different fill values (solid, ghost, outline, link).
           </li>
         </ul>
       </div>
@@ -882,7 +893,7 @@ export const Examples: Story = {
 
         <sl-tool-bar-divider></sl-tool-bar-divider>
 
-        <sl-button variant="danger">
+        <sl-button>
           <sl-icon name="xmark"></sl-icon>
           Cancel
         </sl-button>

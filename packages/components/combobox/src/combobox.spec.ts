@@ -1293,7 +1293,8 @@ describe('sl-combobox', () => {
         await waitForNextFrame();
         await combobox.updateComplete;
 
-        const tags = Array.from(combobox.renderRoot.querySelectorAll('sl-tag')),
+        const comboboxRoot = combobox.renderRoot as ShadowRoot,
+          tags = Array.from(comboboxRoot.querySelectorAll('sl-tag')),
           buttons = tags.map(tag => tag.renderRoot.querySelector('button'));
 
         expect(tags).to.have.lengthOf(2);
@@ -1302,17 +1303,17 @@ describe('sl-combobox', () => {
 
         await userEvent.tab();
 
-        expect(combobox.renderRoot.activeElement).to.equal(tags[0]);
+        expect(comboboxRoot.activeElement).to.equal(tags[0]);
         expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
 
         await userEvent.keyboard('{ArrowRight}');
 
-        expect(combobox.renderRoot.activeElement).to.equal(tags[1]);
+        expect(comboboxRoot.activeElement).to.equal(tags[1]);
         expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
 
         await userEvent.keyboard('{ArrowLeft}');
 
-        expect(combobox.renderRoot.activeElement).to.equal(tags[0]);
+        expect(comboboxRoot.activeElement).to.equal(tags[0]);
         expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
 
         await userEvent.tab();

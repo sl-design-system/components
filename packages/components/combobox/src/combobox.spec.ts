@@ -2060,6 +2060,22 @@ describe('sl-combobox', () => {
   });
 
   describe('virtual list', () => {
+    const waitForVirtualList = async (): Promise<void> => {
+      await waitForNextFrame();
+      await waitForNextFrame();
+    };
+
+    const getRenderedVirtualOptions = (combobox: Combobox): Element[] => {
+      const listbox = combobox.querySelector('sl-listbox'),
+        virtualList = Array.from(listbox?.children ?? []).find(
+          child =>
+            child.hasAttribute('data-virtual-list') ||
+            child.tagName.toLowerCase().includes('virtual-list')
+        );
+
+      return Array.from(virtualList?.shadowRoot?.querySelectorAll('sl-option') ?? []);
+    };
+
     it('should submit index 0 for the first item in a virtual list', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
@@ -2117,6 +2133,104 @@ describe('sl-combobox', () => {
 
       expect(input).to.have.attribute('aria-expanded', 'true');
       expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should not select a group header when typing a group name', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-combobox
+            name="test"
+            .options=${[
+              { group: 'Fruits', label: 'Apple', value: 'apple' },
+              { group: 'Fruits', label: 'Banana', value: 'banana' },
+              { group: 'Vegetables', label: 'Carrot', value: 'carrot' }
+            ]}
+            option-group-path="group"
+            option-label-path="label"
+            option-value-path="value">
+          </sl-combobox>
+        </form>
+      `);
+
+      const combobox = form.querySelector<Combobox>('sl-combobox')!,
+        input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      form.addEventListener('submit', event => event.preventDefault());
+
+      input.focus();
+      input.value = 'Fruits';
+      input.dispatchEvent(
+        new InputEvent('input', {
+          bubbles: true,
+          composed: true,
+          inputType: 'insertText'
+        })
+      );
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      expect(combobox.currentItem).to.be.undefined;
+
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          bubbles: true,
+          composed: true,
+          key: 'Enter'
+        })
+      );
+      await combobox.updateComplete;
+
+      expect(combobox.value).to.be.undefined;
+      expect(new FormData(form).get('test')).to.be.null;
+    });
+
+    it('should scroll back to the selected group after selecting a virtual option', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          group-selected
+          multiple
+          .options=${options}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!,
+        listbox = combobox.querySelector('sl-listbox')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      listbox.scrollToIndex(900, { block: 'start' });
+      await waitForVirtualList();
+
+      const scrollToIndex = spy(listbox, 'scrollToIndex');
+
+      try {
+        const option = getRenderedVirtualOptions(combobox).find(
+          option => option.textContent?.trim() === 'Option 901'
+        );
+
+        expect(option).to.exist;
+
+        option!.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await combobox.updateComplete;
+        await waitForVirtualList();
+
+        expect(scrollToIndex).to.have.been.called;
+        expect(scrollToIndex.lastCall.args[0]).to.equal(0);
+        expect(scrollToIndex.lastCall.args[1]).to.deep.equal({
+          block: 'start',
+          behavior: 'auto'
+        });
+      } finally {
+        scrollToIndex.restore();
+      }
     });
 
     it('should update grouped virtual list selections without recursive cleanup', async () => {

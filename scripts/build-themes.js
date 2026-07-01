@@ -301,118 +301,118 @@ const build = async (production = false, path, deprecated) => {
     }
   };
 
-  const createFileConfig = (themeBase, theme, variant) => {
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}.css`,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
-        }
-      }
-    ];
+  // const createFileConfig = (themeBase, theme, variant) => {
+  //   const files = [
+  //     {
+  //       destination: `${themeBase}/${theme}/${variant}.css`,
+  //       format: 'css/variables',
+  //       options: {
+  //         fileHeader: 'sl/legal',
+  //         outputReferences: !production
+  //       }
+  //     }
+  //   ];
 
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        }
-      );
-    }
-    return files;
-  };
-  const createFileConfigDeprecated = (themeBase, theme, variant) => {
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}-deprecated.css`,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
-        }
-      }
-    ];
+  //   if (production) {
+  //     files.push(
+  //       {
+  //         destination: `${themeBase}/${theme}/css/base.css`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true
+  //         },
+  //         filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
+  //       },
+  //       {
+  //         destination: `${themeBase}/${theme}/scss/base.scss`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true,
+  //           selector: '@mixin sl-theme-base'
+  //         },
+  //         filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
+  //       },
+  //       {
+  //         destination: `${themeBase}/${theme}/css/${variant}.css`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true
+  //         },
+  //         filter: filterFiles([`${variant}-new.json`])
+  //       },
+  //       {
+  //         destination: `${themeBase}/${theme}/scss/${variant}.scss`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true,
+  //           selector: `@mixin sl-theme-${variant}`
+  //         },
+  //         filter: filterFiles([`${variant}-new.json`])
+  //       }
+  //     );
+  //   }
+  //   return files;
+  // };
+  // const createFileConfigDeprecated = (themeBase, theme, variant) => {
+  //   const files = [
+  //     {
+  //       destination: `${themeBase}/${theme}/${variant}-deprecated.css`,
+  //       format: 'css/variables',
+  //       options: {
+  //         fileHeader: 'sl/legal',
+  //         outputReferences: !production
+  //       }
+  //     }
+  //   ];
 
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base-deprecated.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base-deprecated.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}-deprecated.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}-deprecated.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}.json`])
-        }
-      );
-    }
-    return files;
-  };
+  //   if (production) {
+  //     files.push(
+  //       {
+  //         destination: `${themeBase}/${theme}/css/base-deprecated.css`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true
+  //         },
+  //         filter: filterFiles(['core.json', 'base.json'])
+  //       },
+  //       {
+  //         destination: `${themeBase}/${theme}/scss/base-deprecated.scss`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true,
+  //           selector: '@mixin sl-theme-base'
+  //         },
+  //         filter: filterFiles(['core.json', 'base.json'])
+  //       },
+  //       {
+  //         destination: `${themeBase}/${theme}/css/${variant}-deprecated.css`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true
+  //         },
+  //         filter: filterFiles([`${variant}.json`])
+  //       },
+  //       {
+  //         destination: `${themeBase}/${theme}/scss/${variant}-deprecated.scss`,
+  //         format: 'css/variables',
+  //         options: {
+  //           fileHeader: 'sl/legal',
+  //           outputReferences: true,
+  //           selector: `@mixin sl-theme-${variant}`
+  //         },
+  //         filter: filterFiles([`${variant}.json`])
+  //       }
+  //     );
+  //   }
+  //   return files;
+  // };
 
   const createFileConfig = (themeBase, theme, variant) => {
     const files = [

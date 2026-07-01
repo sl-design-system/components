@@ -162,8 +162,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /**
    * Use this if you want the menu button that appears when the tool bar overflows to use the
-   * "inverted" variant. This also overrides all slotted button and menu-button variants to
-   * `inverted` when set.
+   * "inverted" variant. Slotted buttons and menu-buttons without an explicit `variant` also use the
+   * `inverted` variant when set.
    *
    * @default false
    */

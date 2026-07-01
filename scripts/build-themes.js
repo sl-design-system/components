@@ -301,119 +301,6 @@ const build = async (production = false, path, deprecated) => {
     }
   };
 
-  // const createFileConfig = (themeBase, theme, variant) => {
-  //   const files = [
-  //     {
-  //       destination: `${themeBase}/${theme}/${variant}.css`,
-  //       format: 'css/variables',
-  //       options: {
-  //         fileHeader: 'sl/legal',
-  //         outputReferences: !production
-  //       }
-  //     }
-  //   ];
-
-  //   if (production) {
-  //     files.push(
-  //       {
-  //         destination: `${themeBase}/${theme}/css/base.css`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true
-  //         },
-  //         filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-  //       },
-  //       {
-  //         destination: `${themeBase}/${theme}/scss/base.scss`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true,
-  //           selector: '@mixin sl-theme-base'
-  //         },
-  //         filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-  //       },
-  //       {
-  //         destination: `${themeBase}/${theme}/css/${variant}.css`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true
-  //         },
-  //         filter: filterFiles([`${variant}-new.json`])
-  //       },
-  //       {
-  //         destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true,
-  //           selector: `@mixin sl-theme-${variant}`
-  //         },
-  //         filter: filterFiles([`${variant}-new.json`])
-  //       }
-  //     );
-  //   }
-  //   return files;
-  // };
-  // const createFileConfigDeprecated = (themeBase, theme, variant) => {
-  //   const files = [
-  //     {
-  //       destination: `${themeBase}/${theme}/${variant}-deprecated.css`,
-  //       format: 'css/variables',
-  //       options: {
-  //         fileHeader: 'sl/legal',
-  //         outputReferences: !production
-  //       }
-  //     }
-  //   ];
-
-  //   if (production) {
-  //     files.push(
-  //       {
-  //         destination: `${themeBase}/${theme}/css/base-deprecated.css`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true
-  //         },
-  //         filter: filterFiles(['core.json', 'base.json'])
-  //       },
-  //       {
-  //         destination: `${themeBase}/${theme}/scss/base-deprecated.scss`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true,
-  //           selector: '@mixin sl-theme-base'
-  //         },
-  //         filter: filterFiles(['core.json', 'base.json'])
-  //       },
-  //       {
-  //         destination: `${themeBase}/${theme}/css/${variant}-deprecated.css`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true
-  //         },
-  //         filter: filterFiles([`${variant}.json`])
-  //       },
-  //       {
-  //         destination: `${themeBase}/${theme}/scss/${variant}-deprecated.scss`,
-  //         format: 'css/variables',
-  //         options: {
-  //           fileHeader: 'sl/legal',
-  //           outputReferences: true,
-  //           selector: `@mixin sl-theme-${variant}`
-  //         },
-  //         filter: filterFiles([`${variant}.json`])
-  //       }
-  //     );
-  //   }
-  //   return files;
-  // };
-
   const createFileConfig = (themeBase, theme, variant) => {
     const files = [
       {
@@ -534,10 +421,28 @@ const build = async (production = false, path, deprecated) => {
     createConfigForThemeVariant(theme, variant, true)
   );
 
+  const typographyCss = await readFile(
+    join(cwd, './export/typography-sizing-spacing/typography.css'),
+    'utf8'
+  );
+
+  console.log(typographyCss);
+
   for (const cfg of [...configs, ...oldConfigs]) {
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
+
+    const typographyMin = join(themeBase, cfg.theme, 'typography.min.css');
+    const typographyResult = await postcss([cssnano({ preset: 'default' })]).process(
+      typographyCss,
+      {
+        from: join(cwd, './export/typography-sizing-spacing/typography.css'),
+        to: typographyMin
+      }
+    );
+
+    await writeFile(join(themeBase, cfg.theme, 'typography.css'), typographyCss, 'utf8');
 
     if (production) {
       const from = join(themeBase, cfg.theme, cfg.variant + '.css'),
@@ -547,8 +452,11 @@ const build = async (production = false, path, deprecated) => {
       const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
 
       await writeFile(to, result.css, 'utf8');
+      await writeFile(typographyMin, typographyResult.css, 'utf8');
     }
   }
+
+  // put a copy of the exported typography tokens in the theme folder for easier consumption by consumers of the theme package
 };
 
 build(

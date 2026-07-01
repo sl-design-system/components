@@ -138,6 +138,19 @@ describe('fill', () => {
 
     expect(button).to.have.attribute('fill', 'solid');
   });
+
+  it('should not override an explicit child menu-button fill attribute', async () => {
+    const menuButton = el.querySelector('sl-menu-button');
+
+    expect(menuButton).to.exist;
+
+    menuButton!.setAttribute('fill', 'outline');
+
+    el.fill = 'ghost';
+    await el.updateComplete;
+
+    expect(menuButton!).to.have.attribute('fill', 'outline');
+  });
 });
 
 describe('inverted', () => {
@@ -230,6 +243,19 @@ describe('inverted', () => {
     await el.updateComplete;
 
     expect(button).to.have.attribute('variant', 'primary');
+  });
+
+  it('should not override an explicit child menu-button variant when inverted is true', async () => {
+    const menuButton = el.querySelector('sl-menu-button');
+
+    expect(menuButton).to.exist;
+
+    menuButton!.setAttribute('variant', 'primary');
+
+    el.inverted = true;
+    await el.updateComplete;
+
+    expect(menuButton!).to.have.attribute('variant', 'primary');
   });
 
   it('should not override an explicit child divider inverted attribute', async () => {

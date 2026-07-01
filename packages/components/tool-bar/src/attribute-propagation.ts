@@ -23,6 +23,7 @@ export function updateChildAttributes(
   }
 }
 
+/** Propagates toolbar fill and inverted state to child buttons and menu-buttons. */
 function updateButtonFillAndVariant(el: Element, fill?: ButtonFill, inverted?: boolean): void {
   for (const btn of getTargets(el, ['SL-BUTTON', 'SL-MENU-BUTTON'], 'sl-button, sl-menu-button')) {
     const state = getState(btn);
@@ -33,6 +34,7 @@ function updateButtonFillAndVariant(el: Element, fill?: ButtonFill, inverted?: b
   }
 }
 
+/** Propagates the inverted state to child tool-bar dividers. */
 function updateDividerVariant(el: Element, inverted?: boolean): void {
   for (const divider of getTargets(el, ['SL-TOOL-BAR-DIVIDER'], 'sl-tool-bar-divider')) {
     const state = getState(divider);
@@ -42,6 +44,7 @@ function updateDividerVariant(el: Element, inverted?: boolean): void {
   }
 }
 
+/** Synchronizes a propagated `fill` attribute while preserving explicit consumer overrides. */
 function syncFill(btn: Element, state: PropagatedState, fill?: ButtonFill): void {
   if (state.fill !== undefined) {
     clearPropagatedIfChanged(btn, state, 'fill', state.fill);
@@ -56,6 +59,7 @@ function syncFill(btn: Element, state: PropagatedState, fill?: ButtonFill): void
   }
 }
 
+/** Sets `variant="inverted"` unless the consumer already changed it. */
 function syncVariant(btn: Element, state: PropagatedState, inverted?: boolean): void {
   clearPropagatedIfChanged(btn, state, 'variant', 'inverted');
 
@@ -68,6 +72,7 @@ function syncVariant(btn: Element, state: PropagatedState, inverted?: boolean): 
   }
 }
 
+/** Sets the divider `inverted` attribute unless the consumer already changed it. */
 function syncDividerInverted(divider: Element, state: PropagatedState, inverted?: boolean): void {
   clearPropagatedIfChanged(divider, state, 'inverted', '');
 
@@ -80,6 +85,7 @@ function syncDividerInverted(divider: Element, state: PropagatedState, inverted?
   }
 }
 
+/** Returns the element itself, if it matches, and any matching child elements. */
 function getTargets(el: Element, tagNames: string[], selector: string): Element[] {
   return [
     ...(tagNames.includes(el.tagName) ? [el] : []),
@@ -87,10 +93,12 @@ function getTargets(el: Element, tagNames: string[], selector: string): Element[
   ];
 }
 
+/** Gets the tracked propagated state for an element, or an empty state when none exists. */
 function getState(el: Element): PropagatedState {
   return propagatedState.get(el) ?? {};
 }
 
+/** Clears tracked propagated state when the current DOM attribute no longer matches it. */
 function clearPropagatedIfChanged(
   el: Element,
   state: PropagatedState,

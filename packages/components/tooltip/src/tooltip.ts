@@ -118,7 +118,7 @@ export class Tooltip extends LitElement {
       }
     };
 
-    const createTooltip = (): void => {
+    const createTooltip = (event?: Event): void => {
       if (created) {
         return;
       }
@@ -166,6 +166,18 @@ export class Tooltip extends LitElement {
 
       // We only need to create the tooltip once, so ignore all future events.
       removeListeners();
+
+      // When the tooltip is created in response to a focusin event, the tooltip's own
+      // document-level focusin listener missed the original event. Dispatch a synthetic
+      // focusin on the owning document so the tooltip's normal show logic kicks in
+      // without re-triggering focusin listeners on the anchor or its ancestors.
+      if (event?.type === 'focusin') {
+        requestAnimationFrame(() => {
+          (target.ownerDocument ?? document).dispatchEvent(
+            new FocusEvent('focusin', { bubbles: true, composed: true })
+          );
+        });
+      }
     };
 
     const cleanup = () => {
@@ -1313,6 +1325,20 @@ export class Tooltip extends LitElement {
     while (true) {
       const rootNode = this.#getShadowRoot(normalized.getRootNode());
       if (!rootNode) {
+        // For light DOM proxy targets: if the element's parent has getProxyTarget()
+        // pointing to this element, normalize to the parent (e.g. an <input> in the
+        // light DOM of sl-checkbox where sl-checkbox is the actual anchor).
+        const parent = normalized.parentElement;
+        if (parent instanceof HTMLElement) {
+          const parentProxy = (
+            parent as HTMLElement & { getProxyTarget?(): Element | null }
+          ).getProxyTarget?.();
+
+          if (parentProxy === normalized && this.#matchesAnchor(parent)) {
+            return parent;
+          }
+        }
+
         return normalized;
       }
 

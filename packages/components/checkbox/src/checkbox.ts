@@ -3,7 +3,7 @@ import { FormControlMixin } from '@sl-design-system/form';
 import {
   type EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
+  ForwardAriaMixin,
   event
 } from '@sl-design-system/shared';
 import {
@@ -45,7 +45,8 @@ let nextUniqueId = 0;
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
+export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElement), [
+  'aria-describedby',
   'aria-disabled',
   'aria-label',
   'aria-labelledby'
@@ -166,6 +167,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     }
 
     this.setFormControlElement(this.input);
+    this.setProxyTarget(this.input);
 
     this.#onLabelSlotChange();
   }
@@ -282,6 +284,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);
+      this.setProxyTarget(this.input);
     }
   }
 
@@ -314,13 +317,32 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     }
 
     requestAnimationFrame(() => {
-      if (!this.input.hasAttribute('aria-labelledby') && this.input.labels?.length) {
-        this.input.setAttribute(
-          'aria-labelledby',
-          Array.from(this.input.labels)
-            .map(label => label.id)
-            .join(' ')
-        );
+      if (
+        (this.hasAttribute('aria-labelledby') || this.ariaLabelledByElements?.length) &&
+        !this.input.labels?.length
+      ) {
+        // ForwardAriaMixin will handle it; no labels to append.
+        return;
+      }
+
+      if (this.input.labels?.length) {
+        const labelIds = Array.from(this.input.labels)
+          .map(label => label.id)
+          .filter(Boolean)
+          .join(' ');
+
+        const existing = this.input.getAttribute('aria-labelledby') ?? '';
+        const existingIds = existing.split(/\s+/).filter(Boolean);
+
+        // Append label IDs that aren't already present
+        const newIds = labelIds.split(/\s+/).filter(id => id && !existingIds.includes(id));
+
+        if (newIds.length) {
+          const combined = [...existingIds, ...newIds].join(' ');
+          this.input.setAttribute('aria-labelledby', combined);
+        } else if (!existing && labelIds) {
+          this.input.setAttribute('aria-labelledby', labelIds);
+        }
       }
     });
 
@@ -335,7 +357,5 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
     input.checked = !!this.checked;
     input.indeterminate = !!this.indeterminate;
-
-    this.setAttributesTarget(input);
   }
 }

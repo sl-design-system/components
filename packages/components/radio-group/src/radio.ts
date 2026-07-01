@@ -76,14 +76,8 @@ export class Radio<T = any> extends LitElement {
       this.wrapper.tabIndex = value;
     }
 
-    // Also update the attribute for proper serialization
-    if (value === -1) {
-      this.setAttribute('tabindex', '-1');
-    } else if (value === 0) {
-      this.setAttribute('tabindex', '0');
-    } else {
-      this.removeAttribute('tabindex');
-    }
+    // Always serialize tabIndex to the attribute to match native behavior
+    this.setAttribute('tabindex', value.toString());
   }
 
   override connectedCallback(): void {
@@ -93,8 +87,12 @@ export class Radio<T = any> extends LitElement {
     this.checked ??= false;
 
     // Initialize host tabIndex (will be overridden by RovingTabindexController in groups)
+    // Use the setter to ensure attribute is serialized
     if (!this.hasAttribute('tabindex')) {
-      this.#tabIndex = this.disabled ? -1 : 0;
+      this.tabIndex = this.disabled ? -1 : 0;
+    } else {
+      // Read existing attribute value
+      this.#tabIndex = parseInt(this.getAttribute('tabindex') || '0', 10);
     }
   }
 

@@ -6228,7 +6228,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/calendar@npm:^0.0.9, @sl-design-system/calendar@workspace:packages/components/calendar":
+"@sl-design-system/calendar@npm:^0.0.10, @sl-design-system/calendar@workspace:packages/components/calendar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/calendar@workspace:packages/components/calendar"
   dependencies:
@@ -6348,10 +6348,10 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/button": "npm:^2.1.1"
     "@sl-design-system/button-bar": "npm:^1.5.0"
-    "@sl-design-system/calendar": "npm:^0.0.9"
+    "@sl-design-system/calendar": "npm:^0.0.10"
     "@sl-design-system/form": "npm:^1.4.2"
     "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/shared": "npm:^0.12.3"
     "@sl-design-system/text-field": "npm:^1.6.11"
     lit: "npm:^3.3.3"
   peerDependencies:
@@ -6668,7 +6668,7 @@ __metadata:
   resolution: "@sl-design-system/lit-examples@workspace:examples/lit"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/shared": "npm:^0.12.3"
   languageName: unknown
   linkType: soft
 
@@ -6977,7 +6977,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/shared@npm:^0.12.0, @sl-design-system/shared@npm:^0.12.2, @sl-design-system/shared@workspace:packages/components/shared":
+"@sl-design-system/shared@npm:^0.12.0, @sl-design-system/shared@npm:^0.12.2, @sl-design-system/shared@npm:^0.12.3, @sl-design-system/shared@workspace:packages/components/shared":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:

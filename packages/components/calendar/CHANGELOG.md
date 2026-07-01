@@ -1,5 +1,11 @@
 # @sl-design-system/calendar
 
+## 0.0.10
+
+### Patch Changes
+
+- [#3381](https://github.com/sl-design-system/components/pull/3381) [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1) - Accessibility improvements in calendar: improved keyboard navigation for select-month and select-year.
+
 ## 0.0.9
 
 ### Patch Changes

@@ -314,7 +314,11 @@ export class Switch<T = any> extends ObserveAttributesMixin(
       }
 
       if (this.infotip && !this.infotip.describes) {
-        this.infotip.describes = this.#label?.textContent?.trim() || '';
+        this.infotip.describes = nodes
+          .map(node => node.textContent?.trim() || '')
+          .join(' ')
+          .replace(/\s+/g, ' ')
+          .trim();
       }
     });
   }

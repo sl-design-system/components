@@ -337,8 +337,16 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   }
 
   #labelText(): string {
-    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
-      nodes = slot?.assignedNodes({ flatten: true }) || [];
+    const labelSlot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
+      labelSlotNodes = labelSlot?.assignedNodes({ flatten: true }) || [],
+      lightDomNodes = Array.from(this.childNodes).filter(
+        node =>
+          node.nodeType === Node.TEXT_NODE ||
+          (node.nodeType === Node.ELEMENT_NODE &&
+            !(node as Element).hasAttribute('slot') &&
+            !(node instanceof HTMLStyleElement))
+      ),
+      nodes = labelSlotNodes.length ? labelSlotNodes : lightDomNodes;
 
     return nodes
       .map(node => node.textContent?.trim() || '')

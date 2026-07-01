@@ -147,6 +147,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return index === -1 ? 0 : index;
     },
     elements: () => {
+      if (!this.keyboardNavigation) {
+        return [];
+      }
+
       const stackTags =
         this.stacked &&
         this.stackTag &&
@@ -165,6 +169,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /** Disables removable tags in the tag list. */
   @property({ type: Boolean }) disabled?: boolean;
+
+  /** @internal Whether the tag list manages keyboard navigation between removable tags. */
+  @property({ attribute: false }) keyboardNavigation = true;
 
   /**
    * The size of the tag-list (determines size of tags inside the tag-list).
@@ -239,6 +246,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     this.#syncTags();
+
+    if (changes.has('keyboardNavigation')) {
+      this.#rovingTabindexController.clearElementCache();
+
+      if (!this.keyboardNavigation) {
+        this.#clearManagedTabindexes();
+      }
+    }
+
     this.#syncRovingTabindexController();
 
     if (changes.has('stacked')) {
@@ -396,7 +412,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     });
 
     this.tags.forEach(tag => {
-      tag.navigationDescription = tag.removable ? navigationDescription : undefined;
+      tag.navigationDescription =
+        this.keyboardNavigation && tag.removable ? navigationDescription : undefined;
       this.#syncTagDisabledState(tag);
       tag.size = this.size;
       tag.variant = this.variant;
@@ -531,6 +548,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       (acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc),
       0
     );
+    this.toggleAttribute('data-stacked-active', this.stackSize > 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
     // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
     this.stack.classList.remove('double', 'triple');
@@ -550,8 +568,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#syncRovingTabindexController();
   }
 
+  #clearManagedTabindexes(): void {
+    this.tags.forEach(tag => tag.removeAttribute('tabindex'));
+    this.stackTag?.removeAttribute('tabindex');
+  }
+
   #syncRovingTabindexController(): void {
-    const hasManagedElements = this.#rovingTabindexController.elements.length > 0;
+    const hasManagedElements =
+      this.keyboardNavigation && this.#rovingTabindexController.elements.length > 0;
 
     if (hasManagedElements && !this.#rovingTabindexManaged) {
       this.#rovingTabindexController.manage();

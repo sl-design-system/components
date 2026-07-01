@@ -156,7 +156,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /**
    * The fill of buttons and menu buttons (also overflow menu button).
    *
-   * @default 'outline'
+   * @default undefined
    */
   @property() fill?: ButtonFill;
 

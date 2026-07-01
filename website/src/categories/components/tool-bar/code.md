@@ -160,16 +160,16 @@ Use the `inverted` attribute on the tool bar when displaying it on dark backgrou
 <!-- Inverted tool bar on dark background -->
 <div style="background: var(--sl-color-background-primary-bold); padding: 1rem;">
   <sl-tool-bar inverted fill="outline" aria-label="Editor">
-    <sl-button inverted>Action 1</sl-button>
-    <sl-button inverted fill="solid">Publish</sl-button>
-    <sl-button inverted fill="ghost">Draft</sl-button>
+    <sl-button variant="inverted">Action 1</sl-button>
+    <sl-button variant="inverted" fill="solid">Publish</sl-button>
+    <sl-button variant="inverted" fill="ghost">Draft</sl-button>
   </sl-tool-bar>
 </div>
 ```
 
 </div>
 
-Buttons can also have the `inverted` attribute independently applied for consistent styling on dark backgrounds.
+Buttons can also use the `variant="inverted"` attribute independently for consistent styling on dark backgrounds.
 
 </section>
 

@@ -661,18 +661,18 @@ export const MixedVariantsAndFills: Story = {
     const makeMixedButtons = (inverted = false) =>
       inverted
         ? html`
-            <sl-button aria-label="Copy to clipboard" inverted fill="outline"
+            <sl-button aria-label="Copy to clipboard" variant="inverted" fill="outline"
               ><sl-icon name="far-copy"></sl-icon
             ></sl-button>
             <sl-tool-bar-divider></sl-tool-bar-divider>
-            <sl-button inverted fill="solid">Save</sl-button>
-            <sl-button inverted fill="ghost">Approve</sl-button>
-            <sl-button inverted fill="link">Details</sl-button>
+            <sl-button variant="inverted" fill="solid">Save</sl-button>
+            <sl-button variant="inverted" fill="ghost">Approve</sl-button>
+            <sl-button variant="inverted" fill="link">Details</sl-button>
             <sl-tool-bar-divider></sl-tool-bar-divider>
-            <sl-button inverted fill="outline">Share</sl-button>
-            <sl-button inverted fill="outline">Delete</sl-button>
+            <sl-button variant="inverted" fill="outline">Share</sl-button>
+            <sl-button variant="inverted" fill="outline">Delete</sl-button>
             <sl-tool-bar-divider></sl-tool-bar-divider>
-            <sl-menu-button aria-label="Settings" inverted fill="outline">
+            <sl-menu-button aria-label="Settings" variant="inverted" fill="outline">
               <sl-icon name="far-gear" slot="button"></sl-icon>
               <span slot="button">Settings</span>
               <sl-menu-item>
@@ -684,12 +684,12 @@ export const MixedVariantsAndFills: Story = {
                 Archive
               </sl-menu-item>
             </sl-menu-button>
-            <sl-menu-button aria-label="More options" inverted fill="link">
+            <sl-menu-button aria-label="More options" variant="inverted" fill="link">
               <span slot="button">More</span>
               <sl-menu-item>History</sl-menu-item>
               <sl-menu-item>Activity</sl-menu-item>
             </sl-menu-button>
-            <sl-button aria-label="Accessibility settings" inverted fill="outline"
+            <sl-button aria-label="Accessibility settings" variant="inverted" fill="outline"
               ><sl-icon name="far-universal-access"></sl-icon
             ></sl-button>
           `

@@ -246,6 +246,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.showValidity = this.showValidity;
       this.button.size = this.size;
       this.button.tabIndex = this.disabled ? -1 : 0;
+      this.button.setAttribute('aria-controls', 'listbox');
       this.button.setAttribute('aria-expanded', 'false');
       this.button.setAttribute('aria-haspopup', 'listbox');
       this.prepend(this.button);
@@ -341,6 +342,11 @@ export class Select<T = any> extends ObserveAttributesMixin(
             .map(label => (label as HTMLLabelElement).id)
             .join(' ')
         );
+
+        console.log('this.listbox', this.listbox);
+
+        // Set ariaLabelledByElements on the listbox so it can reference labels across shadow boundary
+        this.listbox!.ariaLabelledByElements = Array.from(this.internals.labels) as Element[];
       }
     });
   }
@@ -375,6 +381,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
         @keydown=${this.#onListboxKeydown}
         @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
+        id="listbox"
         part="listbox"
         popover>
         <slot @slotchange=${this.#onSlotchange}></slot>

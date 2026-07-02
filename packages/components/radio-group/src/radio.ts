@@ -19,6 +19,18 @@ declare global {
 
 export type RadioButtonSize = 'md' | 'lg';
 
+/**
+ * A radio button with 2 states; unchecked and checked.
+ *
+ * @csspart svg - The svg element that contains the radio button circle.
+ * @csspart box - The box element that contains the radio button background and border.
+ * @csspart wrapper - The wrapper element that carries the radio role.
+ * @csspart label - The label of the radio button.
+ *
+ * @slot default - Text label of the radio button. Technically there are no limits what can be put here; text, images, icons etc.
+ * @slot infotip - The slot for the infotip element
+ */
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Radio<T = any> extends LitElement {
   /** @internal */
@@ -117,7 +129,11 @@ export class Radio<T = any> extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div part="wrapper" role="radio" aria-checked=${Boolean(this.checked)}>
+      <div
+        part="wrapper"
+        role="radio"
+        aria-checked=${Boolean(this.checked)}
+        aria-disabled=${this.disabled ? 'true' : 'false'}>
         <div part="box">
           ${this.checked
             ? html`

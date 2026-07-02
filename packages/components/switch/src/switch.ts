@@ -46,6 +46,7 @@ let nextUniqueId = 0;
  *
  * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
+ * @slot infotip - The slot for the infotip element
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Switch<T = any> extends ObserveAttributesMixin(

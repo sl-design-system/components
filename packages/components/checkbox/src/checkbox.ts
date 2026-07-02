@@ -43,6 +43,7 @@ let nextUniqueId = 0;
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
+ * @slot infotip - The slot for the infotip element
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

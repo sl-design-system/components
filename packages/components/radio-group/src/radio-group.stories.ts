@@ -137,7 +137,7 @@ export const Infotip: Story = {
     options: () => html`
       <sl-radio value="1"
         >Lorem ipsum<sl-infotip slot="infotip"
-          >Lorem ipsum means nothing, it just some placeholder text.</sl-infotip
+          >Lorem ipsum means nothing, it's just some placeholder text.</sl-infotip
         ></sl-radio
       >
       <sl-radio value="2">

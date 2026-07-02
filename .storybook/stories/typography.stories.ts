@@ -7,10 +7,11 @@ import { Icon } from '../../packages/components/icon/src/icon';
 import { faPlanetRinged } from '@fortawesome/pro-regular-svg-icons';
 
 type Props = {
+  doubleStory: boolean;
+  earlyReaders: boolean;
   fontStretch: number;
   fontWeight: number;
-  earlyReaders: boolean;
-  doubleStory: boolean;
+  textRisers: boolean;
 };
 type Story = StoryObj<Props>;
 
@@ -22,19 +23,10 @@ export default {
     earlyReaders: false,
     doubleStory: false,
     fontStretch: 100,
-    fontWeight: 400
+    fontWeight: 400,
+    textRisers: false
   },
   argTypes: {
-    earlyReaders: {
-      control: {
-        type: 'boolean'
-      }
-    },
-    doubleStory: {
-      control: {
-        type: 'boolean'
-      }
-    },
     fontStretch: {
       control: {
         type: 'range',
@@ -57,14 +49,15 @@ export default {
 Icon.register(faPlanetRinged);
 
 export const Basic: Story = {
-  render: ({ earlyReaders, doubleStory, fontStretch, fontWeight }) => html`
+  render: ({ earlyReaders, doubleStory, fontStretch, fontWeight, textRisers }) => html`
     <style>
       body {
-        font-family: the-message-var, sans-serif;
+        /* font-family: the-message-var, sans-serif; */
         font-stretch: ${fontStretch}%;
         font-weight: ${fontWeight};
         font-feature-settings: ${ifDefined(earlyReaders ? '"ss02"' : undefined)}
-          ${ifDefined(doubleStory ? '"ss03"' : undefined)};
+          ${ifDefined(doubleStory ? '"ss03"' : undefined)}
+          ${ifDefined(textRisers ? '"ss01"' : undefined)};
       }
     </style>
     <h1>What are planets?</h1>

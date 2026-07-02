@@ -38,6 +38,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
   static override styles: CSSResultGroup = styles;
 
   #form = new FormController<Partial<Address>>(this);
+  #valueUpdatedFromInternal = false;
 
   /** Needed since we don't have a native input element. */
   internals = this.attachInternals();
@@ -89,7 +90,11 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
     super.updated(changes);
 
     if (changes.has('value')) {
-      this.#form.value = this.value;
+      if (this.#valueUpdatedFromInternal) {
+        this.#valueUpdatedFromInternal = false;
+      } else {
+        this.#form.value = this.value;
+      }
     }
   }
 
@@ -106,6 +111,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
     event.preventDefault();
     event.stopPropagation();
 
+    this.#valueUpdatedFromInternal = true;
     this.value = this.#form.value;
     this.setCustomValidity(this.#form.invalid ? 'Please enter a valid address.' : '');
 

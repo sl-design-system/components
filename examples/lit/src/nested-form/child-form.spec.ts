@@ -7,10 +7,28 @@ import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
 import { ChildForm } from './child-form.js';
 
-try {
+if (!customElements.get('example-child-form-test')) {
   customElements.define('example-child-form-test', ChildForm);
-} catch {
-  /* empty */
+}
+
+async function waitForControls(form: Form, names: string[]): Promise<void> {
+  for (
+    let i = 0;
+    i < 10 && !names.every(name => form.controls.some(control => control.name === name));
+    i++
+  ) {
+    await new Promise(requestAnimationFrame);
+  }
+
+  expect(form.controls.map(control => control.name)).to.include.members(names);
+}
+
+async function waitForFieldValue(field: TextField | null, value: string): Promise<void> {
+  for (let i = 0; i < 10 && field?.value !== value; i++) {
+    await new Promise(requestAnimationFrame);
+  }
+
+  expect(field?.value).to.equal(value);
 }
 
 describe('example-child-form', () => {
@@ -31,7 +49,13 @@ describe('example-child-form', () => {
       </sl-form>
     `);
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await waitForControls(form, ['user.firstName', 'user.lastName', 'user.address']);
+    const childForm = form.querySelector<ChildForm>('example-child-form-test')!,
+      addressForm = childForm.renderRoot.querySelector<Form>('sl-form')!;
+    await waitForControls(addressForm, ['postalCode', 'houseNumber', 'street', 'city']);
+    await childForm.updateComplete;
+    await addressForm.updateComplete;
+    await new Promise(requestAnimationFrame);
 
     form.value = {
       user: {
@@ -45,21 +69,21 @@ describe('example-child-form', () => {
         }
       }
     };
-
-    const childForm = form.querySelector<ChildForm>('example-child-form-test')!;
+    await form.updateComplete;
     await childForm.updateComplete;
-    await childForm.renderRoot.querySelector<Form>('sl-form')!.updateComplete;
+    await new Promise(requestAnimationFrame);
+    await addressForm.updateComplete;
 
     const parentTextField = (name: string): TextField | null =>
         form.querySelector(`sl-text-field[name="${name}"]`),
       childTextField = (name: string): TextField | null =>
         childForm.renderRoot.querySelector(`sl-text-field[name="${name}"]`);
 
-    expect(parentTextField('user.firstName')?.value).to.equal('Frans');
-    expect(parentTextField('user.lastName')?.value).to.equal('de Boer');
-    expect(childTextField('postalCode')?.value).to.equal('8989AA');
-    expect(childTextField('houseNumber')?.value).to.equal('17');
-    expect(childTextField('street')?.value).to.equal('Wiardaplantage');
-    expect(childTextField('city')?.value).to.equal('Leeuwarden');
+    await waitForFieldValue(parentTextField('user.firstName'), 'Frans');
+    await waitForFieldValue(parentTextField('user.lastName'), 'de Boer');
+    await waitForFieldValue(childTextField('postalCode'), '8989AA');
+    await waitForFieldValue(childTextField('houseNumber'), '17');
+    await waitForFieldValue(childTextField('street'), 'Wiardaplantage');
+    await waitForFieldValue(childTextField('city'), 'Leeuwarden');
   });
 });

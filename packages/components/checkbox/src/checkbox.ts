@@ -333,6 +333,10 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       }
     });
 
+    if (this.infotip && !this.infotip.describes) {
+      this.infotip.describes = this.#labelText();
+    }
+
     this.toggleAttribute('no-label', label.length === 0);
   }
 

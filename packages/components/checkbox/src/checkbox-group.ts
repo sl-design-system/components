@@ -68,11 +68,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   #rovingTabindexController = new RovingTabindexController<Checkbox | Infotip>(this, {
     direction: 'vertical',
     focusInIndex: (elements: Array<Checkbox | Infotip>) =>
-      elements.findIndex(el =>
-        el instanceof Checkbox
-          ? !el.disabled
-          : el.parentElement instanceof Checkbox && !el.parentElement.disabled
-      ),
+      elements.findIndex(el => el instanceof Checkbox && !el.disabled),
     elements: () => this.#focusableBoxes(),
     isFocusableElement: (el: Checkbox | Infotip) =>
       el instanceof Checkbox

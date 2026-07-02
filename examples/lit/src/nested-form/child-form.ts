@@ -4,7 +4,13 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Form, FormControlMixin, FormController, FormField } from '@sl-design-system/form';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './child-form.scss.js';
 
@@ -31,7 +37,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  #form = new FormController<Address>(this);
+  #form = new FormController<Partial<Address>>(this);
 
   /** Needed since we don't have a native input element. */
   internals = this.attachInternals();
@@ -40,6 +46,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
   @property({ type: Boolean }) override required?: boolean;
 
   /** The form value. */
+  @property({ attribute: false })
   override value?: Partial<Address> = {};
 
   override connectedCallback(): void {
@@ -76,6 +83,14 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
     super.reportValidity();
 
     return this.#form.reportValidity();
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('value')) {
+      this.#form.value = this.value;
+    }
   }
 
   #onChange(): void {

@@ -93,7 +93,11 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
       if (this.#valueUpdatedFromInternal) {
         this.#valueUpdatedFromInternal = false;
       } else {
-        this.#form.value = this.value;
+        const form = this.renderRoot.querySelector<Form>('sl-form');
+
+        if (form) {
+          form.value = this.value;
+        }
       }
     }
   }

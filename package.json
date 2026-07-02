@@ -360,6 +360,7 @@
       ],
       "files": [
         "web-test-runner.config.mjs",
+        "examples/lit/**/*.ts",
         "packages/components/**/*.spec.ts"
       ]
     },

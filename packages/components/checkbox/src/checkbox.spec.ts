@@ -13,7 +13,9 @@ describe('sl-checkbox', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+      el = await fixture(html`
+        <sl-checkbox>Hello world</sl-checkbox>
+      `);
       input = el.querySelector('input')!;
     });
 
@@ -21,6 +23,10 @@ describe('sl-checkbox', () => {
       expect(input).to.exist;
       expect(input.id).to.match(/sl-checkbox-(\d+)/);
       expect(input.type).to.equal('checkbox');
+    });
+
+    it('should have aria-describedby in observedAttributes', () => {
+      expect((el.constructor as typeof Checkbox).observedAttributes).to.include('aria-describedby');
     });
 
     it('should not be checked', () => {
@@ -121,11 +127,43 @@ describe('sl-checkbox', () => {
     });
 
     it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
+      const label = document.createElement('span');
+      label.id = 'my-label';
+      label.textContent = 'My label';
+      el.parentElement!.appendChild(label);
+
+      el.setAttribute('aria-labelledby', 'my-label');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+
+      // In same-scope mode, ForwardAriaMixin uses string attributes and
+      // #onLabelSlotChange appends the checkbox's own label IDs.
+      const ids = el.input.getAttribute('aria-labelledby')!.split(/\s+/);
+      expect(ids).to.include('my-label');
+
+      label.remove();
+    });
+
+    it('should proxy the aria-describedby attribute to the input element', async () => {
+      const tooltip = document.createElement('span');
+      tooltip.id = 'my-tooltip';
+      tooltip.textContent = 'My tooltip';
+      el.parentElement!.appendChild(tooltip);
+
+      el.setAttribute('aria-describedby', 'my-tooltip');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-describedby');
+
+      // In same-scope mode, ForwardAriaMixin uses string attributes.
+      expect(el.input.getAttribute('aria-describedby')).to.equal('my-tooltip');
+
+      tooltip.remove();
+    });
+
+    it('should return the input element from getProxyTarget', () => {
+      expect(el.getProxyTarget()).to.equal(el.input);
     });
 
     it('should be pristine', () => {
@@ -284,7 +322,9 @@ describe('sl-checkbox', () => {
 
   describe('disabled', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-checkbox disabled>Hello world</sl-checkbox>`);
+      el = await fixture(html`
+        <sl-checkbox disabled>Hello world</sl-checkbox>
+      `);
       input = el.querySelector('input')!;
     });
 
@@ -323,7 +363,9 @@ describe('sl-checkbox', () => {
 
   describe('validation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+      el = await fixture(html`
+        <sl-checkbox>Hello world</sl-checkbox>
+      `);
     });
 
     it('should be invalid when required and no option is selected', async () => {
@@ -434,7 +476,9 @@ describe('sl-checkbox', () => {
         // empty
       }
 
-      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+      el = await fixture(html`
+        <form-integration-test-component></form-integration-test-component>
+      `);
     });
 
     it('should emit an sl-form-control event after first render', () => {

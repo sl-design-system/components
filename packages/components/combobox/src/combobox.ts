@@ -589,6 +589,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
+    const expanded = event.newState === 'open',
+      button = this.renderRoot.querySelector<HTMLButtonElement>('button[slot="suffix"]');
+
+    button?.setAttribute('aria-expanded', expanded.toString());
+
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
       this.wrapper!.style.inlineSize = `${this.getBoundingClientRect().width}px`;

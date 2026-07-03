@@ -41,7 +41,7 @@ export class VirtualList<T = any> extends LitElement {
     estimateSize: () => this.estimateSize ?? 32,
     gap: 0,
     overscan: 3,
-    scrollMargin: 0
+    useCachedMeasurements: true
   });
 
   /**
@@ -94,7 +94,8 @@ export class VirtualList<T = any> extends LitElement {
         estimateSize: () => this.estimateSize ?? 32,
         gap: this.gap ?? 0,
         overscan: this.overscan ?? 3,
-        scrollMargin: this.scrollMargin ?? 0
+        scrollMargin: this.scrollMargin,
+        useCachedMeasurements: true
       });
     }
   }

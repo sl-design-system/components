@@ -50,10 +50,11 @@ describe('example-child-form', () => {
     `);
 
     await waitForControls(form, ['user.firstName', 'user.lastName', 'user.address']);
-    const childForm = form.querySelector<ChildForm>('example-child-form-test')!,
-      addressForm = childForm.renderRoot.querySelector<Form>('sl-form')!;
-    await waitForControls(addressForm, ['postalCode', 'houseNumber', 'street', 'city']);
+    const childForm = form.querySelector<ChildForm>('example-child-form-test')!;
     await childForm.updateComplete;
+
+    const addressForm = childForm.renderRoot.querySelector<Form>('sl-form')!;
+    await waitForControls(addressForm, ['postalCode', 'houseNumber', 'street', 'city']);
     await addressForm.updateComplete;
     await new Promise(requestAnimationFrame);
 

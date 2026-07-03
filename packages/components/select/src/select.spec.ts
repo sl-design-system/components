@@ -124,6 +124,18 @@ describe('sl-select', () => {
       expect(el.button).to.have.attribute('aria-labelledby', 'id');
     });
 
+    it('should set aria-controls on the button', async () => {
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(el.button).to.have.attribute('aria-controls');
+    });
+
+    it('should set ariaControlsElements via internals on the button pointing to the listbox', async () => {
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(el.button.internals.ariaControlsElements).to.deep.equal([el.listbox]);
+    });
+
     it('should have set aria-selected to false on all options', () => {
       const allNotSelected = Array.from(el.querySelectorAll('sl-option')).every(
         option => option.getAttribute('aria-selected') === 'false'

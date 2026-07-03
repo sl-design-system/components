@@ -49,6 +49,9 @@ declare global {
 
 export type SelectSize = 'md' | 'lg';
 
+/** Counter used to generate unique IDs for each Select instance. */
+let listboxIdCounter = 0;
+
 /**
  * A form control that allows users to select one option from a list of options.
  *
@@ -84,6 +87,9 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
+
+  /** Unique ID for the listbox element, used for `aria-controls` on the button. */
+  #listboxId = `sl-listbox-${++listboxIdCounter}`;
 
   /** Events controller. */
   #events = new EventsController(this, {
@@ -246,7 +252,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.showValidity = this.showValidity;
       this.button.size = this.size;
       this.button.tabIndex = this.disabled ? -1 : 0;
-      this.button.setAttribute('aria-controls', 'listbox');
       this.button.setAttribute('aria-expanded', 'false');
       this.button.setAttribute('aria-haspopup', 'listbox');
       this.prepend(this.button);
@@ -333,8 +338,19 @@ export class Select<T = any> extends ObserveAttributesMixin(
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
+      if (this.listbox) {
+        /**
+         * Set aria-controls as a string attribute first. Screen readers perform a global ID lookup
+         * and can find the listbox even across shadow root boundaries. Also set
+         * ariaControlsElements via ElementInternals as a progressive enhancement — ElementInternals
+         * can reference elements across shadow tree boundaries.
+         */
+        this.button.setAttribute('aria-controls', this.#listboxId);
+        this.button.internals.ariaControlsElements = [this.listbox];
+      }
+
       if (this.internals.labels.length) {
-        // Set the aria-label of the button to the concatenated text content of all labels
+        // Set aria-labelledby on the button from associated label ids.
         // FIXME: This is a workaround because we do not yet have access to `referenceTarget`
         this.button.setAttribute(
           'aria-labelledby',
@@ -343,10 +359,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
             .join(' ')
         );
 
-        console.log('this.listbox', this.listbox);
-
-        // Set ariaLabelledByElements on the listbox so it can reference labels across shadow boundary
-        this.listbox!.ariaLabelledByElements = Array.from(this.internals.labels) as Element[];
+        // Use element references so listbox labeling works across the shadow boundary.
+        if (this.listbox) {
+          this.listbox.ariaLabelledByElements = Array.from(this.internals.labels) as Element[];
+        }
       }
     });
   }
@@ -381,7 +397,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
         @keydown=${this.#onListboxKeydown}
         @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
-        id="listbox"
+        id=${this.#listboxId}
         part="listbox"
         popover>
         <slot @slotchange=${this.#onSlotchange}></slot>

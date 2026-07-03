@@ -1187,13 +1187,16 @@ describe('sl-combobox', () => {
       it('should keep the input caret next to the visible tags', async () => {
         await waitForNextFrame();
 
-        const visibleTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
-            tag => getComputedStyle(tag).display !== 'none'
-          ),
-          lastTag = visibleTags.at(-1)!,
-          inputRect = input.getBoundingClientRect(),
-          lastTagRect = lastTag.getBoundingClientRect(),
-          gap = inputRect.left - lastTagRect.right;
+const visibleTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
+    tag => getComputedStyle(tag).display !== 'none'
+  ),
+  lastTag = visibleTags.at(-1);
+
+expect(lastTag, 'expected at least one visible tag').to.exist;
+
+const inputRect = input.getBoundingClientRect(),
+  lastTagRect = lastTag!.getBoundingClientRect(),
+  gap = inputRect.left - lastTagRect.right;
 
         expect(gap).to.be.at.least(0);
         expect(gap).to.be.lessThan(16);

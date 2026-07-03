@@ -1,0 +1,115 @@
+body {
+  font-family: var(--sl-text-font-family);
+  font-size: var(--sl-base-font-size);
+  line-height: var(--sl-text-md-line-height);
+  font-weight: var(--sl-font-weight-regular);
+}
+
+.display {
+  font-size: var(--sl-display-md-font-size);
+  line-height: var(--sl-display-md-line-height);
+
+  &.lg {
+    font-size: var(--sl-display-lg-font-size);
+    line-height: var(--sl-display-lg-line-height);
+  }
+
+  &.sm {
+    font-size: var(--sl-display-sm-font-size);
+    line-height: var(--sl-display-sm-line-height);
+  }
+}
+
+.heading {
+  font-size: var(--sl-heading-md-font-size);
+  line-height: var(--sl-heading-md-line-height);
+
+  &.lg {
+    font-size: var(--sl-heading-lg-font-size);
+    line-height: var(--sl-heading-lg-line-height);
+  }
+
+  &.sm {
+    font-size: var(--sl-heading-sm-font-size);
+    line-height: var(--sl-heading-sm-line-height);
+  }
+}
+
+.label {
+  font-size: var(--sl-label-md-font-size);
+  line-height: var(--sl-label-md-line-height);
+
+  &.lg {
+    font-size: var(--sl-label-lg-font-size);
+    line-height: var(--sl-label-lg-line-height);
+  }
+
+  &.sm {
+    font-size: var(--sl-label-sm-font-size);
+    line-height: var(--sl-label-sm-line-height);
+  }
+}
+
+.text {
+  font-size: var(--sl-text-md-font-size);
+  line-height: var(--sl-text-md-line-height);
+  font-feature-settings: 'ss01';
+
+  &.lg {
+    font-size: var(--sl-text-lg-font-size);
+    line-height: var(--sl-text-lg-line-height);
+  }
+
+  &.sm {
+    font-size: var(--sl-text-sm-font-size);
+    line-height: var(--sl-text-sm-line-height);
+  }
+}
+
+.title {
+  font-size: var(--sl-title-md-font-size);
+  line-height: var(--sl-title-md-line-height);
+
+  &.lg {
+    font-size: var(--sl-title-lg-font-size);
+    line-height: var(--sl-title-lg-line-height);
+  }
+
+  &.sm {
+    font-size: var(--sl-title-sm-font-size);
+    line-height: var(--sl-title-sm-line-height);
+  }
+}
+
+.caption {
+  font-size: var(--sl-caption-md-font-size);
+  line-height: var(--sl-caption-md-line-height);
+
+  &.lg {
+    font-size: var(--sl-caption-lg-font-size);
+    line-height: var(--sl-caption-lg-line-height);
+  }
+}
+
+[data-User-Group='early'] {
+  font-feature-settings: 'ss02';
+}
+
+[data-User-Group='advanced'] {
+  font-feature-settings: 'ss03';
+  font-variation-settings:
+    'wght' 350,
+    'wdth' 85;
+
+  .title {
+    font-variation-settings:
+      'wght' 500,
+      'wdth' 100;
+  }
+
+  .heading {
+    font-variation-settings:
+      'wght' 700,
+      'wdth' 100;
+  }
+}

@@ -11,6 +11,7 @@ type Props = {
   earlyReaders: boolean;
   fontStretch: number;
   fontWeight: number;
+  straightL: boolean;
   textRisers: boolean;
 };
 type Story = StoryObj<Props>;
@@ -24,6 +25,7 @@ export default {
     doubleStory: false,
     fontStretch: 100,
     fontWeight: 400,
+    straightL: false,
     textRisers: false
   },
   argTypes: {
@@ -49,19 +51,20 @@ export default {
 Icon.register(faPlanetRinged);
 
 export const Basic: Story = {
-  render: ({ earlyReaders, doubleStory, fontStretch, fontWeight, textRisers }) => html`
+  render: ({ earlyReaders, doubleStory, fontStretch, fontWeight, textRisers, straightL }) => html`
     <style>
       body {
         /* font-family: the-message-var, sans-serif; */
         font-stretch: ${fontStretch}%;
         font-weight: ${fontWeight};
-        font-feature-settings: ${ifDefined(earlyReaders ? '"ss02"' : undefined)}
+        font-feature-settings: ${ifDefined(textRisers ? '"ss01"' : undefined)}
+          ${ifDefined(earlyReaders ? '"ss02"' : undefined)}
           ${ifDefined(doubleStory ? '"ss03"' : undefined)}
-          ${ifDefined(textRisers ? '"ss01"' : undefined)};
+          ${ifDefined(straightL ? '"ss04"' : undefined)};
       }
     </style>
-    <h1>What are planets?</h1>
-    <h2>Basic facts about the solar system</h2>
+    <h1 class="heading lg">What are planets?</h1>
+    <h2 class="title">Basic facts about the solar system</h2>
     <p>
       A planet is a large celestial body that orbits a star — in our case, the Sun. The solar system
       includes eight planets: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.
@@ -69,7 +72,7 @@ export const Basic: Story = {
       Earth is the “błękitna planeta,” full of life. In Germany, they say: “Die Erde ist unser
       Zuhause.” And in Finland: “Maapallo on elävä planeetta.”
     </p>
-    <h2>How do planets move?</h2>
+    <h2 class="title">How do planets move?</h2>
     <p>
       Planets travel along paths called orbits around the Sun. This movement is called a revolution.
       Earth takes about 365 days to complete one orbit. In the Netherlands, students learn: “De

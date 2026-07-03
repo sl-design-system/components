@@ -421,28 +421,10 @@ const build = async (production = false, path, deprecated) => {
     createConfigForThemeVariant(theme, variant, true)
   );
 
-  const typographyCss = await readFile(
-    join(cwd, './export/typography-sizing-spacing/typography.css'),
-    'utf8'
-  );
-
-  console.log(typographyCss);
-
   for (const cfg of [...configs, ...oldConfigs]) {
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
-
-    const typographyMin = join(themeBase, cfg.theme, 'typography.min.css');
-    const typographyResult = await postcss([cssnano({ preset: 'default' })]).process(
-      typographyCss,
-      {
-        from: join(cwd, './export/typography-sizing-spacing/typography.css'),
-        to: typographyMin
-      }
-    );
-
-    await writeFile(join(themeBase, cfg.theme, 'typography.css'), typographyCss, 'utf8');
 
     if (production) {
       const from = join(themeBase, cfg.theme, cfg.variant + '.css'),
@@ -452,7 +434,6 @@ const build = async (production = false, path, deprecated) => {
       const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
 
       await writeFile(to, result.css, 'utf8');
-      await writeFile(typographyMin, typographyResult.css, 'utf8');
     }
   }
 

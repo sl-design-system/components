@@ -511,7 +511,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                   item => item,
                   item => html`
                     <sl-tag
-                      @sl-remove=${(event: SlRemoveEvent) => this.#onRemove(item, event)}
+                      @sl-remove=${(event: SlRemoveEvent) => {
+                        event.stopPropagation();
+                        this.#onRemove(item, event);
+                      }}
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}>
                       ${item.label}

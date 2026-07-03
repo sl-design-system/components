@@ -270,23 +270,24 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    const hiddenTagsDescription = this.#getHiddenTagsDescription();
+
     return html`
       ${this.stacked
         ? html`
             <div class="stack">
               <sl-tag
-                aria-labelledby="tooltip"
+                aria-describedby="tooltip hidden-elements-description"
                 role="listitem"
                 size=${ifDefined(this.size)}
                 variant=${ifDefined(this.variant)}>
                 +${this.stackSize}
               </sl-tag>
+              <span id="hidden-elements-description" class="visually-hidden"
+                >${hiddenTagsDescription}</span
+              >
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
-                ${msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' })}:
-                ${this.tags
-                  .filter(tag => tag.style.display === 'none')
-                  .map(tag => tag.label)
-                  .join(', ')}
+                ${hiddenTagsDescription}
               </sl-tooltip>
             </div>
           `
@@ -295,6 +296,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
     `;
+  }
+
+  #getHiddenTagsDescription(): string {
+    const labels = this.tags
+      .filter(tag => tag.style.display === 'none')
+      .map(tag => tag.label)
+      .join(', ');
+
+    return `${msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' })}: ${labels}`;
   }
 
   #onRemove(event: SlRemoveEvent & { target: Tag }): void {

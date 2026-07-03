@@ -321,12 +321,16 @@ describe('sl-tag-list', () => {
 
     it('should have a tooltip for the stack', () => {
       const tag = el.renderRoot.querySelector('sl-tag'),
-        tooltip = el.renderRoot.querySelector('sl-tooltip');
+        tooltip = el.renderRoot.querySelector('sl-tooltip'),
+        description = el.renderRoot.querySelector('#hidden-elements-description');
 
       expect(tooltip).to.exist;
-      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-labelledby'));
+      expect(tag).not.to.have.attribute('aria-labelledby');
+      expect(tag).to.have.attribute('aria-describedby', 'tooltip hidden-elements-description');
+      expect(description).to.have.class('visually-hidden');
 
-      const tagContent = tooltip?.textContent?.trim();
+      const tagContent = tooltip?.textContent?.trim(),
+        descriptionContent = description?.textContent?.trim();
 
       expect(tagContent).to.exist;
       expect(tagContent?.includes('List of hidden elements:')).to.be.true;
@@ -335,6 +339,7 @@ describe('sl-tag-list', () => {
           'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
         )
       ).to.be.true;
+      expect(descriptionContent).to.equal(tagContent);
     });
 
     it('should have a stack with a tag, which contains the stack size', () => {

@@ -75,9 +75,9 @@ describe('example-child-form', () => {
     await addressForm.updateComplete;
 
     const parentTextField = (name: string): TextField | null =>
-        form.querySelector(`sl-text-field[name="${name}"]`),
+        form.querySelector<TextField>(`sl-text-field[name="${name}"]`),
       childTextField = (name: string): TextField | null =>
-        childForm.renderRoot.querySelector(`sl-text-field[name="${name}"]`);
+        childForm.renderRoot.querySelector<TextField>(`sl-text-field[name="${name}"]`);
 
     await waitForFieldValue(parentTextField('user.firstName'), 'Frans');
     await waitForFieldValue(parentTextField('user.lastName'), 'de Boer');

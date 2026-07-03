@@ -261,11 +261,11 @@
       "typeset": {
         "fontFamily": {
           "body": {
-            "$value": "The Message",
+            "$value": "Roboto",
             "$type": "fontFamily"
           },
           "heading": {
-            "$value": "The Message",
+            "$value": "Roboto",
             "$type": "fontFamily"
           },
           "icon": {

@@ -5,18 +5,22 @@ import {
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
-import { Option } from '@sl-design-system/listbox';
-import '@sl-design-system/listbox/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { Option } from '../index.js';
 import '../register.js';
 import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
 
 describe('sl-select', () => {
+  it('should export Option and register sl-option', () => {
+    expect(Option).to.exist;
+    expect(customElements.get('sl-option')).to.equal(Option);
+  });
+
   let el: Select, button: SelectButton;
 
   describe('defaults', () => {

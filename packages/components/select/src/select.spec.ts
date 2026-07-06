@@ -694,7 +694,7 @@ describe('sl-select', () => {
         button = select.querySelector('sl-select-button') as SelectButton,
         labels = Array.from(select.internals.labels) as Element[];
 
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       expect(labels.length).to.equal(1);
       expect(button.internals.ariaLabelledByElements).to.deep.equal(labels);

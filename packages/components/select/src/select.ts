@@ -341,18 +341,22 @@ export class Select<T = any> extends ObserveAttributesMixin(
       }
 
       if (this.internals.labels.length) {
-        // Set aria-labelledby on the button from associated label ids.
-        // FIXME: This is a workaround because we do not yet have access to `referenceTarget`
-        this.button.setAttribute(
-          'aria-labelledby',
-          Array.from(this.internals.labels)
-            .map(label => (label as HTMLLabelElement).id)
-            .join(' ')
-        );
+        const labels = Array.from(this.internals.labels) as Element[];
+
+        // Use element references so labeling works across the shadow boundary.
+        this.button.internals.ariaLabelledByElements = labels;
+
+        // Fallback for environments without ARIA element reflection support.
+        if (!('ariaLabelledByElements' in Element.prototype)) {
+          this.button.setAttribute(
+            'aria-labelledby',
+            labels.map(label => (label as HTMLLabelElement).id).join(' ')
+          );
+        }
 
         // Use element references so listbox labeling works across the shadow boundary.
         if (this.listbox) {
-          this.listbox.ariaLabelledByElements = Array.from(this.internals.labels) as Element[];
+          this.listbox.ariaLabelledByElements = labels;
         }
       }
     });

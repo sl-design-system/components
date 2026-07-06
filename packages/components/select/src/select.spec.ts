@@ -680,15 +680,15 @@ describe('sl-select', () => {
       expect(el.shadowRoot!.activeElement).to.equal(button);
     });
 
-    it('should set aria-labelledby on the select button from associated label ids', async () => {
+    it('should set ariaLabelledByElements on the select button from associated labels', async () => {
       const select = el.renderRoot.querySelector('sl-select') as Select,
         button = select.querySelector('sl-select-button') as SelectButton,
-        labels = Array.from(select.internals.labels) as HTMLLabelElement[];
+        labels = Array.from(select.internals.labels) as Element[];
 
       await new Promise(resolve => setTimeout(resolve));
 
       expect(labels.length).to.equal(1);
-      expect(button).to.have.attribute('aria-labelledby', labels.map(label => label.id).join(' '));
+      expect(button.internals.ariaLabelledByElements).to.deep.equal(labels);
     });
 
     it('should set ariaLabelledByElements on the listbox from associated labels', async () => {

@@ -28,6 +28,7 @@
     "./dark-deprecated.min.css": "./dark-deprecated.min.css",
     "./fonts.css": "./fonts.css",
     "./package.json": "./package.json",
+    "./typography.css": "./typography.css",
     "./css/*.css": "./css/*.css"
   },
   "files": [

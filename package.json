@@ -157,7 +157,8 @@
       "clean": false,
       "files": [
         "scripts/setup-themes.js",
-        "packages/themes/core/global.css"
+        "packages/themes/core/global.css",
+        "packages/themes/core/typography.css"
       ]
     },
     "build:themes:styles": {
@@ -235,7 +236,8 @@
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css",
-        "!packages/themes/*/global.css"
+        "!packages/themes/*/global.css",
+        "!packages/themes/*/typography.css"
       ]
     },
     "dist:types": {

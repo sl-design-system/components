@@ -384,7 +384,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
         @keydown=${this.#onListboxKeydown}
         @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
-        id="listbox"
         part="listbox"
         popover>
         <slot @slotchange=${this.#onSlotchange}></slot>

@@ -166,7 +166,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       ]
         .filter(Boolean)
         .join(' '),
-      labelDescription = [
+      labelDescribedBy = [
         this.tooltip ? 'tooltip' : undefined,
         this.labelDescription ? 'label-description' : undefined
       ]
@@ -178,7 +178,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       <div
         @blur=${this.#onBlur}
         @focus=${this.#onFocus}
-        aria-describedby=${ifDefined(labelDescription || undefined)}
+        aria-describedby=${ifDefined(labelDescribedBy || undefined)}
         part="label"
         tabindex=${ifDefined(labelTabIndex)}>
         <slot @slotchange=${this.#onSlotChange}></slot>

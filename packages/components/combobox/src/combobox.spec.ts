@@ -1247,37 +1247,27 @@ describe('sl-combobox', () => {
       });
 
       it('should keep the input width bounded while adding tags in limited space', async () => {
-        vi.useFakeTimers();
+        el.style.maxInlineSize = '300px';
+        const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
 
-        try {
-          el.style.maxInlineSize = '300px';
-          const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
+        for (const count of [1, 2, 3, 4, 5, 6]) {
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'].slice(
+            0,
+            count
+          );
+          await el.updateComplete;
+          await new Promise(resolve => setTimeout(resolve, 300));
+          await el.updateComplete;
+          await waitForNextFrame();
 
-          for (const count of [1, 2, 3, 4, 5, 6]) {
-            el.value = [
-              'Option 1',
-              'Option 2',
-              'Option 3',
-              'Option 4',
-              'Option 5',
-              'Option 6'
-            ].slice(0, count);
-            await el.updateComplete;
-            await vi.advanceTimersByTimeAsync(300);
-            await el.updateComplete;
-            await waitForNextFrame();
+          const inputWidth = input.getBoundingClientRect().width,
+            fieldWidth = textField.getBoundingClientRect().width,
+            comboboxWidth = el.getBoundingClientRect().width;
 
-            const inputWidth = input.getBoundingClientRect().width,
-              fieldWidth = textField.getBoundingClientRect().width,
-              comboboxWidth = el.getBoundingClientRect().width;
-
-            expect(inputWidth).to.be.a('number');
-            expect(Number.isFinite(inputWidth)).to.be.true;
-            expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
-            expect(comboboxWidth).to.be.at.most(300.5);
-          }
-        } finally {
-          vi.useRealTimers();
+          expect(inputWidth).to.be.a('number');
+          expect(Number.isFinite(inputWidth)).to.be.true;
+          expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
+          expect(comboboxWidth).to.be.at.most(300.5);
         }
       });
 

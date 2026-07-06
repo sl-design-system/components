@@ -72,9 +72,10 @@ export default {
       } else if (index >= items.length) {
         scrollToPosition = items.length - 1;
       }
-      document
-        .querySelector('sl-virtual-list')
-        ?.scrollToIndex(scrollToPosition, { align: 'start', behavior });
+      const list = document.querySelector<VirtualList>('sl-virtual-list');
+
+      list?.scrollToIndex(scrollToPosition, { align: 'start', behavior });
+      list?.requestUpdate();
     };
 
     return html`

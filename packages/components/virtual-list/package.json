@@ -42,11 +42,11 @@
     "@sl-design-system/shared": "^0.12.2"
   },
   "devDependencies": {
-    "@tanstack/virtual-core": "3.13.12",
+    "@tanstack/virtual-core": "3.17.1",
     "lit": "^3.3.3"
   },
   "peerDependencies": {
-    "@tanstack/virtual-core": "3.13.12",
+    "@tanstack/virtual-core": "3.17.1",
     "lit": "^3.1.4"
   }
 }

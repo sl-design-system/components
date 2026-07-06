@@ -589,6 +589,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
+    const expanded = event.newState === 'open',
+      button = this.renderRoot.querySelector<HTMLButtonElement>('button[slot="suffix"]');
+
+    button?.setAttribute('aria-expanded', expanded.toString());
+
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
       this.wrapper!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
@@ -655,7 +660,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       event.inputType !== 'deleteContentBackward' &&
       (this.autocomplete === 'inline' || this.autocomplete === 'both')
     ) {
-      item = this.items.find(i => i.label.toLowerCase().startsWith(value.toLowerCase()));
+      item = this.items.find(
+        i => i.type === 'option' && i.label.toLowerCase().startsWith(value.toLowerCase())
+      );
 
       if (item) {
         this.input.value = item.label;
@@ -795,9 +802,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
-      // This setup now ignores prefers-reduced-motion and can cause unwanted motion for users who explicitly disable animations.
-      // When the reliability issue is resolved, we should switch back to using 'auto' and respect prefers-reduced-motion again.
+      this.#updateCurrent(items[index], 'auto');
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -1294,7 +1299,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #toggleSelectedOption(item?: ComboboxItem<T, U>, force?: boolean): void {
-    if (!item) {
+    if (!item || item.type !== 'option') {
       return;
     }
 
@@ -1302,8 +1307,24 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     if (selected) {
       this.#addSelectedOption(item);
+
+      if (this.multiple && this.groupSelected) {
+        void this.#scrollSelectedGroupIntoView();
+      }
     } else {
       this.#removeSelectedOption(item);
+    }
+  }
+
+  async #scrollSelectedGroupIntoView(): Promise<void> {
+    await this.updateComplete;
+    await this.listbox?.updateComplete;
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+    if (this.#useVirtualList) {
+      this.listbox?.scrollToIndex(0, { block: 'start', behavior: 'auto' });
+    } else {
+      this.#selectedGroup?.scrollIntoView({ block: 'start', behavior: 'auto' });
     }
   }
 

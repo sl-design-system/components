@@ -171,6 +171,7 @@
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/global.css",
+        "!packages/themes/*/typography.css",
         "!packages/themes/*/fonts.css"
       ]
     },

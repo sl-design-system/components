@@ -1,8 +1,12 @@
-body {
+[data-User-Group] {
   font-family: var(--sl-text-font-family);
   font-size: var(--sl-base-font-size);
   line-height: var(--sl-text-md-line-height);
   font-weight: var(--sl-font-weight-regular);
+  background-color: var(--sl-color-background-default);
+}
+
+[data-User-Group] * {
   font-feature-settings:
     'ss01' var(--sl-font-feature-settings-textRisers, off),
     'ss02' var(--sl-font-feature-settings-earlyReaders, off),
@@ -12,20 +16,20 @@ body {
 
 .display {
   font-size: var(--sl-display-md-font-size);
-  font-weight: var(--sl-display-md-font-weight);
+  font-weight: var(--sl-typography-display-md-font-weight);
   line-height: var(--sl-display-md-line-height);
   letter-spacing: var(--sl-display-md-letter-spacing);
 
   &.lg {
     font-size: var(--sl-display-lg-font-size);
-    font-weight: var(--sl-display-lg-font-weight);
+    font-weight: var(--sl-typography-display-lg-font-weight);
     line-height: var(--sl-display-lg-line-height);
     letter-spacing: var(--sl-display-lg-letter-spacing);
   }
 
   &.sm {
     font-size: var(--sl-display-sm-font-size);
-    font-weight: var(--sl-display-sm-font-weight);
+    font-weight: var(--sl-typography-display-sm-font-weight);
     line-height: var(--sl-display-sm-line-height);
     letter-spacing: var(--sl-display-sm-letter-spacing);
   }
@@ -33,41 +37,62 @@ body {
 
 .heading {
   font-size: var(--sl-heading-md-font-size);
-  font-weight: var(--sl-heading-md-font-weight);
+  font-weight: var(--sl-typography-heading-md-font-weight);
   line-height: var(--sl-heading-md-line-height);
   letter-spacing: var(--sl-heading-md-letter-spacing);
 
   &.lg {
     font-size: var(--sl-heading-lg-font-size);
-    font-weight: var(--sl-heading-lg-font-weight);
+    font-weight: var(--sl-typography-heading-lg-font-weight);
     line-height: var(--sl-heading-lg-line-height);
     letter-spacing: var(--sl-heading-lg-letter-spacing);
   }
 
   &.sm {
     font-size: var(--sl-heading-sm-font-size);
-    font-weight: var(--sl-heading-sm-font-weight);
+    font-weight: var(--sl-typography-heading-sm-font-weight);
     line-height: var(--sl-heading-sm-line-height);
     letter-spacing: var(--sl-heading-sm-letter-spacing);
   }
 }
 
+.title {
+  font-size: var(--sl-title-md-font-size);
+  font-weight: var(--sl-typography-title-md-font-weight);
+  line-height: var(--sl-title-md-line-height);
+  letter-spacing: var(--sl-title-md-letter-spacing);
+
+  &.lg {
+    font-size: var(--sl-title-lg-font-size);
+    font-weight: var(--sl-typography-title-lg-font-weight);
+    line-height: var(--sl-title-lg-line-height);
+    letter-spacing: var(--sl-title-lg-letter-spacing);
+  }
+
+  &.sm {
+    font-size: var(--sl-title-sm-font-size);
+    font-weight: var(--sl-typography-title-sm-font-weight);
+    line-height: var(--sl-title-sm-line-height);
+    letter-spacing: var(--sl-title-sm-letter-spacing);
+  }
+}
+
 .label {
   font-size: var(--sl-label-md-font-size);
-  font-weight: var(--sl-label-md-font-weight);
+  font-weight: var(--sl-typography-label-md-font-weight);
   line-height: var(--sl-label-md-line-height);
   letter-spacing: var(--sl-label-md-letter-spacing);
 
   &.lg {
     font-size: var(--sl-label-lg-font-size);
-    font-weight: var(--sl-label-lg-font-weight);
+    font-weight: var(--sl-typography-label-lg-font-weight);
     line-height: var(--sl-label-lg-line-height);
     letter-spacing: var(--sl-label-lg-letter-spacing);
   }
 
   &.sm {
     font-size: var(--sl-label-sm-font-size);
-    font-weight: var(--sl-label-sm-font-weight);
+    font-weight: var(--sl-typography-label-sm-font-weight);
     line-height: var(--sl-label-sm-line-height);
     letter-spacing: var(--sl-label-sm-letter-spacing);
   }
@@ -76,55 +101,34 @@ body {
 .text {
   --sl-font-feature-settings-textRisers: on;
   font-size: var(--sl-text-md-font-size);
-  font-weight: var(--sl-text-md-font-weight);
+  font-weight: var(--sl-typography-text-md-font-weight);
   line-height: var(--sl-text-md-line-height);
   letter-spacing: var(--sl-text-md-letter-spacing);
 
   &.lg {
     font-size: var(--sl-text-lg-font-size);
-    font-weight: var(--sl-text-lg-font-weight);
+    font-weight: var(--sl-typography-text-lg-font-weight);
     line-height: var(--sl-text-lg-line-height);
     letter-spacing: var(--sl-text-lg-letter-spacing);
   }
 
   &.sm {
     font-size: var(--sl-text-sm-font-size);
-    font-weight: var(--sl-text-sm-font-weight);
+    font-weight: var(--sl-typography-text-sm-font-weight);
     line-height: var(--sl-text-sm-line-height);
     letter-spacing: var(--sl-text-sm-letter-spacing);
   }
 }
 
-.title {
-  font-size: var(--sl-title-md-font-size);
-  font-weight: var(--sl-title-md-font-weight);
-  line-height: var(--sl-title-md-line-height);
-  letter-spacing: var(--sl-title-md-letter-spacing);
-
-  &.lg {
-    font-size: var(--sl-title-lg-font-size);
-    font-weight: var(--sl-title-lg-font-weight);
-    line-height: var(--sl-title-lg-line-height);
-    letter-spacing: var(--sl-title-lg-letter-spacing);
-  }
-
-  &.sm {
-    font-size: var(--sl-title-sm-font-size);
-    font-weight: var(--sl-title-sm-font-weight);
-    line-height: var(--sl-title-sm-line-height);
-    letter-spacing: var(--sl-title-sm-letter-spacing);
-  }
-}
-
 .caption {
   font-size: var(--sl-caption-md-font-size);
-  font-weight: var(--sl-caption-md-font-weight);
+  font-weight: var(--sl-typography-caption-md-font-weight);
   line-height: var(--sl-caption-md-line-height);
   letter-spacing: var(--sl-caption-md-letter-spacing);
 
   &.lg {
     font-size: var(--sl-caption-lg-font-size);
-    font-weight: var(--sl-caption-lg-font-weight);
+    font-weight: var(--sl-typography-caption-lg-font-weight);
     line-height: var(--sl-caption-lg-line-height);
     letter-spacing: var(--sl-caption-lg-letter-spacing);
   }
@@ -138,11 +142,16 @@ body {
   --sl-font-feature-settings-doubleStory: on;
   font-variation-settings: 'wdth' 85;
 
-  .title {
-    font-variation-settings: 'wdth' 100;
+  .display {
+    --sl-font-feature-settings-doubleStory: off;
   }
 
   .heading {
+    --sl-font-feature-settings-doubleStory: off;
+    font-variation-settings: 'wdth' 100;
+  }
+
+  .title {
     font-variation-settings: 'wdth' 100;
   }
 }

@@ -125,7 +125,6 @@ StyleDictionary.registerTransform({
       : originalValue.startsWith('set_alpha')
         ? (originalValue.match(/set_alpha\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
         : [];
-    console.log('Transforming color:', originalValue, 'to color-mix with', color, opacity);
 
     if (color && opacity) {
       if (opacity.endsWith('%')) {

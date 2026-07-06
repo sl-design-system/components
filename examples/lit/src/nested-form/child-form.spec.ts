@@ -60,13 +60,13 @@ describe('example-child-form', () => {
 
     form.value = {
       user: {
-        firstName: 'Frans',
-        lastName: 'de Boer',
+        firstName: 'Captain',
+        lastName: 'Debug',
         address: {
-          postalCode: '8989AA',
-          houseNumber: '17',
-          street: 'Wiardaplantage',
-          city: 'Leeuwarden'
+          postalCode: '404OK',
+          houseNumber: '42',
+          street: 'Breakpoint Boulevard',
+          city: 'Stacktrace City'
         }
       }
     };
@@ -80,11 +80,11 @@ describe('example-child-form', () => {
       childTextField = (name: string): TextField | null =>
         childForm.renderRoot.querySelector<TextField>(`sl-text-field[name="${name}"]`);
 
-    await waitForFieldValue(parentTextField('user.firstName'), 'Frans');
-    await waitForFieldValue(parentTextField('user.lastName'), 'de Boer');
-    await waitForFieldValue(childTextField('postalCode'), '8989AA');
-    await waitForFieldValue(childTextField('houseNumber'), '17');
-    await waitForFieldValue(childTextField('street'), 'Wiardaplantage');
-    await waitForFieldValue(childTextField('city'), 'Leeuwarden');
+    await waitForFieldValue(parentTextField('user.firstName'), 'Captain');
+    await waitForFieldValue(parentTextField('user.lastName'), 'Debug');
+    await waitForFieldValue(childTextField('postalCode'), '404OK');
+    await waitForFieldValue(childTextField('houseNumber'), '42');
+    await waitForFieldValue(childTextField('street'), 'Breakpoint Boulevard');
+    await waitForFieldValue(childTextField('city'), 'Stacktrace City');
   });
 });

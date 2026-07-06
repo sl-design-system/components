@@ -346,14 +346,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
         // Use element references so labeling works across the shadow boundary.
         this.button.internals.ariaLabelledByElements = labels;
 
-        // Fallback for environments without ARIA element reflection support.
-        if (!('ariaLabelledByElements' in Element.prototype)) {
-          this.button.setAttribute(
-            'aria-labelledby',
-            labels.map(label => (label as HTMLLabelElement).id).join(' ')
-          );
-        }
-
         // Use element references so listbox labeling works across the shadow boundary.
         if (this.listbox) {
           this.listbox.ariaLabelledByElements = labels;

@@ -115,9 +115,17 @@ StyleDictionary.registerTransform({
   name: 'sl/color/transparentColorMix',
   type: 'value',
   transitive: true,
-  filter: token => token.$type === 'color' && token.original?.$value?.startsWith('rgba'),
+  filter: token =>
+    token.$type === 'color' &&
+    (token.original?.$value?.startsWith('rgba') || token.original?.$value?.startsWith('set_alpha')),
   transform: token => {
-    const [_, color, opacity] = token.original?.$value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
+    const originalValue = token.original?.$value;
+    const [_, color, opacity] = originalValue.startsWith('rgba')
+      ? (originalValue.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
+      : originalValue.startsWith('set_alpha')
+        ? (originalValue.match(/set_alpha\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
+        : [];
+    console.log('Transforming color:', originalValue, 'to color-mix with', color, opacity);
 
     if (color && opacity) {
       if (opacity.endsWith('%')) {

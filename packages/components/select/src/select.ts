@@ -49,9 +49,6 @@ declare global {
 
 export type SelectSize = 'md' | 'lg';
 
-/** Counter used to generate unique IDs for each Select instance. */
-let listboxIdCounter = 0;
-
 /**
  * A form control that allows users to select one option from a list of options.
  *
@@ -87,9 +84,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
-
-  /** Unique ID for the listbox element, used for `aria-controls` on the button. */
-  #listboxId = `sl-listbox-${++listboxIdCounter}`;
 
   /** Events controller. */
   #events = new EventsController(this, {
@@ -394,7 +388,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
         @keydown=${this.#onListboxKeydown}
         @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
-        id=${this.#listboxId}
+        id="listbox"
         part="listbox"
         popover>
         <slot @slotchange=${this.#onSlotchange}></slot>

@@ -221,6 +221,16 @@ describe('sl-combobox', () => {
       expect(button).to.have.attribute('aria-expanded', 'true');
     });
 
+    it('should update aria-expanded on the button immediately when toggling the popover', () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      expect(button).to.have.attribute('aria-expanded', 'true');
+
+      button?.click();
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
     it('should switch aria-expanded back to "false" when the popover closes', async () => {
       const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
 

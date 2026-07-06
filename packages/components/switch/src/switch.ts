@@ -339,7 +339,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
       if (!this.infotip.describes) {
         // Ensure label is synthesized before reading it
         this.#onLabelSlotChange();
-        this.infotip.describes = this.#label?.textContent?.trim() || '';
+        this.infotip.describes = this.#label?.textContent?.replace(/\s+/g, ' ').trim() || '';
       }
     }
   }

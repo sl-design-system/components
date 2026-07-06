@@ -309,11 +309,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       return;
     }
 
-    const label = nodes
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent?.trim())
-      .join(' ');
-    if (label.length > 0) {
+    const labelText = this.#labelText();
+    if (nodes.length > 0 && labelText.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
       this.#label.id ||= `sl-checkbox-label-${nextUniqueId++}`;
@@ -335,10 +332,10 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     });
 
     if (this.infotip && !this.infotip.describes) {
-      this.infotip.describes = this.#labelText();
+      this.infotip.describes = labelText;
     }
 
-    this.toggleAttribute('no-label', label.length === 0);
+    this.toggleAttribute('no-label', labelText.length === 0);
   }
 
   #labelText(): string {

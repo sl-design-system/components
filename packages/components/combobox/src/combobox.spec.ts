@@ -6,7 +6,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Option } from '../index.js';
+import { Listbox, Option, OptionGroup } from '../index.js';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
@@ -14,9 +14,14 @@ import { type GroupedOption } from './grouped-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
-  it('should export Option and register sl-option', () => {
+  it('should export and register listbox option components', () => {
+    expect(Listbox).to.exist;
     expect(Option).to.exist;
+    expect(OptionGroup).to.exist;
+
+    expect(customElements.get('sl-listbox')).to.equal(Listbox);
     expect(customElements.get('sl-option')).to.equal(Option);
+    expect(customElements.get('sl-option-group')).to.equal(OptionGroup);
   });
   let el: Combobox, input: HTMLInputElement;
 

@@ -10,15 +10,20 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Option } from '../index.js';
+import { Listbox, Option, OptionGroup } from '../index.js';
 import '../register.js';
 import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
 
 describe('sl-select', () => {
-  it('should export Option and register sl-option', () => {
+  it('should export and register listbox option components', () => {
+    expect(Listbox).to.exist;
     expect(Option).to.exist;
+    expect(OptionGroup).to.exist;
+
+    expect(customElements.get('sl-listbox')).to.equal(Listbox);
     expect(customElements.get('sl-option')).to.equal(Option);
+    expect(customElements.get('sl-option-group')).to.equal(OptionGroup);
   });
 
   let el: Select, button: SelectButton;

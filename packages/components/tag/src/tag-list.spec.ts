@@ -322,11 +322,13 @@ describe('sl-tag-list', () => {
     it('should have a tooltip for the stack', () => {
       const tag = el.renderRoot.querySelector('sl-tag'),
         tooltip = el.renderRoot.querySelector('sl-tooltip'),
-        description = el.renderRoot.querySelector('#hidden-elements-description');
+        label = tag?.renderRoot.querySelector('[part="label"]'),
+        description = tag?.renderRoot.querySelector('#label-description');
 
       expect(tooltip).to.exist;
       expect(tag).not.to.have.attribute('aria-labelledby');
-      expect(tag).to.have.attribute('aria-describedby', 'tooltip hidden-elements-description');
+      expect(tag).to.have.attribute('aria-describedby', 'tooltip');
+      expect(label).to.have.attribute('aria-describedby', 'label-description');
       expect(description).to.have.class('visually-hidden');
 
       const tagContent = tooltip?.textContent?.trim(),

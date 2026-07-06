@@ -100,7 +100,6 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
 
           void form.updateComplete.then(() => {
             this.setCustomValidity(form.invalid ? 'Please enter a valid address.' : '');
-            this.updateValidity();
           });
         }
       }

@@ -1,2 +1,2 @@
 export * from './src/select.js';
-export * from '@sl-design-system/listbox';
+export { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';

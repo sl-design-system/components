@@ -1197,56 +1197,53 @@ describe('sl-combobox', () => {
       it('should keep the input caret next to the visible tags', async () => {
         await waitForNextFrame();
 
-const visibleTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
-    tag => getComputedStyle(tag).display !== 'none'
-  ),
-  lastTag = visibleTags.at(-1);
+        const visibleTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
+            tag => getComputedStyle(tag).display !== 'none'
+          ),
+          lastTag = visibleTags.at(-1);
 
-expect(lastTag, 'expected at least one visible tag').to.exist;
+        expect(lastTag, 'expected at least one visible tag').to.exist;
 
-const inputRect = input.getBoundingClientRect(),
-  lastTagRect = lastTag!.getBoundingClientRect(),
-  gap = inputRect.left - lastTagRect.right;
+        const inputRect = input.getBoundingClientRect(),
+          lastTagRect = lastTag!.getBoundingClientRect(),
+          gap = inputRect.left - lastTagRect.right;
 
         expect(gap).to.be.at.least(0);
         expect(gap).to.be.lessThan(16);
       });
 
       it('should not flicker when selecting many items in a limited space', async () => {
-        vi.useFakeTimers();
+        el.style.maxInlineSize = '300px';
 
-        try {
-          el.style.maxInlineSize = '300px';
+        // Select items that would trigger a collapse
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
 
-          // Select items that would trigger a collapse
-          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
-          await el.updateComplete;
+        const getVisibilityState = () =>
+          Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
+            tag => tag.style.display !== 'none'
+          );
 
-          const getVisibilityState = () =>
-            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
-              tag => tag.style.display !== 'none'
-            );
+        // Allow initial layout/stacking to settle. Use real timers because ResizeObserver delivery
+        // is browser-driven and can deadlock with fake timers in CI.
+        await new Promise(resolve => setTimeout(resolve, 300));
+        await el.updateComplete;
+        await waitForNextFrame();
 
-          // Allow initial layout/stacking to settle.
-          await vi.advanceTimersByTimeAsync(300);
-          await el.updateComplete;
-          await waitForNextFrame();
-          const firstState = getVisibilityState(),
-            firstInputWidth = input.getBoundingClientRect().width;
+        const firstState = getVisibilityState(),
+          firstInputWidth = input.getBoundingClientRect().width;
 
-          // Wait long enough to cover any potential oscillation cycles
-          await vi.advanceTimersByTimeAsync(500);
-          await el.updateComplete;
-          await waitForNextFrame();
-          const secondState = getVisibilityState(),
-            secondInputWidth = input.getBoundingClientRect().width;
+        // Wait long enough to cover any potential oscillation cycles.
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await el.updateComplete;
+        await waitForNextFrame();
 
-          // If the component flickers, the visibility pattern of tags would change over time.
-          expect(secondState).to.deep.equal(firstState);
-          expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
-        } finally {
-          vi.useRealTimers();
-        }
+        const secondState = getVisibilityState(),
+          secondInputWidth = input.getBoundingClientRect().width;
+
+        // If the component flickers, the visibility pattern of tags would change over time.
+        expect(secondState).to.deep.equal(firstState);
+        expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
       });
 
       it('should keep the input width bounded while adding tags in limited space', async () => {

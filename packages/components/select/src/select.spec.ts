@@ -124,12 +124,6 @@ describe('sl-select', () => {
       expect(el.button).to.have.attribute('aria-labelledby', 'id');
     });
 
-    it('should set aria-controls on the button', async () => {
-      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
-
-      expect(el.button).to.have.attribute('aria-controls', el.listbox!.id);
-    });
-
     it('should set ariaControlsElements via internals on the button pointing to the listbox', async () => {
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 

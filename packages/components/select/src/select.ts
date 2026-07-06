@@ -340,12 +340,9 @@ export class Select<T = any> extends ObserveAttributesMixin(
     requestAnimationFrame(() => {
       if (this.listbox) {
         /**
-         * Set aria-controls as a string attribute first. Screen readers perform a global ID lookup
-         * and can find the listbox even across shadow root boundaries. Also set
-         * ariaControlsElements via ElementInternals as a progressive enhancement — ElementInternals
-         * can reference elements across shadow tree boundaries.
+         * Use ElementInternals element references so the button can reference the listbox across
+         * shadow DOM boundary.
          */
-        this.button.setAttribute('aria-controls', this.#listboxId);
         this.button.internals.ariaControlsElements = [this.listbox];
       }
 

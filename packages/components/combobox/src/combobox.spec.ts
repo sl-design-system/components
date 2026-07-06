@@ -36,6 +36,32 @@ describe('sl-combobox', () => {
     await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
   };
 
+  const waitForActiveElement = async (
+    root: Document | ShadowRoot,
+    expected: Element,
+    timeout = 1000
+  ): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (root.activeElement !== expected && Date.now() - startedAt < timeout) {
+      await waitForNextMacrotask();
+      await waitForNextFrame();
+    }
+
+    expect(root.activeElement).to.equal(expected);
+  };
+
+  const waitForCondition = async (condition: () => boolean, timeout = 1000): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (!condition() && Date.now() - startedAt < timeout) {
+      await waitForNextMacrotask();
+      await waitForNextFrame();
+    }
+
+    expect(condition()).to.be.true;
+  };
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -1309,35 +1335,41 @@ describe('sl-combobox', () => {
         await combobox.updateComplete;
 
         const comboboxRoot = combobox.renderRoot as ShadowRoot,
+          tagList = comboboxRoot.querySelector('sl-tag-list')!,
           tags = Array.from(comboboxRoot.querySelectorAll('sl-tag')),
           buttons = tags.map(tag => tag.renderRoot.querySelector('button'));
 
         expect(tags).to.have.lengthOf(2);
+        await tagList.updateComplete;
+        await waitForCondition(() => tags[0].getAttribute('tabindex') === '0');
 
-        wrapper.querySelector('button')!.focus();
+        expect(tags[0]).to.have.attribute('tabindex', '0');
+        expect(tags[1]).to.have.attribute('tabindex', '-1');
+        expect(buttons[0]).to.have.attribute('tabindex', '0');
+        expect(buttons[1]).to.have.attribute('tabindex', '-1');
 
-        await userEvent.tab();
+        tags[0].focus();
 
-        expect(comboboxRoot.activeElement).to.equal(tags[0]);
-        expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+        await waitForActiveElement(comboboxRoot, tags[0]);
+        await waitForActiveElement(tags[0].shadowRoot!, buttons[0]!);
 
         await userEvent.keyboard('{ArrowRight}');
 
-        expect(comboboxRoot.activeElement).to.equal(tags[1]);
-        expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
+        await waitForActiveElement(comboboxRoot, tags[1]);
+        await waitForActiveElement(tags[1].shadowRoot!, buttons[1]!);
 
         await userEvent.keyboard('{ArrowLeft}');
 
-        expect(comboboxRoot.activeElement).to.equal(tags[0]);
-        expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+        await waitForActiveElement(comboboxRoot, tags[0]);
+        await waitForActiveElement(tags[0].shadowRoot!, buttons[0]!);
 
         await userEvent.tab();
 
-        expect(document.activeElement).to.equal(input);
+        await waitForActiveElement(document, input);
 
         await userEvent.tab();
 
-        expect(document.activeElement).to.equal(wrapper.querySelector('button:last-child'));
+        await waitForActiveElement(document, wrapper.querySelector('button:last-child')!);
       });
 
       it('should not show fake tag focus when navigating from the input with arrow keys', async () => {

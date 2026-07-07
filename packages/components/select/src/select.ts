@@ -344,9 +344,11 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
       if (this.internals.labels.length) {
         const labels = Array.from(this.internals.labels) as Element[],
+          ariaLabel = this.button.getAttribute('aria-label')?.trim(),
+          ariaLabelledBy = this.button.getAttribute('aria-labelledby')?.trim(),
           hasExplicitLabel =
-            this.button.hasAttribute('aria-label') ||
-            this.button.hasAttribute('aria-labelledby') ||
+            Boolean(ariaLabel) ||
+            Boolean(ariaLabelledBy) ||
             (this.button.ariaLabelledByElements?.length ?? 0) > 0;
 
         // Use element references so labeling works across the shadow boundary.

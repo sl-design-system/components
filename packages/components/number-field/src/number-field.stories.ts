@@ -122,6 +122,7 @@ export const FormatCurrency: Story = {
   args: {
     formatOptions: { style: 'currency', currency: 'EUR' },
     hint: 'The number is formatted as currency.',
+    reportValidity: true,
     step: 0.01,
     valueAsNumber: 9.9
   }
@@ -165,7 +166,7 @@ export const Readonly: Story = {
 
 export const Required: Story = {
   args: {
-    hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    hint: 'This field is required and has a maximum value of 10. Leave it empty or exceed the max to see an error message when clicking the button.',
     max: 10,
     reportValidity: true,
     required: true

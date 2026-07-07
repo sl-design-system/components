@@ -60,7 +60,7 @@ const stripPrefix = (dictionary, prefix) => {
 StyleDictionary.registerPreprocessor({
   name: 'strip-routing-prefix',
   preprocessor: (dictionary, { theme }) => {
-    ['I', 'II', theme].forEach(prefix => {
+    ['I-A', 'I-B', 'I-C', 'II-E', 'II-F', theme].forEach(prefix => {
       // Return early if the prefix is not present
       if (!dictionary[prefix]) {
         return;
@@ -117,7 +117,12 @@ StyleDictionary.registerTransform({
   transitive: true,
   filter: token => token.$type === 'color' && token.original?.$value?.startsWith('rgba'),
   transform: token => {
-    const [_, color, opacity] = token.original?.$value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
+    const originalValue = token.original?.$value;
+    const [_, color, opacity] = originalValue.startsWith('rgba')
+      ? (originalValue.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
+      : originalValue.startsWith('set_alpha')
+        ? (originalValue.match(/set_alpha\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
+        : [];
 
     if (color && opacity) {
       if (opacity.endsWith('%')) {
@@ -148,11 +153,7 @@ StyleDictionary.registerTransform({
   transform: token => {
     const value = token.$value;
 
-    return value?.endsWith('%')
-      ? transformLineHeight(value)
-      : value?.endsWith('px')
-        ? value
-        : `${value}px`;
+    return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
   }
 });
 
@@ -213,14 +214,34 @@ const getThemes = async folder => {
   return themes;
 };
 
-const build = async (production = false, path, deprecated) => {
+const build = async (production = false, path) => {
   const cwd = new URL('.', import.meta.url).pathname,
     themeBase = join(cwd, '../packages/themes'),
-    themes = await getThemes(join(cwd, path));
-  // if you want to debug the build to see which themes are being built, uncomment the console.log line below and replace the line above with
-  // themes = [<result of the console.log>];
+    // themes = await getThemes(join(cwd, path));
+    // if you want to debug the build to see which themes are being built, uncomment the console.log line below and replace the line above with
+    themes = [
+      // ['bingel-int', 'light']
+      ['editorial-suite', 'light']
+      // ['clickedu', 'light'],
+      // ['bingel-dc', 'light'],
+      // ['itslearning', 'light'],
+      // ['kampus', 'light'],
+      // ['magister', 'light'],
+      // ['magister', 'dark'],
+      // ['max', 'light'],
+      // ['my-digital-book', 'light'],
+      // ['sanoma-learning', 'light'],
+      // ['sanoma-learning', 'dark'],
+      // ['sanoma-pro', 'light'],
+      // ['neon', 'light'],
+      // ['neon', 'dark'],
+      // ['sanoma-utbildning', 'light'],
+      // ['teacher-assistant', 'light'],
+      // ['teas', 'light'],
+      // ['tig', 'light']
+    ];
   // you can (un)comment out each theme until you find the one that is causing issues
-  // console.log('Building themes:', themes);
+  console.log('Building themes:', themes);
 
   // Filter out themes that don't have base.json
   const themesWithBase = [];
@@ -269,9 +290,78 @@ const build = async (production = false, path, deprecated) => {
         ? ['core', `${theme}/base`, `${theme}/${variant}`]
         : ['system', 'primitives', `${theme}/base-new`, `${theme}/${variant}-new`];
 
-      const files = old
-        ? createFileConfigDeprecated(themeBase, theme, variant)
-        : createFileConfig(themeBase, theme, variant);
+      const files = [
+        {
+          destination: old
+            ? `${themeBase}/${theme}/${variant}-deprecated.css`
+            : `${themeBase}/${theme}/${variant}.css`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: !production
+          }
+        }
+      ];
+
+      if (production) {
+        files.push(
+          {
+            destination: old
+              ? `${themeBase}/${theme}/css/base-deprecated.css`
+              : `${themeBase}/${theme}/css/base.css`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            },
+            filter: filterFiles(
+              old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json']
+            )
+          },
+          {
+            destination: old
+              ? `${themeBase}/${theme}/scss/base-deprecated.scss`
+              : `${themeBase}/${theme}/scss/base.scss`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true,
+              selector: '@mixin sl-theme-base'
+            },
+            filter: filterFiles(
+              old ? ['core.json', 'base.json'] : ['system.json', 'primitives.json', 'base-new.json']
+            )
+          },
+          {
+            destination: old
+              ? `${themeBase}/${theme}/css/${variant}-deprecated.css`
+              : `${themeBase}/${theme}/css/${variant}.css`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            },
+            filter: filterFiles([old ? `${variant}.json` : `${variant}-new.json`])
+          },
+          {
+            destination: old
+              ? `${themeBase}/${theme}/scss/${variant}-deprecated.scss`
+              : `${themeBase}/${theme}/scss/${variant}.scss`,
+            // filter: excludeSpaceTokens,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true,
+              selector: `@mixin sl-theme-${variant}`
+            },
+            filter: filterFiles([old ? `${variant}.json` : `${variant}-new.json`])
+          }
+        );
+      }
 
       return {
         log: {
@@ -301,232 +391,6 @@ const build = async (production = false, path, deprecated) => {
     }
   };
 
-  const createFileConfig = (themeBase, theme, variant) => {
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}.css`,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
-        }
-      }
-    ];
-
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        }
-      );
-    }
-    return files;
-  };
-  const createFileConfigDeprecated = (themeBase, theme, variant) => {
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}-deprecated.css`,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
-        }
-      }
-    ];
-
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base-deprecated.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base-deprecated.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}-deprecated.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}-deprecated.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}.json`])
-        }
-      );
-    }
-    return files;
-  };
-
-  const createFileConfig = (themeBase, theme, variant) => {
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}.css`,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
-        }
-      }
-    ];
-
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        }
-      );
-    }
-    return files;
-  };
-  const createFileConfigDeprecated = (themeBase, theme, variant) => {
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}-deprecated.css`,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
-        }
-      }
-    ];
-
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base-deprecated.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base-deprecated.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}-deprecated.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}-deprecated.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}.json`])
-        }
-      );
-    }
-    return files;
-  };
-
   const configs = themes.map(([theme, variant]) =>
     createConfigForThemeVariant(theme, variant, false)
   );
@@ -551,8 +415,4 @@ const build = async (production = false, path, deprecated) => {
   }
 };
 
-build(
-  argv.includes('--production'),
-  '../packages/tokens/src/core',
-  '../packages/tokens/src/deprecated'
-);
+build(argv.includes('--production'), '../packages/tokens/src/tokens');

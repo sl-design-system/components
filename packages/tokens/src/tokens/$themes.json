@@ -1,0 +1,533 @@
+[
+  {
+    "name": "Tokens",
+    "group": "Tokens",
+    "selectedTokenSets": {
+      "system": "enabled",
+      "primitives": "enabled"
+    }
+  },
+  {
+    "name": "Collection I",
+    "group": "Base",
+    "selectedTokenSets": {
+      "I/base-new": "enabled",
+      "I/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Collection II",
+    "group": "Base",
+    "selectedTokenSets": {
+      "II/theme-new": "enabled",
+      "II/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Themes A",
+    "group": "Collection I",
+    "selectedTokenSets": {
+      "I/A/theme-new": "enabled",
+      "I/A/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Themes B",
+    "group": "Collection I",
+    "selectedTokenSets": {
+      "I/B/base-new": "enabled",
+      "I/B/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Themes C",
+    "group": "Collection I",
+    "selectedTokenSets": {
+      "I/C/theme-new": "enabled",
+      "I/C/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Themes E",
+    "group": "Collection II",
+    "selectedTokenSets": {
+      "II/E/theme-new": "enabled",
+      "II/E/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Themes F",
+    "group": "Collection II",
+    "selectedTokenSets": {
+      "II/F/theme-new": "enabled",
+      "II/F/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Sanoma Learning",
+    "group": "Themes A",
+    "selectedTokenSets": {
+      "sanoma-learning/base-new": "enabled",
+      "sanoma-learning/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Bingel DC",
+    "group": "Themes A",
+    "selectedTokenSets": {
+      "bingel-dc/base-new": "enabled",
+      "bingel-dc/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Bingel Int",
+    "group": "Themes A",
+    "selectedTokenSets": {
+      "bingel-int/base-new": "enabled",
+      "bingel-int/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Click edu",
+    "group": "Themes B",
+    "selectedTokenSets": {
+      "clickedu/base-new": "enabled",
+      "clickedu/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Editorial Suite",
+    "group": "Themes B",
+    "selectedTokenSets": {
+      "editorial-suite/base-new": "enabled",
+      "editorial-suite/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Its Learning",
+    "group": "Themes B",
+    "selectedTokenSets": {
+      "itslearning/theme-new": "enabled",
+      "itslearning/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Kampus",
+    "group": "Themes C",
+    "selectedTokenSets": {
+      "kampus/theme-new": "enabled",
+      "kampus/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Magister",
+    "group": "Themes C",
+    "selectedTokenSets": {
+      "magister/base-new": "enabled",
+      "magister/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Max",
+    "group": "Themes C",
+    "selectedTokenSets": {
+      "max/theme-new": "enabled",
+      "max/base-new": "enabled"
+    }
+  },
+  {
+    "name": "My Digital Book",
+    "group": "Themes E",
+    "selectedTokenSets": {
+      "my-digital-book/theme-new": "enabled",
+      "my-digital-book/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Neon",
+    "group": "Themes E",
+    "selectedTokenSets": {
+      "neon/theme-new": "enabled",
+      "neon/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Teas",
+    "group": "Themes E",
+    "selectedTokenSets": {
+      "teas/base-new": "enabled",
+      "teas/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Sanoma Learning",
+    "selectedTokenSets": {
+      "sanoma-learning/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Dark",
+    "group": "Sanoma Learning",
+    "selectedTokenSets": {
+      "sanoma-learning/dark-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Bingel DC",
+    "selectedTokenSets": {
+      "bingel-dc/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Bingel Int",
+    "selectedTokenSets": {
+      "bingel-int/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Click edu",
+    "selectedTokenSets": {
+      "clickedu/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Editorial Suite",
+    "selectedTokenSets": {
+      "editorial-suite/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Its Learning",
+    "selectedTokenSets": {
+      "itslearning/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Kampus",
+    "selectedTokenSets": {
+      "kampus/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Magister",
+    "selectedTokenSets": {
+      "magister/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Dark",
+    "group": "Magister",
+    "selectedTokenSets": {
+      "magister/dark-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Max",
+    "selectedTokenSets": {
+      "max/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "My Digital Book",
+    "selectedTokenSets": {
+      "my-digital-book/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Neon",
+    "selectedTokenSets": {
+      "neon/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Dark",
+    "group": "Neon",
+    "selectedTokenSets": {
+      "neon/dark-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Teas",
+    "selectedTokenSets": {
+      "teas/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Tig",
+    "group": "Themes F",
+    "selectedTokenSets": {
+      "tig/theme-new": "enabled",
+      "tig/base-new": "enabled"
+    }
+  },
+  {
+    "name": "TeacherAssistant",
+    "group": "Themes F",
+    "selectedTokenSets": {
+      "theme-new": "disabled",
+      "editorial-suite/base-new": "disabled",
+      "teas/light-new": "disabled",
+      "magister/base-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "II/theme-new": "disabled",
+      "sanoma-learning/base-new": "disabled",
+      "clickedu/light-new": "disabled",
+      "bingel-int/light-new": "disabled",
+      "neon/dark-new": "disabled",
+      "system": "disabled",
+      "tig/theme-new": "disabled",
+      "placeholder/base-new": "disabled",
+      "placeholder/light-new": "disabled",
+      "max/theme-new": "disabled",
+      "teas/base-new": "disabled",
+      "sanoma-pro/light-new": "disabled",
+      "clickedu/base-new": "disabled",
+      "II/E/theme-new": "disabled",
+      "II/E/base-new": "disabled",
+      "teas/theme-new": "disabled",
+      "teacher-assistant/light-new": "disabled",
+      "tig/base-new": "disabled",
+      "neon/theme-new": "disabled",
+      "neon/base-new": "disabled",
+      "base-new": "disabled",
+      "sanoma-utbildning/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "I/A/theme-new": "disabled",
+      "II/base-new": "disabled",
+      "sanoma-learning/dark-new": "disabled",
+      "bingel-int/base-new": "disabled",
+      "bingel-dc/light-new": "disabled",
+      "clickedu/theme-new": "disabled",
+      "I/B/base-new": "disabled",
+      "sanoma-pro/base-new": "disabled",
+      "max/base-new": "disabled",
+      "magister/theme-new": "disabled",
+      "sanoma-learning/theme-new": "disabled",
+      "primitives": "disabled",
+      "I/B/theme-new": "disabled",
+      "sanoma-utbildning/base-new": "disabled",
+      "I/C/theme-new": "disabled",
+      "itslearning/light-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "teacher-assistant/base-new": "enabled",
+      "sanoma-utbildning/light-new": "disabled",
+      "II/F/theme-new": "disabled",
+      "I/base-new": "disabled",
+      "I/theme-new": "disabled",
+      "teacher-assistant/theme-new": "enabled",
+      "my-digital-book/light-new": "disabled",
+      "max/light-new": "disabled",
+      "sanoma-learning/light-new": "disabled",
+      "sanoma-pro/theme-new": "disabled",
+      "tig/light-new": "disabled",
+      "itslearning/base-new": "disabled",
+      "editorial-suite/light-new": "disabled",
+      "editorial-suite/theme-new": "disabled",
+      "I/A/base-new": "disabled",
+      "II/F/base-new": "disabled",
+      "neon/light-new": "disabled",
+      "my-digital-book/base-new": "disabled",
+      "placeholder/theme-new": "disabled",
+      "magister/light-new": "disabled",
+      "bingel-dc/base-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "kampus/light-new": "disabled",
+      "I/C/base-new": "disabled",
+      "kampus/base-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "magister/dark-new": "disabled"
+    }
+  },
+  {
+    "name": "Sanoma Utbildning",
+    "group": "Themes F",
+    "selectedTokenSets": {
+      "sanoma-utbildning/theme-new": "enabled",
+      "sanoma-utbildning/base-new": "enabled"
+    }
+  },
+  {
+    "name": "Sanoma Pro",
+    "group": "Themes F",
+    "selectedTokenSets": {
+      "sanoma-pro/base-new": "enabled",
+      "sanoma-pro/theme-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Tig",
+    "selectedTokenSets": {
+      "tig/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Tig",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Bingel DC",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "My Digital Book",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Neon",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Sanoma Learning",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Teas",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Magister",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Max",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Kampus",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Editorial Suite",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Its Learning",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Bingel INT",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Click Edu",
+    "group": "Legacy",
+    "selectedTokenSets": {}
+  },
+  {
+    "name": "Light",
+    "group": "Sanoma Utbildning",
+    "selectedTokenSets": {
+      "sanoma-utbildning/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "Sanoma Pro",
+    "selectedTokenSets": {
+      "sanoma-pro/light-new": "enabled"
+    }
+  },
+  {
+    "name": "Light",
+    "group": "TeacherAssistant",
+    "selectedTokenSets": {
+      "theme-new": "disabled",
+      "editorial-suite/base-new": "disabled",
+      "teas/light-new": "disabled",
+      "magister/base-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "II/theme-new": "disabled",
+      "sanoma-learning/base-new": "disabled",
+      "clickedu/light-new": "disabled",
+      "bingel-int/light-new": "disabled",
+      "neon/dark-new": "disabled",
+      "system": "disabled",
+      "tig/theme-new": "disabled",
+      "placeholder/base-new": "disabled",
+      "placeholder/light-new": "disabled",
+      "max/theme-new": "disabled",
+      "teas/base-new": "disabled",
+      "sanoma-pro/light-new": "disabled",
+      "clickedu/base-new": "disabled",
+      "II/E/theme-new": "disabled",
+      "II/E/base-new": "disabled",
+      "teas/theme-new": "disabled",
+      "teacher-assistant/light-new": "enabled",
+      "tig/base-new": "disabled",
+      "neon/theme-new": "disabled",
+      "neon/base-new": "disabled",
+      "base-new": "disabled",
+      "sanoma-utbildning/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "I/A/theme-new": "disabled",
+      "II/base-new": "disabled",
+      "sanoma-learning/dark-new": "disabled",
+      "bingel-int/base-new": "disabled",
+      "bingel-dc/light-new": "disabled",
+      "clickedu/theme-new": "disabled",
+      "I/B/base-new": "disabled",
+      "sanoma-pro/base-new": "disabled",
+      "max/base-new": "disabled",
+      "magister/theme-new": "disabled",
+      "sanoma-learning/theme-new": "disabled",
+      "primitives": "disabled",
+      "I/B/theme-new": "disabled",
+      "sanoma-utbildning/base-new": "disabled",
+      "I/C/theme-new": "disabled",
+      "itslearning/light-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "teacher-assistant/base-new": "disabled",
+      "sanoma-utbildning/light-new": "disabled",
+      "II/F/theme-new": "disabled",
+      "I/base-new": "disabled",
+      "I/theme-new": "disabled",
+      "teacher-assistant/theme-new": "disabled",
+      "my-digital-book/light-new": "disabled",
+      "max/light-new": "disabled",
+      "sanoma-learning/light-new": "disabled",
+      "sanoma-pro/theme-new": "disabled",
+      "tig/light-new": "disabled",
+      "itslearning/base-new": "disabled",
+      "editorial-suite/light-new": "disabled",
+      "editorial-suite/theme-new": "disabled",
+      "I/A/base-new": "disabled",
+      "II/F/base-new": "disabled",
+      "neon/light-new": "disabled",
+      "my-digital-book/base-new": "disabled",
+      "placeholder/theme-new": "disabled",
+      "magister/light-new": "disabled",
+      "bingel-dc/base-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "kampus/light-new": "disabled",
+      "I/C/base-new": "disabled",
+      "kampus/base-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "magister/dark-new": "disabled"
+    }
+  }
+]

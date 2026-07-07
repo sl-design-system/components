@@ -1,5 +1,5 @@
 {
-  "II-F": {
+  "II-G": {
     "icon": {
       "typeset": {
         "fontWeight": {
@@ -17,12 +17,12 @@
     "size": {
       "borderRadius": {
         "child": {
-          "$value": "{size.borderRadius.md} / 2",
+          "$value": "{size.borderRadius.sm} / 2",
           "$type": "borderRadius",
           "$description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },
         "default": {
-          "$value": "{size.borderRadius.md}",
+          "$value": "{size.borderRadius.sm}",
           "$type": "borderRadius",
           "$description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },
@@ -186,8 +186,7 @@
         "2xl": {
           "$value": {
             "fontSize": "{II-G.size.text-new.heading.2xl}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.600}"
           },
           "$type": "typography"
@@ -195,8 +194,7 @@
         "lg": {
           "$value": {
             "fontSize": "{II-G.size.text-new.heading.lg}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "$type": "typography"
@@ -204,8 +202,7 @@
         "md": {
           "$value": {
             "fontSize": "{II-G.size.text-new.heading.md}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.250}"
           },
           "$type": "typography"
@@ -213,8 +210,7 @@
         "sm": {
           "$value": {
             "fontSize": "{II-G.size.text-new.heading.sm}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.250}"
           },
           "$type": "typography"
@@ -222,8 +218,7 @@
         "xl": {
           "$value": {
             "fontSize": "{II-G.size.text-new.heading.xl}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.500}"
           },
           "$type": "typography"
@@ -270,7 +265,7 @@
             "$type": "fontFamily"
           },
           "heading": {
-            "$value": "The Message",
+            "$value": "Roboto",
             "$type": "fontFamily"
           },
           "icon": {
@@ -284,7 +279,7 @@
             "$type": "fontWeight"
           },
           "semiBold": {
-            "$value": "{fontWeight.500}",
+            "$value": "{fontWeight.600}",
             "$type": "fontWeight"
           }
         }

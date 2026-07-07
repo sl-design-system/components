@@ -1,31 +1,14 @@
 {
-  "$schema": "https://tokens.studio/schema/cli",
+  "$schema": "https://tokens.studio/schema/cli/v2.json",
+  "version": 2,
   "configurations": {
-    "core": {
-      "project": "9eb39947-0172-4bf2-af5b-bd79f4493f7a",
+    "slds-201": {
+      "project": "e650d9a7-1a6d-4c68-b0cc-731b117c214a",
       "ref": {
         "type": "branch",
         "name": "main"
       },
-      "output": "../packages/tokens/src/core",
-      "format": "raw"
-    },
-    "deprecated": {
-      "project": "29b6e5a1-f540-4668-9964-b23ea58cf875",
-      "ref": {
-        "type": "branch",
-        "name": "main"
-      },
-      "output": "../packages/tokens/src/deprecated",
-      "format": "raw"
-    },
-    "typography-sizing-spacing": {
-      "project": "4bd4e23d-8c0e-48b5-80c1-9ce27bf71839",
-      "ref": {
-        "type": "branch",
-        "name": "main"
-      },
-      "output": "src/tokens/typography-sizing-spacing",
+      "output": "../packages/tokens/src/tokens",
       "format": "raw"
     }
   }

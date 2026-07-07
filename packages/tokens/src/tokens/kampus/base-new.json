@@ -1,5 +1,5 @@
 {
-  "II-F": {
+  "I-C": {
     "icon": {
       "typeset": {
         "fontWeight": {
@@ -28,12 +28,12 @@
         },
         "focusRing": {
           "inside": {
-            "$value": "{II-G.size.borderRadius.default} - 1px",
+            "$value": "{I-C.size.borderRadius.default} - 1px",
             "$type": "borderRadius",
             "$description": "Use for focusring inside of component when outside focus ring is not possible"
           },
           "outside": {
-            "$value": "{II-G.size.borderRadius.default} + 2px",
+            "$value": "{I-C.size.borderRadius.default} + 2px",
             "$type": "borderRadius",
             "$description": "Use for focusring outside of component"
           }
@@ -156,27 +156,27 @@
       "body": {
         "lg": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.body.lg}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
-            "fontWeight": "{II-G.text-new.typeset.fontWeight.regular}",
+            "fontSize": "{I-C.size.text-new.body.lg}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.regular}",
             "lineHeight": "{size.lineHeight.300}"
           },
           "$type": "typography"
         },
         "md": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.body.md}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
-            "fontWeight": "{II-G.text-new.typeset.fontWeight.regular}",
+            "fontSize": "{I-C.size.text-new.body.md}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.regular}",
             "lineHeight": "{size.lineHeight.250}"
           },
           "$type": "typography"
         },
         "sm": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.body.sm}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
-            "fontWeight": "{II-G.text-new.typeset.fontWeight.regular}",
+            "fontSize": "{I-C.size.text-new.body.sm}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.regular}",
             "lineHeight": "{size.lineHeight.200}"
           },
           "$type": "typography"
@@ -185,45 +185,40 @@
       "heading": {
         "2xl": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.heading.2xl}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontSize": "{I-C.size.text-new.heading.2xl}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.600}"
           },
           "$type": "typography"
         },
         "lg": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.heading.lg}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontSize": "{I-C.size.text-new.heading.lg}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "$type": "typography"
         },
         "md": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.heading.md}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontSize": "{I-C.size.text-new.heading.md}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.250}"
           },
           "$type": "typography"
         },
         "sm": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.heading.sm}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontSize": "{I-C.size.text-new.heading.sm}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.250}"
           },
           "$type": "typography"
         },
         "xl": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.heading.xl}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.heading}",
-            "fontWeight": "{fontWeight.600}",
+            "fontSize": "{I-C.size.text-new.heading.xl}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.500}"
           },
           "$type": "typography"
@@ -248,16 +243,16 @@
       "input": {
         "lg": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.body.md}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.body.md}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "$type": "typography"
         },
         "md": {
           "$value": {
-            "fontSize": "{II-G.size.text-new.body.md}",
-            "fontFamily": "{II-G.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.body.md}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
             "lineHeight": "{size.lineHeight.300}"
           },
           "$type": "typography"
@@ -266,11 +261,11 @@
       "typeset": {
         "fontFamily": {
           "body": {
-            "$value": "Roboto",
+            "$value": "Open Sans",
             "$type": "fontFamily"
           },
           "heading": {
-            "$value": "The Message",
+            "$value": "Open Sans",
             "$type": "fontFamily"
           },
           "icon": {
@@ -284,7 +279,7 @@
             "$type": "fontWeight"
           },
           "semiBold": {
-            "$value": "{fontWeight.500}",
+            "$value": "{fontWeight.600}",
             "$type": "fontWeight"
           }
         }

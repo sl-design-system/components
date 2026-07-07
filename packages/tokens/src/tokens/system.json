@@ -1,0 +1,404 @@
+{
+  "color": {
+    "black": {
+      "$value": "#000000",
+      "$type": "color",
+      "$description": "Solid black"
+    },
+    "shadow": {
+      "overflow1": {
+        "$value": "set_alpha({base.elevation.surface.shadow}, 0.16)",
+        "$type": "color"
+      },
+      "overlay1": {
+        "$value": "set_alpha({base.elevation.surface.shadow}, 0.04)",
+        "$type": "color"
+      },
+      "overlay2": {
+        "$value": "set_alpha({base.elevation.surface.shadow}, 0.12)",
+        "$type": "color"
+      }
+    },
+    "transparent": {
+      "$value": "#00000000",
+      "$type": "color"
+    },
+    "white": {
+      "$value": "#ffffff",
+      "$type": "color",
+      "$description": "Solid White"
+    }
+  },
+  "elevation": {
+    "shadow": {
+      "overflow": {
+        "$value": [
+          {
+            "blur": "{size.200}",
+            "type": "dropShadow",
+            "color": "{color.shadow.overflow1}"
+          }
+        ],
+        "$type": "shadow"
+      },
+      "overlay": {
+        "$value": [
+          {
+            "y": "{size.075}",
+            "blur": "{size.150}",
+            "type": "dropShadow",
+            "color": "{color.shadow.overlay1}",
+            "spread": "-3"
+          },
+          {
+            "y": "{size.150}",
+            "blur": "{size.200}",
+            "type": "dropShadow",
+            "color": "{color.shadow.overlay2}"
+          }
+        ],
+        "$type": "shadow"
+      },
+      "sm": {
+        "$value": [
+          {
+            "y": "{size.010}",
+            "blur": "{size.010}",
+            "type": "dropShadow",
+            "color": "{color.shadow.overlay1}"
+          },
+          {
+            "y": "3px",
+            "blur": "{size.025}",
+            "type": "dropShadow",
+            "color": "{color.shadow.overlay2}"
+          }
+        ],
+        "$type": "shadow"
+      }
+    }
+  },
+  "icon": {
+    "typeset": {
+      "fontFamily": {
+        "classic": {
+          "$value": "Font Awesome 7 Pro",
+          "$type": "fontFamily"
+        },
+        "sharp": {
+          "$value": "Font Awesome 7 Sharp",
+          "$type": "fontFamily"
+        }
+      },
+      "fontWeight": {
+        "icon-light": {
+          "$value": "light",
+          "$type": "fontWeight"
+        },
+        "icon-regular": {
+          "$value": "regular",
+          "$type": "fontWeight"
+        },
+        "icon-solid": {
+          "$value": "solid",
+          "$type": "fontWeight"
+        },
+        "icon-thin": {
+          "$value": "thin",
+          "$type": "fontWeight"
+        }
+      }
+    }
+  },
+  "opacity": {
+    "disabled": {
+      "$value": "{opacity-new.600}",
+      "$type": "opacity"
+    }
+  },
+  "size-new": {
+    "icon": {
+      "2xl": {
+        "$value": "{size.400}",
+        "$type": "size"
+      },
+      "2xs": {
+        "$value": "{size.125}",
+        "$type": "size"
+      },
+      "3xl": {
+        "$value": "{size.600}",
+        "$type": "size"
+      },
+      "4xl": {
+        "$value": "{size.800}",
+        "$type": "size"
+      },
+      "lg": {
+        "$value": "{size.250}",
+        "$type": "size"
+      },
+      "md": {
+        "$value": "{size.200}",
+        "$type": "size"
+      },
+      "sm": {
+        "$value": "{size.175}",
+        "$type": "size"
+      },
+      "xl": {
+        "$value": "{size.300}",
+        "$type": "size"
+      },
+      "xs": {
+        "$value": "{size.150}",
+        "$type": "size"
+      }
+    }
+  },
+  "size": {
+    "borderRadius": {
+      "full": {
+        "$value": "{size.full}",
+        "$type": "borderRadius",
+        "$description": "size.borderRadius.full"
+      },
+      "lg": {
+        "$value": "{size.100}",
+        "$type": "borderRadius",
+        "$description": "size.borderRadius.lg"
+      },
+      "md": {
+        "$value": "{size.050}",
+        "$type": "borderRadius",
+        "$description": "size.borderRadius.md"
+      },
+      "none": {
+        "$value": "{size.none}",
+        "$type": "borderRadius",
+        "$description": "size.borderRadius.none"
+      },
+      "sm": {
+        "$value": "{size.025}",
+        "$type": "borderRadius",
+        "$description": "size.borderRadius.sm"
+      },
+      "xl": {
+        "$value": "{size.150}",
+        "$type": "borderRadius",
+        "$description": "size.borderRadius.xl"
+      }
+    },
+    "borderWidth": {
+      "bold": {
+        "$value": "{size.025}",
+        "$type": "borderWidth",
+        "$description": "A bold border, applied to UI elements that need to stand out."
+      },
+      "focusRing": {
+        "$value": "{size.025}",
+        "$type": "borderWidth"
+      },
+      "heavy": {
+        "$value": "{size.050}",
+        "$type": "borderWidth",
+        "$description": "A heavy border for impactful elements where heavy emphasis is needed."
+      },
+      "none": {
+        "$value": "{size.none}",
+        "$type": "borderWidth",
+        "$description": "A heavy border for impactful elements where heavy emphasis is needed."
+      },
+      "subtle": {
+        "$value": "{size.010}",
+        "$type": "borderWidth",
+        "$description": "A subtle border, applied to UI elements where subtle emphasis is needed."
+      }
+    },
+    "font": {
+      "150": {
+        "$value": "{size.150}",
+        "$type": "fontSize"
+      },
+      "175": {
+        "$value": "{size.175}",
+        "$type": "fontSize"
+      },
+      "200": {
+        "$value": "{size.200}",
+        "$type": "fontSize"
+      },
+      "250": {
+        "$value": "{size.250}",
+        "$type": "fontSize"
+      },
+      "300": {
+        "$value": "{size.300}",
+        "$type": "fontSize"
+      },
+      "400": {
+        "$value": "{size.400}",
+        "$type": "fontSize"
+      },
+      "500": {
+        "$value": "{size.500}",
+        "$type": "fontSize"
+      },
+      "600": {
+        "$value": "{size.600}",
+        "$type": "fontSize"
+      },
+      "800": {
+        "$value": "{size.800}",
+        "$type": "fontSize"
+      },
+      "1000": {
+        "$value": "{size.1000}",
+        "$type": "fontSize"
+      }
+    },
+    "lineHeight": {
+      "150": {
+        "$value": "{size.150}",
+        "$type": "lineHeight"
+      },
+      "175": {
+        "$value": "{size.175}",
+        "$type": "lineHeight"
+      },
+      "200": {
+        "$value": "{size.200}",
+        "$type": "lineHeight"
+      },
+      "250": {
+        "$value": "{size.250}",
+        "$type": "lineHeight"
+      },
+      "300": {
+        "$value": "{size.300}",
+        "$type": "lineHeight"
+      },
+      "400": {
+        "$value": "{size.400}",
+        "$type": "lineHeight"
+      },
+      "500": {
+        "$value": "{size.500}",
+        "$type": "lineHeight"
+      },
+      "600": {
+        "$value": "{size.600}",
+        "$type": "lineHeight"
+      },
+      "800": {
+        "$value": "{size.800}",
+        "$type": "lineHeight"
+      },
+      "1000": {
+        "$value": "{size.1000}",
+        "$type": "lineHeight"
+      }
+    },
+    "outlineOffset": {
+      "default": {
+        "$value": "{size.050} - {size.010}",
+        "$type": "space",
+        "$description": "Defines the default offset for focus indicators."
+      }
+    },
+    "outlineWidth": {
+      "default": {
+        "$value": "{size.050} - {size.010}",
+        "$type": "borderWidth",
+        "$description": "Sets the standard outline width for UI elements."
+      }
+    }
+  },
+  "space-new": {
+    "2xl": {
+      "$value": "{space.400}",
+      "$type": "space",
+      "$description": "Use when components are 'strangers'"
+    },
+    "2xs": {
+      "$value": "{space.025}",
+      "$type": "space"
+    },
+    "3xl": {
+      "$value": "{space.800}",
+      "$type": "space"
+    },
+    "grid": {
+      "horizontal": {
+        "$value": "{space.200}",
+        "$type": "space"
+      },
+      "vertical": {
+        "$value": "{space.175}",
+        "$type": "space"
+      }
+    },
+    "input": {
+      "horizontal": {
+        "$value": "{space-new.md} - {size.010}",
+        "$type": "space"
+      },
+      "vertical": {
+        "$value": "{space-new.xs} - {size.010}",
+        "$type": "space"
+      }
+    },
+    "lg": {
+      "$value": "{space.200}",
+      "$type": "space",
+      "$description": "Use when components are 'casual friends'"
+    },
+    "md": {
+      "$value": "{space.100}",
+      "$type": "space",
+      "$description": "Use when components are 'family'"
+    },
+    "none": {
+      "$value": "{space.none}",
+      "$type": "space"
+    },
+    "sm": {
+      "$value": "{space.075}",
+      "$type": "space",
+      "$description": "Use when components are 'besties'"
+    },
+    "toggleButton": {
+      "nonActive": {
+        "lg": {
+          "$value": "36px",
+          "$type": "space"
+        },
+        "lg-2": {
+          "$value": "{size.300}+(({size.100}+{size-new.icon.md})/2)",
+          "$type": "space"
+        },
+        "md": {
+          "$value": "27px",
+          "$type": "space"
+        },
+        "md-2": {
+          "$value": "{size.200}+(({size.100}+{size-new.icon.md})/2)",
+          "$type": "space"
+        },
+        "sm": {
+          "$value": "23px",
+          "$type": "space"
+        }
+      }
+    },
+    "xl": {
+      "$value": "{space.300}",
+      "$type": "space",
+      "$description": "Use when components are 'acquaintances'"
+    },
+    "xs": {
+      "$value": "{space.050}",
+      "$type": "space"
+    }
+  }
+}

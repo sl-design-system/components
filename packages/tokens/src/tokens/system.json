@@ -7,15 +7,15 @@
     },
     "shadow": {
       "overflow1": {
-        "$value": "set_alpha({base.elevation.surface.shadow}, 0.16)",
+        "$value": "set_alpha({elevation.surface.shadow}, 0.16)",
         "$type": "color"
       },
       "overlay1": {
-        "$value": "set_alpha({base.elevation.surface.shadow}, 0.04)",
+        "$value": "set_alpha({elevation.surface.shadow}, 0.04)",
         "$type": "color"
       },
       "overlay2": {
-        "$value": "set_alpha({base.elevation.surface.shadow}, 0.12)",
+        "$value": "set_alpha({elevation.surface.shadow}, 0.12)",
         "$type": "color"
       }
     },

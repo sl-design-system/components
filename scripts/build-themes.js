@@ -60,7 +60,7 @@ const stripPrefix = (dictionary, prefix) => {
 StyleDictionary.registerPreprocessor({
   name: 'strip-routing-prefix',
   preprocessor: (dictionary, { theme }) => {
-    ['I-A', 'I-B', 'I-C', 'II-E', 'II-F', theme].forEach(prefix => {
+    ['I-A', 'I-B', 'I-C', 'II-E', 'II-F', 'II-G', theme].forEach(prefix => {
       // Return early if the prefix is not present
       if (!dictionary[prefix]) {
         return;
@@ -219,25 +219,27 @@ const build = async (production = false, path) => {
     themeBase = join(cwd, '../packages/themes'),
     // themes = await getThemes(join(cwd, path));
     // if you want to debug the build to see which themes are being built, uncomment the console.log line below and replace the line above with
+
+    // TODO: Remove the hardcoded themes array and use the getThemes function instead. The hardcoded array is currently used for debugging purposes.
     themes = [
-      // ['bingel-int', 'light']
-      ['editorial-suite', 'light']
-      // ['clickedu', 'light'],
-      // ['bingel-dc', 'light'],
-      // ['itslearning', 'light'],
-      // ['kampus', 'light'],
-      // ['magister', 'light'],
-      // ['magister', 'dark'],
-      // ['max', 'light'],
-      // ['my-digital-book', 'light'],
-      // ['sanoma-learning', 'light'],
-      // ['sanoma-learning', 'dark'],
+      ['bingel-int', 'light'],
+      ['editorial-suite', 'light'],
+      ['clickedu', 'light'],
+      ['bingel-dc', 'light'],
+      ['itslearning', 'light'],
+      ['kampus', 'light'],
+      ['magister', 'light'],
+      ['magister', 'dark'],
+      ['max', 'light'],
+      ['my-digital-book', 'light'],
+      ['sanoma-learning', 'light'],
+      ['sanoma-learning', 'dark'],
       // ['sanoma-pro', 'light'],
-      // ['neon', 'light'],
-      // ['neon', 'dark'],
-      // ['sanoma-utbildning', 'light'],
-      // ['teacher-assistant', 'light'],
-      // ['teas', 'light'],
+      ['neon', 'light'],
+      ['neon', 'dark'],
+      // ['sanoma-utbildning', 'light']
+      ['teacher-assistant', 'light'],
+      ['teas', 'light']
       // ['tig', 'light']
     ];
   // you can (un)comment out each theme until you find the one that is causing issues

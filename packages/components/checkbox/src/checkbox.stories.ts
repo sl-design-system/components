@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -243,6 +244,17 @@ export const NoVisibleLabel: StoryObj = {
         <code>input</code> element.
       </p>
       <sl-checkbox aria-label="Check me"></sl-checkbox>
+    `;
+  }
+};
+
+export const Infotip: StoryObj = {
+  render: () => {
+    return html`
+      <sl-checkbox>
+        Option 1
+        <sl-infotip slot="infotip">This is an info tip for option 1</sl-infotip>
+      </sl-checkbox>
     `;
   }
 };

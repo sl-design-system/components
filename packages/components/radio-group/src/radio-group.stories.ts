@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
@@ -126,6 +127,30 @@ export const Overflow: Story = {
         Amet consequat veniam nostrud labore. Labore labore sunt in nisi ut voluptate cillum.
         Consequat ex dolor nostrud duis veniam ut est. Commodo dolor incididunt laborum cupidatat
         anim magna voluptate Lorem eu elit eiusmod mollit irure.
+      </sl-radio>
+    `
+  }
+};
+
+export const Infotip: Story = {
+  args: {
+    options: () => html`
+      <sl-radio value="1"
+        >Lorem ipsum<sl-infotip slot="infotip"
+          >Lorem ipsum means nothing, it's just some placeholder text.</sl-infotip
+        ></sl-radio
+      >
+      <sl-radio value="2">
+        Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur
+        consequat ea
+      </sl-radio>
+      <sl-radio value="3">
+        Amet consequat veniam nostrud labore. Labore labore sunt in nisi ut voluptate cillum.
+        Consequat ex dolor nostrud duis veniam ut est. Commodo dolor incididunt laborum cupidatat
+        anim magna voluptate Lorem eu elit eiusmod mollit irure.
+        <sl-infotip slot="infotip" describes="Amet consequat veniam nostrud labore.">
+          This text sounds latin but is just nonsensical placeholder text.</sl-infotip
+        >
       </sl-radio>
     `
   }

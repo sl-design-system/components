@@ -1,6 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { ref } from 'lit/directives/ref.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/inline-message/register.js';
@@ -18,6 +19,7 @@ type Props = {
   straightL: boolean;
   textRisers: boolean;
   textBox?: string;
+  showComputed?: boolean;
 };
 type Story = StoryObj<Props>;
 
@@ -104,37 +106,56 @@ export const Basic: Story = {
 const styleNames = ['Display', 'Heading', 'Title', 'Text', 'Label', 'Caption'];
 
 const typographyStyles = (variant: string) => html`
-  <div><h1 class="display lg">Display</h1></div>
-  <div><h1 class="display md">Display</h1></div>
+  <div><h1 class="display lg">Display LG</h1></div>
+  <div><h1 class="display md">Display MD</h1></div>
   <div class=${variant !== 'advanced' ? 'fallback' : ''}>
-    <h1 class="display sm">Display</h1>
+    <h1 class="display sm">Display SM</h1>
   </div>
 
-  <div><h2 class="heading lg">Heading</h2></div>
-  <div><h2 class="heading md">Heading</h2></div>
+  <div><h2 class="heading lg">Heading LG</h2></div>
+  <div><h2 class="heading md">Heading MD</h2></div>
   <div class=${variant === 'early' ? 'fallback' : ''}>
-    <h2 class="heading sm">Heading</h2>
+    <h2 class="heading sm">Heading SM</h2>
   </div>
 
-  <div><h2 class="title lg">Title</h2></div>
-  <div class=${variant === 'early' ? 'fallback' : ''}><h2 class="title md">Title</h2></div>
-  <div class=${variant === 'early' ? 'fallback' : ''}><h2 class="title sm">Title</h2></div>
+  <div><h2 class="title lg">Title LG</h2></div>
+  <div class=${variant !== 'advanced' ? 'fallback' : ''}><h2 class="title md">Title MD</h2></div>
+  <div class=${variant === 'early' ? 'fallback' : ''}><h2 class="title sm">Title SM</h2></div>
 
-  <div><p class="text lg">Text</p></div>
-  <div><p class="text md">Text</p></div>
-  <div><p class="text sm">Text</p></div>
+  <div><p class="text lg">Text LG</p></div>
+  <div><p class="text md">Text MD</p></div>
+  <div><p class="text sm">Text SM</p></div>
 
-  <div><p class="label lg">Label</p></div>
-  <div><p class="label md">Label</p></div>
-  <div>${variant !== 'early' ? html`<p class="label sm">Label</p>` : nothing}</div>
+  <div><p class="label lg">Label LG</p></div>
+  <div><p class="label md">Label MD</p></div>
+  <div>${variant !== 'early' ? html`<p class="label sm">Label SM</p>` : nothing}</div>
 
-  <div><p class="caption lg">Caption</p></div>
-  <div>${variant === 'advanced' ? html`<p class="caption md">Caption</p>` : nothing}</div>
+  <div><p class="caption lg">Caption LG</p></div>
+  <div>${variant === 'advanced' ? html`<p class="caption md">Caption MD</p>` : nothing}</div>
   <div></div>
 `;
+
+const parseCells = (el: Element | undefined) => {
+  if (!el) return;
+  requestAnimationFrame(() => {
+    const cells = Array.from(el.querySelectorAll('[data-user-group] > div'));
+    cells.forEach((cell, index) => {
+      cell.id = `cell-${index}`;
+      if ((cell.querySelector('*') as Element) && cell.querySelector('sl-badge') === null) {
+        const computed = window.getComputedStyle(cell.querySelector('*') as Element);
+        const big = cell.querySelector('*')?.matches(':where(.display, .heading)') ?? false;
+        const label = document.createElement('sl-badge');
+        label.setAttribute('color', big ? 'purple' : 'teal');
+        label.innerHTML = `${computed.fontSize}/${computed.lineHeight} | ${computed.fontWeight} | ${computed.letterSpacing}`;
+        cell.appendChild(label);
+      }
+    });
+  });
+};
 export const TypographyStyles: Story = {
   args: {
-    textBox: 'none'
+    textBox: 'none',
+    showComputed: true
   },
   argTypes: {
     textBox: {
@@ -142,7 +163,7 @@ export const TypographyStyles: Story = {
       options: ['none', 'untrimmed', 'trim-both-cap', 'trim-both-ex']
     }
   },
-  render: ({ textBox }) => html`
+  render: ({ textBox, showComputed }) => html`
     <style>
       .typography-grid {
         display: grid;
@@ -165,9 +186,9 @@ export const TypographyStyles: Story = {
       }
       [data-user-group] > div {
         border: 1px solid var(--sl-color-border-accent-grey-plain);
+        padding: 4px;
         position: relative;
       }
-
       .fallback:before {
         content: '';
         display: block;
@@ -180,10 +201,10 @@ export const TypographyStyles: Story = {
         margin: 4px;
         background-color: var(--sl-color-background-accent-blue-bold);
       }
-      .typography-grid:where(.untrimmed, .trim-both-cap, .trim-both-ex) > div > div > * {
-        background-color: var(--sl-color-border-accent-grey-plain);
-      }
-      .typography-grid:where(.untrimmed, .trim-both-cap, .trim-both-ex) > div > div > * {
+      .typography-grid:where(.untrimmed, .trim-both-cap, .trim-both-ex)
+        > div
+        > div
+        > *:not(sl-badge) {
         background-color: var(--sl-color-background-accent-blue-subtle);
       }
       .typography-grid.trim-both-cap > div > div > * {
@@ -197,22 +218,21 @@ export const TypographyStyles: Story = {
       [data-user-group] > div {
         cursor: pointer;
       }
-      [data-user-group] > div:hover {
-        background-color: var(--sl-color-background-accent-grey-faint);
-      }
       #style-content {
         white-space: pre-line;
       }
+      .typography-grid:not(.show-computed) [data-user-group] > div > sl-badge {
+        display: none;
+      }
     </style>
     <div
-      class="typography-grid ${ifDefined(textBox !== 'none' ? textBox : '')}"
+      ${ref(e => parseCells(e))}
+      class="typography-grid ${ifDefined(textBox !== 'none' ? textBox : '')} ${ifDefined(
+        showComputed ? 'show-computed' : ''
+      )}"
       @click="${(e: MouseEvent) => {
         const target = e.target as HTMLElement;
         const cell = target.closest('[data-user-group] > div');
-        const previousAnchor = document.getElementById('clicked-cell');
-        if (previousAnchor) {
-          previousAnchor.removeAttribute('id');
-        }
         if (cell) {
           const element = cell.querySelector('*') as HTMLElement;
           if (element) {
@@ -220,8 +240,7 @@ export const TypographyStyles: Story = {
             const popover = document.getElementById('style-popover') as Popover;
             const content = document.getElementById('style-content');
             if (popover && content) {
-              // Set new anchor
-              cell.id = 'clicked-cell';
+              popover.setAttribute('anchor', cell.id);
 
               // Update content
               content.textContent = `Element: ${element.tagName}.${element.className}

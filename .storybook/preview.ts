@@ -112,7 +112,6 @@ const preview: Preview = {
       return story();
     },
     (story, { globals: { viewport } }) => {
-      console.log('viewports', viewport);
       document.documentElement.setAttribute('data-Device', viewport.value || 'desktop');
       return story();
     }

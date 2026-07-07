@@ -136,6 +136,12 @@
 
 [data-User-Group='early'] {
   --sl-font-feature-settings-earlyReaders: on;
+  --sl-font-feature-settings-doubleStory: off;
+}
+
+[data-User-Group='developing'] {
+  --sl-font-feature-settings-earlyReaders: off;
+  --sl-font-feature-settings-doubleStory: off;
 }
 
 [data-User-Group='advanced'] {
@@ -144,6 +150,7 @@
 
   .display {
     --sl-font-feature-settings-doubleStory: off;
+    font-variation-settings: 'wdth' 100;
   }
 
   .heading {

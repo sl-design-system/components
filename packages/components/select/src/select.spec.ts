@@ -697,7 +697,7 @@ describe('sl-select', () => {
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       expect(labels.length).to.equal(1);
-      expect(button.internals.ariaLabelledByElements).to.deep.equal(labels);
+      expect(button.ariaLabelledByElements).to.deep.equal(labels);
     });
 
     it('should set ariaLabelledByElements on the listbox from associated labels', async () => {

@@ -335,7 +335,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       if (this.listbox) {
         /**
          * Use ElementInternals element references so the button can reference the listbox across
-         * the shadow DOM boundary. In the future, switch to `ariaControlsElements`
+         * the shadow DOM boundary. In the future, switch to `ariaControlsElements` property
          * (https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaControlsElements) when
          * browser support is sufficient.
          */
@@ -343,10 +343,16 @@ export class Select<T = any> extends ObserveAttributesMixin(
       }
 
       if (this.internals.labels.length) {
-        const labels = Array.from(this.internals.labels) as Element[];
+        const labels = Array.from(this.internals.labels) as Element[],
+          hasExplicitLabel =
+            this.button.hasAttribute('aria-label') ||
+            this.button.hasAttribute('aria-labelledby') ||
+            (this.button.ariaLabelledByElements?.length ?? 0) > 0;
 
         // Use element references so labeling works across the shadow boundary.
-        this.button.ariaLabelledByElements = labels;
+        if (!hasExplicitLabel) {
+          this.button.ariaLabelledByElements = labels;
+        }
 
         // Use element references so listbox labeling works across the shadow boundary.
         if (this.listbox) {

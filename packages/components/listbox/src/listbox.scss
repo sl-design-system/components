@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: var(--sl-size-025);
   overflow: auto;
+  overscroll-behavior: contain;
   padding: var(--sl-size-100) 0;
   scroll-padding-block: var(--sl-size-100);
   scrollbar-width: thin;

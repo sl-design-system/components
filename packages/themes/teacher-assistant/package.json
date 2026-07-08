@@ -1,0 +1,41 @@
+{
+  "name": "@sl-design-system/teacher-assistant",
+  "description": "Teacher Assistant theme for the SL Design System",
+  "version": "0.0.1",
+  "license": "Apache 2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/themes/teacher-assistant"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./global.css": "./global.css",
+    "./light.css": "./light.css",
+    "./light.min.css": "./light.min.css",
+    "./light-deprecated.css": "./light-deprecated.css",
+    "./light-deprecated.min.css": "./light-deprecated.min.css",
+    "./package.json": "./package.json",
+    "./css/*.css": "./css/*.css"
+  },
+  "files": [
+    "**/*.css",
+    "**/*.d.ts",
+    "**/*.d.ts.map",
+    "**/*.js",
+    "**/*.js.map",
+    "**/*.json",
+    "**/*.scss",
+    "CHANGELOG.md"
+  ],
+  "dependencies": {
+    "@sl-design-system/icon": "1.4.2"
+  }
+}

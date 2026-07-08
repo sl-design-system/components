@@ -5,6 +5,12 @@
   --_border: var(--sl-color-border-input);
   --_stroke: var(--sl-color-foreground-selected-onBold);
 
+  align-items: flex-start;
+  display: inline-flex;
+  gap: var(--sl-size-025);
+}
+
+[part='wrapper'] {
   align-items: start;
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
@@ -158,6 +164,10 @@
   justify-content: center;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+::slotted(sl-infotip) {
+  margin-block-start: var(--sl-size-050);
 }
 
 [part='label'] {

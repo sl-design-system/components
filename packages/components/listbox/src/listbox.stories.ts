@@ -90,10 +90,8 @@ export default {
       }
       const listbox = document.querySelector('sl-listbox');
       listbox?.scrollToIndex(scrollToPosition, { behavior });
-      // Update renderer to trigger re-render with new current index
-      if (listbox) {
-        listbox.renderer = renderer;
-      }
+      // Trigger a re-render with the new current index
+      listbox?.requestUpdate();
     };
 
     return html`

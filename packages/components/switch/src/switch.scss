@@ -56,10 +56,6 @@
   }
 }
 
-:host([reverse]) [part='toggle'] {
-  order: -1;
-}
-
 :host([size='sm']) {
   --_handle-size: var(--sl-size-150);
   --_track-size: var(--sl-size-400);
@@ -85,7 +81,15 @@
 }
 
 [part='toggle'] {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: flex-end;
   padding: var(--sl-size-050);
+}
+
+:host([reverse]) [part='toggle'] {
+  justify-content: flex-start;
+  order: -1;
 }
 
 [part='track'] {

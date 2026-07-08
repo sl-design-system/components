@@ -14,7 +14,7 @@ eleventyNavigation:
       <sl-icon name="far-copy"></sl-icon>
       Duplicate
     </sl-button>
-    <sl-button fill="outline">
+    <sl-button fill="solid" variant="primary">
       <sl-icon name="far-arrow-down-wide-short"></sl-icon>
       Reorder
     </sl-button>
@@ -45,7 +45,7 @@ eleventyNavigation:
       <sl-icon name="far-copy"></sl-icon>
       Duplicate
     </sl-button>
-    <sl-button fill="outline">
+    <sl-button fill="solid" variant="primary">
       <sl-icon name="far-arrow-down-wide-short"></sl-icon>
       Reorder
     </sl-button>
@@ -179,7 +179,7 @@ Properties for the main toolbar component used by designers. Some options (like 
 
 ### Toolbar item
 Properties for the nested toolbar item used inside the toolbar to swap between the supported control types.
-  
+
 <div class="ds-table-wrapper">
 
 | Item | Options | Description |
@@ -193,7 +193,7 @@ Properties for the nested toolbar item used inside the toolbar to swap between t
 </div>
 
 
-### Toolbar Group  
+### Toolbar Group
 Properties for the nested toolbar group used inside a toolbar item to build grouped actions and preview the group overflow behaviour.
 
 <div class="ds-table-wrapper">
@@ -206,8 +206,8 @@ Properties for the nested toolbar group used inside a toolbar item to build grou
 
 {.ds-table .ds-table-align-top}
 
-</div> 
-  
+</div>
+
 
 </section>
 
@@ -223,8 +223,8 @@ Controls are organised into logical groups to improve scannability and usability
 ### Handles overflow
 
 When space is limited, especially on smaller screens, actions move into the overflow menu, while the remaining actions will stay visible. In the overflow dropdown, groups are separated with dividers to preserve structure and clarity.
-  
-  
+
+
 ### Consistent styling and clear icon actions
 
 The toolbar applies a consistent visual style across its items (for example, matching fill and inverted appearance) so actions look like part of the same system. If you use icon-only actions, ensure they remain understandable through labels and/or tooltips, and avoid placing many icon-only actions without strong familiarity or supporting text.

@@ -80,6 +80,88 @@ StyleDictionary.registerPreprocessor({
   }
 });
 
+const convertSetAlphaToColorMix = dictionary => {
+  Object.values(dictionary).forEach(token => {
+    if (token?.isSource && token.$type === 'color' && typeof token.$value === 'string') {
+      // Convert set_alpha() to color-mix()
+      if (token.$value.includes('set_alpha(')) {
+        const regex = /set_alpha\s*\(/g;
+        let value = token.$value;
+        let match;
+
+        while ((match = regex.exec(value)) !== null) {
+          const start = match.index + match[0].length;
+          let depth = 1;
+          let end = start;
+
+          // Find matching closing paren
+          while (depth > 0 && end < value.length) {
+            if (value[end] === '(') depth++;
+            if (value[end] === ')') depth--;
+            end++;
+          }
+
+          if (depth === 0) {
+            const content = value.substring(start, end - 1);
+            const commaIndex = content.lastIndexOf(',');
+
+            if (commaIndex !== -1) {
+              const color = content.substring(0, commaIndex).trim();
+              const opacity = content.substring(commaIndex + 1).trim();
+
+              // Build replacement
+              let replacement;
+              if (opacity.endsWith('%')) {
+                replacement = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
+              } else {
+                replacement = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
+              }
+
+              // Replace set_alpha(...) with color-mix(...)
+              value = value.substring(0, match.index) + replacement + value.substring(end);
+
+              // Reset regex to continue from after the replacement
+              regex.lastIndex = match.index + replacement.length;
+            }
+          }
+        }
+
+        // Remove .to.hex() suffix
+        value = value.replace(/\.to\.hex\(\)/g, '');
+        token.$value = value;
+      }
+
+      // Convert rgba() to color-mix()
+      if (token.$value.includes('rgba(')) {
+        token.$value = token.$value.replace(
+          /rgba\(\s*([^,]+?)\s*,\s*([^)]+?)\)/g,
+          (match, color, opacity) => {
+            const trimmedColor = color.trim();
+            const trimmedOpacity = opacity.trim();
+
+            if (trimmedOpacity.endsWith('%')) {
+              return `color-mix(in srgb, ${trimmedColor} ${trimmedOpacity}, transparent)`;
+            } else {
+              return `color-mix(in srgb, ${trimmedColor} calc(${trimmedOpacity} * 100%), transparent)`;
+            }
+          }
+        );
+      }
+    } else if (token && !token.isSource) {
+      // Recursively process nested tokens
+      convertSetAlphaToColorMix(token);
+    }
+  });
+};
+
+StyleDictionary.registerPreprocessor({
+  name: 'convert-set-alpha-to-color-mix',
+  preprocessor: dictionary => {
+    convertSetAlphaToColorMix(dictionary);
+    return dictionary;
+  }
+});
+
 StyleDictionary.registerTransform({
   name: 'name/kebabWithCamel',
   type: 'name',
@@ -107,34 +189,6 @@ StyleDictionary.registerFileHeader({
       `Copyright ${new Date().getFullYear()} Sanoma Learning`,
       'SPDX-License-Identifier: Apache-2.0'
     ];
-  }
-});
-
-// Convert `rgba` functions into `color-mix` so it works with hex colors
-StyleDictionary.registerTransform({
-  name: 'sl/color/transparentColorMix',
-  type: 'value',
-  transitive: true,
-  filter: token =>
-    token.$type === 'color' &&
-    (token.original?.$value?.startsWith('rgba') || token.original?.$value?.startsWith('set_alpha')),
-  transform: token => {
-    const originalValue = token.original?.$value;
-    const [_, color, opacity] = originalValue.startsWith('rgba')
-      ? (originalValue.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
-      : originalValue.startsWith('set_alpha')
-        ? (originalValue.match(/set_alpha\(\s*(\S+)\s*,\s*(\S+)\)\.to\.hex\(\)/) ?? [])
-        : [];
-
-    if (color && opacity) {
-      if (opacity.endsWith('%')) {
-        return `color-mix(in srgb, ${color} ${opacity}, transparent)`;
-      } else {
-        return `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
-      }
-    }
-
-    return token.$value;
   }
 });
 
@@ -353,7 +407,7 @@ const build = async (production = false, path) => {
           warnings: 'disabled'
         },
         source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
-        preprocessors: ['strip-routing-prefix', 'tokens-studio'],
+        preprocessors: ['strip-routing-prefix', 'convert-set-alpha-to-color-mix', 'tokens-studio'],
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
@@ -362,7 +416,6 @@ const build = async (production = false, path) => {
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',
-              'sl/color/transparentColorMix',
               'sl/wrapMathInCalc'
             ].filter(Boolean),
             prefix: 'sl',
@@ -393,8 +446,7 @@ const build = async (production = false, path) => {
         css = await readFile(from, 'utf8');
 
       const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
-
-      await writeFile(to, result.css, 'utf8');
+      ile(to, result.css, 'utf8');
     }
   }
 };

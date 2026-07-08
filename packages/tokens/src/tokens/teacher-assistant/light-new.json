@@ -479,7 +479,7 @@
         },
         "secondary": {
           "bold": {
-            "$value": "{teacher-assistant.color.palette.purple.100}",
+            "$value": "{teacher-assistant.color.background.accent.purple.subtle}",
             "$type": "color",
             "$description": "A vibrant background option used for secondary actions."
           },
@@ -808,7 +808,7 @@
           },
           "green": {
             "bold": {
-              "$value": "{teacher-assistant.color.palette.green.700}",
+              "$value": "{teacher-assistant.color.background.accent.green.bold}",
               "$type": "color",
               "$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
             },
@@ -985,7 +985,7 @@
             "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
           },
           "onBold": {
-            "$value": "{teacher-assistant.color.foreground.accent.blue.onBold}",
+            "$value": "{teacher-assistant.color.palette.purple.050}",
             "$type": "color",
             "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
           },
@@ -1403,7 +1403,7 @@
             "$type": "color"
           },
           "500": {
-            "$value": "#793EF7",
+            "$value": "#7144F2",
             "$type": "color"
           },
           "600": {

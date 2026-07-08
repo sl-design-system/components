@@ -8,6 +8,7 @@
   "scripts": {
     "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
     "import-tokens": "yarn exec studio pull --ci",
+    "import-tokens-local": "yarn exec studio pull",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

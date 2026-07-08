@@ -115,15 +115,19 @@ StyleDictionary.registerTransform({
   name: 'sl/color/transparentColorMix',
   type: 'value',
   transitive: true,
-  filter: token => token.$type === 'color' && token.original?.$value?.startsWith('rgba'),
+  filter: token =>
+    token.$type === 'color' &&
+    (token.original?.$value?.startsWith('rgba') || token.original?.$value?.startsWith('set_alpha')),
   transform: token => {
     const originalValue = token.original?.$value;
+    console.log('Transforming color:', originalValue, '->', token.$value);
     const [_, color, opacity] = originalValue.startsWith('rgba')
       ? (originalValue.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
       : originalValue.startsWith('set_alpha')
-        ? (originalValue.match(/set_alpha\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
+        ? (originalValue.match(/set_alpha\(\s*(\S+)\s*,\s*(\S+)\)\.to\.hex\(\)/) ?? [])
         : [];
 
+    console.log('Color:', color, 'Opacity:', opacity);
     if (color && opacity) {
       if (opacity.endsWith('%')) {
         token.original.$value = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
@@ -131,6 +135,8 @@ StyleDictionary.registerTransform({
         token.original.$value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
       }
     }
+
+    console.log('Transformed color:', token.original.$value);
 
     return token.$value;
   }

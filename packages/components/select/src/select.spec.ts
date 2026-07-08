@@ -1689,6 +1689,8 @@ describe('sl-select', () => {
 
       expect(button).to.have.attribute('aria-label', 'Explicit label');
       expect(button.ariaLabelledByElements ?? []).to.have.length(0);
+      expect(select.listbox).to.have.attribute('aria-label', 'Explicit label');
+      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
     });
   });
 });

@@ -355,12 +355,19 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
       // Use element references so labeling works across the shadow boundary.
       if (!hasExplicitLabel && labels.length) {
+        this.listbox!.removeAttribute('aria-label');
         this.button.ariaLabelledByElements = labels;
-      }
-
-      // Use element references so listbox labeling works across the shadow boundary.
-      if (this.listbox) {
-        this.listbox.ariaLabelledByElements = labels;
+        this.listbox!.ariaLabelledByElements = labels;
+      } else if (this.listbox) {
+        if (explicitLabelledByElements.length > 0) {
+          // Use element references so listbox labeling works across the shadow boundary.
+          this.listbox.removeAttribute('aria-label');
+          this.listbox.ariaLabelledByElements = explicitLabelledByElements;
+        } else if (ariaLabel) {
+          // Mirror explicit aria-label so the listbox has a concrete name in the accessibility tree.
+          this.listbox.ariaLabel = ariaLabel;
+          this.listbox.ariaLabelledByElements = [];
+        }
       }
     });
   }

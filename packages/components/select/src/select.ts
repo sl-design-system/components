@@ -342,26 +342,42 @@ export class Select<T = any> extends ObserveAttributesMixin(
         this.button.internals.ariaControlsElements = [this.listbox];
       }
 
-      if (this.internals.labels.length) {
-        const labels = Array.from(this.internals.labels) as Element[],
-          ariaLabel = this.button.getAttribute('aria-label')?.trim(),
-          ariaLabelledBy = this.button.getAttribute('aria-labelledby')?.trim(),
-          hasExplicitLabel =
-            Boolean(ariaLabel) ||
-            Boolean(ariaLabelledBy) ||
-            (this.button.ariaLabelledByElements?.length ?? 0) > 0;
+      const labels = Array.from(this.internals.labels) as Element[],
+        hostAriaLabel = this.getAttribute('aria-label')?.trim(),
+        hostAriaLabelledBy = this.getAttribute('aria-labelledby')?.trim(),
+        buttonAriaLabel = this.button.getAttribute('aria-label')?.trim(),
+        buttonAriaLabelledBy = this.button.getAttribute('aria-labelledby')?.trim(),
+        ariaLabel = hostAriaLabel || buttonAriaLabel,
+        explicitLabelledByElements =
+          (this.button.ariaLabelledByElements && [...this.button.ariaLabelledByElements]) ||
+          this.#resolveLabelledByElements(hostAriaLabelledBy || buttonAriaLabelledBy),
+        hasExplicitLabel = Boolean(ariaLabel) || explicitLabelledByElements.length > 0;
 
-        // Use element references so labeling works across the shadow boundary.
-        if (!hasExplicitLabel) {
-          this.button.ariaLabelledByElements = labels;
-        }
+      // Use element references so labeling works across the shadow boundary.
+      if (!hasExplicitLabel && labels.length) {
+        this.button.ariaLabelledByElements = labels;
+      }
 
-        // Use element references so listbox labeling works across the shadow boundary.
-        if (this.listbox) {
-          this.listbox.ariaLabelledByElements = labels;
-        }
+      // Use element references so listbox labeling works across the shadow boundary.
+      if (this.listbox) {
+        this.listbox.ariaLabelledByElements = labels;
       }
     });
+  }
+
+  #resolveLabelledByElements(ariaLabelledBy?: string): HTMLElement[] {
+    if (!ariaLabelledBy) {
+      return [];
+    }
+
+    const ids = ariaLabelledBy
+      .split(/\s+/)
+      .map(id => id.trim())
+      .filter(Boolean);
+
+    return ids
+      .map(id => this.ownerDocument.getElementById(id))
+      .filter((element): element is HTMLElement => element !== null);
   }
 
   override render(): TemplateResult {

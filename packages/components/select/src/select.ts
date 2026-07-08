@@ -370,14 +370,14 @@ export class Select<T = any> extends ObserveAttributesMixin(
       return [];
     }
 
-    const ids = ariaLabelledBy
-      .split(/\s+/)
-      .map(id => id.trim())
-      .filter(Boolean);
+    const root = this.getRootNode() as Document | ShadowRoot;
 
-    return ids
-      .map(id => this.ownerDocument.getElementById(id))
-      .filter((element): element is HTMLElement => element !== null);
+    return ariaLabelledBy
+      .split(/\s+/)
+      .map((id: string) => id.trim())
+      .filter(Boolean)
+      .map((id: string) => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
+      .filter((element: HTMLElement | null): element is HTMLElement => element !== null);
   }
 
   override render(): TemplateResult {

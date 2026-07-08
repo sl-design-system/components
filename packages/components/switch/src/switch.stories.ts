@@ -4,6 +4,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -85,6 +86,57 @@ export const Reverse: Story = {
   args: {
     reverse: true
   }
+};
+
+export const Infotip: Story = {
+  render: ({ checked, disabled, size, value }) => html`
+    <style>
+      .wrapper {
+        flex-direction: column;
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .stretched {
+        align-self: stretch;
+      }
+    </style>
+    <div class="wrapper">
+      <sl-switch ?checked=${checked} ?disabled=${disabled} size=${ifDefined(size)} .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        class="stretched"
+        ?checked=${checked}
+        ?disabled=${disabled}
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        ?checked=${checked}
+        ?disabled=${disabled}
+        reverse
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        class="stretched"
+        ?checked=${checked}
+        ?disabled=${disabled}
+        reverse
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+    </div>
+  `
 };
 
 export const CustomIcons: Story = {

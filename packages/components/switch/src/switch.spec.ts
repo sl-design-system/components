@@ -1,6 +1,7 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/infotip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -11,6 +12,56 @@ import { Switch } from './switch.js';
 
 describe('sl-switch', () => {
   let el: Switch, input: HTMLInputElement;
+
+  it('should ignore non-infotip elements assigned to the infotip slot', async () => {
+    el = await fixture(html`
+      <sl-switch>
+        Label
+        <span slot="infotip">Not an infotip</span>
+      </sl-switch>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip).to.be.undefined;
+  });
+
+  it('should set an infotip describe label based on the switch label', async () => {
+    el = await fixture(html`
+      <sl-switch>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-switch>
+    `);
+
+    await el.updateComplete;
+
+    expect(el.infotip?.size).to.equal('sm');
+    expect(el.infotip?.describes).to.equal('Label');
+  });
+
+  it('should not toggle when clicking the infotip', async () => {
+    el = await fixture(html`
+      <sl-switch>
+        Label
+        <sl-infotip slot="infotip">More info</sl-infotip>
+      </sl-switch>
+    `);
+
+    el.querySelector<HTMLElement>('sl-infotip')?.click();
+    await el.updateComplete;
+
+    expect(el.checked).not.to.be.true;
+  });
+
+  it('should toggle when clicking the label', async () => {
+    el = await fixture(html`<sl-switch>Label</sl-switch>`);
+
+    await userEvent.click(el.querySelector('label')!);
+    await el.updateComplete;
+
+    expect(el.checked).to.be.true;
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -238,6 +289,16 @@ describe('sl-switch', () => {
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
       expect(input.checked).to.be.false;
+    });
+
+    it('should toggle the state when clicking the toggle', async () => {
+      el.renderRoot.querySelector<HTMLElement>('[part="toggle"]')?.click();
+      await el.updateComplete;
+
+      expect(el.checked).to.equal(true);
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
+      expect(input.checked).to.be.true;
     });
 
     it('should toggle the state on Enter', async () => {

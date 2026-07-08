@@ -4,6 +4,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type EventEmitter,
   EventsController,
@@ -23,7 +24,7 @@ import {
   html,
   nothing
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
 declare global {
@@ -45,6 +46,7 @@ let nextUniqueId = 0;
  *
  * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
+ * @slot infotip - The slot for the infotip element
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Switch<T = any> extends ObserveAttributesMixin(
@@ -107,6 +109,8 @@ export class Switch<T = any> extends ObserveAttributesMixin(
 
   /** Whether the toggle should be shown _after_ the text. */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
+
+  @state() infotip?: Infotip;
 
   /**
    * The size of the switch.
@@ -174,6 +178,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    this.#onInfotipSlotChange();
     this.updateValidity();
   }
 
@@ -202,6 +207,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
     return html`
       <slot></slot>
       <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
       <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
       <div part="toggle">
         <div part="track">
@@ -222,7 +228,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.disabled || (this.infotip && event.composedPath().includes(this.infotip))) {
       return;
     }
 
@@ -307,7 +313,35 @@ export class Switch<T = any> extends ObserveAttributesMixin(
             .join(' ')
         );
       }
+
+      if (this.infotip && !this.infotip.describes) {
+        this.infotip.describes = nodes
+          .map(node => node.textContent?.trim() || '')
+          .join(' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
     });
+  }
+
+  #onInfotipSlotChange(): void {
+    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="infotip"]'),
+      assignedElements = slot?.assignedElements({ flatten: true }) || [];
+
+    this.infotip =
+      assignedElements.find(
+        (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
+      ) || undefined;
+
+    if (this.infotip) {
+      this.infotip.setAttribute('size', 'sm');
+
+      if (!this.infotip.describes) {
+        // Ensure label is synthesized before reading it
+        this.#onLabelSlotChange();
+        this.infotip.describes = this.#label?.textContent?.replace(/\s+/g, ' ').trim() || '';
+      }
+    }
   }
 
   #syncInput(input: HTMLInputElement): void {

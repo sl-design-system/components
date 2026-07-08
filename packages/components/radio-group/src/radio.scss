@@ -5,6 +5,13 @@
   --_border: var(--sl-color-border-input);
   --_fill: var(--sl-color-foreground-selected-onBold);
 
+  align-items: flex-start;
+  display: flex;
+  gap: var(--sl-size-025);
+  outline: none;
+}
+
+[part='wrapper'] {
   align-items: start;
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
@@ -62,7 +69,7 @@
   --_fill: var(--sl-color-foreground-positive-onBold);
 }
 
-:host(:focus-visible) [part='box'] {
+[part='wrapper']:focus-visible [part='box'] {
   outline-color: var(--sl-color-border-focused);
 }
 
@@ -123,6 +130,10 @@
 
 [part='label'] {
   margin-block-start: calc((var(--sl-size-300) - 1lh) / 2);
+}
+
+::slotted(sl-infotip) {
+  margin-block-start: var(--sl-size-050);
 }
 
 svg {

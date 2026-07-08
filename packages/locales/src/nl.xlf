@@ -466,17 +466,21 @@
   <source>Options</source>
   <target>Opties</target>
 </trans-unit>
+<trans-unit id="sl.infotip.moreInformationAbout">
+  <source>More information about <x id="0" equiv-text="${describes}"/></source>
+  <target>Meer informatie over <x id="0" equiv-text="${describes}"/></target>
+</trans-unit>
 <trans-unit id="sl.grid.rowActivated">
-  <source>Row <x id="0" equiv-text="${index}"/> activated</source>
-  <target>Rij <x id="0" equiv-text="${index}"/> geactiveerd</target>
+  <source>Row <x id="0" equiv-text="${rowNumber}"/> activated</source>
+  <target>Rij <x id="0" equiv-text="${rowNumber}"/> geactiveerd</target>
 </trans-unit>
 <trans-unit id="sl.grid.rowDeactivated">
-  <source>Row <x id="0" equiv-text="${index}"/> deactivated</source>
-  <target>Rij <x id="0" equiv-text="${index}"/> gedeactiveerd</target>
+  <source>Row <x id="0" equiv-text="${rowNumber}"/> deactivated</source>
+  <target>Rij <x id="0" equiv-text="${rowNumber}"/> gedeactiveerd</target>
 </trans-unit>
 <trans-unit id="sl.grid.inActivatedRow">
-  <source>In activated row <x id="0" equiv-text="${index}"/></source>
-  <target>In geactiveerde rij <x id="0" equiv-text="${index}"/></target>
+  <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
+  <target>In geactiveerde rij <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
 </body>
 </file>

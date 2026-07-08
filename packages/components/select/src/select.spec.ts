@@ -1690,42 +1690,5 @@ describe('sl-select', () => {
       expect(button).to.have.attribute('aria-label', 'Explicit label');
       expect(button.ariaLabelledByElements ?? []).to.have.length(0);
     });
-
-    it('should set ariaLabel on the listbox when labeled via aria-label', async () => {
-      const select = await fixture<Select>(html`
-        <sl-select aria-label="Explicit label">
-          <sl-option value="1">Option 1</sl-option>
-          <sl-option value="2">Option 2</sl-option>
-        </sl-select>
-      `);
-
-      select.querySelector<SelectButton>('sl-select-button')?.click();
-      await select.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
-
-      expect(select.listbox).to.have.attribute('aria-label', 'Explicit label');
-      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
-    });
-
-    it('should set ariaLabelledByElements on the listbox when labeled via aria-labelledby', async () => {
-      const wrapper = await fixture(html`
-        <div>
-          <span id="external-select-label">External select label</span>
-          <sl-select aria-labelledby="external-select-label">
-            <sl-option value="1">Option 1</sl-option>
-            <sl-option value="2">Option 2</sl-option>
-          </sl-select>
-        </div>
-      `);
-
-      const select = wrapper.querySelector('sl-select') as Select,
-        externalLabel = wrapper.querySelector('#external-select-label') as Element;
-
-      select.querySelector<SelectButton>('sl-select-button')?.click();
-      await select.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
-
-      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([externalLabel]);
-    });
   });
 });

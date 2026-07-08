@@ -17,12 +17,12 @@
     "size": {
       "borderRadius": {
         "child": {
-          "$value": "{size.borderRadius.md} / 2",
+          "$value": "{size.borderRadius.lg} / 2",
           "$type": "borderRadius",
           "$description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },
         "default": {
-          "$value": "{size.borderRadius.md}",
+          "$value": "{size.borderRadius.lg}",
           "$type": "borderRadius",
           "$description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },

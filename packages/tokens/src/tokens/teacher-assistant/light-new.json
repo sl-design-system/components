@@ -34,7 +34,7 @@
           },
           "green": {
             "bold": {
-              "$value": "{teacher-assistant.color.palette.green.600}",
+              "$value": "{teacher-assistant.color.palette.green.900}",
               "$type": "color",
               "$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
             },
@@ -508,29 +508,29 @@
         },
         "selected": {
           "bold": {
-            "$value": "{teacher-assistant.color.background.accent.blue.bold}",
+            "$value": "{teacher-assistant.color.background.accent.purple.bold}",
             "$type": "color",
             "$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
           },
           "interactive": {
             "bold": {
-              "$value": "{teacher-assistant.color.background.accent.blue.interactive.bold}",
+              "$value": "{teacher-assistant.color.background.accent.purple.interactive.bold}",
               "$type": "color",
               "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "$value": "{teacher-assistant.color.background.accent.blue.interactive.plain}",
+              "$value": "{teacher-assistant.color.background.accent.purple.interactive.plain}",
               "$type": "color",
               "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           },
           "subtle": {
-            "$value": "{teacher-assistant.color.background.accent.blue.subtle}",
+            "$value": "{teacher-assistant.color.background.accent.purple.subtle}",
             "$type": "color",
             "$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
           },
           "subtlest": {
-            "$value": "{teacher-assistant.color.background.accent.blue.subtlest}",
+            "$value": "{teacher-assistant.color.background.accent.purple.subtlest}",
             "$type": "color",
             "$description": "The subtlest background in the primary action color."
           }
@@ -782,7 +782,7 @@
           }
         },
         "selected": {
-          "$value": "{teacher-assistant.color.border.accent.blue.plain}",
+          "$value": "{teacher-assistant.color.border.accent.purple.plain}",
           "$type": "color",
           "$description": "Use for borders that emphasize selected states, such as tabs or menu items."
         }
@@ -813,7 +813,7 @@
               "$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "$value": "{teacher-assistant.color.foreground.inverted.plain}",
+              "$value": "{teacher-assistant.color.palette.green.150}",
               "$type": "color",
               "$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
             },
@@ -930,7 +930,7 @@
           },
           "yellow": {
             "bold": {
-              "$value": "{teacher-assistant.color.palette.yellow.800}",
+              "$value": "{teacher-assistant.color.palette.yellow.700}",
               "$type": "color",
               "$description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
             },

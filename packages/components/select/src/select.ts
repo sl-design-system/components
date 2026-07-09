@@ -372,7 +372,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     });
   }
 
-  #resolveLabelledByElements(ariaLabelledBy?: string): HTMLElement[] {
+  #resolveLabelledByElements(ariaLabelledBy?: string): Element[] {
     if (!ariaLabelledBy) {
       return [];
     }
@@ -383,8 +383,8 @@ export class Select<T = any> extends ObserveAttributesMixin(
       .split(/\s+/)
       .map((id: string) => id.trim())
       .filter(Boolean)
-      .map((id: string) => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`))
-      .filter((element: HTMLElement | null): element is HTMLElement => element !== null);
+      .map((id: string) => root.querySelector<Element>(`#${CSS.escape(id)}`))
+      .filter((element: Element | null): element is Element => element !== null);
   }
 
   override render(): TemplateResult {

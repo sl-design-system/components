@@ -1692,5 +1692,24 @@ describe('sl-select', () => {
       expect(select.listbox).to.have.attribute('aria-label', 'Explicit label');
       expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
     });
+
+    it('should propagate explicit aria-labelledby to the listbox via ariaLabelledByElements', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="explicit-label">Explicit label</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="explicit-label">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+      const select = wrapper.querySelector('sl-select') as Select,
+        explicitLabel = wrapper.querySelector('#explicit-label') as HTMLElement;
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([explicitLabel]);
+    });
   });
 });

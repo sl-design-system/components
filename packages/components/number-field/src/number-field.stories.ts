@@ -131,7 +131,7 @@ export const FormatCurrency: Story = {
 export const FormatPercent: Story = {
   args: {
     formatOptions: { style: 'percent', maximumFractionDigits: 2 },
-    hint: 'The number is formatted as a percentage with up to 2 decimal places based on the current locale (e.g., "1,000.25%" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
+    hint: 'The number is formatted as a percentage with a format based on the current locale (e.g., "1,000.25%" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
     reportValidity: true,
     step: 0.01,
     valueAsNumber: 10

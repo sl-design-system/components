@@ -446,7 +446,7 @@ const build = async (production = false, path) => {
         css = await readFile(from, 'utf8');
 
       const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
-      ile(to, result.css, 'utf8');
+      await writeFile(to, result.css, 'utf8');
     }
   }
 };

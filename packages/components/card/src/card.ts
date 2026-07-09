@@ -273,8 +273,8 @@ export class Card extends ScopedElementsMixin(LitElement) {
 
     const title: HTMLSlotElement | null = this.shadowRoot.querySelector('slot.title');
     this.#titleLink = title
-      ?.assignedNodes({ flatten: true })
-      .find(el => el instanceof HTMLAnchorElement);
+      ?.assignedElements({ flatten: true })
+      .find((el): el is HTMLAnchorElement => el instanceof HTMLAnchorElement);
 
     this.classList.toggle('sl-has-link', !!this.#titleLink);
   }

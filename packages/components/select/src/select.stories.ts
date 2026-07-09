@@ -487,7 +487,9 @@ export const HideWhenOutOfView: StoryObj = {
         }
 
         header {
-          background: var(--sl-color-background-subtle);
+          background:
+            linear-gradient(var(--sl-color-background-subtle), var(--sl-color-background-subtle)),
+            var(--sl-elevation-surface-base-default);
           position: sticky;
           top: 0;
           padding: 24px;

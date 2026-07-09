@@ -1,0 +1,32 @@
+{
+  "$schema": "https://tokens.studio/schema/cli",
+  "configurations": {
+    "core": {
+      "project": "9eb39947-0172-4bf2-af5b-bd79f4493f7a",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "../packages/tokens/src/core",
+      "format": "raw"
+    },
+    "deprecated": {
+      "project": "29b6e5a1-f540-4668-9964-b23ea58cf875",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "../packages/tokens/src/deprecated",
+      "format": "raw"
+    },
+    "typography-sizing-spacing": {
+      "project": "4bd4e23d-8c0e-48b5-80c1-9ce27bf71839",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "../packages/tokens/src/typography-sizing-spacing",
+      "format": "css"
+    }
+  }
+}

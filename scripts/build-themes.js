@@ -429,6 +429,7 @@ const build = async (production = false, path, deprecated) => {
   );
 
   for (const cfg of [...configs, ...oldConfigs]) {
+    console.log(`Building ${cfg.theme}/${cfg.variant} theme...`, cfg);
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
@@ -447,8 +448,4 @@ const build = async (production = false, path, deprecated) => {
   // put a copy of the exported typography tokens in the theme folder for easier consumption by consumers of the theme package
 };
 
-build(
-  argv.includes('--production'),
-  '../packages/tokens/src/core',
-  '../packages/tokens/src/deprecated'
-);
+build(argv.includes('--production'), './export/core', './export/deprecated');

@@ -793,42 +793,57 @@ export const LinkWithToggleButton: Story = {
     const onLinkClick = (event: Event): void => {
       event.preventDefault();
       linkClicks += 1;
-      updateCounters((event.currentTarget as Element).closest('.click-reproduction'));
+      updateCounters((event.currentTarget as Element).closest('.link-with-toggle'));
     };
 
     const onToggleClick = (event: Event): void => {
       toggleClicks += 1;
-      updateCounters((event.currentTarget as Element).closest('.click-reproduction'));
+      updateCounters((event.currentTarget as Element).closest('.link-with-toggle'));
     };
 
     return html`
       <style>
-        .click-reproduction {
+        .link-with-toggle {
           display: grid;
           gap: 12px;
           max-width: 320px;
         }
 
-        .click-reproduction__counts {
+        .link-with-toggle__counts {
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
         }
+
+        .link-with-toggle__favorite {
+          clip-path: circle(50%);
+        }
+
+        .link-with-toggle__favorite::part(wrapper) {
+          padding: var(--sl-size-075);
+        }
       </style>
-      <div class="click-reproduction">
+      <div class="link-with-toggle">
         <sl-card>
-          <a href="https://example.com/book" target="_blank" rel="noopener noreferrer" @click=${onLinkClick}> Link text </a>
+          <a
+            href="https://example.com/book"
+            target="_blank"
+            rel="noopener noreferrer"
+            @click=${onLinkClick}>
+            Link text
+          </a>
           <sl-toggle-button
+            class="link-with-toggle__favorite"
             slot="menu-button"
             aria-label="Favorite"
             shape="pill"
-            @click=${onToggleClick}>
+            @sl-toggle=${onToggleClick}>
             <sl-icon name="far-heart" slot="default"></sl-icon>
             <sl-icon name="fas-heart" slot="pressed"></sl-icon>
           </sl-toggle-button>
         </sl-card>
 
-        <div class="click-reproduction__counts">
+        <div class="link-with-toggle__counts">
           <sl-badge color="green" size="lg"
             >Book link clicks: <span data-link-clicks>0</span></sl-badge
           >

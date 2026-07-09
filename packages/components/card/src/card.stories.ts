@@ -809,7 +809,6 @@ export const LinkWithToggleButton: Story = {
           max-width: 320px;
         }
 
-        .click-reproduction__controls,
         .click-reproduction__counts {
           display: flex;
           flex-wrap: wrap;
@@ -818,7 +817,7 @@ export const LinkWithToggleButton: Story = {
       </style>
       <div class="click-reproduction">
         <sl-card>
-          <a href="https://example.com/book" target="_blank" @click=${onLinkClick}> Link text </a>
+          <a href="https://example.com/book" target="_blank" rel="noopener noreferrer" @click=${onLinkClick}> Link text </a>
           <sl-toggle-button
             slot="menu-button"
             aria-label="Favorite"

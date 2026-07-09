@@ -311,6 +311,20 @@ export class Card extends ScopedElementsMixin(LitElement) {
   };
 
   #shouldIgnoreClick(event: MouseEvent): boolean {
+    const interactiveSelector = [
+      'a',
+      'button',
+      'input',
+      'select',
+      'textarea',
+      '[role="button"]',
+      '[slot="actions"]',
+      '[slot="menu-button"]',
+      'sl-button',
+      'sl-menu-button',
+      'sl-toggle-button'
+    ].join(',');
+
     return event.composedPath().some(el => {
       if (el === this.#titleLink) {
         return true;
@@ -320,24 +334,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
         return ['actions', 'menu-button'].includes(el.name) || el.classList.contains('title');
       }
 
-      return (
-        el instanceof Element &&
-        el.matches(
-          [
-            'a',
-            'button',
-            'input',
-            'select',
-            'textarea',
-            '[role="button"]',
-            '[slot="actions"]',
-            '[slot="menu-button"]',
-            'sl-button',
-            'sl-menu-button',
-            'sl-toggle-button'
-          ].join(',')
-        )
-      );
+      return el instanceof Element && el.matches(interactiveSelector);
     });
   }
 }

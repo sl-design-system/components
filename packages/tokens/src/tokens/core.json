@@ -84,12 +84,12 @@
     },
     "width": {
       "2xl": {
-        "$value": "6",
+        "$value": "6px",
         "$type": "borderWidth",
         "$description": "border.width.2xl"
       },
       "2xs": {
-        "$value": "0.5",
+        "$value": "0.5px",
         "$type": "borderWidth",
         "$description": "2xs"
       },
@@ -183,12 +183,12 @@
         }
       },
       "lg": {
-        "$value": "4",
+        "$value": "4px",
         "$type": "borderWidth",
         "$description": "border.width.lg"
       },
       "md": {
-        "$value": "3",
+        "$value": "3px",
         "$type": "borderWidth",
         "$description": "border.width.md"
       },
@@ -223,7 +223,7 @@
         }
       },
       "sm": {
-        "$value": "2",
+        "$value": "2px",
         "$type": "borderWidth",
         "$description": "border.width.sm"
       },
@@ -240,12 +240,12 @@
         }
       },
       "xl": {
-        "$value": "5",
+        "$value": "5px",
         "$type": "borderWidth",
         "$description": "border.width.xl"
       },
       "xs": {
-        "$value": "1",
+        "$value": "1px",
         "$type": "borderWidth",
         "$description": "border.width.xs"
       }
@@ -276,20 +276,20 @@
       "checklist": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "4",
+            "x": "0px",
+            "y": "0px",
+            "blur": "4px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.50})",
-            "spread": "0"
+            "spread": "0px"
           },
           {
-            "x": "0",
-            "y": "4",
-            "blur": "8",
+            "x": "0px",
+            "y": "4px",
+            "blur": "8px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.150})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
@@ -317,20 +317,20 @@
       "lg": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "4",
+            "x": "0px",
+            "y": "0px",
+            "blur": "4px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.100})",
-            "spread": "0"
+            "spread": "0px"
           },
           {
-            "x": "0",
-            "y": "8",
-            "blur": "16",
+            "x": "0px",
+            "y": "8px",
+            "blur": "16px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
@@ -338,20 +338,20 @@
       "md": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "4",
+            "x": "0px",
+            "y": "0px",
+            "blur": "4px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.50})",
-            "spread": "0"
+            "spread": "0px"
           },
           {
-            "x": "0",
-            "y": "4",
-            "blur": "8",
+            "x": "0px",
+            "y": "4px",
+            "blur": "8px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.150})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
@@ -359,12 +359,12 @@
       "none": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "0",
+            "x": "0px",
+            "y": "0px",
+            "blur": "0px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.transparent})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
@@ -372,27 +372,217 @@
       "sm": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "6",
+            "x": "0px",
+            "y": "0px",
+            "blur": "6px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.50})",
-            "spread": "0"
+            "spread": "0px"
           },
           {
-            "x": "0",
+            "x": "0px",
             "y": "2px",
             "blur": "4px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
       }
     }
   },
+  "flexDirection": {
+    "column": {
+      "$value": "column",
+      "$type": "flex"
+    },
+    "columnReverse": {
+      "$value": "column-reverse",
+      "$type": "flex"
+    },
+    "row": {
+      "$value": "row",
+      "$type": "flex"
+    },
+    "rowReverse": {
+      "$value": "row-reverse",
+      "$type": "flex"
+    }
+  },
   "icon": {
+    "core": {
+      "angle-down": {
+        "$value": "angle-down",
+        "$type": "icons",
+        "$description": "icon.core.angle-down"
+      },
+      "breadcrumb-separator": {
+        "$value": "slash-forward",
+        "$type": "icons",
+        "$description": "icon.core.breadcrumb-separator"
+      },
+      "calendar": {
+        "$value": "calendar",
+        "$type": "icons",
+        "$description": "icon.core.calendar"
+      },
+      "caret-down-solid": {
+        "$value": "caret-down",
+        "$type": "icons",
+        "$description": "icon.core.caret-down-solid"
+      },
+      "caret-left-solid": {
+        "$value": "caret-left",
+        "$type": "icons",
+        "$description": "icon.core.caret-left-solid"
+      },
+      "caret-right-solid": {
+        "$value": "caret-right",
+        "$type": "icons",
+        "$description": "icon.core.caret-right-solid"
+      },
+      "check": {
+        "$value": "check",
+        "$type": "icons",
+        "$description": "icon.core.check"
+      },
+      "check-solid": {
+        "$value": "check",
+        "$type": "icons",
+        "$description": "icon.core.check-solid"
+      },
+      "chevron-down": {
+        "$value": "chevron-down",
+        "$type": "icons",
+        "$description": "icon.core.chevron-down"
+      },
+      "chevron-left": {
+        "$value": "chevron-left",
+        "$type": "icons",
+        "$description": "icon.core.chevron-left"
+      },
+      "chevron-right": {
+        "$value": "chevron-right",
+        "$type": "icons",
+        "$description": "icon.core.chevron-right"
+      },
+      "circle-check-solid": {
+        "$value": "circle-check",
+        "$type": "icons",
+        "$description": "icon.core.circle-check-solid"
+      },
+      "circle-exclamation-solid": {
+        "$value": "circle-exclamation",
+        "$type": "icons",
+        "$description": "icon.core.circle-exclamation-solid"
+      },
+      "circle-solid": {
+        "$value": "circle",
+        "$type": "icons",
+        "$description": "icon.core.circle"
+      },
+      "circle-xmark": {
+        "$value": "circle-xmark",
+        "$type": "icons",
+        "$description": "icon.core.circle-xmark"
+      },
+      "circle-xmark-solid": {
+        "$value": "circle-xmark",
+        "$type": "icons",
+        "$description": "icon.core.circle-xmark-solid"
+      },
+      "clock": {
+        "$value": "clock",
+        "$type": "icons",
+        "$description": "icon.core.clock"
+      },
+      "dash-solid": {
+        "$value": "dash",
+        "$type": "icons",
+        "$description": "icon.core.dash-solid"
+      },
+      "diamond-exclamation-solid": {
+        "$value": "diamond-exclamation",
+        "$type": "icons",
+        "$description": "icon.core.diamond-exclamation-solid"
+      },
+      "ellipsis": {
+        "$value": "ellipsis",
+        "$type": "icons",
+        "$description": "icon.core.ellipsis"
+      },
+      "ellipsis-vertical": {
+        "$value": "ellipsis-vertical",
+        "$type": "icons",
+        "$description": "icon.core.ellipsis-vertical"
+      },
+      "face-smile": {
+        "$value": "face-smile",
+        "$type": "icons",
+        "$description": "icon.core.face-smile"
+      },
+      "fav": {
+        "$value": "star",
+        "$type": "icons",
+        "$description": "icon.core.fav"
+      },
+      "grip-lines": {
+        "$value": "grip-lines",
+        "$type": "icons",
+        "$description": "icon.core.grip-lines"
+      },
+      "home-blank": {
+        "$value": "home-blank",
+        "$type": "icons",
+        "$description": "icon.core.home-blank"
+      },
+      "menu": {
+        "$value": "bars",
+        "$type": "icons",
+        "$description": "icon.core.menu"
+      },
+      "minus": {
+        "$value": "minus",
+        "$type": "icons",
+        "$description": "icon.core.minus"
+      },
+      "octagon-exclamation-solid": {
+        "$value": "octagon-exclamation",
+        "$type": "icons",
+        "$description": "icon.core.octagon-exclamation-solid"
+      },
+      "pinata": {
+        "$value": "pinata",
+        "$type": "icons",
+        "$description": "icon.core.pinata"
+      },
+      "pinata-solid": {
+        "$value": "pinata",
+        "$type": "icons",
+        "$description": "icon.core.pinata"
+      },
+      "plus": {
+        "$value": "plus",
+        "$type": "icons",
+        "$description": "icon.core.plus"
+      },
+      "search": {
+        "$value": "magnifying-glass",
+        "$type": "icons",
+        "$description": "icon.core.search"
+      },
+      "triangle-exclamation-solid": {
+        "$value": "triangle-exclamation",
+        "$type": "icons",
+        "$description": "icon.core.triangle-exclamation-solid"
+      },
+      "xmark": {
+        "$value": "xmark",
+        "$type": "icons",
+        "$description": "icon.core.xmark"
+      }
+    },
     "fontFamily": {
       "classic": {
         "$value": "Font Awesome 6 Pro",
@@ -451,6 +641,20 @@
           "$description": "icon.typeset.fontSize.xs"
         }
       }
+    }
+  },
+  "justifyContent": {
+    "end": {
+      "$value": "end",
+      "$type": "flex"
+    },
+    "spaceBetween": {
+      "$value": "space-between",
+      "$type": "flex"
+    },
+    "start": {
+      "$value": "start",
+      "$type": "flex"
     }
   },
   "opacity": {

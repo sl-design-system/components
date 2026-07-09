@@ -1,6 +1,0 @@
-{
-  "target-group": {
-    "$value": "{target.target-group}",
-    "$type": "string"
-  }
-}

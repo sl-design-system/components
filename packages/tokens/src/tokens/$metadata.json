@@ -68,6 +68,7 @@
     "sanoma-utbildning/light-new",
     "teacher-assistant/base-new",
     "teacher-assistant/light-new",
-    "teacher-assistant/theme-new"
+    "teacher-assistant/theme-new",
+    "core"
   ]
 }

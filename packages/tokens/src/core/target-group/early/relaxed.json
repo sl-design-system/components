@@ -1,0 +1,92 @@
+{
+  "early": {
+    "space-rem": {
+      "075": {
+        "$value": "round_to({early.rem-base-space} * 0.375, 0)",
+        "$type": "space"
+      },
+      "1000": {
+        "$value": "round_to({early.rem-base-space} * 5, 0)",
+        "$type": "space"
+      },
+      "125": {
+        "$value": "round_to({early.rem-base-space} * 0.625, 0)",
+        "$type": "space"
+      },
+      "500": {
+        "$value": "round_to({early.rem-base-space} * 2.5, 0)",
+        "$type": "space"
+      },
+      "175": {
+        "$value": "round_to({early.rem-base-space} * 0.875, 0)",
+        "$type": "space"
+      },
+      "025": {
+        "$value": "round_to({early.rem-base-space} * 0.125, 0)",
+        "$type": "space"
+      },
+      "010": {
+        "$value": "round_to({early.rem-base-space} * 0.0625, 0)",
+        "$type": "space"
+      },
+      "100": {
+        "$value": "round_to({early.rem-base-space} * 0.5, 0)",
+        "$type": "space"
+      },
+      "050": {
+        "$value": "round_to({early.rem-base-space} * 0.25, 0)",
+        "$type": "space"
+      },
+      "400": {
+        "$value": "round_to({early.rem-base-space} * 2, 0)",
+        "$type": "space"
+      },
+      "700": {
+        "$value": "round_to({early.rem-base-space} * 3.5, 0)",
+        "$type": "space"
+      },
+      "300": {
+        "$value": "round_to({early.rem-base-space} * 1.5, 0)",
+        "$type": "space"
+      },
+      "250": {
+        "$value": "round_to({early.rem-base-space} * 1.25, 0)",
+        "$type": "space"
+      },
+      "full": {
+        "$value": "round_to({early.rem-base-space} * 50, 0)",
+        "$type": "space"
+      },
+      "150": {
+        "$value": "round_to({early.rem-base-space} * 0.75, 0)",
+        "$type": "space"
+      },
+      "200": {
+        "$value": "round_to({early.rem-base-space} * 1, 0)",
+        "$type": "space"
+      },
+      "800": {
+        "$value": "round_to({early.rem-base-space} * 4, 0)",
+        "$type": "space"
+      },
+      "600": {
+        "$value": "round_to({early.rem-base-space} * 3, 0)",
+        "$type": "space"
+      },
+      "none": {
+        "$value": "0",
+        "$type": "space"
+      }
+    },
+    "target": {
+      "density": {
+        "$value": "Relaxed",
+        "$type": "string"
+      }
+    },
+    "rem-base-space": {
+      "$value": "32",
+      "$type": "number"
+    }
+  }
+}

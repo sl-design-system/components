@@ -1,0 +1,100 @@
+{
+  "target": {
+    "size-rem": {
+      "font": {
+        "200": {
+          "$value": "round_to({advanced.font-rem-base} * 1, 0)",
+          "$type": "fontSize"
+        },
+        "400": {
+          "$value": "round_to({advanced.font-rem-base} * 2, 0)",
+          "$type": "fontSize"
+        },
+        "150": {
+          "$value": "round_to({advanced.font-rem-base} * 0.75, 0)",
+          "$type": "fontSize"
+        },
+        "500": {
+          "$value": "round_to({advanced.font-rem-base} * 2.5, 0)",
+          "$type": "fontSize"
+        },
+        "175": {
+          "$value": "round_to({advanced.font-rem-base} * 0.875, 0)",
+          "$type": "fontSize"
+        },
+        "250": {
+          "$value": "round_to({advanced.font-rem-base} * 1.25, 0)",
+          "$type": "fontSize"
+        },
+        "300": {
+          "$value": "round_to({advanced.font-rem-base} * 1.5, 0)",
+          "$type": "fontSize"
+        },
+        "600": {
+          "$value": "round_to({advanced.font-rem-base} * 3, 0)",
+          "$type": "fontSize"
+        },
+        "800": {
+          "$value": "round_to({advanced.font-rem-base} * 4, 0)",
+          "$type": "fontSize"
+        },
+        "1000": {
+          "$value": "round_to({advanced.font-rem-base} * 5, 0)",
+          "$type": "fontSize"
+        }
+      }
+    },
+    "lineHeight": {
+      "heading": {
+        "lg": {
+          "$value": "{advanced.font-rem-base} * 1.27",
+          "$type": "lineHeight"
+        },
+        "md": {
+          "$value": "{advanced.font-rem-base} * 1.33",
+          "$type": "lineHeight"
+        },
+        "xl": {
+          "$value": "{advanced.font-rem-base} * 1.22",
+          "$type": "lineHeight"
+        }
+      },
+      "body": {
+        "lg": {
+          "$value": "{advanced.font-rem-base} * 1.56",
+          "$type": "lineHeight"
+        },
+        "sm": {
+          "$value": "{advanced.font-rem-base} * 1.43",
+          "$type": "lineHeight"
+        },
+        "md": {
+          "$value": "{advanced.font-rem-base} * 1.5",
+          "$type": "lineHeight"
+        }
+      },
+      "label": {
+        "$value": "{advanced.font-rem-base} * 1.33",
+        "$type": "lineHeight"
+      }
+    },
+    "typeset-test": {
+      "fontfamily": {
+        "$value": "Roboto",
+        "$type": "fontFamily"
+      }
+    },
+    "lineHeigt": {
+      "hero": {
+        "$value": "{advanced.font-rem-base} * 1.17",
+        "$type": "lineHeight"
+      }
+    }
+  },
+  "advanced": {
+    "font-rem-base": {
+      "$value": "16",
+      "$type": "number"
+    }
+  }
+}

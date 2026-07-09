@@ -1,0 +1,129 @@
+{
+  "target": {
+    "space-rem": {
+      "200": {
+        "$value": "{advanced.space-rem.200}",
+        "$type": "space"
+      },
+      "100": {
+        "$value": "{advanced.space-rem.100}",
+        "$type": "space"
+      },
+      "800": {
+        "$value": "{advanced.space-rem.800}",
+        "$type": "space"
+      },
+      "t-shirt": {
+        "3xl": {
+          "$value": "{advanced.space-rem.800}",
+          "$type": "space"
+        },
+        "none": {
+          "$value": "{advanced.space-rem.none}",
+          "$type": "space"
+        },
+        "xs": {
+          "$value": "{advanced.space-rem.050}",
+          "$type": "space"
+        },
+        "lg": {
+          "$value": "{advanced.space-rem.200}",
+          "$type": "space",
+          "$description": "Use when components are 'casual friends'"
+        },
+        "md": {
+          "$value": "{advanced.space-rem.100}",
+          "$type": "space",
+          "$description": "Use when components are 'family'"
+        },
+        "2xs": {
+          "$value": "{advanced.space-rem.025}",
+          "$type": "space"
+        },
+        "2xl": {
+          "$value": "{advanced.space-rem.400}",
+          "$type": "space",
+          "$description": "Use when components are 'strangers'"
+        },
+        "xl": {
+          "$value": "{advanced.space-rem.300}",
+          "$type": "space",
+          "$description": "Use when components are 'acquaintances'"
+        },
+        "sm": {
+          "$value": "{advanced.space-rem.075}",
+          "$type": "space",
+          "$description": "Use when components are 'besties'"
+        }
+      },
+      "none": {
+        "$value": "0",
+        "$type": "space"
+      },
+      "010": {
+        "$value": "{advanced.space-rem.010}",
+        "$type": "space"
+      },
+      "700": {
+        "$value": "{advanced.space-rem.700}",
+        "$type": "space"
+      },
+      "025": {
+        "$value": "{advanced.space-rem.025}",
+        "$type": "space"
+      },
+      "600": {
+        "$value": "{advanced.space-rem.600}",
+        "$type": "space"
+      },
+      "1000": {
+        "$value": "{advanced.space-rem.1000}",
+        "$type": "space"
+      },
+      "150": {
+        "$value": "{advanced.space-rem.150}",
+        "$type": "space"
+      },
+      "175": {
+        "$value": "{advanced.space-rem.175}",
+        "$type": "space"
+      },
+      "full": {
+        "$value": "{advanced.space-rem.full}",
+        "$type": "space"
+      },
+      "300": {
+        "$value": "{advanced.space-rem.300}",
+        "$type": "space"
+      },
+      "050": {
+        "$value": "{advanced.space-rem.050}",
+        "$type": "space"
+      },
+      "400": {
+        "$value": "{advanced.space-rem.400}",
+        "$type": "space"
+      },
+      "250": {
+        "$value": "{advanced.space-rem.250}",
+        "$type": "space"
+      },
+      "500": {
+        "$value": "{advanced.space-rem.500}",
+        "$type": "space"
+      },
+      "125": {
+        "$value": "{advanced.space-rem.125}",
+        "$type": "space"
+      },
+      "075": {
+        "$value": "{advanced.space-rem.075}",
+        "$type": "space"
+      }
+    },
+    "density": {
+      "$value": "{advanced.target.density}",
+      "$type": "string"
+    }
+  }
+}

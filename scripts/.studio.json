@@ -1,0 +1,15 @@
+{
+  "$schema": "https://tokens.studio/schema/cli/v2.json",
+  "version": 2,
+  "configurations": {
+    "slds-201": {
+      "project": "e650d9a7-1a6d-4c68-b0cc-731b117c214a",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "../packages/tokens/src/tokens",
+      "format": "raw"
+    }
+  }
+}

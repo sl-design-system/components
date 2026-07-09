@@ -7,9 +7,13 @@
   "type": "module",
   "scripts": {
     "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
-    "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
+    "import-tokens": "yarn exec studio pull --ci",
+    "import-tokens-local": "yarn exec studio pull",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "workspaces": [
+    "deprecated-tokens"
+  ],
   "devDependencies": {
     "@figma-export/cli": "^6.2.3",
     "@figma-export/output-components-as-svg": "^6.2.3",
@@ -26,6 +30,7 @@
     "@fortawesome/sharp-solid-svg-icons": "^7.2.0",
     "@tokens-studio/sd-transforms": "^2.0.1",
     "@tokens-studio/sdk": "^3.0.0",
+    "@tokens-studio/studio-cli": "0.2.0-rc.3",
     "cssnano": "^7.1.9",
     "esbuild": "^0.25.12",
     "fast-glob": "^3.3.3",

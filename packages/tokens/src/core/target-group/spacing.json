@@ -1,0 +1,51 @@
+{
+  "space-rem": {
+    "t-shirt": {
+      "sm": {
+        "$value": "{target.space-rem.t-shirt.sm}",
+        "$type": "space",
+        "$description": "Use when components are 'besties'"
+      },
+      "3xl": {
+        "$value": "{target.space-rem.t-shirt.3xl}",
+        "$type": "space"
+      },
+      "xs": {
+        "$value": "{target.space-rem.t-shirt.xs}",
+        "$type": "space"
+      },
+      "2xs": {
+        "$value": "{target.space-rem.t-shirt.2xs}",
+        "$type": "space"
+      },
+      "none": {
+        "$value": "{target.space-rem.t-shirt.none}",
+        "$type": "space"
+      },
+      "lg": {
+        "$value": "{target.space-rem.t-shirt.lg}",
+        "$type": "space",
+        "$description": "Use when components are 'casual friends'"
+      },
+      "xl": {
+        "$value": "{target.space-rem.t-shirt.xl}",
+        "$type": "space",
+        "$description": "Use when components are 'acquaintances'"
+      },
+      "md": {
+        "$value": "{target.space-rem.t-shirt.md}",
+        "$type": "space",
+        "$description": "Use when components are 'family'"
+      },
+      "2xl": {
+        "$value": "{target.space-rem.t-shirt.2xl}",
+        "$type": "space",
+        "$description": "Use when components are 'strangers'"
+      }
+    }
+  },
+  "density": {
+    "$value": "{target.density}",
+    "$type": "string"
+  }
+}

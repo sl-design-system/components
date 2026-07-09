@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Tig",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "tig/light": "enabled",
+      "tig/base": "enabled"
+    }
+  },
+  {
+    "name": "Bingel DC",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "bingel-dc/base": "enabled",
+      "bingel-dc/light": "enabled"
+    }
+  },
+  {
+    "name": "My Digital Book",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "my-digital-book/base": "enabled",
+      "my-digital-book/light": "enabled"
+    }
+  },
+  {
+    "name": "Neon",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "neon/base": "enabled",
+      "neon/light": "enabled",
+      "neon/dark": "enabled"
+    }
+  },
+  {
+    "name": "Sanoma Learning",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "sanoma-learning/dark": "enabled",
+      "sanoma-learning/base": "enabled",
+      "sanoma-learning/light": "enabled"
+    }
+  },
+  {
+    "name": "Teas",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "teas/light": "enabled",
+      "teas/base": "enabled"
+    }
+  },
+  {
+    "name": "Magister",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "magister/dark": "enabled",
+      "magister/base": "enabled",
+      "magister/light": "enabled"
+    }
+  },
+  {
+    "name": "Max",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "max/base": "enabled",
+      "max/light": "enabled"
+    }
+  },
+  {
+    "name": "Kampus",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "kampus/light": "enabled",
+      "kampus/base": "enabled"
+    }
+  },
+  {
+    "name": "Editorial Suite",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "editorial-suite/light": "enabled",
+      "editorial-suite/base": "enabled"
+    }
+  },
+  {
+    "name": "Its Learning",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "itslearning/base": "enabled",
+      "itslearning/light": "enabled"
+    }
+  },
+  {
+    "name": "Bingel INT",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "bingel-int/light": "enabled",
+      "bingel-int/base": "enabled"
+    }
+  },
+  {
+    "name": "Click Edu",
+    "group": "Legacy",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "clickedu/light": "enabled",
+      "clickedu/base": "enabled"
+    }
+  }
+]

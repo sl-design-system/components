@@ -1,0 +1,17 @@
+@font-face {
+  font-family: the-message-beta02;
+  font-weight: 400;
+  src: url('./fonts/TheMessageBeta03-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: the-message-beta02;
+  font-weight: 600;
+  src: url('./fonts/TheMessageBeta03-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: the-message-beta02;
+  font-weight: 700;
+  src: url('./fonts/TheMessageBeta03-Bold.woff2') format('woff2');
+}

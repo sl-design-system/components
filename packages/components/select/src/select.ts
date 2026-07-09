@@ -112,6 +112,15 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Detect when options are added to the host, or a nested option group and clear the cache. */
   #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
 
+  /** Keep listbox labeling synced when proxied ARIA attributes on the button change. */
+  #buttonAriaObserver = new MutationObserver(() => this.#syncListboxLabeling());
+
+  /** Shared observer config for proxied ARIA attributes on the button. */
+  readonly #buttonAriaObserverOptions: MutationObserverInit = {
+    attributes: true,
+    attributeFilter: ['aria-label', 'aria-labelledby']
+  };
+
   /** Detect when the selected option content changes, so the button can refresh its cloned content. */
   #selectedOptionObserver = new MutationObserver(records =>
     this.#onSelectedOptionContentChange(records)
@@ -255,6 +264,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.setAttributesTarget(this.button);
 
     this.#observer.observe(this, { childList: true, subtree: true });
+    this.#buttonAriaObserver.observe(this.button, this.#buttonAriaObserverOptions);
     this.#observeSelectedOptionContent();
     this.#onSelectedOptionContentChange();
 
@@ -264,6 +274,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#buttonAriaObserver.disconnect();
     this.#selectedOptionObserver.disconnect();
     if (this.#widthCalculationFrame !== undefined) {
       cancelAnimationFrame(this.#widthCalculationFrame);
@@ -342,34 +353,66 @@ export class Select<T = any> extends ObserveAttributesMixin(
         this.button.internals.ariaControlsElements = [this.listbox];
       }
 
-      const labels = Array.from(this.internals.labels) as Element[],
-        hostAriaLabel = this.getAttribute('aria-label')?.trim(),
-        hostAriaLabelledBy = this.getAttribute('aria-labelledby')?.trim(),
-        buttonAriaLabel = this.button.getAttribute('aria-label')?.trim(),
-        buttonAriaLabelledBy = this.button.getAttribute('aria-labelledby')?.trim(),
-        ariaLabel = hostAriaLabel || buttonAriaLabel,
-        explicitLabelledByElements =
-          (this.button.ariaLabelledByElements && [...this.button.ariaLabelledByElements]) ||
-          this.#resolveLabelledByElements(hostAriaLabelledBy || buttonAriaLabelledBy),
-        hasExplicitLabel = Boolean(ariaLabel) || explicitLabelledByElements.length > 0;
-
-      // Use element references so labeling works across the shadow boundary.
-      if (!hasExplicitLabel && labels.length) {
-        this.listbox!.removeAttribute('aria-label');
-        this.button.ariaLabelledByElements = labels;
-        this.listbox!.ariaLabelledByElements = labels;
-      } else if (this.listbox) {
-        if (explicitLabelledByElements.length > 0) {
-          // Use element references so listbox labeling works across the shadow boundary.
-          this.listbox.removeAttribute('aria-label');
-          this.listbox.ariaLabelledByElements = explicitLabelledByElements;
-        } else if (ariaLabel) {
-          // Mirror explicit aria-label so the listbox has a concrete name in the accessibility tree.
-          this.listbox.ariaLabel = ariaLabel;
-          this.listbox.ariaLabelledByElements = [];
-        }
-      }
+      this.#syncListboxLabeling();
     });
+  }
+
+  #syncListboxLabeling(): void {
+    if (!this.listbox) {
+      return;
+    }
+
+    /**
+     * Disconnect first so this observer does not run twice. Setting these ARIA properties updates
+     * DOM attributes, which would trigger this observer again.
+     */
+    this.#buttonAriaObserver.disconnect();
+
+    try {
+      const labels = Array.from(this.internals.labels) as Element[],
+        { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel } =
+          this.#getExplicitLabelState();
+
+      if (!hasExplicitLabel && labels.length) {
+        this.listbox.removeAttribute('aria-label');
+        this.button.ariaLabelledByElements = labels;
+        this.listbox.ariaLabelledByElements = labels;
+      } else if (explicitLabelledBy) {
+        // Use element references so listbox labeling works across the shadow boundary.
+        this.listbox.removeAttribute('aria-label');
+        this.listbox.ariaLabelledByElements = explicitLabelledByElements;
+      } else if (ariaLabel) {
+        // Clear any old fallback references and mirror explicit aria-label to listbox.
+        this.button.ariaLabelledByElements = [];
+        this.listbox.ariaLabel = ariaLabel;
+        this.listbox.ariaLabelledByElements = [];
+      } else {
+        this.button.ariaLabelledByElements = [];
+        this.listbox.removeAttribute('aria-label');
+        this.listbox.ariaLabelledByElements = [];
+      }
+    } finally {
+      // Reconnect to observe future attribute changes on the button.
+      this.#buttonAriaObserver.observe(this.button, this.#buttonAriaObserverOptions);
+    }
+  }
+
+  #getExplicitLabelState(): {
+    ariaLabel: string;
+    explicitLabelledBy: string;
+    explicitLabelledByElements: Element[];
+    hasExplicitLabel: boolean;
+  } {
+    const hostAriaLabel = this.getAttribute('aria-label')?.trim() || '',
+      hostAriaLabelledBy = this.getAttribute('aria-labelledby')?.trim() || '',
+      buttonAriaLabel = this.button.getAttribute('aria-label')?.trim() || '',
+      buttonAriaLabelledBy = this.button.getAttribute('aria-labelledby')?.trim() || '',
+      ariaLabel = hostAriaLabel || buttonAriaLabel,
+      explicitLabelledBy = hostAriaLabelledBy || buttonAriaLabelledBy,
+      explicitLabelledByElements = this.#resolveLabelledByElements(explicitLabelledBy),
+      hasExplicitLabel = Boolean(ariaLabel) || Boolean(explicitLabelledBy);
+
+    return { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel };
   }
 
   #resolveLabelledByElements(ariaLabelledBy?: string): Element[] {

@@ -19,6 +19,20 @@ declare global {
 
 export type CardOrientation = 'horizontal' | 'vertical';
 
+const interactiveSelector = [
+  'a',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  '[role="button"]',
+  '[slot="actions"]',
+  '[slot="menu-button"]',
+  'sl-button',
+  'sl-menu-button',
+  'sl-toggle-button'
+].join(',');
+
 /**
  * Use cards to display media and text in a compact, appealing way.
  *
@@ -311,20 +325,6 @@ export class Card extends ScopedElementsMixin(LitElement) {
   };
 
   #shouldIgnoreClick(event: MouseEvent): boolean {
-    const interactiveSelector = [
-      'a',
-      'button',
-      'input',
-      'select',
-      'textarea',
-      '[role="button"]',
-      '[slot="actions"]',
-      '[slot="menu-button"]',
-      'sl-button',
-      'sl-menu-button',
-      'sl-toggle-button'
-    ].join(',');
-
     return event.composedPath().some(el => {
       if (el === this.#titleLink) {
         return true;

@@ -780,6 +780,68 @@ export const Actions: Story = {
   }
 };
 
+export const LinkWithToggleButton: Story = {
+  render: () => {
+    let linkClicks = 0,
+      toggleClicks = 0;
+
+    const updateCounters = (root: Element | null): void => {
+      root?.querySelector('[data-link-clicks]')?.replaceChildren(linkClicks.toString());
+      root?.querySelector('[data-toggle-clicks]')?.replaceChildren(toggleClicks.toString());
+    };
+
+    const onLinkClick = (event: Event): void => {
+      event.preventDefault();
+      linkClicks += 1;
+      updateCounters((event.currentTarget as Element).closest('.click-reproduction'));
+    };
+
+    const onToggleClick = (event: Event): void => {
+      toggleClicks += 1;
+      updateCounters((event.currentTarget as Element).closest('.click-reproduction'));
+    };
+
+    return html`
+      <style>
+        .click-reproduction {
+          display: grid;
+          gap: 12px;
+          max-width: 320px;
+        }
+
+        .click-reproduction__controls,
+        .click-reproduction__counts {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+      </style>
+      <div class="click-reproduction">
+        <sl-card>
+          <a href="https://example.com/book" target="_blank" @click=${onLinkClick}> Link text </a>
+          <sl-toggle-button
+            slot="menu-button"
+            aria-label="Favorite"
+            shape="pill"
+            @click=${onToggleClick}>
+            <sl-icon name="far-heart" slot="default"></sl-icon>
+            <sl-icon name="fas-heart" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </sl-card>
+
+        <div class="click-reproduction__counts">
+          <sl-badge color="green" size="lg"
+            >Book link clicks: <span data-link-clicks>0</span></sl-badge
+          >
+          <sl-badge color="blue" size="lg"
+            >Favorite clicks: <span data-toggle-clicks>0</span></sl-badge
+          >
+        </div>
+      </div>
+    `;
+  }
+};
+
 export const RealWorldExamples: Story = {
   render: () => {
     return html`

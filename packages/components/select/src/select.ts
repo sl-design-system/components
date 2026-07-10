@@ -788,13 +788,13 @@ export class Select<T = any> extends ObserveAttributesMixin(
         // Use element references so labeling works across the shadow DOM boundary.
         this.listbox.removeAttribute('aria-label');
         this.button.ariaLabelledByElements = explicitLabelledByElements;
+        this.listbox.ariaLabelledByElements = explicitLabelledByElements;
 
         // Keep explicit aria-labelledby text when ids do not resolve in this root.
         if (!explicitLabelledByElements.length) {
           this.button.setAttribute('aria-labelledby', explicitLabelledBy);
+          this.listbox.setAttribute('aria-labelledby', explicitLabelledBy);
         }
-
-        this.listbox.ariaLabelledByElements = explicitLabelledByElements;
       } else if (ariaLabel) {
         // Clear any old fallback references and mirror explicit aria-label to listbox.
         this.button.ariaLabelledByElements = [];

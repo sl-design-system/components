@@ -1707,6 +1707,10 @@ describe('sl-select', () => {
         explicitLabel = wrapper.querySelector('#explicit-label') as HTMLElement;
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
+      select.setAttribute('aria-labelledby', 'explicit-label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([explicitLabel]);
     });
 
@@ -1753,13 +1757,19 @@ describe('sl-select', () => {
 
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
+      select.setAttribute('aria-labelledby', 'label-1');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label1]);
+      expect(select.button.ariaLabelledByElements).to.deep.equal([label1]);
 
       select.setAttribute('aria-labelledby', 'label-2');
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label2]);
+      expect(select.button.ariaLabelledByElements).to.deep.equal([label2]);
     });
 
     it('should switch from associated labels to explicit aria-label', async () => {
@@ -1808,6 +1818,10 @@ describe('sl-select', () => {
 
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
+      select.setAttribute('aria-labelledby', 'label-a label-b');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([labelA, labelB]);
     });
 
@@ -1828,6 +1842,10 @@ describe('sl-select', () => {
         labelExists = wrapper.querySelector('#label-exists') as HTMLElement;
 
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'label-exists non-existent-id');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([labelExists]);
     });

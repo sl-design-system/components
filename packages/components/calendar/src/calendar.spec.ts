@@ -407,14 +407,17 @@ describe('sl-calendar', () => {
 
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month'),
-        firstSelectableMonth = selectMonth?.renderRoot.querySelector<HTMLButtonElement>(
-          'table button:not(:disabled)'
-        );
+      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month');
+      expect(selectMonth).to.exist;
+
+      const firstSelectableMonth = selectMonth!.renderRoot.querySelector<HTMLButtonElement>(
+        'table button:not(:disabled)'
+      );
+      expect(firstSelectableMonth).to.exist;
 
       expect(el.mode).to.equal('month');
       expect(el.shadowRoot?.activeElement).to.match('sl-select-month');
-      expect(selectMonth?.shadowRoot?.activeElement).to.equal(firstSelectableMonth);
+      expect(selectMonth!.shadowRoot?.activeElement).to.equal(firstSelectableMonth);
     });
 
     it('should focus select-day after returning from month selector', async () => {

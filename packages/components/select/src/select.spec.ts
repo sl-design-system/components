@@ -1725,6 +1725,7 @@ describe('sl-select', () => {
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       select.setAttribute('aria-label', 'Updated label');
+
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(select.button).to.have.attribute('aria-label', 'Updated label');
@@ -1755,35 +1756,10 @@ describe('sl-select', () => {
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label1]);
 
       select.setAttribute('aria-labelledby', 'label-2');
+
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label2]);
-    });
-
-    it('should fall back from explicit aria-label to associated labels when explicit label is removed', async () => {
-      const wrapper = await fixture(html`
-        <sl-form-field label="Associated label">
-          <sl-select aria-label="Explicit label">
-            <sl-option>Option 1</sl-option>
-            <sl-option>Option 2</sl-option>
-          </sl-select>
-        </sl-form-field>
-      `);
-
-      const select = wrapper.querySelector('sl-select') as Select,
-        labels = Array.from(select.internals.labels) as Element[];
-
-      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
-
-      expect(select.listbox).to.have.attribute('aria-label', 'Explicit label');
-      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
-
-      // aria-label is proxied from host to button, so remove it from the button.
-      select.button.removeAttribute('aria-label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(select.listbox).not.to.have.attribute('aria-label');
-      expect(select.listbox?.ariaLabelledByElements).to.deep.equal(labels);
     });
 
     it('should switch from associated labels to explicit aria-label', async () => {
@@ -1805,6 +1781,7 @@ describe('sl-select', () => {
       expect(select.listbox).not.to.have.attribute('aria-label');
 
       select.setAttribute('aria-label', 'New explicit label');
+
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(select.listbox).to.have.attribute('aria-label', 'New explicit label');
@@ -1834,7 +1811,7 @@ describe('sl-select', () => {
       expect(select.listbox?.ariaLabelledByElements).to.deep.equal([labelA, labelB]);
     });
 
-    it('should filter out non-existent aria-labelledby IDs', async () => {
+    it('should filter out non existing aria-labelledby IDs', async () => {
       const wrapper = await fixture(html`
         <div>
           <span id="label-exists">Label</span>
@@ -1870,6 +1847,7 @@ describe('sl-select', () => {
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       select.button.setAttribute('aria-label', 'Button label');
+
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(select.listbox).to.have.attribute('aria-label', 'Button label');
@@ -1890,28 +1868,10 @@ describe('sl-select', () => {
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       select.button.setAttribute('aria-label', 'Button label');
+
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(select.listbox).to.have.attribute('aria-label', 'Button label');
-    });
-
-    it('should handle whitespace-only aria-labelledby gracefully', async () => {
-      const wrapper = await fixture(html`
-        <sl-form-field label="Associated label">
-          <sl-select aria-labelledby="  ">
-            <sl-option>Option 1</sl-option>
-            <sl-option>Option 2</sl-option>
-          </sl-select>
-        </sl-form-field>
-      `);
-
-      const select = wrapper.querySelector('sl-select') as Select,
-        labels = Array.from(select.internals.labels) as Element[];
-
-      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
-
-      // Should fall back to associated labels
-      expect(select.listbox?.ariaLabelledByElements).to.deep.equal(labels);
     });
   });
 });

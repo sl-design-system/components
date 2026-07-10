@@ -30,8 +30,9 @@ describe('sl-grid-text-field-column', () => {
       'tbody tr:first-of-type sl-text-field'
     );
 
-    await textField?.updateComplete;
+    expect(textField).to.exist;
+    await textField!.updateComplete;
 
-    expect(textField?.input).to.have.attribute('aria-label', 'Zip John Doe');
+    expect(textField!.input).to.have.attribute('aria-label', 'Zip John Doe');
   });
 });

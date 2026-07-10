@@ -30,8 +30,9 @@ describe('sl-grid-select-column', () => {
   it('should add an accessible name to the select button', async () => {
     const select = el.renderRoot.querySelector<Select>('tbody tr:first-of-type sl-select');
 
-    await select?.updateComplete;
+    expect(select).to.exist;
+    await select!.updateComplete;
 
-    expect(select?.button).to.have.attribute('aria-label', 'Status John Doe');
+    expect(select!.button).to.have.attribute('aria-label', 'Status John Doe');
   });
 });

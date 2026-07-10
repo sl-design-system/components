@@ -314,14 +314,20 @@ export class GridColumn<T = any> extends LitElement {
 
   /** Returns a label for form controls rendered inside this column. */
   getFormControlLabel(item: T): string {
-    const columnLabel =
-        typeof this.header === 'string' ? this.header : this.path ? getNameByPath(this.path) : '',
-      rowLabel = [
-        this.#getStringValueByKey(item, 'firstName'),
-        this.#getStringValueByKey(item, 'lastName')
-      ]
-        .filter(Boolean)
-        .join(' ');
+    let columnLabel = '';
+
+    if (typeof this.header === 'string') {
+      columnLabel = this.header;
+    } else if (this.path) {
+      columnLabel = getNameByPath(this.path);
+    }
+
+    const rowLabel = [
+      this.#getStringValueByKey(item, 'firstName'),
+      this.#getStringValueByKey(item, 'lastName')
+    ]
+      .filter(Boolean)
+      .join(' ');
 
     return [columnLabel, rowLabel].filter(Boolean).join(' ');
   }

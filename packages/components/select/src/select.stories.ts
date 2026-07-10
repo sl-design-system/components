@@ -52,6 +52,24 @@ export default {
       control: 'text'
     }
   },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for sl-select-button because it uses ariaLabelledByElements to
+             * set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot
+             * reliably detect.
+             */
+            id: 'aria-input-field-name',
+            enabled: false,
+            selector: 'sl-select >> sl-select-button'
+          }
+        ]
+      }
+    }
+  },
   render: ({
     clearable,
     disabled,
@@ -487,7 +505,9 @@ export const HideWhenOutOfView: StoryObj = {
         }
 
         header {
-          background: var(--sl-color-background-subtle);
+          background:
+            linear-gradient(var(--sl-color-background-subtle), var(--sl-color-background-subtle)),
+            var(--sl-elevation-surface-base-default);
           position: sticky;
           top: 0;
           padding: 24px;

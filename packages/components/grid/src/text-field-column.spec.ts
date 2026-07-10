@@ -1,3 +1,4 @@
+import { type TextField } from '@sl-design-system/text-field';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -25,7 +26,9 @@ describe('sl-grid-text-field-column', () => {
   });
 
   it('should add an accessible name to the text field', async () => {
-    const textField = el.renderRoot.querySelector('tbody tr:first-of-type sl-text-field');
+    const textField = el.renderRoot.querySelector<TextField>(
+      'tbody tr:first-of-type sl-text-field'
+    );
 
     await textField?.updateComplete;
 

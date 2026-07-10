@@ -1,3 +1,4 @@
+import { type Select } from '@sl-design-system/select';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
@@ -27,7 +28,7 @@ describe('sl-grid-select-column', () => {
   });
 
   it('should add an accessible name to the select button', async () => {
-    const select = el.renderRoot.querySelector('tbody tr:first-of-type sl-select');
+    const select = el.renderRoot.querySelector<Select>('tbody tr:first-of-type sl-select');
 
     await select?.updateComplete;
 

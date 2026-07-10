@@ -482,6 +482,42 @@
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
   <target>En la fila activada <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_one">
+  <source><x id="0" equiv-text="${over}"/> character too many</source>
+  <target><x id="0" equiv-text="${over}"/> carácter demasiado</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_few">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> caracteres demasiados</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_many">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> caracteres demasiados</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_one">
+  <source><x id="0" equiv-text="${remaining}"/> character remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> carácter restante</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_few">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> caracteres restantes</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_many">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> caracteres restantes</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_one">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> character.</source>
+  <target>Elimina al menos <x id="0" equiv-text="${over}"/> carácter.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_few">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Elimina al menos <x id="0" equiv-text="${over}"/> caracteres.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_many">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Elimina al menos <x id="0" equiv-text="${over}"/> caracteres.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

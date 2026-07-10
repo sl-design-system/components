@@ -743,4 +743,56 @@ describe('sl-text-area', () => {
       expect(el.shadowRoot!.activeElement).to.equal(textarea);
     });
   });
+
+  describe('show-count', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-area show-count="5"></sl-text-area>`);
+    });
+
+    it('should become invalid when the soft limit is exceeded', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should not show a validation message before reportValidity', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+      expect(el.getLocalizedValidationMessage()).to.equal('');
+    });
+
+    it('should show validation message after reportValidity when over the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+      expect(el.validationMessage).to.equal('Please remove at least 1 character.');
+    });
+
+    it('should remove show-validity after going back under the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+      expect(el).to.have.attribute('show-validity', 'invalid');
+
+      const textarea = el.querySelector('textarea')!;
+      textarea.value = 'abc';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('show-validity', 'invalid');
+      expect(el.valid).to.be.true;
+      expect(el.validationMessage).to.equal('');
+    });
+  });
 });

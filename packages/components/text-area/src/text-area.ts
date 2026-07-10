@@ -3,13 +3,15 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import {
   type EventEmitter,
   ObserveAttributesMixin,
   event,
-  getCharacterPluralSuffix
+  getCharacterPluralSuffix,
+  getPluralCategory
 } from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
@@ -70,6 +72,18 @@ export class TextArea extends ObserveAttributesMixin(
     requestAnimationFrame(() => this.#setSize());
   });
 
+  /** Timer used to debounce the screen reader character count announcement. */
+  #announceTimer?: ReturnType<typeof setTimeout>;
+
+  /** Tracks whether the current custom validity was set by the showCount logic. */
+  #hasCountCustomValidity = false;
+
+  /** Tracks whether visual showValidity was enabled by showCount overflow logic. */
+  #countForcedShowValidity = false;
+
+  /** Whether the showCount overflow message may be shown (after reportValidity was called). */
+  #showCountMessage = false;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -117,6 +131,15 @@ export class TextArea extends ObserveAttributesMixin(
    */
   @property({ type: Number }) rows?: number;
 
+  /**
+   * The maximum number of characters allowed. When set, a character counter appears below the
+   * textarea showing how many characters remain. When 90% of the limit is reached the counter turns
+   * caution (orange). When the limit is exceeded it turns to a danger state, shows how many
+   * characters are over the limit, and marks the textarea as invalid. Exceeding the limit does not
+   * block input; the user can still type or paste more text and then edit it down.
+   */
+  @property({ type: Number, attribute: 'show-count' }) showCount?: number;
+
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
@@ -154,6 +177,7 @@ export class TextArea extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    clearTimeout(this.#announceTimer);
 
     super.disconnectedCallback();
   }
@@ -178,8 +202,15 @@ export class TextArea extends ObserveAttributesMixin(
       this.#syncTextarea(this.textarea);
     }
 
-    if (changes.has('value') && this.value !== this.textarea.value) {
+    const valueChangedProgrammatically = changes.has('value') && this.value !== this.textarea.value;
+
+    if (valueChangedProgrammatically) {
       this.textarea.value = this.value?.toString() || '';
+    }
+
+    if (valueChangedProgrammatically || changes.has('showCount')) {
+      this.#syncCountValidity();
+      this.updateValidity();
     }
   }
 
@@ -191,11 +222,26 @@ export class TextArea extends ObserveAttributesMixin(
           : nothing}
       </slot>
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
+      ${this.showCount !== undefined
+        ? html`
+            <span aria-hidden="true" class="count" data-count-state=${this.#getCountState()}>
+              ${this.#getCountText()}
+            </span>
+          `
+        : nothing}
     `;
   }
 
   override focus(): void {
     this.textarea.focus();
+  }
+
+  override reportValidity(): boolean {
+    if (this.#hasCountCustomValidity) {
+      this.#showCountMessage = true;
+    }
+
+    return super.reportValidity();
   }
 
   override getLocalizedValidationMessage(): string {
@@ -210,7 +256,66 @@ export class TextArea extends ObserveAttributesMixin(
       );
     }
 
+    if (this.validity.customError) {
+      // For showCount overflow we only want visual invalid state until reportValidity() is called.
+      if (this.#hasCountCustomValidity && !this.#showCountMessage) {
+        return '';
+      }
+
+      return this.validationMessage;
+    }
+
     return super.getLocalizedValidationMessage();
+  }
+
+  #getCountState(): 'default' | 'caution' | 'danger' {
+    const remaining = (this.showCount ?? 0) - this.value.length;
+
+    if (remaining < 0) {
+      return 'danger';
+    } else if (remaining <= (this.showCount ?? 0) * 0.1) {
+      return 'caution';
+    }
+
+    return 'default';
+  }
+
+  #getCountText(): string {
+    const remaining = (this.showCount ?? 0) - this.value.length;
+
+    if (remaining < 0) {
+      const over = -remaining;
+
+      switch (getPluralCategory(over)) {
+        case 'one':
+          return msg(str`${over} character too many`, {
+            id: 'sl.textArea.charCountTooMany_one'
+          });
+        case 'few':
+          return msg(str`${over} characters too many`, {
+            id: 'sl.textArea.charCountTooMany_few'
+          });
+        default:
+          return msg(str`${over} characters too many`, {
+            id: 'sl.textArea.charCountTooMany_many'
+          });
+      }
+    }
+
+    switch (getPluralCategory(remaining)) {
+      case 'one':
+        return msg(str`${remaining} character remaining`, {
+          id: 'sl.textArea.charCountRemaining_one'
+        });
+      case 'few':
+        return msg(str`${remaining} characters remaining`, {
+          id: 'sl.textArea.charCountRemaining_few'
+        });
+      default:
+        return msg(str`${remaining} characters remaining`, {
+          id: 'sl.textArea.charCountRemaining_many'
+        });
+    }
   }
 
   #onBlur(): void {
@@ -221,9 +326,76 @@ export class TextArea extends ObserveAttributesMixin(
   #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {
     this.value = target.value;
     this.updateState({ dirty: true });
+
+    this.#syncCountValidity();
+
     this.updateValidity();
     this.#setSize();
     this.changeEvent.emit(this.value);
+
+    if (this.showCount !== undefined) {
+      clearTimeout(this.#announceTimer);
+      this.#announceTimer = setTimeout(() => {
+        announce(this.#getCountText(), 'polite');
+      }, 1000);
+    }
+  }
+
+  #syncCountValidity(): void {
+    if (this.showCount === undefined) {
+      if (this.#hasCountCustomValidity) {
+        this.textarea.setCustomValidity('');
+        this.#hasCountCustomValidity = false;
+      }
+
+      if (this.#countForcedShowValidity) {
+        this.removeAttribute('show-validity');
+        this.#countForcedShowValidity = false;
+      }
+
+      this.#showCountMessage = false;
+
+      return;
+    }
+
+    if (this.value.length > this.showCount) {
+      const over = this.value.length - this.showCount;
+      let validationMessage: string;
+
+      switch (getPluralCategory(over)) {
+        case 'one':
+          validationMessage = msg(str`Please remove at least ${over} character.`, {
+            id: 'sl.textArea.validation.tooLong_one'
+          });
+          break;
+        case 'few':
+          validationMessage = msg(str`Please remove at least ${over} characters.`, {
+            id: 'sl.textArea.validation.tooLong_few'
+          });
+          break;
+        default:
+          validationMessage = msg(str`Please remove at least ${over} characters.`, {
+            id: 'sl.textArea.validation.tooLong_many'
+          });
+          break;
+      }
+
+      this.textarea.setCustomValidity(validationMessage);
+
+      // Show visual invalid state immediately, but do not force reporting yet.
+      this.setAttribute('show-validity', 'invalid');
+      this.#countForcedShowValidity = true;
+      this.#hasCountCustomValidity = true;
+    } else if (this.#hasCountCustomValidity) {
+      this.textarea.setCustomValidity('');
+      this.#hasCountCustomValidity = false;
+      this.#showCountMessage = false;
+
+      if (this.#countForcedShowValidity) {
+        this.removeAttribute('show-validity');
+        this.#countForcedShowValidity = false;
+      }
+    }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

@@ -8,6 +8,9 @@ import { waitForGridToRenderData } from './utils.js';
 
 type Person = { firstName: string; lastName: string; status: string };
 
+const waitForAriaForwarding = (): Promise<void> =>
+  new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+
 describe('sl-grid-select-column', () => {
   let el: Grid;
   const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
@@ -36,6 +39,7 @@ describe('sl-grid-select-column', () => {
 
     expect(select).to.exist;
     await select!.updateComplete;
+    await waitForAriaForwarding();
 
     expect(select!.button).to.have.attribute('aria-label', 'Status John Doe');
   });

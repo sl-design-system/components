@@ -312,6 +312,20 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
+  /** Returns a label for form controls rendered inside this column. */
+  getFormControlLabel(item: T): string {
+    const columnLabel =
+        typeof this.header === 'string' ? this.header : this.path ? getNameByPath(this.path) : '',
+      rowLabel = [
+        this.#getStringValueByKey(item, 'firstName'),
+        this.#getStringValueByKey(item, 'lastName')
+      ]
+        .filter(Boolean)
+        .join(' ');
+
+    return [columnLabel, rowLabel].filter(Boolean).join(' ');
+  }
+
   /**
    * Returns an array of strings that are set as part attributes on the `<td>` element. This is used
    * for styling the cells externally. Override this method if you want to add custom parts to the
@@ -335,5 +349,15 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
+  }
+
+  #getStringValueByKey(item: T, key: string): string {
+    if (item === ListDataSourcePlaceholder || !item || typeof item !== 'object') {
+      return '';
+    }
+
+    const value = (item as Record<string, unknown>)[key];
+
+    return typeof value === 'string' || typeof value === 'number' ? value.toString() : '';
   }
 }

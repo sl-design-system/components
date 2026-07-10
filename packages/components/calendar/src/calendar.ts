@@ -353,9 +353,13 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #focusActiveMode(): void {
-    const subComponent = this.renderRoot.querySelector(
-      this.mode === 'month' ? 'sl-select-month' : 'sl-select-day'
-    );
+    const selector =
+        this.mode === 'month'
+          ? 'sl-select-month'
+          : this.mode === 'year'
+            ? 'sl-select-year'
+            : 'sl-select-day',
+      subComponent = this.renderRoot.querySelector(selector);
 
     if (subComponent) {
       subComponent.focus();

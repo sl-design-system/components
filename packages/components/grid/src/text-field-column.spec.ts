@@ -6,8 +6,11 @@ import '../register.js';
 import { type Grid } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
 
+type Person = { firstName: string; lastName: string; address: { zip: string } };
+
 describe('sl-grid-text-field-column', () => {
   let el: Grid;
+  const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
 
   beforeEach(async () => {
     el = await fixture(html`
@@ -18,7 +21,9 @@ describe('sl-grid-text-field-column', () => {
         ]}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-text-field-column path="address.zip"></sl-grid-text-field-column>
+        <sl-grid-text-field-column
+          path="address.zip"
+          .formControlLabel=${personLabel}></sl-grid-text-field-column>
       </sl-grid>
     `);
 

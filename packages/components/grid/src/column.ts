@@ -42,6 +42,10 @@ export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined |
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnParts<T = any> = (model: T) => string | undefined;
 
+/** Custom label type for form controls rendered inside a cell. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefined;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
@@ -94,6 +98,9 @@ export class GridColumn<T = any> extends LitElement {
 
   /** This will ellipsize the text in the `<td>` elements when it overflows. */
   @property({ type: Boolean, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
+  /** Optional row context to add to form controls rendered inside a cell. */
+  @property({ attribute: false }) formControlLabel?: GridColumnFormControlLabel<T>;
 
   /** The parent grid instance. */
   @property({ attribute: false })
@@ -322,12 +329,7 @@ export class GridColumn<T = any> extends LitElement {
       columnLabel = getNameByPath(this.path);
     }
 
-    const rowLabel = [
-      this.#getStringValueByKey(item, 'firstName'),
-      this.#getStringValueByKey(item, 'lastName')
-    ]
-      .filter(Boolean)
-      .join(' ');
+    const rowLabel = this.formControlLabel?.(item);
 
     return [columnLabel, rowLabel].filter(Boolean).join(' ');
   }
@@ -355,15 +357,5 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
-  }
-
-  #getStringValueByKey(item: T, key: string): string {
-    if (item === ListDataSourcePlaceholder || !item || typeof item !== 'object') {
-      return '';
-    }
-
-    const value = (item as Record<string, unknown>)[key];
-
-    return typeof value === 'string' || typeof value === 'number' ? value.toString() : '';
   }
 }

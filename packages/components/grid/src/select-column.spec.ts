@@ -6,8 +6,11 @@ import '../register.js';
 import { type Grid } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
 
+type Person = { firstName: string; lastName: string; status: string };
+
 describe('sl-grid-select-column', () => {
   let el: Grid;
+  const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
 
   beforeEach(async () => {
     el = await fixture(html`
@@ -20,6 +23,7 @@ describe('sl-grid-select-column', () => {
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-select-column
           .options=${['Available', 'Busy']}
+          .formControlLabel=${personLabel}
           path="status"></sl-grid-select-column>
       </sl-grid>
     `);

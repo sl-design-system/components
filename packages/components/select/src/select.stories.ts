@@ -52,6 +52,24 @@ export default {
       control: 'text'
     }
   },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for sl-select-button because it uses ariaLabelledByElements to
+             * set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot
+             * reliably detect.
+             */
+            id: 'aria-input-field-name',
+            enabled: false,
+            selector: 'sl-select >> sl-select-button'
+          }
+        ]
+      }
+    }
+  },
   render: ({
     clearable,
     disabled,

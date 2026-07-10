@@ -383,6 +383,40 @@ describe('sl-calendar', () => {
       expect(el.mode).to.equal('month');
     });
 
+    it('should focus select-month after returning from year selector to month mode', async () => {
+      // Start in day mode, go to month mode
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-month')
+        ?.click();
+      await el.updateComplete;
+
+      // From month mode, go to year mode
+      el.renderRoot
+        .querySelector<SelectMonth>('sl-select-month')
+        ?.renderRoot.querySelector<HTMLElement>('.current-year')
+        ?.click();
+      await el.updateComplete;
+
+      // Select a year - should return to month mode
+      el.renderRoot
+        .querySelector<SelectYear>('sl-select-year')
+        ?.renderRoot.querySelector<HTMLElement>('button')
+        ?.click();
+      await el.updateComplete;
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month'),
+        firstSelectableMonth = selectMonth?.renderRoot.querySelector<HTMLButtonElement>(
+          'table button:not(:disabled)'
+        );
+
+      expect(el.mode).to.equal('month');
+      expect(el.shadowRoot?.activeElement).to.match('sl-select-month');
+      expect(selectMonth?.shadowRoot?.activeElement).to.equal(firstSelectableMonth);
+    });
+
     it('should focus select-day after returning from month selector', async () => {
       // Switch to month mode
       el.renderRoot

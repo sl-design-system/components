@@ -357,6 +357,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.mode === 'month' ? 'sl-select-month' : 'sl-select-day'
     );
 
-    subComponent?.focus();
+    if (subComponent) {
+      subComponent.focus();
+      this.#setHelperTextOnFirstButton(subComponent);
+    }
   }
 }

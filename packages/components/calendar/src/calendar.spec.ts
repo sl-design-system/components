@@ -746,6 +746,51 @@ describe('sl-calendar', () => {
       expect(monthButton?.ariaDescribedByElements).to.include(helperText);
     });
 
+    it('should set ariaDescribedByElements after returning from year selector to month mode', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
+      `);
+
+      // Switch to month mode
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-month')
+        ?.click();
+      await el.updateComplete;
+
+      // From month mode, go to year mode
+      el.renderRoot
+        .querySelector<SelectMonth>('sl-select-month')
+        ?.renderRoot.querySelector<HTMLElement>('.current-year')
+        ?.click();
+      await el.updateComplete;
+
+      // Select a year - should return to month mode
+      el.renderRoot
+        .querySelector<SelectYear>('sl-select-year')
+        ?.renderRoot.querySelector<HTMLElement>('button:not(:disabled)')
+        ?.click();
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month');
+      expect(selectMonth).to.exist;
+
+      const firstSelectableMonth = selectMonth!.renderRoot.querySelector<HTMLButtonElement>(
+        'table button:not(:disabled)'
+      );
+      expect(firstSelectableMonth).to.exist;
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(helperText).to.exist;
+      expect(selectMonth!.shadowRoot?.activeElement).to.equal(firstSelectableMonth);
+      expect(firstSelectableMonth!.ariaDescribedByElements).to.include(helperText);
+    });
+
     it('should set ariaDescribedByElements on a focused year button', async () => {
       el = await fixture(html`
         <sl-calendar

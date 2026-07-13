@@ -19,10 +19,8 @@ export const icons = {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M3.464 11.121a1 1 0 1 0 1.415 1.415l3.12-3.122 3.122 3.122a1 1 0 0 0 1.414-1.415L9.415 8l3.12-3.121a1 1 0 0 0-1.414-1.415L8 6.586 4.878 3.464A1 1 0 1 0 3.464 4.88L6.586 8z" clip-rule="evenodd"/></svg>'
   },
   'breadcrumb-separator': {
-    value: 'slash-forward',
-    type: 'icons',
-    description: 'icon.core.breadcrumb-separator',
-    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M308.1 3.3c11.4 6.7 15.3 21.4 8.6 32.8l-272 464c-6.7 11.4-21.4 15.3-32.8 8.6s-15.3-21.4-8.6-32.8l272-464C282 .4 296.7-3.4 308.1 3.3z" fill="var(--sl-icon-fill-default)"></path></svg>'
+    value: 'chevron-right',
+    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M313.5 239c9.4 9.4 9.4 24.6 0 33.9l-200 200c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l183-183-183-183c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l200 200z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   calendar: {
     value: 'calendar',

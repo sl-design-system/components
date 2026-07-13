@@ -179,8 +179,16 @@ const buildIconsFromBaseNew = async theme => {
   }
 
   const {
-    icon: { typeset: iconTypeset, themeIcons }
+    icon: { typeset: iconTypeset }
   } = baseNewData[routingPrefix];
+
+  const themeIconsPath = join(cwd, `../packages/themes/${theme}/theme-icons.json`);
+  let themeIcons;
+
+  if (existsSync(themeIconsPath)) {
+    const themeIconsModule = await import(themeIconsPath, { with: { type: 'json' } });
+    themeIcons = themeIconsModule.default;
+  }
 
   // Create a style object compatible with the existing getIconStyle function
   // In base-new.json, the structure is icon.typeset.fontWeight.{solid, regular}

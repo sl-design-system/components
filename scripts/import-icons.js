@@ -42,7 +42,7 @@ const convertToIconDefinition = (iconName, style) => {
 };
 
 const getColorToken = (pathCounter, style) => {
-  return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
+  return pathCounter === 0 && (style === 'fad' || style === 'fadr') ? 'accent' : 'default';
 };
 
 const getIconStyle = (iconName, text, style) => {
@@ -112,11 +112,12 @@ const buildIcons = async theme => {
     }
 
     const {
+        prefix,
         icon: [width, height, , , path]
       } = faIcon,
       paths = Array.isArray(path) ? path : [path];
 
-    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, prefix)})"></path>`).join('')}</svg>`;
 
     icons[iconName] = {
       value: tokenValue,
@@ -159,12 +160,12 @@ const buildIcons = async theme => {
     ),
     source = `
       // This is a generated file, do not edit. Edit the core.json files instead.
-      export const icons = ${JSON.stringify(sortedIcons)};
+      export const icons = ${JSON.stringify(sortedIcons, null, 2)};
     `,
     results = await eslint.lintText(source, { filePath });
 
   await ESLint.outputFixes(results);
-  await fs.writeFile(filePath, results[0].output);
+  await fs.writeFile(filePath, results[0].output || source);
 };
 
 const buildIconsFromBaseNew = async theme => {
@@ -228,11 +229,12 @@ const buildIconsFromBaseNew = async theme => {
     }
 
     const {
+        prefix,
         icon: [width, height, , , path]
       } = faIcon,
       paths = Array.isArray(path) ? path : [path];
 
-    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, prefix)})"></path>`).join('')}</svg>`;
 
     icons[iconName] = {
       value: tokenValue,
@@ -275,12 +277,12 @@ const buildIconsFromBaseNew = async theme => {
     ),
     source = `
       // This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
-      export const icons = ${JSON.stringify(sortedIcons)};
+      export const icons = ${JSON.stringify(sortedIcons, null, 2)};
     `,
     results = await eslint.lintText(source, { filePath });
 
   await ESLint.outputFixes(results);
-  await fs.writeFile(filePath, results[0].output);
+  await fs.writeFile(filePath, results[0].output || source);
 };
 
 const buildAllIcons = async () => {

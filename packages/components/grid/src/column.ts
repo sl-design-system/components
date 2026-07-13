@@ -321,15 +321,9 @@ export class GridColumn<T = any> extends LitElement {
 
   /** Returns a label for form controls rendered inside this column. */
   getFormControlLabel(item: T): string {
-    let columnLabel = '';
-
-    if (typeof this.header === 'string') {
-      columnLabel = this.header;
-    } else if (this.path) {
-      columnLabel = getNameByPath(this.path);
-    }
-
-    const rowLabel = this.formControlLabel?.(item);
+    const headerLabel = typeof this.header === 'string' ? this.header.trim() : '',
+      columnLabel = headerLabel || (this.path ? getNameByPath(this.path) : ''),
+      rowLabel = this.formControlLabel?.(item)?.trim();
 
     return [columnLabel, rowLabel].filter(Boolean).join(' ');
   }

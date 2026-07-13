@@ -8,6 +8,9 @@ import { waitForGridToRenderData } from './utils.js';
 
 type Person = { firstName: string; lastName: string; address: { zip: string } };
 
+const waitForAriaForwarding = (): Promise<void> =>
+  new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+
 describe('sl-grid-text-field-column', () => {
   let el: Grid;
   const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
@@ -37,6 +40,7 @@ describe('sl-grid-text-field-column', () => {
 
     expect(textField).to.exist;
     await textField!.updateComplete;
+    await waitForAriaForwarding();
 
     expect(textField!.input).to.have.attribute('aria-label', 'Zip John Doe');
   });

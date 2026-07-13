@@ -128,6 +128,32 @@ describe('sl-column', () => {
     });
   });
 
+  describe('form control label', () => {
+    it('should fall back to the path label when the header is empty', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column header=" " path="address.zip"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Zip');
+    });
+
+    it('should add trimmed row context when provided', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="status" .formControlLabel=${() => ' John Doe '}></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ status: 'Available' })).to.equal('Status John Doe');
+    });
+  });
+
   describe('empty string value', () => {
     beforeEach(async () => {
       el = await fixture(html`

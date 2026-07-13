@@ -1,5 +1,6 @@
 import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core';
 import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fadr } from '@fortawesome/duotone-regular-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
@@ -13,7 +14,7 @@ import fg from 'fast-glob';
 import { promises as fs, existsSync } from 'fs';
 import { basename, join } from 'path';
 
-library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
+library.add(fas, far, fal, fat, fad, fadr, fass, fasr, fasl);
 
 const { ESLint } = pkg;
 
@@ -65,6 +66,8 @@ const getIconPrefixFromStyle = style => {
       return 'fat';
     case 'duotone':
       return 'fad';
+    case 'duotone-regular':
+      return 'fadr';
     case 'sharp-light':
       return 'fasl';
     case 'sharp-solid':

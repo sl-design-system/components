@@ -1,6 +1,10 @@
 :host {
   // TODO: replace percentage with new token. (there isn't one available yet)
-  --sl-icon-fill-accent: color-mix(in srgb, currentcolor 50%, transparent);
+  --sl-icon-fill-accent: color-mix(
+    in srgb,
+    currentcolor calc(var(--sl-opacity-subtle) * 100%),
+    transparent
+  );
   --sl-icon-fill-default: currentcolor;
   --sl-icon-size: var(
     --sl-size-200,

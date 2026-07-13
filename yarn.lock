@@ -3262,10 +3262,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/duotone-regular-svg-icons@npm:^7.2.0":
+  version: 7.3.0
+  resolution: "@fortawesome/duotone-regular-svg-icons@npm:7.3.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.3.0"
+  checksum: 10c0/e706b24cb45b2d133f7e7a4d61c9cfc6da0b23d9ede878d67b191cc08817830402943997155a43a74053765fd91ba3f8d9e84a654d43addc95b667d70f61da7f
+  languageName: node
+  linkType: hard
+
 "@fortawesome/fontawesome-common-types@npm:7.2.0":
   version: 7.2.0
   resolution: "@fortawesome/fontawesome-common-types@npm:7.2.0"
   checksum: 10c0/991ca1390c078d973e92034cf7dbae2fc3aa50cd7ff322b7b23e4c54ec84dae12979bada9a782bdaea11a1577ae74d802aa651c590f41d2e1b1126c17e6cd413
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-common-types@npm:7.3.0":
+  version: 7.3.0
+  resolution: "@fortawesome/fontawesome-common-types@npm:7.3.0"
+  checksum: 10c0/2d7310609b520e68cbc8737d551f526e434eb4cd093a3f7d420998809fa21e23aa96123c7d23bacb451ff49bb4eda79272583463ca6cf29a4335f24fe6babcd9
   languageName: node
   linkType: hard
 
@@ -6919,6 +6935,7 @@ __metadata:
     "@figma-export/cli": "npm:^6.2.3"
     "@figma-export/output-components-as-svg": "npm:^6.2.3"
     "@figma-export/transform-svg-with-svgo": "npm:^6.2.3"
+    "@fortawesome/duotone-regular-svg-icons": "npm:^7.2.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
     "@fortawesome/free-brands-svg-icons": "npm:^7.2.0"
     "@fortawesome/pro-duotone-svg-icons": "npm:^7.2.0"

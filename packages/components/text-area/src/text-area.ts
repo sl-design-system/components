@@ -51,7 +51,7 @@ let nextUniqueId = 0;
 @localized()
 export class TextArea extends ObserveAttributesMixin(
   FormControlMixin(ScopedElementsMixin(LitElement)),
-  ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']
+  ['aria-describedby', 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']
 ) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
@@ -83,6 +83,9 @@ export class TextArea extends ObserveAttributesMixin(
 
   /** Whether the showCount overflow message may be shown (after reportValidity was called). */
   #showCountMessage = false;
+
+  /** ID used to connect the character count to the textarea via aria-describedby. */
+  #countId = `sl-text-area-count-${nextUniqueId++}`;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -212,6 +215,8 @@ export class TextArea extends ObserveAttributesMixin(
       this.#syncCountValidity();
       this.updateValidity();
     }
+
+    this.#syncCountAriaDescription();
   }
 
   override render(): TemplateResult {
@@ -222,9 +227,9 @@ export class TextArea extends ObserveAttributesMixin(
           : nothing}
       </slot>
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
-      ${this.showCount !== undefined
+      ${this.#isCountVisible()
         ? html`
-            <span aria-hidden="true" class="count" data-count-state=${this.#getCountState()}>
+            <span class="count" data-count-state=${this.#getCountState()} id=${this.#countId}>
               ${this.#getCountText()}
             </span>
           `
@@ -237,8 +242,10 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   override reportValidity(): boolean {
+    this.#showCountMessage = true;
+
     if (this.#hasCountCustomValidity) {
-      this.#showCountMessage = true;
+      this.requestUpdate();
     }
 
     return super.reportValidity();
@@ -278,6 +285,33 @@ export class TextArea extends ObserveAttributesMixin(
     }
 
     return 'default';
+  }
+
+  #isCountVisible(): boolean {
+    return (
+      this.showCount !== undefined && !(this.#hasCountCustomValidity && this.#showCountMessage)
+    );
+  }
+
+  #syncCountAriaDescription(): void {
+    if (!this.textarea) {
+      return;
+    }
+
+    const ids = (this.textarea.getAttribute('aria-describedby') ?? '')
+      .split(/\s+/)
+      .filter(Boolean)
+      .filter(id => id !== this.#countId);
+
+    if (this.#isCountVisible()) {
+      ids.push(this.#countId);
+    }
+
+    if (ids.length > 0) {
+      this.textarea.setAttribute('aria-describedby', ids.join(' '));
+    } else {
+      this.textarea.removeAttribute('aria-describedby');
+    }
   }
 
   #getCountText(): string {
@@ -389,7 +423,6 @@ export class TextArea extends ObserveAttributesMixin(
     } else if (this.#hasCountCustomValidity) {
       this.textarea.setCustomValidity('');
       this.#hasCountCustomValidity = false;
-      this.#showCountMessage = false;
 
       if (this.#countForcedShowValidity) {
         this.removeAttribute('show-validity');

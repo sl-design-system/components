@@ -779,6 +779,58 @@ describe('sl-text-area', () => {
       expect(el.validationMessage).to.equal('Please remove at least 1 character.');
     });
 
+    it('should render count text before reportValidity when over the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      const count = el.renderRoot.querySelector('.count');
+
+      expect(count).to.exist;
+      expect(count?.textContent?.trim()).to.equal('1 character too many');
+    });
+
+    it('should hide count text after reportValidity when over the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdefghijklmnopqrs');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')?.textContent?.trim()).to.equal(
+        '14 characters too many'
+      );
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
+    });
+
+    it('should connect count span to textarea with aria-describedby when count is visible', () => {
+      const textarea = el.querySelector('textarea')!;
+      const count = el.renderRoot.querySelector('.count');
+
+      expect(count).to.exist;
+      expect(count).to.have.attribute('id');
+      expect(textarea.getAttribute('aria-describedby')).to.contain(count!.id);
+    });
+
+    it('should remove count id from aria-describedby when count is hidden', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      el.focus();
+      await userEvent.keyboard('abcdefghijklmnopqrs');
+      await el.updateComplete;
+
+      const initialCountId = el.renderRoot.querySelector('.count')?.id;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(textarea.getAttribute('aria-describedby') ?? '').not.to.contain(initialCountId!);
+    });
+
     it('should remove show-validity after going back under the soft limit', async () => {
       el.focus();
       await userEvent.keyboard('abcdef');
@@ -793,6 +845,45 @@ describe('sl-text-area', () => {
       expect(el).not.to.have.attribute('show-validity', 'invalid');
       expect(el.valid).to.be.true;
       expect(el.validationMessage).to.equal('');
+    });
+
+    it('should keep showing validation message on overflow after returning under limit once', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      const textarea = el.querySelector('textarea')!;
+
+      textarea.value = 'abc';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      textarea.value = 'abcdefghijklmnopqrs';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
+    });
+
+    it('should show overflow validation after required reportValidity was called earlier', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.reportValidity()).to.be.false;
+      expect(el.validationMessage).to.equal('Please fill out this field.');
+
+      const textarea = el.querySelector('textarea')!;
+
+      textarea.value = 'abcdefghijklmnopqrs';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
     });
   });
 });

@@ -552,6 +552,18 @@
         "$type": "icons",
         "$description": "icon.core.octagon-exclamation-solid"
       },
+      "octagon-xmark-solid": {
+        "$value": "octagon-xmark",
+        "$type": "icons",
+        "$description": "icon.core.octagon-xmark-solid",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      },
       "pinata": {
         "$value": "pinata",
         "$type": "icons",

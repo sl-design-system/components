@@ -82,7 +82,7 @@ const buildIcons = async theme => {
       icon: { style, themeIcons },
       text
     }
-  } = await import(`../packages/tokens/src/tokens/${theme}/base.json`, { with: { type: 'json' } });
+  } = await import(`../packages/tokens/src/tokens/${theme}/core.json`, { with: { type: 'json' } });
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
@@ -160,7 +160,7 @@ export const icons = ${JSON.stringify(sortedIcons, null, 2)};
 `;
 
   await fs.writeFile(filePath, source);
-  await execAsync(`oxfmt ${filePath}`, { cwd });
+  await execAsync(`npx oxfmt ${filePath}`, { cwd: join(cwd, '..') });
 };
 
 const buildIconsFromBaseNew = async theme => {
@@ -274,7 +274,7 @@ export const icons = ${JSON.stringify(sortedIcons, null, 2)};
 `;
 
   await fs.writeFile(filePath, source);
-  await execAsync(`oxfmt ${filePath}`, { cwd });
+  await execAsync(`npx oxfmt ${filePath}`, { cwd: join(cwd, '..') });
 };
 
 const buildAllIcons = async () => {

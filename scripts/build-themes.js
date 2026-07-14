@@ -237,8 +237,10 @@ StyleDictionary.registerTransform({
     if (typeof value === 'string') {
       // Check if the value already has a unit, is a function call, or a reference
       const hasUnit = /[a-z%]$/i.test(value) || value.includes('(') || value.includes('{');
+      // Don't add px to 0 values as they are unitless in CSS
+      const isZero = value === '0';
 
-      return hasUnit ? value : `${value}px`;
+      return hasUnit || isZero ? value : `${value}px`;
     }
 
     return value;

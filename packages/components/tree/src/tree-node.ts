@@ -231,7 +231,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                         slot="input"
                         tabindex="-1"
                         type="checkbox" />
-                      <label for=${this.#checkboxInputId} slot="label"><slot></slot></label>
+                      <label
+                        id=${`${this.#checkboxInputId}-label`}
+                        for=${this.#checkboxInputId}
+                        slot="label"
+                        ><slot></slot
+                      ></label>
                     </sl-checkbox>
                   `
                 : html`

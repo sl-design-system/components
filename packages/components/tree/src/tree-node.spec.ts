@@ -298,8 +298,20 @@ describe('sl-tree-node', () => {
 
       expect(labelSlot).to.exist;
       expect(label).to.have.property('htmlFor', input?.id);
+      expect(label?.id).to.equal(`${input?.id}-label`);
       expect(input?.labels?.[0]).to.equal(label);
       expect(labelText).to.equal('Lorem');
+    });
+
+    it('should use the checkbox label as the input accessible name', async () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox') as HTMLElement | null,
+        input = checkbox?.querySelector<HTMLInputElement>('input[slot="input"]'),
+        label = checkbox?.querySelector<HTMLLabelElement>('label[slot="label"]');
+
+      await new Promise(requestAnimationFrame);
+
+      expect(label?.id).not.to.equal('');
+      expect(input).to.have.attribute('aria-labelledby', label?.id);
     });
 
     it('should toggle the checkbox when clicking the text', async () => {

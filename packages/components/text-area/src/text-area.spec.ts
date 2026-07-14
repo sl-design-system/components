@@ -806,17 +806,104 @@ describe('sl-text-area', () => {
       expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
     });
 
-    it('should connect count span to textarea with aria-describedby when count is visible', () => {
+    it('should connect count span to textarea with ariaDescribedByElements when count is visible', async () => {
       const textarea = el.querySelector('textarea')!;
       const count = el.renderRoot.querySelector('.count');
 
+      await el.updateComplete;
+
       expect(count).to.exist;
       expect(count).to.have.attribute('id');
-      expect(textarea.getAttribute('aria-describedby')).to.equal(count!.id);
+      expect(textarea.getAttribute('aria-describedby')).to.include(`${count!.id}-description`);
+
+      // If ariaDescribedByElements is supported, it must include the count description element.
+      const linkedElements = textarea.ariaDescribedByElements;
+      if (linkedElements !== null && linkedElements !== undefined) {
+        const descriptions = Array.from(linkedElements);
+        expect(descriptions.some(el => el.textContent?.trim() === '5 characters remaining')).to.be
+          .true;
+      }
     });
 
-    it('should remove count id from aria-describedby when count is hidden', async () => {
+    it('should include hint element in ariaDescribedByElements when both hint and count are present', async () => {
       const textarea = el.querySelector('textarea')!;
+
+      // Simulate what form-field does: add a hint element and append its ID to aria-describedby.
+      const hintEl = document.createElement('span');
+      hintEl.id = 'test-hint-123';
+      hintEl.textContent = 'Hint text';
+      document.body.append(hintEl);
+
+      textarea.setAttribute('aria-describedby', 'test-hint-123');
+
+      // Wait for the MutationObserver to fire and re-sync.
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const linkedElements = textarea.ariaDescribedByElements;
+
+      if (linkedElements !== null && linkedElements !== undefined) {
+        const list = Array.from(linkedElements);
+        // Both hint and count description should be in element references
+        expect(list.some(el => el.id === 'test-hint-123')).to.be.true;
+        expect(list.some(el => el.textContent?.trim() === '5 characters remaining')).to.be.true;
+      }
+
+      // String attribute should also have both IDs
+      const describedBy = textarea.getAttribute('aria-describedby') ?? '';
+      expect(describedBy).to.include('test-hint-123');
+      expect(describedBy).to.include('-description');
+
+      hintEl.remove();
+    });
+
+    it('should preserve existing aria-describedby ids when count is visible', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      textarea.setAttribute('aria-describedby', 'sl-form-field-hint-1');
+      // Wait for MutationObserver to fire and re-sync.
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const describedBy = textarea.getAttribute('aria-describedby') ?? '';
+
+      expect(describedBy).to.include('sl-form-field-hint-1');
+      expect(describedBy).to.include('sl-text-area-count-');
+      expect(describedBy).to.include('-description');
+    });
+
+    it('should keep count description element in accessibility tree', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      await el.updateComplete;
+
+      const describedById = textarea.getAttribute('aria-describedby');
+
+      expect(describedById).to.exist;
+
+      const description = describedById
+        ?.split(/\s+/)
+        .filter(Boolean)
+        .find(id => id.includes('sl-text-area-count-') && id.endsWith('-description'));
+
+      const element = description ? el.querySelector(`#${description}`) : null;
+
+      expect(element).to.exist;
+      expect(element).not.to.have.attribute('hidden');
+    });
+
+    it('should clear count from ariaDescribedByElements when count is hidden', async () => {
+      const textarea = el.querySelector('textarea')!;
+      const probe = document.createElement('textarea');
+      const probeTarget = document.createElement('span');
+      let supportsAriaDescribedByElements = false;
+
+      try {
+        probe.ariaDescribedByElements = [probeTarget];
+        supportsAriaDescribedByElements = (probe.ariaDescribedByElements ?? []).includes(
+          probeTarget
+        );
+      } catch {
+        supportsAriaDescribedByElements = false;
+      }
 
       el.focus();
       await userEvent.keyboard('abcdefghijklmnopqrs');
@@ -828,7 +915,12 @@ describe('sl-text-area', () => {
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('.count')).to.be.null;
-      expect(textarea.getAttribute('aria-describedby') ?? '').not.to.include(initialCountId!);
+
+      if (supportsAriaDescribedByElements) {
+        expect(textarea.ariaDescribedByElements ?? []).to.deep.equal([]);
+      } else {
+        expect(textarea.getAttribute('aria-describedby') ?? '').not.to.include(initialCountId!);
+      }
     });
 
     it('should remove show-validity after going back under the soft limit', async () => {

@@ -87,6 +87,15 @@ export class TextArea extends ObserveAttributesMixin(
   /** ID used to connect the character count to the textarea via aria-describedby. */
   #countId = `sl-text-area-count-${nextUniqueId++}`;
 
+  /** Hidden light-DOM node used for ariaDescribedByElements linkage. */
+  #countDescriptionElement?: HTMLSpanElement;
+
+  /**
+   * RAF handle for deferred aria-describedby sync after external updates (e.g. form-field hint
+   * wiring).
+   */
+  #deferredAriaSync?: number;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -180,7 +189,13 @@ export class TextArea extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    if (this.#deferredAriaSync !== undefined) {
+      cancelAnimationFrame(this.#deferredAriaSync);
+      this.#deferredAriaSync = undefined;
+    }
     clearTimeout(this.#announceTimer);
+    this.#countDescriptionElement?.remove();
+    this.#countDescriptionElement = undefined;
 
     super.disconnectedCallback();
   }
@@ -217,6 +232,16 @@ export class TextArea extends ObserveAttributesMixin(
     }
 
     this.#syncCountAriaDescription();
+
+    // form-field may mutate aria-describedby shortly after this update cycle
+    if (this.#deferredAriaSync !== undefined) {
+      cancelAnimationFrame(this.#deferredAriaSync);
+    }
+
+    this.#deferredAriaSync = requestAnimationFrame(() => {
+      this.#syncCountAriaDescription();
+      this.#deferredAriaSync = undefined;
+    });
   }
 
   override render(): TemplateResult {
@@ -294,23 +319,118 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   #syncCountAriaDescription(): void {
-    if (!this.textarea) {
+    const textarea = this.textarea;
+
+    if (!textarea) {
       return;
     }
 
-    const ids = (this.textarea.getAttribute('aria-describedby') ?? '')
+    const countDescriptionId = `${this.#countId}-description`;
+
+    // IDs currently in the string attribute, excluding any of our own count IDs.
+    const existingIds = (textarea.getAttribute('aria-describedby') ?? '')
       .split(/\s+/)
       .filter(Boolean)
-      .filter(id => id !== this.#countId);
+      .filter((id: string) => id !== this.#countId && id !== countDescriptionId);
 
-    if (this.#isCountVisible()) {
-      ids.push(this.#countId);
+    const describedByRefCapable = textarea as HTMLTextAreaElement & {
+      ariaDescribedByElements?: Element[] | null;
+    };
+
+    if (describedByRefCapable.ariaDescribedByElements !== undefined) {
+      // --- Element-reference path (Chrome 124+) ---
+      // Build the full "existing" list by merging:
+      //   1. Elements already in ariaDescribedByElements (minus our count element)
+      //   2. Elements resolved from the string attribute that aren't already in #1
+      //      (e.g. the hint ID added by form-field via setAttribute)
+      const currentRefs = (describedByRefCapable.ariaDescribedByElements ?? []).filter(
+        el => el !== this.#countDescriptionElement
+      );
+
+      const root = textarea.getRootNode() as Document | ShadowRoot;
+      const resolveById = (id: string): Element | null => {
+        try {
+          return root.querySelector(`#${id}`) ?? document.getElementById(id);
+        } catch {
+          return document.getElementById(id);
+        }
+      };
+      const resolvedFromAttr = existingIds
+        .map(id => resolveById(id))
+        .filter((el): el is Element => el !== null && !currentRefs.includes(el));
+
+      const allExisting = [...currentRefs, ...resolvedFromAttr];
+
+      if (this.#isCountVisible()) {
+        if (!this.#countDescriptionElement) {
+          this.#countDescriptionElement = document.createElement('span');
+          this.#countDescriptionElement.id = countDescriptionId;
+          // Visually hidden but kept in the accessibility tree.
+          this.#countDescriptionElement.style.cssText =
+            'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
+          this.append(this.#countDescriptionElement);
+        }
+
+        this.#countDescriptionElement.textContent = this.#getCountText();
+
+        const nextElements = [...allExisting, this.#countDescriptionElement];
+
+        // 1. Write string attribute first (preserves hint + adds count ID for fallback tools).
+        //    Pause the observer to avoid a re-entrant sync triggered by this setAttribute call.
+        const nextDescribedBy = [...existingIds, countDescriptionId].join(' ');
+
+        // Set element references first, then mirror the string attribute so tools/devtools
+        // consistently show both hint and count IDs.
+        try {
+          describedByRefCapable.ariaDescribedByElements = nextElements;
+        } catch {
+          // no-op
+        }
+
+        if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
+          textarea.setAttribute('aria-describedby', nextDescribedBy);
+        }
+      } else {
+        // Count is hidden: keep hint references, remove count element.
+        const nextDescribedBy = existingIds.join(' ');
+
+        try {
+          describedByRefCapable.ariaDescribedByElements =
+            allExisting.length > 0 ? allExisting : null;
+        } catch {
+          // no-op
+        }
+
+        if (nextDescribedBy.length > 0) {
+          if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
+            textarea.setAttribute('aria-describedby', nextDescribedBy);
+          }
+        } else if (textarea.hasAttribute('aria-describedby')) {
+          textarea.removeAttribute('aria-describedby');
+        }
+
+        this.#countDescriptionElement?.remove();
+        this.#countDescriptionElement = undefined;
+      }
+
+      return;
     }
 
-    if (ids.length > 0) {
-      this.textarea.setAttribute('aria-describedby', ids.join(' '));
-    } else {
-      this.textarea.removeAttribute('aria-describedby');
+    // --- String-attribute fallback ---
+    const ids = existingIds;
+
+    if (this.#isCountVisible()) {
+      ids.push(countDescriptionId);
+    }
+
+    const nextDescribedBy = ids.join(' ');
+
+    if (nextDescribedBy.length > 0) {
+      if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
+        textarea.setAttribute('aria-describedby', nextDescribedBy);
+      }
+    } else if (textarea.hasAttribute('aria-describedby')) {
+      textarea.removeAttribute('aria-describedby');
     }
   }
 
@@ -443,6 +563,7 @@ export class TextArea extends ObserveAttributesMixin(
       this.textarea.addEventListener('blur', () => this.#onBlur());
       this.textarea.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncTextarea(this.textarea);
+      this.#syncCountAriaDescription();
 
       this.setFormControlElement(this.textarea);
     }

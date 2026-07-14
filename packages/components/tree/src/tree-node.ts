@@ -223,7 +223,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       part="checkbox"
                       size="sm">
                       <input slot="input" tabindex="-1" type="checkbox" />
-                      <slot></slot>
+                      <slot slot="label"></slot>
                     </sl-checkbox>
                   `
                 : html`

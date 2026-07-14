@@ -284,6 +284,13 @@ describe('sl-tree-node', () => {
       expect(checkbox).to.exist;
     });
 
+    it('should render the label in the checkbox label slot', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox'),
+        slot = checkbox?.querySelector('slot');
+
+      expect(slot).to.have.attribute('slot', 'label');
+    });
+
     it('should toggle the checkbox when clicking the text', async () => {
       el.querySelector('span')?.click();
       await el.updateComplete;

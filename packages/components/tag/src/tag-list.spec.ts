@@ -415,7 +415,7 @@ describe('sl-tag-list', () => {
       expect(visibleTag?.tabIndex).to.equal(-1);
     });
 
-    it('should keep the stack tag in the tab order when all regular tags are hidden', async () => {
+    it('should keep the stack tag in the tab order when only one regular tag is visible', async () => {
       el = await fixture(html`
         <sl-tag-list disabled stacked style="inline-size: 1px;">
           <sl-tag disabled removable>My very long label 1</sl-tag>
@@ -434,7 +434,8 @@ describe('sl-tag-list', () => {
       expect(stackTag).not.to.have.attribute('disabled');
       expect(stackTag).to.be.displayed;
       expect(stackTag.tabIndex).to.equal(0);
-      expect(visibleTags).to.have.length(0);
+      expect(visibleTags).to.have.length(1);
+      expect(visibleTags[0].tabIndex).to.equal(-1);
     });
 
     it('should not have a stack when there is enough space', async () => {
@@ -627,7 +628,7 @@ describe('sl-tag-list', () => {
       expect(el.stackSize).to.equal(2);
     });
 
-    it('should hide the last tag when it does not fit in the remaining width', async () => {
+    it('should keep the last tag visible even when it does not fit in the remaining width', async () => {
       el = await fixture(html`
         <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
           <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>
@@ -650,8 +651,8 @@ describe('sl-tag-list', () => {
       const tags = Array.from(el.querySelectorAll('sl-tag'));
       const visibility = tags.map(t => t.style.display);
 
-      expect(visibility).to.deep.equal(['none', 'none', 'none']);
-      expect(el.stackSize).to.equal(3);
+      expect(visibility).to.deep.equal(['none', 'none', '']);
+      expect(el.stackSize).to.equal(2);
     });
 
     it('should not overwrite cached stack width when the stack measurement is 0', async () => {

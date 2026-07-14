@@ -529,8 +529,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       for (let i = 0; i < this.tags.length; i++) {
         const isLastTag = i === this.tags.length - 1;
 
-        // Keep the last tag visible only when it truly fits, to prevent overflow-induced width jitter.
-        if (isLastTag && sizes[i] <= availableWidth + SUBPIXEL_BUFFER_PX) {
+        // Keep at least one actual tag visible next to the stack counter. Otherwise users only see
+        // the number of hidden tags without any selected value context.
+        if (isLastTag) {
           break;
         }
 

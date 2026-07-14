@@ -570,6 +570,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
   }
 
+  /** @internal */
   override updateInternalValidity(): void {
     if (!this.validity.customError) {
       if (this.multiple) {

@@ -1238,6 +1238,28 @@ describe('sl-combobox', () => {
         expect(gap).to.be.lessThan(16);
       });
 
+      it('should keep one selected tag visible next to the stack counter in limited space', async () => {
+        el.style.maxInlineSize = '300px';
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 300));
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        const tagList = el.renderRoot.querySelector('sl-tag-list')!,
+          stackTag = tagList.renderRoot.querySelector('.stack sl-tag'),
+          selectedTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+          visibleSelectedTags = selectedTags.filter(
+            tag => getComputedStyle(tag).display !== 'none'
+          );
+
+        expect(stackTag).to.exist;
+        expect(stackTag).to.have.trimmed.text(
+          `+${selectedTags.length - visibleSelectedTags.length}`
+        );
+        expect(visibleSelectedTags.length).to.be.greaterThan(0);
+      });
+
       it('should not flicker when selecting many items in a limited space', async () => {
         el.style.maxInlineSize = '300px';
 

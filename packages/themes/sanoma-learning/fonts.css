@@ -1,17 +1,25 @@
 @font-face {
   font-family: the-message;
   font-weight: 400;
-  src: url('./fonts/the_message-regular.woff2') format('woff2');
+  src: url('./fonts/TheMessageTextBeta03-Regular.woff2') format('woff2');
 }
 
 @font-face {
   font-family: the-message;
   font-weight: 600;
-  src: url('./fonts/the_message-demibold.woff2') format('woff2');
+  src: url('./fonts/TheMessageTextBeta03-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
   font-family: the-message;
   font-weight: 700;
-  src: url('./fonts/the_message-bold.woff2') format('woff2');
+  src: url('./fonts/TheMessageTextBeta03-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'The Message Beta VAR';
+  src: url('./fonts/TheMessageBeta03VAR-Regular.ttf') format('truetype-variations');
+  font-weight: 125 950;
+  font-stretch: 75% 125%;
+  font-style: normal;
 }

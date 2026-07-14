@@ -476,8 +476,4 @@ const build = async (production = false, path, sldsLegacyPath) => {
   }
 };
 
-build(
-  argv.includes('--production'),
-  '../packages/tokens/src/tokens',
-  '../packages/tokens/src/slds-legacy'
-);
+build(argv.includes('--production'), './export/core', './export/deprecated');

@@ -1,7 +1,7 @@
 {
   "$schema": "https://tokens.studio/schema/cli/v2.json",
   "version": 2,
-  "configurations": {
+  "sources": {
     "slds-201": {
       "project": "e650d9a7-1a6d-4c68-b0cc-731b117c214a",
       "ref": {
@@ -19,6 +19,30 @@
       },
       "output": "../packages/tokens/src/slds-legacy",
       "format": "raw"
+    },
+    "typography-sizing-spacing": {
+      "project": "4bd4e23d-8c0e-48b5-80c1-9ce27bf71839",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      }
+    }
+  },
+  "outputs": {
+    "slds-201": {
+      "format": "raw",
+      "source": "slds-201",
+      "dir": "./export/core"
+    },
+    "slds-legacy": {
+      "format": "raw",
+      "source": "slds-legacy",
+      "dir": "./export/deprecated"
+    },
+    "typography-sizing-spacing": {
+      "format": "css",
+      "source": "typography-sizing-spacing",
+      "dir": "./export/typography-sizing-spacing"
     }
   }
 }

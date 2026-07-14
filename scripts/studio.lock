@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-07-13T09:25:53Z"
+generated_at = "2026-07-13T14:46:45Z"
 cli_version = "dev"
 
 [[dependencies]]
@@ -1976,512 +1976,744 @@ cli_version = "dev"
   ref_type = "branch"
   ref_name = "main"
   content_hash = "sha256:e57f26928744e7a6716fc609d14730441f1f9b057ec5d6c7891b82c92fedc12a"
-  updated_at = "2026-07-13T09:25:53Z"
+  updated_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "$metadata.json"
     hash = "sha256:f1697921f3cf1ccce9e808818cbea6440e6714a79ad8992240868baab5b88c63"
     size = 1780
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "$themes.json"
     hash = "sha256:049e83c308c3568cb17e14d4a3f2cb402edf1b0e27803519c7102cc1b7b8da7a"
     size = 15481
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/A/base-new.json"
     hash = "sha256:e5650ca1157fe7cf8ec30c46a1bf16b21fe81704f367073c709932ce84409ecf"
     size = 6956
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/A/theme-new.json"
     hash = "sha256:31e344c28a8286060fd623dde740d88394c5052b7bc490bc3817290a2717b9a1"
     size = 70081
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/B/base-new.json"
     hash = "sha256:c69591a48b355c5c8c282a0c21ece52afc258ee8f1d546a4f70902d7c9e8910a"
     size = 6956
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/B/theme-new.json"
     hash = "sha256:d0174470c281929578e9e92d348b057c5fe8f38a9bcd25fabbd15856cfff0c44"
     size = 70081
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/C/base-new.json"
     hash = "sha256:01c02d0369e03f1e8b7e33b24c0a380286db51a691c5783be6127c8f392c5875"
     size = 6956
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/C/theme-new.json"
     hash = "sha256:b5e53e9f8b50c6de1d493782f8fef316c442f5764b83dcd22c9bc19daf7587ed"
     size = 70081
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/base-new.json"
     hash = "sha256:704aeb35451f6e8246f466f68fbd07ed83f42de6537db5c7364eb13b16809bb7"
     size = 6873
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "I/theme-new.json"
     hash = "sha256:c609258d0cdc9c0a7d6b6df218a1237e0253b08fe82c381dacb0836b736cd262"
     size = 69316
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "II/E/base-new.json"
     hash = "sha256:5d00161385329763419b3817deafb8ae372c163ca683a0ba6b1b71d17b73ec6b"
     size = 7000
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "II/E/theme-new.json"
     hash = "sha256:364a221fc0bda5089232d276bedfde691e45b60dbf941527268e3530db275787"
     size = 70400
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "II/F/base-new.json"
     hash = "sha256:0dd7dd4a4c6d26fe77d96a947a6ae54ed648922583575d14b5059ed46ce72c69"
     size = 7000
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "II/F/theme-new.json"
     hash = "sha256:b0e6608eba6bea8361b60d52b09465bb1ea9b5dde1ac9578b870739b48ab4f1e"
     size = 70400
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "II/base-new.json"
     hash = "sha256:217383f6333c9049c727aaead7038efe94ab55f76e2bb2788bbf416aab69f0cd"
     size = 6916
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "II/theme-new.json"
     hash = "sha256:fda3c9394bbed84add8f158b5c9b434343dd1fdbee4424dabcada503d0d82c79"
     size = 69766
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "base-new.json"
     hash = "sha256:5c9498716ef285cfb1e52120b7ebdf62d1f84fa655699c6fd63c40625af53830"
     size = 6508
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "bingel-dc/base-new.json"
     hash = "sha256:db3092209b58a7e5d2a4dcd1d3a6abeeda4f7db5ccf3bc3b2fb231fd18bee275"
     size = 8392
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "bingel-dc/light-new.json"
     hash = "sha256:c2ee85750aad5f6039e08857ce72eaf408530bbf9553a64eefb23a16a693a131"
     size = 70115
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "bingel-dc/theme-new.json"
     hash = "sha256:05c7151b216cb7633183693455995fa992a2f6b197add26196a78c417d0d1f73"
     size = 71991
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "bingel-int/base-new.json"
     hash = "sha256:c48dcce5932db132d9d9cabd6ae4692a83fd7ce9f636dee3480e36fa34ff6e56"
     size = 8681
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "bingel-int/light-new.json"
     hash = "sha256:333b4f51a46cf0e5bfefe63d7870720837292449103a1807ea8b6ec1a12b2a64"
     size = 70352
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "bingel-int/theme-new.json"
     hash = "sha256:343659b352c296dde904575ece7c0960f589113f7f91e1f6aa53b5f9c31690c6"
     size = 72309
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "clickedu/base-new.json"
     hash = "sha256:a7e9b14c3955d8ff7de97f2be238b59762d64c35296e626a9b9f03a1c79b4dc5"
     size = 8675
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "clickedu/light-new.json"
     hash = "sha256:939f015e3a5b7591c9efb555b4645102ded92f8439d9b65cd459216af4662707"
     size = 69804
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "clickedu/theme-new.json"
     hash = "sha256:c2de4c155611f23df0b71d57283e6e61dffae365ca9f96f5b43da2c400021040"
     size = 71673
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "core.json"
     hash = "sha256:7aa7eb60008ad31bf120a1c95f5f247407d4238cbaebcd39ce8237a618f03c17"
     size = 72789
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "editorial-suite/base-new.json"
     hash = "sha256:dcfcb399eab14fd71aa976a674e0e00f5be1c1eb98e46d689ce9b8741adeb79e"
     size = 8670
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "editorial-suite/light-new.json"
     hash = "sha256:9910c01569c45a848b03a4910de22ea97b844a586d69cb2579ea2db60834fdc8"
     size = 71480
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "editorial-suite/theme-new.json"
     hash = "sha256:1e0462df52a91e54bd4882d4153fb55ad0eede58fe118ad430dedb5dd0f26692"
     size = 73899
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "itslearning/base-new.json"
     hash = "sha256:c32cd08486fc8381dd95b9a4764325bab5f58e1cbaf1596467f0034f87d280d2"
     size = 8664
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "itslearning/light-new.json"
     hash = "sha256:39fcf66e8a452d06a7684227fa679739622a9dfe9cea95b64ec28c073f2c25ff"
     size = 70492
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "itslearning/theme-new.json"
     hash = "sha256:b98307a3dfac12225b59e9cc6e836477344db0c61f07a8bdb4d18d24e0482b39"
     size = 72627
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "kampus/base-new.json"
     hash = "sha256:4495c477e0f63a8dc9e7f81e19e3fc35e5a364bb4cfc922229fe1be775ad3bb3"
     size = 8675
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "kampus/light-new.json"
     hash = "sha256:3e1d7e4dba26ecde69d072c90aa13566bce39e70149fa9bd2a230855f283efe4"
     size = 69426
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "kampus/theme-new.json"
     hash = "sha256:6414f31c6c326fb326ba55d4f109bf69a778dda2f83e948d29293c47198a7f15"
     size = 71037
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "magister/base-new.json"
     hash = "sha256:f86f74a69184373b996b94bb8d3071734c6615735ea0689e4be0e63a89bc1ff9"
     size = 8673
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "magister/dark-new.json"
     hash = "sha256:02dcca9b111bfea6cb1ceb73651d27bdd5867edd102c2608825682a2a6b4a1d2"
     size = 69964
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "magister/light-new.json"
     hash = "sha256:10f06b27a05594e1e96793fd390a527642b1a4a5e27f204fb306925ff667f840"
     size = 69764
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "magister/theme-new.json"
     hash = "sha256:792319ca2406252368fe74be646d980a8c0501579068d432149331b1293acabb"
     size = 71673
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "max/base-new.json"
     hash = "sha256:4495c477e0f63a8dc9e7f81e19e3fc35e5a364bb4cfc922229fe1be775ad3bb3"
     size = 8675
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "max/light-new.json"
     hash = "sha256:80c79004199047e5b40abea8c321b4b5f0d00bf0fe447a613941700b63a917cc"
     size = 68735
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "max/theme-new.json"
     hash = "sha256:6bddf34e2a3e4dd1270fc8c6e7205f6770f91addeeb985e7f868d3239d59ad15"
     size = 70083
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "my-digital-book/base-new.json"
     hash = "sha256:6d1753432d1a32631ba8077fd064e856bdf5b94df34d48c7c019b88459496fe4"
     size = 8699
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "my-digital-book/light-new.json"
     hash = "sha256:57b93878befbe936886a21b2f40069a53e4ab0df71a50c2ea84c6ba7e28108d7"
     size = 71469
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "my-digital-book/theme-new.json"
     hash = "sha256:df29629c0ad0c086d5d286ac8529c1783b32459a4b49afbfde6235ff2912273a"
     size = 73900
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "neon/base-new.json"
     hash = "sha256:50b2636c22fdd3f193074051a8784d31242d4d5e123ef51eaddc6f89688db3b1"
     size = 8693
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "neon/dark-new.json"
     hash = "sha256:26af91d2142926dbc309e255feb7d690492d37feefd97acec383823c3ee454f1"
     size = 68830
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "neon/light-new.json"
     hash = "sha256:5e9e6d7913fc96bf34d3f2c50a06fa7005b974af442f7b6454d282d81b190ac7"
     size = 68769
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "neon/theme-new.json"
     hash = "sha256:e029f1a3a852ab2393ed5d145148d43867c3de0cba0395a7bf9a98c646009d2e"
     size = 70402
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "primitives.json"
     hash = "sha256:d5fda2dae76b868b3c6dfb79820ffae5ce10a04e10b3ef18379727dbf213c22d"
     size = 5380
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-learning/base-new.json"
     hash = "sha256:3ddd94774191a55a6970170fb1fd337a27db1c7effe25053ade6065972afe779"
     size = 8684
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-learning/dark-new.json"
     hash = "sha256:5d654b17bc98e5b48d389d53e5a4687d26c90409c397b6e005e2d592dd3ae853"
     size = 71619
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-learning/light-new.json"
     hash = "sha256:b45c1402ce5bcdfc88e8c92bdf14a8dc4adc4d2914f48b443c23dc901044db99"
     size = 71536
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-learning/theme-new.json"
     hash = "sha256:625f5605b70e798f94994f4524bacda8d0ddfbd213b6046c3ef9e62435c97653"
     size = 73899
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-pro/base-new.json"
     hash = "sha256:2666e4b37b639f10b83fa929ddb712c1e2db7ca9ac7e8312c77e944d06259ac7"
     size = 8945
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-pro/light-new.json"
     hash = "sha256:e69b0e2acb4d5b36fb78f6082db6e189230a7d482a07884a12f1f6567d3d6a6c"
     size = 70202
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-pro/theme-new.json"
     hash = "sha256:f32ee2af71cbc146d3dd253588118845f36dceeb386a902f4c41d8c057d87ba7"
     size = 72310
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-utbildning/base-new.json"
     hash = "sha256:0204b4859afb54fe35c98daa3e4c599afcfa9b25ffc89c66b101ed579141278c"
     size = 8715
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-utbildning/light-new.json"
     hash = "sha256:6dac178f1c24d98539e67ee366c31ce99129f1357d01c8ce39024e91f27d4187"
     size = 71834
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "sanoma-utbildning/theme-new.json"
     hash = "sha256:5a2300542083be53007e632c50b5c2445386b30eece428021d9283f14f352a25"
     size = 74536
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "system.json"
     hash = "sha256:fc1bcef6ab00c2201baa7cb7c8c70788bcc27d933c3e55103b5d2148d6a1a461"
     size = 9249
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "teacher-assistant/base-new.json"
     hash = "sha256:0329ed6a697a16087523296b2b7c8eeffca5a7d7b1fec16a4f91123f5958139f"
     size = 9114
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "teacher-assistant/light-new.json"
     hash = "sha256:ed43336461093f7c87202def158595fafb24597014f077fe08c86a9c598b96b9"
     size = 72058
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "teacher-assistant/theme-new.json"
     hash = "sha256:70466010491d1958802072e1b0a6ce765f56d6ec3550b39e0a2c27eeff678977"
     size = 74536
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "teas/base-new.json"
     hash = "sha256:3bd187c021cd21f33c54ccf866fef74b8a5149225cdbc7028b2328a5882e5759"
     size = 8701
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "teas/light-new.json"
     hash = "sha256:8c87875014f886aa11d619b6082315623d71f6af0524ae943c20d01ac40b3e7c"
     size = 68947
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "teas/theme-new.json"
     hash = "sha256:3e9a6a1f93b3620638634d59fcfa35a5394e2556dbc1c862b07742d7d695e8da"
     size = 70402
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "theme-new.json"
     hash = "sha256:1149e21bfc4f3846dcfa1fc094f620f18d0cee2281eb54f995071ed603c4eb96"
     size = 77798
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "tig/base-new.json"
     hash = "sha256:00cb10ec0c0f8258a207727d626175bd7c902a43085c49cb8037f94275b0bf88"
     size = 8702
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "tig/light-new.json"
     hash = "sha256:dc473ddc13dc9aa8b9b74ab70b88013761a34fa039f69dbeea8f8ba813979394"
     size = 68522
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
 
   [[dependencies.files]]
     path = "tig/theme-new.json"
     hash = "sha256:58da43e98f6ff25fadc65b1e4e0398553ac145a24e9af1b94a1a72a281898bba"
     size = 70084
     tokens = 0
-    modified_at = "2026-07-13T09:25:53Z"
+    modified_at = "2026-07-13T14:46:44Z"
+
+[[dependencies]]
+  name = "slds-legacy"
+  project = "29b6e5a1-f540-4668-9964-b23ea58cf875"
+  ref_type = "branch"
+  ref_name = "main"
+  content_hash = "sha256:f003decb44896c3049132d4e39ec51e668dccec39c527ad3c2d6d2cc98067f72"
+  updated_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "$metadata.json"
+    hash = "sha256:3ee368e08dfa81ecfa94172ced99882f1edb179c0bec949bb4d3b1f177756c11"
+    size = 678
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "$themes.json"
+    hash = "sha256:904650372d4c47c66d20f71cdeb5c93d523a9d7d4b89c3d61d584a7237b75748"
+    size = 2496
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "bingel-dc/base.json"
+    hash = "sha256:13e85fecf39177166747fb48cfa7b9c2b228172b501b00e5b044bd13d39ff27e"
+    size = 77805
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "bingel-dc/light.json"
+    hash = "sha256:37975e7bfbe430ceca85487c5c9183820ac8a7bd27254fdf54650c017a9d2e95"
+    size = 170450
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "bingel-int/base.json"
+    hash = "sha256:c14e3f8155809ad91f12d6ca0c2b6dd11cfc9f05038b3fd5226dc0665e6024a4"
+    size = 79707
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "bingel-int/light.json"
+    hash = "sha256:d1da7e2e7827a5d2c7f1d5165e73c52b7dd4b3f461b6e28a8530ea4487e6ce38"
+    size = 172212
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "clickedu/base.json"
+    hash = "sha256:8e08d5f14e5dc4bd5d382f520c8a30b70799d98b58d0af57e39b1e433c6a4df1"
+    size = 78015
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "clickedu/light.json"
+    hash = "sha256:98cddbab68a0b2ef41a69ffc5618faa5d48fc5301f3fff2ae684b7abf0c111ba"
+    size = 166800
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "core.json"
+    hash = "sha256:f9aa2cc9016b0699d3610408ddfbd038769343e35ff6df62fe56f68cb2c2c5b5"
+    size = 67025
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "editorial-suite/base.json"
+    hash = "sha256:af04afbd0783da36ec7c8b1f3756ae238191478c48935fe8586ecfc1d3d1ce1f"
+    size = 79363
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "editorial-suite/light.json"
+    hash = "sha256:b4c7199247cd0d0779d925e34e4383fa4f3f93dba7a4019fee423d1cac26a3ee"
+    size = 173502
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "itslearning/base.json"
+    hash = "sha256:cf6d26678480a9f02b186e5310e071557183e2ad3507054955bb2fea6ba41017"
+    size = 77736
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "itslearning/light.json"
+    hash = "sha256:01fec9c09725409e8ca768c9ac05d41f338a78cb83c863b82b4991f0319db73b"
+    size = 166409
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "kampus/base.json"
+    hash = "sha256:b0d0f6f4d1663452e8230e46c75aea5152fbddfbf0fb498a49b3be248928e8cc"
+    size = 78615
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "kampus/light.json"
+    hash = "sha256:35a4a0a3b926838e95181980f83efb183106196e84deeae384a4543687c79b20"
+    size = 167504
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "magister/base.json"
+    hash = "sha256:bbfa78fe22cadf3957bc8df825ce2eaabc71fc1b3e592187cda5eae8f8ed4efc"
+    size = 78680
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "magister/dark.json"
+    hash = "sha256:51a94cbd795414fa2ea34a1d34a837a70a013bc70a52bec90d79308b63584a63"
+    size = 167795
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "magister/light.json"
+    hash = "sha256:22ed6a9111446a08685c5ef45ea3d171997e98a4cc1ee1dafb8fa3d9f6aefde4"
+    size = 178322
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "max/base.json"
+    hash = "sha256:9351ae0ab3e74b5370fb93bba2f8d9e72e1d264cd57af69ebdf42fd062f58c2b"
+    size = 78433
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "max/light.json"
+    hash = "sha256:57d4f3c8008eb881d84a30cb0f7d27f1627b648b6014ee5744b30d9d70172d1d"
+    size = 166112
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "my-digital-book/base.json"
+    hash = "sha256:94ac6dc21cc5777d5e4067573c8113933c7a82b6a7a7a019110edc377214df3c"
+    size = 78136
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "my-digital-book/light.json"
+    hash = "sha256:cfaa2353c243dafd862b061a2f8ab041a4cb8ee6ed7e185889b5a0b561b5f1b8"
+    size = 172680
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "neon/base.json"
+    hash = "sha256:e4606783d37d9ea6887712355fd71462a7be085ffa2843c2696604e90f7518e5"
+    size = 78877
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "neon/dark.json"
+    hash = "sha256:db3404b07fad823a533f25f162a9a9e9a60999d4c6cc80b548f3c2b4fbc498e1"
+    size = 164021
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "neon/light.json"
+    hash = "sha256:e945fb72b0417fcfe4c2e4809c151079a1575ff4d43f02bf4e1a8005def416b0"
+    size = 164399
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "sanoma-learning/base.json"
+    hash = "sha256:af733c96022b70ce38aec4254a709f7f41364989844ca4166c984f40f5248254"
+    size = 77668
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "sanoma-learning/dark.json"
+    hash = "sha256:6ef560b46d383956f29e670ab57fa8be3e8a7e03b1297c3f82a9ada38f5d91b3"
+    size = 171106
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "sanoma-learning/light.json"
+    hash = "sha256:35ecd0c07fb31c0e15b65269d173163760a17f762f712ce198536f7bffac56be"
+    size = 172125
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "teas/base.json"
+    hash = "sha256:4922f0c8559eba0c76be07429b0d8537a671f1649cbe4b7ee513eb5ff99f38fd"
+    size = 82948
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "teas/light.json"
+    hash = "sha256:7af90e71207ae555a876eed1fc6e776dc885392065571133bf82dcc7422e32d1"
+    size = 171451
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "tig/base.json"
+    hash = "sha256:dc7a0e61f6dc4e547da6bed4dbe229963316d77685d9e68f435b35d90f002725"
+    size = 77675
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
+
+  [[dependencies.files]]
+    path = "tig/light.json"
+    hash = "sha256:0e53b6798ee01f4e8e2547a66d8f0aba84b58e5a7504b7db4931bbacc76a2796"
+    size = 172125
+    tokens = 0
+    modified_at = "2026-07-13T14:46:45Z"
 
 [integrity]
-  lockfile_hash = "sha256:901ee0d94b2c801e773e9d8e97b8631e7574bbbb4ba6366c4c776a6dbc926d75"
+  lockfile_hash = "sha256:d4d78d8c23be8ac390867f1f38ead99fc313eb3052366ae45e9d9a7fbe1bbb4f"
   algorithm = "sha256"

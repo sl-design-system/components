@@ -270,7 +270,7 @@ const getThemes = async folder => {
   return themes;
 };
 
-const build = async (production = false, path) => {
+const build = async (production = false, path, sldsLegacyPath) => {
   const cwd = new URL('.', import.meta.url).pathname,
     themeBase = join(cwd, '../packages/themes'),
     themes = await getThemes(join(cwd, path));
@@ -284,7 +284,7 @@ const build = async (production = false, path) => {
   // Filter out themes that don't have base.json
   const themesWithBase = [];
   for (const [theme, variant] of themes) {
-    const baseFilePath = join(cwd, path, theme, 'base.json');
+    const baseFilePath = join(cwd, sldsLegacyPath, theme, 'base.json');
     try {
       await access(baseFilePath);
       themesWithBase.push([theme, variant]);
@@ -406,7 +406,9 @@ const build = async (production = false, path) => {
           verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
           warnings: 'disabled'
         },
-        source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
+        source: tokensets.map(tokenset =>
+          join(cwd, old ? sldsLegacyPath : path, `${tokenset}.json`)
+        ),
         preprocessors: ['strip-routing-prefix', 'convert-set-alpha-to-color-mix', 'tokens-studio'],
         platforms: {
           css: {
@@ -451,4 +453,8 @@ const build = async (production = false, path) => {
   }
 };
 
-build(argv.includes('--production'), '../packages/tokens/src/tokens');
+build(
+  argv.includes('--production'),
+  '../packages/tokens/src/tokens',
+  '../packages/tokens/src/slds-legacy'
+);

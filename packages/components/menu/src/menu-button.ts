@@ -80,7 +80,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   /** @internal The button. */
   @query('sl-button') button!: Button;
 
-  /** Emits when the menu opens or closes. The event detail is `true` when open. */
+  /** Emits when the menu opens or closes. The event detail is `true` when open and `false` when closed. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   /**

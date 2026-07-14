@@ -15,7 +15,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './panel.scss.js';
 
@@ -124,6 +124,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   #addedNoTransitionInternally = false;
 
+  /** @internal Whether the actions slot has slotted elements. */
+  @state() private accessor hasActions = false;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -191,9 +194,13 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.#renderHeading()}</div>`}
         <slot name="aside">
-          <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
-            <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
-          </sl-tool-bar>
+          ${this.hasActions
+            ? html`
+                <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
+                  <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
+                </sl-tool-bar>
+              `
+            : html`<slot @slotchange=${this.#onActionsSlotChange} hidden name="actions"></slot>`}
         </slot>
       </div>
       <div
@@ -298,6 +305,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.toggleAttribute('has-actions', elements.length > 0);
+    this.hasActions = elements.length > 0;
+    this.toggleAttribute('has-actions', this.hasActions);
   }
 }

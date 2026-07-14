@@ -325,9 +325,12 @@ describe('sl-panel', () => {
       expect(el).to.have.attribute('has-actions');
     });
 
-    it('should render a tool bar for actions', () => {
-      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
+    it('should render a tool bar for actions', async () => {
+      // Slot distribution happens async; the toolbar is rendered on the subsequent update.
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
 
+      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
       expect(toolBar).to.exist;
     });
 

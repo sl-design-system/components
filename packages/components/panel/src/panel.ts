@@ -125,7 +125,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   #addedNoTransitionInternally = false;
 
   /** @internal Whether the actions slot has slotted elements. */
-  @state() private accessor hasActions = false;
+  @state() private hasActions = false;
 
   override connectedCallback(): void {
     super.connectedCallback();

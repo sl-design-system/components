@@ -166,6 +166,64 @@ export const Basic: Story = {
   }
 };
 
+export const ToggleEvent: Story = {
+  render: () => {
+    const onToggle = (event: CustomEvent<boolean>): void => {
+      const wrapper = (event.currentTarget as HTMLElement).closest('.toggle-event'),
+        state = wrapper?.querySelector<HTMLElement>('[data-menu-state]'),
+        value = event.detail ? 'Open' : 'Closed';
+
+      wrapper?.toggleAttribute('data-open', event.detail);
+
+      if (state) {
+        state.textContent = value;
+      }
+    };
+
+    return html`
+      <style>
+        .toggle-event {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto auto;
+        }
+
+        .toggle-event__status {
+          background: var(--sl-color-background-neutral-subtlest);
+          border: 1px solid var(--sl-color-border-neutral-plain);
+          border-radius: var(--sl-size-borderRadius-default);
+          color: var(--sl-color-foreground-neutral-bold);
+          font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+          min-inline-size: 6rem;
+          padding: 0.4rem 0.6rem;
+          text-align: center;
+        }
+
+        .toggle-event[data-open] .toggle-event__status {
+          background: var(--sl-color-background-accent-green-subtle);
+          border-color: var(--sl-color-background-accent-green-bold);
+          color: var(--sl-color-foreground-accent-green-bold);
+        }
+      </style>
+      <div class="toggle-event">
+        <sl-menu-button @sl-toggle=${onToggle}>
+          <span slot="button">Actions</span>
+          <sl-menu-item>
+            <sl-icon name="far-pen"></sl-icon>
+            Rename...
+          </sl-menu-item>
+          <sl-menu-item>
+            <sl-icon name="far-trash"></sl-icon>
+            Delete...
+          </sl-menu-item>
+        </sl-menu-button>
+        <output aria-live="polite" class="toggle-event__status" data-menu-state>Closed</output>
+      </div>
+    `;
+  }
+};
+
 export const Disabled: Story = {
   args: {
     ...Basic.args,

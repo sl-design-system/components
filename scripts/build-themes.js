@@ -225,6 +225,26 @@ StyleDictionary.registerTransform({
   }
 });
 
+// Transform sizes to px if they don't have a unit
+StyleDictionary.registerTransform({
+  name: 'sl/size/css/size',
+  type: 'value',
+  transitive: true,
+  filter: token => token.$type === 'size',
+  transform: token => {
+    const value = token.$value;
+
+    if (typeof value === 'string') {
+      // Check if the value already has a unit, is a function call, or a reference
+      const hasUnit = /[a-z%]$/i.test(value) || value.includes('(') || value.includes('{');
+
+      return hasUnit ? value : `${value}px`;
+    }
+
+    return value;
+  }
+});
+
 // Wrap math expressions in a `calc` function
 StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
@@ -417,6 +437,7 @@ const build = async (production = false, path, sldsLegacyPath) => {
               'name/kebabWithCamel',
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
+              'sl/size/css/size',
               'sl/size/css/paragraphSpacing',
               'sl/wrapMathInCalc'
             ].filter(Boolean),

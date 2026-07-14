@@ -1,12 +1,12 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { Listbox, Option, OptionGroup } from '../index.js';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
@@ -14,6 +14,15 @@ import { type GroupedOption } from './grouped-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
+  it('should export and register listbox option components', () => {
+    expect(Listbox).to.exist;
+    expect(Option).to.exist;
+    expect(OptionGroup).to.exist;
+
+    expect(customElements.get('sl-listbox')).to.equal(Listbox);
+    expect(customElements.get('sl-option')).to.equal(Option);
+    expect(customElements.get('sl-option-group')).to.equal(OptionGroup);
+  });
   let el: Combobox, input: HTMLInputElement;
 
   const waitForNextMacrotask = async (): Promise<void> => {

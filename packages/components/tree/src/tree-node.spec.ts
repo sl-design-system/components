@@ -287,13 +287,18 @@ describe('sl-tree-node', () => {
     it('should render the label in the checkbox label slot', () => {
       const checkbox = el.renderRoot.querySelector('sl-checkbox') as HTMLElement | null,
         labelSlot = checkbox?.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
-        labelText = labelSlot
+        input = checkbox?.querySelector<HTMLInputElement>('input[slot="input"]'),
+        label = checkbox?.querySelector<HTMLLabelElement>('label[slot="label"]'),
+        labelText = label
+          ?.querySelector('slot')
           ?.assignedNodes({ flatten: true })
-          .map(n => n.textContent ?? '')
+          .map(node => node.textContent ?? '')
           .join('')
           .trim();
 
       expect(labelSlot).to.exist;
+      expect(label).to.have.property('htmlFor', input?.id);
+      expect(input?.labels?.[0]).to.equal(label);
       expect(labelText).to.equal('Lorem');
     });
 

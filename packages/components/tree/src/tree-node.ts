@@ -39,6 +39,8 @@ export type TreeNodeContextMenu<T> = (node: TreeDataSourceNode<T>) => Menu | und
 
 export type TreeNodeType = 'node' | 'placeholder' | 'skeleton';
 
+let nextCheckboxId = 0;
+
 /**
  * A tree node component. Used to represent a node in a tree. This component is not public API and
  * is used internally by `<sl-tree>`.
@@ -66,6 +68,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     click: this.#onClick,
     keydown: this.#onKeydown
   });
+
+  #checkboxInputId = `sl-tree-node-checkbox-${nextCheckboxId++}`;
 
   /** @internal Emits when the checked state of the checkbox changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<boolean>>;
@@ -222,8 +226,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       exportparts="label"
                       part="checkbox"
                       size="sm">
-                      <input slot="input" tabindex="-1" type="checkbox" />
-                      <slot slot="label"></slot>
+                      <input
+                        id=${this.#checkboxInputId}
+                        slot="input"
+                        tabindex="-1"
+                        type="checkbox" />
+                      <label for=${this.#checkboxInputId} slot="label"><slot></slot></label>
                     </sl-checkbox>
                   `
                 : html`

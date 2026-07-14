@@ -749,6 +749,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       // Limit navigation to the visible options
       const items = this.items.filter(i => i.type === 'option' && i.visible);
 
+      if (items.length === 0) {
+        return;
+      }
+
       let delta = 0,
         index = -1;
 

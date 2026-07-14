@@ -942,6 +942,21 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should ignore option navigation when filtering hides all options', async () => {
+        input.focus();
+        await userEvent.keyboard('Foo');
+        await el.updateComplete;
+
+        expect(el.items.filter(item => item.type === 'option' && item.visible)).to.have.lengthOf(0);
+
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Home}');
+        await el.updateComplete;
+
+        expect(el.currentItem).to.be.undefined;
+        expect(input).not.to.have.attribute('aria-activedescendant');
+      });
     });
 
     describe('current item on open', () => {

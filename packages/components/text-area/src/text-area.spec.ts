@@ -812,7 +812,7 @@ describe('sl-text-area', () => {
 
       expect(count).to.exist;
       expect(count).to.have.attribute('id');
-      expect(textarea.getAttribute('aria-describedby')).to.contain(count!.id);
+      expect(textarea.getAttribute('aria-describedby')).to.equal(count!.id);
     });
 
     it('should remove count id from aria-describedby when count is hidden', async () => {
@@ -828,7 +828,7 @@ describe('sl-text-area', () => {
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('.count')).to.be.null;
-      expect(textarea.getAttribute('aria-describedby') ?? '').not.to.contain(initialCountId!);
+      expect(textarea.getAttribute('aria-describedby') ?? '').not.to.include(initialCountId!);
     });
 
     it('should remove show-validity after going back under the soft limit', async () => {

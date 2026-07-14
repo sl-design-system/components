@@ -14,7 +14,6 @@
 }
 
 :host::before {
-  place-self: stretch stretch;
   background: color-mix(
     in srgb,
     var(--_bg-color),
@@ -26,6 +25,7 @@
   grid-area: field;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
+  place-self: stretch stretch;
   pointer-events: none;
 }
 
@@ -137,10 +137,10 @@ slot[name='suffix']::slotted(sl-icon) {
   grid-area: count;
 }
 
-.count[data-count-state='caution'] {
+.count[count-state='caution'] {
   color: var(--sl-color-foreground-caution-plain);
 }
 
-.count[data-count-state='danger'] {
+.count[count-state='danger'] {
   color: var(--sl-color-foreground-negative-plain);
 }

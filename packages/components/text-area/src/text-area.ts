@@ -229,7 +229,7 @@ export class TextArea extends ObserveAttributesMixin(
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
       ${this.#isCountVisible()
         ? html`
-            <span class="count" data-count-state=${this.#getCountState()} id=${this.#countId}>
+            <span class="count" count-state=${this.#getCountState()} id=${this.#countId}>
               ${this.#getCountText()}
             </span>
           `

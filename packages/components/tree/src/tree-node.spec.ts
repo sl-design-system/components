@@ -289,7 +289,7 @@ describe('sl-tree-node', () => {
         labelSlot = checkbox?.querySelector('slot[slot="label"]');
 
       expect(labelSlot).to.exist;
-
+    });
     it('should toggle the checkbox when clicking the text', async () => {
       el.querySelector('span')?.click();
       await el.updateComplete;

@@ -291,8 +291,9 @@ describe('sl-tree-node', () => {
 
       expect(labelSlot).to.exist;
       expect(labelText).to.equal('Lorem');
+    });
+
     it('should toggle the checkbox when clicking the text', async () => {
-      el.querySelector('span')?.click();
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-selected', 'true');

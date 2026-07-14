@@ -245,6 +245,10 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   override render(): TemplateResult {
+    console.log(
+      'in render::: this.textarea.ariaDescribedByElements::: ',
+      this.textarea.ariaDescribedByElements
+    );
     return html`
       <slot name="suffix">
         ${this.showValidity === 'valid'
@@ -337,6 +341,31 @@ export class TextArea extends ObserveAttributesMixin(
       ariaDescribedByElements?: Element[] | null;
     };
 
+    const setDescribedByElements = (elements: Element[]): void => {
+      try {
+        describedByRefCapable.ariaDescribedByElements = elements;
+      } catch {
+        // Some engines reject mixed-root references; keep the count linked with safe refs.
+        const controlRoot = textarea.getRootNode(),
+          safeSubset = elements.filter(el => {
+            const elementRoot = el.getRootNode();
+
+            return elementRoot === controlRoot || elementRoot === document;
+          });
+
+        try {
+          describedByRefCapable.ariaDescribedByElements = safeSubset.length > 0 ? safeSubset : null;
+        } catch {
+          // no-op
+        }
+      }
+    };
+
+    console.log(
+      'describedByRefCapable.ariaDescribedByElements ',
+      describedByRefCapable.ariaDescribedByElements
+    );
+
     if (describedByRefCapable.ariaDescribedByElements !== undefined) {
       // --- Element-reference path (Chrome 124+) ---
       // Build the full "existing" list by merging:
@@ -381,11 +410,7 @@ export class TextArea extends ObserveAttributesMixin(
 
         // Set element references first, then mirror the string attribute so tools/devtools
         // consistently show both hint and count IDs.
-        try {
-          describedByRefCapable.ariaDescribedByElements = nextElements;
-        } catch {
-          // no-op
-        }
+        setDescribedByElements(nextElements);
 
         if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
           textarea.setAttribute('aria-describedby', nextDescribedBy);
@@ -394,12 +419,7 @@ export class TextArea extends ObserveAttributesMixin(
         // Count is hidden: keep hint references, remove count element.
         const nextDescribedBy = existingIds.join(' ');
 
-        try {
-          describedByRefCapable.ariaDescribedByElements =
-            allExisting.length > 0 ? allExisting : null;
-        } catch {
-          // no-op
-        }
+        setDescribedByElements(allExisting);
 
         if (nextDescribedBy.length > 0) {
           if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
@@ -413,6 +433,11 @@ export class TextArea extends ObserveAttributesMixin(
         this.#countDescriptionElement = undefined;
       }
 
+      console.log(
+        '2_describedByRefCapable.ariaDescribedByElements ',
+        describedByRefCapable.ariaDescribedByElements
+      );
+
       return;
     }
 
@@ -424,6 +449,8 @@ export class TextArea extends ObserveAttributesMixin(
     }
 
     const nextDescribedBy = ids.join(' ');
+
+    console.log('nextDescribedBy', nextDescribedBy);
 
     if (nextDescribedBy.length > 0) {
       if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {

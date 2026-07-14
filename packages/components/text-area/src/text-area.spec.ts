@@ -977,5 +977,30 @@ describe('sl-text-area', () => {
       expect(el.renderRoot.querySelector('.count')).to.be.null;
       expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
     });
+
+    it('should expose count in ariaDescribedByElements when used inside form-field', async () => {
+      const wrapped = await fixture(html`
+        <sl-form-field label="Label" hint="Hint text">
+          <sl-text-area show-count="5"></sl-text-area>
+        </sl-form-field>
+      `);
+      const area = wrapped.querySelector('sl-text-area') as TextArea,
+        textarea = area.querySelector('textarea')!;
+
+      await area.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(textarea.getAttribute('aria-describedby') ?? '').to.include('-description');
+
+      const describedByElements = textarea.ariaDescribedByElements;
+
+      if (describedByElements !== null && describedByElements !== undefined) {
+        expect(
+          Array.from(describedByElements).some(
+            el => el.id.includes('sl-text-area-count-') && el.id.endsWith('-description')
+          )
+        ).to.be.true;
+      }
+    });
   });
 });

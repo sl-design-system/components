@@ -166,7 +166,7 @@ export const Basic: Story = {
   }
 };
 
-export const ToggleEvent: Story = {
+export const OpenCloseEvent: Story = {
   render: () => {
     const onToggle = (event: CustomEvent<boolean>): void => {
       const wrapper = (event.currentTarget as HTMLElement).closest('.toggle-event'),

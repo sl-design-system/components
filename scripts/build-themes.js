@@ -230,7 +230,7 @@ StyleDictionary.registerTransform({
   name: 'sl/size/css/size',
   type: 'value',
   transitive: true,
-  filter: token => token.$type === 'size',
+  filter: token => token.$type === 'size' || token.$type === 'space',
   transform: token => {
     const value = token.$value;
 

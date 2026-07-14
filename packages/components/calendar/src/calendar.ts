@@ -303,7 +303,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.mode = this.#previousMode ?? 'day';
 
     requestAnimationFrame(() => {
-      this.renderRoot.querySelector('sl-select-day')?.focus();
+      this.#focusActiveMode();
     });
   }
 
@@ -349,6 +349,21 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       );
 
       button.ariaDescribedByElements = [...existingDescription, helperText];
+    }
+  }
+
+  #focusActiveMode(): void {
+    const selector =
+        this.mode === 'month'
+          ? 'sl-select-month'
+          : this.mode === 'year'
+            ? 'sl-select-year'
+            : 'sl-select-day',
+      subComponent = this.renderRoot.querySelector(selector);
+
+    if (subComponent) {
+      subComponent.focus();
+      this.#setHelperTextOnFirstButton(subComponent);
     }
   }
 }

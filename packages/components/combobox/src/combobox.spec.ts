@@ -1266,8 +1266,7 @@ describe('sl-combobox', () => {
         el.style.maxInlineSize = '300px';
         el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
         await el.updateComplete;
-        await new Promise(resolve => setTimeout(resolve, 300));
-        await el.updateComplete;
+        await waitForNextFrame();
         await waitForNextFrame();
 
         const tagList = el.renderRoot.querySelector('sl-tag-list')!,
@@ -1328,8 +1327,7 @@ describe('sl-combobox', () => {
             count
           );
           await el.updateComplete;
-          await new Promise(resolve => setTimeout(resolve, 300));
-          await el.updateComplete;
+          await waitForNextFrame();
           await waitForNextFrame();
 
           const inputWidth = input.getBoundingClientRect().width,

@@ -287,13 +287,18 @@ describe('sl-tree-node', () => {
     it('should render the label in the checkbox label slot', () => {
       const checkbox = el.renderRoot.querySelector('sl-checkbox') as HTMLElement | null,
         labelSlot = checkbox?.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
-        labelText = labelSlot?.assignedNodes({ flatten: true }).map(n => n.textContent ?? '').join('').trim();
+        labelText = labelSlot
+          ?.assignedNodes({ flatten: true })
+          .map(n => n.textContent ?? '')
+          .join('')
+          .trim();
 
       expect(labelSlot).to.exist;
       expect(labelText).to.equal('Lorem');
     });
 
     it('should toggle the checkbox when clicking the text', async () => {
+      el.querySelector('span')?.click();
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-selected', 'true');

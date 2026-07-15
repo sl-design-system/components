@@ -72,8 +72,8 @@ export class TextArea extends ObserveAttributesMixin(
     requestAnimationFrame(() => this.#setSize());
   });
 
-  /** Timer used to debounce the screen reader character count announcement. */
-  #announceTimer?: ReturnType<typeof setTimeout>;
+  /** Tracks the previous count state so we only announce transitions. */
+  #previousCountState?: 'default' | 'caution' | 'danger';
 
   /** Tracks whether the current custom validity was set by the showCount logic. */
   #hasCountCustomValidity = false;
@@ -193,9 +193,9 @@ export class TextArea extends ObserveAttributesMixin(
       cancelAnimationFrame(this.#deferredAriaSync);
       this.#deferredAriaSync = undefined;
     }
-    clearTimeout(this.#announceTimer);
     this.#countDescriptionElement?.remove();
     this.#countDescriptionElement = undefined;
+    this.#previousCountState = undefined;
 
     super.disconnectedCallback();
   }
@@ -229,6 +229,10 @@ export class TextArea extends ObserveAttributesMixin(
     if (valueChangedProgrammatically || changes.has('showCount')) {
       this.#syncCountValidity();
       this.updateValidity();
+
+      if (changes.has('showCount')) {
+        this.#previousCountState = undefined;
+      }
     }
 
     this.#syncCountAriaDescription();
@@ -484,10 +488,17 @@ export class TextArea extends ObserveAttributesMixin(
     this.changeEvent.emit(this.value);
 
     if (this.showCount !== undefined) {
-      clearTimeout(this.#announceTimer);
-      this.#announceTimer = setTimeout(() => {
+      const currentCountState = this.#getCountState();
+
+      // Only announce after a real state transition (default/caution/danger).
+      if (
+        this.#previousCountState !== undefined &&
+        currentCountState !== this.#previousCountState
+      ) {
         announce(this.#getCountText(), 'polite');
-      }, 1000);
+      }
+
+      this.#previousCountState = currentCountState;
     }
   }
 
@@ -504,6 +515,7 @@ export class TextArea extends ObserveAttributesMixin(
       }
 
       this.#showCountMessage = false;
+      this.#previousCountState = undefined;
 
       return;
     }

@@ -1115,7 +1115,7 @@
           "$description": "Use for subheadings."
         },
         "subtlest": {
-          "$value": "set_alpha({tig.color.palette.grey.700}, {opacity-new.800}).to.hex()",
+          "$value": "set_alpha({tig.color.palette.grey.900}, 0.62).to.hex()",
           "$type": "color",
           "$description": "Use for placeholders and hints."
         }

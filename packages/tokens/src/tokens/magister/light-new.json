@@ -22,12 +22,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({magister.color.palette.blue.400}, {magister.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({magister.color.palette.blue.400}, 0.25).to.hex()",
               "$type": "color",
               "$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({magister.color.palette.blue.400}, {magister.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({magister.color.palette.blue.400}, 0.2).to.hex()",
               "$type": "color",
               "$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }

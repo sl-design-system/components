@@ -576,7 +576,7 @@
           },
           "grey": {
             "bold": {
-              "$value": "set_alpha({editorial-suite.color.palette.grey.600}, 216.75).to.hex()",
+              "$value": "set_alpha({editorial-suite.color.palette.grey.600}, 0.85).to.hex()",
               "$type": "color",
               "$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
             },
@@ -1115,7 +1115,7 @@
           "$description": "Use for subheadings."
         },
         "subtlest": {
-          "$value": "set_alpha({editorial-suite.color.palette.grey.900}, {opacity-new.800}).to.hex()",
+          "$value": "set_alpha({editorial-suite.color.palette.grey.900}, 0.61).to.hex()",
           "$type": "color",
           "$description": "Use for placeholders and hints."
         }

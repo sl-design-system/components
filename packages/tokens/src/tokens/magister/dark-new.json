@@ -825,7 +825,7 @@
           },
           "grey": {
             "bold": {
-              "$value": "set_alpha({magister.color.palette.grey.900}, 229.5).to.hex()",
+              "$value": "set_alpha({magister.color.palette.grey.900}, 0.9).to.hex()",
               "$type": "color",
               "$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
             },
@@ -845,17 +845,17 @@
               "$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
             },
             "plain": {
-              "$value": "set_alpha({magister.color.palette.grey.900}, 198.9).to.hex()",
+              "$value": "set_alpha({magister.color.palette.grey.900}, 0.78).to.hex()",
               "$type": "color",
               "$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
             },
             "subtle": {
-              "$value": "set_alpha({magister.color.palette.grey.900}, 175.95).to.hex()",
+              "$value": "set_alpha({magister.color.palette.grey.900}, 0.69).to.hex()",
               "$type": "color",
               "$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({magister.color.palette.grey.900}, 153).to.hex()",
+              "$value": "set_alpha({magister.color.palette.grey.900}, 0.6).to.hex()",
               "$type": "color",
               "$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
             }
@@ -1586,7 +1586,7 @@
         },
         "raised": {
           "alternative": {
-            "$value": "set_alpha({magister.color.palette.grey.900}, 25.5).to.hex()",
+            "$value": "set_alpha({magister.color.palette.grey.900}, 0.1).to.hex()",
             "$type": "color",
             "$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
@@ -1606,7 +1606,7 @@
             "$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
           },
           "sunken": {
-            "$value": "set_alpha({magister.color.palette.grey.900}, 12.75).to.hex()",
+            "$value": "set_alpha({magister.color.palette.grey.900}, 0.5).to.hex()",
             "$type": "color",
             "$description": "Background for components that create a sunken effect, typically used for grouping related items."
           }

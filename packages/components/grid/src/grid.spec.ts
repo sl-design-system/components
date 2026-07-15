@@ -572,6 +572,7 @@ describe('sl-grid', () => {
 
       expect(thead.scrollLeft).to.equal(tbody.scrollLeft);
     });
+  });
 
   describe('row action activate', () => {
     beforeEach(async () => {

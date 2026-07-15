@@ -534,6 +534,36 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('scrolling', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}
+          style="inline-size: 320px">
+          <sl-grid-selection-column sticky></sl-grid-selection-column>
+          <sl-grid-sort-column grow="0" path="firstName" width="220"></sl-grid-sort-column>
+          <sl-grid-sort-column grow="0" path="lastName" width="220"></sl-grid-sort-column>
+          <sl-grid-sort-column grow="0" path="email" width="220"></sl-grid-sort-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should sync the body when the header is scrolled', () => {
+      const thead = el.renderRoot.querySelector<HTMLTableSectionElement>('thead')!,
+        tbody = el.renderRoot.querySelector<HTMLTableSectionElement>('tbody')!;
+
+      thead.scrollLeft = 240;
+      thead.dispatchEvent(new Event('scroll'));
+
+      expect(tbody.scrollLeft).to.equal(thead.scrollLeft);
+    });
+  });
+
   describe('row action activate', () => {
     beforeEach(async () => {
       el = await fixture(html`

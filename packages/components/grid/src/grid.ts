@@ -180,6 +180,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The item before the dragged item when dragging started. */
   #itemBeforeDragItem?: ListDataSourceItem<T>;
 
+  /** Prevent recursive scroll syncing between the header and body. */
+  #scrollSyncing = false;
+
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
     this.#mutationObserver?.disconnect();
@@ -409,7 +412,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     });
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
-    this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
+    this.tbody.addEventListener('scroll', () => this.#onBodyScroll(), { passive: true });
+    this.thead.addEventListener('scroll', () => this.#onHeaderScroll(), { passive: true });
     this.tbody.addEventListener('focusin', (event: FocusEvent) => this.#onFocusIn(event));
 
     // Workaround for https://github.com/lit/lit/issues/4232
@@ -1021,11 +1025,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
+  #onBodyScroll(): void {
+    this.#syncScrollLeft(this.tbody, this.thead);
+    this.#onScroll();
+  }
+
+  #onHeaderScroll(): void {
+    this.#syncScrollLeft(this.thead, this.tbody);
+    this.#onScroll();
+  }
+
   #onScroll(): void {
     const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
 
     this.scrollbar = scrollWidth > offsetWidth;
-    this.thead.scrollLeft = scrollLeft;
+    this.#syncScrollLeft(this.tbody, this.thead);
 
     this.toggleAttribute('scrollable', this.scrollbar);
     this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
@@ -1033,6 +1047,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'scrollable-end',
       this.scrollbar && Math.round(scrollLeft) < scrollWidth - offsetWidth
     );
+  }
+
+  #syncScrollLeft(source: HTMLElement, target: HTMLElement): void {
+    if (this.#scrollSyncing || target.scrollLeft === source.scrollLeft) {
+      return;
+    }
+
+    this.#scrollSyncing = true;
+    target.scrollLeft = source.scrollLeft;
+    this.#scrollSyncing = false;
   }
 
   #onSelectionChange = (): void => {

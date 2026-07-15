@@ -1,4 +1,4 @@
-// This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
+// This is a generated file, do not edit. Edit the core.json and theme-icons.json files instead.
 export const icons = {
   'angle-down': {
     value: 'angle-down',

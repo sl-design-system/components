@@ -75,94 +75,6 @@ const getIconPrefixFromStyle = style => {
   }
 };
 
-const buildIcons = async theme => {
-  // 1. Get icon tokens from `base.json`
-  const {
-    default: {
-      icon: { style, themeIcons },
-      text
-    }
-  } = await import(`../packages/tokens/src/tokens/${theme}/core.json`, { with: { type: 'json' } });
-
-  const icons = {
-    ...getFormattedIcons(coreIcons, 'core'),
-    ...(themeIcons ? getFormattedIcons({ themeIcons }, 'themeIcons') : {})
-  };
-
-  console.log(`Building icons for ${theme}...`, icons);
-
-  // fetch all FA tokens and store these
-  Object.entries(icons).forEach(([iconName, value]) => {
-    const tokenValue = value['$value'] || value.value;
-    if (!tokenValue) {
-      delete icons[iconName];
-      return;
-    }
-
-    const faIcon = convertToIconDefinition(
-      tokenValue.replace('fa-', ''),
-      getIconStyle(iconName, text, style)
-    );
-    if (!faIcon) {
-      console.warn(`[${theme}] FontAwesome icon not found: ${tokenValue} (${iconName})`);
-      delete icons[iconName];
-      return;
-    }
-
-    const {
-        icon: [width, height, , , path]
-      } = faIcon,
-      paths = Array.isArray(path) ? path : [path];
-
-    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
-
-    icons[iconName] = {
-      value: tokenValue,
-      type: value['$type'] || value.type,
-      description: value['$description'] || value.description,
-      svg
-    };
-  });
-
-  const iconsFolderPath = join(cwd, `../packages/themes/${theme}/icons/`);
-  if (!existsSync(iconsFolderPath)) {
-    await fs.mkdir(iconsFolderPath);
-  }
-
-  // 3. Convert downloaded icons to appropriate format?
-  // We only need the `<path>` data for `<sl-icon>`
-
-  const customIconFiles = await fs.readdir(iconsFolderPath);
-  const iconsCustom = [];
-
-  const filesToRead = customIconFiles.map(fileName => {
-    const iconName = fileName.replace('icon=', '').replace('.svg', '');
-
-    return fs
-      .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
-      .then(svg => {
-        iconsCustom[iconName] = {
-          svg: svg.replace('<svg ', '<svg fill="var(--sl-icon-fill-default)" ')
-        };
-      });
-  });
-
-  await Promise.all(filesToRead);
-
-  // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
-  console.log(`Writing icons to ${theme}...`);
-  const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-    sortedIcons = Object.fromEntries(
-      Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
-    ),
-    source = `// This is a generated file, do not edit. Edit the core.json files instead.
-export const icons = ${JSON.stringify(sortedIcons, null, 2)};
-`;
-
-  await fs.writeFile(filePath, source);
-  await execAsync(`npx oxfmt ${filePath}`, { cwd: join(cwd, '..') });
-};
-
 const buildIconsFromBaseNew = async theme => {
   // 1. Get icon tokens from `base-new.json` which uses routing prefixes
   const baseNewModule = await import(`../packages/tokens/src/tokens/${theme}/base-new.json`, {
@@ -277,7 +189,7 @@ const buildIconsFromBaseNew = async theme => {
     sortedIcons = Object.fromEntries(
       Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
     ),
-    source = `// This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
+    source = `// This is a generated file, do not edit. Edit the core.json and theme-icons.json files instead.
 export const icons = ${JSON.stringify(sortedIcons, null, 2)};
 `;
 
@@ -291,23 +203,14 @@ const buildAllIcons = async () => {
   const themes = folders
     .map(folder => basename(folder))
     .filter(theme => theme.indexOf('core') < 0)
-    .filter(
-      theme =>
-        existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`)) ||
-        existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`))
-    );
+    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)));
 
   const buildPromises = themes.map(theme => {
-    const hasBaseJson = existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`));
     const hasBaseNewJson = existsSync(
       join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)
     );
 
-    if (hasBaseJson) {
-      return buildIcons(theme);
-    } else if (hasBaseNewJson) {
-      return buildIconsFromBaseNew(theme);
-    }
+    return buildIconsFromBaseNew(theme);
   });
 
   await Promise.all(buildPromises);

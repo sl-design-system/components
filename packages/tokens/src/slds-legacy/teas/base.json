@@ -717,6 +717,24 @@
       }
     }
   },
+  "component": {
+    "button": {
+      "lg": {
+        "$value": {
+          "width": "{size.md}",
+          "height": "{size.md}"
+        },
+        "$type": "composition"
+      },
+      "md": {
+        "$value": {
+          "width": "{size.sm}",
+          "height": "{size.sm}"
+        },
+        "$type": "composition"
+      }
+    }
+  },
   "conceptual": {
     "border": {
       "width": {
@@ -725,6 +743,24 @@
           "$type": "borderWidth",
           "$description": "Conceptual Theme Border Token"
         }
+      }
+    }
+  },
+  "dialog": {
+    "footer": {
+      "flexDirection": {
+        "$value": "{flexDirection.row}",
+        "$type": "flex"
+      },
+      "justifyContent": {
+        "$value": "{justifyContent.end}",
+        "$type": "flex"
+      }
+    },
+    "header": {
+      "flexDirection": {
+        "$value": "{flexDirection.column}",
+        "$type": "flex"
       }
     }
   },
@@ -2472,6 +2508,13 @@
           "$type": "typography"
         }
       }
+    },
+    "textField": {
+      "$value": {
+        "lg": "[object Object]",
+        "md": "[object Object]"
+      },
+      "$type": "text"
     },
     "typeset": {
       "fontFamily": {

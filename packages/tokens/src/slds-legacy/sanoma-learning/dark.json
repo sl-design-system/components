@@ -22,7 +22,7 @@
         "$description": "color.body.default.foreground"
       },
       "overlay": {
-        "$value": "rgb({color.palette.white.base}, {opacity.500})",
+        "$value": "set_alpha({color.palette.white.base}, {opacity.500})",
         "$type": "color",
         "$description": "body.surface.200"
       }
@@ -30,25 +30,29 @@
   },
   "boxShadow": {
     "focus": {
-      "$value": {
-        "x": "0",
-        "y": "0",
-        "blur": "0",
-        "type": "dropShadow",
-        "color": "rgba({color.palette.info.base},{opacity.800})",
-        "spread": "3px"
-      },
+      "$value": [
+        {
+          "x": "0px",
+          "y": "0px",
+          "blur": "0px",
+          "type": "dropShadow",
+          "color": "rgba({color.palette.info.base},{opacity.800})",
+          "spread": "3px"
+        }
+      ],
       "$type": "shadow"
     },
     "none": {
-      "$value": {
-        "x": "0",
-        "y": "0",
-        "blur": "0",
-        "type": "dropShadow",
-        "color": "{color.palette.transparent.base}",
-        "spread": "0"
-      },
+      "$value": [
+        {
+          "x": "0px",
+          "y": "0px",
+          "blur": "0px",
+          "type": "dropShadow",
+          "color": "{color.palette.transparent.base}",
+          "spread": "0px"
+        }
+      ],
       "$type": "shadow",
       "$description": "boxShadow.none"
     }
@@ -69,7 +73,7 @@
           "$type": "color"
         },
         "header": {
-          "$value": "rgb({color.palette.accent.base}, {opacity.400})",
+          "$value": "set_alpha({color.palette.accent.base}, {opacity.400})",
           "$type": "color"
         },
         "icon": {
@@ -135,7 +139,7 @@
           "$type": "color"
         },
         "header": {
-          "$value": "rgb({color.palette.accent.base}, {opacity.200})",
+          "$value": "set_alpha({color.palette.accent.base}, {opacity.200})",
           "$type": "color"
         },
         "icon": {
@@ -3861,11 +3865,11 @@
       "item": {
         "active": {
           "background": {
-            "$value": "rgb({color.palette.accent.base}, {opacity.700})",
+            "$value": "set_alpha({color.palette.accent.base}, {opacity.700})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3879,11 +3883,11 @@
         },
         "default": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3897,11 +3901,11 @@
         },
         "disabled": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3921,11 +3925,11 @@
         },
         "focus": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.100})",
+            "$value": "set_alpha({body.background}, {opacity.100})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3945,11 +3949,11 @@
         },
         "hover": {
           "background": {
-            "$value": "rgb({color.palette.accent.base}, {opacity.500})",
+            "$value": "set_alpha({color.palette.accent.base}, {opacity.500})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -4383,12 +4387,12 @@
         "$description": "body.surface.100"
       },
       "pulse": {
-        "$value": "ts_alpha_hsl({color.palette.neutral.700}, 0.4)",
+        "$value": "set_alpha({color.palette.neutral.700}, 0.4)",
         "$type": "color",
         "$description": "body.surface.100",
         "$extensions": {
           "studio.tokens.import": {
-            "importedAt": "2026-03-29T14:18:54.861Z",
+            "importedAt": "2026-07-14T07:38:01.282Z",
             "modifierType": "alpha",
             "originalValue": "{color.palette.neutral.700}",
             "originalModifier": {

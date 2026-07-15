@@ -13,26 +13,30 @@
   },
   "boxShadow": {
     "focus": {
-      "$value": {
-        "x": "0",
-        "y": "0",
-        "blur": "0",
-        "type": "dropShadow",
-        "color": "rgba({color.palette.info.300},{opacity.800})",
-        "spread": "3px"
-      },
+      "$value": [
+        {
+          "x": "0px",
+          "y": "0px",
+          "blur": "0px",
+          "type": "dropShadow",
+          "color": "rgba({color.palette.info.300},{opacity.800})",
+          "spread": "3px"
+        }
+      ],
       "$type": "shadow",
       "$description": "boxShadow.focus"
     },
     "none": {
-      "$value": {
-        "x": "0",
-        "y": "0",
-        "blur": "0",
-        "type": "dropShadow",
-        "color": "{color.palette.transparent.base}",
-        "spread": "0"
-      },
+      "$value": [
+        {
+          "x": "0px",
+          "y": "0px",
+          "blur": "0px",
+          "type": "dropShadow",
+          "color": "{color.palette.transparent.base}",
+          "spread": "0px"
+        }
+      ],
       "$type": "shadow",
       "$description": "boxShadow.none"
     }
@@ -1261,6 +1265,10 @@
               "$value": "{color.palette.primary.100}",
               "$type": "color"
             },
+            "border": {
+              "$value": "#",
+              "$type": "color"
+            },
             "foreground": {
               "$value": "{color.palette.primary.base}",
               "$type": "color"
@@ -2262,7 +2270,7 @@
           },
           "focus": {
             "background": {
-              "$value": "rgb({body.background}, {opacity.100})",
+              "$value": "set_alpha({body.background}, {opacity.100})",
               "$type": "color",
               "$description": "color.surface.solid.primary.foreground"
             },
@@ -3812,7 +3820,7 @@
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3826,11 +3834,11 @@
         },
         "default": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3844,11 +3852,11 @@
         },
         "disabled": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3868,11 +3876,11 @@
         },
         "focus": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.100})",
+            "$value": "set_alpha({body.background}, {opacity.100})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3896,7 +3904,7 @@
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -4330,12 +4338,12 @@
         "$description": "body.surface.100"
       },
       "pulse": {
-        "$value": "ts_alpha_hsl({color.palette.neutral.100}, 0.4)",
+        "$value": "set_alpha({color.palette.neutral.100}, 0.4)",
         "$type": "color",
         "$description": "body.surface.100",
         "$extensions": {
           "studio.tokens.import": {
-            "importedAt": "2026-03-29T14:18:54.828Z",
+            "importedAt": "2026-07-14T07:38:01.241Z",
             "modifierType": "alpha",
             "originalValue": "{color.palette.neutral.100}",
             "originalModifier": {
@@ -4707,20 +4715,20 @@
       "lg": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "4",
+            "x": "0px",
+            "y": "0px",
+            "blur": "4px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.100})",
-            "spread": "0"
+            "spread": "0px"
           },
           {
-            "x": "0",
-            "y": "8",
-            "blur": "16",
+            "x": "0px",
+            "y": "8px",
+            "blur": "16px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
@@ -4728,20 +4736,20 @@
       "md": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "4",
+            "x": "0px",
+            "y": "0px",
+            "blur": "4px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.300})",
-            "spread": "0"
+            "spread": "0px"
           },
           {
-            "x": "0",
-            "y": "4",
-            "blur": "8",
+            "x": "0px",
+            "y": "4px",
+            "blur": "8px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.400})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
@@ -4749,12 +4757,12 @@
       "none": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "0",
+            "x": "0px",
+            "y": "0px",
+            "blur": "0px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.transparent})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"
@@ -4762,20 +4770,20 @@
       "sm": {
         "$value": [
           {
-            "x": "0",
-            "y": "0",
-            "blur": "6",
+            "x": "0px",
+            "y": "0px",
+            "blur": "6px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.50})",
-            "spread": "0"
+            "spread": "0px"
           },
           {
-            "x": "0",
+            "x": "0px",
             "y": "2px",
             "blur": "4px",
             "type": "dropShadow",
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
-            "spread": "0"
+            "spread": "0px"
           }
         ],
         "$type": "shadow"

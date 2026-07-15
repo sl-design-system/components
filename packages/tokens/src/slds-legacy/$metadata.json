@@ -29,6 +29,7 @@
     "teas/base",
     "tig/base",
     "tig/light",
-    "core"
+    "core",
+    "system"
   ]
 }

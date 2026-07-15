@@ -13,35 +13,45 @@
   },
   "boxShadow": {
     "focus": {
-      "$value": {
-        "x": "0",
-        "y": "0",
-        "blur": "0",
-        "type": "dropShadow",
-        "color": "rgba({color.palette.info.200},{opacity.500})",
-        "spread": "4px"
-      },
+      "$value": [
+        {
+          "x": "0px",
+          "y": "0px",
+          "blur": "0px",
+          "type": "dropShadow",
+          "color": "rgba({color.palette.info.200},{opacity.500})",
+          "spread": "4px"
+        }
+      ],
       "$type": "shadow",
       "$description": "boxShadow.focus"
     },
     "none": {
-      "$value": {
-        "x": "0",
-        "y": "0",
-        "blur": "0",
-        "type": "dropShadow",
-        "color": "{color.palette.transparent.base}",
-        "spread": "0"
-      },
+      "$value": [
+        {
+          "x": "0px",
+          "y": "0px",
+          "blur": "0px",
+          "type": "dropShadow",
+          "color": "{color.palette.transparent.base}",
+          "spread": "0px"
+        }
+      ],
       "$type": "shadow",
       "$description": "boxShadow.none"
+    },
+    "tooltip": {
+      "$value": {
+        "boxShadow": "{elevation.shadow.none}"
+      },
+      "$type": "composition"
     }
   },
   "color": {
     "accordion": {
       "active": {
         "background": {
-          "$value": "rgb({color.palette.primary.400}, {opacity.600})",
+          "$value": "set_alpha({color.palette.primary.400}, {opacity.600})",
           "$type": "color"
         },
         "border": {
@@ -53,7 +63,7 @@
           "$type": "color"
         },
         "header": {
-          "$value": "rgb({color.palette.primary.400}, {opacity.600})",
+          "$value": "set_alpha({color.palette.primary.400}, {opacity.600})",
           "$type": "color"
         },
         "icon": {
@@ -85,7 +95,7 @@
       },
       "disabled": {
         "background": {
-          "$value": "rgb({color.palette.neutral.400}, {opacity.700})",
+          "$value": "set_alpha({color.palette.neutral.400}, {opacity.700})",
           "$type": "color"
         },
         "border": {
@@ -97,7 +107,7 @@
           "$type": "color"
         },
         "header": {
-          "$value": "rgb({color.palette.neutral.400}, {opacity.700})",
+          "$value": "set_alpha({color.palette.neutral.400}, {opacity.700})",
           "$type": "color"
         },
         "icon": {
@@ -107,7 +117,7 @@
       },
       "hover": {
         "background": {
-          "$value": "rgb({color.palette.primary.400}, {opacity.200})",
+          "$value": "set_alpha({color.palette.primary.400}, {opacity.200})",
           "$type": "color"
         },
         "border": {
@@ -119,7 +129,7 @@
           "$type": "color"
         },
         "header": {
-          "$value": "rgb({color.palette.primary.400}, {opacity.200})",
+          "$value": "set_alpha({color.palette.primary.400}, {opacity.200})",
           "$type": "color"
         },
         "icon": {
@@ -304,7 +314,7 @@
         "ghost": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.danger.base}, {opacity.500})",
+              "$value": "set_alpha({color.palette.danger.base}, {opacity.500})",
               "$type": "color"
             },
             "border": {
@@ -334,7 +344,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.danger.base}, {opacity.300})",
+              "$value": "set_alpha({color.palette.danger.base}, {opacity.300})",
               "$type": "color"
             },
             "border": {
@@ -424,7 +434,7 @@
         "outline": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.danger.400}, {opacity.500})",
+              "$value": "set_alpha({color.palette.danger.400}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.danger.outline.active.background"
             },
@@ -458,7 +468,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.danger.400}, {opacity.300})",
+              "$value": "set_alpha({color.palette.danger.400}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.danger.outline.hover.background"
             },
@@ -566,12 +576,12 @@
         "ghost": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.white.base}, {opacity.500})",
+              "$value": "set_alpha({color.palette.white.base}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.default.outline.active.background"
             },
             "border": {
-              "$value": "rgb({color.palette.white.base}, {opacity.500})",
+              "$value": "set_alpha({color.palette.white.base}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.default.outline.active.border"
             },
@@ -600,12 +610,12 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.white.base}, {opacity.300})",
+              "$value": "set_alpha({color.palette.white.base}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.default.outline.hover.background"
             },
             "border": {
-              "$value": "rgb({color.palette.white.base}, {opacity.300})",
+              "$value": "set_alpha({color.palette.white.base}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.default.outline.hover.border"
             },
@@ -764,7 +774,7 @@
         "outline": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.white.base}, {opacity.500})",
+              "$value": "set_alpha({color.palette.white.base}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.default.outline.active.background"
             },
@@ -798,7 +808,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.white.base}, {opacity.300})",
+              "$value": "set_alpha({color.palette.white.base}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.default.outline.hover.background"
             },
@@ -904,7 +914,7 @@
         "solid": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.primary.50}, {opacity.600})",
+              "$value": "set_alpha({color.palette.primary.50}, {opacity.600})",
               "$type": "color",
               "$description": "color.button.default.active.background"
             },
@@ -938,7 +948,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.primary.50}, {opacity.400})",
+              "$value": "set_alpha({color.palette.primary.50}, {opacity.400})",
               "$type": "color",
               "$description": "color.button.default.hover.background"
             },
@@ -955,7 +965,7 @@
           },
           "idle": {
             "background": {
-              "$value": "rgb({color.palette.primary.50}, {opacity.200})",
+              "$value": "set_alpha({color.palette.primary.50}, {opacity.200})",
               "$type": "color",
               "$description": "color.button.default.idle.background"
             },
@@ -976,7 +986,7 @@
         "ghost": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.info.200}, {opacity.500})",
+              "$value": "set_alpha({color.palette.info.200}, {opacity.500})",
               "$type": "color"
             },
             "border": {
@@ -1006,7 +1016,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.info.200}, {opacity.300})",
+              "$value": "set_alpha({color.palette.info.200}, {opacity.300})",
               "$type": "color"
             },
             "border": {
@@ -1096,7 +1106,7 @@
         "outline": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.info.200}, {opacity.500})",
+              "$value": "set_alpha({color.palette.info.200}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.info.outline.active.background"
             },
@@ -1130,7 +1140,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.info.200}, {opacity.300})",
+              "$value": "set_alpha({color.palette.info.200}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.info.outline.hover.background"
             },
@@ -1238,7 +1248,7 @@
         "ghost": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.primary.50}, {opacity.500})",
+              "$value": "set_alpha({color.palette.primary.50}, {opacity.500})",
               "$type": "color"
             },
             "border": {
@@ -1268,7 +1278,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.primary.50}, {opacity.300})",
+              "$value": "set_alpha({color.palette.primary.50}, {opacity.300})",
               "$type": "color"
             },
             "border": {
@@ -1358,7 +1368,7 @@
         "outline": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.primary.100}, {opacity.500})",
+              "$value": "set_alpha({color.palette.primary.100}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.primary.outline.active.background"
             },
@@ -1392,7 +1402,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.primary.100}, {opacity.300})",
+              "$value": "set_alpha({color.palette.primary.100}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.primary.outline.hover.background"
             },
@@ -1500,7 +1510,7 @@
         "ghost": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.success.200}, {opacity.500})",
+              "$value": "set_alpha({color.palette.success.200}, {opacity.500})",
               "$type": "color"
             },
             "border": {
@@ -1530,7 +1540,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.success.200}, {opacity.300})",
+              "$value": "set_alpha({color.palette.success.200}, {opacity.300})",
               "$type": "color"
             },
             "border": {
@@ -1620,7 +1630,7 @@
         "outline": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.success.200}, {opacity.500})",
+              "$value": "set_alpha({color.palette.success.200}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.success.outline.active.background"
             },
@@ -1654,7 +1664,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.success.200}, {opacity.300})",
+              "$value": "set_alpha({color.palette.success.200}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.success.outline.hover.background"
             },
@@ -1762,7 +1772,7 @@
         "ghost": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.warning.base}, {opacity.500})",
+              "$value": "set_alpha({color.palette.warning.base}, {opacity.500})",
               "$type": "color"
             },
             "border": {
@@ -1792,7 +1802,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.warning.base}, {opacity.300})",
+              "$value": "set_alpha({color.palette.warning.base}, {opacity.300})",
               "$type": "color"
             },
             "border": {
@@ -1882,7 +1892,7 @@
         "outline": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.warning.base}, {opacity.500})",
+              "$value": "set_alpha({color.palette.warning.base}, {opacity.500})",
               "$type": "color",
               "$description": "color.button.warning.outline.active.background"
             },
@@ -1916,7 +1926,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.warning.base}, {opacity.300})",
+              "$value": "set_alpha({color.palette.warning.base}, {opacity.300})",
               "$type": "color",
               "$description": "color.button.warning.outline.hover.background"
             },
@@ -2095,7 +2105,7 @@
     "inline-message": {
       "danger": {
         "background": {
-          "$value": "rgb({color.palette.danger.base}, {opacity.200})",
+          "$value": "set_alpha({color.palette.danger.base}, {opacity.200})",
           "$type": "color"
         },
         "border": {
@@ -2113,7 +2123,7 @@
       },
       "info": {
         "background": {
-          "$value": "rgb({color.palette.info.base}, {opacity.200})",
+          "$value": "set_alpha({color.palette.info.base}, {opacity.200})",
           "$type": "color"
         },
         "border": {
@@ -2131,7 +2141,7 @@
       },
       "success": {
         "background": {
-          "$value": "rgb({color.palette.success.base}, {opacity.200})",
+          "$value": "set_alpha({color.palette.success.base}, {opacity.200})",
           "$type": "color"
         },
         "border": {
@@ -2149,7 +2159,7 @@
       },
       "warning": {
         "background": {
-          "$value": "rgb({color.palette.warning.base}, {opacity.200})",
+          "$value": "set_alpha({color.palette.warning.base}, {opacity.200})",
           "$type": "color"
         },
         "border": {
@@ -2262,7 +2272,7 @@
           },
           "focus": {
             "background": {
-              "$value": "rgb({body.background}, {opacity.100})",
+              "$value": "set_alpha({body.background}, {opacity.100})",
               "$type": "color",
               "$description": "color.surface.solid.primary.foreground"
             },
@@ -3294,7 +3304,7 @@
         "default": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.primary.150}, {opacity.100})",
+              "$value": "set_alpha({color.palette.primary.150}, {opacity.100})",
               "$type": "color",
               "$description": "color.surface.solid.primary.background"
             },
@@ -3422,7 +3432,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.primary.150}, {opacity.200})",
+              "$value": "set_alpha({color.palette.primary.150}, {opacity.200})",
               "$type": "color",
               "$description": "color.surface.solid.primary.background"
             },
@@ -3456,7 +3466,7 @@
         "invalid": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.danger.600}, {opacity.100})",
+              "$value": "set_alpha({color.palette.danger.600}, {opacity.100})",
               "$type": "color",
               "$description": "color.surface.solid.primary.background"
             },
@@ -3584,7 +3594,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.danger.600}, {opacity.200})",
+              "$value": "set_alpha({color.palette.danger.600}, {opacity.200})",
               "$type": "color",
               "$description": "color.surface.solid.primary.background"
             },
@@ -3618,7 +3628,7 @@
         "valid": {
           "active": {
             "background": {
-              "$value": "rgb({color.palette.success.base}, {opacity.100})",
+              "$value": "set_alpha({color.palette.success.base}, {opacity.100})",
               "$type": "color",
               "$description": "color.surface.solid.primary.background"
             },
@@ -3726,7 +3736,7 @@
           },
           "hover": {
             "background": {
-              "$value": "rgb({color.palette.success.base}, {opacity.200})",
+              "$value": "set_alpha({color.palette.success.base}, {opacity.200})",
               "$type": "color",
               "$description": "color.surface.solid.primary.background"
             },
@@ -3808,11 +3818,11 @@
       "item": {
         "active": {
           "background": {
-            "$value": "rgb({color.palette.primary.100}, {opacity.400})",
+            "$value": "set_alpha({color.palette.primary.100}, {opacity.400})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3826,11 +3836,11 @@
         },
         "default": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3844,11 +3854,11 @@
         },
         "disabled": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3868,11 +3878,11 @@
         },
         "focus": {
           "background": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -3892,11 +3902,11 @@
         },
         "hover": {
           "background": {
-            "$value": "rgb({color.palette.primary.100}, {opacity.200})",
+            "$value": "set_alpha({color.palette.primary.100}, {opacity.200})",
             "$type": "color"
           },
           "border": {
-            "$value": "rgb({body.background}, {opacity.transparent})",
+            "$value": "set_alpha({body.background}, {opacity.transparent})",
             "$type": "color"
           },
           "foreground": {
@@ -4330,12 +4340,12 @@
         "$description": "body.surface.100"
       },
       "pulse": {
-        "$value": "ts_alpha_hsl({color.palette.neutral.700}, 0.4)",
+        "$value": "set_alpha({color.palette.neutral.700}, 0.4)",
         "$type": "color",
         "$description": "body.surface.100",
         "$extensions": {
           "studio.tokens.import": {
-            "importedAt": "2026-03-29T14:18:54.799Z",
+            "importedAt": "2026-07-14T07:38:01.184Z",
             "modifierType": "alpha",
             "originalValue": "{color.palette.neutral.700}",
             "originalModifier": {
@@ -4426,7 +4436,7 @@
     "tab": {
       "active": {
         "background": {
-          "$value": "rgb({color.palette.primary.400}, {opacity.600})",
+          "$value": "set_alpha({color.palette.primary.400}, {opacity.600})",
           "$type": "color"
         },
         "border": {
@@ -4482,7 +4492,7 @@
       },
       "hover": {
         "background": {
-          "$value": "rgb({color.palette.primary.400}, {opacity.200})",
+          "$value": "set_alpha({color.palette.primary.400}, {opacity.200})",
           "$type": "color"
         },
         "border": {

@@ -855,7 +855,7 @@
               "$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({tig.color.palette.grey.900}, 158.1).to.hex()",
+              "$value": "{tig.color.palette.grey.600}",
               "$type": "color",
               "$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
             }
@@ -1115,7 +1115,7 @@
           "$description": "Use for subheadings."
         },
         "subtlest": {
-          "$value": "{tig.color.foreground.accent.grey.subtlest}",
+          "$value": "set_alpha({tig.color.palette.grey.700}, {opacity-new.800}).to.hex()",
           "$type": "color",
           "$description": "Use for placeholders and hints."
         }

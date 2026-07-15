@@ -562,7 +562,16 @@ describe('sl-grid', () => {
 
       expect(tbody.scrollLeft).to.equal(thead.scrollLeft);
     });
-  });
+
+    it('should sync the header when the body is scrolled', () => {
+      const thead = el.renderRoot.querySelector<HTMLTableSectionElement>('thead')!,
+        tbody = el.renderRoot.querySelector<HTMLTableSectionElement>('tbody')!;
+
+      tbody.scrollLeft = 240;
+      tbody.dispatchEvent(new Event('scroll'));
+
+      expect(thead.scrollLeft).to.equal(tbody.scrollLeft);
+    });
 
   describe('row action activate', () => {
     beforeEach(async () => {

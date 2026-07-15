@@ -1030,6 +1030,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onHeaderScroll(): void {
+    if (this.thead.scrollLeft === this.tbody.scrollLeft) {
+      return;
+    }
+
     this.#syncScrollLeft(this.thead, this.tbody);
     this.#onScroll();
   }

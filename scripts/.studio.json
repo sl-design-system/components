@@ -10,6 +10,15 @@
       },
       "output": "../packages/tokens/src/tokens",
       "format": "raw"
+    },
+    "slds-legacy": {
+      "project": "29b6e5a1-f540-4668-9964-b23ea58cf875",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      },
+      "output": "../packages/tokens/src/slds-legacy",
+      "format": "raw"
     }
   }
 }

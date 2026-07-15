@@ -18,10 +18,9 @@
   "exports": {
     ".": "./index.js",
     "./global.css": "./global.css",
+    "./fonts.css": "./fonts.css",
     "./light.css": "./light.css",
     "./light.min.css": "./light.min.css",
-    "./light-deprecated.css": "./light-deprecated.css",
-    "./light-deprecated.min.css": "./light-deprecated.min.css",
     "./package.json": "./package.json",
     "./css/*.css": "./css/*.css"
   },

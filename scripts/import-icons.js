@@ -8,17 +8,16 @@ import { fasl } from '@fortawesome/sharp-light-svg-icons';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { exec } from 'child_process';
-import pkg from 'eslint';
+import { promisify } from 'util';
 import fg from 'fast-glob';
 import { promises as fs, existsSync } from 'fs';
 import { basename, join } from 'path';
 
+const execAsync = promisify(exec);
+
 library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
 
-const { ESLint } = pkg;
-
-const cwd = new URL('.', import.meta.url).pathname,
-  eslint = new ESLint({ fix: true });
+const cwd = new URL('.', import.meta.url).pathname;
 
 const {
   default: { icon: coreIconTokens }
@@ -83,12 +82,14 @@ const buildIcons = async theme => {
       icon: { style, themeIcons },
       text
     }
-  } = await import(`../packages/tokens/src/tokens/${theme}/base.json`, { with: { type: 'json' } });
+  } = await import(`../packages/tokens/src/tokens/${theme}/core.json`, { with: { type: 'json' } });
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
     ...(themeIcons ? getFormattedIcons({ themeIcons }, 'themeIcons') : {})
   };
+
+  console.log(`Building icons for ${theme}...`, icons);
 
   // fetch all FA tokens and store these
   Object.entries(icons).forEach(([iconName, value]) => {
@@ -154,14 +155,12 @@ const buildIcons = async theme => {
     sortedIcons = Object.fromEntries(
       Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
     ),
-    source = `
-      // This is a generated file, do not edit. Edit the core.json files instead.
-      export const icons = ${JSON.stringify(sortedIcons)};
-    `,
-    results = await eslint.lintText(source, { filePath });
+    source = `// This is a generated file, do not edit. Edit the core.json files instead.
+export const icons = ${JSON.stringify(sortedIcons, null, 2)};
+`;
 
-  await ESLint.outputFixes(results);
-  await fs.writeFile(filePath, results[0].output);
+  await fs.writeFile(filePath, source);
+  await execAsync(`npx oxfmt ${filePath}`, { cwd: join(cwd, '..') });
 };
 
 const buildIconsFromBaseNew = async theme => {
@@ -180,8 +179,16 @@ const buildIconsFromBaseNew = async theme => {
   }
 
   const {
-    icon: { typeset: iconTypeset, themeIcons }
+    icon: { typeset: iconTypeset }
   } = baseNewData[routingPrefix];
+
+  const themeIconsPath = join(cwd, `../packages/themes/${theme}/theme-icons.json`);
+  let themeIcons;
+
+  if (existsSync(themeIconsPath)) {
+    const themeIconsModule = await import(themeIconsPath, { with: { type: 'json' } });
+    themeIcons = themeIconsModule.default;
+  }
 
   // Create a style object compatible with the existing getIconStyle function
   // In base-new.json, the structure is icon.typeset.fontWeight.{solid, regular}
@@ -270,14 +277,12 @@ const buildIconsFromBaseNew = async theme => {
     sortedIcons = Object.fromEntries(
       Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
     ),
-    source = `
-      // This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
-      export const icons = ${JSON.stringify(sortedIcons)};
-    `,
-    results = await eslint.lintText(source, { filePath });
+    source = `// This is a generated file, do not edit. Edit the core.json or base-new.json files instead.
+export const icons = ${JSON.stringify(sortedIcons, null, 2)};
+`;
 
-  await ESLint.outputFixes(results);
-  await fs.writeFile(filePath, results[0].output);
+  await fs.writeFile(filePath, source);
+  await execAsync(`npx oxfmt ${filePath}`, { cwd: join(cwd, '..') });
 };
 
 const buildAllIcons = async () => {

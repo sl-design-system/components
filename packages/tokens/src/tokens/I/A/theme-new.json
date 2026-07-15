@@ -276,7 +276,7 @@
           "$description": "Use for backgrounds of elements in disabled state."
         },
         "highlight": {
-          "$value": "{II-F.color.background.highlight}",
+          "$value": "{I-A.color.background.highlight}",
           "$type": "color"
         },
         "info": {

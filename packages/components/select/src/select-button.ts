@@ -46,7 +46,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** @internal */
-  #internals = this.attachInternals();
+  readonly internals = this.attachInternals();
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -93,25 +93,25 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('clearable')) {
       if (this.clearable) {
-        this.#internals.states.add('clearable');
+        this.internals.states.add('clearable');
       } else {
-        this.#internals.states.delete('clearable');
+        this.internals.states.delete('clearable');
       }
     }
 
     if (changes.has('clearFocused')) {
       if (this.clearFocused) {
-        this.#internals.states.add('clear-focused');
+        this.internals.states.add('clear-focused');
       } else {
-        this.#internals.states.delete('clear-focused');
+        this.internals.states.delete('clear-focused');
       }
     }
 
     if (changes.has('selected')) {
       if (this.selected) {
-        this.#internals.states.add('has-selection');
+        this.internals.states.add('has-selection');
       } else {
-        this.#internals.states.delete('has-selection');
+        this.internals.states.delete('has-selection');
       }
     }
 

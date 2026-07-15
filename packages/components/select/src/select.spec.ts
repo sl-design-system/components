@@ -133,6 +133,12 @@ describe('sl-select', () => {
       expect(el.button).to.have.attribute('aria-labelledby', 'id');
     });
 
+    it('should set ariaControlsElements on the button pointing to the listbox', async () => {
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(el.button.internals.ariaControlsElements).to.deep.equal([el.listbox]);
+    });
+
     it('should have set aria-selected to false on all options', () => {
       const allNotSelected = Array.from(el.querySelectorAll('sl-option')).every(
         option => option.getAttribute('aria-selected') === 'false'
@@ -681,6 +687,27 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot!.activeElement).to.equal(button);
+    });
+
+    it('should set ariaLabelledByElements on the select button from associated labels', async () => {
+      const select = el.renderRoot.querySelector('sl-select') as Select,
+        button = select.querySelector('sl-select-button') as SelectButton,
+        labels = Array.from(select.internals.labels) as Element[];
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(labels.length).to.equal(1);
+      expect(button.ariaLabelledByElements).to.deep.equal(labels);
+    });
+
+    it('should set ariaLabelledByElements on the listbox from associated labels', async () => {
+      const select = el.renderRoot.querySelector('sl-select') as Select,
+        labels = Array.from(select.internals.labels) as Element[];
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(labels.length).to.equal(1);
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal(labels);
     });
   });
 
@@ -1639,6 +1666,230 @@ describe('sl-select', () => {
       expect(onChange).to.have.been.calledOnce;
       expect(onClear).to.have.been.calledOnce;
       expect(onChange).to.have.been.calledBefore(onClear);
+    });
+  });
+
+  describe('explicit aria-label/aria-labelledby handling', () => {
+    it('should not override explicit aria-label on the button with associated labels', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select aria-label="Explicit label">
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        button = select.querySelector('sl-select-button') as SelectButton;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(button).to.have.attribute('aria-label', 'Explicit label');
+      expect(button.ariaLabelledByElements ?? []).to.have.length(0);
+      expect(select.listbox).to.have.attribute('aria-label', 'Explicit label');
+      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
+    });
+
+    it('should propagate explicit aria-labelledby to the listbox via ariaLabelledByElements', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="explicit-label">Explicit label</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="explicit-label">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+      const select = wrapper.querySelector('sl-select') as Select,
+        explicitLabel = wrapper.querySelector('#explicit-label') as HTMLElement;
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'explicit-label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([explicitLabel]);
+    });
+
+    it('should keep listbox aria-label in sync after later aria-label changes', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select aria-label="Initial label">
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-label', 'Updated label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.button).to.have.attribute('aria-label', 'Updated label');
+      expect(select.listbox).to.have.attribute('aria-label', 'Updated label');
+      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
+    });
+
+    it('should keep listbox aria-labelledby in sync after later aria-labelledby changes', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="label-1">Label 1</span>
+          <span id="label-2">Label 2</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="label-1">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        label1 = wrapper.querySelector('#label-1') as HTMLElement,
+        label2 = wrapper.querySelector('#label-2') as HTMLElement;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'label-1');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label1]);
+      expect(select.button.ariaLabelledByElements).to.deep.equal([label1]);
+
+      select.setAttribute('aria-labelledby', 'label-2');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label2]);
+      expect(select.button.ariaLabelledByElements).to.deep.equal([label2]);
+    });
+
+    it('should switch from associated labels to explicit aria-label', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        labels = Array.from(select.internals.labels) as Element[];
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal(labels);
+      expect(select.listbox).not.to.have.attribute('aria-label');
+
+      select.setAttribute('aria-label', 'New explicit label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox).to.have.attribute('aria-label', 'New explicit label');
+      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
+    });
+
+    it('should handle multiple aria-labelledby IDs separated by spaces', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="label-a">Label A</span>
+          <span id="label-b">Label B</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="label-a label-b">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        labelA = wrapper.querySelector('#label-a') as HTMLElement,
+        labelB = wrapper.querySelector('#label-b') as HTMLElement;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'label-a label-b');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([labelA, labelB]);
+    });
+
+    it('should filter out non existing aria-labelledby IDs', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="label-exists">Label</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="label-exists non-existent-id">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        labelExists = wrapper.querySelector('#label-exists') as HTMLElement;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'label-exists non-existent-id');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([labelExists]);
+    });
+
+    it('should use button aria-label when host aria-label is not set', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.button.setAttribute('aria-label', 'Button label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox).to.have.attribute('aria-label', 'Button label');
+    });
+
+    it('should reflect later button aria-label changes after proxying from host', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select aria-label="Host label">
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.button.setAttribute('aria-label', 'Button label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox).to.have.attribute('aria-label', 'Button label');
     });
   });
 });

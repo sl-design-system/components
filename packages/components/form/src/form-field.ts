@@ -339,8 +339,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       ids.push(add);
     }
 
-    console.log('in #updateAriaDescribedBy', { add, remove, ids, element, describedby });
-
     if (remove) {
       const index = ids.indexOf(remove);
       if (index !== -1) {

@@ -5,6 +5,8 @@
   --_border: var(--sl-color-border-input);
 
   align-items: start;
+  color: var(--sl-color-foreground-plain);
+  cursor: text;
   display: inline-grid;
   gap: var(--sl-size-050);
   grid-template-areas:
@@ -63,6 +65,7 @@
 }
 
 :host([disabled]) {
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
   slot[name='textarea']::slotted(textarea)::placeholder {

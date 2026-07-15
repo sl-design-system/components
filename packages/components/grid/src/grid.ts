@@ -1026,7 +1026,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onBodyScroll(): void {
-    this.#syncScrollLeft(this.tbody, this.thead);
     this.#onScroll();
   }
 

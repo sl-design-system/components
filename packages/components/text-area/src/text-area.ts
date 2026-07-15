@@ -72,29 +72,17 @@ export class TextArea extends ObserveAttributesMixin(
     requestAnimationFrame(() => this.#setSize());
   });
 
-  /** Tracks the previous count state so we only announce transitions. */
+  /** The last count state, used to announce only when state changes. */
   #previousCountState?: 'default' | 'caution' | 'danger';
 
-  /** Tracks whether the current custom validity was set by the showCount logic. */
-  #hasCountCustomValidity = false;
-
-  /** Tracks whether visual showValidity was enabled by showCount overflow logic. */
-  #countForcedShowValidity = false;
+  /** True when the value is over the character limit and sets validation state. */
+  #isOverLimitState = false;
 
   /** Whether the showCount overflow message may be shown (after reportValidity was called). */
   #showCountMessage = false;
 
   /** ID used to connect the character count to the textarea via aria-describedby. */
   #countId = `sl-text-area-count-${nextUniqueId++}`;
-
-  /** Hidden light-DOM node used for ariaDescribedByElements linkage. */
-  #countDescriptionElement?: HTMLSpanElement;
-
-  /**
-   * RAF handle for deferred aria-describedby sync after external updates (e.g. form-field hint
-   * wiring).
-   */
-  #deferredAriaSync?: number;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -189,12 +177,8 @@ export class TextArea extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-    if (this.#deferredAriaSync !== undefined) {
-      cancelAnimationFrame(this.#deferredAriaSync);
-      this.#deferredAriaSync = undefined;
-    }
-    this.#countDescriptionElement?.remove();
-    this.#countDescriptionElement = undefined;
+
+    this.querySelector<HTMLSpanElement>(`#${this.#countId}-description`)?.remove();
     this.#previousCountState = undefined;
 
     super.disconnectedCallback();
@@ -237,15 +221,7 @@ export class TextArea extends ObserveAttributesMixin(
 
     this.#syncCountAriaDescription();
 
-    // form-field may mutate aria-describedby shortly after this update cycle
-    if (this.#deferredAriaSync !== undefined) {
-      cancelAnimationFrame(this.#deferredAriaSync);
-    }
-
-    this.#deferredAriaSync = requestAnimationFrame(() => {
-      this.#syncCountAriaDescription();
-      this.#deferredAriaSync = undefined;
-    });
+    requestAnimationFrame(() => this.#syncCountAriaDescription());
   }
 
   override render(): TemplateResult {
@@ -274,7 +250,7 @@ export class TextArea extends ObserveAttributesMixin(
   override reportValidity(): boolean {
     this.#showCountMessage = true;
 
-    if (this.#hasCountCustomValidity) {
+    if (this.#isOverLimitState) {
       this.requestUpdate();
     }
 
@@ -295,7 +271,7 @@ export class TextArea extends ObserveAttributesMixin(
 
     if (this.validity.customError) {
       // For showCount overflow we only want visual invalid state until reportValidity() is called.
-      if (this.#hasCountCustomValidity && !this.#showCountMessage) {
+      if (this.#isOverLimitState && !this.#showCountMessage) {
         return '';
       }
 
@@ -318,13 +294,11 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   #isCountVisible(): boolean {
-    return (
-      this.showCount !== undefined && !(this.#hasCountCustomValidity && this.#showCountMessage)
-    );
+    return this.showCount !== undefined && !(this.#isOverLimitState && this.#showCountMessage);
   }
 
   #syncCountAriaDescription(): void {
-    const textarea = this.textarea;
+    const { textarea } = this;
 
     if (!textarea) {
       return;
@@ -332,99 +306,73 @@ export class TextArea extends ObserveAttributesMixin(
 
     const countDescriptionId = `${this.#countId}-description`;
 
-    // IDs currently in the string attribute, excluding any of our own count IDs.
-    const existingIds = (textarea.getAttribute('aria-describedby') ?? '')
-      .split(/\s+/)
-      .filter(Boolean)
-      .filter((id: string) => id !== this.#countId && id !== countDescriptionId);
+    let countDescriptionElement: HTMLSpanElement | undefined =
+      this.querySelector<HTMLSpanElement>(`#${countDescriptionId}`) ?? undefined;
 
+    // Keep a hidden light-DOM description element in sync with the visible count.
+    if (this.#isCountVisible()) {
+      if (!countDescriptionElement) {
+        countDescriptionElement = document.createElement('span');
+        countDescriptionElement.id = countDescriptionId;
+        countDescriptionElement.slot = 'count-description';
+        // Visually hidden but kept in the accessibility tree.
+        countDescriptionElement.style.cssText =
+          'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
+        this.append(countDescriptionElement);
+      }
+
+      countDescriptionElement.textContent = this.#getCountText();
+    } else {
+      countDescriptionElement?.remove();
+      countDescriptionElement = undefined;
+    }
+
+    // Preserve external described-by IDs, excluding our own count IDs.
+    const externalIds = (textarea.getAttribute('aria-describedby') ?? '')
+      .split(/\s+/)
+      .filter(id => Boolean(id) && id !== this.#countId && id !== countDescriptionId);
+
+    // Compute the target `aria-describedby` ID list.
+    const nextIds = countDescriptionElement ? [...externalIds, countDescriptionId] : externalIds,
+      nextDescribedBy = nextIds.join(' ');
+
+    // Set element refs first when supported; some engines may clear the string attribute.
     const describedByRefCapable = textarea as HTMLTextAreaElement & {
       ariaDescribedByElements?: Element[] | null;
     };
 
-    const setDescribedByElements = (elements: Element[]): void => {
-      try {
-        describedByRefCapable.ariaDescribedByElements = elements;
-      } catch {
-        // Some engines reject mixed-root references; keep the count linked with safe refs.
-        const controlRoot = textarea.getRootNode(),
-          safeSubset = elements.filter(el => {
-            const elementRoot = el.getRootNode();
+    if (describedByRefCapable.ariaDescribedByElements !== undefined) {
+      const externalRefs = (describedByRefCapable.ariaDescribedByElements ?? []).filter(
+          el => el.id !== countDescriptionId
+        ),
+        nextRefs = countDescriptionElement
+          ? [...externalRefs, countDescriptionElement]
+          : externalRefs;
 
-            return elementRoot === controlRoot || elementRoot === document;
+      const applyRefs = (refs: Element[]): void => {
+        describedByRefCapable.ariaDescribedByElements = refs.length > 0 ? refs : null;
+      };
+
+      try {
+        applyRefs(nextRefs);
+      } catch {
+        // Fallback for engines that reject mixed-root refs.
+        const controlRoot = textarea.getRootNode(),
+          safeRefs = nextRefs.filter(el => {
+            const root = el.getRootNode();
+
+            return root === controlRoot || root === document;
           });
 
         try {
-          describedByRefCapable.ariaDescribedByElements = safeSubset.length > 0 ? safeSubset : null;
+          applyRefs(safeRefs);
         } catch {
           // no-op
         }
       }
-    };
-
-    if (describedByRefCapable.ariaDescribedByElements !== undefined) {
-      // --- Element-reference path (Chrome 124+) ---
-      // Keep existing resolved references (e.g. form-field hint) and append our count reference.
-      const currentRefs = (describedByRefCapable.ariaDescribedByElements ?? []).filter(
-        el => el !== this.#countDescriptionElement
-      );
-
-      if (this.#isCountVisible()) {
-        if (!this.#countDescriptionElement) {
-          this.#countDescriptionElement = document.createElement('span');
-          this.#countDescriptionElement.id = countDescriptionId;
-          this.#countDescriptionElement.slot = 'count-description';
-          // Visually hidden but kept in the accessibility tree.
-          this.#countDescriptionElement.style.cssText =
-            'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
-          this.append(this.#countDescriptionElement);
-        }
-
-        this.#countDescriptionElement.textContent = this.#getCountText();
-
-        const nextElements = [...currentRefs, this.#countDescriptionElement];
-
-        // 1. Write string attribute first (preserves hint + adds count ID for fallback tools).
-        //    Pause the observer to avoid a re-entrant sync triggered by this setAttribute call.
-        const nextDescribedBy = [...existingIds, countDescriptionId].join(' ');
-
-        // Set element references first, then mirror the string attribute so tools/devtools
-        // consistently show both hint and count IDs.
-        setDescribedByElements(nextElements);
-
-        if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
-          textarea.setAttribute('aria-describedby', nextDescribedBy);
-        }
-      } else {
-        // Count is hidden: keep hint references, remove count element.
-        const nextDescribedBy = existingIds.join(' ');
-
-        setDescribedByElements(currentRefs);
-
-        if (nextDescribedBy.length > 0) {
-          if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
-            textarea.setAttribute('aria-describedby', nextDescribedBy);
-          }
-        } else if (textarea.hasAttribute('aria-describedby')) {
-          textarea.removeAttribute('aria-describedby');
-        }
-
-        this.#countDescriptionElement?.remove();
-        this.#countDescriptionElement = undefined;
-      }
-
-      return;
     }
 
-    // --- String-attribute fallback ---
-    const ids = existingIds;
-
-    if (this.#isCountVisible()) {
-      ids.push(countDescriptionId);
-    }
-
-    const nextDescribedBy = ids.join(' ');
-
+    // Mirror IDs to string attribute (fallback path and post-ref restoration).
     if (nextDescribedBy.length > 0) {
       if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
         textarea.setAttribute('aria-describedby', nextDescribedBy);
@@ -490,7 +438,7 @@ export class TextArea extends ObserveAttributesMixin(
     if (this.showCount !== undefined) {
       const currentCountState = this.#getCountState();
 
-      // Only announce after a real state transition (default/caution/danger).
+      // Announce only on state transitions (default/caution/danger).
       if (
         this.#previousCountState !== undefined &&
         currentCountState !== this.#previousCountState
@@ -504,14 +452,10 @@ export class TextArea extends ObserveAttributesMixin(
 
   #syncCountValidity(): void {
     if (this.showCount === undefined) {
-      if (this.#hasCountCustomValidity) {
+      if (this.#isOverLimitState) {
         this.textarea.setCustomValidity('');
-        this.#hasCountCustomValidity = false;
-      }
-
-      if (this.#countForcedShowValidity) {
         this.removeAttribute('show-validity');
-        this.#countForcedShowValidity = false;
+        this.#isOverLimitState = false;
       }
 
       this.#showCountMessage = false;
@@ -546,16 +490,11 @@ export class TextArea extends ObserveAttributesMixin(
 
       // Show visual invalid state immediately, but do not force reporting yet.
       this.setAttribute('show-validity', 'invalid');
-      this.#countForcedShowValidity = true;
-      this.#hasCountCustomValidity = true;
-    } else if (this.#hasCountCustomValidity) {
+      this.#isOverLimitState = true;
+    } else if (this.#isOverLimitState) {
       this.textarea.setCustomValidity('');
-      this.#hasCountCustomValidity = false;
-
-      if (this.#countForcedShowValidity) {
-        this.removeAttribute('show-validity');
-        this.#countForcedShowValidity = false;
-      }
+      this.removeAttribute('show-validity');
+      this.#isOverLimitState = false;
     }
   }
 

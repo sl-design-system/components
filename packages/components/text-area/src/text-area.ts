@@ -245,10 +245,6 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   override render(): TemplateResult {
-    console.log(
-      'in render::: this.textarea.ariaDescribedByElements::: ',
-      this.textarea.ariaDescribedByElements
-    );
     return html`
       <slot name="suffix">
         ${this.showValidity === 'valid'
@@ -263,6 +259,7 @@ export class TextArea extends ObserveAttributesMixin(
             </span>
           `
         : nothing}
+      <slot name="count-description"></slot>
     `;
   }
 
@@ -361,39 +358,18 @@ export class TextArea extends ObserveAttributesMixin(
       }
     };
 
-    console.log(
-      'describedByRefCapable.ariaDescribedByElements ',
-      describedByRefCapable.ariaDescribedByElements
-    );
-
     if (describedByRefCapable.ariaDescribedByElements !== undefined) {
       // --- Element-reference path (Chrome 124+) ---
-      // Build the full "existing" list by merging:
-      //   1. Elements already in ariaDescribedByElements (minus our count element)
-      //   2. Elements resolved from the string attribute that aren't already in #1
-      //      (e.g. the hint ID added by form-field via setAttribute)
+      // Keep existing resolved references (e.g. form-field hint) and append our count reference.
       const currentRefs = (describedByRefCapable.ariaDescribedByElements ?? []).filter(
         el => el !== this.#countDescriptionElement
       );
-
-      const root = textarea.getRootNode() as Document | ShadowRoot;
-      const resolveById = (id: string): Element | null => {
-        try {
-          return root.querySelector(`#${id}`) ?? document.getElementById(id);
-        } catch {
-          return document.getElementById(id);
-        }
-      };
-      const resolvedFromAttr = existingIds
-        .map(id => resolveById(id))
-        .filter((el): el is Element => el !== null && !currentRefs.includes(el));
-
-      const allExisting = [...currentRefs, ...resolvedFromAttr];
 
       if (this.#isCountVisible()) {
         if (!this.#countDescriptionElement) {
           this.#countDescriptionElement = document.createElement('span');
           this.#countDescriptionElement.id = countDescriptionId;
+          this.#countDescriptionElement.slot = 'count-description';
           // Visually hidden but kept in the accessibility tree.
           this.#countDescriptionElement.style.cssText =
             'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
@@ -402,7 +378,7 @@ export class TextArea extends ObserveAttributesMixin(
 
         this.#countDescriptionElement.textContent = this.#getCountText();
 
-        const nextElements = [...allExisting, this.#countDescriptionElement];
+        const nextElements = [...currentRefs, this.#countDescriptionElement];
 
         // 1. Write string attribute first (preserves hint + adds count ID for fallback tools).
         //    Pause the observer to avoid a re-entrant sync triggered by this setAttribute call.
@@ -419,7 +395,7 @@ export class TextArea extends ObserveAttributesMixin(
         // Count is hidden: keep hint references, remove count element.
         const nextDescribedBy = existingIds.join(' ');
 
-        setDescribedByElements(allExisting);
+        setDescribedByElements(currentRefs);
 
         if (nextDescribedBy.length > 0) {
           if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
@@ -433,11 +409,6 @@ export class TextArea extends ObserveAttributesMixin(
         this.#countDescriptionElement = undefined;
       }
 
-      console.log(
-        '2_describedByRefCapable.ariaDescribedByElements ',
-        describedByRefCapable.ariaDescribedByElements
-      );
-
       return;
     }
 
@@ -449,8 +420,6 @@ export class TextArea extends ObserveAttributesMixin(
     }
 
     const nextDescribedBy = ids.join(' ');
-
-    console.log('nextDescribedBy', nextDescribedBy);
 
     if (nextDescribedBy.length > 0) {
       if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {

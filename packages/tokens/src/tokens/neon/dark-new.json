@@ -22,12 +22,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.blue.400}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.blue.400}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.blue.400}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.blue.400}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -51,12 +51,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.green.200}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.green.200}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.green.200}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.green.200}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -80,12 +80,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.grey.400}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.grey.400}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.grey.400}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.grey.400}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -109,12 +109,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.orange.300}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.orange.300}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.orange.300}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.orange.300}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -138,12 +138,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.purple.200}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.purple.200}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.purple.200}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.purple.200}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -167,12 +167,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.red.200}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.red.200}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.red.200}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.red.200}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -196,12 +196,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.teal.300}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.teal.300}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.teal.300}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.teal.300}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -225,12 +225,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.yellow.200}, {neon.opacity.subtle}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.yellow.200}, {neon.opacity.subtle})",
               "$type": "color",
               "$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.yellow.200}, {neon.opacity.subtlest}).to.hex()",
+              "$value": "set_alpha({neon.color.palette.yellow.200}, {neon.opacity.subtlest})",
               "$type": "color",
               "$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -351,12 +351,12 @@
             }
           },
           "subtle": {
-            "$value": "set_alpha({neon.color.palette.grey.000}, {neon.opacity.subtle}).to.hex()",
+            "$value": "set_alpha({neon.color.palette.grey.000}, {neon.opacity.subtle})",
             "$type": "color",
             "$description": "A subtle inverted background option."
           },
           "subtlest": {
-            "$value": "set_alpha({neon.color.palette.grey.000}, {neon.opacity.subtlest}).to.hex()",
+            "$value": "set_alpha({neon.color.palette.grey.000}, {neon.opacity.subtlest})",
             "$type": "color",
             "$description": "The subtlest inverted background option."
           }
@@ -450,7 +450,7 @@
         },
         "primary": {
           "bold": {
-            "$value": "set_alpha({neon.color.palette.blue.800}, 0.9).to.hex()",
+            "$value": "set_alpha({neon.color.palette.blue.800}, 0.9)",
             "$type": "color",
             "$description": "A vibrant background option used for primary actions."
           },
@@ -543,7 +543,7 @@
       },
       "blanket": {
         "plain": {
-          "$value": "set_alpha({neon.color.palette.grey.050}, {neon.opacity.moderate}).to.hex()",
+          "$value": "set_alpha({neon.color.palette.grey.050}, {neon.opacity.moderate})",
           "$type": "color",
           "$description": "Use for screen overlay that appears with dialogs or drawers."
         }
@@ -825,7 +825,7 @@
           },
           "grey": {
             "bold": {
-              "$value": "set_alpha({neon.color.palette.grey.900}, 0.9).to.hex()",
+              "$value": "set_alpha({neon.color.palette.grey.900}, 0.9)",
               "$type": "color",
               "$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
             },
@@ -845,17 +845,17 @@
               "$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
             },
             "plain": {
-              "$value": "set_alpha({neon.color.palette.grey.900}, 0.78).to.hex()",
+              "$value": "set_alpha({neon.color.palette.grey.900}, 0.78)",
               "$type": "color",
               "$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
             },
             "subtle": {
-              "$value": "set_alpha({neon.color.palette.grey.900}, 0.69).to.hex()",
+              "$value": "set_alpha({neon.color.palette.grey.900}, 0.69)",
               "$type": "color",
               "$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({neon.color.palette.grey.900}, 0.6).to.hex()",
+              "$value": "set_alpha({neon.color.palette.grey.900}, 0.6)",
               "$type": "color",
               "$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
             }
@@ -1586,7 +1586,7 @@
         },
         "raised": {
           "alternative": {
-            "$value": "set_alpha({neon.color.palette.grey.900}, 0.1).to.hex()",
+            "$value": "set_alpha({neon.color.palette.grey.900}, 0.1)",
             "$type": "color",
             "$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
@@ -1606,7 +1606,7 @@
             "$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
           },
           "sunken": {
-            "$value": "set_alpha({neon.color.palette.grey.900}, 0.05).to.hex()",
+            "$value": "set_alpha({neon.color.palette.grey.900}, 0.05)",
             "$type": "color",
             "$description": "Background for components that create a sunken effect, typically used for grouping related items."
           }

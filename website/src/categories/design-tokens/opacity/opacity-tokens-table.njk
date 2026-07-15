@@ -1,5 +1,60 @@
 <section class="ds-tokens">
-<h2 class="ds-tokens__heading">Opacity</h2>
+<h2 id="opacity-primitives" class="ds-tokens__heading"><a class="header-anchor" href="#opacity-primitives">Opacity</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.opacityTokens.primitives -%}
+<tr>
+  <td>
+    <div class="ds-tokens__opacity-example">
+      <div class="ds-tokens__opacity-triangles">
+        <div class="ds-tokens__triangle" style="opacity: {{ item.value }};"></div>
+      </div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.title }}{% if item.description %} ({{ item.description }}){% endif %}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+
+<section class="ds-tokens">
+<h2 id="opacity-theme" class="ds-tokens__heading"><a class="header-anchor" href="#opacity-theme">Opacity - theme tokens</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.opacityTokens.theme -%}
+<tr>
+  <td>
+    <div class="ds-tokens__opacity-example">
+      <div class="ds-tokens__opacity-triangles">
+        <div class="ds-tokens__triangle" style="opacity: var({{ item.token }});"></div>
+      </div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.title }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="opacity" class="ds-tokens__heading"><a class="header-anchor" href="#opacity">Opacity - deprecated</a></h2>
 <table class="ds-table"><thead>
 <tr>
   <th>Value</th>

@@ -1,8 +1,81 @@
 <section class="ds-tokens">
-<h2 class="ds-tokens__heading">Text</h2>
+<h2 id="text-typography" class="ds-tokens__heading"><a class="header-anchor" href="#text-typography">Text - typography</a></h2>
 <table class="ds-table">
 <thead><tr>
- <th>Example text value</th>
+  <th>Value</th>
+  <th>Type</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.textTokens.textNew -%}
+<tr>
+  <td>
+    {% if item.isIcon != true %}
+    <p class="ds-tokens__text" style="{% if item.type == 'typography' %}font: var({{ item.token }});{% endif %}{% if item.type == 'fontFamilies' %}font-family: var({{ item.token }});{% endif %}{% if item.type == 'fontWeights' %}font-weight: var({{ item.token }});{% endif %} margin: 0;">Lorem ipsum</p>
+    {% endif %}
+    <code>{{ item.value }}</code>
+  </td>
+  <td><code>{{ item.type }}</code></td>
+  <td class="ds-tokens__description">{{ item.title }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="text-font-size" class="ds-tokens__heading"><a class="header-anchor" href="#text-font-size">Text - font size</a></h2>
+<table class="ds-table">
+<thead><tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.textTokens.sizeTextNew -%}
+<tr>
+  <td>
+    <p class="ds-tokens__text" style="font-size: var({{ item.token }});">Lorem ipsum</p>
+    <code>{{ item.value }}</code>
+  </td>
+  <td class="ds-tokens__description">{{ item.title }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="text-font-weight" class="ds-tokens__heading"><a class="header-anchor" href="#text-font-weight">Text - font weight</a></h2>
+<table class="ds-table">
+<thead><tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.textTokens.fontWeight -%}
+<tr>
+  <td>
+    <p class="ds-tokens__text" style="font-weight: {{ item.value }};">Lorem ipsum</p>
+    <code>{{ item.value }}</code>
+  </td>
+  <td class="ds-tokens__description">{{ item.title }}{% if item.description %} ({{ item.description }}){% endif %}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="text-deprecated" class="ds-tokens__heading"><a class="header-anchor" href="#text-deprecated">Text - deprecated tokens</a></h2>
+<table class="ds-table">
+<thead><tr>
+ <th>Value</th>
  <th>Token title</th>
  <th>Token</th>
 </tr></thead>

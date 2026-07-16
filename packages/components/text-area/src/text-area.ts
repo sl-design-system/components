@@ -107,10 +107,14 @@ export class TextArea extends ObserveAttributesMixin(
   /** Whether the textarea is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
-  /** Maximum length (number of characters). */
+  /**
+   * Maximum length (number of characters). Not recommended from a UX perspective, because it blocks
+   * additional typing once the limit is reached. Prefer `showCount` to allow users to type beyond
+   * the limit and then revise input.
+   */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
-  /** Minimum length (number of characters). */
+  /** Minimum length (number of characters). Not recommended from a UX perspective. */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
   /** Placeholder text in the textarea. */
@@ -137,6 +141,10 @@ export class TextArea extends ObserveAttributesMixin(
    * caution (orange). When the limit is exceeded it turns to a danger state, shows how many
    * characters are over the limit, and marks the textarea as invalid. Exceeding the limit does not
    * block input; the user can still type or paste more text and then edit it down.
+   *
+   * Please don't combine `showCount` with `maxLength`, as it will cause the textarea to block input
+   * when the limit is reached. Use `showCount` alone to allow typing beyond the limit and show a
+   * warning.
    */
   @property({ type: Number, attribute: 'show-count' }) showCount?: number;
 
@@ -250,7 +258,7 @@ export class TextArea extends ObserveAttributesMixin(
   override reportValidity(): boolean {
     this.#showCountMessage = true;
 
-    if (this.#isOverLimitState) {
+    if (this.#isOverLimitState || this.validity.valueMissing) {
       this.requestUpdate();
     }
 
@@ -294,7 +302,11 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   #isCountVisible(): boolean {
-    return this.showCount !== undefined && !(this.#isOverLimitState && this.#showCountMessage);
+    return (
+      this.showCount !== undefined &&
+      !(this.#isOverLimitState && this.#showCountMessage) &&
+      !(this.#showCountMessage && this.validity.valueMissing)
+    );
   }
 
   #syncCountAriaDescription(): void {

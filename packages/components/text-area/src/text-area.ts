@@ -109,8 +109,8 @@ export class TextArea extends ObserveAttributesMixin(
 
   /**
    * Maximum length (number of characters). Not recommended from a UX perspective, because it blocks
-   * additional typing once the limit is reached. Prefer `showCount` to allow users to type beyond
-   * the limit and then revise input.
+   * additional typing once the limit is reached and can cut off pasted text. Prefer `showCount` to
+   * allow users to type or paste beyond the limit and then revise input.
    */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
@@ -140,7 +140,7 @@ export class TextArea extends ObserveAttributesMixin(
    * textarea showing how many characters remain. When 90% of the limit is reached the counter turns
    * caution (orange). When the limit is exceeded it turns to a danger state, shows how many
    * characters are over the limit, and marks the textarea as invalid. Exceeding the limit does not
-   * block input; the user can still type or paste more text and then edit it down.
+   * block input, the user can still type or paste more text and then edit it down.
    *
    * Please don't combine `showCount` with `maxLength`, as it will cause the textarea to block input
    * when the limit is reached. Use `showCount` alone to allow typing beyond the limit and show a
@@ -234,12 +234,14 @@ export class TextArea extends ObserveAttributesMixin(
 
   override render(): TemplateResult {
     return html`
-      <slot name="suffix">
-        ${this.showValidity === 'valid'
-          ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
-          : nothing}
-      </slot>
-      <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
+      <div class="field">
+        <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
+        <slot name="suffix">
+          ${this.showValidity === 'valid'
+            ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
+            : nothing}
+        </slot>
+      </div>
       ${this.#isCountVisible()
         ? html`
             <span class="count" count-state=${this.#getCountState()} id=${this.#countId}>

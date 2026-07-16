@@ -15,7 +15,7 @@
   position: relative;
 }
 
-:host::before {
+.field {
   background: color-mix(
     in srgb,
     var(--_bg-color),
@@ -23,15 +23,15 @@
   );
   border: var(--sl-size-borderWidth-default) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
-  content: '';
+  display: grid;
   grid-area: field;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
   place-self: stretch stretch;
-  pointer-events: none;
+  position: relative;
 }
 
-:host(:focus-within)::before {
+.field:focus-within {
   outline-color: var(--sl-color-border-focused);
 }
 
@@ -57,8 +57,8 @@
     padding-inline: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
 
-  sl-icon,
-  slot[name='suffix']::slotted(sl-icon) {
+  .valid,
+  slot[name='suffix']::slotted(*) {
     inset-block-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
     inset-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
@@ -73,7 +73,7 @@
   }
 }
 
-:host([disabled])::before {
+:host([disabled]) .field {
   background: var(--sl-color-background-disabled);
   border-color: var(--sl-color-border-disabled);
 }
@@ -83,16 +83,10 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  :host(:where(:hover, :focus-within))::before {
+  :host(:where(:hover, :focus-within)) .field {
     transition: 200ms ease-in-out;
     transition-property: background, border, outline-color;
   }
-}
-
-slot[name='suffix'],
-slot[name='textarea'] {
-  grid-area: field;
-  z-index: 1;
 }
 
 slot[name='textarea'] {
@@ -124,8 +118,8 @@ slot[name='textarea']::slotted(textarea) {
   }
 }
 
-sl-icon,
-slot[name='suffix']::slotted(sl-icon) {
+.valid,
+slot[name='suffix']::slotted(*) {
   inset-block-start: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
   inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
   position: absolute;

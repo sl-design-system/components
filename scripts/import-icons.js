@@ -16,8 +16,6 @@ import { basename, join } from 'path';
 
 const execAsync = promisify(exec);
 
-library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
-
 library.add(fas, far, fal, fat, fad, fadr, fass, fasr, fasl);
 
 const cwd = new URL('.', import.meta.url).pathname;
@@ -42,8 +40,8 @@ const convertToIconDefinition = (iconName, style) => {
   return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
 };
 
-const getColorToken = (pathCounter, style) => {
-  return pathCounter === 0 && (style === 'fad' || style === 'fadr') ? 'accent' : 'default';
+const getColorToken = (pathCounter, prefix) => {
+  return pathCounter === 0 && (prefix === 'fad' || prefix === 'fadr') ? 'accent' : 'default';
 };
 
 const getIconStyle = (iconName, text, style) => {

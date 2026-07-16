@@ -49,7 +49,7 @@ const stripPrefix = (dictionary, prefix) => {
           token.$value[key] = value.replaceAll(`${prefix}.`, '');
         });
       }
-    } else if (token) {
+    } else if (token && typeof token === 'object') {
       // If the token does not have the `isSource` property, assume it has
       // child tokens and recursively strip the prefix from them
       stripPrefix(token, prefix);
@@ -147,7 +147,7 @@ const convertSetAlphaToColorMix = dictionary => {
           }
         );
       }
-    } else if (token && !token.isSource) {
+    } else if (token && typeof token === 'object' && !token.isSource) {
       // Recursively process nested tokens
       convertSetAlphaToColorMix(token);
     }

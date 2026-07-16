@@ -16,6 +16,8 @@ import { basename, join } from 'path';
 
 const execAsync = promisify(exec);
 
+library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
+
 library.add(fas, far, fal, fat, fad, fadr, fass, fasr, fasl);
 
 const cwd = new URL('.', import.meta.url).pathname;

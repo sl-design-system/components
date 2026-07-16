@@ -413,7 +413,7 @@ export class TextArea extends ObserveAttributesMixin(
           });
         default:
           return msg(str`${over} characters too many`, {
-            id: 'sl.textArea.charCountTooMany_many'
+            id: 'sl.textArea.charCountTooMany_other'
           });
       }
     }
@@ -429,7 +429,7 @@ export class TextArea extends ObserveAttributesMixin(
         });
       default:
         return msg(str`${remaining} characters remaining`, {
-          id: 'sl.textArea.charCountRemaining_many'
+          id: 'sl.textArea.charCountRemaining_other'
         });
     }
   }
@@ -495,7 +495,7 @@ export class TextArea extends ObserveAttributesMixin(
           break;
         default:
           validationMessage = msg(str`Please remove at least ${over} characters.`, {
-            id: 'sl.textArea.validation.tooLong_many'
+            id: 'sl.textArea.validation.tooLong_other'
           });
           break;
       }
@@ -520,10 +520,22 @@ export class TextArea extends ObserveAttributesMixin(
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textarea) {
+      const previousTextarea = this.textarea;
+
+      if (previousTextarea && previousTextarea !== textarea) {
+        this.#observer.unobserve(previousTextarea);
+      }
+
       this.textarea = textarea;
       this.textarea.addEventListener('blur', () => this.#onBlur());
       this.textarea.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncTextarea(this.textarea);
+      this.textarea.value = this.value?.toString() || '';
+      this.#observer.observe(this.textarea);
+
+      // Keep showCount custom validity/state in sync when swapping textarea elements.
+      this.#syncCountValidity();
+      this.updateValidity();
       this.#syncCountAriaDescription();
 
       this.setFormControlElement(this.textarea);

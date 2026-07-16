@@ -490,7 +490,7 @@
   <source><x id="0" equiv-text="${over}"/> characters too many</source>
   <target><x id="0" equiv-text="${over}"/> caratteri troppi</target>
 </trans-unit>
-<trans-unit id="sl.textArea.charCountTooMany_many">
+      <trans-unit id="sl.textArea.charCountTooMany_other">
   <source><x id="0" equiv-text="${over}"/> characters too many</source>
   <target><x id="0" equiv-text="${over}"/> caratteri troppi</target>
 </trans-unit>
@@ -502,7 +502,7 @@
   <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
   <target><x id="0" equiv-text="${remaining}"/> caratteri rimanenti</target>
 </trans-unit>
-<trans-unit id="sl.textArea.charCountRemaining_many">
+      <trans-unit id="sl.textArea.charCountRemaining_other">
   <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
   <target><x id="0" equiv-text="${remaining}"/> caratteri rimanenti</target>
 </trans-unit>
@@ -514,7 +514,7 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Rimuovi almeno <x id="0" equiv-text="${over}"/> caratteri.</target>
 </trans-unit>
-<trans-unit id="sl.textArea.validation.tooLong_many">
+      <trans-unit id="sl.textArea.validation.tooLong_other">
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Rimuovi almeno <x id="0" equiv-text="${over}"/> caratteri.</target>
 </trans-unit>

@@ -46,20 +46,20 @@ sl-text-field {
 }
 
 sl-tag-list {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   max-inline-size: 66%;
   min-inline-size: 0;
   position: relative;
   z-index: 1;
 }
 
+sl-tag-list[data-stacked-active] {
+  flex-grow: 1;
+}
+
 sl-tag {
   outline-offset: 0;
   outline-width: 0;
-
-  &.focused {
-    outline: var(--sl-size-borderWidth-default) solid var(--sl-color-border-focused);
-  }
 }
 
 sl-icon {

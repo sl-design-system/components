@@ -45,6 +45,32 @@ describe('sl-combobox', () => {
     await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
   };
 
+  const waitForActiveElement = async (
+    root: Document | ShadowRoot,
+    expected: Element,
+    timeout = 1000
+  ): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (root.activeElement !== expected && Date.now() - startedAt < timeout) {
+      await waitForNextMacrotask();
+      await waitForNextFrame();
+    }
+
+    expect(root.activeElement).to.equal(expected);
+  };
+
+  const waitForCondition = async (condition: () => boolean, timeout = 1000): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (!condition() && Date.now() - startedAt < timeout) {
+      await waitForNextMacrotask();
+      await waitForNextFrame();
+    }
+
+    expect(condition()).to.be.true;
+  };
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -916,6 +942,21 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should ignore option navigation when filtering hides all options', async () => {
+        input.focus();
+        await userEvent.keyboard('Foo');
+        await el.updateComplete;
+
+        expect(el.items.filter(item => item.type === 'option' && item.visible)).to.have.lengthOf(0);
+
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Home}');
+        await el.updateComplete;
+
+        expect(el.currentItem).to.be.undefined;
+        expect(input).not.to.have.attribute('aria-activedescendant');
+      });
     });
 
     describe('current item on open', () => {
@@ -1193,7 +1234,7 @@ describe('sl-combobox', () => {
         const styles = getComputedStyle(tagList);
         const hostStyles = getComputedStyle(el);
 
-        expect(styles.flexGrow).to.equal('1');
+        expect(styles.flexGrow).to.equal('0');
         expect(styles.flexShrink).to.equal('1');
         expect(styles.flexBasis).to.equal('auto');
         expect(styles.minInlineSize).to.equal('0px');
@@ -1203,75 +1244,100 @@ describe('sl-combobox', () => {
         expect(hostStyles.contain).to.include('inline-size');
       });
 
+      it('should keep the input caret next to the visible tags', async () => {
+        await waitForNextFrame();
+
+        const visibleTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
+            tag => getComputedStyle(tag).display !== 'none'
+          ),
+          lastTag = visibleTags.at(-1);
+
+        expect(lastTag, 'expected at least one visible tag').to.exist;
+
+        const inputRect = input.getBoundingClientRect(),
+          lastTagRect = lastTag!.getBoundingClientRect(),
+          gap = inputRect.left - lastTagRect.right;
+
+        expect(gap).to.be.at.least(0);
+        expect(gap).to.be.lessThan(16);
+      });
+
+      it('should keep one selected tag visible next to the stack counter in limited space', async () => {
+        el.style.maxInlineSize = '300px';
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextFrame();
+
+        const tagList = el.renderRoot.querySelector('sl-tag-list')!,
+          stackTag = tagList.renderRoot.querySelector('.stack sl-tag'),
+          selectedTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+          visibleSelectedTags = selectedTags.filter(
+            tag => getComputedStyle(tag).display !== 'none'
+          );
+
+        expect(stackTag).to.exist;
+        expect(stackTag).to.have.trimmed.text(
+          `+${selectedTags.length - visibleSelectedTags.length}`
+        );
+        expect(visibleSelectedTags.length).to.be.greaterThan(0);
+      });
+
       it('should not flicker when selecting many items in a limited space', async () => {
-        vi.useFakeTimers();
+        el.style.maxInlineSize = '300px';
 
-        try {
-          el.style.maxInlineSize = '300px';
+        // Select items that would trigger a collapse
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
 
-          // Select items that would trigger a collapse
-          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
-          await el.updateComplete;
+        const getVisibilityState = () =>
+          Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
+            tag => tag.style.display !== 'none'
+          );
 
-          const getVisibilityState = () =>
-            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
-              tag => tag.style.display !== 'none'
-            );
+        // Allow initial layout/stacking to settle. Use real timers because ResizeObserver delivery
+        // is browser-driven and can deadlock with fake timers in CI.
+        await new Promise(resolve => setTimeout(resolve, 300));
+        await el.updateComplete;
+        await waitForNextFrame();
 
-          // Allow initial layout/stacking to settle.
-          await vi.advanceTimersByTimeAsync(300);
-          await el.updateComplete;
-          await waitForNextFrame();
-          const firstState = getVisibilityState(),
-            firstInputWidth = input.getBoundingClientRect().width;
+        const firstState = getVisibilityState(),
+          firstInputWidth = input.getBoundingClientRect().width;
 
-          // Wait long enough to cover any potential oscillation cycles
-          await vi.advanceTimersByTimeAsync(500);
-          await el.updateComplete;
-          await waitForNextFrame();
-          const secondState = getVisibilityState(),
-            secondInputWidth = input.getBoundingClientRect().width;
+        // Wait long enough to cover any potential oscillation cycles.
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await el.updateComplete;
+        await waitForNextFrame();
 
-          // If the component flickers, the visibility pattern of tags would change over time.
-          expect(secondState).to.deep.equal(firstState);
-          expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
-        } finally {
-          vi.useRealTimers();
-        }
+        const secondState = getVisibilityState(),
+          secondInputWidth = input.getBoundingClientRect().width;
+
+        // If the component flickers, the visibility pattern of tags would change over time.
+        expect(secondState).to.deep.equal(firstState);
+        expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
       });
 
       it('should keep the input width bounded while adding tags in limited space', async () => {
-        vi.useFakeTimers();
+        el.style.maxInlineSize = '300px';
+        const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
 
-        try {
-          el.style.maxInlineSize = '300px';
-          const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
+        for (const count of [1, 2, 3, 4, 5, 6]) {
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'].slice(
+            0,
+            count
+          );
+          await el.updateComplete;
+          await waitForNextFrame();
+          await waitForNextFrame();
 
-          for (const count of [1, 2, 3, 4, 5, 6]) {
-            el.value = [
-              'Option 1',
-              'Option 2',
-              'Option 3',
-              'Option 4',
-              'Option 5',
-              'Option 6'
-            ].slice(0, count);
-            await el.updateComplete;
-            await vi.advanceTimersByTimeAsync(300);
-            await el.updateComplete;
-            await waitForNextFrame();
+          const inputWidth = input.getBoundingClientRect().width,
+            fieldWidth = textField.getBoundingClientRect().width,
+            comboboxWidth = el.getBoundingClientRect().width;
 
-            const inputWidth = input.getBoundingClientRect().width,
-              fieldWidth = textField.getBoundingClientRect().width,
-              comboboxWidth = el.getBoundingClientRect().width;
-
-            expect(inputWidth).to.be.a('number');
-            expect(Number.isFinite(inputWidth)).to.be.true;
-            expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
-            expect(comboboxWidth).to.be.at.most(300.5);
-          }
-        } finally {
-          vi.useRealTimers();
+          expect(inputWidth).to.be.a('number');
+          expect(Number.isFinite(inputWidth)).to.be.true;
+          expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
+          expect(comboboxWidth).to.be.at.most(300.5);
         }
       });
 
@@ -1291,16 +1357,76 @@ describe('sl-combobox', () => {
         expect(removable).to.be.true;
       });
 
-      it('should not show fake tag focus when navigating remove buttons', async () => {
-        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
-          button = tags[0].renderRoot.querySelector('button');
+      it('should use the first removable tag button and input as combobox tab stops', async () => {
+        const wrapper = await fixture<HTMLDivElement>(html`
+            <div>
+              <button>Before</button>
+              <sl-combobox multiple .value=${['Option 1', 'Option 2']}>
+                <sl-listbox>
+                  <sl-option>Option 1</sl-option>
+                  <sl-option>Option 2</sl-option>
+                  <sl-option>Option 3</sl-option>
+                </sl-listbox>
+              </sl-combobox>
+              <button>After</button>
+            </div>
+          `),
+          combobox = wrapper.querySelector('sl-combobox')!,
+          input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
 
-        button?.dispatchEvent(
-          new KeyboardEvent('keydown', { bubbles: true, composed: true, key: 'ArrowRight' })
-        );
+        await combobox.updateComplete;
+        await waitForNextFrame();
+        await combobox.updateComplete;
+
+        const comboboxRoot = combobox.renderRoot as ShadowRoot,
+          tagList = comboboxRoot.querySelector('sl-tag-list')!,
+          tags = Array.from(comboboxRoot.querySelectorAll('sl-tag')),
+          buttons = tags.map(tag => tag.renderRoot.querySelector('button'));
+
+        expect(tags).to.have.lengthOf(2);
+        await tagList.updateComplete;
+        await waitForCondition(() => tags[0].getAttribute('tabindex') === '0');
+
+        expect(tags[0]).to.have.attribute('tabindex', '0');
+        expect(tags[1]).to.have.attribute('tabindex', '-1');
+        expect(buttons[0]).to.have.attribute('tabindex', '0');
+        expect(buttons[1]).to.have.attribute('tabindex', '-1');
+
+        tags[0].focus();
+
+        await waitForActiveElement(comboboxRoot, tags[0]);
+        await waitForActiveElement(tags[0].shadowRoot!, buttons[0]!);
+
+        await userEvent.keyboard('{ArrowRight}');
+
+        await waitForActiveElement(comboboxRoot, tags[1]);
+        await waitForActiveElement(tags[1].shadowRoot!, buttons[1]!);
+
+        await userEvent.keyboard('{ArrowLeft}');
+
+        await waitForActiveElement(comboboxRoot, tags[0]);
+        await waitForActiveElement(tags[0].shadowRoot!, buttons[0]!);
+
+        await userEvent.tab();
+
+        await waitForActiveElement(document, input);
+
+        await userEvent.tab();
+
+        await waitForActiveElement(document, wrapper.querySelector('button:last-child')!);
+      });
+
+      it('should not show fake tag focus when navigating from the input with arrow keys', async () => {
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        input.focus();
+        input.setSelectionRange(0, 0);
+
+        await userEvent.keyboard('{ArrowLeft}');
         await el.updateComplete;
 
         expect(tags.some(tag => tag.classList.contains('focused'))).to.be.false;
+        expect(document.activeElement).to.equal(input);
       });
 
       it('should stack options when there is limited space', async () => {

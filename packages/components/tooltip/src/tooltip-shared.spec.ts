@@ -14,6 +14,21 @@ describe('sl-tooltip shared', () => {
   let tooltip: Tooltip;
 
   const waitFor = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  const waitForPopoverToOpen = async (popover: HTMLElement, timeout = 1500): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (!popover.matches(':popover-open') && Date.now() - startedAt < timeout) {
+      await waitFor(25);
+    }
+
+    if (!popover.matches(':popover-open')) {
+      const id = (popover as HTMLElement & { id?: string }).id;
+      throw new Error(
+        `Timed out after ${timeout}ms waiting for popover${id ? ` with id "${id}"` : ''} to open.`
+      );
+    }
+  };
+
   const waitForPopoverToClose = async (popover: HTMLElement, timeout = 1000): Promise<void> => {
     const startedAt = Date.now();
 
@@ -44,7 +59,7 @@ describe('sl-tooltip shared', () => {
   it('should not stay open when moving rapidly between buttons and then out', async () => {
     // 1. Hover first button
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
-    await waitFor(Tooltip.hoverShowDelay + 50);
+    await waitForPopoverToOpen(tooltip);
 
     expect(tooltip.matches(':popover-open')).to.be.true;
     expect(tooltip.anchorElement).to.equal(buttons[0]);
@@ -69,7 +84,7 @@ describe('sl-tooltip shared', () => {
   it('should hide even if multiple pointerover events are fired for different buttons', async () => {
     // Hover btn 1
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
-    await waitFor(Tooltip.hoverShowDelay + 50);
+    await waitForPopoverToOpen(tooltip);
 
     expect(tooltip.matches(':popover-open')).to.be.true;
 
@@ -90,7 +105,7 @@ describe('sl-tooltip shared', () => {
   it('should update anchor immediately when moving between buttons while open', async () => {
     // 1. Hover first button and wait for it to open
     buttons[0].dispatchEvent(new Event('pointerover', { bubbles: true }));
-    await waitFor(Tooltip.hoverShowDelay + 50);
+    await waitForPopoverToOpen(tooltip);
     expect(tooltip.matches(':popover-open')).to.be.true;
     expect(tooltip.anchorElement).to.equal(buttons[0]);
     const firstInsetInlineStart = tooltip.style.insetInlineStart;

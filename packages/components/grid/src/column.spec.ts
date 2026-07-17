@@ -141,10 +141,12 @@ describe('sl-column', () => {
       expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Zip');
     });
 
-    it('should use the header renderer result when it is a string', async () => {
+    it('should use the form control column label when provided', async () => {
       el = await fixture(html`
         <sl-grid>
-          <sl-grid-column path="address.zip" .header=${() => 'Postal code'}></sl-grid-column>
+          <sl-grid-column
+            form-control-column-label="Postal code"
+            path="address.zip"></sl-grid-column>
         </sl-grid>
       `);
 

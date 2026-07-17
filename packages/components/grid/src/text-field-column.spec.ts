@@ -4,12 +4,9 @@ import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Grid } from './grid.js';
-import { waitForGridToRenderData } from './utils.js';
+import { waitForAriaForwarding, waitForGridToRenderData } from './utils.js';
 
 type Person = { firstName: string; lastName: string; address: { zip: string } };
-
-const waitForAriaForwarding = (): Promise<void> =>
-  new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
 
 describe('sl-grid-text-field-column', () => {
   let el: Grid;

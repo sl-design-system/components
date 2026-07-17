@@ -42,8 +42,9 @@ export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined |
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnParts<T = any> = (model: T) => string | undefined;
 
-/** Callback that returns additional row context appended to the column label for form controls inside a cell.
- * Return only the row context (e.g. "John Doe"), not the full label.
+/**
+ * Callback that returns additional row context appended to the column label for form controls
+ * inside a cell. Return only the row context (e.g. "John Doe"), not the full label.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefined;
@@ -100,6 +101,9 @@ export class GridColumn<T = any> extends LitElement {
 
   /** This will ellipsize the text in the `<td>` elements when it overflows. */
   @property({ type: Boolean, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
+  /** Optional column label for form controls rendered inside a cell. */
+  @property({ attribute: 'form-control-column-label' }) formControlColumnLabel?: string;
 
   /** Optional row context to add to form controls rendered inside a cell. */
   @property({ attribute: false }) formControlLabel?: GridColumnFormControlLabel<T>;
@@ -355,15 +359,9 @@ export class GridColumn<T = any> extends LitElement {
   }
 
   #getHeaderLabel(): string {
-    let headerLabel = '';
+    const formControlColumnLabel = this.formControlColumnLabel?.trim(),
+      headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
 
-    if (typeof this.header === 'string') {
-      headerLabel = this.header.trim();
-    } else if (typeof this.header === 'function') {
-      const rendered = this.header(this);
-      headerLabel = typeof rendered === 'string' ? rendered.trim() : '';
-    }
-
-    return headerLabel || (this.path ? getNameByPath(this.path) : '');
+    return formControlColumnLabel || headerLabel || (this.path ? getNameByPath(this.path) : '');
   }
 }

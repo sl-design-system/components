@@ -78,6 +78,19 @@ export class TextArea extends ObserveAttributesMixin(
     requestAnimationFrame(() => this.#setSize());
   });
 
+  /** Keep count aria-describedby linkage resilient to external textarea attribute changes. */
+  #describedByObserver = new MutationObserver(() => {
+    const countDescriptionId = `${this.#countId}-description`,
+      describedBy = this.textarea?.getAttribute('aria-describedby') ?? '',
+      hasCountDescription = describedBy.split(/\s+/).includes(countDescriptionId),
+      shouldHaveCountDescription = this.#isCountVisible();
+
+    // Only re-sync when an external mutation caused a mismatch; avoid self-triggered loops.
+    if (hasCountDescription !== shouldHaveCountDescription) {
+      this.#syncCountAriaDescription();
+    }
+  });
+
   /** The last count state, used to announce only when state changes. */
   #previousCountState?: 'default' | 'caution' | 'danger';
 
@@ -186,11 +199,16 @@ export class TextArea extends ObserveAttributesMixin(
     }
 
     this.#observer.observe(this.textarea);
+    this.#describedByObserver.observe(this.textarea, {
+      attributes: true,
+      attributeFilter: ['aria-describedby']
+    });
     this.setFormControlElement(this.textarea);
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#describedByObserver.disconnect();
 
     this.querySelector<HTMLSpanElement>(`#${this.#countId}-description`)?.remove();
     this.#previousCountState = undefined;
@@ -230,6 +248,8 @@ export class TextArea extends ObserveAttributesMixin(
 
       if (changes.has('showCount')) {
         this.#previousCountState = undefined;
+      } else if (valueChangedProgrammatically && this.showCount !== undefined) {
+        this.#previousCountState = this.#getCountState();
       }
     }
 
@@ -543,6 +563,11 @@ export class TextArea extends ObserveAttributesMixin(
       this.#syncTextarea(this.textarea);
       this.textarea.value = this.value?.toString() || '';
       this.#observer.observe(this.textarea);
+      this.#describedByObserver.disconnect();
+      this.#describedByObserver.observe(this.textarea, {
+        attributes: true,
+        attributeFilter: ['aria-describedby']
+      });
 
       // Keep showCount custom validity/state in sync when swapping textarea elements.
       this.#syncCountValidity();

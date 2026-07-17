@@ -119,7 +119,7 @@ slot[name='textarea']::slotted(textarea) {
 }
 
 .valid,
-slot[name='suffix']::slotted(*) {
+slot[name='suffix']::slotted(sl-icon) {
   inset-block-start: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
   inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
   position: absolute;

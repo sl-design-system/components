@@ -2353,6 +2353,75 @@ describe('sl-combobox', () => {
       expect(input.value).to.equal('Option 2');
     });
 
+    it('should not inline autocomplete to an option disabled via option-disabled-path', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          autocomplete="inline"
+          .options=${[
+            { disabled: true, label: 'Physics', value: 'physics' },
+            { disabled: false, label: 'Philosophy', value: 'philosophy' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await userEvent.keyboard('P');
+      await combobox.updateComplete;
+
+      expect(input.value).to.equal('Philosophy');
+      expect(combobox.currentItem?.value).to.equal('philosophy');
+    });
+
+    it('should allow custom values that match an option disabled via option-disabled-path', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          allow-custom-values
+          autocomplete="off"
+          .options=${[{ disabled: true, label: 'Physics', value: 'physics' }]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await userEvent.keyboard('physics');
+      await combobox.updateComplete;
+
+      expect(combobox.createCustomOption).to.exist;
+      expect(combobox.createCustomOption?.value).to.equal('physics');
+      expect(combobox.currentItem).to.equal(combobox.createCustomOption);
+    });
+
+    it('should navigate to the last enabled option on ArrowUp when current item is disabled', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: true, label: 'Option 1', value: 'option-1' },
+            { disabled: false, label: 'Option 2', value: 'option-2' },
+            { disabled: false, label: 'Option 3', value: 'option-3' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      combobox.currentItem = combobox.items[0];
+      input.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{ArrowUp}');
+      await combobox.updateComplete;
+
+      expect(combobox.currentItem?.value).to.equal('option-3');
+    });
+
     it('should not select a group header when typing a group name', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>

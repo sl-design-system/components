@@ -665,7 +665,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       (this.autocomplete === 'inline' || this.autocomplete === 'both')
     ) {
       item = this.items.find(
-        i => i.type === 'option' && i.label.toLowerCase().startsWith(value.toLowerCase())
+        i =>
+          i.type === 'option' &&
+          !i.disabled &&
+          i.label.toLowerCase().startsWith(value.toLowerCase())
       );
 
       if (item) {
@@ -673,7 +676,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.input.setSelectionRange(value.length, item.label.length);
       }
     } else {
-      item = this.#findItemByValue(value as U);
+      item = this.#findItemByValue(value as U, item => !item.disabled);
     }
 
     if (this.allowCustomValues && !item) {
@@ -770,6 +773,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           delta = 1;
           break;
         case 'ArrowUp':
+          if (index === -1) {
+            index = items.length;
+          }
           delta = -1;
           break;
         case 'Home':

@@ -141,6 +141,18 @@ describe('sl-column', () => {
       expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Zip');
     });
 
+    it('should use the header renderer result when it is a string', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="address.zip" .header=${() => 'Postal code'}></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Postal code');
+    });
+
     it('should add trimmed row context when provided', async () => {
       el = await fixture(html`
         <sl-grid>

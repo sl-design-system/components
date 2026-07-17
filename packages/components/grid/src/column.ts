@@ -321,8 +321,7 @@ export class GridColumn<T = any> extends LitElement {
 
   /** Returns a label for form controls rendered inside this column. */
   getFormControlLabel(item: T): string {
-    const headerLabel = typeof this.header === 'string' ? this.header.trim() : '',
-      columnLabel = headerLabel || (this.path ? getNameByPath(this.path) : ''),
+    const columnLabel = this.#getHeaderLabel(),
       rowLabel = this.formControlLabel?.(item)?.trim();
 
     return [columnLabel, rowLabel].filter(Boolean).join(' ');
@@ -351,5 +350,18 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
+  }
+
+  #getHeaderLabel(): string {
+    let headerLabel = '';
+
+    if (typeof this.header === 'string') {
+      headerLabel = this.header.trim();
+    } else if (typeof this.header === 'function') {
+      const rendered = this.header(this);
+      headerLabel = typeof rendered === 'string' ? rendered.trim() : '';
+    }
+
+    return headerLabel || (this.path ? getNameByPath(this.path) : '');
   }
 }

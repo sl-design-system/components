@@ -97,6 +97,13 @@ export class TextArea extends ObserveAttributesMixin(
   /** True when the value is over the character limit and sets validation state. */
   #isOverLimitState = false;
 
+  /**
+   * True when we have called `textarea.setCustomValidity(countMessage)`. Used to guard the clearing
+   * call in `updateInternalValidity()` so we never unconditionally wipe a consumer-set custom
+   * error.
+   */
+  #countValiditySet = false;
+
   /** Whether the showCount overflow message may be shown (after reportValidity was called). */
   #showCountMessage = false;
 
@@ -211,9 +218,32 @@ export class TextArea extends ObserveAttributesMixin(
     this.#describedByObserver.disconnect();
 
     this.querySelector<HTMLSpanElement>(`#${this.#countId}-description`)?.remove();
+    this.#countValiditySet = false;
     this.#previousCountState = undefined;
 
     super.disconnectedCallback();
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    // valueChangedProgrammatically: Lit property changed but textarea DOM value hasn't been
+    // synced yet (user input goes through #onInput which keeps them in sync, so a mismatch
+    // here means a programmatic assignment via the `value` property).
+    const valueChangedProgrammatically =
+      changes.has('value') && this.value !== this.textarea?.value;
+
+    if (valueChangedProgrammatically || changes.has('showCount')) {
+      this.#syncCountValidity();
+      // updateValidity() mutates showValidity and must be called from willUpdate, not updated.
+      this.updateValidity();
+
+      if (changes.has('showCount')) {
+        this.#previousCountState = undefined;
+      } else if (valueChangedProgrammatically && this.showCount !== undefined) {
+        this.#previousCountState = this.#getCountState();
+      }
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -240,17 +270,6 @@ export class TextArea extends ObserveAttributesMixin(
 
     if (valueChangedProgrammatically) {
       this.textarea.value = this.value?.toString() || '';
-    }
-
-    if (valueChangedProgrammatically || changes.has('showCount')) {
-      this.#syncCountValidity();
-      this.updateValidity();
-
-      if (changes.has('showCount')) {
-        this.#previousCountState = undefined;
-      } else if (valueChangedProgrammatically && this.showCount !== undefined) {
-        this.#previousCountState = this.#getCountState();
-      }
     }
 
     this.#syncCountAriaDescription();
@@ -317,6 +336,46 @@ export class TextArea extends ObserveAttributesMixin(
     }
 
     return super.getLocalizedValidationMessage();
+  }
+
+  /**
+   * Sets or clears the count-overflow custom validity on the textarea, integrated into the
+   * `updateValidity()` flow so that `sl-validate` fires **after** this runs, giving consumers a
+   * chance to re-assert their own custom error without it being silently overwritten.
+   *
+   * The `#countValiditySet` guard ensures we never unconditionally clear a consumer-set error: we
+   * only call `setCustomValidity('')` when we previously set a count error ourselves.
+   */
+  override updateInternalValidity(): void {
+    if (this.#isOverLimitState) {
+      const over = this.value.length - (this.showCount ?? 0);
+      let validationMessage: string;
+
+      switch (getPluralCategory(over)) {
+        case 'one':
+          validationMessage = msg(str`Please remove at least ${over} character.`, {
+            id: 'sl.textArea.validation.tooLong_one'
+          });
+          break;
+        case 'few':
+          validationMessage = msg(str`Please remove at least ${over} characters.`, {
+            id: 'sl.textArea.validation.tooLong_few'
+          });
+          break;
+        default:
+          validationMessage = msg(str`Please remove at least ${over} characters.`, {
+            id: 'sl.textArea.validation.tooLong_other'
+          });
+          break;
+      }
+
+      this.textarea.setCustomValidity(validationMessage);
+      this.#countValiditySet = true;
+    } else if (this.#countValiditySet) {
+      // Only clear when WE set the count error; never wipe a consumer-set custom error.
+      this.textarea.setCustomValidity('');
+      this.#countValiditySet = false;
+    }
   }
 
   #getCountState(): 'default' | 'caution' | 'danger' {
@@ -498,7 +557,6 @@ export class TextArea extends ObserveAttributesMixin(
   #syncCountValidity(): void {
     if (this.showCount === undefined) {
       if (this.#isOverLimitState) {
-        this.textarea.setCustomValidity('');
         this.removeAttribute('show-validity');
         this.#isOverLimitState = false;
       }
@@ -510,34 +568,10 @@ export class TextArea extends ObserveAttributesMixin(
     }
 
     if (this.value.length > this.showCount) {
-      const over = this.value.length - this.showCount;
-      let validationMessage: string;
-
-      switch (getPluralCategory(over)) {
-        case 'one':
-          validationMessage = msg(str`Please remove at least ${over} character.`, {
-            id: 'sl.textArea.validation.tooLong_one'
-          });
-          break;
-        case 'few':
-          validationMessage = msg(str`Please remove at least ${over} characters.`, {
-            id: 'sl.textArea.validation.tooLong_few'
-          });
-          break;
-        default:
-          validationMessage = msg(str`Please remove at least ${over} characters.`, {
-            id: 'sl.textArea.validation.tooLong_other'
-          });
-          break;
-      }
-
-      this.textarea.setCustomValidity(validationMessage);
-
       // Show visual invalid state immediately, but do not force reporting yet.
       this.setAttribute('show-validity', 'invalid');
       this.#isOverLimitState = true;
     } else if (this.#isOverLimitState) {
-      this.textarea.setCustomValidity('');
       this.removeAttribute('show-validity');
       this.#isOverLimitState = false;
     }
@@ -570,6 +604,9 @@ export class TextArea extends ObserveAttributesMixin(
       });
 
       // Keep showCount custom validity/state in sync when swapping textarea elements.
+      // Reset the count-validity tracking flag so updateInternalValidity() starts fresh
+      // on the new textarea instance (it has no count error set yet).
+      this.#countValiditySet = false;
       this.#syncCountValidity();
       this.updateValidity();
       this.#syncCountAriaDescription();

@@ -386,6 +386,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       changes.has('optionDisabledPath') ||
       changes.has('optionGroupPath') ||
       changes.has('optionLabelPath') ||
+      changes.has('optionSelectedPath') ||
       changes.has('optionValuePath')
     ) {
       if (this.options) {

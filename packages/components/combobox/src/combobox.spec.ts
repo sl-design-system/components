@@ -2320,6 +2320,29 @@ describe('sl-combobox', () => {
       expect(options[1]).to.have.attribute('disabled');
     });
 
+    it('should update selected options when option-selected-path changes', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { initiallySelected: true, label: 'Option 1', nextSelected: false, value: 'option-1' },
+            { initiallySelected: false, label: 'Option 2', nextSelected: true, value: 'option-2' }
+          ]}
+          option-label-path="label"
+          option-selected-path="initiallySelected"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.true;
+      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.false;
+
+      combobox.optionSelectedPath = 'nextSelected';
+      await combobox.updateComplete;
+
+      expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.false;
+      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.true;
+    });
+
     it('should not select an option disabled via option-disabled-path on click', async () => {
       const combobox = await fixture<Combobox>(html`
         <sl-combobox

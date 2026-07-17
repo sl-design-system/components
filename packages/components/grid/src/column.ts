@@ -42,7 +42,9 @@ export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined |
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnParts<T = any> = (model: T) => string | undefined;
 
-/** Custom label type for form controls rendered inside a cell. */
+/** Callback that returns additional row context appended to the column label for form controls inside a cell.
+ * Return only the row context (e.g. "John Doe"), not the full label.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefined;
 

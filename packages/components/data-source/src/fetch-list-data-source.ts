@@ -1,4 +1,4 @@
-import { type DataSourceSort } from './data-source.js';
+import { type DataSourceFilter, type DataSourceSort } from './data-source.js';
 import {
   ListDataSource,
   type ListDataSourceDataItem,
@@ -11,6 +11,7 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FetchListDataSourceCallbackOptions<T = any> {
+  filters?: Array<DataSourceFilter<T>>;
   group: FetchListDataSourceGroupItem<T>['id'];
   page: number;
   pageSize: number;
@@ -24,7 +25,7 @@ export interface FetchListDataSourceCallbackResult<T> {
 }
 
 export type FetchListDataSourceCallback<T> = (
-  options: FetchListDataSourceCallbackOptions
+  options: FetchListDataSourceCallbackOptions<T>
 ) => Promise<FetchListDataSourceCallbackResult<T>>;
 
 export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
@@ -66,7 +67,8 @@ export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> 
   size?: number;
 }
 
-export type FetchListDataSourceEvent = CustomEvent<FetchListDataSourceCallbackOptions>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FetchListDataSourceEvent<T = any> = CustomEvent<FetchListDataSourceCallbackOptions<T>>;
 
 export class FetchListDataSourceError extends Error {
   constructor(
@@ -212,7 +214,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     group: FetchListDataSourceGroupItem<T>,
     page: number,
     pageSize: number
-  ): FetchListDataSourceCallbackOptions {
+  ): FetchListDataSourceCallbackOptions<T> {
     return {
       filters: Array.from(this.filters.values()),
       group: group.id,

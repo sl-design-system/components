@@ -110,6 +110,9 @@ export class TextArea extends ObserveAttributesMixin(
   /** Whether the showCount overflow message may be shown (after reportValidity was called). */
   #showCountMessage = false;
 
+  /** Snapshot of external show-validity before showCount temporarily forces invalid styling. */
+  #showValidityBeforeCount?: string | null;
+
   /** ID used to connect the character count to the textarea via aria-describedby. */
   #countId = `sl-text-area-count-${nextUniqueId++}`;
 
@@ -562,7 +565,13 @@ export class TextArea extends ObserveAttributesMixin(
   #syncCountValidity(): void {
     if (this.showCount === undefined) {
       if (this.#isOverLimitState) {
-        this.removeAttribute('show-validity');
+        if (this.#showValidityBeforeCount === null) {
+          this.removeAttribute('show-validity');
+        } else if (this.#showValidityBeforeCount !== undefined) {
+          this.setAttribute('show-validity', this.#showValidityBeforeCount);
+        }
+
+        this.#showValidityBeforeCount = undefined;
         this.#isOverLimitState = false;
       }
 
@@ -574,10 +583,20 @@ export class TextArea extends ObserveAttributesMixin(
 
     if (this.value.length > this.showCount) {
       // Show visual invalid state immediately, but do not force reporting yet.
+      if (!this.#isOverLimitState) {
+        this.#showValidityBeforeCount = this.getAttribute('show-validity');
+      }
+
       this.setAttribute('show-validity', 'invalid');
       this.#isOverLimitState = true;
     } else if (this.#isOverLimitState) {
-      this.removeAttribute('show-validity');
+      if (this.#showValidityBeforeCount === null) {
+        this.removeAttribute('show-validity');
+      } else if (this.#showValidityBeforeCount !== undefined) {
+        this.setAttribute('show-validity', this.#showValidityBeforeCount);
+      }
+
+      this.#showValidityBeforeCount = undefined;
       this.#isOverLimitState = false;
     }
   }

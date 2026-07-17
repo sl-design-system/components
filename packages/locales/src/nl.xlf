@@ -488,11 +488,11 @@
 </trans-unit>
 <trans-unit id="sl.textArea.charCountTooMany_few">
   <source><x id="0" equiv-text="${over}"/> characters too many</source>
-  <target><x id="0" equiv-text="${over}"/> tekenen te veel</target>
+  <target><x id="0" equiv-text="${over}"/> tekens te veel</target>
 </trans-unit>
 <trans-unit id="sl.textArea.charCountTooMany_other">
   <source><x id="0" equiv-text="${over}"/> characters too many</source>
-  <target><x id="0" equiv-text="${over}"/> tekenen te veel</target>
+  <target><x id="0" equiv-text="${over}"/> tekens te veel</target>
 </trans-unit>
 <trans-unit id="sl.textArea.charCountRemaining_one">
   <source><x id="0" equiv-text="${remaining}"/> character remaining</source>
@@ -500,11 +500,11 @@
 </trans-unit>
 <trans-unit id="sl.textArea.charCountRemaining_few">
   <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
-  <target><x id="0" equiv-text="${remaining}"/> tekenen resterend</target>
+  <target><x id="0" equiv-text="${remaining}"/> tekens resterend</target>
 </trans-unit>
 <trans-unit id="sl.textArea.charCountRemaining_other">
   <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
-  <target><x id="0" equiv-text="${remaining}"/> tekenen resterend</target>
+  <target><x id="0" equiv-text="${remaining}"/> tekens resterend</target>
 </trans-unit>
 <trans-unit id="sl.textArea.validation.tooLong_one">
   <source>Please remove at least <x id="0" equiv-text="${over}"/> character.</source>
@@ -512,11 +512,11 @@
 </trans-unit>
 <trans-unit id="sl.textArea.validation.tooLong_few">
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
-  <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekenen.</target>
+  <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekens.</target>
 </trans-unit>
 <trans-unit id="sl.textArea.validation.tooLong_other">
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
-  <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekenen.</target>
+  <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekens.</target>
 </trans-unit>
 </body>
 </file>

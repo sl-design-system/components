@@ -196,9 +196,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
-  /** @internal The currently (fake) focused tag. */
-  @state() focusedTag?: ComboboxItem<T, U>;
-
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
@@ -504,7 +501,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
-                @focusin=${this.#onTagListFocusIn}
                 ?disabled=${this.disabled}
                 aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
                 size=${ifDefined(this.size)}
@@ -515,10 +511,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                   item => item,
                   item => html`
                     <sl-tag
-                      @sl-remove=${(event: SlRemoveEvent) => this.#onRemove(item, event)}
+                      @sl-remove=${(event: SlRemoveEvent) => {
+                        event.stopPropagation();
+                        this.#onRemove(item, event);
+                      }}
                       ?disabled=${this.disabled}
-                      ?removable=${!this.disabled}
-                      class=${this.focusedTag === item ? 'focused' : ''}>
+                      ?removable=${!this.disabled}>
                       ${item.label}
                     </sl-tag>
                   `
@@ -572,6 +570,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
   }
 
+  /** @internal */
   override updateInternalValidity(): void {
     if (!this.validity.customError) {
       if (this.multiple) {
@@ -719,7 +718,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
 
-    if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
+    if (event.key === 'Enter' || isSelectOnlySpace) {
       if (isSelectOnlySpace) {
         event.preventDefault();
       }
@@ -737,46 +736,22 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.wrapper?.hidePopover();
         }
       }
-    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key) && this.input.selectionStart === 0) {
-      if (this.focusedTag) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      // Limit navigation to the visible tags
-      const min =
-        this.selectedItems.length -
-        Array.from(this.renderRoot.querySelectorAll('sl-tag')).filter(
-          tag => tag.style.display !== 'none'
-        ).length;
-
-      let index = this.focusedTag
-        ? this.selectedItems.indexOf(this.focusedTag)
-        : this.selectedItems.length;
-      index += event.key === 'ArrowLeft' ? -1 : 1;
-      index = Math.max(min, index);
-      index = Math.min(this.selectedItems.length, index);
-
-      if (index === this.selectedItems.length) {
-        this.focusedTag = undefined;
-      } else {
-        this.focusedTag = this.selectedItems[index];
-      }
-    } else if (event.key === 'Backspace' && this.focusedTag && this.input.selectionStart === 0) {
-      this.#onRemove(this.focusedTag);
-      this.focusedTag = undefined;
     } else if (
       !this.wrapper?.matches(':popover-open') &&
       ['ArrowDown', 'ArrowUp'].includes(event.key)
     ) {
       this.#popoverOpenedViaKeyboard = true;
       this.wrapper?.showPopover();
-    } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
+    } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
       event.stopPropagation();
 
       // Limit navigation to the visible options
       const items = this.items.filter(i => i.type === 'option' && i.visible);
+
+      if (items.length === 0) {
+        return;
+      }
 
       let delta = 0,
         index = -1;
@@ -857,15 +832,18 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
   }
 
-  #onTagListFocusIn(): void {
-    this.focusedTag = undefined;
+  #getVisibleRemovableTags(): Tag[] {
+    return Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')).filter(
+      tag => tag.removable && tag.style.display !== 'none'
+    );
   }
 
   #getNextSelectedTagItem(item: ComboboxItem<T, U>): ComboboxItem<T, U> | undefined {
     const tags = Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')),
+      visibleTags = new Set(this.#getVisibleRemovableTags()),
       visibleTagItems = tags
         .map((tag, index) => ({ item: this.selectedItems[index], tag }))
-        .filter(({ item, tag }) => item && tag.removable && tag.style.display !== 'none'),
+        .filter(({ item, tag }) => item && visibleTags.has(tag)),
       index = visibleTagItems.findIndex(({ item: tagItem }) => tagItem === item);
 
     return visibleTagItems[index + 1]?.item ?? visibleTagItems[index - 1]?.item;
@@ -874,10 +852,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   #focusSelectedTag(item?: ComboboxItem<T, U>): void {
     const tags = Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')),
       tag = item ? tags[this.selectedItems.indexOf(item)] : undefined,
-      focusTarget =
-        tag && tag.style.display !== 'none'
-          ? tag
-          : tags.find(tag => tag.removable && tag.style.display !== 'none');
+      focusTarget = tag && tag.style.display !== 'none' ? tag : this.#getVisibleRemovableTags()[0];
 
     if (focusTarget) {
       focusTarget.focus();
@@ -935,9 +910,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   #onTextFieldBlur(event: SlBlurEvent): void {
     event.preventDefault();
     event.stopPropagation();
-
-    // Clear the focused tag before the focus moves out of the input
-    this.focusedTag = undefined;
 
     this.blurEvent.emit();
     this.updateState({ touched: true });

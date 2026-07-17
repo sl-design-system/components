@@ -82,6 +82,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal Clarifies tag list keyboard navigation for assistive technologies. */
   @state() navigationDescription?: string;
 
+  /** @internal Additional description for the tag label. */
+  @property({ attribute: false }) labelDescription?: string;
+
   /**
    * Whether the tag component is removable.
    *
@@ -162,6 +165,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         this.navigationDescription ? 'navigation-description' : undefined
       ]
         .filter(Boolean)
+        .join(' '),
+      labelDescribedBy = [
+        this.tooltip ? 'tooltip' : undefined,
+        this.labelDescription ? 'label-description' : undefined
+      ]
+        .filter(Boolean)
         .join(' ');
 
     return html`
@@ -169,11 +178,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       <div
         @blur=${this.#onBlur}
         @focus=${this.#onFocus}
-        aria-describedby=${ifDefined(this.tooltip ? 'tooltip' : undefined)}
+        aria-describedby=${ifDefined(labelDescribedBy || undefined)}
         part="label"
         tabindex=${ifDefined(labelTabIndex)}>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
+      ${this.labelDescription
+        ? html`<span id="label-description" class="visually-hidden">${this.labelDescription}</span>`
+        : nothing}
       ${this.removable
         ? html`
             <button
@@ -190,7 +202,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
             </button>
             ${this.navigationDescription
               ? html`
-                  <span id="navigation-description" class="visually-hidden"
+                  <span id="navigation-description" class="visually-hidden" aria-hidden="true"
                     >${this.navigationDescription}</span
                   >
                 `

@@ -147,6 +147,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return index === -1 ? 0 : index;
     },
     elements: () => {
+      if (!this.keyboardNavigation) {
+        return [];
+      }
+
       const stackTags =
         this.stacked &&
         this.stackTag &&
@@ -165,6 +169,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /** Disables removable tags in the tag list. */
   @property({ type: Boolean }) disabled?: boolean;
+
+  /** @internal Whether the tag list manages keyboard navigation between removable tags. */
+  @property({ attribute: false }) keyboardNavigation = true;
 
   /**
    * The size of the tag-list (determines size of tags inside the tag-list).
@@ -239,6 +246,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     this.#syncTags();
+
+    if (changes.has('keyboardNavigation')) {
+      this.#rovingTabindexController.clearElementCache();
+
+      if (!this.keyboardNavigation) {
+        this.#clearManagedTabindexes();
+      }
+    }
+
     this.#syncRovingTabindexController();
 
     if (changes.has('stacked')) {
@@ -246,6 +262,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         this.#resetInitialVisibilityState();
       } else {
         this.#resetInitialVisibilityState();
+        this.stackSize = 0;
+        this.removeAttribute('data-stacked-active');
         this.tags.forEach(tag => (tag.style.display = ''));
       }
     }
@@ -254,23 +272,23 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    const hiddenTagsDescription =
+      this.stacked && this.stackSize > 0 ? this.#getHiddenTagsDescription() : '';
+
     return html`
       ${this.stacked
         ? html`
             <div class="stack">
               <sl-tag
-                aria-labelledby="tooltip"
+                .labelDescription=${hiddenTagsDescription}
+                aria-describedby="tooltip"
                 role="listitem"
                 size=${ifDefined(this.size)}
                 variant=${ifDefined(this.variant)}>
                 +${this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
-                ${msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' })}:
-                ${this.tags
-                  .filter(tag => tag.style.display === 'none')
-                  .map(tag => tag.label)
-                  .join(', ')}
+                ${hiddenTagsDescription}
               </sl-tooltip>
             </div>
           `
@@ -279,6 +297,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
     `;
+  }
+
+  #getHiddenTagsDescription(): string {
+    const labels = this.tags
+      .filter(tag => tag.style.display === 'none')
+      .map(tag => tag.label)
+      .join(', ');
+
+    return `${msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' })}: ${labels}`;
   }
 
   #onRemove(event: SlRemoveEvent & { target: Tag }): void {
@@ -396,7 +423,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     });
 
     this.tags.forEach(tag => {
-      tag.navigationDescription = tag.removable ? navigationDescription : undefined;
+      tag.navigationDescription =
+        this.keyboardNavigation && tag.removable ? navigationDescription : undefined;
       this.#syncTagDisabledState(tag);
       tag.size = this.size;
       tag.variant = this.variant;
@@ -504,8 +532,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       for (let i = 0; i < this.tags.length; i++) {
         const isLastTag = i === this.tags.length - 1;
 
-        // Keep the last tag visible only when it truly fits, to prevent overflow-induced width jitter.
-        if (isLastTag && sizes[i] <= availableWidth + SUBPIXEL_BUFFER_PX) {
+        // Keep at least one actual tag visible next to the stack counter. Otherwise users only see
+        // the number of hidden tags without any selected value context.
+        if (isLastTag) {
           break;
         }
 
@@ -531,6 +560,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       (acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc),
       0
     );
+    this.toggleAttribute('data-stacked-active', this.stackSize > 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
     // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
     this.stack.classList.remove('double', 'triple');
@@ -550,8 +580,21 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#syncRovingTabindexController();
   }
 
+  #clearManagedTabindexes(): void {
+    this.tags.forEach(tag => {
+      tag.removeAttribute('tabindex');
+      tag.requestUpdate();
+    });
+
+    if (this.stackTag) {
+      this.stackTag.removeAttribute('tabindex');
+      this.stackTag.requestUpdate();
+    }
+  }
+
   #syncRovingTabindexController(): void {
-    const hasManagedElements = this.#rovingTabindexController.elements.length > 0;
+    const hasManagedElements =
+      this.keyboardNavigation && this.#rovingTabindexController.elements.length > 0;
 
     if (hasManagedElements && !this.#rovingTabindexManaged) {
       this.#rovingTabindexController.manage();

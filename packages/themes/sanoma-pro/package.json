@@ -2,7 +2,7 @@
   "name": "@sl-design-system/sanoma-pro",
   "description": "Sanoma Pro theme for the SL Design System",
   "version": "0.0.4",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

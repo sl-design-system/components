@@ -2,7 +2,7 @@
   "name": "@sl-design-system/teacher-assistant",
   "description": "Teacher Assistant theme for the SL Design System",
   "version": "0.0.1",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

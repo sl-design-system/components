@@ -24,6 +24,7 @@ type Props = Pick<
   label?: string;
   maxWidth?: string;
   options?: unknown[] | (() => TemplateResult);
+  optionDisabledPath?: string;
   optionGroupPath?: string;
   optionLabelPath?: string;
   optionValuePath?: string;
@@ -60,6 +61,7 @@ export default {
     groupSelected,
     label,
     maxWidth,
+    optionDisabledPath,
     optionGroupPath,
     optionLabelPath,
     optionValuePath,
@@ -81,6 +83,7 @@ export default {
             .options=${virtualList ? options : undefined}
             .value=${value}
             autocomplete=${ifDefined(autocomplete)}
+            option-disabled-path=${ifDefined(optionDisabledPath)}
             option-group-path=${ifDefined(optionGroupPath)}
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
@@ -119,6 +122,22 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true
+  }
+};
+
+export const DisabledOptions: Story = {
+  args: {
+    label: 'Subject',
+    options: [
+      { disabled: false, label: 'Mathematics', value: 'mathematics' },
+      { disabled: true, label: 'Physics', value: 'physics' },
+      { disabled: false, label: 'History', value: 'history' },
+      { disabled: true, label: 'Geography', value: 'geography' }
+    ],
+    optionDisabledPath: 'disabled',
+    optionLabelPath: 'label',
+    optionValuePath: 'value',
+    virtualList: true
   }
 };
 

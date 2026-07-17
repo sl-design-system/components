@@ -63,6 +63,7 @@ declare global {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ComboboxItem<T = any, U = T> = ListboxItem<T, U> & {
+  disabled?: boolean;
   element?: Option | OptionGroupHeader;
   current?: boolean;
   custom?: boolean;
@@ -223,6 +224,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** The path to use for grouping the options. */
   @property({ attribute: 'option-group-path' }) optionGroupPath?: PathKeys<T>;
 
+  /** The path to use for the disabled state of the option. */
+  @property({ attribute: 'option-disabled-path' }) optionDisabledPath?: PathKeys<T>;
+
   /** The path to use for the label of the option. */
   @property({ attribute: 'option-label-path' }) optionLabelPath?: PathKeys<T>;
 
@@ -379,6 +383,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     if (
       changes.has('options') ||
+      changes.has('optionDisabledPath') ||
       changes.has('optionGroupPath') ||
       changes.has('optionLabelPath') ||
       changes.has('optionValuePath')
@@ -747,7 +752,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       event.stopPropagation();
 
       // Limit navigation to the visible options
-      const items = this.items.filter(i => i.type === 'option' && i.visible);
+      const items = this.items.filter(i => i.type === 'option' && i.visible && !i.disabled);
 
       if (items.length === 0) {
         return;
@@ -791,7 +796,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     if (element instanceof CreateCustomOption) {
       this.#addCustomOption(element.value as string);
     } else if (element?.id) {
-      const item = this.items.find(i => i.id === element.id && i.visible);
+      const item = this.items.find(i => i.id === element.id && i.visible && !i.disabled);
+      if (!item) {
+        return;
+      }
 
       this.#toggleSelectedOption(item);
       this.#updateCurrent();
@@ -1003,6 +1011,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
             [this.optionLabelPath || 'label']: label,
             [this.optionValuePath || 'value']: value
           } as T,
+          disabled: el.disabled,
           selected: el.selected,
           type: 'option',
           value,
@@ -1271,7 +1280,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #toggleSelectedOption(item?: ComboboxItem<T, U>, force?: boolean): void {
-    if (!item || item.type !== 'option') {
+    if (!item || item.type !== 'option' || item.disabled) {
       return;
     }
 
@@ -1379,6 +1388,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #prepareOption(option: T, index: number, group?: string): ComboboxItem<T, U> {
+    const disabled = this.optionDisabledPath
+      ? !!getValueByPath(option, this.optionDisabledPath)
+      : false;
     const label = this.optionLabelPath
       ? getStringByPath(option, this.optionLabelPath)
       : (option as unknown as { toString(): string }).toString();
@@ -1389,7 +1401,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       index,
       label,
       option,
-      selected: this.optionSelectedPath ? !!getValueByPath(option, this.optionSelectedPath) : false,
+      disabled,
+      selected:
+        !disabled && this.optionSelectedPath
+          ? !!getValueByPath(option, this.optionSelectedPath)
+          : false,
       type: 'option',
       value: (this.optionValuePath ? getValueByPath(option, this.optionValuePath) : option) as U,
       visible: true
@@ -1408,6 +1424,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       const el = (item.element = this.shadowRoot!.createElement(tagName));
       el.id = item.id;
+      el.disabled = !!item.disabled;
       el.innerText = item.label;
       el.selected = !!item.selected;
       el.value = item.value;
@@ -1610,7 +1627,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       const selectedItems = new Set<ComboboxItem<T, U>>();
       this.value.forEach(value => {
-        const item = this.#findItemByValue(value, item => !selectedItems.has(item));
+        const item = this.#findItemByValue(
+          value,
+          item => !item.disabled && !selectedItems.has(item)
+        );
 
         if (item) {
           selectedItems.add(item);
@@ -1619,7 +1639,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       selectedItems.forEach(item => this.#addSelectedOption(item));
     } else {
-      const item = this.#findItemByValue(this.value as U | undefined);
+      const item = this.#findItemByValue(this.value as U | undefined, item => !item.disabled);
 
       if (item) {
         this.#addSelectedOption(item);

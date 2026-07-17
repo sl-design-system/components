@@ -118,7 +118,7 @@ const options = [
 ></sl-combobox>
 ```
 
-By using the `option-group-path`, `option-label-path`, `option-selected-path` and `option-value-path` properties, you can specify which properties on the option objects should be used to render the options.
+By using the `option-disabled-path`, `option-group-path`, `option-label-path`, `option-selected-path` and `option-value-path` properties, you can specify which properties on the option objects should be used to render the options.
 
 If you only specify a string array as the `options` property, the combobox will use the strings as both the label and value.
 

@@ -2280,6 +2280,79 @@ describe('sl-combobox', () => {
       expect(combobox.querySelector('sl-listbox')).to.exist;
     });
 
+    it('should render disabled options from option-disabled-path', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: false, label: 'Option 1', value: 'option-1' },
+            { disabled: true, label: 'Option 2', value: 'option-2' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      const options = getRenderedVirtualOptions(combobox);
+      expect(options[0]).not.to.have.attribute('disabled');
+      expect(options[1]).to.have.attribute('disabled');
+    });
+
+    it('should not select an option disabled via option-disabled-path on click', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: true, label: 'Option 1', value: 'option-1' },
+            { disabled: false, label: 'Option 2', value: 'option-2' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      getRenderedVirtualOptions(combobox)[0].dispatchEvent(
+        new MouseEvent('click', { bubbles: true, composed: true })
+      );
+      await combobox.updateComplete;
+
+      expect(combobox.value).to.be.undefined;
+    });
+
+    it('should skip options disabled via option-disabled-path during keyboard selection', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: true, label: 'Option 1', value: 'option-1' },
+            { disabled: false, label: 'Option 2', value: 'option-2' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
+      await combobox.updateComplete;
+
+      expect(combobox.value).to.equal('option-2');
+      expect(input.value).to.equal('Option 2');
+    });
+
     it('should not select a group header when typing a group name', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>

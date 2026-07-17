@@ -141,3 +141,15 @@ slot[name='suffix']::slotted(sl-icon) {
 .count[count-state='danger'] {
   color: var(--sl-color-foreground-negative-plain);
 }
+
+slot[name='count-description']::slotted(.visually-hidden) {
+  block-size: 1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  inline-size: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+}

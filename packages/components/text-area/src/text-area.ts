@@ -41,6 +41,8 @@ export type ResizeType = 'none' | 'vertical' | 'auto';
 
 export type WrapType = 'soft' | 'hard';
 
+export type TextAreaCountState = 'default' | 'caution' | 'danger';
+
 let nextUniqueId = 0;
 
 /**
@@ -95,7 +97,7 @@ export class TextArea extends ObserveAttributesMixin(
   });
 
   /** The last count state, used to announce only when state changes. */
-  #previousCountState?: 'default' | 'caution' | 'danger';
+  #previousCountState?: TextAreaCountState;
 
   /** True when the value is over the character limit and sets validation state. */
   #isOverLimitState = false;
@@ -380,18 +382,19 @@ export class TextArea extends ObserveAttributesMixin(
       this.textarea.setCustomValidity(validationMessage);
       this.#countValiditySet = true;
     } else if (this.#countValiditySet) {
-      // Only clear when WE set the count error; never wipe a consumer-set custom error.
+      // Clear only if we set the count error. Do not clear a custom error set by the consumer.
       this.textarea.setCustomValidity('');
       this.#countValiditySet = false;
     }
   }
 
-  #getCountState(): 'default' | 'caution' | 'danger' {
+  #getCountState(): TextAreaCountState {
     const remaining = (this.showCount ?? 0) - this.value.length;
 
     if (remaining < 0) {
       return 'danger';
     } else if (remaining <= (this.showCount ?? 0) * 0.1) {
+      // 'Caution' when 10% or fewer characters remain (90%+ used).
       return 'caution';
     }
 
@@ -428,8 +431,7 @@ export class TextArea extends ObserveAttributesMixin(
         // the element exists in light DOM but is ignored by browsers/screen readers for IDREF lookups.
         countDescriptionElement.slot = 'count-description';
         // Visually hidden but kept in the accessibility tree.
-        countDescriptionElement.style.cssText =
-          'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
+        countDescriptionElement.className = 'visually-hidden';
         this.append(countDescriptionElement);
       }
 

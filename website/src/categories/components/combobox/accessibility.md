@@ -14,7 +14,7 @@ eleventyNavigation:
 
 |Command|Description|
 |-|-|
-|Tab|Moves the focus into/outside of the component. In a multiple combobox with selected removable tags, focus moves between the remove button of the first selected removable tag and the combobox input.|
+|Tab|Moves the focus into/outside of the component. In a multiple combobox with selected removable tags, focus moves between the tag list and the combobox input. When the tag list is stacked, the tag list tab stop is the stack counter; otherwise it is the remove button of the first selected removable tag.|
 |Arrow up/down|Moves the active option 1 position up/down. The focus indicator loops, so when you are at the last option and press "down" it will focus on the first option.|
 |Arrow left/right|When focus is on a selected tag's remove button, moves focus to the remove button of the previous/next selected removable tag. Arrow left/right does not move focus from the combobox input to selected tags.|
 |Home/End|Moves the active option to the first/last option.|

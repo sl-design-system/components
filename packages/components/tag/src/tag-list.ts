@@ -262,6 +262,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         this.#resetInitialVisibilityState();
       } else {
         this.#resetInitialVisibilityState();
+        this.stackSize = 0;
+        this.removeAttribute('data-stacked-active');
         this.tags.forEach(tag => (tag.style.display = ''));
       }
     }

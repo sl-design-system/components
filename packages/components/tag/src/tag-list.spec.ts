@@ -488,10 +488,16 @@ describe('sl-tag-list', () => {
       const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
       const unobserveSpy = vi.spyOn(ResizeObserver.prototype, 'unobserve');
 
+      await triggerVisibilityUpdate();
+      expect(el.stackSize).to.be.greaterThan(0);
+      expect(el).to.have.attribute('data-stacked-active');
+
       el.stacked = false;
       await el.updateComplete;
 
       expect(unobserveSpy.mock.calls.some(([target]) => target === stack)).to.be.true;
+      expect(el.stackSize).to.equal(0);
+      expect(el).not.to.have.attribute('data-stacked-active');
 
       unobserveSpy.mockRestore();
     });

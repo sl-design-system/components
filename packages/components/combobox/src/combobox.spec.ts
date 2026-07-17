@@ -644,6 +644,23 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('Ipsum');
       });
 
+      it('should ignore disabled selected slotted options', async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option disabled selected>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        const disabledOption = el.querySelector('sl-option')!;
+
+        expect(el.value).to.be.undefined;
+        expect(el.selectedItems).to.be.empty;
+        expect(disabledOption.selected).to.be.false;
+        expect(disabledOption).to.have.attribute('aria-selected', 'false');
+      });
+
       it('should reset the input value if no option is selected and focus leaves the component', async () => {
         input.click();
         await el.updateComplete;

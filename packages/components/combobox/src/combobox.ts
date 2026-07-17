@@ -1006,7 +1006,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
         const label = el.textContent?.trim(),
           value = (el.value ?? label) as U,
-          group = el.closest('sl-option-group')?.label || undefined;
+          group = el.closest('sl-option-group')?.label || undefined,
+          selected = !el.disabled && el.selected;
 
         const item: ComboboxItem<T, U> = {
           id: el.id,
@@ -1018,20 +1019,21 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
             [this.optionValuePath || 'value']: value
           } as T,
           disabled: el.disabled,
-          selected: el.selected,
+          selected,
           type: 'option',
           value,
           visible: true
         };
 
-        if (el.selected) {
+        if (selected) {
           hasSelected = true;
 
           selectedItems = [...selectedItems, item];
         }
 
         // Ensure the option has an aria-selected attribute
-        el.setAttribute('aria-selected', Boolean(el.selected).toString());
+        el.selected = selected;
+        el.setAttribute('aria-selected', Boolean(selected).toString());
 
         return item;
       });

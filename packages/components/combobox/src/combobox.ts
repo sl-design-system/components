@@ -381,14 +381,15 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     }
 
-    if (
+    const optionsConfigChanged =
       changes.has('options') ||
       changes.has('optionDisabledPath') ||
       changes.has('optionGroupPath') ||
       changes.has('optionLabelPath') ||
       changes.has('optionSelectedPath') ||
-      changes.has('optionValuePath')
-    ) {
+      changes.has('optionValuePath');
+
+    if (optionsConfigChanged) {
       if (this.options) {
         this.items = this.#prepareOptions(this.options);
 
@@ -405,12 +406,15 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     }
 
-    if (
-      (changes.has('options') || changes.has('value')) &&
-      this.items.length &&
-      this.value !== undefined
-    ) {
-      this.#updateSelectedItems();
+    if ((optionsConfigChanged || changes.has('value')) && this.items.length) {
+      if (
+        changes.has('value') ||
+        (this.value !== undefined && !changes.has('optionSelectedPath'))
+      ) {
+        this.#updateSelectedItems();
+      } else if (optionsConfigChanged) {
+        this.#updateSelectedItemsFromItems();
+      }
     }
 
     if (changes.has('selectedItems')) {
@@ -1398,11 +1402,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   #prepareOption(option: T, index: number, group?: string): ComboboxItem<T, U> {
     const disabled = this.optionDisabledPath
-      ? !!getValueByPath(option, this.optionDisabledPath)
-      : false;
-    const label = this.optionLabelPath
-      ? getStringByPath(option, this.optionLabelPath)
-      : (option as unknown as { toString(): string }).toString();
+        ? !!getValueByPath(option, this.optionDisabledPath)
+        : false,
+      label = this.optionLabelPath
+        ? getStringByPath(option, this.optionLabelPath)
+        : (option as unknown as { toString(): string }).toString();
 
     return {
       group,
@@ -1653,6 +1657,22 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       if (item) {
         this.#addSelectedOption(item);
       }
+    }
+  }
+
+  /** Updates the selection based on the selected state of the prepared items. */
+  #updateSelectedItemsFromItems(): void {
+    this.selectedItems.forEach(item => this.#removeSelectedOption(item));
+    this.selectedItems = [];
+
+    const selectedItems = this.items.filter(
+      item => item.type === 'option' && item.selected && !item.disabled
+    );
+
+    if (this.multiple) {
+      selectedItems.forEach(item => this.#addSelectedOption(item));
+    } else if (selectedItems[0]) {
+      this.#addSelectedOption(selectedItems[0]);
     }
   }
 

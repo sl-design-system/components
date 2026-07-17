@@ -2335,12 +2335,14 @@ describe('sl-combobox', () => {
 
       expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.true;
       expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.false;
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-1']);
 
       combobox.optionSelectedPath = 'nextSelected';
       await combobox.updateComplete;
 
       expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.false;
       expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.true;
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-2']);
     });
 
     it('should not select an option disabled via option-disabled-path on click', async () => {

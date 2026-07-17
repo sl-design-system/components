@@ -245,14 +245,23 @@ describe('sl-tag-list', () => {
     it('should clear managed tabindexes when keyboard navigation is disabled', async () => {
       await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
-      const tags = Array.from(el.querySelectorAll('sl-tag'));
+      const tags = Array.from(el.querySelectorAll('sl-tag')),
+        buttons = tags.map(tag => tag.renderRoot.querySelector('button')!);
 
       expect(tags.map(tag => tag.getAttribute('tabindex'))).to.deep.equal(['0', '-1', '-1']);
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, -1, -1]);
 
       el.keyboardNavigation = false;
       await el.updateComplete;
+      await Promise.all(tags.map(tag => tag.updateComplete));
 
       expect(tags.map(tag => tag.hasAttribute('tabindex'))).to.deep.equal([false, false, false]);
+      expect(buttons.map(button => button.hasAttribute('tabindex'))).to.deep.equal([
+        false,
+        false,
+        false
+      ]);
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, 0, 0]);
     });
 
     it('should resync the navigation description when the list updates', async () => {

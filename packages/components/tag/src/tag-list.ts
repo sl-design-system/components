@@ -581,8 +581,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #clearManagedTabindexes(): void {
-    this.tags.forEach(tag => tag.removeAttribute('tabindex'));
-    this.stackTag?.removeAttribute('tabindex');
+    this.tags.forEach(tag => {
+      tag.removeAttribute('tabindex');
+      tag.requestUpdate();
+    });
+
+    if (this.stackTag) {
+      this.stackTag.removeAttribute('tabindex');
+      this.stackTag.requestUpdate();
+    }
   }
 
   #syncRovingTabindexController(): void {

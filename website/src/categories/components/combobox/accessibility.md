@@ -18,8 +18,9 @@ eleventyNavigation:
 |Arrow up/down|Moves the active option 1 position up/down. The focus indicator loops, so when you are at the last option and press "down" it will focus on the first option.|
 |Arrow left/right|When focus is on a removable tag in the tag list, moves focus to the previous/next removable tag. Arrow left/right does not move focus from the combobox input to selected tags.|
 |Home/End|Moves the active option to the first/last option.|
-|Enter|Toggles the active option.|
-|Backspace|When a tag is focused, removes the tag. This is effectively the same as toggling the selected option using the Enter key.|
+|Enter|Toggles the active option. When focus is on a selected tag's remove button, removes that tag.|
+|Space|When focus is on a selected tag's remove button, removes that tag.|
+|Backspace/Delete|When focus is on a selected tag's remove button, removes that tag.|
 
 {.ds-table .ds-table-align-top}
 

@@ -272,7 +272,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const hiddenTagsDescription = this.stacked ? this.#getHiddenTagsDescription() : '';
+    const hiddenTagsDescription =
+      this.stacked && this.stackSize > 0 ? this.#getHiddenTagsDescription() : '';
 
     return html`
       ${this.stacked

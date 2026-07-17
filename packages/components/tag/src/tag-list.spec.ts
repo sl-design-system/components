@@ -644,7 +644,7 @@ describe('sl-tag-list', () => {
       `);
 
       // Container is 140px, stack 40px, gap 10px => remaining width is 90px.
-      // Last tag is 100px, so it should be hidden.
+      // Last tag is 100px, but it remains visible so the stack counter is not shown alone.
       el.getBoundingClientRect = () => new DOMRect(0, 0, 140, 20);
       el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
 

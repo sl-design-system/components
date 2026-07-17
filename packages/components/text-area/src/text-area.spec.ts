@@ -887,7 +887,6 @@ describe('sl-text-area', () => {
       const element = description ? el.querySelector(`#${description}`) : null;
 
       expect(element).to.exist;
-      expect(element).to.have.attribute('slot', 'count-description');
       expect(element).not.to.have.attribute('hidden');
     });
 

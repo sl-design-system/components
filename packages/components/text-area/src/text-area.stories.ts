@@ -161,7 +161,7 @@ export const Valid: Story = {
 
 export const ShowCount: Story = {
   args: {
-    hint: "A character counter is shown below the textarea. It turns orange when 90% of the limit is reached and red when you've exceeded the limit. Exceeding the limit does not block input — you can type or paste more and then edit it down.",
+    hint: 'A character counter is shown below the textarea. It turns orange when 90% of the limit is reached and red when you have exceeded the limit. Exceeding the limit does not block input — you can type or paste more and then edit it down.',
     showCount: 50,
     required: true
   }

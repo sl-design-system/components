@@ -31,7 +31,7 @@
   position: relative;
 }
 
-.field:focus-within {
+:host(:focus-within) .field {
   outline-color: var(--sl-color-border-focused);
 }
 

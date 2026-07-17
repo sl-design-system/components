@@ -978,6 +978,35 @@ describe('sl-text-area', () => {
       expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
     });
 
+    it('should use the latest programmatic value when updating validity after reportValidity', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.reportValidity()).to.be.false;
+      expect(el.validationMessage).to.equal('Please fill out this field.');
+
+      el.value = 'abcdefghijklmnopqrs';
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
+    });
+
+    it('should treat non-finite show-count values as unset', async () => {
+      const invalidShowCount: TextArea = await fixture(
+          html`<sl-text-area show-count="foo"></sl-text-area>`
+        ),
+        renderRoot = invalidShowCount.renderRoot as ShadowRoot;
+
+      await invalidShowCount.updateComplete;
+
+      expect(renderRoot.querySelector('.count')).to.be.null;
+      expect(renderRoot.textContent).not.to.include('NaN');
+      expect(
+        invalidShowCount.querySelector('textarea')?.getAttribute('aria-describedby') ?? ''
+      ).not.to.include('-description');
+    });
+
     it('should expose count in ariaDescribedByElements when used inside form-field', async () => {
       const wrapped = await fixture(html`
         <sl-form-field label="Label" hint="Hint text">

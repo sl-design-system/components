@@ -85,7 +85,7 @@ export class TextArea extends ObserveAttributesMixin(
 
   /** Keep count aria-describedby linkage resilient to external textarea attribute changes. */
   #describedByObserver = new MutationObserver(() => {
-    const countDescriptionId = `${this.#countId}-description`,
+    const countDescriptionId = this.#getCountDescriptionId(),
       describedBy = this.textarea?.getAttribute('aria-describedby') ?? '',
       hasCountDescription = describedBy.split(/\s+/).includes(countDescriptionId),
       shouldHaveCountDescription = this.#isCountVisible();
@@ -117,6 +117,14 @@ export class TextArea extends ObserveAttributesMixin(
 
   /** ID used to connect the character count to the textarea via aria-describedby. */
   #countId = `sl-text-area-count-${nextUniqueId++}`;
+
+  #getCountDescriptionId(): string {
+    return `${this.#countId}-description`;
+  }
+
+  #getShowCountLimit(): number | undefined {
+    return Number.isFinite(this.showCount) ? this.showCount : undefined;
+  }
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -227,7 +235,7 @@ export class TextArea extends ObserveAttributesMixin(
     this.#textareaListenerController?.abort();
     this.#textareaListenerController = undefined;
 
-    this.querySelector<HTMLSpanElement>(`#${this.#countId}-description`)?.remove();
+    this.querySelector<HTMLSpanElement>(`#${this.#getCountDescriptionId()}`)?.remove();
     this.#countValiditySet = false;
     this.#previousCountState = undefined;
 
@@ -242,6 +250,10 @@ export class TextArea extends ObserveAttributesMixin(
     // here means a programmatic assignment via the `value` property).
     const valueChangedProgrammatically =
       changes.has('value') && this.value !== this.textarea?.value;
+
+    if (valueChangedProgrammatically && this.textarea) {
+      this.textarea.value = this.value?.toString() || '';
+    }
 
     if (valueChangedProgrammatically || changes.has('showCount')) {
       this.#syncCountValidity();
@@ -358,7 +370,13 @@ export class TextArea extends ObserveAttributesMixin(
    */
   override updateInternalValidity(): void {
     if (this.#isOverLimitState) {
-      const over = this.value.length - (this.showCount ?? 0);
+      const showCountLimit = this.#getShowCountLimit();
+
+      if (showCountLimit === undefined) {
+        return;
+      }
+
+      const over = this.value.length - showCountLimit;
       let validationMessage: string;
 
       switch (getPluralCategory(over)) {
@@ -389,12 +407,18 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   #getCountState(): TextAreaCountState {
-    const remaining = (this.showCount ?? 0) - this.value.length;
+    const showCountLimit = this.#getShowCountLimit();
+
+    if (showCountLimit === undefined) {
+      return 'default';
+    }
+
+    const remaining = showCountLimit - this.value.length;
 
     if (remaining < 0) {
       return 'danger';
-    } else if (remaining <= (this.showCount ?? 0) * 0.1) {
-      // 'Caution' when 10% or fewer characters remain (90%+ used).
+    } else if (remaining <= showCountLimit * 0.1) {
+      // Caution when 10% or fewer characters remain (90%+ used).
       return 'caution';
     }
 
@@ -402,8 +426,10 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   #isCountVisible(): boolean {
+    const showCountLimit = this.#getShowCountLimit();
+
     return (
-      this.showCount !== undefined &&
+      showCountLimit !== undefined &&
       !(this.#isOverLimitState && this.#showCountMessage) &&
       !(this.#showCountMessage && this.validity.valueMissing)
     );
@@ -416,7 +442,7 @@ export class TextArea extends ObserveAttributesMixin(
       return;
     }
 
-    const countDescriptionId = `${this.#countId}-description`;
+    const countDescriptionId = this.#getCountDescriptionId();
 
     let countDescriptionElement: HTMLSpanElement | undefined =
       this.querySelector<HTMLSpanElement>(`#${countDescriptionId}`) ?? undefined;
@@ -497,7 +523,13 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   #getCountText(): string {
-    const remaining = (this.showCount ?? 0) - this.value.length;
+    const showCountLimit = this.#getShowCountLimit();
+
+    if (showCountLimit === undefined) {
+      return '';
+    }
+
+    const remaining = showCountLimit - this.value.length;
 
     if (remaining < 0) {
       const over = -remaining;
@@ -565,16 +597,11 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   #syncCountValidity(): void {
-    if (this.showCount === undefined) {
-      if (this.#isOverLimitState) {
-        if (this.#showValidityBeforeCount === null) {
-          this.removeAttribute('show-validity');
-        } else if (this.#showValidityBeforeCount !== undefined) {
-          this.setAttribute('show-validity', this.#showValidityBeforeCount);
-        }
+    const showCountLimit = this.#getShowCountLimit();
 
-        this.#showValidityBeforeCount = undefined;
-        this.#isOverLimitState = false;
+    if (showCountLimit === undefined) {
+      if (this.#isOverLimitState) {
+        this.#setOverLimitVisualState(false);
       }
 
       this.#showCountMessage = false;
@@ -583,7 +610,11 @@ export class TextArea extends ObserveAttributesMixin(
       return;
     }
 
-    if (this.value.length > this.showCount) {
+    this.#setOverLimitVisualState(this.value.length > showCountLimit);
+  }
+
+  #setOverLimitVisualState(isOverLimit: boolean): void {
+    if (isOverLimit) {
       // Show visual invalid state immediately, but do not force reporting yet.
       if (!this.#isOverLimitState) {
         this.#showValidityBeforeCount = this.getAttribute('show-validity');
@@ -591,7 +622,11 @@ export class TextArea extends ObserveAttributesMixin(
 
       this.setAttribute('show-validity', 'invalid');
       this.#isOverLimitState = true;
-    } else if (this.#isOverLimitState) {
+
+      return;
+    }
+
+    if (this.#isOverLimitState) {
       if (this.#showValidityBeforeCount === null) {
         this.removeAttribute('show-validity');
       } else if (this.#showValidityBeforeCount !== undefined) {

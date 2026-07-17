@@ -1,9 +1,11 @@
-import { getPeople } from '@sl-design-system/example-data';
+import { type Person, getPeople } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
 
 type Story = StoryObj;
+
+const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
 
 export default {
   title: 'Grid/Editing',
@@ -19,7 +21,9 @@ export const TextField: Story = {
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-text-field-column path="address.zip"></sl-grid-text-field-column>
+      <sl-grid-text-field-column
+        path="address.zip"
+        .formControlLabel=${personLabel}></sl-grid-text-field-column>
     </sl-grid>
   `
 };
@@ -31,6 +35,7 @@ export const Select: Story = {
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-select-column
         .options=${['Available', 'Busy']}
+        .formControlLabel=${personLabel}
         path="status"></sl-grid-select-column>
     </sl-grid>
   `

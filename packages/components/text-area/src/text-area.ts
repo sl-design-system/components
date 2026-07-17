@@ -78,6 +78,9 @@ export class TextArea extends ObserveAttributesMixin(
     requestAnimationFrame(() => this.#setSize());
   });
 
+  /** AbortController for blur/focus listeners on the current slotted textarea. */
+  #textareaListenerController?: AbortController;
+
   /** Keep count aria-describedby linkage resilient to external textarea attribute changes. */
   #describedByObserver = new MutationObserver(() => {
     const countDescriptionId = `${this.#countId}-description`,
@@ -216,6 +219,8 @@ export class TextArea extends ObserveAttributesMixin(
   override disconnectedCallback(): void {
     this.#observer.disconnect();
     this.#describedByObserver.disconnect();
+    this.#textareaListenerController?.abort();
+    this.#textareaListenerController = undefined;
 
     this.querySelector<HTMLSpanElement>(`#${this.#countId}-description`)?.remove();
     this.#countValiditySet = false;
@@ -591,9 +596,17 @@ export class TextArea extends ObserveAttributesMixin(
         this.#observer.unobserve(previousTextarea);
       }
 
+      // Detach blur/focus listeners from the previous textarea before attaching to the new one.
+      this.#textareaListenerController?.abort();
+      this.#textareaListenerController = new AbortController();
+
       this.textarea = textarea;
-      this.textarea.addEventListener('blur', () => this.#onBlur());
-      this.textarea.addEventListener('focus', () => this.focusEvent.emit());
+      this.textarea.addEventListener('blur', () => this.#onBlur(), {
+        signal: this.#textareaListenerController.signal
+      });
+      this.textarea.addEventListener('focus', () => this.focusEvent.emit(), {
+        signal: this.#textareaListenerController.signal
+      });
       this.#syncTextarea(this.textarea);
       this.textarea.value = this.value?.toString() || '';
       this.#observer.observe(this.textarea);

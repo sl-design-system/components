@@ -479,7 +479,7 @@
         },
         "secondary": {
           "bold": {
-            "$value": "{magister.color.palette.blue.100}",
+            "$value": "{magister.color.background.accent.blue.subtle}",
             "$type": "color",
             "$description": "A vibrant background option used for secondary actions."
           },

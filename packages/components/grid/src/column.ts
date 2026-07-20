@@ -42,6 +42,13 @@ export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined |
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GridColumnParts<T = any> = (model: T) => string | undefined;
 
+/**
+ * Callback that returns additional row context appended to the column label for form controls
+ * inside a cell. Return only the row context (e.g. "John Doe"), not the full label.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefined;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
@@ -94,6 +101,12 @@ export class GridColumn<T = any> extends LitElement {
 
   /** This will ellipsize the text in the `<td>` elements when it overflows. */
   @property({ type: Boolean, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
+  /** Optional column label for form controls rendered inside a cell. */
+  @property({ attribute: 'form-control-column-label' }) formControlColumnLabel?: string;
+
+  /** Optional row context to add to form controls rendered inside a cell. */
+  @property({ attribute: false }) formControlLabel?: GridColumnFormControlLabel<T>;
 
   /** The parent grid instance. */
   @property({ attribute: false })
@@ -312,6 +325,14 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
+  /** Returns a label for form controls rendered inside this column. */
+  getFormControlLabel(item: T): string {
+    const columnLabel = this.#getHeaderLabel(),
+      rowLabel = this.formControlLabel?.(item)?.trim();
+
+    return [columnLabel, rowLabel].filter(Boolean).join(' ');
+  }
+
   /**
    * Returns an array of strings that are set as part attributes on the `<td>` element. This is used
    * for styling the cells externally. Override this method if you want to add custom parts to the
@@ -335,5 +356,12 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
+  }
+
+  #getHeaderLabel(): string {
+    const formControlColumnLabel = this.formControlColumnLabel?.trim(),
+      headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
+
+    return formControlColumnLabel || headerLabel || (this.path ? getNameByPath(this.path) : '');
   }
 }

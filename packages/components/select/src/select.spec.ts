@@ -1290,6 +1290,31 @@ describe('sl-select', () => {
       expect(container).to.have.trimmed.text('Bold text');
     });
 
+    it('should render selected content when a slotted node root is not a document', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1"><span>Option 1</span></sl-option>
+          <sl-option value="2">Option 2</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      const node = el.querySelector('sl-option[value="1"] span')!;
+      Object.defineProperty(node, 'getRootNode', {
+        configurable: true,
+        value: () => document.createDocumentFragment()
+      });
+
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.exist;
+      expect(container).to.have.trimmed.text('Option 1');
+    });
+
     it('should handle options with multiple slotted nodes', async () => {
       el = await fixture(html`
         <sl-select>

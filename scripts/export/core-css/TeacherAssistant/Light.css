@@ -1,0 +1,665 @@
+:root {
+  --teacher-assistant-color-background-accent-blue-bold: var(
+    --teacher-assistant-color-palette-blue-400
+  );
+  --teacher-assistant-color-background-accent-blue-interactive-bold: var(
+    --teacher-assistant-color-palette-blue-900
+  );
+  --teacher-assistant-color-background-accent-blue-interactive-plain: var(
+    --teacher-assistant-color-palette-blue-300
+  );
+  --teacher-assistant-color-background-accent-blue-subtle: #1355ff33;
+  --teacher-assistant-color-background-accent-blue-subtlest: #1355ff1a;
+  --teacher-assistant-color-background-accent-green-bold: var(
+    --teacher-assistant-color-palette-green-900
+  );
+  --teacher-assistant-color-background-accent-green-interactive-bold: var(
+    --teacher-assistant-color-palette-green-900
+  );
+  --teacher-assistant-color-background-accent-green-interactive-plain: var(
+    --teacher-assistant-color-palette-green-400
+  );
+  --teacher-assistant-color-background-accent-green-subtle: #57c07533;
+  --teacher-assistant-color-background-accent-green-subtlest: #57c0751a;
+  --teacher-assistant-color-background-accent-grey-bold: var(
+    --teacher-assistant-color-palette-grey-150
+  );
+  --teacher-assistant-color-background-accent-grey-interactive-bold: var(
+    --teacher-assistant-color-palette-grey-500
+  );
+  --teacher-assistant-color-background-accent-grey-interactive-plain: var(
+    --teacher-assistant-color-palette-grey-400
+  );
+  --teacher-assistant-color-background-accent-grey-subtle: #b4b1ad33;
+  --teacher-assistant-color-background-accent-grey-subtlest: #b4b1ad1a;
+  --teacher-assistant-color-background-accent-orange-bold: var(
+    --teacher-assistant-color-palette-orange-900
+  );
+  --teacher-assistant-color-background-accent-orange-interactive-bold: var(
+    --teacher-assistant-color-palette-orange-800
+  );
+  --teacher-assistant-color-background-accent-orange-interactive-plain: var(
+    --teacher-assistant-color-palette-orange-500
+  );
+  --teacher-assistant-color-background-accent-orange-subtle: #ff8c5d33;
+  --teacher-assistant-color-background-accent-orange-subtlest: #ff8c5d1a;
+  --teacher-assistant-color-background-accent-purple-bold: var(
+    --teacher-assistant-color-palette-purple-900
+  );
+  --teacher-assistant-color-background-accent-purple-interactive-bold: var(
+    --teacher-assistant-color-palette-purple-300
+  );
+  --teacher-assistant-color-background-accent-purple-interactive-plain: var(
+    --teacher-assistant-color-palette-purple-500
+  );
+  --teacher-assistant-color-background-accent-purple-subtle: #7042ee33;
+  --teacher-assistant-color-background-accent-purple-subtlest: #7042ee1a;
+  --teacher-assistant-color-background-accent-red-bold: var(
+    --teacher-assistant-color-palette-red-800
+  );
+  --teacher-assistant-color-background-accent-red-interactive-bold: var(
+    --teacher-assistant-color-palette-red-900
+  );
+  --teacher-assistant-color-background-accent-red-interactive-plain: var(
+    --teacher-assistant-color-palette-red-400
+  );
+  --teacher-assistant-color-background-accent-red-subtle: #f83b4133;
+  --teacher-assistant-color-background-accent-red-subtlest: #f83b411a;
+  --teacher-assistant-color-background-accent-teal-bold: var(
+    --teacher-assistant-color-palette-teal-600
+  );
+  --teacher-assistant-color-background-accent-teal-interactive-bold: var(
+    --teacher-assistant-color-palette-teal-900
+  );
+  --teacher-assistant-color-background-accent-teal-interactive-plain: var(
+    --teacher-assistant-color-palette-teal-400
+  );
+  --teacher-assistant-color-background-accent-teal-subtle: #00d0c933;
+  --teacher-assistant-color-background-accent-teal-subtlest: #00d0c91a;
+  --teacher-assistant-color-background-accent-yellow-bold: var(
+    --teacher-assistant-color-palette-yellow-400
+  );
+  --teacher-assistant-color-background-accent-yellow-interactive-bold: var(
+    --teacher-assistant-color-palette-yellow-800
+  );
+  --teacher-assistant-color-background-accent-yellow-interactive-plain: var(
+    --teacher-assistant-color-palette-yellow-400
+  );
+  --teacher-assistant-color-background-accent-yellow-subtle: #ffa82033;
+  --teacher-assistant-color-background-accent-yellow-subtlest: #ffa8201a;
+  --teacher-assistant-color-background-bold: var(--teacher-assistant-color-border-bold);
+  --teacher-assistant-color-background-caution-bold: var(
+    --teacher-assistant-color-background-accent-orange-bold
+  );
+  --teacher-assistant-color-background-caution-interactive-bold: var(
+    --teacher-assistant-color-background-accent-orange-interactive-bold
+  );
+  --teacher-assistant-color-background-caution-interactive-plain: var(
+    --teacher-assistant-color-background-accent-orange-interactive-plain
+  );
+  --teacher-assistant-color-background-caution-subtle: var(
+    --teacher-assistant-color-background-accent-orange-subtle
+  );
+  --teacher-assistant-color-background-caution-subtlest: var(
+    --teacher-assistant-color-background-accent-orange-subtlest
+  );
+  --teacher-assistant-color-background-disabled: var(--teacher-assistant-color-palette-grey-100);
+  --teacher-assistant-color-background-highlight: var(--teacher-assistant-color-palette-yellow-100);
+  --teacher-assistant-color-background-info-bold: var(
+    --teacher-assistant-color-background-accent-purple-bold
+  );
+  --teacher-assistant-color-background-info-interactive-bold: var(
+    --teacher-assistant-color-background-accent-purple-interactive-bold
+  );
+  --teacher-assistant-color-background-info-interactive-plain: var(
+    --teacher-assistant-color-background-accent-purple-interactive-plain
+  );
+  --teacher-assistant-color-background-info-subtle: var(
+    --teacher-assistant-color-background-accent-purple-subtle
+  );
+  --teacher-assistant-color-background-info-subtlest: var(
+    --teacher-assistant-color-background-accent-purple-subtlest
+  );
+  --teacher-assistant-color-background-input-interactive: var(
+    --teacher-assistant-color-background-accent-grey-interactive-plain
+  );
+  --teacher-assistant-color-background-input-plain: var(--teacher-assistant-color-palette-grey-000);
+  --teacher-assistant-color-background-interactive-bold: var(
+    --teacher-assistant-color-background-neutral-interactive-bold
+  );
+  --teacher-assistant-color-background-interactive-plain: var(
+    --teacher-assistant-color-background-neutral-interactive-plain
+  );
+  --teacher-assistant-color-background-inverted-bold: var(
+    --teacher-assistant-color-palette-grey-000
+  );
+  --teacher-assistant-color-background-inverted-interactive-bold: var(
+    --teacher-assistant-color-palette-grey-800
+  );
+  --teacher-assistant-color-background-inverted-interactive-plain: var(
+    --teacher-assistant-color-palette-grey-200
+  );
+  --teacher-assistant-color-background-inverted-subtle: #ffffff33;
+  --teacher-assistant-color-background-inverted-subtlest: #ffffff1a;
+  --teacher-assistant-color-background-negative-bold: var(
+    --teacher-assistant-color-background-accent-red-bold
+  );
+  --teacher-assistant-color-background-negative-interactive-bold: var(
+    --teacher-assistant-color-background-accent-red-interactive-bold
+  );
+  --teacher-assistant-color-background-negative-interactive-plain: var(
+    --teacher-assistant-color-background-accent-red-interactive-plain
+  );
+  --teacher-assistant-color-background-negative-subtle: var(
+    --teacher-assistant-color-background-accent-red-subtle
+  );
+  --teacher-assistant-color-background-negative-subtlest: var(
+    --teacher-assistant-color-background-accent-red-subtlest
+  );
+  --teacher-assistant-color-background-neutral-bold: var(
+    --teacher-assistant-color-background-accent-grey-bold
+  );
+  --teacher-assistant-color-background-neutral-interactive-bold: var(
+    --teacher-assistant-color-background-accent-grey-interactive-bold
+  );
+  --teacher-assistant-color-background-neutral-interactive-plain: var(
+    --teacher-assistant-color-background-accent-grey-interactive-bold
+  );
+  --teacher-assistant-color-background-neutral-subtle: var(
+    --teacher-assistant-color-background-accent-grey-subtle
+  );
+  --teacher-assistant-color-background-neutral-subtlest: var(
+    --teacher-assistant-color-palette-grey-050
+  );
+  --teacher-assistant-color-background-positive-bold: var(
+    --teacher-assistant-color-background-accent-green-bold
+  );
+  --teacher-assistant-color-background-positive-interactive-bold: var(
+    --teacher-assistant-color-background-accent-green-interactive-bold
+  );
+  --teacher-assistant-color-background-positive-interactive-plain: var(
+    --teacher-assistant-color-background-accent-green-interactive-plain
+  );
+  --teacher-assistant-color-background-positive-subtle: var(
+    --teacher-assistant-color-background-accent-green-subtle
+  );
+  --teacher-assistant-color-background-positive-subtlest: var(
+    --teacher-assistant-color-background-accent-green-subtlest
+  );
+  --teacher-assistant-color-background-primary-bold: var(
+    --teacher-assistant-color-background-accent-purple-bold
+  );
+  --teacher-assistant-color-background-primary-interactive-bold: var(
+    --teacher-assistant-color-background-accent-purple-interactive-bold
+  );
+  --teacher-assistant-color-background-primary-interactive-plain: var(
+    --teacher-assistant-color-background-accent-purple-interactive-plain
+  );
+  --teacher-assistant-color-background-primary-subtle: var(
+    --teacher-assistant-color-background-accent-purple-subtle
+  );
+  --teacher-assistant-color-background-primary-subtlest: var(
+    --teacher-assistant-color-background-accent-purple-subtlest
+  );
+  --teacher-assistant-color-background-secondary-bold: var(
+    --teacher-assistant-color-background-accent-purple-subtle
+  );
+  --teacher-assistant-color-background-secondary-interactive-bold: var(
+    --teacher-assistant-color-palette-purple-500
+  );
+  --teacher-assistant-color-background-secondary-interactive-plain: var(
+    --teacher-assistant-color-background-accent-purple-interactive-plain
+  );
+  --teacher-assistant-color-background-secondary-subtle: var(
+    --teacher-assistant-color-background-accent-purple-subtle
+  );
+  --teacher-assistant-color-background-secondary-subtlest: var(
+    --teacher-assistant-color-background-accent-purple-subtlest
+  );
+  --teacher-assistant-color-background-selected-bold: var(
+    --teacher-assistant-color-background-accent-purple-bold
+  );
+  --teacher-assistant-color-background-selected-interactive-bold: var(
+    --teacher-assistant-color-background-accent-purple-interactive-bold
+  );
+  --teacher-assistant-color-background-selected-interactive-plain: var(
+    --teacher-assistant-color-background-accent-purple-interactive-plain
+  );
+  --teacher-assistant-color-background-selected-subtle: var(
+    --teacher-assistant-color-background-accent-purple-subtle
+  );
+  --teacher-assistant-color-background-selected-subtlest: var(
+    --teacher-assistant-color-background-accent-purple-subtlest
+  );
+  --teacher-assistant-color-background-subtle: var(
+    --teacher-assistant-color-background-accent-grey-subtle
+  );
+  --teacher-assistant-color-blanket-plain: #b4b1adcc;
+  --teacher-assistant-color-border-accent-blue-bold: var(
+    --teacher-assistant-color-foreground-accent-blue-bold
+  );
+  --teacher-assistant-color-border-accent-blue-plain: var(
+    --teacher-assistant-color-background-accent-blue-bold
+  );
+  --teacher-assistant-color-border-accent-green-bold: var(
+    --teacher-assistant-color-foreground-accent-green-bold
+  );
+  --teacher-assistant-color-border-accent-green-plain: var(
+    --teacher-assistant-color-background-accent-green-bold
+  );
+  --teacher-assistant-color-border-accent-grey-bold: var(
+    --teacher-assistant-color-palette-grey-500
+  );
+  --teacher-assistant-color-border-accent-grey-faint: var(
+    --teacher-assistant-color-palette-grey-150
+  );
+  --teacher-assistant-color-border-accent-grey-heavy: var(
+    --teacher-assistant-color-palette-grey-900
+  );
+  --teacher-assistant-color-border-accent-grey-plain: var(
+    --teacher-assistant-color-palette-grey-300
+  );
+  --teacher-assistant-color-border-accent-orange-bold: var(
+    --teacher-assistant-color-foreground-accent-orange-bold
+  );
+  --teacher-assistant-color-border-accent-orange-plain: var(
+    --teacher-assistant-color-background-accent-orange-bold
+  );
+  --teacher-assistant-color-border-accent-purple-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-bold
+  );
+  --teacher-assistant-color-border-accent-purple-plain: var(
+    --teacher-assistant-color-background-accent-purple-bold
+  );
+  --teacher-assistant-color-border-accent-red-bold: var(
+    --teacher-assistant-color-foreground-accent-red-bold
+  );
+  --teacher-assistant-color-border-accent-red-plain: var(
+    --teacher-assistant-color-background-accent-red-bold
+  );
+  --teacher-assistant-color-border-accent-teal-bold: var(
+    --teacher-assistant-color-foreground-accent-teal-bold
+  );
+  --teacher-assistant-color-border-accent-teal-plain: var(
+    --teacher-assistant-color-background-accent-teal-bold
+  );
+  --teacher-assistant-color-border-accent-yellow-bold: var(
+    --teacher-assistant-color-foreground-accent-yellow-bold
+  );
+  --teacher-assistant-color-border-accent-yellow-plain: var(
+    --teacher-assistant-color-foreground-accent-yellow-plain
+  );
+  --teacher-assistant-color-border-bold: var(--teacher-assistant-color-border-accent-grey-bold);
+  --teacher-assistant-color-border-caution-bold: var(
+    --teacher-assistant-color-border-accent-orange-bold
+  );
+  --teacher-assistant-color-border-caution-plain: var(
+    --teacher-assistant-color-border-accent-orange-plain
+  );
+  --teacher-assistant-color-border-disabled: var(
+    --teacher-assistant-color-border-accent-grey-faint
+  );
+  --teacher-assistant-color-border-focused: var(--teacher-assistant-color-palette-blue-400);
+  --teacher-assistant-color-border-info-bold: var(
+    --teacher-assistant-color-border-accent-purple-bold
+  );
+  --teacher-assistant-color-border-info-plain: var(
+    --teacher-assistant-color-border-accent-purple-plain
+  );
+  --teacher-assistant-color-border-info-subtle: var(--teacher-assistant-color-palette-purple-100);
+  --teacher-assistant-color-border-input: var(--teacher-assistant-color-border-accent-purple-bold);
+  --teacher-assistant-color-border-inverted: var(--teacher-assistant-color-palette-grey-000);
+  --teacher-assistant-color-border-negative-bold: var(
+    --teacher-assistant-color-border-accent-red-bold
+  );
+  --teacher-assistant-color-border-negative-plain: var(
+    --teacher-assistant-color-border-accent-red-plain
+  );
+  --teacher-assistant-color-border-neutral-bold: var(
+    --teacher-assistant-color-border-accent-grey-bold
+  );
+  --teacher-assistant-color-border-neutral-plain: var(
+    --teacher-assistant-color-border-accent-grey-plain
+  );
+  --teacher-assistant-color-border-neutral-subtle: var(--teacher-assistant-color-palette-grey-200);
+  --teacher-assistant-color-border-plain: var(--teacher-assistant-color-border-accent-grey-plain);
+  --teacher-assistant-color-border-positive-bold: var(
+    --teacher-assistant-color-border-accent-green-bold
+  );
+  --teacher-assistant-color-border-positive-plain: var(
+    --teacher-assistant-color-border-accent-green-plain
+  );
+  --teacher-assistant-color-border-primary-bold: var(
+    --teacher-assistant-color-border-accent-purple-plain
+  );
+  --teacher-assistant-color-border-primary-plain: var(
+    --teacher-assistant-color-border-accent-purple-plain
+  );
+  --teacher-assistant-color-border-secondary-bold: var(
+    --teacher-assistant-color-border-accent-purple-bold
+  );
+  --teacher-assistant-color-border-secondary-plain: var(
+    --teacher-assistant-color-border-accent-purple-plain
+  );
+  --teacher-assistant-color-border-selected: var(
+    --teacher-assistant-color-border-accent-purple-plain
+  );
+  --teacher-assistant-color-foreground-accent-blue-bold: var(
+    --teacher-assistant-color-palette-blue-700
+  );
+  --teacher-assistant-color-foreground-accent-blue-on-bold: var(
+    --teacher-assistant-color-foreground-inverted-plain
+  );
+  --teacher-assistant-color-foreground-accent-blue-plain: var(
+    --teacher-assistant-color-background-accent-blue-bold
+  );
+  --teacher-assistant-color-foreground-accent-green-bold: var(
+    --teacher-assistant-color-background-accent-green-bold
+  );
+  --teacher-assistant-color-foreground-accent-green-on-bold: var(
+    --teacher-assistant-color-palette-green-150
+  );
+  --teacher-assistant-color-foreground-accent-green-plain: var(
+    --teacher-assistant-color-background-accent-green-bold
+  );
+  --teacher-assistant-color-foreground-accent-grey-bold: var(
+    --teacher-assistant-color-palette-grey-900
+  );
+  --teacher-assistant-color-foreground-accent-grey-faint: var(
+    --teacher-assistant-color-palette-grey-300
+  );
+  --teacher-assistant-color-foreground-accent-grey-on-bold: var(
+    --teacher-assistant-color-foreground-bold
+  );
+  --teacher-assistant-color-foreground-accent-grey-on-inverted: var(
+    --teacher-assistant-color-foreground-bold
+  );
+  --teacher-assistant-color-foreground-accent-grey-plain: var(
+    --teacher-assistant-color-palette-grey-800
+  );
+  --teacher-assistant-color-foreground-accent-grey-subtle: var(
+    --teacher-assistant-color-palette-grey-700
+  );
+  --teacher-assistant-color-foreground-accent-grey-subtlest: var(
+    --teacher-assistant-color-palette-grey-600
+  );
+  --teacher-assistant-color-foreground-accent-orange-bold: var(
+    --teacher-assistant-color-palette-orange-900
+  );
+  --teacher-assistant-color-foreground-accent-orange-on-bold: var(
+    --teacher-assistant-color-palette-orange-400
+  );
+  --teacher-assistant-color-foreground-accent-orange-plain: var(
+    --teacher-assistant-color-background-accent-orange-bold
+  );
+  --teacher-assistant-color-foreground-accent-purple-bold: var(
+    --teacher-assistant-color-palette-purple-900
+  );
+  --teacher-assistant-color-foreground-accent-purple-on-bold: var(
+    --teacher-assistant-color-palette-purple-150
+  );
+  --teacher-assistant-color-foreground-accent-purple-plain: var(
+    --teacher-assistant-color-background-accent-purple-bold
+  );
+  --teacher-assistant-color-foreground-accent-red-bold: var(
+    --teacher-assistant-color-palette-red-800
+  );
+  --teacher-assistant-color-foreground-accent-red-on-bold: var(
+    --teacher-assistant-color-palette-red-150
+  );
+  --teacher-assistant-color-foreground-accent-red-plain: var(
+    --teacher-assistant-color-background-accent-red-bold
+  );
+  --teacher-assistant-color-foreground-accent-teal-bold: var(
+    --teacher-assistant-color-palette-teal-800
+  );
+  --teacher-assistant-color-foreground-accent-teal-on-bold: var(
+    --teacher-assistant-color-foreground-inverted-plain
+  );
+  --teacher-assistant-color-foreground-accent-teal-plain: var(
+    --teacher-assistant-color-background-accent-teal-bold
+  );
+  --teacher-assistant-color-foreground-accent-yellow-bold: var(
+    --teacher-assistant-color-palette-yellow-700
+  );
+  --teacher-assistant-color-foreground-accent-yellow-on-bold: var(
+    --teacher-assistant-color-foreground-bold
+  );
+  --teacher-assistant-color-foreground-accent-yellow-plain: var(
+    --teacher-assistant-color-palette-yellow-600
+  );
+  --teacher-assistant-color-foreground-bold: var(
+    --teacher-assistant-color-foreground-accent-grey-bold
+  );
+  --teacher-assistant-color-foreground-brand: var(
+    --teacher-assistant-color-foreground-accent-purple-plain
+  );
+  --teacher-assistant-color-foreground-caution-bold: var(
+    --teacher-assistant-color-foreground-accent-orange-bold
+  );
+  --teacher-assistant-color-foreground-caution-on-bold: var(
+    --teacher-assistant-color-foreground-accent-orange-on-bold
+  );
+  --teacher-assistant-color-foreground-caution-plain: var(
+    --teacher-assistant-color-foreground-accent-orange-plain
+  );
+  --teacher-assistant-color-foreground-disabled: var(--teacher-assistant-color-palette-grey-500);
+  --teacher-assistant-color-foreground-info-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-bold
+  );
+  --teacher-assistant-color-foreground-info-on-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-on-bold
+  );
+  --teacher-assistant-color-foreground-info-plain: var(
+    --teacher-assistant-color-foreground-accent-purple-plain
+  );
+  --teacher-assistant-color-foreground-inverted-bold: var(
+    --teacher-assistant-color-palette-grey-000
+  );
+  --teacher-assistant-color-foreground-inverted-on-bold: var(
+    --teacher-assistant-color-palette-grey-900
+  );
+  --teacher-assistant-color-foreground-inverted-plain: var(
+    --teacher-assistant-color-palette-grey-000
+  );
+  --teacher-assistant-color-foreground-negative-bold: var(
+    --teacher-assistant-color-foreground-accent-red-bold
+  );
+  --teacher-assistant-color-foreground-negative-on-bold: var(
+    --teacher-assistant-color-foreground-accent-red-on-bold
+  );
+  --teacher-assistant-color-foreground-negative-plain: var(
+    --teacher-assistant-color-foreground-accent-red-plain
+  );
+  --teacher-assistant-color-foreground-neutral-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-bold
+  );
+  --teacher-assistant-color-foreground-neutral-on-bold: var(
+    --teacher-assistant-color-foreground-accent-grey-on-bold
+  );
+  --teacher-assistant-color-foreground-neutral-plain: var(
+    --teacher-assistant-color-foreground-accent-purple-plain
+  );
+  --teacher-assistant-color-foreground-plain: var(
+    --teacher-assistant-color-foreground-accent-grey-plain
+  );
+  --teacher-assistant-color-foreground-positive-bold: var(
+    --teacher-assistant-color-foreground-accent-green-bold
+  );
+  --teacher-assistant-color-foreground-positive-on-bold: var(
+    --teacher-assistant-color-foreground-accent-green-on-bold
+  );
+  --teacher-assistant-color-foreground-positive-plain: var(
+    --teacher-assistant-color-foreground-accent-green-plain
+  );
+  --teacher-assistant-color-foreground-primary-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-plain
+  );
+  --teacher-assistant-color-foreground-primary-on-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-on-bold
+  );
+  --teacher-assistant-color-foreground-secondary-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-bold
+  );
+  --teacher-assistant-color-foreground-secondary-on-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-bold
+  );
+  --teacher-assistant-color-foreground-selected-bold: var(
+    --teacher-assistant-color-foreground-accent-purple-bold
+  );
+  --teacher-assistant-color-foreground-selected-on-bold: var(
+    --teacher-assistant-color-foreground-accent-blue-on-bold
+  );
+  --teacher-assistant-color-foreground-selected-plain: var(
+    --teacher-assistant-color-foreground-accent-purple-plain
+  );
+  --teacher-assistant-color-foreground-subtle: var(
+    --teacher-assistant-color-foreground-accent-grey-subtle
+  );
+  --teacher-assistant-color-foreground-subtlest: var(
+    --teacher-assistant-color-foreground-accent-grey-subtlest
+  );
+  --teacher-assistant-color-link-active: var(--teacher-assistant-color-palette-blue-700);
+  --teacher-assistant-color-link-focused-active: var(--teacher-assistant-color-palette-blue-900);
+  --teacher-assistant-color-link-focused-hover: var(--teacher-assistant-color-palette-blue-800);
+  --teacher-assistant-color-link-focused-idle: var(--teacher-assistant-color-palette-blue-700);
+  --teacher-assistant-color-link-hover: var(--teacher-assistant-color-palette-blue-600);
+  --teacher-assistant-color-link-idle: var(
+    --teacher-assistant-color-foreground-accent-purple-plain
+  );
+  --teacher-assistant-color-link-inverted-active: var(--teacher-assistant-color-palette-blue-150);
+  --teacher-assistant-color-link-inverted-hover: var(--teacher-assistant-color-palette-blue-100);
+  --teacher-assistant-color-link-inverted-idle: var(
+    --teacher-assistant-color-foreground-inverted-plain
+  );
+  --teacher-assistant-color-link-muted-active: var(--teacher-assistant-color-link-active);
+  --teacher-assistant-color-link-muted-hover: var(--teacher-assistant-color-link-hover);
+  --teacher-assistant-color-link-muted-idle: var(
+    --teacher-assistant-color-foreground-accent-grey-subtlest
+  );
+  --teacher-assistant-color-palette-blue-050: #e4f4ff;
+  --teacher-assistant-color-palette-blue-100: #cfe9ff;
+  --teacher-assistant-color-palette-blue-150: #aad7ff;
+  --teacher-assistant-color-palette-blue-200: #74b7ff;
+  --teacher-assistant-color-palette-blue-300: #0082ff;
+  --teacher-assistant-color-palette-blue-400: #1355ff;
+  --teacher-assistant-color-palette-blue-500: #0041ff;
+  --teacher-assistant-color-palette-blue-600: #0041ff;
+  --teacher-assistant-color-palette-blue-700: #003ae4;
+  --teacher-assistant-color-palette-blue-800: #0027b0;
+  --teacher-assistant-color-palette-blue-900: #001982;
+  --teacher-assistant-color-palette-green-050: #f1f9f3;
+  --teacher-assistant-color-palette-green-100: #e3f3e7;
+  --teacher-assistant-color-palette-green-150: #ccead3;
+  --teacher-assistant-color-palette-green-200: #b8e3c4;
+  --teacher-assistant-color-palette-green-300: #8ad29e;
+  --teacher-assistant-color-palette-green-400: #57c075;
+  --teacher-assistant-color-palette-green-500: #14a03c;
+  --teacher-assistant-color-palette-green-600: #0f802f;
+  --teacher-assistant-color-palette-green-700: #0a6023;
+  --teacher-assistant-color-palette-green-800: #054d1a;
+  --teacher-assistant-color-palette-green-900: #003a13;
+  --teacher-assistant-color-palette-grey-000: #ffffff;
+  --teacher-assistant-color-palette-grey-050: #fbfaf7;
+  --teacher-assistant-color-palette-grey-100: #f7f6f4;
+  --teacher-assistant-color-palette-grey-150: #f3f3f3;
+  --teacher-assistant-color-palette-grey-200: #e8e7e5;
+  --teacher-assistant-color-palette-grey-300: #d6d4d1;
+  --teacher-assistant-color-palette-grey-400: #b4b1ad;
+  --teacher-assistant-color-palette-grey-500: #908d89;
+  --teacher-assistant-color-palette-grey-600: #6a6764;
+  --teacher-assistant-color-palette-grey-700: #474441;
+  --teacher-assistant-color-palette-grey-800: #2d292a;
+  --teacher-assistant-color-palette-grey-900: #191418;
+  --teacher-assistant-color-palette-orange-050: #fff5f0;
+  --teacher-assistant-color-palette-orange-100: #ffeae0;
+  --teacher-assistant-color-palette-orange-150: #ffdccb;
+  --teacher-assistant-color-palette-orange-200: #ffd0bb;
+  --teacher-assistant-color-palette-orange-300: #ffac88;
+  --teacher-assistant-color-palette-orange-400: #ff8c5d;
+  --teacher-assistant-color-palette-orange-500: #ff611e;
+  --teacher-assistant-color-palette-orange-600: #e84d0b;
+  --teacher-assistant-color-palette-orange-700: #c43800;
+  --teacher-assistant-color-palette-orange-800: #942508;
+  --teacher-assistant-color-palette-orange-900: #641414;
+  --teacher-assistant-color-palette-purple-050: #f5f3fe;
+  --teacher-assistant-color-palette-purple-100: #ebe6fd;
+  --teacher-assistant-color-palette-purple-150: #e2d9fc;
+  --teacher-assistant-color-palette-purple-200: #cdbff2;
+  --teacher-assistant-color-palette-purple-300: #b4a3f4;
+  --teacher-assistant-color-palette-purple-400: #9b87f2;
+  --teacher-assistant-color-palette-purple-500: #7042ee;
+  --teacher-assistant-color-palette-purple-600: #5c35c2;
+  --teacher-assistant-color-palette-purple-700: #4a2a96;
+  --teacher-assistant-color-palette-purple-800: #3e2280;
+  --teacher-assistant-color-palette-purple-900: #32005a;
+  --teacher-assistant-color-palette-red-050: #fff1f1;
+  --teacher-assistant-color-palette-red-100: #ffe1e2;
+  --teacher-assistant-color-palette-red-150: #ffc7c9;
+  --teacher-assistant-color-palette-red-200: #ffa0a3;
+  --teacher-assistant-color-palette-red-300: #ff575c;
+  --teacher-assistant-color-palette-red-400: #f83b41;
+  --teacher-assistant-color-palette-red-500: #e51d23;
+  --teacher-assistant-color-palette-red-600: #c11419;
+  --teacher-assistant-color-palette-red-700: #a01418;
+  --teacher-assistant-color-palette-red-800: #84181b;
+  --teacher-assistant-color-palette-red-900: #480709;
+  --teacher-assistant-color-palette-teal-050: #eefffc;
+  --teacher-assistant-color-palette-teal-100: #c5fffa;
+  --teacher-assistant-color-palette-teal-150: #8bfff5;
+  --teacher-assistant-color-palette-teal-200: #4afef0;
+  --teacher-assistant-color-palette-teal-300: #15ece2;
+  --teacher-assistant-color-palette-teal-400: #00d0c9;
+  --teacher-assistant-color-palette-teal-500: #00a8a5;
+  --teacher-assistant-color-palette-teal-600: #008080;
+  --teacher-assistant-color-palette-teal-700: #066769;
+  --teacher-assistant-color-palette-teal-800: #0a5757;
+  --teacher-assistant-color-palette-teal-900: #003235;
+  --teacher-assistant-color-palette-yellow-050: #fff9eb;
+  --teacher-assistant-color-palette-yellow-100: #ffe5ac;
+  --teacher-assistant-color-palette-yellow-150: #ffda88;
+  --teacher-assistant-color-palette-yellow-200: #ffc14a;
+  --teacher-assistant-color-palette-yellow-300: #ffb400;
+  --teacher-assistant-color-palette-yellow-400: #ffa820;
+  --teacher-assistant-color-palette-yellow-500: #e28a00;
+  --teacher-assistant-color-palette-yellow-600: #bb5c02;
+  --teacher-assistant-color-palette-yellow-700: #984708;
+  --teacher-assistant-color-palette-yellow-800: #7c3a0b;
+  --teacher-assistant-color-palette-yellow-900: #481d00;
+  --teacher-assistant-color-skeleton-plain: var(--teacher-assistant-color-palette-grey-100);
+  --teacher-assistant-color-skeleton-subtle: var(--teacher-assistant-color-palette-grey-050);
+  --teacher-assistant-elevation-surface-base-default: var(
+    --teacher-assistant-color-palette-grey-000
+  );
+  --teacher-assistant-elevation-surface-raised-alternative: var(
+    --teacher-assistant-color-palette-grey-100
+  );
+  --teacher-assistant-elevation-surface-raised-default: var(
+    --teacher-assistant-color-palette-grey-000
+  );
+  --teacher-assistant-elevation-surface-raised-inverted: var(
+    --teacher-assistant-color-palette-grey-900
+  );
+  --teacher-assistant-elevation-surface-raised-primary: var(
+    --teacher-assistant-color-palette-purple-400
+  );
+  --teacher-assistant-elevation-surface-raised-sunken: var(
+    --teacher-assistant-color-palette-grey-050
+  );
+  --teacher-assistant-elevation-surface-shadow: var(--teacher-assistant-color-palette-grey-900);
+  --teacher-assistant-opacity-bold: 1;
+  --teacher-assistant-opacity-interactive-bold-active: 0.4;
+  --teacher-assistant-opacity-interactive-bold-hover: 0.2;
+  --teacher-assistant-opacity-interactive-bold-idle: 0;
+  --teacher-assistant-opacity-interactive-plain-active: 0.25;
+  --teacher-assistant-opacity-interactive-plain-hover: 0.15;
+  --teacher-assistant-opacity-interactive-plain-idle: 0;
+  --teacher-assistant-opacity-interactive-reversed-active: 1;
+  --teacher-assistant-opacity-interactive-reversed-hover: 0.9;
+  --teacher-assistant-opacity-interactive-reversed-idle: 0.8;
+  --teacher-assistant-opacity-moderate: 0.8;
+  --teacher-assistant-opacity-muted: 0;
+  --teacher-assistant-opacity-subtle: 0.2;
+  --teacher-assistant-opacity-subtlest: 0.1;
+  --teacher-assistant-theme-name: Sanoma Learning Light;
+}

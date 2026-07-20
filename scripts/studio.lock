@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-07-20T09:36:36Z"
+generated_at = "2026-07-20T11:25:50Z"
 cli_version = "dev"
 dependencies = []
 
@@ -11,28 +11,10 @@ dependencies = []
   name = "core"
   inline = true
   source_ref_type = "branch"
-  source_ref_name = "main"
+  source_ref_name = "typography-add"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
-  output_hash = "sha256:5ac3af6bf3d96731516678339726b73546f98eec79835ccf82262a591f93f10f"
-  updated_at = "2026-07-20T09:36:34Z"
-
-[[exports]]
-  name = "deprecated"
-  inline = true
-  source_ref_type = "branch"
-  source_ref_name = "main"
-  preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
-  output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-07-17T10:37:09Z"
-
-[[exports]]
-  name = "core-css"
-  inline = true
-  source_ref_type = "branch"
-  source_ref_name = "main"
-  preset_hash = "sha256:ec530bb3eebf3d12e4cf4ef31b373e15e3c37f7ce7919b2e897a30fe92fc0ec5"
-  output_hash = "sha256:ffa6c80ebe0f3525e22872fe1c8f9a37936444e1cde79a48912b20219a7ae2f5"
-  updated_at = "2026-07-20T07:31:00Z"
+  output_hash = "sha256:3387599a42528eaa23adc9872678328a9ebda35fa85aba511b8ff6eddd266371"
+  updated_at = "2026-07-20T11:25:41Z"
 
 [[exports]]
   name = "slds-legacy"
@@ -41,8 +23,17 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-07-20T09:36:36Z"
+  updated_at = "2026-07-20T11:25:50Z"
+
+[[exports]]
+  name = "core-css"
+  inline = true
+  source_ref_type = "branch"
+  source_ref_name = "typography-add"
+  preset_hash = "sha256:ec530bb3eebf3d12e4cf4ef31b373e15e3c37f7ce7919b2e897a30fe92fc0ec5"
+  output_hash = "sha256:353d2e133b8cf4ca8607dd21e40bf807d0a7f90aca8893172fcf33ffa8dd2bc3"
+  updated_at = "2026-07-20T11:25:49Z"
 
 [integrity]
-  lockfile_hash = "sha256:8a3e63c98019fe745ea8f82c2de5bc647b11777d18cc0ce686ac644260f8edfa"
+  lockfile_hash = "sha256:a6f8c441d2b4c60d84047b1abe36b3404116aeae69e1206775699c0d85541580"
   algorithm = "sha256"

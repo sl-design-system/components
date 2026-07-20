@@ -22,12 +22,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.blue.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.blue.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.blue.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.blue.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -51,12 +51,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.green.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.green.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.green.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.green.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -80,12 +80,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.grey.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.grey.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.grey.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.grey.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -109,12 +109,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.orange.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.orange.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.orange.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.orange.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -138,12 +138,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.purple.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.purple.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.purple.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.purple.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -167,12 +167,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.red.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.red.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.red.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.red.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -196,12 +196,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.teal.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.teal.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.teal.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.teal.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -225,12 +225,12 @@
               }
             },
             "subtle": {
-              "$value": "set_alpha({kampus.color.palette.yellow.400}, {kampus.opacity.subtle})",
+              "$value": "set_alpha({kampus.color.palette.yellow.400}, {kampus.opacity.subtle}).to.hex()",
               "$type": "color",
               "$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "subtlest": {
-              "$value": "set_alpha({kampus.color.palette.yellow.400}, {kampus.opacity.subtlest})",
+              "$value": "set_alpha({kampus.color.palette.yellow.400}, {kampus.opacity.subtlest}).to.hex()",
               "$type": "color",
               "$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             }
@@ -351,12 +351,12 @@
             }
           },
           "subtle": {
-            "$value": "set_alpha({kampus.color.palette.grey.000}, {kampus.opacity.subtle})",
+            "$value": "set_alpha({kampus.color.palette.grey.000}, {kampus.opacity.subtle}).to.hex()",
             "$type": "color",
             "$description": "A subtle inverted background option."
           },
           "subtlest": {
-            "$value": "set_alpha({kampus.color.palette.grey.000}, {kampus.opacity.subtlest})",
+            "$value": "set_alpha({kampus.color.palette.grey.000}, {kampus.opacity.subtlest}).to.hex()",
             "$type": "color",
             "$description": "The subtlest inverted background option."
           }
@@ -543,7 +543,7 @@
       },
       "blanket": {
         "plain": {
-          "$value": "set_alpha({kampus.color.palette.grey.900}, {kampus.opacity.moderate})",
+          "$value": "set_alpha({kampus.color.palette.grey.900}, {kampus.opacity.moderate}).to.hex()",
           "$type": "color",
           "$description": "Use for screen overlay that appears with dialogs or drawers."
         }

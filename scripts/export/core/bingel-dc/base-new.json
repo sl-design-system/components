@@ -1,19 +1,5 @@
 {
   "I-A": {
-    "icon": {
-      "typeset": {
-        "fontWeight": {
-          "regular": {
-            "$value": "{icon.typeset.fontWeight.icon-regular}",
-            "$type": "fontWeight"
-          },
-          "solid": {
-            "$value": "{icon.typeset.fontWeight.icon-solid}",
-            "$type": "fontWeight"
-          }
-        }
-      }
-    },
     "size": {
       "borderRadius": {
         "child": {

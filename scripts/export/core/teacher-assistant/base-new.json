@@ -273,7 +273,7 @@
       "typeset": {
         "fontFamily": {
           "body": {
-            "$value": "The Message Text Beta03 Condensed",
+            "$value": "The Message Text Beta03",
             "$type": "fontFamily"
           },
           "heading": {

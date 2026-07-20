@@ -1,0 +1,471 @@
+:root {
+  --bingel-int-color-background-accent-blue-bold: var(--bingel-int-color-palette-blue-400);
+  --bingel-int-color-background-accent-blue-interactive-bold: var(
+    --bingel-int-color-palette-blue-900
+  );
+  --bingel-int-color-background-accent-blue-interactive-plain: var(
+    --bingel-int-color-background-accent-blue-bold
+  );
+  --bingel-int-color-background-accent-blue-subtle: #0074df33;
+  --bingel-int-color-background-accent-blue-subtlest: #0074df1a;
+  --bingel-int-color-background-accent-green-bold: var(--bingel-int-color-palette-green-600);
+  --bingel-int-color-background-accent-green-interactive-bold: var(
+    --bingel-int-color-palette-green-900
+  );
+  --bingel-int-color-background-accent-green-interactive-plain: var(
+    --bingel-int-color-palette-green-400
+  );
+  --bingel-int-color-background-accent-green-subtle: #46ac0033;
+  --bingel-int-color-background-accent-green-subtlest: #46ac001a;
+  --bingel-int-color-background-accent-grey-bold: var(--bingel-int-color-palette-grey-100);
+  --bingel-int-color-background-accent-grey-interactive-bold: var(
+    --bingel-int-color-palette-grey-500
+  );
+  --bingel-int-color-background-accent-grey-interactive-plain: var(
+    --bingel-int-color-palette-grey-200
+  );
+  --bingel-int-color-background-accent-grey-subtle: #aab3bd33;
+  --bingel-int-color-background-accent-grey-subtlest: #aab3bd1a;
+  --bingel-int-color-background-accent-orange-bold: var(--bingel-int-color-palette-orange-400);
+  --bingel-int-color-background-accent-orange-interactive-bold: var(
+    --bingel-int-color-palette-orange-700
+  );
+  --bingel-int-color-background-accent-orange-interactive-plain: var(
+    --bingel-int-color-palette-orange-400
+  );
+  --bingel-int-color-background-accent-orange-subtle: #ff9d0033;
+  --bingel-int-color-background-accent-orange-subtlest: #ff9d001a;
+  --bingel-int-color-background-accent-purple-bold: var(--bingel-int-color-palette-purple-600);
+  --bingel-int-color-background-accent-purple-interactive-bold: var(
+    --bingel-int-color-palette-purple-900
+  );
+  --bingel-int-color-background-accent-purple-interactive-plain: var(
+    --bingel-int-color-palette-purple-400
+  );
+  --bingel-int-color-background-accent-purple-subtle: #7e51ff33;
+  --bingel-int-color-background-accent-purple-subtlest: #7e51ff1a;
+  --bingel-int-color-background-accent-red-bold: var(--bingel-int-color-palette-red-400);
+  --bingel-int-color-background-accent-red-interactive-bold: var(
+    --bingel-int-color-palette-red-900
+  );
+  --bingel-int-color-background-accent-red-interactive-plain: var(
+    --bingel-int-color-palette-red-400
+  );
+  --bingel-int-color-background-accent-red-subtle: #e30a2733;
+  --bingel-int-color-background-accent-red-subtlest: #e30a271a;
+  --bingel-int-color-background-accent-teal-bold: var(--bingel-int-color-palette-teal-600);
+  --bingel-int-color-background-accent-teal-interactive-bold: var(
+    --bingel-int-color-palette-teal-900
+  );
+  --bingel-int-color-background-accent-teal-interactive-plain: var(
+    --bingel-int-color-palette-teal-400
+  );
+  --bingel-int-color-background-accent-teal-subtle: #00d0c933;
+  --bingel-int-color-background-accent-teal-subtlest: #00d0c91a;
+  --bingel-int-color-background-accent-yellow-bold: var(--bingel-int-color-palette-yellow-400);
+  --bingel-int-color-background-accent-yellow-interactive-bold: var(
+    --bingel-int-color-palette-yellow-600
+  );
+  --bingel-int-color-background-accent-yellow-interactive-plain: var(
+    --bingel-int-color-palette-yellow-400
+  );
+  --bingel-int-color-background-accent-yellow-subtle: #ecc20633;
+  --bingel-int-color-background-accent-yellow-subtlest: #ecc2061a;
+  --bingel-int-color-background-bold: var(--bingel-int-color-border-bold);
+  --bingel-int-color-background-caution-bold: var(--bingel-int-color-background-accent-orange-bold);
+  --bingel-int-color-background-caution-interactive-bold: var(
+    --bingel-int-color-background-accent-orange-interactive-bold
+  );
+  --bingel-int-color-background-caution-interactive-plain: var(
+    --bingel-int-color-background-accent-orange-interactive-plain
+  );
+  --bingel-int-color-background-caution-subtle: var(
+    --bingel-int-color-background-accent-orange-subtle
+  );
+  --bingel-int-color-background-caution-subtlest: var(
+    --bingel-int-color-background-accent-orange-subtlest
+  );
+  --bingel-int-color-background-disabled: var(--bingel-int-color-palette-grey-100);
+  --bingel-int-color-background-highlight: var(--bingel-int-color-palette-yellow-100);
+  --bingel-int-color-background-info-bold: var(--bingel-int-color-background-accent-blue-bold);
+  --bingel-int-color-background-info-interactive-bold: var(
+    --bingel-int-color-background-accent-blue-interactive-bold
+  );
+  --bingel-int-color-background-info-interactive-plain: var(
+    --bingel-int-color-background-accent-blue-interactive-plain
+  );
+  --bingel-int-color-background-info-subtle: var(--bingel-int-color-background-accent-blue-subtle);
+  --bingel-int-color-background-info-subtlest: var(
+    --bingel-int-color-background-accent-blue-subtlest
+  );
+  --bingel-int-color-background-input-interactive: var(
+    --bingel-int-color-background-accent-grey-interactive-plain
+  );
+  --bingel-int-color-background-input-plain: var(--bingel-int-color-palette-grey-000);
+  --bingel-int-color-background-interactive-bold: var(
+    --bingel-int-color-background-accent-blue-interactive-bold
+  );
+  --bingel-int-color-background-interactive-plain: var(
+    --bingel-int-color-background-accent-blue-interactive-plain
+  );
+  --bingel-int-color-background-inverted-bold: var(--bingel-int-color-palette-grey-000);
+  --bingel-int-color-background-inverted-interactive-bold: var(--bingel-int-color-palette-grey-800);
+  --bingel-int-color-background-inverted-interactive-plain: var(
+    --bingel-int-color-palette-grey-200
+  );
+  --bingel-int-color-background-inverted-subtle: #ffffff33;
+  --bingel-int-color-background-inverted-subtlest: #ffffff1a;
+  --bingel-int-color-background-negative-bold: var(--bingel-int-color-background-accent-red-bold);
+  --bingel-int-color-background-negative-interactive-bold: var(
+    --bingel-int-color-background-accent-red-interactive-bold
+  );
+  --bingel-int-color-background-negative-interactive-plain: var(
+    --bingel-int-color-background-accent-red-interactive-plain
+  );
+  --bingel-int-color-background-negative-subtle: var(
+    --bingel-int-color-background-accent-red-subtle
+  );
+  --bingel-int-color-background-negative-subtlest: var(
+    --bingel-int-color-background-accent-red-subtlest
+  );
+  --bingel-int-color-background-neutral-bold: var(--bingel-int-color-palette-grey-050);
+  --bingel-int-color-background-neutral-interactive-bold: var(--bingel-int-color-palette-grey-700);
+  --bingel-int-color-background-neutral-interactive-plain: var(
+    --bingel-int-color-background-accent-grey-interactive-bold
+  );
+  --bingel-int-color-background-neutral-subtle: var(
+    --bingel-int-color-background-accent-grey-subtle
+  );
+  --bingel-int-color-background-neutral-subtlest: var(
+    --bingel-int-color-background-accent-grey-subtlest
+  );
+  --bingel-int-color-background-positive-bold: var(--bingel-int-color-background-accent-green-bold);
+  --bingel-int-color-background-positive-interactive-bold: var(
+    --bingel-int-color-background-accent-green-interactive-bold
+  );
+  --bingel-int-color-background-positive-interactive-plain: var(
+    --bingel-int-color-background-accent-green-interactive-plain
+  );
+  --bingel-int-color-background-positive-subtle: var(
+    --bingel-int-color-background-accent-green-subtle
+  );
+  --bingel-int-color-background-positive-subtlest: var(
+    --bingel-int-color-background-accent-green-subtlest
+  );
+  --bingel-int-color-background-primary-bold: var(--bingel-int-color-background-accent-blue-bold);
+  --bingel-int-color-background-primary-interactive-bold: var(
+    --bingel-int-color-background-accent-blue-interactive-bold
+  );
+  --bingel-int-color-background-primary-interactive-plain: var(
+    --bingel-int-color-background-accent-blue-interactive-plain
+  );
+  --bingel-int-color-background-primary-subtle: var(
+    --bingel-int-color-background-accent-blue-subtle
+  );
+  --bingel-int-color-background-primary-subtlest: var(
+    --bingel-int-color-background-accent-blue-subtlest
+  );
+  --bingel-int-color-background-secondary-bold: var(--bingel-int-color-background-accent-grey-bold);
+  --bingel-int-color-background-secondary-interactive-bold: var(
+    --bingel-int-color-background-accent-grey-interactive-bold
+  );
+  --bingel-int-color-background-secondary-interactive-plain: var(
+    --bingel-int-color-background-accent-grey-interactive-plain
+  );
+  --bingel-int-color-background-secondary-subtle: var(
+    --bingel-int-color-background-accent-grey-subtle
+  );
+  --bingel-int-color-background-secondary-subtlest: var(
+    --bingel-int-color-background-accent-grey-subtlest
+  );
+  --bingel-int-color-background-selected-bold: var(--bingel-int-color-background-accent-blue-bold);
+  --bingel-int-color-background-selected-interactive-bold: var(
+    --bingel-int-color-background-accent-blue-interactive-bold
+  );
+  --bingel-int-color-background-selected-interactive-plain: var(
+    --bingel-int-color-background-accent-blue-interactive-plain
+  );
+  --bingel-int-color-background-selected-subtle: var(
+    --bingel-int-color-background-accent-blue-subtle
+  );
+  --bingel-int-color-background-selected-subtlest: var(
+    --bingel-int-color-background-accent-blue-subtlest
+  );
+  --bingel-int-color-background-subtle: var(--bingel-int-color-background-accent-grey-subtle);
+  --bingel-int-color-blanket-plain: #001223cc;
+  --bingel-int-color-border-accent-blue-bold: var(--bingel-int-color-foreground-accent-blue-bold);
+  --bingel-int-color-border-accent-blue-plain: var(--bingel-int-color-background-accent-blue-bold);
+  --bingel-int-color-border-accent-green-bold: var(--bingel-int-color-foreground-accent-green-bold);
+  --bingel-int-color-border-accent-green-plain: var(
+    --bingel-int-color-background-accent-green-bold
+  );
+  --bingel-int-color-border-accent-grey-bold: var(--bingel-int-color-palette-grey-500);
+  --bingel-int-color-border-accent-grey-faint: var(--bingel-int-color-palette-grey-100);
+  --bingel-int-color-border-accent-grey-heavy: var(--bingel-int-color-palette-grey-900);
+  --bingel-int-color-border-accent-grey-plain: var(--bingel-int-color-palette-grey-150);
+  --bingel-int-color-border-accent-orange-bold: var(
+    --bingel-int-color-foreground-accent-orange-bold
+  );
+  --bingel-int-color-border-accent-orange-plain: var(
+    --bingel-int-color-background-accent-orange-bold
+  );
+  --bingel-int-color-border-accent-purple-bold: var(
+    --bingel-int-color-foreground-accent-purple-bold
+  );
+  --bingel-int-color-border-accent-purple-plain: var(
+    --bingel-int-color-background-accent-purple-bold
+  );
+  --bingel-int-color-border-accent-red-bold: var(--bingel-int-color-foreground-accent-red-bold);
+  --bingel-int-color-border-accent-red-plain: var(--bingel-int-color-background-accent-red-bold);
+  --bingel-int-color-border-accent-teal-bold: var(--bingel-int-color-foreground-accent-teal-bold);
+  --bingel-int-color-border-accent-teal-plain: var(--bingel-int-color-background-accent-teal-bold);
+  --bingel-int-color-border-accent-yellow-bold: var(
+    --bingel-int-color-foreground-accent-yellow-bold
+  );
+  --bingel-int-color-border-accent-yellow-plain: var(
+    --bingel-int-color-background-accent-yellow-bold
+  );
+  --bingel-int-color-border-bold: var(--bingel-int-color-border-accent-grey-bold);
+  --bingel-int-color-border-caution-bold: var(--bingel-int-color-border-accent-orange-bold);
+  --bingel-int-color-border-caution-plain: var(--bingel-int-color-border-accent-orange-plain);
+  --bingel-int-color-border-disabled: var(--bingel-int-color-foreground-disabled);
+  --bingel-int-color-border-focused: var(--bingel-int-color-border-accent-blue-plain);
+  --bingel-int-color-border-info-bold: var(--bingel-int-color-border-accent-blue-bold);
+  --bingel-int-color-border-info-plain: var(--bingel-int-color-border-accent-blue-plain);
+  --bingel-int-color-border-info-subtle: var(--bingel-int-color-background-info-subtle);
+  --bingel-int-color-border-input: var(--bingel-int-color-border-bold);
+  --bingel-int-color-border-inverted: var(--bingel-int-color-palette-grey-000);
+  --bingel-int-color-border-negative-bold: var(--bingel-int-color-border-accent-red-bold);
+  --bingel-int-color-border-negative-plain: var(--bingel-int-color-border-accent-red-plain);
+  --bingel-int-color-border-neutral-bold: var(--bingel-int-color-border-accent-grey-bold);
+  --bingel-int-color-border-neutral-plain: var(--bingel-int-color-border-accent-grey-plain);
+  --bingel-int-color-border-neutral-subtle: var(--bingel-int-color-background-accent-grey-subtle);
+  --bingel-int-color-border-plain: var(--bingel-int-color-border-accent-grey-plain);
+  --bingel-int-color-border-positive-bold: var(--bingel-int-color-border-accent-green-bold);
+  --bingel-int-color-border-positive-plain: var(--bingel-int-color-border-accent-green-plain);
+  --bingel-int-color-border-primary-bold: var(--bingel-int-color-border-accent-blue-plain);
+  --bingel-int-color-border-primary-plain: var(--bingel-int-color-border-accent-blue-plain);
+  --bingel-int-color-border-secondary-bold: var(--bingel-int-color-background-secondary-bold);
+  --bingel-int-color-border-secondary-plain: var(--bingel-int-color-border-accent-grey-plain);
+  --bingel-int-color-border-selected: var(--bingel-int-color-border-accent-blue-plain);
+  --bingel-int-color-foreground-accent-blue-bold: var(--bingel-int-color-palette-blue-700);
+  --bingel-int-color-foreground-accent-blue-on-bold: var(
+    --bingel-int-color-foreground-inverted-plain
+  );
+  --bingel-int-color-foreground-accent-blue-plain: var(--bingel-int-color-palette-blue-400);
+  --bingel-int-color-foreground-accent-green-bold: var(--bingel-int-color-palette-green-700);
+  --bingel-int-color-foreground-accent-green-on-bold: var(
+    --bingel-int-color-foreground-inverted-plain
+  );
+  --bingel-int-color-foreground-accent-green-plain: var(--bingel-int-color-palette-green-600);
+  --bingel-int-color-foreground-accent-grey-bold: var(--bingel-int-color-palette-grey-900);
+  --bingel-int-color-foreground-accent-grey-faint: var(--bingel-int-color-palette-grey-300);
+  --bingel-int-color-foreground-accent-grey-on-bold: var(--bingel-int-color-foreground-bold);
+  --bingel-int-color-foreground-accent-grey-on-inverted: var(--bingel-int-color-foreground-bold);
+  --bingel-int-color-foreground-accent-grey-plain: var(--bingel-int-color-palette-grey-800);
+  --bingel-int-color-foreground-accent-grey-subtle: var(--bingel-int-color-palette-grey-700);
+  --bingel-int-color-foreground-accent-grey-subtlest: var(--bingel-int-color-palette-grey-600);
+  --bingel-int-color-foreground-accent-orange-bold: var(--bingel-int-color-palette-orange-700);
+  --bingel-int-color-foreground-accent-orange-on-bold: var(--bingel-int-color-foreground-bold);
+  --bingel-int-color-foreground-accent-orange-plain: var(--bingel-int-color-palette-orange-700);
+  --bingel-int-color-foreground-accent-purple-bold: var(--bingel-int-color-palette-purple-700);
+  --bingel-int-color-foreground-accent-purple-on-bold: var(
+    --bingel-int-color-foreground-inverted-plain
+  );
+  --bingel-int-color-foreground-accent-purple-plain: var(--bingel-int-color-palette-purple-400);
+  --bingel-int-color-foreground-accent-red-bold: var(--bingel-int-color-palette-red-700);
+  --bingel-int-color-foreground-accent-red-on-bold: var(
+    --bingel-int-color-foreground-inverted-plain
+  );
+  --bingel-int-color-foreground-accent-red-plain: var(--bingel-int-color-palette-red-400);
+  --bingel-int-color-foreground-accent-teal-bold: var(--bingel-int-color-palette-teal-700);
+  --bingel-int-color-foreground-accent-teal-on-bold: var(
+    --bingel-int-color-foreground-inverted-plain
+  );
+  --bingel-int-color-foreground-accent-teal-plain: var(--bingel-int-color-palette-teal-600);
+  --bingel-int-color-foreground-accent-yellow-bold: var(--bingel-int-color-palette-yellow-700);
+  --bingel-int-color-foreground-accent-yellow-on-bold: var(--bingel-int-color-foreground-bold);
+  --bingel-int-color-foreground-accent-yellow-plain: var(--bingel-int-color-palette-yellow-600);
+  --bingel-int-color-foreground-bold: var(--bingel-int-color-foreground-accent-grey-bold);
+  --bingel-int-color-foreground-brand: var(--bingel-int-color-foreground-accent-blue-plain);
+  --bingel-int-color-foreground-caution-bold: var(--bingel-int-color-foreground-accent-orange-bold);
+  --bingel-int-color-foreground-caution-on-bold: var(
+    --bingel-int-color-foreground-accent-orange-on-bold
+  );
+  --bingel-int-color-foreground-caution-plain: var(
+    --bingel-int-color-foreground-accent-orange-plain
+  );
+  --bingel-int-color-foreground-disabled: var(--bingel-int-color-foreground-accent-grey-faint);
+  --bingel-int-color-foreground-info-bold: var(--bingel-int-color-foreground-accent-blue-bold);
+  --bingel-int-color-foreground-info-on-bold: var(
+    --bingel-int-color-foreground-accent-blue-on-bold
+  );
+  --bingel-int-color-foreground-info-plain: var(--bingel-int-color-foreground-accent-blue-plain);
+  --bingel-int-color-foreground-inverted-bold: var(--bingel-int-color-palette-grey-000);
+  --bingel-int-color-foreground-inverted-on-bold: var(--bingel-int-color-palette-grey-900);
+  --bingel-int-color-foreground-inverted-plain: var(--bingel-int-color-palette-grey-000);
+  --bingel-int-color-foreground-negative-bold: var(--bingel-int-color-foreground-accent-red-bold);
+  --bingel-int-color-foreground-negative-on-bold: var(
+    --bingel-int-color-foreground-accent-red-on-bold
+  );
+  --bingel-int-color-foreground-negative-plain: var(--bingel-int-color-foreground-accent-red-plain);
+  --bingel-int-color-foreground-neutral-bold: var(--bingel-int-color-foreground-accent-grey-bold);
+  --bingel-int-color-foreground-neutral-on-bold: var(
+    --bingel-int-color-foreground-accent-grey-on-bold
+  );
+  --bingel-int-color-foreground-neutral-plain: var(
+    --bingel-int-color-foreground-accent-grey-subtlest
+  );
+  --bingel-int-color-foreground-plain: var(--bingel-int-color-foreground-accent-grey-plain);
+  --bingel-int-color-foreground-positive-bold: var(--bingel-int-color-foreground-accent-green-bold);
+  --bingel-int-color-foreground-positive-on-bold: var(
+    --bingel-int-color-foreground-accent-green-on-bold
+  );
+  --bingel-int-color-foreground-positive-plain: var(
+    --bingel-int-color-foreground-accent-green-plain
+  );
+  --bingel-int-color-foreground-primary-bold: var(--bingel-int-color-foreground-accent-blue-bold);
+  --bingel-int-color-foreground-primary-on-bold: var(
+    --bingel-int-color-foreground-accent-blue-on-bold
+  );
+  --bingel-int-color-foreground-secondary-bold: var(--bingel-int-color-foreground-accent-blue-bold);
+  --bingel-int-color-foreground-secondary-on-bold: var(
+    --bingel-int-color-foreground-accent-blue-bold
+  );
+  --bingel-int-color-foreground-selected-bold: var(--bingel-int-color-foreground-accent-blue-bold);
+  --bingel-int-color-foreground-selected-on-bold: var(
+    --bingel-int-color-foreground-accent-blue-on-bold
+  );
+  --bingel-int-color-foreground-selected-plain: var(
+    --bingel-int-color-foreground-accent-blue-plain
+  );
+  --bingel-int-color-foreground-subtle: var(--bingel-int-color-foreground-accent-grey-subtle);
+  --bingel-int-color-foreground-subtlest: var(--bingel-int-color-foreground-accent-grey-subtlest);
+  --bingel-int-color-link-active: var(--bingel-int-color-palette-blue-600);
+  --bingel-int-color-link-focused-active: var(--bingel-int-color-palette-blue-900);
+  --bingel-int-color-link-focused-hover: var(--bingel-int-color-palette-blue-800);
+  --bingel-int-color-link-focused-idle: var(--bingel-int-color-palette-blue-700);
+  --bingel-int-color-link-hover: var(--bingel-int-color-palette-blue-500);
+  --bingel-int-color-link-idle: var(--bingel-int-color-foreground-accent-blue-plain);
+  --bingel-int-color-link-inverted-active: var(--bingel-int-color-palette-blue-150);
+  --bingel-int-color-link-inverted-hover: var(--bingel-int-color-palette-blue-100);
+  --bingel-int-color-link-inverted-idle: var(--bingel-int-color-foreground-inverted-plain);
+  --bingel-int-color-link-muted-active: var(--bingel-int-color-link-active);
+  --bingel-int-color-link-muted-hover: var(--bingel-int-color-link-hover);
+  --bingel-int-color-link-muted-idle: var(--bingel-int-color-foreground-accent-grey-subtlest);
+  --bingel-int-color-palette-blue-050: #e6f1fb;
+  --bingel-int-color-palette-blue-100: #acd2f5;
+  --bingel-int-color-palette-blue-150: #81baef;
+  --bingel-int-color-palette-blue-200: #56a3ea;
+  --bingel-int-color-palette-blue-300: #2b8be4;
+  --bingel-int-color-palette-blue-400: #0074df;
+  --bingel-int-color-palette-blue-500: #0060b9;
+  --bingel-int-color-palette-blue-600: #004d94;
+  --bingel-int-color-palette-blue-700: #002f62;
+  --bingel-int-color-palette-blue-800: #002649;
+  --bingel-int-color-palette-blue-900: #001223;
+  --bingel-int-color-palette-green-050: #e2f2d7;
+  --bingel-int-color-palette-green-100: #c3e4ac;
+  --bingel-int-color-palette-green-150: #a4d681;
+  --bingel-int-color-palette-green-200: #84c856;
+  --bingel-int-color-palette-green-300: #65ba2b;
+  --bingel-int-color-palette-green-400: #46ac00;
+  --bingel-int-color-palette-green-500: #3a8f00;
+  --bingel-int-color-palette-green-600: #2e7200;
+  --bingel-int-color-palette-green-700: #235500;
+  --bingel-int-color-palette-green-800: #173800;
+  --bingel-int-color-palette-green-900: #0b1b00;
+  --bingel-int-color-palette-grey-000: #ffffff;
+  --bingel-int-color-palette-grey-050: #f2f3f5;
+  --bingel-int-color-palette-grey-100: #e3e6ea;
+  --bingel-int-color-palette-grey-150: #d5d9de;
+  --bingel-int-color-palette-grey-200: #c7cdd3;
+  --bingel-int-color-palette-grey-300: #b8c0c8;
+  --bingel-int-color-palette-grey-400: #aab3bd;
+  --bingel-int-color-palette-grey-500: #8d959d;
+  --bingel-int-color-palette-grey-600: #71777d;
+  --bingel-int-color-palette-grey-700: #54585d;
+  --bingel-int-color-palette-grey-800: #373a3e;
+  --bingel-int-color-palette-grey-900: #1b1c1e;
+  --bingel-int-color-palette-orange-050: #fff0d7;
+  --bingel-int-color-palette-orange-100: #ffdfac;
+  --bingel-int-color-palette-orange-150: #ffcf81;
+  --bingel-int-color-palette-orange-200: #ffbe56;
+  --bingel-int-color-palette-orange-300: #ffae2b;
+  --bingel-int-color-palette-orange-400: #ff9d00;
+  --bingel-int-color-palette-orange-500: #d48300;
+  --bingel-int-color-palette-orange-600: #a96800;
+  --bingel-int-color-palette-orange-700: #7e4e00;
+  --bingel-int-color-palette-orange-800: #533300;
+  --bingel-int-color-palette-orange-900: #281900;
+  --bingel-int-color-palette-purple-050: #f3f2ff;
+  --bingel-int-color-palette-purple-100: #ebe8ff;
+  --bingel-int-color-palette-purple-150: #d9d3ff;
+  --bingel-int-color-palette-purple-200: #bdb0ff;
+  --bingel-int-color-palette-purple-300: #9d83ff;
+  --bingel-int-color-palette-purple-400: #7e51ff;
+  --bingel-int-color-palette-purple-500: #6e2dfa;
+  --bingel-int-color-palette-purple-600: #5f1be6;
+  --bingel-int-color-palette-purple-700: #5217c6;
+  --bingel-int-color-palette-purple-800: #43149e;
+  --bingel-int-color-palette-purple-900: #270a6b;
+  --bingel-int-color-palette-red-050: #fbd9dd;
+  --bingel-int-color-palette-red-100: #f6afb9;
+  --bingel-int-color-palette-red-150: #f18694;
+  --bingel-int-color-palette-red-200: #ec5d70;
+  --bingel-int-color-palette-red-300: #e8334b;
+  --bingel-int-color-palette-red-400: #e30a27;
+  --bingel-int-color-palette-red-500: #bd0820;
+  --bingel-int-color-palette-red-600: #96071a;
+  --bingel-int-color-palette-red-700: #700513;
+  --bingel-int-color-palette-red-800: #4a030d;
+  --bingel-int-color-palette-red-900: #240206;
+  --bingel-int-color-palette-teal-050: #eefffc;
+  --bingel-int-color-palette-teal-100: #c5fffa;
+  --bingel-int-color-palette-teal-150: #8bfff5;
+  --bingel-int-color-palette-teal-200: #4afef0;
+  --bingel-int-color-palette-teal-300: #15ece2;
+  --bingel-int-color-palette-teal-400: #00d0c9;
+  --bingel-int-color-palette-teal-500: #00a8a5;
+  --bingel-int-color-palette-teal-600: #008080;
+  --bingel-int-color-palette-teal-700: #066769;
+  --bingel-int-color-palette-teal-800: #0a5757;
+  --bingel-int-color-palette-teal-900: #003235;
+  --bingel-int-color-palette-yellow-050: #fefde8;
+  --bingel-int-color-palette-yellow-100: #fffec2;
+  --bingel-int-color-palette-yellow-150: #fff889;
+  --bingel-int-color-palette-yellow-200: #ffec40;
+  --bingel-int-color-palette-yellow-300: #fddc12;
+  --bingel-int-color-palette-yellow-400: #ecc206;
+  --bingel-int-color-palette-yellow-500: #cc9702;
+  --bingel-int-color-palette-yellow-600: #a36b05;
+  --bingel-int-color-palette-yellow-700: #86540d;
+  --bingel-int-color-palette-yellow-800: #724511;
+  --bingel-int-color-palette-yellow-900: #432405;
+  --bingel-int-color-skeleton-plain: var(--bingel-int-color-background-accent-grey-subtle);
+  --bingel-int-color-skeleton-subtle: var(--bingel-int-color-background-accent-grey-subtlest);
+  --bingel-int-elevation-surface-base-default: var(--bingel-int-color-palette-grey-000);
+  --bingel-int-elevation-surface-raised-alternative: var(--bingel-int-color-palette-grey-100);
+  --bingel-int-elevation-surface-raised-default: var(--bingel-int-color-palette-grey-000);
+  --bingel-int-elevation-surface-raised-inverted: var(--bingel-int-color-palette-grey-900);
+  --bingel-int-elevation-surface-raised-primary: var(
+    --bingel-int-color-background-accent-blue-bold
+  );
+  --bingel-int-elevation-surface-raised-sunken: var(--bingel-int-color-palette-grey-050);
+  --bingel-int-elevation-surface-shadow: var(--bingel-int-color-palette-grey-900);
+  --bingel-int-opacity-bold: 1;
+  --bingel-int-opacity-interactive-bold-active: 0.4;
+  --bingel-int-opacity-interactive-bold-hover: 0.2;
+  --bingel-int-opacity-interactive-bold-idle: 0;
+  --bingel-int-opacity-interactive-plain-active: 0.25;
+  --bingel-int-opacity-interactive-plain-hover: 0.15;
+  --bingel-int-opacity-interactive-plain-idle: 0;
+  --bingel-int-opacity-interactive-reversed-active: 1;
+  --bingel-int-opacity-interactive-reversed-hover: 0.9;
+  --bingel-int-opacity-interactive-reversed-idle: 0.8;
+  --bingel-int-opacity-moderate: 0.8;
+  --bingel-int-opacity-muted: 0;
+  --bingel-int-opacity-subtle: 0.2;
+  --bingel-int-opacity-subtlest: 0.1;
+  --bingel-int-theme-name: Bingel Int Light;
+}

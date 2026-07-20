@@ -1,0 +1,516 @@
+[data-ThemesF='Sanoma Pro'] {
+  --ii-f-color-background-accent-blue-bold: var(--sanoma-pro-color-background-accent-blue-bold);
+  --ii-f-color-background-accent-blue-interactive-bold: var(
+    --sanoma-pro-color-background-accent-blue-interactive-bold
+  );
+  --ii-f-color-background-accent-blue-interactive-plain: var(
+    --sanoma-pro-color-background-accent-blue-interactive-plain
+  );
+  --ii-f-color-background-accent-blue-subtle: var(--sanoma-pro-color-background-accent-blue-subtle);
+  --ii-f-color-background-accent-blue-subtlest: var(
+    --sanoma-pro-color-background-accent-blue-subtlest
+  );
+  --ii-f-color-background-accent-green-bold: var(--sanoma-pro-color-background-accent-green-bold);
+  --ii-f-color-background-accent-green-interactive-bold: var(
+    --sanoma-pro-color-background-accent-green-interactive-bold
+  );
+  --ii-f-color-background-accent-green-interactive-plain: var(
+    --sanoma-pro-color-background-accent-green-interactive-plain
+  );
+  --ii-f-color-background-accent-green-subtle: var(
+    --sanoma-pro-color-background-accent-green-subtle
+  );
+  --ii-f-color-background-accent-green-subtlest: var(
+    --sanoma-pro-color-background-accent-green-subtlest
+  );
+  --ii-f-color-background-accent-grey-bold: var(--sanoma-pro-color-background-accent-grey-bold);
+  --ii-f-color-background-accent-grey-interactive-bold: var(
+    --sanoma-pro-color-background-accent-grey-interactive-bold
+  );
+  --ii-f-color-background-accent-grey-interactive-plain: var(
+    --sanoma-pro-color-background-accent-grey-interactive-plain
+  );
+  --ii-f-color-background-accent-grey-subtle: var(--sanoma-pro-color-background-accent-grey-subtle);
+  --ii-f-color-background-accent-grey-subtlest: var(
+    --sanoma-pro-color-background-accent-grey-subtlest
+  );
+  --ii-f-color-background-accent-orange-bold: var(--sanoma-pro-color-background-accent-orange-bold);
+  --ii-f-color-background-accent-orange-interactive-bold: var(
+    --sanoma-pro-color-background-accent-orange-interactive-bold
+  );
+  --ii-f-color-background-accent-orange-interactive-plain: var(
+    --sanoma-pro-color-background-accent-orange-interactive-plain
+  );
+  --ii-f-color-background-accent-orange-subtle: var(
+    --sanoma-pro-color-background-accent-orange-subtle
+  );
+  --ii-f-color-background-accent-orange-subtlest: var(
+    --sanoma-pro-color-background-accent-orange-subtlest
+  );
+  --ii-f-color-background-accent-purple-bold: var(--sanoma-pro-color-background-accent-purple-bold);
+  --ii-f-color-background-accent-purple-interactive-bold: var(
+    --sanoma-pro-color-background-accent-purple-interactive-bold
+  );
+  --ii-f-color-background-accent-purple-interactive-plain: var(
+    --sanoma-pro-color-background-accent-purple-interactive-plain
+  );
+  --ii-f-color-background-accent-purple-subtle: var(
+    --sanoma-pro-color-background-accent-purple-subtle
+  );
+  --ii-f-color-background-accent-purple-subtlest: var(
+    --sanoma-pro-color-background-accent-purple-subtlest
+  );
+  --ii-f-color-background-accent-red-bold: var(--sanoma-pro-color-background-accent-red-bold);
+  --ii-f-color-background-accent-red-interactive-bold: var(
+    --sanoma-pro-color-background-accent-red-interactive-bold
+  );
+  --ii-f-color-background-accent-red-interactive-plain: var(
+    --sanoma-pro-color-background-accent-red-interactive-plain
+  );
+  --ii-f-color-background-accent-red-subtle: var(--sanoma-pro-color-background-accent-red-subtle);
+  --ii-f-color-background-accent-red-subtlest: var(
+    --sanoma-pro-color-background-accent-red-subtlest
+  );
+  --ii-f-color-background-accent-teal-bold: var(--sanoma-pro-color-background-accent-teal-bold);
+  --ii-f-color-background-accent-teal-interactive-bold: var(
+    --sanoma-pro-color-background-accent-teal-interactive-bold
+  );
+  --ii-f-color-background-accent-teal-interactive-plain: var(
+    --sanoma-pro-color-background-accent-teal-interactive-plain
+  );
+  --ii-f-color-background-accent-teal-subtle: var(--sanoma-pro-color-background-accent-teal-subtle);
+  --ii-f-color-background-accent-teal-subtlest: var(
+    --sanoma-pro-color-background-accent-teal-subtlest
+  );
+  --ii-f-color-background-accent-yellow-bold: var(--sanoma-pro-color-background-accent-yellow-bold);
+  --ii-f-color-background-accent-yellow-interactive-bold: var(
+    --sanoma-pro-color-background-accent-yellow-interactive-bold
+  );
+  --ii-f-color-background-accent-yellow-interactive-plain: var(
+    --sanoma-pro-color-background-accent-yellow-interactive-plain
+  );
+  --ii-f-color-background-accent-yellow-subtle: var(
+    --sanoma-pro-color-background-accent-yellow-subtle
+  );
+  --ii-f-color-background-accent-yellow-subtlest: var(
+    --sanoma-pro-color-background-accent-yellow-subtlest
+  );
+  --ii-f-color-background-bold: var(--sanoma-pro-color-background-bold);
+  --ii-f-color-background-caution-bold: var(--sanoma-pro-color-background-caution-bold);
+  --ii-f-color-background-caution-interactive-bold: var(
+    --sanoma-pro-color-background-caution-interactive-bold
+  );
+  --ii-f-color-background-caution-interactive-plain: var(
+    --sanoma-pro-color-background-caution-interactive-plain
+  );
+  --ii-f-color-background-caution-subtle: var(--sanoma-pro-color-background-caution-subtle);
+  --ii-f-color-background-caution-subtlest: var(--sanoma-pro-color-background-caution-subtlest);
+  --ii-f-color-background-disabled: var(--sanoma-pro-color-background-disabled);
+  --ii-f-color-background-highlight: var(--sanoma-pro-color-background-highlight);
+  --ii-f-color-background-info-bold: var(--sanoma-pro-color-background-info-bold);
+  --ii-f-color-background-info-interactive-bold: var(
+    --sanoma-pro-color-background-info-interactive-bold
+  );
+  --ii-f-color-background-info-interactive-plain: var(
+    --sanoma-pro-color-background-info-interactive-plain
+  );
+  --ii-f-color-background-info-subtle: var(--sanoma-pro-color-background-info-subtle);
+  --ii-f-color-background-info-subtlest: var(--sanoma-pro-color-background-info-subtlest);
+  --ii-f-color-background-input-interactive: var(--sanoma-pro-color-background-input-interactive);
+  --ii-f-color-background-input-plain: var(--sanoma-pro-color-background-input-plain);
+  --ii-f-color-background-interactive-bold: var(--sanoma-pro-color-background-interactive-bold);
+  --ii-f-color-background-interactive-plain: var(--sanoma-pro-color-background-interactive-plain);
+  --ii-f-color-background-inverted-bold: var(--sanoma-pro-color-background-inverted-bold);
+  --ii-f-color-background-inverted-interactive-bold: var(
+    --sanoma-pro-color-background-inverted-interactive-bold
+  );
+  --ii-f-color-background-inverted-interactive-plain: var(
+    --sanoma-pro-color-background-inverted-interactive-plain
+  );
+  --ii-f-color-background-inverted-subtle: var(--sanoma-pro-color-background-inverted-subtle);
+  --ii-f-color-background-inverted-subtlest: var(--sanoma-pro-color-background-inverted-subtlest);
+  --ii-f-color-background-negative-bold: var(--sanoma-pro-color-background-negative-bold);
+  --ii-f-color-background-negative-interactive-bold: var(
+    --sanoma-pro-color-background-negative-interactive-bold
+  );
+  --ii-f-color-background-negative-interactive-plain: var(
+    --sanoma-pro-color-background-negative-interactive-plain
+  );
+  --ii-f-color-background-negative-subtle: var(--sanoma-pro-color-background-negative-subtle);
+  --ii-f-color-background-negative-subtlest: var(--sanoma-pro-color-background-negative-subtlest);
+  --ii-f-color-background-neutral-bold: var(--sanoma-pro-color-background-neutral-bold);
+  --ii-f-color-background-neutral-interactive-bold: var(
+    --sanoma-pro-color-background-neutral-interactive-bold
+  );
+  --ii-f-color-background-neutral-interactive-plain: var(
+    --sanoma-pro-color-background-neutral-interactive-plain
+  );
+  --ii-f-color-background-neutral-subtle: var(--sanoma-pro-color-background-neutral-subtle);
+  --ii-f-color-background-neutral-subtlest: var(--sanoma-pro-color-background-neutral-subtlest);
+  --ii-f-color-background-positive-bold: var(--sanoma-pro-color-background-positive-bold);
+  --ii-f-color-background-positive-interactive-bold: var(
+    --sanoma-pro-color-background-positive-interactive-bold
+  );
+  --ii-f-color-background-positive-interactive-plain: var(
+    --sanoma-pro-color-background-positive-interactive-plain
+  );
+  --ii-f-color-background-positive-subtle: var(--sanoma-pro-color-background-positive-subtle);
+  --ii-f-color-background-positive-subtlest: var(--sanoma-pro-color-background-positive-subtlest);
+  --ii-f-color-background-primary-bold: var(--sanoma-pro-color-background-primary-bold);
+  --ii-f-color-background-primary-interactive-bold: var(
+    --sanoma-pro-color-background-primary-interactive-bold
+  );
+  --ii-f-color-background-primary-interactive-plain: var(
+    --sanoma-pro-color-background-primary-interactive-plain
+  );
+  --ii-f-color-background-primary-subtle: var(--sanoma-pro-color-background-primary-subtle);
+  --ii-f-color-background-primary-subtlest: var(--sanoma-pro-color-background-primary-subtlest);
+  --ii-f-color-background-secondary-bold: var(--sanoma-pro-color-background-secondary-bold);
+  --ii-f-color-background-secondary-interactive-bold: var(
+    --sanoma-pro-color-background-secondary-interactive-bold
+  );
+  --ii-f-color-background-secondary-interactive-plain: var(
+    --sanoma-pro-color-background-secondary-interactive-plain
+  );
+  --ii-f-color-background-secondary-subtle: var(--sanoma-pro-color-background-secondary-subtle);
+  --ii-f-color-background-secondary-subtlest: var(--sanoma-pro-color-background-secondary-subtlest);
+  --ii-f-color-background-selected-bold: var(--sanoma-pro-color-background-selected-bold);
+  --ii-f-color-background-selected-interactive-bold: var(
+    --sanoma-pro-color-background-selected-interactive-bold
+  );
+  --ii-f-color-background-selected-interactive-plain: var(
+    --sanoma-pro-color-background-selected-interactive-plain
+  );
+  --ii-f-color-background-selected-subtle: var(--sanoma-pro-color-background-selected-subtle);
+  --ii-f-color-background-selected-subtlest: var(--sanoma-pro-color-background-selected-subtlest);
+  --ii-f-color-background-subtle: var(--sanoma-pro-color-background-subtle);
+  --ii-f-color-blanket-plain: var(--sanoma-pro-color-blanket-plain);
+  --ii-f-color-border-accent-blue-bold: var(--sanoma-pro-color-border-accent-blue-bold);
+  --ii-f-color-border-accent-blue-plain: var(--sanoma-pro-color-border-accent-blue-plain);
+  --ii-f-color-border-accent-green-bold: var(--sanoma-pro-color-border-accent-green-bold);
+  --ii-f-color-border-accent-green-plain: var(--sanoma-pro-color-border-accent-green-plain);
+  --ii-f-color-border-accent-grey-bold: var(--sanoma-pro-color-border-accent-grey-bold);
+  --ii-f-color-border-accent-grey-faint: var(--sanoma-pro-color-border-accent-grey-faint);
+  --ii-f-color-border-accent-grey-heavy: var(--sanoma-pro-color-border-accent-grey-heavy);
+  --ii-f-color-border-accent-grey-plain: var(--sanoma-pro-color-border-accent-grey-plain);
+  --ii-f-color-border-accent-orange-bold: var(--sanoma-pro-color-border-accent-orange-bold);
+  --ii-f-color-border-accent-orange-plain: var(--sanoma-pro-color-border-accent-orange-plain);
+  --ii-f-color-border-accent-purple-bold: var(--sanoma-pro-color-border-accent-purple-bold);
+  --ii-f-color-border-accent-purple-plain: var(--sanoma-pro-color-border-accent-purple-plain);
+  --ii-f-color-border-accent-red-bold: var(--sanoma-pro-color-border-accent-red-bold);
+  --ii-f-color-border-accent-red-plain: var(--sanoma-pro-color-border-accent-red-plain);
+  --ii-f-color-border-accent-teal-bold: var(--sanoma-pro-color-border-accent-teal-bold);
+  --ii-f-color-border-accent-teal-plain: var(--sanoma-pro-color-border-accent-teal-plain);
+  --ii-f-color-border-accent-yellow-bold: var(--sanoma-pro-color-border-accent-yellow-bold);
+  --ii-f-color-border-accent-yellow-plain: var(--sanoma-pro-color-border-accent-yellow-plain);
+  --ii-f-color-border-bold: var(--sanoma-pro-color-border-bold);
+  --ii-f-color-border-caution-bold: var(--sanoma-pro-color-border-caution-bold);
+  --ii-f-color-border-caution-plain: var(--sanoma-pro-color-border-caution-plain);
+  --ii-f-color-border-disabled: var(--sanoma-pro-color-border-disabled);
+  --ii-f-color-border-focused: var(--sanoma-pro-color-border-focused);
+  --ii-f-color-border-info-bold: var(--sanoma-pro-color-border-info-bold);
+  --ii-f-color-border-info-plain: var(--sanoma-pro-color-border-info-plain);
+  --ii-f-color-border-info-subtle: var(--sanoma-pro-color-border-info-subtle);
+  --ii-f-color-border-input: var(--sanoma-pro-color-border-input);
+  --ii-f-color-border-inverted: var(--sanoma-pro-color-border-inverted);
+  --ii-f-color-border-negative-bold: var(--sanoma-pro-color-border-negative-bold);
+  --ii-f-color-border-negative-plain: var(--sanoma-pro-color-border-negative-plain);
+  --ii-f-color-border-neutral-bold: var(--sanoma-pro-color-border-neutral-bold);
+  --ii-f-color-border-neutral-plain: var(--sanoma-pro-color-border-neutral-plain);
+  --ii-f-color-border-neutral-subtle: var(--sanoma-pro-color-border-neutral-subtle);
+  --ii-f-color-border-plain: var(--sanoma-pro-color-border-plain);
+  --ii-f-color-border-positive-bold: var(--sanoma-pro-color-border-positive-bold);
+  --ii-f-color-border-positive-plain: var(--sanoma-pro-color-border-positive-plain);
+  --ii-f-color-border-primary-bold: var(--sanoma-pro-color-border-primary-bold);
+  --ii-f-color-border-primary-plain: var(--sanoma-pro-color-border-primary-plain);
+  --ii-f-color-border-secondary-bold: var(--sanoma-pro-color-border-secondary-bold);
+  --ii-f-color-border-secondary-plain: var(--sanoma-pro-color-border-secondary-plain);
+  --ii-f-color-border-selected: var(--sanoma-pro-color-border-selected);
+  --ii-f-color-foreground-accent-blue-bold: var(--sanoma-pro-color-foreground-accent-blue-bold);
+  --ii-f-color-foreground-accent-blue-on-bold: var(
+    --sanoma-pro-color-foreground-accent-blue-on-bold
+  );
+  --ii-f-color-foreground-accent-blue-plain: var(--sanoma-pro-color-foreground-accent-blue-plain);
+  --ii-f-color-foreground-accent-green-bold: var(--sanoma-pro-color-foreground-accent-green-bold);
+  --ii-f-color-foreground-accent-green-on-bold: var(
+    --sanoma-pro-color-foreground-accent-green-on-bold
+  );
+  --ii-f-color-foreground-accent-green-plain: var(--sanoma-pro-color-foreground-accent-green-plain);
+  --ii-f-color-foreground-accent-grey-bold: var(--sanoma-pro-color-foreground-accent-grey-bold);
+  --ii-f-color-foreground-accent-grey-faint: var(--sanoma-pro-color-foreground-accent-grey-faint);
+  --ii-f-color-foreground-accent-grey-on-bold: var(
+    --sanoma-pro-color-foreground-accent-grey-on-bold
+  );
+  --ii-f-color-foreground-accent-grey-on-inverted: var(
+    --sanoma-pro-color-foreground-accent-grey-on-inverted
+  );
+  --ii-f-color-foreground-accent-grey-plain: var(--sanoma-pro-color-foreground-accent-grey-plain);
+  --ii-f-color-foreground-accent-grey-subtle: var(--sanoma-pro-color-foreground-accent-grey-subtle);
+  --ii-f-color-foreground-accent-grey-subtlest: var(
+    --sanoma-pro-color-foreground-accent-grey-subtlest
+  );
+  --ii-f-color-foreground-accent-orange-bold: var(--sanoma-pro-color-foreground-accent-orange-bold);
+  --ii-f-color-foreground-accent-orange-on-bold: var(
+    --sanoma-pro-color-foreground-accent-orange-on-bold
+  );
+  --ii-f-color-foreground-accent-orange-plain: var(
+    --sanoma-pro-color-foreground-accent-orange-plain
+  );
+  --ii-f-color-foreground-accent-purple-bold: var(--sanoma-pro-color-foreground-accent-purple-bold);
+  --ii-f-color-foreground-accent-purple-on-bold: var(
+    --sanoma-pro-color-foreground-accent-purple-on-bold
+  );
+  --ii-f-color-foreground-accent-purple-plain: var(
+    --sanoma-pro-color-foreground-accent-purple-plain
+  );
+  --ii-f-color-foreground-accent-red-bold: var(--sanoma-pro-color-foreground-accent-red-bold);
+  --ii-f-color-foreground-accent-red-on-bold: var(--sanoma-pro-color-foreground-accent-red-on-bold);
+  --ii-f-color-foreground-accent-red-plain: var(--sanoma-pro-color-foreground-accent-red-plain);
+  --ii-f-color-foreground-accent-teal-bold: var(--sanoma-pro-color-foreground-accent-teal-bold);
+  --ii-f-color-foreground-accent-teal-on-bold: var(
+    --sanoma-pro-color-foreground-accent-teal-on-bold
+  );
+  --ii-f-color-foreground-accent-teal-plain: var(--sanoma-pro-color-foreground-accent-teal-plain);
+  --ii-f-color-foreground-accent-yellow-bold: var(--sanoma-pro-color-foreground-accent-yellow-bold);
+  --ii-f-color-foreground-accent-yellow-on-bold: var(
+    --sanoma-pro-color-foreground-accent-yellow-on-bold
+  );
+  --ii-f-color-foreground-accent-yellow-plain: var(
+    --sanoma-pro-color-foreground-accent-yellow-plain
+  );
+  --ii-f-color-foreground-bold: var(--sanoma-pro-color-foreground-bold);
+  --ii-f-color-foreground-brand: var(--sanoma-pro-color-foreground-brand);
+  --ii-f-color-foreground-caution-bold: var(--sanoma-pro-color-foreground-caution-bold);
+  --ii-f-color-foreground-caution-on-bold: var(--sanoma-pro-color-foreground-caution-on-bold);
+  --ii-f-color-foreground-caution-plain: var(--sanoma-pro-color-foreground-caution-plain);
+  --ii-f-color-foreground-disabled: var(--sanoma-pro-color-foreground-disabled);
+  --ii-f-color-foreground-info-bold: var(--sanoma-pro-color-foreground-info-bold);
+  --ii-f-color-foreground-info-on-bold: var(--sanoma-pro-color-foreground-info-on-bold);
+  --ii-f-color-foreground-info-plain: var(--sanoma-pro-color-foreground-info-plain);
+  --ii-f-color-foreground-inverted-bold: var(--sanoma-pro-color-foreground-inverted-bold);
+  --ii-f-color-foreground-inverted-on-bold: var(--sanoma-pro-color-foreground-inverted-on-bold);
+  --ii-f-color-foreground-inverted-plain: var(--sanoma-pro-color-foreground-inverted-plain);
+  --ii-f-color-foreground-negative-bold: var(--sanoma-pro-color-foreground-negative-bold);
+  --ii-f-color-foreground-negative-on-bold: var(--sanoma-pro-color-foreground-negative-on-bold);
+  --ii-f-color-foreground-negative-plain: var(--sanoma-pro-color-foreground-negative-plain);
+  --ii-f-color-foreground-neutral-bold: var(--sanoma-pro-color-foreground-neutral-bold);
+  --ii-f-color-foreground-neutral-on-bold: var(--sanoma-pro-color-foreground-neutral-on-bold);
+  --ii-f-color-foreground-neutral-plain: var(--sanoma-pro-color-foreground-neutral-plain);
+  --ii-f-color-foreground-plain: var(--sanoma-pro-color-foreground-plain);
+  --ii-f-color-foreground-positive-bold: var(--sanoma-pro-color-foreground-positive-bold);
+  --ii-f-color-foreground-positive-on-bold: var(--sanoma-pro-color-foreground-positive-on-bold);
+  --ii-f-color-foreground-positive-plain: var(--sanoma-pro-color-foreground-positive-plain);
+  --ii-f-color-foreground-primary-bold: var(--sanoma-pro-color-foreground-primary-bold);
+  --ii-f-color-foreground-primary-on-bold: var(--sanoma-pro-color-foreground-primary-on-bold);
+  --ii-f-color-foreground-secondary-bold: var(--sanoma-pro-color-foreground-secondary-bold);
+  --ii-f-color-foreground-secondary-on-bold: var(--sanoma-pro-color-foreground-secondary-on-bold);
+  --ii-f-color-foreground-selected-bold: var(--sanoma-pro-color-foreground-selected-bold);
+  --ii-f-color-foreground-selected-on-bold: var(--sanoma-pro-color-foreground-selected-on-bold);
+  --ii-f-color-foreground-selected-plain: var(--sanoma-pro-color-foreground-selected-plain);
+  --ii-f-color-foreground-subtle: var(--sanoma-pro-color-foreground-subtle);
+  --ii-f-color-foreground-subtlest: var(--sanoma-pro-color-foreground-subtlest);
+  --ii-f-color-link-active: var(--sanoma-pro-color-link-active);
+  --ii-f-color-link-focused-active: var(--sanoma-pro-color-link-focused-active);
+  --ii-f-color-link-focused-hover: var(--sanoma-pro-color-link-focused-hover);
+  --ii-f-color-link-focused-idle: var(--sanoma-pro-color-link-focused-idle);
+  --ii-f-color-link-hover: var(--sanoma-pro-color-link-hover);
+  --ii-f-color-link-idle: var(--sanoma-pro-color-link-idle);
+  --ii-f-color-link-inverted-active: var(--sanoma-pro-color-link-inverted-active);
+  --ii-f-color-link-inverted-hover: var(--sanoma-pro-color-link-inverted-hover);
+  --ii-f-color-link-inverted-idle: var(--sanoma-pro-color-link-inverted-idle);
+  --ii-f-color-link-muted-active: var(--sanoma-pro-color-link-muted-active);
+  --ii-f-color-link-muted-hover: var(--sanoma-pro-color-link-muted-hover);
+  --ii-f-color-link-muted-idle: var(--sanoma-pro-color-link-muted-idle);
+  --ii-f-color-palette-blue-050: var(--sanoma-pro-color-palette-blue-050);
+  --ii-f-color-palette-blue-100: var(--sanoma-pro-color-palette-blue-100);
+  --ii-f-color-palette-blue-150: var(--sanoma-pro-color-palette-blue-150);
+  --ii-f-color-palette-blue-200: var(--sanoma-pro-color-palette-blue-200);
+  --ii-f-color-palette-blue-300: var(--sanoma-pro-color-palette-blue-300);
+  --ii-f-color-palette-blue-400: var(--sanoma-pro-color-palette-blue-400);
+  --ii-f-color-palette-blue-500: var(--sanoma-pro-color-palette-blue-500);
+  --ii-f-color-palette-blue-600: var(--sanoma-pro-color-palette-blue-600);
+  --ii-f-color-palette-blue-700: var(--sanoma-pro-color-palette-blue-700);
+  --ii-f-color-palette-blue-800: var(--sanoma-pro-color-palette-blue-800);
+  --ii-f-color-palette-blue-900: var(--sanoma-pro-color-palette-blue-900);
+  --ii-f-color-palette-green-050: var(--sanoma-pro-color-palette-green-050);
+  --ii-f-color-palette-green-100: var(--sanoma-pro-color-palette-green-100);
+  --ii-f-color-palette-green-150: var(--sanoma-pro-color-palette-green-150);
+  --ii-f-color-palette-green-200: var(--sanoma-pro-color-palette-green-200);
+  --ii-f-color-palette-green-300: var(--sanoma-pro-color-palette-green-300);
+  --ii-f-color-palette-green-400: var(--sanoma-pro-color-palette-green-400);
+  --ii-f-color-palette-green-500: var(--sanoma-pro-color-palette-green-500);
+  --ii-f-color-palette-green-600: var(--sanoma-pro-color-palette-green-600);
+  --ii-f-color-palette-green-700: var(--sanoma-pro-color-palette-green-700);
+  --ii-f-color-palette-green-800: var(--sanoma-pro-color-palette-green-800);
+  --ii-f-color-palette-green-900: var(--sanoma-pro-color-palette-green-900);
+  --ii-f-color-palette-grey-050: var(--sanoma-pro-color-palette-grey-050);
+  --ii-f-color-palette-grey-100: var(--sanoma-pro-color-palette-grey-100);
+  --ii-f-color-palette-grey-150: var(--sanoma-pro-color-palette-grey-150);
+  --ii-f-color-palette-grey-200: var(--sanoma-pro-color-palette-grey-200);
+  --ii-f-color-palette-grey-300: var(--sanoma-pro-color-palette-grey-300);
+  --ii-f-color-palette-grey-400: var(--sanoma-pro-color-palette-grey-400);
+  --ii-f-color-palette-grey-500: var(--sanoma-pro-color-palette-grey-500);
+  --ii-f-color-palette-grey-600: var(--sanoma-pro-color-palette-grey-600);
+  --ii-f-color-palette-grey-700: var(--sanoma-pro-color-palette-grey-700);
+  --ii-f-color-palette-grey-800: var(--sanoma-pro-color-palette-grey-800);
+  --ii-f-color-palette-grey-900: var(--sanoma-pro-color-palette-grey-900);
+  --ii-f-color-palette-orange-050: var(--sanoma-pro-color-palette-orange-050);
+  --ii-f-color-palette-orange-100: var(--sanoma-pro-color-palette-orange-100);
+  --ii-f-color-palette-orange-150: var(--sanoma-pro-color-palette-orange-150);
+  --ii-f-color-palette-orange-200: var(--sanoma-pro-color-palette-orange-200);
+  --ii-f-color-palette-orange-300: var(--sanoma-pro-color-palette-orange-300);
+  --ii-f-color-palette-orange-400: var(--sanoma-pro-color-palette-orange-400);
+  --ii-f-color-palette-orange-500: var(--sanoma-pro-color-palette-orange-500);
+  --ii-f-color-palette-orange-600: var(--sanoma-pro-color-palette-orange-600);
+  --ii-f-color-palette-orange-700: var(--sanoma-pro-color-palette-orange-700);
+  --ii-f-color-palette-orange-800: var(--sanoma-pro-color-palette-orange-800);
+  --ii-f-color-palette-orange-900: var(--sanoma-pro-color-palette-orange-900);
+  --ii-f-color-palette-purple-050: var(--sanoma-pro-color-palette-purple-050);
+  --ii-f-color-palette-purple-100: var(--sanoma-pro-color-palette-purple-100);
+  --ii-f-color-palette-purple-150: var(--sanoma-pro-color-palette-purple-150);
+  --ii-f-color-palette-purple-200: var(--sanoma-pro-color-palette-purple-200);
+  --ii-f-color-palette-purple-300: var(--sanoma-pro-color-palette-purple-300);
+  --ii-f-color-palette-purple-400: var(--sanoma-pro-color-palette-purple-400);
+  --ii-f-color-palette-purple-500: var(--sanoma-pro-color-palette-purple-500);
+  --ii-f-color-palette-purple-600: var(--sanoma-pro-color-palette-purple-600);
+  --ii-f-color-palette-purple-700: var(--sanoma-pro-color-palette-purple-700);
+  --ii-f-color-palette-purple-800: var(--sanoma-pro-color-palette-purple-800);
+  --ii-f-color-palette-purple-900: var(--sanoma-pro-color-palette-purple-900);
+  --ii-f-color-palette-red-050: var(--sanoma-pro-color-palette-red-050);
+  --ii-f-color-palette-red-100: var(--sanoma-pro-color-palette-red-100);
+  --ii-f-color-palette-red-150: var(--sanoma-pro-color-palette-red-150);
+  --ii-f-color-palette-red-200: var(--sanoma-pro-color-palette-red-200);
+  --ii-f-color-palette-red-300: var(--sanoma-pro-color-palette-red-300);
+  --ii-f-color-palette-red-400: var(--sanoma-pro-color-palette-red-400);
+  --ii-f-color-palette-red-500: var(--sanoma-pro-color-palette-red-500);
+  --ii-f-color-palette-red-600: var(--sanoma-pro-color-palette-red-600);
+  --ii-f-color-palette-red-700: var(--sanoma-pro-color-palette-red-700);
+  --ii-f-color-palette-red-800: var(--sanoma-pro-color-palette-red-800);
+  --ii-f-color-palette-red-900: var(--sanoma-pro-color-palette-red-900);
+  --ii-f-color-palette-teal-050: var(--sanoma-pro-color-palette-teal-050);
+  --ii-f-color-palette-teal-100: var(--sanoma-pro-color-palette-teal-100);
+  --ii-f-color-palette-teal-150: var(--sanoma-pro-color-palette-teal-150);
+  --ii-f-color-palette-teal-200: var(--sanoma-pro-color-palette-teal-200);
+  --ii-f-color-palette-teal-300: var(--sanoma-pro-color-palette-teal-300);
+  --ii-f-color-palette-teal-400: var(--sanoma-pro-color-palette-teal-400);
+  --ii-f-color-palette-teal-500: var(--sanoma-pro-color-palette-teal-500);
+  --ii-f-color-palette-teal-600: var(--sanoma-pro-color-palette-teal-600);
+  --ii-f-color-palette-teal-700: var(--sanoma-pro-color-palette-teal-700);
+  --ii-f-color-palette-teal-800: var(--sanoma-pro-color-palette-teal-800);
+  --ii-f-color-palette-teal-900: var(--sanoma-pro-color-palette-teal-900);
+  --ii-f-color-palette-yellow-050: var(--sanoma-pro-color-palette-yellow-050);
+  --ii-f-color-palette-yellow-100: var(--sanoma-pro-color-palette-yellow-100);
+  --ii-f-color-palette-yellow-150: var(--sanoma-pro-color-palette-yellow-150);
+  --ii-f-color-palette-yellow-200: var(--sanoma-pro-color-palette-yellow-200);
+  --ii-f-color-palette-yellow-300: var(--sanoma-pro-color-palette-yellow-300);
+  --ii-f-color-palette-yellow-400: var(--sanoma-pro-color-palette-yellow-400);
+  --ii-f-color-palette-yellow-500: var(--sanoma-pro-color-palette-yellow-500);
+  --ii-f-color-palette-yellow-600: var(--sanoma-pro-color-palette-yellow-600);
+  --ii-f-color-palette-yellow-700: var(--sanoma-pro-color-palette-yellow-700);
+  --ii-f-color-palette-yellow-800: var(--sanoma-pro-color-palette-yellow-800);
+  --ii-f-color-palette-yellow-900: var(--sanoma-pro-color-palette-yellow-900);
+  --ii-f-color-skeleton-plain: var(--sanoma-pro-color-skeleton-plain);
+  --ii-f-color-skeleton-subtle: var(--sanoma-pro-color-skeleton-subtle);
+  --ii-f-elevation-surface-base-default: var(--sanoma-pro-elevation-surface-base-default);
+  --ii-f-elevation-surface-raised-alternative: var(
+    --sanoma-pro-elevation-surface-raised-alternative
+  );
+  --ii-f-elevation-surface-raised-default: var(--sanoma-pro-elevation-surface-raised-default);
+  --ii-f-elevation-surface-raised-inverted: var(--sanoma-pro-elevation-surface-raised-inverted);
+  --ii-f-elevation-surface-raised-primary: var(--sanoma-pro-elevation-surface-raised-primary);
+  --ii-f-elevation-surface-raised-sunken: var(--sanoma-pro-elevation-surface-raised-sunken);
+  --ii-f-elevation-surface-shadow: var(--sanoma-pro-elevation-surface-shadow);
+  --ii-f-icon-typeset-font-weight-regular: var(--icon-typeset-font-weight-icon-regular);
+  --ii-f-icon-typeset-font-weight-solid: var(--icon-typeset-font-weight-icon-solid);
+  --ii-f-opacity-bold: var(--sanoma-pro-opacity-bold);
+  --ii-f-opacity-interactive-bold-active: var(--sanoma-pro-opacity-interactive-bold-active);
+  --ii-f-opacity-interactive-bold-hover: var(--sanoma-pro-opacity-interactive-bold-hover);
+  --ii-f-opacity-interactive-bold-idle: var(--sanoma-pro-opacity-interactive-bold-idle);
+  --ii-f-opacity-interactive-plain-active: var(--sanoma-pro-opacity-interactive-plain-active);
+  --ii-f-opacity-interactive-plain-hover: var(--sanoma-pro-opacity-interactive-plain-hover);
+  --ii-f-opacity-interactive-plain-idle: var(--sanoma-pro-opacity-interactive-plain-idle);
+  --ii-f-opacity-interactive-reversed-active: var(--sanoma-pro-opacity-interactive-reversed-active);
+  --ii-f-opacity-interactive-reversed-hover: var(--sanoma-pro-opacity-interactive-reversed-hover);
+  --ii-f-opacity-interactive-reversed-idle: var(--sanoma-pro-opacity-interactive-reversed-idle);
+  --ii-f-opacity-moderate: var(--sanoma-pro-opacity-moderate);
+  --ii-f-opacity-muted: var(--sanoma-pro-opacity-muted);
+  --ii-f-opacity-subtle: var(--sanoma-pro-opacity-subtle);
+  --ii-f-opacity-subtlest: var(--sanoma-pro-opacity-subtlest);
+  --ii-f-size-border-radius-child: calc(var(--size-border-radius-md) / 2);
+  --ii-f-size-border-radius-default: var(--size-border-radius-md);
+  --ii-f-size-border-radius-focus-ring-inside: calc(var(--ii-f-size-border-radius-default) - 1px);
+  --ii-f-size-border-radius-focus-ring-outside: calc(var(--ii-f-size-border-radius-default) + 2px);
+  --ii-f-size-border-radius-full: var(--size-full);
+  --ii-f-size-border-width-action: var(--size-border-width-subtle);
+  --ii-f-size-border-width-default: var(--size-border-width-subtle);
+  --ii-f-size-icon-font-2xl: var(--size-new-icon-2xl);
+  --ii-f-size-icon-font-2xs: var(--size-new-icon-2xs);
+  --ii-f-size-icon-font-3xl: var(--size-new-icon-3xl);
+  --ii-f-size-icon-font-4xl: var(--size-new-icon-4xl);
+  --ii-f-size-icon-font-lg: var(--size-new-icon-lg);
+  --ii-f-size-icon-font-md: var(--size-new-icon-md);
+  --ii-f-size-icon-font-sm: var(--size-new-icon-sm);
+  --ii-f-size-icon-font-xl: var(--size-new-icon-xl);
+  --ii-f-size-icon-font-xs: var(--size-new-icon-xs);
+  --ii-f-size-outline-width-default: var(--size-border-width-bold);
+  --ii-f-size-text-new-body-lg: var(--size-font-200);
+  --ii-f-size-text-new-body-md: var(--size-font-175);
+  --ii-f-size-text-new-body-sm: var(--size-font-150);
+  --ii-f-size-text-new-heading-2xl: var(--size-font-600);
+  --ii-f-size-text-new-heading-lg: var(--size-font-300);
+  --ii-f-size-text-new-heading-md: var(--size-font-200);
+  --ii-f-size-text-new-heading-sm: var(--size-font-175);
+  --ii-f-size-text-new-heading-xl: var(--size-font-400);
+  --ii-f-space-offset-default: var(--space-075);
+  --ii-f-text-new-body-lg-font-family: Roboto;
+  --ii-f-text-new-body-lg-font-size: 16px;
+  --ii-f-text-new-body-lg-font-weight: 400;
+  --ii-f-text-new-body-lg-line-height: 24px;
+  --ii-f-text-new-body-md-font-family: Roboto;
+  --ii-f-text-new-body-md-font-size: 14px;
+  --ii-f-text-new-body-md-font-weight: 400;
+  --ii-f-text-new-body-md-line-height: 20px;
+  --ii-f-text-new-body-sm-font-family: Roboto;
+  --ii-f-text-new-body-sm-font-size: 12px;
+  --ii-f-text-new-body-sm-font-weight: 400;
+  --ii-f-text-new-body-sm-line-height: 16px;
+  --ii-f-text-new-heading-2xl-font-family: 'The Message';
+  --ii-f-text-new-heading-2xl-font-size: 48px;
+  --ii-f-text-new-heading-2xl-font-weight: 600;
+  --ii-f-text-new-heading-2xl-line-height: 48px;
+  --ii-f-text-new-heading-lg-font-family: 'The Message';
+  --ii-f-text-new-heading-lg-font-size: 24px;
+  --ii-f-text-new-heading-lg-font-weight: 600;
+  --ii-f-text-new-heading-lg-line-height: 32px;
+  --ii-f-text-new-heading-md-font-family: 'The Message';
+  --ii-f-text-new-heading-md-font-size: 16px;
+  --ii-f-text-new-heading-md-font-weight: 600;
+  --ii-f-text-new-heading-md-line-height: 20px;
+  --ii-f-text-new-heading-sm-font-family: 'The Message';
+  --ii-f-text-new-heading-sm-font-size: 14px;
+  --ii-f-text-new-heading-sm-font-weight: 600;
+  --ii-f-text-new-heading-sm-line-height: 20px;
+  --ii-f-text-new-heading-xl-font-family: 'The Message';
+  --ii-f-text-new-heading-xl-font-size: 32px;
+  --ii-f-text-new-heading-xl-font-weight: 600;
+  --ii-f-text-new-heading-xl-line-height: 40px;
+  --ii-f-text-new-icon-outline-font-family: 'Font Awesome 7 Pro';
+  --ii-f-text-new-icon-outline-font-weight: regular;
+  --ii-f-text-new-icon-solid-font-family: 'Font Awesome 7 Pro';
+  --ii-f-text-new-icon-solid-font-weight: solid;
+  --ii-f-text-new-input-lg-font-family: Roboto;
+  --ii-f-text-new-input-lg-font-size: 14px;
+  --ii-f-text-new-input-lg-line-height: 32px;
+  --ii-f-text-new-input-md-font-family: Roboto;
+  --ii-f-text-new-input-md-font-size: 14px;
+  --ii-f-text-new-input-md-line-height: 24px;
+  --ii-f-text-new-typeset-font-family-body: Roboto;
+  --ii-f-text-new-typeset-font-family-heading: 'The Message';
+  --ii-f-text-new-typeset-font-family-icon: 'Font Awesome 7 Pro';
+  --ii-f-text-new-typeset-font-weight-regular: var(--font-weight-400);
+  --ii-f-text-new-typeset-font-weight-semi-bold: var(--font-weight-500);
+  --ii-f-theme-name: var(--sanoma-pro-theme-name);
+  --computed-color-shadow-overflow1: var(--computed-sanoma-pro-color-shadow-overflow1);
+  --computed-color-shadow-overlay1: var(--computed-sanoma-pro-color-shadow-overlay1);
+  --computed-color-shadow-overlay2: var(--computed-sanoma-pro-color-shadow-overlay2);
+}

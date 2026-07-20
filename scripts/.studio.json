@@ -6,7 +6,7 @@
       "project": "e650d9a7-1a6d-4c68-b0cc-731b117c214a",
       "ref": {
         "type": "branch",
-        "name": "main"
+        "name": "typography-add"
       }
     },
     "slds-legacy": {
@@ -27,6 +27,11 @@
       "format": "raw",
       "source": "slds-legacy",
       "dir": "./export/slds-legacy"
+    },
+    "core-css": {
+      "format": "css",
+      "source": "core",
+      "dir": "./export/core-css"
     }
   }
 }

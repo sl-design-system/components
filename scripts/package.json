@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
-    "import-tokens": "yarn exec studio pull && yarn run studio exports run core-css --alias core-css --out ./packages/tokens/src/tokens",
+    "import-tokens": "yarn exec studio pull && yarn run studio exports run core-css --alias core-css --out ./export/tokens",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

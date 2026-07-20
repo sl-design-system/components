@@ -285,5 +285,19 @@
         }
       }
     }
+  },
+  "icon": {
+    "versterk-jezelf": {
+      "$value": "ASSET_URL_9b8116af-59a4-40b9-9fed-5ab27bfd3322",
+      "$type": "asset",
+      "$description": "test to",
+      "$extensions": {
+        "com.figma": {
+          "scopes": [],
+          "codeSyntax": {},
+          "hiddenFromPublishing": false
+        }
+      }
+    }
   }
 }

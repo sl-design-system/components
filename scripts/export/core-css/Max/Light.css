@@ -1,0 +1,357 @@
+:root {
+  --max-color-background-accent-blue-bold: var(--max-color-palette-blue-600);
+  --max-color-background-accent-blue-interactive-bold: var(--max-color-palette-blue-900);
+  --max-color-background-accent-blue-interactive-plain: var(--max-color-palette-blue-400);
+  --max-color-background-accent-blue-subtle: #02acda33;
+  --max-color-background-accent-blue-subtlest: #02acda1a;
+  --max-color-background-accent-green-bold: var(--max-color-palette-green-600);
+  --max-color-background-accent-green-interactive-bold: var(--max-color-palette-green-900);
+  --max-color-background-accent-green-interactive-plain: var(--max-color-palette-green-400);
+  --max-color-background-accent-green-subtle: #78ae3433;
+  --max-color-background-accent-green-subtlest: #78ae341a;
+  --max-color-background-accent-grey-bold: var(--max-color-palette-grey-150);
+  --max-color-background-accent-grey-interactive-bold: var(--max-color-palette-grey-800);
+  --max-color-background-accent-grey-interactive-plain: var(--max-color-palette-grey-300);
+  --max-color-background-accent-grey-subtle: #889ca333;
+  --max-color-background-accent-grey-subtlest: #5a696f1a;
+  --max-color-background-accent-orange-bold: var(--max-color-palette-orange-600);
+  --max-color-background-accent-orange-interactive-bold: var(--max-color-palette-orange-900);
+  --max-color-background-accent-orange-interactive-plain: var(--max-color-palette-orange-400);
+  --max-color-background-accent-orange-subtle: #fe821133;
+  --max-color-background-accent-orange-subtlest: #fe82111a;
+  --max-color-background-accent-purple-bold: var(--max-color-palette-purple-600);
+  --max-color-background-accent-purple-interactive-bold: var(--max-color-palette-purple-900);
+  --max-color-background-accent-purple-interactive-plain: var(--max-color-palette-purple-400);
+  --max-color-background-accent-purple-subtle: #824dff33;
+  --max-color-background-accent-purple-subtlest: #824dff1a;
+  --max-color-background-accent-red-bold: var(--max-color-palette-red-500);
+  --max-color-background-accent-red-interactive-bold: var(--max-color-palette-red-900);
+  --max-color-background-accent-red-interactive-plain: var(--max-color-palette-red-400);
+  --max-color-background-accent-red-subtle: #ed465433;
+  --max-color-background-accent-red-subtlest: #ed46541a;
+  --max-color-background-accent-teal-bold: var(--max-color-palette-teal-600);
+  --max-color-background-accent-teal-interactive-bold: var(--max-color-palette-teal-900);
+  --max-color-background-accent-teal-interactive-plain: var(--max-color-palette-teal-400);
+  --max-color-background-accent-teal-subtle: #04c8c833;
+  --max-color-background-accent-teal-subtlest: #04c8c81a;
+  --max-color-background-accent-yellow-bold: var(--max-color-palette-yellow-400);
+  --max-color-background-accent-yellow-interactive-bold: var(--max-color-palette-yellow-800);
+  --max-color-background-accent-yellow-interactive-plain: var(--max-color-palette-yellow-400);
+  --max-color-background-accent-yellow-subtle: #ffae0033;
+  --max-color-background-accent-yellow-subtlest: #ffae001a;
+  --max-color-background-bold: var(--max-color-border-bold);
+  --max-color-background-caution-bold: var(--max-color-background-accent-orange-bold);
+  --max-color-background-caution-interactive-bold: var(
+    --max-color-background-accent-orange-interactive-bold
+  );
+  --max-color-background-caution-interactive-plain: var(
+    --max-color-background-accent-orange-interactive-plain
+  );
+  --max-color-background-caution-subtle: var(--max-color-background-accent-orange-subtle);
+  --max-color-background-caution-subtlest: var(--max-color-background-accent-orange-subtlest);
+  --max-color-background-disabled: var(--max-color-palette-grey-150);
+  --max-color-background-highlight: var(--max-color-palette-yellow-100);
+  --max-color-background-info-bold: var(--max-color-background-accent-blue-bold);
+  --max-color-background-info-interactive-bold: var(
+    --max-color-background-accent-blue-interactive-bold
+  );
+  --max-color-background-info-interactive-plain: var(
+    --max-color-background-accent-blue-interactive-plain
+  );
+  --max-color-background-info-subtle: var(--max-color-background-accent-blue-subtle);
+  --max-color-background-info-subtlest: var(--max-color-background-accent-blue-subtlest);
+  --max-color-background-input-interactive: var(
+    --max-color-background-accent-grey-interactive-plain
+  );
+  --max-color-background-input-plain: var(--max-color-palette-grey-000);
+  --max-color-background-interactive-bold: var(--max-color-background-accent-blue-interactive-bold);
+  --max-color-background-interactive-plain: var(
+    --max-color-background-accent-grey-interactive-plain
+  );
+  --max-color-background-inverted-bold: var(--max-color-palette-grey-000);
+  --max-color-background-inverted-interactive-bold: var(--max-color-palette-grey-600);
+  --max-color-background-inverted-interactive-plain: var(--max-color-palette-grey-100);
+  --max-color-background-inverted-subtle: #ffffff33;
+  --max-color-background-inverted-subtlest: #ffffff1a;
+  --max-color-background-negative-bold: var(--max-color-background-accent-red-bold);
+  --max-color-background-negative-interactive-bold: var(
+    --max-color-background-accent-red-interactive-bold
+  );
+  --max-color-background-negative-interactive-plain: var(
+    --max-color-background-accent-red-interactive-plain
+  );
+  --max-color-background-negative-subtle: var(--max-color-background-accent-red-subtle);
+  --max-color-background-negative-subtlest: var(--max-color-background-accent-red-subtlest);
+  --max-color-background-neutral-bold: var(--max-color-background-accent-grey-bold);
+  --max-color-background-neutral-interactive-bold: var(
+    --max-color-background-accent-grey-interactive-bold
+  );
+  --max-color-background-neutral-interactive-plain: var(
+    --max-color-background-accent-grey-interactive-bold
+  );
+  --max-color-background-neutral-subtle: var(--max-color-background-accent-grey-subtle);
+  --max-color-background-neutral-subtlest: var(--max-color-background-accent-grey-subtlest);
+  --max-color-background-positive-bold: var(--max-color-background-accent-green-bold);
+  --max-color-background-positive-interactive-bold: var(
+    --max-color-background-accent-green-interactive-bold
+  );
+  --max-color-background-positive-interactive-plain: var(
+    --max-color-background-accent-green-interactive-plain
+  );
+  --max-color-background-positive-subtle: var(--max-color-background-accent-green-subtle);
+  --max-color-background-positive-subtlest: var(--max-color-background-accent-green-subtlest);
+  --max-color-background-primary-bold: var(--max-color-background-accent-teal-bold);
+  --max-color-background-primary-interactive-bold: var(
+    --max-color-background-accent-teal-interactive-bold
+  );
+  --max-color-background-primary-interactive-plain: var(
+    --max-color-background-accent-teal-interactive-plain
+  );
+  --max-color-background-primary-subtle: var(--max-color-background-accent-teal-subtle);
+  --max-color-background-primary-subtlest: var(--max-color-background-accent-teal-subtlest);
+  --max-color-background-secondary-bold: var(--max-color-background-accent-grey-bold);
+  --max-color-background-secondary-interactive-bold: var(
+    --max-color-background-accent-grey-interactive-bold
+  );
+  --max-color-background-secondary-interactive-plain: var(
+    --max-color-background-accent-grey-interactive-plain
+  );
+  --max-color-background-secondary-subtle: var(--max-color-background-accent-grey-subtle);
+  --max-color-background-secondary-subtlest: var(--max-color-background-accent-grey-subtlest);
+  --max-color-background-selected-bold: var(--max-color-background-accent-teal-bold);
+  --max-color-background-selected-interactive-bold: var(
+    --max-color-background-accent-teal-interactive-bold
+  );
+  --max-color-background-selected-interactive-plain: var(
+    --max-color-background-accent-teal-interactive-plain
+  );
+  --max-color-background-selected-subtle: var(--max-color-background-accent-teal-subtle);
+  --max-color-background-selected-subtlest: var(--max-color-background-accent-teal-subtlest);
+  --max-color-background-subtle: var(--max-color-background-accent-grey-subtle);
+  --max-color-blanket-plain: #253646cc;
+  --max-color-border-accent-blue-bold: var(--max-color-foreground-accent-blue-bold);
+  --max-color-border-accent-blue-plain: var(--max-color-background-accent-blue-bold);
+  --max-color-border-accent-green-bold: var(--max-color-foreground-accent-green-bold);
+  --max-color-border-accent-green-plain: var(--max-color-background-accent-green-bold);
+  --max-color-border-accent-grey-bold: var(--max-color-palette-grey-600);
+  --max-color-border-accent-grey-faint: var(--max-color-palette-grey-150);
+  --max-color-border-accent-grey-heavy: var(--max-color-palette-grey-900);
+  --max-color-border-accent-grey-plain: var(--max-color-palette-grey-200);
+  --max-color-border-accent-orange-bold: var(--max-color-foreground-accent-orange-bold);
+  --max-color-border-accent-orange-plain: var(--max-color-background-accent-orange-bold);
+  --max-color-border-accent-purple-bold: var(--max-color-foreground-accent-purple-bold);
+  --max-color-border-accent-purple-plain: var(--max-color-background-accent-purple-bold);
+  --max-color-border-accent-red-bold: var(--max-color-foreground-accent-red-bold);
+  --max-color-border-accent-red-plain: var(--max-color-background-accent-red-bold);
+  --max-color-border-accent-teal-bold: var(--max-color-foreground-accent-teal-bold);
+  --max-color-border-accent-teal-plain: var(--max-color-background-accent-teal-bold);
+  --max-color-border-accent-yellow-bold: var(--max-color-foreground-accent-yellow-bold);
+  --max-color-border-accent-yellow-plain: var(--max-color-background-accent-yellow-bold);
+  --max-color-border-bold: var(--max-color-border-accent-grey-bold);
+  --max-color-border-caution-bold: var(--max-color-border-accent-orange-bold);
+  --max-color-border-caution-plain: var(--max-color-border-accent-orange-plain);
+  --max-color-border-disabled: var(--max-color-foreground-disabled);
+  --max-color-border-focused: var(--max-color-foreground-accent-teal-bold);
+  --max-color-border-info-bold: var(--max-color-border-accent-blue-bold);
+  --max-color-border-info-plain: var(--max-color-border-accent-blue-plain);
+  --max-color-border-info-subtle: var(--max-color-background-accent-blue-subtle);
+  --max-color-border-input: var(--max-color-border-bold);
+  --max-color-border-inverted: var(--max-color-palette-grey-000);
+  --max-color-border-negative-bold: var(--max-color-border-accent-red-bold);
+  --max-color-border-negative-plain: var(--max-color-border-accent-red-plain);
+  --max-color-border-neutral-bold: var(--max-color-border-accent-grey-bold);
+  --max-color-border-neutral-plain: var(--max-color-border-accent-grey-plain);
+  --max-color-border-neutral-subtle: var(--max-color-background-accent-grey-subtle);
+  --max-color-border-plain: var(--max-color-border-accent-grey-plain);
+  --max-color-border-positive-bold: var(--max-color-border-accent-green-bold);
+  --max-color-border-positive-plain: var(--max-color-border-accent-green-plain);
+  --max-color-border-primary-bold: var(--max-color-border-accent-teal-bold);
+  --max-color-border-primary-plain: var(--max-color-border-accent-teal-plain);
+  --max-color-border-secondary-bold: var(--max-color-background-secondary-bold);
+  --max-color-border-secondary-plain: var(--max-color-border-accent-grey-plain);
+  --max-color-border-selected: var(--max-color-foreground-accent-teal-bold);
+  --max-color-foreground-accent-blue-bold: var(--max-color-palette-blue-700);
+  --max-color-foreground-accent-blue-on-bold: var(--max-color-foreground-inverted-plain);
+  --max-color-foreground-accent-blue-plain: var(--max-color-palette-blue-600);
+  --max-color-foreground-accent-green-bold: var(--max-color-palette-green-700);
+  --max-color-foreground-accent-green-on-bold: var(--max-color-foreground-inverted-plain);
+  --max-color-foreground-accent-green-plain: var(--max-color-palette-green-600);
+  --max-color-foreground-accent-grey-bold: var(--max-color-palette-grey-900);
+  --max-color-foreground-accent-grey-faint: var(--max-color-palette-grey-300);
+  --max-color-foreground-accent-grey-on-bold: var(--max-color-foreground-bold);
+  --max-color-foreground-accent-grey-on-inverted: var(--max-color-foreground-bold);
+  --max-color-foreground-accent-grey-plain: var(--max-color-palette-grey-800);
+  --max-color-foreground-accent-grey-subtle: var(--max-color-palette-grey-800);
+  --max-color-foreground-accent-grey-subtlest: var(--max-color-palette-grey-700);
+  --max-color-foreground-accent-orange-bold: var(--max-color-palette-orange-800);
+  --max-color-foreground-accent-orange-on-bold: var(--max-color-foreground-inverted-plain);
+  --max-color-foreground-accent-orange-plain: var(--max-color-palette-orange-600);
+  --max-color-foreground-accent-purple-bold: var(--max-color-palette-purple-800);
+  --max-color-foreground-accent-purple-on-bold: var(--max-color-foreground-inverted-plain);
+  --max-color-foreground-accent-purple-plain: var(--max-color-palette-purple-500);
+  --max-color-foreground-accent-red-bold: var(--max-color-palette-red-700);
+  --max-color-foreground-accent-red-on-bold: var(--max-color-foreground-inverted-plain);
+  --max-color-foreground-accent-red-plain: var(--max-color-palette-red-500);
+  --max-color-foreground-accent-teal-bold: var(--max-color-palette-teal-700);
+  --max-color-foreground-accent-teal-on-bold: var(--max-color-foreground-inverted-plain);
+  --max-color-foreground-accent-teal-plain: var(--max-color-palette-teal-600);
+  --max-color-foreground-accent-yellow-bold: var(--max-color-palette-yellow-700);
+  --max-color-foreground-accent-yellow-on-bold: var(--max-color-foreground-bold);
+  --max-color-foreground-accent-yellow-plain: var(--max-color-palette-yellow-600);
+  --max-color-foreground-bold: var(--max-color-foreground-accent-grey-bold);
+  --max-color-foreground-brand: var(--max-color-foreground-accent-grey-bold);
+  --max-color-foreground-caution-bold: var(--max-color-foreground-accent-orange-bold);
+  --max-color-foreground-caution-on-bold: var(--max-color-foreground-accent-orange-on-bold);
+  --max-color-foreground-caution-plain: var(--max-color-foreground-accent-orange-plain);
+  --max-color-foreground-disabled: var(--max-color-foreground-accent-grey-faint);
+  --max-color-foreground-info-bold: var(--max-color-foreground-accent-blue-bold);
+  --max-color-foreground-info-on-bold: var(--max-color-foreground-accent-blue-on-bold);
+  --max-color-foreground-info-plain: var(--max-color-foreground-accent-blue-plain);
+  --max-color-foreground-inverted-bold: var(--max-color-palette-grey-000);
+  --max-color-foreground-inverted-on-bold: var(--max-color-palette-grey-900);
+  --max-color-foreground-inverted-plain: var(--max-color-palette-grey-000);
+  --max-color-foreground-negative-bold: var(--max-color-foreground-accent-red-bold);
+  --max-color-foreground-negative-on-bold: var(--max-color-foreground-accent-red-on-bold);
+  --max-color-foreground-negative-plain: var(--max-color-foreground-accent-red-plain);
+  --max-color-foreground-neutral-bold: var(--max-color-foreground-accent-grey-bold);
+  --max-color-foreground-neutral-on-bold: var(--max-color-foreground-accent-grey-on-bold);
+  --max-color-foreground-neutral-plain: var(--max-color-foreground-accent-grey-subtlest);
+  --max-color-foreground-plain: var(--max-color-foreground-accent-grey-plain);
+  --max-color-foreground-positive-bold: var(--max-color-foreground-accent-green-bold);
+  --max-color-foreground-positive-on-bold: var(--max-color-foreground-accent-green-on-bold);
+  --max-color-foreground-positive-plain: var(--max-color-foreground-accent-green-plain);
+  --max-color-foreground-primary-bold: var(--max-color-foreground-accent-teal-bold);
+  --max-color-foreground-primary-on-bold: var(--max-color-foreground-accent-teal-on-bold);
+  --max-color-foreground-secondary-bold: var(--max-color-foreground-accent-grey-bold);
+  --max-color-foreground-secondary-on-bold: var(--max-color-foreground-accent-grey-on-bold);
+  --max-color-foreground-selected-bold: var(--max-color-foreground-accent-teal-bold);
+  --max-color-foreground-selected-on-bold: var(--max-color-foreground-accent-teal-on-bold);
+  --max-color-foreground-selected-plain: var(--max-color-foreground-accent-blue-plain);
+  --max-color-foreground-subtle: var(--max-color-foreground-accent-grey-subtle);
+  --max-color-foreground-subtlest: var(--max-color-foreground-accent-grey-subtlest);
+  --max-color-link-active: var(--max-color-palette-blue-800);
+  --max-color-link-focused-active: var(--max-color-palette-blue-900);
+  --max-color-link-focused-hover: var(--max-color-palette-blue-800);
+  --max-color-link-focused-idle: var(--max-color-palette-blue-700);
+  --max-color-link-hover: var(--max-color-foreground-accent-blue-bold);
+  --max-color-link-idle: var(--max-color-foreground-accent-blue-plain);
+  --max-color-link-inverted-active: var(--max-color-palette-blue-150);
+  --max-color-link-inverted-hover: var(--max-color-palette-blue-100);
+  --max-color-link-inverted-idle: var(--max-color-foreground-inverted-plain);
+  --max-color-link-muted-active: var(--max-color-link-active);
+  --max-color-link-muted-hover: var(--max-color-link-hover);
+  --max-color-link-muted-idle: var(--max-color-foreground-accent-grey-subtlest);
+  --max-color-palette-blue-050: #ecfdff;
+  --max-color-palette-blue-100: #cef8ff;
+  --max-color-palette-blue-150: #a3eefe;
+  --max-color-palette-blue-200: #64e0fc;
+  --max-color-palette-blue-300: #1ec8f2;
+  --max-color-palette-blue-400: #02acda;
+  --max-color-palette-blue-500: #0587b5;
+  --max-color-palette-blue-600: #0b6c93;
+  --max-color-palette-blue-700: #135877;
+  --max-color-palette-blue-800: #144a65;
+  --max-color-palette-blue-900: #1c2835;
+  --max-color-palette-green-050: #f4faeb;
+  --max-color-palette-green-100: #e7f4d3;
+  --max-color-palette-green-150: #d1eaac;
+  --max-color-palette-green-200: #b3da7c;
+  --max-color-palette-green-300: #93c74e;
+  --max-color-palette-green-400: #78ae34;
+  --max-color-palette-green-500: #5c8a26;
+  --max-color-palette-green-600: #466a21;
+  --max-color-palette-green-700: #3a551f;
+  --max-color-palette-green-800: #33481f;
+  --max-color-palette-green-900: #19270c;
+  --max-color-palette-grey-000: #ffffff;
+  --max-color-palette-grey-050: #f9fbfb;
+  --max-color-palette-grey-100: #f2f5f5;
+  --max-color-palette-grey-150: #e7eced;
+  --max-color-palette-grey-200: #d3dcdf;
+  --max-color-palette-grey-300: #b7c5c9;
+  --max-color-palette-grey-400: #99adb3;
+  --max-color-palette-grey-500: #889ca3;
+  --max-color-palette-grey-600: #6a7e86;
+  --max-color-palette-grey-700: #5a696f;
+  --max-color-palette-grey-800: #49555a;
+  --max-color-palette-grey-900: #253646;
+  --max-color-palette-orange-050: #fff8ed;
+  --max-color-palette-orange-100: #fff0d4;
+  --max-color-palette-orange-150: #ffdda8;
+  --max-color-palette-orange-200: #ffc471;
+  --max-color-palette-orange-300: #ff9d33;
+  --max-color-palette-orange-400: #fe8211;
+  --max-color-palette-orange-500: #ef6707;
+  --max-color-palette-orange-600: #c64c08;
+  --max-color-palette-orange-700: #9d3d0f;
+  --max-color-palette-orange-800: #7e3410;
+  --max-color-palette-orange-900: #441706;
+  --max-color-palette-purple-050: #f4f2ff;
+  --max-color-palette-purple-100: #ece7ff;
+  --max-color-palette-purple-150: #d9d2ff;
+  --max-color-palette-purple-200: #bfaeff;
+  --max-color-palette-purple-300: #9f80ff;
+  --max-color-palette-purple-400: #824dff;
+  --max-color-palette-purple-500: #7b33ff;
+  --max-color-palette-purple-600: #6616eb;
+  --max-color-palette-purple-700: #5512c5;
+  --max-color-palette-purple-800: #4711a1;
+  --max-color-palette-purple-900: #29076e;
+  --max-color-palette-red-050: #fef2f3;
+  --max-color-palette-red-100: #fee2e4;
+  --max-color-palette-red-150: #fdcbcf;
+  --max-color-palette-red-200: #fba6ad;
+  --max-color-palette-red-300: #f6737e;
+  --max-color-palette-red-400: #ed4654;
+  --max-color-palette-red-500: #d32534;
+  --max-color-palette-red-600: #b71e2b;
+  --max-color-palette-red-700: #971d28;
+  --max-color-palette-red-800: #7e1e26;
+  --max-color-palette-red-900: #440b10;
+  --max-color-palette-teal-050: #effefd;
+  --max-color-palette-teal-100: #c7fffa;
+  --max-color-palette-teal-150: #90fff5;
+  --max-color-palette-teal-200: #51f7f0;
+  --max-color-palette-teal-300: #1de4e1;
+  --max-color-palette-teal-400: #04c8c8;
+  --max-color-palette-teal-500: #00a7ab;
+  --max-color-palette-teal-600: #057c80;
+  --max-color-palette-teal-700: #0a6165;
+  --max-color-palette-teal-800: #0d5154;
+  --max-color-palette-teal-900: #002e33;
+  --max-color-palette-yellow-050: #fffdea;
+  --max-color-palette-yellow-100: #fff7c5;
+  --max-color-palette-yellow-150: #fff085;
+  --max-color-palette-yellow-200: #ffe146;
+  --max-color-palette-yellow-300: #ffcf1b;
+  --max-color-palette-yellow-400: #ffae00;
+  --max-color-palette-yellow-500: #e28400;
+  --max-color-palette-yellow-600: #bb5c02;
+  --max-color-palette-yellow-700: #984708;
+  --max-color-palette-yellow-800: #7c3a0b;
+  --max-color-palette-yellow-900: #481d00;
+  --max-color-skeleton-plain: var(--max-color-background-accent-grey-subtlest);
+  --max-color-skeleton-subtle: var(--max-color-background-accent-grey-subtle);
+  --max-elevation-surface-base-default: var(--max-color-palette-grey-000);
+  --max-elevation-surface-raised-alternative: var(--max-color-palette-grey-100);
+  --max-elevation-surface-raised-default: var(--max-color-palette-grey-000);
+  --max-elevation-surface-raised-inverted: var(--max-color-palette-grey-900);
+  --max-elevation-surface-raised-primary: var(--max-color-background-accent-teal-bold);
+  --max-elevation-surface-raised-sunken: var(--max-color-palette-grey-050);
+  --max-elevation-surface-shadow: var(--max-color-palette-grey-900);
+  --max-opacity-bold: 1;
+  --max-opacity-interactive-bold-active: 0.4;
+  --max-opacity-interactive-bold-hover: 0.2;
+  --max-opacity-interactive-bold-idle: 0;
+  --max-opacity-interactive-plain-active: 0.25;
+  --max-opacity-interactive-plain-hover: 0.15;
+  --max-opacity-interactive-plain-idle: 0;
+  --max-opacity-interactive-reversed-active: 1;
+  --max-opacity-interactive-reversed-hover: 0.9;
+  --max-opacity-interactive-reversed-idle: 0.8;
+  --max-opacity-moderate: 0.8;
+  --max-opacity-muted: 0;
+  --max-opacity-subtle: 0.2;
+  --max-opacity-subtlest: 0.1;
+  --max-theme-name: Max Light;
+}

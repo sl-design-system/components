@@ -1,0 +1,422 @@
+{
+  "caption": {
+    "lg": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*0.75, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({caption.lg.fontSize.early}*{caption.lineHeight},2)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "md": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*0.75, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({caption.md.fontSize.early}*{caption.lineHeight},2)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "display": {
+    "lg": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*2.5, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({display.lg.fontSize.early}*{display.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "md": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*2.5, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({display.md.fontSize.early}*{display.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "sm": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*2.5, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({display.sm.fontSize.early}*{display.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "heading": {
+    "lg": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1.6, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({heading.lg.fontSize.early}*{heading.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "md": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1.25, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({heading.md.fontSize.early}*{heading.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "sm": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1.25, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({heading.sm.fontSize.early}*{heading.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "label": {
+    "lg": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({label.lg.fontSize.early}*{label.lineHeight},2)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "md": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*0.875, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({label.md.fontSize.early}*{label.lineHeight},2)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "sm": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*0.75, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({label.sm.fontSize.early}*{label.lineHeight},2)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "text": {
+    "lg": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1.125, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({text.lg.fontSize.early}*{text.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "md": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({text.md.fontSize.early}*{text.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "sm": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*0.875, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({text.sm.fontSize.early}*{text.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "title": {
+    "lg": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1.2, 2)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({title.lg.fontSize.early}*{title.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "md": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1.2, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({title.md.fontSize.early}*{title.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    },
+    "sm": {
+      "fontSize": {
+        "early": {
+          "$value": "snap({base.fontSize}*1.2, 4)",
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
+        }
+      },
+      "lineHeight": {
+        "early": {
+          "$value": "snap({title.sm.fontSize.early}*{title.lineHeight},4)",
+          "$type": "lineHeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["LINE_HEIGHT"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

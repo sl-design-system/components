@@ -1,0 +1,464 @@
+[data-ThemesE='Teas'] {
+  --ii-e-color-background-accent-blue-bold: var(--teas-color-background-accent-blue-bold);
+  --ii-e-color-background-accent-blue-interactive-bold: var(
+    --teas-color-background-accent-blue-interactive-bold
+  );
+  --ii-e-color-background-accent-blue-interactive-plain: var(
+    --teas-color-background-accent-blue-interactive-plain
+  );
+  --ii-e-color-background-accent-blue-subtle: var(--teas-color-background-accent-blue-subtle);
+  --ii-e-color-background-accent-blue-subtlest: var(--teas-color-background-accent-blue-subtlest);
+  --ii-e-color-background-accent-green-bold: var(--teas-color-background-accent-green-bold);
+  --ii-e-color-background-accent-green-interactive-bold: var(
+    --teas-color-background-accent-green-interactive-bold
+  );
+  --ii-e-color-background-accent-green-interactive-plain: var(
+    --teas-color-background-accent-green-interactive-plain
+  );
+  --ii-e-color-background-accent-green-subtle: var(--teas-color-background-accent-green-subtle);
+  --ii-e-color-background-accent-green-subtlest: var(--teas-color-background-accent-green-subtlest);
+  --ii-e-color-background-accent-grey-bold: var(--teas-color-background-accent-grey-bold);
+  --ii-e-color-background-accent-grey-interactive-bold: var(
+    --teas-color-background-accent-grey-interactive-bold
+  );
+  --ii-e-color-background-accent-grey-interactive-plain: var(
+    --teas-color-background-accent-grey-interactive-plain
+  );
+  --ii-e-color-background-accent-grey-subtle: var(--teas-color-background-accent-grey-subtle);
+  --ii-e-color-background-accent-grey-subtlest: var(--teas-color-background-accent-grey-subtlest);
+  --ii-e-color-background-accent-orange-bold: var(--teas-color-background-accent-orange-bold);
+  --ii-e-color-background-accent-orange-interactive-bold: var(
+    --teas-color-background-accent-orange-interactive-bold
+  );
+  --ii-e-color-background-accent-orange-interactive-plain: var(
+    --teas-color-background-accent-orange-interactive-plain
+  );
+  --ii-e-color-background-accent-orange-subtle: var(--teas-color-background-accent-orange-subtle);
+  --ii-e-color-background-accent-orange-subtlest: var(
+    --teas-color-background-accent-orange-subtlest
+  );
+  --ii-e-color-background-accent-purple-bold: var(--teas-color-background-accent-purple-bold);
+  --ii-e-color-background-accent-purple-interactive-bold: var(
+    --teas-color-background-accent-purple-interactive-bold
+  );
+  --ii-e-color-background-accent-purple-interactive-plain: var(
+    --teas-color-background-accent-purple-interactive-plain
+  );
+  --ii-e-color-background-accent-purple-subtle: var(--teas-color-background-accent-purple-subtle);
+  --ii-e-color-background-accent-purple-subtlest: var(
+    --teas-color-background-accent-purple-subtlest
+  );
+  --ii-e-color-background-accent-red-bold: var(--teas-color-background-accent-red-bold);
+  --ii-e-color-background-accent-red-interactive-bold: var(
+    --teas-color-background-accent-red-interactive-bold
+  );
+  --ii-e-color-background-accent-red-interactive-plain: var(
+    --teas-color-background-accent-red-interactive-plain
+  );
+  --ii-e-color-background-accent-red-subtle: var(--teas-color-background-accent-red-subtle);
+  --ii-e-color-background-accent-red-subtlest: var(--teas-color-background-accent-red-subtlest);
+  --ii-e-color-background-accent-teal-bold: var(--teas-color-background-accent-teal-bold);
+  --ii-e-color-background-accent-teal-interactive-bold: var(
+    --teas-color-background-accent-teal-interactive-bold
+  );
+  --ii-e-color-background-accent-teal-interactive-plain: var(
+    --teas-color-background-accent-teal-interactive-plain
+  );
+  --ii-e-color-background-accent-teal-subtle: var(--teas-color-background-accent-teal-subtle);
+  --ii-e-color-background-accent-teal-subtlest: var(--teas-color-background-accent-teal-subtlest);
+  --ii-e-color-background-accent-yellow-bold: var(--teas-color-background-accent-yellow-bold);
+  --ii-e-color-background-accent-yellow-interactive-bold: var(
+    --teas-color-background-accent-yellow-interactive-bold
+  );
+  --ii-e-color-background-accent-yellow-interactive-plain: var(
+    --teas-color-background-accent-yellow-interactive-plain
+  );
+  --ii-e-color-background-accent-yellow-subtle: var(--teas-color-background-accent-yellow-subtle);
+  --ii-e-color-background-accent-yellow-subtlest: var(
+    --teas-color-background-accent-yellow-subtlest
+  );
+  --ii-e-color-background-bold: var(--teas-color-background-bold);
+  --ii-e-color-background-caution-bold: var(--teas-color-background-caution-bold);
+  --ii-e-color-background-caution-interactive-bold: var(
+    --teas-color-background-caution-interactive-bold
+  );
+  --ii-e-color-background-caution-interactive-plain: var(
+    --teas-color-background-caution-interactive-plain
+  );
+  --ii-e-color-background-caution-subtle: var(--teas-color-background-caution-subtle);
+  --ii-e-color-background-caution-subtlest: var(--teas-color-background-caution-subtlest);
+  --ii-e-color-background-disabled: var(--teas-color-background-disabled);
+  --ii-e-color-background-highlight: var(--teas-color-background-highlight);
+  --ii-e-color-background-info-bold: var(--teas-color-background-info-bold);
+  --ii-e-color-background-info-interactive-bold: var(--teas-color-background-info-interactive-bold);
+  --ii-e-color-background-info-interactive-plain: var(
+    --teas-color-background-info-interactive-plain
+  );
+  --ii-e-color-background-info-subtle: var(--teas-color-background-info-subtle);
+  --ii-e-color-background-info-subtlest: var(--teas-color-background-info-subtlest);
+  --ii-e-color-background-input-interactive: var(--teas-color-background-input-interactive);
+  --ii-e-color-background-input-plain: var(--teas-color-background-input-plain);
+  --ii-e-color-background-interactive-bold: var(--teas-color-background-interactive-bold);
+  --ii-e-color-background-interactive-plain: var(--teas-color-background-interactive-plain);
+  --ii-e-color-background-inverted-bold: var(--teas-color-background-inverted-bold);
+  --ii-e-color-background-inverted-interactive-bold: var(
+    --teas-color-background-inverted-interactive-bold
+  );
+  --ii-e-color-background-inverted-interactive-plain: var(
+    --teas-color-background-inverted-interactive-plain
+  );
+  --ii-e-color-background-inverted-subtle: var(--teas-color-background-inverted-subtle);
+  --ii-e-color-background-inverted-subtlest: var(--teas-color-background-inverted-subtlest);
+  --ii-e-color-background-negative-bold: var(--teas-color-background-negative-bold);
+  --ii-e-color-background-negative-interactive-bold: var(
+    --teas-color-background-negative-interactive-bold
+  );
+  --ii-e-color-background-negative-interactive-plain: var(
+    --teas-color-background-negative-interactive-plain
+  );
+  --ii-e-color-background-negative-subtle: var(--teas-color-background-negative-subtle);
+  --ii-e-color-background-negative-subtlest: var(--teas-color-background-negative-subtlest);
+  --ii-e-color-background-neutral-bold: var(--teas-color-background-neutral-bold);
+  --ii-e-color-background-neutral-interactive-bold: var(
+    --teas-color-background-neutral-interactive-bold
+  );
+  --ii-e-color-background-neutral-interactive-plain: var(
+    --teas-color-background-neutral-interactive-plain
+  );
+  --ii-e-color-background-neutral-subtle: var(--teas-color-background-neutral-subtle);
+  --ii-e-color-background-neutral-subtlest: var(--teas-color-background-neutral-subtlest);
+  --ii-e-color-background-positive-bold: var(--teas-color-background-positive-bold);
+  --ii-e-color-background-positive-interactive-bold: var(
+    --teas-color-background-positive-interactive-bold
+  );
+  --ii-e-color-background-positive-interactive-plain: var(
+    --teas-color-background-positive-interactive-plain
+  );
+  --ii-e-color-background-positive-subtle: var(--teas-color-background-positive-subtle);
+  --ii-e-color-background-positive-subtlest: var(--teas-color-background-positive-subtlest);
+  --ii-e-color-background-primary-bold: var(--teas-color-background-primary-bold);
+  --ii-e-color-background-primary-interactive-bold: var(
+    --teas-color-background-primary-interactive-bold
+  );
+  --ii-e-color-background-primary-interactive-plain: var(
+    --teas-color-background-primary-interactive-plain
+  );
+  --ii-e-color-background-primary-subtle: var(--teas-color-background-primary-subtle);
+  --ii-e-color-background-primary-subtlest: var(--teas-color-background-primary-subtlest);
+  --ii-e-color-background-secondary-bold: var(--teas-color-background-secondary-bold);
+  --ii-e-color-background-secondary-interactive-bold: var(
+    --teas-color-background-secondary-interactive-bold
+  );
+  --ii-e-color-background-secondary-interactive-plain: var(
+    --teas-color-background-secondary-interactive-plain
+  );
+  --ii-e-color-background-secondary-subtle: var(--teas-color-background-secondary-subtle);
+  --ii-e-color-background-secondary-subtlest: var(--teas-color-background-secondary-subtlest);
+  --ii-e-color-background-selected-bold: var(--teas-color-background-selected-bold);
+  --ii-e-color-background-selected-interactive-bold: var(
+    --teas-color-background-selected-interactive-bold
+  );
+  --ii-e-color-background-selected-interactive-plain: var(
+    --teas-color-background-selected-interactive-plain
+  );
+  --ii-e-color-background-selected-subtle: var(--teas-color-background-selected-subtle);
+  --ii-e-color-background-selected-subtlest: var(--teas-color-background-selected-subtlest);
+  --ii-e-color-background-subtle: var(--teas-color-background-subtle);
+  --ii-e-color-blanket-plain: var(--teas-color-blanket-plain);
+  --ii-e-color-border-accent-blue-bold: var(--teas-color-border-accent-blue-bold);
+  --ii-e-color-border-accent-blue-plain: var(--teas-color-border-accent-blue-plain);
+  --ii-e-color-border-accent-green-bold: var(--teas-color-border-accent-green-bold);
+  --ii-e-color-border-accent-green-plain: var(--teas-color-border-accent-green-plain);
+  --ii-e-color-border-accent-grey-bold: var(--teas-color-border-accent-grey-bold);
+  --ii-e-color-border-accent-grey-faint: var(--teas-color-border-accent-grey-faint);
+  --ii-e-color-border-accent-grey-heavy: var(--teas-color-border-accent-grey-heavy);
+  --ii-e-color-border-accent-grey-plain: var(--teas-color-border-accent-grey-plain);
+  --ii-e-color-border-accent-orange-bold: var(--teas-color-border-accent-orange-bold);
+  --ii-e-color-border-accent-orange-plain: var(--teas-color-border-accent-orange-plain);
+  --ii-e-color-border-accent-purple-bold: var(--teas-color-border-accent-purple-bold);
+  --ii-e-color-border-accent-purple-plain: var(--teas-color-border-accent-purple-plain);
+  --ii-e-color-border-accent-red-bold: var(--teas-color-border-accent-red-bold);
+  --ii-e-color-border-accent-red-plain: var(--teas-color-border-accent-red-plain);
+  --ii-e-color-border-accent-teal-bold: var(--teas-color-border-accent-teal-bold);
+  --ii-e-color-border-accent-teal-plain: var(--teas-color-border-accent-teal-plain);
+  --ii-e-color-border-accent-yellow-bold: var(--teas-color-border-accent-yellow-bold);
+  --ii-e-color-border-accent-yellow-plain: var(--teas-color-border-accent-yellow-plain);
+  --ii-e-color-border-bold: var(--teas-color-border-bold);
+  --ii-e-color-border-caution-bold: var(--teas-color-border-caution-bold);
+  --ii-e-color-border-caution-plain: var(--teas-color-border-caution-plain);
+  --ii-e-color-border-disabled: var(--teas-color-border-disabled);
+  --ii-e-color-border-focused: var(--teas-color-border-focused);
+  --ii-e-color-border-info-bold: var(--teas-color-border-info-bold);
+  --ii-e-color-border-info-plain: var(--teas-color-border-info-plain);
+  --ii-e-color-border-info-subtle: var(--teas-color-border-info-subtle);
+  --ii-e-color-border-input: var(--teas-color-border-input);
+  --ii-e-color-border-inverted: var(--teas-color-border-inverted);
+  --ii-e-color-border-negative-bold: var(--teas-color-border-negative-bold);
+  --ii-e-color-border-negative-plain: var(--teas-color-border-negative-plain);
+  --ii-e-color-border-neutral-bold: var(--teas-color-border-neutral-bold);
+  --ii-e-color-border-neutral-plain: var(--teas-color-border-neutral-plain);
+  --ii-e-color-border-neutral-subtle: var(--teas-color-border-neutral-subtle);
+  --ii-e-color-border-plain: var(--teas-color-border-plain);
+  --ii-e-color-border-positive-bold: var(--teas-color-border-positive-bold);
+  --ii-e-color-border-positive-plain: var(--teas-color-border-positive-plain);
+  --ii-e-color-border-primary-bold: var(--teas-color-border-primary-bold);
+  --ii-e-color-border-primary-plain: var(--teas-color-border-primary-plain);
+  --ii-e-color-border-secondary-bold: var(--teas-color-border-secondary-bold);
+  --ii-e-color-border-secondary-plain: var(--teas-color-border-secondary-plain);
+  --ii-e-color-border-selected: var(--teas-color-border-selected);
+  --ii-e-color-foreground-accent-blue-bold: var(--teas-color-foreground-accent-blue-bold);
+  --ii-e-color-foreground-accent-blue-on-bold: var(--teas-color-foreground-accent-blue-on-bold);
+  --ii-e-color-foreground-accent-blue-plain: var(--teas-color-foreground-accent-blue-plain);
+  --ii-e-color-foreground-accent-green-bold: var(--teas-color-foreground-accent-green-bold);
+  --ii-e-color-foreground-accent-green-on-bold: var(--teas-color-foreground-accent-green-on-bold);
+  --ii-e-color-foreground-accent-green-plain: var(--teas-color-foreground-accent-green-plain);
+  --ii-e-color-foreground-accent-grey-bold: var(--teas-color-foreground-accent-grey-bold);
+  --ii-e-color-foreground-accent-grey-faint: var(--teas-color-foreground-accent-grey-faint);
+  --ii-e-color-foreground-accent-grey-on-bold: var(--teas-color-foreground-accent-grey-on-bold);
+  --ii-e-color-foreground-accent-grey-on-inverted: var(
+    --teas-color-foreground-accent-grey-on-inverted
+  );
+  --ii-e-color-foreground-accent-grey-plain: var(--teas-color-foreground-accent-grey-plain);
+  --ii-e-color-foreground-accent-grey-subtle: var(--teas-color-foreground-accent-grey-subtle);
+  --ii-e-color-foreground-accent-grey-subtlest: var(--teas-color-foreground-accent-grey-subtlest);
+  --ii-e-color-foreground-accent-orange-bold: var(--teas-color-foreground-accent-orange-bold);
+  --ii-e-color-foreground-accent-orange-on-bold: var(--teas-color-foreground-accent-orange-on-bold);
+  --ii-e-color-foreground-accent-orange-plain: var(--teas-color-foreground-accent-orange-plain);
+  --ii-e-color-foreground-accent-purple-bold: var(--teas-color-foreground-accent-purple-bold);
+  --ii-e-color-foreground-accent-purple-on-bold: var(--teas-color-foreground-accent-purple-on-bold);
+  --ii-e-color-foreground-accent-purple-plain: var(--teas-color-foreground-accent-purple-plain);
+  --ii-e-color-foreground-accent-red-bold: var(--teas-color-foreground-accent-red-bold);
+  --ii-e-color-foreground-accent-red-on-bold: var(--teas-color-foreground-accent-red-on-bold);
+  --ii-e-color-foreground-accent-red-plain: var(--teas-color-foreground-accent-red-plain);
+  --ii-e-color-foreground-accent-teal-bold: var(--teas-color-foreground-accent-teal-bold);
+  --ii-e-color-foreground-accent-teal-on-bold: var(--teas-color-foreground-accent-teal-on-bold);
+  --ii-e-color-foreground-accent-teal-plain: var(--teas-color-foreground-accent-teal-plain);
+  --ii-e-color-foreground-accent-yellow-bold: var(--teas-color-foreground-accent-yellow-bold);
+  --ii-e-color-foreground-accent-yellow-on-bold: var(--teas-color-foreground-accent-yellow-on-bold);
+  --ii-e-color-foreground-accent-yellow-plain: var(--teas-color-foreground-accent-yellow-plain);
+  --ii-e-color-foreground-bold: var(--teas-color-foreground-bold);
+  --ii-e-color-foreground-brand: var(--teas-color-foreground-brand);
+  --ii-e-color-foreground-caution-bold: var(--teas-color-foreground-caution-bold);
+  --ii-e-color-foreground-caution-on-bold: var(--teas-color-foreground-caution-on-bold);
+  --ii-e-color-foreground-caution-plain: var(--teas-color-foreground-caution-plain);
+  --ii-e-color-foreground-disabled: var(--teas-color-foreground-disabled);
+  --ii-e-color-foreground-info-bold: var(--teas-color-foreground-info-bold);
+  --ii-e-color-foreground-info-on-bold: var(--teas-color-foreground-info-on-bold);
+  --ii-e-color-foreground-info-plain: var(--teas-color-foreground-info-plain);
+  --ii-e-color-foreground-inverted-bold: var(--teas-color-foreground-inverted-bold);
+  --ii-e-color-foreground-inverted-on-bold: var(--teas-color-foreground-inverted-on-bold);
+  --ii-e-color-foreground-inverted-plain: var(--teas-color-foreground-inverted-plain);
+  --ii-e-color-foreground-negative-bold: var(--teas-color-foreground-negative-bold);
+  --ii-e-color-foreground-negative-on-bold: var(--teas-color-foreground-negative-on-bold);
+  --ii-e-color-foreground-negative-plain: var(--teas-color-foreground-negative-plain);
+  --ii-e-color-foreground-neutral-bold: var(--teas-color-foreground-neutral-bold);
+  --ii-e-color-foreground-neutral-on-bold: var(--teas-color-foreground-neutral-on-bold);
+  --ii-e-color-foreground-neutral-plain: var(--teas-color-foreground-neutral-plain);
+  --ii-e-color-foreground-plain: var(--teas-color-foreground-plain);
+  --ii-e-color-foreground-positive-bold: var(--teas-color-foreground-positive-bold);
+  --ii-e-color-foreground-positive-on-bold: var(--teas-color-foreground-positive-on-bold);
+  --ii-e-color-foreground-positive-plain: var(--teas-color-foreground-positive-plain);
+  --ii-e-color-foreground-primary-bold: var(--teas-color-foreground-primary-bold);
+  --ii-e-color-foreground-primary-on-bold: var(--teas-color-foreground-primary-on-bold);
+  --ii-e-color-foreground-secondary-bold: var(--teas-color-foreground-secondary-bold);
+  --ii-e-color-foreground-secondary-on-bold: var(--teas-color-foreground-secondary-on-bold);
+  --ii-e-color-foreground-selected-bold: var(--teas-color-foreground-selected-bold);
+  --ii-e-color-foreground-selected-on-bold: var(--teas-color-foreground-selected-on-bold);
+  --ii-e-color-foreground-selected-plain: var(--teas-color-foreground-selected-plain);
+  --ii-e-color-foreground-subtle: var(--teas-color-foreground-subtle);
+  --ii-e-color-foreground-subtlest: var(--teas-color-foreground-subtlest);
+  --ii-e-color-link-active: var(--teas-color-link-active);
+  --ii-e-color-link-focused-active: var(--teas-color-link-focused-active);
+  --ii-e-color-link-focused-hover: var(--teas-color-link-focused-hover);
+  --ii-e-color-link-focused-idle: var(--teas-color-link-focused-idle);
+  --ii-e-color-link-hover: var(--teas-color-link-hover);
+  --ii-e-color-link-idle: var(--teas-color-link-idle);
+  --ii-e-color-link-inverted-active: var(--teas-color-link-inverted-active);
+  --ii-e-color-link-inverted-hover: var(--teas-color-link-inverted-hover);
+  --ii-e-color-link-inverted-idle: var(--teas-color-link-inverted-idle);
+  --ii-e-color-link-muted-active: var(--teas-color-link-muted-active);
+  --ii-e-color-link-muted-hover: var(--teas-color-link-muted-hover);
+  --ii-e-color-link-muted-idle: var(--teas-color-link-muted-idle);
+  --ii-e-color-palette-blue-050: var(--teas-color-palette-blue-050);
+  --ii-e-color-palette-blue-100: var(--teas-color-palette-blue-100);
+  --ii-e-color-palette-blue-150: var(--teas-color-palette-blue-150);
+  --ii-e-color-palette-blue-200: var(--teas-color-palette-blue-200);
+  --ii-e-color-palette-blue-300: var(--teas-color-palette-blue-300);
+  --ii-e-color-palette-blue-400: var(--teas-color-palette-blue-400);
+  --ii-e-color-palette-blue-500: var(--teas-color-palette-blue-500);
+  --ii-e-color-palette-blue-600: var(--teas-color-palette-blue-600);
+  --ii-e-color-palette-blue-700: var(--teas-color-palette-blue-700);
+  --ii-e-color-palette-blue-800: var(--teas-color-palette-blue-800);
+  --ii-e-color-palette-blue-900: var(--teas-color-palette-blue-900);
+  --ii-e-color-palette-green-050: var(--teas-color-palette-green-050);
+  --ii-e-color-palette-green-100: var(--teas-color-palette-green-100);
+  --ii-e-color-palette-green-150: var(--teas-color-palette-green-150);
+  --ii-e-color-palette-green-200: var(--teas-color-palette-green-200);
+  --ii-e-color-palette-green-300: var(--teas-color-palette-green-300);
+  --ii-e-color-palette-green-400: var(--teas-color-palette-green-400);
+  --ii-e-color-palette-green-500: var(--teas-color-palette-green-500);
+  --ii-e-color-palette-green-600: var(--teas-color-palette-green-600);
+  --ii-e-color-palette-green-700: var(--teas-color-palette-green-700);
+  --ii-e-color-palette-green-800: var(--teas-color-palette-green-800);
+  --ii-e-color-palette-green-900: var(--teas-color-palette-green-900);
+  --ii-e-color-palette-grey-050: var(--teas-color-palette-grey-050);
+  --ii-e-color-palette-grey-100: var(--teas-color-palette-grey-100);
+  --ii-e-color-palette-grey-150: var(--teas-color-palette-grey-150);
+  --ii-e-color-palette-grey-200: var(--teas-color-palette-grey-200);
+  --ii-e-color-palette-grey-300: var(--teas-color-palette-grey-300);
+  --ii-e-color-palette-grey-400: var(--teas-color-palette-grey-400);
+  --ii-e-color-palette-grey-500: var(--teas-color-palette-grey-500);
+  --ii-e-color-palette-grey-600: var(--teas-color-palette-grey-600);
+  --ii-e-color-palette-grey-700: var(--teas-color-palette-grey-700);
+  --ii-e-color-palette-grey-800: var(--teas-color-palette-grey-800);
+  --ii-e-color-palette-grey-900: var(--teas-color-palette-grey-900);
+  --ii-e-color-palette-orange-050: var(--teas-color-palette-orange-050);
+  --ii-e-color-palette-orange-100: var(--teas-color-palette-orange-100);
+  --ii-e-color-palette-orange-150: var(--teas-color-palette-orange-150);
+  --ii-e-color-palette-orange-200: var(--teas-color-palette-orange-200);
+  --ii-e-color-palette-orange-300: var(--teas-color-palette-orange-300);
+  --ii-e-color-palette-orange-400: var(--teas-color-palette-orange-400);
+  --ii-e-color-palette-orange-500: var(--teas-color-palette-orange-500);
+  --ii-e-color-palette-orange-600: var(--teas-color-palette-orange-600);
+  --ii-e-color-palette-orange-700: var(--teas-color-palette-orange-700);
+  --ii-e-color-palette-orange-800: var(--teas-color-palette-orange-800);
+  --ii-e-color-palette-orange-900: var(--teas-color-palette-orange-900);
+  --ii-e-color-palette-purple-050: var(--teas-color-palette-purple-050);
+  --ii-e-color-palette-purple-100: var(--teas-color-palette-purple-100);
+  --ii-e-color-palette-purple-150: var(--teas-color-palette-purple-150);
+  --ii-e-color-palette-purple-200: var(--teas-color-palette-purple-200);
+  --ii-e-color-palette-purple-300: var(--teas-color-palette-purple-300);
+  --ii-e-color-palette-purple-400: var(--teas-color-palette-purple-400);
+  --ii-e-color-palette-purple-500: var(--teas-color-palette-purple-500);
+  --ii-e-color-palette-purple-600: var(--teas-color-palette-purple-600);
+  --ii-e-color-palette-purple-700: var(--teas-color-palette-purple-700);
+  --ii-e-color-palette-purple-800: var(--teas-color-palette-purple-800);
+  --ii-e-color-palette-purple-900: var(--teas-color-palette-purple-900);
+  --ii-e-color-palette-red-050: var(--teas-color-palette-red-050);
+  --ii-e-color-palette-red-100: var(--teas-color-palette-red-100);
+  --ii-e-color-palette-red-150: var(--teas-color-palette-red-150);
+  --ii-e-color-palette-red-200: var(--teas-color-palette-red-200);
+  --ii-e-color-palette-red-300: var(--teas-color-palette-red-300);
+  --ii-e-color-palette-red-400: var(--teas-color-palette-red-400);
+  --ii-e-color-palette-red-500: var(--teas-color-palette-red-500);
+  --ii-e-color-palette-red-600: var(--teas-color-palette-red-600);
+  --ii-e-color-palette-red-700: var(--teas-color-palette-red-700);
+  --ii-e-color-palette-red-800: var(--teas-color-palette-red-800);
+  --ii-e-color-palette-red-900: var(--teas-color-palette-red-900);
+  --ii-e-color-palette-teal-050: var(--teas-color-palette-teal-050);
+  --ii-e-color-palette-teal-100: var(--teas-color-palette-teal-100);
+  --ii-e-color-palette-teal-150: var(--teas-color-palette-teal-150);
+  --ii-e-color-palette-teal-200: var(--teas-color-palette-teal-200);
+  --ii-e-color-palette-teal-300: var(--teas-color-palette-teal-300);
+  --ii-e-color-palette-teal-400: var(--teas-color-palette-teal-400);
+  --ii-e-color-palette-teal-500: var(--teas-color-palette-teal-500);
+  --ii-e-color-palette-teal-600: var(--teas-color-palette-teal-600);
+  --ii-e-color-palette-teal-700: var(--teas-color-palette-teal-700);
+  --ii-e-color-palette-teal-800: var(--teas-color-palette-teal-800);
+  --ii-e-color-palette-teal-900: var(--teas-color-palette-teal-900);
+  --ii-e-color-palette-yellow-050: var(--teas-color-palette-yellow-050);
+  --ii-e-color-palette-yellow-100: var(--teas-color-palette-yellow-100);
+  --ii-e-color-palette-yellow-150: var(--teas-color-palette-yellow-150);
+  --ii-e-color-palette-yellow-200: var(--teas-color-palette-yellow-200);
+  --ii-e-color-palette-yellow-300: var(--teas-color-palette-yellow-300);
+  --ii-e-color-palette-yellow-400: var(--teas-color-palette-yellow-400);
+  --ii-e-color-palette-yellow-500: var(--teas-color-palette-yellow-500);
+  --ii-e-color-palette-yellow-600: var(--teas-color-palette-yellow-600);
+  --ii-e-color-palette-yellow-700: var(--teas-color-palette-yellow-700);
+  --ii-e-color-palette-yellow-800: var(--teas-color-palette-yellow-800);
+  --ii-e-color-palette-yellow-900: var(--teas-color-palette-yellow-900);
+  --ii-e-color-skeleton-plain: var(--teas-color-skeleton-plain);
+  --ii-e-color-skeleton-subtle: var(--teas-color-skeleton-subtle);
+  --ii-e-elevation-surface-base-default: var(--teas-elevation-surface-base-default);
+  --ii-e-elevation-surface-raised-alternative: var(--teas-elevation-surface-raised-alternative);
+  --ii-e-elevation-surface-raised-default: var(--teas-elevation-surface-raised-default);
+  --ii-e-elevation-surface-raised-inverted: var(--teas-elevation-surface-raised-inverted);
+  --ii-e-elevation-surface-raised-primary: var(--teas-elevation-surface-raised-primary);
+  --ii-e-elevation-surface-raised-sunken: var(--teas-elevation-surface-raised-sunken);
+  --ii-e-elevation-surface-shadow: var(--teas-elevation-surface-shadow);
+  --ii-e-icon-typeset-font-weight-regular: var(--icon-typeset-font-weight-icon-regular);
+  --ii-e-icon-typeset-font-weight-solid: var(--icon-typeset-font-weight-icon-solid);
+  --ii-e-opacity-bold: var(--teas-opacity-bold);
+  --ii-e-opacity-interactive-bold-active: var(--teas-opacity-interactive-bold-active);
+  --ii-e-opacity-interactive-bold-hover: var(--teas-opacity-interactive-bold-hover);
+  --ii-e-opacity-interactive-bold-idle: var(--teas-opacity-interactive-bold-idle);
+  --ii-e-opacity-interactive-plain-active: var(--teas-opacity-interactive-plain-active);
+  --ii-e-opacity-interactive-plain-hover: var(--teas-opacity-interactive-plain-hover);
+  --ii-e-opacity-interactive-plain-idle: var(--teas-opacity-interactive-plain-idle);
+  --ii-e-opacity-interactive-reversed-active: var(--teas-opacity-interactive-reversed-active);
+  --ii-e-opacity-interactive-reversed-hover: var(--teas-opacity-interactive-reversed-hover);
+  --ii-e-opacity-interactive-reversed-idle: var(--teas-opacity-interactive-reversed-idle);
+  --ii-e-opacity-moderate: var(--teas-opacity-moderate);
+  --ii-e-opacity-muted: var(--teas-opacity-muted);
+  --ii-e-opacity-subtle: var(--teas-opacity-subtle);
+  --ii-e-opacity-subtlest: var(--teas-opacity-subtlest);
+  --ii-e-size-border-radius-child: calc(var(--size-border-radius-md) / 2);
+  --ii-e-size-border-radius-default: var(--size-border-radius-md);
+  --ii-e-size-border-radius-focus-ring-inside: calc(var(--ii-e-size-border-radius-default) - 1px);
+  --ii-e-size-border-radius-focus-ring-outside: calc(var(--ii-e-size-border-radius-default) + 2px);
+  --ii-e-size-border-radius-full: var(--size-full);
+  --ii-e-size-border-width-action: var(--size-border-width-subtle);
+  --ii-e-size-border-width-default: var(--size-border-width-subtle);
+  --ii-e-size-icon-font-2xl: var(--size-new-icon-2xl);
+  --ii-e-size-icon-font-2xs: var(--size-new-icon-2xs);
+  --ii-e-size-icon-font-3xl: var(--size-new-icon-3xl);
+  --ii-e-size-icon-font-4xl: var(--size-new-icon-4xl);
+  --ii-e-size-icon-font-lg: var(--size-new-icon-lg);
+  --ii-e-size-icon-font-md: var(--size-new-icon-md);
+  --ii-e-size-icon-font-sm: var(--size-new-icon-sm);
+  --ii-e-size-icon-font-xl: var(--size-new-icon-xl);
+  --ii-e-size-icon-font-xs: var(--size-new-icon-xs);
+  --ii-e-size-outline-width-default: var(--size-border-width-bold);
+  --ii-e-size-text-new-body-lg: var(--size-font-200);
+  --ii-e-size-text-new-body-md: var(--size-font-175);
+  --ii-e-size-text-new-body-sm: var(--size-font-150);
+  --ii-e-size-text-new-heading-2xl: var(--size-font-600);
+  --ii-e-size-text-new-heading-lg: var(--size-font-300);
+  --ii-e-size-text-new-heading-md: var(--size-font-200);
+  --ii-e-size-text-new-heading-sm: var(--size-font-175);
+  --ii-e-size-text-new-heading-xl: var(--size-font-400);
+  --ii-e-space-offset-default: var(--space-075);
+  --ii-e-text-new-body-lg-font-family: 'Open Sans';
+  --ii-e-text-new-body-lg-font-size: 16px;
+  --ii-e-text-new-body-lg-font-weight: 400;
+  --ii-e-text-new-body-lg-line-height: 24px;
+  --ii-e-text-new-body-md-font-family: 'Open Sans';
+  --ii-e-text-new-body-md-font-size: 14px;
+  --ii-e-text-new-body-md-font-weight: 400;
+  --ii-e-text-new-body-md-line-height: 20px;
+  --ii-e-text-new-body-sm-font-family: 'Open Sans';
+  --ii-e-text-new-body-sm-font-size: 12px;
+  --ii-e-text-new-body-sm-font-weight: 400;
+  --ii-e-text-new-body-sm-line-height: 16px;
+  --ii-e-text-new-heading-2xl-font-family: 'Open Sans';
+  --ii-e-text-new-heading-2xl-font-size: 48px;
+  --ii-e-text-new-heading-2xl-line-height: 48px;
+  --ii-e-text-new-heading-lg-font-family: 'Open Sans';
+  --ii-e-text-new-heading-lg-font-size: 24px;
+  --ii-e-text-new-heading-lg-line-height: 32px;
+  --ii-e-text-new-heading-md-font-family: 'Open Sans';
+  --ii-e-text-new-heading-md-font-size: 16px;
+  --ii-e-text-new-heading-md-line-height: 20px;
+  --ii-e-text-new-heading-sm-font-family: 'Open Sans';
+  --ii-e-text-new-heading-sm-font-size: 14px;
+  --ii-e-text-new-heading-sm-line-height: 20px;
+  --ii-e-text-new-heading-xl-font-family: 'Open Sans';
+  --ii-e-text-new-heading-xl-font-size: 32px;
+  --ii-e-text-new-heading-xl-line-height: 40px;
+  --ii-e-text-new-icon-outline-font-family: 'Font Awesome 7 Pro';
+  --ii-e-text-new-icon-outline-font-weight: regular;
+  --ii-e-text-new-icon-solid-font-family: 'Font Awesome 7 Pro';
+  --ii-e-text-new-icon-solid-font-weight: solid;
+  --ii-e-text-new-input-lg-font-family: 'Open Sans';
+  --ii-e-text-new-input-lg-font-size: 14px;
+  --ii-e-text-new-input-lg-line-height: 32px;
+  --ii-e-text-new-input-md-font-family: 'Open Sans';
+  --ii-e-text-new-input-md-font-size: 14px;
+  --ii-e-text-new-input-md-line-height: 24px;
+  --ii-e-text-new-typeset-font-family-body: 'Open Sans';
+  --ii-e-text-new-typeset-font-family-heading: 'Open Sans';
+  --ii-e-text-new-typeset-font-family-icon: 'Font Awesome 7 Pro';
+  --ii-e-text-new-typeset-font-weight-regular: var(--font-weight-400);
+  --ii-e-text-new-typeset-font-weight-semi-bold: var(--font-weight-600);
+  --ii-e-theme-name: var(--teas-theme-name);
+}

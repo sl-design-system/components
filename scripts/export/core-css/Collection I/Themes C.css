@@ -1,0 +1,586 @@
+[data-CollectionI='Themes C'] {
+  --i-color-background-accent-blue-bold: var(--i-c-color-background-accent-blue-bold);
+  --i-color-background-accent-blue-interactive-bold: var(
+    --i-c-color-background-accent-blue-interactive-bold
+  );
+  --i-color-background-accent-blue-interactive-plain: var(
+    --i-c-color-background-accent-blue-interactive-plain
+  );
+  --i-color-background-accent-blue-subtle: var(--i-c-color-background-accent-blue-subtle);
+  --i-color-background-accent-blue-subtlest: var(--i-c-color-background-accent-blue-subtlest);
+  --i-color-background-accent-green-bold: var(--i-c-color-background-accent-green-bold);
+  --i-color-background-accent-green-interactive-bold: var(
+    --i-c-color-background-accent-green-interactive-bold
+  );
+  --i-color-background-accent-green-interactive-plain: var(
+    --i-c-color-background-accent-green-interactive-plain
+  );
+  --i-color-background-accent-green-subtle: var(--i-c-color-background-accent-green-subtle);
+  --i-color-background-accent-green-subtlest: var(--i-c-color-background-accent-green-subtlest);
+  --i-color-background-accent-grey-bold: var(--i-c-color-background-accent-grey-bold);
+  --i-color-background-accent-grey-interactive-bold: var(
+    --i-c-color-background-accent-grey-interactive-bold
+  );
+  --i-color-background-accent-grey-interactive-plain: var(
+    --i-c-color-background-accent-grey-interactive-plain
+  );
+  --i-color-background-accent-grey-subtle: var(--i-c-color-background-accent-grey-subtle);
+  --i-color-background-accent-grey-subtlest: var(--i-c-color-background-accent-grey-subtlest);
+  --i-color-background-accent-orange-bold: var(--i-c-color-background-accent-orange-bold);
+  --i-color-background-accent-orange-interactive-bold: var(
+    --i-c-color-background-accent-orange-interactive-bold
+  );
+  --i-color-background-accent-orange-interactive-plain: var(
+    --i-c-color-background-accent-orange-interactive-plain
+  );
+  --i-color-background-accent-orange-subtle: var(--i-c-color-background-accent-orange-subtle);
+  --i-color-background-accent-orange-subtlest: var(--i-c-color-background-accent-orange-subtlest);
+  --i-color-background-accent-purple-bold: var(--i-c-color-background-accent-purple-bold);
+  --i-color-background-accent-purple-interactive-bold: var(
+    --i-c-color-background-accent-purple-interactive-bold
+  );
+  --i-color-background-accent-purple-interactive-plain: var(
+    --i-c-color-background-accent-purple-interactive-plain
+  );
+  --i-color-background-accent-purple-subtle: var(--i-c-color-background-accent-purple-subtle);
+  --i-color-background-accent-purple-subtlest: var(--i-c-color-background-accent-purple-subtlest);
+  --i-color-background-accent-red-bold: var(--i-c-color-background-accent-red-bold);
+  --i-color-background-accent-red-interactive-bold: var(
+    --i-c-color-background-accent-red-interactive-bold
+  );
+  --i-color-background-accent-red-interactive-plain: var(
+    --i-c-color-background-accent-red-interactive-plain
+  );
+  --i-color-background-accent-red-subtle: var(--i-c-color-background-accent-red-subtle);
+  --i-color-background-accent-red-subtlest: var(--i-c-color-background-accent-red-subtlest);
+  --i-color-background-accent-yellow-bold: var(--i-c-color-background-accent-yellow-bold);
+  --i-color-background-accent-yellow-interactive-bold: var(
+    --i-c-color-background-accent-yellow-interactive-bold
+  );
+  --i-color-background-accent-yellow-interactive-plain: var(
+    --i-c-color-background-accent-yellow-interactive-plain
+  );
+  --i-color-background-accent-yellow-subtle: var(--i-c-color-background-accent-yellow-subtle);
+  --i-color-background-accent-yellow-subtlest: var(--i-c-color-background-accent-yellow-subtlest);
+  --i-color-background-bold: var(--i-c-color-background-bold);
+  --i-color-background-caution-bold: var(--i-c-color-background-caution-bold);
+  --i-color-background-caution-interactive-bold: var(
+    --i-c-color-background-caution-interactive-bold
+  );
+  --i-color-background-caution-interactive-plain: var(
+    --i-c-color-background-caution-interactive-plain
+  );
+  --i-color-background-caution-subtle: var(--i-c-color-background-caution-subtle);
+  --i-color-background-caution-subtlest: var(--i-c-color-background-caution-subtlest);
+  --i-color-background-disabled: var(--i-c-color-background-disabled);
+  --i-color-background-highlight: var(--i-c-color-background-highlight);
+  --i-color-background-info-bold: var(--i-c-color-background-info-bold);
+  --i-color-background-info-interactive-bold: var(--i-c-color-background-info-interactive-bold);
+  --i-color-background-info-interactive-plain: var(--i-c-color-background-info-interactive-plain);
+  --i-color-background-info-subtle: var(--i-c-color-background-info-subtle);
+  --i-color-background-info-subtlest: var(--i-c-color-background-info-subtlest);
+  --i-color-background-input-interactive: var(--i-c-color-background-input-interactive);
+  --i-color-background-interactive-bold: var(--i-c-color-background-interactive-bold);
+  --i-color-background-interactive-plain: var(--i-c-color-background-interactive-plain);
+  --i-color-background-inverted-interactive-bold: var(
+    --i-c-color-background-inverted-interactive-bold
+  );
+  --i-color-background-inverted-interactive-plain: var(
+    --i-c-color-background-inverted-interactive-plain
+  );
+  --i-color-background-negative-bold: var(--i-c-color-background-negative-bold);
+  --i-color-background-negative-interactive-bold: var(
+    --i-c-color-background-negative-interactive-bold
+  );
+  --i-color-background-negative-interactive-plain: var(
+    --i-c-color-background-negative-interactive-plain
+  );
+  --i-color-background-negative-subtle: var(--i-c-color-background-negative-subtle);
+  --i-color-background-negative-subtlest: var(--i-c-color-background-negative-subtlest);
+  --i-color-background-neutral-bold: var(--i-c-color-background-neutral-bold);
+  --i-color-background-neutral-interactive-bold: var(
+    --i-c-color-background-neutral-interactive-bold
+  );
+  --i-color-background-neutral-interactive-plain: var(
+    --i-c-color-background-neutral-interactive-plain
+  );
+  --i-color-background-neutral-subtle: var(--i-c-color-background-neutral-subtle);
+  --i-color-background-neutral-subtlest: var(--i-c-color-background-neutral-subtlest);
+  --i-color-background-positive-bold: var(--i-c-color-background-positive-bold);
+  --i-color-background-positive-interactive-bold: var(
+    --i-c-color-background-positive-interactive-bold
+  );
+  --i-color-background-positive-interactive-plain: var(
+    --i-c-color-background-positive-interactive-plain
+  );
+  --i-color-background-positive-subtle: var(--i-c-color-background-positive-subtle);
+  --i-color-background-positive-subtlest: var(--i-c-color-background-positive-subtlest);
+  --i-color-background-primary-bold: var(--i-c-color-background-primary-bold);
+  --i-color-background-primary-interactive-bold: var(
+    --i-c-color-background-primary-interactive-bold
+  );
+  --i-color-background-primary-interactive-plain: var(
+    --i-c-color-background-primary-interactive-plain
+  );
+  --i-color-background-primary-subtle: var(--i-c-color-background-primary-subtle);
+  --i-color-background-primary-subtlest: var(--i-c-color-background-primary-subtlest);
+  --i-color-background-secondary-bold: var(--i-c-color-background-secondary-bold);
+  --i-color-background-secondary-interactive-bold: var(
+    --i-c-color-background-secondary-interactive-bold
+  );
+  --i-color-background-secondary-interactive-plain: var(
+    --i-c-color-background-secondary-interactive-plain
+  );
+  --i-color-background-secondary-subtle: var(--i-c-color-background-secondary-subtle);
+  --i-color-background-secondary-subtlest: var(--i-c-color-background-secondary-subtlest);
+  --i-color-background-selected-bold: var(--i-c-color-background-selected-bold);
+  --i-color-background-selected-interactive-bold: var(
+    --i-c-color-background-selected-interactive-bold
+  );
+  --i-color-background-selected-interactive-plain: var(
+    --i-c-color-background-selected-interactive-plain
+  );
+  --i-color-background-selected-subtle: var(--i-c-color-background-selected-subtle);
+  --i-color-background-selected-subtlest: var(--i-c-color-background-selected-subtlest);
+  --i-color-background-subtle: var(--i-c-color-background-subtle);
+  --i-color-blanket-plain: var(--i-c-color-blanket-plain);
+  --i-color-border-accent-blue-bold: var(--i-c-color-border-accent-blue-bold);
+  --i-color-border-accent-blue-plain: var(--i-c-color-border-accent-blue-plain);
+  --i-color-border-accent-green-bold: var(--i-c-color-border-accent-green-bold);
+  --i-color-border-accent-green-plain: var(--i-c-color-border-accent-green-plain);
+  --i-color-border-accent-grey-bold: var(--i-c-color-border-accent-grey-bold);
+  --i-color-border-accent-grey-faint: var(--i-c-color-border-accent-grey-faint);
+  --i-color-border-accent-grey-heavy: var(--i-c-color-border-accent-grey-heavy);
+  --i-color-border-accent-grey-plain: var(--i-c-color-border-accent-grey-plain);
+  --i-color-border-accent-orange-bold: var(--i-c-color-border-accent-orange-bold);
+  --i-color-border-accent-orange-plain: var(--i-c-color-border-accent-orange-plain);
+  --i-color-border-accent-purple-bold: var(--i-c-color-border-accent-purple-bold);
+  --i-color-border-accent-purple-plain: var(--i-c-color-border-accent-purple-plain);
+  --i-color-border-accent-red-bold: var(--i-c-color-border-accent-red-bold);
+  --i-color-border-accent-red-plain: var(--i-c-color-border-accent-red-plain);
+  --i-color-border-accent-yellow-bold: var(--i-c-color-border-accent-yellow-bold);
+  --i-color-border-accent-yellow-plain: var(--i-c-color-border-accent-yellow-plain);
+  --i-color-border-bold: var(--i-c-color-border-bold);
+  --i-color-border-caution-bold: var(--i-c-color-border-caution-bold);
+  --i-color-border-caution-plain: var(--i-c-color-border-caution-plain);
+  --i-color-border-disabled: var(--i-c-color-border-disabled);
+  --i-color-border-focused: var(--i-c-color-border-focused);
+  --i-color-border-info-bold: var(--i-c-color-border-info-bold);
+  --i-color-border-info-plain: var(--i-c-color-border-info-plain);
+  --i-color-border-info-subtle: var(--i-c-color-border-info-subtle);
+  --i-color-border-input: var(--i-c-color-border-input);
+  --i-color-border-negative-bold: var(--i-c-color-border-negative-bold);
+  --i-color-border-negative-plain: var(--i-c-color-border-negative-plain);
+  --i-color-border-neutral-bold: var(--i-c-color-border-neutral-bold);
+  --i-color-border-neutral-plain: var(--i-c-color-border-neutral-plain);
+  --i-color-border-neutral-subtle: var(--i-c-color-border-neutral-subtle);
+  --i-color-border-plain: var(--i-c-color-border-plain);
+  --i-color-border-positive-bold: var(--i-c-color-border-positive-bold);
+  --i-color-border-positive-plain: var(--i-c-color-border-positive-plain);
+  --i-color-border-primary-bold: var(--i-c-color-border-primary-bold);
+  --i-color-border-primary-plain: var(--i-c-color-border-primary-plain);
+  --i-color-border-secondary-bold: var(--i-c-color-border-secondary-bold);
+  --i-color-border-secondary-plain: var(--i-c-color-border-secondary-plain);
+  --i-color-border-selected: var(--i-c-color-border-selected);
+  --i-color-foreground-accent-blue-bold: var(--i-c-color-foreground-accent-blue-bold);
+  --i-color-foreground-accent-blue-plain: var(--i-c-color-foreground-accent-blue-plain);
+  --i-color-foreground-accent-green-bold: var(--i-c-color-foreground-accent-green-bold);
+  --i-color-foreground-accent-green-plain: var(--i-c-color-foreground-accent-green-plain);
+  --i-color-foreground-accent-grey-bold: var(--i-c-color-foreground-accent-grey-bold);
+  --i-color-foreground-accent-grey-faint: var(--i-c-color-foreground-accent-grey-faint);
+  --i-color-foreground-accent-grey-on-bold: var(--i-c-color-foreground-accent-grey-on-bold);
+  --i-color-foreground-accent-grey-on-inverted: var(--i-c-color-foreground-accent-grey-on-inverted);
+  --i-color-foreground-accent-grey-plain: var(--i-c-color-foreground-accent-grey-plain);
+  --i-color-foreground-accent-grey-subtle: var(--i-c-color-foreground-accent-grey-subtle);
+  --i-color-foreground-accent-grey-subtlest: var(--i-c-color-foreground-accent-grey-subtlest);
+  --i-color-foreground-accent-orange-bold: var(--i-c-color-foreground-accent-orange-bold);
+  --i-color-foreground-accent-orange-on-bold: var(--i-c-color-foreground-accent-orange-on-bold);
+  --i-color-foreground-accent-orange-plain: var(--i-c-color-foreground-accent-orange-plain);
+  --i-color-foreground-accent-purple-bold: var(--i-c-color-foreground-accent-purple-bold);
+  --i-color-foreground-accent-purple-plain: var(--i-c-color-foreground-accent-purple-plain);
+  --i-color-foreground-accent-red-bold: var(--i-c-color-foreground-accent-red-bold);
+  --i-color-foreground-accent-red-plain: var(--i-c-color-foreground-accent-red-plain);
+  --i-color-foreground-accent-yellow-bold: var(--i-c-color-foreground-accent-yellow-bold);
+  --i-color-foreground-accent-yellow-on-bold: var(--i-c-color-foreground-accent-yellow-on-bold);
+  --i-color-foreground-accent-yellow-plain: var(--i-c-color-foreground-accent-yellow-plain);
+  --i-color-foreground-bold: var(--i-c-color-foreground-bold);
+  --i-color-foreground-brand: var(--i-c-color-foreground-brand);
+  --i-color-foreground-caution-bold: var(--i-c-color-foreground-caution-bold);
+  --i-color-foreground-caution-on-bold: var(--i-c-color-foreground-caution-on-bold);
+  --i-color-foreground-caution-plain: var(--i-c-color-foreground-caution-plain);
+  --i-color-foreground-disabled: var(--i-c-color-foreground-disabled);
+  --i-color-foreground-info-bold: var(--i-c-color-foreground-info-bold);
+  --i-color-foreground-info-plain: var(--i-c-color-foreground-info-plain);
+  --i-color-foreground-inverted-on-bold: var(--i-c-color-foreground-inverted-on-bold);
+  --i-color-foreground-negative-bold: var(--i-c-color-foreground-negative-bold);
+  --i-color-foreground-negative-plain: var(--i-c-color-foreground-negative-plain);
+  --i-color-foreground-neutral-bold: var(--i-c-color-foreground-neutral-bold);
+  --i-color-foreground-neutral-on-bold: var(--i-c-color-foreground-neutral-on-bold);
+  --i-color-foreground-neutral-plain: var(--i-c-color-foreground-neutral-plain);
+  --i-color-foreground-plain: var(--i-c-color-foreground-plain);
+  --i-color-foreground-positive-bold: var(--i-c-color-foreground-positive-bold);
+  --i-color-foreground-positive-plain: var(--i-c-color-foreground-positive-plain);
+  --i-color-foreground-primary-bold: var(--i-c-color-foreground-primary-bold);
+  --i-color-foreground-secondary-bold: var(--i-c-color-foreground-secondary-bold);
+  --i-color-foreground-secondary-on-bold: var(--i-c-color-foreground-secondary-on-bold);
+  --i-color-foreground-selected-bold: var(--i-c-color-foreground-selected-bold);
+  --i-color-foreground-selected-plain: var(--i-c-color-foreground-selected-plain);
+  --i-color-foreground-subtle: var(--i-c-color-foreground-subtle);
+  --i-color-foreground-subtlest: var(--i-c-color-foreground-subtlest);
+  --i-color-link-active: var(--i-c-color-link-active);
+  --i-color-link-focused-active: var(--i-c-color-link-focused-active);
+  --i-color-link-focused-hover: var(--i-c-color-link-focused-hover);
+  --i-color-link-focused-idle: var(--i-c-color-link-focused-idle);
+  --i-color-link-hover: var(--i-c-color-link-hover);
+  --i-color-link-idle: var(--i-c-color-link-idle);
+  --i-color-link-inverted-active: var(--i-c-color-link-inverted-active);
+  --i-color-link-inverted-hover: var(--i-c-color-link-inverted-hover);
+  --i-color-link-muted-active: var(--i-c-color-link-muted-active);
+  --i-color-link-muted-hover: var(--i-c-color-link-muted-hover);
+  --i-color-link-muted-idle: var(--i-c-color-link-muted-idle);
+  --i-color-palette-blue-050: var(--i-c-color-palette-blue-050);
+  --i-color-palette-blue-100: var(--i-c-color-palette-blue-100);
+  --i-color-palette-blue-150: var(--i-c-color-palette-blue-150);
+  --i-color-palette-blue-200: var(--i-c-color-palette-blue-200);
+  --i-color-palette-blue-300: var(--i-c-color-palette-blue-300);
+  --i-color-palette-blue-400: var(--i-c-color-palette-blue-400);
+  --i-color-palette-blue-500: var(--i-c-color-palette-blue-500);
+  --i-color-palette-blue-600: var(--i-c-color-palette-blue-600);
+  --i-color-palette-blue-700: var(--i-c-color-palette-blue-700);
+  --i-color-palette-blue-800: var(--i-c-color-palette-blue-800);
+  --i-color-palette-blue-900: var(--i-c-color-palette-blue-900);
+  --i-color-palette-green-050: var(--i-c-color-palette-green-050);
+  --i-color-palette-green-100: var(--i-c-color-palette-green-100);
+  --i-color-palette-green-150: var(--i-c-color-palette-green-150);
+  --i-color-palette-green-200: var(--i-c-color-palette-green-200);
+  --i-color-palette-green-300: var(--i-c-color-palette-green-300);
+  --i-color-palette-green-400: var(--i-c-color-palette-green-400);
+  --i-color-palette-green-500: var(--i-c-color-palette-green-500);
+  --i-color-palette-green-600: var(--i-c-color-palette-green-600);
+  --i-color-palette-green-700: var(--i-c-color-palette-green-700);
+  --i-color-palette-green-800: var(--i-c-color-palette-green-800);
+  --i-color-palette-green-900: var(--i-c-color-palette-green-900);
+  --i-color-palette-grey-050: var(--i-c-color-palette-grey-050);
+  --i-color-palette-grey-100: var(--i-c-color-palette-grey-100);
+  --i-color-palette-grey-150: var(--i-c-color-palette-grey-150);
+  --i-color-palette-grey-200: var(--i-c-color-palette-grey-200);
+  --i-color-palette-grey-300: var(--i-c-color-palette-grey-300);
+  --i-color-palette-grey-400: var(--i-c-color-palette-grey-400);
+  --i-color-palette-grey-500: var(--i-c-color-palette-grey-500);
+  --i-color-palette-grey-600: var(--i-c-color-palette-grey-600);
+  --i-color-palette-grey-700: var(--i-c-color-palette-grey-700);
+  --i-color-palette-grey-800: var(--i-c-color-palette-grey-800);
+  --i-color-palette-grey-900: var(--i-c-color-palette-grey-900);
+  --i-color-palette-orange-050: var(--i-c-color-palette-orange-050);
+  --i-color-palette-orange-100: var(--i-c-color-palette-orange-100);
+  --i-color-palette-orange-150: var(--i-c-color-palette-orange-150);
+  --i-color-palette-orange-200: var(--i-c-color-palette-orange-200);
+  --i-color-palette-orange-300: var(--i-c-color-palette-orange-300);
+  --i-color-palette-orange-400: var(--i-c-color-palette-orange-400);
+  --i-color-palette-orange-500: var(--i-c-color-palette-orange-500);
+  --i-color-palette-orange-600: var(--i-c-color-palette-orange-600);
+  --i-color-palette-orange-700: var(--i-c-color-palette-orange-700);
+  --i-color-palette-orange-800: var(--i-c-color-palette-orange-800);
+  --i-color-palette-orange-900: var(--i-c-color-palette-orange-900);
+  --i-color-palette-purple-050: var(--i-c-color-palette-purple-050);
+  --i-color-palette-purple-100: var(--i-c-color-palette-purple-100);
+  --i-color-palette-purple-150: var(--i-c-color-palette-purple-150);
+  --i-color-palette-purple-200: var(--i-c-color-palette-purple-200);
+  --i-color-palette-purple-300: var(--i-c-color-palette-purple-300);
+  --i-color-palette-purple-400: var(--i-c-color-palette-purple-400);
+  --i-color-palette-purple-500: var(--i-c-color-palette-purple-500);
+  --i-color-palette-purple-600: var(--i-c-color-palette-purple-600);
+  --i-color-palette-purple-700: var(--i-c-color-palette-purple-700);
+  --i-color-palette-purple-800: var(--i-c-color-palette-purple-800);
+  --i-color-palette-purple-900: var(--i-c-color-palette-purple-900);
+  --i-color-palette-red-050: var(--i-c-color-palette-red-050);
+  --i-color-palette-red-100: var(--i-c-color-palette-red-100);
+  --i-color-palette-red-150: var(--i-c-color-palette-red-150);
+  --i-color-palette-red-200: var(--i-c-color-palette-red-200);
+  --i-color-palette-red-300: var(--i-c-color-palette-red-300);
+  --i-color-palette-red-400: var(--i-c-color-palette-red-400);
+  --i-color-palette-red-500: var(--i-c-color-palette-red-500);
+  --i-color-palette-red-600: var(--i-c-color-palette-red-600);
+  --i-color-palette-red-700: var(--i-c-color-palette-red-700);
+  --i-color-palette-red-800: var(--i-c-color-palette-red-800);
+  --i-color-palette-red-900: var(--i-c-color-palette-red-900);
+  --i-color-palette-yellow-050: var(--i-c-color-palette-yellow-050);
+  --i-color-palette-yellow-100: var(--i-c-color-palette-yellow-100);
+  --i-color-palette-yellow-150: var(--i-c-color-palette-yellow-150);
+  --i-color-palette-yellow-200: var(--i-c-color-palette-yellow-200);
+  --i-color-palette-yellow-300: var(--i-c-color-palette-yellow-300);
+  --i-color-palette-yellow-400: var(--i-c-color-palette-yellow-400);
+  --i-color-palette-yellow-500: var(--i-c-color-palette-yellow-500);
+  --i-color-palette-yellow-600: var(--i-c-color-palette-yellow-600);
+  --i-color-palette-yellow-700: var(--i-c-color-palette-yellow-700);
+  --i-color-palette-yellow-800: var(--i-c-color-palette-yellow-800);
+  --i-color-palette-yellow-900: var(--i-c-color-palette-yellow-900);
+  --i-color-skeleton-plain: var(--i-c-color-skeleton-plain);
+  --i-color-skeleton-subtle: var(--i-c-color-skeleton-subtle);
+  --i-elevation-surface-raised-alternative: var(--i-c-elevation-surface-raised-alternative);
+  --i-elevation-surface-raised-inverted: var(--i-c-elevation-surface-raised-inverted);
+  --i-elevation-surface-raised-primary: var(--i-c-elevation-surface-raised-primary);
+  --i-elevation-surface-raised-sunken: var(--i-c-elevation-surface-raised-sunken);
+  --i-elevation-surface-shadow: var(--i-c-elevation-surface-shadow);
+  --i-icon-typeset-font-weight-regular: var(--icon-typeset-font-weight-icon-regular);
+  --i-icon-typeset-font-weight-solid: var(--icon-typeset-font-weight-icon-solid);
+  --i-opacity-bold: var(--i-c-opacity-bold);
+  --i-opacity-interactive-bold-active: var(--i-c-opacity-interactive-bold-active);
+  --i-opacity-interactive-bold-hover: var(--i-c-opacity-interactive-bold-hover);
+  --i-opacity-interactive-bold-idle: var(--i-c-opacity-interactive-bold-idle);
+  --i-opacity-interactive-plain-idle: var(--i-c-opacity-interactive-plain-idle);
+  --i-opacity-interactive-reversed-active: var(--i-c-opacity-interactive-reversed-active);
+  --i-opacity-interactive-reversed-hover: var(--i-c-opacity-interactive-reversed-hover);
+  --i-opacity-interactive-reversed-idle: var(--i-c-opacity-interactive-reversed-idle);
+  --i-opacity-moderate: var(--i-c-opacity-moderate);
+  --i-opacity-muted: var(--i-c-opacity-muted);
+  --i-size-border-radius-child: var(--i-c-size-border-radius-child);
+  --i-size-border-radius-default: var(--i-c-size-border-radius-default);
+  --i-size-border-radius-focus-ring-inside: var(--i-c-size-border-radius-focus-ring-inside);
+  --i-size-border-radius-focus-ring-outside: var(--i-c-size-border-radius-focus-ring-outside);
+  --i-size-border-radius-full: var(--i-c-size-border-radius-full);
+  --i-size-border-width-action: var(--i-c-size-border-width-action);
+  --i-size-border-width-default: var(--i-c-size-border-width-default);
+  --i-size-icon-font-2xl: var(--i-c-size-icon-font-2xl);
+  --i-size-icon-font-2xs: var(--i-c-size-icon-font-2xs);
+  --i-size-icon-font-3xl: var(--i-c-size-icon-font-3xl);
+  --i-size-icon-font-4xl: var(--i-c-size-icon-font-4xl);
+  --i-size-icon-font-lg: var(--i-c-size-icon-font-lg);
+  --i-size-icon-font-md: var(--i-c-size-icon-font-md);
+  --i-size-icon-font-sm: var(--i-c-size-icon-font-sm);
+  --i-size-icon-font-xl: var(--i-c-size-icon-font-xl);
+  --i-size-icon-font-xs: var(--i-c-size-icon-font-xs);
+  --i-size-outline-width-default: var(--i-c-size-outline-width-default);
+  --i-size-text-new-body-lg: var(--i-c-size-text-new-body-lg);
+  --i-size-text-new-body-md: var(--i-c-size-text-new-body-md);
+  --i-size-text-new-body-sm: var(--i-c-size-text-new-body-sm);
+  --i-size-text-new-heading-2xl: var(--i-c-size-text-new-heading-2xl);
+  --i-size-text-new-heading-lg: var(--i-c-size-text-new-heading-lg);
+  --i-size-text-new-heading-md: var(--i-c-size-text-new-heading-md);
+  --i-size-text-new-heading-sm: var(--i-c-size-text-new-heading-sm);
+  --i-size-text-new-heading-xl: var(--i-c-size-text-new-heading-xl);
+  --i-space-offset-default: var(--i-c-space-offset-default);
+  --i-text-new-icon-outline-font-family: 'Font Awesome 7 Pro';
+  --i-text-new-icon-outline-font-weight: regular;
+  --i-text-new-icon-solid-font-family: 'Font Awesome 7 Pro';
+  --i-text-new-icon-solid-font-weight: solid;
+  --i-text-new-typeset-font-family-icon: 'Font Awesome 7 Pro';
+  --i-text-new-typeset-font-weight-regular: var(--i-c-text-new-typeset-font-weight-regular);
+  --i-theme-name: var(--i-c-theme-name);
+  --computed-themes-e-bingel-dc-sanoma-pro-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-dc-sanoma-pro-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-dc-sanoma-pro-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-dc-sanoma-pro-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-dc-sanoma-pro-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-dc-sanoma-pro-color-shadow-overlay2
+  );
+  --computed-themes-e-bingel-dc-sanoma-utbildning-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-dc-sanoma-utbildning-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-dc-sanoma-utbildning-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-dc-sanoma-utbildning-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-dc-sanoma-utbildning-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-dc-sanoma-utbildning-color-shadow-overlay2
+  );
+  --computed-themes-e-bingel-dc-teacher-assistant-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-dc-teacher-assistant-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-dc-teacher-assistant-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-dc-teacher-assistant-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-dc-teacher-assistant-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-dc-teacher-assistant-color-shadow-overlay2
+  );
+  --computed-themes-e-bingel-dc-tig-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-dc-tig-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-dc-tig-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-dc-tig-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-dc-tig-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-dc-tig-color-shadow-overlay2
+  );
+  --computed-themes-e-bingel-int-sanoma-pro-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-int-sanoma-pro-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-int-sanoma-pro-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-int-sanoma-pro-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-int-sanoma-pro-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-int-sanoma-pro-color-shadow-overlay2
+  );
+  --computed-themes-e-bingel-int-sanoma-utbildning-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-int-sanoma-utbildning-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-int-sanoma-utbildning-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-int-sanoma-utbildning-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-int-sanoma-utbildning-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-int-sanoma-utbildning-color-shadow-overlay2
+  );
+  --computed-themes-e-bingel-int-teacher-assistant-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-int-teacher-assistant-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-int-teacher-assistant-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-int-teacher-assistant-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-int-teacher-assistant-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-int-teacher-assistant-color-shadow-overlay2
+  );
+  --computed-themes-e-bingel-int-tig-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-bingel-int-tig-color-shadow-overflow1
+  );
+  --computed-themes-e-bingel-int-tig-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-bingel-int-tig-color-shadow-overlay1
+  );
+  --computed-themes-e-bingel-int-tig-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-bingel-int-tig-color-shadow-overlay2
+  );
+  --computed-themes-e-sanoma-learning-sanoma-pro-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-sanoma-learning-sanoma-pro-color-shadow-overflow1
+  );
+  --computed-themes-e-sanoma-learning-sanoma-pro-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-sanoma-learning-sanoma-pro-color-shadow-overlay1
+  );
+  --computed-themes-e-sanoma-learning-sanoma-pro-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-sanoma-learning-sanoma-pro-color-shadow-overlay2
+  );
+  --computed-themes-e-sanoma-learning-sanoma-utbildning-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-sanoma-learning-sanoma-utbildning-color-shadow-overflow1
+  );
+  --computed-themes-e-sanoma-learning-sanoma-utbildning-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-sanoma-learning-sanoma-utbildning-color-shadow-overlay1
+  );
+  --computed-themes-e-sanoma-learning-sanoma-utbildning-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-sanoma-learning-sanoma-utbildning-color-shadow-overlay2
+  );
+  --computed-themes-e-sanoma-learning-teacher-assistant-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-sanoma-learning-teacher-assistant-color-shadow-overflow1
+  );
+  --computed-themes-e-sanoma-learning-teacher-assistant-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-sanoma-learning-teacher-assistant-color-shadow-overlay1
+  );
+  --computed-themes-e-sanoma-learning-teacher-assistant-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-sanoma-learning-teacher-assistant-color-shadow-overlay2
+  );
+  --computed-themes-e-sanoma-learning-tig-color-shadow-overflow1: var(
+    --computed-themes-c-themes-e-sanoma-learning-tig-color-shadow-overflow1
+  );
+  --computed-themes-e-sanoma-learning-tig-color-shadow-overlay1: var(
+    --computed-themes-c-themes-e-sanoma-learning-tig-color-shadow-overlay1
+  );
+  --computed-themes-e-sanoma-learning-tig-color-shadow-overlay2: var(
+    --computed-themes-c-themes-e-sanoma-learning-tig-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-dc-sanoma-pro-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-dc-sanoma-pro-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-dc-sanoma-pro-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-dc-sanoma-pro-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-dc-sanoma-pro-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-dc-sanoma-pro-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-dc-sanoma-utbildning-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-dc-sanoma-utbildning-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-dc-sanoma-utbildning-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-dc-sanoma-utbildning-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-dc-sanoma-utbildning-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-dc-sanoma-utbildning-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-dc-teacher-assistant-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-dc-teacher-assistant-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-dc-teacher-assistant-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-dc-teacher-assistant-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-dc-teacher-assistant-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-dc-teacher-assistant-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-dc-tig-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-dc-tig-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-dc-tig-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-dc-tig-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-dc-tig-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-dc-tig-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-int-sanoma-pro-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-int-sanoma-pro-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-int-sanoma-pro-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-int-sanoma-pro-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-int-sanoma-pro-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-int-sanoma-pro-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-int-sanoma-utbildning-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-int-sanoma-utbildning-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-int-sanoma-utbildning-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-int-sanoma-utbildning-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-int-sanoma-utbildning-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-int-sanoma-utbildning-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-int-teacher-assistant-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-int-teacher-assistant-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-int-teacher-assistant-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-int-teacher-assistant-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-int-teacher-assistant-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-int-teacher-assistant-color-shadow-overlay2
+  );
+  --computed-themes-f-bingel-int-tig-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-bingel-int-tig-color-shadow-overflow1
+  );
+  --computed-themes-f-bingel-int-tig-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-bingel-int-tig-color-shadow-overlay1
+  );
+  --computed-themes-f-bingel-int-tig-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-bingel-int-tig-color-shadow-overlay2
+  );
+  --computed-themes-f-sanoma-learning-sanoma-pro-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-sanoma-learning-sanoma-pro-color-shadow-overflow1
+  );
+  --computed-themes-f-sanoma-learning-sanoma-pro-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-sanoma-learning-sanoma-pro-color-shadow-overlay1
+  );
+  --computed-themes-f-sanoma-learning-sanoma-pro-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-sanoma-learning-sanoma-pro-color-shadow-overlay2
+  );
+  --computed-themes-f-sanoma-learning-sanoma-utbildning-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-sanoma-learning-sanoma-utbildning-color-shadow-overflow1
+  );
+  --computed-themes-f-sanoma-learning-sanoma-utbildning-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-sanoma-learning-sanoma-utbildning-color-shadow-overlay1
+  );
+  --computed-themes-f-sanoma-learning-sanoma-utbildning-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-sanoma-learning-sanoma-utbildning-color-shadow-overlay2
+  );
+  --computed-themes-f-sanoma-learning-teacher-assistant-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-sanoma-learning-teacher-assistant-color-shadow-overflow1
+  );
+  --computed-themes-f-sanoma-learning-teacher-assistant-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-sanoma-learning-teacher-assistant-color-shadow-overlay1
+  );
+  --computed-themes-f-sanoma-learning-teacher-assistant-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-sanoma-learning-teacher-assistant-color-shadow-overlay2
+  );
+  --computed-themes-f-sanoma-learning-tig-color-shadow-overflow1: var(
+    --computed-themes-c-themes-f-sanoma-learning-tig-color-shadow-overflow1
+  );
+  --computed-themes-f-sanoma-learning-tig-color-shadow-overlay1: var(
+    --computed-themes-c-themes-f-sanoma-learning-tig-color-shadow-overlay1
+  );
+  --computed-themes-f-sanoma-learning-tig-color-shadow-overlay2: var(
+    --computed-themes-c-themes-f-sanoma-learning-tig-color-shadow-overlay2
+  );
+}

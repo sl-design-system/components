@@ -1,0 +1,359 @@
+:root {
+  --kampus-color-background-accent-blue-bold: var(--kampus-color-palette-blue-600);
+  --kampus-color-background-accent-blue-interactive-bold: var(--kampus-color-palette-blue-900);
+  --kampus-color-background-accent-blue-interactive-plain: var(--kampus-color-palette-blue-400);
+  --kampus-color-background-accent-blue-subtle: #479dea33;
+  --kampus-color-background-accent-blue-subtlest: #479dea1a;
+  --kampus-color-background-accent-green-bold: var(--kampus-color-palette-green-600);
+  --kampus-color-background-accent-green-interactive-bold: var(--kampus-color-palette-green-900);
+  --kampus-color-background-accent-green-interactive-plain: var(--kampus-color-palette-green-400);
+  --kampus-color-background-accent-green-subtle: #1da17133;
+  --kampus-color-background-accent-green-subtlest: #1da1711a;
+  --kampus-color-background-accent-grey-bold: var(--kampus-color-palette-grey-100);
+  --kampus-color-background-accent-grey-interactive-bold: var(--kampus-color-palette-grey-400);
+  --kampus-color-background-accent-grey-interactive-plain: var(--kampus-color-palette-grey-200);
+  --kampus-color-background-accent-grey-subtle: #696a7133;
+  --kampus-color-background-accent-grey-subtlest: #696a711a;
+  --kampus-color-background-accent-orange-bold: var(--kampus-color-palette-orange-600);
+  --kampus-color-background-accent-orange-interactive-bold: var(--kampus-color-palette-orange-900);
+  --kampus-color-background-accent-orange-interactive-plain: var(--kampus-color-palette-orange-400);
+  --kampus-color-background-accent-orange-subtle: #f7791833;
+  --kampus-color-background-accent-orange-subtlest: #f779181a;
+  --kampus-color-background-accent-purple-bold: var(--kampus-color-palette-purple-600);
+  --kampus-color-background-accent-purple-interactive-bold: var(--kampus-color-palette-purple-900);
+  --kampus-color-background-accent-purple-interactive-plain: var(--kampus-color-palette-purple-400);
+  --kampus-color-background-accent-purple-subtle: #a06ede33;
+  --kampus-color-background-accent-purple-subtlest: #a06ede1a;
+  --kampus-color-background-accent-red-bold: var(--kampus-color-palette-red-500);
+  --kampus-color-background-accent-red-interactive-bold: var(--kampus-color-palette-red-900);
+  --kampus-color-background-accent-red-interactive-plain: var(--kampus-color-palette-red-400);
+  --kampus-color-background-accent-red-subtle: #f0434333;
+  --kampus-color-background-accent-red-subtlest: #f043431a;
+  --kampus-color-background-accent-teal-bold: var(--kampus-color-palette-teal-600);
+  --kampus-color-background-accent-teal-interactive-bold: var(--kampus-color-palette-teal-900);
+  --kampus-color-background-accent-teal-interactive-plain: var(--kampus-color-palette-teal-400);
+  --kampus-color-background-accent-teal-subtle: #00d0c933;
+  --kampus-color-background-accent-teal-subtlest: #00d0c91a;
+  --kampus-color-background-accent-yellow-bold: var(--kampus-color-palette-yellow-400);
+  --kampus-color-background-accent-yellow-interactive-bold: var(--kampus-color-palette-yellow-800);
+  --kampus-color-background-accent-yellow-interactive-plain: var(--kampus-color-palette-yellow-400);
+  --kampus-color-background-accent-yellow-subtle: #ffae0033;
+  --kampus-color-background-accent-yellow-subtlest: #ffae001a;
+  --kampus-color-background-bold: var(--kampus-color-border-bold);
+  --kampus-color-background-caution-bold: var(--kampus-color-background-accent-orange-bold);
+  --kampus-color-background-caution-interactive-bold: var(
+    --kampus-color-background-accent-orange-interactive-bold
+  );
+  --kampus-color-background-caution-interactive-plain: var(
+    --kampus-color-background-accent-orange-interactive-plain
+  );
+  --kampus-color-background-caution-subtle: var(--kampus-color-background-accent-orange-subtle);
+  --kampus-color-background-caution-subtlest: var(--kampus-color-background-accent-orange-subtlest);
+  --kampus-color-background-disabled: var(--kampus-color-palette-grey-100);
+  --kampus-color-background-highlight: var(--kampus-color-palette-yellow-100);
+  --kampus-color-background-info-bold: var(--kampus-color-background-accent-blue-bold);
+  --kampus-color-background-info-interactive-bold: var(
+    --kampus-color-background-accent-blue-interactive-bold
+  );
+  --kampus-color-background-info-interactive-plain: var(
+    --kampus-color-background-accent-blue-interactive-plain
+  );
+  --kampus-color-background-info-subtle: var(--kampus-color-background-accent-blue-subtle);
+  --kampus-color-background-info-subtlest: var(--kampus-color-background-accent-blue-subtlest);
+  --kampus-color-background-input-interactive: var(
+    --kampus-color-background-accent-grey-interactive-plain
+  );
+  --kampus-color-background-input-plain: var(--kampus-color-palette-grey-000);
+  --kampus-color-background-interactive-bold: var(--kampus-color-palette-grey-800);
+  --kampus-color-background-interactive-plain: var(
+    --kampus-color-background-accent-purple-interactive-plain
+  );
+  --kampus-color-background-inverted-bold: var(--kampus-color-palette-grey-000);
+  --kampus-color-background-inverted-interactive-bold: var(--kampus-color-palette-grey-600);
+  --kampus-color-background-inverted-interactive-plain: var(--kampus-color-palette-grey-050);
+  --kampus-color-background-inverted-subtle: #ffffff33;
+  --kampus-color-background-inverted-subtlest: #ffffff1a;
+  --kampus-color-background-negative-bold: var(--kampus-color-background-accent-red-bold);
+  --kampus-color-background-negative-interactive-bold: var(
+    --kampus-color-background-accent-red-interactive-bold
+  );
+  --kampus-color-background-negative-interactive-plain: var(
+    --kampus-color-background-accent-red-interactive-plain
+  );
+  --kampus-color-background-negative-subtle: var(--kampus-color-background-accent-red-subtle);
+  --kampus-color-background-negative-subtlest: var(--kampus-color-background-accent-red-subtlest);
+  --kampus-color-background-neutral-bold: var(--kampus-color-palette-grey-050);
+  --kampus-color-background-neutral-interactive-bold: var(
+    --kampus-color-background-accent-grey-interactive-bold
+  );
+  --kampus-color-background-neutral-interactive-plain: var(
+    --kampus-color-background-accent-grey-interactive-bold
+  );
+  --kampus-color-background-neutral-subtle: var(--kampus-color-background-accent-grey-subtle);
+  --kampus-color-background-neutral-subtlest: var(--kampus-color-background-accent-grey-subtlest);
+  --kampus-color-background-positive-bold: var(--kampus-color-background-accent-green-bold);
+  --kampus-color-background-positive-interactive-bold: var(
+    --kampus-color-background-accent-green-interactive-bold
+  );
+  --kampus-color-background-positive-interactive-plain: var(
+    --kampus-color-background-accent-green-interactive-plain
+  );
+  --kampus-color-background-positive-subtle: var(--kampus-color-background-accent-green-subtle);
+  --kampus-color-background-positive-subtlest: var(--kampus-color-background-accent-green-subtlest);
+  --kampus-color-background-primary-bold: var(--kampus-color-background-accent-purple-bold);
+  --kampus-color-background-primary-interactive-bold: var(
+    --kampus-color-background-accent-purple-interactive-bold
+  );
+  --kampus-color-background-primary-interactive-plain: var(
+    --kampus-color-background-accent-purple-interactive-plain
+  );
+  --kampus-color-background-primary-subtle: var(--kampus-color-background-accent-purple-subtle);
+  --kampus-color-background-primary-subtlest: var(--kampus-color-background-accent-purple-subtlest);
+  --kampus-color-background-secondary-bold: var(--kampus-color-background-accent-grey-bold);
+  --kampus-color-background-secondary-interactive-bold: var(
+    --kampus-color-background-accent-grey-interactive-bold
+  );
+  --kampus-color-background-secondary-interactive-plain: var(
+    --kampus-color-background-accent-grey-interactive-plain
+  );
+  --kampus-color-background-secondary-subtle: var(--kampus-color-background-accent-grey-subtle);
+  --kampus-color-background-secondary-subtlest: var(--kampus-color-background-accent-grey-subtlest);
+  --kampus-color-background-selected-bold: var(--kampus-color-background-accent-purple-bold);
+  --kampus-color-background-selected-interactive-bold: var(
+    --kampus-color-background-accent-purple-interactive-bold
+  );
+  --kampus-color-background-selected-interactive-plain: var(
+    --kampus-color-background-accent-purple-interactive-plain
+  );
+  --kampus-color-background-selected-subtle: var(--kampus-color-background-accent-purple-subtle);
+  --kampus-color-background-selected-subtlest: var(
+    --kampus-color-background-accent-purple-subtlest
+  );
+  --kampus-color-background-subtle: var(--kampus-color-background-accent-grey-subtle);
+  --kampus-color-blanket-plain: #0e0e0fcc;
+  --kampus-color-border-accent-blue-bold: var(--kampus-color-foreground-accent-blue-bold);
+  --kampus-color-border-accent-blue-plain: var(--kampus-color-background-accent-blue-bold);
+  --kampus-color-border-accent-green-bold: var(--kampus-color-foreground-accent-green-bold);
+  --kampus-color-border-accent-green-plain: var(--kampus-color-background-accent-green-bold);
+  --kampus-color-border-accent-grey-bold: var(--kampus-color-palette-grey-300);
+  --kampus-color-border-accent-grey-faint: var(--kampus-color-palette-grey-150);
+  --kampus-color-border-accent-grey-heavy: var(--kampus-color-palette-grey-900);
+  --kampus-color-border-accent-grey-plain: var(--kampus-color-palette-grey-150);
+  --kampus-color-border-accent-orange-bold: var(--kampus-color-foreground-accent-orange-bold);
+  --kampus-color-border-accent-orange-plain: var(--kampus-color-background-accent-orange-bold);
+  --kampus-color-border-accent-purple-bold: var(--kampus-color-foreground-accent-purple-bold);
+  --kampus-color-border-accent-purple-plain: var(--kampus-color-background-accent-purple-bold);
+  --kampus-color-border-accent-red-bold: var(--kampus-color-foreground-accent-red-bold);
+  --kampus-color-border-accent-red-plain: var(--kampus-color-background-accent-red-bold);
+  --kampus-color-border-accent-teal-bold: var(--kampus-color-foreground-accent-teal-bold);
+  --kampus-color-border-accent-teal-plain: var(--kampus-color-background-accent-teal-bold);
+  --kampus-color-border-accent-yellow-bold: var(--kampus-color-foreground-accent-yellow-bold);
+  --kampus-color-border-accent-yellow-plain: var(--kampus-color-background-accent-yellow-bold);
+  --kampus-color-border-bold: var(--kampus-color-border-accent-grey-bold);
+  --kampus-color-border-caution-bold: var(--kampus-color-border-accent-orange-bold);
+  --kampus-color-border-caution-plain: var(--kampus-color-border-accent-orange-plain);
+  --kampus-color-border-disabled: var(--kampus-color-foreground-disabled);
+  --kampus-color-border-focused: var(--kampus-color-border-accent-purple-bold);
+  --kampus-color-border-info-bold: var(--kampus-color-border-accent-blue-bold);
+  --kampus-color-border-info-plain: var(--kampus-color-border-accent-blue-plain);
+  --kampus-color-border-info-subtle: var(--kampus-color-background-info-subtle);
+  --kampus-color-border-input: var(--kampus-color-border-bold);
+  --kampus-color-border-inverted: var(--kampus-color-palette-grey-000);
+  --kampus-color-border-negative-bold: var(--kampus-color-border-accent-red-bold);
+  --kampus-color-border-negative-plain: var(--kampus-color-border-accent-red-plain);
+  --kampus-color-border-neutral-bold: var(--kampus-color-border-accent-grey-bold);
+  --kampus-color-border-neutral-plain: var(--kampus-color-border-accent-grey-plain);
+  --kampus-color-border-neutral-subtle: var(--kampus-color-background-accent-grey-subtle);
+  --kampus-color-border-plain: var(--kampus-color-border-accent-grey-plain);
+  --kampus-color-border-positive-bold: var(--kampus-color-border-accent-green-bold);
+  --kampus-color-border-positive-plain: var(--kampus-color-border-accent-green-plain);
+  --kampus-color-border-primary-bold: var(--kampus-color-border-accent-purple-bold);
+  --kampus-color-border-primary-plain: var(--kampus-color-border-accent-purple-plain);
+  --kampus-color-border-secondary-bold: var(--kampus-color-background-secondary-bold);
+  --kampus-color-border-secondary-plain: var(--kampus-color-border-accent-grey-plain);
+  --kampus-color-border-selected: var(--kampus-color-border-accent-purple-bold);
+  --kampus-color-foreground-accent-blue-bold: var(--kampus-color-palette-blue-800);
+  --kampus-color-foreground-accent-blue-on-bold: var(--kampus-color-foreground-inverted-plain);
+  --kampus-color-foreground-accent-blue-plain: var(--kampus-color-palette-blue-600);
+  --kampus-color-foreground-accent-green-bold: var(--kampus-color-palette-green-700);
+  --kampus-color-foreground-accent-green-on-bold: var(--kampus-color-foreground-inverted-plain);
+  --kampus-color-foreground-accent-green-plain: var(--kampus-color-palette-green-600);
+  --kampus-color-foreground-accent-grey-bold: var(--kampus-color-palette-grey-900);
+  --kampus-color-foreground-accent-grey-faint: var(--kampus-color-palette-grey-200);
+  --kampus-color-foreground-accent-grey-on-bold: var(--kampus-color-foreground-bold);
+  --kampus-color-foreground-accent-grey-on-inverted: var(--kampus-color-foreground-bold);
+  --kampus-color-foreground-accent-grey-plain: var(--kampus-color-palette-grey-800);
+  --kampus-color-foreground-accent-grey-subtle: var(--kampus-color-palette-grey-600);
+  --kampus-color-foreground-accent-grey-subtlest: var(--kampus-color-palette-grey-400);
+  --kampus-color-foreground-accent-orange-bold: var(--kampus-color-palette-orange-700);
+  --kampus-color-foreground-accent-orange-on-bold: var(--kampus-color-foreground-inverted-plain);
+  --kampus-color-foreground-accent-orange-plain: var(--kampus-color-palette-orange-600);
+  --kampus-color-foreground-accent-purple-bold: var(--kampus-color-palette-purple-700);
+  --kampus-color-foreground-accent-purple-on-bold: var(--kampus-color-foreground-inverted-plain);
+  --kampus-color-foreground-accent-purple-plain: var(--kampus-color-palette-purple-600);
+  --kampus-color-foreground-accent-red-bold: var(--kampus-color-palette-red-800);
+  --kampus-color-foreground-accent-red-on-bold: var(--kampus-color-foreground-inverted-plain);
+  --kampus-color-foreground-accent-red-plain: var(--kampus-color-palette-red-500);
+  --kampus-color-foreground-accent-teal-bold: var(--kampus-color-palette-teal-700);
+  --kampus-color-foreground-accent-teal-on-bold: var(--kampus-color-foreground-inverted-plain);
+  --kampus-color-foreground-accent-teal-plain: var(--kampus-color-palette-teal-600);
+  --kampus-color-foreground-accent-yellow-bold: var(--kampus-color-palette-yellow-700);
+  --kampus-color-foreground-accent-yellow-on-bold: var(--kampus-color-foreground-bold);
+  --kampus-color-foreground-accent-yellow-plain: var(--kampus-color-palette-yellow-600);
+  --kampus-color-foreground-bold: var(--kampus-color-foreground-accent-grey-bold);
+  --kampus-color-foreground-brand: var(--kampus-color-foreground-accent-purple-plain);
+  --kampus-color-foreground-caution-bold: var(--kampus-color-foreground-accent-orange-bold);
+  --kampus-color-foreground-caution-on-bold: var(--kampus-color-foreground-accent-orange-on-bold);
+  --kampus-color-foreground-caution-plain: var(--kampus-color-foreground-accent-orange-plain);
+  --kampus-color-foreground-disabled: var(--kampus-color-foreground-accent-grey-faint);
+  --kampus-color-foreground-info-bold: var(--kampus-color-foreground-accent-blue-bold);
+  --kampus-color-foreground-info-on-bold: var(--kampus-color-foreground-accent-blue-on-bold);
+  --kampus-color-foreground-info-plain: var(--kampus-color-foreground-accent-blue-plain);
+  --kampus-color-foreground-inverted-bold: var(--kampus-color-palette-grey-000);
+  --kampus-color-foreground-inverted-on-bold: var(--kampus-color-palette-grey-900);
+  --kampus-color-foreground-inverted-plain: var(--kampus-color-palette-grey-000);
+  --kampus-color-foreground-negative-bold: var(--kampus-color-foreground-accent-red-bold);
+  --kampus-color-foreground-negative-on-bold: var(--kampus-color-foreground-accent-red-on-bold);
+  --kampus-color-foreground-negative-plain: var(--kampus-color-foreground-accent-red-plain);
+  --kampus-color-foreground-neutral-bold: var(--kampus-color-foreground-accent-grey-bold);
+  --kampus-color-foreground-neutral-on-bold: var(--kampus-color-foreground-accent-grey-on-bold);
+  --kampus-color-foreground-neutral-plain: var(--kampus-color-foreground-accent-grey-subtlest);
+  --kampus-color-foreground-plain: var(--kampus-color-foreground-accent-grey-plain);
+  --kampus-color-foreground-positive-bold: var(--kampus-color-foreground-accent-green-bold);
+  --kampus-color-foreground-positive-on-bold: var(--kampus-color-foreground-accent-green-on-bold);
+  --kampus-color-foreground-positive-plain: var(--kampus-color-foreground-accent-green-plain);
+  --kampus-color-foreground-primary-bold: var(--kampus-color-foreground-accent-purple-bold);
+  --kampus-color-foreground-primary-on-bold: var(--kampus-color-foreground-accent-purple-on-bold);
+  --kampus-color-foreground-secondary-bold: var(--kampus-color-foreground-accent-blue-bold);
+  --kampus-color-foreground-secondary-on-bold: var(--kampus-color-palette-blue-900);
+  --kampus-color-foreground-selected-bold: var(--kampus-color-foreground-accent-purple-bold);
+  --kampus-color-foreground-selected-on-bold: var(--kampus-color-foreground-accent-purple-on-bold);
+  --kampus-color-foreground-selected-plain: var(--kampus-color-foreground-accent-purple-plain);
+  --kampus-color-foreground-subtle: var(--kampus-color-foreground-accent-grey-subtle);
+  --kampus-color-foreground-subtlest: var(--kampus-color-foreground-accent-grey-subtlest);
+  --kampus-color-link-active: var(--kampus-color-palette-blue-800);
+  --kampus-color-link-focused-active: var(--kampus-color-palette-blue-900);
+  --kampus-color-link-focused-hover: var(--kampus-color-palette-blue-800);
+  --kampus-color-link-focused-idle: var(--kampus-color-palette-blue-700);
+  --kampus-color-link-hover: var(--kampus-color-foreground-accent-blue-bold);
+  --kampus-color-link-idle: var(--kampus-color-foreground-accent-blue-plain);
+  --kampus-color-link-inverted-active: var(--kampus-color-palette-blue-150);
+  --kampus-color-link-inverted-hover: var(--kampus-color-palette-blue-100);
+  --kampus-color-link-inverted-idle: var(--kampus-color-foreground-inverted-plain);
+  --kampus-color-link-muted-active: var(--kampus-color-link-active);
+  --kampus-color-link-muted-hover: var(--kampus-color-link-hover);
+  --kampus-color-link-muted-idle: var(--kampus-color-foreground-accent-grey-subtlest);
+  --kampus-color-palette-blue-050: #f0f8fe;
+  --kampus-color-palette-blue-100: #ddeffc;
+  --kampus-color-palette-blue-150: #c3e3fa;
+  --kampus-color-palette-blue-200: #9ad2f6;
+  --kampus-color-palette-blue-300: #6abaf0;
+  --kampus-color-palette-blue-400: #479dea;
+  --kampus-color-palette-blue-500: #3281de;
+  --kampus-color-palette-blue-600: #296ccc;
+  --kampus-color-palette-blue-700: #2a5db0;
+  --kampus-color-palette-blue-800: #254b83;
+  --kampus-color-palette-blue-900: #1b2f50;
+  --kampus-color-palette-green-050: #edfcf5;
+  --kampus-color-palette-green-100: #d5f6e4;
+  --kampus-color-palette-green-150: #aeeccd;
+  --kampus-color-palette-green-200: #79dcb2;
+  --kampus-color-palette-green-300: #42c591;
+  --kampus-color-palette-green-400: #1da171;
+  --kampus-color-palette-green-500: #128960;
+  --kampus-color-palette-green-600: #0e6e50;
+  --kampus-color-palette-green-700: #0e5741;
+  --kampus-color-palette-green-800: #0c4836;
+  --kampus-color-palette-green-900: #06281f;
+  --kampus-color-palette-grey-000: #ffffff;
+  --kampus-color-palette-grey-050: #f5f5f6;
+  --kampus-color-palette-grey-100: #e5e5e8;
+  --kampus-color-palette-grey-150: #cfd0d2;
+  --kampus-color-palette-grey-200: #adaeb3;
+  --kampus-color-palette-grey-300: #84858c;
+  --kampus-color-palette-grey-400: #696a71;
+  --kampus-color-palette-grey-500: #595961;
+  --kampus-color-palette-grey-600: #4c4d52;
+  --kampus-color-palette-grey-700: #434347;
+  --kampus-color-palette-grey-800: #3b3b3e;
+  --kampus-color-palette-grey-900: #0e0e0f;
+  --kampus-color-palette-orange-050: #fff8ed;
+  --kampus-color-palette-orange-100: #ffeed5;
+  --kampus-color-palette-orange-150: #fdd9ab;
+  --kampus-color-palette-orange-200: #fcbe75;
+  --kampus-color-palette-orange-300: #f9963b;
+  --kampus-color-palette-orange-400: #f77918;
+  --kampus-color-palette-orange-500: #e85f0e;
+  --kampus-color-palette-orange-600: #c0470e;
+  --kampus-color-palette-orange-700: #993913;
+  --kampus-color-palette-orange-800: #7b3113;
+  --kampus-color-palette-orange-900: #421608;
+  --kampus-color-palette-purple-050: #faf7fd;
+  --kampus-color-palette-purple-100: #f2ebfc;
+  --kampus-color-palette-purple-150: #e7dbf9;
+  --kampus-color-palette-purple-200: #d5bff3;
+  --kampus-color-palette-purple-300: #bb96ea;
+  --kampus-color-palette-purple-400: #a06ede;
+  --kampus-color-palette-purple-500: #8a4fce;
+  --kampus-color-palette-purple-600: #743cb4;
+  --kampus-color-palette-purple-700: #643695;
+  --kampus-color-palette-purple-800: #512c77;
+  --kampus-color-palette-purple-900: #351556;
+  --kampus-color-palette-red-050: #fef2f2;
+  --kampus-color-palette-red-100: #fee2e2;
+  --kampus-color-palette-red-150: #fecaca;
+  --kampus-color-palette-red-200: #fda4a4;
+  --kampus-color-palette-red-300: #f97070;
+  --kampus-color-palette-red-400: #f04343;
+  --kampus-color-palette-red-500: #de2424;
+  --kampus-color-palette-red-600: #c41c1c;
+  --kampus-color-palette-red-700: #9a1a1a;
+  --kampus-color-palette-red-800: #801c1c;
+  --kampus-color-palette-red-900: #460909;
+  --kampus-color-palette-teal-050: #eefffc;
+  --kampus-color-palette-teal-100: #c5fffa;
+  --kampus-color-palette-teal-150: #8bfff5;
+  --kampus-color-palette-teal-200: #4afef0;
+  --kampus-color-palette-teal-300: #15ece2;
+  --kampus-color-palette-teal-400: #00d0c9;
+  --kampus-color-palette-teal-500: #00a8a5;
+  --kampus-color-palette-teal-600: #008080;
+  --kampus-color-palette-teal-700: #066769;
+  --kampus-color-palette-teal-800: #0a5757;
+  --kampus-color-palette-teal-900: #003235;
+  --kampus-color-palette-yellow-050: #fffdea;
+  --kampus-color-palette-yellow-100: #fff7c5;
+  --kampus-color-palette-yellow-150: #fff085;
+  --kampus-color-palette-yellow-200: #ffe146;
+  --kampus-color-palette-yellow-300: #ffcf1b;
+  --kampus-color-palette-yellow-400: #ffae00;
+  --kampus-color-palette-yellow-500: #e28400;
+  --kampus-color-palette-yellow-600: #bb5c02;
+  --kampus-color-palette-yellow-700: #984708;
+  --kampus-color-palette-yellow-800: #7c3a0b;
+  --kampus-color-palette-yellow-900: #481d00;
+  --kampus-color-skeleton-plain: var(--kampus-color-background-accent-grey-subtlest);
+  --kampus-color-skeleton-subtle: var(--kampus-color-background-accent-grey-subtle);
+  --kampus-elevation-surface-base-default: var(--kampus-color-palette-grey-000);
+  --kampus-elevation-surface-raised-alternative: var(--kampus-color-palette-grey-100);
+  --kampus-elevation-surface-raised-default: var(--kampus-color-palette-grey-000);
+  --kampus-elevation-surface-raised-inverted: var(--kampus-color-palette-grey-900);
+  --kampus-elevation-surface-raised-primary: var(--kampus-color-background-accent-purple-bold);
+  --kampus-elevation-surface-raised-sunken: var(--kampus-color-palette-grey-050);
+  --kampus-elevation-surface-shadow: var(--kampus-color-palette-grey-900);
+  --kampus-opacity-bold: 1;
+  --kampus-opacity-interactive-bold-active: 0.4;
+  --kampus-opacity-interactive-bold-hover: 0.2;
+  --kampus-opacity-interactive-bold-idle: 0;
+  --kampus-opacity-interactive-plain-active: 0.25;
+  --kampus-opacity-interactive-plain-hover: 0.15;
+  --kampus-opacity-interactive-plain-idle: 0;
+  --kampus-opacity-interactive-reversed-active: 1;
+  --kampus-opacity-interactive-reversed-hover: 0.9;
+  --kampus-opacity-interactive-reversed-idle: 0.8;
+  --kampus-opacity-moderate: 0.8;
+  --kampus-opacity-muted: 0;
+  --kampus-opacity-subtle: 0.2;
+  --kampus-opacity-subtlest: 0.1;
+  --kampus-theme-name: Kampus Light;
+}

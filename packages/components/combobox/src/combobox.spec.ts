@@ -2345,6 +2345,29 @@ describe('sl-combobox', () => {
       expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-2']);
     });
 
+    it('should clear selected options when options become empty', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[{ label: 'Option 1', value: 'option-1' }]}
+          .value=${'option-1'}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-1']);
+      expect(input.value).to.equal('Option 1');
+
+      combobox.options = [];
+      await combobox.updateComplete;
+
+      expect(combobox.items).to.be.empty;
+      expect(combobox.selectedItems).to.be.empty;
+      expect(combobox.value).to.be.undefined;
+      expect(input.value).to.equal('');
+    });
+
     it('should not select an option disabled via option-disabled-path on click', async () => {
       const combobox = await fixture<Combobox>(html`
         <sl-combobox

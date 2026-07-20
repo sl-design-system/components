@@ -406,7 +406,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       }
     }
 
-    if ((optionsConfigChanged || changes.has('value')) && this.items.length) {
+    const usesOptionsApi =
+      this.options !== undefined ||
+      (changes.has('options') && changes.get('options') !== undefined);
+
+    if (changes.has('value') && this.items.length) {
+      this.#updateSelectedItems();
+    } else if (optionsConfigChanged && usesOptionsApi) {
       if (
         changes.has('value') ||
         (this.value !== undefined && !changes.has('optionSelectedPath'))
@@ -414,6 +420,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.#updateSelectedItems();
       } else if (optionsConfigChanged) {
         this.#updateSelectedItemsFromItems();
+      }
+
+      if (!this.items.length) {
+        this.#updateTextFieldValue();
+        this.#updateValue(!this.#isInitialRender);
+        this.#isInitialRender = false;
       }
     }
 

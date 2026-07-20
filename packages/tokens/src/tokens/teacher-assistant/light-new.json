@@ -92,7 +92,7 @@
           },
           "orange": {
             "bold": {
-              "$value": "{teacher-assistant.color.palette.orange.900}",
+              "$value": "{teacher-assistant.color.palette.orange.800}",
               "$type": "color",
               "$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
             },
@@ -271,7 +271,7 @@
           }
         },
         "disabled": {
-          "$value": "{teacher-assistant.color.palette.grey.100}",
+          "$value": "{teacher-assistant.color.palette.grey.150}",
           "$type": "color",
           "$description": "Use for backgrounds of elements in disabled state."
         },
@@ -581,7 +581,7 @@
               "$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
             },
             "faint": {
-              "$value": "{teacher-assistant.color.palette.grey.150}",
+              "$value": "{teacher-assistant.color.palette.grey.200}",
               "$type": "color",
               "$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
             },
@@ -702,7 +702,7 @@
           }
         },
         "input": {
-          "$value": "{teacher-assistant.color.border.accent.purple.bold}",
+          "$value": "{teacher-assistant.color.border.bold}",
           "$type": "color",
           "$description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
         },
@@ -867,7 +867,7 @@
               "$description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "$value": "{teacher-assistant.color.palette.orange.400}",
+              "$value": "{teacher-assistant.color.palette.orange.150}",
               "$type": "color",
               "$description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
             },
@@ -1579,7 +1579,7 @@
       "surface": {
         "base": {
           "default": {
-            "$value": "{teacher-assistant.color.palette.grey.000}",
+            "$value": "{teacher-assistant.color.palette.grey.050}",
             "$type": "color",
             "$description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
           }

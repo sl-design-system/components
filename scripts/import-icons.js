@@ -1,5 +1,6 @@
 import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core';
 import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fadr } from '@fortawesome/duotone-regular-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
@@ -15,7 +16,7 @@ import { basename, join } from 'path';
 
 const execAsync = promisify(exec);
 
-library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
+library.add(fas, far, fal, fat, fad, fadr, fass, fasr, fasl);
 
 const cwd = new URL('.', import.meta.url).pathname;
 
@@ -39,8 +40,8 @@ const convertToIconDefinition = (iconName, style) => {
   return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
 };
 
-const getColorToken = (pathCounter, style) => {
-  return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
+const getColorToken = (pathCounter, prefix) => {
+  return pathCounter === 0 && (prefix === 'fad' || prefix === 'fadr') ? 'accent' : 'default';
 };
 
 const getIconStyle = (iconName, text, style) => {
@@ -64,6 +65,8 @@ const getIconPrefixFromStyle = style => {
       return 'fat';
     case 'duotone':
       return 'fad';
+    case 'duotone-regular':
+      return 'fadr';
     case 'sharp-light':
       return 'fasl';
     case 'sharp-solid':
@@ -144,11 +147,12 @@ const buildIconsFromBaseNew = async theme => {
     }
 
     const {
+        prefix,
         icon: [width, height, , , path]
       } = faIcon,
       paths = Array.isArray(path) ? path : [path];
 
-    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, prefix)})"></path>`).join('')}</svg>`;
 
     icons[iconName] = {
       value: tokenValue,

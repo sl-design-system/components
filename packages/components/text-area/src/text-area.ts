@@ -48,13 +48,14 @@ let nextUniqueId = 0;
 /**
  * Multi line text area component.
  *
+ * Internal: Slot count-description - internal only, not intended for consumer use. This slot
+ * projects a visually-hidden `<span>` that mirrors the character count text into the composed tree.
+ * It must be slotted (rather than left as an unslotted light DOM node) because browsers and screen
+ * readers only follow `aria-describedby` ID references to elements that are part of the
+ * composed/rendered tree. An unslotted element is invisible to the accessibility layer and the
+ * count therefore stops being announced when the textarea is focused.
+ *
  * @slot textarea - The slot for the textarea element.
- * slot count-description - **@internal** — Not intended for consumer use. This slot projects a
- *   visually-hidden `<span>` that mirrors the character count text into the composed tree.
- *   It must be slotted (rather than left as an unslotted light DOM node) because browsers and
- *   screen readers only follow `aria-describedby` ID references to elements that are part of the
- *   composed/rendered tree. An unslotted element is invisible to the accessibility layer and the
- *   count therefore stops being announced when the textarea is focused.
  */
 @localized()
 export class TextArea extends ObserveAttributesMixin(

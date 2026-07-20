@@ -1674,7 +1674,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /** Updates the selection based on the selected state of the prepared items. */
   #updateSelectedItemsFromItems(): void {
-    this.selectedItems.forEach(item => this.#removeSelectedOption(item));
+    [...this.selectedItems].forEach(item => this.#removeSelectedOption(item));
     this.selectedItems = [];
 
     const selectedItems = this.items.filter(

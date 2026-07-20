@@ -2323,9 +2323,11 @@ describe('sl-combobox', () => {
     it('should update selected options when option-selected-path changes', async () => {
       const combobox = await fixture<Combobox>(html`
         <sl-combobox
+          multiple
           .options=${[
             { initiallySelected: true, label: 'Option 1', nextSelected: false, value: 'option-1' },
-            { initiallySelected: false, label: 'Option 2', nextSelected: true, value: 'option-2' }
+            { initiallySelected: true, label: 'Option 2', nextSelected: false, value: 'option-2' },
+            { initiallySelected: false, label: 'Option 3', nextSelected: true, value: 'option-3' }
           ]}
           option-label-path="label"
           option-selected-path="initiallySelected"
@@ -2334,15 +2336,20 @@ describe('sl-combobox', () => {
       `);
 
       expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.true;
-      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.false;
-      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-1']);
+      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.true;
+      expect(combobox.items.find(item => item.value === 'option-3')?.selected).to.be.false;
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal([
+        'option-1',
+        'option-2'
+      ]);
 
       combobox.optionSelectedPath = 'nextSelected';
       await combobox.updateComplete;
 
       expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.false;
-      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.true;
-      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-2']);
+      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.false;
+      expect(combobox.items.find(item => item.value === 'option-3')?.selected).to.be.true;
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-3']);
     });
 
     it('should clear selected options when options become empty', async () => {

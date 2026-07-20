@@ -418,7 +418,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         (this.value !== undefined && !changes.has('optionSelectedPath'))
       ) {
         this.#updateSelectedItems();
-      } else if (optionsConfigChanged) {
+      } else {
         this.#updateSelectedItemsFromItems();
       }
 

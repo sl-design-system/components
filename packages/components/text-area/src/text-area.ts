@@ -41,17 +41,17 @@ export type ResizeType = 'none' | 'vertical' | 'auto';
 
 export type WrapType = 'soft' | 'hard';
 
-export type TextAreaCountState = 'default' | 'caution' | 'danger';
+type TextAreaCountState = 'default' | 'caution' | 'danger';
 
 let nextUniqueId = 0;
 
 /**
  * Multi line text area component.
  *
- * @slot textarea - The slot for the textarea element
- * @slot count-description - **@internal** — Not intended for consumer use. This slot projects a
- *   visually-hidden `<span>` that mirrors the character-count text into the composed tree.
- *   It must be slotted (rather than left as an unslotted light-DOM node) because browsers and
+ * @slot textarea - The slot for the textarea element.
+ * slot count-description - **@internal** — Not intended for consumer use. This slot projects a
+ *   visually-hidden `<span>` that mirrors the character count text into the composed tree.
+ *   It must be slotted (rather than left as an unslotted light DOM node) because browsers and
  *   screen readers only follow `aria-describedby` ID references to elements that are part of the
  *   composed/rendered tree. An unslotted element is invisible to the accessibility layer and the
  *   count therefore stops being announced when the textarea is focused.
@@ -74,14 +74,15 @@ export class TextArea extends ObserveAttributesMixin(
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Observe the textarea width. */
-  #observer = new ResizeObserver(() => {
-    // Workaround for "ResizeObserver loop completed with undelivered notifications."
-    requestAnimationFrame(() => this.#setSize());
-  });
+  /** ID used to connect the character count to the textarea via aria-describedby. */
+  #countId = `sl-text-area-count-${nextUniqueId++}`;
 
-  /** AbortController for blur/focus listeners on the current slotted textarea. */
-  #textareaListenerController?: AbortController;
+  /**
+   * True when we have called `textarea.setCustomValidity(countMessage)`. Used to guard the clearing
+   * call in `updateInternalValidity()` so we never unconditionally wipe a custom error set by a
+   * user.
+   */
+  #countValiditySet = false;
 
   /** Keep count aria-describedby linkage resilient to external textarea attribute changes. */
   #describedByObserver = new MutationObserver(() => {
@@ -90,41 +91,28 @@ export class TextArea extends ObserveAttributesMixin(
       hasCountDescription = describedBy.split(/\s+/).includes(countDescriptionId),
       shouldHaveCountDescription = this.#isCountVisible();
 
-    // Only re-sync when an external mutation caused a mismatch; avoid self-triggered loops.
     if (hasCountDescription !== shouldHaveCountDescription) {
       this.#syncCountAriaDescription();
     }
   });
 
-  /** The last count state, used to announce only when state changes. */
-  #previousCountState?: TextAreaCountState;
-
   /** True when the value is over the character limit and sets validation state. */
   #isOverLimitState = false;
 
-  /**
-   * True when we have called `textarea.setCustomValidity(countMessage)`. Used to guard the clearing
-   * call in `updateInternalValidity()` so we never unconditionally wipe a consumer-set custom
-   * error.
-   */
-  #countValiditySet = false;
+  /** Observe the textarea width. */
+  #observer = new ResizeObserver(() => {
+    // Workaround for "ResizeObserver loop completed with undelivered notifications."
+    requestAnimationFrame(() => this.#setSize());
+  });
+
+  /** The last count state, used to announce only when state changes. */
+  #previousCountState?: TextAreaCountState;
 
   /** Whether the showCount overflow message may be shown (after reportValidity was called). */
   #showCountMessage = false;
 
   /** Snapshot of external show-validity before showCount temporarily forces invalid styling. */
   #showValidityBeforeCount?: string | null;
-
-  /** ID used to connect the character count to the textarea via aria-describedby. */
-  #countId = `sl-text-area-count-${nextUniqueId++}`;
-
-  #getCountDescriptionId(): string {
-    return `${this.#countId}-description`;
-  }
-
-  #getShowCountLimit(): number | undefined {
-    return Number.isFinite(this.showCount) ? this.showCount : undefined;
-  }
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -178,11 +166,11 @@ export class TextArea extends ObserveAttributesMixin(
   @property({ type: Number }) rows?: number;
 
   /**
-   * The maximum number of characters allowed. When set, a character counter appears below the
-   * textarea showing how many characters remain. When 90% of the limit is reached the counter turns
-   * caution (orange). When the limit is exceeded it turns to a danger state, shows how many
-   * characters are over the limit, and marks the textarea as invalid. Exceeding the limit does not
-   * block input, the user can still type or paste more text and then edit it down.
+   * The maximum number of characters allowed (soft limit). When set, a character counter appears
+   * below the textarea showing how many characters remain. When 90% of the limit is reached the
+   * counter turns caution (orange). When the limit is exceeded it turns to a danger state, shows
+   * how many characters are over the limit, and marks the textarea as invalid. Exceeding the limit
+   * does not block input, the user can still type or paste more text and then edit it down.
    *
    * Please don't combine `showCount` with `maxLength`, as it will cause the textarea to block input
    * when the limit is reached. Use `showCount` alone to allow typing beyond the limit and show a
@@ -221,6 +209,7 @@ export class TextArea extends ObserveAttributesMixin(
       }
     }
 
+    this.#attachTextareaListeners(this.textarea);
     this.#observer.observe(this.textarea);
     this.#describedByObserver.observe(this.textarea, {
       attributes: true,
@@ -232,8 +221,7 @@ export class TextArea extends ObserveAttributesMixin(
   override disconnectedCallback(): void {
     this.#observer.disconnect();
     this.#describedByObserver.disconnect();
-    this.#textareaListenerController?.abort();
-    this.#textareaListenerController = undefined;
+    this.#detachTextareaListeners(this.textarea);
 
     this.querySelector<HTMLSpanElement>(`#${this.#getCountDescriptionId()}`)?.remove();
     this.#countValiditySet = false;
@@ -296,7 +284,11 @@ export class TextArea extends ObserveAttributesMixin(
 
     this.#syncCountAriaDescription();
 
-    requestAnimationFrame(() => this.#syncCountAriaDescription());
+    requestAnimationFrame(() => {
+      if (this.isConnected) {
+        this.#syncCountAriaDescription();
+      }
+    });
   }
 
   override render(): TemplateResult {
@@ -317,8 +309,6 @@ export class TextArea extends ObserveAttributesMixin(
           `
         : nothing}
       <slot name="count-description"></slot>
-      <!-- ↑ @internal: projects the visually-hidden aria-describedby span into the composed tree
-           so screen readers announce the character count when the textarea is focused. -->
     `;
   }
 
@@ -361,12 +351,8 @@ export class TextArea extends ObserveAttributesMixin(
   }
 
   /**
-   * Sets or clears the count-overflow custom validity on the textarea, integrated into the
-   * `updateValidity()` flow so that `sl-validate` fires **after** this runs, giving consumers a
-   * chance to re-assert their own custom error without it being silently overwritten.
-   *
-   * The `#countValiditySet` guard ensures we never unconditionally clear a consumer-set error: we
-   * only call `setCustomValidity('')` when we previously set a count error ourselves.
+   * Sets or clears the character count custom validity error. Only clears the error if we set it
+   * ourselves, so we never accidentally overwrite a custom error set by the user.
    */
   override updateInternalValidity(): void {
     if (this.#isOverLimitState) {
@@ -406,6 +392,25 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
+  /** Attaches focus and blur listeners to the current textarea. */
+  /** Attaches focus and blur listeners to the current textarea. */
+  #attachTextareaListeners(textarea: HTMLTextAreaElement): void {
+    textarea.addEventListener('blur', this.#onTextareaBlur);
+    textarea.addEventListener('focus', this.#onTextareaFocus);
+  }
+
+  /** Removes focus and blur listeners from the given textarea. */
+  #detachTextareaListeners(textarea?: HTMLTextAreaElement): void {
+    textarea?.removeEventListener('blur', this.#onTextareaBlur);
+    textarea?.removeEventListener('focus', this.#onTextareaFocus);
+  }
+
+  /** Returns the ID used for the hidden count description element. */
+  #getCountDescriptionId(): string {
+    return `${this.#countId}-description`;
+  }
+
+  /** Returns the current count state for the visible counter. */
   #getCountState(): TextAreaCountState {
     const showCountLimit = this.#getShowCountLimit();
 
@@ -425,6 +430,12 @@ export class TextArea extends ObserveAttributesMixin(
     return 'default';
   }
 
+  /** Returns the active soft count limit, or `undefined` when count is disabled. */
+  #getShowCountLimit(): number | undefined {
+    return Number.isFinite(this.showCount) ? this.showCount : undefined;
+  }
+
+  /** Returns whether the character count should currently be shown. */
   #isCountVisible(): boolean {
     const showCountLimit = this.#getShowCountLimit();
 
@@ -435,6 +446,18 @@ export class TextArea extends ObserveAttributesMixin(
     );
   }
 
+  /** Stable focus handler for attaching/removing listeners. */
+  #onTextareaFocus = (): void => {
+    this.focusEvent.emit();
+  };
+
+  /** Stable blur handler for attaching/removing listeners. */
+  #onTextareaBlur = (): void => this.#onBlur();
+
+  /**
+   * Keeps the hidden description span and aria-describedby in sync with the visible character
+   * count.
+   */
   #syncCountAriaDescription(): void {
     const { textarea } = this;
 
@@ -447,16 +470,12 @@ export class TextArea extends ObserveAttributesMixin(
     let countDescriptionElement: HTMLSpanElement | undefined =
       this.querySelector<HTMLSpanElement>(`#${countDescriptionId}`) ?? undefined;
 
-    // Keep a hidden light-DOM description element in sync with the visible count.
+    // Keep a visually-hidden light DOM span in sync with the visible count.
     if (this.#isCountVisible()) {
       if (!countDescriptionElement) {
         countDescriptionElement = document.createElement('span');
         countDescriptionElement.id = countDescriptionId;
-        // Must use slot="count-description" so this element is projected into the shadow tree and
-        // remains reachable by the accessibility layer via aria-describedby. Without slotting,
-        // the element exists in light DOM but is ignored by browsers/screen readers for IDREF lookups.
         countDescriptionElement.slot = 'count-description';
-        // Visually hidden but kept in the accessibility tree.
         countDescriptionElement.className = 'visually-hidden';
         this.append(countDescriptionElement);
       }
@@ -467,16 +486,14 @@ export class TextArea extends ObserveAttributesMixin(
       countDescriptionElement = undefined;
     }
 
-    // Preserve external described-by IDs, excluding our own count IDs.
+    // Build the new aria-describedby list, keeping any external IDs and replacing our own.
     const externalIds = (textarea.getAttribute('aria-describedby') ?? '')
       .split(/\s+/)
       .filter(id => Boolean(id) && id !== this.#countId && id !== countDescriptionId);
 
-    // Compute the target `aria-describedby` ID list.
     const nextIds = countDescriptionElement ? [...externalIds, countDescriptionId] : externalIds,
       nextDescribedBy = nextIds.join(' ');
 
-    // Set element refs first when supported; some engines may clear the string attribute.
     const describedByRefCapable = textarea as HTMLTextAreaElement & {
       ariaDescribedByElements?: Element[] | null;
     };
@@ -489,30 +506,10 @@ export class TextArea extends ObserveAttributesMixin(
           ? [...externalRefs, countDescriptionElement]
           : externalRefs;
 
-      const applyRefs = (refs: Element[]): void => {
-        describedByRefCapable.ariaDescribedByElements = refs.length > 0 ? refs : null;
-      };
-
-      try {
-        applyRefs(nextRefs);
-      } catch {
-        // Fallback for engines that reject mixed-root refs.
-        const controlRoot = textarea.getRootNode(),
-          safeRefs = nextRefs.filter(el => {
-            const root = el.getRootNode();
-
-            return root === controlRoot || root === document;
-          });
-
-        try {
-          applyRefs(safeRefs);
-        } catch {
-          // no-op
-        }
-      }
+      this.#trySetAriaDescribedByElements(describedByRefCapable, nextRefs);
     }
 
-    // Mirror IDs to string attribute (fallback path and post-ref restoration).
+    // Mirror to string attribute as fallback.
     if (nextDescribedBy.length > 0) {
       if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
         textarea.setAttribute('aria-describedby', nextDescribedBy);
@@ -522,6 +519,34 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
+  /** Updates `ariaDescribedByElements` with a fallback to same root references when needed. */
+  #trySetAriaDescribedByElements(
+    target: HTMLTextAreaElement & { ariaDescribedByElements?: Element[] | null },
+    refs: Element[]
+  ): void {
+    const controlRoot = target.getRootNode(),
+      // Try with all refs first, then fall back to same-root refs only.
+      candidates = [
+        refs,
+        refs.filter(el => {
+          const root = el.getRootNode();
+
+          return root === controlRoot || root === document;
+        })
+      ];
+
+    for (const list of candidates) {
+      try {
+        target.ariaDescribedByElements = list.length > 0 ? list : null;
+
+        return;
+      } catch {
+        // Try next candidate set.
+      }
+    }
+  }
+
+  /** Returns the localized counter text for the current value and soft limit. */
   #getCountText(): string {
     const showCountLimit = this.#getShowCountLimit();
 
@@ -596,6 +621,7 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
+  /** Updates the soft limit validity state based on the current value. */
   #syncCountValidity(): void {
     const showCountLimit = this.#getShowCountLimit();
 
@@ -613,6 +639,7 @@ export class TextArea extends ObserveAttributesMixin(
     this.#setOverLimitVisualState(this.value.length > showCountLimit);
   }
 
+  /** Applies or restores the temporary `show-validity` state used for soft-limit overflow. */
   #setOverLimitVisualState(isOverLimit: boolean): void {
     if (isOverLimit) {
       // Show visual invalid state immediately, but do not force reporting yet.
@@ -638,6 +665,7 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
+  /** Handles a newly slotted textarea and wires it up to the component state. */
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       textarea = elements.find(
@@ -648,21 +676,16 @@ export class TextArea extends ObserveAttributesMixin(
     if (textarea) {
       const previousTextarea = this.textarea;
 
+      if (previousTextarea) {
+        this.#detachTextareaListeners(previousTextarea);
+      }
+
       if (previousTextarea && previousTextarea !== textarea) {
         this.#observer.unobserve(previousTextarea);
       }
 
-      // Detach blur/focus listeners from the previous textarea before attaching to the new one.
-      this.#textareaListenerController?.abort();
-      this.#textareaListenerController = new AbortController();
-
       this.textarea = textarea;
-      this.textarea.addEventListener('blur', () => this.#onBlur(), {
-        signal: this.#textareaListenerController.signal
-      });
-      this.textarea.addEventListener('focus', () => this.focusEvent.emit(), {
-        signal: this.#textareaListenerController.signal
-      });
+      this.#attachTextareaListeners(this.textarea);
       this.#syncTextarea(this.textarea);
       this.textarea.value = this.value?.toString() || '';
       this.#observer.observe(this.textarea);
@@ -684,6 +707,7 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
+  /** Applies the resize mode to the textarea. */
   #setSize(): void {
     if (this.resize === 'auto') {
       this.textarea.style.height = 'auto';
@@ -696,6 +720,7 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
+  /** Syncs the managed textarea with the component properties. */
   #syncTextarea(textarea: HTMLTextAreaElement): void {
     textarea.autocomplete = this.autocomplete || 'off';
     textarea.autofocus = this.autofocus;

@@ -85,6 +85,15 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
+  /** Keep listbox labeling synced when proxied ARIA attributes on the button change. */
+  #buttonAriaObserver = new MutationObserver(() => this.#syncListboxLabeling());
+
+  /** Shared observer config for proxied ARIA attributes on the button. */
+  #buttonAriaObserverOptions: MutationObserverInit = {
+    attributes: true,
+    attributeFilter: ['aria-label', 'aria-labelledby']
+  };
+
   /** Events controller. */
   #events = new EventsController(this, {
     click: this.#onClick,
@@ -255,6 +264,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.setAttributesTarget(this.button);
 
     this.#observer.observe(this, { childList: true, subtree: true });
+    this.#buttonAriaObserver.observe(this.button, this.#buttonAriaObserverOptions);
     this.#observeSelectedOptionContent();
     this.#onSelectedOptionContentChange();
 
@@ -264,6 +274,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#buttonAriaObserver.disconnect();
     this.#selectedOptionObserver.disconnect();
     if (this.#widthCalculationFrame !== undefined) {
       cancelAnimationFrame(this.#widthCalculationFrame);
@@ -332,16 +343,17 @@ export class Select<T = any> extends ObserveAttributesMixin(
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
-      if (this.internals.labels.length) {
-        // Set the aria-label of the button to the concatenated text content of all labels
-        // FIXME: This is a workaround because we do not yet have access to `referenceTarget`
-        this.button.setAttribute(
-          'aria-labelledby',
-          Array.from(this.internals.labels)
-            .map(label => (label as HTMLLabelElement).id)
-            .join(' ')
-        );
+      if (this.listbox) {
+        /**
+         * Use ElementInternals element references so the button can reference the listbox across
+         * the shadow DOM boundary. In the future, switch to `ariaControlsElements` property
+         * (https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaControlsElements) when
+         * browser support is sufficient.
+         */
+        this.button.internals.ariaControlsElements = [this.listbox];
       }
+
+      this.#syncListboxLabeling();
     });
   }
 
@@ -716,6 +728,24 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.button.optionSize = maxWidth;
   }
 
+  #getExplicitLabelState(): {
+    ariaLabel: string;
+    explicitLabelledBy: string;
+    explicitLabelledByElements: Element[];
+    hasExplicitLabel: boolean;
+  } {
+    const hostAriaLabel = this.getAttribute('aria-label')?.trim() || '',
+      hostAriaLabelledBy = this.getAttribute('aria-labelledby')?.trim() || '',
+      buttonAriaLabel = this.button.getAttribute('aria-label')?.trim() || '',
+      buttonAriaLabelledBy = this.button.getAttribute('aria-labelledby')?.trim() || '',
+      ariaLabel = hostAriaLabel || buttonAriaLabel,
+      explicitLabelledBy = hostAriaLabelledBy || buttonAriaLabelledBy,
+      explicitLabelledByElements = this.#resolveLabelledByElements(explicitLabelledBy),
+      hasExplicitLabel = Boolean(ariaLabel) || Boolean(explicitLabelledBy);
+
+    return { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel };
+  }
+
   #setupMeasureElement(): HTMLElement {
     const measureElement = document.createElement('span');
     measureElement.style.visibility = 'hidden';
@@ -732,6 +762,55 @@ export class Select<T = any> extends ObserveAttributesMixin(
     measureElement.style.fontWeight = buttonComputedStyle.fontWeight;
 
     return measureElement;
+  }
+
+  #syncListboxLabeling(): void {
+    if (!this.listbox) {
+      return;
+    }
+
+    /**
+     * Disconnect first so this observer does not run twice. Setting these ARIA properties updates
+     * DOM attributes, which would trigger this observer again.
+     */
+    this.#buttonAriaObserver.disconnect();
+
+    try {
+      const labels = Array.from(this.internals.labels) as Element[],
+        { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel } =
+          this.#getExplicitLabelState();
+
+      if (!hasExplicitLabel && labels.length) {
+        this.listbox.removeAttribute('aria-label');
+        this.button.ariaLabelledByElements = labels;
+        this.listbox.ariaLabelledByElements = labels;
+      } else if (explicitLabelledBy) {
+        // Use element references so labeling works across the shadow DOM boundary.
+        this.listbox.removeAttribute('aria-label');
+        this.button.ariaLabelledByElements = explicitLabelledByElements;
+        this.listbox.ariaLabelledByElements = explicitLabelledByElements;
+
+        // Keep explicit aria-labelledby text when ids do not resolve in this root.
+        if (!explicitLabelledByElements.length) {
+          this.button.setAttribute('aria-labelledby', explicitLabelledBy);
+          this.listbox.setAttribute('aria-labelledby', explicitLabelledBy);
+        }
+      } else if (ariaLabel) {
+        // Clear any old fallback references and mirror explicit aria-label to listbox.
+        this.button.ariaLabelledByElements = [];
+        this.listbox.ariaLabel = ariaLabel;
+        this.listbox.ariaLabelledByElements = [];
+      } else {
+        this.button.ariaLabelledByElements = [];
+        this.listbox.removeAttribute('aria-label');
+        this.listbox.ariaLabelledByElements = [];
+      }
+    } finally {
+      // Reconnect to observe future attribute changes on the button.
+      if (this.isConnected) {
+        this.#buttonAriaObserver.observe(this.button, this.#buttonAriaObserverOptions);
+      }
+    }
   }
 
   /** Returns a flattened array of all options (also the options in groups). */
@@ -788,6 +867,21 @@ export class Select<T = any> extends ObserveAttributesMixin(
       attributes: true,
       attributeFilter: ['value']
     });
+  }
+
+  #resolveLabelledByElements(ariaLabelledBy?: string): Element[] {
+    if (!ariaLabelledBy) {
+      return [];
+    }
+
+    const root = this.getRootNode() as Document | ShadowRoot;
+
+    return ariaLabelledBy
+      .split(/\s+/)
+      .map((id: string) => id.trim())
+      .filter(Boolean)
+      .map((id: string) => root.querySelector<Element>(`#${CSS.escape(id)}`))
+      .filter((element: Element | null): element is Element => element !== null);
   }
 
   #scheduleLargestOptionWidthCalculation(): void {

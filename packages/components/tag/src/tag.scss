@@ -89,7 +89,7 @@ button {
 
   @media (prefers-reduced-motion: no-preference) {
     transition: 200ms ease-in-out;
-    transition-property: background, outline-color;
+    transition-property: background;
   }
 
   &:not([aria-disabled='true']):hover {

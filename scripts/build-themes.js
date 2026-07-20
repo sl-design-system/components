@@ -49,7 +49,7 @@ const stripPrefix = (dictionary, prefix) => {
           token.$value[key] = value.replaceAll(`${prefix}.`, '');
         });
       }
-    } else if (token) {
+    } else if (token && typeof token === 'object') {
       // If the token does not have the `isSource` property, assume it has
       // child tokens and recursively strip the prefix from them
       stripPrefix(token, prefix);
@@ -60,7 +60,7 @@ const stripPrefix = (dictionary, prefix) => {
 StyleDictionary.registerPreprocessor({
   name: 'strip-routing-prefix',
   preprocessor: (dictionary, { theme }) => {
-    ['I', 'II', theme].forEach(prefix => {
+    ['I', 'II', 'I-A', 'I-B', 'I-C', 'II-E', 'II-F', 'II-G', theme].forEach(prefix => {
       // Return early if the prefix is not present
       if (!dictionary[prefix]) {
         return;
@@ -76,6 +76,88 @@ StyleDictionary.registerPreprocessor({
       stripPrefix(dictionary, prefix);
     });
 
+    return dictionary;
+  }
+});
+
+const convertSetAlphaToColorMix = dictionary => {
+  Object.values(dictionary).forEach(token => {
+    if (token?.isSource && token.$type === 'color' && typeof token.$value === 'string') {
+      // Convert set_alpha() to color-mix()
+      if (token.$value.includes('set_alpha(')) {
+        const regex = /set_alpha\s*\(/g;
+        let value = token.$value;
+        let match;
+
+        while ((match = regex.exec(value)) !== null) {
+          const start = match.index + match[0].length;
+          let depth = 1;
+          let end = start;
+
+          // Find matching closing paren
+          while (depth > 0 && end < value.length) {
+            if (value[end] === '(') depth++;
+            if (value[end] === ')') depth--;
+            end++;
+          }
+
+          if (depth === 0) {
+            const content = value.substring(start, end - 1);
+            const commaIndex = content.lastIndexOf(',');
+
+            if (commaIndex !== -1) {
+              const color = content.substring(0, commaIndex).trim();
+              const opacity = content.substring(commaIndex + 1).trim();
+
+              // Build replacement
+              let replacement;
+              if (opacity.endsWith('%')) {
+                replacement = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
+              } else {
+                replacement = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
+              }
+
+              // Replace set_alpha(...) with color-mix(...)
+              value = value.substring(0, match.index) + replacement + value.substring(end);
+
+              // Reset regex to continue from after the replacement
+              regex.lastIndex = match.index + replacement.length;
+            }
+          }
+        }
+
+        // Remove .to.hex() suffix
+        value = value.replace(/\.to\.hex\(\)/g, '');
+        token.$value = value;
+      }
+
+      // Convert rgba() to color-mix()
+      if (token.$value.includes('rgba(')) {
+        token.$value = token.$value.replace(
+          /rgba\(\s*([^,]+?)\s*,\s*([^)]+?)\)/g,
+          (match, color, opacity) => {
+            const trimmedColor = color.trim();
+            const trimmedOpacity = opacity.trim();
+
+            if (trimmedOpacity.endsWith('%')) {
+              return `color-mix(in srgb, ${trimmedColor} ${trimmedOpacity}, transparent)`;
+            } else {
+              return `color-mix(in srgb, ${trimmedColor} calc(${trimmedOpacity} * 100%), transparent)`;
+            }
+          }
+        );
+      }
+    } else if (token && typeof token === 'object' && !token.isSource) {
+      // Recursively process nested tokens
+      convertSetAlphaToColorMix(token);
+    }
+  });
+};
+
+StyleDictionary.registerPreprocessor({
+  name: 'convert-set-alpha-to-color-mix',
+  preprocessor: dictionary => {
+    convertSetAlphaToColorMix(dictionary);
     return dictionary;
   }
 });
@@ -155,11 +237,7 @@ StyleDictionary.registerTransform({
   transform: token => {
     const value = token.$value;
 
-    return value?.endsWith('%')
-      ? transformLineHeight(value)
-      : value?.endsWith('px')
-        ? value
-        : `${value}px`;
+    return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
   }
 });
 
@@ -172,6 +250,28 @@ StyleDictionary.registerTransform({
     const value = token.$value;
 
     return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
+  }
+});
+
+// Transform sizes to px if they don't have a unit
+StyleDictionary.registerTransform({
+  name: 'sl/size/css/size',
+  type: 'value',
+  transitive: true,
+  filter: token => token.$type === 'size' || token.$type === 'space',
+  transform: token => {
+    const value = token.$value;
+
+    if (typeof value === 'string') {
+      // Check if the value already has a unit, is a function call, or a reference
+      const hasUnit = /[a-z%]$/i.test(value) || value.includes('(') || value.includes('{');
+      // Don't add px to 0 values as they are unitless in CSS
+      const isZero = value === '0';
+
+      return hasUnit || isZero ? value : `${value}px`;
+    }
+
+    return value;
   }
 });
 
@@ -220,19 +320,21 @@ const getThemes = async folder => {
   return themes;
 };
 
-const build = async (production = false, path, deprecated) => {
+const build = async (production = false, path, sldsLegacyPath) => {
   const cwd = new URL('.', import.meta.url).pathname,
     themeBase = join(cwd, '../packages/themes'),
     themes = await getThemes(join(cwd, path));
   // if you want to debug the build to see which themes are being built, uncomment the console.log line below and replace the line above with
-  // themes = [<result of the console.log>];
+
+  // TODO: Remove the hardcoded themes array and use the getThemes function instead. The hardcoded array is currently used for debugging purposes.
+  // themes = [  <result from console.log('Building themes:', themes)> ];
   // you can (un)comment out each theme until you find the one that is causing issues
   // console.log('Building themes:', themes);
 
   // Filter out themes that don't have base.json
   const themesWithBase = [];
   for (const [theme, variant] of themes) {
-    const baseFilePath = join(cwd, path, theme, 'base.json');
+    const baseFilePath = join(cwd, sldsLegacyPath, theme, 'base.json');
     try {
       await access(baseFilePath);
       themesWithBase.push([theme, variant]);
@@ -285,8 +387,10 @@ const build = async (production = false, path, deprecated) => {
           verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
           warnings: 'disabled'
         },
-        source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
-        preprocessors: ['strip-routing-prefix', 'tokens-studio'],
+        source: tokensets.map(tokenset =>
+          join(cwd, old ? sldsLegacyPath : path, `${tokenset}.json`)
+        ),
+        preprocessors: ['strip-routing-prefix', 'convert-set-alpha-to-color-mix', 'tokens-studio'],
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
@@ -294,8 +398,8 @@ const build = async (production = false, path, deprecated) => {
               'name/kebabWithCamel',
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
+              'sl/size/css/size',
               'sl/size/css/paragraphSpacing',
-              'sl/color/transparentColorMix',
               'sl/wrapMathInCalc'
             ].filter(Boolean),
             prefix: 'sl',
@@ -429,7 +533,7 @@ const build = async (production = false, path, deprecated) => {
   );
 
   for (const cfg of [...configs, ...oldConfigs]) {
-    console.log(`Building ${cfg.theme}/${cfg.variant} theme...`, cfg);
+    console.log(`Building ${cfg.theme}/${cfg.variant} theme...`);
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
@@ -440,7 +544,6 @@ const build = async (production = false, path, deprecated) => {
         css = await readFile(from, 'utf8');
 
       const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
-
       await writeFile(to, result.css, 'utf8');
     }
   }
@@ -448,4 +551,4 @@ const build = async (production = false, path, deprecated) => {
   // put a copy of the exported typography tokens in the theme folder for easier consumption by consumers of the theme package
 };
 
-build(argv.includes('--production'), './export/core', './export/deprecated');
+build(argv.includes('--production'), './export/core', './export/slds-legacy');

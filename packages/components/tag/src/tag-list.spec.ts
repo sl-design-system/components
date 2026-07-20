@@ -153,7 +153,7 @@ describe('sl-tag-list', () => {
 
       expect(button).to.have.attribute('aria-describedby', 'navigation-description');
       expect(description).to.have.class('visually-hidden');
-      expect(description).not.to.have.attribute('aria-hidden');
+      expect(description).to.have.attribute('aria-hidden', 'true');
       expect(description).to.have.trimmed.text('Use arrow keys to move between removable tags.');
     });
 
@@ -195,6 +195,73 @@ describe('sl-tag-list', () => {
       await userEvent.tab();
 
       expect(document.activeElement).to.equal(after);
+    });
+
+    it('should allow tabbing through removable tag buttons when keyboard navigation is disabled', async () => {
+      el = await fixture(html`
+        <div>
+          <button>Before</button>
+          <sl-tag-list .keyboardNavigation=${false}>
+            <sl-tag removable>My label 1</sl-tag>
+            <sl-tag removable>My label 2</sl-tag>
+            <sl-tag removable>My label 3</sl-tag>
+          </sl-tag-list>
+          <button>After</button>
+        </div>
+      `).then(wrapper => wrapper.querySelector('sl-tag-list')!);
+
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const wrapper = el.parentElement!,
+        before = wrapper.querySelector('button')!,
+        tags = Array.from(el.querySelectorAll('sl-tag')),
+        buttons = tags.map(tag => tag.renderRoot.querySelector('button')!);
+
+      expect(tags.map(tag => tag.hasAttribute('tabindex'))).to.deep.equal([false, false, false]);
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, 0, 0]);
+      expect(tags.map(tag => tag.navigationDescription)).to.deep.equal([
+        undefined,
+        undefined,
+        undefined
+      ]);
+
+      before.focus();
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(tags[0]);
+      expect(tags[0].shadowRoot?.activeElement).to.equal(buttons[0]);
+
+      await userEvent.tab();
+
+      expect(document.activeElement).to.equal(tags[1]);
+      expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
+
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(document.activeElement).to.equal(tags[1]);
+      expect(tags[1].shadowRoot?.activeElement).to.equal(buttons[1]);
+    });
+
+    it('should clear managed tabindexes when keyboard navigation is disabled', async () => {
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+      const tags = Array.from(el.querySelectorAll('sl-tag')),
+        buttons = tags.map(tag => tag.renderRoot.querySelector('button')!);
+
+      expect(tags.map(tag => tag.getAttribute('tabindex'))).to.deep.equal(['0', '-1', '-1']);
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, -1, -1]);
+
+      el.keyboardNavigation = false;
+      await el.updateComplete;
+      await Promise.all(tags.map(tag => tag.updateComplete));
+
+      expect(tags.map(tag => tag.hasAttribute('tabindex'))).to.deep.equal([false, false, false]);
+      expect(buttons.map(button => button.hasAttribute('tabindex'))).to.deep.equal([
+        false,
+        false,
+        false
+      ]);
+      expect(buttons.map(button => button.tabIndex)).to.deep.equal([0, 0, 0]);
     });
 
     it('should resync the navigation description when the list updates', async () => {
@@ -263,12 +330,18 @@ describe('sl-tag-list', () => {
 
     it('should have a tooltip for the stack', () => {
       const tag = el.renderRoot.querySelector('sl-tag'),
-        tooltip = el.renderRoot.querySelector('sl-tooltip');
+        tooltip = el.renderRoot.querySelector('sl-tooltip'),
+        label = tag?.renderRoot.querySelector('[part="label"]'),
+        description = tag?.renderRoot.querySelector('#label-description');
 
       expect(tooltip).to.exist;
-      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-labelledby'));
+      expect(tag).not.to.have.attribute('aria-labelledby');
+      expect(tag).to.have.attribute('aria-describedby', 'tooltip');
+      expect(label).to.have.attribute('aria-describedby', 'label-description');
+      expect(description).to.have.class('visually-hidden');
 
-      const tagContent = tooltip?.textContent?.trim();
+      const tagContent = tooltip?.textContent?.trim(),
+        descriptionContent = description?.textContent?.trim();
 
       expect(tagContent).to.exist;
       expect(tagContent?.includes('List of hidden elements:')).to.be.true;
@@ -277,6 +350,7 @@ describe('sl-tag-list', () => {
           'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
         )
       ).to.be.true;
+      expect(descriptionContent).to.equal(tagContent);
     });
 
     it('should have a stack with a tag, which contains the stack size', () => {
@@ -350,7 +424,7 @@ describe('sl-tag-list', () => {
       expect(visibleTag?.tabIndex).to.equal(-1);
     });
 
-    it('should keep the stack tag in the tab order when all regular tags are hidden', async () => {
+    it('should keep the stack tag in the tab order when only one regular tag is visible', async () => {
       el = await fixture(html`
         <sl-tag-list disabled stacked style="inline-size: 1px;">
           <sl-tag disabled removable>My very long label 1</sl-tag>
@@ -369,7 +443,8 @@ describe('sl-tag-list', () => {
       expect(stackTag).not.to.have.attribute('disabled');
       expect(stackTag).to.be.displayed;
       expect(stackTag.tabIndex).to.equal(0);
-      expect(visibleTags).to.have.length(0);
+      expect(visibleTags).to.have.length(1);
+      expect(visibleTags[0].tabIndex).to.equal(-1);
     });
 
     it('should not have a stack when there is enough space', async () => {
@@ -422,10 +497,16 @@ describe('sl-tag-list', () => {
       const stack = el.renderRoot.querySelector('.stack') as HTMLElement;
       const unobserveSpy = vi.spyOn(ResizeObserver.prototype, 'unobserve');
 
+      await triggerVisibilityUpdate();
+      expect(el.stackSize).to.be.greaterThan(0);
+      expect(el).to.have.attribute('data-stacked-active');
+
       el.stacked = false;
       await el.updateComplete;
 
       expect(unobserveSpy.mock.calls.some(([target]) => target === stack)).to.be.true;
+      expect(el.stackSize).to.equal(0);
+      expect(el).not.to.have.attribute('data-stacked-active');
 
       unobserveSpy.mockRestore();
     });
@@ -531,6 +612,7 @@ describe('sl-tag-list', () => {
 
       expect(visibility).to.deep.equal(['none', 'none', '']);
       expect(el.stackSize).to.equal(2);
+      expect(el).to.have.attribute('data-stacked-active');
     });
 
     it('should keep the last tag visible when it fits in the remaining width', async () => {
@@ -561,7 +643,7 @@ describe('sl-tag-list', () => {
       expect(el.stackSize).to.equal(2);
     });
 
-    it('should hide the last tag when it does not fit in the remaining width', async () => {
+    it('should keep the last tag visible even when it does not fit in the remaining width', async () => {
       el = await fixture(html`
         <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
           <sl-tag style="inline-size: 100px;">Tag 1</sl-tag>
@@ -571,7 +653,7 @@ describe('sl-tag-list', () => {
       `);
 
       // Container is 140px, stack 40px, gap 10px => remaining width is 90px.
-      // Last tag is 100px, so it should be hidden.
+      // Last tag is 100px, but it remains visible so the stack counter is not shown alone.
       el.getBoundingClientRect = () => new DOMRect(0, 0, 140, 20);
       el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
 
@@ -584,8 +666,8 @@ describe('sl-tag-list', () => {
       const tags = Array.from(el.querySelectorAll('sl-tag'));
       const visibility = tags.map(t => t.style.display);
 
-      expect(visibility).to.deep.equal(['none', 'none', 'none']);
-      expect(el.stackSize).to.equal(3);
+      expect(visibility).to.deep.equal(['none', 'none', '']);
+      expect(el.stackSize).to.equal(2);
     });
 
     it('should not overwrite cached stack width when the stack measurement is 0', async () => {
@@ -640,6 +722,7 @@ describe('sl-tag-list', () => {
 
       expect(tags.map(tag => tag.style.display)).to.deep.equal(['', '']);
       expect(el.stackSize).to.equal(0);
+      expect(el).not.to.have.attribute('data-stacked-active');
       expect(stack.style.display).to.equal('none');
     });
   });

@@ -36,7 +36,7 @@ const setupAllThemes = async () => {
     theme => theme.indexOf('core') < 0
   );
 
-  themes.forEach(component => setupTheme(component));
+  themes.forEach(theme => setupTheme(theme));
 };
 
 setupAllThemes();

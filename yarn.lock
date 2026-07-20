@@ -7651,7 +7651,7 @@ __metadata:
     "@fortawesome/sharp-solid-svg-icons": "npm:^7.2.0"
     "@tokens-studio/sd-transforms": "npm:^2.0.1"
     "@tokens-studio/sdk": "npm:^3.0.0"
-    "@tokens-studio/studio-cli": "npm:^0.1.3"
+    "@tokens-studio/studio-cli": "npm:0.2.0-rc.3"
     cssnano: "npm:^7.1.9"
     esbuild: "npm:^0.25.12"
     fast-glob: "npm:^3.3.3"
@@ -8372,12 +8372,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokens-studio/studio-cli@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@tokens-studio/studio-cli@npm:0.1.3"
+"@tokens-studio/studio-cli@npm:0.2.0-rc.3":
+  version: 0.2.0-rc.3
+  resolution: "@tokens-studio/studio-cli@npm:0.2.0-rc.3"
   bin:
     studio: bin/studio
-  checksum: 10c0/cf727c775f987e1e5b0b92ac0b94eeb6b137f0fdf03a94d369befa0511d10a3c9e72892de8fc2e056f271280fdbdb100df379ee2101201ea0c6779aad4f03e4c
+  checksum: 10c0/a0faf5cf721684a2842933ca20694786333b56912cfaeeb2ae0704b8ca2f0aad7b56cc8007afd77904263da43f2c1c5ff90a6159dc9513209767b46a7b7916c3
   languageName: node
   linkType: hard
 

@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
-    "import-tokens": "yarn exec studio pull && yarn run studio exports run typography --alias typography-sizing-spacing --out ./export",
+    "import-tokens": "yarn exec studio pull && yarn run studio exports run core-css --alias core-css --out ./packages/tokens/src/tokens",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [
@@ -29,7 +29,7 @@
     "@fortawesome/sharp-solid-svg-icons": "^7.2.0",
     "@tokens-studio/sd-transforms": "^2.0.1",
     "@tokens-studio/sdk": "^3.0.0",
-    "@tokens-studio/studio-cli": "^0.1.3",
+    "@tokens-studio/studio-cli": "0.2.0-rc.3",
     "cssnano": "^7.1.9",
     "esbuild": "^0.25.12",
     "fast-glob": "^3.3.3",

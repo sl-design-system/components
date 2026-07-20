@@ -24,7 +24,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-combobox aria-label="Subjects" multiple style="inline-size: min(100%, 500px)" value='["0","1"]'>
+  <sl-combobox aria-label="Subjects" multiple value='["0","1"]'>
     <sl-listbox>
       <sl-option value="0">Mathematics</sl-option>
       <sl-option value="1">Geography</sl-option>

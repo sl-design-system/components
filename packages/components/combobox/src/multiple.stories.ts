@@ -88,7 +88,7 @@ export default {
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
             placeholder=${ifDefined(placeholder)}
-            style=${`max-width: ${maxWidth}`}>
+            style=${`max-width: ${maxWidth || '500px'}`}>
             ${virtualList
               ? nothing
               : html`

@@ -60,10 +60,6 @@ export const All: Story = {
         span {
           justify-self: center;
         }
-
-        sl-combobox {
-          max-width: 500px;
-        }
       }
     </style>
     <div class="container">

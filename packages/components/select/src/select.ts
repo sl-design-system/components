@@ -445,14 +445,14 @@ export class Select<T = any> extends ObserveAttributesMixin(
         const scopedImportNode = (rootNode as Partial<Pick<Document, 'importNode'>>).importNode;
         const ownerDocument = node.ownerDocument ?? document;
 
+        // Use a scoped importNode() implementation when available so cloned custom
+        // elements are upgraded; otherwise fall back to the owner document for
+        // non-document roots such as DocumentFragment.
         const clone =
           typeof scopedImportNode === 'function'
             ? scopedImportNode.call(rootNode, node, true)
             : ownerDocument.importNode(node, true);
 
-        // Unlike node.cloneNode(), importNode() is implemented in the
-        // scoped custom element registry polyfill, so it will upgrade
-        // the cloned node if it's a custom element.
         clones.push(clone);
       });
 

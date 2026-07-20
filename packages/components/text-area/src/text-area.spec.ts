@@ -863,6 +863,32 @@ describe('sl-text-area', () => {
       hintEl.remove();
     });
 
+    it('should refresh external aria-describedby refs when ids change while count is visible', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      const hintOne = document.createElement('span'),
+        hintTwo = document.createElement('span');
+
+      hintOne.id = 'sl-form-field-hint-1';
+      hintTwo.id = 'sl-form-field-hint-2';
+      document.body.append(hintOne, hintTwo);
+
+      textarea.setAttribute('aria-describedby', hintOne.id);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      textarea.setAttribute('aria-describedby', hintTwo.id);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const refs = Array.from(textarea.ariaDescribedByElements ?? []);
+
+      expect(refs.some(el => el.id === hintOne.id)).to.be.false;
+      expect(refs.some(el => el.id === hintTwo.id)).to.be.true;
+      expect(refs.some(el => el.id.endsWith('-description'))).to.be.true;
+
+      hintOne.remove();
+      hintTwo.remove();
+    });
+
     it('should keep count description element in accessibility tree', async () => {
       const textarea = el.querySelector('textarea')!;
 

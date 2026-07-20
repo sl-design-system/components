@@ -87,17 +87,27 @@ export class TextArea extends ObserveAttributesMixin(
   /** Keep count aria-describedby linkage resilient to external textarea attribute changes. */
   #describedByObserver = new MutationObserver(() => {
     const countDescriptionId = this.#getCountDescriptionId(),
-      describedBy = this.textarea?.getAttribute('aria-describedby') ?? '',
-      hasCountDescription = describedBy.split(/\s+/).includes(countDescriptionId),
+      describedBy = this.textarea?.getAttribute('aria-describedby') ?? '';
+
+    if (describedBy === this.#lastObservedDescribedBy) {
+      return;
+    }
+
+    this.#lastObservedDescribedBy = describedBy;
+
+    const hasCountDescription = describedBy.split(/\s+/).includes(countDescriptionId),
       shouldHaveCountDescription = this.#isCountVisible();
 
-    if (hasCountDescription !== shouldHaveCountDescription) {
+    if (hasCountDescription !== shouldHaveCountDescription || shouldHaveCountDescription) {
       this.#syncCountAriaDescription();
     }
   });
 
   /** True when the value is over the character limit and sets validation state. */
   #isOverLimitState = false;
+
+  /** Last observed aria-describedby value to avoid redundant observer work. */
+  #lastObservedDescribedBy = '';
 
   /** Observe the textarea width. */
   #observer = new ResizeObserver(() => {
@@ -211,6 +221,7 @@ export class TextArea extends ObserveAttributesMixin(
 
     this.#attachTextareaListeners(this.textarea);
     this.#observer.observe(this.textarea);
+    this.#lastObservedDescribedBy = this.textarea.getAttribute('aria-describedby') ?? '';
     this.#describedByObserver.observe(this.textarea, {
       attributes: true,
       attributeFilter: ['aria-describedby']
@@ -392,7 +403,6 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
-  /** Attaches focus and blur listeners to the current textarea. */
   /** Attaches focus and blur listeners to the current textarea. */
   #attachTextareaListeners(textarea: HTMLTextAreaElement): void {
     textarea.addEventListener('blur', this.#onTextareaBlur);
@@ -690,6 +700,7 @@ export class TextArea extends ObserveAttributesMixin(
       this.textarea.value = this.value?.toString() || '';
       this.#observer.observe(this.textarea);
       this.#describedByObserver.disconnect();
+      this.#lastObservedDescribedBy = this.textarea.getAttribute('aria-describedby') ?? '';
       this.#describedByObserver.observe(this.textarea, {
         attributes: true,
         attributeFilter: ['aria-describedby']

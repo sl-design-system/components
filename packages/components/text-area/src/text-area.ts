@@ -367,6 +367,11 @@ export class TextArea extends ObserveAttributesMixin(
    */
   override updateInternalValidity(): void {
     if (this.#isOverLimitState) {
+      // Preserve consumer-provided custom errors when showCount did not set the current one.
+      if (this.textarea.validity.customError && !this.#countValiditySet) {
+        return;
+      }
+
       const showCountLimit = this.#getShowCountLimit();
 
       if (showCountLimit === undefined) {

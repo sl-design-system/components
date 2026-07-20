@@ -442,7 +442,8 @@ export class TextArea extends ObserveAttributesMixin(
 
   /** Returns the active soft count limit, or `undefined` when count is disabled. */
   #getShowCountLimit(): number | undefined {
-    return Number.isFinite(this.showCount) ? this.showCount : undefined;
+    const limit = Number(this.showCount);
+    return Number.isFinite(limit) && limit > 0 ? Math.trunc(limit) : undefined;
   }
 
   /** Returns whether the character count should currently be shown. */

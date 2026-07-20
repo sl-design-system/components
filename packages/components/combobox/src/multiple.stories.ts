@@ -39,6 +39,7 @@ export default {
     filterResults: false,
     label: 'Component',
     hint: '',
+    maxWidth: '500px',
     placeholder: '',
     selectOnly: false,
     virtualList: false
@@ -87,7 +88,7 @@ export default {
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
             placeholder=${ifDefined(placeholder)}
-            style=${`max-width: ${maxWidth ?? 'none'}`}>
+            style=${`max-width: ${maxWidth}`}>
             ${virtualList
               ? nothing
               : html`
@@ -223,7 +224,6 @@ export const Selected: Story = {
 export const Stacked: Story = {
   args: {
     ...Basic.args,
-    maxWidth: '700px',
     value: [
       'Switch',
       'Card',

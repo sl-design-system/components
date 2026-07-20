@@ -24,7 +24,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-combobox aria-label="Subjects" multiple value='["0","1"]'>
+  <sl-combobox aria-label="Subjects" multiple style="inline-size: min(100%, 500px)" value='["0","1"]'>
     <sl-listbox>
       <sl-option value="0">Mathematics</sl-option>
       <sl-option value="1">Geography</sl-option>
@@ -69,16 +69,16 @@ When the options range from 5 to 15 items or when screen space is limited, using
 <section>
 
 ## Layout Guidelines
-To maintain optimal readability and visual hierarchy, consider the following constraints when implementing the Combobox:
+To maintain optimal readability and visual hierarchy, size a Combobox according to the expected amount of information.
 
 ### Optimal Width
 Aim for an input width that reflects the expected content length. Extremely wide fields can break the user's scanning rhythm.
 
 ### Maximum Width
-We recommend a max-width of 500px for the Combobox component. This ensures the component remains manageable within various layouts and prevents the input field from becoming disproportionately wide, which can negatively affect UX and readability.
+We recommend a max-width of 500px for the Combobox component. This keeps group labels, selected groups and tags easier to scan, and prevents the input field from becoming disproportionately wide.
 
 ### Avoid Full-Width
-While the component is responsive, avoid forcing it to full-width in wide containers unless necessary for the specific use case. If a full-width container is unavoidable, apply the max-width constraint to keep the input focused.
+While the component is responsive, avoid forcing it to full-width in wide containers. If a full-width container is unavoidable, apply the max-width constraint to keep the input focused.
 
 </section>
 

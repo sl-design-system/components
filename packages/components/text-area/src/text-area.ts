@@ -293,13 +293,17 @@ export class TextArea extends ObserveAttributesMixin(
       this.textarea.value = this.value?.toString() || '';
     }
 
-    this.#syncCountAriaDescription();
+    const changed = this.#syncCountAriaDescription();
 
-    requestAnimationFrame(() => {
-      if (this.isConnected) {
-        this.#syncCountAriaDescription();
-      }
-    });
+    // Only schedule a deferred re-sync when the linkage changed structurally (element created or
+    // removed, or the ID list changed). Avoids redundant DOM work on every keystroke.
+    if (changed) {
+      requestAnimationFrame(() => {
+        if (this.isConnected) {
+          this.#syncCountAriaDescription();
+        }
+      });
+    }
   }
 
   override render(): TemplateResult {
@@ -472,19 +476,22 @@ export class TextArea extends ObserveAttributesMixin(
 
   /**
    * Keeps the hidden description span and aria-describedby in sync with the visible character
-   * count.
+   * count. Returns `true` when the describedby linkage changed structurally (element created or
+   * removed, or the ID list changed), so callers can decide whether a deferred re-sync is needed.
    */
-  #syncCountAriaDescription(): void {
+  #syncCountAriaDescription(): boolean {
     const { textarea } = this;
 
     if (!textarea) {
-      return;
+      return false;
     }
 
     const countDescriptionId = this.#getCountDescriptionId();
 
     let countDescriptionElement: HTMLSpanElement | undefined =
       this.querySelector<HTMLSpanElement>(`#${countDescriptionId}`) ?? undefined;
+
+    let structuralChange = false;
 
     // Keep a visually-hidden light DOM span in sync with the visible count.
     if (this.#isCountVisible()) {
@@ -494,12 +501,16 @@ export class TextArea extends ObserveAttributesMixin(
         countDescriptionElement.slot = 'count-description';
         countDescriptionElement.className = 'visually-hidden';
         this.append(countDescriptionElement);
+        structuralChange = true;
       }
 
       countDescriptionElement.textContent = this.#getCountText();
     } else {
-      countDescriptionElement?.remove();
-      countDescriptionElement = undefined;
+      if (countDescriptionElement) {
+        countDescriptionElement.remove();
+        countDescriptionElement = undefined;
+        structuralChange = true;
+      }
     }
 
     // Build the new aria-describedby list, keeping any external IDs and replacing our own.
@@ -529,10 +540,14 @@ export class TextArea extends ObserveAttributesMixin(
     if (nextDescribedBy.length > 0) {
       if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
         textarea.setAttribute('aria-describedby', nextDescribedBy);
+        structuralChange = true;
       }
     } else if (textarea.hasAttribute('aria-describedby')) {
       textarea.removeAttribute('aria-describedby');
+      structuralChange = true;
     }
+
+    return structuralChange;
   }
 
   /** Updates `ariaDescribedByElements` with a fallback to same root references when needed. */

@@ -185,7 +185,7 @@ export class AccordionItem extends LitElement {
     }
 
     const onAnimationEnd = (event: AnimationEvent): void => {
-      // Ignore bubbled animation events from nested content (e.g. date pickers, CDK overlays).
+      // Ignore bubbled animation events from nested content
       if (event.target !== wrapper || event.animationName !== 'content-expand') {
         return;
       }

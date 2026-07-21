@@ -209,12 +209,45 @@ describe('sl-paginator', () => {
     });
 
     it('should move focus to the selected page when a menu item is clicked', async () => {
-      const menuItem = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).find(
+      const menuButtons = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-menu-button')),
+        menuButton = menuButtons.find(button =>
+          Array.from(button.querySelectorAll('sl-menu-item')).some(
+            item => item.textContent?.trim() === '12'
+          )
+        ),
+        trigger = menuButton?.shadowRoot?.querySelector<Button>('sl-button');
+
+      expect(menuButton).to.exist;
+      expect(trigger).to.exist;
+
+      const opened = new Promise<CustomEvent<boolean>>(resolve =>
+        menuButton!.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+          once: true
+        })
+      );
+
+      trigger!.click();
+
+      expect((await opened).detail).to.be.true;
+
+      const menuItem = Array.from(menuButton!.querySelectorAll('sl-menu-item')).find(
         item => item.textContent?.trim() === '12'
       );
 
       expect(menuItem).to.exist;
+
+      menuItem!.focus();
+
+      const closed = new Promise<CustomEvent<boolean>>(resolve =>
+        menuButton!.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+          once: true
+        })
+      );
+
       menuItem!.click();
+
+      expect((await closed).detail).to.be.false;
+
       await el.updateComplete;
       await new Promise<void>(resolve => requestAnimationFrame(() => resolve(undefined)));
 

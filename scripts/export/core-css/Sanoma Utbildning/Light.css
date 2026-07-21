@@ -1,663 +1,693 @@
 :root {
-  --sanoma-utbildning-color-background-accent-blue-bold: var(
-    --sanoma-utbildning-color-palette-blue-400
+  --sl-sanoma-utbildning-color-background-accent-blue-bold: var(
+    --sl-sanoma-utbildning-color-palette-blue-400
   );
-  --sanoma-utbildning-color-background-accent-blue-interactive-bold: var(
-    --sanoma-utbildning-color-palette-blue-900
+  --sl-sanoma-utbildning-color-background-accent-blue-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-blue-900
   );
-  --sanoma-utbildning-color-background-accent-blue-interactive-plain: var(
-    --sanoma-utbildning-color-palette-blue-300
+  --sl-sanoma-utbildning-color-background-accent-blue-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-blue-300
   );
-  --sanoma-utbildning-color-background-accent-blue-subtle: #3366ff33;
-  --sanoma-utbildning-color-background-accent-blue-subtlest: #3366ff1a;
-  --sanoma-utbildning-color-background-accent-green-bold: var(
-    --sanoma-utbildning-color-palette-green-600
+  --sl-sanoma-utbildning-color-background-accent-blue-subtle: #3366ff33;
+  --sl-sanoma-utbildning-color-background-accent-blue-subtlest: #3366ff1a;
+  --sl-sanoma-utbildning-color-background-accent-green-bold: var(
+    --sl-sanoma-utbildning-color-palette-green-600
   );
-  --sanoma-utbildning-color-background-accent-green-interactive-bold: var(
-    --sanoma-utbildning-color-palette-green-900
+  --sl-sanoma-utbildning-color-background-accent-green-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-green-900
   );
-  --sanoma-utbildning-color-background-accent-green-interactive-plain: var(
-    --sanoma-utbildning-color-palette-green-400
+  --sl-sanoma-utbildning-color-background-accent-green-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-green-400
   );
-  --sanoma-utbildning-color-background-accent-green-subtle: #07c5b233;
-  --sanoma-utbildning-color-background-accent-green-subtlest: #07c5b21a;
-  --sanoma-utbildning-color-background-accent-grey-bold: var(
-    --sanoma-utbildning-color-palette-grey-150
+  --sl-sanoma-utbildning-color-background-accent-green-subtle: #07c5b233;
+  --sl-sanoma-utbildning-color-background-accent-green-subtlest: #07c5b21a;
+  --sl-sanoma-utbildning-color-background-accent-grey-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-150
   );
-  --sanoma-utbildning-color-background-accent-grey-interactive-bold: var(
-    --sanoma-utbildning-color-palette-grey-500
+  --sl-sanoma-utbildning-color-background-accent-grey-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-500
   );
-  --sanoma-utbildning-color-background-accent-grey-interactive-plain: var(
-    --sanoma-utbildning-color-palette-grey-400
+  --sl-sanoma-utbildning-color-background-accent-grey-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-grey-400
   );
-  --sanoma-utbildning-color-background-accent-grey-subtle: #c8d1da33;
-  --sanoma-utbildning-color-background-accent-grey-subtlest: #c8d1da1a;
-  --sanoma-utbildning-color-background-accent-orange-bold: var(
-    --sanoma-utbildning-color-palette-orange-600
+  --sl-sanoma-utbildning-color-background-accent-grey-subtle: #c8d1da33;
+  --sl-sanoma-utbildning-color-background-accent-grey-subtlest: #c8d1da1a;
+  --sl-sanoma-utbildning-color-background-accent-orange-bold: var(
+    --sl-sanoma-utbildning-color-palette-orange-600
   );
-  --sanoma-utbildning-color-background-accent-orange-interactive-bold: var(
-    --sanoma-utbildning-color-palette-orange-900
+  --sl-sanoma-utbildning-color-background-accent-orange-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-orange-900
   );
-  --sanoma-utbildning-color-background-accent-orange-interactive-plain: var(
-    --sanoma-utbildning-color-palette-orange-400
+  --sl-sanoma-utbildning-color-background-accent-orange-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-orange-400
   );
-  --sanoma-utbildning-color-background-accent-orange-subtle: #fe821133;
-  --sanoma-utbildning-color-background-accent-orange-subtlest: #fe82111a;
-  --sanoma-utbildning-color-background-accent-purple-bold: var(
-    --sanoma-utbildning-color-palette-purple-600
+  --sl-sanoma-utbildning-color-background-accent-orange-subtle: #fe821133;
+  --sl-sanoma-utbildning-color-background-accent-orange-subtlest: #fe82111a;
+  --sl-sanoma-utbildning-color-background-accent-purple-bold: var(
+    --sl-sanoma-utbildning-color-palette-purple-600
   );
-  --sanoma-utbildning-color-background-accent-purple-interactive-bold: var(
-    --sanoma-utbildning-color-palette-purple-900
+  --sl-sanoma-utbildning-color-background-accent-purple-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-purple-900
   );
-  --sanoma-utbildning-color-background-accent-purple-interactive-plain: var(
-    --sanoma-utbildning-color-palette-purple-400
+  --sl-sanoma-utbildning-color-background-accent-purple-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-purple-400
   );
-  --sanoma-utbildning-color-background-accent-purple-subtle: #824dff33;
-  --sanoma-utbildning-color-background-accent-purple-subtlest: #824dff1a;
-  --sanoma-utbildning-color-background-accent-red-bold: var(
-    --sanoma-utbildning-color-palette-red-700
+  --sl-sanoma-utbildning-color-background-accent-purple-subtle: #824dff33;
+  --sl-sanoma-utbildning-color-background-accent-purple-subtlest: #824dff1a;
+  --sl-sanoma-utbildning-color-background-accent-red-bold: var(
+    --sl-sanoma-utbildning-color-palette-red-700
   );
-  --sanoma-utbildning-color-background-accent-red-interactive-bold: var(
-    --sanoma-utbildning-color-palette-red-900
+  --sl-sanoma-utbildning-color-background-accent-red-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-red-900
   );
-  --sanoma-utbildning-color-background-accent-red-interactive-plain: var(
-    --sanoma-utbildning-color-palette-red-400
+  --sl-sanoma-utbildning-color-background-accent-red-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-red-400
   );
-  --sanoma-utbildning-color-background-accent-red-subtle: #f63d4833;
-  --sanoma-utbildning-color-background-accent-red-subtlest: #f63d481a;
-  --sanoma-utbildning-color-background-accent-teal-bold: var(
-    --sanoma-utbildning-color-palette-teal-700
+  --sl-sanoma-utbildning-color-background-accent-red-subtle: #f63d4833;
+  --sl-sanoma-utbildning-color-background-accent-red-subtlest: #f63d481a;
+  --sl-sanoma-utbildning-color-background-accent-teal-bold: var(
+    --sl-sanoma-utbildning-color-palette-teal-700
   );
-  --sanoma-utbildning-color-background-accent-teal-interactive-bold: var(
-    --sanoma-utbildning-color-palette-teal-900
+  --sl-sanoma-utbildning-color-background-accent-teal-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-teal-900
   );
-  --sanoma-utbildning-color-background-accent-teal-interactive-plain: var(
-    --sanoma-utbildning-color-palette-teal-400
+  --sl-sanoma-utbildning-color-background-accent-teal-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-teal-400
   );
-  --sanoma-utbildning-color-background-accent-teal-subtle: #369ea433;
-  --sanoma-utbildning-color-background-accent-teal-subtlest: #369ea41a;
-  --sanoma-utbildning-color-background-accent-yellow-bold: var(
-    --sanoma-utbildning-color-palette-yellow-300
+  --sl-sanoma-utbildning-color-background-accent-teal-subtle: #369ea433;
+  --sl-sanoma-utbildning-color-background-accent-teal-subtlest: #369ea41a;
+  --sl-sanoma-utbildning-color-background-accent-yellow-bold: var(
+    --sl-sanoma-utbildning-color-palette-yellow-300
   );
-  --sanoma-utbildning-color-background-accent-yellow-interactive-bold: var(
-    --sanoma-utbildning-color-palette-yellow-800
+  --sl-sanoma-utbildning-color-background-accent-yellow-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-yellow-800
   );
-  --sanoma-utbildning-color-background-accent-yellow-interactive-plain: var(
-    --sanoma-utbildning-color-palette-yellow-400
+  --sl-sanoma-utbildning-color-background-accent-yellow-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-yellow-400
   );
-  --sanoma-utbildning-color-background-accent-yellow-subtle: #e0941233;
-  --sanoma-utbildning-color-background-accent-yellow-subtlest: #e094121a;
-  --sanoma-utbildning-color-background-bold: var(--sanoma-utbildning-color-border-bold);
-  --sanoma-utbildning-color-background-caution-bold: var(
-    --sanoma-utbildning-color-background-accent-yellow-bold
+  --sl-sanoma-utbildning-color-background-accent-yellow-subtle: #e0941233;
+  --sl-sanoma-utbildning-color-background-accent-yellow-subtlest: #e094121a;
+  --sl-sanoma-utbildning-color-background-bold: var(--sl-sanoma-utbildning-color-border-bold);
+  --sl-sanoma-utbildning-color-background-caution-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-yellow-bold
   );
-  --sanoma-utbildning-color-background-caution-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-yellow-interactive-bold
+  --sl-sanoma-utbildning-color-background-caution-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-yellow-interactive-bold
   );
-  --sanoma-utbildning-color-background-caution-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-yellow-interactive-plain
+  --sl-sanoma-utbildning-color-background-caution-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-yellow-interactive-plain
   );
-  --sanoma-utbildning-color-background-caution-subtle: var(
-    --sanoma-utbildning-color-background-accent-yellow-subtle
+  --sl-sanoma-utbildning-color-background-caution-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-yellow-subtle
   );
-  --sanoma-utbildning-color-background-caution-subtlest: var(
-    --sanoma-utbildning-color-background-accent-yellow-subtlest
+  --sl-sanoma-utbildning-color-background-caution-subtlest: var(
+    --sl-sanoma-utbildning-color-background-accent-yellow-subtlest
   );
-  --sanoma-utbildning-color-background-disabled: var(--sanoma-utbildning-color-palette-grey-100);
-  --sanoma-utbildning-color-background-highlight: var(--sanoma-utbildning-color-palette-yellow-100);
-  --sanoma-utbildning-color-background-info-bold: var(
-    --sanoma-utbildning-color-background-accent-teal-bold
+  --sl-sanoma-utbildning-color-background-disabled: var(
+    --sl-sanoma-utbildning-color-palette-grey-100
   );
-  --sanoma-utbildning-color-background-info-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-teal-interactive-bold
+  --sl-sanoma-utbildning-color-background-highlight: var(
+    --sl-sanoma-utbildning-color-palette-yellow-100
   );
-  --sanoma-utbildning-color-background-info-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-teal-interactive-plain
+  --sl-sanoma-utbildning-color-background-info-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-bold
   );
-  --sanoma-utbildning-color-background-info-subtle: var(
-    --sanoma-utbildning-color-background-accent-teal-subtle
+  --sl-sanoma-utbildning-color-background-info-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-interactive-bold
   );
-  --sanoma-utbildning-color-background-info-subtlest: var(
-    --sanoma-utbildning-color-background-accent-teal-subtlest
+  --sl-sanoma-utbildning-color-background-info-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-interactive-plain
   );
-  --sanoma-utbildning-color-background-input-interactive: var(
-    --sanoma-utbildning-color-background-accent-grey-interactive-plain
+  --sl-sanoma-utbildning-color-background-info-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-subtle
   );
-  --sanoma-utbildning-color-background-input-plain: var(--sanoma-utbildning-color-palette-grey-000);
-  --sanoma-utbildning-color-background-interactive-bold: var(
-    --sanoma-utbildning-color-background-neutral-interactive-bold
+  --sl-sanoma-utbildning-color-background-info-subtlest: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-subtlest
   );
-  --sanoma-utbildning-color-background-interactive-plain: var(
-    --sanoma-utbildning-color-background-neutral-interactive-plain
+  --sl-sanoma-utbildning-color-background-input-interactive: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-interactive-plain
   );
-  --sanoma-utbildning-color-background-inverted-bold: var(
-    --sanoma-utbildning-color-palette-grey-000
+  --sl-sanoma-utbildning-color-background-input-plain: var(
+    --sl-sanoma-utbildning-color-palette-grey-000
   );
-  --sanoma-utbildning-color-background-inverted-interactive-bold: var(
-    --sanoma-utbildning-color-palette-grey-800
+  --sl-sanoma-utbildning-color-background-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-neutral-interactive-bold
   );
-  --sanoma-utbildning-color-background-inverted-interactive-plain: var(
-    --sanoma-utbildning-color-palette-grey-200
+  --sl-sanoma-utbildning-color-background-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-neutral-interactive-plain
   );
-  --sanoma-utbildning-color-background-inverted-subtle: #ffffff33;
-  --sanoma-utbildning-color-background-inverted-subtlest: #ffffff1a;
-  --sanoma-utbildning-color-background-negative-bold: var(
-    --sanoma-utbildning-color-background-accent-red-bold
+  --sl-sanoma-utbildning-color-background-inverted-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-000
   );
-  --sanoma-utbildning-color-background-negative-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-red-interactive-bold
+  --sl-sanoma-utbildning-color-background-inverted-interactive-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-800
   );
-  --sanoma-utbildning-color-background-negative-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-red-interactive-plain
+  --sl-sanoma-utbildning-color-background-inverted-interactive-plain: var(
+    --sl-sanoma-utbildning-color-palette-grey-200
   );
-  --sanoma-utbildning-color-background-negative-subtle: var(
-    --sanoma-utbildning-color-background-accent-red-subtle
+  --sl-sanoma-utbildning-color-background-inverted-subtle: #ffffff33;
+  --sl-sanoma-utbildning-color-background-inverted-subtlest: #ffffff1a;
+  --sl-sanoma-utbildning-color-background-negative-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-red-bold
   );
-  --sanoma-utbildning-color-background-negative-subtlest: var(
-    --sanoma-utbildning-color-background-accent-red-subtlest
+  --sl-sanoma-utbildning-color-background-negative-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-red-interactive-bold
   );
-  --sanoma-utbildning-color-background-neutral-bold: var(
-    --sanoma-utbildning-color-background-accent-grey-bold
+  --sl-sanoma-utbildning-color-background-negative-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-red-interactive-plain
   );
-  --sanoma-utbildning-color-background-neutral-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-grey-interactive-bold
+  --sl-sanoma-utbildning-color-background-negative-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-red-subtle
   );
-  --sanoma-utbildning-color-background-neutral-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-grey-interactive-bold
+  --sl-sanoma-utbildning-color-background-negative-subtlest: var(
+    --sl-sanoma-utbildning-color-background-accent-red-subtlest
   );
-  --sanoma-utbildning-color-background-neutral-subtle: var(
-    --sanoma-utbildning-color-background-accent-grey-subtle
+  --sl-sanoma-utbildning-color-background-neutral-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-bold
   );
-  --sanoma-utbildning-color-background-neutral-subtlest: var(
-    --sanoma-utbildning-color-palette-grey-050
+  --sl-sanoma-utbildning-color-background-neutral-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-interactive-bold
   );
-  --sanoma-utbildning-color-background-positive-bold: var(
-    --sanoma-utbildning-color-background-accent-green-bold
+  --sl-sanoma-utbildning-color-background-neutral-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-interactive-bold
   );
-  --sanoma-utbildning-color-background-positive-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-green-interactive-bold
+  --sl-sanoma-utbildning-color-background-neutral-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-subtle
   );
-  --sanoma-utbildning-color-background-positive-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-green-interactive-plain
+  --sl-sanoma-utbildning-color-background-neutral-subtlest: var(
+    --sl-sanoma-utbildning-color-palette-grey-050
   );
-  --sanoma-utbildning-color-background-positive-subtle: var(
-    --sanoma-utbildning-color-background-accent-green-subtle
+  --sl-sanoma-utbildning-color-background-positive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-green-bold
   );
-  --sanoma-utbildning-color-background-positive-subtlest: var(
-    --sanoma-utbildning-color-background-accent-green-subtlest
+  --sl-sanoma-utbildning-color-background-positive-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-green-interactive-bold
   );
-  --sanoma-utbildning-color-background-primary-bold: var(
-    --sanoma-utbildning-color-background-accent-teal-bold
+  --sl-sanoma-utbildning-color-background-positive-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-green-interactive-plain
   );
-  --sanoma-utbildning-color-background-primary-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-teal-interactive-bold
+  --sl-sanoma-utbildning-color-background-positive-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-green-subtle
   );
-  --sanoma-utbildning-color-background-primary-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-teal-interactive-plain
+  --sl-sanoma-utbildning-color-background-positive-subtlest: var(
+    --sl-sanoma-utbildning-color-background-accent-green-subtlest
   );
-  --sanoma-utbildning-color-background-primary-subtle: var(
-    --sanoma-utbildning-color-background-accent-teal-subtle
+  --sl-sanoma-utbildning-color-background-primary-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-bold
   );
-  --sanoma-utbildning-color-background-primary-subtlest: var(
-    --sanoma-utbildning-color-background-accent-teal-subtlest
+  --sl-sanoma-utbildning-color-background-primary-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-interactive-bold
   );
-  --sanoma-utbildning-color-background-secondary-bold: var(
-    --sanoma-utbildning-color-background-accent-grey-bold
+  --sl-sanoma-utbildning-color-background-primary-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-interactive-plain
   );
-  --sanoma-utbildning-color-background-secondary-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-grey-interactive-bold
+  --sl-sanoma-utbildning-color-background-primary-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-subtle
   );
-  --sanoma-utbildning-color-background-secondary-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-grey-interactive-plain
+  --sl-sanoma-utbildning-color-background-primary-subtlest: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-subtlest
   );
-  --sanoma-utbildning-color-background-secondary-subtle: var(
-    --sanoma-utbildning-color-background-accent-grey-subtle
+  --sl-sanoma-utbildning-color-background-secondary-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-bold
   );
-  --sanoma-utbildning-color-background-secondary-subtlest: var(
-    --sanoma-utbildning-color-background-accent-grey-subtlest
+  --sl-sanoma-utbildning-color-background-secondary-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-interactive-bold
   );
-  --sanoma-utbildning-color-background-selected-bold: var(
-    --sanoma-utbildning-color-background-accent-teal-bold
+  --sl-sanoma-utbildning-color-background-secondary-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-interactive-plain
   );
-  --sanoma-utbildning-color-background-selected-interactive-bold: var(
-    --sanoma-utbildning-color-background-accent-teal-interactive-bold
+  --sl-sanoma-utbildning-color-background-secondary-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-subtle
   );
-  --sanoma-utbildning-color-background-selected-interactive-plain: var(
-    --sanoma-utbildning-color-background-accent-teal-interactive-plain
+  --sl-sanoma-utbildning-color-background-secondary-subtlest: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-subtlest
   );
-  --sanoma-utbildning-color-background-selected-subtle: var(
-    --sanoma-utbildning-color-background-accent-teal-subtle
+  --sl-sanoma-utbildning-color-background-selected-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-bold
   );
-  --sanoma-utbildning-color-background-selected-subtlest: var(
-    --sanoma-utbildning-color-background-accent-teal-subtlest
+  --sl-sanoma-utbildning-color-background-selected-interactive-bold: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-interactive-bold
   );
-  --sanoma-utbildning-color-background-subtle: var(
-    --sanoma-utbildning-color-background-accent-grey-subtle
+  --sl-sanoma-utbildning-color-background-selected-interactive-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-interactive-plain
   );
-  --sanoma-utbildning-color-blanket-plain: #c8d1dacc;
-  --sanoma-utbildning-color-border-accent-blue-bold: var(
-    --sanoma-utbildning-color-foreground-accent-blue-bold
+  --sl-sanoma-utbildning-color-background-selected-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-subtle
   );
-  --sanoma-utbildning-color-border-accent-blue-plain: var(
-    --sanoma-utbildning-color-background-accent-blue-bold
+  --sl-sanoma-utbildning-color-background-selected-subtlest: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-subtlest
   );
-  --sanoma-utbildning-color-border-accent-green-bold: var(
-    --sanoma-utbildning-color-foreground-accent-green-bold
+  --sl-sanoma-utbildning-color-background-subtle: var(
+    --sl-sanoma-utbildning-color-background-accent-grey-subtle
   );
-  --sanoma-utbildning-color-border-accent-green-plain: var(
-    --sanoma-utbildning-color-background-accent-green-bold
+  --sl-sanoma-utbildning-color-blanket-plain: #c8d1dacc;
+  --sl-sanoma-utbildning-color-border-accent-blue-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-blue-bold
   );
-  --sanoma-utbildning-color-border-accent-grey-bold: var(
-    --sanoma-utbildning-color-palette-grey-500
+  --sl-sanoma-utbildning-color-border-accent-blue-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-blue-bold
   );
-  --sanoma-utbildning-color-border-accent-grey-faint: var(
-    --sanoma-utbildning-color-palette-grey-150
+  --sl-sanoma-utbildning-color-border-accent-green-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-green-bold
   );
-  --sanoma-utbildning-color-border-accent-grey-heavy: var(
-    --sanoma-utbildning-color-palette-grey-900
+  --sl-sanoma-utbildning-color-border-accent-green-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-green-bold
   );
-  --sanoma-utbildning-color-border-accent-grey-plain: var(
-    --sanoma-utbildning-color-palette-grey-300
+  --sl-sanoma-utbildning-color-border-accent-grey-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-500
   );
-  --sanoma-utbildning-color-border-accent-orange-bold: var(
-    --sanoma-utbildning-color-foreground-accent-orange-bold
+  --sl-sanoma-utbildning-color-border-accent-grey-faint: var(
+    --sl-sanoma-utbildning-color-palette-grey-150
   );
-  --sanoma-utbildning-color-border-accent-orange-plain: var(
-    --sanoma-utbildning-color-background-accent-orange-bold
+  --sl-sanoma-utbildning-color-border-accent-grey-heavy: var(
+    --sl-sanoma-utbildning-color-palette-grey-900
   );
-  --sanoma-utbildning-color-border-accent-purple-bold: var(
-    --sanoma-utbildning-color-foreground-accent-purple-bold
+  --sl-sanoma-utbildning-color-border-accent-grey-plain: var(
+    --sl-sanoma-utbildning-color-palette-grey-300
   );
-  --sanoma-utbildning-color-border-accent-purple-plain: var(
-    --sanoma-utbildning-color-background-accent-purple-bold
+  --sl-sanoma-utbildning-color-border-accent-orange-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-orange-bold
   );
-  --sanoma-utbildning-color-border-accent-red-bold: var(
-    --sanoma-utbildning-color-foreground-accent-red-bold
+  --sl-sanoma-utbildning-color-border-accent-orange-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-orange-bold
   );
-  --sanoma-utbildning-color-border-accent-red-plain: var(
-    --sanoma-utbildning-color-background-accent-red-bold
+  --sl-sanoma-utbildning-color-border-accent-purple-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-purple-bold
   );
-  --sanoma-utbildning-color-border-accent-teal-bold: var(
-    --sanoma-utbildning-color-foreground-accent-teal-bold
+  --sl-sanoma-utbildning-color-border-accent-purple-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-purple-bold
   );
-  --sanoma-utbildning-color-border-accent-teal-plain: var(
-    --sanoma-utbildning-color-background-accent-teal-bold
+  --sl-sanoma-utbildning-color-border-accent-red-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-red-bold
   );
-  --sanoma-utbildning-color-border-accent-yellow-bold: var(
-    --sanoma-utbildning-color-foreground-accent-yellow-bold
+  --sl-sanoma-utbildning-color-border-accent-red-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-red-bold
   );
-  --sanoma-utbildning-color-border-accent-yellow-plain: var(
-    --sanoma-utbildning-color-foreground-accent-yellow-plain
+  --sl-sanoma-utbildning-color-border-accent-teal-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-bold
   );
-  --sanoma-utbildning-color-border-bold: var(--sanoma-utbildning-color-border-accent-grey-bold);
-  --sanoma-utbildning-color-border-caution-bold: var(
-    --sanoma-utbildning-color-border-accent-yellow-bold
+  --sl-sanoma-utbildning-color-border-accent-teal-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-bold
   );
-  --sanoma-utbildning-color-border-caution-plain: var(
-    --sanoma-utbildning-color-border-accent-yellow-plain
+  --sl-sanoma-utbildning-color-border-accent-yellow-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-yellow-bold
   );
-  --sanoma-utbildning-color-border-disabled: var(
-    --sanoma-utbildning-color-border-accent-grey-faint
+  --sl-sanoma-utbildning-color-border-accent-yellow-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-yellow-plain
   );
-  --sanoma-utbildning-color-border-focused: var(--sanoma-utbildning-color-palette-blue-400);
-  --sanoma-utbildning-color-border-info-bold: var(
-    --sanoma-utbildning-color-border-accent-teal-bold
+  --sl-sanoma-utbildning-color-border-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-grey-bold
   );
-  --sanoma-utbildning-color-border-info-plain: var(
-    --sanoma-utbildning-color-border-accent-teal-plain
+  --sl-sanoma-utbildning-color-border-caution-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-yellow-bold
   );
-  --sanoma-utbildning-color-border-info-subtle: var(--sanoma-utbildning-color-palette-teal-100);
-  --sanoma-utbildning-color-border-input: var(--sanoma-utbildning-color-border-bold);
-  --sanoma-utbildning-color-border-inverted: var(--sanoma-utbildning-color-palette-grey-000);
-  --sanoma-utbildning-color-border-negative-bold: var(
-    --sanoma-utbildning-color-border-accent-red-bold
+  --sl-sanoma-utbildning-color-border-caution-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-yellow-plain
   );
-  --sanoma-utbildning-color-border-negative-plain: var(
-    --sanoma-utbildning-color-border-accent-red-plain
+  --sl-sanoma-utbildning-color-border-disabled: var(
+    --sl-sanoma-utbildning-color-border-accent-grey-faint
   );
-  --sanoma-utbildning-color-border-neutral-bold: var(
-    --sanoma-utbildning-color-border-accent-grey-bold
+  --sl-sanoma-utbildning-color-border-focused: var(--sl-sanoma-utbildning-color-palette-blue-400);
+  --sl-sanoma-utbildning-color-border-info-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-teal-bold
   );
-  --sanoma-utbildning-color-border-neutral-plain: var(
-    --sanoma-utbildning-color-border-accent-grey-plain
+  --sl-sanoma-utbildning-color-border-info-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-teal-plain
   );
-  --sanoma-utbildning-color-border-neutral-subtle: var(--sanoma-utbildning-color-palette-grey-200);
-  --sanoma-utbildning-color-border-plain: var(--sanoma-utbildning-color-border-accent-grey-plain);
-  --sanoma-utbildning-color-border-positive-bold: var(
-    --sanoma-utbildning-color-border-accent-green-bold
+  --sl-sanoma-utbildning-color-border-info-subtle: var(
+    --sl-sanoma-utbildning-color-palette-teal-100
   );
-  --sanoma-utbildning-color-border-positive-plain: var(
-    --sanoma-utbildning-color-border-accent-green-plain
+  --sl-sanoma-utbildning-color-border-input: var(--sl-sanoma-utbildning-color-border-bold);
+  --sl-sanoma-utbildning-color-border-inverted: var(--sl-sanoma-utbildning-color-palette-grey-000);
+  --sl-sanoma-utbildning-color-border-negative-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-red-bold
   );
-  --sanoma-utbildning-color-border-primary-bold: var(
-    --sanoma-utbildning-color-border-accent-teal-bold
+  --sl-sanoma-utbildning-color-border-negative-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-red-plain
   );
-  --sanoma-utbildning-color-border-primary-plain: var(
-    --sanoma-utbildning-color-border-accent-teal-plain
+  --sl-sanoma-utbildning-color-border-neutral-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-grey-bold
   );
-  --sanoma-utbildning-color-border-secondary-bold: var(
-    --sanoma-utbildning-color-border-accent-grey-heavy
+  --sl-sanoma-utbildning-color-border-neutral-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-grey-plain
   );
-  --sanoma-utbildning-color-border-secondary-plain: var(
-    --sanoma-utbildning-color-border-accent-grey-plain
+  --sl-sanoma-utbildning-color-border-neutral-subtle: var(
+    --sl-sanoma-utbildning-color-palette-grey-200
   );
-  --sanoma-utbildning-color-border-selected: var(
-    --sanoma-utbildning-color-border-accent-teal-plain
+  --sl-sanoma-utbildning-color-border-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-grey-plain
   );
-  --sanoma-utbildning-color-foreground-accent-blue-bold: var(
-    --sanoma-utbildning-color-palette-blue-700
+  --sl-sanoma-utbildning-color-border-positive-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-green-bold
   );
-  --sanoma-utbildning-color-foreground-accent-blue-on-bold: var(
-    --sanoma-utbildning-color-foreground-inverted-plain
+  --sl-sanoma-utbildning-color-border-positive-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-green-plain
   );
-  --sanoma-utbildning-color-foreground-accent-blue-plain: var(
-    --sanoma-utbildning-color-background-accent-blue-bold
+  --sl-sanoma-utbildning-color-border-primary-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-teal-bold
   );
-  --sanoma-utbildning-color-foreground-accent-green-bold: var(
-    --sanoma-utbildning-color-palette-green-700
+  --sl-sanoma-utbildning-color-border-primary-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-teal-plain
   );
-  --sanoma-utbildning-color-foreground-accent-green-on-bold: var(
-    --sanoma-utbildning-color-foreground-inverted-plain
+  --sl-sanoma-utbildning-color-border-secondary-bold: var(
+    --sl-sanoma-utbildning-color-border-accent-grey-heavy
   );
-  --sanoma-utbildning-color-foreground-accent-green-plain: var(
-    --sanoma-utbildning-color-background-accent-green-bold
+  --sl-sanoma-utbildning-color-border-secondary-plain: var(
+    --sl-sanoma-utbildning-color-border-accent-grey-plain
   );
-  --sanoma-utbildning-color-foreground-accent-grey-bold: var(
-    --sanoma-utbildning-color-palette-grey-900
+  --sl-sanoma-utbildning-color-border-selected: var(
+    --sl-sanoma-utbildning-color-border-accent-teal-plain
   );
-  --sanoma-utbildning-color-foreground-accent-grey-faint: var(
-    --sanoma-utbildning-color-palette-grey-300
+  --sl-sanoma-utbildning-color-foreground-accent-blue-bold: var(
+    --sl-sanoma-utbildning-color-palette-blue-700
   );
-  --sanoma-utbildning-color-foreground-accent-grey-on-bold: var(
-    --sanoma-utbildning-color-foreground-bold
+  --sl-sanoma-utbildning-color-foreground-accent-blue-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-inverted-plain
   );
-  --sanoma-utbildning-color-foreground-accent-grey-on-inverted: var(
-    --sanoma-utbildning-color-foreground-bold
+  --sl-sanoma-utbildning-color-foreground-accent-blue-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-blue-bold
   );
-  --sanoma-utbildning-color-foreground-accent-grey-plain: var(
-    --sanoma-utbildning-color-palette-grey-800
+  --sl-sanoma-utbildning-color-foreground-accent-green-bold: var(
+    --sl-sanoma-utbildning-color-palette-green-700
   );
-  --sanoma-utbildning-color-foreground-accent-grey-subtle: var(
-    --sanoma-utbildning-color-palette-grey-700
+  --sl-sanoma-utbildning-color-foreground-accent-green-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-inverted-plain
   );
-  --sanoma-utbildning-color-foreground-accent-grey-subtlest: var(
-    --sanoma-utbildning-color-palette-grey-600
+  --sl-sanoma-utbildning-color-foreground-accent-green-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-green-bold
   );
-  --sanoma-utbildning-color-foreground-accent-orange-bold: var(
-    --sanoma-utbildning-color-palette-orange-800
+  --sl-sanoma-utbildning-color-foreground-accent-grey-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-900
   );
-  --sanoma-utbildning-color-foreground-accent-orange-on-bold: var(
-    --sanoma-utbildning-color-foreground-inverted-plain
+  --sl-sanoma-utbildning-color-foreground-accent-grey-faint: var(
+    --sl-sanoma-utbildning-color-palette-grey-300
   );
-  --sanoma-utbildning-color-foreground-accent-orange-plain: var(
-    --sanoma-utbildning-color-background-accent-orange-bold
+  --sl-sanoma-utbildning-color-foreground-accent-grey-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-bold
   );
-  --sanoma-utbildning-color-foreground-accent-purple-bold: var(
-    --sanoma-utbildning-color-palette-purple-800
+  --sl-sanoma-utbildning-color-foreground-accent-grey-on-inverted: var(
+    --sl-sanoma-utbildning-color-foreground-bold
   );
-  --sanoma-utbildning-color-foreground-accent-purple-on-bold: var(
-    --sanoma-utbildning-color-foreground-inverted-plain
+  --sl-sanoma-utbildning-color-foreground-accent-grey-plain: var(
+    --sl-sanoma-utbildning-color-palette-grey-800
   );
-  --sanoma-utbildning-color-foreground-accent-purple-plain: var(
-    --sanoma-utbildning-color-background-accent-purple-bold
+  --sl-sanoma-utbildning-color-foreground-accent-grey-subtle: var(
+    --sl-sanoma-utbildning-color-palette-grey-700
   );
-  --sanoma-utbildning-color-foreground-accent-red-bold: var(
-    --sanoma-utbildning-color-palette-red-800
+  --sl-sanoma-utbildning-color-foreground-accent-grey-subtlest: var(
+    --sl-sanoma-utbildning-color-palette-grey-600
   );
-  --sanoma-utbildning-color-foreground-accent-red-on-bold: var(
-    --sanoma-utbildning-color-foreground-inverted-plain
+  --sl-sanoma-utbildning-color-foreground-accent-orange-bold: var(
+    --sl-sanoma-utbildning-color-palette-orange-800
   );
-  --sanoma-utbildning-color-foreground-accent-red-plain: var(
-    --sanoma-utbildning-color-background-accent-red-bold
+  --sl-sanoma-utbildning-color-foreground-accent-orange-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-inverted-plain
   );
-  --sanoma-utbildning-color-foreground-accent-teal-bold: var(
-    --sanoma-utbildning-color-palette-teal-800
+  --sl-sanoma-utbildning-color-foreground-accent-orange-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-orange-bold
   );
-  --sanoma-utbildning-color-foreground-accent-teal-on-bold: var(
-    --sanoma-utbildning-color-foreground-inverted-plain
+  --sl-sanoma-utbildning-color-foreground-accent-purple-bold: var(
+    --sl-sanoma-utbildning-color-palette-purple-800
   );
-  --sanoma-utbildning-color-foreground-accent-teal-plain: var(
-    --sanoma-utbildning-color-background-accent-teal-bold
+  --sl-sanoma-utbildning-color-foreground-accent-purple-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-inverted-plain
   );
-  --sanoma-utbildning-color-foreground-accent-yellow-bold: var(
-    --sanoma-utbildning-color-palette-yellow-800
+  --sl-sanoma-utbildning-color-foreground-accent-purple-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-purple-bold
   );
-  --sanoma-utbildning-color-foreground-accent-yellow-on-bold: var(
-    --sanoma-utbildning-color-foreground-bold
+  --sl-sanoma-utbildning-color-foreground-accent-red-bold: var(
+    --sl-sanoma-utbildning-color-palette-red-800
   );
-  --sanoma-utbildning-color-foreground-accent-yellow-plain: var(
-    --sanoma-utbildning-color-palette-yellow-600
+  --sl-sanoma-utbildning-color-foreground-accent-red-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-inverted-plain
   );
-  --sanoma-utbildning-color-foreground-bold: var(
-    --sanoma-utbildning-color-foreground-accent-grey-bold
+  --sl-sanoma-utbildning-color-foreground-accent-red-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-red-bold
   );
-  --sanoma-utbildning-color-foreground-brand: var(
-    --sanoma-utbildning-color-foreground-accent-blue-plain
+  --sl-sanoma-utbildning-color-foreground-accent-teal-bold: var(
+    --sl-sanoma-utbildning-color-palette-teal-800
   );
-  --sanoma-utbildning-color-foreground-caution-bold: var(
-    --sanoma-utbildning-color-foreground-accent-yellow-bold
+  --sl-sanoma-utbildning-color-foreground-accent-teal-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-inverted-plain
   );
-  --sanoma-utbildning-color-foreground-caution-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-yellow-on-bold
+  --sl-sanoma-utbildning-color-foreground-accent-teal-plain: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-bold
   );
-  --sanoma-utbildning-color-foreground-caution-plain: var(
-    --sanoma-utbildning-color-foreground-accent-yellow-plain
+  --sl-sanoma-utbildning-color-foreground-accent-yellow-bold: var(
+    --sl-sanoma-utbildning-color-palette-yellow-800
   );
-  --sanoma-utbildning-color-foreground-disabled: var(--sanoma-utbildning-color-palette-grey-500);
-  --sanoma-utbildning-color-foreground-info-bold: var(
-    --sanoma-utbildning-color-foreground-accent-teal-bold
+  --sl-sanoma-utbildning-color-foreground-accent-yellow-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-bold
   );
-  --sanoma-utbildning-color-foreground-info-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-teal-on-bold
+  --sl-sanoma-utbildning-color-foreground-accent-yellow-plain: var(
+    --sl-sanoma-utbildning-color-palette-yellow-600
   );
-  --sanoma-utbildning-color-foreground-info-plain: var(
-    --sanoma-utbildning-color-foreground-accent-teal-plain
+  --sl-sanoma-utbildning-color-foreground-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-bold
   );
-  --sanoma-utbildning-color-foreground-inverted-bold: var(
-    --sanoma-utbildning-color-palette-grey-000
+  --sl-sanoma-utbildning-color-foreground-brand: var(
+    --sl-sanoma-utbildning-color-foreground-accent-blue-plain
   );
-  --sanoma-utbildning-color-foreground-inverted-on-bold: var(
-    --sanoma-utbildning-color-palette-grey-900
+  --sl-sanoma-utbildning-color-foreground-caution-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-yellow-bold
   );
-  --sanoma-utbildning-color-foreground-inverted-plain: var(
-    --sanoma-utbildning-color-palette-grey-000
+  --sl-sanoma-utbildning-color-foreground-caution-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-yellow-on-bold
   );
-  --sanoma-utbildning-color-foreground-negative-bold: var(
-    --sanoma-utbildning-color-foreground-accent-red-bold
+  --sl-sanoma-utbildning-color-foreground-caution-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-yellow-plain
   );
-  --sanoma-utbildning-color-foreground-negative-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-red-on-bold
+  --sl-sanoma-utbildning-color-foreground-disabled: var(
+    --sl-sanoma-utbildning-color-palette-grey-500
   );
-  --sanoma-utbildning-color-foreground-negative-plain: var(
-    --sanoma-utbildning-color-foreground-accent-red-plain
+  --sl-sanoma-utbildning-color-foreground-info-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-bold
   );
-  --sanoma-utbildning-color-foreground-neutral-bold: var(
-    --sanoma-utbildning-color-foreground-accent-grey-bold
+  --sl-sanoma-utbildning-color-foreground-info-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-on-bold
   );
-  --sanoma-utbildning-color-foreground-neutral-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-grey-on-bold
+  --sl-sanoma-utbildning-color-foreground-info-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-plain
   );
-  --sanoma-utbildning-color-foreground-neutral-plain: var(
-    --sanoma-utbildning-color-foreground-accent-grey-subtlest
+  --sl-sanoma-utbildning-color-foreground-inverted-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-000
   );
-  --sanoma-utbildning-color-foreground-plain: var(
-    --sanoma-utbildning-color-foreground-accent-grey-plain
+  --sl-sanoma-utbildning-color-foreground-inverted-on-bold: var(
+    --sl-sanoma-utbildning-color-palette-grey-900
   );
-  --sanoma-utbildning-color-foreground-positive-bold: var(
-    --sanoma-utbildning-color-foreground-accent-green-bold
+  --sl-sanoma-utbildning-color-foreground-inverted-plain: var(
+    --sl-sanoma-utbildning-color-palette-grey-000
   );
-  --sanoma-utbildning-color-foreground-positive-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-green-on-bold
+  --sl-sanoma-utbildning-color-foreground-negative-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-red-bold
   );
-  --sanoma-utbildning-color-foreground-positive-plain: var(
-    --sanoma-utbildning-color-foreground-accent-green-plain
+  --sl-sanoma-utbildning-color-foreground-negative-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-red-on-bold
   );
-  --sanoma-utbildning-color-foreground-primary-bold: var(
-    --sanoma-utbildning-color-foreground-accent-teal-bold
+  --sl-sanoma-utbildning-color-foreground-negative-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-red-plain
   );
-  --sanoma-utbildning-color-foreground-primary-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-teal-on-bold
+  --sl-sanoma-utbildning-color-foreground-neutral-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-bold
   );
-  --sanoma-utbildning-color-foreground-secondary-bold: var(
-    --sanoma-utbildning-color-foreground-accent-grey-bold
+  --sl-sanoma-utbildning-color-foreground-neutral-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-on-bold
   );
-  --sanoma-utbildning-color-foreground-secondary-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-grey-on-bold
+  --sl-sanoma-utbildning-color-foreground-neutral-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-subtlest
   );
-  --sanoma-utbildning-color-foreground-selected-bold: var(
-    --sanoma-utbildning-color-foreground-accent-teal-bold
+  --sl-sanoma-utbildning-color-foreground-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-plain
   );
-  --sanoma-utbildning-color-foreground-selected-on-bold: var(
-    --sanoma-utbildning-color-foreground-accent-teal-on-bold
+  --sl-sanoma-utbildning-color-foreground-positive-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-green-bold
   );
-  --sanoma-utbildning-color-foreground-selected-plain: var(
-    --sanoma-utbildning-color-foreground-accent-teal-plain
+  --sl-sanoma-utbildning-color-foreground-positive-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-green-on-bold
   );
-  --sanoma-utbildning-color-foreground-subtle: var(
-    --sanoma-utbildning-color-foreground-accent-grey-subtle
+  --sl-sanoma-utbildning-color-foreground-positive-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-green-plain
   );
-  --sanoma-utbildning-color-foreground-subtlest: var(
-    --sanoma-utbildning-color-foreground-accent-grey-subtlest
+  --sl-sanoma-utbildning-color-foreground-primary-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-bold
   );
-  --sanoma-utbildning-color-link-active: var(--sanoma-utbildning-color-palette-blue-700);
-  --sanoma-utbildning-color-link-focused-active: var(--sanoma-utbildning-color-palette-blue-900);
-  --sanoma-utbildning-color-link-focused-hover: var(--sanoma-utbildning-color-palette-blue-800);
-  --sanoma-utbildning-color-link-focused-idle: var(--sanoma-utbildning-color-palette-blue-700);
-  --sanoma-utbildning-color-link-hover: var(--sanoma-utbildning-color-palette-blue-600);
-  --sanoma-utbildning-color-link-idle: var(--sanoma-utbildning-color-foreground-accent-blue-plain);
-  --sanoma-utbildning-color-link-inverted-active: var(--sanoma-utbildning-color-palette-blue-150);
-  --sanoma-utbildning-color-link-inverted-hover: var(--sanoma-utbildning-color-palette-blue-100);
-  --sanoma-utbildning-color-link-inverted-idle: var(
-    --sanoma-utbildning-color-foreground-inverted-plain
+  --sl-sanoma-utbildning-color-foreground-primary-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-on-bold
   );
-  --sanoma-utbildning-color-link-muted-active: var(--sanoma-utbildning-color-link-active);
-  --sanoma-utbildning-color-link-muted-hover: var(--sanoma-utbildning-color-link-hover);
-  --sanoma-utbildning-color-link-muted-idle: var(
-    --sanoma-utbildning-color-foreground-accent-grey-subtlest
+  --sl-sanoma-utbildning-color-foreground-secondary-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-bold
   );
-  --sanoma-utbildning-color-palette-blue-050: #eef4ff;
-  --sanoma-utbildning-color-palette-blue-100: #d9e5ff;
-  --sanoma-utbildning-color-palette-blue-150: #bcd2ff;
-  --sanoma-utbildning-color-palette-blue-200: #8eb6ff;
-  --sanoma-utbildning-color-palette-blue-300: #598eff;
-  --sanoma-utbildning-color-palette-blue-400: #3366ff;
-  --sanoma-utbildning-color-palette-blue-500: #1b43f5;
-  --sanoma-utbildning-color-palette-blue-600: #142fe1;
-  --sanoma-utbildning-color-palette-blue-700: #1727b6;
-  --sanoma-utbildning-color-palette-blue-800: #19288f;
-  --sanoma-utbildning-color-palette-blue-900: #141a57;
-  --sanoma-utbildning-color-palette-green-050: #effefb;
-  --sanoma-utbildning-color-palette-green-100: #c8fff4;
-  --sanoma-utbildning-color-palette-green-150: #91feea;
-  --sanoma-utbildning-color-palette-green-200: #53f5dd;
-  --sanoma-utbildning-color-palette-green-300: #1fe2cb;
-  --sanoma-utbildning-color-palette-green-400: #07c5b2;
-  --sanoma-utbildning-color-palette-green-500: #02a598;
-  --sanoma-utbildning-color-palette-green-600: #077e76;
-  --sanoma-utbildning-color-palette-green-700: #0b645f;
-  --sanoma-utbildning-color-palette-green-800: #0e534f;
-  --sanoma-utbildning-color-palette-green-900: #003331;
-  --sanoma-utbildning-color-palette-grey-000: #ffffff;
-  --sanoma-utbildning-color-palette-grey-050: #f6f8fa;
-  --sanoma-utbildning-color-palette-grey-100: #f0f2f5;
-  --sanoma-utbildning-color-palette-grey-150: #e0e6ea;
-  --sanoma-utbildning-color-palette-grey-200: #dae0e7;
-  --sanoma-utbildning-color-palette-grey-300: #d0d9e0;
-  --sanoma-utbildning-color-palette-grey-400: #c8d1da;
-  --sanoma-utbildning-color-palette-grey-500: #818b98;
-  --sanoma-utbildning-color-palette-grey-600: #59636e;
-  --sanoma-utbildning-color-palette-grey-700: #393f46;
-  --sanoma-utbildning-color-palette-grey-800: #25292f;
-  --sanoma-utbildning-color-palette-grey-900: #222222;
-  --sanoma-utbildning-color-palette-orange-050: #fff8ed;
-  --sanoma-utbildning-color-palette-orange-100: #fff0d4;
-  --sanoma-utbildning-color-palette-orange-150: #ffdda8;
-  --sanoma-utbildning-color-palette-orange-200: #ffc471;
-  --sanoma-utbildning-color-palette-orange-300: #ff9d33;
-  --sanoma-utbildning-color-palette-orange-400: #fe8211;
-  --sanoma-utbildning-color-palette-orange-500: #ef6707;
-  --sanoma-utbildning-color-palette-orange-600: #c64c08;
-  --sanoma-utbildning-color-palette-orange-700: #9d3d0f;
-  --sanoma-utbildning-color-palette-orange-800: #7e3410;
-  --sanoma-utbildning-color-palette-orange-900: #441706;
-  --sanoma-utbildning-color-palette-purple-050: #f4f2ff;
-  --sanoma-utbildning-color-palette-purple-100: #ece7ff;
-  --sanoma-utbildning-color-palette-purple-150: #d9d2ff;
-  --sanoma-utbildning-color-palette-purple-200: #bfaeff;
-  --sanoma-utbildning-color-palette-purple-300: #9f80ff;
-  --sanoma-utbildning-color-palette-purple-400: #824dff;
-  --sanoma-utbildning-color-palette-purple-500: #7b33ff;
-  --sanoma-utbildning-color-palette-purple-600: #6616eb;
-  --sanoma-utbildning-color-palette-purple-700: #5512c5;
-  --sanoma-utbildning-color-palette-purple-800: #4711a1;
-  --sanoma-utbildning-color-palette-purple-900: #29076e;
-  --sanoma-utbildning-color-palette-red-050: #fef2f3;
-  --sanoma-utbildning-color-palette-red-100: #ffe1e3;
-  --sanoma-utbildning-color-palette-red-150: #ffc8cb;
-  --sanoma-utbildning-color-palette-red-200: #ffa2a8;
-  --sanoma-utbildning-color-palette-red-300: #fd6c75;
-  --sanoma-utbildning-color-palette-red-400: #f63d48;
-  --sanoma-utbildning-color-palette-red-500: #e31f2b;
-  --sanoma-utbildning-color-palette-red-600: #bf1620;
-  --sanoma-utbildning-color-palette-red-700: #9e161e;
-  --sanoma-utbildning-color-palette-red-800: #8c1b22;
-  --sanoma-utbildning-color-palette-red-900: #47080c;
-  --sanoma-utbildning-color-palette-teal-050: #f0fbfb;
-  --sanoma-utbildning-color-palette-teal-100: #daf3f3;
-  --sanoma-utbildning-color-palette-teal-150: #b9e7e8;
-  --sanoma-utbildning-color-palette-teal-200: #89d5d7;
-  --sanoma-utbildning-color-palette-teal-300: #52babe;
-  --sanoma-utbildning-color-palette-teal-400: #369ea4;
-  --sanoma-utbildning-color-palette-teal-500: #30818a;
-  --sanoma-utbildning-color-palette-teal-600: #2c6972;
-  --sanoma-utbildning-color-palette-teal-700: #2e5c64;
-  --sanoma-utbildning-color-palette-teal-800: #284a51;
-  --sanoma-utbildning-color-palette-teal-900: #163036;
-  --sanoma-utbildning-color-palette-yellow-050: #fdf8e9;
-  --sanoma-utbildning-color-palette-yellow-100: #fdf8e9;
-  --sanoma-utbildning-color-palette-yellow-150: #f9df8f;
-  --sanoma-utbildning-color-palette-yellow-200: #f5c54f;
-  --sanoma-utbildning-color-palette-yellow-300: #f1b437;
-  --sanoma-utbildning-color-palette-yellow-400: #e09412;
-  --sanoma-utbildning-color-palette-yellow-500: #c1700d;
-  --sanoma-utbildning-color-palette-yellow-600: #9a4f0e;
-  --sanoma-utbildning-color-palette-yellow-700: #7f3f14;
-  --sanoma-utbildning-color-palette-yellow-800: #6d3416;
-  --sanoma-utbildning-color-palette-yellow-900: #3f1909;
-  --sanoma-utbildning-color-skeleton-plain: var(--sanoma-utbildning-color-palette-grey-100);
-  --sanoma-utbildning-color-skeleton-subtle: var(--sanoma-utbildning-color-palette-grey-050);
-  --sanoma-utbildning-elevation-surface-base-default: var(
-    --sanoma-utbildning-color-palette-grey-000
+  --sl-sanoma-utbildning-color-foreground-secondary-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-on-bold
   );
-  --sanoma-utbildning-elevation-surface-raised-alternative: var(
-    --sanoma-utbildning-color-palette-grey-100
+  --sl-sanoma-utbildning-color-foreground-selected-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-bold
   );
-  --sanoma-utbildning-elevation-surface-raised-default: var(
-    --sanoma-utbildning-color-palette-grey-000
+  --sl-sanoma-utbildning-color-foreground-selected-on-bold: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-on-bold
   );
-  --sanoma-utbildning-elevation-surface-raised-inverted: var(
-    --sanoma-utbildning-color-palette-grey-900
+  --sl-sanoma-utbildning-color-foreground-selected-plain: var(
+    --sl-sanoma-utbildning-color-foreground-accent-teal-plain
   );
-  --sanoma-utbildning-elevation-surface-raised-primary: var(
-    --sanoma-utbildning-color-background-accent-teal-bold
+  --sl-sanoma-utbildning-color-foreground-subtle: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-subtle
   );
-  --sanoma-utbildning-elevation-surface-raised-sunken: var(
-    --sanoma-utbildning-color-palette-grey-050
+  --sl-sanoma-utbildning-color-foreground-subtlest: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-subtlest
   );
-  --sanoma-utbildning-elevation-surface-shadow: var(--sanoma-utbildning-color-palette-grey-900);
-  --sanoma-utbildning-opacity-bold: 1;
-  --sanoma-utbildning-opacity-interactive-bold-active: 0.4;
-  --sanoma-utbildning-opacity-interactive-bold-hover: 0.2;
-  --sanoma-utbildning-opacity-interactive-bold-idle: 0;
-  --sanoma-utbildning-opacity-interactive-plain-active: 0.25;
-  --sanoma-utbildning-opacity-interactive-plain-hover: 0.15;
-  --sanoma-utbildning-opacity-interactive-plain-idle: 0;
-  --sanoma-utbildning-opacity-interactive-reversed-active: 1;
-  --sanoma-utbildning-opacity-interactive-reversed-hover: 0.9;
-  --sanoma-utbildning-opacity-interactive-reversed-idle: 0.8;
-  --sanoma-utbildning-opacity-moderate: 0.8;
-  --sanoma-utbildning-opacity-muted: 0;
-  --sanoma-utbildning-opacity-subtle: 0.2;
-  --sanoma-utbildning-opacity-subtlest: 0.1;
-  --sanoma-utbildning-theme-name: Sanoma Utbildning;
+  --sl-sanoma-utbildning-color-link-active: var(--sl-sanoma-utbildning-color-palette-blue-700);
+  --sl-sanoma-utbildning-color-link-focused-active: var(
+    --sl-sanoma-utbildning-color-palette-blue-900
+  );
+  --sl-sanoma-utbildning-color-link-focused-hover: var(
+    --sl-sanoma-utbildning-color-palette-blue-800
+  );
+  --sl-sanoma-utbildning-color-link-focused-idle: var(
+    --sl-sanoma-utbildning-color-palette-blue-700
+  );
+  --sl-sanoma-utbildning-color-link-hover: var(--sl-sanoma-utbildning-color-palette-blue-600);
+  --sl-sanoma-utbildning-color-link-idle: var(
+    --sl-sanoma-utbildning-color-foreground-accent-blue-plain
+  );
+  --sl-sanoma-utbildning-color-link-inverted-active: var(
+    --sl-sanoma-utbildning-color-palette-blue-150
+  );
+  --sl-sanoma-utbildning-color-link-inverted-hover: var(
+    --sl-sanoma-utbildning-color-palette-blue-100
+  );
+  --sl-sanoma-utbildning-color-link-inverted-idle: var(
+    --sl-sanoma-utbildning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-utbildning-color-link-muted-active: var(--sl-sanoma-utbildning-color-link-active);
+  --sl-sanoma-utbildning-color-link-muted-hover: var(--sl-sanoma-utbildning-color-link-hover);
+  --sl-sanoma-utbildning-color-link-muted-idle: var(
+    --sl-sanoma-utbildning-color-foreground-accent-grey-subtlest
+  );
+  --sl-sanoma-utbildning-color-palette-blue-050: #eef4ff;
+  --sl-sanoma-utbildning-color-palette-blue-100: #d9e5ff;
+  --sl-sanoma-utbildning-color-palette-blue-150: #bcd2ff;
+  --sl-sanoma-utbildning-color-palette-blue-200: #8eb6ff;
+  --sl-sanoma-utbildning-color-palette-blue-300: #598eff;
+  --sl-sanoma-utbildning-color-palette-blue-400: #3366ff;
+  --sl-sanoma-utbildning-color-palette-blue-500: #1b43f5;
+  --sl-sanoma-utbildning-color-palette-blue-600: #142fe1;
+  --sl-sanoma-utbildning-color-palette-blue-700: #1727b6;
+  --sl-sanoma-utbildning-color-palette-blue-800: #19288f;
+  --sl-sanoma-utbildning-color-palette-blue-900: #141a57;
+  --sl-sanoma-utbildning-color-palette-green-050: #effefb;
+  --sl-sanoma-utbildning-color-palette-green-100: #c8fff4;
+  --sl-sanoma-utbildning-color-palette-green-150: #91feea;
+  --sl-sanoma-utbildning-color-palette-green-200: #53f5dd;
+  --sl-sanoma-utbildning-color-palette-green-300: #1fe2cb;
+  --sl-sanoma-utbildning-color-palette-green-400: #07c5b2;
+  --sl-sanoma-utbildning-color-palette-green-500: #02a598;
+  --sl-sanoma-utbildning-color-palette-green-600: #077e76;
+  --sl-sanoma-utbildning-color-palette-green-700: #0b645f;
+  --sl-sanoma-utbildning-color-palette-green-800: #0e534f;
+  --sl-sanoma-utbildning-color-palette-green-900: #003331;
+  --sl-sanoma-utbildning-color-palette-grey-000: #ffffff;
+  --sl-sanoma-utbildning-color-palette-grey-050: #f6f8fa;
+  --sl-sanoma-utbildning-color-palette-grey-100: #f0f2f5;
+  --sl-sanoma-utbildning-color-palette-grey-150: #e0e6ea;
+  --sl-sanoma-utbildning-color-palette-grey-200: #dae0e7;
+  --sl-sanoma-utbildning-color-palette-grey-300: #d0d9e0;
+  --sl-sanoma-utbildning-color-palette-grey-400: #c8d1da;
+  --sl-sanoma-utbildning-color-palette-grey-500: #818b98;
+  --sl-sanoma-utbildning-color-palette-grey-600: #59636e;
+  --sl-sanoma-utbildning-color-palette-grey-700: #393f46;
+  --sl-sanoma-utbildning-color-palette-grey-800: #25292f;
+  --sl-sanoma-utbildning-color-palette-grey-900: #222222;
+  --sl-sanoma-utbildning-color-palette-orange-050: #fff8ed;
+  --sl-sanoma-utbildning-color-palette-orange-100: #fff0d4;
+  --sl-sanoma-utbildning-color-palette-orange-150: #ffdda8;
+  --sl-sanoma-utbildning-color-palette-orange-200: #ffc471;
+  --sl-sanoma-utbildning-color-palette-orange-300: #ff9d33;
+  --sl-sanoma-utbildning-color-palette-orange-400: #fe8211;
+  --sl-sanoma-utbildning-color-palette-orange-500: #ef6707;
+  --sl-sanoma-utbildning-color-palette-orange-600: #c64c08;
+  --sl-sanoma-utbildning-color-palette-orange-700: #9d3d0f;
+  --sl-sanoma-utbildning-color-palette-orange-800: #7e3410;
+  --sl-sanoma-utbildning-color-palette-orange-900: #441706;
+  --sl-sanoma-utbildning-color-palette-purple-050: #f4f2ff;
+  --sl-sanoma-utbildning-color-palette-purple-100: #ece7ff;
+  --sl-sanoma-utbildning-color-palette-purple-150: #d9d2ff;
+  --sl-sanoma-utbildning-color-palette-purple-200: #bfaeff;
+  --sl-sanoma-utbildning-color-palette-purple-300: #9f80ff;
+  --sl-sanoma-utbildning-color-palette-purple-400: #824dff;
+  --sl-sanoma-utbildning-color-palette-purple-500: #7b33ff;
+  --sl-sanoma-utbildning-color-palette-purple-600: #6616eb;
+  --sl-sanoma-utbildning-color-palette-purple-700: #5512c5;
+  --sl-sanoma-utbildning-color-palette-purple-800: #4711a1;
+  --sl-sanoma-utbildning-color-palette-purple-900: #29076e;
+  --sl-sanoma-utbildning-color-palette-red-050: #fef2f3;
+  --sl-sanoma-utbildning-color-palette-red-100: #ffe1e3;
+  --sl-sanoma-utbildning-color-palette-red-150: #ffc8cb;
+  --sl-sanoma-utbildning-color-palette-red-200: #ffa2a8;
+  --sl-sanoma-utbildning-color-palette-red-300: #fd6c75;
+  --sl-sanoma-utbildning-color-palette-red-400: #f63d48;
+  --sl-sanoma-utbildning-color-palette-red-500: #e31f2b;
+  --sl-sanoma-utbildning-color-palette-red-600: #bf1620;
+  --sl-sanoma-utbildning-color-palette-red-700: #9e161e;
+  --sl-sanoma-utbildning-color-palette-red-800: #8c1b22;
+  --sl-sanoma-utbildning-color-palette-red-900: #47080c;
+  --sl-sanoma-utbildning-color-palette-teal-050: #f0fbfb;
+  --sl-sanoma-utbildning-color-palette-teal-100: #daf3f3;
+  --sl-sanoma-utbildning-color-palette-teal-150: #b9e7e8;
+  --sl-sanoma-utbildning-color-palette-teal-200: #89d5d7;
+  --sl-sanoma-utbildning-color-palette-teal-300: #52babe;
+  --sl-sanoma-utbildning-color-palette-teal-400: #369ea4;
+  --sl-sanoma-utbildning-color-palette-teal-500: #30818a;
+  --sl-sanoma-utbildning-color-palette-teal-600: #2c6972;
+  --sl-sanoma-utbildning-color-palette-teal-700: #2e5c64;
+  --sl-sanoma-utbildning-color-palette-teal-800: #284a51;
+  --sl-sanoma-utbildning-color-palette-teal-900: #163036;
+  --sl-sanoma-utbildning-color-palette-yellow-050: #fdf8e9;
+  --sl-sanoma-utbildning-color-palette-yellow-100: #fdf8e9;
+  --sl-sanoma-utbildning-color-palette-yellow-150: #f9df8f;
+  --sl-sanoma-utbildning-color-palette-yellow-200: #f5c54f;
+  --sl-sanoma-utbildning-color-palette-yellow-300: #f1b437;
+  --sl-sanoma-utbildning-color-palette-yellow-400: #e09412;
+  --sl-sanoma-utbildning-color-palette-yellow-500: #c1700d;
+  --sl-sanoma-utbildning-color-palette-yellow-600: #9a4f0e;
+  --sl-sanoma-utbildning-color-palette-yellow-700: #7f3f14;
+  --sl-sanoma-utbildning-color-palette-yellow-800: #6d3416;
+  --sl-sanoma-utbildning-color-palette-yellow-900: #3f1909;
+  --sl-sanoma-utbildning-color-skeleton-plain: var(--sl-sanoma-utbildning-color-palette-grey-100);
+  --sl-sanoma-utbildning-color-skeleton-subtle: var(--sl-sanoma-utbildning-color-palette-grey-050);
+  --sl-sanoma-utbildning-elevation-surface-base-default: var(
+    --sl-sanoma-utbildning-color-palette-grey-000
+  );
+  --sl-sanoma-utbildning-elevation-surface-raised-alternative: var(
+    --sl-sanoma-utbildning-color-palette-grey-100
+  );
+  --sl-sanoma-utbildning-elevation-surface-raised-default: var(
+    --sl-sanoma-utbildning-color-palette-grey-000
+  );
+  --sl-sanoma-utbildning-elevation-surface-raised-inverted: var(
+    --sl-sanoma-utbildning-color-palette-grey-900
+  );
+  --sl-sanoma-utbildning-elevation-surface-raised-primary: var(
+    --sl-sanoma-utbildning-color-background-accent-teal-bold
+  );
+  --sl-sanoma-utbildning-elevation-surface-raised-sunken: var(
+    --sl-sanoma-utbildning-color-palette-grey-050
+  );
+  --sl-sanoma-utbildning-elevation-surface-shadow: var(
+    --sl-sanoma-utbildning-color-palette-grey-900
+  );
+  --sl-sanoma-utbildning-opacity-bold: 1;
+  --sl-sanoma-utbildning-opacity-interactive-bold-active: 0.4;
+  --sl-sanoma-utbildning-opacity-interactive-bold-hover: 0.2;
+  --sl-sanoma-utbildning-opacity-interactive-bold-idle: 0;
+  --sl-sanoma-utbildning-opacity-interactive-plain-active: 0.25;
+  --sl-sanoma-utbildning-opacity-interactive-plain-hover: 0.15;
+  --sl-sanoma-utbildning-opacity-interactive-plain-idle: 0;
+  --sl-sanoma-utbildning-opacity-interactive-reversed-active: 1;
+  --sl-sanoma-utbildning-opacity-interactive-reversed-hover: 0.9;
+  --sl-sanoma-utbildning-opacity-interactive-reversed-idle: 0.8;
+  --sl-sanoma-utbildning-opacity-moderate: 0.8;
+  --sl-sanoma-utbildning-opacity-muted: 0;
+  --sl-sanoma-utbildning-opacity-subtle: 0.2;
+  --sl-sanoma-utbildning-opacity-subtlest: 0.1;
+  --sl-sanoma-utbildning-theme-name: Sanoma Utbildning;
 }

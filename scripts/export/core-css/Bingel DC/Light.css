@@ -1,439 +1,525 @@
 :root {
-  --bingel-dc-color-background-accent-blue-bold: var(--bingel-dc-color-palette-blue-400);
-  --bingel-dc-color-background-accent-blue-interactive-bold: var(
-    --bingel-dc-color-palette-blue-900
+  --sl-bingel-dc-color-background-accent-blue-bold: var(--sl-bingel-dc-color-palette-blue-400);
+  --sl-bingel-dc-color-background-accent-blue-interactive-bold: var(
+    --sl-bingel-dc-color-palette-blue-900
   );
-  --bingel-dc-color-background-accent-blue-interactive-plain: var(
-    --bingel-dc-color-background-accent-blue-bold
+  --sl-bingel-dc-color-background-accent-blue-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-blue-bold
   );
-  --bingel-dc-color-background-accent-blue-subtle: #0074df33;
-  --bingel-dc-color-background-accent-blue-subtlest: #0074df1a;
-  --bingel-dc-color-background-accent-green-bold: var(--bingel-dc-color-palette-green-600);
-  --bingel-dc-color-background-accent-green-interactive-bold: var(
-    --bingel-dc-color-palette-green-900
+  --sl-bingel-dc-color-background-accent-blue-subtle: #0074df33;
+  --sl-bingel-dc-color-background-accent-blue-subtlest: #0074df1a;
+  --sl-bingel-dc-color-background-accent-green-bold: var(--sl-bingel-dc-color-palette-green-600);
+  --sl-bingel-dc-color-background-accent-green-interactive-bold: var(
+    --sl-bingel-dc-color-palette-green-900
   );
-  --bingel-dc-color-background-accent-green-interactive-plain: var(
-    --bingel-dc-color-palette-green-400
+  --sl-bingel-dc-color-background-accent-green-interactive-plain: var(
+    --sl-bingel-dc-color-palette-green-400
   );
-  --bingel-dc-color-background-accent-green-subtle: #46ac0033;
-  --bingel-dc-color-background-accent-green-subtlest: #46ac001a;
-  --bingel-dc-color-background-accent-grey-bold: var(--bingel-dc-color-palette-grey-100);
-  --bingel-dc-color-background-accent-grey-interactive-bold: var(
-    --bingel-dc-color-palette-grey-500
+  --sl-bingel-dc-color-background-accent-green-subtle: #46ac0033;
+  --sl-bingel-dc-color-background-accent-green-subtlest: #46ac001a;
+  --sl-bingel-dc-color-background-accent-grey-bold: var(--sl-bingel-dc-color-palette-grey-100);
+  --sl-bingel-dc-color-background-accent-grey-interactive-bold: var(
+    --sl-bingel-dc-color-palette-grey-500
   );
-  --bingel-dc-color-background-accent-grey-interactive-plain: var(
-    --bingel-dc-color-palette-grey-200
+  --sl-bingel-dc-color-background-accent-grey-interactive-plain: var(
+    --sl-bingel-dc-color-palette-grey-200
   );
-  --bingel-dc-color-background-accent-grey-subtle: #aab3bd33;
-  --bingel-dc-color-background-accent-grey-subtlest: #aab3bd1a;
-  --bingel-dc-color-background-accent-orange-bold: var(--bingel-dc-color-palette-orange-400);
-  --bingel-dc-color-background-accent-orange-interactive-bold: var(
-    --bingel-dc-color-palette-orange-700
+  --sl-bingel-dc-color-background-accent-grey-subtle: #aab3bd33;
+  --sl-bingel-dc-color-background-accent-grey-subtlest: #aab3bd1a;
+  --sl-bingel-dc-color-background-accent-orange-bold: var(--sl-bingel-dc-color-palette-orange-400);
+  --sl-bingel-dc-color-background-accent-orange-interactive-bold: var(
+    --sl-bingel-dc-color-palette-orange-700
   );
-  --bingel-dc-color-background-accent-orange-interactive-plain: var(
-    --bingel-dc-color-palette-orange-400
+  --sl-bingel-dc-color-background-accent-orange-interactive-plain: var(
+    --sl-bingel-dc-color-palette-orange-400
   );
-  --bingel-dc-color-background-accent-orange-subtle: #ff9d0033;
-  --bingel-dc-color-background-accent-orange-subtlest: #ff9d001a;
-  --bingel-dc-color-background-accent-purple-bold: var(--bingel-dc-color-palette-purple-600);
-  --bingel-dc-color-background-accent-purple-interactive-bold: var(
-    --bingel-dc-color-palette-purple-900
+  --sl-bingel-dc-color-background-accent-orange-subtle: #ff9d0033;
+  --sl-bingel-dc-color-background-accent-orange-subtlest: #ff9d001a;
+  --sl-bingel-dc-color-background-accent-purple-bold: var(--sl-bingel-dc-color-palette-purple-600);
+  --sl-bingel-dc-color-background-accent-purple-interactive-bold: var(
+    --sl-bingel-dc-color-palette-purple-900
   );
-  --bingel-dc-color-background-accent-purple-interactive-plain: var(
-    --bingel-dc-color-palette-purple-400
+  --sl-bingel-dc-color-background-accent-purple-interactive-plain: var(
+    --sl-bingel-dc-color-palette-purple-400
   );
-  --bingel-dc-color-background-accent-purple-subtle: #7e51ff33;
-  --bingel-dc-color-background-accent-purple-subtlest: #7e51ff1a;
-  --bingel-dc-color-background-accent-red-bold: var(--bingel-dc-color-palette-red-400);
-  --bingel-dc-color-background-accent-red-interactive-bold: var(--bingel-dc-color-palette-red-900);
-  --bingel-dc-color-background-accent-red-interactive-plain: var(--bingel-dc-color-palette-red-400);
-  --bingel-dc-color-background-accent-red-subtle: #e30a2733;
-  --bingel-dc-color-background-accent-red-subtlest: #e30a271a;
-  --bingel-dc-color-background-accent-teal-bold: var(--bingel-dc-color-palette-teal-600);
-  --bingel-dc-color-background-accent-teal-interactive-bold: var(
-    --bingel-dc-color-palette-teal-900
+  --sl-bingel-dc-color-background-accent-purple-subtle: #7e51ff33;
+  --sl-bingel-dc-color-background-accent-purple-subtlest: #7e51ff1a;
+  --sl-bingel-dc-color-background-accent-red-bold: var(--sl-bingel-dc-color-palette-red-400);
+  --sl-bingel-dc-color-background-accent-red-interactive-bold: var(
+    --sl-bingel-dc-color-palette-red-900
   );
-  --bingel-dc-color-background-accent-teal-interactive-plain: var(
-    --bingel-dc-color-palette-teal-400
+  --sl-bingel-dc-color-background-accent-red-interactive-plain: var(
+    --sl-bingel-dc-color-palette-red-400
   );
-  --bingel-dc-color-background-accent-teal-subtle: #00d0c933;
-  --bingel-dc-color-background-accent-teal-subtlest: #00d0c91a;
-  --bingel-dc-color-background-accent-yellow-bold: var(--bingel-dc-color-palette-yellow-400);
-  --bingel-dc-color-background-accent-yellow-interactive-bold: var(
-    --bingel-dc-color-palette-yellow-600
+  --sl-bingel-dc-color-background-accent-red-subtle: #e30a2733;
+  --sl-bingel-dc-color-background-accent-red-subtlest: #e30a271a;
+  --sl-bingel-dc-color-background-accent-teal-bold: var(--sl-bingel-dc-color-palette-teal-600);
+  --sl-bingel-dc-color-background-accent-teal-interactive-bold: var(
+    --sl-bingel-dc-color-palette-teal-900
   );
-  --bingel-dc-color-background-accent-yellow-interactive-plain: var(
-    --bingel-dc-color-palette-yellow-400
+  --sl-bingel-dc-color-background-accent-teal-interactive-plain: var(
+    --sl-bingel-dc-color-palette-teal-400
   );
-  --bingel-dc-color-background-accent-yellow-subtle: #ecc20633;
-  --bingel-dc-color-background-accent-yellow-subtlest: #ecc2061a;
-  --bingel-dc-color-background-bold: var(--bingel-dc-color-border-bold);
-  --bingel-dc-color-background-caution-bold: var(--bingel-dc-color-background-accent-orange-bold);
-  --bingel-dc-color-background-caution-interactive-bold: var(
-    --bingel-dc-color-background-accent-orange-interactive-bold
+  --sl-bingel-dc-color-background-accent-teal-subtle: #00d0c933;
+  --sl-bingel-dc-color-background-accent-teal-subtlest: #00d0c91a;
+  --sl-bingel-dc-color-background-accent-yellow-bold: var(--sl-bingel-dc-color-palette-yellow-400);
+  --sl-bingel-dc-color-background-accent-yellow-interactive-bold: var(
+    --sl-bingel-dc-color-palette-yellow-600
   );
-  --bingel-dc-color-background-caution-interactive-plain: var(
-    --bingel-dc-color-background-accent-orange-interactive-plain
+  --sl-bingel-dc-color-background-accent-yellow-interactive-plain: var(
+    --sl-bingel-dc-color-palette-yellow-400
   );
-  --bingel-dc-color-background-caution-subtle: var(
-    --bingel-dc-color-background-accent-orange-subtle
+  --sl-bingel-dc-color-background-accent-yellow-subtle: #ecc20633;
+  --sl-bingel-dc-color-background-accent-yellow-subtlest: #ecc2061a;
+  --sl-bingel-dc-color-background-bold: var(--sl-bingel-dc-color-border-bold);
+  --sl-bingel-dc-color-background-caution-bold: var(
+    --sl-bingel-dc-color-background-accent-orange-bold
   );
-  --bingel-dc-color-background-caution-subtlest: var(
-    --bingel-dc-color-background-accent-orange-subtlest
+  --sl-bingel-dc-color-background-caution-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-orange-interactive-bold
   );
-  --bingel-dc-color-background-disabled: var(--bingel-dc-color-palette-grey-100);
-  --bingel-dc-color-background-highlight: var(--bingel-dc-color-palette-yellow-100);
-  --bingel-dc-color-background-info-bold: var(--bingel-dc-color-background-accent-blue-bold);
-  --bingel-dc-color-background-info-interactive-bold: var(
-    --bingel-dc-color-background-accent-blue-interactive-bold
+  --sl-bingel-dc-color-background-caution-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-orange-interactive-plain
   );
-  --bingel-dc-color-background-info-interactive-plain: var(
-    --bingel-dc-color-background-accent-blue-interactive-plain
+  --sl-bingel-dc-color-background-caution-subtle: var(
+    --sl-bingel-dc-color-background-accent-orange-subtle
   );
-  --bingel-dc-color-background-info-subtle: var(--bingel-dc-color-background-accent-blue-subtle);
-  --bingel-dc-color-background-info-subtlest: var(
-    --bingel-dc-color-background-accent-blue-subtlest
+  --sl-bingel-dc-color-background-caution-subtlest: var(
+    --sl-bingel-dc-color-background-accent-orange-subtlest
   );
-  --bingel-dc-color-background-input-interactive: var(
-    --bingel-dc-color-background-accent-grey-interactive-plain
+  --sl-bingel-dc-color-background-disabled: var(--sl-bingel-dc-color-palette-grey-100);
+  --sl-bingel-dc-color-background-highlight: var(--sl-bingel-dc-color-palette-yellow-100);
+  --sl-bingel-dc-color-background-info-bold: var(--sl-bingel-dc-color-background-accent-blue-bold);
+  --sl-bingel-dc-color-background-info-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-bold
   );
-  --bingel-dc-color-background-input-plain: var(--bingel-dc-color-palette-grey-000);
-  --bingel-dc-color-background-interactive-bold: var(
-    --bingel-dc-color-background-accent-blue-interactive-bold
+  --sl-bingel-dc-color-background-info-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-plain
   );
-  --bingel-dc-color-background-interactive-plain: var(
-    --bingel-dc-color-background-accent-blue-interactive-plain
+  --sl-bingel-dc-color-background-info-subtle: var(
+    --sl-bingel-dc-color-background-accent-blue-subtle
   );
-  --bingel-dc-color-background-inverted-bold: var(--bingel-dc-color-palette-grey-000);
-  --bingel-dc-color-background-inverted-interactive-bold: var(--bingel-dc-color-palette-grey-800);
-  --bingel-dc-color-background-inverted-interactive-plain: var(--bingel-dc-color-palette-grey-200);
-  --bingel-dc-color-background-inverted-subtle: #ffffff33;
-  --bingel-dc-color-background-inverted-subtlest: #ffffff1a;
-  --bingel-dc-color-background-negative-bold: var(--bingel-dc-color-background-accent-red-bold);
-  --bingel-dc-color-background-negative-interactive-bold: var(
-    --bingel-dc-color-background-accent-red-interactive-bold
+  --sl-bingel-dc-color-background-info-subtlest: var(
+    --sl-bingel-dc-color-background-accent-blue-subtlest
   );
-  --bingel-dc-color-background-negative-interactive-plain: var(
-    --bingel-dc-color-background-accent-red-interactive-plain
+  --sl-bingel-dc-color-background-input-interactive: var(
+    --sl-bingel-dc-color-background-accent-grey-interactive-plain
   );
-  --bingel-dc-color-background-negative-subtle: var(--bingel-dc-color-background-accent-red-subtle);
-  --bingel-dc-color-background-negative-subtlest: var(
-    --bingel-dc-color-background-accent-red-subtlest
+  --sl-bingel-dc-color-background-input-plain: var(--sl-bingel-dc-color-palette-grey-000);
+  --sl-bingel-dc-color-background-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-bold
   );
-  --bingel-dc-color-background-neutral-bold: var(--bingel-dc-color-palette-grey-050);
-  --bingel-dc-color-background-neutral-interactive-bold: var(--bingel-dc-color-palette-grey-700);
-  --bingel-dc-color-background-neutral-interactive-plain: var(
-    --bingel-dc-color-background-accent-grey-interactive-bold
+  --sl-bingel-dc-color-background-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-plain
   );
-  --bingel-dc-color-background-neutral-subtle: var(--bingel-dc-color-background-accent-grey-subtle);
-  --bingel-dc-color-background-neutral-subtlest: var(
-    --bingel-dc-color-background-accent-grey-subtlest
+  --sl-bingel-dc-color-background-inverted-bold: var(--sl-bingel-dc-color-palette-grey-000);
+  --sl-bingel-dc-color-background-inverted-interactive-bold: var(
+    --sl-bingel-dc-color-palette-grey-800
   );
-  --bingel-dc-color-background-positive-bold: var(--bingel-dc-color-background-accent-green-bold);
-  --bingel-dc-color-background-positive-interactive-bold: var(
-    --bingel-dc-color-background-accent-green-interactive-bold
+  --sl-bingel-dc-color-background-inverted-interactive-plain: var(
+    --sl-bingel-dc-color-palette-grey-200
   );
-  --bingel-dc-color-background-positive-interactive-plain: var(
-    --bingel-dc-color-background-accent-green-interactive-plain
+  --sl-bingel-dc-color-background-inverted-subtle: #ffffff33;
+  --sl-bingel-dc-color-background-inverted-subtlest: #ffffff1a;
+  --sl-bingel-dc-color-background-negative-bold: var(
+    --sl-bingel-dc-color-background-accent-red-bold
   );
-  --bingel-dc-color-background-positive-subtle: var(
-    --bingel-dc-color-background-accent-green-subtle
+  --sl-bingel-dc-color-background-negative-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-red-interactive-bold
   );
-  --bingel-dc-color-background-positive-subtlest: var(
-    --bingel-dc-color-background-accent-green-subtlest
+  --sl-bingel-dc-color-background-negative-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-red-interactive-plain
   );
-  --bingel-dc-color-background-primary-bold: var(--bingel-dc-color-background-accent-blue-bold);
-  --bingel-dc-color-background-primary-interactive-bold: var(
-    --bingel-dc-color-background-accent-blue-interactive-bold
+  --sl-bingel-dc-color-background-negative-subtle: var(
+    --sl-bingel-dc-color-background-accent-red-subtle
   );
-  --bingel-dc-color-background-primary-interactive-plain: var(
-    --bingel-dc-color-background-accent-blue-interactive-plain
+  --sl-bingel-dc-color-background-negative-subtlest: var(
+    --sl-bingel-dc-color-background-accent-red-subtlest
   );
-  --bingel-dc-color-background-primary-subtle: var(--bingel-dc-color-background-accent-blue-subtle);
-  --bingel-dc-color-background-primary-subtlest: var(
-    --bingel-dc-color-background-accent-blue-subtlest
+  --sl-bingel-dc-color-background-neutral-bold: var(--sl-bingel-dc-color-palette-grey-050);
+  --sl-bingel-dc-color-background-neutral-interactive-bold: var(
+    --sl-bingel-dc-color-palette-grey-700
   );
-  --bingel-dc-color-background-secondary-bold: var(--bingel-dc-color-background-accent-grey-bold);
-  --bingel-dc-color-background-secondary-interactive-bold: var(
-    --bingel-dc-color-background-accent-grey-interactive-bold
+  --sl-bingel-dc-color-background-neutral-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-grey-interactive-bold
   );
-  --bingel-dc-color-background-secondary-interactive-plain: var(
-    --bingel-dc-color-background-accent-grey-interactive-plain
+  --sl-bingel-dc-color-background-neutral-subtle: var(
+    --sl-bingel-dc-color-background-accent-grey-subtle
   );
-  --bingel-dc-color-background-secondary-subtle: var(
-    --bingel-dc-color-background-accent-grey-subtle
+  --sl-bingel-dc-color-background-neutral-subtlest: var(
+    --sl-bingel-dc-color-background-accent-grey-subtlest
   );
-  --bingel-dc-color-background-secondary-subtlest: var(
-    --bingel-dc-color-background-accent-grey-subtlest
+  --sl-bingel-dc-color-background-positive-bold: var(
+    --sl-bingel-dc-color-background-accent-green-bold
   );
-  --bingel-dc-color-background-selected-bold: var(--bingel-dc-color-background-accent-blue-bold);
-  --bingel-dc-color-background-selected-interactive-bold: var(
-    --bingel-dc-color-background-accent-blue-interactive-bold
+  --sl-bingel-dc-color-background-positive-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-green-interactive-bold
   );
-  --bingel-dc-color-background-selected-interactive-plain: var(
-    --bingel-dc-color-background-accent-blue-interactive-plain
+  --sl-bingel-dc-color-background-positive-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-green-interactive-plain
   );
-  --bingel-dc-color-background-selected-subtle: var(
-    --bingel-dc-color-background-accent-blue-subtle
+  --sl-bingel-dc-color-background-positive-subtle: var(
+    --sl-bingel-dc-color-background-accent-green-subtle
   );
-  --bingel-dc-color-background-selected-subtlest: var(
-    --bingel-dc-color-background-accent-blue-subtlest
+  --sl-bingel-dc-color-background-positive-subtlest: var(
+    --sl-bingel-dc-color-background-accent-green-subtlest
   );
-  --bingel-dc-color-background-subtle: var(--bingel-dc-color-background-accent-grey-subtle);
-  --bingel-dc-color-blanket-plain: #001223cc;
-  --bingel-dc-color-border-accent-blue-bold: var(--bingel-dc-color-foreground-accent-blue-bold);
-  --bingel-dc-color-border-accent-blue-plain: var(--bingel-dc-color-background-accent-blue-bold);
-  --bingel-dc-color-border-accent-green-bold: var(--bingel-dc-color-foreground-accent-green-bold);
-  --bingel-dc-color-border-accent-green-plain: var(--bingel-dc-color-background-accent-green-bold);
-  --bingel-dc-color-border-accent-grey-bold: var(--bingel-dc-color-palette-grey-500);
-  --bingel-dc-color-border-accent-grey-faint: var(--bingel-dc-color-palette-grey-100);
-  --bingel-dc-color-border-accent-grey-heavy: var(--bingel-dc-color-palette-grey-900);
-  --bingel-dc-color-border-accent-grey-plain: var(--bingel-dc-color-palette-grey-150);
-  --bingel-dc-color-border-accent-orange-bold: var(--bingel-dc-color-foreground-accent-orange-bold);
-  --bingel-dc-color-border-accent-orange-plain: var(
-    --bingel-dc-color-background-accent-orange-bold
+  --sl-bingel-dc-color-background-primary-bold: var(
+    --sl-bingel-dc-color-background-accent-blue-bold
   );
-  --bingel-dc-color-border-accent-purple-bold: var(--bingel-dc-color-foreground-accent-purple-bold);
-  --bingel-dc-color-border-accent-purple-plain: var(
-    --bingel-dc-color-background-accent-purple-bold
+  --sl-bingel-dc-color-background-primary-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-bold
   );
-  --bingel-dc-color-border-accent-red-bold: var(--bingel-dc-color-foreground-accent-red-bold);
-  --bingel-dc-color-border-accent-red-plain: var(--bingel-dc-color-background-accent-red-bold);
-  --bingel-dc-color-border-accent-teal-bold: var(--bingel-dc-color-foreground-accent-teal-bold);
-  --bingel-dc-color-border-accent-teal-plain: var(--bingel-dc-color-background-accent-teal-bold);
-  --bingel-dc-color-border-accent-yellow-bold: var(--bingel-dc-color-foreground-accent-yellow-bold);
-  --bingel-dc-color-border-accent-yellow-plain: var(
-    --bingel-dc-color-background-accent-yellow-bold
+  --sl-bingel-dc-color-background-primary-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-plain
   );
-  --bingel-dc-color-border-bold: var(--bingel-dc-color-border-accent-grey-bold);
-  --bingel-dc-color-border-caution-bold: var(--bingel-dc-color-border-accent-orange-bold);
-  --bingel-dc-color-border-caution-plain: var(--bingel-dc-color-border-accent-orange-plain);
-  --bingel-dc-color-border-disabled: var(--bingel-dc-color-foreground-disabled);
-  --bingel-dc-color-border-focused: var(--bingel-dc-color-border-accent-blue-plain);
-  --bingel-dc-color-border-info-bold: var(--bingel-dc-color-border-accent-blue-bold);
-  --bingel-dc-color-border-info-plain: var(--bingel-dc-color-border-accent-blue-plain);
-  --bingel-dc-color-border-info-subtle: var(--bingel-dc-color-background-info-subtle);
-  --bingel-dc-color-border-input: var(--bingel-dc-color-border-bold);
-  --bingel-dc-color-border-inverted: var(--bingel-dc-color-palette-grey-000);
-  --bingel-dc-color-border-negative-bold: var(--bingel-dc-color-border-accent-red-bold);
-  --bingel-dc-color-border-negative-plain: var(--bingel-dc-color-border-accent-red-plain);
-  --bingel-dc-color-border-neutral-bold: var(--bingel-dc-color-border-accent-grey-bold);
-  --bingel-dc-color-border-neutral-plain: var(--bingel-dc-color-border-accent-grey-plain);
-  --bingel-dc-color-border-neutral-subtle: var(--bingel-dc-color-background-accent-grey-subtle);
-  --bingel-dc-color-border-plain: var(--bingel-dc-color-border-accent-grey-plain);
-  --bingel-dc-color-border-positive-bold: var(--bingel-dc-color-border-accent-green-bold);
-  --bingel-dc-color-border-positive-plain: var(--bingel-dc-color-border-accent-green-plain);
-  --bingel-dc-color-border-primary-bold: var(--bingel-dc-color-border-accent-blue-plain);
-  --bingel-dc-color-border-primary-plain: var(--bingel-dc-color-border-accent-blue-plain);
-  --bingel-dc-color-border-secondary-bold: var(--bingel-dc-color-background-secondary-bold);
-  --bingel-dc-color-border-secondary-plain: var(--bingel-dc-color-border-accent-grey-plain);
-  --bingel-dc-color-border-selected: var(--bingel-dc-color-border-accent-blue-plain);
-  --bingel-dc-color-foreground-accent-blue-bold: var(--bingel-dc-color-palette-blue-700);
-  --bingel-dc-color-foreground-accent-blue-on-bold: var(
-    --bingel-dc-color-foreground-inverted-plain
+  --sl-bingel-dc-color-background-primary-subtle: var(
+    --sl-bingel-dc-color-background-accent-blue-subtle
   );
-  --bingel-dc-color-foreground-accent-blue-plain: var(--bingel-dc-color-palette-blue-400);
-  --bingel-dc-color-foreground-accent-green-bold: var(--bingel-dc-color-palette-green-700);
-  --bingel-dc-color-foreground-accent-green-on-bold: var(
-    --bingel-dc-color-foreground-inverted-plain
+  --sl-bingel-dc-color-background-primary-subtlest: var(
+    --sl-bingel-dc-color-background-accent-blue-subtlest
   );
-  --bingel-dc-color-foreground-accent-green-plain: var(--bingel-dc-color-palette-green-600);
-  --bingel-dc-color-foreground-accent-grey-bold: var(--bingel-dc-color-palette-grey-900);
-  --bingel-dc-color-foreground-accent-grey-faint: var(--bingel-dc-color-palette-grey-300);
-  --bingel-dc-color-foreground-accent-grey-on-bold: var(--bingel-dc-color-foreground-bold);
-  --bingel-dc-color-foreground-accent-grey-on-inverted: var(--bingel-dc-color-foreground-bold);
-  --bingel-dc-color-foreground-accent-grey-plain: var(--bingel-dc-color-palette-grey-800);
-  --bingel-dc-color-foreground-accent-grey-subtle: var(--bingel-dc-color-palette-grey-700);
-  --bingel-dc-color-foreground-accent-grey-subtlest: var(--bingel-dc-color-palette-grey-600);
-  --bingel-dc-color-foreground-accent-orange-bold: var(--bingel-dc-color-palette-orange-700);
-  --bingel-dc-color-foreground-accent-orange-on-bold: var(--bingel-dc-color-foreground-bold);
-  --bingel-dc-color-foreground-accent-orange-plain: var(--bingel-dc-color-palette-orange-700);
-  --bingel-dc-color-foreground-accent-purple-bold: var(--bingel-dc-color-palette-purple-700);
-  --bingel-dc-color-foreground-accent-purple-on-bold: var(
-    --bingel-dc-color-foreground-inverted-plain
+  --sl-bingel-dc-color-background-secondary-bold: var(
+    --sl-bingel-dc-color-background-accent-grey-bold
   );
-  --bingel-dc-color-foreground-accent-purple-plain: var(--bingel-dc-color-palette-purple-400);
-  --bingel-dc-color-foreground-accent-red-bold: var(--bingel-dc-color-palette-red-700);
-  --bingel-dc-color-foreground-accent-red-on-bold: var(--bingel-dc-color-foreground-inverted-plain);
-  --bingel-dc-color-foreground-accent-red-plain: var(--bingel-dc-color-palette-red-400);
-  --bingel-dc-color-foreground-accent-teal-bold: var(--bingel-dc-color-palette-teal-700);
-  --bingel-dc-color-foreground-accent-teal-on-bold: var(
-    --bingel-dc-color-foreground-inverted-plain
+  --sl-bingel-dc-color-background-secondary-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-grey-interactive-bold
   );
-  --bingel-dc-color-foreground-accent-teal-plain: var(--bingel-dc-color-palette-teal-600);
-  --bingel-dc-color-foreground-accent-yellow-bold: var(--bingel-dc-color-palette-yellow-700);
-  --bingel-dc-color-foreground-accent-yellow-on-bold: var(--bingel-dc-color-foreground-bold);
-  --bingel-dc-color-foreground-accent-yellow-plain: var(--bingel-dc-color-palette-yellow-600);
-  --bingel-dc-color-foreground-bold: var(--bingel-dc-color-foreground-accent-grey-bold);
-  --bingel-dc-color-foreground-brand: var(--bingel-dc-color-foreground-accent-blue-plain);
-  --bingel-dc-color-foreground-caution-bold: var(--bingel-dc-color-foreground-accent-orange-bold);
-  --bingel-dc-color-foreground-caution-on-bold: var(
-    --bingel-dc-color-foreground-accent-orange-on-bold
+  --sl-bingel-dc-color-background-secondary-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-grey-interactive-plain
   );
-  --bingel-dc-color-foreground-caution-plain: var(--bingel-dc-color-foreground-accent-orange-plain);
-  --bingel-dc-color-foreground-disabled: var(--bingel-dc-color-foreground-accent-grey-faint);
-  --bingel-dc-color-foreground-info-bold: var(--bingel-dc-color-foreground-accent-blue-bold);
-  --bingel-dc-color-foreground-info-on-bold: var(--bingel-dc-color-foreground-accent-blue-on-bold);
-  --bingel-dc-color-foreground-info-plain: var(--bingel-dc-color-foreground-accent-blue-plain);
-  --bingel-dc-color-foreground-inverted-bold: var(--bingel-dc-color-palette-grey-000);
-  --bingel-dc-color-foreground-inverted-on-bold: var(--bingel-dc-color-palette-grey-900);
-  --bingel-dc-color-foreground-inverted-plain: var(--bingel-dc-color-palette-grey-000);
-  --bingel-dc-color-foreground-negative-bold: var(--bingel-dc-color-foreground-accent-red-bold);
-  --bingel-dc-color-foreground-negative-on-bold: var(
-    --bingel-dc-color-foreground-accent-red-on-bold
+  --sl-bingel-dc-color-background-secondary-subtle: var(
+    --sl-bingel-dc-color-background-accent-grey-subtle
   );
-  --bingel-dc-color-foreground-negative-plain: var(--bingel-dc-color-foreground-accent-red-plain);
-  --bingel-dc-color-foreground-neutral-bold: var(--bingel-dc-color-foreground-accent-grey-bold);
-  --bingel-dc-color-foreground-neutral-on-bold: var(
-    --bingel-dc-color-foreground-accent-grey-on-bold
+  --sl-bingel-dc-color-background-secondary-subtlest: var(
+    --sl-bingel-dc-color-background-accent-grey-subtlest
   );
-  --bingel-dc-color-foreground-neutral-plain: var(
-    --bingel-dc-color-foreground-accent-grey-subtlest
+  --sl-bingel-dc-color-background-selected-bold: var(
+    --sl-bingel-dc-color-background-accent-blue-bold
   );
-  --bingel-dc-color-foreground-plain: var(--bingel-dc-color-foreground-accent-grey-plain);
-  --bingel-dc-color-foreground-positive-bold: var(--bingel-dc-color-foreground-accent-green-bold);
-  --bingel-dc-color-foreground-positive-on-bold: var(
-    --bingel-dc-color-foreground-accent-green-on-bold
+  --sl-bingel-dc-color-background-selected-interactive-bold: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-bold
   );
-  --bingel-dc-color-foreground-positive-plain: var(--bingel-dc-color-foreground-accent-green-plain);
-  --bingel-dc-color-foreground-primary-bold: var(--bingel-dc-color-foreground-accent-blue-bold);
-  --bingel-dc-color-foreground-primary-on-bold: var(
-    --bingel-dc-color-foreground-accent-blue-on-bold
+  --sl-bingel-dc-color-background-selected-interactive-plain: var(
+    --sl-bingel-dc-color-background-accent-blue-interactive-plain
   );
-  --bingel-dc-color-foreground-secondary-bold: var(--bingel-dc-color-foreground-accent-blue-bold);
-  --bingel-dc-color-foreground-secondary-on-bold: var(
-    --bingel-dc-color-foreground-accent-blue-bold
+  --sl-bingel-dc-color-background-selected-subtle: var(
+    --sl-bingel-dc-color-background-accent-blue-subtle
   );
-  --bingel-dc-color-foreground-selected-bold: var(--bingel-dc-color-foreground-accent-blue-bold);
-  --bingel-dc-color-foreground-selected-on-bold: var(
-    --bingel-dc-color-foreground-accent-blue-on-bold
+  --sl-bingel-dc-color-background-selected-subtlest: var(
+    --sl-bingel-dc-color-background-accent-blue-subtlest
   );
-  --bingel-dc-color-foreground-selected-plain: var(--bingel-dc-color-foreground-accent-blue-plain);
-  --bingel-dc-color-foreground-subtle: var(--bingel-dc-color-foreground-accent-grey-subtle);
-  --bingel-dc-color-foreground-subtlest: var(--bingel-dc-color-foreground-accent-grey-subtlest);
-  --bingel-dc-color-link-active: var(--bingel-dc-color-palette-blue-600);
-  --bingel-dc-color-link-focused-active: var(--bingel-dc-color-palette-blue-900);
-  --bingel-dc-color-link-focused-hover: var(--bingel-dc-color-palette-blue-800);
-  --bingel-dc-color-link-focused-idle: var(--bingel-dc-color-palette-blue-700);
-  --bingel-dc-color-link-hover: var(--bingel-dc-color-palette-blue-500);
-  --bingel-dc-color-link-idle: var(--bingel-dc-color-foreground-accent-blue-plain);
-  --bingel-dc-color-link-inverted-active: var(--bingel-dc-color-palette-blue-150);
-  --bingel-dc-color-link-inverted-hover: var(--bingel-dc-color-palette-blue-100);
-  --bingel-dc-color-link-inverted-idle: var(--bingel-dc-color-foreground-inverted-plain);
-  --bingel-dc-color-link-muted-active: var(--bingel-dc-color-link-active);
-  --bingel-dc-color-link-muted-hover: var(--bingel-dc-color-link-hover);
-  --bingel-dc-color-link-muted-idle: var(--bingel-dc-color-foreground-accent-grey-subtlest);
-  --bingel-dc-color-palette-blue-050: #e6f1fb;
-  --bingel-dc-color-palette-blue-100: #acd2f5;
-  --bingel-dc-color-palette-blue-150: #81baef;
-  --bingel-dc-color-palette-blue-200: #56a3ea;
-  --bingel-dc-color-palette-blue-300: #2b8be4;
-  --bingel-dc-color-palette-blue-400: #0074df;
-  --bingel-dc-color-palette-blue-500: #0060b9;
-  --bingel-dc-color-palette-blue-600: #004d94;
-  --bingel-dc-color-palette-blue-700: #002f62;
-  --bingel-dc-color-palette-blue-800: #002649;
-  --bingel-dc-color-palette-blue-900: #001223;
-  --bingel-dc-color-palette-green-050: #e2f2d7;
-  --bingel-dc-color-palette-green-100: #c3e4ac;
-  --bingel-dc-color-palette-green-150: #a4d681;
-  --bingel-dc-color-palette-green-200: #84c856;
-  --bingel-dc-color-palette-green-300: #65ba2b;
-  --bingel-dc-color-palette-green-400: #46ac00;
-  --bingel-dc-color-palette-green-500: #3a8f00;
-  --bingel-dc-color-palette-green-600: #2e7200;
-  --bingel-dc-color-palette-green-700: #235500;
-  --bingel-dc-color-palette-green-800: #173800;
-  --bingel-dc-color-palette-green-900: #0b1b00;
-  --bingel-dc-color-palette-grey-000: #ffffff;
-  --bingel-dc-color-palette-grey-050: #f2f3f5;
-  --bingel-dc-color-palette-grey-100: #e3e6ea;
-  --bingel-dc-color-palette-grey-150: #d5d9de;
-  --bingel-dc-color-palette-grey-200: #c7cdd3;
-  --bingel-dc-color-palette-grey-300: #b8c0c8;
-  --bingel-dc-color-palette-grey-400: #aab3bd;
-  --bingel-dc-color-palette-grey-500: #8d959d;
-  --bingel-dc-color-palette-grey-600: #71777d;
-  --bingel-dc-color-palette-grey-700: #54585d;
-  --bingel-dc-color-palette-grey-800: #373a3e;
-  --bingel-dc-color-palette-grey-900: #1b1c1e;
-  --bingel-dc-color-palette-orange-050: #fff0d7;
-  --bingel-dc-color-palette-orange-100: #ffdfac;
-  --bingel-dc-color-palette-orange-150: #ffcf81;
-  --bingel-dc-color-palette-orange-200: #ffbe56;
-  --bingel-dc-color-palette-orange-300: #ffae2b;
-  --bingel-dc-color-palette-orange-400: #ff9d00;
-  --bingel-dc-color-palette-orange-500: #d48300;
-  --bingel-dc-color-palette-orange-600: #a96800;
-  --bingel-dc-color-palette-orange-700: #7e4e00;
-  --bingel-dc-color-palette-orange-800: #533300;
-  --bingel-dc-color-palette-orange-900: #281900;
-  --bingel-dc-color-palette-purple-050: #f3f2ff;
-  --bingel-dc-color-palette-purple-100: #ebe8ff;
-  --bingel-dc-color-palette-purple-150: #d9d3ff;
-  --bingel-dc-color-palette-purple-200: #bdb0ff;
-  --bingel-dc-color-palette-purple-300: #9d83ff;
-  --bingel-dc-color-palette-purple-400: #7e51ff;
-  --bingel-dc-color-palette-purple-500: #6e2dfa;
-  --bingel-dc-color-palette-purple-600: #5f1be6;
-  --bingel-dc-color-palette-purple-700: #5217c6;
-  --bingel-dc-color-palette-purple-800: #43149e;
-  --bingel-dc-color-palette-purple-900: #270a6b;
-  --bingel-dc-color-palette-red-050: #fbd9dd;
-  --bingel-dc-color-palette-red-100: #f6afb9;
-  --bingel-dc-color-palette-red-150: #f18694;
-  --bingel-dc-color-palette-red-200: #ec5d70;
-  --bingel-dc-color-palette-red-300: #e8334b;
-  --bingel-dc-color-palette-red-400: #e30a27;
-  --bingel-dc-color-palette-red-500: #bd0820;
-  --bingel-dc-color-palette-red-600: #96071a;
-  --bingel-dc-color-palette-red-700: #700513;
-  --bingel-dc-color-palette-red-800: #4a030d;
-  --bingel-dc-color-palette-red-900: #240206;
-  --bingel-dc-color-palette-teal-050: #eefffc;
-  --bingel-dc-color-palette-teal-100: #c5fffa;
-  --bingel-dc-color-palette-teal-150: #8bfff5;
-  --bingel-dc-color-palette-teal-200: #4afef0;
-  --bingel-dc-color-palette-teal-300: #15ece2;
-  --bingel-dc-color-palette-teal-400: #00d0c9;
-  --bingel-dc-color-palette-teal-500: #00a8a5;
-  --bingel-dc-color-palette-teal-600: #008080;
-  --bingel-dc-color-palette-teal-700: #066769;
-  --bingel-dc-color-palette-teal-800: #0a5757;
-  --bingel-dc-color-palette-teal-900: #003235;
-  --bingel-dc-color-palette-yellow-050: #fefde8;
-  --bingel-dc-color-palette-yellow-100: #fffec2;
-  --bingel-dc-color-palette-yellow-150: #fff889;
-  --bingel-dc-color-palette-yellow-200: #ffec40;
-  --bingel-dc-color-palette-yellow-300: #fddc12;
-  --bingel-dc-color-palette-yellow-400: #ecc206;
-  --bingel-dc-color-palette-yellow-500: #cc9702;
-  --bingel-dc-color-palette-yellow-600: #a36b05;
-  --bingel-dc-color-palette-yellow-700: #86540d;
-  --bingel-dc-color-palette-yellow-800: #724511;
-  --bingel-dc-color-palette-yellow-900: #432405;
-  --bingel-dc-color-skeleton-plain: var(--bingel-dc-color-background-accent-grey-subtle);
-  --bingel-dc-color-skeleton-subtle: var(--bingel-dc-color-background-accent-grey-subtlest);
-  --bingel-dc-elevation-surface-base-default: var(--bingel-dc-color-palette-grey-000);
-  --bingel-dc-elevation-surface-raised-alternative: var(--bingel-dc-color-palette-grey-100);
-  --bingel-dc-elevation-surface-raised-default: var(--bingel-dc-color-palette-grey-000);
-  --bingel-dc-elevation-surface-raised-inverted: var(--bingel-dc-color-palette-grey-900);
-  --bingel-dc-elevation-surface-raised-primary: var(--bingel-dc-color-background-accent-blue-bold);
-  --bingel-dc-elevation-surface-raised-sunken: var(--bingel-dc-color-palette-grey-050);
-  --bingel-dc-elevation-surface-shadow: var(--bingel-dc-color-palette-grey-900);
-  --bingel-dc-opacity-bold: 1;
-  --bingel-dc-opacity-interactive-bold-active: 0.4;
-  --bingel-dc-opacity-interactive-bold-hover: 0.2;
-  --bingel-dc-opacity-interactive-bold-idle: 0;
-  --bingel-dc-opacity-interactive-plain-active: 0.25;
-  --bingel-dc-opacity-interactive-plain-hover: 0.15;
-  --bingel-dc-opacity-interactive-plain-idle: 0;
-  --bingel-dc-opacity-interactive-reversed-active: 1;
-  --bingel-dc-opacity-interactive-reversed-hover: 0.9;
-  --bingel-dc-opacity-interactive-reversed-idle: 0.8;
-  --bingel-dc-opacity-moderate: 0.8;
-  --bingel-dc-opacity-muted: 0;
-  --bingel-dc-opacity-subtle: 0.2;
-  --bingel-dc-opacity-subtlest: 0.1;
-  --bingel-dc-theme-name: Bingel DC Light;
+  --sl-bingel-dc-color-background-subtle: var(--sl-bingel-dc-color-background-accent-grey-subtle);
+  --sl-bingel-dc-color-blanket-plain: #001223cc;
+  --sl-bingel-dc-color-border-accent-blue-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-bold
+  );
+  --sl-bingel-dc-color-border-accent-blue-plain: var(
+    --sl-bingel-dc-color-background-accent-blue-bold
+  );
+  --sl-bingel-dc-color-border-accent-green-bold: var(
+    --sl-bingel-dc-color-foreground-accent-green-bold
+  );
+  --sl-bingel-dc-color-border-accent-green-plain: var(
+    --sl-bingel-dc-color-background-accent-green-bold
+  );
+  --sl-bingel-dc-color-border-accent-grey-bold: var(--sl-bingel-dc-color-palette-grey-500);
+  --sl-bingel-dc-color-border-accent-grey-faint: var(--sl-bingel-dc-color-palette-grey-100);
+  --sl-bingel-dc-color-border-accent-grey-heavy: var(--sl-bingel-dc-color-palette-grey-900);
+  --sl-bingel-dc-color-border-accent-grey-plain: var(--sl-bingel-dc-color-palette-grey-150);
+  --sl-bingel-dc-color-border-accent-orange-bold: var(
+    --sl-bingel-dc-color-foreground-accent-orange-bold
+  );
+  --sl-bingel-dc-color-border-accent-orange-plain: var(
+    --sl-bingel-dc-color-background-accent-orange-bold
+  );
+  --sl-bingel-dc-color-border-accent-purple-bold: var(
+    --sl-bingel-dc-color-foreground-accent-purple-bold
+  );
+  --sl-bingel-dc-color-border-accent-purple-plain: var(
+    --sl-bingel-dc-color-background-accent-purple-bold
+  );
+  --sl-bingel-dc-color-border-accent-red-bold: var(--sl-bingel-dc-color-foreground-accent-red-bold);
+  --sl-bingel-dc-color-border-accent-red-plain: var(
+    --sl-bingel-dc-color-background-accent-red-bold
+  );
+  --sl-bingel-dc-color-border-accent-teal-bold: var(
+    --sl-bingel-dc-color-foreground-accent-teal-bold
+  );
+  --sl-bingel-dc-color-border-accent-teal-plain: var(
+    --sl-bingel-dc-color-background-accent-teal-bold
+  );
+  --sl-bingel-dc-color-border-accent-yellow-bold: var(
+    --sl-bingel-dc-color-foreground-accent-yellow-bold
+  );
+  --sl-bingel-dc-color-border-accent-yellow-plain: var(
+    --sl-bingel-dc-color-background-accent-yellow-bold
+  );
+  --sl-bingel-dc-color-border-bold: var(--sl-bingel-dc-color-border-accent-grey-bold);
+  --sl-bingel-dc-color-border-caution-bold: var(--sl-bingel-dc-color-border-accent-orange-bold);
+  --sl-bingel-dc-color-border-caution-plain: var(--sl-bingel-dc-color-border-accent-orange-plain);
+  --sl-bingel-dc-color-border-disabled: var(--sl-bingel-dc-color-foreground-disabled);
+  --sl-bingel-dc-color-border-focused: var(--sl-bingel-dc-color-border-accent-blue-plain);
+  --sl-bingel-dc-color-border-info-bold: var(--sl-bingel-dc-color-border-accent-blue-bold);
+  --sl-bingel-dc-color-border-info-plain: var(--sl-bingel-dc-color-border-accent-blue-plain);
+  --sl-bingel-dc-color-border-info-subtle: var(--sl-bingel-dc-color-background-info-subtle);
+  --sl-bingel-dc-color-border-input: var(--sl-bingel-dc-color-border-bold);
+  --sl-bingel-dc-color-border-inverted: var(--sl-bingel-dc-color-palette-grey-000);
+  --sl-bingel-dc-color-border-negative-bold: var(--sl-bingel-dc-color-border-accent-red-bold);
+  --sl-bingel-dc-color-border-negative-plain: var(--sl-bingel-dc-color-border-accent-red-plain);
+  --sl-bingel-dc-color-border-neutral-bold: var(--sl-bingel-dc-color-border-accent-grey-bold);
+  --sl-bingel-dc-color-border-neutral-plain: var(--sl-bingel-dc-color-border-accent-grey-plain);
+  --sl-bingel-dc-color-border-neutral-subtle: var(
+    --sl-bingel-dc-color-background-accent-grey-subtle
+  );
+  --sl-bingel-dc-color-border-plain: var(--sl-bingel-dc-color-border-accent-grey-plain);
+  --sl-bingel-dc-color-border-positive-bold: var(--sl-bingel-dc-color-border-accent-green-bold);
+  --sl-bingel-dc-color-border-positive-plain: var(--sl-bingel-dc-color-border-accent-green-plain);
+  --sl-bingel-dc-color-border-primary-bold: var(--sl-bingel-dc-color-border-accent-blue-plain);
+  --sl-bingel-dc-color-border-primary-plain: var(--sl-bingel-dc-color-border-accent-blue-plain);
+  --sl-bingel-dc-color-border-secondary-bold: var(--sl-bingel-dc-color-background-secondary-bold);
+  --sl-bingel-dc-color-border-secondary-plain: var(--sl-bingel-dc-color-border-accent-grey-plain);
+  --sl-bingel-dc-color-border-selected: var(--sl-bingel-dc-color-border-accent-blue-plain);
+  --sl-bingel-dc-color-foreground-accent-blue-bold: var(--sl-bingel-dc-color-palette-blue-700);
+  --sl-bingel-dc-color-foreground-accent-blue-on-bold: var(
+    --sl-bingel-dc-color-foreground-inverted-plain
+  );
+  --sl-bingel-dc-color-foreground-accent-blue-plain: var(--sl-bingel-dc-color-palette-blue-400);
+  --sl-bingel-dc-color-foreground-accent-green-bold: var(--sl-bingel-dc-color-palette-green-700);
+  --sl-bingel-dc-color-foreground-accent-green-on-bold: var(
+    --sl-bingel-dc-color-foreground-inverted-plain
+  );
+  --sl-bingel-dc-color-foreground-accent-green-plain: var(--sl-bingel-dc-color-palette-green-600);
+  --sl-bingel-dc-color-foreground-accent-grey-bold: var(--sl-bingel-dc-color-palette-grey-900);
+  --sl-bingel-dc-color-foreground-accent-grey-faint: var(--sl-bingel-dc-color-palette-grey-300);
+  --sl-bingel-dc-color-foreground-accent-grey-on-bold: var(--sl-bingel-dc-color-foreground-bold);
+  --sl-bingel-dc-color-foreground-accent-grey-on-inverted: var(
+    --sl-bingel-dc-color-foreground-bold
+  );
+  --sl-bingel-dc-color-foreground-accent-grey-plain: var(--sl-bingel-dc-color-palette-grey-800);
+  --sl-bingel-dc-color-foreground-accent-grey-subtle: var(--sl-bingel-dc-color-palette-grey-700);
+  --sl-bingel-dc-color-foreground-accent-grey-subtlest: var(--sl-bingel-dc-color-palette-grey-600);
+  --sl-bingel-dc-color-foreground-accent-orange-bold: var(--sl-bingel-dc-color-palette-orange-700);
+  --sl-bingel-dc-color-foreground-accent-orange-on-bold: var(--sl-bingel-dc-color-foreground-bold);
+  --sl-bingel-dc-color-foreground-accent-orange-plain: var(--sl-bingel-dc-color-palette-orange-700);
+  --sl-bingel-dc-color-foreground-accent-purple-bold: var(--sl-bingel-dc-color-palette-purple-700);
+  --sl-bingel-dc-color-foreground-accent-purple-on-bold: var(
+    --sl-bingel-dc-color-foreground-inverted-plain
+  );
+  --sl-bingel-dc-color-foreground-accent-purple-plain: var(--sl-bingel-dc-color-palette-purple-400);
+  --sl-bingel-dc-color-foreground-accent-red-bold: var(--sl-bingel-dc-color-palette-red-700);
+  --sl-bingel-dc-color-foreground-accent-red-on-bold: var(
+    --sl-bingel-dc-color-foreground-inverted-plain
+  );
+  --sl-bingel-dc-color-foreground-accent-red-plain: var(--sl-bingel-dc-color-palette-red-400);
+  --sl-bingel-dc-color-foreground-accent-teal-bold: var(--sl-bingel-dc-color-palette-teal-700);
+  --sl-bingel-dc-color-foreground-accent-teal-on-bold: var(
+    --sl-bingel-dc-color-foreground-inverted-plain
+  );
+  --sl-bingel-dc-color-foreground-accent-teal-plain: var(--sl-bingel-dc-color-palette-teal-600);
+  --sl-bingel-dc-color-foreground-accent-yellow-bold: var(--sl-bingel-dc-color-palette-yellow-700);
+  --sl-bingel-dc-color-foreground-accent-yellow-on-bold: var(--sl-bingel-dc-color-foreground-bold);
+  --sl-bingel-dc-color-foreground-accent-yellow-plain: var(--sl-bingel-dc-color-palette-yellow-600);
+  --sl-bingel-dc-color-foreground-bold: var(--sl-bingel-dc-color-foreground-accent-grey-bold);
+  --sl-bingel-dc-color-foreground-brand: var(--sl-bingel-dc-color-foreground-accent-blue-plain);
+  --sl-bingel-dc-color-foreground-caution-bold: var(
+    --sl-bingel-dc-color-foreground-accent-orange-bold
+  );
+  --sl-bingel-dc-color-foreground-caution-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-orange-on-bold
+  );
+  --sl-bingel-dc-color-foreground-caution-plain: var(
+    --sl-bingel-dc-color-foreground-accent-orange-plain
+  );
+  --sl-bingel-dc-color-foreground-disabled: var(--sl-bingel-dc-color-foreground-accent-grey-faint);
+  --sl-bingel-dc-color-foreground-info-bold: var(--sl-bingel-dc-color-foreground-accent-blue-bold);
+  --sl-bingel-dc-color-foreground-info-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-on-bold
+  );
+  --sl-bingel-dc-color-foreground-info-plain: var(
+    --sl-bingel-dc-color-foreground-accent-blue-plain
+  );
+  --sl-bingel-dc-color-foreground-inverted-bold: var(--sl-bingel-dc-color-palette-grey-000);
+  --sl-bingel-dc-color-foreground-inverted-on-bold: var(--sl-bingel-dc-color-palette-grey-900);
+  --sl-bingel-dc-color-foreground-inverted-plain: var(--sl-bingel-dc-color-palette-grey-000);
+  --sl-bingel-dc-color-foreground-negative-bold: var(
+    --sl-bingel-dc-color-foreground-accent-red-bold
+  );
+  --sl-bingel-dc-color-foreground-negative-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-red-on-bold
+  );
+  --sl-bingel-dc-color-foreground-negative-plain: var(
+    --sl-bingel-dc-color-foreground-accent-red-plain
+  );
+  --sl-bingel-dc-color-foreground-neutral-bold: var(
+    --sl-bingel-dc-color-foreground-accent-grey-bold
+  );
+  --sl-bingel-dc-color-foreground-neutral-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-grey-on-bold
+  );
+  --sl-bingel-dc-color-foreground-neutral-plain: var(
+    --sl-bingel-dc-color-foreground-accent-grey-subtlest
+  );
+  --sl-bingel-dc-color-foreground-plain: var(--sl-bingel-dc-color-foreground-accent-grey-plain);
+  --sl-bingel-dc-color-foreground-positive-bold: var(
+    --sl-bingel-dc-color-foreground-accent-green-bold
+  );
+  --sl-bingel-dc-color-foreground-positive-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-green-on-bold
+  );
+  --sl-bingel-dc-color-foreground-positive-plain: var(
+    --sl-bingel-dc-color-foreground-accent-green-plain
+  );
+  --sl-bingel-dc-color-foreground-primary-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-bold
+  );
+  --sl-bingel-dc-color-foreground-primary-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-on-bold
+  );
+  --sl-bingel-dc-color-foreground-secondary-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-bold
+  );
+  --sl-bingel-dc-color-foreground-secondary-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-bold
+  );
+  --sl-bingel-dc-color-foreground-selected-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-bold
+  );
+  --sl-bingel-dc-color-foreground-selected-on-bold: var(
+    --sl-bingel-dc-color-foreground-accent-blue-on-bold
+  );
+  --sl-bingel-dc-color-foreground-selected-plain: var(
+    --sl-bingel-dc-color-foreground-accent-blue-plain
+  );
+  --sl-bingel-dc-color-foreground-subtle: var(--sl-bingel-dc-color-foreground-accent-grey-subtle);
+  --sl-bingel-dc-color-foreground-subtlest: var(
+    --sl-bingel-dc-color-foreground-accent-grey-subtlest
+  );
+  --sl-bingel-dc-color-link-active: var(--sl-bingel-dc-color-palette-blue-600);
+  --sl-bingel-dc-color-link-focused-active: var(--sl-bingel-dc-color-palette-blue-900);
+  --sl-bingel-dc-color-link-focused-hover: var(--sl-bingel-dc-color-palette-blue-800);
+  --sl-bingel-dc-color-link-focused-idle: var(--sl-bingel-dc-color-palette-blue-700);
+  --sl-bingel-dc-color-link-hover: var(--sl-bingel-dc-color-palette-blue-500);
+  --sl-bingel-dc-color-link-idle: var(--sl-bingel-dc-color-foreground-accent-blue-plain);
+  --sl-bingel-dc-color-link-inverted-active: var(--sl-bingel-dc-color-palette-blue-150);
+  --sl-bingel-dc-color-link-inverted-hover: var(--sl-bingel-dc-color-palette-blue-100);
+  --sl-bingel-dc-color-link-inverted-idle: var(--sl-bingel-dc-color-foreground-inverted-plain);
+  --sl-bingel-dc-color-link-muted-active: var(--sl-bingel-dc-color-link-active);
+  --sl-bingel-dc-color-link-muted-hover: var(--sl-bingel-dc-color-link-hover);
+  --sl-bingel-dc-color-link-muted-idle: var(--sl-bingel-dc-color-foreground-accent-grey-subtlest);
+  --sl-bingel-dc-color-palette-blue-050: #e6f1fb;
+  --sl-bingel-dc-color-palette-blue-100: #acd2f5;
+  --sl-bingel-dc-color-palette-blue-150: #81baef;
+  --sl-bingel-dc-color-palette-blue-200: #56a3ea;
+  --sl-bingel-dc-color-palette-blue-300: #2b8be4;
+  --sl-bingel-dc-color-palette-blue-400: #0074df;
+  --sl-bingel-dc-color-palette-blue-500: #0060b9;
+  --sl-bingel-dc-color-palette-blue-600: #004d94;
+  --sl-bingel-dc-color-palette-blue-700: #002f62;
+  --sl-bingel-dc-color-palette-blue-800: #002649;
+  --sl-bingel-dc-color-palette-blue-900: #001223;
+  --sl-bingel-dc-color-palette-green-050: #e2f2d7;
+  --sl-bingel-dc-color-palette-green-100: #c3e4ac;
+  --sl-bingel-dc-color-palette-green-150: #a4d681;
+  --sl-bingel-dc-color-palette-green-200: #84c856;
+  --sl-bingel-dc-color-palette-green-300: #65ba2b;
+  --sl-bingel-dc-color-palette-green-400: #46ac00;
+  --sl-bingel-dc-color-palette-green-500: #3a8f00;
+  --sl-bingel-dc-color-palette-green-600: #2e7200;
+  --sl-bingel-dc-color-palette-green-700: #235500;
+  --sl-bingel-dc-color-palette-green-800: #173800;
+  --sl-bingel-dc-color-palette-green-900: #0b1b00;
+  --sl-bingel-dc-color-palette-grey-000: #ffffff;
+  --sl-bingel-dc-color-palette-grey-050: #f2f3f5;
+  --sl-bingel-dc-color-palette-grey-100: #e3e6ea;
+  --sl-bingel-dc-color-palette-grey-150: #d5d9de;
+  --sl-bingel-dc-color-palette-grey-200: #c7cdd3;
+  --sl-bingel-dc-color-palette-grey-300: #b8c0c8;
+  --sl-bingel-dc-color-palette-grey-400: #aab3bd;
+  --sl-bingel-dc-color-palette-grey-500: #8d959d;
+  --sl-bingel-dc-color-palette-grey-600: #71777d;
+  --sl-bingel-dc-color-palette-grey-700: #54585d;
+  --sl-bingel-dc-color-palette-grey-800: #373a3e;
+  --sl-bingel-dc-color-palette-grey-900: #1b1c1e;
+  --sl-bingel-dc-color-palette-orange-050: #fff0d7;
+  --sl-bingel-dc-color-palette-orange-100: #ffdfac;
+  --sl-bingel-dc-color-palette-orange-150: #ffcf81;
+  --sl-bingel-dc-color-palette-orange-200: #ffbe56;
+  --sl-bingel-dc-color-palette-orange-300: #ffae2b;
+  --sl-bingel-dc-color-palette-orange-400: #ff9d00;
+  --sl-bingel-dc-color-palette-orange-500: #d48300;
+  --sl-bingel-dc-color-palette-orange-600: #a96800;
+  --sl-bingel-dc-color-palette-orange-700: #7e4e00;
+  --sl-bingel-dc-color-palette-orange-800: #533300;
+  --sl-bingel-dc-color-palette-orange-900: #281900;
+  --sl-bingel-dc-color-palette-purple-050: #f3f2ff;
+  --sl-bingel-dc-color-palette-purple-100: #ebe8ff;
+  --sl-bingel-dc-color-palette-purple-150: #d9d3ff;
+  --sl-bingel-dc-color-palette-purple-200: #bdb0ff;
+  --sl-bingel-dc-color-palette-purple-300: #9d83ff;
+  --sl-bingel-dc-color-palette-purple-400: #7e51ff;
+  --sl-bingel-dc-color-palette-purple-500: #6e2dfa;
+  --sl-bingel-dc-color-palette-purple-600: #5f1be6;
+  --sl-bingel-dc-color-palette-purple-700: #5217c6;
+  --sl-bingel-dc-color-palette-purple-800: #43149e;
+  --sl-bingel-dc-color-palette-purple-900: #270a6b;
+  --sl-bingel-dc-color-palette-red-050: #fbd9dd;
+  --sl-bingel-dc-color-palette-red-100: #f6afb9;
+  --sl-bingel-dc-color-palette-red-150: #f18694;
+  --sl-bingel-dc-color-palette-red-200: #ec5d70;
+  --sl-bingel-dc-color-palette-red-300: #e8334b;
+  --sl-bingel-dc-color-palette-red-400: #e30a27;
+  --sl-bingel-dc-color-palette-red-500: #bd0820;
+  --sl-bingel-dc-color-palette-red-600: #96071a;
+  --sl-bingel-dc-color-palette-red-700: #700513;
+  --sl-bingel-dc-color-palette-red-800: #4a030d;
+  --sl-bingel-dc-color-palette-red-900: #240206;
+  --sl-bingel-dc-color-palette-teal-050: #eefffc;
+  --sl-bingel-dc-color-palette-teal-100: #c5fffa;
+  --sl-bingel-dc-color-palette-teal-150: #8bfff5;
+  --sl-bingel-dc-color-palette-teal-200: #4afef0;
+  --sl-bingel-dc-color-palette-teal-300: #15ece2;
+  --sl-bingel-dc-color-palette-teal-400: #00d0c9;
+  --sl-bingel-dc-color-palette-teal-500: #00a8a5;
+  --sl-bingel-dc-color-palette-teal-600: #008080;
+  --sl-bingel-dc-color-palette-teal-700: #066769;
+  --sl-bingel-dc-color-palette-teal-800: #0a5757;
+  --sl-bingel-dc-color-palette-teal-900: #003235;
+  --sl-bingel-dc-color-palette-yellow-050: #fefde8;
+  --sl-bingel-dc-color-palette-yellow-100: #fffec2;
+  --sl-bingel-dc-color-palette-yellow-150: #fff889;
+  --sl-bingel-dc-color-palette-yellow-200: #ffec40;
+  --sl-bingel-dc-color-palette-yellow-300: #fddc12;
+  --sl-bingel-dc-color-palette-yellow-400: #ecc206;
+  --sl-bingel-dc-color-palette-yellow-500: #cc9702;
+  --sl-bingel-dc-color-palette-yellow-600: #a36b05;
+  --sl-bingel-dc-color-palette-yellow-700: #86540d;
+  --sl-bingel-dc-color-palette-yellow-800: #724511;
+  --sl-bingel-dc-color-palette-yellow-900: #432405;
+  --sl-bingel-dc-color-skeleton-plain: var(--sl-bingel-dc-color-background-accent-grey-subtle);
+  --sl-bingel-dc-color-skeleton-subtle: var(--sl-bingel-dc-color-background-accent-grey-subtlest);
+  --sl-bingel-dc-elevation-surface-base-default: var(--sl-bingel-dc-color-palette-grey-000);
+  --sl-bingel-dc-elevation-surface-raised-alternative: var(--sl-bingel-dc-color-palette-grey-100);
+  --sl-bingel-dc-elevation-surface-raised-default: var(--sl-bingel-dc-color-palette-grey-000);
+  --sl-bingel-dc-elevation-surface-raised-inverted: var(--sl-bingel-dc-color-palette-grey-900);
+  --sl-bingel-dc-elevation-surface-raised-primary: var(
+    --sl-bingel-dc-color-background-accent-blue-bold
+  );
+  --sl-bingel-dc-elevation-surface-raised-sunken: var(--sl-bingel-dc-color-palette-grey-050);
+  --sl-bingel-dc-elevation-surface-shadow: var(--sl-bingel-dc-color-palette-grey-900);
+  --sl-bingel-dc-opacity-bold: 1;
+  --sl-bingel-dc-opacity-interactive-bold-active: 0.4;
+  --sl-bingel-dc-opacity-interactive-bold-hover: 0.2;
+  --sl-bingel-dc-opacity-interactive-bold-idle: 0;
+  --sl-bingel-dc-opacity-interactive-plain-active: 0.25;
+  --sl-bingel-dc-opacity-interactive-plain-hover: 0.15;
+  --sl-bingel-dc-opacity-interactive-plain-idle: 0;
+  --sl-bingel-dc-opacity-interactive-reversed-active: 1;
+  --sl-bingel-dc-opacity-interactive-reversed-hover: 0.9;
+  --sl-bingel-dc-opacity-interactive-reversed-idle: 0.8;
+  --sl-bingel-dc-opacity-moderate: 0.8;
+  --sl-bingel-dc-opacity-muted: 0;
+  --sl-bingel-dc-opacity-subtle: 0.2;
+  --sl-bingel-dc-opacity-subtlest: 0.1;
+  --sl-bingel-dc-theme-name: Bingel DC Light;
 }

@@ -9,21 +9,32 @@ const setupTheme = theme => {
   const destinationGlobal = join(cwd, `${theme}/global.css`);
   cp(sourceGlobal, destinationGlobal, () => console.log(`${theme} global done`));
 
-  const sourceTypographyTokens = join(cwd, './export/typography-sizing-spacing/typography.css');
-  const sourceTypography = join(cwd, '../packages/themes/core/typography.css');
   const destinationTypography = join(cwd, `${theme}/typography.css`);
 
+  const typographyCssFiles = [
+    './export/core-css/Device/desktop.css',
+    './export/core-css/Device/mobile.css',
+    './export/core-css/Device/tablet.css',
+    './export/core-css/User-Group/advanced.css',
+    './export/core-css/User-Group/developing.css',
+    './export/core-css/User-Group/early.css',
+    '../packages/themes/core/typography.css',
+    `${theme}/typography.css`
+  ];
+
+  const promises = typographyCssFiles.map(file => {
+    return new Promise((resolve, reject) => {
+      readFile(join(cwd, file), 'utf8', (err, data) => {
+        if (err) reject(err);
+        else resolve(data);
+      });
+    });
+  });
+
   // Combine both typography files
-  Promise.all([
-    new Promise((resolve, reject) =>
-      readFile(sourceTypographyTokens, 'utf8', (err, data) => (err ? reject(err) : resolve(data)))
-    ),
-    new Promise((resolve, reject) =>
-      readFile(sourceTypography, 'utf8', (err, data) => (err ? reject(err) : resolve(data)))
-    )
-  ])
-    .then(([tokens, core]) => {
-      writeFile(destinationTypography, `${tokens}\n\n${core}`, err => {
+  Promise.all(promises)
+    .then(parts => {
+      writeFile(destinationTypography, parts.join('\n\n'), err => {
         if (err) console.error(`Error writing ${theme} typography:`, err);
         else console.log(`${theme} typography done`);
       });

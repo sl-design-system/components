@@ -1,501 +1,577 @@
 :root {
-  --itslearning-color-background-accent-blue-bold: var(--itslearning-color-palette-blue-600);
-  --itslearning-color-background-accent-blue-interactive-bold: var(--color-black);
-  --itslearning-color-background-accent-blue-interactive-plain: var(
-    --itslearning-color-palette-blue-600
-  );
-  --itslearning-color-background-accent-blue-subtle: #0055b033;
-  --itslearning-color-background-accent-blue-subtlest: #0055b01a;
-  --itslearning-color-background-accent-green-bold: var(--itslearning-color-palette-green-600);
-  --itslearning-color-background-accent-green-interactive-bold: var(--color-black);
-  --itslearning-color-background-accent-green-interactive-plain: var(
-    --itslearning-color-palette-green-600
-  );
-  --itslearning-color-background-accent-green-subtle: #00885933;
-  --itslearning-color-background-accent-green-subtlest: #0088591a;
-  --itslearning-color-background-accent-grey-bold: var(--itslearning-color-palette-grey-400);
-  --itslearning-color-background-accent-grey-interactive-bold: var(
-    --itslearning-color-palette-grey-600
-  );
-  --itslearning-color-background-accent-grey-interactive-plain: var(
-    --itslearning-color-palette-grey-400
-  );
-  --itslearning-color-background-accent-grey-subtle: #9b9b9b33;
-  --itslearning-color-background-accent-grey-subtlest: #9b9b9b1a;
-  --itslearning-color-background-accent-orange-bold: var(--itslearning-color-palette-orange-600);
-  --itslearning-color-background-accent-orange-interactive-bold: var(
-    --itslearning-color-palette-orange-900
-  );
-  --itslearning-color-background-accent-orange-interactive-plain: var(
-    --itslearning-color-palette-orange-400
-  );
-  --itslearning-color-background-accent-orange-subtle: #fe821133;
-  --itslearning-color-background-accent-orange-subtlest: #fe82111a;
-  --itslearning-color-background-accent-purple-bold: var(--itslearning-color-palette-purple-600);
-  --itslearning-color-background-accent-purple-interactive-bold: var(
-    --itslearning-color-palette-grey-900
-  );
-  --itslearning-color-background-accent-purple-interactive-plain: var(
-    --itslearning-color-palette-purple-400
-  );
-  --itslearning-color-background-accent-purple-subtle: #5d4a6833;
-  --itslearning-color-background-accent-purple-subtlest: #5d4a681a;
-  --itslearning-color-background-accent-red-bold: var(--itslearning-color-palette-red-500);
-  --itslearning-color-background-accent-red-interactive-bold: var(
-    --itslearning-color-palette-red-900
-  );
-  --itslearning-color-background-accent-red-interactive-plain: var(
-    --itslearning-color-palette-red-400
-  );
-  --itslearning-color-background-accent-red-subtle: #e0535333;
-  --itslearning-color-background-accent-red-subtlest: #e053531a;
-  --itslearning-color-background-accent-teal-bold: var(--itslearning-color-palette-teal-600);
-  --itslearning-color-background-accent-teal-interactive-bold: var(
-    --itslearning-color-palette-teal-900
-  );
-  --itslearning-color-background-accent-teal-interactive-plain: var(
-    --itslearning-color-palette-teal-400
+  --sl-itslearning-color-background-accent-blue-bold: var(--sl-itslearning-color-palette-blue-600);
+  --sl-itslearning-color-background-accent-blue-interactive-bold: var(--sl-color-black);
+  --sl-itslearning-color-background-accent-blue-interactive-plain: var(
+    --sl-itslearning-color-palette-blue-600
   );
-  --itslearning-color-background-accent-teal-subtle: #00d0c933;
-  --itslearning-color-background-accent-teal-subtlest: #00d0c91a;
-  --itslearning-color-background-accent-yellow-bold: var(--itslearning-color-palette-yellow-700);
-  --itslearning-color-background-accent-yellow-interactive-bold: var(
-    --itslearning-color-palette-yellow-600
+  --sl-itslearning-color-background-accent-blue-subtle: #0055b033;
+  --sl-itslearning-color-background-accent-blue-subtlest: #0055b01a;
+  --sl-itslearning-color-background-accent-green-bold: var(
+    --sl-itslearning-color-palette-green-600
   );
-  --itslearning-color-background-accent-yellow-interactive-plain: var(
-    --itslearning-color-palette-yellow-400
+  --sl-itslearning-color-background-accent-green-interactive-bold: var(--sl-color-black);
+  --sl-itslearning-color-background-accent-green-interactive-plain: var(
+    --sl-itslearning-color-palette-green-600
   );
-  --itslearning-color-background-accent-yellow-subtle: #d1901f33;
-  --itslearning-color-background-accent-yellow-subtlest: #d1901f1a;
-  --itslearning-color-background-bold: var(--itslearning-color-border-bold);
-  --itslearning-color-background-caution-bold: var(
-    --itslearning-color-background-accent-yellow-bold
+  --sl-itslearning-color-background-accent-green-subtle: #00885933;
+  --sl-itslearning-color-background-accent-green-subtlest: #0088591a;
+  --sl-itslearning-color-background-accent-grey-bold: var(--sl-itslearning-color-palette-grey-400);
+  --sl-itslearning-color-background-accent-grey-interactive-bold: var(
+    --sl-itslearning-color-palette-grey-600
   );
-  --itslearning-color-background-caution-interactive-bold: var(
-    --itslearning-color-background-accent-yellow-interactive-bold
+  --sl-itslearning-color-background-accent-grey-interactive-plain: var(
+    --sl-itslearning-color-palette-grey-400
   );
-  --itslearning-color-background-caution-interactive-plain: var(
-    --itslearning-color-background-accent-yellow-interactive-plain
+  --sl-itslearning-color-background-accent-grey-subtle: #9b9b9b33;
+  --sl-itslearning-color-background-accent-grey-subtlest: #9b9b9b1a;
+  --sl-itslearning-color-background-accent-orange-bold: var(
+    --sl-itslearning-color-palette-orange-600
   );
-  --itslearning-color-background-caution-subtle: var(
-    --itslearning-color-background-accent-yellow-subtle
+  --sl-itslearning-color-background-accent-orange-interactive-bold: var(
+    --sl-itslearning-color-palette-orange-900
   );
-  --itslearning-color-background-caution-subtlest: var(
-    --itslearning-color-background-accent-yellow-subtlest
+  --sl-itslearning-color-background-accent-orange-interactive-plain: var(
+    --sl-itslearning-color-palette-orange-400
   );
-  --itslearning-color-background-disabled: var(--itslearning-color-palette-grey-150);
-  --itslearning-color-background-highlight: var(--itslearning-color-palette-yellow-150);
-  --itslearning-color-background-info-bold: var(--itslearning-color-background-accent-blue-bold);
-  --itslearning-color-background-info-interactive-bold: var(
-    --itslearning-color-background-accent-blue-interactive-bold
+  --sl-itslearning-color-background-accent-orange-subtle: #fe821133;
+  --sl-itslearning-color-background-accent-orange-subtlest: #fe82111a;
+  --sl-itslearning-color-background-accent-purple-bold: var(
+    --sl-itslearning-color-palette-purple-600
   );
-  --itslearning-color-background-info-interactive-plain: var(
-    --itslearning-color-background-accent-blue-interactive-plain
+  --sl-itslearning-color-background-accent-purple-interactive-bold: var(
+    --sl-itslearning-color-palette-grey-900
   );
-  --itslearning-color-background-info-subtle: var(
-    --itslearning-color-background-accent-blue-subtle
+  --sl-itslearning-color-background-accent-purple-interactive-plain: var(
+    --sl-itslearning-color-palette-purple-400
   );
-  --itslearning-color-background-info-subtlest: var(
-    --itslearning-color-background-accent-blue-subtlest
+  --sl-itslearning-color-background-accent-purple-subtle: #5d4a6833;
+  --sl-itslearning-color-background-accent-purple-subtlest: #5d4a681a;
+  --sl-itslearning-color-background-accent-red-bold: var(--sl-itslearning-color-palette-red-500);
+  --sl-itslearning-color-background-accent-red-interactive-bold: var(
+    --sl-itslearning-color-palette-red-900
   );
-  --itslearning-color-background-input-interactive: var(
-    --itslearning-color-background-accent-grey-interactive-plain
+  --sl-itslearning-color-background-accent-red-interactive-plain: var(
+    --sl-itslearning-color-palette-red-400
   );
-  --itslearning-color-background-input-plain: var(--itslearning-color-palette-grey-000);
-  --itslearning-color-background-interactive-bold: var(--itslearning-color-palette-grey-900);
-  --itslearning-color-background-interactive-plain: var(
-    --itslearning-color-background-accent-grey-interactive-plain
+  --sl-itslearning-color-background-accent-red-subtle: #e0535333;
+  --sl-itslearning-color-background-accent-red-subtlest: #e053531a;
+  --sl-itslearning-color-background-accent-teal-bold: var(--sl-itslearning-color-palette-teal-600);
+  --sl-itslearning-color-background-accent-teal-interactive-bold: var(
+    --sl-itslearning-color-palette-teal-900
   );
-  --itslearning-color-background-inverted-bold: var(--itslearning-color-palette-grey-000);
-  --itslearning-color-background-inverted-interactive-bold: var(
-    --itslearning-color-palette-grey-600
+  --sl-itslearning-color-background-accent-teal-interactive-plain: var(
+    --sl-itslearning-color-palette-teal-400
   );
-  --itslearning-color-background-inverted-interactive-plain: var(
-    --itslearning-color-palette-grey-200
+  --sl-itslearning-color-background-accent-teal-subtle: #00d0c933;
+  --sl-itslearning-color-background-accent-teal-subtlest: #00d0c91a;
+  --sl-itslearning-color-background-accent-yellow-bold: var(
+    --sl-itslearning-color-palette-yellow-700
   );
-  --itslearning-color-background-inverted-subtle: #ffffff33;
-  --itslearning-color-background-inverted-subtlest: #ffffff1a;
-  --itslearning-color-background-negative-bold: var(--itslearning-color-background-accent-red-bold);
-  --itslearning-color-background-negative-interactive-bold: var(
-    --itslearning-color-background-accent-red-interactive-bold
+  --sl-itslearning-color-background-accent-yellow-interactive-bold: var(
+    --sl-itslearning-color-palette-yellow-600
   );
-  --itslearning-color-background-negative-interactive-plain: var(
-    --itslearning-color-background-accent-red-interactive-plain
+  --sl-itslearning-color-background-accent-yellow-interactive-plain: var(
+    --sl-itslearning-color-palette-yellow-400
   );
-  --itslearning-color-background-negative-subtle: var(
-    --itslearning-color-background-accent-red-subtle
+  --sl-itslearning-color-background-accent-yellow-subtle: #d1901f33;
+  --sl-itslearning-color-background-accent-yellow-subtlest: #d1901f1a;
+  --sl-itslearning-color-background-bold: var(--sl-itslearning-color-border-bold);
+  --sl-itslearning-color-background-caution-bold: var(
+    --sl-itslearning-color-background-accent-yellow-bold
   );
-  --itslearning-color-background-negative-subtlest: var(
-    --itslearning-color-background-accent-red-subtlest
+  --sl-itslearning-color-background-caution-interactive-bold: var(
+    --sl-itslearning-color-background-accent-yellow-interactive-bold
   );
-  --itslearning-color-background-neutral-bold: var(--itslearning-color-palette-grey-150);
-  --itslearning-color-background-neutral-interactive-bold: var(
-    --itslearning-color-palette-grey-800
+  --sl-itslearning-color-background-caution-interactive-plain: var(
+    --sl-itslearning-color-background-accent-yellow-interactive-plain
   );
-  --itslearning-color-background-neutral-interactive-plain: var(
-    --itslearning-color-background-accent-grey-interactive-bold
+  --sl-itslearning-color-background-caution-subtle: var(
+    --sl-itslearning-color-background-accent-yellow-subtle
   );
-  --itslearning-color-background-neutral-subtle: var(
-    --itslearning-color-background-accent-grey-subtle
+  --sl-itslearning-color-background-caution-subtlest: var(
+    --sl-itslearning-color-background-accent-yellow-subtlest
   );
-  --itslearning-color-background-neutral-subtlest: var(
-    --itslearning-color-background-accent-grey-subtlest
+  --sl-itslearning-color-background-disabled: var(--sl-itslearning-color-palette-grey-150);
+  --sl-itslearning-color-background-highlight: var(--sl-itslearning-color-palette-yellow-150);
+  --sl-itslearning-color-background-info-bold: var(
+    --sl-itslearning-color-background-accent-blue-bold
   );
-  --itslearning-color-background-positive-bold: var(
-    --itslearning-color-background-accent-green-bold
+  --sl-itslearning-color-background-info-interactive-bold: var(
+    --sl-itslearning-color-background-accent-blue-interactive-bold
   );
-  --itslearning-color-background-positive-interactive-bold: var(
-    --itslearning-color-background-accent-green-interactive-bold
+  --sl-itslearning-color-background-info-interactive-plain: var(
+    --sl-itslearning-color-background-accent-blue-interactive-plain
   );
-  --itslearning-color-background-positive-interactive-plain: var(
-    --itslearning-color-background-accent-green-interactive-plain
+  --sl-itslearning-color-background-info-subtle: var(
+    --sl-itslearning-color-background-accent-blue-subtle
   );
-  --itslearning-color-background-positive-subtle: var(
-    --itslearning-color-background-accent-green-subtle
+  --sl-itslearning-color-background-info-subtlest: var(
+    --sl-itslearning-color-background-accent-blue-subtlest
   );
-  --itslearning-color-background-positive-subtlest: var(
-    --itslearning-color-background-accent-green-subtlest
+  --sl-itslearning-color-background-input-interactive: var(
+    --sl-itslearning-color-background-accent-grey-interactive-plain
   );
-  --itslearning-color-background-primary-bold: var(
-    --itslearning-color-background-accent-green-bold
+  --sl-itslearning-color-background-input-plain: var(--sl-itslearning-color-palette-grey-000);
+  --sl-itslearning-color-background-interactive-bold: var(--sl-itslearning-color-palette-grey-900);
+  --sl-itslearning-color-background-interactive-plain: var(
+    --sl-itslearning-color-background-accent-grey-interactive-plain
   );
-  --itslearning-color-background-primary-interactive-bold: var(
-    --itslearning-color-background-accent-green-interactive-bold
+  --sl-itslearning-color-background-inverted-bold: var(--sl-itslearning-color-palette-grey-000);
+  --sl-itslearning-color-background-inverted-interactive-bold: var(
+    --sl-itslearning-color-palette-grey-600
   );
-  --itslearning-color-background-primary-interactive-plain: var(
-    --itslearning-color-background-accent-green-interactive-plain
-  );
-  --itslearning-color-background-primary-subtle: var(
-    --itslearning-color-background-accent-green-subtle
+  --sl-itslearning-color-background-inverted-interactive-plain: var(
+    --sl-itslearning-color-palette-grey-200
   );
-  --itslearning-color-background-primary-subtlest: var(
-    --itslearning-color-background-accent-green-subtlest
-  );
-  --itslearning-color-background-secondary-bold: var(
-    --itslearning-color-background-accent-purple-bold
-  );
-  --itslearning-color-background-secondary-interactive-bold: var(
-    --itslearning-color-background-accent-purple-interactive-bold
-  );
-  --itslearning-color-background-secondary-interactive-plain: var(
-    --itslearning-color-background-accent-purple-interactive-plain
-  );
-  --itslearning-color-background-secondary-subtle: var(
-    --itslearning-color-background-accent-purple-subtle
-  );
-  --itslearning-color-background-secondary-subtlest: var(
-    --itslearning-color-background-accent-purple-subtlest
-  );
-  --itslearning-color-background-selected-bold: var(
-    --itslearning-color-background-accent-purple-bold
-  );
-  --itslearning-color-background-selected-interactive-bold: var(
-    --itslearning-color-background-accent-purple-interactive-bold
-  );
-  --itslearning-color-background-selected-interactive-plain: var(
-    --itslearning-color-background-accent-purple-interactive-plain
-  );
-  --itslearning-color-background-selected-subtle: var(
-    --itslearning-color-background-accent-purple-subtle
-  );
-  --itslearning-color-background-selected-subtlest: var(
-    --itslearning-color-background-accent-purple-subtlest
-  );
-  --itslearning-color-background-subtle: var(--itslearning-color-background-accent-grey-subtle);
-  --itslearning-color-blanket-plain: #333333cc;
-  --itslearning-color-border-accent-blue-bold: var(--itslearning-color-foreground-accent-blue-bold);
-  --itslearning-color-border-accent-blue-plain: var(
-    --itslearning-color-background-accent-blue-bold
-  );
-  --itslearning-color-border-accent-green-bold: var(
-    --itslearning-color-foreground-accent-green-bold
-  );
-  --itslearning-color-border-accent-green-plain: var(
-    --itslearning-color-background-accent-green-bold
-  );
-  --itslearning-color-border-accent-grey-bold: var(--itslearning-color-palette-grey-600);
-  --itslearning-color-border-accent-grey-faint: var(--itslearning-color-palette-grey-300);
-  --itslearning-color-border-accent-grey-heavy: var(--itslearning-color-palette-grey-900);
-  --itslearning-color-border-accent-grey-plain: var(--itslearning-color-palette-grey-300);
-  --itslearning-color-border-accent-orange-bold: var(
-    --itslearning-color-foreground-accent-orange-bold
-  );
-  --itslearning-color-border-accent-orange-plain: var(
-    --itslearning-color-background-accent-orange-bold
-  );
-  --itslearning-color-border-accent-purple-bold: var(--itslearning-color-palette-purple-400);
-  --itslearning-color-border-accent-purple-plain: var(
-    --itslearning-color-background-accent-purple-bold
-  );
-  --itslearning-color-border-accent-red-bold: var(--itslearning-color-foreground-accent-red-bold);
-  --itslearning-color-border-accent-red-plain: var(--itslearning-color-background-accent-red-bold);
-  --itslearning-color-border-accent-teal-bold: var(--itslearning-color-foreground-accent-teal-bold);
-  --itslearning-color-border-accent-teal-plain: var(
-    --itslearning-color-background-accent-teal-bold
-  );
-  --itslearning-color-border-accent-yellow-bold: var(
-    --itslearning-color-foreground-accent-yellow-bold
-  );
-  --itslearning-color-border-accent-yellow-plain: var(
-    --itslearning-color-background-accent-yellow-bold
-  );
-  --itslearning-color-border-bold: var(--itslearning-color-border-accent-grey-bold);
-  --itslearning-color-border-caution-bold: var(--itslearning-color-border-accent-yellow-bold);
-  --itslearning-color-border-caution-plain: var(--itslearning-color-border-accent-yellow-plain);
-  --itslearning-color-border-disabled: var(--itslearning-color-foreground-disabled);
-  --itslearning-color-border-focused: var(--itslearning-color-border-accent-blue-plain);
-  --itslearning-color-border-info-bold: var(--itslearning-color-border-accent-blue-bold);
-  --itslearning-color-border-info-plain: var(--itslearning-color-border-accent-blue-plain);
-  --itslearning-color-border-info-subtle: var(--itslearning-color-background-info-subtle);
-  --itslearning-color-border-input: var(--itslearning-color-border-bold);
-  --itslearning-color-border-inverted: var(--itslearning-color-palette-grey-000);
-  --itslearning-color-border-negative-bold: var(--itslearning-color-border-accent-red-bold);
-  --itslearning-color-border-negative-plain: var(--itslearning-color-border-accent-red-plain);
-  --itslearning-color-border-neutral-bold: var(--itslearning-color-border-accent-grey-bold);
-  --itslearning-color-border-neutral-plain: var(--itslearning-color-border-accent-grey-plain);
-  --itslearning-color-border-neutral-subtle: var(--itslearning-color-background-accent-grey-subtle);
-  --itslearning-color-border-plain: var(--itslearning-color-border-accent-grey-plain);
-  --itslearning-color-border-positive-bold: var(--itslearning-color-border-accent-green-bold);
-  --itslearning-color-border-positive-plain: var(--itslearning-color-border-accent-green-plain);
-  --itslearning-color-border-primary-bold: var(--itslearning-color-border-accent-green-bold);
-  --itslearning-color-border-primary-plain: var(--itslearning-color-border-accent-green-plain);
-  --itslearning-color-border-secondary-bold: var(--itslearning-color-border-accent-purple-bold);
-  --itslearning-color-border-secondary-plain: var(--itslearning-color-border-accent-purple-plain);
-  --itslearning-color-border-selected: var(--itslearning-color-background-accent-purple-bold);
-  --itslearning-color-foreground-accent-blue-bold: var(--itslearning-color-palette-blue-800);
-  --itslearning-color-foreground-accent-blue-on-bold: var(
-    --itslearning-color-foreground-inverted-plain
-  );
-  --itslearning-color-foreground-accent-blue-plain: var(--itslearning-color-palette-blue-700);
-  --itslearning-color-foreground-accent-green-bold: var(--itslearning-color-palette-green-800);
-  --itslearning-color-foreground-accent-green-on-bold: var(
-    --itslearning-color-foreground-inverted-plain
-  );
-  --itslearning-color-foreground-accent-green-plain: var(--itslearning-color-palette-green-600);
-  --itslearning-color-foreground-accent-grey-bold: var(--itslearning-color-palette-grey-900);
-  --itslearning-color-foreground-accent-grey-faint: var(--itslearning-color-palette-grey-600);
-  --itslearning-color-foreground-accent-grey-on-bold: var(--itslearning-color-foreground-bold);
-  --itslearning-color-foreground-accent-grey-on-inverted: var(--itslearning-color-foreground-bold);
-  --itslearning-color-foreground-accent-grey-plain: var(--itslearning-color-palette-grey-800);
-  --itslearning-color-foreground-accent-grey-subtle: var(--itslearning-color-palette-grey-700);
-  --itslearning-color-foreground-accent-grey-subtlest: var(--itslearning-color-palette-grey-600);
-  --itslearning-color-foreground-accent-orange-bold: var(--itslearning-color-palette-orange-700);
-  --itslearning-color-foreground-accent-orange-on-bold: var(
-    --itslearning-color-foreground-inverted-plain
-  );
-  --itslearning-color-foreground-accent-orange-plain: var(--itslearning-color-palette-orange-600);
-  --itslearning-color-foreground-accent-purple-bold: var(--itslearning-color-palette-purple-800);
-  --itslearning-color-foreground-accent-purple-on-bold: var(
-    --itslearning-color-foreground-inverted-plain
-  );
-  --itslearning-color-foreground-accent-purple-plain: var(--itslearning-color-palette-purple-800);
-  --itslearning-color-foreground-accent-red-bold: var(--itslearning-color-palette-red-700);
-  --itslearning-color-foreground-accent-red-on-bold: var(
-    --itslearning-color-foreground-inverted-plain
-  );
-  --itslearning-color-foreground-accent-red-plain: var(--itslearning-color-palette-red-500);
-  --itslearning-color-foreground-accent-teal-bold: var(--itslearning-color-palette-teal-700);
-  --itslearning-color-foreground-accent-teal-on-bold: var(
-    --itslearning-color-foreground-inverted-plain
-  );
-  --itslearning-color-foreground-accent-teal-plain: var(--itslearning-color-palette-teal-600);
-  --itslearning-color-foreground-accent-yellow-bold: var(--itslearning-color-palette-yellow-700);
-  --itslearning-color-foreground-accent-yellow-on-bold: var(
-    --itslearning-color-foreground-inverted-plain
-  );
-  --itslearning-color-foreground-accent-yellow-plain: var(--itslearning-color-palette-yellow-700);
-  --itslearning-color-foreground-bold: var(--itslearning-color-foreground-accent-grey-bold);
-  --itslearning-color-foreground-brand: var(--itslearning-color-foreground-accent-purple-plain);
-  --itslearning-color-foreground-caution-bold: var(
-    --itslearning-color-foreground-accent-yellow-bold
-  );
-  --itslearning-color-foreground-caution-on-bold: var(
-    --itslearning-color-foreground-accent-yellow-on-bold
-  );
-  --itslearning-color-foreground-caution-plain: var(
-    --itslearning-color-foreground-accent-yellow-plain
-  );
-  --itslearning-color-foreground-disabled: var(--itslearning-color-palette-grey-400);
-  --itslearning-color-foreground-info-bold: var(--itslearning-color-foreground-accent-blue-bold);
-  --itslearning-color-foreground-info-on-bold: var(
-    --itslearning-color-foreground-accent-blue-on-bold
-  );
-  --itslearning-color-foreground-info-plain: var(--itslearning-color-foreground-accent-blue-plain);
-  --itslearning-color-foreground-inverted-bold: var(--itslearning-color-palette-grey-000);
-  --itslearning-color-foreground-inverted-on-bold: var(--itslearning-color-palette-grey-900);
-  --itslearning-color-foreground-inverted-plain: var(--itslearning-color-palette-grey-000);
-  --itslearning-color-foreground-negative-bold: var(--itslearning-color-foreground-accent-red-bold);
-  --itslearning-color-foreground-negative-on-bold: var(
-    --itslearning-color-foreground-accent-red-on-bold
-  );
-  --itslearning-color-foreground-negative-plain: var(
-    --itslearning-color-foreground-accent-red-plain
-  );
-  --itslearning-color-foreground-neutral-bold: var(--itslearning-color-foreground-accent-grey-bold);
-  --itslearning-color-foreground-neutral-on-bold: var(
-    --itslearning-color-foreground-accent-grey-on-bold
-  );
-  --itslearning-color-foreground-neutral-plain: var(
-    --itslearning-color-foreground-accent-grey-subtlest
-  );
-  --itslearning-color-foreground-plain: var(--itslearning-color-foreground-accent-grey-plain);
-  --itslearning-color-foreground-positive-bold: var(
-    --itslearning-color-foreground-accent-green-bold
-  );
-  --itslearning-color-foreground-positive-on-bold: var(
-    --itslearning-color-foreground-accent-green-on-bold
-  );
-  --itslearning-color-foreground-positive-plain: var(
-    --itslearning-color-foreground-accent-green-plain
-  );
-  --itslearning-color-foreground-primary-bold: var(
-    --itslearning-color-foreground-accent-green-bold
-  );
-  --itslearning-color-foreground-primary-on-bold: var(
-    --itslearning-color-foreground-accent-green-on-bold
-  );
-  --itslearning-color-foreground-secondary-bold: var(
-    --itslearning-color-foreground-accent-purple-bold
-  );
-  --itslearning-color-foreground-secondary-on-bold: var(
-    --itslearning-color-foreground-accent-purple-on-bold
-  );
-  --itslearning-color-foreground-selected-bold: var(
-    --itslearning-color-foreground-accent-purple-bold
-  );
-  --itslearning-color-foreground-selected-on-bold: var(
-    --itslearning-color-foreground-accent-purple-on-bold
-  );
-  --itslearning-color-foreground-selected-plain: var(
-    --itslearning-color-foreground-accent-purple-plain
-  );
-  --itslearning-color-foreground-subtle: var(--itslearning-color-foreground-accent-grey-subtle);
-  --itslearning-color-foreground-subtlest: var(--itslearning-color-foreground-accent-grey-subtlest);
-  --itslearning-color-link-active: var(--itslearning-color-palette-blue-900);
-  --itslearning-color-link-focused-active: var(--itslearning-color-palette-blue-900);
-  --itslearning-color-link-focused-hover: var(--itslearning-color-palette-blue-800);
-  --itslearning-color-link-focused-idle: var(--itslearning-color-palette-blue-700);
-  --itslearning-color-link-hover: var(--itslearning-color-palette-blue-800);
-  --itslearning-color-link-idle: var(--itslearning-color-palette-blue-700);
-  --itslearning-color-link-inverted-active: var(--itslearning-color-palette-blue-150);
-  --itslearning-color-link-inverted-hover: var(--itslearning-color-palette-blue-100);
-  --itslearning-color-link-inverted-idle: var(--itslearning-color-foreground-inverted-plain);
-  --itslearning-color-link-muted-active: var(--itslearning-color-link-active);
-  --itslearning-color-link-muted-hover: var(--itslearning-color-link-hover);
-  --itslearning-color-link-muted-idle: var(--itslearning-color-foreground-accent-grey-subtlest);
-  --itslearning-color-palette-blue-050: #ecf8ff;
-  --itslearning-color-palette-blue-100: #d6eaff;
-  --itslearning-color-palette-blue-150: #c6e0fc;
-  --itslearning-color-palette-blue-200: #add2f7;
-  --itslearning-color-palette-blue-300: #7dafe4;
-  --itslearning-color-palette-blue-400: #5497db;
-  --itslearning-color-palette-blue-500: #2879c7;
-  --itslearning-color-palette-blue-600: #0055b0;
-  --itslearning-color-palette-blue-700: #00458f;
-  --itslearning-color-palette-blue-800: #0f3b73;
-  --itslearning-color-palette-blue-900: #142c4e;
-  --itslearning-color-palette-green-050: #e0f1eb;
-  --itslearning-color-palette-green-100: #c0e2d6;
-  --itslearning-color-palette-green-150: #a0d3c1;
-  --itslearning-color-palette-green-200: #80c4ac;
-  --itslearning-color-palette-green-300: #60b597;
-  --itslearning-color-palette-green-400: #40a683;
-  --itslearning-color-palette-green-500: #20976e;
-  --itslearning-color-palette-green-600: #008859;
-  --itslearning-color-palette-green-700: #00714a;
-  --itslearning-color-palette-green-800: #005a3b;
-  --itslearning-color-palette-green-900: #00432c;
-  --itslearning-color-palette-grey-000: #ffffff;
-  --itslearning-color-palette-grey-050: #f9f9f9;
-  --itslearning-color-palette-grey-100: #f4f4f4;
-  --itslearning-color-palette-grey-150: #f2f2f2;
-  --itslearning-color-palette-grey-200: #ececec;
-  --itslearning-color-palette-grey-300: #e1e1e1;
-  --itslearning-color-palette-grey-400: #cfcfcf;
-  --itslearning-color-palette-grey-500: #9b9b9b;
-  --itslearning-color-palette-grey-600: #757575;
-  --itslearning-color-palette-grey-700: #565656;
-  --itslearning-color-palette-grey-800: #4a4a4a;
-  --itslearning-color-palette-grey-900: #333333;
-  --itslearning-color-palette-orange-050: #fff8ed;
-  --itslearning-color-palette-orange-100: #fff0d4;
-  --itslearning-color-palette-orange-150: #ffdda8;
-  --itslearning-color-palette-orange-200: #ffc471;
-  --itslearning-color-palette-orange-300: #ff9d33;
-  --itslearning-color-palette-orange-400: #fe8211;
-  --itslearning-color-palette-orange-500: #ef6707;
-  --itslearning-color-palette-orange-600: #c64c08;
-  --itslearning-color-palette-orange-700: #9d3d0f;
-  --itslearning-color-palette-orange-800: #7e3410;
-  --itslearning-color-palette-orange-900: #441706;
-  --itslearning-color-palette-purple-050: #f4f2f6;
-  --itslearning-color-palette-purple-100: #efebf1;
-  --itslearning-color-palette-purple-150: #e9e4ec;
-  --itslearning-color-palette-purple-200: #dad2df;
-  --itslearning-color-palette-purple-300: #c2b5ca;
-  --itslearning-color-palette-purple-400: #a997b5;
-  --itslearning-color-palette-purple-500: #9179a0;
-  --itslearning-color-palette-purple-600: #785f86;
-  --itslearning-color-palette-purple-700: #5d4a68;
-  --itslearning-color-palette-purple-800: #42354a;
-  --itslearning-color-palette-purple-900: #28202d;
-  --itslearning-color-palette-red-050: #fdf3f3;
-  --itslearning-color-palette-red-100: #fbe5e5;
-  --itslearning-color-palette-red-150: #f9cfcf;
-  --itslearning-color-palette-red-200: #f4adad;
-  --itslearning-color-palette-red-300: #ec7d7d;
-  --itslearning-color-palette-red-400: #e05353;
-  --itslearning-color-palette-red-500: #cf4444;
-  --itslearning-color-palette-red-600: #ab2a2a;
-  --itslearning-color-palette-red-700: #8e2626;
-  --itslearning-color-palette-red-800: #762626;
-  --itslearning-color-palette-red-900: #400f0f;
-  --itslearning-color-palette-teal-050: #eefffc;
-  --itslearning-color-palette-teal-100: #c5fffa;
-  --itslearning-color-palette-teal-150: #8bfff5;
-  --itslearning-color-palette-teal-200: #4afef0;
-  --itslearning-color-palette-teal-300: #15ece2;
-  --itslearning-color-palette-teal-400: #00d0c9;
-  --itslearning-color-palette-teal-500: #00a8a5;
-  --itslearning-color-palette-teal-600: #008080;
-  --itslearning-color-palette-teal-700: #066769;
-  --itslearning-color-palette-teal-800: #0a5757;
-  --itslearning-color-palette-teal-900: #003235;
-  --itslearning-color-palette-yellow-050: #fff9ee;
-  --itslearning-color-palette-yellow-100: #fff5e3;
-  --itslearning-color-palette-yellow-150: #ffedcd;
-  --itslearning-color-palette-yellow-200: #ffdb98;
-  --itslearning-color-palette-yellow-300: #f2c77e;
-  --itslearning-color-palette-yellow-400: #e4af50;
-  --itslearning-color-palette-yellow-500: #d1901f;
-  --itslearning-color-palette-yellow-600: #b67d1b;
-  --itslearning-color-palette-yellow-700: #7e5a22;
-  --itslearning-color-palette-yellow-800: #684c21;
-  --itslearning-color-palette-yellow-900: #4c391d;
-  --itslearning-color-skeleton-plain: var(--itslearning-color-palette-grey-100);
-  --itslearning-color-skeleton-subtle: var(--itslearning-color-palette-grey-050);
-  --itslearning-elevation-surface-base-default: var(--itslearning-color-palette-grey-000);
-  --itslearning-elevation-surface-raised-alternative: var(--itslearning-color-palette-grey-100);
-  --itslearning-elevation-surface-raised-default: var(--itslearning-color-palette-grey-000);
-  --itslearning-elevation-surface-raised-inverted: var(--itslearning-color-palette-grey-900);
-  --itslearning-elevation-surface-raised-primary: var(
-    --itslearning-color-background-accent-green-bold
-  );
-  --itslearning-elevation-surface-raised-sunken: var(--itslearning-color-palette-grey-050);
-  --itslearning-elevation-surface-shadow: var(--itslearning-color-palette-grey-900);
-  --itslearning-opacity-bold: 1;
-  --itslearning-opacity-interactive-bold-active: 0.4;
-  --itslearning-opacity-interactive-bold-hover: 0.2;
-  --itslearning-opacity-interactive-bold-idle: 0;
-  --itslearning-opacity-interactive-plain-active: 0.25;
-  --itslearning-opacity-interactive-plain-hover: 0.15;
-  --itslearning-opacity-interactive-plain-idle: 0;
-  --itslearning-opacity-interactive-reversed-active: 1;
-  --itslearning-opacity-interactive-reversed-hover: 0.9;
-  --itslearning-opacity-interactive-reversed-idle: 0.8;
-  --itslearning-opacity-moderate: 0.8;
-  --itslearning-opacity-muted: 0;
-  --itslearning-opacity-subtle: 0.2;
-  --itslearning-opacity-subtlest: 0.1;
-  --itslearning-theme-name: Its Learning Light;
+  --sl-itslearning-color-background-inverted-subtle: #ffffff33;
+  --sl-itslearning-color-background-inverted-subtlest: #ffffff1a;
+  --sl-itslearning-color-background-negative-bold: var(
+    --sl-itslearning-color-background-accent-red-bold
+  );
+  --sl-itslearning-color-background-negative-interactive-bold: var(
+    --sl-itslearning-color-background-accent-red-interactive-bold
+  );
+  --sl-itslearning-color-background-negative-interactive-plain: var(
+    --sl-itslearning-color-background-accent-red-interactive-plain
+  );
+  --sl-itslearning-color-background-negative-subtle: var(
+    --sl-itslearning-color-background-accent-red-subtle
+  );
+  --sl-itslearning-color-background-negative-subtlest: var(
+    --sl-itslearning-color-background-accent-red-subtlest
+  );
+  --sl-itslearning-color-background-neutral-bold: var(--sl-itslearning-color-palette-grey-150);
+  --sl-itslearning-color-background-neutral-interactive-bold: var(
+    --sl-itslearning-color-palette-grey-800
+  );
+  --sl-itslearning-color-background-neutral-interactive-plain: var(
+    --sl-itslearning-color-background-accent-grey-interactive-bold
+  );
+  --sl-itslearning-color-background-neutral-subtle: var(
+    --sl-itslearning-color-background-accent-grey-subtle
+  );
+  --sl-itslearning-color-background-neutral-subtlest: var(
+    --sl-itslearning-color-background-accent-grey-subtlest
+  );
+  --sl-itslearning-color-background-positive-bold: var(
+    --sl-itslearning-color-background-accent-green-bold
+  );
+  --sl-itslearning-color-background-positive-interactive-bold: var(
+    --sl-itslearning-color-background-accent-green-interactive-bold
+  );
+  --sl-itslearning-color-background-positive-interactive-plain: var(
+    --sl-itslearning-color-background-accent-green-interactive-plain
+  );
+  --sl-itslearning-color-background-positive-subtle: var(
+    --sl-itslearning-color-background-accent-green-subtle
+  );
+  --sl-itslearning-color-background-positive-subtlest: var(
+    --sl-itslearning-color-background-accent-green-subtlest
+  );
+  --sl-itslearning-color-background-primary-bold: var(
+    --sl-itslearning-color-background-accent-green-bold
+  );
+  --sl-itslearning-color-background-primary-interactive-bold: var(
+    --sl-itslearning-color-background-accent-green-interactive-bold
+  );
+  --sl-itslearning-color-background-primary-interactive-plain: var(
+    --sl-itslearning-color-background-accent-green-interactive-plain
+  );
+  --sl-itslearning-color-background-primary-subtle: var(
+    --sl-itslearning-color-background-accent-green-subtle
+  );
+  --sl-itslearning-color-background-primary-subtlest: var(
+    --sl-itslearning-color-background-accent-green-subtlest
+  );
+  --sl-itslearning-color-background-secondary-bold: var(
+    --sl-itslearning-color-background-accent-purple-bold
+  );
+  --sl-itslearning-color-background-secondary-interactive-bold: var(
+    --sl-itslearning-color-background-accent-purple-interactive-bold
+  );
+  --sl-itslearning-color-background-secondary-interactive-plain: var(
+    --sl-itslearning-color-background-accent-purple-interactive-plain
+  );
+  --sl-itslearning-color-background-secondary-subtle: var(
+    --sl-itslearning-color-background-accent-purple-subtle
+  );
+  --sl-itslearning-color-background-secondary-subtlest: var(
+    --sl-itslearning-color-background-accent-purple-subtlest
+  );
+  --sl-itslearning-color-background-selected-bold: var(
+    --sl-itslearning-color-background-accent-purple-bold
+  );
+  --sl-itslearning-color-background-selected-interactive-bold: var(
+    --sl-itslearning-color-background-accent-purple-interactive-bold
+  );
+  --sl-itslearning-color-background-selected-interactive-plain: var(
+    --sl-itslearning-color-background-accent-purple-interactive-plain
+  );
+  --sl-itslearning-color-background-selected-subtle: var(
+    --sl-itslearning-color-background-accent-purple-subtle
+  );
+  --sl-itslearning-color-background-selected-subtlest: var(
+    --sl-itslearning-color-background-accent-purple-subtlest
+  );
+  --sl-itslearning-color-background-subtle: var(
+    --sl-itslearning-color-background-accent-grey-subtle
+  );
+  --sl-itslearning-color-blanket-plain: #333333cc;
+  --sl-itslearning-color-border-accent-blue-bold: var(
+    --sl-itslearning-color-foreground-accent-blue-bold
+  );
+  --sl-itslearning-color-border-accent-blue-plain: var(
+    --sl-itslearning-color-background-accent-blue-bold
+  );
+  --sl-itslearning-color-border-accent-green-bold: var(
+    --sl-itslearning-color-foreground-accent-green-bold
+  );
+  --sl-itslearning-color-border-accent-green-plain: var(
+    --sl-itslearning-color-background-accent-green-bold
+  );
+  --sl-itslearning-color-border-accent-grey-bold: var(--sl-itslearning-color-palette-grey-600);
+  --sl-itslearning-color-border-accent-grey-faint: var(--sl-itslearning-color-palette-grey-300);
+  --sl-itslearning-color-border-accent-grey-heavy: var(--sl-itslearning-color-palette-grey-900);
+  --sl-itslearning-color-border-accent-grey-plain: var(--sl-itslearning-color-palette-grey-300);
+  --sl-itslearning-color-border-accent-orange-bold: var(
+    --sl-itslearning-color-foreground-accent-orange-bold
+  );
+  --sl-itslearning-color-border-accent-orange-plain: var(
+    --sl-itslearning-color-background-accent-orange-bold
+  );
+  --sl-itslearning-color-border-accent-purple-bold: var(--sl-itslearning-color-palette-purple-400);
+  --sl-itslearning-color-border-accent-purple-plain: var(
+    --sl-itslearning-color-background-accent-purple-bold
+  );
+  --sl-itslearning-color-border-accent-red-bold: var(
+    --sl-itslearning-color-foreground-accent-red-bold
+  );
+  --sl-itslearning-color-border-accent-red-plain: var(
+    --sl-itslearning-color-background-accent-red-bold
+  );
+  --sl-itslearning-color-border-accent-teal-bold: var(
+    --sl-itslearning-color-foreground-accent-teal-bold
+  );
+  --sl-itslearning-color-border-accent-teal-plain: var(
+    --sl-itslearning-color-background-accent-teal-bold
+  );
+  --sl-itslearning-color-border-accent-yellow-bold: var(
+    --sl-itslearning-color-foreground-accent-yellow-bold
+  );
+  --sl-itslearning-color-border-accent-yellow-plain: var(
+    --sl-itslearning-color-background-accent-yellow-bold
+  );
+  --sl-itslearning-color-border-bold: var(--sl-itslearning-color-border-accent-grey-bold);
+  --sl-itslearning-color-border-caution-bold: var(--sl-itslearning-color-border-accent-yellow-bold);
+  --sl-itslearning-color-border-caution-plain: var(
+    --sl-itslearning-color-border-accent-yellow-plain
+  );
+  --sl-itslearning-color-border-disabled: var(--sl-itslearning-color-foreground-disabled);
+  --sl-itslearning-color-border-focused: var(--sl-itslearning-color-border-accent-blue-plain);
+  --sl-itslearning-color-border-info-bold: var(--sl-itslearning-color-border-accent-blue-bold);
+  --sl-itslearning-color-border-info-plain: var(--sl-itslearning-color-border-accent-blue-plain);
+  --sl-itslearning-color-border-info-subtle: var(--sl-itslearning-color-background-info-subtle);
+  --sl-itslearning-color-border-input: var(--sl-itslearning-color-border-bold);
+  --sl-itslearning-color-border-inverted: var(--sl-itslearning-color-palette-grey-000);
+  --sl-itslearning-color-border-negative-bold: var(--sl-itslearning-color-border-accent-red-bold);
+  --sl-itslearning-color-border-negative-plain: var(--sl-itslearning-color-border-accent-red-plain);
+  --sl-itslearning-color-border-neutral-bold: var(--sl-itslearning-color-border-accent-grey-bold);
+  --sl-itslearning-color-border-neutral-plain: var(--sl-itslearning-color-border-accent-grey-plain);
+  --sl-itslearning-color-border-neutral-subtle: var(
+    --sl-itslearning-color-background-accent-grey-subtle
+  );
+  --sl-itslearning-color-border-plain: var(--sl-itslearning-color-border-accent-grey-plain);
+  --sl-itslearning-color-border-positive-bold: var(--sl-itslearning-color-border-accent-green-bold);
+  --sl-itslearning-color-border-positive-plain: var(
+    --sl-itslearning-color-border-accent-green-plain
+  );
+  --sl-itslearning-color-border-primary-bold: var(--sl-itslearning-color-border-accent-green-bold);
+  --sl-itslearning-color-border-primary-plain: var(
+    --sl-itslearning-color-border-accent-green-plain
+  );
+  --sl-itslearning-color-border-secondary-bold: var(
+    --sl-itslearning-color-border-accent-purple-bold
+  );
+  --sl-itslearning-color-border-secondary-plain: var(
+    --sl-itslearning-color-border-accent-purple-plain
+  );
+  --sl-itslearning-color-border-selected: var(--sl-itslearning-color-background-accent-purple-bold);
+  --sl-itslearning-color-foreground-accent-blue-bold: var(--sl-itslearning-color-palette-blue-800);
+  --sl-itslearning-color-foreground-accent-blue-on-bold: var(
+    --sl-itslearning-color-foreground-inverted-plain
+  );
+  --sl-itslearning-color-foreground-accent-blue-plain: var(--sl-itslearning-color-palette-blue-700);
+  --sl-itslearning-color-foreground-accent-green-bold: var(
+    --sl-itslearning-color-palette-green-800
+  );
+  --sl-itslearning-color-foreground-accent-green-on-bold: var(
+    --sl-itslearning-color-foreground-inverted-plain
+  );
+  --sl-itslearning-color-foreground-accent-green-plain: var(
+    --sl-itslearning-color-palette-green-600
+  );
+  --sl-itslearning-color-foreground-accent-grey-bold: var(--sl-itslearning-color-palette-grey-900);
+  --sl-itslearning-color-foreground-accent-grey-faint: var(--sl-itslearning-color-palette-grey-600);
+  --sl-itslearning-color-foreground-accent-grey-on-bold: var(
+    --sl-itslearning-color-foreground-bold
+  );
+  --sl-itslearning-color-foreground-accent-grey-on-inverted: var(
+    --sl-itslearning-color-foreground-bold
+  );
+  --sl-itslearning-color-foreground-accent-grey-plain: var(--sl-itslearning-color-palette-grey-800);
+  --sl-itslearning-color-foreground-accent-grey-subtle: var(
+    --sl-itslearning-color-palette-grey-700
+  );
+  --sl-itslearning-color-foreground-accent-grey-subtlest: var(
+    --sl-itslearning-color-palette-grey-600
+  );
+  --sl-itslearning-color-foreground-accent-orange-bold: var(
+    --sl-itslearning-color-palette-orange-700
+  );
+  --sl-itslearning-color-foreground-accent-orange-on-bold: var(
+    --sl-itslearning-color-foreground-inverted-plain
+  );
+  --sl-itslearning-color-foreground-accent-orange-plain: var(
+    --sl-itslearning-color-palette-orange-600
+  );
+  --sl-itslearning-color-foreground-accent-purple-bold: var(
+    --sl-itslearning-color-palette-purple-800
+  );
+  --sl-itslearning-color-foreground-accent-purple-on-bold: var(
+    --sl-itslearning-color-foreground-inverted-plain
+  );
+  --sl-itslearning-color-foreground-accent-purple-plain: var(
+    --sl-itslearning-color-palette-purple-800
+  );
+  --sl-itslearning-color-foreground-accent-red-bold: var(--sl-itslearning-color-palette-red-700);
+  --sl-itslearning-color-foreground-accent-red-on-bold: var(
+    --sl-itslearning-color-foreground-inverted-plain
+  );
+  --sl-itslearning-color-foreground-accent-red-plain: var(--sl-itslearning-color-palette-red-500);
+  --sl-itslearning-color-foreground-accent-teal-bold: var(--sl-itslearning-color-palette-teal-700);
+  --sl-itslearning-color-foreground-accent-teal-on-bold: var(
+    --sl-itslearning-color-foreground-inverted-plain
+  );
+  --sl-itslearning-color-foreground-accent-teal-plain: var(--sl-itslearning-color-palette-teal-600);
+  --sl-itslearning-color-foreground-accent-yellow-bold: var(
+    --sl-itslearning-color-palette-yellow-700
+  );
+  --sl-itslearning-color-foreground-accent-yellow-on-bold: var(
+    --sl-itslearning-color-foreground-inverted-plain
+  );
+  --sl-itslearning-color-foreground-accent-yellow-plain: var(
+    --sl-itslearning-color-palette-yellow-700
+  );
+  --sl-itslearning-color-foreground-bold: var(--sl-itslearning-color-foreground-accent-grey-bold);
+  --sl-itslearning-color-foreground-brand: var(
+    --sl-itslearning-color-foreground-accent-purple-plain
+  );
+  --sl-itslearning-color-foreground-caution-bold: var(
+    --sl-itslearning-color-foreground-accent-yellow-bold
+  );
+  --sl-itslearning-color-foreground-caution-on-bold: var(
+    --sl-itslearning-color-foreground-accent-yellow-on-bold
+  );
+  --sl-itslearning-color-foreground-caution-plain: var(
+    --sl-itslearning-color-foreground-accent-yellow-plain
+  );
+  --sl-itslearning-color-foreground-disabled: var(--sl-itslearning-color-palette-grey-400);
+  --sl-itslearning-color-foreground-info-bold: var(
+    --sl-itslearning-color-foreground-accent-blue-bold
+  );
+  --sl-itslearning-color-foreground-info-on-bold: var(
+    --sl-itslearning-color-foreground-accent-blue-on-bold
+  );
+  --sl-itslearning-color-foreground-info-plain: var(
+    --sl-itslearning-color-foreground-accent-blue-plain
+  );
+  --sl-itslearning-color-foreground-inverted-bold: var(--sl-itslearning-color-palette-grey-000);
+  --sl-itslearning-color-foreground-inverted-on-bold: var(--sl-itslearning-color-palette-grey-900);
+  --sl-itslearning-color-foreground-inverted-plain: var(--sl-itslearning-color-palette-grey-000);
+  --sl-itslearning-color-foreground-negative-bold: var(
+    --sl-itslearning-color-foreground-accent-red-bold
+  );
+  --sl-itslearning-color-foreground-negative-on-bold: var(
+    --sl-itslearning-color-foreground-accent-red-on-bold
+  );
+  --sl-itslearning-color-foreground-negative-plain: var(
+    --sl-itslearning-color-foreground-accent-red-plain
+  );
+  --sl-itslearning-color-foreground-neutral-bold: var(
+    --sl-itslearning-color-foreground-accent-grey-bold
+  );
+  --sl-itslearning-color-foreground-neutral-on-bold: var(
+    --sl-itslearning-color-foreground-accent-grey-on-bold
+  );
+  --sl-itslearning-color-foreground-neutral-plain: var(
+    --sl-itslearning-color-foreground-accent-grey-subtlest
+  );
+  --sl-itslearning-color-foreground-plain: var(--sl-itslearning-color-foreground-accent-grey-plain);
+  --sl-itslearning-color-foreground-positive-bold: var(
+    --sl-itslearning-color-foreground-accent-green-bold
+  );
+  --sl-itslearning-color-foreground-positive-on-bold: var(
+    --sl-itslearning-color-foreground-accent-green-on-bold
+  );
+  --sl-itslearning-color-foreground-positive-plain: var(
+    --sl-itslearning-color-foreground-accent-green-plain
+  );
+  --sl-itslearning-color-foreground-primary-bold: var(
+    --sl-itslearning-color-foreground-accent-green-bold
+  );
+  --sl-itslearning-color-foreground-primary-on-bold: var(
+    --sl-itslearning-color-foreground-accent-green-on-bold
+  );
+  --sl-itslearning-color-foreground-secondary-bold: var(
+    --sl-itslearning-color-foreground-accent-purple-bold
+  );
+  --sl-itslearning-color-foreground-secondary-on-bold: var(
+    --sl-itslearning-color-foreground-accent-purple-on-bold
+  );
+  --sl-itslearning-color-foreground-selected-bold: var(
+    --sl-itslearning-color-foreground-accent-purple-bold
+  );
+  --sl-itslearning-color-foreground-selected-on-bold: var(
+    --sl-itslearning-color-foreground-accent-purple-on-bold
+  );
+  --sl-itslearning-color-foreground-selected-plain: var(
+    --sl-itslearning-color-foreground-accent-purple-plain
+  );
+  --sl-itslearning-color-foreground-subtle: var(
+    --sl-itslearning-color-foreground-accent-grey-subtle
+  );
+  --sl-itslearning-color-foreground-subtlest: var(
+    --sl-itslearning-color-foreground-accent-grey-subtlest
+  );
+  --sl-itslearning-color-link-active: var(--sl-itslearning-color-palette-blue-900);
+  --sl-itslearning-color-link-focused-active: var(--sl-itslearning-color-palette-blue-900);
+  --sl-itslearning-color-link-focused-hover: var(--sl-itslearning-color-palette-blue-800);
+  --sl-itslearning-color-link-focused-idle: var(--sl-itslearning-color-palette-blue-700);
+  --sl-itslearning-color-link-hover: var(--sl-itslearning-color-palette-blue-800);
+  --sl-itslearning-color-link-idle: var(--sl-itslearning-color-palette-blue-700);
+  --sl-itslearning-color-link-inverted-active: var(--sl-itslearning-color-palette-blue-150);
+  --sl-itslearning-color-link-inverted-hover: var(--sl-itslearning-color-palette-blue-100);
+  --sl-itslearning-color-link-inverted-idle: var(--sl-itslearning-color-foreground-inverted-plain);
+  --sl-itslearning-color-link-muted-active: var(--sl-itslearning-color-link-active);
+  --sl-itslearning-color-link-muted-hover: var(--sl-itslearning-color-link-hover);
+  --sl-itslearning-color-link-muted-idle: var(
+    --sl-itslearning-color-foreground-accent-grey-subtlest
+  );
+  --sl-itslearning-color-palette-blue-050: #ecf8ff;
+  --sl-itslearning-color-palette-blue-100: #d6eaff;
+  --sl-itslearning-color-palette-blue-150: #c6e0fc;
+  --sl-itslearning-color-palette-blue-200: #add2f7;
+  --sl-itslearning-color-palette-blue-300: #7dafe4;
+  --sl-itslearning-color-palette-blue-400: #5497db;
+  --sl-itslearning-color-palette-blue-500: #2879c7;
+  --sl-itslearning-color-palette-blue-600: #0055b0;
+  --sl-itslearning-color-palette-blue-700: #00458f;
+  --sl-itslearning-color-palette-blue-800: #0f3b73;
+  --sl-itslearning-color-palette-blue-900: #142c4e;
+  --sl-itslearning-color-palette-green-050: #e0f1eb;
+  --sl-itslearning-color-palette-green-100: #c0e2d6;
+  --sl-itslearning-color-palette-green-150: #a0d3c1;
+  --sl-itslearning-color-palette-green-200: #80c4ac;
+  --sl-itslearning-color-palette-green-300: #60b597;
+  --sl-itslearning-color-palette-green-400: #40a683;
+  --sl-itslearning-color-palette-green-500: #20976e;
+  --sl-itslearning-color-palette-green-600: #008859;
+  --sl-itslearning-color-palette-green-700: #00714a;
+  --sl-itslearning-color-palette-green-800: #005a3b;
+  --sl-itslearning-color-palette-green-900: #00432c;
+  --sl-itslearning-color-palette-grey-000: #ffffff;
+  --sl-itslearning-color-palette-grey-050: #f9f9f9;
+  --sl-itslearning-color-palette-grey-100: #f4f4f4;
+  --sl-itslearning-color-palette-grey-150: #f2f2f2;
+  --sl-itslearning-color-palette-grey-200: #ececec;
+  --sl-itslearning-color-palette-grey-300: #e1e1e1;
+  --sl-itslearning-color-palette-grey-400: #cfcfcf;
+  --sl-itslearning-color-palette-grey-500: #9b9b9b;
+  --sl-itslearning-color-palette-grey-600: #757575;
+  --sl-itslearning-color-palette-grey-700: #565656;
+  --sl-itslearning-color-palette-grey-800: #4a4a4a;
+  --sl-itslearning-color-palette-grey-900: #333333;
+  --sl-itslearning-color-palette-orange-050: #fff8ed;
+  --sl-itslearning-color-palette-orange-100: #fff0d4;
+  --sl-itslearning-color-palette-orange-150: #ffdda8;
+  --sl-itslearning-color-palette-orange-200: #ffc471;
+  --sl-itslearning-color-palette-orange-300: #ff9d33;
+  --sl-itslearning-color-palette-orange-400: #fe8211;
+  --sl-itslearning-color-palette-orange-500: #ef6707;
+  --sl-itslearning-color-palette-orange-600: #c64c08;
+  --sl-itslearning-color-palette-orange-700: #9d3d0f;
+  --sl-itslearning-color-palette-orange-800: #7e3410;
+  --sl-itslearning-color-palette-orange-900: #441706;
+  --sl-itslearning-color-palette-purple-050: #f4f2f6;
+  --sl-itslearning-color-palette-purple-100: #efebf1;
+  --sl-itslearning-color-palette-purple-150: #e9e4ec;
+  --sl-itslearning-color-palette-purple-200: #dad2df;
+  --sl-itslearning-color-palette-purple-300: #c2b5ca;
+  --sl-itslearning-color-palette-purple-400: #a997b5;
+  --sl-itslearning-color-palette-purple-500: #9179a0;
+  --sl-itslearning-color-palette-purple-600: #785f86;
+  --sl-itslearning-color-palette-purple-700: #5d4a68;
+  --sl-itslearning-color-palette-purple-800: #42354a;
+  --sl-itslearning-color-palette-purple-900: #28202d;
+  --sl-itslearning-color-palette-red-050: #fdf3f3;
+  --sl-itslearning-color-palette-red-100: #fbe5e5;
+  --sl-itslearning-color-palette-red-150: #f9cfcf;
+  --sl-itslearning-color-palette-red-200: #f4adad;
+  --sl-itslearning-color-palette-red-300: #ec7d7d;
+  --sl-itslearning-color-palette-red-400: #e05353;
+  --sl-itslearning-color-palette-red-500: #cf4444;
+  --sl-itslearning-color-palette-red-600: #ab2a2a;
+  --sl-itslearning-color-palette-red-700: #8e2626;
+  --sl-itslearning-color-palette-red-800: #762626;
+  --sl-itslearning-color-palette-red-900: #400f0f;
+  --sl-itslearning-color-palette-teal-050: #eefffc;
+  --sl-itslearning-color-palette-teal-100: #c5fffa;
+  --sl-itslearning-color-palette-teal-150: #8bfff5;
+  --sl-itslearning-color-palette-teal-200: #4afef0;
+  --sl-itslearning-color-palette-teal-300: #15ece2;
+  --sl-itslearning-color-palette-teal-400: #00d0c9;
+  --sl-itslearning-color-palette-teal-500: #00a8a5;
+  --sl-itslearning-color-palette-teal-600: #008080;
+  --sl-itslearning-color-palette-teal-700: #066769;
+  --sl-itslearning-color-palette-teal-800: #0a5757;
+  --sl-itslearning-color-palette-teal-900: #003235;
+  --sl-itslearning-color-palette-yellow-050: #fff9ee;
+  --sl-itslearning-color-palette-yellow-100: #fff5e3;
+  --sl-itslearning-color-palette-yellow-150: #ffedcd;
+  --sl-itslearning-color-palette-yellow-200: #ffdb98;
+  --sl-itslearning-color-palette-yellow-300: #f2c77e;
+  --sl-itslearning-color-palette-yellow-400: #e4af50;
+  --sl-itslearning-color-palette-yellow-500: #d1901f;
+  --sl-itslearning-color-palette-yellow-600: #b67d1b;
+  --sl-itslearning-color-palette-yellow-700: #7e5a22;
+  --sl-itslearning-color-palette-yellow-800: #684c21;
+  --sl-itslearning-color-palette-yellow-900: #4c391d;
+  --sl-itslearning-color-skeleton-plain: var(--sl-itslearning-color-palette-grey-100);
+  --sl-itslearning-color-skeleton-subtle: var(--sl-itslearning-color-palette-grey-050);
+  --sl-itslearning-elevation-surface-base-default: var(--sl-itslearning-color-palette-grey-000);
+  --sl-itslearning-elevation-surface-raised-alternative: var(
+    --sl-itslearning-color-palette-grey-100
+  );
+  --sl-itslearning-elevation-surface-raised-default: var(--sl-itslearning-color-palette-grey-000);
+  --sl-itslearning-elevation-surface-raised-inverted: var(--sl-itslearning-color-palette-grey-900);
+  --sl-itslearning-elevation-surface-raised-primary: var(
+    --sl-itslearning-color-background-accent-green-bold
+  );
+  --sl-itslearning-elevation-surface-raised-sunken: var(--sl-itslearning-color-palette-grey-050);
+  --sl-itslearning-elevation-surface-shadow: var(--sl-itslearning-color-palette-grey-900);
+  --sl-itslearning-opacity-bold: 1;
+  --sl-itslearning-opacity-interactive-bold-active: 0.4;
+  --sl-itslearning-opacity-interactive-bold-hover: 0.2;
+  --sl-itslearning-opacity-interactive-bold-idle: 0;
+  --sl-itslearning-opacity-interactive-plain-active: 0.25;
+  --sl-itslearning-opacity-interactive-plain-hover: 0.15;
+  --sl-itslearning-opacity-interactive-plain-idle: 0;
+  --sl-itslearning-opacity-interactive-reversed-active: 1;
+  --sl-itslearning-opacity-interactive-reversed-hover: 0.9;
+  --sl-itslearning-opacity-interactive-reversed-idle: 0.8;
+  --sl-itslearning-opacity-moderate: 0.8;
+  --sl-itslearning-opacity-muted: 0;
+  --sl-itslearning-opacity-subtle: 0.2;
+  --sl-itslearning-opacity-subtlest: 0.1;
+  --sl-itslearning-theme-name: Its Learning Light;
 }

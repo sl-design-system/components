@@ -29,8 +29,8 @@
       "dir": "./export/slds-legacy"
     },
     "core-css": {
-      "format": "css",
       "source": "core",
+      "use": { "id": "5064a0ae-3760-4904-a815-43568a94637a", "name": "core-css" },
       "dir": "./export/core-css"
     }
   }

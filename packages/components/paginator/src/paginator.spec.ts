@@ -215,13 +215,13 @@ describe('sl-paginator', () => {
 
       menuItem?.click();
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
 
       expect(el.page).to.equal(11);
       expect(currentPage?.textContent?.trim()).to.equal('12');
-      expect(el.renderRoot.activeElement).to.equal(currentPage);
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(currentPage);
     });
 
     it('should update the current page when the page property is changed', async () => {

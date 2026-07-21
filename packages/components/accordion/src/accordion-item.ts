@@ -184,17 +184,21 @@ export class AccordionItem extends LitElement {
       details?.setAttribute('open', '');
     }
 
-    details.addEventListener(
-      'animationend',
-      () => {
-        details.classList.remove(state);
+    const onAnimationEnd = (event: AnimationEvent): void => {
+      // Ignore bubbled animation events from nested content (e.g. date pickers, CDK overlays).
+      if (event.target !== wrapper || event.animationName !== 'content-expand') {
+        return;
+      }
 
-        if (state === 'closing') {
-          details.removeAttribute('open');
-        }
-      },
-      { once: true }
-    );
+      details.removeEventListener('animationend', onAnimationEnd);
+      details.classList.remove(state);
+
+      if (state === 'closing') {
+        details.removeAttribute('open');
+      }
+    };
+
+    details.addEventListener('animationend', onAnimationEnd);
 
     requestAnimationFrame(() => details.classList.add(state));
   }

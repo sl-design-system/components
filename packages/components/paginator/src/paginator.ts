@@ -391,14 +391,19 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   async #focusPageButton(page: number): Promise<void> {
     await this.updateComplete;
     await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
-    const buttons = Array.from(this.renderRoot.querySelectorAll<Button>('sl-button.page')),
-      findVisible = (target: number): Button | undefined =>
-        buttons.find(
-          button =>
-            button.textContent?.trim() === String(target + 1) && button.style.display !== 'none'
-        );
 
-    (findVisible(this.page) ?? (page !== this.page ? findVisible(page) : undefined))?.focus();
+    const current = this.renderRoot.querySelector<Button>('sl-button.current');
+
+    if (current && current.style.display !== 'none') {
+      current.focus();
+      return;
+    }
+
+    Array.from(this.renderRoot.querySelectorAll<Button>('sl-button.page'))
+      .find(
+        button => button.textContent?.trim() === String(page + 1) && button.style.display !== 'none'
+      )
+      ?.focus();
   }
 
   #onPrevious() {

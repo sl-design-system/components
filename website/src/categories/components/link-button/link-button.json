@@ -1,11 +1,11 @@
 {
   "layout": "categories/components/components.njk",
-  "tags": "date-field",
+  "tags": "link-button",
   "componentStatus": "draft",
   "componentTagName": [
     {
-      "name": "Date field",
-      "selector": "sl-date-field"
+      "name": "Link button",
+      "selector": "sl-link-button"
     }
   ]
 }

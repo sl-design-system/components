@@ -1,8 +1,8 @@
 ---
-title: Date field
-description: The Date Field allows users to enter a date by typing or by picking it from an integrated calendar popover. It supports configurable min/max constraints, locale-aware formatting, and a select-only mode that disables free typing.
-componentType: form
-shortDescription: Date input with integrated calendar popover and validation.
+title: Link button
+description: A Link Button is used to navigate users to another page, view, or resource. Unlike standard buttons that trigger an action, link buttons facilitate navigation within or outside the product..
+componentType: actions
+shortDescription: A Link Button is used to navigate users to internal or external destinations.
 layout: "categories/components/components.njk"
 tags: component
 packageName: date-field

@@ -68,7 +68,7 @@ Both shapes support the same variants, sizes, states, and behaviors as the stand
 | Situation | Icon |
 | --- | --- |
 | Standard internal navigation in the same tab | No icon |
-| Internal navigation in the same tab with additional emphasis | Arrow right (show icon) |
+| Internal navigation in the same tab with additional emphasis | ```html <sl-icon name="arrow-right"></sl-icon>``` |
 | Internal navigation in a new tab | Open in new tab icon (show icon) |
 | External navigation | External link icon (show icon) |
 

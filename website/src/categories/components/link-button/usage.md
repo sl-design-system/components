@@ -8,13 +8,7 @@ eleventyNavigation:
 
 <section class="no-heading">
 
-<div class="ds-example">
--
-</div>
-
-<div class="ds-code">
--
-</div>
+Example
 
 </section>
 
@@ -68,9 +62,9 @@ Both shapes support the same variants, sizes, states, and behaviors as the stand
 | Situation | Icon |
 | --- | --- |
 | Standard internal navigation in the same tab | No icon |
-| Internal navigation in the same tab with additional emphasis | ```html <sl-icon name="arrow-right"></sl-icon>``` |
-| Internal navigation in a new tab | Open in new tab icon (show icon) |
-| External navigation | External link icon (show icon) |
+| Internal navigation in the same tab with additional emphasis | <sl-icon name="arrow-right"></sl-icon> |
+| Internal navigation in a new tab | <sl-icon name="square-arrow-up-right"></sl-icon> |
+| External navigation | <sl-icon name="arrow-up-right-from-square"></sl-icon> |
 
 {.ds-table .ds-table-align-top}
 
@@ -81,8 +75,6 @@ Both shapes support the same variants, sizes, states, and behaviors as the stand
 ## Anatomy
 
 <div class="ds-table-wrapper">
-
-{{ 'components/button/sl-buttons-anatomy.svg' | svgImage }}
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
@@ -110,10 +102,15 @@ These states describe what users see when the Link button is shown.
 
 </section>
 
+
+<section>
+
 ## Content guidelines
 * Use concise, descriptive labels.
 * Avoid generic labels such as "Click here" or "Read more" without context.
 * Ensure the destination is clear from the link text.
+
+</section>
 
 <section>
 

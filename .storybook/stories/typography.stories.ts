@@ -232,7 +232,7 @@ export const TypographyStyles: Story = {
       )}"
       @click="${(e: MouseEvent) => {
         const target = e.target as HTMLElement;
-        const cell = target.closest('[data-user-group] > div');
+        const cell = target.closest('[data-User-Group] > div');
         if (cell) {
           const element = cell.querySelector('*') as HTMLElement;
           if (element) {
@@ -269,15 +269,15 @@ export const TypographyStyles: Story = {
         )}
       </div>
 
-      <div data-user-group="early">
+      <div data-User-Group="early">
         <sl-badge size="lg">Early reader</sl-badge>
         ${typographyStyles('early')}
       </div>
-      <div data-user-group="developing">
+      <div data-User-Group="developing">
         <sl-badge size="lg">Developing reader</sl-badge>
         ${typographyStyles('developing')}
       </div>
-      <div data-user-group="advanced">
+      <div data-User-Group="advanced">
         <sl-badge size="lg">Advanced reader</sl-badge>
         ${typographyStyles('advanced')}
       </div>

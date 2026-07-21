@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: 'The Message Beta03';
-  font-weight: 600;
+  font-weight: 500;
   src: url('./fonts/TheMessageBeta03-SemiBold.woff2') format('woff2');
 }
 
@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: 'The Message Text Beta03';
-  font-weight: 600;
+  font-weight: 500;
   src: url('./fonts/TheMessageTextBeta03-SemiBold.woff2') format('woff2');
 }
 
@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: 'The Message Text Beta03 Condensed';
-  font-weight: 600;
+  font-weight: 500;
   src: url('./fonts/TheMessageTextBeta03Condensed-SemiBold.woff2') format('woff2');
 }
 

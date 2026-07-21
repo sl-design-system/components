@@ -9,7 +9,7 @@ packageName: date-field
 storybookCategory: form
 eleventyNavigation:
   parent: Components
-  key: Date field
+  key: Link button
   status: new
 ---
 

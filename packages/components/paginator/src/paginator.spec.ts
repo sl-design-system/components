@@ -215,7 +215,8 @@ describe('sl-paginator', () => {
 
       expect(menuItem).to.exist;
       menuItem!.click();
-      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+      await el.updateComplete;
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
 

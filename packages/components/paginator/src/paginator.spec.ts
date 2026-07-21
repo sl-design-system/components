@@ -213,8 +213,8 @@ describe('sl-paginator', () => {
         item => item.textContent?.trim() === '12'
       );
 
-      menuItem?.click();
-      await el.updateComplete;
+      expect(menuItem).to.exist;
+      menuItem!.click();
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');

@@ -5,7 +5,7 @@ componentType: actions
 shortDescription: A Link Button is used to navigate users to internal or external destinations.
 layout: "categories/components/components.njk"
 tags: component
-packageName: date-field
+packageName: link-button
 storybookCategory: form
 eleventyNavigation:
   parent: Components

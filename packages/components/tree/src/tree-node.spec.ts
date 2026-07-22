@@ -113,7 +113,7 @@ describe('sl-tree-node', () => {
   describe('expandable', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node expandable .selectable=${true}>
+        <sl-tree-node expandable selectable>
           <span>Lorem</span>
         </sl-tree-node>
       `);
@@ -217,7 +217,7 @@ describe('sl-tree-node', () => {
   describe('single select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node .selectable=${true} .node=${{ hello: true }}>
+        <sl-tree-node selectable .node=${{ hello: true }}>
           <span>Lorem</span>
         </sl-tree-node>
       `);
@@ -272,7 +272,7 @@ describe('sl-tree-node', () => {
   describe('multiple select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node multiple .selectable=${true}>
+        <sl-tree-node multiple selectable>
           <span>Lorem</span>
         </sl-tree-node>
       `);
@@ -354,7 +354,7 @@ describe('sl-tree-node', () => {
   describe('not selectable', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node multiple .selectable=${false} .node=${{ hello: true }}>
+        <sl-tree-node multiple .node=${{ hello: true }}>
           <span>Lorem</span>
         </sl-tree-node>
       `);

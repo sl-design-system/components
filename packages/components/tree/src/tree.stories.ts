@@ -529,41 +529,6 @@ export const Multiple: Story = {
   }
 };
 
-export const MultipleWithoutLeafs: Story = {
-  args: {
-    dataSource: new NestedTreeDataSource(nestedData, {
-      getAriaDescription: ({ description }) => description,
-      getChildren: ({ children }) => children,
-      getId: item => item.id,
-      getLabel: ({ name }) => name,
-      isExpandable: ({ children }) => !!children,
-      // Expand the path down to "Algebra I" so its leaf nodes are visible by default.
-      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name),
-      // Only the parent nodes are selectable, the leaf nodes are not.
-      isSelectable: ({ children }) => !!children,
-      multiple: true
-    }),
-    renderer: ({ dataNode, label }: TreeDataSourceNode<NestedDataNode>) => {
-      // Only the leaf nodes have a description; other nodes use the default rendering.
-      if (!dataNode?.description) {
-        return undefined;
-      }
-
-      return html`
-        <span style="display: flex; flex-direction: column">
-          <span>${label}</span>
-          <span
-            style="color: var(--sl-color-foreground-subtlest); font: var(--sl-text-new-body-sm)">
-            ${dataNode.description}
-          </span>
-        </span>
-      `;
-    },
-    hideGuides: true,
-    maxWidth: '350px'
-  }
-};
-
 export const Overflow: Story = {
   args: {
     ...Basic.args,
@@ -603,6 +568,41 @@ export const PageScrolling: Story = {
         isSelected: ({ id }) => id === 2010
       }
     )
+  }
+};
+
+export const Selectable: Story = {
+  args: {
+    dataSource: new NestedTreeDataSource(nestedData, {
+      getAriaDescription: ({ description }) => description,
+      getChildren: ({ children }) => children,
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpandable: ({ children }) => !!children,
+      // Expand the path down to "Algebra I" so its leaf nodes are visible by default.
+      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name),
+      // Only the parent nodes are selectable, the leaf nodes are not.
+      isSelectable: ({ children }) => !!children,
+      multiple: true
+    }),
+    renderer: ({ dataNode, label }: TreeDataSourceNode<NestedDataNode>) => {
+      // Only the leaf nodes have a description; other nodes use the default rendering.
+      if (!dataNode?.description) {
+        return undefined;
+      }
+
+      return html`
+        <span style="display: flex; flex-direction: column">
+          <span
+            style="color: var(--sl-color-foreground-bold); font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);">
+            ${label}
+          </span>
+          <span style="color: var(--sl-color-foreground-subtlest)"> ${dataNode.description} </span>
+        </span>
+      `;
+    },
+    hideGuides: true,
+    maxWidth: '350px'
   }
 };
 

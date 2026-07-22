@@ -64,8 +64,12 @@ describe('sl-tree-node', () => {
       expect(el.level).to.equal(0);
     });
 
+    it('should not be selectable', () => {
+      expect(el.selectable).to.not.be.true;
+    });
+
     it('should not be selected', () => {
-      expect(el).to.have.attribute('aria-selected', 'false');
+      expect(el).not.to.have.attribute('aria-selected');
       expect(el.selected).to.not.be.true;
     });
 
@@ -109,7 +113,7 @@ describe('sl-tree-node', () => {
   describe('expandable', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node expandable>
+        <sl-tree-node expandable .selectable=${true}>
           <span>Lorem</span>
         </sl-tree-node>
       `);
@@ -213,7 +217,7 @@ describe('sl-tree-node', () => {
   describe('single select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node .node=${{ hello: true }}>
+        <sl-tree-node .selectable=${true} .node=${{ hello: true }}>
           <span>Lorem</span>
         </sl-tree-node>
       `);
@@ -268,7 +272,7 @@ describe('sl-tree-node', () => {
   describe('multiple select', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-tree-node multiple>
+        <sl-tree-node multiple .selectable=${true}>
           <span>Lorem</span>
         </sl-tree-node>
       `);

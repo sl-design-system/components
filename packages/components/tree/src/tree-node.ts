@@ -133,9 +133,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * Whether the node can be selected. When false, the node does not render a checkbox and cannot be
    * selected by the user.
    *
-   * @default true
+   * @default false
    */
-  @property({ type: Boolean }) selectable = true;
+  @property({ type: Boolean }) selectable?: boolean;
 
   /**
    * Determines whether the node is selected or not.
@@ -167,7 +167,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
      */
     this.setAttribute('role', 'row');
 
-    this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    if (this.selectable) {
+      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    }
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;

@@ -206,6 +206,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   .level=${item.level}
                   .levelGuides=${this.hideGuides ? undefined : item.levelGuides}
                   .node=${item}
+                  .selectable=${item.selectable !== false}
                   .selected=${item.selected}
                   .type=${item.type}
                   aria-controls=${ifDefined(

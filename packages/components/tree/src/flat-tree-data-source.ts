@@ -74,6 +74,7 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       getLevel: options.getLevel ?? (() => 0),
       isExpandable: options.isExpandable ?? (() => false),
       isExpanded: options.isExpanded,
+      isSelectable: options.isSelectable,
       isSelected: options.isSelected
     };
 
@@ -146,10 +147,12 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       getLevel,
       isExpandable,
       isExpanded,
+      isSelectable,
       isSelected
     } = this.#mapping;
 
-    const expandable = isExpandable(item);
+    const expandable = isExpandable(item),
+      selectable = isSelectable?.(item) ?? true;
 
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
@@ -164,7 +167,8 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       lastNodeInLevel,
       level: getLevel(item),
       parent,
-      selected: isSelected?.(item),
+      selectable,
+      selected: selectable ? isSelected?.(item) : false,
       type: 'node'
     };
 

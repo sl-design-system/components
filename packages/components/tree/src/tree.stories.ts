@@ -195,9 +195,77 @@ export const nestedData: NestedDataNode[] = [
   }
 ];
 
+export const curriculumData: NestedDataNode[] = [
+  {
+    id: 0,
+    name: 'Curriculum',
+    children: [
+      {
+        id: 1,
+        name: 'Mathematics',
+        children: [
+          {
+            id: 2,
+            name: 'Algebra I',
+            children: [
+              { id: 3, name: 'Linear Equations' },
+              { id: 4, name: 'Quadratic Functions' },
+              { id: 5, name: 'Systems of Equations' }
+            ]
+          },
+          {
+            id: 6,
+            name: 'Geometry',
+            children: [
+              { id: 7, name: 'Triangles & Angles' },
+              { id: 8, name: 'Circle Theorems' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 9,
+        name: 'Science',
+        children: [
+          {
+            id: 10,
+            name: 'Biology',
+            children: [
+              { id: 11, name: 'Cell Structure' },
+              { id: 12, name: 'Photosynthesis' }
+            ]
+          },
+          {
+            id: 13,
+            name: 'Chemistry',
+            children: [
+              { id: 14, name: 'The Periodic Table' },
+              { id: 15, name: 'Chemical Bonding' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 16,
+        name: 'Languages',
+        children: [
+          {
+            id: 17,
+            name: 'Spanish',
+            children: [
+              { id: 18, name: 'Basic Greetings' },
+              { id: 19, name: 'Verb Conjugation' }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+
 export default {
   title: 'Navigation/Tree',
-  excludeStories: ['flatData', 'nestedData'],
+  excludeStories: ['curriculumData', 'flatData', 'nestedData'],
   parameters: {
     a11y: {
       config: {
@@ -474,6 +542,23 @@ export const Multiple: Story = {
       multiple: true
     }),
     hideGuides: true
+  }
+};
+
+export const MultipleWithoutLeafs: Story = {
+  args: {
+    dataSource: new NestedTreeDataSource(curriculumData, {
+      getChildren: ({ children }) => children,
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpandable: ({ children }) => !!children,
+      isExpanded: () => true,
+      // Only the parent nodes are selectable, the leaf nodes are not.
+      isSelectable: ({ children }) => !!children,
+      multiple: true
+    }),
+    hideGuides: true,
+    maxWidth: '350px'
   }
 };
 

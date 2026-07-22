@@ -74,6 +74,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       getLabel: options.getLabel ?? (() => ''),
       isExpandable: options.isExpandable ?? (() => false),
       isExpanded: options.isExpanded,
+      isSelectable: options.isSelectable,
       isSelected: options.isSelected
     };
 
@@ -108,10 +109,12 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       getLabel,
       isExpandable,
       isExpanded,
+      isSelectable,
       isSelected
     } = this.#mapping;
 
-    const expandable = isExpandable(item);
+    const expandable = isExpandable(item),
+      selectable = isSelectable?.(item) ?? true;
 
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
@@ -126,7 +129,8 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       lastNodeInLevel,
       level: parent ? parent.level + 1 : 0,
       parent,
-      selected: isSelected?.(item),
+      selectable,
+      selected: selectable ? isSelected?.(item) : false,
       type: 'node'
     };
 

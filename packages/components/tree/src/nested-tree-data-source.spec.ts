@@ -571,10 +571,14 @@ describe('NestedTreeDataSource', () => {
   });
 
   describe('selectable', () => {
-    /**
-     * Parent (selectable) ├─ Sub A (selectable) │ ├─ Leaf 1 (not selectable) │ └─ Leaf 2 (not
-     * selectable) └─ Sub B (selectable) └─ Leaf 3 (not selectable)
-     */
+    /*
+      Parent (selectable)
+      ├─ Sub A (selectable)
+      │  ├─ Leaf 1 (not selectable)
+      │  └─ Leaf 2 (not selectable)
+      └─ Sub B (selectable)
+         └─ Leaf 3 (not selectable)
+    */
     const items: TestItem[] = [
       {
         id: 1,

@@ -1,14 +1,7 @@
-import {
-  type CSSResultGroup,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-  html
-} from 'lit';
+import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './virtual-list.scss.js';
 import { VirtualizerController } from './virtualizer-controller.js';
 
 declare global {
@@ -32,9 +25,6 @@ export type VirtualListItemRenderer<T = any> = (item: T, index: number) => Eleme
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class VirtualList<T = any> extends LitElement {
-  /** @internal */
-  static override styles: CSSResultGroup = styles;
-
   /** The virtualizer controller. */
   #virtualizer = new VirtualizerController(this, {
     count: 0,
@@ -79,6 +69,18 @@ export class VirtualList<T = any> extends LitElement {
   /** Function to render each item. */
   @property({ attribute: false }) renderItem?: VirtualListItemRenderer<T>;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (!this.style.display) {
+      this.style.display = 'block';
+    }
+  }
+
+  override createRenderRoot(): HTMLElement {
+    return this;
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -108,7 +110,8 @@ export class VirtualList<T = any> extends LitElement {
       <div part="wrapper" style="block-size: ${virtualizer.getTotalSize()}px;">
         <div
           part="container"
-          style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
+          style="display: flex; flex-direction: column; gap: ${this.gap ??
+          0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
           (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
@@ -120,6 +123,7 @@ export class VirtualList<T = any> extends LitElement {
                 <div
                   part="item"
                   data-index=${virtualItem.index}
+                  style="box-sizing: border-box; inline-size: 100%;"
                   ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>

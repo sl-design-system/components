@@ -2218,7 +2218,7 @@ describe('sl-combobox', () => {
             child.tagName.toLowerCase().includes('virtual-list')
         );
 
-      return Array.from(virtualList?.shadowRoot?.querySelectorAll('sl-option') ?? []);
+      return Array.from(virtualList?.querySelectorAll('sl-option') ?? []);
     };
 
     it('should submit index 0 for the first item in a virtual list', async () => {
@@ -2278,6 +2278,38 @@ describe('sl-combobox', () => {
 
       expect(input).to.have.attribute('aria-expanded', 'true');
       expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should expose the active virtual option to aria-activedescendant', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox .options=${options} option-label-path="label" option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await combobox.updateComplete;
+
+      await userEvent.keyboard('{ArrowDown}');
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+
+      await userEvent.keyboard('{ArrowDown}');
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      const activeDescendant = input.getAttribute('aria-activedescendant');
+
+      expect(activeDescendant).to.equal(combobox.currentItem?.id);
+      expect(document.getElementById(activeDescendant!)).to.equal(combobox.currentItem?.element);
     });
 
     it('should not select a group header when typing a group name', async () => {

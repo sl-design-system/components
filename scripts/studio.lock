@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-07-21T06:43:27Z"
+generated_at = "2026-07-22T10:46:10Z"
 cli_version = "dev"
 dependencies = []
 
@@ -14,7 +14,7 @@ dependencies = []
   source_ref_name = "typography-add"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:3387599a42528eaa23adc9872678328a9ebda35fa85aba511b8ff6eddd266371"
-  updated_at = "2026-07-21T06:43:19Z"
+  updated_at = "2026-07-22T10:45:57Z"
 
 [[exports]]
   name = "slds-legacy"
@@ -23,7 +23,7 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-07-21T06:43:27Z"
+  updated_at = "2026-07-22T10:46:10Z"
 
 [[exports]]
   name = "core-css"
@@ -33,8 +33,8 @@ dependencies = []
   source_ref_name = "typography-add"
   preset_hash = "sha256:61e7596ab4715d266462c90ab040466b4b6695424350a74ae1c45ccea1e39c42"
   output_hash = "sha256:efbede97455981821085249259a67b2e08d9aa72b05055b35f14e127b77900af"
-  updated_at = "2026-07-21T06:43:26Z"
+  updated_at = "2026-07-22T10:46:06Z"
 
 [integrity]
-  lockfile_hash = "sha256:5d15e0da020fef36ae827416fde25079b4397bf2d37afa6a9a000a10cf4f5e17"
+  lockfile_hash = "sha256:becdc13100101e03636d54e396ce91df9461df562b45eaeadb749e771ddf1707"
   algorithm = "sha256"

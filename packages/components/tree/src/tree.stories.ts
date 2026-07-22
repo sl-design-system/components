@@ -38,6 +38,7 @@ export interface FlatDataNode {
 export interface NestedDataNode {
   id: number;
   name: string;
+  description?: string;
   children?: NestedDataNode[];
 }
 
@@ -152,7 +153,7 @@ export const flatData: FlatDataNode[] = [
   }
 ];
 
-export const curriculumData: NestedDataNode[] = [
+export const nestedData: NestedDataNode[] = [
   {
     id: 0,
     name: 'Curriculum',
@@ -165,17 +166,33 @@ export const curriculumData: NestedDataNode[] = [
             id: 2,
             name: 'Algebra I',
             children: [
-              { id: 3, name: 'Linear Equations' },
-              { id: 4, name: 'Quadratic Functions' },
-              { id: 5, name: 'Systems of Equations' }
+              {
+                id: 3,
+                name: 'Linear Equations',
+                description: 'Solving equations of the first degree'
+              },
+              {
+                id: 4,
+                name: 'Quadratic Functions',
+                description: 'Parabolas and the quadratic formula'
+              },
+              {
+                id: 5,
+                name: 'Systems of Equations',
+                description: 'Solving multiple equations at once'
+              }
             ]
           },
           {
             id: 6,
             name: 'Geometry',
             children: [
-              { id: 7, name: 'Triangles & Angles' },
-              { id: 8, name: 'Circle Theorems' }
+              {
+                id: 7,
+                name: 'Triangles & Angles',
+                description: 'Angle sums and triangle congruence'
+              },
+              { id: 8, name: 'Circle Theorems', description: 'Chords, tangents and arcs' }
             ]
           }
         ]
@@ -188,16 +205,24 @@ export const curriculumData: NestedDataNode[] = [
             id: 10,
             name: 'Biology',
             children: [
-              { id: 11, name: 'Cell Structure' },
-              { id: 12, name: 'Photosynthesis' }
+              { id: 11, name: 'Cell Structure', description: 'Organelles and their functions' },
+              {
+                id: 12,
+                name: 'Photosynthesis',
+                description: 'How plants convert light into energy'
+              }
             ]
           },
           {
             id: 13,
             name: 'Chemistry',
             children: [
-              { id: 14, name: 'The Periodic Table' },
-              { id: 15, name: 'Chemical Bonding' }
+              {
+                id: 14,
+                name: 'The Periodic Table',
+                description: 'Elements, groups and periods'
+              },
+              { id: 15, name: 'Chemical Bonding', description: 'Ionic and covalent bonds' }
             ]
           }
         ]
@@ -210,8 +235,8 @@ export const curriculumData: NestedDataNode[] = [
             id: 17,
             name: 'Spanish',
             children: [
-              { id: 18, name: 'Basic Greetings' },
-              { id: 19, name: 'Verb Conjugation' }
+              { id: 18, name: 'Basic Greetings', description: 'Everyday words and phrases' },
+              { id: 19, name: 'Verb Conjugation', description: 'Present tense regular verbs' }
             ]
           }
         ]
@@ -222,7 +247,7 @@ export const curriculumData: NestedDataNode[] = [
 
 export default {
   title: 'Navigation/Tree',
-  excludeStories: ['curriculumData', 'flatData'],
+  excludeStories: ['flatData', 'nestedData'],
   parameters: {
     a11y: {
       config: {
@@ -359,7 +384,7 @@ export const HideGuides: Story = {
 
 export const Icons: Story = {
   args: {
-    dataSource: new NestedTreeDataSource(curriculumData, {
+    dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
       getIcon: ({ children }, expanded) =>
         children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
@@ -391,7 +416,7 @@ export const Filter: Story = {
     };
 
     const createDataSource = (filter?: string) => {
-      const data = filter ? filterTree(curriculumData, new RegExp(filter, 'i')) : curriculumData;
+      const data = filter ? filterTree(nestedData, new RegExp(filter, 'i')) : nestedData;
 
       return new NestedTreeDataSource(data, {
         getChildren: ({ children }) => children,
@@ -489,7 +514,7 @@ export const LazyLoad: Story = {
 
 export const Multiple: Story = {
   args: {
-    dataSource: new NestedTreeDataSource(curriculumData, {
+    dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
       getIcon: ({ children }, expanded) =>
         children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
@@ -506,7 +531,8 @@ export const Multiple: Story = {
 
 export const MultipleWithoutLeafs: Story = {
   args: {
-    dataSource: new NestedTreeDataSource(curriculumData, {
+    dataSource: new NestedTreeDataSource(nestedData, {
+      getAriaDescription: ({ description }) => description,
       getChildren: ({ children }) => children,
       getId: item => item.id,
       getLabel: ({ name }) => name,
@@ -516,6 +542,22 @@ export const MultipleWithoutLeafs: Story = {
       isSelectable: ({ children }) => !!children,
       multiple: true
     }),
+    renderer: ({ dataNode, label }: TreeDataSourceNode<NestedDataNode>) => {
+      // Only the leaf nodes have a description; other nodes use the default rendering.
+      if (!dataNode?.description) {
+        return undefined;
+      }
+
+      return html`
+        <span style="display: flex; flex-direction: column">
+          <span>${label}</span>
+          <span
+            style="color: var(--sl-color-foreground-subtlest); font: var(--sl-text-new-body-sm)">
+            ${dataNode.description}
+          </span>
+        </span>
+      `;
+    },
     hideGuides: true,
     maxWidth: '350px'
   }
@@ -598,7 +640,7 @@ export const Skeleton: Story = {
 
 export const Sorting: Story = {
   render: () => {
-    const ds = new NestedTreeDataSource(curriculumData, {
+    const ds = new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
       getIcon: ({ children }, expanded) =>
         children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',

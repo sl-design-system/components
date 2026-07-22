@@ -600,7 +600,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     // Only selectable children influence the selected/indeterminate state of the parent.
-    const selectableChildren = node.children.filter(child => child.selectable !== false);
+    const selectableChildren = node.children.filter(child => !!child.selectable);
 
     // If a node has no selectable children (for example a node whose only children are
     // non-selectable leaf nodes), its selection state is independent of its children.

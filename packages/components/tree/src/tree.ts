@@ -203,11 +203,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   ?indeterminate=${item.indeterminate}
                   ?last-node-in-level=${item.lastNodeInLevel}
                   ?multiple=${this.dataSource?.multiple}
+                  ?selectable=${item.selectable}
+                  ?selected=${item.selected}
                   .level=${item.level}
                   .levelGuides=${this.hideGuides ? undefined : item.levelGuides}
                   .node=${item}
-                  .selectable=${item.selectable !== false}
-                  .selected=${item.selected}
                   .type=${item.type}
                   aria-controls=${ifDefined(
                     item.children?.map(child => String(child.id)).join(' ')

@@ -1,8 +1,28 @@
 import {
+  faAtom,
+  faCalculator,
+  faChartArea,
+  faChartLine,
+  faCircle,
+  faComments,
+  faDna,
+  faDrawPolygon,
   faFileLines,
+  faFlask,
   faFolder,
   faFolderOpen,
+  faGraduationCap,
+  faHand,
+  faLanguage,
+  faLeaf,
+  faLink,
+  faListOl,
+  faMicroscope,
   faPen,
+  faShapes,
+  faSpellCheck,
+  faSquareRootVariable,
+  faTableCells,
   faTrash
 } from '@fortawesome/pro-regular-svg-icons';
 import { Badge } from '@sl-design-system/badge';
@@ -51,7 +71,33 @@ export interface LazyNestedDataNode {
     | Array<Promise<LazyNestedDataNode>>;
 }
 
-Icon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
+Icon.register(
+  faAtom,
+  faCalculator,
+  faChartArea,
+  faChartLine,
+  faCircle,
+  faComments,
+  faDna,
+  faDrawPolygon,
+  faFileLines,
+  faFlask,
+  faFolder,
+  faFolderOpen,
+  faGraduationCap,
+  faHand,
+  faLanguage,
+  faLeaf,
+  faLink,
+  faListOl,
+  faMicroscope,
+  faPen,
+  faShapes,
+  faSpellCheck,
+  faSquareRootVariable,
+  faTableCells,
+  faTrash
+);
 
 export const flatData: FlatDataNode[] = [
   {
@@ -382,12 +428,34 @@ export const HideGuides: Story = {
   }
 };
 
+const curriculumIcons: Record<string, string> = {
+  Curriculum: 'far-graduation-cap',
+  Mathematics: 'far-calculator',
+  'Algebra I': 'far-square-root-variable',
+  'Linear Equations': 'far-chart-line',
+  'Quadratic Functions': 'far-chart-area',
+  'Systems of Equations': 'far-list-ol',
+  Geometry: 'far-draw-polygon',
+  'Triangles & Angles': 'far-shapes',
+  'Circle Theorems': 'far-circle',
+  Science: 'far-flask',
+  Biology: 'far-dna',
+  'Cell Structure': 'far-microscope',
+  Photosynthesis: 'far-leaf',
+  Chemistry: 'far-atom',
+  'The Periodic Table': 'far-table-cells',
+  'Chemical Bonding': 'far-link',
+  Languages: 'far-language',
+  Spanish: 'far-comments',
+  'Basic Greetings': 'far-hand',
+  'Verb Conjugation': 'far-spell-check'
+};
+
 export const Icons: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ children }, expanded) =>
-        children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
+      getIcon: ({ name }) => curriculumIcons[name] ?? 'far-file-lines',
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
@@ -420,8 +488,7 @@ export const Filter: Story = {
 
       return new NestedTreeDataSource(data, {
         getChildren: ({ children }) => children,
-        getIcon: ({ children }, expanded) =>
-          children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
+        getIcon: ({ name }) => curriculumIcons[name] ?? 'far-file-lines',
         getId: item => item.id,
         getLabel: ({ name }) => name,
         isExpandable: ({ children }) => !!children,
@@ -516,8 +583,6 @@ export const Multiple: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ children }, expanded) =>
-        children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpanded: ({ name }) => ['Curriculum', 'Science', 'Biology'].includes(name),
@@ -643,8 +708,6 @@ export const Sorting: Story = {
   render: () => {
     const ds = new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ children }, expanded) =>
-        children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,

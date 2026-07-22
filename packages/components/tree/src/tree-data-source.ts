@@ -283,7 +283,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** Selects the given node and any children. */
   select(node: TreeDataSourceNode<T>, emitEvent = true): void {
     // Nodes that aren't selectable cannot be selected.
-    if (node.selectable === false) {
+    if (!node.selectable) {
       return;
     }
 
@@ -299,7 +299,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       // Select all selectable children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {
-          if (node.selectable !== false) {
+          if (node.selectable) {
             node.indeterminate = false;
             node.selected = true;
             this.#selection.add(node);
@@ -362,7 +362,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** Selects all selectable nodes in the tree. */
   selectAll(): void {
     const traverse = (node: TreeDataSourceNode<T>): void => {
-      if (node.selectable !== false) {
+      if (node.selectable) {
         node.indeterminate = false;
         node.selected = true;
         this.#selection.add(node);

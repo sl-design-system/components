@@ -152,49 +152,6 @@ export const flatData: FlatDataNode[] = [
   }
 ];
 
-export const nestedData: NestedDataNode[] = [
-  {
-    id: -1,
-    name: 'components',
-    children: [
-      {
-        id: 0,
-        name: 'textarea',
-        children: [{ id: 1, name: 'package.json' }]
-      },
-      {
-        id: 2,
-        name: 'tooltip',
-        children: [{ id: 3, name: 'package.json' }]
-      },
-      {
-        id: 4,
-        name: 'tree',
-        children: [
-          {
-            id: 5,
-            name: 'src',
-            children: [
-              { id: 6, name: 'flat-tree-model.ts' },
-              { id: 7, name: 'nested-tree-model.ts' },
-              { id: 8, name: 'tree-model.ts' },
-              { id: 9, name: 'tree-node.scss' },
-              { id: 10, name: 'tree-node.ts' },
-              { id: 11, name: 'tree.ts' },
-              { id: 12, name: 'utils.ts' }
-            ]
-          },
-          { id: 13, name: 'index.ts' },
-          { id: 14, name: 'package.json' },
-          { id: 15, name: 'register.ts' }
-        ]
-      },
-      { id: 16, name: 'eslint.config.mjs' },
-      { id: 17, name: 'stylelint.config.mjs' }
-    ]
-  }
-];
-
 export const curriculumData: NestedDataNode[] = [
   {
     id: 0,
@@ -265,7 +222,7 @@ export const curriculumData: NestedDataNode[] = [
 
 export default {
   title: 'Navigation/Tree',
-  excludeStories: ['curriculumData', 'flatData', 'nestedData'],
+  excludeStories: ['curriculumData', 'flatData'],
   parameters: {
     a11y: {
       config: {
@@ -402,14 +359,14 @@ export const HideGuides: Story = {
 
 export const Icons: Story = {
   args: {
-    dataSource: new NestedTreeDataSource(nestedData, {
+    dataSource: new NestedTreeDataSource(curriculumData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+      getIcon: ({ children }, expanded) =>
+        children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
-      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name)
+      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name)
     })
   }
 };
@@ -434,16 +391,18 @@ export const Filter: Story = {
     };
 
     const createDataSource = (filter?: string) => {
-      const data = filter ? filterTree(nestedData, new RegExp(filter, 'i')) : nestedData;
+      const data = filter ? filterTree(curriculumData, new RegExp(filter, 'i')) : curriculumData;
 
       return new NestedTreeDataSource(data, {
         getChildren: ({ children }) => children,
-        getIcon: ({ name }, expanded) =>
-          name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+        getIcon: ({ children }, expanded) =>
+          children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
         getId: item => item.id,
         getLabel: ({ name }) => name,
         isExpandable: ({ children }) => !!children,
-        isExpanded: filter ? () => true : ({ name }) => ['components', 'tree', 'src'].includes(name)
+        isExpanded: filter
+          ? () => true
+          : ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name)
       });
     };
 
@@ -530,15 +489,15 @@ export const LazyLoad: Story = {
 
 export const Multiple: Story = {
   args: {
-    dataSource: new NestedTreeDataSource(nestedData, {
+    dataSource: new NestedTreeDataSource(curriculumData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+      getIcon: ({ children }, expanded) =>
+        children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
       getId: item => item.id,
       getLabel: ({ name }) => name,
-      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name),
+      isExpanded: ({ name }) => ['Curriculum', 'Science', 'Biology'].includes(name),
       isExpandable: ({ children }) => !!children,
-      isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
+      isSelected: ({ name }) => ['Cell Structure', 'Photosynthesis'].includes(name),
       multiple: true
     }),
     hideGuides: true
@@ -639,14 +598,14 @@ export const Skeleton: Story = {
 
 export const Sorting: Story = {
   render: () => {
-    const ds = new NestedTreeDataSource(nestedData, {
+    const ds = new NestedTreeDataSource(curriculumData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+      getIcon: ({ children }, expanded) =>
+        children ? `far-folder${expanded ? '-open' : ''}` : 'far-file-lines',
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
-      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name)
+      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name)
     });
 
     ds.setSort('name', 'asc');

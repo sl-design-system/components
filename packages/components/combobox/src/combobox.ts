@@ -128,6 +128,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** Indicates if the component is rendering for the first time. */
   #isInitialRender = true;
 
+  /** ID of a pending aria-activedescendant update after virtual list scrolling. */
+  #pendingActiveDescendantFrame?: number;
+
   /** Message element for when filtering results did not yield any results. */
   #noMatch?: NoMatch;
 
@@ -339,6 +342,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#cancelPendingActiveDescendantUpdate();
 
     super.disconnectedCallback();
   }
@@ -1514,47 +1518,88 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   ): void {
     if (this.currentItem) {
       this.currentItem.current = false;
-      this.input.removeAttribute('aria-activedescendant');
 
-      // Clear from tracked element (works for virtual list elements in shadow root)
       this.currentItem.element?.removeAttribute('current');
-      // Also try querySelector for non-virtual case as fallback
       this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 
     if (!option || !option.visible) {
       this.currentItem = undefined;
+      this.#cancelPendingActiveDescendantUpdate();
+      this.input.removeAttribute('aria-activedescendant');
       return;
     }
 
     this.currentItem = option;
     if (this.currentItem) {
+      let deferActiveDescendantUpdate = false;
+
       this.currentItem.current = visual;
 
-      this.input.setAttribute('aria-activedescendant', this.currentItem.id);
-
-      // Check if element exists and is still connected (not a stale, disconnected element from virtualization)
       if (this.currentItem.element?.isConnected) {
-        // Element exists and is connected, use scrollIntoView (avoid duplicate scrolling)
         if (visual) {
           this.currentItem.element.setAttribute('current', '');
         } else {
           this.currentItem.element.removeAttribute('current');
         }
 
-        this.currentItem.element.scrollIntoView({ block: 'start', behavior: scrollBehaviour });
+        if (!this.#isElementVisibleInListbox(this.currentItem.element)) {
+          this.currentItem.element.scrollIntoView({ block: 'nearest', behavior: scrollBehaviour });
+          deferActiveDescendantUpdate = this.#useVirtualList;
+        }
       } else {
-        // Element doesn't exist or is disconnected (virtual list), use scrollToIndex
-        // Use the listbox's items (filtered) to get the correct index
         const index = this.listbox?.items?.indexOf(this.currentItem) ?? -1;
         if (index !== -1) {
           this.listbox?.scrollToIndex(index, {
-            block: 'start',
+            block: 'nearest',
             behavior: scrollBehaviour
           });
+          deferActiveDescendantUpdate = this.#useVirtualList;
         }
       }
+
+      this.#setActiveDescendant(this.currentItem.id, deferActiveDescendantUpdate);
     }
+  }
+
+  #setActiveDescendant(id: string, defer = false): void {
+    this.#cancelPendingActiveDescendantUpdate();
+
+    if (!defer) {
+      this.input.setAttribute('aria-activedescendant', id);
+      return;
+    }
+
+    this.#pendingActiveDescendantFrame = requestAnimationFrame(() => {
+      this.#pendingActiveDescendantFrame = requestAnimationFrame(() => {
+        this.#pendingActiveDescendantFrame = undefined;
+
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        this.updateComplete.then(() => {
+          if (this.currentItem?.id === id) {
+            this.input.setAttribute('aria-activedescendant', id);
+          }
+        });
+      });
+    });
+  }
+
+  #cancelPendingActiveDescendantUpdate(): void {
+    if (this.#pendingActiveDescendantFrame !== undefined) {
+      cancelAnimationFrame(this.#pendingActiveDescendantFrame);
+      this.#pendingActiveDescendantFrame = undefined;
+    }
+  }
+
+  #isElementVisibleInListbox(element: Element): boolean {
+    if (!this.listbox) {
+      return true;
+    }
+
+    const elementRect = element.getBoundingClientRect(),
+      listboxRect = this.listbox.getBoundingClientRect();
+
+    return elementRect.top >= listboxRect.top && elementRect.bottom <= listboxRect.bottom;
   }
 
   #updateFilteredOptions(value?: string): void {

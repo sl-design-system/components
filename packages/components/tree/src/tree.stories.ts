@@ -537,7 +537,8 @@ export const MultipleWithoutLeafs: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
-      isExpanded: () => true,
+      // Expand the path down to "Algebra I" so its leaf nodes are visible by default.
+      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name),
       // Only the parent nodes are selectable, the leaf nodes are not.
       isSelectable: ({ children }) => !!children,
       multiple: true

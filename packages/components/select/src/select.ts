@@ -442,11 +442,18 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
       slotNodes.forEach(node => {
         const rootNode = node.getRootNode();
+        const scopedImportNode = (rootNode as Partial<Pick<Document, 'importNode'>>).importNode;
+        const ownerDocument = node.ownerDocument ?? document;
 
-        // Unlike node.cloneNode(), importNode() is implemented in the
-        // scoped custom element registry polyfill, so it will upgrade
-        // the cloned node if it's a custom element.
-        clones.push((rootNode as Document).importNode(node, true));
+        // Use a scoped importNode() implementation when available so cloned custom
+        // elements are upgraded; otherwise fall back to the owner document for
+        // non-document roots such as DocumentFragment.
+        const clone =
+          typeof scopedImportNode === 'function'
+            ? scopedImportNode.call(rootNode, node, true)
+            : ownerDocument.importNode(node, true);
+
+        clones.push(clone);
       });
 
       container.replaceChildren(...clones);

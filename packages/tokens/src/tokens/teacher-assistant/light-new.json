@@ -867,7 +867,7 @@
               "$description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "$value": "{teacher-assistant.color.palette.orange.200}",
+              "$value": "{teacher-assistant.color.palette.orange.150}",
               "$type": "color",
               "$description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
             },

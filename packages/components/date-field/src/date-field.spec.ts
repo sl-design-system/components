@@ -27,7 +27,7 @@ describe('sl-date-field', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
     });
 
     it('should render spinbutton spans for each date part', () => {
@@ -366,7 +366,7 @@ describe('sl-date-field', () => {
 
   describe('dialog', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
     });
 
     it('should not show calendar initially', () => {
@@ -680,7 +680,7 @@ describe('sl-date-field', () => {
     let dialog: HTMLDialogElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
 
       el.renderRoot.querySelector<HTMLElement>('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
@@ -785,7 +785,7 @@ describe('sl-date-field', () => {
     it('should use ElementInternals for form association', async () => {
       const form = await fixture(html`
         <form>
-          <sl-date-field name="date"></sl-date-field>
+          <sl-date-field aria-label="Date" name="date"></sl-date-field>
         </form>
       `);
       el = form.querySelector('sl-date-field')!;
@@ -795,13 +795,13 @@ describe('sl-date-field', () => {
     });
 
     it('should have role="group" on internals', async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
 
       expect(el.internals.role).to.equal('group');
     });
 
     it('should update validity when value changes', async () => {
-      el = await fixture(html`<sl-date-field required></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date" required></sl-date-field>`);
 
       expect(el.valid).to.be.false;
 
@@ -814,7 +814,10 @@ describe('sl-date-field', () => {
     it('should report form value as ISO string', async () => {
       const form = await fixture(html`
         <form>
-          <sl-date-field name="date" .value=${new Date(2026, 2, 14)}></sl-date-field>
+          <sl-date-field
+            aria-label="Date"
+            name="date"
+            .value=${new Date(2026, 2, 14)}></sl-date-field>
         </form>
       `);
       el = form.querySelector('sl-date-field')!;
@@ -826,7 +829,7 @@ describe('sl-date-field', () => {
 
   describe('accessibility', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
     });
 
     it('should have aria-controls on the calendar button', () => {
@@ -942,7 +945,7 @@ describe('sl-date-field', () => {
     });
 
     it('should use the padded number for aria-valuetext when month is out of range', async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
       const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
 
       // Type "0" in the month part to get month value 0 (out of range)
@@ -1061,7 +1064,7 @@ describe('sl-date-field', () => {
     let spans: NodeListOf<HTMLElement>;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
       spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
     });
 
@@ -1426,9 +1429,9 @@ describe('sl-date-field', () => {
     let spans: NodeListOf<HTMLElement>;
 
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-date-field readonly .value=${new Date(2026, 2, 14)}></sl-date-field>`
-      );
+      el = await fixture(html`
+        <sl-date-field aria-label="Date" readonly .value=${new Date(2026, 2, 14)}></sl-date-field>
+      `);
       spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
     });
 
@@ -1488,7 +1491,9 @@ describe('sl-date-field', () => {
     let spans: NodeListOf<HTMLElement>;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field .value=${new Date(2026, 2, 15)}></sl-date-field>`);
+      el = await fixture(
+        html`<sl-date-field aria-label="Date" .value=${new Date(2026, 2, 15)}></sl-date-field>`
+      );
       spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
     });
 
@@ -1604,7 +1609,7 @@ describe('sl-date-field', () => {
     });
 
     it('should show placeholder text for empty parts in select-all mode', async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
       const emptyInputs = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
 
       emptyInputs[0].focus();
@@ -1716,7 +1721,7 @@ describe('sl-date-field', () => {
     let spans: NodeListOf<HTMLElement>;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
       spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
     });
 
@@ -1815,7 +1820,9 @@ describe('sl-date-field', () => {
 
   describe('require confirmation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field require-confirmation></sl-date-field>`);
+      el = await fixture(
+        html`<sl-date-field aria-label="Date" require-confirmation></sl-date-field>`
+      );
     });
 
     it('should require confirmation', () => {
@@ -1871,7 +1878,7 @@ describe('sl-date-field', () => {
 
   describe('validation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-date-field></sl-date-field>`);
+      el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
     });
 
     it('should be invalid when value is before min date', async () => {
@@ -2017,7 +2024,7 @@ describe('sl-date-field', () => {
 
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-date-field>
+        <sl-date-field aria-label="Date">
           <sl-calendar slot="calendar" show-today></sl-calendar>
         </sl-date-field>
       `);
@@ -2135,7 +2142,7 @@ describe('sl-date-field', () => {
   describe('extra controls', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-date-field>
+        <sl-date-field aria-label="Date">
           <sl-button>Clear</sl-button>
         </sl-date-field>
       `);
@@ -2158,7 +2165,7 @@ describe('sl-date-field', () => {
       const container = await fixture(html`
         <div>
           <label for="date-field">Select Date</label>
-          <sl-date-field id="date-field"></sl-date-field>
+          <sl-date-field aria-label="Date" id="date-field"></sl-date-field>
         </div>
       `);
 

@@ -129,6 +129,9 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
         <sl-select
           @sl-change=${this.#onSelectChange}
           @sl-clear=${this.#onClear}
+          aria-label=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
+            id: 'sl.grid.filterByValue'
+          })}
           .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
             id: 'sl.grid.filterByValue'
           })}

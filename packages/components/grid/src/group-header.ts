@@ -68,6 +68,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
             <div part="checkbox">
               <sl-checkbox
                 @sl-change=${this.#onChange}
+                aria-label=${msg('Select group', { id: 'sl.grid.selectGroup' })}
                 .checked=${this.selected === 'all'}
                 .indeterminate=${this.selected === 'some'}
                 size="sm"></sl-checkbox>

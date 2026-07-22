@@ -65,7 +65,7 @@ describe('sl-switch', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-switch></sl-switch>`);
+      el = await fixture(html`<sl-switch aria-label="Test switch"></sl-switch>`);
       input = el.querySelector('input')!;
     });
 
@@ -353,7 +353,7 @@ describe('sl-switch', () => {
 
   describe('disabled', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-switch disabled></sl-switch>`);
+      el = await fixture(html`<sl-switch aria-label="Test switch" disabled></sl-switch>`);
     });
 
     it('should have an attribute', () => {
@@ -392,7 +392,7 @@ describe('sl-switch', () => {
 
   describe('checked', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-switch checked></sl-switch>`);
+      el = await fixture(html`<sl-switch aria-label="Test switch" checked></sl-switch>`);
     });
 
     it('should be on when the property is set', () => {
@@ -410,7 +410,7 @@ describe('sl-switch', () => {
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-            <sl-switch></sl-switch>
+            <sl-switch aria-label="Test switch"></sl-switch>
           </form>
         `);
 
@@ -456,7 +456,7 @@ describe('sl-switch', () => {
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-            <sl-switch checked></sl-switch>
+            <sl-switch aria-label="Test switch" checked></sl-switch>
           </form>
         `);
 

@@ -41,7 +41,7 @@ const hasLabelSlotChild = (formField, analyzer, sourceCode) => {
 
     const isLabelSlot = hasAttributeValue(child, analyzer, sourceCode, 'slot', 'label');
 
-    return isLabelSlot && hasMeaningfulContent(child);
+    return isLabelSlot && child.childNodes.some(grandchild => hasMeaningfulContent(grandchild));
   });
 };
 

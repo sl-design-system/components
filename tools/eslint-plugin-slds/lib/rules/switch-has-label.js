@@ -21,16 +21,20 @@ const hasAttributeValue = (element, analyzer, sourceCode, attributeName, expecte
   return typeof value === 'string' ? value.trim() === expectedValue : true;
 };
 
-const hasMeaningfulContent = node => {
+const hasMeaningfulContent = (node, analyzer, sourceCode) => {
   if (node.type === 'text') {
     return node.data.trim() !== '';
   }
 
   if (node.type !== 'tag') {
+    return true;
+  }
+
+  if (hasAttribute(node, analyzer, sourceCode, 'slot')) {
     return false;
   }
 
-  return node.childNodes.some(child => hasMeaningfulContent(child));
+  return node.childNodes.some(child => hasMeaningfulContent(child, analyzer, sourceCode));
 };
 
 const hasLabelSlotChild = (formField, analyzer, sourceCode) => {
@@ -41,7 +45,10 @@ const hasLabelSlotChild = (formField, analyzer, sourceCode) => {
 
     const isLabelSlot = hasAttributeValue(child, analyzer, sourceCode, 'slot', 'label');
 
-    return isLabelSlot && child.childNodes.some(grandchild => hasMeaningfulContent(grandchild));
+    return (
+      isLabelSlot &&
+      child.childNodes.some(grandchild => hasMeaningfulContent(grandchild, analyzer, sourceCode))
+    );
   });
 };
 
@@ -52,13 +59,17 @@ const hasFormFieldLabel = (formField, analyzer, sourceCode) => {
   );
 };
 
+const hasSwitchLabel = (element, analyzer, sourceCode) => {
+  return element.childNodes.some(child => hasMeaningfulContent(child, analyzer, sourceCode));
+};
+
 /** @type {import('eslint').Rule.RuleModule} */
-export const timeFieldHasLabel = {
+export const switchHasLabel = {
   meta: {
     type: 'problem',
     docs: {
       description:
-        'Ensure sl-time-field elements have aria-label/aria-labelledby or are inside a labeled sl-form-field',
+        'Ensure sl-switch elements have text content, aria-label/aria-labelledby, or are inside a labeled sl-form-field',
       recommended: true,
       url: null
     },
@@ -66,7 +77,7 @@ export const timeFieldHasLabel = {
     schema: [],
     messages: {
       missingLabel:
-        'sl-time-field elements must have aria-label or aria-labelledby, or be inside an sl-form-field with a label'
+        'sl-switch elements must have text content, aria-label or aria-labelledby, or be inside an sl-form-field with a label'
     }
   },
   create(context) {
@@ -85,11 +96,12 @@ export const timeFieldHasLabel = {
               parentMap.set(element, parent);
             }
 
-            if (element.name !== 'sl-time-field') {
+            if (element.name !== 'sl-switch') {
               return;
             }
 
             if (
+              hasSwitchLabel(element, analyzer, context.sourceCode) ||
               hasAttribute(element, analyzer, context.sourceCode, 'aria-label', 'aria-labelledby')
             ) {
               return;

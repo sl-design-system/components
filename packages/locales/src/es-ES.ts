@@ -86,7 +86,8 @@ export const templates = {
   'sl.paginator.defaultItemLabelFew': 'elementos',
   'sl.paginator.defaultItemLabelOne': 'elemento',
   'sl.paginator.defaultItemLabelOther': 'elementos',
-  'sl.paginator.itemsPerPage': str`${0} por página:`,
+  'sl.paginator.itemsPerPage': str`${0} por pgina:`,
+  'sl.paginator.itemsPerPageAriaLabel': str`${0} por pgina`,
   'sl.paginator.itemsPerPageOption': str`${0} por página`,
   'sl.paginator.itemsRange': str`${0} - ${1} de ${2}`,
   'sl.paginator.nextPage': str`Ir a la página siguiente (${0})`,
@@ -124,5 +125,6 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Introduce una hora válida.',
   'sl.timeField.valueMissing': 'Introduce una hora.',
   'sl.toolBar.showMore': 'Mostrar más',
-  'sl.tree.loadingMessage': 'Cargando'
+  'sl.tree.loadingMessage': 'Cargando',
+  'sl.grid.selectGroup': 'Select group'
 };

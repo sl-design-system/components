@@ -87,6 +87,7 @@ export const templates = {
   'sl.paginator.defaultItemLabelOne': 'item',
   'sl.paginator.defaultItemLabelOther': 'items',
   'sl.paginator.itemsPerPage': str`${0} per pagina:`,
+  'sl.paginator.itemsPerPageAriaLabel': str`${0} per pagina`,
   'sl.paginator.itemsPerPageOption': str`${0} per pagina`,
   'sl.paginator.itemsRange': str`${0} - ${1} van ${2}`,
   'sl.paginator.nextPage': str`Ga naar de volgende pagina (${0})`,
@@ -124,5 +125,6 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Voer een geldige tijd in.',
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden'
+  'sl.tree.loadingMessage': 'Laden',
+  'sl.grid.selectGroup': 'Select group'
 };

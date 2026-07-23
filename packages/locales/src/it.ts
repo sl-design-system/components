@@ -87,6 +87,7 @@ export const templates = {
   'sl.paginator.defaultItemLabelOne': 'elemento',
   'sl.paginator.defaultItemLabelOther': 'elementi',
   'sl.paginator.itemsPerPage': str`${0} per pagina:`,
+  'sl.paginator.itemsPerPageAriaLabel': str`${0} per pagina`,
   'sl.paginator.itemsPerPageOption': str`${0} per pagina`,
   'sl.paginator.itemsRange': str`${0} - ${1} di ${2}`,
   'sl.paginator.nextPage': str`Vai alla pagina successiva (${0})`,
@@ -123,5 +124,6 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Inserisci un orario valido.',
   'sl.timeField.valueMissing': 'Inserisci un orario.',
   'sl.toolBar.showMore': 'Mostra altro',
-  'sl.tree.loadingMessage': 'Caricamento'
+  'sl.tree.loadingMessage': 'Caricamento',
+  'sl.grid.selectGroup': 'Select group'
 };

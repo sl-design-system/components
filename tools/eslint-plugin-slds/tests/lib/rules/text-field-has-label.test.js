@@ -22,6 +22,15 @@ ruleTester.run('text-field-has-label', textFieldHasLabel, {
       code: 'html`<sl-form-field><sl-label slot="label">First name</sl-label><sl-text-field></sl-text-field></sl-form-field>`;'
     },
     {
+      code: 'html`<sl-form-field><sl-label>First name</sl-label><sl-text-field></sl-text-field></sl-form-field>`;'
+    },
+    {
+      code: 'html`<sl-form-field .label=${label}>${slot?.() ?? html`<sl-text-field></sl-text-field>`}</sl-form-field>`;'
+    },
+    {
+      code: 'const render = ({ label, slot }) => html`<sl-form-field .label=${label}>${slot?.()}</sl-form-field>`; const story = { args: { slot: () => html`<sl-text-field required></sl-text-field>` } }; void render; void story;'
+    },
+    {
       code: 'html`<sl-form-field label="First name"><div><sl-text-field></sl-text-field></div></sl-form-field>`;'
     },
     { code: 'const template = `<sl-text-field></sl-text-field>`;' }
@@ -45,6 +54,14 @@ ruleTester.run('text-field-has-label', textFieldHasLabel, {
     },
     {
       code: 'html`<sl-form-field><sl-label slot="label"></sl-label><sl-text-field></sl-text-field></sl-form-field>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'html`<sl-form-field>${slot?.() ?? html`<sl-text-field></sl-text-field>`}</sl-form-field>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'const render = ({ slot }) => html`<sl-form-field>${slot?.()}</sl-form-field>`; const story = { args: { slot: () => html`<sl-text-field required></sl-text-field>` } }; void render; void story;',
       errors: [{ messageId: 'missingLabel' }]
     },
     {

@@ -480,6 +480,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
   }
 
+  /* eslint-disable slds/text-field-has-label -- aria-label/aria-labelledby are forwarded to the internal input via ObserveAttributesMixin */
   override render(): TemplateResult {
     return html`
       <sl-text-field
@@ -552,6 +553,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         tabindex="-1"></slot>
     `;
   }
+  /* eslint-enable slds/text-field-has-label */
 
   /** @internal */
   override focus(options?: FocusOptions): void {

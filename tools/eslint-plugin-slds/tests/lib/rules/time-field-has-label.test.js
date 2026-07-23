@@ -22,6 +22,12 @@ ruleTester.run('time-field-has-label', timeFieldHasLabel, {
       code: 'html`<sl-form-field><sl-label slot="label">Appointment time</sl-label><sl-time-field></sl-time-field></sl-form-field>`;'
     },
     {
+      code: 'html`<sl-form-field><sl-label>Appointment time</sl-label><sl-time-field></sl-time-field></sl-form-field>`;'
+    },
+    {
+      code: 'html`<sl-form-field><sl-label slot="label">${label}</sl-label><sl-time-field></sl-time-field></sl-form-field>`;'
+    },
+    {
       code: 'html`<sl-form-field label="Appointment time"><div><sl-time-field></sl-time-field></div></sl-form-field>`;'
     },
     { code: 'const template = `<sl-time-field></sl-time-field>`;' }
@@ -45,6 +51,10 @@ ruleTester.run('time-field-has-label', timeFieldHasLabel, {
     },
     {
       code: 'html`<sl-form-field><sl-label slot="label"></sl-label><sl-time-field></sl-time-field></sl-form-field>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'html`<sl-form-field><sl-label slot="label"><span slot="infotip">More info</span></sl-label><sl-time-field></sl-time-field></sl-form-field>`;',
       errors: [{ messageId: 'missingLabel' }]
     },
     {

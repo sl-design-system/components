@@ -108,7 +108,7 @@ export default {
           z-index: 1;
         }
         sl-virtual-list {
-          [part='item'] {
+          & [part='item'] {
             align-items: center;
             border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
             display: flex;
@@ -116,25 +116,25 @@ export default {
             padding: var(--sl-size-150);
           }
 
-          [part='item-content'] {
+          & [part='item-content'] {
             flex: 1;
             outline-offset: 4px;
             outline: var(--_outline-color, transparent) solid;
             border-radius: 2px;
           }
 
-          [part='item-name'] {
+          & [part='item-name'] {
             font-weight: 600;
             margin: 0;
           }
 
-          [part='item-description'] {
+          & [part='item-description'] {
             color: var(--sl-color-neutral-600);
             font-size: 0.875rem;
             margin: 0;
           }
 
-          [part='item-id'] {
+          & [part='item-id'] {
             color: var(--sl-color-neutral-500);
             font-size: 0.75rem;
             font-family: monospace;

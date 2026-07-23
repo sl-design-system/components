@@ -1,6 +1,9 @@
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { NestedTreeDataSource, type NestedTreeDataSourceOptions } from './nested-tree-data-source';
+import {
+  NestedTreeDataSource,
+  type NestedTreeDataSourceOptions
+} from './nested-tree-data-source.js';
 
 type TestItem = {
   id: number | string;

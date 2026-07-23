@@ -13,7 +13,7 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-combobox aria-label="Subjects" multiple style="inline-size: 100%; max-inline-size: min(30vw, 500px)" value='["0","3"]'>
+<sl-combobox aria-label="Subjects" multiple style="inline-size: min(100%, 500px)" value='["0","3"]'>
   <sl-listbox>
     <sl-option-group label="Math">
       <sl-option value="0">Algebra</sl-option>
@@ -35,7 +35,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-combobox aria-label="Subjects" multiple value='["0","1"]'>
+  <sl-combobox aria-label="Subjects" multiple value='["0","3"]'>
     <sl-listbox>
       <sl-option-group label="Math">
         <sl-option value="0">Algebra</sl-option>

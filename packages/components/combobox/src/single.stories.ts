@@ -40,6 +40,7 @@ export default {
     disabled: false,
     filterResults: false,
     label: 'Component',
+    maxWidth: '500px',
     placeholder: '',
     selectOnly: false,
     virtualList: false
@@ -88,7 +89,7 @@ export default {
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
             placeholder=${ifDefined(placeholder)}
-            style=${`max-width: ${maxWidth ?? 'none'}`}>
+            style=${`max-width: ${maxWidth || '500px'}`}>
             ${virtualList
               ? nothing
               : html`

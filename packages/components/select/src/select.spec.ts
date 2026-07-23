@@ -949,6 +949,27 @@ describe('sl-select', () => {
       button = el.querySelector('sl-select-button')!;
       expect(button.getBoundingClientRect().width).to.equal(400);
     });
+
+    it('should set the listbox width custom property to the button width when opening', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      expect(el.listbox!.style.getPropertyValue('--_select-listbox-width')).to.equal('');
+
+      button.click();
+      await el.updateComplete;
+
+      expect(el.listbox!.style.getPropertyValue('--_select-listbox-width')).to.equal(
+        `${button.getBoundingClientRect().width}px`
+      );
+    });
   });
 
   describe('selected content rendering', () => {

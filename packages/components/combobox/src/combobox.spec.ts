@@ -2306,6 +2306,12 @@ describe('sl-combobox', () => {
       await combobox.updateComplete;
       await waitForVirtualList();
 
+      await waitForCondition(
+        () =>
+          !!combobox.currentItem &&
+          input.getAttribute('aria-activedescendant') === combobox.currentItem.id
+      );
+
       const activeDescendant = input.getAttribute('aria-activedescendant');
 
       expect(activeDescendant).to.equal(combobox.currentItem?.id);

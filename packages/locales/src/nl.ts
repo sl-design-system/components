@@ -61,6 +61,7 @@ export const templates = {
   'sl.grid.rowActivated': str`Rij ${0} geactiveerd`,
   'sl.grid.rowDeactivated': str`Rij ${0} gedeactiveerd`,
   'sl.grid.selectAllRows': 'Selecteer alle rijen',
+  'sl.grid.selectGroup': 'Selecteer groep',
   'sl.grid.selectionStatusMessage': str`${0} van ${1} geselecteerd`,
   'sl.grid.selectRow': 'Selecteer rij',
   'sl.grid.skipToEndOfTable': 'Naar het einde van de tabel',
@@ -125,6 +126,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Voer een geldige tijd in.',
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden',
-  'sl.grid.selectGroup': 'Select group'
+  'sl.tree.loadingMessage': 'Laden'
 };

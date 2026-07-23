@@ -61,6 +61,7 @@ export const templates = {
   'sl.grid.rowActivated': str`Riga ${0} attivata`,
   'sl.grid.rowDeactivated': str`Riga ${0} disattivata`,
   'sl.grid.selectAllRows': 'Seleziona tutte le righe',
+  'sl.grid.selectGroup': 'Seleziona gruppo',
   'sl.grid.selectionStatusMessage': str`${0} di ${1} selezionati`,
   'sl.grid.selectRow': 'Seleziona riga',
   'sl.grid.skipToEndOfTable': 'Vai alla fine della tabella',
@@ -124,6 +125,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Inserisci un orario valido.',
   'sl.timeField.valueMissing': 'Inserisci un orario.',
   'sl.toolBar.showMore': 'Mostra altro',
-  'sl.tree.loadingMessage': 'Caricamento',
-  'sl.grid.selectGroup': 'Select group'
+  'sl.tree.loadingMessage': 'Caricamento'
 };

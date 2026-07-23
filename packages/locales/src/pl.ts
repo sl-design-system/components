@@ -61,6 +61,7 @@ export const templates = {
   'sl.grid.rowActivated': str`Wiersz ${0} aktywowany`,
   'sl.grid.rowDeactivated': str`Wiersz ${0} dezaktywowany`,
   'sl.grid.selectAllRows': 'Zaznacz wszystkie wiersze',
+  'sl.grid.selectGroup': 'Wybierz grupę',
   'sl.grid.selectionStatusMessage': str`${0} z ${1} wybranych`,
   'sl.grid.selectRow': 'Zaznacz wiersz',
   'sl.grid.skipToEndOfTable': 'Przejdź do końca tabeli',
@@ -125,6 +126,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Wprowadź prawidłową godzinę.',
   'sl.timeField.valueMissing': 'Wprowadź godzinę.',
   'sl.toolBar.showMore': 'Pokaż więcej',
-  'sl.tree.loadingMessage': 'Ładowanie',
-  'sl.grid.selectGroup': 'Select group'
+  'sl.tree.loadingMessage': 'Ładowanie'
 };

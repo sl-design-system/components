@@ -488,6 +488,7 @@
 </trans-unit>
 <trans-unit id="sl.grid.selectGroup">
   <source>Select group</source>
+  <target>Wybierz grupę</target>
 </trans-unit>
 </body>
 </file>

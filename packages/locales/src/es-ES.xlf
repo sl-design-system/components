@@ -232,11 +232,11 @@
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPage">
   <source><x id="0" equiv-text="${itemLabel}"/> per page:</source>
-  <target><x id="0" equiv-text="${itemLabel}"/> por pgina:</target>
+  <target><x id="0" equiv-text="${itemLabel}"/> por página:</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPageAriaLabel">
   <source><x id="0" equiv-text="${itemLabel}"/> per page</source>
-  <target><x id="0" equiv-text="${itemLabel}"/> por pgina</target>
+  <target><x id="0" equiv-text="${itemLabel}"/> por página</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPageOption">
   <source><x id="0" equiv-text="${sizeLabel}"/> per page</source>
@@ -488,6 +488,7 @@
 </trans-unit>
 <trans-unit id="sl.grid.selectGroup">
   <source>Select group</source>
+  <target>Seleccionar grupo</target>
 </trans-unit>
 </body>
 </file>

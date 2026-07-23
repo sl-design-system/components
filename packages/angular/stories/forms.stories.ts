@@ -76,7 +76,10 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
       </sl-form-field>
 
       <sl-form-field label="Combobox - single select">
-        <sl-combobox formControlName="comboboxSingle" placeholder="Select an option">
+        <sl-combobox
+          formControlName="comboboxSingle"
+          placeholder="Select an option"
+          style="max-width: 500px">
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -89,7 +92,8 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
         <sl-combobox
           formControlName="comboboxMultiple"
           multiple
-          placeholder="Select one or more options">
+          placeholder="Select one or more options"
+          style="max-width: 500px">
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -203,7 +207,7 @@ export class AllFormControlsReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - single select">
-        <sl-combobox formControlName="comboboxSingle" required>
+        <sl-combobox formControlName="comboboxSingle" required style="max-width: 500px">
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -213,7 +217,7 @@ export class AllFormControlsReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - multiple select">
-        <sl-combobox formControlName="comboboxMultiple" multiple required>
+        <sl-combobox formControlName="comboboxMultiple" multiple required style="max-width: 500px">
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -339,7 +343,7 @@ export class AllFormControlsEmptyReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - single select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxSingle">
+        <sl-combobox [(ngModel)]="formGroup.comboboxSingle" style="max-width: 500px">
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -349,7 +353,7 @@ export class AllFormControlsEmptyReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - multiple select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple>
+        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple style="max-width: 500px">
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -455,7 +459,7 @@ export class AllFormControlsTemplateComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - single select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxSingle" required>
+        <sl-combobox [(ngModel)]="formGroup.comboboxSingle" required style="max-width: 500px">
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -465,7 +469,11 @@ export class AllFormControlsTemplateComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - multiple select">
-        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple required>
+        <sl-combobox
+          [(ngModel)]="formGroup.comboboxMultiple"
+          multiple
+          required
+          style="max-width: 500px">
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>

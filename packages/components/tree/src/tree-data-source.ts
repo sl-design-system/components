@@ -362,7 +362,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
   /** Selects all selectable nodes in the tree. */
   selectAll(): void {
     const traverse = (node: TreeDataSourceNode<T>): void => {
-      if (node.selectable) {
+      if (node.selectable !== false) {
         node.indeterminate = false;
         node.selected = true;
         this.#selection.add(node);
@@ -600,7 +600,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
 
     // Only selectable children influence the selected/indeterminate state of the parent.
-    const selectableChildren = node.children.filter(child => !!child.selectable);
+    const selectableChildren = node.children.filter(child => child.selectable !== false);
 
     // If a node has no selectable children (for example a node whose only children are
     // non-selectable leaf nodes), its selection state is independent of its children.

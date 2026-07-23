@@ -17,9 +17,8 @@ export type VirtualListItemRenderer<T = any> = (item: T, index: number) => Eleme
  * A virtual list component that efficiently renders large lists by only rendering items that are
  * visible in the viewport.
  *
- * @csspart wrapper - The wrapper element that contains the entire virtual list.
- * @csspart container - The container element that holds the virtualized items.
- * @csspart item - Each individual item in the list.
+ * The wrapper, container and item elements are rendered in the light DOM and can be styled using
+ * descendant selectors like `sl-virtual-list [part='item']`.
  *
  * @slot - The default slot is not used. Items are rendered via the `renderItem` property.
  */

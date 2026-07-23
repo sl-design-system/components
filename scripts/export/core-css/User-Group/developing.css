@@ -1,4 +1,4 @@
-[data-User-Group='developing'] {
+[data-user-group='developing'] {
   --sl-base-font-size: 18px;
   --sl-caption-font-family: 'The Message Text Beta03';
   --sl-caption-lg-font-size-advanced: var(--sl-computed-developing-caption-lg-font-size-advanced);

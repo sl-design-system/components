@@ -1,4 +1,4 @@
-[data-Device='tablet'] {
+[data-device='tablet'] {
   --sl-caption-lg-font-size: var(--sl-caption-lg-font-size-user-group);
   --sl-caption-lg-line-height: var(--sl-caption-lg-line-height-user-group);
   --sl-caption-md-font-size: var(--sl-caption-md-font-size-user-group);

@@ -105,53 +105,49 @@ export const Basic: Story = {
 
 const styleNames = ['Display', 'Heading', 'Title', 'Text', 'Label', 'Caption'];
 
-const typographyStyles = (variant: string) => html`
-  <div><h1 class="display lg">Display LG</h1></div>
-  <div><h1 class="display md">Display MD</h1></div>
-  <div class=${variant !== 'advanced' ? 'fallback' : ''}>
-    <h1 class="display sm">Display SM</h1>
-  </div>
-
-  <div><h2 class="heading lg">Heading LG</h2></div>
-  <div><h2 class="heading md">Heading MD</h2></div>
-  <div class=${variant === 'early' ? 'fallback' : ''}>
-    <h2 class="heading sm">Heading SM</h2>
-  </div>
-
-  <div><h2 class="title lg">Title LG</h2></div>
-  <div class=${variant !== 'advanced' ? 'fallback' : ''}><h2 class="title md">Title MD</h2></div>
-  <div class=${variant === 'early' ? 'fallback' : ''}><h2 class="title sm">Title SM</h2></div>
-
-  <div><p class="text lg">Text LG</p></div>
-  <div><p class="text md">Text MD</p></div>
-  <div><p class="text sm">Text SM</p></div>
-
-  <div><p class="label lg">Label LG</p></div>
-  <div><p class="label md">Label MD</p></div>
-  <div>${variant !== 'early' ? html`<p class="label sm">Label SM</p>` : nothing}</div>
-
-  <div><p class="caption lg">Caption LG</p></div>
-  <div>${variant === 'advanced' ? html`<p class="caption md">Caption MD</p>` : nothing}</div>
-  <div></div>
-`;
-
 const parseCells = (el: Element | undefined) => {
   if (!el) return;
   requestAnimationFrame(() => {
-    const cells = Array.from(el.querySelectorAll('[data-user-group] > div'));
+    const specsContainer = el.querySelector('.specs');
+    if (specsContainer) {
+      specsContainer.innerHTML = '';
+      specsContainer
+        ?.appendChild(document.createElement('span'))
+        .appendChild(document.createTextNode('Specs'));
+    }
+    const cells = Array.from(el.querySelectorAll('.typography > div'));
     cells.forEach((cell, index) => {
       cell.id = `cell-${index}`;
-      if ((cell.querySelector('*') as Element) && cell.querySelector('sl-badge') === null) {
-        const computed = window.getComputedStyle(cell.querySelector('*') as Element);
-        const big = cell.querySelector('*')?.matches(':where(.display, .heading)') ?? false;
+      const cellContents = cell.querySelector('*') as Element;
+      if (cellContents) {
+        const cellSpecs = document.createElement('div');
+        cellSpecs.id = `specs-${index}`;
+        cellSpecs.classList.add('cell-specs');
+        const computed = window.getComputedStyle(cellContents);
+        // console.log('cell', index, cellContents, computed);
         const label = document.createElement('sl-badge');
+        const big = cellContents.matches(':where(.display, .heading)') ?? false;
         label.setAttribute('color', big ? 'purple' : 'teal');
-        label.innerHTML = `${computed.fontSize}/${computed.lineHeight} | ${computed.fontWeight} | ${computed.letterSpacing}`;
-        cell.appendChild(label);
+        label.textContent = `${computed.fontSize}/${computed.lineHeight} | ${computed.fontWeight} | ${computed.letterSpacing}`;
+        cellSpecs.appendChild(label);
+
+        const element = document.createElement('strong');
+        element.textContent = `${cellContents.tagName}.${cellContents.className.replace(/\s+/g, '.')}`;
+        cellSpecs.appendChild(element);
+
+        const font = document.createElement('span');
+        font.textContent = `Font: ${computed.fontFamily}`;
+        cellSpecs.appendChild(font);
+
+        cellSpecs.classList.add('text', 'sm');
+        specsContainer?.appendChild(cellSpecs);
       }
+      console.log('specsContainer', specsContainer);
     });
   });
 };
+const variant = document.documentElement.getAttribute('data-user-group') ?? 'advanced';
+
 export const TypographyStyles: Story = {
   args: {
     textBox: 'none',
@@ -173,22 +169,21 @@ export const TypographyStyles: Story = {
         align-items: center;
       }
       .typography-grid > div {
+        align-items: start;
         display: grid;
         grid-row: span ${styleNames.length * 3 + 1};
         grid-template-rows: subgrid;
       }
       sl-badge {
-        align-self: center;
+        align-self: flex-start;
       }
-      [data-user-group] {
-        padding: 8px;
-        border: 1px solid var(--sl-color-border-accent-grey-faint);
-      }
-      [data-user-group] > div {
+
+      .typography > div {
         border: 1px solid var(--sl-color-border-accent-grey-plain);
         padding: 4px;
         position: relative;
       }
+
       .fallback:before {
         content: '';
         display: block;
@@ -202,63 +197,35 @@ export const TypographyStyles: Story = {
         background-color: var(--sl-color-background-accent-blue-bold);
       }
       .typography-grid:where(.untrimmed, .trim-both-cap, .trim-both-ex)
-        > div
+        > .typography
         > div
         > *:not(sl-badge) {
         background-color: var(--sl-color-background-accent-blue-subtle);
       }
-      .typography-grid.trim-both-cap > div > div > * {
+      .typography-grid.trim-both-cap > .typography > div > * {
         text-box-trim: trim-both;
         text-box-edge: cap alphabetic;
       }
-      .typography-grid.trim-both-ex > div > div > * {
+      .typography-grid.trim-both-ex > .typography > div > * {
         text-box-trim: trim-both;
         text-box-edge: ex alphabetic;
       }
-      [data-user-group] > div {
-        cursor: pointer;
-      }
-      #style-content {
-        white-space: pre-line;
-      }
-      .typography-grid:not(.show-computed) [data-user-group] > div > sl-badge {
+      .typography-grid:not(.show-computed) .typography > div > sl-badge {
         display: none;
+      }
+      .cell-specs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
       }
     </style>
     <div
       ${ref(e => parseCells(e))}
       class="typography-grid ${ifDefined(textBox !== 'none' ? textBox : '')} ${ifDefined(
         showComputed ? 'show-computed' : ''
-      )}"
-      @click="${(e: MouseEvent) => {
-        const target = e.target as HTMLElement;
-        const cell = target.closest('[data-User-Group] > div');
-        if (cell) {
-          const element = cell.querySelector('*') as HTMLElement;
-          if (element) {
-            const computed = window.getComputedStyle(element);
-            const popover = document.getElementById('style-popover') as Popover;
-            const content = document.getElementById('style-content');
-            if (popover && content) {
-              popover.setAttribute('anchor', cell.id);
-
-              // Update content
-              content.textContent = `Element: ${element.tagName}.${element.className}
-                  Font Family: ${computed.fontFamily}
-                  Font Size: ${computed.fontSize}
-                  Font Weight: ${computed.fontWeight}
-                  Line Height: ${computed.lineHeight}
-                  Letter Spacing: ${computed.letterSpacing}
-                  Font Variation Settings: ${computed.fontVariationSettings || 'none'}
-                  Font Feature Settings: ${computed.fontFeatureSettings || 'none'}`;
-
-              popover.showPopover();
-            }
-          }
-        }
-      }}">
+      )}">
       <div>
-        <span>size</span>
+        <span>Size</span>
 
         ${styleNames.map(
           () => html`
@@ -269,17 +236,40 @@ export const TypographyStyles: Story = {
         )}
       </div>
 
-      <div data-User-Group="early">
-        <sl-badge size="lg">Early reader</sl-badge>
-        ${typographyStyles('early')}
+      <div class="typography">
+        <span>Typography</span>
+        <div><h1 class="display lg">Display LG</h1></div>
+        <div><h1 class="display md">Display MD</h1></div>
+        <div class=${variant !== 'advanced' ? 'fallback' : ''}>
+          <h1 class="display sm">Display SM</h1>
+        </div>
+
+        <div><h2 class="heading lg">Heading LG</h2></div>
+        <div><h2 class="heading md">Heading MD</h2></div>
+        <div class=${variant === 'early' ? 'fallback' : ''}>
+          <h2 class="heading sm">Heading SM</h2>
+        </div>
+
+        <div><h2 class="title lg">Title LG</h2></div>
+        <div class=${variant !== 'advanced' ? 'fallback' : ''}>
+          <h2 class="title md">Title MD</h2>
+        </div>
+        <div class=${variant === 'early' ? 'fallback' : ''}><h2 class="title sm">Title SM</h2></div>
+
+        <div><p class="text lg">Text LG</p></div>
+        <div><p class="text md">Text MD</p></div>
+        <div><p class="text sm">Text SM</p></div>
+
+        <div><p class="label lg">Label LG</p></div>
+        <div><p class="label md">Label MD</p></div>
+        <div>${variant !== 'early' ? html`<p class="label sm">Label SM</p>` : nothing}</div>
+
+        <div><p class="caption lg">Caption LG</p></div>
+        <div>${variant === 'advanced' ? html`<p class="caption md">Caption MD</p>` : nothing}</div>
+        <div></div>
       </div>
-      <div data-User-Group="developing">
-        <sl-badge size="lg">Developing reader</sl-badge>
-        ${typographyStyles('developing')}
-      </div>
-      <div data-User-Group="advanced">
-        <sl-badge size="lg">Advanced reader</sl-badge>
-        ${typographyStyles('advanced')}
+      <div class="specs">
+        <span>Specs</span>
       </div>
     </div>
     <sl-popover id="style-popover" position="top" anchor="clicked-cell">

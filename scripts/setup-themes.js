@@ -12,12 +12,12 @@ const setupTheme = theme => {
   const destinationTypography = join(cwd, `${theme}/typography.css`);
 
   const typographyCssFiles = [
-    './export/core-css/User-Group/advanced.css',
-    './export/core-css/User-Group/developing.css',
-    './export/core-css/User-Group/early.css',
     './export/core-css/Device/tablet.css',
     './export/core-css/Device/desktop.css',
     './export/core-css/Device/mobile.css',
+    './export/core-css/User-Group/advanced.css',
+    './export/core-css/User-Group/early.css',
+    './export/core-css/User-Group/developing.css',
     '../packages/themes/core/typography.css'
   ];
 

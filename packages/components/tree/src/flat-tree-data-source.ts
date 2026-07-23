@@ -63,10 +63,6 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       };
     }
 
-    if (options.multiple) {
-      options.isSelectable ??= () => true;
-    }
-
     super({ ...options, loadChildren });
 
     this.#mapping = {
@@ -156,7 +152,8 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
     } = this.#mapping;
 
     const expandable = isExpandable(item),
-      selectable = isSelectable?.(item);
+      // Nodes are selectable by default; only an explicit `isSelectable` returning false opts out.
+      selectable = isSelectable?.(item) ?? true;
 
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),

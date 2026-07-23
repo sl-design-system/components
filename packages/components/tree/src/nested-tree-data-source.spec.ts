@@ -631,6 +631,26 @@ describe('NestedTreeDataSource', () => {
       expect(ds.items.every(n => n.selectable === true)).to.be.true;
     });
 
+    it('should mark all nodes as selectable by default in single-select mode', () => {
+      ds = new NestedTreeDataSource<TestItem>(items, {
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        getChildren: ({ children }) => children,
+        isExpandable: ({ children }) => !!children?.length,
+        isExpanded: () => true,
+        isSelected: ({ id }) => id === 111
+      });
+      ds.update();
+
+      // All nodes selectable by default (no isSelectable, single-select mode).
+      expect(ds.items.every(n => n.selectable === true)).to.be.true;
+
+      // The initial isSelected state must be honored for selectable nodes.
+      const leaf = ds.items.find(n => n.id === 111)!;
+      expect(leaf.selected).to.be.true;
+      expect(ds.selection.has(leaf)).to.be.true;
+    });
+
     it('should reflect the isSelectable mapping on the nodes', () => {
       ds = createDataSource();
       ds.update();

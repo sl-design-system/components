@@ -19,7 +19,7 @@ import { type Select, type SelectSize } from './select.js';
 
 type Props = Pick<
   Select,
-  'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'
+  'clearable' | 'disabled' | 'fill' | 'placeholder' | 'required' | 'size' | 'value'
 > & {
   hint?: string;
   label?: string;
@@ -44,6 +44,10 @@ export default {
     value: null
   },
   argTypes: {
+    fill: {
+      control: 'inline-radio',
+      options: ['ghost', 'outline']
+    },
     size: {
       control: 'inline-radio',
       options: sizes
@@ -73,6 +77,7 @@ export default {
   render: ({
     clearable,
     disabled,
+    fill,
     hint,
     label,
     options,
@@ -102,6 +107,7 @@ export default {
               ?disabled=${disabled}
               ?required=${required}
               .value=${value}
+              fill=${ifDefined(fill)}
               placeholder=${ifDefined(placeholder)}
               size=${ifDefined(size)}>
               ${options?.() ??
@@ -126,6 +132,12 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Ghost: Story = {
+  args: {
+    fill: 'ghost'
+  }
+};
 
 export const Clearable: Story = {
   args: {

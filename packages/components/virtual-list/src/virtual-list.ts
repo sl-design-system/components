@@ -73,7 +73,7 @@ export class VirtualList<T = any> extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.style.display) {
+    if (typeof getComputedStyle === 'function' && getComputedStyle(this).display === 'inline') {
       this.style.display = 'block';
     }
   }

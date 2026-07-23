@@ -1576,7 +1576,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.updateComplete.then(() => {
-          if (this.currentItem?.id === id) {
+          if (this.isConnected && this.input.isConnected && this.currentItem?.id === id) {
             this.input.setAttribute('aria-activedescendant', id);
           }
         });

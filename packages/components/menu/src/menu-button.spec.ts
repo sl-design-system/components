@@ -130,10 +130,12 @@ describe('sl-menu-button', () => {
       });
 
       describe('show', () => {
-        it('should show the menu when the button is clicked', () => {
-          button.click();
-
+        it('should toggle the menu when the button is clicked', async () => {
+          await userEvent.click(button);
           expect(menu).to.match(':popover-open');
+
+          await userEvent.click(button);
+          expect(menu).not.to.match(':popover-open');
         });
 
         it('should emit an sl-toggle event when the menu opens', async () => {
@@ -157,7 +159,7 @@ describe('sl-menu-button', () => {
           expect(menu).not.to.match(':popover-open');
         });
 
-        it('should not move focus when the button is clicked without being focused', async () => {
+        it('should focus the first menu item when the button is clicked', async () => {
           // Ensure button is not focused
           document.body.focus();
 
@@ -165,7 +167,7 @@ describe('sl-menu-button', () => {
           await new Promise(resolve => setTimeout(resolve, 50));
 
           expect(menu).to.match(':popover-open');
-          expect(document.activeElement).not.to.equal(el.querySelector('sl-menu-item'));
+          expect(document.activeElement).to.equal(el.querySelector('sl-menu-item'));
         });
 
         it('should focus the first menu item when opened with Enter while button is focused', async () => {
@@ -293,7 +295,10 @@ describe('sl-menu-button', () => {
       expect(button.querySelector('.selected')).not.to.exist;
     });
 
-    it('should mark the button as icon only', () => {
+    it('should mark the button as icon only', async () => {
+      // Wait for the MutationObserver to detect the sl-icon and update the icon-only state.
+      await new Promise(resolve => setTimeout(resolve, 50));
+
       expect(button).to.match(':state(icon-only)');
     });
   });

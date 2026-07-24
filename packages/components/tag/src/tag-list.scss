@@ -1,9 +1,4 @@
 :host {
-  --_border-color: var(--sl-color-background-secondary-subtle);
-  --_stack-margin: var(--sl-size-010);
-  --_stack-offset: calc(var(--sl-size-010) + var(--sl-size-025));
-  --_stack-width: var(--sl-size-050);
-
   display: flex;
   gap: var(--sl-size-050);
 }
@@ -21,42 +16,18 @@
   }
 }
 
-:host([variant='info']) {
-  --_border-color: var(--sl-color-background-info-subtle);
-}
-
 ::slotted(*) {
   flex-shrink: 0;
 }
 
-.stack {
-  display: flex;
-  position: relative;
-
-  &.double {
-    padding-inline-start: var(--_stack-offset);
+sl-tag {
+  &.stack {
+    flex-shrink: 0;
   }
 
-  &.triple {
-    padding-inline-start: calc(var(--_stack-offset) * 2);
+  &::part(tooltip) {
+    max-inline-size: calc(5 * var(--sl-size-800));
   }
-}
-
-.double::before,
-.triple::before,
-.triple::after {
-  border-color: var(--_border-color);
-  border-inline-start: calc(var(--_stack-offset) - var(--_stack-margin)) solid var(--_border-color);
-  border-radius: var(--sl-size-borderRadius-full);
-  content: '';
-  display: flex;
-  inline-size: var(--_stack-width);
-  inset: 0 auto 0 0;
-  position: absolute;
-}
-
-.triple::before {
-  inset-inline-start: var(--_stack-offset);
 }
 
 .list {

@@ -130,13 +130,16 @@ export const CustomHome: Story = {
 export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`
+      <a href="javascript:void(0)">
+        Commodo nisi ut mollit adipisicing esse fugiat Lorem irure do.
+      </a>
       <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate.</a>
-      <a href="javascript:void(0)"
-        >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a
-      >
-      <a href="javascript:void(0)"
-        >Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a
-      >
+      <a href="javascript:void(0)">
+        Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.
+      </a>
+      <a href="javascript:void(0)">
+        Lorem adipisicing do duis sunt laboris magna officia irure fugiat.
+      </a>
     `
   }
 };

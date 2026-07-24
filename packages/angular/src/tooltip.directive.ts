@@ -14,7 +14,7 @@ import '@sl-design-system/tooltip/register.js';
   standalone: true
 })
 export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
-  private tooltip?: Tooltip | (() => void);
+  private tooltip?: Tooltip;
 
   @Input() slTooltip = '';
 
@@ -27,19 +27,15 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.tooltip = Tooltip.lazy(this.elRef.nativeElement, tooltip => {
-      this.tooltip = tooltip;
-      tooltip.textContent = this.slTooltip;
-    });
+    this.tooltip = document.createElement('sl-tooltip');
+    this.tooltip.for =
+      this.elRef.nativeElement.id ||= `sl-tooltip-${Math.random().toString(36).slice(2)}`;
+    this.tooltip.textContent = this.slTooltip;
+    this.elRef.nativeElement.after(this.tooltip);
   }
 
   ngOnDestroy(): void {
-    if (this.tooltip instanceof Tooltip) {
-      this.tooltip?.remove();
-      this.tooltip = undefined;
-    } else if (this.tooltip) {
-      this.tooltip();
-      this.tooltip = undefined;
-    }
+    this.tooltip?.remove();
+    this.tooltip = undefined;
   }
 }

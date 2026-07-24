@@ -2,6 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -77,6 +78,11 @@ export default {
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
       </sl-form>
+      <style>
+        sl-tooltip {
+          position-area: right;
+        }
+      </style>
     `;
   }
 } satisfies Meta<Props>;
@@ -163,6 +169,19 @@ export const NoLabel: Story = {
         <sl-checkbox value="3">Three</sl-checkbox>
       </sl-checkbox-group>
     `;
+  }
+};
+
+export const Tooltips: Story = {
+  args: {
+    boxes: () => html`
+      <sl-checkbox id="1" value="1">Option 1</sl-checkbox>
+      <sl-tooltip for="1">Tooltip for option 1</sl-tooltip>
+      <sl-checkbox id="2" value="2">Option 2</sl-checkbox>
+      <sl-tooltip for="2">Tooltip for option 2</sl-tooltip>
+      <sl-checkbox id="3" value="3">Option 3</sl-checkbox>
+      <sl-tooltip for="3">Tooltip for option 3</sl-tooltip>
+    `
   }
 };
 

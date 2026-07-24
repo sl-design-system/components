@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type TagList } from './tag-list.js';
+import { type Tag } from './tag.js';
 
 describe('sl-tag-list', () => {
   let el: TagList;
@@ -329,28 +330,26 @@ describe('sl-tag-list', () => {
     });
 
     it('should have a tooltip for the stack', () => {
-      const tag = el.renderRoot.querySelector('sl-tag'),
-        tooltip = el.renderRoot.querySelector('sl-tooltip'),
-        label = tag?.renderRoot.querySelector('[part="label"]'),
-        description = tag?.renderRoot.querySelector('#label-description');
+      const tag = el.renderRoot.querySelector<Tag>('sl-tag.stack'),
+        tooltip = tag?.renderRoot.querySelector('sl-tooltip'),
+        label = tag?.renderRoot.querySelector<HTMLElement>('[part="label"]');
 
       expect(tooltip).to.exist;
       expect(tag).not.to.have.attribute('aria-labelledby');
-      expect(tag).to.have.attribute('aria-describedby', 'tooltip');
-      expect(label).to.have.attribute('aria-describedby', 'label-description');
-      expect(description).to.have.class('visually-hidden');
+      expect(tag).not.to.have.attribute('aria-describedby');
+      expect(label).to.have.attribute('aria-describedby', 'tooltip');
+      expect(tooltip).to.have.attribute('for', 'label');
+      expect(label?.ariaLabelledByElements).to.include(tooltip);
 
-      const tagContent = tooltip?.textContent?.trim(),
-        descriptionContent = description?.textContent?.trim();
+      const tooltipContent = tooltip?.textContent?.trim();
 
-      expect(tagContent).to.exist;
-      expect(tagContent?.includes('List of hidden elements:')).to.be.true;
+      expect(tooltipContent).to.exist;
+      expect(tooltipContent?.includes('List of hidden elements:')).to.be.true;
       expect(
-        tagContent?.includes(
+        tooltipContent?.includes(
           'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
         )
       ).to.be.true;
-      expect(descriptionContent).to.equal(tagContent);
     });
 
     it('should have a stack with a tag, which contains the stack size', () => {

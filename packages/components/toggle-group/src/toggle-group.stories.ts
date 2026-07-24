@@ -92,15 +92,15 @@ export default {
 export const Basic: Story = {
   args: {
     slot: () => html`
-      <sl-toggle-button aria-label="Align left">
+      <sl-toggle-button tooltip="Align left">
         <sl-icon name="far-align-left" slot="default"></sl-icon>
         <sl-icon name="fas-align-left" slot="pressed"></sl-icon>
       </sl-toggle-button>
-      <sl-toggle-button aria-label="Justify">
+      <sl-toggle-button tooltip="Justify">
         <sl-icon name="far-align-justify" slot="default"></sl-icon>
         <sl-icon name="fas-align-justify" slot="pressed"></sl-icon>
       </sl-toggle-button>
-      <sl-toggle-button aria-label="Align right">
+      <sl-toggle-button tooltip="Align right">
         <sl-icon name="far-align-right" slot="default"></sl-icon>
         <sl-icon name="fas-align-right" slot="pressed"></sl-icon>
       </sl-toggle-button>
@@ -119,15 +119,15 @@ export const Multiple: Story = {
   args: {
     multiple: true,
     slot: () => html`
-      <sl-toggle-button aria-label="Bold">
+      <sl-toggle-button tooltip="Bold">
         <sl-icon name="far-bold" slot="default"></sl-icon>
         <sl-icon name="fas-bold" slot="pressed"></sl-icon>
       </sl-toggle-button>
-      <sl-toggle-button aria-label="Italic">
+      <sl-toggle-button tooltip="Italic">
         <sl-icon name="far-italic" slot="default"></sl-icon>
         <sl-icon name="fas-italic" slot="pressed"></sl-icon>
       </sl-toggle-button>
-      <sl-toggle-button aria-label="Underline">
+      <sl-toggle-button tooltip="Underline">
         <sl-icon name="far-underline" slot="default"></sl-icon>
         <sl-icon name="fas-underline" slot="pressed"></sl-icon>
       </sl-toggle-button>
@@ -196,57 +196,57 @@ export const AllFunctionalVariants: Story = {
 
       <span>md</span>
       <sl-toggle-group multiple>
-        <sl-toggle-button aria-label="Bold">
+        <sl-toggle-button tooltip="Bold">
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Italic">
+        <sl-toggle-button tooltip="Italic">
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline">
+        <sl-toggle-button tooltip="Underline">
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
       <sl-toggle-group multiple>
-        <sl-toggle-button aria-label="Bold" pressed>
+        <sl-toggle-button tooltip="Bold" pressed>
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Italic">
+        <sl-toggle-button tooltip="Italic">
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline" pressed>
+        <sl-toggle-button tooltip="Underline" pressed>
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
       <sl-toggle-group disabled>
-        <sl-toggle-button aria-label="Bold">
+        <sl-toggle-button tooltip="Bold">
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Italic">
+        <sl-toggle-button tooltip="Italic">
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline">
+        <sl-toggle-button tooltip="Underline">
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
       <sl-toggle-group>
-        <sl-toggle-button aria-label="Align left" pressed>
+        <sl-toggle-button tooltip="Align left" pressed>
           <sl-icon name="far-align-left" slot="default"></sl-icon>
           <sl-icon name="fas-align-left" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Justify">
+        <sl-toggle-button tooltip="Justify">
           <sl-icon name="far-align-justify" slot="default"></sl-icon>
           <sl-icon name="fas-align-justify" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Align right">
+        <sl-toggle-button tooltip="Align right">
           <sl-icon name="far-align-right" slot="default"></sl-icon>
           <sl-icon name="fas-align-right" slot="pressed"></sl-icon>
         </sl-toggle-button>
@@ -254,57 +254,57 @@ export const AllFunctionalVariants: Story = {
 
       <span>lg</span>
       <sl-toggle-group multiple size="lg">
-        <sl-toggle-button aria-label="Bold">
+        <sl-toggle-button tooltip="Bold">
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Italic">
+        <sl-toggle-button tooltip="Italic">
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline">
+        <sl-toggle-button tooltip="Underline">
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
       <sl-toggle-group multiple size="lg">
-        <sl-toggle-button aria-label="Bold" pressed>
+        <sl-toggle-button tooltip="Bold" pressed>
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Italic">
+        <sl-toggle-button tooltip="Italic">
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline" pressed>
+        <sl-toggle-button tooltip="Underline" pressed>
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
       <sl-toggle-group disabled size="lg">
-        <sl-toggle-button aria-label="Bold">
+        <sl-toggle-button tooltip="Bold">
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Italic">
+        <sl-toggle-button tooltip="Italic">
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline">
+        <sl-toggle-button tooltip="Underline">
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
       <sl-toggle-group size="lg">
-        <sl-toggle-button aria-label="Align left" pressed>
+        <sl-toggle-button tooltip="Align left" pressed>
           <sl-icon name="far-align-left" slot="default"></sl-icon>
           <sl-icon name="fas-align-left" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Justify">
+        <sl-toggle-button tooltip="Justify">
           <sl-icon name="far-align-justify" slot="default"></sl-icon>
           <sl-icon name="fas-align-justify" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Align right">
+        <sl-toggle-button tooltip="Align right">
           <sl-icon name="far-align-right" slot="default"></sl-icon>
           <sl-icon name="fas-align-right" slot="pressed"></sl-icon>
         </sl-toggle-button>
@@ -383,15 +383,15 @@ export const All: Story = {
     const renderRow = (options: { fill: ToggleGroupFill; content?: 'button' | 'text' }) => {
       const buttons = (buttonoptions: string[]) => {
         return html`
-          <sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
+          <sl-toggle-button tooltip="Bold" ?pressed=${buttonoptions.includes('pressed')}>
             <sl-icon name="far-bold" slot="default"></sl-icon>
             <sl-icon name="fas-bold" slot="pressed"></sl-icon>
           </sl-toggle-button>
-          <sl-toggle-button aria-label="Italic" ?pressed=${buttonoptions.includes('pressed')}>
+          <sl-toggle-button tooltip="Italic" ?pressed=${buttonoptions.includes('pressed')}>
             <sl-icon name="far-italic" slot="default"></sl-icon>
             <sl-icon name="fas-italic" slot="pressed"></sl-icon>
           </sl-toggle-button>
-          <sl-toggle-button aria-label="Underline">
+          <sl-toggle-button tooltip="Underline">
             <sl-icon name="far-underline" slot="default"></sl-icon>
             <sl-icon name="fas-underline" slot="pressed"></sl-icon>
           </sl-toggle-button>

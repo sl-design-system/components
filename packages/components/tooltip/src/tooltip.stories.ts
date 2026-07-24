@@ -1,324 +1,122 @@
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/dialog/register.js';
-import '@sl-design-system/icon/register.js';
-import '@sl-design-system/spinner/register.js';
-import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { type TemplateResult, html } from 'lit';
-import { styleMap } from 'lit/directives/style-map.js';
+import { type Meta } from '@storybook/web-components-vite';
+import { type TemplateResult, html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { tooltip } from './tooltip-directive.js';
 import { type Tooltip } from './tooltip.js';
 
-type Props = Pick<Tooltip, 'maxWidth' | 'position'> & {
-  alignSelf: string;
-  justifySelf: string;
-  example?(props: Props): TemplateResult;
-  message: string;
+type Props = Pick<Tooltip, 'disabled' | 'open' | 'type'> & {
+  maxWidth: number;
+  position: string;
+  showHoverBridge: boolean;
+  text: string;
+  tooltip(): TemplateResult;
+  trigger: string[];
 };
-type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Tooltip',
-  args: {
-    alignSelf: 'center',
-    justifySelf: 'center',
-    maxWidth: 160,
-    message: 'This is the tooltip message',
-    position: 'top'
+  parameters: {
+    layout: 'centered'
   },
   argTypes: {
-    alignSelf: {
-      control: 'inline-radio',
-      options: ['start', 'center', 'end']
+    disabled: {
+      control: 'boolean'
     },
-    example: {
-      table: { disable: true }
+    maxWidth: {
+      control: 'number'
     },
-    justifySelf: {
-      control: 'inline-radio',
-      options: ['start', 'center', 'end']
+    open: {
+      control: 'boolean'
     },
     position: {
-      control: 'select',
-      options: [
-        'top',
-        'top-start',
-        'top-end',
-        'right',
-        'right-start',
-        'right-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'left',
-        'left-start',
-        'left-end'
-      ]
+      control: 'inline-radio',
+      options: ['top', 'right', 'bottom', 'left']
+    },
+    showHoverBridge: {
+      control: 'boolean'
+    },
+    text: {
+      control: 'text'
+    },
+    tooltip: {
+      table: { disable: true }
+    },
+    trigger: {
+      control: 'inline-check',
+      options: ['click', 'hover', 'focus', 'manual']
+    },
+    type: {
+      control: 'inline-radio',
+      options: ['description', 'label']
     }
   },
-  render: props => {
-    const { alignSelf, example, justifySelf, message, position, maxWidth } = props;
-
-    return html`
-      <style>
-        #root-inner {
-          display: grid;
-          height: calc(100dvh - 2rem);
-          place-items: center;
-        }
-      </style>
-      ${example
-        ? example?.(props)
-        : html`
-            <sl-button
-              aria-describedby="tooltip"
-              style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
-              Button
-            </sl-button>
-            <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}
-              >${message}</sl-tooltip
-            >
-          `}
-    `;
-  }
+  args: {
+    text: 'Tooltip text',
+    type: 'description'
+  },
+  render: ({
+    disabled,
+    maxWidth,
+    open,
+    position,
+    showHoverBridge,
+    text,
+    tooltip,
+    trigger,
+    type
+  }) => html`
+    <sl-button id="button">Anchor</sl-button>
+    ${tooltip
+      ? tooltip()
+      : html`
+          <sl-tooltip
+            ?disabled=${disabled}
+            ?open=${open}
+            for="button"
+            trigger=${ifDefined(trigger?.join(' ') || undefined)}
+            type=${ifDefined(type)}>
+            ${text}
+          </sl-tooltip>
+        `}
+    <style>
+      ${maxWidth ? `sl-tooltip { max-inline-size: ${maxWidth}px; }` : nothing}
+      ${position ? `sl-tooltip { position-area: ${position} }` : nothing}
+      ${showHoverBridge ? 'sl-tooltip::part(hover-bridge) { background: hotpink; }' : nothing}
+    </style>
+  `
 } satisfies Meta<Props>;
 
-export const Basic: Story = {};
+export const Basic = {};
 
-export const Directive: Story = {
+export const ClickTrigger = {
   args: {
-    example: ({ alignSelf, justifySelf, message }) => html`
-      <sl-button
-        ${tooltip(message)}
-        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
-        Button
-      </sl-button>
-    `
+    text: 'Click again to dismiss',
+    trigger: ['click']
   }
 };
 
-export const DirectiveWithOptions: Story = {
-  render: () => {
-    return html`
-      <style>
-        .container {
-          display: grid;
-          height: calc(20rem);
-          place-items: center;
-        }
-      </style>
-      <p>
-        This story demonstrates hot to use the tooltip directive with some inline options (custom
-        'ariaRelation', custom 'position' and 'maxWidth') on a <code>sl-button</code>. The example
-        shows how to add a tooltip directly without a separate <code>sl-tooltip</code> element.
-      </p>
-
-      <div class="container">
-        <sl-button
-          variant="primary"
-          fill="solid"
-          ${tooltip('My tooltip example', {
-            ariaRelation: 'label',
-            position: 'bottom-start',
-            maxWidth: 100
-          })}>
-          <sl-icon name="face-smile" size="lg"></sl-icon>
-        </sl-button>
-      </div>
-    `;
-  }
-};
-
-export const Disabled: Story = {
+export const Disabled = {
   args: {
-    example: ({ alignSelf, justifySelf, message }) => html`
-      <div
-        style=${styleMap({
-          'align-self': alignSelf,
-          display: 'inline-flex',
-          gap: '1rem',
-          'justify-self': justifySelf
-        })}>
-        <sl-button ${tooltip(message)} disabled>Disabled button</sl-button>
-        <sl-button ${tooltip(message)} aria-disabled="true">Disabled (ARIA only) button</sl-button>
-      </div>
-    `
+    disabled: true
   }
 };
 
-export const Shared: Story = {
+export const HoverBridge = {
   args: {
-    example: ({ alignSelf, justifySelf, message }) => html`
-      <sl-button-bar style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
-        <sl-button aria-describedby="tooltip" fill="outline"
-          ><sl-spinner></sl-spinner> We</sl-button
-        >
-        <sl-button aria-describedby="tooltip" fill="outline">all</sl-button>
-        <sl-button aria-describedby="tooltip" fill="outline">share</sl-button>
-        <sl-button aria-describedby="tooltip" fill="outline">the</sl-button>
-        <sl-button aria-describedby="tooltip" fill="outline">same</sl-button>
-        <sl-button aria-describedby="tooltip" fill="outline">tooltip</sl-button>
-      </sl-button-bar>
-      <sl-tooltip id="tooltip">${message}</sl-tooltip>
-    `
-  },
-  parameters: {
-    // Notifies Chromatic to pause the animations at the first frame for this specific story.
-    chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
+    maxWidth: 200,
+    showHoverBridge: true,
+    text: 'The hotpink area bridges the area between anchor and tooltip, making it possible to move the mouse from the anchor to the tooltip without it disappearing.'
   }
 };
 
-export const NestedChildren: Story = {
+export const All = {
   args: {
-    example: ({ message }) => html`
-      <style>
-        .nested-children-container {
-          border: 1px solid black;
-          margin: 20px;
-          padding: 20px;
-        }
-
-        @media (max-width: 37.5rem) {
-          #root-inner {
-            box-sizing: border-box;
-            display: block;
-            height: calc(100dvh - 2rem);
-            min-block-size: 0;
-            overflow-y: auto;
-            padding: 1rem;
-          }
-
-          .nested-children-container {
-            margin: 12px 0;
-            padding: 16px;
-          }
-
-          .nested-children-eye-icon-wrap {
-            display: flex;
-            justify-content: center;
-          }
-        }
-      </style>
-      This example is not necessarily a good practice, but it shows that the tooltip can be used on
-      an element that has many (interactive) child elements.
-      <div
-        class="nested-children-container"
-        aria-describedby="task-details-not-available-tooltip"
-        @click=${(e: MouseEvent) => console.log('Div clicked', e)}
-        tabindex="0">
-        <sl-button aria-describedby="tooltip"> Some button </sl-button>
-        <p>
-          The div has a tooltip attached, hovering over the child elements will not cause the
-          tooltip to dissapear.
-        </p>
-        <p>
-          Please beware when using the tooltip in a similar scenario: Not all elements are reachable
-          by all screenreaders. A div for example, without any interactions or a role, will not be
-          announced in a special way by the screenreader, so it also has no "stop" to read out the
-          contents of the tooltip.
-        </p>
-        <p>
-          Tooltips will be shown for user using keyboard navigation when the element has focus. That
-          means you can only use tooltips on elements that are focusable, like buttons or links. If
-          the element you want to describe can not have the focus you will need to use something
-          like an info button that will show the tooltip.
-          <sl-button> Some button </sl-button>
-        </p>
-      </div>
-      <div class="nested-children-eye-icon-wrap">
-        <sl-button
-          class="nested-children-eye-icon"
-          aria-label="Look"
-          fill="outline"
-          aria-describedby="tooltip">
-          <sl-icon name="eye"></sl-icon>
-        </sl-button>
-      </div>
-      <sl-tooltip id="task-details-not-available-tooltip"> Tooltip on the div </sl-tooltip>
-      <sl-tooltip id="tooltip">${message}</sl-tooltip>
+    tooltip: () => html`
+      <sl-tooltip for="button" open style="position-area: top">Top</sl-tooltip>
+      <sl-tooltip for="button" open style="position-area: right">Right</sl-tooltip>
+      <sl-tooltip for="button" open style="position-area: bottom">Bottom</sl-tooltip>
+      <sl-tooltip for="button" open style="position-area: left">Left</sl-tooltip>
     `
-  }
-};
-
-export const IconButton: Story = {
-  render: () => {
-    return html`
-      <style>
-        #root-inner {
-          display: grid;
-          height: calc(20rem);
-          place-items: center;
-        }
-      </style>
-      <sl-button aria-labelledby="tooltip" variant="primary" fill="solid" shape="pill" size="md">
-        <sl-icon name="face-smile"></sl-icon>
-      </sl-button>
-      <sl-tooltip id="tooltip" position="top">
-        This is the tooltip message that labels the icon only button.
-      </sl-tooltip>
-    `;
-  }
-};
-
-export const All: Story = {
-  render: () => {
-    setTimeout(() => {
-      document.querySelectorAll('sl-button').forEach(button => {
-        button.dispatchEvent(new Event('pointerover', { bubbles: true }));
-      });
-    });
-    return html`
-      <style>
-        #root-inner {
-          display: grid;
-          height: calc(20rem);
-          place-items: center;
-        }
-      </style>
-      <sl-button aria-describedby="tooltip"> Button </sl-button>
-      <sl-tooltip id="tooltip" position="top" max-width="300"
-        >This is the tooltip message</sl-tooltip
-      >
-    `;
-  }
-};
-
-export const Dialog: Story = {
-  render: () => {
-    const onClick = async (event: Event & { target: HTMLElement }) => {
-      const dialog = document.createElement('sl-dialog');
-      dialog.innerHTML = `
-        <h1 slot="title">Tooltip behavior</h1>
-        <p>Opening this dialog hides the tooltip.</p>
-        <p>
-          If you opened it with keyboard focus on the trigger, the tooltip can reappear after closing (focus returns to
-          the trigger).
-        </p>
-        <p>
-          If you opened it with mouse click, the tooltip stays closed after closing until the trigger is hovered/focused
-          again.
-        </p>
-        <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
-      `;
-      dialog.addEventListener('sl-close', () => dialog.remove());
-      event.target.insertAdjacentElement('afterend', dialog);
-      await dialog.updateComplete;
-      dialog.showModal();
-    };
-
-    return html`
-      <style>
-        #root-inner {
-          display: grid;
-          height: calc(20rem);
-          place-items: center;
-        }
-      </style>
-      <sl-button aria-describedby="tooltip" @click=${onClick}> Button </sl-button>
-      <sl-tooltip id="tooltip" position="top" max-width="300"
-        >This is the tooltip message</sl-tooltip
-      >
-    `;
   }
 };

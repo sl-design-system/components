@@ -222,14 +222,24 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  /** Sets `ariaDescribedByElements` on the button that receives focus inside the calendar grid. */
+  /**
+   * Adds the helper-text to `ariaDescribedByElements` on the first button that receives focus
+   * inside the calendar grid.
+   *
+   * This is an accessibility hack necessary because of
+   * https://github.com/nvaccess/nvda/issues/13392. NVDA automatically switches to browse mode when
+   * detecting interactive elements inside grid cells. Because of that focus is not moved to another
+   * day and the ARIA descriptions aren't read. As a workaround, we're adding the helper text to the
+   * first button that receives focus, so NVDA will at least read the helper text once. Once this
+   * NVDA issue is resolved, we can remove this workaround and add the helper text to the min/max
+   * day as expected.
+   */
   #onFocusIn(event: FocusEvent): void {
     if (!this.min && !this.max) {
       return;
     }
 
     const helperText = this.renderRoot.querySelector('.helper-text');
-
     if (!helperText) {
       return;
     }

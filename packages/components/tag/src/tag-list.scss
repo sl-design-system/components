@@ -20,13 +20,14 @@
   flex-shrink: 0;
 }
 
-.stack {
-  display: flex;
-  position: relative;
-}
+sl-tag {
+  &.stack {
+    flex-shrink: 0;
+  }
 
-sl-tag::part(tooltip) {
-  max-inline-size: calc(5 * var(--sl-size-800));
+  &::part(tooltip) {
+    max-inline-size: calc(5 * var(--sl-size-800));
+  }
 }
 
 .list {

@@ -181,15 +181,16 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     return html`
       ${this.tooltip
         ? html`
-            <sl-tooltip id="tooltip" part="tooltip"
-              >${typeof this.tooltip === 'string' ? this.tooltip : this.label}</sl-tooltip
-            >
+            <sl-tooltip for="label" part="tooltip">
+              ${typeof this.tooltip === 'string' ? this.tooltip : this.label}
+            </sl-tooltip>
           `
         : nothing}
       <div
         @blur=${this.#onBlur}
         @focus=${this.#onFocus}
         aria-describedby=${ifDefined(labelDescribedBy || undefined)}
+        id="label"
         part="label"
         tabindex=${ifDefined(labelTabIndex)}>
         <slot @slotchange=${this.#onSlotChange}></slot>

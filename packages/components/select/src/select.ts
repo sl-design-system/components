@@ -47,13 +47,14 @@ declare global {
   }
 }
 
+export type SelectFill = 'ghost' | 'outline';
 export type SelectSize = 'md' | 'lg';
 
 /**
  * A form control that allows users to select one option from a list of options.
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
- * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
+ * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate). Set `width` to override the default width (which matches the button width)
  * @csspart selected - The selected option element within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  * @csspart selected-option - The container for the selected option within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  * @csspart placeholder - The placeholder text when no option is selected within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
@@ -182,6 +183,13 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
+  /**
+   * The fill of the select.
+   *
+   * @default 'outline'
+   */
+  @property() fill?: SelectFill;
+
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
@@ -248,6 +256,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.addEventListener('sl-clear', this.#onButtonClear);
       this.button.clearable = !!this.clearable;
       this.button.disabled = !!this.disabled;
+      this.button.fill = this.fill;
       this.button.placeholder = this.placeholder;
       this.button.required = !!this.required;
       this.button.selected = this.selectedOption;
@@ -305,6 +314,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.disabled = this.disabled;
       this.button.tabIndex = this.disabled ? -1 : 0;
       this.#updateAriaKeyShortcuts();
+    }
+
+    if (changes.has('fill')) {
+      this.button.fill = this.fill;
     }
 
     if (changes.has('placeholder')) {
@@ -490,7 +503,14 @@ export class Select<T = any> extends ObserveAttributesMixin(
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
-      this.listbox!.style.width = `${this.button.getBoundingClientRect().width}px`;
+
+      // Expose the button width as a custom property instead of setting `width` inline directly.
+      // This way the width can still be overridden from outside via `sl-select::part(listbox)`,
+      // since an inline `width` would take precedence over the `::part()` rule.
+      this.listbox!.style.setProperty(
+        '--_select-listbox-width',
+        `${this.button.getBoundingClientRect().width}px`
+      );
 
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {

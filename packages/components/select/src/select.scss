@@ -77,6 +77,7 @@ sl-listbox {
   box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;
   display: none;
+  inline-size: var(--_select-listbox-width, auto);
   margin: 0;
   opacity: 0;
 

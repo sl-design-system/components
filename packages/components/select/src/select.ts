@@ -47,6 +47,7 @@ declare global {
   }
 }
 
+export type SelectFill = 'ghost' | 'outline';
 export type SelectSize = 'md' | 'lg';
 
 /**
@@ -182,6 +183,13 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
+  /**
+   * The fill of the select.
+   *
+   * @default 'outline'
+   */
+  @property() fill?: SelectFill;
+
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
@@ -248,6 +256,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.addEventListener('sl-clear', this.#onButtonClear);
       this.button.clearable = !!this.clearable;
       this.button.disabled = !!this.disabled;
+      this.button.fill = this.fill;
       this.button.placeholder = this.placeholder;
       this.button.required = !!this.required;
       this.button.selected = this.selectedOption;
@@ -305,6 +314,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.disabled = this.disabled;
       this.button.tabIndex = this.disabled ? -1 : 0;
       this.#updateAriaKeyShortcuts();
+    }
+
+    if (changes.has('fill')) {
+      this.button.fill = this.fill;
     }
 
     if (changes.has('placeholder')) {

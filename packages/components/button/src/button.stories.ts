@@ -49,7 +49,7 @@ export default {
     },
     shape: {
       control: 'inline-radio',
-      options: ['square', 'pill']
+      options: ['rect', 'pill']
     },
     size: {
       control: 'inline-radio',
@@ -216,8 +216,8 @@ export const All: Story = {
       </style>
       <section class="sizes">
         <span></span>
-        <span>Square text</span>
-        <span>Square icon</span>
+        <span>Rect text</span>
+        <span>Rect icon</span>
         <span>Pill text</span>
         <span>Pill icon</span>
 

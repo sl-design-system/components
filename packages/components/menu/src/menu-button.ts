@@ -11,7 +11,13 @@ import {
   type ButtonVariant
 } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { EventsController, type PopoverPosition } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  type PopoverPosition,
+  event
+} from '@sl-design-system/shared';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { isForwardedDisabled } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import {
@@ -78,6 +84,8 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   /** @internal The button. */
   @query('sl-button') button!: Button;
 
+  /** @internal Emits when the menu opens or closes. The event detail is `true` when open and `false` when closed. */
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
   /**
    * Whether the button is disabled; when set no interaction is possible.
    *
@@ -267,6 +275,8 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   }
 
   #onToggle(event: ToggleEvent): void {
+    this.toggleEvent.emit(event.newState === 'open');
+
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
 

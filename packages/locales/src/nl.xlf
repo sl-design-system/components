@@ -10,10 +10,6 @@
   <source>Loading</source>
   <target>Laden</target>
 </trans-unit>
-<trans-unit id="sl.tag.removalInstructions">
-  <source>Press the delete or backspace key to remove this item</source>
-  <target>Druk op de delete- of backspacetoets om dit item te verwijderen</target>
-</trans-unit>
 <trans-unit id="sl.common.selected">
   <source>Selected</source>
   <target>Geselecteerd</target>
@@ -173,6 +169,10 @@
 <trans-unit id="sl.tag.listOfHiddenElements">
   <source>List of hidden elements</source>
   <target>Lijst met verborgen elementen</target>
+</trans-unit>
+<trans-unit id="sl.tagList.navigationInstructions">
+  <source>Use arrow keys to move between removable tags.</source>
+  <target>Gebruik de pijltjestoetsen om tussen verwijderbare tags te navigeren.</target>
 </trans-unit>
 <trans-unit id="sl.combobox.selectedOptions">
   <source>Selected options</source>
@@ -454,6 +454,10 @@
   <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
   <target>Uiterlijk <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
+<trans-unit id="sl.tag.remove">
+  <source>Remove tag '<x id="0" equiv-text="${this.label}"/>'</source>
+  <target>Verwijder tag '<x id="0" equiv-text="${this.label}"/>'</target>
+</trans-unit>
 <trans-unit id="sl.infotip.moreInformation">
   <source>More information</source>
   <target>Meer informatie</target>
@@ -462,17 +466,21 @@
   <source>Options</source>
   <target>Opties</target>
 </trans-unit>
+<trans-unit id="sl.infotip.moreInformationAbout">
+  <source>More information about <x id="0" equiv-text="${describes}"/></source>
+  <target>Meer informatie over <x id="0" equiv-text="${describes}"/></target>
+</trans-unit>
 <trans-unit id="sl.grid.rowActivated">
-  <source>Row <x id="0" equiv-text="${index}"/> activated</source>
-  <target>Rij <x id="0" equiv-text="${index}"/> geactiveerd</target>
+  <source>Row <x id="0" equiv-text="${rowNumber}"/> activated</source>
+  <target>Rij <x id="0" equiv-text="${rowNumber}"/> geactiveerd</target>
 </trans-unit>
 <trans-unit id="sl.grid.rowDeactivated">
-  <source>Row <x id="0" equiv-text="${index}"/> deactivated</source>
-  <target>Rij <x id="0" equiv-text="${index}"/> gedeactiveerd</target>
+  <source>Row <x id="0" equiv-text="${rowNumber}"/> deactivated</source>
+  <target>Rij <x id="0" equiv-text="${rowNumber}"/> gedeactiveerd</target>
 </trans-unit>
 <trans-unit id="sl.grid.inActivatedRow">
-  <source>In activated row <x id="0" equiv-text="${index}"/></source>
-  <target>In geactiveerde rij <x id="0" equiv-text="${index}"/></target>
+  <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
+  <target>In geactiveerde rij <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
 </body>
 </file>

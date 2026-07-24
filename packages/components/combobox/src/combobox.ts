@@ -35,7 +35,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { Tag, TagList } from '@sl-design-system/tag';
+import { type SlRemoveEvent, Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,
@@ -195,9 +195,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
-
-  /** @internal The currently (fake) focused tag. */
-  @state() focusedTag?: ComboboxItem<T, U>;
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
@@ -514,11 +511,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                   item => item,
                   item => html`
                     <sl-tag
-                      @sl-remove=${() => this.#onRemove(item)}
+                      @sl-remove=${(event: SlRemoveEvent) => {
+                        event.stopPropagation();
+                        this.#onRemove(item, event);
+                      }}
                       ?disabled=${this.disabled}
-                      ?removable=${!this.disabled}
-                      aria-hidden=${this.disabled ? nothing : 'true'}
-                      class=${this.focusedTag === item ? 'focused' : ''}>
+                      ?removable=${!this.disabled}>
                       ${item.label}
                     </sl-tag>
                   `
@@ -547,7 +545,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onOptionClick}
-        @keydown=${this.#onKeydown}
         @slotchange=${() => this.#onSlotChange()}
         @toggle=${this.#onToggle}
         part="wrapper"
@@ -573,6 +570,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
   }
 
+  /** @internal */
   override updateInternalValidity(): void {
     if (!this.validity.customError) {
       if (this.multiple) {
@@ -590,6 +588,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
+    const expanded = event.newState === 'open',
+      button = this.renderRoot.querySelector<HTMLButtonElement>('button[slot="suffix"]');
+
+    button?.setAttribute('aria-expanded', expanded.toString());
+
     if (event.newState === 'open') {
       this.input.setAttribute('aria-expanded', 'true');
       this.wrapper!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
@@ -656,7 +659,9 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       event.inputType !== 'deleteContentBackward' &&
       (this.autocomplete === 'inline' || this.autocomplete === 'both')
     ) {
-      item = this.items.find(i => i.label.toLowerCase().startsWith(value.toLowerCase()));
+      item = this.items.find(
+        i => i.type === 'option' && i.label.toLowerCase().startsWith(value.toLowerCase())
+      );
 
       if (item) {
         this.input.value = item.label;
@@ -707,9 +712,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (!event.composedPath().includes(this.input)) {
+      return;
+    }
+
     const isSelectOnlySpace = !!this.selectOnly && event.key === ' ';
 
-    if ((event.key === 'Enter' || isSelectOnlySpace) && !this.focusedTag) {
+    if (event.key === 'Enter' || isSelectOnlySpace) {
       if (isSelectOnlySpace) {
         event.preventDefault();
       }
@@ -727,46 +736,22 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.wrapper?.hidePopover();
         }
       }
-    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key) && this.input.selectionStart === 0) {
-      if (this.focusedTag) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      // Limit navigation to the visible tags
-      const min =
-        this.selectedItems.length -
-        Array.from(this.renderRoot.querySelectorAll('sl-tag')).filter(
-          tag => tag.style.display !== 'none'
-        ).length;
-
-      let index = this.focusedTag
-        ? this.selectedItems.indexOf(this.focusedTag)
-        : this.selectedItems.length;
-      index += event.key === 'ArrowLeft' ? -1 : 1;
-      index = Math.max(min, index);
-      index = Math.min(this.selectedItems.length, index);
-
-      if (index === this.selectedItems.length) {
-        this.focusedTag = undefined;
-      } else {
-        this.focusedTag = this.selectedItems[index];
-      }
-    } else if (event.key === 'Backspace' && this.focusedTag && this.input.selectionStart === 0) {
-      this.#onRemove(this.focusedTag);
-      this.focusedTag = undefined;
     } else if (
       !this.wrapper?.matches(':popover-open') &&
       ['ArrowDown', 'ArrowUp'].includes(event.key)
     ) {
       this.#popoverOpenedViaKeyboard = true;
       this.wrapper?.showPopover();
-    } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
+    } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
       event.stopPropagation();
 
       // Limit navigation to the visible options
       const items = this.items.filter(i => i.type === 'option' && i.visible);
+
+      if (items.length === 0) {
+        return;
+      }
 
       let delta = 0,
         index = -1;
@@ -792,9 +777,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
       index = (index + delta + items.length) % items.length;
 
-      this.#updateCurrent(items[index], 'smooth'); // with smooth scrolling the scrolling up is way more reliable than with auto.
-      // This setup now ignores prefers-reduced-motion and can cause unwanted motion for users who explicitly disable animations.
-      // When the reliability issue is resolved, we should switch back to using 'auto' and respect prefers-reduced-motion again.
+      this.#updateCurrent(items[index], 'auto');
     } else if (event.key === 'Escape') {
       // Prevents the Escape key event from bubbling up, so that pressing 'Escape' inside the combobox
       // does not close parent containers (such as dialogs).
@@ -831,13 +814,50 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     this.#pointerDown = false;
   }
 
-  #onRemove(item: ComboboxItem<T, U>): void {
+  #onRemove(item: ComboboxItem<T, U>, event?: SlRemoveEvent): void {
+    const nextFocusedItem = event ? this.#getNextSelectedTagItem(item) : undefined;
+
     this.#removeSelectedOption(item);
     this.#updateFilteredOptions();
     this.#updateCurrent();
 
     if (this.#popoverJustClosed) {
       this.wrapper?.showPopover();
+    }
+
+    if (event) {
+      void this.updateComplete.then(() => {
+        requestAnimationFrame(() => this.#focusSelectedTag(nextFocusedItem));
+      });
+    }
+  }
+
+  #getVisibleRemovableTags(): Tag[] {
+    return Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')).filter(
+      tag => tag.removable && tag.style.display !== 'none'
+    );
+  }
+
+  #getNextSelectedTagItem(item: ComboboxItem<T, U>): ComboboxItem<T, U> | undefined {
+    const tags = Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')),
+      visibleTags = new Set(this.#getVisibleRemovableTags()),
+      visibleTagItems = tags
+        .map((tag, index) => ({ item: this.selectedItems[index], tag }))
+        .filter(({ item, tag }) => item && visibleTags.has(tag)),
+      index = visibleTagItems.findIndex(({ item: tagItem }) => tagItem === item);
+
+    return visibleTagItems[index + 1]?.item ?? visibleTagItems[index - 1]?.item;
+  }
+
+  #focusSelectedTag(item?: ComboboxItem<T, U>): void {
+    const tags = Array.from(this.renderRoot.querySelectorAll<Tag>('sl-tag')),
+      tag = item ? tags[this.selectedItems.indexOf(item)] : undefined,
+      focusTarget = tag && tag.style.display !== 'none' ? tag : this.#getVisibleRemovableTags()[0];
+
+    if (focusTarget) {
+      focusTarget.focus();
+    } else {
+      this.input.focus();
     }
   }
 
@@ -890,9 +910,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   #onTextFieldBlur(event: SlBlurEvent): void {
     event.preventDefault();
     event.stopPropagation();
-
-    // Clear the focused tag before the focus moves out of the input
-    this.focusedTag = undefined;
 
     this.blurEvent.emit();
     this.updateState({ touched: true });
@@ -1254,7 +1271,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #toggleSelectedOption(item?: ComboboxItem<T, U>, force?: boolean): void {
-    if (!item) {
+    if (!item || item.type !== 'option') {
       return;
     }
 
@@ -1262,8 +1279,24 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     if (selected) {
       this.#addSelectedOption(item);
+
+      if (this.multiple && this.groupSelected) {
+        void this.#scrollSelectedGroupIntoView();
+      }
     } else {
       this.#removeSelectedOption(item);
+    }
+  }
+
+  async #scrollSelectedGroupIntoView(): Promise<void> {
+    await this.updateComplete;
+    await this.listbox?.updateComplete;
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+    if (this.#useVirtualList) {
+      this.listbox?.scrollToIndex(0, { block: 'start', behavior: 'auto' });
+    } else {
+      this.#selectedGroup?.scrollIntoView({ block: 'start', behavior: 'auto' });
     }
   }
 

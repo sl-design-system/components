@@ -1,1694 +1,1692 @@
 {
-	"sanoma-pro": {
-		"color": {
-			"link": {
-				"idle": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
-					"$description": "Use for links in their default or hovered state."
-				},
-				"hover": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.blue.600}",
-					"$description": "Use for links in hover state."
-				},
-				"muted": {
-					"idle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.grey.subtlest}",
-						"$description": "Use for muted links in idle state."
-					},
-					"hover": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.link.hover}",
-						"$description": "Use for muted links in hover state."
-					},
-					"active": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.link.active}",
-						"$description": "Use for muted links in active state."
-					}
-				},
-				"active": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.blue.700}",
-					"$description": "Use for links in active state."
-				},
-				"focused": {
-					"idle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.blue.700}",
-						"$description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
-					},
-					"hover": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.blue.800}",
-						"$description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
-					},
-					"active": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.blue.900}",
-						"$description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
-					}
-				},
-				"inverted": {
-					"idle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.inverted.plain}",
-						"$description": "Use for inverted links in idle state."
-					},
-					"hover": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.blue.100}",
-						"$description": "Use for inverted links in hover state."
-					},
-					"active": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.blue.150}",
-						"$description": "Use for inverted links in active state."
-					}
-				}
-			},
-			"border": {
-				"bold": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.border.accent.grey.bold}",
-					"$description": "A neutral border option that passes min 3:1 contrast ratios."
-				},
-				"info": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.blue.bold}",
-						"$description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.blue.plain}",
-						"$description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.blue.100}",
-						"$description": "Use for subtle borders on color.background.info background colors."
-					}
-				},
-				"input": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.border.bold}",
-					"$description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
-				},
-				"plain": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.border.accent.grey.plain}",
-					"$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
-				},
-				"accent": {
-					"red": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.red.bold}",
-							"$description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.red.bold}",
-							"$description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
-						}
-					},
-					"blue": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.blue.bold}",
-							"$description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.blue.bold}",
-							"$description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
-						}
-					},
-					"grey": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.500}",
-							"$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
-						},
-						"faint": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.150}",
-							"$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
-						},
-						"heavy": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.900}",
-							"$description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.300}",
-							"$description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
-						}
-					},
-					"teal": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.teal.bold}",
-							"$description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.teal.bold}",
-							"$description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
-						}
-					},
-					"green": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.green.bold}",
-							"$description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.green.bold}",
-							"$description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
-						}
-					},
-					"orange": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.orange.bold}",
-							"$description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.orange.bold}",
-							"$description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
-						}
-					},
-					"purple": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.purple.bold}",
-							"$description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.purple.bold}",
-							"$description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
-						}
-					},
-					"yellow": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.yellow.bold}",
-							"$description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.accent.yellow.plain}",
-							"$description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
-						}
-					}
-				},
-				"caution": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.orange.bold}",
-						"$description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.orange.plain}",
-						"$description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
-					}
-				},
-				"focused": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.blue.400}",
-					"$description": "Use for focus rings of elements in a focus state."
-				},
-				"neutral": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.grey.bold}",
-						"$description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.grey.plain}",
-						"$description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.200}",
-						"$description": "Use for subtle borders on color.background.neutral background colors."
-					}
-				},
-				"primary": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.green.bold}",
-						"$description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.green.plain}",
-						"$description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
-					}
-				},
-				"disabled": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.border.accent.grey.faint}",
-					"$description": "Use for borders of elements in a disabled state."
-				},
-				"inverted": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.grey.000}",
-					"$description": "Use for borders on bold backgrounds."
-				},
-				"negative": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.red.bold}",
-						"$description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.red.plain}",
-						"$description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
-					}
-				},
-				"positive": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.purple.bold}",
-						"$description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.purple.plain}",
-						"$description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
-					}
-				},
-				"selected": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.border.accent.blue.plain}",
-					"$description": "Use for borders that emphasize selected states, such as tabs or menu items."
-				},
-				"secondary": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.grey.heavy}",
-						"$description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.border.accent.grey.plain}",
-						"$description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
-					}
-				}
-			},
-			"blanket": {
-				"plain": {
-					"$type": "color",
-					"$value": "rgba({sanoma-pro.color.palette.grey.400}, {sanoma-pro.opacity.moderate})",
-					"$description": "Use for screen overlay that appears with dialogs or drawers."
-				}
-			},
-			"palette": {
-				"red": {
-					"100": {
-						"$type": "color",
-						"$value": "#FFE1E2"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#FFC7C9"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#FFA0A3"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#FF575C"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#F83B41"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#E00009"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#C11419"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#A01418"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#84181B"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#480709"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#FFF1F1"
-					}
-				},
-				"blue": {
-					"100": {
-						"$type": "color",
-						"$value": "#D6F4F7"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#B2E8EF"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#7DD6E3"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#41BACF"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#2499AF"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#00788E"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#006074"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#245566"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#224857"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#112E3B"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#EFFBFC"
-					}
-				},
-				"grey": {
-					"100": {
-						"$type": "color",
-						"$value": "#F0F2F5"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#E0E6EA"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#DAE0E7"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#D0D9E0"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#C8D1DA"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#818B98"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#59636E"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#393F46"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#25292F"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#222222"
-					},
-					"000": {
-						"$type": "color",
-						"$value": "#ffffff"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#F6F8FA"
-					}
-				},
-				"teal": {
-					"100": {
-						"$type": "color",
-						"$value": "#C5FFFA"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#8BFFF5"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#4AFEF0"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#15ECE2"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#00D0C9"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#00A8A5"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#008080"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#066769"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#0A5757"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#003235"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#DDFAE3"
-					}
-				},
-				"green": {
-					"100": {
-						"$type": "color",
-						"$value": "#DDFAE3"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#ACF1B6"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#73DE89"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#43C460"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#1DA23B"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#02831C"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#00740F"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#006000"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#004C00"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#003900"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#ECFDED"
-					}
-				},
-				"orange": {
-					"100": {
-						"$type": "color",
-						"$value": "#FBD7C6"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#F7BA9C"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#F28855"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#EC5C14"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#D64000"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#C73B00"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#A73100"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#9d3d0f"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#661E00"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#461500"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#FFF2EB"
-					}
-				},
-				"purple": {
-					"100": {
-						"$type": "color",
-						"$value": "#E2DBF2"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#CBBCE1"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#CBBCE1"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#A287C2"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#8D6CB3"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#764EA2"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#643695"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#532D7B"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#412460"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#301B46"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#f4f2ff"
-					}
-				},
-				"yellow": {
-					"100": {
-						"$type": "color",
-						"$value": "#FFF7C5"
-					},
-					"150": {
-						"$type": "color",
-						"$value": "#FFF085"
-					},
-					"200": {
-						"$type": "color",
-						"$value": "#FFE146"
-					},
-					"300": {
-						"$type": "color",
-						"$value": "#FFCF1B"
-					},
-					"400": {
-						"$type": "color",
-						"$value": "#FFAE00"
-					},
-					"500": {
-						"$type": "color",
-						"$value": "#E28400"
-					},
-					"600": {
-						"$type": "color",
-						"$value": "#BB5C02"
-					},
-					"700": {
-						"$type": "color",
-						"$value": "#984708"
-					},
-					"800": {
-						"$type": "color",
-						"$value": "#7C3A0B"
-					},
-					"900": {
-						"$type": "color",
-						"$value": "#481D00"
-					},
-					"050": {
-						"$type": "color",
-						"$value": "#FFFDEA"
-					}
-				}
-			},
-			"skeleton": {
-				"plain": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.grey.100}",
-					"$description": "Use for skeleton loading states."
-				},
-				"subtle": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.grey.050}",
-					"$description": "Use for the pulse or shimmer effect in skeleton loading states."
-				}
-			},
-			"background": {
-				"bold": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.border.bold}",
-					"$description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
-				},
-				"info": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.blue.bold}",
-						"$description": "Use for the background of actions with bold emphasis related to informative messages."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.blue.subtle}",
-						"$description": "A subtle background for informative messages."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.blue.subtlest}",
-						"$description": "The subtlest background for informative messages."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.blue.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.blue.interactive.plain}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"input": {
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.000}",
-						"$description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
-					},
-					"interactive": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.grey.interactive.plain}",
-						"$description": "Used as transparent layer on top of the input background to indicate the hover state."
-					}
-				},
-				"accent": {
-					"red": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.red.500}",
-							"$description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.palette.red.400}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba( {sanoma-pro.color.palette.red.400}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.red.900}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.red.400}",
-								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					},
-					"blue": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.blue.500}",
-							"$description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.background.accent.blue.bold}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.background.accent.blue.bold}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.blue.900}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.blue.300}",
-								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					},
-					"grey": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.150}",
-							"$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.palette.grey.400}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba( {sanoma-pro.color.palette.grey.400}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.grey.500}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.grey.400}",
-								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					},
-					"teal": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.teal.600}",
-							"$description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.palette.teal.400}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba( {sanoma-pro.color.palette.teal.400}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.teal.900}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.teal.400}",
-								"$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					},
-					"green": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.green.500}",
-							"$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.palette.green.400}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba( {sanoma-pro.color.palette.green.400}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.green.900}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.green.400}",
-								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					},
-					"orange": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.orange.600}",
-							"$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.palette.orange.400}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba( {sanoma-pro.color.palette.orange.400}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.orange.900}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.orange.400}",
-								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					},
-					"purple": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.purple.600}",
-							"$description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.palette.purple.400}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba( {sanoma-pro.color.palette.purple.400}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.purple.900}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.purple.400}",
-								"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					},
-					"yellow": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.yellow.400}",
-							"$description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "rgba({sanoma-pro.color.palette.yellow.400}, {sanoma-pro.opacity.subtle})",
-							"$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "rgba( {sanoma-pro.color.palette.yellow.400}, {sanoma-pro.opacity.subtlest})",
-							"$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
-						},
-						"interactive": {
-							"bold": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.yellow.800}",
-								"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-							},
-							"plain": {
-								"$type": "color",
-								"$value": "{sanoma-pro.color.palette.yellow.400}",
-								"$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
-							}
-						}
-					}
-				},
-				"subtle": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.background.accent.grey.subtle}",
-					"$description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
-				},
-				"caution": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.orange.bold}",
-						"$description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.orange.subtle}",
-						"$description": "A subtle background option to communicate caution to prevent errors."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.orange.subtlest}",
-						"$description": "The subtlest background option to communicate caution to prevent errors."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.orange.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.orange.interactive.plain}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"neutral": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.grey.bold}",
-						"$description": "A vibrant background option used for neutral actions."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.grey.subtle}",
-						"$description": "A subtle background in the neutral action color."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.050}",
-						"$description": "The subtlest background in the neutral action color."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.grey.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.grey.interactive.bold}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"primary": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.green.bold}",
-						"$description": "A vibrant background option used for primary actions."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.green.subtle}",
-						"$description": "A subtle background in the primary action color."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.green.subtlest}",
-						"$description": "The subtlest background in the primary action color."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.green.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.green.interactive.plain}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"disabled": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.grey.100}",
-					"$description": "Use for backgrounds of elements in disabled state."
-				},
-				"inverted": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.000}",
-						"$description": "A solid inverted background option."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "rgba({sanoma-pro.color.palette.grey.000}, {sanoma-pro.opacity.subtle})",
-						"$description": "A subtle inverted background option."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "rgba( {sanoma-pro.color.palette.grey.000}, {sanoma-pro.opacity.subtlest})",
-						"$description": "The subtlest inverted background option."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.800}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.200}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"negative": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.red.bold}",
-						"$description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.red.subtle}",
-						"$description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.red.subtlest}",
-						"$description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.red.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.red.interactive.plain}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"positive": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.purple.bold}",
-						"$description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.purple.subtle}",
-						"$description": "A subtle background option for communicating a positive outcome."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.purple.subtlest}",
-						"$description": "The subtlest background option for communicating a positive outcome."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.purple.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.purple.interactive.plain}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"selected": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.blue.bold}",
-						"$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.blue.subtle}",
-						"$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.blue.subtlest}",
-						"$description": "The subtlest background in the primary action color."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.blue.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.blue.interactive.plain}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"highlight": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.yellow.100}",
-					"$description": ""
-				},
-				"secondary": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.grey.bold}",
-						"$description": "A vibrant background option used for secondary actions."
-					},
-					"subtle": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.grey.subtle}",
-						"$description": "A subtle background in the secondary action color."
-					},
-					"subtlest": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.grey.subtlest}",
-						"$description": "The subtlest background in the secondary action color."
-					},
-					"interactive": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.grey.interactive.bold}",
-							"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.grey.interactive.plain}",
-							"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-						}
-					}
-				},
-				"interactive": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.neutral.interactive.bold}",
-						"$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.neutral.interactive.plain}",
-						"$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
-					}
-				}
-			},
-			"foreground": {
-				"bold": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.foreground.accent.grey.bold}",
-					"$description": "Use for headers and labels."
-				},
-				"info": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.blue.bold}",
-						"$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
-						"$description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.blue.onBold}",
-						"$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
-					}
-				},
-				"brand": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
-					"$description": "Use for non-interactive brand-reinforcing text."
-				},
-				"plain": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.foreground.accent.grey.plain}",
-					"$description": "Use for body copy and menu items."
-				},
-				"accent": {
-					"red": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.red.800}",
-							"$description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.red.bold}",
-							"$description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.inverted.plain}",
-							"$description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
-						}
-					},
-					"blue": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.blue.700}",
-							"$description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.blue.bold}",
-							"$description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.inverted.plain}",
-							"$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
-						}
-					},
-					"grey": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.900}",
-							"$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
-						},
-						"faint": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.300}",
-							"$description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.800}",
-							"$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.bold}",
-							"$description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
-						},
-						"subtle": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.700}",
-							"$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
-						},
-						"subtlest": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.grey.600}",
-							"$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
-						},
-						"onInverted": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.bold}",
-							"$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
-						}
-					},
-					"teal": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.teal.800}",
-							"$description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.teal.bold}",
-							"$description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.inverted.plain}",
-							"$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
-						}
-					},
-					"green": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.green.700}",
-							"$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.green.bold}",
-							"$description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.inverted.plain}",
-							"$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
-						}
-					},
-					"orange": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.orange.800}",
-							"$description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.orange.bold}",
-							"$description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.inverted.plain}",
-							"$description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
-						}
-					},
-					"purple": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.purple.800}",
-							"$description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.background.accent.purple.bold}",
-							"$description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.inverted.plain}",
-							"$description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
-						}
-					},
-					"yellow": {
-						"bold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.yellow.800}",
-							"$description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
-						},
-						"plain": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.palette.yellow.600}",
-							"$description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
-						},
-						"onBold": {
-							"$type": "color",
-							"$value": "{sanoma-pro.color.foreground.bold}",
-							"$description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
-						}
-					}
-				},
-				"subtle": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.foreground.accent.grey.subtle}",
-					"$description": "Use for subheadings."
-				},
-				"caution": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.orange.bold}",
-						"$description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.orange.plain}",
-						"$description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.orange.onBold}",
-						"$description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
-					}
-				},
-				"neutral": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.grey.bold}",
-						"$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.grey.subtlest}",
-						"$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.grey.onBold}",
-						"$description": "Use for neutral actions on 'color.background.neutral.bold'"
-					}
-				},
-				"primary": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.green.bold}",
-						"$description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.green.onBold}",
-						"$description": "Use for primary actions on 'color.background.primary.bold'"
-					}
-				},
-				"disabled": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.grey.500}",
-					"$description": "Use for text in a disabled state."
-				},
-				"inverted": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.000}",
-						"$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.000}",
-						"$description": "Use for plain inverted text."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.900}",
-						"$description": "Use for inverted text on 'color.background.inverted.bold'."
-					}
-				},
-				"negative": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.red.bold}",
-						"$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.red.plain}",
-						"$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.red.onBold}",
-						"$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
-					}
-				},
-				"positive": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.purple.bold}",
-						"$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.purple.plain}",
-						"$description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.purple.onBold}",
-						"$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
-					}
-				},
-				"selected": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.blue.bold}",
-						"$description": "Use for text in selected states (e.g., tabs or menu items)."
-					},
-					"plain": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
-						"$description": "Used as selected foreground color on white backgrounds."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.blue.onBold}",
-						"$description": "Use for text in selected states (e.g., tabs or menu items)."
-					}
-				},
-				"subtlest": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.foreground.accent.grey.subtlest}",
-					"$description": "Use for placeholders and hints."
-				},
-				"secondary": {
-					"bold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.grey.bold}",
-						"$description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
-					},
-					"onBold": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.foreground.accent.grey.onBold}",
-						"$description": "Use for secondary actions on 'color.background.secondary.bold'"
-					}
-				}
-			}
-		},
-		"opacity": {
-			"bold": {
-				"$type": "opacity",
-				"$value": "100%"
-			},
-			"muted": {
-				"$type": "opacity",
-				"$value": "0%"
-			},
-			"subtle": {
-				"$type": "opacity",
-				"$value": "20%"
-			},
-			"moderate": {
-				"$type": "opacity",
-				"$value": "80%"
-			},
-			"subtlest": {
-				"$type": "opacity",
-				"$value": "10%"
-			},
-			"interactive": {
-				"bold": {
-					"idle": {
-						"$type": "opacity",
-						"$value": "0%"
-					},
-					"hover": {
-						"$type": "opacity",
-						"$value": "20%"
-					},
-					"active": {
-						"$type": "opacity",
-						"$value": "40%"
-					}
-				},
-				"plain": {
-					"idle": {
-						"$type": "opacity",
-						"$value": "0%"
-					},
-					"hover": {
-						"$type": "opacity",
-						"$value": "15%"
-					},
-					"active": {
-						"$type": "opacity",
-						"$value": "25%"
-					}
-				},
-				"reversed": {
-					"idle": {
-						"$type": "opacity",
-						"$value": "80%"
-					},
-					"hover": {
-						"$type": "opacity",
-						"$value": "90%"
-					},
-					"active": {
-						"$type": "opacity",
-						"$value": "100%"
-					}
-				}
-			}
-		},
-		"elevation": {
-			"surface": {
-				"base": {
-					"default": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.000}",
-						"$description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
-					}
-				},
-				"raised": {
-					"sunken": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.050}",
-						"$description": "Background for components that create a sunken effect, typically used for grouping related items."
-					},
-					"default": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.000}",
-						"$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-					},
-					"primary": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.background.accent.green.bold}",
-						"$description": "A vibrant background option used for primary actions."
-					},
-					"inverted": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.900}",
-						"$description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-					},
-					"alternative": {
-						"$type": "color",
-						"$value": "{sanoma-pro.color.palette.grey.100}",
-						"$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-					}
-				},
-				"shadow": {
-					"$type": "color",
-					"$value": "{sanoma-pro.color.palette.grey.900}",
-					"$description": "Used as color for shadows."
-				}
-			}
-		},
-		"theme-name": {
-			"$type": "text",
-			"$value": "Sanoma Pro",
-			"$description": ""
-		}
-	}
+  "sanoma-pro": {
+    "color": {
+      "background": {
+        "accent": {
+          "blue": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.blue.500}",
+              "$type": "color",
+              "$description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.blue.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.blue.300}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.background.accent.blue.bold}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.background.accent.blue.bold}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "green": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.green.500}",
+              "$type": "color",
+              "$description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.green.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.green.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.palette.green.400}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.palette.green.400}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "grey": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.grey.150}",
+              "$type": "color",
+              "$description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.grey.500}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.grey.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.palette.grey.400}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.palette.grey.400}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "orange": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.orange.600}",
+              "$type": "color",
+              "$description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.orange.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.orange.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.palette.orange.400}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.palette.orange.400}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "purple": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.purple.600}",
+              "$type": "color",
+              "$description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.purple.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.purple.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.palette.purple.400}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.palette.purple.400}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "red": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.red.500}",
+              "$type": "color",
+              "$description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.red.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.red.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.palette.red.400}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.palette.red.400}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "teal": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.teal.600}",
+              "$type": "color",
+              "$description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.teal.900}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.teal.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.palette.teal.400}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.palette.teal.400}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "yellow": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.yellow.400}",
+              "$type": "color",
+              "$description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "interactive": {
+              "bold": {
+                "$value": "{sanoma-pro.color.palette.yellow.800}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+              },
+              "plain": {
+                "$value": "{sanoma-pro.color.palette.yellow.400}",
+                "$type": "color",
+                "$description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+              }
+            },
+            "subtle": {
+              "$value": "set_alpha({sanoma-pro.color.palette.yellow.400}, {sanoma-pro.opacity.subtle})",
+              "$type": "color",
+              "$description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
+            },
+            "subtlest": {
+              "$value": "set_alpha({sanoma-pro.color.palette.yellow.400}, {sanoma-pro.opacity.subtlest})",
+              "$type": "color",
+              "$description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+            }
+          }
+        },
+        "bold": {
+          "$value": "{sanoma-pro.color.border.bold}",
+          "$type": "color",
+          "$description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
+        },
+        "caution": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.orange.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.orange.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.orange.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.orange.subtle}",
+            "$type": "color",
+            "$description": "A subtle background option to communicate caution to prevent errors."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.background.accent.orange.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background option to communicate caution to prevent errors."
+          }
+        },
+        "disabled": {
+          "$value": "{sanoma-pro.color.palette.grey.100}",
+          "$type": "color",
+          "$description": "Use for backgrounds of elements in disabled state."
+        },
+        "highlight": {
+          "$value": "{sanoma-pro.color.palette.yellow.100}",
+          "$type": "color"
+        },
+        "info": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to informative messages."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.blue.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.blue.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.blue.subtle}",
+            "$type": "color",
+            "$description": "A subtle background for informative messages."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.background.accent.blue.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background for informative messages."
+          }
+        },
+        "input": {
+          "interactive": {
+            "$value": "{sanoma-pro.color.background.accent.grey.interactive.plain}",
+            "$type": "color",
+            "$description": "Used as transparent layer on top of the input background to indicate the hover state."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
+          }
+        },
+        "interactive": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.neutral.interactive.bold}",
+            "$type": "color",
+            "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.background.neutral.interactive.plain}",
+            "$type": "color",
+            "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+          }
+        },
+        "inverted": {
+          "bold": {
+            "$value": "{sanoma-pro.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "A solid inverted background option."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.grey.800}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.palette.grey.200}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "set_alpha({sanoma-pro.color.palette.grey.000}, {sanoma-pro.opacity.subtle})",
+            "$type": "color",
+            "$description": "A subtle inverted background option."
+          },
+          "subtlest": {
+            "$value": "set_alpha({sanoma-pro.color.palette.grey.000}, {sanoma-pro.opacity.subtlest})",
+            "$type": "color",
+            "$description": "The subtlest inverted background option."
+          }
+        },
+        "negative": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.red.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.red.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.red.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.red.subtle}",
+            "$type": "color",
+            "$description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.background.accent.red.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+          }
+        },
+        "neutral": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.grey.bold}",
+            "$type": "color",
+            "$description": "A vibrant background option used for neutral actions."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.grey.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.grey.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.grey.subtle}",
+            "$type": "color",
+            "$description": "A subtle background in the neutral action color."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.palette.grey.050}",
+            "$type": "color",
+            "$description": "The subtlest background in the neutral action color."
+          }
+        },
+        "positive": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.purple.bold}",
+            "$type": "color",
+            "$description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.purple.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.purple.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.purple.subtle}",
+            "$type": "color",
+            "$description": "A subtle background option for communicating a positive outcome."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.background.accent.purple.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background option for communicating a positive outcome."
+          }
+        },
+        "primary": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.green.bold}",
+            "$type": "color",
+            "$description": "A vibrant background option used for primary actions."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.green.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.green.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.green.subtle}",
+            "$type": "color",
+            "$description": "A subtle background in the primary action color."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.background.accent.green.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background in the primary action color."
+          }
+        },
+        "secondary": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.grey.bold}",
+            "$type": "color",
+            "$description": "A vibrant background option used for secondary actions."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.grey.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.grey.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.grey.subtle}",
+            "$type": "color",
+            "$description": "A subtle background in the secondary action color."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.background.accent.grey.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background in the secondary action color."
+          }
+        },
+        "selected": {
+          "bold": {
+            "$value": "{sanoma-pro.color.background.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
+          },
+          "interactive": {
+            "bold": {
+              "$value": "{sanoma-pro.color.background.accent.blue.interactive.bold}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.blue.interactive.plain}",
+              "$type": "color",
+              "$description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+            }
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.background.accent.blue.subtle}",
+            "$type": "color",
+            "$description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
+          },
+          "subtlest": {
+            "$value": "{sanoma-pro.color.background.accent.blue.subtlest}",
+            "$type": "color",
+            "$description": "The subtlest background in the primary action color."
+          }
+        },
+        "subtle": {
+          "$value": "{sanoma-pro.color.background.accent.grey.subtle}",
+          "$type": "color",
+          "$description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
+        }
+      },
+      "blanket": {
+        "plain": {
+          "$value": "set_alpha({sanoma-pro.color.palette.grey.400}, {sanoma-pro.opacity.moderate})",
+          "$type": "color",
+          "$description": "Use for screen overlay that appears with dialogs or drawers."
+        }
+      },
+      "border": {
+        "accent": {
+          "blue": {
+            "bold": {
+              "$value": "{sanoma-pro.color.foreground.accent.blue.bold}",
+              "$type": "color",
+              "$description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.blue.bold}",
+              "$type": "color",
+              "$description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "green": {
+            "bold": {
+              "$value": "{sanoma-pro.color.foreground.accent.green.bold}",
+              "$type": "color",
+              "$description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.green.bold}",
+              "$type": "color",
+              "$description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "grey": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.grey.500}",
+              "$type": "color",
+              "$description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
+            },
+            "faint": {
+              "$value": "{sanoma-pro.color.palette.grey.150}",
+              "$type": "color",
+              "$description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
+            },
+            "heavy": {
+              "$value": "{sanoma-pro.color.palette.grey.900}",
+              "$type": "color",
+              "$description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.palette.grey.300}",
+              "$type": "color",
+              "$description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "orange": {
+            "bold": {
+              "$value": "{sanoma-pro.color.foreground.accent.orange.bold}",
+              "$type": "color",
+              "$description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.orange.bold}",
+              "$type": "color",
+              "$description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "purple": {
+            "bold": {
+              "$value": "{sanoma-pro.color.foreground.accent.purple.bold}",
+              "$type": "color",
+              "$description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.purple.bold}",
+              "$type": "color",
+              "$description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "red": {
+            "bold": {
+              "$value": "{sanoma-pro.color.foreground.accent.red.bold}",
+              "$type": "color",
+              "$description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.red.bold}",
+              "$type": "color",
+              "$description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "teal": {
+            "bold": {
+              "$value": "{sanoma-pro.color.foreground.accent.teal.bold}",
+              "$type": "color",
+              "$description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.teal.bold}",
+              "$type": "color",
+              "$description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "yellow": {
+            "bold": {
+              "$value": "{sanoma-pro.color.foreground.accent.yellow.bold}",
+              "$type": "color",
+              "$description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.foreground.accent.yellow.plain}",
+              "$type": "color",
+              "$description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
+            }
+          }
+        },
+        "bold": {
+          "$value": "{sanoma-pro.color.border.accent.grey.bold}",
+          "$type": "color",
+          "$description": "A neutral border option that passes min 3:1 contrast ratios."
+        },
+        "caution": {
+          "bold": {
+            "$value": "{sanoma-pro.color.border.accent.orange.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.border.accent.orange.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
+          }
+        },
+        "disabled": {
+          "$value": "{sanoma-pro.color.border.accent.grey.faint}",
+          "$type": "color",
+          "$description": "Use for borders of elements in a disabled state."
+        },
+        "focused": {
+          "$value": "{sanoma-pro.color.palette.blue.400}",
+          "$type": "color",
+          "$description": "Use for focus rings of elements in a focus state."
+        },
+        "info": {
+          "bold": {
+            "$value": "{sanoma-pro.color.border.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.border.accent.blue.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.palette.blue.100}",
+            "$type": "color",
+            "$description": "Use for subtle borders on color.background.info background colors."
+          }
+        },
+        "input": {
+          "$value": "{sanoma-pro.color.border.bold}",
+          "$type": "color",
+          "$description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
+        },
+        "inverted": {
+          "$value": "{sanoma-pro.color.palette.grey.000}",
+          "$type": "color",
+          "$description": "Use for borders on bold backgrounds."
+        },
+        "negative": {
+          "bold": {
+            "$value": "{sanoma-pro.color.border.accent.red.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.border.accent.red.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
+          }
+        },
+        "neutral": {
+          "bold": {
+            "$value": "{sanoma-pro.color.border.accent.grey.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.border.accent.grey.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
+          },
+          "subtle": {
+            "$value": "{sanoma-pro.color.palette.grey.200}",
+            "$type": "color",
+            "$description": "Use for subtle borders on color.background.neutral background colors."
+          }
+        },
+        "plain": {
+          "$value": "{sanoma-pro.color.border.accent.grey.plain}",
+          "$type": "color",
+          "$description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
+        },
+        "positive": {
+          "bold": {
+            "$value": "{sanoma-pro.color.border.accent.purple.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.border.accent.purple.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
+          }
+        },
+        "primary": {
+          "bold": {
+            "$value": "{sanoma-pro.color.border.accent.green.bold}",
+            "$type": "color",
+            "$description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.border.accent.green.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
+          }
+        },
+        "secondary": {
+          "bold": {
+            "$value": "{sanoma-pro.color.border.accent.grey.heavy}",
+            "$type": "color",
+            "$description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.border.accent.grey.plain}",
+            "$type": "color",
+            "$description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
+          }
+        },
+        "selected": {
+          "$value": "{sanoma-pro.color.border.accent.blue.plain}",
+          "$type": "color",
+          "$description": "Use for borders that emphasize selected states, such as tabs or menu items."
+        }
+      },
+      "foreground": {
+        "accent": {
+          "blue": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.blue.700}",
+              "$type": "color",
+              "$description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.blue.bold}",
+              "$type": "color",
+              "$description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "green": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.green.700}",
+              "$type": "color",
+              "$description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.green.bold}",
+              "$type": "color",
+              "$description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "grey": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.grey.900}",
+              "$type": "color",
+              "$description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
+            },
+            "faint": {
+              "$value": "{sanoma-pro.color.palette.grey.300}",
+              "$type": "color",
+              "$description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.bold}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "onInverted": {
+              "$value": "{sanoma-pro.color.foreground.bold}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.palette.grey.800}",
+              "$type": "color",
+              "$description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
+            },
+            "subtle": {
+              "$value": "{sanoma-pro.color.palette.grey.700}",
+              "$type": "color",
+              "$description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
+            },
+            "subtlest": {
+              "$value": "{sanoma-pro.color.palette.grey.600}",
+              "$type": "color",
+              "$description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "orange": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.orange.800}",
+              "$type": "color",
+              "$description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.orange.bold}",
+              "$type": "color",
+              "$description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "purple": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.purple.800}",
+              "$type": "color",
+              "$description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.purple.bold}",
+              "$type": "color",
+              "$description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "red": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.red.800}",
+              "$type": "color",
+              "$description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.red.bold}",
+              "$type": "color",
+              "$description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "teal": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.teal.800}",
+              "$type": "color",
+              "$description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.inverted.plain}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.background.accent.teal.bold}",
+              "$type": "color",
+              "$description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            }
+          },
+          "yellow": {
+            "bold": {
+              "$value": "{sanoma-pro.color.palette.yellow.800}",
+              "$type": "color",
+              "$description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+            },
+            "onBold": {
+              "$value": "{sanoma-pro.color.foreground.bold}",
+              "$type": "color",
+              "$description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "$value": "{sanoma-pro.color.palette.yellow.600}",
+              "$type": "color",
+              "$description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            }
+          }
+        },
+        "bold": {
+          "$value": "{sanoma-pro.color.foreground.accent.grey.bold}",
+          "$type": "color",
+          "$description": "Use for headers and labels."
+        },
+        "brand": {
+          "$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
+          "$type": "color",
+          "$description": "Use for non-interactive brand-reinforcing text."
+        },
+        "caution": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.orange.bold}",
+            "$type": "color",
+            "$description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.orange.onBold}",
+            "$type": "color",
+            "$description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.foreground.accent.orange.plain}",
+            "$type": "color",
+            "$description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
+          }
+        },
+        "disabled": {
+          "$value": "{sanoma-pro.color.palette.grey.500}",
+          "$type": "color",
+          "$description": "Use for text in a disabled state."
+        },
+        "info": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.blue.onBold}",
+            "$type": "color",
+            "$description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
+            "$type": "color",
+            "$description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
+          }
+        },
+        "inverted": {
+          "bold": {
+            "$value": "{sanoma-pro.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.palette.grey.900}",
+            "$type": "color",
+            "$description": "Use for inverted text on 'color.background.inverted.bold'."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "Use for plain inverted text."
+          }
+        },
+        "negative": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.red.bold}",
+            "$type": "color",
+            "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.red.onBold}",
+            "$type": "color",
+            "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.foreground.accent.red.plain}",
+            "$type": "color",
+            "$description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds."
+          }
+        },
+        "neutral": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.grey.bold}",
+            "$type": "color",
+            "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.grey.onBold}",
+            "$type": "color",
+            "$description": "Use for neutral actions on 'color.background.neutral.bold'"
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.foreground.accent.grey.subtlest}",
+            "$type": "color",
+            "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+          }
+        },
+        "plain": {
+          "$value": "{sanoma-pro.color.foreground.accent.grey.plain}",
+          "$type": "color",
+          "$description": "Use for body copy and menu items."
+        },
+        "positive": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.purple.bold}",
+            "$type": "color",
+            "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.purple.onBold}",
+            "$type": "color",
+            "$description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.foreground.accent.purple.plain}",
+            "$type": "color",
+            "$description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
+          }
+        },
+        "primary": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.green.bold}",
+            "$type": "color",
+            "$description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.green.onBold}",
+            "$type": "color",
+            "$description": "Use for primary actions on 'color.background.primary.bold'"
+          }
+        },
+        "secondary": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.grey.bold}",
+            "$type": "color",
+            "$description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.grey.onBold}",
+            "$type": "color",
+            "$description": "Use for secondary actions on 'color.background.secondary.bold'"
+          }
+        },
+        "selected": {
+          "bold": {
+            "$value": "{sanoma-pro.color.foreground.accent.blue.bold}",
+            "$type": "color",
+            "$description": "Use for text in selected states (e.g., tabs or menu items)."
+          },
+          "onBold": {
+            "$value": "{sanoma-pro.color.foreground.accent.blue.onBold}",
+            "$type": "color",
+            "$description": "Use for text in selected states (e.g., tabs or menu items)."
+          },
+          "plain": {
+            "$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
+            "$type": "color",
+            "$description": "Used as selected foreground color on white backgrounds."
+          }
+        },
+        "subtle": {
+          "$value": "{sanoma-pro.color.foreground.accent.grey.subtle}",
+          "$type": "color",
+          "$description": "Use for subheadings."
+        },
+        "subtlest": {
+          "$value": "{sanoma-pro.color.foreground.accent.grey.subtlest}",
+          "$type": "color",
+          "$description": "Use for placeholders and hints."
+        }
+      },
+      "link": {
+        "active": {
+          "$value": "{sanoma-pro.color.palette.blue.700}",
+          "$type": "color",
+          "$description": "Use for links in active state."
+        },
+        "focused": {
+          "active": {
+            "$value": "{sanoma-pro.color.palette.blue.900}",
+            "$type": "color",
+            "$description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
+          },
+          "hover": {
+            "$value": "{sanoma-pro.color.palette.blue.800}",
+            "$type": "color",
+            "$description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
+          },
+          "idle": {
+            "$value": "{sanoma-pro.color.palette.blue.700}",
+            "$type": "color",
+            "$description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
+          }
+        },
+        "hover": {
+          "$value": "{sanoma-pro.color.palette.blue.600}",
+          "$type": "color",
+          "$description": "Use for links in hover state."
+        },
+        "idle": {
+          "$value": "{sanoma-pro.color.foreground.accent.blue.plain}",
+          "$type": "color",
+          "$description": "Use for links in their default or hovered state."
+        },
+        "inverted": {
+          "active": {
+            "$value": "{sanoma-pro.color.palette.blue.150}",
+            "$type": "color",
+            "$description": "Use for inverted links in active state."
+          },
+          "hover": {
+            "$value": "{sanoma-pro.color.palette.blue.100}",
+            "$type": "color",
+            "$description": "Use for inverted links in hover state."
+          },
+          "idle": {
+            "$value": "{sanoma-pro.color.foreground.inverted.plain}",
+            "$type": "color",
+            "$description": "Use for inverted links in idle state."
+          }
+        },
+        "muted": {
+          "active": {
+            "$value": "{sanoma-pro.color.link.active}",
+            "$type": "color",
+            "$description": "Use for muted links in active state."
+          },
+          "hover": {
+            "$value": "{sanoma-pro.color.link.hover}",
+            "$type": "color",
+            "$description": "Use for muted links in hover state."
+          },
+          "idle": {
+            "$value": "{sanoma-pro.color.foreground.accent.grey.subtlest}",
+            "$type": "color",
+            "$description": "Use for muted links in idle state."
+          }
+        }
+      },
+      "palette": {
+        "blue": {
+          "050": {
+            "$value": "#EFFBFC",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#D6F4F7",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#B2E8EF",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#7DD6E3",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#41BACF",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#2499AF",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#00788E",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#006074",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#245566",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#224857",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#112E3B",
+            "$type": "color"
+          }
+        },
+        "green": {
+          "050": {
+            "$value": "#ECFDED",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#DDFAE3",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#ACF1B6",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#73DE89",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#43C460",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#1DA23B",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#02831C",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#00740F",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#006000",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#004C00",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#003900",
+            "$type": "color"
+          }
+        },
+        "grey": {
+          "000": {
+            "$value": "#ffffff",
+            "$type": "color"
+          },
+          "050": {
+            "$value": "#F6F8FA",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#F0F2F5",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#E0E6EA",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#DAE0E7",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#D0D9E0",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#C8D1DA",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#818B98",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#59636E",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#393F46",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#25292F",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#222222",
+            "$type": "color"
+          }
+        },
+        "orange": {
+          "050": {
+            "$value": "#FFF2EB",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#FBD7C6",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#F7BA9C",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#F28855",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#EC5C14",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#D64000",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#C73B00",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#A73100",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#9d3d0f",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#661E00",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#461500",
+            "$type": "color"
+          }
+        },
+        "purple": {
+          "050": {
+            "$value": "#f4f2ff",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#E2DBF2",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#CBBCE1",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#CBBCE1",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#A287C2",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#8D6CB3",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#764EA2",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#643695",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#532D7B",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#412460",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#301B46",
+            "$type": "color"
+          }
+        },
+        "red": {
+          "050": {
+            "$value": "#FFF1F1",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#FFE1E2",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#FFC7C9",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#FFA0A3",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#FF575C",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#F83B41",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#E00009",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#C11419",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#A01418",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#84181B",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#480709",
+            "$type": "color"
+          }
+        },
+        "teal": {
+          "050": {
+            "$value": "#DDFAE3",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#C5FFFA",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#8BFFF5",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#4AFEF0",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#15ECE2",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#00D0C9",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#00A8A5",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#008080",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#066769",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#0A5757",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#003235",
+            "$type": "color"
+          }
+        },
+        "yellow": {
+          "050": {
+            "$value": "#FFFDEA",
+            "$type": "color"
+          },
+          "100": {
+            "$value": "#FFF7C5",
+            "$type": "color"
+          },
+          "150": {
+            "$value": "#FFF085",
+            "$type": "color"
+          },
+          "200": {
+            "$value": "#FFE146",
+            "$type": "color"
+          },
+          "300": {
+            "$value": "#FFCF1B",
+            "$type": "color"
+          },
+          "400": {
+            "$value": "#FFAE00",
+            "$type": "color"
+          },
+          "500": {
+            "$value": "#E28400",
+            "$type": "color"
+          },
+          "600": {
+            "$value": "#BB5C02",
+            "$type": "color"
+          },
+          "700": {
+            "$value": "#984708",
+            "$type": "color"
+          },
+          "800": {
+            "$value": "#7C3A0B",
+            "$type": "color"
+          },
+          "900": {
+            "$value": "#481D00",
+            "$type": "color"
+          }
+        }
+      },
+      "skeleton": {
+        "plain": {
+          "$value": "{sanoma-pro.color.palette.grey.100}",
+          "$type": "color",
+          "$description": "Use for skeleton loading states."
+        },
+        "subtle": {
+          "$value": "{sanoma-pro.color.palette.grey.050}",
+          "$type": "color",
+          "$description": "Use for the pulse or shimmer effect in skeleton loading states."
+        }
+      }
+    },
+    "elevation": {
+      "surface": {
+        "base": {
+          "default": {
+            "$value": "{sanoma-pro.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
+          }
+        },
+        "raised": {
+          "alternative": {
+            "$value": "{sanoma-pro.color.palette.grey.100}",
+            "$type": "color",
+            "$description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+          },
+          "default": {
+            "$value": "{sanoma-pro.color.palette.grey.000}",
+            "$type": "color",
+            "$description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          },
+          "inverted": {
+            "$value": "{sanoma-pro.color.palette.grey.900}",
+            "$type": "color",
+            "$description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          },
+          "primary": {
+            "$value": "{sanoma-pro.color.background.accent.green.bold}",
+            "$type": "color",
+            "$description": "A vibrant background option used for primary actions."
+          },
+          "sunken": {
+            "$value": "{sanoma-pro.color.palette.grey.050}",
+            "$type": "color",
+            "$description": "Background for components that create a sunken effect, typically used for grouping related items."
+          }
+        },
+        "shadow": {
+          "$value": "{sanoma-pro.color.palette.grey.900}",
+          "$type": "color",
+          "$description": "Used as color for shadows."
+        }
+      }
+    },
+    "opacity": {
+      "bold": {
+        "$value": "1",
+        "$type": "opacity"
+      },
+      "interactive": {
+        "bold": {
+          "active": {
+            "$value": "0.4",
+            "$type": "opacity"
+          },
+          "hover": {
+            "$value": "0.2",
+            "$type": "opacity"
+          },
+          "idle": {
+            "$value": "0",
+            "$type": "opacity"
+          }
+        },
+        "plain": {
+          "active": {
+            "$value": "0.25",
+            "$type": "opacity"
+          },
+          "hover": {
+            "$value": "0.15",
+            "$type": "opacity"
+          },
+          "idle": {
+            "$value": "0",
+            "$type": "opacity"
+          }
+        },
+        "reversed": {
+          "active": {
+            "$value": "1",
+            "$type": "opacity"
+          },
+          "hover": {
+            "$value": "0.9",
+            "$type": "opacity"
+          },
+          "idle": {
+            "$value": "0.8",
+            "$type": "opacity"
+          }
+        }
+      },
+      "moderate": {
+        "$value": "0.8",
+        "$type": "opacity"
+      },
+      "muted": {
+        "$value": "0",
+        "$type": "opacity"
+      },
+      "subtle": {
+        "$value": "0.2",
+        "$type": "opacity"
+      },
+      "subtlest": {
+        "$value": "0.1",
+        "$type": "opacity"
+      }
+    },
+    "theme-name": {
+      "$value": "Sanoma Pro",
+      "$type": "text"
+    }
+  }
 }

@@ -345,16 +345,27 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
 
   // Event handlers
   #onFocusin = (event: FocusEvent): void => {
-    if (!this.#isFocusMovingOutOfScope(event)) {
-      this.#hostContainsFocus();
-    }
     const path = event.composedPath() as T[];
     let targetIndex = -1;
     path.find(el => {
       targetIndex = this.elements.indexOf(el);
       return targetIndex !== -1;
     });
+
+    if (targetIndex === -1) {
+      // Elements may change when the range or page updates, so check again.
+      this.#cachedElements = undefined;
+      path.find(el => {
+        targetIndex = this.elements.indexOf(el);
+        return targetIndex !== -1;
+      });
+    }
+
     this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
+
+    if (!this.#isFocusMovingOutOfScope(event) && targetIndex > -1) {
+      this.#hostContainsFocus();
+    }
   };
 
   #onFocusout = (event: FocusEvent): void => {
@@ -520,7 +531,9 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
   // Tabindex management
   #manageTabindexes(): void {
     if (this.focused) {
-      this.#updateTabindexes(() => ({ tabIndex: -1 }));
+      const activeElement = this.elements[this.currentIndex] ?? this.focusInElement;
+
+      this.#updateTabindexes(el => ({ tabIndex: el === activeElement ? 0 : -1 }));
     } else {
       // Find the first focusable element for tabindex=0
       let focusableElement = this.focusInElement;

@@ -364,44 +364,70 @@ describe('sl-date-field', () => {
     });
   });
 
-  describe('popover', () => {
+  describe('dialog', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-date-field></sl-date-field>`);
     });
 
     it('should not show calendar initially', () => {
-      const dialog = el.renderRoot.querySelector('dialog[popover]');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 
-      expect(dialog).not.to.match(':popover-open');
+      expect(dialog).to.exist;
+      expect(dialog!.open).to.be.false;
     });
 
-    it('should render the calendar when the popover is opened', async () => {
-      const dialog = el.renderRoot.querySelector('dialog[popover]');
+    it('should render the calendar when the dialog is opened', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 
-      expect(dialog).not.to.match(':popover-open');
+      expect(dialog!.open).to.be.false;
       expect(dialog).not.to.contain('sl-calendar');
 
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(dialog).to.match(':popover-open');
+      expect(dialog!.open).to.be.true;
       expect(dialog).to.contain('sl-calendar');
+    });
+
+    it('should cancel a pending open when hidePicker is called before updateComplete resolves', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
+
+      el.showPicker();
+      el.hidePicker();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog?.open).to.be.false;
+      expect(el.renderRoot.querySelector('sl-calendar')).not.to.exist;
+    });
+
+    it('should keep dialog closed when toggled open and immediately closed', async () => {
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog'),
+        button = el.renderRoot.querySelector<HTMLElement>('sl-field-button');
+
+      button?.click();
+      button?.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog?.open).to.be.false;
+      expect(el.renderRoot.querySelector('sl-calendar')).not.to.exist;
     });
 
     it('should hide the extra controls area when there are no actions', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const dialog = el.renderRoot.querySelector('dialog[popover]');
+      const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog');
 
-      expect(dialog).to.match(':popover-open');
+      expect(dialog!.open).to.be.true;
       expect(dialog).to.contain('sl-calendar');
 
       const buttonBar = el.renderRoot.querySelector('sl-button-bar');
       expect(buttonBar).not.to.exist;
     });
 
-    it('should hide popover when calendar date is selected', async () => {
+    it('should close dialog when calendar date is selected', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
@@ -415,7 +441,7 @@ describe('sl-date-field', () => {
       );
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('dialog')).not.to.match(':popover-open');
+      expect(el.renderRoot.querySelector('dialog')?.open).to.be.false;
     });
 
     it('should stop Escape key propagation', async () => {
@@ -517,7 +543,7 @@ describe('sl-date-field', () => {
       expect(el.renderRoot.querySelector('sl-calendar')).to.have.attribute('show-today');
     });
 
-    it("should focus today's date when popover opens", async () => {
+    it("should focus today's date when dialog opens", async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -650,6 +676,111 @@ describe('sl-date-field', () => {
     });
   });
 
+  describe('dialog focus management', () => {
+    let dialog: HTMLDialogElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-date-field></sl-date-field>`);
+
+      el.renderRoot.querySelector<HTMLElement>('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+    });
+
+    it('should close the dialog and return focus to field button on Escape', async () => {
+      expect(dialog.open).to.be.true;
+
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog.open).to.be.false;
+
+      const fieldButton = el.renderRoot.querySelector('sl-field-button');
+      expect(fieldButton?.matches(':focus-within')).to.be.true;
+    });
+
+    it('should open the dialog as a modal', () => {
+      expect(dialog).to.match(':modal');
+    });
+
+    it('should close the dialog when clicking the backdrop', async () => {
+      expect(dialog.open).to.be.true;
+
+      const rect = dialog.getBoundingClientRect();
+
+      // Simulate a click outside the dialog rect (on the backdrop)
+      dialog.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          composed: true,
+          clientX: rect.left - 10,
+          clientY: rect.top - 10
+        })
+      );
+      await el.updateComplete;
+
+      expect(dialog.open).to.be.false;
+    });
+
+    it('should not close the dialog when clicking inside it', async () => {
+      expect(dialog.open).to.be.true;
+
+      const rect = dialog.getBoundingClientRect();
+
+      // Simulate a click inside the dialog rect
+      dialog.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: true,
+          composed: true,
+          clientX: rect.left + rect.width / 2,
+          clientY: rect.top + rect.height / 2
+        })
+      );
+      await el.updateComplete;
+
+      expect(dialog.open).to.be.true;
+    });
+
+    it('should keep the dialog open when Tab is pressed within the calendar', async () => {
+      expect(dialog.open).to.be.true;
+
+      await userEvent.keyboard('{Tab}');
+      await el.updateComplete;
+
+      expect(dialog.open).to.be.true;
+    });
+
+    it('should keep the dialog open when Shift+Tab is pressed within the calendar', async () => {
+      expect(dialog.open).to.be.true;
+
+      await userEvent.keyboard('{Shift>}{Tab}{/Shift}');
+      await el.updateComplete;
+
+      expect(dialog.open).to.be.true;
+    });
+
+    it('should only open the dialog once when showPicker is called multiple times rapidly', async () => {
+      // Close the dialog first (it was opened in beforeEach)
+      el.hidePicker();
+      await el.updateComplete;
+      expect(dialog.open).to.be.false;
+
+      // Call showPicker multiple times rapidly
+      el.showPicker();
+      el.showPicker();
+      el.showPicker();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(dialog.open).to.be.true;
+
+      // Verify there's only one calendar rendered (not multiple)
+      const calendars = el.renderRoot.querySelectorAll('sl-calendar');
+      expect(calendars).to.have.length(1);
+    });
+  });
+
   describe('form integration', () => {
     it('should use ElementInternals for form association', async () => {
       const form = await fixture(html`
@@ -711,9 +842,10 @@ describe('sl-date-field', () => {
       expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('should have aria-expanded true on the calendar button when the popover is open', async () => {
+    it('should have aria-expanded true on the calendar button when the dialog is open', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
 
       const button = el.renderRoot.querySelector('sl-field-button');
 
@@ -1690,7 +1822,7 @@ describe('sl-date-field', () => {
       expect(el.requireConfirmation).to.be.true;
     });
 
-    it('should render a confirmation button in the popover', async () => {
+    it('should render a confirmation button in the dialog', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
@@ -1699,7 +1831,7 @@ describe('sl-date-field', () => {
       expect(button).to.have.trimmed.text('Confirm');
     });
 
-    it('should not close the popover when a date is selected', async () => {
+    it('should not close the dialog when a date is selected', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
@@ -1713,10 +1845,10 @@ describe('sl-date-field', () => {
       );
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('dialog')).to.match(':popover-open');
+      expect(el.renderRoot.querySelector('dialog')?.open).to.be.true;
     });
 
-    it('should close the popover when the confirm button is clicked', async () => {
+    it('should close the dialog when the confirm button is clicked', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
@@ -1733,7 +1865,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-button')?.click();
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('dialog')).not.to.match(':popover-open');
+      expect(el.renderRoot.querySelector('dialog')?.open).to.be.false;
     });
   });
 
@@ -2042,13 +2174,13 @@ describe('sl-date-field', () => {
       expect(el.shadowRoot?.activeElement).to.equal(firstSpinbutton);
     });
 
-    it('should not open the popover when label is clicked', async () => {
+    it('should not open the dialog when label is clicked', async () => {
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
 
       label.click();
       await el.updateComplete;
 
-      expect(dialog).not.to.match(':popover-open');
+      expect(dialog.open).to.be.false;
     });
 
     it('should set has-focus state when label click focuses the spinbutton', async () => {
@@ -2058,7 +2190,7 @@ describe('sl-date-field', () => {
       expect(el.internals.states.has('has-focus')).to.be.true;
     });
 
-    it('should allow popover to open normally after label click', async () => {
+    it('should allow dialog to open normally after label click', async () => {
       const button = el.renderRoot.querySelector<HTMLElement>('sl-field-button')!;
 
       label.click();
@@ -2068,7 +2200,7 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       const dialog = el.renderRoot.querySelector<HTMLDialogElement>('dialog')!;
-      expect(dialog).to.match(':popover-open');
+      expect(dialog.open).to.be.true;
     });
   });
 });

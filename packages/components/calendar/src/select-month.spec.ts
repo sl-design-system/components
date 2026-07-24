@@ -237,6 +237,18 @@ describe('sl-select-month', () => {
       expect(el.month.getFullYear()).to.equal(month.getFullYear() - 1);
     });
 
+    it('should keep column focus when ArrowUp loads previous year months', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button');
+
+      (buttons[1] as HTMLButtonElement).focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      const newButtons = el.renderRoot.querySelectorAll('table button');
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons[10]);
+    });
+
     it('should increment year when ArrowDown is pressed on a last row button', async () => {
       const buttons = el.renderRoot.querySelectorAll('table button');
       // For 12 months and 3 columns, lastRowStart is index 9, choose index 10
@@ -247,6 +259,151 @@ describe('sl-select-month', () => {
 
       await el.updateComplete;
       expect(el.month.getFullYear()).to.equal(month.getFullYear() + 1);
+    });
+
+    it('should keep column focus when ArrowDown loads next year months', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button');
+
+      (buttons[10] as HTMLButtonElement).focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const newButtons = el.renderRoot.querySelectorAll('table button');
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons[1]);
+    });
+
+    it('should move focus to next month when ArrowRight is pressed on a non-last button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        marButton = buttons[2] as HTMLButtonElement;
+
+      febButton.focus();
+      await userEvent.keyboard('{ArrowRight}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(marButton);
+    });
+
+    it('should move focus to previous month when ArrowLeft is pressed on a non-first button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        marButton = buttons[2] as HTMLButtonElement;
+
+      marButton.focus();
+      await userEvent.keyboard('{ArrowLeft}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(febButton);
+    });
+
+    it('should move focus down one row when ArrowDown is pressed on a non-last-row button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        mayButton = buttons[4] as HTMLButtonElement;
+
+      febButton.focus();
+      await userEvent.keyboard('{ArrowDown}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(mayButton);
+    });
+
+    it('should move focus up one row when ArrowUp is pressed on a non-first-row button', async () => {
+      const buttons = el.renderRoot.querySelectorAll('table button'),
+        febButton = buttons[1] as HTMLButtonElement,
+        mayButton = buttons[4] as HTMLButtonElement;
+
+      mayButton.focus();
+      await userEvent.keyboard('{ArrowUp}');
+
+      expect(el.shadowRoot?.activeElement).to.equal(febButton);
+    });
+
+    describe('when min/max are set', () => {
+      let buttons: HTMLButtonElement[];
+
+      beforeEach(async () => {
+        el.min = new Date(month.getFullYear(), 3, 1); // April
+        el.max = new Date(month.getFullYear(), 8, 1); // September
+        await el.updateComplete;
+
+        buttons = Array.from(el.renderRoot.querySelectorAll('table button'));
+      });
+
+      it('should do nothing when ArrowLeft is pressed on the first enabled button', async () => {
+        const firstEnabledButton = buttons.find(b => !b.disabled);
+
+        firstEnabledButton?.focus();
+        await userEvent.keyboard('{ArrowLeft}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(firstEnabledButton);
+      });
+
+      it('should do nothing when ArrowRight is pressed on the last enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          lastEnabledButton = enabledButtons.at(-1);
+
+        lastEnabledButton?.focus();
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(lastEnabledButton);
+      });
+
+      it('should navigate to the second enabled button when you press ArrowLeft and then ArrowRight on the first enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          firstEnabled = enabledButtons[0],
+          secondEnabled = enabledButtons[1];
+
+        firstEnabled?.focus();
+
+        await userEvent.keyboard('{ArrowLeft}');
+        expect(el.shadowRoot?.activeElement).to.equal(firstEnabled);
+
+        await userEvent.keyboard('{ArrowRight}');
+        expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
+      });
+
+      it('should move focus to the previous enabled button after ArrowRight then ArrowLeft on the last enabled button', async () => {
+        const enabledButtons = buttons.filter(b => !b.disabled),
+          lastEnabled = enabledButtons.at(-1),
+          secondToLastEnabled = enabledButtons.at(-2);
+
+        lastEnabled?.focus();
+
+        await userEvent.keyboard('{ArrowRight}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(lastEnabled);
+
+        await userEvent.keyboard('{ArrowLeft}');
+
+        expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
+      });
+    });
+  });
+
+  describe('dialog tab escape', () => {
+    it('should not cycle back to the header when tabbing forward from the table', async () => {
+      const dialog = await fixture<HTMLDialogElement>(html`
+        <dialog open>
+          <sl-select-month></sl-select-month>
+        </dialog>
+      `);
+      const monthPicker = dialog.querySelector<SelectMonth>('sl-select-month')!;
+
+      await monthPicker.updateComplete;
+
+      const rightArrow = monthPicker.renderRoot.querySelector<HTMLElement>(
+        '.arrows sl-button:last-of-type'
+      );
+
+      rightArrow?.focus();
+      await userEvent.keyboard('{Tab}');
+      await monthPicker.updateComplete;
+
+      await userEvent.keyboard('{Tab}');
+      await monthPicker.updateComplete;
+
+      const activeInsideShadow = monthPicker.shadowRoot?.activeElement as HTMLElement | null;
+
+      expect(activeInsideShadow).to.be.null;
     });
   });
 });

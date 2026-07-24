@@ -4,6 +4,7 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { RovingTabindexController } from '@sl-design-system/shared';
+import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -51,7 +52,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-tag': Tag
+      'sl-tag': Tag,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -69,6 +71,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /** Animation frame used to run an additional initial stabilization pass. */
   #initialVisibilityPassFrame?: number;
+
+  /** Whether the roving tabindex controller is currently listening for keyboard navigation. */
+  #rovingTabindexManaged = true;
+
+  /** Original disabled state of tags temporarily disabled through the tag list. */
+  #tagDisabledState = new WeakMap<Tag, boolean | undefined>();
 
   /** Number of completed passes before the initial visibility is considered stable. */
   #initialVisibilityPasses = 0;
@@ -133,18 +141,37 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
-    focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
-    elements: () => [
-      ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none'
-        ? [this.stackTag]
-        : []),
-      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !t.disabled && !!t.removable)
-    ],
-    isFocusableElement: (el: Tag) => !el.disabled
+    focusInIndex: (elements: Tag[]) => {
+      const index = elements.findIndex(el => this.#isFocusableElement(el));
+
+      return index === -1 ? 0 : index;
+    },
+    elements: () => {
+      if (!this.keyboardNavigation) {
+        return [];
+      }
+
+      const stackTags =
+        this.stacked &&
+        this.stackTag &&
+        this.stackTag.style.display !== 'none' &&
+        this.#isFocusableElement(this.stackTag)
+          ? [this.stackTag]
+          : [];
+
+      return [
+        ...stackTags,
+        ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !!t.removable)
+      ];
+    },
+    isFocusableElement: (el: Tag) => this.#isFocusableElement(el)
   });
 
-  /** Disables interaction with the tag list and renders the stacked tag as disabled. */
+  /** Disables removable tags in the tag list. */
   @property({ type: Boolean }) disabled?: boolean;
+
+  /** @internal Whether the tag list manages keyboard navigation between removable tags. */
+  @property({ attribute: false }) keyboardNavigation = true;
 
   /**
    * The size of the tag-list (determines size of tags inside the tag-list).
@@ -218,51 +245,51 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('size')) {
-      this.tags?.forEach(tag => (tag.size = this.size));
+    this.#syncTags();
+
+    if (changes.has('keyboardNavigation')) {
+      this.#rovingTabindexController.clearElementCache();
+
+      if (!this.keyboardNavigation) {
+        this.#clearManagedTabindexes();
+      }
     }
+
+    this.#syncRovingTabindexController();
 
     if (changes.has('stacked')) {
       if (this.stacked && this.stack) {
         this.#resetInitialVisibilityState();
       } else {
         this.#resetInitialVisibilityState();
+        this.stackSize = 0;
+        this.removeAttribute('data-stacked-active');
         this.tags.forEach(tag => (tag.style.display = ''));
       }
     }
 
     this.#syncStackObservation();
-
-    if (changes.has('variant')) {
-      this.tags?.forEach(tag => (tag.variant = this.variant));
-    }
   }
 
   override render(): TemplateResult {
-    let tooltip;
-    if (this.stacked) {
-      const label = msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' }),
-        tags = this.tags
-          .filter(tag => tag.style.display === 'none')
-          .map(tag => tag.label)
-          .join(', ');
-
-      tooltip = `${label}: ${tags}`;
-    }
+    const hiddenTagsDescription =
+      this.stacked && this.stackSize > 0 ? this.#getHiddenTagsDescription() : '';
 
     return html`
       ${this.stacked
         ? html`
             <div class="stack">
               <sl-tag
-                ?disabled=${this.disabled}
-                id="stack-tag"
+                .labelDescription=${hiddenTagsDescription}
+                aria-describedby="tooltip"
                 role="listitem"
                 size=${ifDefined(this.size)}
-                tooltip=${ifDefined(tooltip)}
                 variant=${ifDefined(this.variant)}>
                 +${this.stackSize}
               </sl-tag>
+              <sl-tooltip id="tooltip" position="bottom" max-width="300">
+                ${hiddenTagsDescription}
+              </sl-tooltip>
             </div>
           `
         : nothing}
@@ -270,6 +297,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
     `;
+  }
+
+  #getHiddenTagsDescription(): string {
+    const labels = this.tags
+      .filter(tag => tag.style.display === 'none')
+      .map(tag => tag.label)
+      .join(', ');
+
+    return `${msg('List of hidden elements', { id: 'sl.tag.listOfHiddenElements' })}: ${labels}`;
   }
 
   #onRemove(event: SlRemoveEvent & { target: Tag }): void {
@@ -297,6 +333,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     const inlineSize = (value as { inlineSize: unknown }).inlineSize;
 
     return typeof inlineSize === 'number';
+  }
+
+  #isFocusableElement(el: Tag): boolean {
+    return el === this.stackTag || !el.disabled || !!el.removable;
   }
 
   #getBorderBoxInlineSize(entry: ResizeObserverEntry): number | undefined {
@@ -347,17 +387,19 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.tags.forEach(tag => {
+      tag.navigationDescription = undefined;
+      this.#restoreTagDisabledState(tag);
+      tag.removeAttribute('role');
+    });
+
     this.tags = Array.from(event.target.assignedElements({ flatten: true })).filter(
       (el): el is Tag => el instanceof Tag
     );
 
-    this.tags.forEach(tag => {
-      tag.size = this.size;
-      tag.variant = this.variant;
-      tag.setAttribute('role', 'listitem');
-    });
+    this.#syncTags();
 
-    this.#rovingTabindexController.clearElementCache();
+    this.#clearRovingTabindexCache();
 
     // Resolve the first layout immediately, without timers.
     if (!this.#hasResolvedInitialVisibility) {
@@ -373,6 +415,42 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       this.#runVisibilityUpdate();
       this.#scheduleVisibilityUpdate = undefined;
     });
+  }
+
+  #syncTags(): void {
+    const navigationDescription = msg('Use arrow keys to move between removable tags.', {
+      id: 'sl.tagList.navigationInstructions'
+    });
+
+    this.tags.forEach(tag => {
+      tag.navigationDescription =
+        this.keyboardNavigation && tag.removable ? navigationDescription : undefined;
+      this.#syncTagDisabledState(tag);
+      tag.size = this.size;
+      tag.variant = this.variant;
+      tag.setAttribute('role', 'listitem');
+    });
+  }
+
+  #syncTagDisabledState(tag: Tag): void {
+    if (this.disabled && tag.removable) {
+      if (!this.#tagDisabledState.has(tag)) {
+        this.#tagDisabledState.set(tag, tag.disabled);
+      }
+
+      tag.disabled = true;
+    } else {
+      this.#restoreTagDisabledState(tag);
+    }
+  }
+
+  #restoreTagDisabledState(tag: Tag): void {
+    if (!this.#tagDisabledState.has(tag)) {
+      return;
+    }
+
+    tag.disabled = this.#tagDisabledState.get(tag);
+    this.#tagDisabledState.delete(tag);
   }
 
   #runVisibilityUpdate(): void {
@@ -454,8 +532,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       for (let i = 0; i < this.tags.length; i++) {
         const isLastTag = i === this.tags.length - 1;
 
-        // Keep the last tag visible only when it truly fits, to prevent overflow-induced width jitter.
-        if (isLastTag && sizes[i] <= availableWidth + SUBPIXEL_BUFFER_PX) {
+        // Keep at least one actual tag visible next to the stack counter. Otherwise users only see
+        // the number of hidden tags without any selected value context.
+        if (isLastTag) {
           break;
         }
 
@@ -476,14 +555,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.#rovingTabindexController.clearElementCache();
-
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce(
       (acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc),
       0
     );
+    this.toggleAttribute('data-stacked-active', this.stackSize > 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
+    // Ensure legacy decoration classes are not kept on existing elements (e.g. after HMR).
+    this.stack.classList.remove('double', 'triple');
 
     const stackTag = this.stack.querySelector('sl-tag');
 
@@ -492,6 +572,36 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
+    this.#clearRovingTabindexCache();
+  }
+
+  #clearRovingTabindexCache(): void {
     this.#rovingTabindexController.clearElementCache();
+    this.#syncRovingTabindexController();
+  }
+
+  #clearManagedTabindexes(): void {
+    this.tags.forEach(tag => {
+      tag.removeAttribute('tabindex');
+      tag.requestUpdate();
+    });
+
+    if (this.stackTag) {
+      this.stackTag.removeAttribute('tabindex');
+      this.stackTag.requestUpdate();
+    }
+  }
+
+  #syncRovingTabindexController(): void {
+    const hasManagedElements =
+      this.keyboardNavigation && this.#rovingTabindexController.elements.length > 0;
+
+    if (hasManagedElements && !this.#rovingTabindexManaged) {
+      this.#rovingTabindexController.manage();
+      this.#rovingTabindexManaged = true;
+    } else if (!hasManagedElements && this.#rovingTabindexManaged) {
+      this.#rovingTabindexController.unmanage();
+      this.#rovingTabindexManaged = false;
+    }
   }
 }

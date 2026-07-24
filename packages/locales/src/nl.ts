@@ -69,6 +69,7 @@ export const templates = {
   'sl.grid.sortDescending': 'Sorteer aflopend',
   'sl.grid.toggleGroup': 'Toon groep',
   'sl.infotip.moreInformation': 'Meer informatie',
+  'sl.infotip.moreInformationAbout': str`Meer informatie over ${0}`,
   'sl.messageDialog.alertTitle': 'Mededeling',
   'sl.messageDialog.cancelButton': 'Annuleren',
   'sl.messageDialog.confirmTitle': 'Bevestig',
@@ -111,7 +112,9 @@ export const templates = {
   'sl.select.validation.valueMissing': 'Kies een optie uit de lijst.',
   'sl.tabs.showAll': 'Toon alles',
   'sl.tag.listOfHiddenElements': 'Lijst met verborgen elementen',
-  'sl.tag.removalInstructions': 'Druk op de delete- of backspacetoets om dit item te verwijderen',
+  'sl.tag.remove': str`Verwijder tag '${0}'`,
+  'sl.tagList.navigationInstructions':
+    'Gebruik de pijltjestoetsen om tussen verwijderbare tags te navigeren.',
   'sl.timeField.empty': 'Leeg',
   'sl.timeField.rangeOverflow': str`Voer een tijd in die niet later is dan ${0}.`,
   'sl.timeField.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,

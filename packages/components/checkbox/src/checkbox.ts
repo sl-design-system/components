@@ -1,5 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type EventEmitter,
   EventsController,
@@ -19,7 +20,7 @@ import {
   html,
   svg
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './checkbox.scss.js';
 
@@ -42,6 +43,7 @@ let nextUniqueId = 0;
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
+ * @slot infotip - The slot for the infotip element
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -117,6 +119,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
    */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
+  @state() infotip?: Infotip;
+
   /**
    * The size of the checkbox.
    *
@@ -190,25 +194,31 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   override render(): TemplateResult {
     return html`
-      <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
-      <div part="outer">
-        <div part="inner">
-          <svg
-            aria-hidden="true"
-            class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
-            part="svg"
-            version="1.1"
-            viewBox="0 0 24 24">
-            ${this.indeterminate
-              ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
-              : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
-          </svg>
+      <div part="wrapper">
+        <slot
+          @keydown=${this.#onKeydown}
+          @slotchange=${this.#onInputSlotChange}
+          name="input"></slot>
+        <div part="outer">
+          <div part="inner">
+            <svg
+              aria-hidden="true"
+              class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
+              part="svg"
+              version="1.1"
+              viewBox="0 0 24 24">
+              ${this.indeterminate
+                ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
+                : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
+            </svg>
+          </div>
         </div>
+        <span part="label">
+          <slot name="label"></slot>
+          <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+        </span>
       </div>
-      <span part="label">
-        <slot name="label"></slot>
-        <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
-      </span>
+      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
     `;
   }
 
@@ -229,7 +239,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.disabled || (this.infotip && event.composedPath().includes(this.infotip))) {
       return;
     }
 
@@ -299,11 +309,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       return;
     }
 
-    const label = nodes
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent?.trim())
-      .join(' ');
-    if (label.length > 0) {
+    const labelText = this.#labelText();
+    if (nodes.length > 0 && labelText.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
       this.#label.id ||= `sl-checkbox-label-${nextUniqueId++}`;
@@ -324,7 +331,49 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       }
     });
 
-    this.toggleAttribute('no-label', label.length === 0);
+    if (this.infotip && !this.infotip.describes) {
+      this.infotip.describes = labelText;
+    }
+
+    this.toggleAttribute('no-label', labelText.length === 0);
+  }
+
+  #labelText(): string {
+    const labelSlot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
+      labelSlotNodes = labelSlot?.assignedNodes({ flatten: true }) || [],
+      lightDomNodes = Array.from(this.childNodes).filter(
+        node =>
+          node.nodeType === Node.TEXT_NODE ||
+          (node.nodeType === Node.ELEMENT_NODE &&
+            !(node as Element).hasAttribute('slot') &&
+            !(node instanceof HTMLStyleElement))
+      ),
+      nodes = labelSlotNodes.length ? labelSlotNodes : lightDomNodes;
+
+    return nodes
+      .map(node => node.textContent?.trim() || '')
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  #onInfotipSlotChange(): void {
+    const slot: HTMLSlotElement | undefined | null =
+      this.shadowRoot?.querySelector('slot[name="infotip"]');
+    const assignedElements = slot?.assignedElements({ flatten: true }) || [];
+    this.infotip =
+      assignedElements.find(
+        (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
+      ) || undefined;
+    if (this.infotip) {
+      this.infotip.setAttribute('size', 'sm');
+    }
+    if (this.infotip && !this.infotip.describes) {
+      // Ensure label is synthesized before reading it
+      this.#onLabelSlotChange();
+
+      this.infotip.describes = this.#labelText();
+    }
   }
 
   #syncInput(input: HTMLInputElement): void {

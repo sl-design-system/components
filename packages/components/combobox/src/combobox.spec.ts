@@ -1,12 +1,12 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { Listbox, Option, OptionGroup } from '../index.js';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
@@ -14,6 +14,15 @@ import { type GroupedOption } from './grouped-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
 describe('sl-combobox', () => {
+  it('should export and register listbox option components', () => {
+    expect(Listbox).to.exist;
+    expect(Option).to.exist;
+    expect(OptionGroup).to.exist;
+
+    expect(customElements.get('sl-listbox')).to.equal(Listbox);
+    expect(customElements.get('sl-option')).to.equal(Option);
+    expect(customElements.get('sl-option-group')).to.equal(OptionGroup);
+  });
   let el: Combobox, input: HTMLInputElement;
 
   const waitForNextMacrotask = async (): Promise<void> => {
@@ -34,6 +43,32 @@ describe('sl-combobox', () => {
     }
 
     await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+  };
+
+  const waitForActiveElement = async (
+    root: Document | ShadowRoot,
+    expected: Element,
+    timeout = 1000
+  ): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (root.activeElement !== expected && Date.now() - startedAt < timeout) {
+      await waitForNextMacrotask();
+      await waitForNextFrame();
+    }
+
+    expect(root.activeElement).to.equal(expected);
+  };
+
+  const waitForCondition = async (condition: () => boolean, timeout = 1000): Promise<void> => {
+    const startedAt = Date.now();
+
+    while (!condition() && Date.now() - startedAt < timeout) {
+      await waitForNextMacrotask();
+      await waitForNextFrame();
+    }
+
+    expect(condition()).to.be.true;
   };
 
   describe('defaults', () => {
@@ -219,6 +254,16 @@ describe('sl-combobox', () => {
       await el.updateComplete;
 
       expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should update aria-expanded on the button immediately when toggling the popover', () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]');
+
+      button?.click();
+      expect(button).to.have.attribute('aria-expanded', 'true');
+
+      button?.click();
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
     it('should switch aria-expanded back to "false" when the popover closes', async () => {
@@ -897,6 +942,21 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should ignore option navigation when filtering hides all options', async () => {
+        input.focus();
+        await userEvent.keyboard('Foo');
+        await el.updateComplete;
+
+        expect(el.items.filter(item => item.type === 'option' && item.visible)).to.have.lengthOf(0);
+
+        await userEvent.keyboard('{ArrowDown}');
+        await userEvent.keyboard('{Home}');
+        await el.updateComplete;
+
+        expect(el.currentItem).to.be.undefined;
+        expect(input).not.to.have.attribute('aria-activedescendant');
+      });
     });
 
     describe('current item on open', () => {
@@ -1126,14 +1186,14 @@ describe('sl-combobox', () => {
         expect(tags.every(tag => tag.hasAttribute('aria-hidden'))).to.be.false;
       });
 
-      it('should set aria-hidden on sl-tag elements when not disabled', async () => {
+      it('should not set aria-hidden on sl-tag elements when not disabled', async () => {
         el.disabled = false;
         await el.updateComplete;
 
         const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
 
         expect(tags).to.have.lengthOf(2);
-        expect(tags.every(tag => tag.getAttribute('aria-hidden') === 'true')).to.be.true;
+        expect(tags.every(tag => tag.hasAttribute('aria-hidden'))).to.be.false;
       });
     });
 
@@ -1174,7 +1234,7 @@ describe('sl-combobox', () => {
         const styles = getComputedStyle(tagList);
         const hostStyles = getComputedStyle(el);
 
-        expect(styles.flexGrow).to.equal('1');
+        expect(styles.flexGrow).to.equal('0');
         expect(styles.flexShrink).to.equal('1');
         expect(styles.flexBasis).to.equal('auto');
         expect(styles.minInlineSize).to.equal('0px');
@@ -1184,75 +1244,100 @@ describe('sl-combobox', () => {
         expect(hostStyles.contain).to.include('inline-size');
       });
 
+      it('should keep the input caret next to the visible tags', async () => {
+        await waitForNextFrame();
+
+        const visibleTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')).filter(
+            tag => getComputedStyle(tag).display !== 'none'
+          ),
+          lastTag = visibleTags.at(-1);
+
+        expect(lastTag, 'expected at least one visible tag').to.exist;
+
+        const inputRect = input.getBoundingClientRect(),
+          lastTagRect = lastTag!.getBoundingClientRect(),
+          gap = inputRect.left - lastTagRect.right;
+
+        expect(gap).to.be.at.least(0);
+        expect(gap).to.be.lessThan(16);
+      });
+
+      it('should keep one selected tag visible next to the stack counter in limited space', async () => {
+        el.style.maxInlineSize = '300px';
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
+        await waitForNextFrame();
+        await waitForNextFrame();
+
+        const tagList = el.renderRoot.querySelector('sl-tag-list')!,
+          stackTag = tagList.renderRoot.querySelector('.stack sl-tag'),
+          selectedTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
+          visibleSelectedTags = selectedTags.filter(
+            tag => getComputedStyle(tag).display !== 'none'
+          );
+
+        expect(stackTag).to.exist;
+        expect(stackTag).to.have.trimmed.text(
+          `+${selectedTags.length - visibleSelectedTags.length}`
+        );
+        expect(visibleSelectedTags.length).to.be.greaterThan(0);
+      });
+
       it('should not flicker when selecting many items in a limited space', async () => {
-        vi.useFakeTimers();
+        el.style.maxInlineSize = '300px';
 
-        try {
-          el.style.maxInlineSize = '300px';
+        // Select items that would trigger a collapse
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
 
-          // Select items that would trigger a collapse
-          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
-          await el.updateComplete;
+        const getVisibilityState = () =>
+          Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
+            tag => tag.style.display !== 'none'
+          );
 
-          const getVisibilityState = () =>
-            Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(
-              tag => tag.style.display !== 'none'
-            );
+        // Allow initial layout/stacking to settle. Use real timers because ResizeObserver delivery
+        // is browser-driven and can deadlock with fake timers in CI.
+        await new Promise(resolve => setTimeout(resolve, 300));
+        await el.updateComplete;
+        await waitForNextFrame();
 
-          // Allow initial layout/stacking to settle.
-          await vi.advanceTimersByTimeAsync(300);
-          await el.updateComplete;
-          await waitForNextFrame();
-          const firstState = getVisibilityState(),
-            firstInputWidth = input.getBoundingClientRect().width;
+        const firstState = getVisibilityState(),
+          firstInputWidth = input.getBoundingClientRect().width;
 
-          // Wait long enough to cover any potential oscillation cycles
-          await vi.advanceTimersByTimeAsync(500);
-          await el.updateComplete;
-          await waitForNextFrame();
-          const secondState = getVisibilityState(),
-            secondInputWidth = input.getBoundingClientRect().width;
+        // Wait long enough to cover any potential oscillation cycles.
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await el.updateComplete;
+        await waitForNextFrame();
 
-          // If the component flickers, the visibility pattern of tags would change over time.
-          expect(secondState).to.deep.equal(firstState);
-          expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
-        } finally {
-          vi.useRealTimers();
-        }
+        const secondState = getVisibilityState(),
+          secondInputWidth = input.getBoundingClientRect().width;
+
+        // If the component flickers, the visibility pattern of tags would change over time.
+        expect(secondState).to.deep.equal(firstState);
+        expect(secondInputWidth).to.be.closeTo(firstInputWidth, 0.5);
       });
 
       it('should keep the input width bounded while adding tags in limited space', async () => {
-        vi.useFakeTimers();
+        el.style.maxInlineSize = '300px';
+        const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
 
-        try {
-          el.style.maxInlineSize = '300px';
-          const textField = el.renderRoot.querySelector('sl-text-field') as HTMLElement;
+        for (const count of [1, 2, 3, 4, 5, 6]) {
+          el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'].slice(
+            0,
+            count
+          );
+          await el.updateComplete;
+          await waitForNextFrame();
+          await waitForNextFrame();
 
-          for (const count of [1, 2, 3, 4, 5, 6]) {
-            el.value = [
-              'Option 1',
-              'Option 2',
-              'Option 3',
-              'Option 4',
-              'Option 5',
-              'Option 6'
-            ].slice(0, count);
-            await el.updateComplete;
-            await vi.advanceTimersByTimeAsync(300);
-            await el.updateComplete;
-            await waitForNextFrame();
+          const inputWidth = input.getBoundingClientRect().width,
+            fieldWidth = textField.getBoundingClientRect().width,
+            comboboxWidth = el.getBoundingClientRect().width;
 
-            const inputWidth = input.getBoundingClientRect().width,
-              fieldWidth = textField.getBoundingClientRect().width,
-              comboboxWidth = el.getBoundingClientRect().width;
-
-            expect(inputWidth).to.be.a('number');
-            expect(Number.isFinite(inputWidth)).to.be.true;
-            expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
-            expect(comboboxWidth).to.be.at.most(300.5);
-          }
-        } finally {
-          vi.useRealTimers();
+          expect(inputWidth).to.be.a('number');
+          expect(Number.isFinite(inputWidth)).to.be.true;
+          expect(inputWidth).to.be.at.most(fieldWidth + 0.5);
+          expect(comboboxWidth).to.be.at.most(300.5);
         }
       });
 
@@ -1270,6 +1355,78 @@ describe('sl-combobox', () => {
         );
 
         expect(removable).to.be.true;
+      });
+
+      it('should use the first removable tag button and input as combobox tab stops', async () => {
+        const wrapper = await fixture<HTMLDivElement>(html`
+            <div>
+              <button>Before</button>
+              <sl-combobox multiple .value=${['Option 1', 'Option 2']}>
+                <sl-listbox>
+                  <sl-option>Option 1</sl-option>
+                  <sl-option>Option 2</sl-option>
+                  <sl-option>Option 3</sl-option>
+                </sl-listbox>
+              </sl-combobox>
+              <button>After</button>
+            </div>
+          `),
+          combobox = wrapper.querySelector('sl-combobox')!,
+          input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+        await combobox.updateComplete;
+        await waitForNextFrame();
+        await combobox.updateComplete;
+
+        const comboboxRoot = combobox.renderRoot as ShadowRoot,
+          tagList = comboboxRoot.querySelector('sl-tag-list')!,
+          tags = Array.from(comboboxRoot.querySelectorAll('sl-tag')),
+          buttons = tags.map(tag => tag.renderRoot.querySelector('button'));
+
+        expect(tags).to.have.lengthOf(2);
+        await tagList.updateComplete;
+        await waitForCondition(() => tags[0].getAttribute('tabindex') === '0');
+
+        expect(tags[0]).to.have.attribute('tabindex', '0');
+        expect(tags[1]).to.have.attribute('tabindex', '-1');
+        expect(buttons[0]).to.have.attribute('tabindex', '0');
+        expect(buttons[1]).to.have.attribute('tabindex', '-1');
+
+        tags[0].focus();
+
+        await waitForActiveElement(comboboxRoot, tags[0]);
+        await waitForActiveElement(tags[0].shadowRoot!, buttons[0]!);
+
+        await userEvent.keyboard('{ArrowRight}');
+
+        await waitForActiveElement(comboboxRoot, tags[1]);
+        await waitForActiveElement(tags[1].shadowRoot!, buttons[1]!);
+
+        await userEvent.keyboard('{ArrowLeft}');
+
+        await waitForActiveElement(comboboxRoot, tags[0]);
+        await waitForActiveElement(tags[0].shadowRoot!, buttons[0]!);
+
+        await userEvent.tab();
+
+        await waitForActiveElement(document, input);
+
+        await userEvent.tab();
+
+        await waitForActiveElement(document, wrapper.querySelector('button:last-child')!);
+      });
+
+      it('should not show fake tag focus when navigating from the input with arrow keys', async () => {
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        input.focus();
+        input.setSelectionRange(0, 0);
+
+        await userEvent.keyboard('{ArrowLeft}');
+        await el.updateComplete;
+
+        expect(tags.some(tag => tag.classList.contains('focused'))).to.be.false;
+        expect(document.activeElement).to.equal(input);
       });
 
       it('should stack options when there is limited space', async () => {
@@ -1367,6 +1524,41 @@ describe('sl-combobox', () => {
 
         // Verify the tag was removed
         expect(el.value).to.deep.equal([]);
+      });
+
+      it('should focus the next tag after removing a tag', async () => {
+        el.value = ['Option 1', 'Option 2', 'Option 3'];
+        await el.updateComplete;
+
+        const tags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        tags[0].renderRoot.querySelector<HTMLElement>('button')?.focus();
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        const remainingTags = Array.from(el.renderRoot.querySelectorAll('sl-tag'));
+
+        expect(el.value).to.deep.equal(['Option 2', 'Option 3']);
+        expect((el.renderRoot as ShadowRoot).activeElement).to.equal(remainingTags[0]);
+        expect(remainingTags[0].shadowRoot?.activeElement).to.equal(
+          remainingTags[0].renderRoot.querySelector('button')
+        );
+      });
+
+      it('should focus the input after removing the last tag', async () => {
+        el.value = ['Option 1'];
+        await el.updateComplete;
+
+        const tag = el.renderRoot.querySelector('sl-tag')!;
+
+        tag.renderRoot.querySelector<HTMLElement>('button')?.focus();
+        await userEvent.keyboard('{Enter}');
+        await el.updateComplete;
+        await waitForNextFrame();
+
+        expect(el.value).to.deep.equal([]);
+        expect(document.activeElement).to.equal(input);
       });
     });
 
@@ -2013,6 +2205,22 @@ describe('sl-combobox', () => {
   });
 
   describe('virtual list', () => {
+    const waitForVirtualList = async (): Promise<void> => {
+      await waitForNextFrame();
+      await waitForNextFrame();
+    };
+
+    const getRenderedVirtualOptions = (combobox: Combobox): Element[] => {
+      const listbox = combobox.querySelector('sl-listbox'),
+        virtualList = Array.from(listbox?.children ?? []).find(
+          child =>
+            child.hasAttribute('data-virtual-list') ||
+            child.tagName.toLowerCase().includes('virtual-list')
+        );
+
+      return Array.from(virtualList?.shadowRoot?.querySelectorAll('sl-option') ?? []);
+    };
+
     it('should submit index 0 for the first item in a virtual list', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
@@ -2070,6 +2278,104 @@ describe('sl-combobox', () => {
 
       expect(input).to.have.attribute('aria-expanded', 'true');
       expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should not select a group header when typing a group name', async () => {
+      const form = await fixture<HTMLFormElement>(html`
+        <form>
+          <sl-combobox
+            name="test"
+            .options=${[
+              { group: 'Fruits', label: 'Apple', value: 'apple' },
+              { group: 'Fruits', label: 'Banana', value: 'banana' },
+              { group: 'Vegetables', label: 'Carrot', value: 'carrot' }
+            ]}
+            option-group-path="group"
+            option-label-path="label"
+            option-value-path="value">
+          </sl-combobox>
+        </form>
+      `);
+
+      const combobox = form.querySelector<Combobox>('sl-combobox')!,
+        input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      form.addEventListener('submit', event => event.preventDefault());
+
+      input.focus();
+      input.value = 'Fruits';
+      input.dispatchEvent(
+        new InputEvent('input', {
+          bubbles: true,
+          composed: true,
+          inputType: 'insertText'
+        })
+      );
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      expect(combobox.currentItem).to.be.undefined;
+
+      input.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          bubbles: true,
+          composed: true,
+          key: 'Enter'
+        })
+      );
+      await combobox.updateComplete;
+
+      expect(combobox.value).to.be.undefined;
+      expect(new FormData(form).get('test')).to.be.null;
+    });
+
+    it('should scroll back to the selected group after selecting a virtual option', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          group-selected
+          multiple
+          .options=${options}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!,
+        listbox = combobox.querySelector('sl-listbox')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      listbox.scrollToIndex(900, { block: 'start' });
+      await waitForVirtualList();
+
+      const scrollToIndex = spy(listbox, 'scrollToIndex');
+
+      try {
+        const option = getRenderedVirtualOptions(combobox).find(
+          option => option.textContent?.trim() === 'Option 901'
+        );
+
+        expect(option).to.exist;
+
+        option!.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+        await combobox.updateComplete;
+        await waitForVirtualList();
+
+        expect(scrollToIndex).to.have.been.called;
+        expect(scrollToIndex.lastCall.args[0]).to.equal(0);
+        expect(scrollToIndex.lastCall.args[1]).to.deep.equal({
+          block: 'start',
+          behavior: 'auto'
+        });
+      } finally {
+        scrollToIndex.restore();
+      }
     });
 
     it('should update grouped virtual list selections without recursive cleanup', async () => {

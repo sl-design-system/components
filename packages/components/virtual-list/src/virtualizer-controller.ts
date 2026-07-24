@@ -88,11 +88,23 @@ export class VirtualizerController<
       return;
     }
 
-    const resolvedOptions = { ...this.instance?.options, ...options };
-
     // Check if we're using window scrolling (scroll parent is document.documentElement or document.body)
     const isWindowScroll =
       this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
+    const scrollMarginWasUpdated = Object.prototype.hasOwnProperty.call(options, 'scrollMargin');
+
+    let resolvedOptions = { ...this.instance?.options, ...options };
+
+    if (scrollMarginWasUpdated) {
+      this.#hasCustomScrollMargin = options.scrollMargin !== undefined;
+
+      if (!this.#hasCustomScrollMargin) {
+        resolvedOptions = {
+          ...resolvedOptions,
+          scrollMargin: isWindowScroll ? this.#getOffset() : 0
+        };
+      }
+    }
 
     if (isWindowScroll) {
       (this.instance as Virtualizer<Window, TItemElement>).setOptions(
@@ -131,14 +143,9 @@ export class VirtualizerController<
       this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
 
     if (isWindowScroll) {
-      const getOffset = () => {
-        const rect = this.#host.getBoundingClientRect();
-        return rect.top + window.scrollY;
-      };
-
       // Track if user explicitly provided scrollMargin
       this.#hasCustomScrollMargin = options.scrollMargin !== undefined;
-      const initialScrollMargin = options.scrollMargin ?? getOffset();
+      const initialScrollMargin = options.scrollMargin ?? this.#getOffset();
 
       const resolvedOptions: VirtualizerOptions<Window, TItemElement> = {
         ...options,
@@ -168,7 +175,7 @@ export class VirtualizerController<
             return;
           }
 
-          const newMargin = getOffset();
+          const newMargin = this.#getOffset();
           if (Math.abs(newMargin - (virtualizer.options.scrollMargin || 0)) > 1) {
             virtualizer.setOptions({
               ...virtualizer.options,
@@ -227,5 +234,10 @@ export class VirtualizerController<
     }
 
     this.#cleanup = this.instance._didMount();
+  }
+
+  #getOffset(): number {
+    const rect = this.#host.getBoundingClientRect();
+    return rect.top + window.scrollY;
   }
 }

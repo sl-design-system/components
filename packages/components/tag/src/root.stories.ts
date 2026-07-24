@@ -49,11 +49,11 @@ export const All: Story = {
         <sl-tag removable size="lg">Removable</sl-tag>
         <sl-tag removable size="lg" variant="info">Removable</sl-tag>
 
-        <span>Disabled</span>
-        <sl-tag disabled>Disabled</sl-tag>
-        <sl-tag disabled variant="info">Disabled</sl-tag>
-        <sl-tag size="lg" disabled>Disabled</sl-tag>
-        <sl-tag size="lg" disabled variant="info">Disabled</sl-tag>
+        <span>Removable disabled</span>
+        <sl-tag removable disabled>Disabled</sl-tag>
+        <sl-tag removable disabled variant="info">Disabled</sl-tag>
+        <sl-tag removable size="lg" disabled>Disabled</sl-tag>
+        <sl-tag removable size="lg" disabled variant="info">Disabled</sl-tag>
       </div>
     `;
   }

@@ -40,26 +40,26 @@ sl-text-field {
     }
   }
 
-  &:has(+ :popover-open) sl-icon {
+  button[aria-expanded='true'] sl-icon {
     rotate: 180deg;
   }
 }
 
 sl-tag-list {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   max-inline-size: 66%;
   min-inline-size: 0;
   position: relative;
   z-index: 1;
 }
 
+sl-tag-list[data-stacked-active] {
+  flex-grow: 1;
+}
+
 sl-tag {
   outline-offset: 0;
   outline-width: 0;
-
-  &.focused {
-    outline: var(--sl-size-borderWidth-default) solid var(--sl-color-border-focused);
-  }
 }
 
 sl-icon {
@@ -82,14 +82,17 @@ sl-icon {
   scrollbar-width: thin;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: 0.2s cubic-bezier(0.25, 0, 0.3, 1);
-    transition-behavior: allow-discrete;
+    transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 
-    // Animating the overlay property is a workaround in Chromium for the wrapper
-    // to suddenly change position on fadeout, *even though* inset-block-start
-    // remains unchanged. This bug is also present in Safari, but that doesn't
-    // support the overlay property yet.
-    transition-property: display, opacity, overlay;
+    @supports (overlay: auto) {
+      transition: 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+      transition-behavior: allow-discrete;
+
+      // Animating the overlay property is a workaround in Chromium for the wrapper
+      // to suddenly change position on fadeout, *even though* inset-block-start
+      // remains unchanged.
+      transition-property: display, opacity, overlay;
+    }
   }
 
   &:popover-open {

@@ -27,7 +27,7 @@ export default defineConfig({
         extends: true,
         test: {
           name: 'unit',
-          include: ['packages/components/**/*.spec.ts'],
+          include: ['packages/components/**/*.spec.ts', 'examples/lit/**/*.spec.ts'],
           browser: {
             enabled: true,
             headless: true,

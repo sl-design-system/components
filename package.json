@@ -356,10 +356,12 @@
       "command": "vitest --project=unit",
       "dependencies": [
         "build:components",
+        "build:examples",
         "test:setup"
       ],
       "files": [
         "web-test-runner.config.mjs",
+        "examples/lit/**/*.ts",
         "packages/components/**/*.spec.ts"
       ]
     },

@@ -96,13 +96,12 @@ const collectDirectNestedHtmlTemplates = (expression, context) => {
   const templates = [];
 
   traverseNode(expression, node => {
-    if (
-      node !== expression &&
-      node.type === 'TaggedTemplateExpression' &&
-      isHtmlTaggedTemplate(node, context)
-    ) {
+    // Include the expression itself when it is directly an html tagged template
+    // (e.g. ${html`<sl-text-field></sl-text-field>`}) so that the labeled
+    // sl-form-field context is correctly propagated into it.
+    if (node.type === 'TaggedTemplateExpression' && isHtmlTaggedTemplate(node, context)) {
       templates.push(node);
-      return false;
+      return false; // do not traverse inside the collected template
     }
 
     return true;

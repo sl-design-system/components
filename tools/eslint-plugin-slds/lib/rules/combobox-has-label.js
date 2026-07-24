@@ -5,8 +5,9 @@ import {
 } from '../label-rule-helpers.js';
 
 const hasRawLabelAttribute = (attributes, attributeName) => {
+  const escapedAttributeName = attributeName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const match = attributes.match(
-    new RegExp(`${attributeName}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, 'i')
+    new RegExp(`(?:^|\\s)${escapedAttributeName}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`, 'i')
   );
 
   if (!match) {
@@ -91,7 +92,7 @@ export const comboboxHasLabel = {
       'AssignmentExpression[left.type="MemberExpression"][left.property.name="innerHTML"]'(node) {
         const rawHtml = getRawTemplateContent(node.right);
 
-        if (!rawHtml || !rawHtml.includes('<sl-combobox')) {
+        if (!rawHtml || !/<sl-combobox/i.test(rawHtml)) {
           return;
         }
 
@@ -108,7 +109,7 @@ export const comboboxHasLabel = {
 
         const rawHtml = getRawTemplateContent(rawHtmlArgument);
 
-        if (!rawHtml || !rawHtml.includes('<sl-combobox')) {
+        if (!rawHtml || !/<sl-combobox/i.test(rawHtml)) {
           return;
         }
 

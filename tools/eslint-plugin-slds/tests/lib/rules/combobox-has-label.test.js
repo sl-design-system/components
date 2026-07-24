@@ -54,6 +54,14 @@ ruleTester.run('combobox-has-label', comboboxHasLabel, {
     {
       code: 'element.insertAdjacentHTML("beforeend", `<sl-combobox multiple></sl-combobox>`);',
       errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'dialog.innerHTML = `<sl-combobox data-aria-label="Choose an option"></sl-combobox>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'element.insertAdjacentHTML("beforeend", `<sl-combobox data-aria-labelledby="combobox-label"></sl-combobox>`);',
+      errors: [{ messageId: 'missingLabel' }]
     }
   ]
 });

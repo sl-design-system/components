@@ -28,6 +28,9 @@ ruleTester.run('text-field-has-label', textFieldHasLabel, {
       code: 'html`<sl-form-field .label=${label}>${slot?.() ?? html`<sl-text-field></sl-text-field>`}</sl-form-field>`;'
     },
     {
+      code: 'html`<sl-form-field label="First name">${html`<sl-text-field></sl-text-field>`}</sl-form-field>`;'
+    },
+    {
       code: 'const render = ({ label, slot }) => html`<sl-form-field .label=${label}>${slot?.()}</sl-form-field>`; const story = { args: { slot: () => html`<sl-text-field required></sl-text-field>` } }; void render; void story;'
     },
     {

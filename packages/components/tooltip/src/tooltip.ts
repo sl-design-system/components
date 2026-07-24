@@ -234,11 +234,9 @@ export class Tooltip extends LitElement {
 
       clearTimeout(this.#hoverTimeout);
 
-      if (!(anchorHovered || tooltipHovered)) {
-        this.#hoverTimeout = setTimeout(() => {
-          this.hidePopover();
-        }, Tooltip.hoverHideDelay);
-      }
+      this.#hoverTimeout = setTimeout(() => {
+        this.hidePopover();
+      }, Tooltip.hoverHideDelay);
     }
   };
 
@@ -349,7 +347,7 @@ export class Tooltip extends LitElement {
     anchor.removeEventListener('mouseout', this.#onMouseOut);
 
     // Only clear the anchorName if it was set by us.
-    if (anchor.style.anchorName === this.style.positionAnchor) {
+    if (anchor.style.anchorName === `--${this.id}`) {
       anchor.style.anchorName = '';
     }
 
@@ -379,6 +377,12 @@ export class Tooltip extends LitElement {
       return;
     }
 
+    // Clean up the old anchor first; #cleanupAnchor clears the positionAnchor style,
+    // so doing this after setting up the new anchor would undo that setup.
+    if (oldAnchor) {
+      this.#cleanupAnchor(oldAnchor, this.type);
+    }
+
     const { signal } = this.#eventController;
 
     if (newAnchor) {
@@ -395,10 +399,6 @@ export class Tooltip extends LitElement {
 
       newAnchor.style.anchorName = newAnchorName;
       this.style.positionAnchor = newAnchorName;
-    }
-
-    if (oldAnchor) {
-      this.#cleanupAnchor(oldAnchor, this.type);
     }
 
     this.anchor = newAnchor;

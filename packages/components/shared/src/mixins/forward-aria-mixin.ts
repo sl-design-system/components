@@ -78,7 +78,11 @@ export function ForwardAriaMixin<
   // methods and the defineProperty interceptors (which can't access #private fields).
   const targetElements = new WeakMap<ForwardAriaImpl, HTMLElement>(),
     propertyStorage = new WeakMap<ForwardAriaImpl, Map<string, Element[] | Element | null>>(),
-    ariaDisabledStorage = new WeakMap<ForwardAriaImpl, string | null>();
+    ariaDisabledStorage = new WeakMap<ForwardAriaImpl, string | null>(),
+    // Tracks which elements each attribute forward contributed to the target's element
+    // reference properties, so a re-forward or removal only replaces our own references
+    // and leaves references added by others (e.g. a tooltip registering itself) intact.
+    forwardedElementsStorage = new WeakMap<ForwardAriaImpl, Map<string, Element[]>>();
 
   class ForwardAriaImpl extends constructor {
     #observer?: MutationObserver;
@@ -181,9 +185,18 @@ export function ForwardAriaMixin<
               ariaDisabledStorage.set(this, null);
             } else {
               const elementsProp = ELEMENT_REFERENCES[name];
-              if (elementsProp) {
-                (target as unknown as Record<string, Element[] | Element | null>)[elementsProp] =
-                  null;
+              if (elementsProp?.endsWith('Elements')) {
+                const forwarded = forwardedElementsStorage.get(this),
+                  previous = forwarded?.get(elementsProp) ?? [],
+                  current =
+                    (target as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
+                  remaining = current.filter(el => !previous.includes(el));
+
+                (target as unknown as Record<string, Element[] | null>)[elementsProp] =
+                  remaining.length ? remaining : null;
+                forwarded?.delete(elementsProp);
+              } else if (elementsProp) {
+                (target as unknown as Record<string, Element | null>)[elementsProp] = null;
               } else {
                 target.removeAttribute(name);
               }
@@ -222,14 +235,23 @@ export function ForwardAriaMixin<
             .filter((el): el is HTMLElement => el !== null);
 
           if (elementsProp.endsWith('Elements')) {
-            const elementsPropValue =
-              (targetElement as unknown as Record<string, Element[]>)[elementsProp] ?? [];
+            let forwarded = forwardedElementsStorage.get(this);
+            if (!forwarded) {
+              forwarded = new Map();
+              forwardedElementsStorage.set(this, forwarded);
+            }
 
-            // Make sure we don't override any existing references
+            const current =
+                (targetElement as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
+              ours = new Set<Element>([...(forwarded.get(elementsProp) ?? []), ...elements]);
+
+            // Keep references added by others, but replace the ones from our previous forward
             (targetElement as unknown as Record<string, Element[]>)[elementsProp] = [
-              ...elementsPropValue,
+              ...current.filter(el => !ours.has(el)),
               ...elements
             ];
+
+            forwarded.set(elementsProp, elements);
           } else {
             (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
               elements[0] ?? null;

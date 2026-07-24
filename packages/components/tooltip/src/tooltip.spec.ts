@@ -43,7 +43,7 @@ describe('sl-tooltip', () => {
     });
 
     it('should not be open by default', () => {
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should have a hover-bridge part element', () => {
@@ -117,6 +117,30 @@ describe('sl-tooltip', () => {
       expect(tooltip.style.positionAnchor).to.equal('');
     });
 
+    it('should rebind to the new anchor when "for" changes', async () => {
+      const newEl = await fixture(html`
+        <div>
+          <button id="first" type="button">First</button>
+          <button id="second" type="button">Second</button>
+          <sl-tooltip for="first" type="description">Tip</sl-tooltip>
+        </div>
+      `);
+      const first = newEl.querySelector<HTMLElement>('#first')!;
+      const second = newEl.querySelector<HTMLElement>('#second')!;
+      const tip = newEl.querySelector('sl-tooltip')!;
+      await tip.updateComplete;
+
+      tip.setAttribute('for', 'second');
+      await tip.updateComplete;
+
+      expect(tip.anchor).to.equal(second);
+      expect(first.style.anchorName).to.equal('');
+      expect(first.ariaDescribedByElements ?? []).not.to.include(tip);
+      expect(second.style.anchorName).to.equal(`--${tip.id}`);
+      expect(second.ariaDescribedByElements).to.include(tip);
+      expect(tip.style.positionAnchor).to.equal(`--${tip.id}`);
+    });
+
     it('should not overwrite an existing anchor-name on the anchor', async () => {
       const newEl = await fixture(html`
         <div>
@@ -130,6 +154,24 @@ describe('sl-tooltip', () => {
 
       expect(preNamed.style.anchorName).to.equal('--my-anchor');
       expect(tip.style.positionAnchor).to.equal('--my-anchor');
+    });
+
+    it('should keep an existing anchor-name on the anchor when "for" is removed', async () => {
+      const newEl = await fixture(html`
+        <div>
+          <button id="keep-named" type="button" style="anchor-name: --my-anchor">Anchor</button>
+          <sl-tooltip for="keep-named">Tip</sl-tooltip>
+        </div>
+      `);
+      const keepNamed = newEl.querySelector<HTMLElement>('#keep-named')!;
+      const tip = newEl.querySelector('sl-tooltip')!;
+      await tip.updateComplete;
+
+      tip.removeAttribute('for');
+      await tip.updateComplete;
+
+      expect(keepNamed.style.anchorName).to.equal('--my-anchor');
+      expect(tip.style.positionAnchor).to.equal('');
     });
 
     it('should remove the ARIA relation when disconnected', async () => {
@@ -196,7 +238,7 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 10);
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should close when disabled while open', async () => {
@@ -204,12 +246,12 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
 
       tooltip.showPopover();
-      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip).to.match(':popover-open');
 
       tooltip.disabled = true;
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should add/remove ariaDescribedByElements reference when enabled/disabled', async () => {
@@ -244,7 +286,7 @@ describe('sl-tooltip', () => {
       tooltip.open = true;
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip).to.match(':popover-open');
     });
 
     it('should hide the tooltip when open is set to false after being shown', async () => {
@@ -254,7 +296,7 @@ describe('sl-tooltip', () => {
       tooltip.open = false;
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
   });
 
@@ -275,14 +317,14 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 10);
 
-      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip).to.match(':popover-open');
     });
 
     it('should not show the tooltip before the hover delay elapses', async () => {
       anchor.dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Math.max(0, Tooltip.hoverShowDelay - 10));
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should hide the tooltip when mousing out of the anchor', async () => {
@@ -293,7 +335,7 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
       await waitFor(Tooltip.hoverHideDelay + 10);
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should not show when trigger does not include hover', async () => {
@@ -303,7 +345,7 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 10);
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
   });
 
@@ -324,7 +366,7 @@ describe('sl-tooltip', () => {
       await userEvent.tab();
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip).to.match(':popover-open');
     });
 
     it('should hide the tooltip on blur', async () => {
@@ -334,7 +376,7 @@ describe('sl-tooltip', () => {
       anchor.blur();
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should not show when trigger does not include focus', async () => {
@@ -344,7 +386,7 @@ describe('sl-tooltip', () => {
       await userEvent.tab();
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
   });
 
@@ -365,7 +407,7 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('click', { bubbles: true }));
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip).to.match(':popover-open');
     });
 
     it('should hide the tooltip on a second click', async () => {
@@ -375,7 +417,7 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('click', { bubbles: true }));
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should hide the tooltip when clicking the anchor while a hover-triggered open is active', async () => {
@@ -384,7 +426,7 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('click', { bubbles: true }));
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
   });
 
@@ -405,20 +447,20 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 10);
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should not show on focus', async () => {
       await userEvent.tab();
       await tooltip.updateComplete;
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should show when showPopover is called programmatically', () => {
       tooltip.showPopover();
 
-      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip).to.match(':popover-open');
     });
   });
 
@@ -440,7 +482,7 @@ describe('sl-tooltip', () => {
     it('should hide the tooltip when pressing Escape', async () => {
       await userEvent.keyboard('{Escape}');
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should stop propagation of the Escape keydown event', async () => {
@@ -466,7 +508,6 @@ describe('sl-tooltip', () => {
         </div>
       `);
       anchor = el.querySelector('#delay-anchor')!;
-      tooltip = el.querySelector('sl-delay-anchor')! ?? el.querySelector('sl-tooltip')!;
       tooltip = el.querySelector('sl-tooltip')!;
       await tooltip.updateComplete;
     });
@@ -479,14 +520,14 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('mouseover', { bubbles: true }));
       await vi.advanceTimersByTimeAsync(Math.max(0, Tooltip.hoverShowDelay - 10));
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
 
     it('should open after the hover show delay elapses', async () => {
       anchor.dispatchEvent(new Event('mouseover', { bubbles: true }));
       await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 10);
 
-      expect(tooltip.matches(':popover-open')).to.be.true;
+      expect(tooltip).to.match(':popover-open');
     });
 
     it('should cancel pending show when mouse leaves before delay elapses', async () => {
@@ -496,7 +537,7 @@ describe('sl-tooltip', () => {
       anchor.dispatchEvent(new Event('mouseout', { bubbles: true }));
       await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 100);
 
-      expect(tooltip.matches(':popover-open')).to.be.false;
+      expect(tooltip).not.to.match(':popover-open');
     });
   });
 });

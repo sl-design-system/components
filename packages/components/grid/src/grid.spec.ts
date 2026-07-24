@@ -1,3 +1,4 @@
+import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
@@ -832,6 +833,25 @@ describe('sl-grid', () => {
 
       expect(toolBar!.menuItems.length).to.equal(0);
       expect(toolBar!.items.filter(item => item.visible).length).to.equal(5);
+    });
+
+    it('should have a tooltip on the cancel selection button', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const cancelButton = el.renderRoot.querySelector<Button>('[part="bulk-actions"] > sl-button');
+      await cancelButton?.updateComplete;
+
+      expect(cancelButton).to.exist;
+      expect(cancelButton).to.have.attribute('tooltip', 'Cancel selection');
+
+      const tooltip = cancelButton!.renderRoot.querySelector('sl-tooltip');
+      await tooltip?.updateComplete;
+
+      expect(tooltip).to.exist;
+      expect(tooltip).to.have.trimmed.text('Cancel selection');
     });
   });
 });

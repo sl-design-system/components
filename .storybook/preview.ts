@@ -9,6 +9,10 @@ import { type Mode, themes, updateTheme } from './themes.js';
 
 // Load the CSS Anchor Positioning polyfill if needed
 if (!('anchorName' in document.documentElement.style)) {
+  window.ANCHOR_POSITIONING_POLYFILL_OPTIONS = {
+    positionAreaContainingBlock: 'auto'
+  };
+
   const { default: polyfill, patchAndPolyfillConstructedStylesheets } =
     await import('@oddbird/css-anchor-positioning/fn');
 

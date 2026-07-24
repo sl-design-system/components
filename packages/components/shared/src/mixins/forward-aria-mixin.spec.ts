@@ -1,6 +1,6 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ForwardAriaMixin } from './forward-aria-mixin.js';
 
 class TestElement extends ForwardAriaMixin(LitElement, [
@@ -479,6 +479,54 @@ describe('ForwardAriaMixin', () => {
       expect(button).to.have.attribute('aria-hidden', 'true');
 
       button.removeAttribute('aria-hidden');
+    });
+  });
+
+  describe('element references', () => {
+    let labelA: HTMLElement, labelB: HTMLElement;
+
+    beforeEach(() => {
+      labelA = document.createElement('span');
+      labelA.id = 'ref-label-a';
+      labelB = document.createElement('span');
+      labelB.id = 'ref-label-b';
+      el.parentElement!.prepend(labelA, labelB);
+    });
+
+    afterEach(() => {
+      labelA.remove();
+      labelB.remove();
+    });
+
+    it('should replace previously forwarded references when the attribute changes', () => {
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+      el.setAttribute('aria-labelledby', 'ref-label-b');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelB]);
+    });
+
+    it('should not duplicate references when the same value is forwarded twice', () => {
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelA]);
+    });
+
+    it('should preserve references added by others when forwarding', () => {
+      button.ariaLabelledByElements = [labelB];
+
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelB, labelA]);
+    });
+
+    it('should preserve references added by others when the attribute is removed', () => {
+      button.ariaLabelledByElements = [labelB];
+
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+      el.removeAttribute('aria-labelledby');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelB]);
     });
   });
 

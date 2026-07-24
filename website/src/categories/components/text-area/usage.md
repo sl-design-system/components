@@ -147,7 +147,7 @@ Use `show-count` to display a soft character limit. It shows remaining character
 
 Users can exceed the limit, but validation replaces the counter with an error message. Screen readers announce changes only when moving between default, caution, and danger states.
 
-Do not combine `show-count` with `maxlength`, which blocks extra input.
+Do not combine `show-count` with `maxlength`, which blocks extra input. Also, use `minLength` character limits carefully, as it can create unnecessary constraints and confusion for users, and avoid use of `minLength` with `maxLength` because it may lead to repeated trial-and-error to meet both constraints instead of focusing on the quality of their input.
 
 ### Resizing
 By default, the Text Area can be resized vertically, meaning users can drag its bottom edge to make it taller if they need more space. The `rows` setting determines how tall the Text Area appears when it first loads. You can use `resize="auto"` to let it grow automatically as content is added, or `resize="none"` to keep its height fixed.

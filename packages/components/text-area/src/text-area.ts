@@ -541,10 +541,12 @@ export class TextArea extends ObserveAttributesMixin(
     if (nextDescribedBy.length > 0) {
       if (textarea.getAttribute('aria-describedby') !== nextDescribedBy) {
         textarea.setAttribute('aria-describedby', nextDescribedBy);
+        this.#lastObservedDescribedBy = nextDescribedBy;
         structuralChange = true;
       }
     } else if (textarea.hasAttribute('aria-describedby')) {
       textarea.removeAttribute('aria-describedby');
+      this.#lastObservedDescribedBy = '';
       structuralChange = true;
     }
 

@@ -1,8 +1,28 @@
 import {
+  faAtom,
+  faCalculator,
+  faChartArea,
+  faChartLine,
+  faCircle,
+  faComments,
+  faDna,
+  faDrawPolygon,
   faFileLines,
+  faFlask,
   faFolder,
   faFolderOpen,
+  faGraduationCap,
+  faHand,
+  faLanguage,
+  faLeaf,
+  faLink,
+  faListOl,
+  faMicroscope,
   faPen,
+  faShapes,
+  faSpellCheck,
+  faSquareRootVariable,
+  faTableCells,
   faTrash
 } from '@fortawesome/pro-regular-svg-icons';
 import { Badge } from '@sl-design-system/badge';
@@ -38,6 +58,7 @@ export interface FlatDataNode {
 export interface NestedDataNode {
   id: number;
   name: string;
+  description?: string;
   children?: NestedDataNode[];
 }
 
@@ -50,7 +71,33 @@ export interface LazyNestedDataNode {
     | Array<Promise<LazyNestedDataNode>>;
 }
 
-Icon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
+Icon.register(
+  faAtom,
+  faCalculator,
+  faChartArea,
+  faChartLine,
+  faCircle,
+  faComments,
+  faDna,
+  faDrawPolygon,
+  faFileLines,
+  faFlask,
+  faFolder,
+  faFolderOpen,
+  faGraduationCap,
+  faHand,
+  faLanguage,
+  faLeaf,
+  faLink,
+  faListOl,
+  faMicroscope,
+  faPen,
+  faShapes,
+  faSpellCheck,
+  faSquareRootVariable,
+  faTableCells,
+  faTrash
+);
 
 export const flatData: FlatDataNode[] = [
   {
@@ -154,43 +201,92 @@ export const flatData: FlatDataNode[] = [
 
 export const nestedData: NestedDataNode[] = [
   {
-    id: -1,
-    name: 'components',
+    id: 0,
+    name: 'Curriculum',
     children: [
       {
-        id: 0,
-        name: 'textarea',
-        children: [{ id: 1, name: 'package.json' }]
-      },
-      {
-        id: 2,
-        name: 'tooltip',
-        children: [{ id: 3, name: 'package.json' }]
-      },
-      {
-        id: 4,
-        name: 'tree',
+        id: 1,
+        name: 'Mathematics',
         children: [
           {
-            id: 5,
-            name: 'src',
+            id: 2,
+            name: 'Algebra I',
             children: [
-              { id: 6, name: 'flat-tree-model.ts' },
-              { id: 7, name: 'nested-tree-model.ts' },
-              { id: 8, name: 'tree-model.ts' },
-              { id: 9, name: 'tree-node.scss' },
-              { id: 10, name: 'tree-node.ts' },
-              { id: 11, name: 'tree.ts' },
-              { id: 12, name: 'utils.ts' }
+              {
+                id: 3,
+                name: 'Linear Equations',
+                description: 'Solving equations of the first degree'
+              },
+              {
+                id: 4,
+                name: 'Quadratic Functions',
+                description: 'Parabolas and the quadratic formula'
+              },
+              {
+                id: 5,
+                name: 'Systems of Equations',
+                description: 'Solving multiple equations at once'
+              }
             ]
           },
-          { id: 13, name: 'index.ts' },
-          { id: 14, name: 'package.json' },
-          { id: 15, name: 'register.ts' }
+          {
+            id: 6,
+            name: 'Geometry',
+            children: [
+              {
+                id: 7,
+                name: 'Triangles & Angles',
+                description: 'Angle sums and triangle congruence'
+              },
+              { id: 8, name: 'Circle Theorems', description: 'Chords, tangents and arcs' }
+            ]
+          }
         ]
       },
-      { id: 16, name: 'eslint.config.mjs' },
-      { id: 17, name: 'stylelint.config.mjs' }
+      {
+        id: 9,
+        name: 'Science',
+        children: [
+          {
+            id: 10,
+            name: 'Biology',
+            children: [
+              { id: 11, name: 'Cell Structure', description: 'Organelles and their functions' },
+              {
+                id: 12,
+                name: 'Photosynthesis',
+                description: 'How plants convert light into energy'
+              }
+            ]
+          },
+          {
+            id: 13,
+            name: 'Chemistry',
+            children: [
+              {
+                id: 14,
+                name: 'The Periodic Table',
+                description: 'Elements, groups and periods'
+              },
+              { id: 15, name: 'Chemical Bonding', description: 'Ionic and covalent bonds' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 16,
+        name: 'Languages',
+        children: [
+          {
+            id: 17,
+            name: 'Spanish',
+            children: [
+              { id: 18, name: 'Basic Greetings', description: 'Everyday words and phrases' },
+              { id: 19, name: 'Verb Conjugation', description: 'Present tense regular verbs' }
+            ]
+          }
+        ]
+      }
     ]
   }
 ];
@@ -332,16 +428,38 @@ export const HideGuides: Story = {
   }
 };
 
+const curriculumIcons: Record<string, string> = {
+  Curriculum: 'far-graduation-cap',
+  Mathematics: 'far-calculator',
+  'Algebra I': 'far-square-root-variable',
+  'Linear Equations': 'far-chart-line',
+  'Quadratic Functions': 'far-chart-area',
+  'Systems of Equations': 'far-list-ol',
+  Geometry: 'far-draw-polygon',
+  'Triangles & Angles': 'far-shapes',
+  'Circle Theorems': 'far-circle',
+  Science: 'far-flask',
+  Biology: 'far-dna',
+  'Cell Structure': 'far-microscope',
+  Photosynthesis: 'far-leaf',
+  Chemistry: 'far-atom',
+  'The Periodic Table': 'far-table-cells',
+  'Chemical Bonding': 'far-link',
+  Languages: 'far-language',
+  Spanish: 'far-comments',
+  'Basic Greetings': 'far-hand',
+  'Verb Conjugation': 'far-spell-check'
+};
+
 export const Icons: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+      getIcon: ({ name }) => curriculumIcons[name] ?? 'far-file-lines',
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
-      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name)
+      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name)
     })
   }
 };
@@ -370,12 +488,13 @@ export const Filter: Story = {
 
       return new NestedTreeDataSource(data, {
         getChildren: ({ children }) => children,
-        getIcon: ({ name }, expanded) =>
-          name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
+        getIcon: ({ name }) => curriculumIcons[name] ?? 'far-file-lines',
         getId: item => item.id,
         getLabel: ({ name }) => name,
         isExpandable: ({ children }) => !!children,
-        isExpanded: filter ? () => true : ({ name }) => ['components', 'tree', 'src'].includes(name)
+        isExpanded: filter
+          ? () => true
+          : ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name)
       });
     };
 
@@ -464,13 +583,11 @@ export const Multiple: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
-      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name),
+      isExpanded: ({ name }) => ['Curriculum', 'Science', 'Biology'].includes(name),
       isExpandable: ({ children }) => !!children,
-      isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
+      isSelected: ({ name }) => ['Cell Structure', 'Photosynthesis'].includes(name),
       multiple: true
     }),
     hideGuides: true
@@ -519,6 +636,41 @@ export const PageScrolling: Story = {
   }
 };
 
+export const Selectable: Story = {
+  args: {
+    dataSource: new NestedTreeDataSource(nestedData, {
+      getAriaDescription: ({ description }) => description,
+      getChildren: ({ children }) => children,
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpandable: ({ children }) => !!children,
+      // Expand the path down to "Algebra I" so its leaf nodes are visible by default.
+      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name),
+      // Only the parent nodes are selectable, the leaf nodes are not.
+      isSelectable: ({ children }) => !!children,
+      multiple: true
+    }),
+    renderer: ({ dataNode, label }: TreeDataSourceNode<NestedDataNode>) => {
+      // Only the leaf nodes have a description; other nodes use the default rendering.
+      if (!dataNode?.description) {
+        return undefined;
+      }
+
+      return html`
+        <span style="display: flex; flex-direction: column">
+          <span
+            style="color: var(--sl-color-foreground-bold); font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);">
+            ${label}
+          </span>
+          <span style="color: var(--sl-color-foreground-subtlest)"> ${dataNode.description} </span>
+        </span>
+      `;
+    },
+    hideGuides: true,
+    maxWidth: '350px'
+  }
+};
+
 export const Skeleton: Story = {
   args: {
     dataSource: new NestedTreeDataSource(
@@ -556,12 +708,10 @@ export const Sorting: Story = {
   render: () => {
     const ds = new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) =>
-        name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`,
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
-      isExpanded: ({ name }) => ['components', 'tree', 'src'].includes(name)
+      isExpanded: ({ name }) => ['Curriculum', 'Mathematics', 'Algebra I'].includes(name)
     });
 
     ds.setSort('name', 'asc');

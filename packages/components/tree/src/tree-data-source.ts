@@ -26,6 +26,7 @@ export interface TreeDataSourceNode<T> {
   level: number;
   levelGuides?: number[];
   parent?: TreeDataSourceNode<T>;
+  selectable?: boolean;
   selected?: boolean;
   type: TreeNodeType;
 }
@@ -55,6 +56,13 @@ export interface TreeDataSourceMapping<T> {
 
   /** Returns whether the given node is expandable. */
   isExpandable(item: T): boolean;
+
+  /**
+   * Returns whether the given node can be selected. If not provided, all nodes are selectable by
+   * default. Use this to create a tree where only some nodes can be selected, for example a tree
+   * where the parent nodes are selectable, but the leaf nodes are not.
+   */
+  isSelectable?(item: T): boolean;
 
   /**
    * Returns whether the given node is expanded. This is only used for the initial expanded state of
@@ -274,6 +282,11 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
   /** Selects the given node and any children. */
   select(node: TreeDataSourceNode<T>, emitEvent = true): void {
+    // Nodes that aren't selectable cannot be selected.
+    if (node.selectable === false) {
+      return;
+    }
+
     if (!this.multiple) {
       this.deselectAll();
     }
@@ -283,12 +296,14 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     this.#selection.add(node);
 
     if (this.multiple) {
-      // Select all children
+      // Select all selectable children
       if (node.expandable) {
         const traverse = (node: TreeDataSourceNode<T>): void => {
-          node.indeterminate = false;
-          node.selected = true;
-          this.#selection.add(node);
+          if (node.selectable !== false) {
+            node.indeterminate = false;
+            node.selected = true;
+            this.#selection.add(node);
+          }
 
           if (node.expandable) {
             (node.children || []).forEach(traverse);
@@ -344,12 +359,14 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     }
   }
 
-  /** Selects all nodes in the tree. */
+  /** Selects all selectable nodes in the tree. */
   selectAll(): void {
     const traverse = (node: TreeDataSourceNode<T>): void => {
-      node.indeterminate = false;
-      node.selected = true;
-      this.#selection.add(node);
+      if (node.selectable !== false) {
+        node.indeterminate = false;
+        node.selected = true;
+        this.#selection.add(node);
+      }
 
       if (node.expandable) {
         (node.children || []).forEach(traverse);
@@ -582,9 +599,24 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       return;
     }
 
-    node.selected = node.children.length > 0 && node.children.every(child => child.selected);
+    // Only selectable children influence the selected/indeterminate state of the parent.
+    const selectableChildren = node.children.filter(child => child.selectable !== false);
+
+    // If a node has no selectable children (for example a node whose only children are
+    // non-selectable leaf nodes), its selection state is independent of its children.
+    if (selectableChildren.length === 0) {
+      if (node.selected) {
+        this.#selection.add(node);
+      } else {
+        this.#selection.delete(node);
+      }
+
+      return;
+    }
+
+    node.selected = selectableChildren.every(child => child.selected);
     node.indeterminate =
-      !node.selected && node.children.some(child => child.indeterminate || child.selected);
+      !node.selected && selectableChildren.some(child => child.indeterminate || child.selected);
 
     if (node.selected) {
       this.#selection.add(node);

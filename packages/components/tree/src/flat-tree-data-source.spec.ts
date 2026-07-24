@@ -1,6 +1,6 @@
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { FlatTreeDataSource } from './flat-tree-data-source.js';
+import { FlatTreeDataSource, type FlatTreeDataSourceOptions } from './flat-tree-data-source.js';
 
 type TestItem = {
   id: number | string;
@@ -542,6 +542,169 @@ describe('FlatTreeDataSource', () => {
       ds.update();
 
       expect(parent.selected).to.be.true;
+    });
+  });
+
+  describe('selectable', () => {
+    /*
+      Parent (selectable)
+      ├─ Sub A (selectable)
+      │  ├─ Leaf 1 (not selectable)
+      │  └─ Leaf 2 (not selectable)
+      └─ Sub B (selectable)
+         └─ Leaf 3 (not selectable)
+    */
+    const items: TestItem[] = [
+      { id: 1, name: 'Parent', level: 0, expandable: true },
+      { id: 11, name: 'Sub A', level: 1, expandable: true },
+      { id: 111, name: 'Leaf 1', level: 2, expandable: false },
+      { id: 112, name: 'Leaf 2', level: 2, expandable: false },
+      { id: 12, name: 'Sub B', level: 1, expandable: true },
+      { id: 121, name: 'Leaf 3', level: 2, expandable: false }
+    ];
+
+    // Only the expandable nodes (the parent nodes) are selectable, the leaf nodes are not.
+    const createDataSource = (overrides: Partial<FlatTreeDataSourceOptions<TestItem>> = {}) =>
+      new FlatTreeDataSource<TestItem>(items, {
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        getLevel: ({ level }) => level,
+        isExpandable: ({ expandable }) => expandable,
+        isExpanded: () => true,
+        isSelectable: ({ expandable }) => expandable,
+        multiple: true,
+        ...overrides
+      });
+
+    it('should mark all nodes as selectable by default', () => {
+      ds = new FlatTreeDataSource<TestItem>(items, {
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        getLevel: ({ level }) => level,
+        isExpandable: ({ expandable }) => expandable,
+        isExpanded: () => true,
+        multiple: true
+      });
+      ds.update();
+
+      expect(ds.items.every(n => n.selectable === true)).to.be.true;
+    });
+
+    it('should mark all nodes as selectable by default in single-select mode', () => {
+      ds = new FlatTreeDataSource<TestItem>(items, {
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        getLevel: ({ level }) => level,
+        isExpandable: ({ expandable }) => expandable,
+        isExpanded: () => true,
+        isSelected: ({ id }) => id === 111
+      });
+      ds.update();
+
+      // All nodes selectable by default (no isSelectable, single-select mode).
+      expect(ds.items.every(n => n.selectable === true)).to.be.true;
+
+      // The initial isSelected state must be honored for selectable nodes.
+      const leaf = ds.items.find(n => n.id === 111)!;
+      expect(leaf.selected).to.be.true;
+      expect(ds.selection.has(leaf)).to.be.true;
+    });
+
+    it('should reflect the isSelectable mapping on the nodes', () => {
+      ds = createDataSource();
+      ds.update();
+
+      const selectable = ds.items.map(n => n.selectable);
+
+      // Parent, Sub A, Leaf 1, Leaf 2, Sub B, Leaf 3
+      expect(selectable).to.deep.equal([true, true, false, false, true, false]);
+    });
+
+    it('should not select non-selectable nodes based on isSelected', () => {
+      ds = createDataSource({ isSelected: () => true });
+      ds.update();
+
+      const leaf = ds.items.find(n => n.id === 111)!;
+
+      expect(leaf.selected).to.be.false;
+      expect(ds.selection.has(leaf)).to.be.false;
+    });
+
+    it('should not select a node that is not selectable', () => {
+      ds = createDataSource();
+      ds.update();
+
+      const leaf = ds.items.find(n => n.id === 111)!;
+      ds.select(leaf);
+
+      expect(leaf.selected).not.to.be.true;
+      expect(ds.selection.has(leaf)).to.be.false;
+    });
+
+    it('should only select the selectable children when selecting a parent', () => {
+      ds = createDataSource();
+      ds.update();
+
+      const parent = ds.items.find(n => n.id === 1)!;
+      ds.select(parent);
+
+      const subA = ds.items.find(n => n.id === 11)!,
+        subB = ds.items.find(n => n.id === 12)!,
+        leaves = ds.items.filter(n => [111, 112, 121].includes(n.id as number));
+
+      expect(parent.selected).to.be.true;
+      expect(subA.selected).to.be.true;
+      expect(subB.selected).to.be.true;
+      expect(leaves.every(n => !n.selected)).to.be.true;
+
+      // Only the three selectable nodes should be in the selection.
+      expect(ds.selection.size).to.equal(3);
+    });
+
+    it('should keep a node selected when all of its children are non-selectable', () => {
+      ds = createDataSource();
+      ds.update();
+
+      const subA = ds.items.find(n => n.id === 11)!;
+      ds.select(subA);
+
+      // syncSelection runs on update; Sub A has only non-selectable children, so its
+      // selection state must be preserved rather than derived from its children.
+      ds.update();
+
+      expect(subA.selected).to.be.true;
+      expect(ds.selection.has(subA)).to.be.true;
+    });
+
+    it('should derive the parent state from its selectable children only', () => {
+      ds = createDataSource();
+      ds.update();
+
+      const parent = ds.items.find(n => n.id === 1)!,
+        subA = ds.items.find(n => n.id === 11)!;
+
+      ds.select(subA);
+
+      expect(parent.selected).to.be.false;
+      expect(parent.indeterminate).to.be.true;
+
+      const subB = ds.items.find(n => n.id === 12)!;
+      ds.select(subB);
+
+      expect(parent.selected).to.be.true;
+      expect(parent.indeterminate).to.be.false;
+    });
+
+    it('should only select selectable nodes when calling selectAll', () => {
+      ds = createDataSource();
+      ds.update();
+
+      ds.selectAll();
+
+      const leaves = ds.items.filter(n => [111, 112, 121].includes(n.id as number));
+
+      expect(leaves.every(n => !n.selected)).to.be.true;
+      expect(ds.selection.size).to.equal(3);
     });
   });
 });

@@ -1,5 +1,14 @@
 # @sanomalearning/slds-neon
 
+## 1.1.4
+
+### Patch Changes
+
+- [#3495](https://github.com/sl-design-system/components/pull/3495) [`4ce1186`](https://github.com/sl-design-system/components/commit/4ce1186f7bcafc04f78e91491d29a29c77b6e31a) - Up to date tokens.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+
 ## 1.1.3
 
 ### Patch Changes
@@ -23,9 +32,11 @@
 ### Minor Changes
 
 - [#3020](https://github.com/sl-design-system/components/pull/3020) [`738e4a7`](https://github.com/sl-design-system/components/commit/738e4a77005043de2f9977fab9fb04d4fce6369d) - Added
+
   - new elevation.surface.raised.primary token
 
   Fixed
+
   - form input interactive backgrounds (color.background.input.plain.interactive.plain) from plain to bold variants across all themes (e.g., accent.grey.interactive.bold) for better state contrast.
 
 - [#2970](https://github.com/sl-design-system/components/pull/2970) [`e92ebb1`](https://github.com/sl-design-system/components/commit/e92ebb16c596919aaa301be2604ab5f3539738a9) - Caret icons have been updated to implement the new alignment strategy used in Font Awesome 7
@@ -147,9 +158,11 @@
 - [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
 
   The following icons have changed:
+
   - `circle` has been renamed to `circle-solid`
 
   The following icons have been added:
+
   - `badge-available`
   - `badge-away`
   - `badge-donotdisturb`
@@ -158,6 +171,7 @@
   - `info`
 
   The following items have been removed (mainly in cleaning up, they were never meant to be there)
+
   - `svg-sort`
   - `svg-sort-down`
   - `svg-sort-up`
@@ -205,6 +219,7 @@
 ### Patch Changes
 
 - [#1454](https://github.com/sl-design-system/components/pull/1454) [`af62ce4`](https://github.com/sl-design-system/components/commit/af62ce4d0e65b1363b9cede48642bc22d1fc9365) - - Improve toggle button and group tokens
+
   - Add a `check-solid` icon for use in the `toggle-button` component
 
 - [#1414](https://github.com/sl-design-system/components/pull/1414) [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c) - Update icons to the latest fontawesome release (6.6.0)
@@ -219,6 +234,7 @@
 ### Patch Changes
 
 - [#1389](https://github.com/sl-design-system/components/pull/1389) [`f03971b`](https://github.com/sl-design-system/components/commit/f03971b7b338a4248df292060b91b6b903b6c8ed) - Minor style fixes:
+
   - Fix the title and subtitle text being cutoff for certain characters due not enough line-height
   - Use a different color for the subtitle text
 
@@ -260,6 +276,7 @@
 - [#1251](https://github.com/sl-design-system/components/pull/1251) [`a3da76c`](https://github.com/sl-design-system/components/commit/a3da76c7df521c2241b565dc22025715f1231e9c) - New search icon
 
 - [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - - Enhanced the color contrast of buttons when used on slightly darker backgrounds across all themes.
+
   - Enhanced the color contrast of inline messages to match our buttons.
 
 - [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - Fix missing triangle-exclamation-solid icon
@@ -276,6 +293,7 @@
 - [#1242](https://github.com/sl-design-system/components/pull/1242) [`ab122ec`](https://github.com/sl-design-system/components/commit/ab122ec672a515ae2ca7dce88c7344c1b209d538) - Fix missing `calc()` functions in theme parts.
 
 - [#1225](https://github.com/sl-design-system/components/pull/1225) [`ad297ab`](https://github.com/sl-design-system/components/commit/ad297ab817ab998253b9c2a90033c72dcc686893) - Updated/added tokens:
+
   - Button bar available in all themes
   - Fixed accordion border
   - Button fixes

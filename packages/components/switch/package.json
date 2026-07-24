@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/switch",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "status": "stable",
   "description": "Switch component for the SL Design System",
   "license": "Apache-2.0",
@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "@sl-design-system/form": "^1.4.2",
-    "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/shared": "^0.12.2"
+    "@sl-design-system/icon": "^1.4.3",
+    "@sl-design-system/shared": "^0.12.3"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10"

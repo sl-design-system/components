@@ -1,5 +1,15 @@
 # @sl-design-system/accordion
 
+## 1.2.7
+
+### Patch Changes
+
+- [#3538](https://github.com/sl-design-system/components/pull/3538) [`6964b4d`](https://github.com/sl-design-system/components/commit/6964b4d661728adb9ad5903d98b9ad2fba80889e) - Accordion item: fix animation handling to prevent nested component animations from interfering.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
 ## 1.2.6
 
 ### Patch Changes

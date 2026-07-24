@@ -1,5 +1,22 @@
 # @sl-design-system/checkbox
 
+## 2.2.0
+
+### Minor Changes
+
+- [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Add infotip support to checkbox, radio, and switch components
+
+  Form controls now support an optional infotip slot that displays contextual help using the infotip component. The infotip automatically:
+
+  - Sizes itself appropriately (sm) for form controls
+  - Inherits the form control's label as its `describes` attribute if not explicitly set
+  - Positions itself alongside the form control without interfering with clicks or keyboard interactions
+
+### Patch Changes
+
+- Updated dependencies [[`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1)]:
+  - @sl-design-system/shared@0.12.3
+
 ## 2.1.10
 
 ### Patch Changes
@@ -107,6 +124,7 @@
 ### Patch Changes
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Various fixes:
+
   - Fix bug where clicking a checkbox in a tree-node will not check it
   - Fix `sl-change` event firing multiple times for a single click
 
@@ -164,6 +182,7 @@
 ### Patch Changes
 
 - [#1369](https://github.com/sl-design-system/components/pull/1369) [`25d1de0`](https://github.com/sl-design-system/components/commit/25d1de0d8b6e032aa13463d18db201cf88d5ddd6) - Fix behavior to match native checkbox:
+
   - If a checkbox has no value, the form value should be `"on"` when checked
   - The value of the checkbox group should be an array of the form value of _all_ checkboxes
   - The form value will filter out any `null` values (so this change is not breaking)

@@ -1,5 +1,14 @@
 # @sl-design-system/tabs
 
+## 1.2.9
+
+### Patch Changes
+
+- Updated dependencies [[`d5d17f8`](https://github.com/sl-design-system/components/commit/d5d17f8859fc663af83f6e2dd47286b87bd96a48), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/menu@0.4.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
 ## 1.2.8
 
 ### Patch Changes
@@ -124,11 +133,13 @@
 - [#1798](https://github.com/sl-design-system/components/pull/1798) [`99a9ad9`](https://github.com/sl-design-system/components/commit/99a9ad9503a6dcf1b92838e46aafd2f1c5d3dc58) - Tabs improvements
 
   Features:
+
   - Refactor styling to use new contextual tokens
   - Add activation property for auto or manual activation (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
   - Simplify `<sl-tab>` styling using grid layout; makes the tab more flexible
 
   Fixes:
+
   - Scroll to the focused tab when using the keyboard
   - Make sure the selected tab is fully visible on initial render and doesn't smooth scroll
   - Fix bug where the RovingTabIndexController on `<sl-tab-group>` caused the inability to focus anything other than a tab
@@ -178,6 +189,7 @@
 ### Patch Changes
 
 - [#1354](https://github.com/sl-design-system/components/pull/1354) [`07d4437`](https://github.com/sl-design-system/components/commit/07d443778cf46b80c0f89fb2e7fdc8d11b5c335a) - Various improvements:
+
   - Fix tab group to not always select a tab by default
   - Fix tab group component to allow for removing the selected attribute from a tab
   - Fade in the selected tab indicator on first selected tab
@@ -198,6 +210,7 @@
 ### Patch Changes
 
 - [#1208](https://github.com/sl-design-system/components/pull/1208) [`b48b108`](https://github.com/sl-design-system/components/commit/b48b108c4873b6bbbea7636988a663f92c0ee242) - Improvements and bug fixes:
+
   - Add possibility of changing tab with URL by keyboard
   - Add missing background for `container` part: `--_tablist-background: var(--sl-color-tab-tabbar-background)`
   - Fix scrolling - only horizontally

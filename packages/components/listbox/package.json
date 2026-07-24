@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/listbox",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "status": "draft",
   "description": "Listbox components for the SL Design System",
   "license": "Apache-2.0",
@@ -39,8 +39,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/icon": "^1.4.0",
-    "@sl-design-system/virtual-list": "^0.1.0"
+    "@sl-design-system/icon": "^1.4.3",
+    "@sl-design-system/virtual-list": "^0.1.1"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10",

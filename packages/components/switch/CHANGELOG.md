@@ -1,5 +1,23 @@
 # @sl-design-system/switch
 
+## 1.2.0
+
+### Minor Changes
+
+- [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Add infotip support to checkbox, radio, and switch components
+
+  Form controls now support an optional infotip slot that displays contextual help using the infotip component. The infotip automatically:
+
+  - Sizes itself appropriately (sm) for form controls
+  - Inherits the form control's label as its `describes` attribute if not explicitly set
+  - Positions itself alongside the form control without interfering with clicks or keyboard interactions
+
+### Patch Changes
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
 ## 1.1.9
 
 ### Patch Changes
@@ -277,6 +295,7 @@
 - [#835](https://github.com/sl-design-system/components/pull/835) [`3cb1452`](https://github.com/sl-design-system/components/commit/3cb1452546a717f475c628077301ce218165cb9e) - Linked to the correct custom icons page in Figma so some new/changed icons are available.
 
 - [#834](https://github.com/sl-design-system/components/pull/834) [`5e1aa71`](https://github.com/sl-design-system/components/commit/5e1aa7142d3d5e48e4f21b05224e7ee95a4dad60) - Refactor `<sl-switch>` to
+
   - use new `FormControlMixin` from the form package
   - simplify the component by removing the `hint` and `orientation` properties
 

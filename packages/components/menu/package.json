@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/menu",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "status": "preview",
   "description": "Menu components for the SL Design System",
   "license": "Apache-2.0",
@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "@sl-design-system/button": "^2.1.1",
-    "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/shared": "^0.12.2"
+    "@sl-design-system/icon": "^1.4.3",
+    "@sl-design-system/shared": "^0.12.3"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

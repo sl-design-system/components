@@ -1,5 +1,17 @@
 # @sl-design-system/menu
 
+## 0.4.0
+
+### Minor Changes
+
+- [#3520](https://github.com/sl-design-system/components/pull/3520) [`d5d17f8`](https://github.com/sl-design-system/components/commit/d5d17f8859fc663af83f6e2dd47286b87bd96a48) - Add an `sl-toggle` event to `sl-menu-button` that emits `true` when the menu opens and `false` when it closes.
+
+### Patch Changes
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
 ## 0.3.4
 
 ### Patch Changes
@@ -63,6 +75,7 @@
 - [#3001](https://github.com/sl-design-system/components/pull/3001) [`a7ac909`](https://github.com/sl-design-system/components/commit/a7ac90987881881bd0cb916c583e68c785b52622) - Improves accessibility of menu-groups with headers
 
 - [#3022](https://github.com/sl-design-system/components/pull/3022) [`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c) - - `MenuButton` and `Button` now correctly block click/keyboard activation when `aria-disabled` is set, but remain focusable for improved accessibility and tooltip support.
+
   - Standalone `MenuButton` continues to use native `disabled` to remain non-focusable, while support for `aria-disabled` focusability has been improved.
 
 - [#3034](https://github.com/sl-design-system/components/pull/3034) [`fd4a0d7`](https://github.com/sl-design-system/components/commit/fd4a0d79b4c0d9a1438b437bc7a1122f03d08c11) - Changed styling so the hover and active state have an indicator. This makes it more accessible because we don't rely on only a subtle change in the background color.
@@ -171,6 +184,7 @@
 ### Patch Changes
 
 - [#1777](https://github.com/sl-design-system/components/pull/1777) [`67f5b81`](https://github.com/sl-design-system/components/commit/67f5b810558d124289f26e3cc3fb2c59da97bb5f) - Fixed several accessibility issues;
+
   - Improved VoiceOver in support Chrome
   - Fixed keyboard navigation in submenu
   - Applied new tokens to menu and menu item

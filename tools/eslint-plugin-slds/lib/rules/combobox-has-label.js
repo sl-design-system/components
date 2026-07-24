@@ -53,6 +53,7 @@ const reportRawComboboxesWithoutLabel = (rawHtml, reportNode, context) => {
     }
 
     context.report({ node: reportNode, messageId: 'missingLabel' });
+    return;
   }
 };
 

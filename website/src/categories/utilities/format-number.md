@@ -1,21 +1,11 @@
 ---
 title: Format number
+description: A utility component for formatting numbers using the browser's <code>Intl.NumberFormat</code> API, with automatic locale support.
+layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Utilities
   key: Format number
 ---
-
-<header class="ds-tokens__main-heading">
-<div class="ds-tokens__heading-wrapper">
-  <h1 class="ds-heading-1">{{title}}</h1>
-  <p class="ds-tokens__heading-description">
-  A utility component for formatting numbers using the browser's <code>Intl.NumberFormat</code> API, with automatic locale support.
-  </p>
-</div>
-</header>
-
-<section class="ds-subpage-section">
-<div class="ds-subpage-section__wrapper">
 
 <section>
 
@@ -248,7 +238,4 @@ When `number` is not set or is not a valid number, the default slot is rendered:
 
 </div>
 
-</section>
-
-</div>
 </section>

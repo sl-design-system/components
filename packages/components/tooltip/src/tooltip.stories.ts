@@ -1,6 +1,6 @@
 import '@sl-design-system/button/register.js';
 import { type Meta } from '@storybook/web-components-vite';
-import { LitElement, type TemplateResult, css, html, nothing } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Tooltip } from './tooltip.js';
@@ -118,44 +118,5 @@ export const All = {
       <sl-tooltip for="button" open style="position-area: bottom">Bottom</sl-tooltip>
       <sl-tooltip for="button" open style="position-area: left">Left</sl-tooltip>
     `
-  }
-};
-
-export const Custom = {
-  render: () => {
-    customElements.define(
-      'x-demo',
-      class extends LitElement {
-        static override styles = css`
-          button {
-            anchor-name: --button;
-          }
-
-          div {
-            background: var(--sl-elevation-surface-raised-inverted);
-            border: 0;
-            border-radius: var(--sl-size-borderRadius-default);
-            box-sizing: border-box;
-            color: var(--sl-color-foreground-inverted-plain);
-            font-weight: var(--sl-text-new-typeset-fontWeight-regular);
-            inset-block-start: calc(anchor(top) - var(--sl-size-100));
-            inset-inline-start: calc(anchor(right) + var(--sl-size-100));
-            margin: 0;
-            padding: var(--sl-size-100) var(--sl-size-150);
-            position-anchor: --button;
-            position: fixed;
-          }
-        `;
-
-        override render() {
-          return html`
-            <button>Anchor</button>
-            <div>Tooltip</div>
-          `;
-        }
-      }
-    );
-
-    return html`<x-demo></x-demo>`;
   }
 };

@@ -273,7 +273,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   #onResize(): void {
     // When the tooltip is set explicitly to a string, we always show it and never override it
     // based on the truncation state of the label.
-    if (typeof this.tooltip === 'string') {
+    if (typeof this.tooltip === 'string' && this.tooltip !== '') {
       return;
     }
 

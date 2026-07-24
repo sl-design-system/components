@@ -39,6 +39,16 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     { code: 'html`<sl-button tooltip="Settings"><sl-icon name="gear"></sl-icon></sl-button>`;' },
     {
       code: 'html`<sl-button variant="primary" tooltip="Submit form"><sl-icon name="check"></sl-icon></sl-button>`;'
+    },
+    // sl-tooltip sibling with a `for` attribute referencing the button
+    {
+      code: 'html`<sl-button fill="outline" id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip for="bold">Bold</sl-tooltip>`;'
+    },
+    {
+      code: 'html`<sl-tooltip for="italic">Italic</sl-tooltip><sl-button id="italic"><sl-icon name="far-italic"></sl-icon></sl-button>`;'
+    },
+    {
+      code: 'html`<sl-button id="save"><sl-icon name="save"></sl-icon></sl-button><sl-tooltip for="save" type="label">Save</sl-tooltip>`;'
     }
   ],
   invalid: [
@@ -88,6 +98,21 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     },
     {
       code: 'html`<sl-button tooltip=""><sl-icon name="save"></sl-icon></sl-button>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // sl-tooltip sibling referencing a different element
+    {
+      code: 'html`<sl-button id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip for="other">Other</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // sl-tooltip with type="description" does not label the button
+    {
+      code: 'html`<sl-button id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip for="bold" type="description">Bold</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // sl-tooltip without a `for` attribute
+    {
+      code: 'html`<sl-button id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip>Bold</sl-tooltip>`;',
       errors: [{ messageId: 'missingText' }]
     }
   ]

@@ -437,7 +437,7 @@ export const Tooltips: Story = {
   args: {
     description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
     items: () => html`
-      <sl-button aria-labelledby="tooltip-bold" fill="outline" id="bold">
+      <sl-button fill="outline" id="bold">
         <sl-icon name="far-bold"></sl-icon>
       </sl-button>
       <sl-tooltip for="bold">Bold</sl-tooltip>

@@ -26,7 +26,7 @@ declare global {
 }
 
 export type ToggleButtonFill = 'outline' | 'solid';
-export type ToggleButtonShape = 'square' | 'pill';
+export type ToggleButtonShape = 'rect' | 'pill';
 export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 
 /**
@@ -102,7 +102,7 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
   /**
    * The shape of the button.
    *
-   * @default 'square'
+   * @default 'rect'
    */
   @property({ reflect: true }) shape?: ToggleButtonShape;
 

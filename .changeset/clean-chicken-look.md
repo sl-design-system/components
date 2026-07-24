@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/toggle-button': minor
+'@sl-design-system/toggle-button': major
 ---
 
 Refactor toggle button to use an internal `<button>` element. This improves accessibility and removes the need for manual keyboard and ARIA handling.
@@ -7,7 +7,7 @@ Refactor toggle button to use an internal `<button>` element. This improves acce
 **Breaking changes**
 
 - The `[pressed]`, `[icon-only]`, `[text-only]`, and `[error]` attributes have been replaced by CSS custom states (`:state(pressed)`, `:state(icon-only)`, `:state(text-only)`, `:state(error)`). Update any custom styles targeting these attributes.
-- The `shape` property type has changed from `ButtonShape` to `ToggleButtonShape` (`'square' | 'pill'`).
+- The `shape` property type has changed from `ButtonShape` to `ToggleButtonShape` (`'rect' | 'pill'`).
 - The `pressed` property is no longer reflected as an attribute. Use `:state(pressed)` for styling.
 - The `label` property (previously reflected as `aria-label`) has been removed. Use the new `tooltip` property instead.
 

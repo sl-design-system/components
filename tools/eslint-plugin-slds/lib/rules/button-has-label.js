@@ -34,6 +34,23 @@ export const buttonHasLabel = {
 
         const analyzer = TemplateAnalyzer.create(node);
 
+        // Collect the ids of elements labelled by an <sl-tooltip for="..."> in the same
+        // template. A tooltip without type="description" labels its anchor at runtime
+        // (via ariaLabelledByElements), so it counts as an accessible name at lint time.
+        const tooltipLabelledIds = new Set();
+        analyzer.traverse({
+          enterElement(element) {
+            if (element.name === 'sl-tooltip') {
+              const attribs = element.attribs ?? {},
+                forId = (attribs['for'] ?? '').trim();
+
+              if (forId && (attribs['type'] ?? 'label').trim() !== 'description') {
+                tooltipLabelledIds.add(forId);
+              }
+            }
+          }
+        });
+
         analyzer.traverse({
           enterElement(element) {
             if (element.name !== 'sl-button') {
@@ -42,13 +59,16 @@ export const buttonHasLabel = {
 
             // The `tooltip` attribute on sl-button provides the accessible label for icon-only
             // buttons at runtime, so it counts as an accessible name at lint time.
-            const hasTooltipAttribute = ((element.attribs ?? {})['tooltip'] ?? '').trim() !== '';
+            const attribs = element.attribs ?? {},
+              hasTooltipAttribute = (attribs['tooltip'] ?? '').trim() !== '',
+              hasTooltipSibling = tooltipLabelledIds.has((attribs['id'] ?? '').trim());
 
             if (
               hasTextContent(element) ||
               hasAccessibleName(element) ||
               hasTooltipWithAriaRelationLabel ||
-              hasTooltipAttribute
+              hasTooltipAttribute ||
+              hasTooltipSibling
             ) {
               return;
             }

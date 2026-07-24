@@ -374,7 +374,7 @@ export const All: Story = {
       <span>aria-disabled</span>
 
       <span>md</span>
-      <sl-menu-button aria-label="Label">
+      <sl-menu-button tooltip="Label">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -434,7 +434,7 @@ export const All: Story = {
       </sl-menu-button>
 
       <span>lg</span>
-      <sl-menu-button aria-label="Label" size="lg">
+      <sl-menu-button size="lg" tooltip="Label">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -493,7 +493,7 @@ export const All: Story = {
         </sl-menu-item>
       </sl-menu-button>
       <span>Ghost</span>
-      <sl-menu-button aria-label="Label" fill="ghost">
+      <sl-menu-button fill="ghost" tooltip="Label">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>

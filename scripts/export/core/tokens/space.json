@@ -1,0 +1,233 @@
+{
+  "variable": {
+    "space": {
+      "010": {
+        "$value": "snap( {scale.010}*{space.base} *{space.multiplier},1)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "025": {
+        "$value": "snap( {scale.025}*{space.base} *{space.multiplier},2)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "050": {
+        "$value": "snap( {scale.050}*{space.base} *{space.multiplier},2)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "075": {
+        "$value": "snap( {scale.075}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "100": {
+        "$value": "snap( {scale.100}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "125": {
+        "$value": "snap({scale.125}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "150": {
+        "$value": "snap( {scale.150}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "200": {
+        "$value": "snap( {scale.200}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "300": {
+        "$value": "snap( {scale.300}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "400": {
+        "$value": "snap( {scale.400}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "500": {
+        "$value": "snap( {scale.500}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "600": {
+        "$value": "snap( {scale.600}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "700": {
+        "$value": "snap( {scale.700}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "800": {
+        "$value": "snap( {scale.800}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "1000": {
+        "$value": "snap( {scale.1000}*{space.base} *{space.multiplier},4)px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "none": {
+        "$value": "0px",
+        "$type": "space",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["GAP"]
+          }
+        }
+      },
+      "tshirt": {
+        "2xl": {
+          "$value": "{variable.space.500}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "2xs": {
+          "$value": "{variable.space.050}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "3xl": {
+          "$value": "{variable.space.600}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "4xl": {
+          "$value": "{variable.space.800}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "lg": {
+          "$value": "{variable.space.300}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "md": {
+          "$value": "{variable.space.200}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "sm": {
+          "$value": "{variable.space.150}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "xl": {
+          "$value": "{variable.space.400}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        },
+        "xs": {
+          "$value": "{variable.space.100}",
+          "$type": "space",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["GAP"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

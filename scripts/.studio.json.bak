@@ -25,8 +25,8 @@
         "type": "branch",
         "name": "main"
       },
-      "output": "src/tokens/typography-sizing-spacing",
-      "format": "raw"
+      "output": "../packages/tokens/src/typography-sizing-spacing",
+      "format": "css"
     }
   }
 }

@@ -1,5 +1,21 @@
 # @sl-design-system/grid
 
+## 0.7.5
+
+### Patch Changes
+
+- [#3508](https://github.com/sl-design-system/components/pull/3508) [`89f2dc9`](https://github.com/sl-design-system/components/commit/89f2dc9729425ecd5f0bb029aeb476c1f33e3d2f) - Added accessible names to text field and select controls rendered inside editable grid cells. New `formControlColumnLabel` and `formControlLabel` properties can be used to customize the generated label with column and row context, such as `Zip John Doe` or `Status John Doe`, improving screen reader navigation in editable grids.
+
+- [#3525](https://github.com/sl-design-system/components/pull/3525) [`c864af4`](https://github.com/sl-design-system/components/commit/c864af478c373179c7ae662ba8caefbdde9a544c) - Fix horizontal scroll synchronization when keyboard focus moves through sortable grid column headers. The grid now keeps the header and body aligned when the header is scrolled by keyboard navigation.
+
+- Updated dependencies [[`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987), [`de31def`](https://github.com/sl-design-system/components/commit/de31defb47c51816aabf8dfa5d53666378f2d07c), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`0a4f62e`](https://github.com/sl-design-system/components/commit/0a4f62e454ad02ea56889f73e0a5f35cda488dbc), [`5ac49c3`](https://github.com/sl-design-system/components/commit/5ac49c306cc25d5ae7a334e87fc26736dcade9a7), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e), [`9ca0bc2`](https://github.com/sl-design-system/components/commit/9ca0bc28d6596c061f33205f3422169960c8c180)]:
+  - @sl-design-system/checkbox@2.2.0
+  - @sl-design-system/select@2.2.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/tool-bar@0.3.0
+  - @sl-design-system/listbox@0.2.1
+
 ## 0.7.4
 
 ### Patch Changes
@@ -13,6 +29,7 @@
 - [#3379](https://github.com/sl-design-system/components/pull/3379) [`a470889`](https://github.com/sl-design-system/components/commit/a47088978b07ef027090972b93394c6c2ad58b01) - Added a `hide-header-text` property to Grid columns so header text can be visually hidden while remaining available to assistive technologies.
 
 - [#3390](https://github.com/sl-design-system/components/pull/3390) [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f) - Accessibility improvements for row activation and selection:
+
   - Added `aria-selected` to the active/selected row in activate and single-select modes.
   - The grid now announces row activation and deactivation to screen readers.
   - When you focus an already active row with the keyboard, the grid reannounces it (using `force`).
@@ -235,6 +252,7 @@
 ### Minor Changes
 
 - [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements:
+
   - New visual styles throughout all components
   - Refactored to use the new `ListDataSource` class and view model types
   - Removed `SelectionController` since that logic is now part of `ListDataSource`
@@ -257,6 +275,7 @@
   This change removes the `activatable-row` property and instead leaves it to the user to set the `activeRow` property on the `sl-grid` component. The examples in Storybook now also use a button with an avatar to activate the row, which is more accessible than using a checkbox. This fixes the issue we had before where we could not find a solution how to make the row activatable with the keyboard, while also keeping the checkbox for selection. Now, the row can be activated with the keyboard by focusing the button and pressing Enter or Space. And at the same time, the checkbox can still be used for selection.
 
 - [#2024](https://github.com/sl-design-system/components/pull/2024) [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc) - Grid improvements:
+
   - Add "Cancel selection" button to the bulk action toolbar
   - Add `column` argument to `GridColumnHeaderRenderer` type
   - Fix missing aria-label on a selection column checkbox
@@ -280,6 +299,7 @@
 ### Patch Changes
 
 - [#2077](https://github.com/sl-design-system/components/pull/2077) [`778e8a1`](https://github.com/sl-design-system/components/commit/778e8a1ae5dc7908e5c000a620b8143883c75a91) - - Adds option to have no skip table links
+
   - Fixes issue for Safari (an other browsers that don't support native anchor positioning) where to "Skip to start of table" link was positioned incorrectly
 
 - [#2072](https://github.com/sl-design-system/components/pull/2072) [`77b348d`](https://github.com/sl-design-system/components/commit/77b348d19a4869f9242d8ea1c70d32d1e6d04212) - Fix regression with basic drag and drop of rows within grid
@@ -380,6 +400,7 @@
 - [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
 
 - [#1653](https://github.com/sl-design-system/components/pull/1653) [`f15d75c`](https://github.com/sl-design-system/components/commit/f15d75c6c3765b797f0bed57c5d1f2855cab4f7e) - Improve horizontal scrolling experience:
+
   - Add shadows to the left and right of the grid when it is scrollable
   - Add the new `<sl-scrollbar>` when the grid is horizontally scrollable
   - Make sure the scrollbar is always visible (sticky at the bottom of the grid)
@@ -405,6 +426,7 @@
 - [#1609](https://github.com/sl-design-system/components/pull/1609) [`515e2fb`](https://github.com/sl-design-system/components/commit/515e2fbbda7ecee92392b8ddf9f98c335fe32cf6) - Added tokens for grid
 
 - [#1616](https://github.com/sl-design-system/components/pull/1616) [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960) - Improved accessibilty of the table;
+
   - Added aria-rowindex and aria-rowcount;
   - Improved keyboardnavigation, including skip table links
   - Changed the way selecting works; active row by clicking on the entire row and selecting a row by checking the checkbox
@@ -421,6 +443,7 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

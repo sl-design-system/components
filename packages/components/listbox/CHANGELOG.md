@@ -1,5 +1,15 @@
 # @sl-design-system/listbox
 
+## 0.2.1
+
+### Patch Changes
+
+- [#3494](https://github.com/sl-design-system/components/pull/3494) [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e) - Prevent unstable scrolling in virtualized listboxes by disabling scroll anchoring and containing overscroll on the listbox host. This fixes cases where small touchpad scrolls could keep snapping the rendered range back to the same option, and prevents wheel scrolling at list boundaries from scrolling the underlying page.
+
+- Updated dependencies [[`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/virtual-list@0.1.1
+  - @sl-design-system/icon@1.4.3
+
 ## 0.2.0
 
 ### Minor Changes
@@ -7,6 +17,7 @@
 - [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Add virtual list support for improved performance with large option lists
 
   The listbox component now uses the virtual-list component for efficient rendering of large lists. This provides better performance and smoother scrolling when dealing with many options.
+
   - Integrated virtual-list component for virtualization
   - Improved scrolling behavior and item visibility
   - Added support for CSS max-height constraints with virtual lists
@@ -18,6 +29,7 @@
   This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
 
 - [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for listbox screen reader support
+
   - Always set `aria-selected` on options, including grouped options in the selected group
   - Set correct `aria-posinset` and `aria-setsize` on virtualized options, excluding group headers from the count
   - Add group label context to the accessible name of grouped options for Safari/VoiceOver compatibility
@@ -87,6 +99,7 @@
 ### Patch Changes
 
 - [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Add ability to render grouped items using lit-virtualizer:
+
   - New `optionGroupPath` property to specify the path to the group name in the option object
   - New `<sl-option-group-header>` component to render the group header
   - Add `items` property for advanced customization of how options are rendered (used in combobox)

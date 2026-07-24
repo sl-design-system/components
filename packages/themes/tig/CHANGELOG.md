@@ -1,5 +1,14 @@
 # @sl-design-system/tig
 
+## 1.1.4
+
+### Patch Changes
+
+- [#3495](https://github.com/sl-design-system/components/pull/3495) [`4ce1186`](https://github.com/sl-design-system/components/commit/4ce1186f7bcafc04f78e91491d29a29c77b6e31a) - Up to date tokens.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+
 ## 1.1.3
 
 ### Patch Changes
@@ -23,9 +32,11 @@
 ### Minor Changes
 
 - [#3020](https://github.com/sl-design-system/components/pull/3020) [`738e4a7`](https://github.com/sl-design-system/components/commit/738e4a77005043de2f9977fab9fb04d4fce6369d) - Added
+
   - new elevation.surface.raised.primary token
 
   Fixed
+
   - form input interactive backgrounds (color.background.input.plain.interactive.plain) from plain to bold variants across all themes (e.g., accent.grey.interactive.bold) for better state contrast.
 
 - [#2970](https://github.com/sl-design-system/components/pull/2970) [`e92ebb1`](https://github.com/sl-design-system/components/commit/e92ebb16c596919aaa301be2604ab5f3539738a9) - Caret icons have been updated to implement the new alignment strategy used in Font Awesome 7

@@ -1,5 +1,17 @@
 # @sl-design-system/paginator
 
+## 0.2.8
+
+### Patch Changes
+
+- [#3539](https://github.com/sl-design-system/components/pull/3539) [`ea71886`](https://github.com/sl-design-system/components/commit/ea71886f1e7d6d4b12b8e1c8b3a39d5a60a95a40) - Restore keyboard focus to the selected page button after choosing a page from the paginator page number menu.
+
+- Updated dependencies [[`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987), [`de31def`](https://github.com/sl-design-system/components/commit/de31defb47c51816aabf8dfa5d53666378f2d07c), [`d5d17f8`](https://github.com/sl-design-system/components/commit/d5d17f8859fc663af83f6e2dd47286b87bd96a48), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`0a4f62e`](https://github.com/sl-design-system/components/commit/0a4f62e454ad02ea56889f73e0a5f35cda488dbc), [`5ac49c3`](https://github.com/sl-design-system/components/commit/5ac49c306cc25d5ae7a334e87fc26736dcade9a7), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`9ca0bc2`](https://github.com/sl-design-system/components/commit/9ca0bc28d6596c061f33205f3422169960c8c180)]:
+  - @sl-design-system/select@2.2.0
+  - @sl-design-system/menu@0.4.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
 ## 0.2.7
 
 ### Patch Changes
@@ -165,12 +177,14 @@
 ### Patch Changes
 
 - [#1804](https://github.com/sl-design-system/components/pull/1804) [`7a0b48e`](https://github.com/sl-design-system/components/commit/7a0b48e981ad4c7cc1a34022625e6ae3ee55c977) - - Applied new tokens to the paginator,
+
   - Paginator component changes:
     - `size` property no longer controls the width of the layout of the entire paginator, but only the size of the components within the paginator,
     - new `width` property that controls the width of the layout of the entire paginator,
     - new `emphasis` property.
 
 - [#1690](https://github.com/sl-design-system/components/pull/1690) [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d) - Various improvements:
+
   - Add missing dependencies (announcer & form)
   - Rename `<sl-paginator-size>` to `<sl-paginator-page-size>`
   - Remove `pageSizes` property from `<sl-paginator>`
@@ -187,6 +201,7 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/icon",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "status": "stable",
   "description": "Icon component for the SL Design System",
   "license": "Apache-2.0",

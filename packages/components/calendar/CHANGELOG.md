@@ -1,5 +1,16 @@
 # @sl-design-system/calendar
 
+## 0.0.10
+
+### Patch Changes
+
+- [#3381](https://github.com/sl-design-system/components/pull/3381) [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1) - Accessibility improvements in calendar: improved keyboard navigation for select-month and select-year.
+
+- [#3507](https://github.com/sl-design-system/components/pull/3507) [`3031653`](https://github.com/sl-design-system/components/commit/3031653700af857a00bc49770a36a52f72f3fcaf) - Fix focus management when selecting a year from the year view after opening it from the month view. Focus now returns to the active month selector instead of the hidden day selector, so keyboard users land on the first selectable month.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+
 ## 0.0.9
 
 ### Patch Changes

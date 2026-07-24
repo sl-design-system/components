@@ -1,5 +1,13 @@
 # @sl-design-system/locales
 
+## 0.3.2
+
+### Patch Changes
+
+- [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Added new translation for infotip in radio, checkbox and switch
+
+- [#3214](https://github.com/sl-design-system/components/pull/3214) [`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b) - Replace `sl.tag.removalInstructions` with `sl.tag.remove` (a parameterized string for the remove button label, e.g. "Remove tag 'X'") and add `sl.tagList.navigationInstructions` for tag-list roving tabindex instructions.
+
 ## 0.3.1
 
 ### Patch Changes

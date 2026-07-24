@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tool-bar",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "status": "draft",
   "description": "Tool bar component for the SL Design System",
   "license": "Apache-2.0",
@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "@sl-design-system/button": "^2.1.1",
-    "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/menu": "^0.3.4",
+    "@sl-design-system/icon": "^1.4.3",
+    "@sl-design-system/menu": "^0.4.0",
     "@sl-design-system/toggle-button": "^0.0.16",
     "@sl-design-system/toggle-group": "^0.0.16"
   },

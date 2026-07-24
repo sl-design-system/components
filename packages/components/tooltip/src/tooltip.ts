@@ -223,12 +223,13 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #onMouseOut = (): void => {
+  #onMouseOut = (event: MouseEvent): void => {
     if (this.#hasTrigger('hover')) {
-      // Don't hide the popover if either the anchor or the popover itself is still hovered
-      const anchorHovered = Boolean(this.anchor?.matches(':hover')),
-        tooltipHovered = this.matches(':hover');
-      if (anchorHovered || tooltipHovered) {
+      // Don't hide the popover if the pointer moved to the anchor or the popover itself
+      // (including the hover bridge). Uses relatedTarget instead of :hover, since :hover
+      // reflects the real pointer position, which is unreliable with synthetic events.
+      const relatedTarget = event.relatedTarget as Node | null;
+      if (relatedTarget && (this.anchor?.contains(relatedTarget) || this.contains(relatedTarget))) {
         return;
       }
 

@@ -1,9 +1,9 @@
 import '@sl-design-system/button/register.js';
-import { Meta } from '@storybook/web-components-vite';
-import { LitElement, TemplateResult, css, html, nothing } from 'lit';
+import { type Meta } from '@storybook/web-components-vite';
+import { LitElement, type TemplateResult, css, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { Tooltip } from './tooltip.js';
+import { type Tooltip } from './tooltip.js';
 
 type Props = Pick<Tooltip, 'disabled' | 'open' | 'type'> & {
   maxWidth: number;

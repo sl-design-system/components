@@ -95,7 +95,7 @@ export default {
     },
     shape: {
       control: 'inline-radio',
-      options: ['square', 'pill']
+      options: ['rect', 'pill']
     },
     size: {
       control: 'inline-radio',

@@ -245,6 +245,46 @@ export const hasAttributeValue = (element, analyzer, sourceCode, attributeName, 
   return typeof value === 'string' ? value.trim() === expectedValue : true;
 };
 
+const getStaticNonEmptyAttributeValue = (element, analyzer, sourceCode, attributeName) => {
+  const value = analyzer.getAttributeValue(element, attributeName, sourceCode);
+
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+
+  return trimmed !== '' ? trimmed : undefined;
+};
+
+const collectNativeLabeledIds = (analyzer, sourceCode) => {
+  const ids = new Set();
+
+  analyzer.traverse({
+    enterElement(element) {
+      if (element.name !== 'label') {
+        return;
+      }
+
+      const labeledId = getStaticNonEmptyAttributeValue(element, analyzer, sourceCode, 'for');
+
+      if (!labeledId) {
+        return;
+      }
+
+      const hasLabelText = element.childNodes.some(child =>
+        hasMeaningfulContent(child, analyzer, sourceCode)
+      );
+
+      if (hasLabelText) {
+        ids.add(labeledId);
+      }
+    }
+  });
+
+  return ids;
+};
+
 export const hasMeaningfulContent = (node, analyzer, sourceCode) => {
   if (node.type === 'text') {
     return node.data.trim() !== '';
@@ -318,7 +358,8 @@ export const checkTemplateForLabel = ({
   }
 
   const analyzer = TemplateAnalyzer.create(node),
-    parentMap = new WeakMap();
+    parentMap = new WeakMap(),
+    nativeLabeledIds = collectNativeLabeledIds(analyzer, context.sourceCode);
 
   analyzer.traverse({
     enterElement(element, parent) {
@@ -341,6 +382,17 @@ export const checkTemplateForLabel = ({
       }
 
       if (ancestor && hasFormFieldLabel(ancestor, analyzer, context.sourceCode)) {
+        return;
+      }
+
+      const elementId = getStaticNonEmptyAttributeValue(
+        element,
+        analyzer,
+        context.sourceCode,
+        'id'
+      );
+
+      if (elementId && nativeLabeledIds.has(elementId)) {
         return;
       }
 

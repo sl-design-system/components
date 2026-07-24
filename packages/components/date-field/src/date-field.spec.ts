@@ -2165,7 +2165,7 @@ describe('sl-date-field', () => {
       const container = await fixture(html`
         <div>
           <label for="date-field">Select Date</label>
-          <sl-date-field aria-label="Date" id="date-field"></sl-date-field>
+          <sl-date-field id="date-field"></sl-date-field>
         </div>
       `);
 

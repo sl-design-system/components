@@ -36,6 +36,9 @@ ruleTester.run('text-field-has-label', textFieldHasLabel, {
     {
       code: 'html`<sl-form-field label="First name"><div><sl-text-field></sl-text-field></div></sl-form-field>`;'
     },
+    {
+      code: 'html`<label for="first-name">First name</label><sl-text-field id="first-name"></sl-text-field>`;'
+    },
     { code: 'const template = `<sl-text-field></sl-text-field>`;' }
   ],
   invalid: [

@@ -6,7 +6,7 @@
       "project": "e650d9a7-1a6d-4c68-b0cc-731b117c214a",
       "ref": {
         "type": "branch",
-        "name": "typography-add"
+        "name": "no-routing-new-setup"
       }
     },
     "slds-legacy": {
@@ -30,7 +30,7 @@
     },
     "core-css": {
       "source": "core",
-      "use": { "id": "5064a0ae-3760-4904-a815-43568a94637a", "name": "core-css" },
+      "use": { "id": "898af612-5ca5-43b7-9cf7-c826a742b36d", "name": "core-css" },
       "dir": "./export/core-css"
     }
   }

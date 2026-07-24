@@ -11,34 +11,39 @@ const setupTheme = theme => {
 
   const destinationTypography = join(cwd, `${theme}/typography.css`);
 
-  const typographyCssFiles = [
-    './export/core-css/Device/tablet.css',
-    './export/core-css/Device/desktop.css',
-    './export/core-css/Device/mobile.css',
-    './export/core-css/User-Group/advanced.css',
-    './export/core-css/User-Group/early.css',
-    './export/core-css/User-Group/developing.css',
-    '../packages/themes/core/typography.css'
+  const themeName = theme.split('/').pop();
+  const sourceThemeFiles = [
+    `./export/core-css/color/light.css`,
+    `./export/core-css/color/dark.css`,
+    `./export/core-css/system/default.css`,
+    `./export/core-css/brand/${themeName}.css`
   ];
 
-  const promises = typographyCssFiles.map(file => {
+  const promises = sourceThemeFiles.map(file => {
     return new Promise((resolve, reject) => {
       readFile(join(cwd, file), 'utf8', (err, data) => {
         if (err) reject(err);
-        else resolve(data);
+        else {
+          let content = data;
+          if (file.includes(`${themeName}.css`)) {
+            content = content.replace(new RegExp(`\\[data-brand="${themeName}"\\]`, 'g'), ':root');
+          }
+          if (file.includes(`dark.css`)) {
+            content = content.replace(new RegExp(`:root`, 'g'), 'body');
+          }
+          resolve(content);
+        }
       });
     });
   });
-
-  // Combine both typography files
   Promise.all(promises)
     .then(parts => {
-      writeFile(destinationTypography, parts.join('\n\n'), err => {
-        if (err) console.error(`🔠 ⚠️ ✍️ ${theme}:`, err);
-        else console.log(`🔠 ✅ ✍️${theme}`);
+      writeFile(join(cwd, `${theme}/theme.css`), parts.join('\n\n'), err => {
+        if (err) console.error(`🎨 ⚠️ ✍️ ${theme}:`, err);
+        else console.log(`🎨 ✅ ✍️${theme}`);
       });
     })
-    .catch(err => console.error(`🔠 ⚠️ 👓 ${theme}:`, err));
+    .catch(err => console.error(`🎨 ⚠️ 👓 ${theme}:`, err));
 };
 
 const setupAllThemes = async () => {

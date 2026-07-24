@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-07-23T08:52:07Z"
+generated_at = "2026-07-24T14:05:52Z"
 cli_version = "dev"
 dependencies = []
 
@@ -11,10 +11,10 @@ dependencies = []
   name = "core"
   inline = true
   source_ref_type = "branch"
-  source_ref_name = "typography-add"
+  source_ref_name = "no-routing-new-setup"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
-  output_hash = "sha256:3387599a42528eaa23adc9872678328a9ebda35fa85aba511b8ff6eddd266371"
-  updated_at = "2026-07-23T08:51:56Z"
+  output_hash = "sha256:8bc7a9ce49773f2eb8a1ecdc03f0e4fb9f7d5298873fb527427f9207d0d1ed74"
+  updated_at = "2026-07-24T14:05:48Z"
 
 [[exports]]
   name = "slds-legacy"
@@ -23,18 +23,18 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-07-23T08:52:07Z"
+  updated_at = "2026-07-24T14:05:52Z"
 
 [[exports]]
   name = "core-css"
-  preset_id = "5064a0ae-3760-4904-a815-43568a94637a"
+  preset_id = "898af612-5ca5-43b7-9cf7-c826a742b36d"
   advisory_name = "core-css"
   source_ref_type = "branch"
-  source_ref_name = "typography-add"
-  preset_hash = "sha256:50a22ed47377d58dd53317cb7a7fda0568382b049ce452d92c5735a8812ef9e8"
-  output_hash = "sha256:544f2acbb67a0f059a32392a63347fbba054de1a389534c97d2b73e126ae25cb"
-  updated_at = "2026-07-23T08:52:04Z"
+  source_ref_name = "no-routing-new-setup"
+  preset_hash = "sha256:ac7f7e9f097d2894918da1a4d4dedc05699fc18d9734759754771f0fef785c84"
+  output_hash = "sha256:92ee6996b0b04023d9c18af65ead243c1626d60e21adc7605fb3ff3fbc8e08ca"
+  updated_at = "2026-07-24T14:05:49Z"
 
 [integrity]
-  lockfile_hash = "sha256:0b2a82a9584dec499169f958f299e7e19cc380f6667ed48ca2cbde7a0cc3c5ed"
+  lockfile_hash = "sha256:06603dcfa1c9635840392e864230c007a5275ba3e273d3be448abb015b89376e"
   algorithm = "sha256"

@@ -35,6 +35,10 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
+:host([fill='ghost']) {
+  border-color: transparent;
+}
+
 :host([show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);

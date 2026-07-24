@@ -73,6 +73,14 @@ describe('sl-select', () => {
       expect(button.renderRoot).to.have.trimmed.text('Placeholder');
     });
 
+    it('should pass fill="ghost" to the button and reflect it as an attribute', async () => {
+      el.fill = 'ghost';
+      await el.updateComplete;
+
+      expect(button.fill).to.equal('ghost');
+      expect(button).to.have.attribute('fill', 'ghost');
+    });
+
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;

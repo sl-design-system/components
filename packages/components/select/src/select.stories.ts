@@ -26,6 +26,7 @@ type Props = Pick<
   options?(): TemplateResult;
   reportValidity?: boolean;
   slot?(): TemplateResult;
+  styles?(): string;
 };
 type Story = StoryObj<Props>;
 
@@ -47,6 +48,11 @@ export default {
     size: {
       control: 'inline-radio',
       options: sizes
+    },
+    styles: {
+      table: {
+        disable: true
+      }
     },
     value: {
       control: 'text'
@@ -81,6 +87,7 @@ export default {
     required,
     size,
     slot,
+    styles,
     value
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
@@ -92,6 +99,7 @@ export default {
         #storybook-root {
           max-width: calc(100vw - 2rem);
         }
+        ${styles?.()}
       </style>
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
@@ -388,6 +396,15 @@ export const TextOverflow: Story = {
         Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea
         cillum dolor est ut deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
       </sl-option>
+    `,
+    styles: () => `
+      sl-select {
+        inline-size: 200px;
+
+        &::part(listbox) {
+          inline-size: 400px;
+        }
+      }
     `
   }
 };

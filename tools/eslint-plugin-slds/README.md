@@ -121,10 +121,3 @@ html`<span>Hello</span>`;
 - Direct `<sl-label>` child with meaningful content
 
 Nested Lit `html` templates keep the label context when rendered inside a labeled `<sl-form-field>`.
-
-## Peer dependencies
-
-| Package                  | Version   |
-| ------------------------ | --------- |
-| `eslint`                 | `^9.25.1` |
-| `eslint-plugin-lit-a11y` | `^4.1.4`  |

@@ -1,21 +1,11 @@
 ---
 title: Format date
+description: A utility component for formatting dates and times using the browser's <code>Intl.DateTimeFormat</code> API, with automatic locale support.
+layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Utilities
   key: Format date
 ---
-
-<header class="ds-tokens__main-heading">
-<div class="ds-tokens__heading-wrapper">
-  <h1 class="ds-heading-1">{{title}}</h1>
-  <p class="ds-tokens__heading-description">
-  A utility component for formatting dates and times using the browser's <code>Intl.DateTimeFormat</code> API, with automatic locale support.
-  </p>
-</div>
-</header>
-
-<section class="ds-subpage-section">
-<div class="ds-subpage-section__wrapper">
 
 <section>
 
@@ -179,7 +169,4 @@ FormatDate.timeStyle = 'short';
 
 </div>
 
-</section>
-
-</div>
 </section>

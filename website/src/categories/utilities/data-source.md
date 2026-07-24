@@ -1,22 +1,11 @@
 ---
 title: Data source
+description: Data sources provide a unified way to manage, filter, sort, group, paginate, and select data for components such as grid, combobox, and listbox.
+layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Utilities
   key: Data source
 ---
-
-<header class="ds-tokens__main-heading">
-<div class="ds-tokens__heading-wrapper">
-  <h1 class="ds-heading-1">{{title}}</h1>
-  <p class="ds-tokens__heading-description">
-  Data sources provide a unified way to manage, filter, sort, group, paginate, and select data for components such as grid, combobox, and listbox.
-  </p>
-</div>
-</header>
-
-<section class="ds-subpage-section">
-
-<div class="ds-subpage-section__wrapper">
 
 <section>
 
@@ -447,9 +436,5 @@ The package exports several helper types and functions:
 | `ListDataSourcePlaceholder` | Symbol used as a placeholder for items that are being loaded |
 
 {.ds-table .ds-table-align-top}
-
-</section>
-
-</div>
 
 </section>

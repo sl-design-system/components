@@ -15,7 +15,7 @@ describe('sl-radio-group', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-radio-group>
+        <sl-radio-group aria-label="Options">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -254,7 +254,7 @@ describe('sl-radio-group', () => {
 
     it('should navigate radio -> infotip -> next radio', async () => {
       el = await fixture(html`
-        <sl-radio-group>
+        <sl-radio-group aria-label="Options">
           <sl-radio value="1"
             >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-radio
           >
@@ -278,7 +278,7 @@ describe('sl-radio-group', () => {
 
     it('should skip infotips of disabled radios during roving navigation', async () => {
       el = await fixture(html`
-        <sl-radio-group>
+        <sl-radio-group aria-label="Options">
           <sl-radio value="1"
             >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-radio
           >
@@ -309,7 +309,7 @@ describe('sl-radio-group', () => {
   describe('initial value', () => {
     it('should be valid when the initial value matches one of the options', async () => {
       el = await fixture(html`
-        <sl-radio-group value="2" required>
+        <sl-radio-group aria-label="Options" value="2" required>
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -324,7 +324,7 @@ describe('sl-radio-group', () => {
 
     it('should be invalid when the initial value does not match any of the options', async () => {
       el = await fixture(html`
-        <sl-radio-group value="dummy" required>
+        <sl-radio-group aria-label="Options" value="dummy" required>
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -341,7 +341,7 @@ describe('sl-radio-group', () => {
   describe('validation', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-radio-group>
+        <sl-radio-group aria-label="Options">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -436,7 +436,7 @@ describe('sl-radio-group', () => {
   describe('selected option', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-radio-group value="2">
+        <sl-radio-group aria-label="Options" value="2">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -484,7 +484,7 @@ describe('sl-radio-group', () => {
       document.body.addEventListener('sl-change', onChange);
 
       el = await fixture(html`
-        <sl-radio-group value="2">
+        <sl-radio-group aria-label="Options" value="2">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -502,7 +502,7 @@ describe('sl-radio-group', () => {
       document.body.addEventListener('sl-change', onChange);
 
       el = await fixture(html`
-        <sl-radio-group value="2">
+        <sl-radio-group aria-label="Options" value="2">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -529,7 +529,7 @@ describe('sl-radio-group', () => {
     beforeEach(async () => {
       form = await fixture(html`
         <form>
-          <sl-radio-group required>
+          <sl-radio-group aria-label="Options" required>
             <sl-radio value="1">Option 1</sl-radio>
             <sl-radio value="2">Option 2</sl-radio>
             <sl-radio value="3">Option 3</sl-radio>
@@ -581,7 +581,7 @@ describe('sl-radio-group', () => {
       override render(): TemplateResult {
         return html`
           <sl-form-field label="Label">
-            <sl-radio-group @sl-form-control=${this.onFormControl}>
+            <sl-radio-group aria-label="Options" @sl-form-control=${this.onFormControl}>
               <sl-radio>Option 1</sl-radio>
               <sl-radio>Option 2</sl-radio>
               <sl-radio>Option 3</sl-radio>

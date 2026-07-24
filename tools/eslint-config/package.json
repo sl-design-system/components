@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "eslint": "^9.27.0",
-    "storybook": "^10.4.6",
+    "storybook": "^10.5.3",
     "typescript": "^6.0.3"
   }
 }

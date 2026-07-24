@@ -5,6 +5,17 @@
   --_border: var(--sl-color-border-input);
 
   align-items: start;
+  color: var(--sl-color-foreground-plain);
+  cursor: text;
+  display: inline-grid;
+  gap: var(--sl-size-050);
+  grid-template-areas:
+    'field'
+    'count';
+  position: relative;
+}
+
+.field {
   background: color-mix(
     in srgb,
     var(--_bg-color),
@@ -12,16 +23,15 @@
   );
   border: var(--sl-size-borderWidth-default) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-foreground-plain);
-  cursor: text;
   display: flex;
-  gap: var(--sl-size-100);
+  grid-area: field;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
+  place-self: stretch stretch;
   position: relative;
 }
 
-:host(:focus-within) {
+:host(:focus-within) .field {
   outline-color: var(--sl-color-border-focused);
 }
 
@@ -47,16 +57,14 @@
     padding-inline: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
 
-  sl-icon,
-  slot[name='suffix']::slotted(sl-icon) {
+  .valid,
+  slot[name='suffix']::slotted(*) {
     inset-block-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
     inset-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
 }
 
 :host([disabled]) {
-  background: var(--sl-color-background-disabled);
-  border-color: var(--sl-color-border-disabled);
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
@@ -65,15 +73,26 @@
   }
 }
 
+:host([disabled]) .field {
+  background: var(--sl-color-background-disabled);
+  border-color: var(--sl-color-border-disabled);
+}
+
 :host(:where([resize='vertical'], [resize='auto'])) slot[name='textarea']::slotted(textarea) {
   min-block-size: calc(var(--_sl-text-area-rows, 3) * 1lh);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  :host(:where(:hover, :focus-within)) {
+  :host(:where(:hover, :focus-within)) .field {
     transition: 200ms ease-in-out;
-    transition-property: background, border, color, outline-color;
+    transition-property: background, border, outline-color;
   }
+}
+
+slot[name='textarea'] {
+  display: flex;
+  flex: 1;
+  min-inline-size: 0;
 }
 
 slot[name='textarea']::slotted(textarea) {
@@ -100,7 +119,7 @@ slot[name='textarea']::slotted(textarea) {
   }
 }
 
-sl-icon,
+.valid,
 slot[name='suffix']::slotted(sl-icon) {
   inset-block-start: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
   inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
@@ -109,4 +128,29 @@ slot[name='suffix']::slotted(sl-icon) {
 
 .valid {
   color: var(--sl-color-foreground-positive-plain);
+}
+
+.count {
+  color: var(--sl-color-foreground-subtle);
+  grid-area: count;
+}
+
+.count[count-state='caution'] {
+  color: var(--sl-color-foreground-caution-plain);
+}
+
+.count[count-state='danger'] {
+  color: var(--sl-color-foreground-negative-plain);
+}
+
+slot[name='count-description']::slotted(.visually-hidden) {
+  block-size: 1px;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  inline-size: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
 }

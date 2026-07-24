@@ -482,6 +482,42 @@
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
   <target>W aktywowanym wierszu <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_one">
+  <source><x id="0" equiv-text="${over}"/> character too many</source>
+  <target><x id="0" equiv-text="${over}"/> znak za dużo</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_few">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> znaki za dużo</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_other">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> znaków za dużo</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_one">
+  <source><x id="0" equiv-text="${remaining}"/> character remaining</source>
+  <target>Pozostał <x id="0" equiv-text="${remaining}"/> znak</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_few">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target>Pozostały <x id="0" equiv-text="${remaining}"/> znaki</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_other">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target>Pozostało <x id="0" equiv-text="${remaining}"/> znaków</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_one">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> character.</source>
+  <target>Usuń co najmniej <x id="0" equiv-text="${over}"/> znak.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_few">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Usuń co najmniej <x id="0" equiv-text="${over}"/> znaki.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_other">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Usuń co najmniej <x id="0" equiv-text="${over}"/> znaków.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

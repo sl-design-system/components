@@ -136,3 +136,24 @@ With these options, you can tweak the appearance of the text area in Figma. They
 </div>
 
 </section>
+
+
+<section>
+
+## Behaviours
+
+### Character limit
+Use `show-count` to display a soft character limit. It shows remaining characters and updates as users type or paste content. At 10% remaining, it switches to a caution style. When exceeded, it shows how many characters must be removed and marks the Text Area as invalid.
+
+Users can exceed the limit, but validation replaces the counter with an error message. Screen readers announce changes only when moving between default, caution, and danger states.
+
+Do not combine `show-count` with `maxlength`, which blocks extra input. Also, use `minlength` character limits carefully, as it can create unnecessary constraints and confusion for users, and avoid using `minlength` together with `maxlength` because it may lead to repeated trial-and-error to meet both constraints instead of focusing on the quality of their input.
+
+### Resizing
+By default, the Text Area can be resized vertically, meaning users can drag its bottom edge to make it taller if they need more space. The `rows` setting determines how tall the Text Area appears when it first loads. You can use `resize="auto"` to let it grow automatically as content is added, or `resize="none"` to keep its height fixed.
+
+### Validation
+Supports required, min/max length, and custom validation, with feedback appearing when validity is reported. Required fields are invalid when empty, minimum length applies after input begins, and custom validation can be synchronous or asynchronous, with final results withheld until asynchronous checks complete.
+
+</section>
+

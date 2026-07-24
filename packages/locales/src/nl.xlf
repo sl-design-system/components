@@ -482,6 +482,42 @@
   <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
   <target>In geactiveerde rij <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_one">
+  <source><x id="0" equiv-text="${over}"/> character too many</source>
+  <target><x id="0" equiv-text="${over}"/> teken te veel</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_few">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> tekens te veel</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_other">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> tekens te veel</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_one">
+  <source><x id="0" equiv-text="${remaining}"/> character remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> teken resterend</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_few">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> tekens resterend</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_other">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> tekens resterend</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_one">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> character.</source>
+  <target>Verwijder minstens <x id="0" equiv-text="${over}"/> teken.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_few">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekens.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_other">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekens.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -330,16 +330,18 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         // Make sure the breadcrumb has a unique DOM id we can reference
         crumb.id ||= `sl-breadcrumb-${nextUniqueId++}`;
 
-        // Use an existing tooltip, or create a new one
-        let tooltip = crumb.ariaLabelledByElements?.find(
+        // Use an existing tooltip, or create a new one. Look the tooltip up among our own
+        // children; we cannot use the crumb's ARIA relations for this, since a disabled
+        // tooltip removes its relation to the anchor.
+        let tooltip = children.find(
           (el): el is Tooltip => el instanceof Tooltip && el.for === crumb.id
         );
         if (!tooltip) {
           tooltip = this.shadowRoot!.createElement('sl-tooltip');
           tooltip.for = crumb.id;
-          tooltip.textContent = crumb.textContent?.trim() || '';
           crumb.after(tooltip);
         }
+        tooltip.textContent = crumb.textContent?.trim() || '';
 
         return { element: crumb, tooltip };
       });

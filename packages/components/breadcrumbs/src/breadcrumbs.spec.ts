@@ -49,6 +49,36 @@ describe('sl-breadcrumbs', () => {
       expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
     });
 
+    it('should not create duplicate tooltips when the children change', async () => {
+      const link = document.createElement('a');
+      link.href = '/docs/getting-started/developers/api';
+      link.textContent = 'API';
+      el.append(link);
+
+      // Wait for the component to process slot assignments
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.querySelectorAll('sl-tooltip')).to.have.length(el.querySelectorAll('a').length);
+    });
+
+    it('should update the tooltip text when the children change', async () => {
+      const link = el.querySelector('a')!;
+      link.textContent = 'Documentation';
+
+      // Changing the text alone does not trigger a mutation; adding a child does
+      const newLink = document.createElement('a');
+      newLink.href = '/docs/getting-started/developers/api';
+      newLink.textContent = 'API';
+      el.append(newLink);
+
+      // Wait for the component to process slot assignments
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const tooltip = Array.from(el.querySelectorAll('sl-tooltip')).find(t => t.for === link.id);
+
+      expect(tooltip).to.have.trimmed.text('Documentation');
+    });
+
     it('should not be inverted', () => {
       expect(el).not.to.have.attribute('inverted');
       expect(el.inverted).to.be.undefined;

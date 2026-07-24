@@ -21,4 +21,4 @@ The complex internal positioning logic, `AnchorController`, `EventsController`, 
 - `type` — controls the ARIA relationship: `'label'` (`ariaLabelledByElements`, default) or `'description'` (`ariaDescribedByElements`)
 - `trigger` — space-separated list of triggers: `'focus'`, `'hover'`, and/or `'click'` (default: `'focus hover'`)
 - `disabled` — prevents the tooltip from showing
-- `open` — reflects the current open state
+- `open` — shows or hides the tooltip programmatically, regardless of trigger; to check whether the tooltip is showing, use `matches(':popover-open')` instead

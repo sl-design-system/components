@@ -4966,15 +4966,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oddbird/css-anchor-positioning@npm:0.10.0":
-  version: 0.10.0
-  resolution: "@oddbird/css-anchor-positioning@npm:0.10.0"
+"@oddbird/css-anchor-positioning@npm:0.10.1":
+  version: 0.10.1
+  resolution: "@oddbird/css-anchor-positioning@npm:0.10.1"
   dependencies:
     "@floating-ui/dom": "npm:^1.7.6"
     "@types/css-tree": "npm:^2.3.11"
     css-tree: "npm:^3.2.1"
     nanoid: "npm:^5.1.16"
-  checksum: 10c0/6c2b54cffab4bb4d0e1580fa192fab8b8ebc7f634d810f7d1021a893153b2efc4a06a84107332b8cd044857ee208011fd36ebb29db0ea6970e82abb83f5600c2
+  checksum: 10c0/0b9cd62ce0e4df49f1191496340d62702e5420a47f0358e52712b79b5544a25f5584ebed80961d234d8a22b612b2d941aea1d04e9f6dc4863ac21abfd2212549
   languageName: node
   linkType: hard
 
@@ -7107,7 +7107,7 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:^0.11.0"
     "@faker-js/faker": "npm:^10.5.0"
     "@lit/localize-tools": "npm:^0.8.2"
-    "@oddbird/css-anchor-positioning": "npm:0.10.0"
+    "@oddbird/css-anchor-positioning": "npm:0.10.1"
     "@playwright/test": "npm:^1.61.1"
     "@storybook/addon-a11y": "npm:^10.5.3"
     "@storybook/addon-docs": "npm:^10.5.3"

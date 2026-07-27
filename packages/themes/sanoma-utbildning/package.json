@@ -22,6 +22,7 @@
     "./global.css": "./global.css",
     "./light.css": "./light.css",
     "./light.min.css": "./light.min.css",
+    "./typography.css": "./typography.css",
     "./css/*.css": "./css/*.css"
   },
   "files": [

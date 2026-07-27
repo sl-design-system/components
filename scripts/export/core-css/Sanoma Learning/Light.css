@@ -1,0 +1,671 @@
+[data-SanomaLearning='Light'] {
+  --sl-sanoma-learning-color-background-accent-blue-bold: var(
+    --sl-sanoma-learning-color-palette-blue-400
+  );
+  --sl-sanoma-learning-color-background-accent-blue-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-blue-900
+  );
+  --sl-sanoma-learning-color-background-accent-blue-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-blue-300
+  );
+  --sl-sanoma-learning-color-background-accent-blue-subtle: #3366ff33;
+  --sl-sanoma-learning-color-background-accent-blue-subtlest: #3366ff1a;
+  --sl-sanoma-learning-color-background-accent-green-bold: var(
+    --sl-sanoma-learning-color-palette-green-600
+  );
+  --sl-sanoma-learning-color-background-accent-green-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-green-900
+  );
+  --sl-sanoma-learning-color-background-accent-green-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-green-400
+  );
+  --sl-sanoma-learning-color-background-accent-green-subtle: #1aaf6033;
+  --sl-sanoma-learning-color-background-accent-green-subtlest: #1aaf601a;
+  --sl-sanoma-learning-color-background-accent-grey-bold: var(
+    --sl-sanoma-learning-color-palette-grey-150
+  );
+  --sl-sanoma-learning-color-background-accent-grey-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-grey-500
+  );
+  --sl-sanoma-learning-color-background-accent-grey-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-grey-400
+  );
+  --sl-sanoma-learning-color-background-accent-grey-subtle: #c8d1da33;
+  --sl-sanoma-learning-color-background-accent-grey-subtlest: #c8d1da1a;
+  --sl-sanoma-learning-color-background-accent-orange-bold: var(
+    --sl-sanoma-learning-color-palette-orange-600
+  );
+  --sl-sanoma-learning-color-background-accent-orange-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-orange-900
+  );
+  --sl-sanoma-learning-color-background-accent-orange-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-orange-400
+  );
+  --sl-sanoma-learning-color-background-accent-orange-subtle: #fe821133;
+  --sl-sanoma-learning-color-background-accent-orange-subtlest: #fe82111a;
+  --sl-sanoma-learning-color-background-accent-purple-bold: var(
+    --sl-sanoma-learning-color-palette-purple-600
+  );
+  --sl-sanoma-learning-color-background-accent-purple-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-purple-900
+  );
+  --sl-sanoma-learning-color-background-accent-purple-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-purple-400
+  );
+  --sl-sanoma-learning-color-background-accent-purple-subtle: #824dff33;
+  --sl-sanoma-learning-color-background-accent-purple-subtlest: #824dff1a;
+  --sl-sanoma-learning-color-background-accent-red-bold: var(
+    --sl-sanoma-learning-color-palette-red-500
+  );
+  --sl-sanoma-learning-color-background-accent-red-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-red-900
+  );
+  --sl-sanoma-learning-color-background-accent-red-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-red-400
+  );
+  --sl-sanoma-learning-color-background-accent-red-subtle: #f83b4133;
+  --sl-sanoma-learning-color-background-accent-red-subtlest: #f83b411a;
+  --sl-sanoma-learning-color-background-accent-teal-bold: var(
+    --sl-sanoma-learning-color-palette-teal-600
+  );
+  --sl-sanoma-learning-color-background-accent-teal-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-teal-900
+  );
+  --sl-sanoma-learning-color-background-accent-teal-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-teal-400
+  );
+  --sl-sanoma-learning-color-background-accent-teal-subtle: #00d0c933;
+  --sl-sanoma-learning-color-background-accent-teal-subtlest: #00d0c91a;
+  --sl-sanoma-learning-color-background-accent-yellow-bold: var(
+    --sl-sanoma-learning-color-palette-yellow-400
+  );
+  --sl-sanoma-learning-color-background-accent-yellow-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-yellow-800
+  );
+  --sl-sanoma-learning-color-background-accent-yellow-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-yellow-400
+  );
+  --sl-sanoma-learning-color-background-accent-yellow-subtle: #ffae0033;
+  --sl-sanoma-learning-color-background-accent-yellow-subtlest: #ffae001a;
+  --sl-sanoma-learning-color-background-bold: var(--sl-sanoma-learning-color-border-bold);
+  --sl-sanoma-learning-color-background-caution-bold: var(
+    --sl-sanoma-learning-color-background-accent-yellow-bold
+  );
+  --sl-sanoma-learning-color-background-caution-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-yellow-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-caution-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-yellow-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-caution-subtle: var(
+    --sl-sanoma-learning-color-background-accent-yellow-subtle
+  );
+  --sl-sanoma-learning-color-background-caution-subtlest: var(
+    --sl-sanoma-learning-color-background-accent-yellow-subtlest
+  );
+  --sl-sanoma-learning-color-background-disabled: var(--sl-sanoma-learning-color-palette-grey-100);
+  --sl-sanoma-learning-color-background-highlight: var(
+    --sl-sanoma-learning-color-palette-yellow-100
+  );
+  --sl-sanoma-learning-color-background-info-bold: var(
+    --sl-sanoma-learning-color-background-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-background-info-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-blue-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-info-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-blue-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-info-subtle: var(
+    --sl-sanoma-learning-color-background-accent-blue-subtle
+  );
+  --sl-sanoma-learning-color-background-info-subtlest: var(
+    --sl-sanoma-learning-color-background-accent-blue-subtlest
+  );
+  --sl-sanoma-learning-color-background-input-interactive: var(
+    --sl-sanoma-learning-color-background-accent-grey-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-input-plain: var(
+    --sl-sanoma-learning-color-palette-grey-000
+  );
+  --sl-sanoma-learning-color-background-interactive-bold: var(
+    --sl-sanoma-learning-color-background-neutral-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-interactive-plain: var(
+    --sl-sanoma-learning-color-background-neutral-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-inverted-bold: var(
+    --sl-sanoma-learning-color-palette-grey-000
+  );
+  --sl-sanoma-learning-color-background-inverted-interactive-bold: var(
+    --sl-sanoma-learning-color-palette-grey-800
+  );
+  --sl-sanoma-learning-color-background-inverted-interactive-plain: var(
+    --sl-sanoma-learning-color-palette-grey-200
+  );
+  --sl-sanoma-learning-color-background-inverted-subtle: #ffffff33;
+  --sl-sanoma-learning-color-background-inverted-subtlest: #ffffff1a;
+  --sl-sanoma-learning-color-background-negative-bold: var(
+    --sl-sanoma-learning-color-background-accent-red-bold
+  );
+  --sl-sanoma-learning-color-background-negative-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-red-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-negative-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-red-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-negative-subtle: var(
+    --sl-sanoma-learning-color-background-accent-red-subtle
+  );
+  --sl-sanoma-learning-color-background-negative-subtlest: var(
+    --sl-sanoma-learning-color-background-accent-red-subtlest
+  );
+  --sl-sanoma-learning-color-background-neutral-bold: var(
+    --sl-sanoma-learning-color-background-accent-grey-bold
+  );
+  --sl-sanoma-learning-color-background-neutral-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-grey-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-neutral-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-grey-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-neutral-subtle: var(
+    --sl-sanoma-learning-color-background-accent-grey-subtle
+  );
+  --sl-sanoma-learning-color-background-neutral-subtlest: var(
+    --sl-sanoma-learning-color-palette-grey-050
+  );
+  --sl-sanoma-learning-color-background-positive-bold: var(
+    --sl-sanoma-learning-color-background-accent-green-bold
+  );
+  --sl-sanoma-learning-color-background-positive-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-green-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-positive-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-green-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-positive-subtle: var(
+    --sl-sanoma-learning-color-background-accent-green-subtle
+  );
+  --sl-sanoma-learning-color-background-positive-subtlest: var(
+    --sl-sanoma-learning-color-background-accent-green-subtlest
+  );
+  --sl-sanoma-learning-color-background-primary-bold: var(
+    --sl-sanoma-learning-color-background-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-background-primary-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-blue-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-primary-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-blue-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-primary-subtle: var(
+    --sl-sanoma-learning-color-background-accent-blue-subtle
+  );
+  --sl-sanoma-learning-color-background-primary-subtlest: var(
+    --sl-sanoma-learning-color-background-accent-blue-subtlest
+  );
+  --sl-sanoma-learning-color-background-secondary-bold: var(
+    --sl-sanoma-learning-color-background-accent-grey-bold
+  );
+  --sl-sanoma-learning-color-background-secondary-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-grey-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-secondary-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-grey-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-secondary-subtle: var(
+    --sl-sanoma-learning-color-background-accent-grey-subtle
+  );
+  --sl-sanoma-learning-color-background-secondary-subtlest: var(
+    --sl-sanoma-learning-color-background-accent-grey-subtlest
+  );
+  --sl-sanoma-learning-color-background-selected-bold: var(
+    --sl-sanoma-learning-color-background-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-background-selected-interactive-bold: var(
+    --sl-sanoma-learning-color-background-accent-blue-interactive-bold
+  );
+  --sl-sanoma-learning-color-background-selected-interactive-plain: var(
+    --sl-sanoma-learning-color-background-accent-blue-interactive-plain
+  );
+  --sl-sanoma-learning-color-background-selected-subtle: var(
+    --sl-sanoma-learning-color-background-accent-blue-subtle
+  );
+  --sl-sanoma-learning-color-background-selected-subtlest: var(
+    --sl-sanoma-learning-color-background-accent-blue-subtlest
+  );
+  --sl-sanoma-learning-color-background-subtle: var(
+    --sl-sanoma-learning-color-background-accent-grey-subtle
+  );
+  --sl-sanoma-learning-color-blanket-plain: #c8d1dacc;
+  --sl-sanoma-learning-color-border-accent-blue-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-border-accent-blue-plain: var(
+    --sl-sanoma-learning-color-background-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-border-accent-green-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-green-bold
+  );
+  --sl-sanoma-learning-color-border-accent-green-plain: var(
+    --sl-sanoma-learning-color-background-accent-green-bold
+  );
+  --sl-sanoma-learning-color-border-accent-grey-bold: var(
+    --sl-sanoma-learning-color-palette-grey-500
+  );
+  --sl-sanoma-learning-color-border-accent-grey-faint: var(
+    --sl-sanoma-learning-color-palette-grey-150
+  );
+  --sl-sanoma-learning-color-border-accent-grey-heavy: var(
+    --sl-sanoma-learning-color-palette-grey-900
+  );
+  --sl-sanoma-learning-color-border-accent-grey-plain: var(
+    --sl-sanoma-learning-color-palette-grey-300
+  );
+  --sl-sanoma-learning-color-border-accent-orange-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-orange-bold
+  );
+  --sl-sanoma-learning-color-border-accent-orange-plain: var(
+    --sl-sanoma-learning-color-background-accent-orange-bold
+  );
+  --sl-sanoma-learning-color-border-accent-purple-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-purple-bold
+  );
+  --sl-sanoma-learning-color-border-accent-purple-plain: var(
+    --sl-sanoma-learning-color-background-accent-purple-bold
+  );
+  --sl-sanoma-learning-color-border-accent-red-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-red-bold
+  );
+  --sl-sanoma-learning-color-border-accent-red-plain: var(
+    --sl-sanoma-learning-color-background-accent-red-bold
+  );
+  --sl-sanoma-learning-color-border-accent-teal-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-teal-bold
+  );
+  --sl-sanoma-learning-color-border-accent-teal-plain: var(
+    --sl-sanoma-learning-color-background-accent-teal-bold
+  );
+  --sl-sanoma-learning-color-border-accent-yellow-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-yellow-bold
+  );
+  --sl-sanoma-learning-color-border-accent-yellow-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-yellow-plain
+  );
+  --sl-sanoma-learning-color-border-bold: var(--sl-sanoma-learning-color-border-accent-grey-bold);
+  --sl-sanoma-learning-color-border-caution-bold: var(
+    --sl-sanoma-learning-color-border-accent-yellow-bold
+  );
+  --sl-sanoma-learning-color-border-caution-plain: var(
+    --sl-sanoma-learning-color-border-accent-yellow-plain
+  );
+  --sl-sanoma-learning-color-border-disabled: var(
+    --sl-sanoma-learning-color-border-accent-grey-faint
+  );
+  --sl-sanoma-learning-color-border-focused: var(--sl-sanoma-learning-color-palette-blue-400);
+  --sl-sanoma-learning-color-border-info-bold: var(
+    --sl-sanoma-learning-color-border-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-border-info-plain: var(
+    --sl-sanoma-learning-color-border-accent-blue-plain
+  );
+  --sl-sanoma-learning-color-border-info-subtle: var(--sl-sanoma-learning-color-palette-blue-100);
+  --sl-sanoma-learning-color-border-input: var(--sl-sanoma-learning-color-border-bold);
+  --sl-sanoma-learning-color-border-inverted: var(--sl-sanoma-learning-color-palette-grey-000);
+  --sl-sanoma-learning-color-border-negative-bold: var(
+    --sl-sanoma-learning-color-border-accent-red-bold
+  );
+  --sl-sanoma-learning-color-border-negative-plain: var(
+    --sl-sanoma-learning-color-border-accent-red-plain
+  );
+  --sl-sanoma-learning-color-border-neutral-bold: var(
+    --sl-sanoma-learning-color-border-accent-grey-bold
+  );
+  --sl-sanoma-learning-color-border-neutral-plain: var(
+    --sl-sanoma-learning-color-border-accent-grey-plain
+  );
+  --sl-sanoma-learning-color-border-neutral-subtle: var(
+    --sl-sanoma-learning-color-palette-grey-200
+  );
+  --sl-sanoma-learning-color-border-plain: var(--sl-sanoma-learning-color-border-accent-grey-plain);
+  --sl-sanoma-learning-color-border-positive-bold: var(
+    --sl-sanoma-learning-color-border-accent-green-bold
+  );
+  --sl-sanoma-learning-color-border-positive-plain: var(
+    --sl-sanoma-learning-color-border-accent-green-plain
+  );
+  --sl-sanoma-learning-color-border-primary-bold: var(
+    --sl-sanoma-learning-color-border-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-border-primary-plain: var(
+    --sl-sanoma-learning-color-border-accent-blue-plain
+  );
+  --sl-sanoma-learning-color-border-secondary-bold: var(
+    --sl-sanoma-learning-color-border-accent-grey-heavy
+  );
+  --sl-sanoma-learning-color-border-secondary-plain: var(
+    --sl-sanoma-learning-color-border-accent-grey-plain
+  );
+  --sl-sanoma-learning-color-border-selected: var(
+    --sl-sanoma-learning-color-border-accent-blue-plain
+  );
+  --sl-sanoma-learning-color-foreground-accent-blue-bold: var(
+    --sl-sanoma-learning-color-palette-blue-700
+  );
+  --sl-sanoma-learning-color-foreground-accent-blue-on-bold: var(
+    --sl-sanoma-learning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-learning-color-foreground-accent-blue-plain: var(
+    --sl-sanoma-learning-color-background-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-green-bold: var(
+    --sl-sanoma-learning-color-palette-green-700
+  );
+  --sl-sanoma-learning-color-foreground-accent-green-on-bold: var(
+    --sl-sanoma-learning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-learning-color-foreground-accent-green-plain: var(
+    --sl-sanoma-learning-color-background-accent-green-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-grey-bold: var(
+    --sl-sanoma-learning-color-palette-grey-900
+  );
+  --sl-sanoma-learning-color-foreground-accent-grey-faint: var(
+    --sl-sanoma-learning-color-palette-grey-300
+  );
+  --sl-sanoma-learning-color-foreground-accent-grey-on-bold: var(
+    --sl-sanoma-learning-color-foreground-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-grey-on-inverted: var(
+    --sl-sanoma-learning-color-foreground-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-grey-plain: var(
+    --sl-sanoma-learning-color-palette-grey-800
+  );
+  --sl-sanoma-learning-color-foreground-accent-grey-subtle: var(
+    --sl-sanoma-learning-color-palette-grey-700
+  );
+  --sl-sanoma-learning-color-foreground-accent-grey-subtlest: var(
+    --sl-sanoma-learning-color-palette-grey-600
+  );
+  --sl-sanoma-learning-color-foreground-accent-orange-bold: var(
+    --sl-sanoma-learning-color-palette-orange-800
+  );
+  --sl-sanoma-learning-color-foreground-accent-orange-on-bold: var(
+    --sl-sanoma-learning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-learning-color-foreground-accent-orange-plain: var(
+    --sl-sanoma-learning-color-background-accent-orange-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-purple-bold: var(
+    --sl-sanoma-learning-color-palette-purple-800
+  );
+  --sl-sanoma-learning-color-foreground-accent-purple-on-bold: var(
+    --sl-sanoma-learning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-learning-color-foreground-accent-purple-plain: var(
+    --sl-sanoma-learning-color-background-accent-purple-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-red-bold: var(
+    --sl-sanoma-learning-color-palette-red-800
+  );
+  --sl-sanoma-learning-color-foreground-accent-red-on-bold: var(
+    --sl-sanoma-learning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-learning-color-foreground-accent-red-plain: var(
+    --sl-sanoma-learning-color-background-accent-red-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-teal-bold: var(
+    --sl-sanoma-learning-color-palette-teal-800
+  );
+  --sl-sanoma-learning-color-foreground-accent-teal-on-bold: var(
+    --sl-sanoma-learning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-learning-color-foreground-accent-teal-plain: var(
+    --sl-sanoma-learning-color-background-accent-teal-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-yellow-bold: var(
+    --sl-sanoma-learning-color-palette-yellow-800
+  );
+  --sl-sanoma-learning-color-foreground-accent-yellow-on-bold: var(
+    --sl-sanoma-learning-color-foreground-bold
+  );
+  --sl-sanoma-learning-color-foreground-accent-yellow-plain: var(
+    --sl-sanoma-learning-color-palette-yellow-600
+  );
+  --sl-sanoma-learning-color-foreground-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-bold
+  );
+  --sl-sanoma-learning-color-foreground-brand: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-plain
+  );
+  --sl-sanoma-learning-color-foreground-caution-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-yellow-bold
+  );
+  --sl-sanoma-learning-color-foreground-caution-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-yellow-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-caution-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-yellow-plain
+  );
+  --sl-sanoma-learning-color-foreground-disabled: var(--sl-sanoma-learning-color-palette-grey-500);
+  --sl-sanoma-learning-color-foreground-info-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-foreground-info-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-info-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-plain
+  );
+  --sl-sanoma-learning-color-foreground-inverted-bold: var(
+    --sl-sanoma-learning-color-palette-grey-000
+  );
+  --sl-sanoma-learning-color-foreground-inverted-on-bold: var(
+    --sl-sanoma-learning-color-palette-grey-900
+  );
+  --sl-sanoma-learning-color-foreground-inverted-plain: var(
+    --sl-sanoma-learning-color-palette-grey-000
+  );
+  --sl-sanoma-learning-color-foreground-negative-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-red-bold
+  );
+  --sl-sanoma-learning-color-foreground-negative-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-red-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-negative-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-red-plain
+  );
+  --sl-sanoma-learning-color-foreground-neutral-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-bold
+  );
+  --sl-sanoma-learning-color-foreground-neutral-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-neutral-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-subtlest
+  );
+  --sl-sanoma-learning-color-foreground-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-plain
+  );
+  --sl-sanoma-learning-color-foreground-positive-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-green-bold
+  );
+  --sl-sanoma-learning-color-foreground-positive-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-green-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-positive-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-green-plain
+  );
+  --sl-sanoma-learning-color-foreground-primary-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-foreground-primary-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-secondary-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-bold
+  );
+  --sl-sanoma-learning-color-foreground-secondary-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-selected-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-bold
+  );
+  --sl-sanoma-learning-color-foreground-selected-on-bold: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-on-bold
+  );
+  --sl-sanoma-learning-color-foreground-selected-plain: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-plain
+  );
+  --sl-sanoma-learning-color-foreground-subtle: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-subtle
+  );
+  --sl-sanoma-learning-color-foreground-subtlest: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-subtlest
+  );
+  --sl-sanoma-learning-color-link-active: var(--sl-sanoma-learning-color-palette-blue-700);
+  --sl-sanoma-learning-color-link-focused-active: var(--sl-sanoma-learning-color-palette-blue-900);
+  --sl-sanoma-learning-color-link-focused-hover: var(--sl-sanoma-learning-color-palette-blue-800);
+  --sl-sanoma-learning-color-link-focused-idle: var(--sl-sanoma-learning-color-palette-blue-700);
+  --sl-sanoma-learning-color-link-hover: var(--sl-sanoma-learning-color-palette-blue-600);
+  --sl-sanoma-learning-color-link-idle: var(
+    --sl-sanoma-learning-color-foreground-accent-blue-plain
+  );
+  --sl-sanoma-learning-color-link-inverted-active: var(--sl-sanoma-learning-color-palette-blue-150);
+  --sl-sanoma-learning-color-link-inverted-hover: var(--sl-sanoma-learning-color-palette-blue-100);
+  --sl-sanoma-learning-color-link-inverted-idle: var(
+    --sl-sanoma-learning-color-foreground-inverted-plain
+  );
+  --sl-sanoma-learning-color-link-muted-active: var(--sl-sanoma-learning-color-link-active);
+  --sl-sanoma-learning-color-link-muted-hover: var(--sl-sanoma-learning-color-link-hover);
+  --sl-sanoma-learning-color-link-muted-idle: var(
+    --sl-sanoma-learning-color-foreground-accent-grey-subtlest
+  );
+  --sl-sanoma-learning-color-palette-blue-050: #eef4ff;
+  --sl-sanoma-learning-color-palette-blue-100: #d9e5ff;
+  --sl-sanoma-learning-color-palette-blue-150: #bcd2ff;
+  --sl-sanoma-learning-color-palette-blue-200: #8eb6ff;
+  --sl-sanoma-learning-color-palette-blue-300: #598eff;
+  --sl-sanoma-learning-color-palette-blue-400: #3366ff;
+  --sl-sanoma-learning-color-palette-blue-500: #1b43f5;
+  --sl-sanoma-learning-color-palette-blue-600: #142fe1;
+  --sl-sanoma-learning-color-palette-blue-700: #1727b6;
+  --sl-sanoma-learning-color-palette-blue-800: #19288f;
+  --sl-sanoma-learning-color-palette-blue-900: #141a57;
+  --sl-sanoma-learning-color-palette-green-050: #edfcf2;
+  --sl-sanoma-learning-color-palette-green-100: #d3f8de;
+  --sl-sanoma-learning-color-palette-green-150: #abefc3;
+  --sl-sanoma-learning-color-palette-green-200: #75e0a1;
+  --sl-sanoma-learning-color-palette-green-300: #45cc80;
+  --sl-sanoma-learning-color-palette-green-400: #1aaf60;
+  --sl-sanoma-learning-color-palette-green-500: #0d8e4c;
+  --sl-sanoma-learning-color-palette-green-600: #0b7140;
+  --sl-sanoma-learning-color-palette-green-700: #0b5a34;
+  --sl-sanoma-learning-color-palette-green-800: #0a4a2c;
+  --sl-sanoma-learning-color-palette-green-900: #042a19;
+  --sl-sanoma-learning-color-palette-grey-000: #ffffff;
+  --sl-sanoma-learning-color-palette-grey-050: #f6f8fa;
+  --sl-sanoma-learning-color-palette-grey-100: #f0f2f5;
+  --sl-sanoma-learning-color-palette-grey-150: #e0e6ea;
+  --sl-sanoma-learning-color-palette-grey-200: #dae0e7;
+  --sl-sanoma-learning-color-palette-grey-300: #d0d9e0;
+  --sl-sanoma-learning-color-palette-grey-400: #c8d1da;
+  --sl-sanoma-learning-color-palette-grey-500: #818b98;
+  --sl-sanoma-learning-color-palette-grey-600: #59636e;
+  --sl-sanoma-learning-color-palette-grey-700: #393f46;
+  --sl-sanoma-learning-color-palette-grey-800: #25292f;
+  --sl-sanoma-learning-color-palette-grey-900: #222222;
+  --sl-sanoma-learning-color-palette-orange-050: #fff8ed;
+  --sl-sanoma-learning-color-palette-orange-100: #fff0d4;
+  --sl-sanoma-learning-color-palette-orange-150: #ffdda8;
+  --sl-sanoma-learning-color-palette-orange-200: #ffc471;
+  --sl-sanoma-learning-color-palette-orange-300: #ff9d33;
+  --sl-sanoma-learning-color-palette-orange-400: #fe8211;
+  --sl-sanoma-learning-color-palette-orange-500: #ef6707;
+  --sl-sanoma-learning-color-palette-orange-600: #c64c08;
+  --sl-sanoma-learning-color-palette-orange-700: #9d3d0f;
+  --sl-sanoma-learning-color-palette-orange-800: #7e3410;
+  --sl-sanoma-learning-color-palette-orange-900: #441706;
+  --sl-sanoma-learning-color-palette-purple-050: #f4f2ff;
+  --sl-sanoma-learning-color-palette-purple-100: #ece7ff;
+  --sl-sanoma-learning-color-palette-purple-150: #d9d2ff;
+  --sl-sanoma-learning-color-palette-purple-200: #bfaeff;
+  --sl-sanoma-learning-color-palette-purple-300: #9f80ff;
+  --sl-sanoma-learning-color-palette-purple-400: #824dff;
+  --sl-sanoma-learning-color-palette-purple-500: #7b33ff;
+  --sl-sanoma-learning-color-palette-purple-600: #6616eb;
+  --sl-sanoma-learning-color-palette-purple-700: #5512c5;
+  --sl-sanoma-learning-color-palette-purple-800: #4711a1;
+  --sl-sanoma-learning-color-palette-purple-900: #29076e;
+  --sl-sanoma-learning-color-palette-red-050: #fff1f1;
+  --sl-sanoma-learning-color-palette-red-100: #ffe1e2;
+  --sl-sanoma-learning-color-palette-red-150: #ffc7c9;
+  --sl-sanoma-learning-color-palette-red-200: #ffa0a3;
+  --sl-sanoma-learning-color-palette-red-300: #ff575c;
+  --sl-sanoma-learning-color-palette-red-400: #f83b41;
+  --sl-sanoma-learning-color-palette-red-500: #e51d23;
+  --sl-sanoma-learning-color-palette-red-600: #c11419;
+  --sl-sanoma-learning-color-palette-red-700: #a01418;
+  --sl-sanoma-learning-color-palette-red-800: #84181b;
+  --sl-sanoma-learning-color-palette-red-900: #480709;
+  --sl-sanoma-learning-color-palette-teal-050: #eefffc;
+  --sl-sanoma-learning-color-palette-teal-100: #c5fffa;
+  --sl-sanoma-learning-color-palette-teal-150: #8bfff5;
+  --sl-sanoma-learning-color-palette-teal-200: #4afef0;
+  --sl-sanoma-learning-color-palette-teal-300: #15ece2;
+  --sl-sanoma-learning-color-palette-teal-400: #00d0c9;
+  --sl-sanoma-learning-color-palette-teal-500: #00a8a5;
+  --sl-sanoma-learning-color-palette-teal-600: #008080;
+  --sl-sanoma-learning-color-palette-teal-700: #066769;
+  --sl-sanoma-learning-color-palette-teal-800: #0a5757;
+  --sl-sanoma-learning-color-palette-teal-900: #003235;
+  --sl-sanoma-learning-color-palette-yellow-050: #fffdea;
+  --sl-sanoma-learning-color-palette-yellow-100: #fff7c5;
+  --sl-sanoma-learning-color-palette-yellow-150: #fff085;
+  --sl-sanoma-learning-color-palette-yellow-200: #ffe146;
+  --sl-sanoma-learning-color-palette-yellow-300: #ffcf1b;
+  --sl-sanoma-learning-color-palette-yellow-400: #ffae00;
+  --sl-sanoma-learning-color-palette-yellow-500: #e28400;
+  --sl-sanoma-learning-color-palette-yellow-600: #bb5c02;
+  --sl-sanoma-learning-color-palette-yellow-700: #984708;
+  --sl-sanoma-learning-color-palette-yellow-800: #7c3a0b;
+  --sl-sanoma-learning-color-palette-yellow-900: #481d00;
+  --sl-sanoma-learning-color-skeleton-plain: var(--sl-sanoma-learning-color-palette-grey-100);
+  --sl-sanoma-learning-color-skeleton-subtle: var(--sl-sanoma-learning-color-palette-grey-050);
+  --sl-sanoma-learning-elevation-surface-base-default: var(
+    --sl-sanoma-learning-color-palette-grey-000
+  );
+  --sl-sanoma-learning-elevation-surface-raised-alternative: var(
+    --sl-sanoma-learning-color-palette-grey-100
+  );
+  --sl-sanoma-learning-elevation-surface-raised-default: var(
+    --sl-sanoma-learning-color-palette-grey-000
+  );
+  --sl-sanoma-learning-elevation-surface-raised-inverted: var(
+    --sl-sanoma-learning-color-palette-grey-900
+  );
+  --sl-sanoma-learning-elevation-surface-raised-primary: var(
+    --sl-sanoma-learning-color-palette-blue-400
+  );
+  --sl-sanoma-learning-elevation-surface-raised-sunken: var(
+    --sl-sanoma-learning-color-palette-grey-050
+  );
+  --sl-sanoma-learning-elevation-surface-shadow: var(--sl-sanoma-learning-color-palette-grey-900);
+  --sl-sanoma-learning-opacity-bold: 1;
+  --sl-sanoma-learning-opacity-interactive-bold-active: 0.4;
+  --sl-sanoma-learning-opacity-interactive-bold-hover: 0.2;
+  --sl-sanoma-learning-opacity-interactive-bold-idle: 0;
+  --sl-sanoma-learning-opacity-interactive-plain-active: 0.25;
+  --sl-sanoma-learning-opacity-interactive-plain-hover: 0.15;
+  --sl-sanoma-learning-opacity-interactive-plain-idle: 0;
+  --sl-sanoma-learning-opacity-interactive-reversed-active: 1;
+  --sl-sanoma-learning-opacity-interactive-reversed-hover: 0.9;
+  --sl-sanoma-learning-opacity-interactive-reversed-idle: 0.8;
+  --sl-sanoma-learning-opacity-moderate: 0.8;
+  --sl-sanoma-learning-opacity-muted: 0;
+  --sl-sanoma-learning-opacity-subtle: 0.2;
+  --sl-sanoma-learning-opacity-subtlest: 0.1;
+  --sl-sanoma-learning-theme-name: Sanoma Learning Light;
+}

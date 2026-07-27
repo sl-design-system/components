@@ -1,0 +1,19 @@
+{
+  "base": {
+    "fontSize": {
+      "$value": "20px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_SIZE"]
+        }
+      }
+    }
+  },
+  "space": {
+    "base": {
+      "$value": "24",
+      "$type": "number"
+    }
+  }
+}

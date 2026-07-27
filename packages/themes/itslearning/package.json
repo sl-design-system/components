@@ -23,6 +23,7 @@
     "./light-deprecated.css": "./light-deprecated.css",
     "./light-deprecated.min.css": "./light-deprecated.min.css",
     "./package.json": "./package.json",
+    "./typography.css": "./typography.css",
     "./css/*.css": "./css/*.css"
   },
   "files": [

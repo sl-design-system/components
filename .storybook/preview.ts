@@ -105,6 +105,15 @@ const preview: Preview = {
       }
 
       return story();
+    },
+    (story, { globals: { userGroup = 'advanced' } }) => {
+      document.documentElement.setAttribute('data-User-Group', userGroup);
+
+      return story();
+    },
+    (story, { globals: { viewport } }) => {
+      document.documentElement.setAttribute('data-Device', viewport.value || 'desktop');
+      return story();
     }
   ],
   loaders: [
@@ -120,6 +129,15 @@ const preview: Preview = {
         dynamicTitle: true,
         icon: 'paintbrush',
         items: themes.map(({ id, name }) => ({ value: id, title: name }))
+      }
+    },
+    userGroup: {
+      name: 'Target Group',
+      defaultValue: 'advanced',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'users',
+        items: ['early', 'developing', 'advanced']
       }
     },
     mode: {

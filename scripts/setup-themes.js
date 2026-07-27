@@ -26,10 +26,7 @@ const setupTheme = theme => {
         else {
           let content = data;
           if (file.includes(`${themeName}.css`)) {
-            content = content.replace(new RegExp(`\\[data-brand="${themeName}"\\]`, 'g'), ':root');
-          }
-          if (file.includes(`dark.css`)) {
-            content = content.replace(new RegExp(`:root`, 'g'), 'body');
+            content = content.replace(new RegExp(`\\[data-brand="${themeName}"\\]`, 'g'), 'body');
           }
           resolve(content);
         }

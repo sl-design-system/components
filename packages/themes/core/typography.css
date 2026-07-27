@@ -1,4 +1,4 @@
-html[data-user-group] {
+body {
   font-family: var(--sl-text-font-family);
   font-size: var(--sl-base-font-size);
   line-height: var(--sl-text-md-line-height);

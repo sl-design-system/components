@@ -81,7 +81,7 @@ export class VirtualList<T = any> extends LitElement {
   /** Function to render each item. */
   @property({ attribute: false }) renderItem?: VirtualListItemRenderer<T>;
 
-  /** @internal Renders virtualized items in light DOM for assistive technology workarounds. */
+/** @internal Renders virtualized items in light DOM for assistive technology workarounds. Must be set before the component is connected; changing it afterwards has no effect. */
   @property({ attribute: false }) renderInLightDom = false;
 
   override connectedCallback(): void {

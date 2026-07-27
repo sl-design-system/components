@@ -261,7 +261,7 @@ export class TextArea extends ObserveAttributesMixin(
       this.updateValidity();
 
       if (changes.has('showCount')) {
-        this.#previousCountState = undefined;
+        this.#previousCountState = this.showCount !== undefined ? this.#getCountState() : undefined;
       } else if (valueChangedProgrammatically && this.showCount !== undefined) {
         this.#previousCountState = this.#getCountState();
       }

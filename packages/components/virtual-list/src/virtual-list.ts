@@ -1,7 +1,14 @@
-import { LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
+import styles from './virtual-list.scss.js';
 import { VirtualizerController } from './virtualizer-controller.js';
 
 declare global {
@@ -17,14 +24,17 @@ export type VirtualListItemRenderer<T = any> = (item: T, index: number) => Eleme
  * A virtual list component that efficiently renders large lists by only rendering items that are
  * visible in the viewport.
  *
- * The wrapper, container and item elements are rendered in the light DOM. They can be styled using
- * descendant selectors like `sl-virtual-list [part='item']`, but note some layout properties are
- * enforced via inline styles (e.g. container flex layout and item sizing).
+ * @csspart wrapper - The wrapper element that contains the entire virtual list.
+ * @csspart container - The container element that holds the virtualized items.
+ * @csspart item - Each individual item in the list.
  *
  * @slot - The default slot is not used. Items are rendered via the `renderItem` property.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class VirtualList<T = any> extends LitElement {
+  /** @internal */
+  static override styles: CSSResultGroup = styles;
+
   /** The virtualizer controller. */
   #virtualizer = new VirtualizerController(this, {
     count: 0,
@@ -70,6 +80,9 @@ export class VirtualList<T = any> extends LitElement {
   /** Function to render each item. */
   @property({ attribute: false }) renderItem?: VirtualListItemRenderer<T>;
 
+  /** @internal Renders virtualized items in light DOM for assistive technology workarounds. */
+  @property({ attribute: false }) renderInLightDom = false;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -78,8 +91,8 @@ export class VirtualList<T = any> extends LitElement {
     }
   }
 
-  override createRenderRoot(): HTMLElement {
-    return this;
+  override createRenderRoot(): HTMLElement | DocumentFragment {
+    return this.renderInLightDom ? this : super.createRenderRoot();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

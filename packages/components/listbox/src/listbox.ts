@@ -256,6 +256,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
         this.#virtualizer.setAttribute('data-virtual-list', '');
+        this.#virtualizer.renderInLightDom = true;
         this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.scrollMargin = 0;
         const gapValue = parseFloat(getComputedStyle(this).gap);

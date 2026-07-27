@@ -99,7 +99,7 @@ export class TextArea extends ObserveAttributesMixin(
     const hasCountDescription = describedBy.split(/\s+/).includes(countDescriptionId),
       shouldHaveCountDescription = this.#isCountVisible();
 
-    if (hasCountDescription !== shouldHaveCountDescription || shouldHaveCountDescription) {
+    if (shouldHaveCountDescription || hasCountDescription) {
       this.#syncCountAriaDescription();
     }
   });
@@ -517,7 +517,7 @@ export class TextArea extends ObserveAttributesMixin(
     // Build the new aria-describedby list, keeping any external IDs and replacing our own.
     const externalIds = (textarea.getAttribute('aria-describedby') ?? '')
       .split(/\s+/)
-      .filter(id => Boolean(id) && id !== this.#countId && id !== countDescriptionId);
+      .filter(id => Boolean(id) && id !== countDescriptionId);
 
     const nextIds = countDescriptionElement ? [...externalIds, countDescriptionId] : externalIds,
       nextDescribedBy = nextIds.join(' ');

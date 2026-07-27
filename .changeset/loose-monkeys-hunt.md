@@ -14,6 +14,7 @@ Add accessibility lint rules for SLDS form controls.
 - `slds/select-has-label`: Require an accessible label for `<sl-select>`.
 - `slds/switch-has-label`: Require an accessible label for `<sl-switch>`.
 - `slds/text-area-has-label`: Require an accessible label for `<sl-textarea>`.
+- `slds/text-field-has-label`: Require an accessible label for `<sl-text-field>`.
 - `slds/time-field-has-label`: Require an accessible label for `<sl-time-field>`.
 
 Labels can be provided via `aria-label`, `aria-labelledby`, native `<label for="...">` association, or a labeled `<sl-form-field>` wrapper (depending on the control).

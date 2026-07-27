@@ -1,8 +1,0 @@
-{
-  "space": {
-    "multiplier": {
-      "$value": "0.75",
-      "$type": "number"
-    }
-  }
-}

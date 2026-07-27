@@ -1,0 +1,658 @@
+[data-brand='bingel-int'] {
+  --sl-brand-icon-typeset-fontWeight-regular: var(--sl-icon-typeset-fontWeight-icon-regular);
+  --sl-brand-icon-typeset-fontWeight-solid: var(--sl-icon-typeset-fontWeight-icon-solid);
+  --sl-brand-light-color-background-accent-blue-bold: var(--sl-brand-light-color-palette-blue-400);
+  --sl-brand-light-color-background-accent-blue-interactive-bold: var(
+    --sl-brand-light-color-palette-blue-900
+  );
+  --sl-brand-light-color-background-accent-blue-interactive-plain: var(
+    --sl-brand-light-color-background-accent-blue-bold
+  );
+  --sl-brand-light-color-background-accent-blue-subtle: #0074df33;
+  --sl-brand-light-color-background-accent-blue-subtlest: #0074df1a;
+  --sl-brand-light-color-background-accent-green-bold: var(
+    --sl-brand-light-color-palette-green-600
+  );
+  --sl-brand-light-color-background-accent-green-interactive-bold: var(
+    --sl-brand-light-color-palette-green-900
+  );
+  --sl-brand-light-color-background-accent-green-interactive-plain: var(
+    --sl-brand-light-color-palette-green-400
+  );
+  --sl-brand-light-color-background-accent-green-subtle: #46ac0033;
+  --sl-brand-light-color-background-accent-green-subtlest: #46ac001a;
+  --sl-brand-light-color-background-accent-grey-bold: var(--sl-brand-light-color-palette-grey-100);
+  --sl-brand-light-color-background-accent-grey-interactive-bold: var(
+    --sl-brand-light-color-palette-grey-500
+  );
+  --sl-brand-light-color-background-accent-grey-interactive-plain: var(
+    --sl-brand-light-color-palette-grey-200
+  );
+  --sl-brand-light-color-background-accent-grey-subtle: #aab3bd33;
+  --sl-brand-light-color-background-accent-grey-subtlest: #aab3bd1a;
+  --sl-brand-light-color-background-accent-orange-bold: var(
+    --sl-brand-light-color-palette-orange-400
+  );
+  --sl-brand-light-color-background-accent-orange-interactive-bold: var(
+    --sl-brand-light-color-palette-orange-700
+  );
+  --sl-brand-light-color-background-accent-orange-interactive-plain: var(
+    --sl-brand-light-color-palette-orange-400
+  );
+  --sl-brand-light-color-background-accent-orange-subtle: #ff9d0033;
+  --sl-brand-light-color-background-accent-orange-subtlest: #ff9d001a;
+  --sl-brand-light-color-background-accent-purple-bold: var(
+    --sl-brand-light-color-palette-purple-600
+  );
+  --sl-brand-light-color-background-accent-purple-interactive-bold: var(
+    --sl-brand-light-color-palette-purple-900
+  );
+  --sl-brand-light-color-background-accent-purple-interactive-plain: var(
+    --sl-brand-light-color-palette-purple-400
+  );
+  --sl-brand-light-color-background-accent-purple-subtle: #7e51ff33;
+  --sl-brand-light-color-background-accent-purple-subtlest: #7e51ff1a;
+  --sl-brand-light-color-background-accent-red-bold: var(--sl-brand-light-color-palette-red-400);
+  --sl-brand-light-color-background-accent-red-interactive-bold: var(
+    --sl-brand-light-color-palette-red-900
+  );
+  --sl-brand-light-color-background-accent-red-interactive-plain: var(
+    --sl-brand-light-color-palette-red-400
+  );
+  --sl-brand-light-color-background-accent-red-subtle: #e30a2733;
+  --sl-brand-light-color-background-accent-red-subtlest: #e30a271a;
+  --sl-brand-light-color-background-accent-teal-bold: var(--sl-brand-light-color-palette-teal-600);
+  --sl-brand-light-color-background-accent-teal-interactive-bold: var(
+    --sl-brand-light-color-palette-teal-900
+  );
+  --sl-brand-light-color-background-accent-teal-interactive-plain: var(
+    --sl-brand-light-color-palette-teal-400
+  );
+  --sl-brand-light-color-background-accent-teal-subtle: #00d0c933;
+  --sl-brand-light-color-background-accent-teal-subtlest: #00d0c91a;
+  --sl-brand-light-color-background-accent-yellow-bold: var(
+    --sl-brand-light-color-palette-yellow-400
+  );
+  --sl-brand-light-color-background-accent-yellow-interactive-bold: var(
+    --sl-brand-light-color-palette-yellow-600
+  );
+  --sl-brand-light-color-background-accent-yellow-interactive-plain: var(
+    --sl-brand-light-color-palette-yellow-400
+  );
+  --sl-brand-light-color-background-accent-yellow-subtle: #ecc20633;
+  --sl-brand-light-color-background-accent-yellow-subtlest: #ecc2061a;
+  --sl-brand-light-color-background-bold: var(--sl-brand-light-color-border-bold);
+  --sl-brand-light-color-background-caution-bold: var(
+    --sl-brand-light-color-background-accent-orange-bold
+  );
+  --sl-brand-light-color-background-caution-interactive-bold: var(
+    --sl-brand-light-color-background-accent-orange-interactive-bold
+  );
+  --sl-brand-light-color-background-caution-interactive-plain: var(
+    --sl-brand-light-color-background-accent-orange-interactive-plain
+  );
+  --sl-brand-light-color-background-caution-subtle: var(
+    --sl-brand-light-color-background-accent-orange-subtle
+  );
+  --sl-brand-light-color-background-caution-subtlest: var(
+    --sl-brand-light-color-background-accent-orange-subtlest
+  );
+  --sl-brand-light-color-background-disabled: var(--sl-brand-light-color-palette-grey-100);
+  --sl-brand-light-color-background-highlight: var(--sl-brand-light-color-palette-yellow-100);
+  --sl-brand-light-color-background-info-bold: var(
+    --sl-brand-light-color-background-accent-blue-bold
+  );
+  --sl-brand-light-color-background-info-interactive-bold: var(
+    --sl-brand-light-color-background-accent-blue-interactive-bold
+  );
+  --sl-brand-light-color-background-info-interactive-plain: var(
+    --sl-brand-light-color-background-accent-blue-interactive-plain
+  );
+  --sl-brand-light-color-background-info-subtle: var(
+    --sl-brand-light-color-background-accent-blue-subtle
+  );
+  --sl-brand-light-color-background-info-subtlest: var(
+    --sl-brand-light-color-background-accent-blue-subtlest
+  );
+  --sl-brand-light-color-background-input-interactive: var(
+    --sl-brand-light-color-background-accent-grey-interactive-plain
+  );
+  --sl-brand-light-color-background-input-plain: var(--sl-brand-light-color-palette-grey-000);
+  --sl-brand-light-color-background-interactive-bold: var(
+    --sl-brand-light-color-background-accent-blue-interactive-bold
+  );
+  --sl-brand-light-color-background-interactive-plain: var(
+    --sl-brand-light-color-background-accent-blue-interactive-plain
+  );
+  --sl-brand-light-color-background-inverted-bold: var(--sl-brand-light-color-palette-grey-000);
+  --sl-brand-light-color-background-inverted-interactive-bold: var(
+    --sl-brand-light-color-palette-grey-800
+  );
+  --sl-brand-light-color-background-inverted-interactive-plain: var(
+    --sl-brand-light-color-palette-grey-200
+  );
+  --sl-brand-light-color-background-inverted-subtle: #ffffff33;
+  --sl-brand-light-color-background-inverted-subtlest: #ffffff1a;
+  --sl-brand-light-color-background-negative-bold: var(
+    --sl-brand-light-color-background-accent-red-bold
+  );
+  --sl-brand-light-color-background-negative-interactive-bold: var(
+    --sl-brand-light-color-background-accent-red-interactive-bold
+  );
+  --sl-brand-light-color-background-negative-interactive-plain: var(
+    --sl-brand-light-color-background-accent-red-interactive-plain
+  );
+  --sl-brand-light-color-background-negative-subtle: var(
+    --sl-brand-light-color-background-accent-red-subtle
+  );
+  --sl-brand-light-color-background-negative-subtlest: var(
+    --sl-brand-light-color-background-accent-red-subtlest
+  );
+  --sl-brand-light-color-background-neutral-bold: var(--sl-brand-light-color-palette-grey-050);
+  --sl-brand-light-color-background-neutral-interactive-bold: var(
+    --sl-brand-light-color-palette-grey-700
+  );
+  --sl-brand-light-color-background-neutral-interactive-plain: var(
+    --sl-brand-light-color-background-accent-grey-interactive-bold
+  );
+  --sl-brand-light-color-background-neutral-subtle: var(
+    --sl-brand-light-color-background-accent-grey-subtle
+  );
+  --sl-brand-light-color-background-neutral-subtlest: var(
+    --sl-brand-light-color-background-accent-grey-subtlest
+  );
+  --sl-brand-light-color-background-positive-bold: var(
+    --sl-brand-light-color-background-accent-green-bold
+  );
+  --sl-brand-light-color-background-positive-interactive-bold: var(
+    --sl-brand-light-color-background-accent-green-interactive-bold
+  );
+  --sl-brand-light-color-background-positive-interactive-plain: var(
+    --sl-brand-light-color-background-accent-green-interactive-plain
+  );
+  --sl-brand-light-color-background-positive-subtle: var(
+    --sl-brand-light-color-background-accent-green-subtle
+  );
+  --sl-brand-light-color-background-positive-subtlest: var(
+    --sl-brand-light-color-background-accent-green-subtlest
+  );
+  --sl-brand-light-color-background-primary-bold: var(
+    --sl-brand-light-color-background-accent-blue-bold
+  );
+  --sl-brand-light-color-background-primary-interactive-bold: var(
+    --sl-brand-light-color-background-accent-blue-interactive-bold
+  );
+  --sl-brand-light-color-background-primary-interactive-plain: var(
+    --sl-brand-light-color-background-accent-blue-interactive-plain
+  );
+  --sl-brand-light-color-background-primary-subtle: var(
+    --sl-brand-light-color-background-accent-blue-subtle
+  );
+  --sl-brand-light-color-background-primary-subtlest: var(
+    --sl-brand-light-color-background-accent-blue-subtlest
+  );
+  --sl-brand-light-color-background-secondary-bold: var(
+    --sl-brand-light-color-background-accent-grey-bold
+  );
+  --sl-brand-light-color-background-secondary-interactive-bold: var(
+    --sl-brand-light-color-background-accent-grey-interactive-bold
+  );
+  --sl-brand-light-color-background-secondary-interactive-plain: var(
+    --sl-brand-light-color-background-accent-grey-interactive-plain
+  );
+  --sl-brand-light-color-background-secondary-subtle: var(
+    --sl-brand-light-color-background-accent-grey-subtle
+  );
+  --sl-brand-light-color-background-secondary-subtlest: var(
+    --sl-brand-light-color-background-accent-grey-subtlest
+  );
+  --sl-brand-light-color-background-selected-bold: var(
+    --sl-brand-light-color-background-accent-blue-bold
+  );
+  --sl-brand-light-color-background-selected-interactive-bold: var(
+    --sl-brand-light-color-background-accent-blue-interactive-bold
+  );
+  --sl-brand-light-color-background-selected-interactive-plain: var(
+    --sl-brand-light-color-background-accent-blue-interactive-plain
+  );
+  --sl-brand-light-color-background-selected-subtle: var(
+    --sl-brand-light-color-background-accent-blue-subtle
+  );
+  --sl-brand-light-color-background-selected-subtlest: var(
+    --sl-brand-light-color-background-accent-blue-subtlest
+  );
+  --sl-brand-light-color-background-subtle: var(
+    --sl-brand-light-color-background-accent-grey-subtle
+  );
+  --sl-brand-light-color-blanket-plain: #001223cc;
+  --sl-brand-light-color-border-accent-blue-bold: var(
+    --sl-brand-light-color-foreground-accent-blue-bold
+  );
+  --sl-brand-light-color-border-accent-blue-plain: var(
+    --sl-brand-light-color-background-accent-blue-bold
+  );
+  --sl-brand-light-color-border-accent-green-bold: var(
+    --sl-brand-light-color-foreground-accent-green-bold
+  );
+  --sl-brand-light-color-border-accent-green-plain: var(
+    --sl-brand-light-color-background-accent-green-bold
+  );
+  --sl-brand-light-color-border-accent-grey-bold: var(--sl-brand-light-color-palette-grey-500);
+  --sl-brand-light-color-border-accent-grey-faint: var(--sl-brand-light-color-palette-grey-100);
+  --sl-brand-light-color-border-accent-grey-heavy: var(--sl-brand-light-color-palette-grey-900);
+  --sl-brand-light-color-border-accent-grey-plain: var(--sl-brand-light-color-palette-grey-150);
+  --sl-brand-light-color-border-accent-orange-bold: var(
+    --sl-brand-light-color-foreground-accent-orange-bold
+  );
+  --sl-brand-light-color-border-accent-orange-plain: var(
+    --sl-brand-light-color-background-accent-orange-bold
+  );
+  --sl-brand-light-color-border-accent-purple-bold: var(
+    --sl-brand-light-color-foreground-accent-purple-bold
+  );
+  --sl-brand-light-color-border-accent-purple-plain: var(
+    --sl-brand-light-color-background-accent-purple-bold
+  );
+  --sl-brand-light-color-border-accent-red-bold: var(
+    --sl-brand-light-color-foreground-accent-red-bold
+  );
+  --sl-brand-light-color-border-accent-red-plain: var(
+    --sl-brand-light-color-background-accent-red-bold
+  );
+  --sl-brand-light-color-border-accent-teal-bold: var(
+    --sl-brand-light-color-foreground-accent-teal-bold
+  );
+  --sl-brand-light-color-border-accent-teal-plain: var(
+    --sl-brand-light-color-background-accent-teal-bold
+  );
+  --sl-brand-light-color-border-accent-yellow-bold: var(
+    --sl-brand-light-color-foreground-accent-yellow-bold
+  );
+  --sl-brand-light-color-border-accent-yellow-plain: var(
+    --sl-brand-light-color-background-accent-yellow-bold
+  );
+  --sl-brand-light-color-border-bold: var(--sl-brand-light-color-border-accent-grey-bold);
+  --sl-brand-light-color-border-caution-bold: var(--sl-brand-light-color-border-accent-orange-bold);
+  --sl-brand-light-color-border-caution-plain: var(
+    --sl-brand-light-color-border-accent-orange-plain
+  );
+  --sl-brand-light-color-border-disabled: var(--sl-brand-light-color-foreground-disabled);
+  --sl-brand-light-color-border-focused: var(--sl-brand-light-color-border-accent-blue-plain);
+  --sl-brand-light-color-border-info-bold: var(--sl-brand-light-color-border-accent-blue-bold);
+  --sl-brand-light-color-border-info-plain: var(--sl-brand-light-color-border-accent-blue-plain);
+  --sl-brand-light-color-border-info-subtle: var(--sl-brand-light-color-background-info-subtle);
+  --sl-brand-light-color-border-input: var(--sl-brand-light-color-border-bold);
+  --sl-brand-light-color-border-inverted: var(--sl-brand-light-color-palette-grey-000);
+  --sl-brand-light-color-border-negative-bold: var(--sl-brand-light-color-border-accent-red-bold);
+  --sl-brand-light-color-border-negative-plain: var(--sl-brand-light-color-border-accent-red-plain);
+  --sl-brand-light-color-border-neutral-bold: var(--sl-brand-light-color-border-accent-grey-bold);
+  --sl-brand-light-color-border-neutral-plain: var(--sl-brand-light-color-border-accent-grey-plain);
+  --sl-brand-light-color-border-neutral-subtle: var(
+    --sl-brand-light-color-background-accent-grey-subtle
+  );
+  --sl-brand-light-color-border-plain: var(--sl-brand-light-color-border-accent-grey-plain);
+  --sl-brand-light-color-border-positive-bold: var(--sl-brand-light-color-border-accent-green-bold);
+  --sl-brand-light-color-border-positive-plain: var(
+    --sl-brand-light-color-border-accent-green-plain
+  );
+  --sl-brand-light-color-border-primary-bold: var(--sl-brand-light-color-border-accent-blue-plain);
+  --sl-brand-light-color-border-primary-plain: var(--sl-brand-light-color-border-accent-blue-plain);
+  --sl-brand-light-color-border-secondary-bold: var(
+    --sl-brand-light-color-background-secondary-bold
+  );
+  --sl-brand-light-color-border-secondary-plain: var(
+    --sl-brand-light-color-border-accent-grey-plain
+  );
+  --sl-brand-light-color-border-selected: var(--sl-brand-light-color-border-accent-blue-plain);
+  --sl-brand-light-color-foreground-accent-blue-bold: var(--sl-brand-light-color-palette-blue-700);
+  --sl-brand-light-color-foreground-accent-blue-onBold: var(
+    --sl-brand-light-color-foreground-inverted-plain
+  );
+  --sl-brand-light-color-foreground-accent-blue-plain: var(--sl-brand-light-color-palette-blue-400);
+  --sl-brand-light-color-foreground-accent-green-bold: var(
+    --sl-brand-light-color-palette-green-700
+  );
+  --sl-brand-light-color-foreground-accent-green-onBold: var(
+    --sl-brand-light-color-foreground-inverted-plain
+  );
+  --sl-brand-light-color-foreground-accent-green-plain: var(
+    --sl-brand-light-color-palette-green-600
+  );
+  --sl-brand-light-color-foreground-accent-grey-bold: var(--sl-brand-light-color-palette-grey-900);
+  --sl-brand-light-color-foreground-accent-grey-faint: var(--sl-brand-light-color-palette-grey-300);
+  --sl-brand-light-color-foreground-accent-grey-onBold: var(--sl-brand-light-color-foreground-bold);
+  --sl-brand-light-color-foreground-accent-grey-onInverted: var(
+    --sl-brand-light-color-foreground-bold
+  );
+  --sl-brand-light-color-foreground-accent-grey-plain: var(--sl-brand-light-color-palette-grey-800);
+  --sl-brand-light-color-foreground-accent-grey-subtle: var(
+    --sl-brand-light-color-palette-grey-700
+  );
+  --sl-brand-light-color-foreground-accent-grey-subtlest: var(
+    --sl-brand-light-color-palette-grey-600
+  );
+  --sl-brand-light-color-foreground-accent-orange-bold: var(
+    --sl-brand-light-color-palette-orange-700
+  );
+  --sl-brand-light-color-foreground-accent-orange-onBold: var(
+    --sl-brand-light-color-foreground-bold
+  );
+  --sl-brand-light-color-foreground-accent-orange-plain: var(
+    --sl-brand-light-color-palette-orange-700
+  );
+  --sl-brand-light-color-foreground-accent-purple-bold: var(
+    --sl-brand-light-color-palette-purple-700
+  );
+  --sl-brand-light-color-foreground-accent-purple-onBold: var(
+    --sl-brand-light-color-foreground-inverted-plain
+  );
+  --sl-brand-light-color-foreground-accent-purple-plain: var(
+    --sl-brand-light-color-palette-purple-400
+  );
+  --sl-brand-light-color-foreground-accent-red-bold: var(--sl-brand-light-color-palette-red-700);
+  --sl-brand-light-color-foreground-accent-red-onBold: var(
+    --sl-brand-light-color-foreground-inverted-plain
+  );
+  --sl-brand-light-color-foreground-accent-red-plain: var(--sl-brand-light-color-palette-red-400);
+  --sl-brand-light-color-foreground-accent-teal-bold: var(--sl-brand-light-color-palette-teal-700);
+  --sl-brand-light-color-foreground-accent-teal-onBold: var(
+    --sl-brand-light-color-foreground-inverted-plain
+  );
+  --sl-brand-light-color-foreground-accent-teal-plain: var(--sl-brand-light-color-palette-teal-600);
+  --sl-brand-light-color-foreground-accent-yellow-bold: var(
+    --sl-brand-light-color-palette-yellow-700
+  );
+  --sl-brand-light-color-foreground-accent-yellow-onBold: var(
+    --sl-brand-light-color-foreground-bold
+  );
+  --sl-brand-light-color-foreground-accent-yellow-plain: var(
+    --sl-brand-light-color-palette-yellow-600
+  );
+  --sl-brand-light-color-foreground-bold: var(--sl-brand-light-color-foreground-accent-grey-bold);
+  --sl-brand-light-color-foreground-brand: var(--sl-brand-light-color-foreground-accent-blue-plain);
+  --sl-brand-light-color-foreground-caution-bold: var(
+    --sl-brand-light-color-foreground-accent-orange-bold
+  );
+  --sl-brand-light-color-foreground-caution-onBold: var(
+    --sl-brand-light-color-foreground-accent-orange-onBold
+  );
+  --sl-brand-light-color-foreground-caution-plain: var(
+    --sl-brand-light-color-foreground-accent-orange-plain
+  );
+  --sl-brand-light-color-foreground-disabled: var(
+    --sl-brand-light-color-foreground-accent-grey-faint
+  );
+  --sl-brand-light-color-foreground-info-bold: var(
+    --sl-brand-light-color-foreground-accent-blue-bold
+  );
+  --sl-brand-light-color-foreground-info-onBold: var(
+    --sl-brand-light-color-foreground-accent-blue-onBold
+  );
+  --sl-brand-light-color-foreground-info-plain: var(
+    --sl-brand-light-color-foreground-accent-blue-plain
+  );
+  --sl-brand-light-color-foreground-inverted-bold: var(--sl-brand-light-color-palette-grey-000);
+  --sl-brand-light-color-foreground-inverted-onBold: var(--sl-brand-light-color-palette-grey-900);
+  --sl-brand-light-color-foreground-inverted-plain: var(--sl-brand-light-color-palette-grey-000);
+  --sl-brand-light-color-foreground-negative-bold: var(
+    --sl-brand-light-color-foreground-accent-red-bold
+  );
+  --sl-brand-light-color-foreground-negative-onBold: var(
+    --sl-brand-light-color-foreground-accent-red-onBold
+  );
+  --sl-brand-light-color-foreground-negative-plain: var(
+    --sl-brand-light-color-foreground-accent-red-plain
+  );
+  --sl-brand-light-color-foreground-neutral-bold: var(
+    --sl-brand-light-color-foreground-accent-grey-bold
+  );
+  --sl-brand-light-color-foreground-neutral-onBold: var(
+    --sl-brand-light-color-foreground-accent-grey-onBold
+  );
+  --sl-brand-light-color-foreground-neutral-plain: var(
+    --sl-brand-light-color-foreground-accent-grey-subtlest
+  );
+  --sl-brand-light-color-foreground-plain: var(--sl-brand-light-color-foreground-accent-grey-plain);
+  --sl-brand-light-color-foreground-positive-bold: var(
+    --sl-brand-light-color-foreground-accent-green-bold
+  );
+  --sl-brand-light-color-foreground-positive-onBold: var(
+    --sl-brand-light-color-foreground-accent-green-onBold
+  );
+  --sl-brand-light-color-foreground-positive-plain: var(
+    --sl-brand-light-color-foreground-accent-green-plain
+  );
+  --sl-brand-light-color-foreground-primary-bold: var(
+    --sl-brand-light-color-foreground-accent-blue-bold
+  );
+  --sl-brand-light-color-foreground-primary-onBold: var(
+    --sl-brand-light-color-foreground-accent-blue-onBold
+  );
+  --sl-brand-light-color-foreground-secondary-bold: var(
+    --sl-brand-light-color-foreground-accent-blue-bold
+  );
+  --sl-brand-light-color-foreground-secondary-onBold: var(
+    --sl-brand-light-color-foreground-accent-blue-bold
+  );
+  --sl-brand-light-color-foreground-selected-bold: var(
+    --sl-brand-light-color-foreground-accent-blue-bold
+  );
+  --sl-brand-light-color-foreground-selected-onBold: var(
+    --sl-brand-light-color-foreground-accent-blue-onBold
+  );
+  --sl-brand-light-color-foreground-selected-plain: var(
+    --sl-brand-light-color-foreground-accent-blue-plain
+  );
+  --sl-brand-light-color-foreground-subtle: var(
+    --sl-brand-light-color-foreground-accent-grey-subtle
+  );
+  --sl-brand-light-color-foreground-subtlest: var(
+    --sl-brand-light-color-foreground-accent-grey-subtlest
+  );
+  --sl-brand-light-color-link-active: var(--sl-brand-light-color-palette-blue-600);
+  --sl-brand-light-color-link-focused-active: var(--sl-brand-light-color-palette-blue-900);
+  --sl-brand-light-color-link-focused-hover: var(--sl-brand-light-color-palette-blue-800);
+  --sl-brand-light-color-link-focused-idle: var(--sl-brand-light-color-palette-blue-700);
+  --sl-brand-light-color-link-hover: var(--sl-brand-light-color-palette-blue-500);
+  --sl-brand-light-color-link-idle: var(--sl-brand-light-color-foreground-accent-blue-plain);
+  --sl-brand-light-color-link-inverted-active: var(--sl-brand-light-color-palette-blue-150);
+  --sl-brand-light-color-link-inverted-hover: var(--sl-brand-light-color-palette-blue-100);
+  --sl-brand-light-color-link-inverted-idle: var(--sl-brand-light-color-foreground-inverted-plain);
+  --sl-brand-light-color-link-muted-active: var(--sl-brand-light-color-link-active);
+  --sl-brand-light-color-link-muted-hover: var(--sl-brand-light-color-link-hover);
+  --sl-brand-light-color-link-muted-idle: var(
+    --sl-brand-light-color-foreground-accent-grey-subtlest
+  );
+  --sl-brand-light-color-palette-blue-050: #e6f1fb;
+  --sl-brand-light-color-palette-blue-100: #acd2f5;
+  --sl-brand-light-color-palette-blue-150: #81baef;
+  --sl-brand-light-color-palette-blue-200: #56a3ea;
+  --sl-brand-light-color-palette-blue-300: #2b8be4;
+  --sl-brand-light-color-palette-blue-400: #0074df;
+  --sl-brand-light-color-palette-blue-500: #0060b9;
+  --sl-brand-light-color-palette-blue-600: #004d94;
+  --sl-brand-light-color-palette-blue-700: #002f62;
+  --sl-brand-light-color-palette-blue-800: #002649;
+  --sl-brand-light-color-palette-blue-900: #001223;
+  --sl-brand-light-color-palette-green-050: #e2f2d7;
+  --sl-brand-light-color-palette-green-100: #c3e4ac;
+  --sl-brand-light-color-palette-green-150: #a4d681;
+  --sl-brand-light-color-palette-green-200: #84c856;
+  --sl-brand-light-color-palette-green-300: #65ba2b;
+  --sl-brand-light-color-palette-green-400: #46ac00;
+  --sl-brand-light-color-palette-green-500: #3a8f00;
+  --sl-brand-light-color-palette-green-600: #2e7200;
+  --sl-brand-light-color-palette-green-700: #235500;
+  --sl-brand-light-color-palette-green-800: #173800;
+  --sl-brand-light-color-palette-green-900: #0b1b00;
+  --sl-brand-light-color-palette-grey-000: #ffffff;
+  --sl-brand-light-color-palette-grey-050: #f2f3f5;
+  --sl-brand-light-color-palette-grey-100: #e3e6ea;
+  --sl-brand-light-color-palette-grey-150: #d5d9de;
+  --sl-brand-light-color-palette-grey-200: #c7cdd3;
+  --sl-brand-light-color-palette-grey-300: #b8c0c8;
+  --sl-brand-light-color-palette-grey-400: #aab3bd;
+  --sl-brand-light-color-palette-grey-500: #8d959d;
+  --sl-brand-light-color-palette-grey-600: #71777d;
+  --sl-brand-light-color-palette-grey-700: #54585d;
+  --sl-brand-light-color-palette-grey-800: #373a3e;
+  --sl-brand-light-color-palette-grey-900: #1b1c1e;
+  --sl-brand-light-color-palette-orange-050: #fff0d7;
+  --sl-brand-light-color-palette-orange-100: #ffdfac;
+  --sl-brand-light-color-palette-orange-150: #ffcf81;
+  --sl-brand-light-color-palette-orange-200: #ffbe56;
+  --sl-brand-light-color-palette-orange-300: #ffae2b;
+  --sl-brand-light-color-palette-orange-400: #ff9d00;
+  --sl-brand-light-color-palette-orange-500: #d48300;
+  --sl-brand-light-color-palette-orange-600: #a96800;
+  --sl-brand-light-color-palette-orange-700: #7e4e00;
+  --sl-brand-light-color-palette-orange-800: #533300;
+  --sl-brand-light-color-palette-orange-900: #281900;
+  --sl-brand-light-color-palette-purple-050: #f3f2ff;
+  --sl-brand-light-color-palette-purple-100: #ebe8ff;
+  --sl-brand-light-color-palette-purple-150: #d9d3ff;
+  --sl-brand-light-color-palette-purple-200: #bdb0ff;
+  --sl-brand-light-color-palette-purple-300: #9d83ff;
+  --sl-brand-light-color-palette-purple-400: #7e51ff;
+  --sl-brand-light-color-palette-purple-500: #6e2dfa;
+  --sl-brand-light-color-palette-purple-600: #5f1be6;
+  --sl-brand-light-color-palette-purple-700: #5217c6;
+  --sl-brand-light-color-palette-purple-800: #43149e;
+  --sl-brand-light-color-palette-purple-900: #270a6b;
+  --sl-brand-light-color-palette-red-050: #fbd9dd;
+  --sl-brand-light-color-palette-red-100: #f6afb9;
+  --sl-brand-light-color-palette-red-150: #f18694;
+  --sl-brand-light-color-palette-red-200: #ec5d70;
+  --sl-brand-light-color-palette-red-300: #e8334b;
+  --sl-brand-light-color-palette-red-400: #e30a27;
+  --sl-brand-light-color-palette-red-500: #bd0820;
+  --sl-brand-light-color-palette-red-600: #96071a;
+  --sl-brand-light-color-palette-red-700: #700513;
+  --sl-brand-light-color-palette-red-800: #4a030d;
+  --sl-brand-light-color-palette-red-900: #240206;
+  --sl-brand-light-color-palette-teal-050: #eefffc;
+  --sl-brand-light-color-palette-teal-100: #c5fffa;
+  --sl-brand-light-color-palette-teal-150: #8bfff5;
+  --sl-brand-light-color-palette-teal-200: #4afef0;
+  --sl-brand-light-color-palette-teal-300: #15ece2;
+  --sl-brand-light-color-palette-teal-400: #00d0c9;
+  --sl-brand-light-color-palette-teal-500: #00a8a5;
+  --sl-brand-light-color-palette-teal-600: #008080;
+  --sl-brand-light-color-palette-teal-700: #066769;
+  --sl-brand-light-color-palette-teal-800: #0a5757;
+  --sl-brand-light-color-palette-teal-900: #003235;
+  --sl-brand-light-color-palette-yellow-050: #fefde8;
+  --sl-brand-light-color-palette-yellow-100: #fffec2;
+  --sl-brand-light-color-palette-yellow-150: #fff889;
+  --sl-brand-light-color-palette-yellow-200: #ffec40;
+  --sl-brand-light-color-palette-yellow-300: #fddc12;
+  --sl-brand-light-color-palette-yellow-400: #ecc206;
+  --sl-brand-light-color-palette-yellow-500: #cc9702;
+  --sl-brand-light-color-palette-yellow-600: #a36b05;
+  --sl-brand-light-color-palette-yellow-700: #86540d;
+  --sl-brand-light-color-palette-yellow-800: #724511;
+  --sl-brand-light-color-palette-yellow-900: #432405;
+  --sl-brand-light-color-skeleton-plain: var(--sl-brand-light-color-background-accent-grey-subtle);
+  --sl-brand-light-color-skeleton-subtle: var(
+    --sl-brand-light-color-background-accent-grey-subtlest
+  );
+  --sl-brand-light-elevation-surface-base-default: var(--sl-brand-light-color-palette-grey-000);
+  --sl-brand-light-elevation-surface-raised-alternative: var(
+    --sl-brand-light-color-palette-grey-100
+  );
+  --sl-brand-light-elevation-surface-raised-default: var(--sl-brand-light-color-palette-grey-000);
+  --sl-brand-light-elevation-surface-raised-inverted: var(--sl-brand-light-color-palette-grey-900);
+  --sl-brand-light-elevation-surface-raised-primary: var(
+    --sl-brand-light-color-background-accent-blue-bold
+  );
+  --sl-brand-light-elevation-surface-raised-sunken: var(--sl-brand-light-color-palette-grey-050);
+  --sl-brand-light-elevation-surface-shadow: var(--sl-brand-light-color-palette-grey-900);
+  --sl-brand-light-opacity-bold: 1;
+  --sl-brand-light-opacity-interactive-bold-active: 0.4;
+  --sl-brand-light-opacity-interactive-bold-hover: 0.2;
+  --sl-brand-light-opacity-interactive-bold-idle: 0;
+  --sl-brand-light-opacity-interactive-plain-active: 0.25;
+  --sl-brand-light-opacity-interactive-plain-hover: 0.15;
+  --sl-brand-light-opacity-interactive-plain-idle: 0;
+  --sl-brand-light-opacity-interactive-reversed-active: 1;
+  --sl-brand-light-opacity-interactive-reversed-hover: 0.9;
+  --sl-brand-light-opacity-interactive-reversed-idle: 0.8;
+  --sl-brand-light-opacity-moderate: 0.8;
+  --sl-brand-light-opacity-muted: 0;
+  --sl-brand-light-opacity-subtle: 0.2;
+  --sl-brand-light-opacity-subtlest: 0.1;
+  --sl-brand-size-borderRadius-child: calc(var(--sl-size-borderRadius-md) / 2);
+  --sl-brand-size-borderRadius-default: var(--sl-size-borderRadius-md);
+  --sl-brand-size-borderRadius-focusRing-inside: calc(
+    var(--sl-brand-size-borderRadius-default) - 1px
+  );
+  --sl-brand-size-borderRadius-focusRing-outside: calc(
+    var(--sl-brand-size-borderRadius-default) + 2px
+  );
+  --sl-brand-size-borderWidth-action: var(--sl-size-borderWidth-subtle);
+  --sl-brand-size-borderWidth-default: var(--sl-size-borderWidth-subtle);
+  --sl-brand-size-icon-font-2xl: var(--sl-size-new-icon-2xl);
+  --sl-brand-size-icon-font-2xs: var(--sl-size-new-icon-2xs);
+  --sl-brand-size-icon-font-3xl: var(--sl-size-new-icon-3xl);
+  --sl-brand-size-icon-font-4xl: var(--sl-size-new-icon-4xl);
+  --sl-brand-size-icon-font-lg: var(--sl-size-new-icon-lg);
+  --sl-brand-size-icon-font-md: var(--sl-size-new-icon-md);
+  --sl-brand-size-icon-font-sm: var(--sl-size-new-icon-sm);
+  --sl-brand-size-icon-font-xl: var(--sl-size-new-icon-xl);
+  --sl-brand-size-icon-font-xs: var(--sl-size-new-icon-xs);
+  --sl-brand-size-outlineWidth-default: var(--sl-size-borderWidth-bold);
+  --sl-brand-size-text-new-body-lg: var(--sl-size-font-200);
+  --sl-brand-size-text-new-body-md: var(--sl-size-font-175);
+  --sl-brand-size-text-new-body-sm: var(--sl-size-font-150);
+  --sl-brand-size-text-new-heading-2xl: var(--sl-size-font-600);
+  --sl-brand-size-text-new-heading-lg: var(--sl-size-font-300);
+  --sl-brand-size-text-new-heading-md: var(--sl-size-font-200);
+  --sl-brand-size-text-new-heading-sm: var(--sl-size-font-175);
+  --sl-brand-size-text-new-heading-xl: var(--sl-size-font-400);
+  --sl-brand-space-offset-default: var(--sl-space-075);
+  --sl-brand-text-new-body-lg-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-body-lg-fontSize: 16px;
+  --sl-brand-text-new-body-lg-fontWeight: 400;
+  --sl-brand-text-new-body-lg-lineHeight: 24px;
+  --sl-brand-text-new-body-md-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-body-md-fontSize: 14px;
+  --sl-brand-text-new-body-md-fontWeight: 400;
+  --sl-brand-text-new-body-md-lineHeight: 20px;
+  --sl-brand-text-new-body-sm-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-body-sm-fontSize: 12px;
+  --sl-brand-text-new-body-sm-fontWeight: 400;
+  --sl-brand-text-new-body-sm-lineHeight: 16px;
+  --sl-brand-text-new-heading-2xl-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-heading-2xl-fontSize: 48px;
+  --sl-brand-text-new-heading-2xl-lineHeight: 48px;
+  --sl-brand-text-new-heading-lg-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-heading-lg-fontSize: 24px;
+  --sl-brand-text-new-heading-lg-lineHeight: 32px;
+  --sl-brand-text-new-heading-md-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-heading-md-fontSize: 16px;
+  --sl-brand-text-new-heading-md-lineHeight: 20px;
+  --sl-brand-text-new-heading-sm-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-heading-sm-fontSize: 14px;
+  --sl-brand-text-new-heading-sm-lineHeight: 20px;
+  --sl-brand-text-new-heading-xl-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-heading-xl-fontSize: 32px;
+  --sl-brand-text-new-heading-xl-lineHeight: 40px;
+  --sl-brand-text-new-icon-outline-fontFamily: 'Font Awesome 7 Pro';
+  --sl-brand-text-new-icon-outline-fontWeight: regular;
+  --sl-brand-text-new-icon-solid-fontFamily: 'Font Awesome 7 Pro';
+  --sl-brand-text-new-icon-solid-fontWeight: solid;
+  --sl-brand-text-new-input-lg-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-input-lg-fontSize: 14px;
+  --sl-brand-text-new-input-lg-lineHeight: 32px;
+  --sl-brand-text-new-input-md-fontFamily: 'Proxima Nova';
+  --sl-brand-text-new-input-md-fontSize: 14px;
+  --sl-brand-text-new-input-md-lineHeight: 24px;
+  --sl-brand-text-new-typeset-fontFamily-body: 'Proxima Nova';
+  --sl-brand-text-new-typeset-fontFamily-heading: 'Proxima Nova';
+  --sl-brand-text-new-typeset-fontFamily-icon: 'Font Awesome 7 Pro';
+  --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
+  --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-600);
+  --sl-computed-color-shadow-overflow1: var(--sl-computed-bingel-int-color-shadow-overflow1);
+  --sl-computed-color-shadow-overlay1: var(--sl-computed-bingel-int-color-shadow-overlay1);
+  --sl-computed-color-shadow-overlay2: var(--sl-computed-bingel-int-color-shadow-overlay2);
+}

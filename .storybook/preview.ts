@@ -111,14 +111,21 @@ const preview: Preview = {
 
       return story();
     },
+    (story, { globals: { mode = 'light' } }) => {
+      //TODO if you remove these it takes the user preference from the system.
+      // document.documentElement.style.setProperty('--color-scheme', mode);
+      // document.documentElement.style.setProperty('color-scheme', mode);
+
+      return story();
+    },
     (story, { globals: { viewport } }) => {
       document.documentElement.setAttribute('data-Device', viewport.value || 'desktop');
       return story();
     }
   ],
   loaders: [
-    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      await updateTheme(theme, mode as Mode);
+    async ({ globals: { theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme);
     }
   ],
   globalTypes: {

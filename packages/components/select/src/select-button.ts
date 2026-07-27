@@ -16,7 +16,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
-import { type SelectSize } from './select.js';
+import { type SelectFill, type SelectSize } from './select.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -59,6 +59,13 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /**
+   * The fill of the select.
+   *
+   * @default 'outline'
+   */
+  @property({ reflect: true }) fill?: SelectFill;
 
   /** The width of the longest option. */
   @property({ type: Number, attribute: 'option-size' }) optionSize?: number;

@@ -3,7 +3,8 @@ import {
   LitElement,
   type PropertyValues,
   type TemplateResult,
-  html
+  html,
+  nothing
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
@@ -119,15 +120,17 @@ export class VirtualList<T = any> extends LitElement {
 
   override render(): TemplateResult {
     const virtualizer = this.#virtualizer.instance,
-      virtualItems = virtualizer.getVirtualItems();
+      virtualItems = virtualizer.getVirtualItems(),
+      containerLayoutStyles = this.renderInLightDom
+        ? 'display: flex; flex-direction: column; '
+        : '';
 
     return html`
       <div part="wrapper" style="block-size: ${virtualizer.getTotalSize()}px;">
         <div
           part="container"
-          style="display: flex; flex-direction: column; gap: ${this.gap ??
-          0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px">
+          style="${containerLayoutStyles}gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]
+            ?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -138,7 +141,9 @@ export class VirtualList<T = any> extends LitElement {
                 <div
                   part="item"
                   data-index=${virtualItem.index}
-                  style="box-sizing: border-box; inline-size: 100%;"
+                  style=${this.renderInLightDom
+                    ? 'box-sizing: border-box; inline-size: 100%;'
+                    : nothing}
                   ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>

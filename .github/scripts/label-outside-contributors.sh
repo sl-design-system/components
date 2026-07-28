@@ -2,37 +2,59 @@
 
 # Label Outside Contributor Issues
 # This script identifies open issues from non-core-team members and applies/removes the "cfa-submitted" label
+#
+# Usage:
+#   ./label-outside-contributors.sh              # Process all open issues (scheduled run)
+#   ./label-outside-contributors.sh <issue_num>  # Process a single issue (event-triggered run)
+#   ./label-outside-contributors.sh --dry-run    # Preview changes without applying them
 
 set -e
 
 # Configuration
-REPO="sl-design-system/components"
-CORE_TEAM="@sl-design-system/core-team"
+REPO="${GITHUB_REPOSITORY:-sl-design-system/components}"
+CORE_TEAM="core-team"
 LABEL="cfa-submitted"
 EXCLUSION_LABELS=("duplicate" "invalid" "wontfix" "external")
 UPDATED_COUNT=0
+DRY_RUN=false
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
-echo "Starting label workflow for $REPO..."
-echo "Looking for issues to label with '$LABEL'"
+# Check for --dry-run flag
+if [ "$1" == "--dry-run" ]; then
+  DRY_RUN=true
+  TARGET_ISSUE=""
+  echo "🔍 DRY RUN MODE - No changes will be applied"
+  echo "Processing all open issues in $REPO (scheduled run)..."
+else
+  TARGET_ISSUE="$1"
+  if [ -n "$TARGET_ISSUE" ]; then
+    echo "Processing single issue #$TARGET_ISSUE (triggered by issue event)..."
+  else
+    echo "Processing all open issues in $REPO (scheduled run)..."
+  fi
+fi
 echo ""
 
-# Get all open issues
-echo "Fetching open issues..."
-ISSUES=$(gh issue list \
-  --repo "$REPO" \
-  --state open \
-  --limit 1000 \
-  --json number,author,labels)
+# Determine if we're processing a single issue or all issues
+if [ -n "$TARGET_ISSUE" ]; then
+  # Single issue mode (event-triggered)
+  ISSUES=$(gh issue view "$TARGET_ISSUE" \
+    --repo "$REPO" \
+    --json number,author,labels)
+  # Wrap in an array for consistent processing
+  ISSUES="[$ISSUES]"
+else
+  # All issues mode (scheduled run)
+  echo "Fetching open issues..."
+  ISSUES=$(gh issue list \
+    --repo "$REPO" \
+    --state open \
+    --limit 1000 \
+    --json number,author,labels)
+fi
 
 # Check if we have any issues
 if [ -z "$ISSUES" ] || [ "$ISSUES" == "[]" ]; then
-  echo "No open issues found."
+  echo "No issues to process."
   exit 0
 fi
 
@@ -47,19 +69,20 @@ echo "$ISSUES" | jq -r '.[] | @json' | while read -r issue_json; do
   # Check if author is a core team member
   if gh api \
     --method GET \
-    "orgs/sl-design-system/teams/core-team/memberships/$AUTHOR" \
+    "orgs/sl-design-system/teams/$CORE_TEAM/memberships/$AUTHOR" \
     > /dev/null 2>&1; then
-
-    # Author is a core team member
-    echo "  → Core team member"
 
     # Check if the issue has the "cfa-submitted" label and remove it
     if echo "$CURRENT_LABELS" | grep -q "$LABEL"; then
       echo "  → Removing '$LABEL' label (core team member should not have this)"
-      gh issue edit "$ISSUE_NUMBER" \
-        --repo "$REPO" \
-        --remove-label "$LABEL" \
-        2>/dev/null || echo "  ⚠️  Could not remove label (may already be removed)"
+      if [ "$DRY_RUN" = false ]; then
+        gh issue edit "$ISSUE_NUMBER" \
+          --repo "$REPO" \
+          --remove-label "$LABEL" \
+          2>/dev/null || echo "  ⚠️  Could not remove label (may already be removed)"
+      else
+        echo "     [DRY RUN] Would remove label"
+      fi
       ((UPDATED_COUNT++))
     fi
   else
@@ -80,10 +103,14 @@ echo "$ISSUES" | jq -r '.[] | @json' | while read -r issue_json; do
       # Check if the issue already has the "cfa-submitted" label
       if ! echo "$CURRENT_LABELS" | grep -q "$LABEL"; then
         echo "  → Adding '$LABEL' label"
-        gh issue edit "$ISSUE_NUMBER" \
-          --repo "$REPO" \
-          --add-label "$LABEL" \
-          2>/dev/null || echo "  ⚠️  Could not add label (may already exist)"
+        if [ "$DRY_RUN" = false ]; then
+          gh issue edit "$ISSUE_NUMBER" \
+            --repo "$REPO" \
+            --add-label "$LABEL" \
+            2>/dev/null || echo "  ⚠️  Could not add label (may already exist)"
+        else
+          echo "     [DRY RUN] Would add label"
+        fi
         ((UPDATED_COUNT++))
       else
         echo "  → Already labeled with '$LABEL'"
@@ -95,6 +122,10 @@ echo "$ISSUES" | jq -r '.[] | @json' | while read -r issue_json; do
 done
 
 echo "============================================"
-echo -e "${GREEN}Workflow completed${NC}"
-echo "Issues updated: $UPDATED_COUNT"
+if [ "$DRY_RUN" = true ]; then
+  echo "🔍 DRY RUN COMPLETED - No changes were made"
+else
+  echo "✅ Workflow completed"
+fi
+echo "Issues that would be updated: $UPDATED_COUNT"
 echo "============================================"

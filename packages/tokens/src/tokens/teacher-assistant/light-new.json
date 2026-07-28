@@ -1031,7 +1031,7 @@
         },
         "neutral": {
           "bold": {
-            "$value": "{teacher-assistant.color.foreground.accent.purple.bold}",
+            "$value": "{teacher-assistant.color.foreground.accent.grey.bold}",
             "$type": "color",
             "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           },
@@ -1041,7 +1041,7 @@
             "$description": "Use for neutral actions on 'color.background.neutral.bold'"
           },
           "plain": {
-            "$value": "{teacher-assistant.color.foreground.accent.purple.plain}",
+            "$value": "{teacher-assistant.color.foreground.accent.grey.plain}",
             "$type": "color",
             "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           }
@@ -1122,7 +1122,7 @@
       },
       "link": {
         "active": {
-          "$value": "{teacher-assistant.color.palette.blue.700}",
+          "$value": "{teacher-assistant.color.palette.purple.600}",
           "$type": "color",
           "$description": "Use for links in active state."
         },
@@ -1144,7 +1144,7 @@
           }
         },
         "hover": {
-          "$value": "{teacher-assistant.color.palette.blue.600}",
+          "$value": "{teacher-assistant.color.palette.purple.800}",
           "$type": "color",
           "$description": "Use for links in hover state."
         },
@@ -1601,7 +1601,7 @@
             "$description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
           },
           "primary": {
-            "$value": "{teacher-assistant.color.palette.purple.400}",
+            "$value": "{teacher-assistant.color.background.primary.bold}",
             "$type": "color",
             "$description": "Background of elevated components with a Primary background color like a floating toolbar that sit on top of the base surface. Use in combination with Inverted buttons, 'color.foreground.inverted.bold' and 'elevation.shadow.raised'."
           },

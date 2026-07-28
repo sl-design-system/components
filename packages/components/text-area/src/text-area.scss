@@ -8,7 +8,7 @@
   color: var(--sl-color-foreground-plain);
   cursor: text;
   display: inline-grid;
-  gap: var(--sl-size-050);
+  gap: 0;
   grid-template-areas:
     'field'
     'count';
@@ -133,6 +133,7 @@ slot[name='suffix']::slotted(sl-icon) {
 .count {
   color: var(--sl-color-foreground-subtle);
   grid-area: count;
+  margin-block-start: var(--sl-size-050);
 }
 
 .count[count-state='caution'] {

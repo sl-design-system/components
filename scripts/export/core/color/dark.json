@@ -1561,6 +1561,20 @@
         }
       }
     },
+    "shadow": {
+      "overflow1": {
+        "$value": "{brand.dark.color.shadow.overflow1}",
+        "$type": "color"
+      },
+      "overlay1": {
+        "$value": "{brand.dark.color.shadow.overlay1}",
+        "$type": "color"
+      },
+      "overlay2": {
+        "$value": "{brand.dark.color.shadow.overlay2}",
+        "$type": "color"
+      }
+    },
     "skeleton": {
       "plain": {
         "$value": "{brand.dark.color.skeleton.plain}",

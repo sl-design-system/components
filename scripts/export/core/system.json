@@ -5,20 +5,6 @@
       "$type": "color",
       "$description": "Solid black"
     },
-    "shadow": {
-      "overflow1": {
-        "$value": "set_alpha({elevation.surface.shadow}, 0.16)",
-        "$type": "color"
-      },
-      "overlay1": {
-        "$value": "set_alpha({elevation.surface.shadow}, 0.04)",
-        "$type": "color"
-      },
-      "overlay2": {
-        "$value": "set_alpha({elevation.surface.shadow}, 0.12)",
-        "$type": "color"
-      }
-    },
     "transparent": {
       "$value": "#00000000",
       "$type": "color"
@@ -78,6 +64,53 @@
       }
     }
   },
+  "fontWeight": {
+    "bold": {
+      "$value": "700",
+      "$type": "fontWeight",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
+    },
+    "light": {
+      "$value": "300",
+      "$type": "fontWeight",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
+    },
+    "medium": {
+      "$value": "500",
+      "$type": "fontWeight",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
+    },
+    "regular": {
+      "$value": "400",
+      "$type": "fontWeight",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
+    },
+    "semiBold": {
+      "$value": "600",
+      "$type": "fontWeight",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
+    }
+  },
   "icon": {
     "typeset": {
       "fontFamily": {
@@ -93,19 +126,39 @@
       "fontWeight": {
         "icon-light": {
           "$value": "light",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         },
         "icon-regular": {
           "$value": "regular",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         },
         "icon-solid": {
           "$value": "solid",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         },
         "icon-thin": {
           "$value": "thin",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         }
       }
     }
@@ -218,85 +271,185 @@
     "font": {
       "150": {
         "$value": "{size.150}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "175": {
         "$value": "{size.175}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "200": {
         "$value": "{size.200}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "250": {
         "$value": "{size.250}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "300": {
         "$value": "{size.300}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "400": {
         "$value": "{size.400}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "500": {
         "$value": "{size.500}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "600": {
         "$value": "{size.600}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "800": {
         "$value": "{size.800}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       },
       "1000": {
         "$value": "{size.1000}",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["FONT_SIZE"]
+          }
+        }
       }
     },
     "lineHeight": {
       "150": {
         "$value": "{size.150}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "175": {
         "$value": "{size.175}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "200": {
         "$value": "{size.200}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "250": {
         "$value": "{size.250}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "300": {
         "$value": "{size.300}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "400": {
         "$value": "{size.400}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "500": {
         "$value": "{size.500}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "600": {
         "$value": "{size.600}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "800": {
         "$value": "{size.800}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       },
       "1000": {
         "$value": "{size.1000}",
-        "$type": "lineHeight"
+        "$type": "lineHeight",
+        "$extensions": {
+          "com.figma": {
+            "scopes": ["LINE_HEIGHT"]
+          }
+        }
       }
     },
     "outlineOffset": {

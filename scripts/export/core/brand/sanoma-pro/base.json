@@ -5,11 +5,21 @@
         "fontWeight": {
           "regular": {
             "$value": "{icon.typeset.fontWeight.icon-regular}",
-            "$type": "fontWeight"
+            "$type": "fontWeight",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_WEIGHT"]
+              }
+            }
           },
           "solid": {
             "$value": "{icon.typeset.fontWeight.icon-solid}",
-            "$type": "fontWeight"
+            "$type": "fontWeight",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_WEIGHT"]
+              }
+            }
           }
         }
       }
@@ -55,39 +65,84 @@
         "font": {
           "2xl": {
             "$value": "{size-new.icon.2xl}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "2xs": {
             "$value": "{size-new.icon.2xs}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "3xl": {
             "$value": "{size-new.icon.3xl}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "4xl": {
             "$value": "{size-new.icon.4xl}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "lg": {
             "$value": "{size-new.icon.lg}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "md": {
             "$value": "{size-new.icon.md}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "sm": {
             "$value": "{size-new.icon.sm}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "xl": {
             "$value": "{size-new.icon.xl}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "xs": {
             "$value": "{size-new.icon.xs}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           }
         }
       },
@@ -102,38 +157,78 @@
         "body": {
           "lg": {
             "$value": "{size.font.200}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "md": {
             "$value": "{size.font.175}",
             "$type": "fontSize",
-            "$description": "default text size for body"
+            "$description": "default text size for body",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "sm": {
             "$value": "{size.font.150}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           }
         },
         "heading": {
           "2xl": {
             "$value": "{size.font.600}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "lg": {
             "$value": "{size.font.300}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "md": {
             "$value": "{size.font.200}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "sm": {
             "$value": "{size.font.175}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           },
           "xl": {
             "$value": "{size.font.400}",
-            "$type": "fontSize"
+            "$type": "fontSize",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_SIZE"]
+              }
+            }
           }
         }
       }
@@ -276,14 +371,60 @@
         "fontWeight": {
           "regular": {
             "$value": "{fontWeight.400}",
-            "$type": "fontWeight"
+            "$type": "fontWeight",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_WEIGHT"]
+              }
+            }
           },
           "semiBold": {
             "$value": "{fontWeight.500}",
-            "$type": "fontWeight"
+            "$type": "fontWeight",
+            "$extensions": {
+              "com.figma": {
+                "scopes": ["FONT_WEIGHT"]
+              }
+            }
           }
         }
       }
+    }
+  },
+  "caption": {
+    "fontFamily": {
+      "$value": "Roboto",
+      "$type": "fontFamily"
+    }
+  },
+  "display": {
+    "fontFamily": {
+      "$value": "The Message ",
+      "$type": "fontFamily"
+    }
+  },
+  "heading": {
+    "fontFamily": {
+      "$value": "The Message ",
+      "$type": "fontFamily"
+    }
+  },
+  "label": {
+    "fontFamily": {
+      "$value": "Roboto",
+      "$type": "fontFamily"
+    }
+  },
+  "text": {
+    "fontFamily": {
+      "$value": "Roboto",
+      "$type": "fontFamily"
+    }
+  },
+  "title": {
+    "fontFamily": {
+      "$value": "Roboto",
+      "$type": "fontFamily"
     }
   }
 }

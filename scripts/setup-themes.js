@@ -9,14 +9,21 @@ const setupTheme = theme => {
   const destinationGlobal = join(cwd, `${theme}/global.css`);
   cp(sourceGlobal, destinationGlobal, () => console.log(`🌍 ✅ ${theme}`));
 
-  const destinationTypography = join(cwd, `${theme}/typography.css`);
+  // const destinationTypography = join(cwd, `${theme}/typography.css`);
 
   const themeName = theme.split('/').pop();
   const sourceThemeFiles = [
+    `./export/core-css/device/desktop.css`,
+    `./export/core-css/device/tablet.css`,
+    `./export/core-css/device/mobile.css`,
+    `./export/core-css/user-group/early.css`,
+    `./export/core-css/user-group/developing.css`,
+    `./export/core-css/user-group/advanced.css`,
     `./export/core-css/color/light.css`,
     `./export/core-css/color/dark.css`,
     `./export/core-css/system/default.css`,
-    `./export/core-css/brand/${themeName}.css`
+    `./export/core-css/brand/${themeName}.css`,
+    `../packages/themes/core/typography.css`
   ];
 
   const promises = sourceThemeFiles.map(file => {
@@ -24,7 +31,7 @@ const setupTheme = theme => {
       readFile(join(cwd, file), 'utf8', (err, data) => {
         if (err) reject(err);
         else {
-          let content = data;
+          let content = `/* file: ${file} */\n` + data;
           if (file.includes(`${themeName}.css`)) {
             content = content.replace(new RegExp(`\\[data-brand="${themeName}"\\]`, 'g'), 'body');
           }
@@ -45,7 +52,7 @@ const setupTheme = theme => {
 
 const setupAllThemes = async () => {
   const themes = (await fg('../packages/themes/*', { cwd, onlyDirectories: true })).filter(
-    theme => theme.indexOf('core') < 0
+    theme => theme.indexOf('core') < 0 && theme.indexOf('_onhold') < 0
   );
 
   themes.forEach(theme => setupTheme(theme));

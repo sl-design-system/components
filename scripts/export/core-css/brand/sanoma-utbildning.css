@@ -1,6 +1,6 @@
 [data-brand='sanoma-utbildning'] {
-  --sl-brand-icon-typeset-fontWeight-regular: var(--sl-icon-typeset-fontWeight-icon-regular);
-  --sl-brand-icon-typeset-fontWeight-solid: var(--sl-icon-typeset-fontWeight-icon-solid);
+  --sl-brand-icon-typeset-font-weight-regular: var(--sl-icon-typeset-font-weight-icon-regular);
+  --sl-brand-icon-typeset-font-weight-solid: var(--sl-icon-typeset-font-weight-icon-solid);
   --sl-brand-light-color-background-accent-blue-bold: var(--sl-brand-light-color-palette-blue-400);
   --sl-brand-light-color-background-accent-blue-interactive-bold: var(
     --sl-brand-light-color-palette-blue-900
@@ -303,7 +303,7 @@
   );
   --sl-brand-light-color-border-selected: var(--sl-brand-light-color-border-accent-teal-plain);
   --sl-brand-light-color-foreground-accent-blue-bold: var(--sl-brand-light-color-palette-blue-700);
-  --sl-brand-light-color-foreground-accent-blue-onBold: var(
+  --sl-brand-light-color-foreground-accent-blue-on-bold: var(
     --sl-brand-light-color-foreground-inverted-plain
   );
   --sl-brand-light-color-foreground-accent-blue-plain: var(
@@ -312,7 +312,7 @@
   --sl-brand-light-color-foreground-accent-green-bold: var(
     --sl-brand-light-color-palette-green-700
   );
-  --sl-brand-light-color-foreground-accent-green-onBold: var(
+  --sl-brand-light-color-foreground-accent-green-on-bold: var(
     --sl-brand-light-color-foreground-inverted-plain
   );
   --sl-brand-light-color-foreground-accent-green-plain: var(
@@ -320,8 +320,10 @@
   );
   --sl-brand-light-color-foreground-accent-grey-bold: var(--sl-brand-light-color-palette-grey-900);
   --sl-brand-light-color-foreground-accent-grey-faint: var(--sl-brand-light-color-palette-grey-300);
-  --sl-brand-light-color-foreground-accent-grey-onBold: var(--sl-brand-light-color-foreground-bold);
-  --sl-brand-light-color-foreground-accent-grey-onInverted: var(
+  --sl-brand-light-color-foreground-accent-grey-on-bold: var(
+    --sl-brand-light-color-foreground-bold
+  );
+  --sl-brand-light-color-foreground-accent-grey-on-inverted: var(
     --sl-brand-light-color-foreground-bold
   );
   --sl-brand-light-color-foreground-accent-grey-plain: var(--sl-brand-light-color-palette-grey-800);
@@ -334,7 +336,7 @@
   --sl-brand-light-color-foreground-accent-orange-bold: var(
     --sl-brand-light-color-palette-orange-800
   );
-  --sl-brand-light-color-foreground-accent-orange-onBold: var(
+  --sl-brand-light-color-foreground-accent-orange-on-bold: var(
     --sl-brand-light-color-foreground-inverted-plain
   );
   --sl-brand-light-color-foreground-accent-orange-plain: var(
@@ -343,21 +345,21 @@
   --sl-brand-light-color-foreground-accent-purple-bold: var(
     --sl-brand-light-color-palette-purple-800
   );
-  --sl-brand-light-color-foreground-accent-purple-onBold: var(
+  --sl-brand-light-color-foreground-accent-purple-on-bold: var(
     --sl-brand-light-color-foreground-inverted-plain
   );
   --sl-brand-light-color-foreground-accent-purple-plain: var(
     --sl-brand-light-color-background-accent-purple-bold
   );
   --sl-brand-light-color-foreground-accent-red-bold: var(--sl-brand-light-color-palette-red-800);
-  --sl-brand-light-color-foreground-accent-red-onBold: var(
+  --sl-brand-light-color-foreground-accent-red-on-bold: var(
     --sl-brand-light-color-foreground-inverted-plain
   );
   --sl-brand-light-color-foreground-accent-red-plain: var(
     --sl-brand-light-color-background-accent-red-bold
   );
   --sl-brand-light-color-foreground-accent-teal-bold: var(--sl-brand-light-color-palette-teal-800);
-  --sl-brand-light-color-foreground-accent-teal-onBold: var(
+  --sl-brand-light-color-foreground-accent-teal-on-bold: var(
     --sl-brand-light-color-foreground-inverted-plain
   );
   --sl-brand-light-color-foreground-accent-teal-plain: var(
@@ -366,7 +368,7 @@
   --sl-brand-light-color-foreground-accent-yellow-bold: var(
     --sl-brand-light-color-palette-yellow-800
   );
-  --sl-brand-light-color-foreground-accent-yellow-onBold: var(
+  --sl-brand-light-color-foreground-accent-yellow-on-bold: var(
     --sl-brand-light-color-foreground-bold
   );
   --sl-brand-light-color-foreground-accent-yellow-plain: var(
@@ -377,8 +379,8 @@
   --sl-brand-light-color-foreground-caution-bold: var(
     --sl-brand-light-color-foreground-accent-yellow-bold
   );
-  --sl-brand-light-color-foreground-caution-onBold: var(
-    --sl-brand-light-color-foreground-accent-yellow-onBold
+  --sl-brand-light-color-foreground-caution-on-bold: var(
+    --sl-brand-light-color-foreground-accent-yellow-on-bold
   );
   --sl-brand-light-color-foreground-caution-plain: var(
     --sl-brand-light-color-foreground-accent-yellow-plain
@@ -387,20 +389,20 @@
   --sl-brand-light-color-foreground-info-bold: var(
     --sl-brand-light-color-foreground-accent-teal-bold
   );
-  --sl-brand-light-color-foreground-info-onBold: var(
-    --sl-brand-light-color-foreground-accent-teal-onBold
+  --sl-brand-light-color-foreground-info-on-bold: var(
+    --sl-brand-light-color-foreground-accent-teal-on-bold
   );
   --sl-brand-light-color-foreground-info-plain: var(
     --sl-brand-light-color-foreground-accent-teal-plain
   );
   --sl-brand-light-color-foreground-inverted-bold: var(--sl-brand-light-color-palette-grey-000);
-  --sl-brand-light-color-foreground-inverted-onBold: var(--sl-brand-light-color-palette-grey-900);
+  --sl-brand-light-color-foreground-inverted-on-bold: var(--sl-brand-light-color-palette-grey-900);
   --sl-brand-light-color-foreground-inverted-plain: var(--sl-brand-light-color-palette-grey-000);
   --sl-brand-light-color-foreground-negative-bold: var(
     --sl-brand-light-color-foreground-accent-red-bold
   );
-  --sl-brand-light-color-foreground-negative-onBold: var(
-    --sl-brand-light-color-foreground-accent-red-onBold
+  --sl-brand-light-color-foreground-negative-on-bold: var(
+    --sl-brand-light-color-foreground-accent-red-on-bold
   );
   --sl-brand-light-color-foreground-negative-plain: var(
     --sl-brand-light-color-foreground-accent-red-plain
@@ -408,8 +410,8 @@
   --sl-brand-light-color-foreground-neutral-bold: var(
     --sl-brand-light-color-foreground-accent-grey-bold
   );
-  --sl-brand-light-color-foreground-neutral-onBold: var(
-    --sl-brand-light-color-foreground-accent-grey-onBold
+  --sl-brand-light-color-foreground-neutral-on-bold: var(
+    --sl-brand-light-color-foreground-accent-grey-on-bold
   );
   --sl-brand-light-color-foreground-neutral-plain: var(
     --sl-brand-light-color-foreground-accent-grey-subtlest
@@ -418,8 +420,8 @@
   --sl-brand-light-color-foreground-positive-bold: var(
     --sl-brand-light-color-foreground-accent-green-bold
   );
-  --sl-brand-light-color-foreground-positive-onBold: var(
-    --sl-brand-light-color-foreground-accent-green-onBold
+  --sl-brand-light-color-foreground-positive-on-bold: var(
+    --sl-brand-light-color-foreground-accent-green-on-bold
   );
   --sl-brand-light-color-foreground-positive-plain: var(
     --sl-brand-light-color-foreground-accent-green-plain
@@ -427,20 +429,20 @@
   --sl-brand-light-color-foreground-primary-bold: var(
     --sl-brand-light-color-foreground-accent-teal-bold
   );
-  --sl-brand-light-color-foreground-primary-onBold: var(
-    --sl-brand-light-color-foreground-accent-teal-onBold
+  --sl-brand-light-color-foreground-primary-on-bold: var(
+    --sl-brand-light-color-foreground-accent-teal-on-bold
   );
   --sl-brand-light-color-foreground-secondary-bold: var(
     --sl-brand-light-color-foreground-accent-grey-bold
   );
-  --sl-brand-light-color-foreground-secondary-onBold: var(
-    --sl-brand-light-color-foreground-accent-grey-onBold
+  --sl-brand-light-color-foreground-secondary-on-bold: var(
+    --sl-brand-light-color-foreground-accent-grey-on-bold
   );
   --sl-brand-light-color-foreground-selected-bold: var(
     --sl-brand-light-color-foreground-accent-teal-bold
   );
-  --sl-brand-light-color-foreground-selected-onBold: var(
-    --sl-brand-light-color-foreground-accent-teal-onBold
+  --sl-brand-light-color-foreground-selected-on-bold: var(
+    --sl-brand-light-color-foreground-accent-teal-on-bold
   );
   --sl-brand-light-color-foreground-selected-plain: var(
     --sl-brand-light-color-foreground-accent-teal-plain
@@ -554,6 +556,9 @@
   --sl-brand-light-color-palette-yellow-700: #7f3f14;
   --sl-brand-light-color-palette-yellow-800: #6d3416;
   --sl-brand-light-color-palette-yellow-900: #3f1909;
+  --sl-brand-light-color-shadow-overflow1: #22222229;
+  --sl-brand-light-color-shadow-overlay1: #2222220a;
+  --sl-brand-light-color-shadow-overlay2: #2222221f;
   --sl-brand-light-color-skeleton-plain: var(--sl-brand-light-color-palette-grey-100);
   --sl-brand-light-color-skeleton-subtle: var(--sl-brand-light-color-palette-grey-050);
   --sl-brand-light-elevation-surface-base-default: var(--sl-brand-light-color-palette-grey-000);
@@ -581,16 +586,16 @@
   --sl-brand-light-opacity-muted: 0;
   --sl-brand-light-opacity-subtle: 0.2;
   --sl-brand-light-opacity-subtlest: 0.1;
-  --sl-brand-size-borderRadius-child: calc(var(--sl-size-borderRadius-md) / 2);
-  --sl-brand-size-borderRadius-default: var(--sl-size-borderRadius-md);
-  --sl-brand-size-borderRadius-focusRing-inside: calc(
-    var(--sl-brand-size-borderRadius-default) - 1px
+  --sl-brand-size-border-radius-child: calc(var(--sl-size-border-radius-md) / 2);
+  --sl-brand-size-border-radius-default: var(--sl-size-border-radius-md);
+  --sl-brand-size-border-radius-focus-ring-inside: calc(
+    var(--sl-brand-size-border-radius-default) - 1px
   );
-  --sl-brand-size-borderRadius-focusRing-outside: calc(
-    var(--sl-brand-size-borderRadius-default) + 2px
+  --sl-brand-size-border-radius-focus-ring-outside: calc(
+    var(--sl-brand-size-border-radius-default) + 2px
   );
-  --sl-brand-size-borderWidth-action: var(--sl-size-borderWidth-subtle);
-  --sl-brand-size-borderWidth-default: var(--sl-size-borderWidth-subtle);
+  --sl-brand-size-border-width-action: var(--sl-size-border-width-subtle);
+  --sl-brand-size-border-width-default: var(--sl-size-border-width-subtle);
   --sl-brand-size-icon-font-2xl: var(--sl-size-new-icon-2xl);
   --sl-brand-size-icon-font-2xs: var(--sl-size-new-icon-2xs);
   --sl-brand-size-icon-font-3xl: var(--sl-size-new-icon-3xl);
@@ -600,7 +605,7 @@
   --sl-brand-size-icon-font-sm: var(--sl-size-new-icon-sm);
   --sl-brand-size-icon-font-xl: var(--sl-size-new-icon-xl);
   --sl-brand-size-icon-font-xs: var(--sl-size-new-icon-xs);
-  --sl-brand-size-outlineWidth-default: var(--sl-size-borderWidth-bold);
+  --sl-brand-size-outline-width-default: var(--sl-size-border-width-bold);
   --sl-brand-size-text-new-body-lg: var(--sl-size-font-200);
   --sl-brand-size-text-new-body-md: var(--sl-size-font-175);
   --sl-brand-size-text-new-body-sm: var(--sl-size-font-150);
@@ -610,49 +615,52 @@
   --sl-brand-size-text-new-heading-sm: var(--sl-size-font-175);
   --sl-brand-size-text-new-heading-xl: var(--sl-size-font-400);
   --sl-brand-space-offset-default: var(--sl-space-075);
-  --sl-brand-text-new-body-lg-fontFamily: Roboto;
-  --sl-brand-text-new-body-lg-fontSize: 16px;
-  --sl-brand-text-new-body-lg-fontWeight: 400;
-  --sl-brand-text-new-body-lg-lineHeight: 24px;
-  --sl-brand-text-new-body-md-fontFamily: Roboto;
-  --sl-brand-text-new-body-md-fontSize: 14px;
-  --sl-brand-text-new-body-md-fontWeight: 400;
-  --sl-brand-text-new-body-md-lineHeight: 20px;
-  --sl-brand-text-new-body-sm-fontFamily: Roboto;
-  --sl-brand-text-new-body-sm-fontSize: 12px;
-  --sl-brand-text-new-body-sm-fontWeight: 400;
-  --sl-brand-text-new-body-sm-lineHeight: 16px;
-  --sl-brand-text-new-heading-2xl-fontFamily: 'The Message';
-  --sl-brand-text-new-heading-2xl-fontSize: 48px;
-  --sl-brand-text-new-heading-2xl-lineHeight: 48px;
-  --sl-brand-text-new-heading-lg-fontFamily: 'The Message';
-  --sl-brand-text-new-heading-lg-fontSize: 24px;
-  --sl-brand-text-new-heading-lg-lineHeight: 32px;
-  --sl-brand-text-new-heading-md-fontFamily: 'The Message';
-  --sl-brand-text-new-heading-md-fontSize: 16px;
-  --sl-brand-text-new-heading-md-lineHeight: 20px;
-  --sl-brand-text-new-heading-sm-fontFamily: 'The Message';
-  --sl-brand-text-new-heading-sm-fontSize: 14px;
-  --sl-brand-text-new-heading-sm-lineHeight: 20px;
-  --sl-brand-text-new-heading-xl-fontFamily: 'The Message';
-  --sl-brand-text-new-heading-xl-fontSize: 32px;
-  --sl-brand-text-new-heading-xl-lineHeight: 40px;
-  --sl-brand-text-new-icon-outline-fontFamily: 'Font Awesome 7 Pro';
-  --sl-brand-text-new-icon-outline-fontWeight: regular;
-  --sl-brand-text-new-icon-solid-fontFamily: 'Font Awesome 7 Pro';
-  --sl-brand-text-new-icon-solid-fontWeight: solid;
-  --sl-brand-text-new-input-lg-fontFamily: Roboto;
-  --sl-brand-text-new-input-lg-fontSize: 14px;
-  --sl-brand-text-new-input-lg-lineHeight: 32px;
-  --sl-brand-text-new-input-md-fontFamily: Roboto;
-  --sl-brand-text-new-input-md-fontSize: 14px;
-  --sl-brand-text-new-input-md-lineHeight: 24px;
-  --sl-brand-text-new-typeset-fontFamily-body: Roboto;
-  --sl-brand-text-new-typeset-fontFamily-heading: 'The Message';
-  --sl-brand-text-new-typeset-fontFamily-icon: 'Font Awesome 7 Pro';
-  --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
-  --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-500);
-  --sl-computed-color-shadow-overflow1: var(--sl-computed-sanoma-utbildning-color-shadow-overflow1);
-  --sl-computed-color-shadow-overlay1: var(--sl-computed-sanoma-utbildning-color-shadow-overlay1);
-  --sl-computed-color-shadow-overlay2: var(--sl-computed-sanoma-utbildning-color-shadow-overlay2);
+  --sl-brand-text-new-body-lg-font-family: Roboto;
+  --sl-brand-text-new-body-lg-font-size: 16px;
+  --sl-brand-text-new-body-lg-font-weight: 400;
+  --sl-brand-text-new-body-lg-line-height: 24px;
+  --sl-brand-text-new-body-md-font-family: Roboto;
+  --sl-brand-text-new-body-md-font-size: 14px;
+  --sl-brand-text-new-body-md-font-weight: 400;
+  --sl-brand-text-new-body-md-line-height: 20px;
+  --sl-brand-text-new-body-sm-font-family: Roboto;
+  --sl-brand-text-new-body-sm-font-size: 12px;
+  --sl-brand-text-new-body-sm-font-weight: 400;
+  --sl-brand-text-new-body-sm-line-height: 16px;
+  --sl-brand-text-new-heading-2xl-font-family: 'The Message';
+  --sl-brand-text-new-heading-2xl-font-size: 48px;
+  --sl-brand-text-new-heading-2xl-line-height: 48px;
+  --sl-brand-text-new-heading-lg-font-family: 'The Message';
+  --sl-brand-text-new-heading-lg-font-size: 24px;
+  --sl-brand-text-new-heading-lg-line-height: 32px;
+  --sl-brand-text-new-heading-md-font-family: 'The Message';
+  --sl-brand-text-new-heading-md-font-size: 16px;
+  --sl-brand-text-new-heading-md-line-height: 20px;
+  --sl-brand-text-new-heading-sm-font-family: 'The Message';
+  --sl-brand-text-new-heading-sm-font-size: 14px;
+  --sl-brand-text-new-heading-sm-line-height: 20px;
+  --sl-brand-text-new-heading-xl-font-family: 'The Message';
+  --sl-brand-text-new-heading-xl-font-size: 32px;
+  --sl-brand-text-new-heading-xl-line-height: 40px;
+  --sl-brand-text-new-icon-outline-font-family: 'Font Awesome 7 Pro';
+  --sl-brand-text-new-icon-outline-font-weight: regular;
+  --sl-brand-text-new-icon-solid-font-family: 'Font Awesome 7 Pro';
+  --sl-brand-text-new-icon-solid-font-weight: solid;
+  --sl-brand-text-new-input-lg-font-family: Roboto;
+  --sl-brand-text-new-input-lg-font-size: 14px;
+  --sl-brand-text-new-input-lg-line-height: 32px;
+  --sl-brand-text-new-input-md-font-family: Roboto;
+  --sl-brand-text-new-input-md-font-size: 14px;
+  --sl-brand-text-new-input-md-line-height: 24px;
+  --sl-brand-text-new-typeset-font-family-body: Roboto;
+  --sl-brand-text-new-typeset-font-family-heading: 'The Message';
+  --sl-brand-text-new-typeset-font-family-icon: 'Font Awesome 7 Pro';
+  --sl-brand-text-new-typeset-font-weight-regular: var(--sl-font-weight-400);
+  --sl-brand-text-new-typeset-font-weight-semi-bold: var(--sl-font-weight-500);
+  --sl-caption-font-family: Roboto;
+  --sl-display-font-family: 'The Message';
+  --sl-heading-font-family: 'The Message';
+  --sl-label-font-family: Roboto;
+  --sl-text-font-family: Roboto;
+  --sl-title-font-family: Roboto;
 }

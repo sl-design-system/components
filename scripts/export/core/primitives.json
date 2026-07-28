@@ -3,52 +3,102 @@
     "100": {
       "$value": "100",
       "$type": "fontWeight",
-      "$description": "hairline, thin"
+      "$description": "hairline, thin",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "200": {
       "$value": "200",
       "$type": "fontWeight",
-      "$description": "extra light, ultra, light"
+      "$description": "extra light, ultra, light",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "300": {
       "$value": "300",
       "$type": "fontWeight",
-      "$description": "light"
+      "$description": "light",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "400": {
       "$value": "400",
       "$type": "fontWeight",
-      "$description": "regular, normal, book"
+      "$description": "regular, normal, book",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "500": {
       "$value": "500",
       "$type": "fontWeight",
-      "$description": "medium"
+      "$description": "medium",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "600": {
       "$value": "600",
       "$type": "fontWeight",
-      "$description": "semi bold, demi bold"
+      "$description": "semi bold, demi bold",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "700": {
       "$value": "700",
       "$type": "fontWeight",
-      "$description": "bold"
+      "$description": "bold",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "800": {
       "$value": "800",
       "$type": "fontWeight",
-      "$description": "extra bold, ultra bold"
+      "$description": "extra bold, ultra bold",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "900": {
       "$value": "900",
       "$type": "fontWeight",
-      "$description": "black, heavy, super"
+      "$description": "black, heavy, super",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     },
     "950": {
       "$value": "950",
       "$type": "fontWeight",
-      "$description": "ultra, ultra black, extra black"
+      "$description": "ultra, ultra black, extra black",
+      "$extensions": {
+        "com.figma": {
+          "scopes": ["FONT_WEIGHT"]
+        }
+      }
     }
   },
   "opacity-new": {

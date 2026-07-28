@@ -1563,6 +1563,20 @@
             }
           }
         },
+        "shadow": {
+          "overflow1": {
+            "$value": "set_alpha({brand.dark.elevation.surface.shadow}, 0.16)",
+            "$type": "color"
+          },
+          "overlay1": {
+            "$value": "set_alpha({brand.dark.elevation.surface.shadow}, 0.04)",
+            "$type": "color"
+          },
+          "overlay2": {
+            "$value": "set_alpha({brand.dark.elevation.surface.shadow}, 0.12)",
+            "$type": "color"
+          }
+        },
         "skeleton": {
           "plain": {
             "$value": "set_alpha({brand.dark.color.palette.grey.900}, 0.05)",

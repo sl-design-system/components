@@ -4,11 +4,21 @@
       "fontWeight": {
         "regular": {
           "$value": "{icon.typeset.fontWeight.icon-regular}",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         },
         "solid": {
           "$value": "{icon.typeset.fontWeight.icon-solid}",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         }
       }
     }
@@ -54,39 +64,84 @@
       "font": {
         "2xl": {
           "$value": "{brand.size.icon.font.2xl}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "2xs": {
           "$value": "{size-new.icon.2xs}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "3xl": {
           "$value": "{brand.size.icon.font.3xl}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "4xl": {
           "$value": "{brand.size.icon.font.4xl}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "lg": {
           "$value": "{brand.size.icon.font.lg}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "md": {
           "$value": "{brand.size.icon.font.md}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "sm": {
           "$value": "{brand.size.icon.font.sm}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "xl": {
           "$value": "{brand.size.icon.font.xl}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "xs": {
           "$value": "{brand.size.icon.font.xs}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         }
       }
     },
@@ -101,38 +156,78 @@
       "body": {
         "lg": {
           "$value": "{brand.size.text-new.body.lg}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "md": {
           "$value": "{brand.size.text-new.body.md}",
           "$type": "fontSize",
-          "$description": "default text size for body"
+          "$description": "default text size for body",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "sm": {
           "$value": "{brand.size.text-new.body.sm}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         }
       },
       "heading": {
         "2xl": {
           "$value": "{brand.size.text-new.heading.2xl}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "lg": {
           "$value": "{brand.size.text-new.heading.lg}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "md": {
           "$value": "{brand.size.text-new.heading.md}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "sm": {
           "$value": "{brand.size.text-new.heading.sm}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         },
         "xl": {
           "$value": "{brand.size.text-new.heading.xl}",
-          "$type": "fontSize"
+          "$type": "fontSize",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_SIZE"]
+            }
+          }
         }
       }
     }
@@ -221,11 +316,21 @@
       "fontWeight": {
         "regular": {
           "$value": "{brand.text-new.typeset.fontWeight.regular}",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         },
         "semiBold": {
           "$value": "{brand.text-new.typeset.fontWeight.semiBold}",
-          "$type": "fontWeight"
+          "$type": "fontWeight",
+          "$extensions": {
+            "com.figma": {
+              "scopes": ["FONT_WEIGHT"]
+            }
+          }
         }
       }
     }

@@ -1,0 +1,30 @@
+name: Label Outside Contributor Issues
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+  issues:
+    types: [opened]
+  # Allow manual trigger for testing
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+  organization-teams: read
+
+jobs:
+  label-external-issues:
+    runs-on: ubuntu-latest
+    name: Label External Contributor Issues
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run label script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/label-outside-contributors.sh

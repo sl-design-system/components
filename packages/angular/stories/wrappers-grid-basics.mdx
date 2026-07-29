@@ -7,18 +7,21 @@ import * as GridBasicsStories from './wrappers-grid.stories';
 
 This section shows the basic setup of the Angular Grid wrapper.
 
-Use these examples to learn columns, headers, grouped columns, ellipsis, and striped rows.
-
 ## Basic
 
-A grid displays tabular data in rows and columns. This example shows a basic setup with static data and simple columns.
+A basic grid with avatar rendering in the student column.
 
 ### Template
 
 ```html
 <sl-grid [items]="students" [noSkipLinks]="true">
   <sl-grid-column [grow]="0" header="Nr." path="id"></sl-grid-column>
-  <sl-grid-column [grow]="3" header="Student" path="fullName"></sl-grid-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    path="fullName"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
   <sl-grid-column header="Date of birth" path="dateOfBirth"></sl-grid-column>
   <sl-grid-column header="School" path="school.name"></sl-grid-column>
 </sl-grid>
@@ -27,14 +30,25 @@ A grid displays tabular data in rows and columns. This example shows a basic set
 ### Props
 
 ```typescript
-{
-  students: Student[];
-}
+const avatarRenderer = (student: Student) => {
+  const { firstName, infix, lastName, pictureUrl } = student;
+
+  return html`
+    <sl-avatar
+      .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}
+      .pictureUrl=${pictureUrl}
+      size="sm"></sl-avatar>
+  `;
+};
+
+const avatarScopedElements = { 'sl-avatar': Avatar };
+
+// students: Student[] loaded via getStudents({ count: 50 })
 ```
 
 ## Column groups
 
-You can group related columns by using `sl-grid-column-group` for clearer table structure.
+Group related columns with shared group headers.
 
 ### Template
 
@@ -61,7 +75,7 @@ You can group related columns by using `sl-grid-column-group` for clearer table 
 
 ## Header
 
-Customize column header labels by setting the `header` attribute per column.
+Customize user-facing header labels.
 
 ### Template
 
@@ -84,7 +98,7 @@ Customize column header labels by setting the `header` attribute per column.
 
 ## Ellipsize text
 
-Use `ellipsize-text` to truncate long text values while keeping columns compact and readable.
+Truncate overflowing text and show full value in a tooltip.
 
 ### Template
 
@@ -93,9 +107,13 @@ Use `ellipsize-text` to truncate long text values while keeping columns compact 
   [items]="students"
   [ellipsizeText]="true"
   [noSkipLinks]="true"
-  style="max-inline-size: 700px">
-  <sl-grid-column path="fullName"></sl-grid-column>
+  style="max-inline-size: 500px">
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
   <sl-grid-column path="school.name"></sl-grid-column>
+  <sl-grid-column path="school.address"></sl-grid-column>
+  <sl-grid-column path="school.city"></sl-grid-column>
+  <sl-grid-column path="school.country"></sl-grid-column>
 </sl-grid>
 ```
 
@@ -109,7 +127,7 @@ Use `ellipsize-text` to truncate long text values while keeping columns compact 
 
 ## Striped
 
-Use striped rows to improve readability in larger datasets.
+Enable alternating row backgrounds for readability.
 
 ### Template
 
@@ -127,4 +145,255 @@ Use striped rows to improve readability in larger datasets.
 {
   students: Student[];
 }
+```
+
+## Keyboard header scroll
+
+Navigate sortable headers with keyboard in a horizontally scrollable grid.
+
+### Template
+
+```html
+<sl-grid [items]="students" style="inline-size: 320px" [noSkipLinks]="true">
+  <sl-grid-selection-column [sticky]="true"></sl-grid-selection-column>
+  <sl-grid-sort-column [grow]="0" path="firstName" [width]="220"></sl-grid-sort-column>
+  <sl-grid-sort-column [grow]="0" path="lastName" [width]="220"></sl-grid-sort-column>
+  <sl-grid-sort-column [grow]="0" path="email" [width]="260"></sl-grid-sort-column>
+  <sl-grid-sort-column [grow]="0" path="school.name" [width]="260"></sl-grid-sort-column>
+</sl-grid>
+<button type="button">Focus after grid</button>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## Menu button
+
+Render row-level actions with a custom `sl-menu-button` cell renderer.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    path="fullName"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column
+    [grow]="0"
+    header="Actions"
+    [hideHeaderText]="true"
+    [renderer]="menuButtonRenderer"
+    [scopedElements]="menuButtonScopedElements"
+    [width]="48"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const menuButtonRenderer = () => html`
+  <sl-menu-button fill="ghost" size="sm">
+    <sl-icon slot="button" name="ellipsis"></sl-icon>
+    <sl-menu-item>Do something with this student</sl-menu-item>
+    <sl-menu-item>Something else</sl-menu-item>
+    <hr />
+    <sl-menu-item>Delete person</sl-menu-item>
+  </sl-menu-button>
+`;
+
+const menuButtonScopedElements = {
+  'sl-icon': Icon,
+  'sl-menu-button': MenuButton,
+  'sl-menu-item': MenuItem
+};
+
+// plus students, avatarRenderer and avatarScopedElements from Basic
+```
+
+## Skip links
+
+Use default grid skip-link behavior to jump past large tables when navigating by keyboard.
+
+### Template
+
+```html
+<sl-grid [items]="students">
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="email" [renderer]="linkRenderer"></sl-grid-column>
+  <sl-grid-column path="school.address"></sl-grid-column>
+  <sl-grid-column path="school.city"></sl-grid-column>
+</sl-grid>
+<p>A paragraph that follows the table, with a <a href="#">link</a> in it.</p>
+```
+
+### Props
+
+```typescript
+const linkRenderer = (student: Student) =>
+  html`<a href="mailto:${student.email}">${student.email}</a>`;
+
+// students: Student[] loaded via getStudents({ count: 50 })
+```
+
+## Lazy load
+
+Load data on demand with `FetchListDataSource`.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-column path="id" [grow]="0" [width]="50"></sl-grid-column>
+  <sl-grid-column path="quote" [grow]="3"></sl-grid-column>
+  <sl-grid-column path="author"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+interface Quote {
+  id: string;
+  quote: string;
+  author: string;
+}
+
+interface QuotesResponse {
+  quotes: Quote[];
+  total: number;
+  skip: number;
+  limit: number;
+}
+
+const ds = new FetchListDataSource<Quote>({
+  pageSize: 30,
+  fetchPage: async ({ page, pageSize }) => {
+    const response = await fetch(
+      `https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`
+    );
+
+    if (!response.ok) {
+      throw new FetchListDataSourceError('Failed to fetch data', response);
+    }
+
+    const { quotes, total } = (await response.json()) as QuotesResponse;
+
+    return { items: quotes, totalItems: total };
+  }
+});
+```
+
+## Skeleton
+
+Render placeholders while async data is loading.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-column
+    [grow]="0"
+    [autoWidth]="false"
+    header="Nr."
+    path="studentNumber"
+    [width]="160"></sl-grid-column>
+  <sl-grid-column
+    header="Student"
+    [renderer]="skeletonAvatarRenderer"
+    [scopedElements]="skeletonScopedElements"></sl-grid-column>
+  <sl-grid-column header="School" path="school.name"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const skeletonAvatarRenderer = (item: Student | symbol) => {
+  if (typeof item === 'symbol' && item === ListDataSourcePlaceholder) {
+    return html`
+      <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
+        <sl-skeleton
+          style="aspect-ratio: 1; block-size: var(--sl-size-300); inline-size: auto"
+          variant="circle"></sl-skeleton>
+        <sl-skeleton
+          style="block-size: 18px; inline-size: ${Math.max(
+            Math.random() * 100,
+            30
+          )}%"></sl-skeleton>
+      </div>
+    `;
+  }
+
+  const { firstName, infix, lastName, pictureUrl } = item as Student;
+
+  return html`
+    <sl-avatar
+      .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}
+      .pictureUrl=${pictureUrl}
+      size="sm"></sl-avatar>
+  `;
+};
+
+const ds = new FetchListDataSource<Student>({
+  pageSize: 30,
+  fetchPage: async ({ page, pageSize }) => {
+    const { students, total } = await getStudents({
+      count: pageSize,
+      startIndex: page * pageSize
+    });
+
+    // Simulate slow network so placeholders are visible.
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    return { items: students, totalItems: total };
+  },
+  size: Math.floor(window.innerHeight / 30)
+});
+
+const skeletonScopedElements = { 'sl-avatar': Avatar };
+```
+
+## Reorder columns
+
+Shuffle visible column order dynamically.
+
+### Template
+
+```html
+<sl-button-bar style="margin-block-end: 1rem">
+  <sl-button (click)="reorder()">Reorder columns</sl-button>
+</sl-button-bar>
+<sl-grid [items]="students" [noSkipLinks]="true">
+  @for (col of columns; track col.path) {
+  <sl-grid-column [path]="col.path" [header]="col.header"></sl-grid-column>
+  }
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const columns = [
+  { path: 'fullName', header: 'Student' },
+  { path: 'email', header: 'Email' },
+  { path: 'group.name', header: 'Group' },
+  { path: 'school.name', header: 'School' }
+];
+
+const reorder = (): void => {
+  // Keep array reference and reorder items in place.
+  columns.sort(() => Math.random() - 0.5);
+};
+
+// students: Student[] loaded via getStudents({ count: 50 })
 ```

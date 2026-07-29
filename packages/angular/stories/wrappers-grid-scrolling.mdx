@@ -7,21 +7,67 @@ import * as GridScrollingStories from './wrappers-grid-scrolling.stories';
 
 This section shows scrolling behavior in the Angular Grid wrapper.
 
-Use these examples to test horizontal scrolling with fixed widths.
+## Vertical
 
-## Basic
+Vertical scrolling with constrained grid height.
 
-This example shows horizontal scrolling with a constrained grid width.
+### Template
+
+```html
+<sl-grid [items]="students" style="block-size: 400px" [noSkipLinks]="true">
+  <sl-grid-column path="id" header="Nr."></sl-grid-column>
+  <sl-grid-column [grow]="3" path="fullName" header="Student"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## Horizontal
+
+Horizontal scrolling with fixed-width columns and constrained inline size.
 
 ### Template
 
 ```html
 <sl-grid [items]="students" style="inline-size: 420px" [noSkipLinks]="true">
-  <sl-grid-column path="id" width="140"></sl-grid-column>
-  <sl-grid-column path="firstName" width="180"></sl-grid-column>
-  <sl-grid-column path="lastName" width="180"></sl-grid-column>
+  <sl-grid-column path="id" header="Nr." width="140"></sl-grid-column>
+  <sl-grid-column path="firstName" header="First name" width="180"></sl-grid-column>
+  <sl-grid-column path="lastName" header="Last name" width="180"></sl-grid-column>
   <sl-grid-column path="email" width="280"></sl-grid-column>
-  <sl-grid-column path="school.name" width="200"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School" width="200"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## Both
+
+Combined vertical and horizontal scrolling with constrained width and height.
+
+### Template
+
+```html
+<sl-grid [items]="students" style="inline-size: 500px; block-size: 400px" [noSkipLinks]="true">
+  <sl-grid-column path="id" header="Nr." width="100"></sl-grid-column>
+  <sl-grid-column path="firstName" header="First name" width="150"></sl-grid-column>
+  <sl-grid-column path="lastName" header="Last name" width="150"></sl-grid-column>
+  <sl-grid-column path="email" width="250"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School" width="180"></sl-grid-column>
+  <sl-grid-column path="group.name" header="Group" width="150"></sl-grid-column>
 </sl-grid>
 ```
 

@@ -7,19 +7,22 @@ import * as GridDragAndDropStories from './wrappers-grid-drag-and-drop.stories';
 
 This section shows drag-and-drop support in the Angular Grid wrapper.
 
-Use these examples to reorder rows with a drag handle column.
-
 ## Basic
 
-Enable row reordering with a drag handle column.
+Basic row reordering with a drag handle and avatar-rendered student column.
 
 ### Template
 
 ```html
-<sl-grid [items]="students" [draggableRows]="true" [noSkipLinks]="true">
-  <sl-grid-drag-handle-column header="Drag"></sl-grid-drag-handle-column>
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
   <sl-grid-column path="id" header="Nr."></sl-grid-column>
-  <sl-grid-column path="fullName" header="Student"></sl-grid-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    path="fullName"
+    [renderer]="avatarRenderer"
+    [scopedElements]="scopedElements"></sl-grid-column>
   <sl-grid-column path="school.name" header="School"></sl-grid-column>
 </sl-grid>
 ```
@@ -27,7 +30,107 @@ Enable row reordering with a drag handle column.
 ### Props
 
 ```typescript
-{
-  students: Student[];
-}
+const avatarRenderer = (student: Student) => {
+  const { firstName, infix, lastName, pictureUrl } = student;
+
+  return html`
+    <sl-avatar
+      .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}
+      .pictureUrl=${pictureUrl}
+      size="sm"></sl-avatar>
+  `;
+};
+
+const scopedElements = { 'sl-avatar': Avatar };
+
+// students: Student[] loaded via getStudents({ count: 20 })
+```
+
+## On top
+
+Drop rows on top of other rows and filter valid drop targets.
+
+### Template
+
+```html
+<sl-grid
+  [items]="people"
+  draggableRows="on-top"
+  [dropFilter]="dropFilter"
+  [noSkipLinks]="true"
+  (slGridDrop)="onDrop($event)">
+  <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="profession"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const dropFilter = (person: Person): boolean => {
+  return (person as Person & { membership?: string }).membership !== 'Regular';
+};
+
+const onDrop = (event: Event): void => {
+  const detail = (event as CustomEvent<{ item: Person; relativeItem: Person }>).detail;
+  console.log('Dropped', detail.item, detail.relativeItem);
+};
+
+// people: Person[] loaded via getPeople({ count: 20 })
+```
+
+## Fixed
+
+Control which rows can be dragged by binding the drag handle column to a boolean path.
+
+### Template
+
+```html
+<sl-grid [items]="people" [noSkipLinks]="true">
+  <sl-grid-drag-handle-column path="draggable"></sl-grid-drag-handle-column>
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="profession"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const people = (loadedPeople as Array<Person & { draggable: boolean }>).map((person, index) => ({
+  ...person,
+  draggable: index > 0 && index <= 15
+}));
+```
+
+## Grouping
+
+Combine drag and drop with grouped data.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="profession"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const ds = new ArrayListDataSource(people, {
+  groupBy: 'profession',
+  groupLabelPath: 'profession'
+});
+
+// people: Person[] loaded via getPeople({ count: 30 })
 ```

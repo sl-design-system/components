@@ -7,20 +7,61 @@ import * as GridSelectionStories from './wrappers-grid-selection.stories';
 
 This section shows selection features in the Angular Grid wrapper.
 
-Use these examples to select one or multiple rows.
+## Activate
 
-## Basic
-
-Add a selection column and enable multiple row selection.
+Activate a row by clicking anywhere on it.
 
 ### Template
 
 ```html
-<sl-grid [items]="students" selects="multiple" [noSkipLinks]="true">
+<p id="activation-message">You have not activated anybody yet.</p>
+<sl-grid
+  [items]="students"
+  rowAction="activate"
+  [noSkipLinks]="true"
+  (slGridActiveRowChange)="onActiveRowChange($event)">
+  <sl-grid-column [grow]="3" header="Student" path="fullName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+let message = 'You have not activated anybody yet.';
+
+const onActiveRowChange = (event: Event): void => {
+  const student = (event as CustomEvent<Student>).detail;
+  message = student
+    ? `You have activated ${student.fullName}.`
+    : 'You have not activated anybody yet.';
+
+  (event.target as HTMLElement).closest('div')!.querySelector('#activation-message')!.textContent =
+    message;
+};
+
+// students: Student[] loaded via getStudents({ count: 30 })
+```
+
+## Multiple
+
+Select multiple rows using the selection column and show bulk actions.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
   <sl-grid-selection-column></sl-grid-selection-column>
-  <sl-grid-column path="id" header="Nr."></sl-grid-column>
-  <sl-grid-column path="fullName" header="Student"></sl-grid-column>
-  <sl-grid-column path="email" header="Email"></sl-grid-column>
+  <sl-grid-column [grow]="3" header="Student" path="fullName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Duplicate</sl-button>
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
+  <sl-button [disabled]="true" fill="outline" slot="bulk-actions" variant="inverted"
+    >Action 1</sl-button
+  >
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Action 2</sl-button>
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Action 3</sl-button>
 </sl-grid>
 ```
 
@@ -30,4 +71,185 @@ Add a selection column and enable multiple row selection.
 {
   students: Student[];
 }
+```
+
+## Multiple row
+
+Select rows by clicking the row (`rowAction="select"`) and run bulk actions against a data source.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" rowAction="select" [noSkipLinks]="true">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column [grow]="3" header="Student" path="fullName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted" (click)="onCopy()"
+    >Duplicate</sl-button
+  >
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted" (click)="onDelete()"
+    >Delete</sl-button
+  >
+</sl-grid>
+```
+
+### Props
+
+```typescript
+let data = [...students];
+const ds = new ArrayListDataSource(data);
+
+const onCopy = (): void => {
+  const ids = ds.items
+    .filter(item => ds.isSelected(item))
+    .filter(item => isListDataSourceDataItem(item))
+    .map(item => item.data.id);
+
+  data = data.flatMap(student => {
+    if (ids.includes(student.id)) {
+      return [
+        student,
+        {
+          ...student,
+          id: `${student.id}-copy`,
+          lastName: `${student.lastName} (copy)`,
+          fullName: `${student.firstName}${student.infix ? ` ${student.infix}` : ''} ${student.lastName} (copy)`
+        }
+      ];
+    }
+
+    return [student];
+  });
+
+  ds.setData(data);
+  ds.update();
+};
+
+const onDelete = (): void => {
+  const ids = ds.items
+    .filter(item => ds.isSelected(item))
+    .filter(item => isListDataSourceDataItem(item))
+    .map(item => item.data.id);
+
+  data = data.filter(student => !ids.includes(student.id));
+  ds.setData(data);
+  ds.deselectAll();
+  ds.update();
+};
+```
+
+## With filtering
+
+Combine selection and filtering.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-filter-column header="Student" path="fullName"></sl-grid-filter-column>
+  <sl-grid-filter-column header="School" labelPath="school.name" mode="select" path="school.id">
+  </sl-grid-filter-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## With links
+
+Mixed behavior: row activation plus checkbox-based selection and bulk actions.
+
+### Template
+
+```html
+<p id="selection-message">You have not activated or selected anybody yet.</p>
+<sl-grid
+  [items]="students"
+  rowAction="activate"
+  [noSkipLinks]="true"
+  (slGridActiveRowChange)="onActiveRowChange($event)"
+  (slGridSelectionChange)="onSelectionChange($event)">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column [grow]="3" header="Student" path="fullName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Duplicate</sl-button>
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const onActiveRowChange = (event: Event): void => {
+  const student = (event as CustomEvent<Student>).detail;
+  const el = document.getElementById('selection-message');
+
+  if (el) {
+    el.textContent = student
+      ? `You have activated ${student.fullName}.`
+      : 'You have not activated or selected anybody yet.';
+  }
+};
+
+const onSelectionChange = (event: Event): void => {
+  const detail = (event as CustomEvent<{ grid: { dataSource: { selected: number } } }>).detail;
+  const selected = detail?.grid?.dataSource?.selected ?? 0;
+  const el = document.getElementById('selection-message');
+
+  if (el && selected > 0) {
+    el.textContent = `You have selected ${selected} ${selected > 1 ? 'students' : 'student'}.`;
+  }
+};
+
+// students: Student[] loaded via getStudents({ count: 30 })
+```
+
+## Grouped
+
+Selection in grouped data with bulk delete.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true" [attr.data-story-id]="storyId">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column [grow]="3" header="Student" path="fullName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted" (click)="onDelete()"
+    >Delete</sl-button
+  >
+</sl-grid>
+```
+
+### Props
+
+```typescript
+let data = [...students];
+const ds = new ArrayListDataSource(data, {
+  groupBy: 'school.id',
+  groupLabelPath: 'school.name'
+});
+
+const storyId = `grouped-${Date.now()}`;
+
+const onDelete = (): void => {
+  const ids = ds.items
+    .filter(item => ds.isSelected(item))
+    .filter(item => isListDataSourceDataItem(item))
+    .map(item => item.data.id);
+
+  data = data.filter(student => !ids.includes(student.id));
+  ds.setData(data);
+  ds.deselectAll();
+  ds.update();
+};
 ```

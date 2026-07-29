@@ -7,22 +7,24 @@ import * as GridFilteringStories from './wrappers-grid-filtering.stories';
 
 This section shows filtering options in the Angular Grid wrapper.
 
-Use these examples to filter with text and select filter columns.
-
 ## Basic
 
-Filter by free text and by select options using filter columns.
+Declarative filtering with avatar-rendered student column and school select filter.
 
 ### Template
 
 ```html
 <sl-grid [items]="students" [noSkipLinks]="true">
-  <sl-grid-filter-column path="fullName" header="Student"></sl-grid-filter-column>
+  <sl-grid-filter-column
+    path="fullName"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="scopedElements"></sl-grid-filter-column>
   <sl-grid-filter-column path="group.name" header="Group"></sl-grid-filter-column>
   <sl-grid-filter-column
     path="school.id"
     header="School"
-    label-path="school.name"
+    labelPath="school.name"
     mode="select"></sl-grid-filter-column>
 </sl-grid>
 ```
@@ -30,7 +32,107 @@ Filter by free text and by select options using filter columns.
 ### Props
 
 ```typescript
-{
-  students: Student[];
-}
+const avatarRenderer = (student: Student) => {
+  const { firstName, infix, lastName, pictureUrl } = student;
+
+  return html`
+    <sl-avatar
+      .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}
+      .pictureUrl=${pictureUrl}
+      size="sm"></sl-avatar>
+  `;
+};
+
+const scopedElements = { 'sl-avatar': Avatar };
+
+// students: Student[] loaded via getStudents({ count: 40 })
+```
+
+## Data source
+
+Programmatic filtering through `ArrayListDataSource` with linked filter-column IDs.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-filter-column
+    id="filter-student"
+    path="fullName"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="scopedElements"></sl-grid-filter-column>
+  <sl-grid-filter-column
+    id="filter-school"
+    path="school.id"
+    header="School"
+    labelPath="school.name"
+    mode="select"></sl-grid-filter-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const ds = new ArrayListDataSource(students, {
+  filters: [
+    { id: 'filter-school', by: 'school.id', value: 'school-1' },
+    { id: 'filter-student', by: 'fullName', value: 'ma' }
+  ]
+});
+
+// plus avatarRenderer and scopedElements from Basic
+```
+
+## Selection
+
+Combine filtering with row selection.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-filter-column
+    path="fullName"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="scopedElements"></sl-grid-filter-column>
+  <sl-grid-filter-column path="email"></sl-grid-filter-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+// students: Student[] loaded via getStudents({ count: 40 })
+// plus avatarRenderer and scopedElements from Basic
+```
+
+## Grouped
+
+Combine grouping and filtering with a data source.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-filter-column
+    path="fullName"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="scopedElements"></sl-grid-filter-column>
+  <sl-grid-filter-column path="email"></sl-grid-filter-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const ds = new ArrayListDataSource(students, {
+  groupBy: 'school.id',
+  groupLabelPath: 'school.name'
+});
+
+// plus avatarRenderer and scopedElements from Basic
 ```

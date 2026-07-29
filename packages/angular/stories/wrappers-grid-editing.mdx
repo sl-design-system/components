@@ -19,7 +19,9 @@ Edit a text value directly in a grid column using `sl-grid-text-field-column`.
 <sl-grid [items]="people" [noSkipLinks]="true">
   <sl-grid-column path="firstName"></sl-grid-column>
   <sl-grid-column path="lastName"></sl-grid-column>
-  <sl-grid-column path="profession"></sl-grid-column>
+  <sl-grid-text-field-column
+    path="address.zip"
+    [formControlLabel]="personLabel"></sl-grid-text-field-column>
 </sl-grid>
 ```
 
@@ -28,6 +30,7 @@ Edit a text value directly in a grid column using `sl-grid-text-field-column`.
 ```typescript
 {
   people: Person[];
+  personLabel: ({ firstName, lastName }: Person) => `${firstName} ${lastName}`;
 }
 ```
 
@@ -49,7 +52,7 @@ Use a select editor for controlled values like status.
 
 ```typescript
 {
-  people: Person[];
-  statuses: string[];
+  people: Person[],
+  statuses: ['Available', 'Busy', 'Away']
 }
 ```

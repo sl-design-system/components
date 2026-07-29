@@ -7,11 +7,9 @@ import * as GridPaginationStories from './wrappers-grid-pagination.stories';
 
 This section shows pagination patterns in the Angular Grid wrapper.
 
-Use these examples to connect a grid and paginator to one data source.
-
 ## Basic
 
-Connect a paginator to the same data source as the grid.
+Connect a grid and paginator to one `ArrayListDataSource`.
 
 ### Template
 
@@ -21,13 +19,42 @@ Connect a paginator to the same data source as the grid.
   <sl-grid-column path="fullName" header="Student"></sl-grid-column>
   <sl-grid-column path="school.name" header="School"></sl-grid-column>
 </sl-grid>
-<sl-paginator [dataSource]="ds" page-size="10" page-sizes="5,10,25"></sl-paginator>
+<sl-paginator [dataSource]="ds" pageSize="10" [pageSizes]="pageSizes"></sl-paginator>
 ```
 
 ### Props
 
 ```typescript
-{
-  ds: ArrayListDataSource<Student>;
-}
+const ds = new ArrayListDataSource(students);
+const pageSizes = [5, 10, 25];
+
+// students: Student[] loaded via getStudents({ count: 50 })
+```
+
+## Filtering
+
+Combine filter columns with paginator against the same data source.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-filter-column path="fullName" header="Student"></sl-grid-filter-column>
+  <sl-grid-filter-column
+    path="school.name"
+    header="School"
+    mode="select"
+    labelPath="school.name"></sl-grid-filter-column>
+  <sl-grid-column path="email"></sl-grid-column>
+</sl-grid>
+<sl-paginator [dataSource]="ds" pageSize="10" [pageSizes]="pageSizes"></sl-paginator>
+```
+
+### Props
+
+```typescript
+const ds = new ArrayListDataSource(students);
+const pageSizes = [5, 10, 25];
+
+// students: Student[] loaded via getStudents({ count: 50 })
 ```

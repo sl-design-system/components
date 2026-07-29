@@ -1,5 +1,6 @@
 import '@sl-design-system/button/register.js';
-import { type Meta } from '@storybook/web-components-vite';
+import '@sl-design-system/button-bar/register.js';
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
@@ -108,6 +109,20 @@ export const HoverBridge = {
     showHoverBridge: true,
     text: 'The hotpink area bridges the area between anchor and tooltip, making it possible to move the mouse from the anchor to the tooltip without it disappearing.'
   }
+};
+
+export const Shared: StoryObj<Props> = {
+  args: {
+    text: 'Works on the current selection'
+  },
+  render: ({ text, type }) => html`
+    <sl-button-bar>
+      <sl-button id="copy">Copy</sl-button>
+      <sl-button id="cut">Cut</sl-button>
+      <sl-button id="paste">Paste</sl-button>
+    </sl-button-bar>
+    <sl-tooltip for="copy cut paste" type=${ifDefined(type)}>${text}</sl-tooltip>
+  `
 };
 
 export const All = {

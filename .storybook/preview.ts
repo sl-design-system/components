@@ -9,7 +9,8 @@ import { type Mode, themes, updateTheme } from './themes.js';
 
 // Load the CSS Anchor Positioning polyfill if needed
 if (!('anchorName' in document.documentElement.style)) {
-  window.ANCHOR_POSITIONING_POLYFILL_OPTIONS = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+  (window as any).ANCHOR_POSITIONING_POLYFILL_OPTIONS = {
     positionAreaContainingBlock: false
   };
 

@@ -99,6 +99,7 @@ export class Tooltip extends LitElement {
     const { signal } = this.#eventController;
 
     this.addEventListener('beforetoggle', this.#onBeforeToggle, { signal });
+    this.addEventListener('click', this.#onTooltipClick, { signal });
     this.addEventListener('mouseout', this.#onMouseOut, { signal });
     this.addEventListener('toggle', this.#onToggle, { signal });
 
@@ -245,6 +246,14 @@ export class Tooltip extends LitElement {
     if (event.newState === 'open' && this.anchor) {
       this.#positionHoverBridge(this.anchor);
     }
+  };
+
+  #onTooltipClick = (event: Event): void => {
+    // Tooltips are often rendered in the shadow root of the component they belong to, as a sibling
+    // of the anchor. A click on the tooltip would then be retargeted to the host, making it
+    // indistinguishable from a click on the component itself; that would trigger the menu of an
+    // sl-menu-button, for example. The tooltip is not interactive, so swallow the click.
+    event.stopPropagation();
   };
 
   #hasTrigger(trigger: string): boolean {

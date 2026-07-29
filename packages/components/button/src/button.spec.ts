@@ -738,5 +738,16 @@ describe('sl-button', () => {
       expect(button.ariaDescribedByElements).to.include(span);
       expect(button.ariaDescribedByElements).to.include(tooltip);
     });
+
+    it('should not emit a click event when the tooltip is clicked', async () => {
+      el = await fixture(html`<sl-button tooltip="My tooltip">Hello world</sl-button>`);
+
+      const onClick = spy();
+      el.addEventListener('click', onClick);
+
+      el.renderRoot.querySelector('sl-tooltip')!.click();
+
+      expect(onClick).not.to.have.been.called;
+    });
   });
 });

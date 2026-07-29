@@ -368,4 +368,27 @@ describe('sl-menu-button', () => {
       label.remove();
     });
   });
+
+  describe('tooltip', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-menu-button tooltip="Tooltip">
+          <span slot="button">Button</span>
+
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+      `);
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+      menu = el.renderRoot.querySelector('sl-menu') as Menu;
+    });
+
+    it('should not toggle the menu when the tooltip is clicked', async () => {
+      button.renderRoot.querySelector('sl-tooltip')!.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(menu).not.to.match(':popover-open');
+    });
+  });
 });

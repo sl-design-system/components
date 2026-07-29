@@ -428,6 +428,15 @@ describe('sl-tooltip', () => {
 
       expect(tooltip).not.to.match(':popover-open');
     });
+
+    it('should not propagate clicks on the tooltip itself', () => {
+      const onClick = spy();
+      el.addEventListener('click', onClick);
+
+      tooltip.click();
+
+      expect(onClick).not.to.have.been.called;
+    });
   });
 
   describe('manual trigger', () => {

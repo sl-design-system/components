@@ -129,7 +129,7 @@
   --sl-brand-light-color-background-inverted-interactive-plain: var(
     --sl-brand-light-color-palette-grey-200
   );
-  --sl-brand-light-color-background-inverted-subtle: #ffffff33;
+  --sl-brand-light-color-background-inverted-subtle: #fff3;
   --sl-brand-light-color-background-inverted-subtlest: #ffffff1a;
   --sl-brand-light-color-background-negative-bold: var(
     --sl-brand-light-color-background-accent-red-bold
@@ -481,7 +481,7 @@
   --sl-brand-light-color-palette-green-700: #0a4d25;
   --sl-brand-light-color-palette-green-800: #073318;
   --sl-brand-light-color-palette-green-900: #03180c;
-  --sl-brand-light-color-palette-grey-000: #ffffff;
+  --sl-brand-light-color-palette-grey-000: #fff;
   --sl-brand-light-color-palette-grey-050: #f4f5fa;
   --sl-brand-light-color-palette-grey-100: #ececf1;
   --sl-brand-light-color-palette-grey-150: #e2e3e9;
@@ -607,52 +607,52 @@
   --sl-brand-size-text-new-heading-sm: var(--sl-size-font-175);
   --sl-brand-size-text-new-heading-xl: var(--sl-size-font-400);
   --sl-brand-space-offset-default: var(--sl-space-075);
-  --sl-brand-text-new-body-lg-font-family: Roboto;
+  --sl-brand-text-new-body-lg-font-family: roboto;
   --sl-brand-text-new-body-lg-font-size: 16px;
   --sl-brand-text-new-body-lg-font-weight: 400;
   --sl-brand-text-new-body-lg-line-height: 24px;
-  --sl-brand-text-new-body-md-font-family: Roboto;
+  --sl-brand-text-new-body-md-font-family: roboto;
   --sl-brand-text-new-body-md-font-size: 14px;
   --sl-brand-text-new-body-md-font-weight: 400;
   --sl-brand-text-new-body-md-line-height: 20px;
-  --sl-brand-text-new-body-sm-font-family: Roboto;
+  --sl-brand-text-new-body-sm-font-family: roboto;
   --sl-brand-text-new-body-sm-font-size: 12px;
   --sl-brand-text-new-body-sm-font-weight: 400;
   --sl-brand-text-new-body-sm-line-height: 16px;
-  --sl-brand-text-new-heading-2xl-font-family: Roboto;
+  --sl-brand-text-new-heading-2xl-font-family: roboto;
   --sl-brand-text-new-heading-2xl-font-size: 48px;
   --sl-brand-text-new-heading-2xl-line-height: 48px;
-  --sl-brand-text-new-heading-lg-font-family: Roboto;
+  --sl-brand-text-new-heading-lg-font-family: roboto;
   --sl-brand-text-new-heading-lg-font-size: 24px;
   --sl-brand-text-new-heading-lg-line-height: 32px;
-  --sl-brand-text-new-heading-md-font-family: Roboto;
+  --sl-brand-text-new-heading-md-font-family: roboto;
   --sl-brand-text-new-heading-md-font-size: 16px;
   --sl-brand-text-new-heading-md-line-height: 20px;
-  --sl-brand-text-new-heading-sm-font-family: Roboto;
+  --sl-brand-text-new-heading-sm-font-family: roboto;
   --sl-brand-text-new-heading-sm-font-size: 14px;
   --sl-brand-text-new-heading-sm-line-height: 20px;
-  --sl-brand-text-new-heading-xl-font-family: Roboto;
+  --sl-brand-text-new-heading-xl-font-family: roboto;
   --sl-brand-text-new-heading-xl-font-size: 32px;
   --sl-brand-text-new-heading-xl-line-height: 40px;
   --sl-brand-text-new-icon-outline-font-family: 'Font Awesome 7 Pro';
   --sl-brand-text-new-icon-outline-font-weight: regular;
   --sl-brand-text-new-icon-solid-font-family: 'Font Awesome 7 Pro';
   --sl-brand-text-new-icon-solid-font-weight: solid;
-  --sl-brand-text-new-input-lg-font-family: Roboto;
+  --sl-brand-text-new-input-lg-font-family: roboto;
   --sl-brand-text-new-input-lg-font-size: 14px;
   --sl-brand-text-new-input-lg-line-height: 32px;
-  --sl-brand-text-new-input-md-font-family: Roboto;
+  --sl-brand-text-new-input-md-font-family: roboto;
   --sl-brand-text-new-input-md-font-size: 14px;
   --sl-brand-text-new-input-md-line-height: 24px;
-  --sl-brand-text-new-typeset-font-family-body: Roboto;
-  --sl-brand-text-new-typeset-font-family-heading: Raleway;
+  --sl-brand-text-new-typeset-font-family-body: roboto;
+  --sl-brand-text-new-typeset-font-family-heading: raleway;
   --sl-brand-text-new-typeset-font-family-icon: 'Font Awesome 7 Pro';
   --sl-brand-text-new-typeset-font-weight-regular: var(--sl-font-weight-400);
   --sl-brand-text-new-typeset-font-weight-semi-bold: var(--sl-font-weight-500);
-  --sl-caption-font-family: Roboto;
-  --sl-display-font-family: Raleway;
-  --sl-heading-font-family: Raleway;
-  --sl-label-font-family: Roboto;
-  --sl-text-font-family: Roboto;
-  --sl-title-font-family: Roboto;
+  --sl-caption-font-family: roboto;
+  --sl-display-font-family: raleway;
+  --sl-heading-font-family: raleway;
+  --sl-label-font-family: roboto;
+  --sl-text-font-family: roboto;
+  --sl-title-font-family: roboto;
 }

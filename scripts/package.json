@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
-    "import-tokens": "yarn exec studio pull && yarn node setup-themes.js",
+    "import-tokens": "yarn exec studio pull && yarn stylelint --fix './export/core-css/**/*.css' && yarn node setup-themes.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [
@@ -37,6 +37,7 @@
     "graphql": "^16.13.1",
     "postcss": "^8.5.15",
     "sass": "^1.101.0",
-    "style-dictionary": "^5.1.1"
+    "style-dictionary": "^5.1.1",
+    "stylelint": "^17.14.1"
   }
 }

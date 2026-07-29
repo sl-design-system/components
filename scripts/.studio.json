@@ -6,7 +6,7 @@
       "project": "e650d9a7-1a6d-4c68-b0cc-731b117c214a",
       "ref": {
         "type": "branch",
-        "name": "no-routing-new-setup-typography"
+        "name": "fix-output-to-figma-styles"
       }
     },
     "slds-legacy": {

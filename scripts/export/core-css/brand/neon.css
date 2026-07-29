@@ -288,7 +288,7 @@
   );
   --sl-brand-dark-color-foreground-accent-grey-plain: #ffffffc7;
   --sl-brand-dark-color-foreground-accent-grey-subtle: #ffffffb0;
-  --sl-brand-dark-color-foreground-accent-grey-subtlest: #ffffff99;
+  --sl-brand-dark-color-foreground-accent-grey-subtlest: #fff9;
   --sl-brand-dark-color-foreground-accent-orange-bold: var(
     --sl-brand-dark-color-palette-orange-700
   );
@@ -436,7 +436,7 @@
   --sl-brand-dark-color-palette-grey-600: #c7ccd4;
   --sl-brand-dark-color-palette-grey-700: #e6e6e6;
   --sl-brand-dark-color-palette-grey-800: #f3f3f3;
-  --sl-brand-dark-color-palette-grey-900: #ffffff;
+  --sl-brand-dark-color-palette-grey-900: #fff;
   --sl-brand-dark-color-palette-orange-050: #440a06;
   --sl-brand-dark-color-palette-orange-100: #7e1c10;
   --sl-brand-dark-color-palette-orange-150: #9d1f0f;
@@ -654,7 +654,7 @@
   --sl-brand-light-color-background-inverted-interactive-plain: var(
     --sl-brand-light-color-palette-grey-100
   );
-  --sl-brand-light-color-background-inverted-subtle: #ffffff33;
+  --sl-brand-light-color-background-inverted-subtle: #fff3;
   --sl-brand-light-color-background-inverted-subtlest: #ffffff1a;
   --sl-brand-light-color-background-negative-bold: var(
     --sl-brand-light-color-background-accent-red-bold
@@ -1000,7 +1000,7 @@
   --sl-brand-light-color-palette-green-700: #036251;
   --sl-brand-light-color-palette-green-800: #045044;
   --sl-brand-light-color-palette-green-900: #012d28;
-  --sl-brand-light-color-palette-grey-000: #ffffff;
+  --sl-brand-light-color-palette-grey-000: #fff;
   --sl-brand-light-color-palette-grey-050: #f3f3f3;
   --sl-brand-light-color-palette-grey-100: #e6e6e6;
   --sl-brand-light-color-palette-grey-150: #c7ccd4;
@@ -1126,52 +1126,52 @@
   --sl-brand-size-text-new-heading-sm: var(--sl-size-font-175);
   --sl-brand-size-text-new-heading-xl: var(--sl-size-font-400);
   --sl-brand-space-offset-default: var(--sl-space-075);
-  --sl-brand-text-new-body-lg-font-family: Hind;
+  --sl-brand-text-new-body-lg-font-family: hind;
   --sl-brand-text-new-body-lg-font-size: 16px;
   --sl-brand-text-new-body-lg-font-weight: 400;
   --sl-brand-text-new-body-lg-line-height: 24px;
-  --sl-brand-text-new-body-md-font-family: Hind;
+  --sl-brand-text-new-body-md-font-family: hind;
   --sl-brand-text-new-body-md-font-size: 14px;
   --sl-brand-text-new-body-md-font-weight: 400;
   --sl-brand-text-new-body-md-line-height: 20px;
-  --sl-brand-text-new-body-sm-font-family: Hind;
+  --sl-brand-text-new-body-sm-font-family: hind;
   --sl-brand-text-new-body-sm-font-size: 12px;
   --sl-brand-text-new-body-sm-font-weight: 400;
   --sl-brand-text-new-body-sm-line-height: 16px;
-  --sl-brand-text-new-heading-2xl-font-family: Hind;
+  --sl-brand-text-new-heading-2xl-font-family: hind;
   --sl-brand-text-new-heading-2xl-font-size: 48px;
   --sl-brand-text-new-heading-2xl-line-height: 48px;
-  --sl-brand-text-new-heading-lg-font-family: Hind;
+  --sl-brand-text-new-heading-lg-font-family: hind;
   --sl-brand-text-new-heading-lg-font-size: 24px;
   --sl-brand-text-new-heading-lg-line-height: 32px;
-  --sl-brand-text-new-heading-md-font-family: Hind;
+  --sl-brand-text-new-heading-md-font-family: hind;
   --sl-brand-text-new-heading-md-font-size: 16px;
   --sl-brand-text-new-heading-md-line-height: 20px;
-  --sl-brand-text-new-heading-sm-font-family: Hind;
+  --sl-brand-text-new-heading-sm-font-family: hind;
   --sl-brand-text-new-heading-sm-font-size: 14px;
   --sl-brand-text-new-heading-sm-line-height: 20px;
-  --sl-brand-text-new-heading-xl-font-family: Hind;
+  --sl-brand-text-new-heading-xl-font-family: hind;
   --sl-brand-text-new-heading-xl-font-size: 32px;
   --sl-brand-text-new-heading-xl-line-height: 40px;
   --sl-brand-text-new-icon-outline-font-family: 'Font Awesome 7 Pro';
   --sl-brand-text-new-icon-outline-font-weight: regular;
   --sl-brand-text-new-icon-solid-font-family: 'Font Awesome 7 Pro';
   --sl-brand-text-new-icon-solid-font-weight: solid;
-  --sl-brand-text-new-input-lg-font-family: Hind;
+  --sl-brand-text-new-input-lg-font-family: hind;
   --sl-brand-text-new-input-lg-font-size: 14px;
   --sl-brand-text-new-input-lg-line-height: 32px;
-  --sl-brand-text-new-input-md-font-family: Hind;
+  --sl-brand-text-new-input-md-font-family: hind;
   --sl-brand-text-new-input-md-font-size: 14px;
   --sl-brand-text-new-input-md-line-height: 24px;
-  --sl-brand-text-new-typeset-font-family-body: Hind;
-  --sl-brand-text-new-typeset-font-family-heading: Montserrat;
+  --sl-brand-text-new-typeset-font-family-body: hind;
+  --sl-brand-text-new-typeset-font-family-heading: montserrat;
   --sl-brand-text-new-typeset-font-family-icon: 'Font Awesome 7 Pro';
   --sl-brand-text-new-typeset-font-weight-regular: var(--sl-font-weight-400);
   --sl-brand-text-new-typeset-font-weight-semi-bold: var(--sl-font-weight-500);
-  --sl-caption-font-family: Hind;
-  --sl-display-font-family: Montserrat;
-  --sl-heading-font-family: Montserrat;
-  --sl-label-font-family: Hind;
-  --sl-text-font-family: Hind;
-  --sl-title-font-family: Hind;
+  --sl-caption-font-family: hind;
+  --sl-display-font-family: montserrat;
+  --sl-heading-font-family: montserrat;
+  --sl-label-font-family: hind;
+  --sl-text-font-family: hind;
+  --sl-title-font-family: hind;
 }

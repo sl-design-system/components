@@ -1,4 +1,4 @@
-@media screen and (max-width: 900px) {
+@media screen and (width <= 900px) {
   body {
     --sl-caption-lg-font-size: var(--sl-caption-lg-font-size-user-group);
     --sl-caption-lg-line-height: var(--sl-caption-lg-line-height-user-group);
@@ -340,40 +340,5 @@
     --sl-title-md-line-height: var(--sl-title-md-line-height-user-group);
     --sl-title-sm-font-size: var(--sl-title-sm-font-size-user-group);
     --sl-title-sm-line-height: var(--sl-title-sm-line-height-user-group);
-    --sl-typography-display-lg-font-family: 'Open Sans';
-    --sl-typography-display-lg-font-size: 56px;
-    --sl-typography-display-lg-font-weight: 700;
-    --sl-typography-display-lg-letter-spacing: -2%;
-    --sl-typography-display-lg-line-height: 68px;
-    --sl-typography-display-md-font-family: 'Open Sans';
-    --sl-typography-display-md-font-size: 48px;
-    --sl-typography-display-md-font-weight: 700;
-    --sl-typography-display-md-letter-spacing: -2%;
-    --sl-typography-display-md-line-height: 60px;
-    --sl-typography-display-sm-font-family: 'Open Sans';
-    --sl-typography-display-sm-font-size: 40px;
-    --sl-typography-display-sm-font-weight: 700;
-    --sl-typography-display-sm-letter-spacing: -1%;
-    --sl-typography-display-sm-line-height: 48px;
-    --sl-typography-heading-lg-font-family: 'Open Sans';
-    --sl-typography-heading-lg-font-size: 36px;
-    --sl-typography-heading-lg-font-weight: 700;
-    --sl-typography-heading-lg-letter-spacing: -1%;
-    --sl-typography-heading-lg-line-height: 44px;
-    --sl-typography-heading-md-font-family: 'Open Sans';
-    --sl-typography-heading-md-font-size: 28px;
-    --sl-typography-heading-md-font-weight: 700;
-    --sl-typography-heading-md-letter-spacing: -1%;
-    --sl-typography-heading-md-line-height: 36px;
-    --sl-typography-heading-sm-font-family: 'Open Sans';
-    --sl-typography-heading-sm-font-size: 24px;
-    --sl-typography-heading-sm-font-weight: 700;
-    --sl-typography-heading-sm-letter-spacing: 0%;
-    --sl-typography-heading-sm-line-height: 28px;
-    --sl-typography-title-sm-font-family: 'Open Sans';
-    --sl-typography-title-sm-font-size: 20px;
-    --sl-typography-title-sm-font-weight: 600;
-    --sl-typography-title-sm-letter-spacing: 0%;
-    --sl-typography-title-sm-line-height: 28px;
   }
 }

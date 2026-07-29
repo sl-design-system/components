@@ -131,7 +131,7 @@
   --sl-brand-light-color-background-inverted-interactive-plain: var(
     --sl-brand-light-color-palette-grey-200
   );
-  --sl-brand-light-color-background-inverted-subtle: #ffffff33;
+  --sl-brand-light-color-background-inverted-subtle: #fff3;
   --sl-brand-light-color-background-inverted-subtlest: #ffffff1a;
   --sl-brand-light-color-background-negative-bold: var(
     --sl-brand-light-color-background-accent-red-bold
@@ -489,7 +489,7 @@
   --sl-brand-light-color-palette-green-700: #0a7134;
   --sl-brand-light-color-palette-green-800: #0a5d2e;
   --sl-brand-light-color-palette-green-900: #003417;
-  --sl-brand-light-color-palette-grey-000: #ffffff;
+  --sl-brand-light-color-palette-grey-000: #fff;
   --sl-brand-light-color-palette-grey-050: #f5f5f6;
   --sl-brand-light-color-palette-grey-100: #e6e6e7;
   --sl-brand-light-color-palette-grey-150: #cfd0d2;
@@ -524,7 +524,7 @@
   --sl-brand-light-color-palette-purple-800: #4711a1;
   --sl-brand-light-color-palette-purple-900: #29076e;
   --sl-brand-light-color-palette-red-050: #fff0f0;
-  --sl-brand-light-color-palette-red-100: #ffdddd;
+  --sl-brand-light-color-palette-red-100: #fdd;
   --sl-brand-light-color-palette-red-150: #ffc1c1;
   --sl-brand-light-color-palette-red-200: #ff9595;
   --sl-brand-light-color-palette-red-300: #ff5959;

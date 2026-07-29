@@ -256,7 +256,7 @@ export const All: Story = {
       </section>
       <p>
         First item on the first row is the default combination of values; subtle, outline, md and
-        rectangular shape.
+        rect shape.
       </p>
     `;
   }

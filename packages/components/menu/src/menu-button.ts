@@ -113,7 +113,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   /**
    * The shape of the button.
    *
-   * @default 'square'
+   * @default 'rect'
    */
   @property() shape?: ButtonShape;
 

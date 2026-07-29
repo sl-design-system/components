@@ -18,7 +18,7 @@ declare global {
 }
 
 export type ToggleGroupFill = 'outline' | 'solid';
-export type ToggleGroupShape = 'pill' | 'square';
+export type ToggleGroupShape = 'pill' | 'rect';
 export type ToggleGroupSize = 'sm' | 'md' | 'lg';
 
 /**
@@ -79,12 +79,12 @@ export class ToggleGroup extends LitElement {
   /**
    * The shape of the group.
    *
-   * @default 'square'
+   * @default 'rect'
    */
   @property({ reflect: true }) shape?: ToggleGroupShape;
 
   /**
-   * The variant of the toggle-group.
+   * The fill of the group.
    *
    * @default 'solid'
    */

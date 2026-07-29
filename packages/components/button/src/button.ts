@@ -22,7 +22,7 @@ declare global {
 
 export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
 
-export type ButtonShape = 'square' | 'pill';
+export type ButtonShape = 'rect' | 'pill';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
@@ -115,7 +115,7 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /**
    * The shape of the button.
    *
-   * @default 'square'
+   * @default 'rect'
    */
   @property({ reflect: true }) shape?: ButtonShape;
 

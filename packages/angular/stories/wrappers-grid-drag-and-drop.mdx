@@ -1,9 +1,33 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridDragAndDropStories from './wrappers-grid-drag-and-drop.stories';
 
-<Meta title="Wrappers/Grid/Drag and drop" />
+<Meta of={GridDragAndDropStories} />
 
 # Grid Drag And Drop
 
 This section shows drag-and-drop support in the Angular Grid wrapper.
 
 Use these examples to reorder rows with a drag handle column.
+
+## Basic
+
+Enable row reordering with a drag handle column.
+
+### Template
+
+```html
+<sl-grid [items]="students" [draggableRows]="true" [noSkipLinks]="true">
+  <sl-grid-drag-handle-column header="Drag"></sl-grid-drag-handle-column>
+  <sl-grid-column path="id" header="Nr."></sl-grid-column>
+  <sl-grid-column path="fullName" header="Student"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```

@@ -1,9 +1,98 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridStylingStories from './wrappers-grid-styling.stories';
 
-<Meta title="Wrappers/Grid/Styling" />
+<Meta of={GridStylingStories} />
 
 # Grid Styling
 
 This section shows styling options in the Angular Grid wrapper.
 
 Use these examples for border, row border, striped rows, and column divider options.
+
+## No border
+
+Hide the outer grid border.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noBorder]="true" [noSkipLinks]="true">
+  <sl-grid-column path="id"></sl-grid-column>
+  <sl-grid-column path="fullName"></sl-grid-column>
+  <sl-grid-column path="school.name"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## No row border
+
+Hide separators between body rows.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noRowBorder]="true" [noSkipLinks]="true">
+  <sl-grid-column path="id"></sl-grid-column>
+  <sl-grid-column path="fullName"></sl-grid-column>
+  <sl-grid-column path="school.name"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## Striped
+
+Show alternating row backgrounds for easier scanning.
+
+### Template
+
+```html
+<sl-grid [items]="students" [striped]="true" [noSkipLinks]="true">
+  <sl-grid-column path="id"></sl-grid-column>
+  <sl-grid-column path="fullName"></sl-grid-column>
+  <sl-grid-column path="school.name"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## Column divider
+
+Show vertical separators between columns.
+
+### Template
+
+```html
+<sl-grid [items]="students" [attr.column-divider]="''" [noSkipLinks]="true">
+  <sl-grid-column path="id"></sl-grid-column>
+  <sl-grid-column path="fullName"></sl-grid-column>
+  <sl-grid-column path="school.name"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```

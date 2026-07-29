@@ -1,9 +1,34 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridScrollingStories from './wrappers-grid-scrolling.stories';
 
-<Meta title="Wrappers/Grid/Scrolling" />
+<Meta of={GridScrollingStories} />
 
 # Grid Scrolling
 
 This section shows scrolling behavior in the Angular Grid wrapper.
 
 Use these examples to test horizontal scrolling with fixed widths.
+
+## Basic
+
+This example shows horizontal scrolling with a constrained grid width.
+
+### Template
+
+```html
+<sl-grid [items]="students" style="inline-size: 420px" [noSkipLinks]="true">
+  <sl-grid-column path="id" width="140"></sl-grid-column>
+  <sl-grid-column path="firstName" width="180"></sl-grid-column>
+  <sl-grid-column path="lastName" width="180"></sl-grid-column>
+  <sl-grid-column path="email" width="280"></sl-grid-column>
+  <sl-grid-column path="school.name" width="200"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```

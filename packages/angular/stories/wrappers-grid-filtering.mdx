@@ -1,9 +1,36 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridFilteringStories from './wrappers-grid-filtering.stories';
 
-<Meta title="Wrappers/Grid/Filtering" />
+<Meta of={GridFilteringStories} />
 
 # Grid Filtering
 
 This section shows filtering options in the Angular Grid wrapper.
 
 Use these examples to filter with text and select filter columns.
+
+## Basic
+
+Filter by free text and by select options using filter columns.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-filter-column path="fullName" header="Student"></sl-grid-filter-column>
+  <sl-grid-filter-column path="group.name" header="Group"></sl-grid-filter-column>
+  <sl-grid-filter-column
+    path="school.id"
+    header="School"
+    label-path="school.name"
+    mode="select"></sl-grid-filter-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```

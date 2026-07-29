@@ -1,9 +1,33 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridPaginationStories from './wrappers-grid-pagination.stories';
 
-<Meta title="Wrappers/Grid/Pagination" />
+<Meta of={GridPaginationStories} />
 
 # Grid Pagination
 
 This section shows pagination patterns in the Angular Grid wrapper.
 
 Use these examples to connect a grid and paginator to one data source.
+
+## Basic
+
+Connect a paginator to the same data source as the grid.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-column path="id" header="Nr."></sl-grid-column>
+  <sl-grid-column path="fullName" header="Student"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School"></sl-grid-column>
+</sl-grid>
+<sl-paginator [dataSource]="ds" page-size="10" page-sizes="5,10,25"></sl-paginator>
+```
+
+### Props
+
+```typescript
+{
+  ds: ArrayListDataSource<Student>;
+}
+```

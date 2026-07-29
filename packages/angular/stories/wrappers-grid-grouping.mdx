@@ -1,9 +1,38 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridGroupingStories from './wrappers-grid-grouping.stories';
 
-<Meta title="Wrappers/Grid/Grouping" />
+<Meta of={GridGroupingStories} />
 
 # Grid Grouping
 
 This section shows grouping patterns in the Angular Grid wrapper.
 
 Use these examples to group related columns under shared headers.
+
+## Grouped
+
+Group related columns under shared headers for better structure.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-column-group header="Student">
+    <sl-grid-column path="id" header="Nr."></sl-grid-column>
+    <sl-grid-column path="firstName" header="First name"></sl-grid-column>
+    <sl-grid-column path="lastName" header="Last name"></sl-grid-column>
+  </sl-grid-column-group>
+  <sl-grid-column-group header="School">
+    <sl-grid-column path="school.name" header="Name"></sl-grid-column>
+    <sl-grid-column path="school.city" header="City"></sl-grid-column>
+  </sl-grid-column-group>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```

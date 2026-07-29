@@ -1,9 +1,55 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridEditingStories from './wrappers-grid-editing.stories';
 
-<Meta title="Wrappers/Grid/Editing" />
+<Meta of={GridEditingStories} />
 
 # Grid Editing
 
 This section shows inline editing in the Angular Grid wrapper.
 
 Use these examples to edit values with text and select columns.
+
+## Text field
+
+Edit a text value directly in a grid column using `sl-grid-text-field-column`.
+
+### Template
+
+```html
+<sl-grid [items]="people" [noSkipLinks]="true">
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="profession"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  people: Person[];
+}
+```
+
+## Select
+
+Use a select editor for controlled values like status.
+
+### Template
+
+```html
+<sl-grid [items]="people" [noSkipLinks]="true">
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-select-column path="status" [options]="statuses"></sl-grid-select-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  people: Person[];
+  statuses: string[];
+}
+```

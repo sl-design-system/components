@@ -9,6 +9,10 @@
 #   ./label-outside-contributors.sh --dry-run    # Preview changes without applying them
 
 set -e
+shopt -s lastpipe
+
+# Get the directory of this script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Configuration
 REPO="${GITHUB_REPOSITORY:-sl-design-system/components}"
@@ -17,10 +21,6 @@ LABEL="cfa-submitted"
 EXCLUSION_LABELS=("duplicate" "invalid" "wontfix" "external")
 UPDATED_COUNT=0
 DRY_RUN=false
-
-# Get the directory of this script
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
 # Check for --dry-run flag
 if [ "$1" == "--dry-run" ]; then
   DRY_RUN=true

@@ -3,7 +3,7 @@ name: Label Outside Contributor Issues
 on:
   issues:
     types: [opened]
-  # Allow manual trigger for testing
+  # Allow manual trigger for testing or full scan (leave issue_number empty to process all open issues)
   workflow_dispatch:
     inputs:
       issue_number:
@@ -29,4 +29,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ISSUE="${{ github.event.issue.number || inputs.issue_number }}"
-          bash .github/scripts/label-outside-contributors.sh $ISSUE
+          bash .github/scripts/label-outside-contributors.sh "$ISSUE"

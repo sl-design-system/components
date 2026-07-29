@@ -12,11 +12,14 @@ set -e
 
 # Configuration
 REPO="${GITHUB_REPOSITORY:-sl-design-system/components}"
-CORE_TEAM="core-team"
+CORE_TEAM_FILE="${SCRIPT_DIR}/../config/core-team.txt"
 LABEL="cfa-submitted"
 EXCLUSION_LABELS=("duplicate" "invalid" "wontfix" "external")
 UPDATED_COUNT=0
 DRY_RUN=false
+
+# Get the directory of this script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Check for --dry-run flag
 if [ "$1" == "--dry-run" ]; then
@@ -66,11 +69,16 @@ echo "$ISSUES" | jq -r '.[] | @json' | while read -r issue_json; do
 
   echo "Processing issue #$ISSUE_NUMBER (author: $AUTHOR)"
 
-  # Check if author is a core team member
-  if gh api \
-    --method GET \
-    "orgs/sl-design-system/teams/$CORE_TEAM/memberships/$AUTHOR" \
-    > /dev/null 2>&1; then
+  # Check if author is a core team member by checking the config file
+  IS_CORE_MEMBER=false
+  if [ -f "$CORE_TEAM_FILE" ]; then
+    # Check if author is in the core team list (ignoring comments and empty lines)
+    if grep -v "^#" "$CORE_TEAM_FILE" | grep -v "^$" | grep -q "^${AUTHOR}$"; then
+      IS_CORE_MEMBER=true
+    fi
+  fi
+
+  if [ "$IS_CORE_MEMBER" = true ]; then
 
     # Check if the issue has the "cfa-submitted" label and remove it
     if echo "$CURRENT_LABELS" | grep -q "$LABEL"; then

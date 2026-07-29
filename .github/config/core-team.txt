@@ -1,0 +1,14 @@
+# Core team members for SL Design System
+# Add GitHub usernames below (one per line)
+# These users will NOT be labeled as "cfa-submitted" contributors
+
+# Example:
+jpzwarte
+Diaan
+arecuenco-dsgn
+a11ymiko
+anna-lach
+DanielleRameau
+RoaldBoerema
+michal-sanoma
+ktylke-sanoma

@@ -176,11 +176,11 @@ export const Tooltips: Story = {
   args: {
     boxes: () => html`
       <sl-checkbox id="1" value="1">Option 1</sl-checkbox>
-      <sl-tooltip for="1">Tooltip for option 1</sl-tooltip>
+      <sl-tooltip for="1" type="description">Tooltip for option 1</sl-tooltip>
       <sl-checkbox id="2" value="2">Option 2</sl-checkbox>
-      <sl-tooltip for="2">Tooltip for option 2</sl-tooltip>
+      <sl-tooltip for="2" type="description">Tooltip for option 2</sl-tooltip>
       <sl-checkbox id="3" value="3">Option 3</sl-checkbox>
-      <sl-tooltip for="3">Tooltip for option 3</sl-tooltip>
+      <sl-tooltip for="3" type="description">Tooltip for option 3</sl-tooltip>
     `
   }
 };

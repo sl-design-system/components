@@ -1,6 +1,10 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
+import {
+  getForwardedAccessibleName,
+  getForwardedAriaProperty
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -203,12 +207,71 @@ describe('sl-checkbox', () => {
       expect(el.input).to.have.attribute('aria-label', 'Label');
     });
 
-    it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
+    it('should proxy the aria-labelledby attribute to ariaLabelledByElements on the input', async () => {
+      const label = document.createElement('span');
+      label.id = 'my-label';
+      label.textContent = 'My label';
+      el.insertAdjacentElement('afterend', label);
+      el.setAttribute('aria-labelledby', 'my-label');
+
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+      expect(getForwardedAriaProperty(el, 'ariaLabelledByElements')).to.deep.equal([label]);
+      expect(getForwardedAccessibleName(el)).to.equal('My label');
+
+      label.remove();
+    });
+
+    it('should proxy the aria-describedby attribute to ariaDescribedByElements on the input', async () => {
+      const description = document.createElement('span');
+      description.id = 'my-description';
+      description.textContent = 'My description';
+      el.insertAdjacentElement('afterend', description);
+      el.setAttribute('aria-describedby', 'my-description');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).to.not.have.attribute('aria-describedby');
+      expect(getForwardedAriaProperty(el, 'ariaDescribedByElements')).to.deep.equal([description]);
+
+      description.remove();
+    });
+
+    it('should link the label to the input again after labelling references are removed', async () => {
+      const tooltip = document.createElement('span');
+      tooltip.textContent = 'Tooltip';
+      el.insertAdjacentElement('afterend', tooltip);
+
+      // An sl-tooltip labels its anchor this way, and removes the reference when it changes
+      // type or is removed; that leaves an empty aria-labelledby attribute behind.
+      el.ariaLabelledByElements = [tooltip];
+      el.ariaLabelledByElements = [];
+      expect(el.input).to.have.attribute('aria-labelledby', '');
+
+      // Re-run the label linking, the way a slotchange does
+      el.append(document.createTextNode(' '));
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input).to.have.attribute('aria-labelledby', el.querySelector('label')!.id);
+      expect(getForwardedAccessibleName(el)).to.equal('Hello world');
+
+      tooltip.remove();
+    });
+
+    it('should proxy ariaLabelledByElements to the input element', async () => {
+      // This is how an sl-tooltip labels its anchor
+      const tooltip = document.createElement('span');
+      tooltip.textContent = 'Tooltip';
+      el.insertAdjacentElement('afterend', tooltip);
+
+      el.ariaLabelledByElements = [tooltip];
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input.ariaLabelledByElements).to.deep.equal([tooltip]);
+      expect(getForwardedAccessibleName(el)).to.equal('Tooltip');
+
+      tooltip.remove();
     });
 
     it('should be pristine', () => {

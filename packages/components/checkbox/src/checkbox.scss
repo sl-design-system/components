@@ -21,6 +21,17 @@
   vertical-align: middle;
 }
 
+// The host is the focusable element, but the focus ring belongs on the box itself.
+:host(:focus) {
+  outline: none;
+}
+
+:host(:focus-visible) [part='inner'] {
+  outline-color: var(--sl-color-border-focused);
+  transition: 200ms ease-in-out;
+  transition-property: background, border-color, color, outline-color;
+}
+
 :host(:hover) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
@@ -79,7 +90,7 @@
   }
 }
 
-:host([no-label]) {
+:host(:state(no-label)) {
   display: inline-flex;
 
   [part='outer'] {

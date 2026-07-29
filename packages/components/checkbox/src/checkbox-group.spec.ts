@@ -139,7 +139,7 @@ describe('sl-checkbox-group', () => {
       const checkbox = el.querySelector('sl-checkbox');
 
       checkbox?.focus();
-      checkbox?.querySelector('input')?.blur();
+      checkbox?.blur();
 
       expect(el.touched).to.be.true;
     });
@@ -151,7 +151,7 @@ describe('sl-checkbox-group', () => {
       el.addEventListener('sl-update-state', onUpdateState);
 
       checkbox?.focus();
-      checkbox?.querySelector('input')?.blur();
+      checkbox?.blur();
 
       expect(onUpdateState).to.have.been.calledTwice;
     });
@@ -159,7 +159,7 @@ describe('sl-checkbox-group', () => {
     it('should focus the first checkbox after calling focus()', () => {
       el.focus();
 
-      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox input'));
+      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox'));
     });
 
     it('should emit an sl-update-validity event when calling reportValidity', async () => {
@@ -266,18 +266,18 @@ describe('sl-checkbox-group', () => {
         </sl-checkbox-group>
       `);
 
-      const firstCheckboxInput = el.querySelectorAll('sl-checkbox input')[0],
+      const firstCheckbox = el.querySelectorAll('sl-checkbox')[0],
         firstInfotip = el.querySelectorAll('sl-infotip')[0],
-        secondCheckboxInput = el.querySelectorAll('sl-checkbox input')[1];
+        secondCheckbox = el.querySelectorAll('sl-checkbox')[1];
 
       el.focus();
-      expect(document.activeElement).to.equal(firstCheckboxInput);
+      expect(document.activeElement).to.equal(firstCheckbox);
 
       await userEvent.keyboard('{ArrowDown}');
       expect(document.activeElement).to.equal(firstInfotip);
 
       await userEvent.keyboard('{ArrowDown}');
-      expect(document.activeElement).to.equal(secondCheckboxInput);
+      expect(document.activeElement).to.equal(secondCheckbox);
     });
 
     it('should skip infotips of disabled checkboxes during roving navigation', async () => {
@@ -293,19 +293,19 @@ describe('sl-checkbox-group', () => {
         </sl-checkbox-group>
       `);
 
-      const firstCheckboxInput = el.querySelectorAll('sl-checkbox input')[0],
+      const firstCheckbox = el.querySelectorAll('sl-checkbox')[0],
         firstInfotip = el.querySelectorAll('sl-infotip')[0],
         secondInfotip = el.querySelectorAll('sl-infotip')[1],
-        thirdCheckboxInput = el.querySelectorAll('sl-checkbox input')[2];
+        thirdCheckbox = el.querySelectorAll('sl-checkbox')[2];
 
       el.focus();
-      expect(document.activeElement).to.equal(firstCheckboxInput);
+      expect(document.activeElement).to.equal(firstCheckbox);
 
       await userEvent.keyboard('{ArrowDown}');
       expect(document.activeElement).to.equal(firstInfotip);
 
       await userEvent.keyboard('{ArrowDown}');
-      expect(document.activeElement).to.equal(thirdCheckboxInput);
+      expect(document.activeElement).to.equal(thirdCheckbox);
       expect(document.activeElement).not.to.equal(secondInfotip);
     });
   });
@@ -481,14 +481,14 @@ describe('sl-checkbox-group', () => {
       expect(fitc.onFormControl).to.have.been.calledOnce;
     });
 
-    it('should focus the input of the first checkbox when the label is clicked', async () => {
-      const input = fitc.renderRoot.querySelector('input'),
+    it('should focus the first checkbox when the label is clicked', async () => {
+      const checkbox = fitc.renderRoot.querySelector('sl-checkbox'),
         label = fitc.renderRoot.querySelector('label');
 
       label?.click();
       await fitc.updateComplete;
 
-      expect(fitc.shadowRoot!.activeElement).to.equal(input);
+      expect(fitc.shadowRoot!.activeElement).to.equal(checkbox);
     });
   });
 });

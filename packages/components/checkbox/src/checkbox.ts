@@ -228,12 +228,13 @@ export class Checkbox<T = any> extends FormControlMixin(LitElement) {
    * Toggles the checked state, as if the user activated the checkbox: this emits an `sl-change`
    * event, marks the control dirty and updates its validity.
    */
-  toggle(): void {
-    this.checked = !this.checked;
+  toggle(force?: boolean): void {
+    // Changing `checked` schedules an update, and `willUpdate` syncs the form value and validity;
+    // doing that here as well would emit `sl-validate` twice per toggle.
+    this.checked = force ?? !this.checked;
 
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
-    this.#updateValueAndValidity();
   }
 
   override getLocalizedValidationMessage(): string {

@@ -1,10 +1,6 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
-import {
-  getForwardedAccessibleName,
-  getForwardedAriaProperty
-} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -13,8 +9,35 @@ import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Checkbox } from './checkbox.js';
 
+/**
+ * Returns the text of a node as the accessible name computation sees it: `<slot>` elements resolve
+ * to the nodes assigned to them, rather than to their (empty) own text content.
+ */
+function flattenedText(node: Node): string {
+  if (node instanceof HTMLSlotElement) {
+    return node.assignedNodes({ flatten: true }).map(flattenedText).join(' ');
+  } else if (node instanceof Element) {
+    return Array.from(node.childNodes).map(flattenedText).join(' ');
+  }
+
+  return node.textContent ?? '';
+}
+
+/**
+ * The accessible name is built from the elements the checkbox points `ariaLabelledByElements` at.
+ * One of those lives in the shadow DOM and wraps the default slot, so the text has to be
+ * flattened.
+ */
+function accessibleName(el: Checkbox): string {
+  return (el.internals.ariaLabelledByElements ?? [])
+    .map(flattenedText)
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 describe('sl-checkbox', () => {
-  let el: Checkbox, input: HTMLInputElement;
+  let el: Checkbox;
 
   it('should ignore non-infotip elements assigned to the infotip slot', async () => {
     el = await fixture(html`
@@ -101,20 +124,29 @@ describe('sl-checkbox', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
-      input = el.querySelector('input')!;
     });
 
-    it('should have an input of type checkbox', () => {
-      expect(input).to.exist;
-      expect(input.id).to.match(/sl-checkbox-(\d+)/);
-      expect(input.type).to.equal('checkbox');
+    it('should be a form associated custom element', () => {
+      expect(Checkbox.formAssociated).to.be.true;
+      expect(el.internals).to.exist;
+      expect(el.formControlElement).to.equal(el);
+    });
+
+    it('should not render anything into the light DOM', () => {
+      expect(el.children).to.have.length(0);
+    });
+
+    it('should have a checkbox role', () => {
+      expect(el.internals.role).to.equal('checkbox');
+    });
+
+    it('should be focusable', () => {
+      expect(el.tabIndex).to.equal(0);
     });
 
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should be checked when set', async () => {
@@ -122,8 +154,7 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('checked');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el.internals.ariaChecked).to.equal('true');
     });
 
     it('should not have an explicit size', () => {
@@ -154,8 +185,6 @@ describe('sl-checkbox', () => {
     it('should not be indeterminate', () => {
       expect(el).not.to.have.attribute('indeterminate');
       expect(el.indeterminate).not.to.be.true;
-      expect(input).not.to.match(':indeterminate');
-      expect(input.indeterminate).to.be.false;
     });
 
     it('should be indeterminate when set', async () => {
@@ -163,15 +192,13 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('indeterminate');
-      expect(input).to.match(':indeterminate');
-      expect(input.indeterminate).to.be.true;
+      expect(el.internals.ariaChecked).to.equal('mixed');
     });
 
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;
-      expect(input).not.to.have.attribute('required');
-      expect(input.required).not.to.be.true;
+      expect(el.internals.ariaRequired).not.to.equal('true');
     });
 
     it('should be required when set', async () => {
@@ -179,99 +206,23 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('required');
-      expect(input).to.have.attribute('required');
-      expect(input.required).to.be.true;
+      expect(el.internals.ariaRequired).to.equal('true');
     });
 
-    it('should link the text to the input via label', () => {
-      const label = el.querySelector('label');
-
-      expect(label).to.exist;
-      expect(label).to.have.text('Hello world');
-      expect(label).to.have.attribute('for', input.id);
+    it('should use the slotted text as the accessible name', () => {
+      expect(accessibleName(el)).to.equal('Hello world');
     });
 
-    it('should proxy the aria-disabled attribute to the input element', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-disabled');
-      expect(el.input).to.have.attribute('aria-disabled', 'true');
-    });
-
-    it('should proxy the aria-label attribute to the input element', async () => {
-      el.setAttribute('aria-label', 'Label');
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-label');
-      expect(el.input).to.have.attribute('aria-label', 'Label');
-    });
-
-    it('should proxy the aria-labelledby attribute to ariaLabelledByElements on the input', async () => {
-      const label = document.createElement('span');
-      label.id = 'my-label';
-      label.textContent = 'My label';
-      el.insertAdjacentElement('afterend', label);
-      el.setAttribute('aria-labelledby', 'my-label');
+    it('should update the accessible name when the slotted text changes', async () => {
+      el.textContent = 'Goodbye world';
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(el).to.not.have.attribute('aria-labelledby');
-      expect(getForwardedAriaProperty(el, 'ariaLabelledByElements')).to.deep.equal([label]);
-      expect(getForwardedAccessibleName(el)).to.equal('My label');
-
-      label.remove();
+      expect(accessibleName(el)).to.equal('Goodbye world');
     });
 
-    it('should proxy the aria-describedby attribute to ariaDescribedByElements on the input', async () => {
-      const description = document.createElement('span');
-      description.id = 'my-description';
-      description.textContent = 'My description';
-      el.insertAdjacentElement('afterend', description);
-      el.setAttribute('aria-describedby', 'my-description');
-
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el).to.not.have.attribute('aria-describedby');
-      expect(getForwardedAriaProperty(el, 'ariaDescribedByElements')).to.deep.equal([description]);
-
-      description.remove();
-    });
-
-    it('should link the label to the input again after labelling references are removed', async () => {
-      const tooltip = document.createElement('span');
-      tooltip.textContent = 'Tooltip';
-      el.insertAdjacentElement('afterend', tooltip);
-
-      // An sl-tooltip labels its anchor this way, and removes the reference when it changes
-      // type or is removed; that leaves an empty aria-labelledby attribute behind.
-      el.ariaLabelledByElements = [tooltip];
-      el.ariaLabelledByElements = [];
-      expect(el.input).to.have.attribute('aria-labelledby', '');
-
-      // Re-run the label linking, the way a slotchange does
-      el.append(document.createTextNode(' '));
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el.input).to.have.attribute('aria-labelledby', el.querySelector('label')!.id);
-      expect(getForwardedAccessibleName(el)).to.equal('Hello world');
-
-      tooltip.remove();
-    });
-
-    it('should proxy ariaLabelledByElements to the input element', async () => {
-      // This is how an sl-tooltip labels its anchor
-      const tooltip = document.createElement('span');
-      tooltip.textContent = 'Tooltip';
-      el.insertAdjacentElement('afterend', tooltip);
-
-      el.ariaLabelledByElements = [tooltip];
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(el.input.ariaLabelledByElements).to.deep.equal([tooltip]);
-      expect(getForwardedAccessibleName(el)).to.equal('Tooltip');
-
-      tooltip.remove();
+    it('should not have the no-label state', () => {
+      expect(el).not.to.match(':state(no-label)');
     });
 
     it('should be pristine', () => {
@@ -324,16 +275,14 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(el.internals.ariaChecked).to.equal('true');
 
       el.click();
       await el.updateComplete;
 
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).to.be.false;
-      expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
+      expect(el.internals.ariaChecked).to.equal('false');
     });
 
     it('should change the state to checked on when pressing enter', async () => {
@@ -343,8 +292,6 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
     });
 
     it('should change the state to checked on when pressing space', async () => {
@@ -354,8 +301,46 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+    });
+
+    it('should toggle the state when calling toggle()', async () => {
+      el.toggle();
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+      expect(el.dirty).to.be.true;
+
+      el.toggle();
+      await el.updateComplete;
+
+      expect(el.checked).to.be.false;
+    });
+
+    it('should set the state when calling toggle() with a value', async () => {
+      el.toggle(true);
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+
+      // Forcing the same value again should leave it checked
+      el.toggle(true);
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+
+      el.toggle(false);
+      await el.updateComplete;
+
+      expect(el.checked).to.be.false;
+    });
+
+    it('should emit an sl-change event when calling toggle()', () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.toggle();
+
+      expect(onChange).to.have.been.calledOnce;
     });
 
     it('should emit an sl-change event when clicking an option', async () => {
@@ -426,18 +411,105 @@ describe('sl-checkbox', () => {
 
       expect(onValidate).to.have.been.calledOnce;
     });
+
+    it('should re-attach its event listeners after being reconnected', async () => {
+      const onChange = spy();
+      const parent = el.parentElement!;
+
+      el.addEventListener('sl-change', onChange);
+
+      parent.removeChild(el);
+      parent.appendChild(el);
+      await el.updateComplete;
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+      expect(onChange).to.have.been.calledOnce;
+    });
+  });
+
+  describe('without a label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-checkbox></sl-checkbox>`);
+    });
+
+    it('should have the no-label state', () => {
+      expect(el).to.match(':state(no-label)');
+    });
+
+    it('should not have an accessible name of its own', () => {
+      expect(accessibleName(el)).to.equal('');
+    });
+
+    it('should remove the no-label state once it has a label', async () => {
+      el.textContent = 'Now labelled';
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el).not.to.match(':state(no-label)');
+      expect(accessibleName(el)).to.equal('Now labelled');
+    });
+  });
+
+  describe('aria', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+    });
+
+    it('should keep aria attributes on the host', async () => {
+      el.setAttribute('aria-describedby', 'my-description');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // The host *is* the form control, so ARIA is no longer proxied anywhere
+      expect(el).to.have.attribute('aria-describedby', 'my-description');
+    });
+
+    it('should let an aria-label on the host override the slotted label', async () => {
+      el.setAttribute('aria-label', 'Overridden');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      // The internals label is a default; the host attribute takes precedence over it
+      expect(el).to.have.attribute('aria-label', 'Overridden');
+      expect(accessibleName(el)).to.equal('Hello world');
+    });
+
+    it('should let ariaLabelledByElements on the host override the slotted label', async () => {
+      // This is how an sl-tooltip labels its anchor
+      const tooltip = document.createElement('span');
+      tooltip.textContent = 'Tooltip';
+      el.insertAdjacentElement('afterend', tooltip);
+
+      el.ariaLabelledByElements = [tooltip];
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.ariaLabelledByElements).to.deep.equal([tooltip]);
+
+      tooltip.remove();
+    });
+
+    it('should mark the host as disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el.internals.ariaDisabled).to.equal('true');
+      expect(el.tabIndex).to.equal(-1);
+    });
   });
 
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox disabled>Hello world</sl-checkbox>`);
-      input = el.querySelector('input')!;
     });
 
     it('should be marked as disabled', () => {
       expect(el.disabled).to.be.true;
-      expect(input.disabled).to.be.true;
-      expect(input).to.have.attribute('disabled');
+      expect(el.internals.ariaDisabled).to.equal('true');
+    });
+
+    it('should not be reachable with the keyboard', () => {
+      expect(el.tabIndex).to.equal(-1);
     });
 
     it('should not change the state to checked when clicked', async () => {
@@ -445,7 +517,6 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
     });
 
     it('should not change the state to checked on enter', async () => {
@@ -454,7 +525,6 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
     });
 
     it('should not change the state to checked on space', async () => {
@@ -463,7 +533,6 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.checked).not.to.be.true;
-      expect(input.checked).not.to.be.true;
     });
   });
 
@@ -558,6 +627,63 @@ describe('sl-checkbox', () => {
     });
   });
 
+  describe('form association', () => {
+    let form: HTMLFormElement;
+
+    beforeEach(async () => {
+      form = await fixture(html`
+        <form>
+          <sl-checkbox name="answer" value="yes">Hello world</sl-checkbox>
+        </form>
+      `);
+
+      el = form.querySelector('sl-checkbox')!;
+      await el.updateComplete;
+    });
+
+    it('should be associated with the form', () => {
+      expect(el.form).to.equal(form);
+    });
+
+    it('should not contribute a value when unchecked', () => {
+      expect(Array.from(new FormData(form).entries())).to.deep.equal([]);
+    });
+
+    it('should contribute its value when checked', async () => {
+      el.click();
+      await el.updateComplete;
+
+      expect(Array.from(new FormData(form).entries())).to.deep.equal([['answer', 'yes']]);
+    });
+
+    it('should restore the initial state when the form is reset', async () => {
+      el.click();
+      await el.updateComplete;
+      expect(el.checked).to.be.true;
+
+      form.reset();
+      await el.updateComplete;
+
+      expect(el.checked).to.be.false;
+    });
+
+    it('should restore a checked checkbox when the form is reset', async () => {
+      const initiallyChecked = await fixture<HTMLFormElement>(html`
+          <form><sl-checkbox checked name="on">Hello world</sl-checkbox></form>
+        `),
+        checkbox = initiallyChecked.querySelector('sl-checkbox')!;
+
+      checkbox.click();
+      await checkbox.updateComplete;
+      expect(checkbox.checked).to.be.false;
+
+      initiallyChecked.reset();
+      await checkbox.updateComplete;
+
+      expect(checkbox.checked).to.be.true;
+    });
+  });
+
   describe('form integration', () => {
     let el: FormIntegrationTestComponent;
 
@@ -587,14 +713,14 @@ describe('sl-checkbox', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
     });
 
-    it('should focus the input when the label is clicked', async () => {
-      const input = el.renderRoot.querySelector('input'),
+    it('should focus the checkbox when the label is clicked', async () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox'),
         label = el.renderRoot.querySelector('label');
 
       label?.click();
       await el.updateComplete;
 
-      expect(el.shadowRoot!.activeElement).to.equal(input);
+      expect(el.shadowRoot!.activeElement).to.equal(checkbox);
     });
 
     it('should toggle the checkbox when the label is clicked', async () => {
@@ -606,6 +732,14 @@ describe('sl-checkbox', () => {
 
       expect(checkbox).to.have.attribute('checked');
       expect(checkbox?.checked).to.be.true;
+    });
+
+    it('should include the field label in the accessible name', async () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox')!;
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(accessibleName(checkbox)).to.equal('Label Checkbox');
     });
   });
 });

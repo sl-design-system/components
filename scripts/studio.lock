@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-07-29T12:36:27Z"
+generated_at = "2026-07-29T14:27:58Z"
 cli_version = "dev"
 dependencies = []
 
@@ -14,7 +14,7 @@ dependencies = []
   source_ref_name = "fix-output-to-figma-styles"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:3acbf73d5f8c6cd02f3d01aef70ceec19379022f4813fb68871278d0b57346ca"
-  updated_at = "2026-07-29T12:36:25Z"
+  updated_at = "2026-07-29T14:27:56Z"
 
 [[exports]]
   name = "slds-legacy"
@@ -23,7 +23,7 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-07-29T12:36:27Z"
+  updated_at = "2026-07-29T14:27:58Z"
 
 [[exports]]
   name = "core-css"
@@ -33,8 +33,8 @@ dependencies = []
   source_ref_name = "fix-output-to-figma-styles"
   preset_hash = "sha256:bc86ecedf80d18d437553e0b8bcc50b6f5ef20a479a1137a8dc16c36cf6896d7"
   output_hash = "sha256:dd97715066f734a0333433a0b04c2bd861c33eff7859f33bb08639ad5b7b4b78"
-  updated_at = "2026-07-29T12:36:26Z"
+  updated_at = "2026-07-29T14:27:57Z"
 
 [integrity]
-  lockfile_hash = "sha256:ae01c1226950b252c49779cd90c6c24c0e6b07819582c8387607d71e7a5d9b53"
+  lockfile_hash = "sha256:87ebd935642beacc01a01cbe28141649d593ff5f8b309f890f5d558a38dd6219"
   algorithm = "sha256"

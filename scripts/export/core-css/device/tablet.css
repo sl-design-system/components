@@ -1,4 +1,4 @@
-@media screen and (width <= 900px) {
+@media screen and (max-width: 900px) {
   body {
     --sl-caption-lg-font-size: var(--sl-caption-lg-font-size-user-group);
     --sl-caption-lg-line-height: var(--sl-caption-lg-line-height-user-group);

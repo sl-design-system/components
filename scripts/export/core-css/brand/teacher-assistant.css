@@ -131,7 +131,7 @@
   --sl-brand-light-color-background-inverted-interactive-plain: var(
     --sl-brand-light-color-palette-grey-200
   );
-  --sl-brand-light-color-background-inverted-subtle: #fff3;
+  --sl-brand-light-color-background-inverted-subtle: #ffffff33;
   --sl-brand-light-color-background-inverted-subtlest: #ffffff1a;
   --sl-brand-light-color-background-negative-bold: var(
     --sl-brand-light-color-background-accent-red-bold
@@ -493,7 +493,7 @@
   --sl-brand-light-color-palette-green-700: #0a6023;
   --sl-brand-light-color-palette-green-800: #054d1a;
   --sl-brand-light-color-palette-green-900: #003a13;
-  --sl-brand-light-color-palette-grey-000: #fff;
+  --sl-brand-light-color-palette-grey-000: #ffffff;
   --sl-brand-light-color-palette-grey-050: #fbfaf7;
   --sl-brand-light-color-palette-grey-100: #f7f6f4;
   --sl-brand-light-color-palette-grey-150: #f3f3f3;
@@ -559,7 +559,7 @@
   --sl-brand-light-color-palette-yellow-600: #d98f16;
   --sl-brand-light-color-palette-yellow-700: #b37512;
   --sl-brand-light-color-palette-yellow-800: #8a4800;
-  --sl-brand-light-color-palette-yellow-900: #630;
+  --sl-brand-light-color-palette-yellow-900: #663300;
   --sl-brand-light-color-shadow-overflow1: #19141829;
   --sl-brand-light-color-shadow-overlay1: #1914180a;
   --sl-brand-light-color-shadow-overlay2: #1914181f;
@@ -631,23 +631,23 @@
   --sl-brand-text-new-body-sm-line-height: 16px;
   --sl-brand-text-new-heading-2xl-font-family: 'The Message Beta03';
   --sl-brand-text-new-heading-2xl-font-size: 48px;
-  --sl-brand-text-new-heading-2xl-font-weight: semibold;
+  --sl-brand-text-new-heading-2xl-font-weight: SemiBold;
   --sl-brand-text-new-heading-2xl-line-height: 48px;
   --sl-brand-text-new-heading-lg-font-family: 'The Message Beta03';
   --sl-brand-text-new-heading-lg-font-size: 24px;
-  --sl-brand-text-new-heading-lg-font-weight: semibold;
+  --sl-brand-text-new-heading-lg-font-weight: SemiBold;
   --sl-brand-text-new-heading-lg-line-height: 32px;
   --sl-brand-text-new-heading-md-font-family: 'The Message Beta03';
   --sl-brand-text-new-heading-md-font-size: 16px;
-  --sl-brand-text-new-heading-md-font-weight: semibold;
+  --sl-brand-text-new-heading-md-font-weight: SemiBold;
   --sl-brand-text-new-heading-md-line-height: 20px;
   --sl-brand-text-new-heading-sm-font-family: 'The Message Beta03';
   --sl-brand-text-new-heading-sm-font-size: 14px;
-  --sl-brand-text-new-heading-sm-font-weight: semibold;
+  --sl-brand-text-new-heading-sm-font-weight: SemiBold;
   --sl-brand-text-new-heading-sm-line-height: 20px;
   --sl-brand-text-new-heading-xl-font-family: 'The Message Beta03';
   --sl-brand-text-new-heading-xl-font-size: 32px;
-  --sl-brand-text-new-heading-xl-font-weight: semibold;
+  --sl-brand-text-new-heading-xl-font-weight: SemiBold;
   --sl-brand-text-new-heading-xl-line-height: 40px;
   --sl-brand-text-new-icon-outline-font-family: 'Font Awesome 7 Pro';
   --sl-brand-text-new-icon-outline-font-weight: regular;

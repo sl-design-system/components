@@ -1,7 +1,7 @@
 body {
-  --sl-color-black: #000;
-  --sl-color-transparent: #0000;
-  --sl-color-white: #fff;
+  --sl-color-black: #000000;
+  --sl-color-transparent: #00000000;
+  --sl-color-white: #ffffff;
   --sl-elevation-shadow-overflow: var(--sl-size-200) var(--sl-color-shadow-overflow1);
   --sl-elevation-shadow-overlay:
     var(--sl-size-075) var(--sl-size-150) -3 var(--sl-color-shadow-overlay1),

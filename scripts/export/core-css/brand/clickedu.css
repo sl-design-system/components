@@ -129,7 +129,7 @@
   --sl-brand-light-color-background-inverted-interactive-plain: var(
     --sl-brand-light-color-palette-grey-100
   );
-  --sl-brand-light-color-background-inverted-subtle: #fff3;
+  --sl-brand-light-color-background-inverted-subtle: #ffffff33;
   --sl-brand-light-color-background-inverted-subtlest: #ffffff1a;
   --sl-brand-light-color-background-negative-bold: var(
     --sl-brand-light-color-background-accent-red-bold
@@ -483,7 +483,7 @@
   --sl-brand-light-color-palette-green-700: #006f4b;
   --sl-brand-light-color-palette-green-800: #00563c;
   --sl-brand-light-color-palette-green-900: #00271f;
-  --sl-brand-light-color-palette-grey-000: #fff;
+  --sl-brand-light-color-palette-grey-000: #ffffff;
   --sl-brand-light-color-palette-grey-050: #f9fbfd;
   --sl-brand-light-color-palette-grey-100: #f8fafc;
   --sl-brand-light-color-palette-grey-150: #f1f5f9;

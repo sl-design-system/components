@@ -1036,7 +1036,7 @@
             "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           },
           "onBold": {
-            "$value": "{magister.color.palette.grey.000}",
+            "$value": "{magister.color.foreground.accent.grey.bold}",
             "$type": "color",
             "$description": "Use for neutral actions on 'color.background.neutral.bold'"
           },

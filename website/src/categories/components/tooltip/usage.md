@@ -9,7 +9,7 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-button id="button" fill="solid" variant="primary">Button with a tooltip</sl-button>
-<sl-tooltip for="button">This is a tooltip with some additional information</sl-tooltip>
+<sl-tooltip for="button" type="description">This is a tooltip with some additional information</sl-tooltip>
 
 </div>
 
@@ -19,7 +19,7 @@ eleventyNavigation:
 Tooltip component should be a sibling of the element it is describing (not a child element).
 
 <sl-button id="button">Button with a tooltip</sl-button>
-<sl-tooltip for="button">This is a tooltip with some additional information</sl-tooltip>
+<sl-tooltip for="button" type="description">This is a tooltip with some additional information</sl-tooltip>
   ```
 
 </div>

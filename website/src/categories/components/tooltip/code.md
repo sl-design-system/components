@@ -11,39 +11,45 @@ eleventyNavigation:
 ---
 
 <section class="no-heading">
+
+The tooltip should be a sibling of the elements it belongs to (not a child element). Point the `for` attribute at the id of the anchor element. To share one tooltip between multiple elements, pass several ids separated by spaces.
+
 <div class="ds-example">
 <sl-button-bar>
-  <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">We</sl-button>
-  <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">share</sl-button>
-  <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">the</sl-button>
-  <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">same</sl-button>
-  <sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">tooltip</sl-button>
+  <sl-button id="shared-we" fill="solid" variant="primary">We</sl-button>
+  <sl-button id="shared-share" fill="solid" variant="primary">share</sl-button>
+  <sl-button id="shared-the" fill="solid" variant="primary">the</sl-button>
+  <sl-button id="shared-same" fill="solid" variant="primary">same</sl-button>
+  <sl-button id="shared-tooltip" fill="solid" variant="primary">tooltip</sl-button>
 </sl-button-bar>
-<sl-tooltip id="tooltip-id">I am shared between different elements</sl-tooltip>
+<sl-tooltip for="shared-we shared-share shared-the shared-same shared-tooltip" type="description">I am shared between different elements</sl-tooltip>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-Tooltip component should be a sibling of the elements it is describing (not a child element). You can share the same tooltip between multiple elements by using the same id in the `aria-describedby` or `aria-labelledby` attribute.
-
-<sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">We</sl-button>
-<sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">share</sl-button>
-<sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">the</sl-button>
-<sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">same</sl-button>
-<sl-button aria-describedby="tooltip-id" fill="solid" variant="primary">tooltip</sl-button>
-<sl-tooltip id="tooltip-id">I am shared between different elements</sl-tooltip>
+<sl-button id="shared-we" fill="solid" variant="primary">We</sl-button>
+<sl-button id="shared-share" fill="solid" variant="primary">share</sl-button>
+<sl-button id="shared-the" fill="solid" variant="primary">the</sl-button>
+<sl-button id="shared-same" fill="solid" variant="primary">same</sl-button>
+<sl-button id="shared-tooltip" fill="solid" variant="primary">tooltip</sl-button>
+<sl-tooltip for="shared-we shared-share shared-the shared-same shared-tooltip" type="description">I am shared between different elements</sl-tooltip>
   ```
 
 </div>
+
+Every element listed in `for` gets the tooltip's hover, focus and click triggers, and the tooltip is positioned against whichever one the user interacted with.
+
+Use `type` to control how the tooltip is linked for screen readers. The default, `label`, exposes the tooltip as the accessible name of the anchor and is what you want for icon-only buttons. Use `type="description"` — as in the example above — when the anchor already has its own label and the tooltip only adds extra information.
+
 </section>
 <ds-install-info link-in-navigation package="tooltip"></ds-install-info>
 <section>
 
 ## TooltipDirective API
 
-When working on the application with LitElement, `TooltipDirective` can be used as an alternative way for adding `sl-tooltip` component. 
+When working on the application with LitElement, `TooltipDirective` can be used as an alternative way for adding `sl-tooltip` component.
 This is a LitElement specific directive - a custom LitElement directive. More information you can find [here](https://lit.dev/docs/templates/custom-directives/).
 
 The `TooltipDirective` can be added to the anchor element e.g. button by passing a `string` for the tooltip content:

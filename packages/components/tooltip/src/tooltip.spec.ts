@@ -182,6 +182,110 @@ describe('sl-tooltip', () => {
     });
   });
 
+  describe('multiple anchors', () => {
+    let first: HTMLElement, second: HTMLElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div>
+          <button id="multi-1" type="button">First</button>
+          <button id="multi-2" type="button">Second</button>
+          <sl-tooltip for="multi-1 multi-2" type="description">Tip</sl-tooltip>
+        </div>
+      `);
+      first = el.querySelector('#multi-1')!;
+      second = el.querySelector('#multi-2')!;
+      tooltip = el.querySelector('sl-tooltip')!;
+      await tooltip.updateComplete;
+    });
+
+    it('should bind to every element referenced by "for"', () => {
+      expect(tooltip.anchors).to.deep.equal([first, second]);
+    });
+
+    it('should set the ARIA relation on every anchor', () => {
+      expect(first.ariaDescribedByElements).to.include(tooltip);
+      expect(second.ariaDescribedByElements).to.include(tooltip);
+    });
+
+    it('should position against the first anchor by default', () => {
+      expect(tooltip.anchor).to.equal(first);
+      expect(first.style.anchorName).to.equal(`--${tooltip.id}`);
+      expect(tooltip.style.positionAnchor).to.equal(`--${tooltip.id}`);
+    });
+
+    it('should ignore extra whitespace and duplicate ids', async () => {
+      tooltip.setAttribute('for', '  multi-2   multi-1  multi-2 ');
+      await tooltip.updateComplete;
+
+      expect(tooltip.anchors).to.deep.equal([second, first]);
+    });
+
+    it('should show the tooltip when hovering any anchor', async () => {
+      second.dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 10);
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should reposition to the anchor that triggered it', async () => {
+      second.dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 10);
+
+      expect(tooltip.anchor).to.equal(second);
+      expect(second.style.anchorName).to.equal(`--${tooltip.id}`);
+      expect(tooltip.style.positionAnchor).to.equal(`--${tooltip.id}`);
+
+      // Only the active anchor carries the anchor name, otherwise the CSS is ambiguous
+      expect(first.style.anchorName).to.equal('');
+    });
+
+    it('should not hide the tooltip when moving between anchors', async () => {
+      first.dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 10);
+
+      first.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, relatedTarget: second }));
+      await waitFor(Tooltip.hoverHideDelay + 10);
+
+      expect(tooltip).to.match(':popover-open');
+    });
+
+    it('should clean up anchors that are no longer referenced', async () => {
+      tooltip.setAttribute('for', 'multi-1');
+      await tooltip.updateComplete;
+
+      expect(tooltip.anchors).to.deep.equal([first]);
+      expect(second.ariaDescribedByElements ?? []).not.to.include(tooltip);
+      expect(second.style.anchorName).to.equal('');
+    });
+
+    it('should remove the ARIA relation from every anchor when disconnected', async () => {
+      tooltip.remove();
+      await tooltip.updateComplete;
+
+      expect(first.ariaDescribedByElements ?? []).not.to.include(tooltip);
+      expect(second.ariaDescribedByElements ?? []).not.to.include(tooltip);
+    });
+
+    it('should remove the ARIA relation from every anchor when disabled', async () => {
+      tooltip.disabled = true;
+      await tooltip.updateComplete;
+
+      expect(first.ariaDescribedByElements ?? []).not.to.include(tooltip);
+      expect(second.ariaDescribedByElements ?? []).not.to.include(tooltip);
+    });
+
+    it('should move the ARIA relation on every anchor when the type changes', async () => {
+      tooltip.type = 'label';
+      await tooltip.updateComplete;
+
+      expect(first.ariaDescribedByElements ?? []).not.to.include(tooltip);
+      expect(second.ariaDescribedByElements ?? []).not.to.include(tooltip);
+      expect(first.ariaLabelledByElements).to.include(tooltip);
+      expect(second.ariaLabelledByElements).to.include(tooltip);
+    });
+  });
+
   describe('type', () => {
     beforeEach(async () => {
       el = await fixture(html`

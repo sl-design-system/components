@@ -13,7 +13,8 @@ let nextUniqueId = 0;
 /**
  * A tooltip component that can be used to display additional information about an element when the
  * user hovers over it, focuses it, or clicks it. The tooltip is positioned relative to an anchor
- * element, which can be specified using the `for` attribute.
+ * element, which can be specified using the `for` attribute. That attribute accepts multiple ids,
+ * separated by spaces, so a single tooltip can serve several elements.
  *
  * The tooltip will automatically determine the appropriate ARIA relation to use based on the `type`
  * property. By default, it will use `ariaLabelledByElements`, but if `type` is set to
@@ -44,7 +45,13 @@ export class Tooltip extends LitElement {
   /** Timeout ID for the hover delay. */
   #hoverTimeout?: ReturnType<typeof setTimeout>;
 
-  /** @internal The element this tooltip is anchored to. */
+  /** @internal All elements this tooltip belongs to. */
+  @state() anchors: HTMLElement[] = [];
+
+  /**
+   * @internal The anchor the tooltip is currently positioned against. When `for` references
+   *   multiple elements, this is the one that last triggered the tooltip.
+   */
   @state() anchor?: HTMLElement | null;
 
   /**
@@ -54,7 +61,10 @@ export class Tooltip extends LitElement {
    */
   @property({ type: Boolean }) disabled?: boolean;
 
-  /** The ID of the element this tooltip is for. */
+  /**
+   * The id of the element this tooltip is for. Multiple ids can be passed by separating them with a
+   * space; the tooltip then belongs to each of those elements.
+   */
   @property() for?: string;
 
   /**
@@ -104,10 +114,10 @@ export class Tooltip extends LitElement {
     this.addEventListener('toggle', this.#onToggle, { signal });
 
     // Re-establish the anchor relationship if the tooltip is moved to a different root
-    if (this.anchor && this.for) {
-      this.anchor = undefined; // triggers #updateAnchor()
+    if (this.anchors.length && this.for) {
+      this.anchors = []; // triggers #updateAnchors()
     } else if (this.for) {
-      this.#updateAnchor();
+      this.#updateAnchors();
     }
   }
 
@@ -119,9 +129,7 @@ export class Tooltip extends LitElement {
     // Remove the event handler in case the tooltip is still open when disconnected
     document.removeEventListener('keydown', this.#onKeydown, { capture: true });
 
-    if (this.anchor) {
-      this.#removeAriaRelation(this.anchor, this.type);
-    }
+    this.anchors.forEach(anchor => this.#removeAriaRelation(anchor, this.type));
 
     super.disconnectedCallback();
   }
@@ -129,8 +137,8 @@ export class Tooltip extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('anchor') || changes.has('for')) {
-      this.#updateAnchor();
+    if (changes.has('anchors') || changes.has('for')) {
+      this.#updateAnchors();
     }
 
     if (changes.has('open')) {
@@ -141,23 +149,27 @@ export class Tooltip extends LitElement {
       }
     }
 
-    if (changes.has('type') && this.anchor) {
-      this.#removeAriaRelation(this.anchor, changes.get('type'));
-      if (!this.disabled) {
-        this.#addAriaRelation(this.anchor, this.type);
-      }
+    if (changes.has('type')) {
+      this.anchors.forEach(anchor => {
+        this.#removeAriaRelation(anchor, changes.get('type'));
+        if (!this.disabled) {
+          this.#addAriaRelation(anchor, this.type);
+        }
+      });
     }
 
     if (changes.has('disabled')) {
       if (this.disabled) {
         this.hidePopover();
-
-        if (this.anchor) {
-          this.#removeAriaRelation(this.anchor, this.type);
-        }
-      } else if (this.anchor) {
-        this.#addAriaRelation(this.anchor, this.type);
       }
+
+      this.anchors.forEach(anchor => {
+        if (this.disabled) {
+          this.#removeAriaRelation(anchor, this.type);
+        } else {
+          this.#addAriaRelation(anchor, this.type);
+        }
+      });
     }
   }
 
@@ -187,11 +199,12 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #onClick = (): void => {
+  #onClick = (event: Event): void => {
     if (this.#hasTrigger('click')) {
-      if (this.matches(':popover-open')) {
+      if (this.matches(':popover-open') && event.currentTarget === this.anchor) {
         this.hidePopover();
       } else {
+        this.#setActiveAnchor(event.currentTarget as HTMLElement);
         this.showPopover();
       }
     } else {
@@ -199,8 +212,9 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #onFocus = (): void => {
+  #onFocus = (event: FocusEvent): void => {
     if (this.#hasTrigger('focus')) {
+      this.#setActiveAnchor(event.currentTarget as HTMLElement);
       this.showPopover();
     }
   };
@@ -214,11 +228,14 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #onMouseOver = (): void => {
+  #onMouseOver = (event: MouseEvent): void => {
     if (this.#hasTrigger('hover')) {
       clearTimeout(this.#hoverTimeout);
 
+      const anchor = event.currentTarget as HTMLElement;
+
       this.#hoverTimeout = setTimeout(() => {
+        this.#setActiveAnchor(anchor);
         this.showPopover();
       }, Tooltip.hoverShowDelay);
     }
@@ -226,11 +243,15 @@ export class Tooltip extends LitElement {
 
   #onMouseOut = (event: MouseEvent): void => {
     if (this.#hasTrigger('hover')) {
-      // Don't hide the popover if the pointer moved to the anchor or the popover itself
+      // Don't hide the popover if the pointer moved to one of the anchors or the popover itself
       // (including the hover bridge). Uses relatedTarget instead of :hover, since :hover
       // reflects the real pointer position, which is unreliable with synthetic events.
       const relatedTarget = event.relatedTarget as Node | null;
-      if (relatedTarget && (this.anchor?.contains(relatedTarget) || this.contains(relatedTarget))) {
+      if (
+        relatedTarget &&
+        (this.contains(relatedTarget) ||
+          this.anchors.some(anchor => anchor.contains(relatedTarget)))
+      ) {
         return;
       }
 
@@ -355,62 +376,71 @@ export class Tooltip extends LitElement {
     anchor.removeEventListener('focus', this.#onFocus, { capture: true });
     anchor.removeEventListener('mouseover', this.#onMouseOver);
     anchor.removeEventListener('mouseout', this.#onMouseOut);
-
-    // Only clear the anchorName if it was set by us.
-    if (anchor.style.anchorName === `--${this.id}`) {
-      anchor.style.anchorName = '';
-    }
-
-    this.style.positionAnchor = '';
   }
 
-  #updateAnchor(): void {
-    if (!this.for) {
-      const oldAnchor = this.anchor;
-      if (oldAnchor) {
-        this.#cleanupAnchor(oldAnchor, this.type);
-      }
-
-      this.anchor = undefined;
+  /**
+   * Positions the tooltip against the given anchor. Only the active anchor carries the anchor name,
+   * so it can move from one anchor to the next without the CSS becoming ambiguous.
+   */
+  #setActiveAnchor(anchor?: HTMLElement | null): void {
+    const oldAnchor = this.anchor;
+    if (oldAnchor === anchor) {
       return;
     }
 
-    const rootNode = this.getRootNode() as Document | ShadowRoot | null;
-    if (!rootNode) {
-      this.anchor = undefined;
+    // Only clear the anchorName if it was set by us.
+    if (oldAnchor?.style.anchorName === `--${this.id}`) {
+      oldAnchor.style.anchorName = '';
+    }
+
+    if (anchor) {
+      // Do not overwrite an existing anchor name, as it might be used for something else.
+      const anchorName = anchor.style.anchorName || `--${this.id}`;
+
+      anchor.style.anchorName = anchorName;
+      this.style.positionAnchor = anchorName;
+    } else {
+      this.style.positionAnchor = '';
+    }
+
+    this.anchor = anchor;
+  }
+
+  #updateAnchors(): void {
+    const rootNode = this.getRootNode() as Document | ShadowRoot | null,
+      ids = this.for?.split(/\s+/).filter(Boolean) ?? [];
+
+    const newAnchors = rootNode
+      ? Array.from(new Set(ids))
+          .map(id => rootNode.getElementById(id))
+          .filter((anchor): anchor is HTMLElement => !!anchor)
+      : [];
+
+    const oldAnchors = this.anchors;
+    if (
+      newAnchors.length === oldAnchors.length &&
+      newAnchors.every((anchor, index) => anchor === oldAnchors[index])
+    ) {
       return;
     }
 
-    const newAnchor = this.for ? rootNode.getElementById(this.for) : null,
-      oldAnchor = this.anchor;
-    if (newAnchor === oldAnchor) {
-      return;
-    }
-
-    // Clean up the old anchor first; #cleanupAnchor clears the positionAnchor style,
-    // so doing this after setting up the new anchor would undo that setup.
-    if (oldAnchor) {
-      this.#cleanupAnchor(oldAnchor, this.type);
-    }
+    oldAnchors.forEach(anchor => this.#cleanupAnchor(anchor, this.type));
 
     const { signal } = this.#eventController;
 
-    if (newAnchor) {
-      this.#addAriaRelation(newAnchor, this.type);
+    newAnchors.forEach(anchor => {
+      this.#addAriaRelation(anchor, this.type);
 
-      newAnchor.addEventListener('blur', this.#onBlur, { capture: true, signal });
-      newAnchor.addEventListener('click', this.#onClick, { signal });
-      newAnchor.addEventListener('focus', this.#onFocus, { capture: true, signal });
-      newAnchor.addEventListener('mouseover', this.#onMouseOver, { signal });
-      newAnchor.addEventListener('mouseout', this.#onMouseOut, { signal });
+      anchor.addEventListener('blur', this.#onBlur, { capture: true, signal });
+      anchor.addEventListener('click', this.#onClick, { signal });
+      anchor.addEventListener('focus', this.#onFocus, { capture: true, signal });
+      anchor.addEventListener('mouseover', this.#onMouseOver, { signal });
+      anchor.addEventListener('mouseout', this.#onMouseOut, { signal });
+    });
 
-      // Do not overwrite an existing anchor name, as it might be used for something else.
-      const newAnchorName = newAnchor.style.anchorName || `--${this.id}`;
+    this.anchors = newAnchors;
 
-      newAnchor.style.anchorName = newAnchorName;
-      this.style.positionAnchor = newAnchorName;
-    }
-
-    this.anchor = newAnchor;
+    // Until a trigger picks one, the tooltip is positioned against the first anchor.
+    this.#setActiveAnchor(newAnchors[0]);
   }
 }

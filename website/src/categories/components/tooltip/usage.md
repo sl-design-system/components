@@ -8,8 +8,8 @@ eleventyNavigation:
 <section class="no-heading">
 <div class="ds-example">
 
-<sl-button aria-describedby="tooltip" fill="solid" variant="primary">Button with a tooltip</sl-button>
-<sl-tooltip id="tooltip">This is a tooltip with some additional information</sl-tooltip>
+<sl-button id="button" fill="solid" variant="primary">Button with a tooltip</sl-button>
+<sl-tooltip for="button">This is a tooltip with some additional information</sl-tooltip>
 
 </div>
 
@@ -18,8 +18,8 @@ eleventyNavigation:
   ```html
 Tooltip component should be a sibling of the element it is describing (not a child element).
 
-<sl-button aria-describedby="tooltip">Button with a tooltip</sl-button>
-<sl-tooltip id="tooltip">This is a tooltip with some additional information</sl-tooltip>
+<sl-button id="button">Button with a tooltip</sl-button>
+<sl-tooltip for="button">This is a tooltip with some additional information</sl-tooltip>
   ```
 
 </div>
@@ -48,7 +48,7 @@ Tooltips rely on hover interactions, which do not translate well to touchscreens
 
 ### Accessibility concerns
 Some users rely on screen readers or have visual impairments. Ensure that tooltips are accessible and provide an alternative method (such as keyboard shortcuts) to access the same information.
-  
+
 </section>
 
 <section>
@@ -56,7 +56,7 @@ Some users rely on screen readers or have visual impairments. Ensure that toolti
 ## Anatomy
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Panel	|Contains the panel content|no|
@@ -76,7 +76,7 @@ Some users rely on screen readers or have visual impairments. Ensure that toolti
 With these options you can tweak the appearance of the tooltip in Figma. They are available in the Design Panel so you can compose the tooltip to exactly fit the user experience need for the uses case you are working on.
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Options|Description|
 |-|-|-|
 |position|`1-o'clock` `2-o'clock` `3-o'clock` `4-o'clock` `5-o'clock` `6-o'clock` `7-o'clock` `8-o'clock` `9-o'clock` `10-o'clock` `11-o'clock` `12-o'clock`|To indicate the direction of context that the tooltip is attributed to|

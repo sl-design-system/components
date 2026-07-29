@@ -17,8 +17,16 @@ The complex internal positioning logic, `AnchorController`, `EventsController`, 
 
 #### New API
 
-- `for` — links the tooltip to an anchor element by ID
+- `for` — links the tooltip to one or more anchor elements by id; pass a space-separated list of ids to share a single tooltip between multiple elements
 - `type` — controls the ARIA relationship: `'label'` (`ariaLabelledByElements`, default) or `'description'` (`ariaDescribedByElements`)
 - `trigger` — space-separated list of triggers: `'focus'`, `'hover'`, and/or `'click'` (default: `'focus hover'`)
 - `disabled` — prevents the tooltip from showing
 - `open` — shows or hides the tooltip programmatically, regardless of trigger; to check whether the tooltip is showing, use `matches(':popover-open')` instead
+
+```html
+<button id="copy">Copy</button>
+<button id="cut">Cut</button>
+<sl-tooltip for="copy cut" type="description">Works on the current selection</sl-tooltip>
+```
+
+Every element listed in `for` gets the ARIA relation and the triggers. The tooltip is positioned against the anchor that triggered it, and against the first anchor until then.

@@ -93,6 +93,10 @@ ruleTester.run('button-has-label', buttonHasLabel, {
       errors: [{ messageId: 'mustBeAriaRelationLabel' }]
     },
     {
+      code: 'html`<sl-button tooltip="Save"></sl-button>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    {
       code: "html`<sl-button tooltip=''><sl-icon name='save'></sl-icon></sl-button>`;",
       errors: [{ messageId: 'missingText' }]
     },

@@ -1,7 +1,26 @@
 import { TemplateAnalyzer } from 'eslint-plugin-lit/lib/template-analyzer.js';
 import { isHtmlTaggedTemplate } from 'eslint-plugin-lit-a11y/lib/utils/isLitHtmlTemplate.js';
 import { hasAccessibleName } from 'eslint-plugin-lit-a11y/lib/utils/hasAccessibleName.js';
-import { hasTextContent } from '../utils.js';
+import { hasTextContent, isElement, isTextContent } from '../utils.js';
+
+/**
+ * Whether the content of the button is just an icon. Mirrors the `icon-only` state in sl-button:
+ * the content must be a single sl-icon, or a single element wrapping nothing but an sl-icon.
+ */
+function isIconOnly(element) {
+  const nodes = element.children.filter(child => isElement(child) || isTextContent(child));
+
+  if (nodes.length !== 1 || !isElement(nodes[0])) {
+    return false;
+  }
+
+  const child = nodes[0],
+    grandChildren = (child.children ?? []).filter(node => isElement(node) || isTextContent(node));
+
+  return (
+    child.name === 'sl-icon' || (grandChildren.length === 1 && grandChildren[0].name === 'sl-icon')
+  );
+}
 
 /** @type {import('eslint').Rule.RuleModule} */
 export const buttonHasLabel = {
@@ -58,16 +77,17 @@ export const buttonHasLabel = {
             }
 
             // The `tooltip` attribute on sl-button provides the accessible label for icon-only
-            // buttons at runtime, so it counts as an accessible name at lint time.
+            // buttons at runtime, so it counts as an accessible name at lint time. For any other
+            // button the tooltip becomes the description instead, and does not name the button.
             const attribs = element.attribs ?? {},
-              hasTooltipAttribute = (attribs['tooltip'] ?? '').trim() !== '',
+              hasTooltipLabel = (attribs['tooltip'] ?? '').trim() !== '' && isIconOnly(element),
               hasTooltipSibling = tooltipLabelledIds.has((attribs['id'] ?? '').trim());
 
             if (
               hasTextContent(element) ||
               hasAccessibleName(element) ||
               hasTooltipWithAriaRelationLabel ||
-              hasTooltipAttribute ||
+              hasTooltipLabel ||
               hasTooltipSibling
             ) {
               return;

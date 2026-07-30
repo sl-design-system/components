@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "^1.4.3",
-    "@sl-design-system/virtual-list": "^0.1.1"
+    "@sl-design-system/virtual-list": "^0.2.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10",

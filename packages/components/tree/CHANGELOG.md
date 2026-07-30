@@ -12,8 +12,8 @@
 
 - [#3542](https://github.com/sl-design-system/components/pull/3542) [`10c8cd0`](https://github.com/sl-design-system/components/commit/10c8cd0b53f069fe6534ba8cd829a8cd9fde69fe) - Increase gap between tree-node icon and label to match figma
 
-- Updated dependencies [[`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b), [`e5ba453`](https://github.com/sl-design-system/components/commit/e5ba453452a216af22326950d0d121d7f0cf3401)]:
-  - @sl-design-system/virtual-list@0.1.1
+- Updated dependencies [[`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`c399b00`](https://github.com/sl-design-system/components/commit/c399b0041473ee71943619133dbe05e640924186), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b), [`e5ba453`](https://github.com/sl-design-system/components/commit/e5ba453452a216af22326950d0d121d7f0cf3401)]:
+  - @sl-design-system/virtual-list@0.2.0
   - @sl-design-system/checkbox@2.2.0
   - @sl-design-system/icon@1.4.3
   - @sl-design-system/shared@0.12.3

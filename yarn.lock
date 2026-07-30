@@ -7391,7 +7391,7 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/virtual-list": "npm:^0.1.1"
+    "@sl-design-system/virtual-list": "npm:^0.2.0"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7946,7 +7946,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.12.3"
     "@sl-design-system/skeleton": "npm:^1.0.1"
     "@sl-design-system/spinner": "npm:^2.0.1"
-    "@sl-design-system/virtual-list": "npm:^0.1.1"
+    "@sl-design-system/virtual-list": "npm:^0.2.0"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7954,7 +7954,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/virtual-list@npm:^0.1.1, @sl-design-system/virtual-list@workspace:packages/components/virtual-list":
+"@sl-design-system/virtual-list@npm:^0.2.0, @sl-design-system/virtual-list@workspace:packages/components/virtual-list":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/virtual-list@workspace:packages/components/virtual-list"
   dependencies:

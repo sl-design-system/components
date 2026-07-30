@@ -18,6 +18,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) now propagates its `fill` to child buttons and menu-buttons, and applies `variant="inverted"` when the toolbar is inverted. Buttons with an explicit `fill` or `variant` already set keep their own value. See the updated [toolbar documentation](https://sanomalearning.design/categories/components/tool-bar/code/#fill-inheritance-and-variants) for examples.
 - [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) now makes all nodes selectable by default. Selectability is controlled by the `isSelectable` function, which returns `true` unless overridden.
 - [`teacher-assistant`](https://github.com/sl-design-system/components/blob/main/packages/themes/teacher-assistant/CHANGELOG.md) is a new theme package for the Teacher Assistant product (`@sl-design-system/teacher-assistant`).
+- [`virtual-list`](https://github.com/sl-design-system/components/blob/main/packages/components/virtual-list/CHANGELOG.md) improves VoiceOver support for virtualized options by rendering them in the light DOM and stabilizing `aria-activedescendant` updates during virtual scrolling. [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) and [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) pick up this improvement automatically.
 
 ## Bug fixes
 
@@ -35,7 +36,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 - [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes `aria-controls` and `aria-labelledby` relationships across the shadow DOM boundary, and exports listbox components automatically when importing `register.js`.
 - [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) gives the remove button a proper accessible label ("Remove tag 'X'"), uses `aria-disabled` instead of `disabled` to keep it keyboard-reachable when disabled, and fixes tag-list keyboard navigation in comboboxes.
 - [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fixes node labels not being visible in multiple-selection trees, and increases the gap between the tree-node icon and label to match the design.
-- [`virtual-list`](https://github.com/sl-design-system/components/blob/main/packages/components/virtual-list/CHANGELOG.md) fixes `scrollMargin` handling and grouped option behavior in virtualized lists.
+- [`virtual-list`](https://github.com/sl-design-system/components/blob/main/packages/components/virtual-list/CHANGELOG.md) fixes `scrollMargin` handling and grouped option behavior in virtualized lists. See also the new VoiceOver improvements in the New features section above.
 
 ## Locales
 

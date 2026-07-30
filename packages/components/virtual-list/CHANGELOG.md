@@ -1,11 +1,14 @@
 # @sl-design-system/virtual-list
 
-## 0.1.1
+## 0.2.0
+
+### Minor Changes
+
+- [#3543](https://github.com/sl-design-system/components/pull/3543) [`c399b00`](https://github.com/sl-design-system/components/commit/c399b0041473ee71943619133dbe05e640924186) - Improve VoiceOver support for virtualized combobox options by rendering listbox-managed virtual options in the light DOM and stabilizing `aria-activedescendant` updates during virtual scrolling.
 
 ### Patch Changes
 
 - [#3464](https://github.com/sl-design-system/components/pull/3464) [`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da) - Improved virtual list scrolling and grouped option behavior.
-
   - Fixed `scrollMargin` handling so automatic window-scroll offsets are not overwritten by an implicit `0`, and clearing `scrollMargin` restores automatic behavior.
   - Kept cached virtual-list measurements enabled internally for more stable rendering
   - Prevented grouped combobox headers from being matched and selected as regular options
@@ -21,7 +24,6 @@
 - [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Migrate to TanStack Virtual for improved performance and reliability
 
   The virtual-list component has been refactored to use TanStack Virtual instead of the custom virtualization implementation. This provides better performance, smoother scrolling, and more reliable item measurement.
-
   - Migrated to TanStack Virtual for core virtualization logic
   - Added `scrollMargin` property to control scroll offset when scrolling items into view
   - Added `requestLayout()` method to trigger re-measurement of item sizes

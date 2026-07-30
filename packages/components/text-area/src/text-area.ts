@@ -383,7 +383,7 @@ export class TextArea extends ObserveAttributesMixin(
         return;
       }
 
-      const over = this.value.length - showCountLimit;
+      const over = this.#getValue().length - showCountLimit;
       let validationMessage: string;
 
       switch (getPluralCategory(over)) {
@@ -413,6 +413,18 @@ export class TextArea extends ObserveAttributesMixin(
     }
   }
 
+  /**
+   * Override setCustomValidity to reset the count validity flag whenever an external custom error
+   * is set. This ensures the component can distinguish between errors it set itself and errors set
+   * externally by consumers.
+   */
+  override setCustomValidity(message: string): void {
+    // Reset the flag because we don't know if this is from the component or external code.
+    // This allows updateInternalValidity() to properly track its own errors.
+    this.#countValiditySet = false;
+    this.textarea.setCustomValidity(message);
+  }
+
   /** Attaches focus and blur listeners to the current textarea. */
   #attachTextareaListeners(textarea: HTMLTextAreaElement): void {
     textarea.addEventListener('blur', this.#onTextareaBlur);
@@ -438,7 +450,7 @@ export class TextArea extends ObserveAttributesMixin(
       return 'default';
     }
 
-    const remaining = showCountLimit - this.value.length;
+    const remaining = showCountLimit - this.#getValue().length;
 
     if (remaining < 0) {
       return 'danger';
@@ -454,6 +466,11 @@ export class TextArea extends ObserveAttributesMixin(
   #getShowCountLimit(): number | undefined {
     const limit = Number(this.showCount);
     return Number.isFinite(limit) && limit > 0 ? Math.trunc(limit) : undefined;
+  }
+
+  /** Returns the current value as a string, ensuring it's never null or undefined. */
+  #getValue(): string {
+    return this.value?.toString() ?? '';
   }
 
   /** Returns whether the character count should currently be shown. */
@@ -588,7 +605,7 @@ export class TextArea extends ObserveAttributesMixin(
       return '';
     }
 
-    const remaining = showCountLimit - this.value.length;
+    const remaining = showCountLimit - this.#getValue().length;
 
     if (remaining < 0) {
       const over = -remaining;
@@ -670,7 +687,7 @@ export class TextArea extends ObserveAttributesMixin(
       return;
     }
 
-    this.#setOverLimitVisualState(this.value.length > showCountLimit);
+    this.#setOverLimitVisualState(this.#getValue().length > showCountLimit);
   }
 
   /** Applies or restores the temporary `show-validity` state used for soft-limit overflow. */

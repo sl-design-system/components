@@ -158,7 +158,11 @@
       "files": [
         "scripts/setup-themes.js",
         "packages/themes/core/global.css",
-        "packages/themes/core/typography.css"
+        "packages/themes/core/typography.css",
+        "scripts/export/core-css/**/*.css"
+      ],
+      "output": [
+        "packages/themes/*/theme.css"
       ]
     },
     "build:themes:styles": {
@@ -172,7 +176,8 @@
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/global.css",
         "!packages/themes/*/typography.css",
-        "!packages/themes/*/fonts.css"
+        "!packages/themes/*/fonts.css",
+        "!packages/themes/*/theme.css"
       ]
     },
     "build:types": {

@@ -390,7 +390,9 @@
   --sl-brand-dark-color-foreground-neutral-bold: var(
     --sl-brand-dark-color-foreground-accent-grey-bold
   );
-  --sl-brand-dark-color-foreground-neutral-on-bold: var(--sl-brand-dark-color-palette-grey-000);
+  --sl-brand-dark-color-foreground-neutral-on-bold: var(
+    --sl-brand-dark-color-foreground-accent-grey-bold
+  );
   --sl-brand-dark-color-foreground-neutral-plain: var(
     --sl-brand-dark-color-foreground-accent-grey-subtlest
   );

@@ -9,8 +9,6 @@ const setupTheme = theme => {
   const destinationGlobal = join(cwd, `${theme}/global.css`);
   cp(sourceGlobal, destinationGlobal, () => console.log(`🌍 ✅ ${theme}`));
 
-  // const destinationTypography = join(cwd, `${theme}/typography.css`);
-
   const themeName = theme.split('/').pop();
   const sourceThemeFiles = [
     `./export/core-css/device/desktop.css`,

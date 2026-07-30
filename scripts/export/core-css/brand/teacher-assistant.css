@@ -412,13 +412,13 @@
     --sl-brand-light-color-foreground-accent-red-plain
   );
   --sl-brand-light-color-foreground-neutral-bold: var(
-    --sl-brand-light-color-foreground-accent-purple-bold
+    --sl-brand-light-color-foreground-accent-grey-bold
   );
   --sl-brand-light-color-foreground-neutral-on-bold: var(
     --sl-brand-light-color-foreground-accent-grey-on-bold
   );
   --sl-brand-light-color-foreground-neutral-plain: var(
-    --sl-brand-light-color-foreground-accent-purple-plain
+    --sl-brand-light-color-foreground-accent-grey-plain
   );
   --sl-brand-light-color-foreground-plain: var(--sl-brand-light-color-foreground-accent-grey-plain);
   --sl-brand-light-color-foreground-positive-bold: var(
@@ -457,11 +457,11 @@
   --sl-brand-light-color-foreground-subtlest: var(
     --sl-brand-light-color-foreground-accent-grey-subtlest
   );
-  --sl-brand-light-color-link-active: var(--sl-brand-light-color-palette-blue-700);
+  --sl-brand-light-color-link-active: var(--sl-brand-light-color-palette-purple-600);
   --sl-brand-light-color-link-focused-active: var(--sl-brand-light-color-palette-purple-700);
   --sl-brand-light-color-link-focused-hover: var(--sl-brand-light-color-palette-purple-800);
   --sl-brand-light-color-link-focused-idle: var(--sl-brand-light-color-palette-purple-900);
-  --sl-brand-light-color-link-hover: var(--sl-brand-light-color-palette-blue-600);
+  --sl-brand-light-color-link-hover: var(--sl-brand-light-color-palette-purple-800);
   --sl-brand-light-color-link-idle: var(--sl-brand-light-color-foreground-accent-purple-plain);
   --sl-brand-light-color-link-inverted-active: var(--sl-brand-light-color-palette-blue-150);
   --sl-brand-light-color-link-inverted-hover: var(--sl-brand-light-color-palette-blue-100);
@@ -571,7 +571,9 @@
   );
   --sl-brand-light-elevation-surface-raised-default: var(--sl-brand-light-color-palette-grey-000);
   --sl-brand-light-elevation-surface-raised-inverted: var(--sl-brand-light-color-palette-grey-900);
-  --sl-brand-light-elevation-surface-raised-primary: var(--sl-brand-light-color-palette-purple-400);
+  --sl-brand-light-elevation-surface-raised-primary: var(
+    --sl-brand-light-color-background-primary-bold
+  );
   --sl-brand-light-elevation-surface-raised-sunken: var(--sl-brand-light-color-palette-grey-050);
   --sl-brand-light-elevation-surface-shadow: var(--sl-brand-light-color-palette-grey-900);
   --sl-brand-light-opacity-bold: 1;

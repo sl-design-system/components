@@ -320,34 +320,26 @@ const getThemes = async folder => {
   return themes;
 };
 
-const build = async (production = false, path, sldsLegacyPath) => {
+const build = async (production = false, tokensPath) => {
   const cwd = new URL('.', import.meta.url).pathname,
     themeBase = join(cwd, '../packages/themes'),
-    themes = await getThemes(join(cwd, path));
-  // if you want to debug the build to see which themes are being built, uncomment the console.log line below and replace the line above with
-
-  // TODO: Remove the hardcoded themes array and use the getThemes function instead. The hardcoded array is currently used for debugging purposes.
-  // themes = [  <result from console.log('Building themes:', themes)> ];
-  // you can (un)comment out each theme until you find the one that is causing issues
-  // console.log('Building themes:', themes);
+    themes = await getThemes(join(cwd, tokensPath));
 
   // Filter out themes that don't have base.json
   const themesWithBase = [];
   for (const [theme, variant] of themes) {
-    const baseFilePath = join(cwd, sldsLegacyPath, theme, 'base.json');
+    const baseFilePath = join(cwd, tokensPath, theme, 'base.json');
     try {
       await access(baseFilePath);
       themesWithBase.push([theme, variant]);
     } catch (error) {
       if (error && error.code === 'ENOENT') {
-        console.log(`Skipping deprecated scenario for ${theme}/${variant}: no base.json found`);
+        console.log(`Skipping ${theme}/${variant}: no base.json found`);
       } else {
         throw error;
       }
     }
   }
-
-  const oldThemes = [...themesWithBase];
 
   // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {
@@ -372,24 +364,17 @@ const build = async (production = false, path, sldsLegacyPath) => {
     }
   };
 
-  const createConfigForThemeVariant = (theme, variant, old) => {
+  const createConfigForThemeVariant = (theme, variant) => {
     {
-      const tokensets = old
-        ? ['core', `${theme}/base`, `${theme}/${variant}`]
-        : ['system', 'primitives', `${theme}/base-new`, `${theme}/${variant}-new`];
-
-      const files = old
-        ? createFileConfigDeprecated(themeBase, theme, variant)
-        : createFileConfig(themeBase, theme, variant);
+      const tokensets = ['core', `${theme}/base`, `${theme}/${variant}`];
+      const files = createFileConfig(themeBase, theme, variant);
 
       return {
         log: {
           verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
           warnings: 'disabled'
         },
-        source: tokensets.map(tokenset =>
-          join(cwd, old ? sldsLegacyPath : path, `${tokenset}.json`)
-        ),
+        source: tokensets.map(tokenset => join(cwd, tokensPath, `${tokenset}.json`)),
         preprocessors: ['strip-routing-prefix', 'convert-set-alpha-to-color-mix', 'tokens-studio'],
         platforms: {
           css: {
@@ -413,62 +398,6 @@ const build = async (production = false, path, sldsLegacyPath) => {
   };
 
   const createFileConfig = (themeBase, theme, variant) => {
-    const files = [
-      {
-        destination: `${themeBase}/${theme}/${variant}.css`,
-        format: 'css/variables',
-        options: {
-          fileHeader: 'sl/legal',
-          outputReferences: !production
-        }
-      }
-    ];
-
-    if (production) {
-      files.push(
-        {
-          destination: `${themeBase}/${theme}/css/base.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['system.json', 'primitives.json', 'base-new.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}-new.json`])
-        }
-      );
-    }
-    return files;
-  };
-  const createFileConfigDeprecated = (themeBase, theme, variant) => {
     const files = [
       {
         destination: `${themeBase}/${theme}/${variant}-deprecated.css`,
@@ -525,22 +454,19 @@ const build = async (production = false, path, sldsLegacyPath) => {
     return files;
   };
 
-  const configs = themes.map(([theme, variant]) =>
-    createConfigForThemeVariant(theme, variant, false)
-  );
-  const oldConfigs = oldThemes.map(([theme, variant]) =>
-    createConfigForThemeVariant(theme, variant, true)
+  const configs = themesWithBase.map(([theme, variant]) =>
+    createConfigForThemeVariant(theme, variant)
   );
 
-  for (const cfg of [...configs, ...oldConfigs]) {
+  for (const cfg of configs) {
     console.log(`Building ${cfg.theme}/${cfg.variant} theme...`);
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
 
     if (production) {
-      const from = join(themeBase, cfg.theme, cfg.variant + '.css'),
-        to = join(themeBase, cfg.theme, cfg.variant + '.min.css'),
+      const from = join(themeBase, cfg.theme, cfg.variant + '-deprecated.css'),
+        to = join(themeBase, cfg.theme, cfg.variant + '-deprecated.min.css'),
         css = await readFile(from, 'utf8');
 
       const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
@@ -551,4 +477,4 @@ const build = async (production = false, path, sldsLegacyPath) => {
   // put a copy of the exported typography tokens in the theme folder for easier consumption by consumers of the theme package
 };
 
-build(argv.includes('--production'), './export/core', './export/slds-legacy');
+build(argv.includes('--production'), './export/slds-legacy');

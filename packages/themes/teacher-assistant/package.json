@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/magister",
-  "description": "Magister theme for the SL Design System",
-  "version": "1.1.3",
+  "name": "@sl-design-system/teacher-assistant",
+  "description": "Teacher Assistant theme for the SL Design System",
+  "version": "0.0.1",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/themes/magister"
+    "directory": "packages/themes/teacher-assistant"
   },
   "type": "module",
   "main": "./index.js",
@@ -18,14 +18,9 @@
   "exports": {
     ".": "./index.js",
     "./global.css": "./global.css",
+    "./fonts.css": "./fonts.css",
     "./light.css": "./light.css",
     "./light.min.css": "./light.min.css",
-    "./light-deprecated.css": "./light-deprecated.css",
-    "./light-deprecated.min.css": "./light-deprecated.min.css",
-    "./dark.css": "./dark.css",
-    "./dark.min.css": "./dark.min.css",
-    "./dark-deprecated.css": "./dark-deprecated.css",
-    "./dark-deprecated.min.css": "./dark-deprecated.min.css",
     "./package.json": "./package.json",
     "./css/*.css": "./css/*.css"
   },

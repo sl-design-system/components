@@ -9,24 +9,48 @@ This section shows pagination patterns in the Angular Grid wrapper.
 
 ## Basic
 
-Connect a grid and paginator to one `ArrayListDataSource`.
+Connect a grid and paginator components to one `ArrayListDataSource` with pagination enabled.
 
 ### Template
 
 ```html
+<style>
+  .pagination {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-block: 1rem;
+    justify-content: space-between;
+  }
+  sl-paginator {
+    flex: 1;
+    justify-content: center;
+  }
+</style>
 <sl-grid [dataSource]="ds" [noSkipLinks]="true">
   <sl-grid-column path="id" header="Nr."></sl-grid-column>
   <sl-grid-column path="fullName" header="Student"></sl-grid-column>
   <sl-grid-column path="school.name" header="School"></sl-grid-column>
 </sl-grid>
-<sl-paginator [dataSource]="ds" pageSize="10" [pageSizes]="pageSizes"></sl-paginator>
+<div class="pagination">
+  <sl-paginator-status [dataSource]="ds" itemLabel="students"></sl-paginator-status>
+  <sl-paginator [dataSource]="ds"></sl-paginator>
+  <sl-paginator-page-size
+    [dataSource]="ds"
+    itemLabel="Students"
+    [pageSizes]="pageSizes"></sl-paginator-page-size>
+</div>
 ```
 
 ### Props
 
 ```typescript
-const ds = new ArrayListDataSource(students);
-const pageSizes = [5, 10, 25];
+const ds = new ArrayListDataSource(students, {
+  pagination: true,
+  page: 0,
+  pageSize: 10
+});
+const pageSizes = [5, 10, 15, 20];
 
 // students: Student[] loaded via getStudents({ count: 50 })
 ```
@@ -38,6 +62,19 @@ Combine filter columns with paginator against the same data source.
 ### Template
 
 ```html
+<style>
+  .pagination {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-block: 1rem;
+    justify-content: space-between;
+  }
+  sl-paginator {
+    flex: 1;
+    justify-content: center;
+  }
+</style>
 <sl-grid [dataSource]="ds" [noSkipLinks]="true">
   <sl-grid-filter-column path="fullName" header="Student"></sl-grid-filter-column>
   <sl-grid-filter-column
@@ -47,14 +84,32 @@ Combine filter columns with paginator against the same data source.
     labelPath="school.name"></sl-grid-filter-column>
   <sl-grid-column path="email"></sl-grid-column>
 </sl-grid>
-<sl-paginator [dataSource]="ds" pageSize="10" [pageSizes]="pageSizes"></sl-paginator>
+<div class="pagination">
+  <sl-paginator-status [dataSource]="ds" itemLabel="students"></sl-paginator-status>
+  <sl-paginator [dataSource]="ds"></sl-paginator>
+  <sl-paginator-page-size
+    [dataSource]="ds"
+    itemLabel="Students"
+    [pageSizes]="pageSizes"></sl-paginator-page-size>
+</div>
 ```
 
 ### Props
 
 ```typescript
-const ds = new ArrayListDataSource(students);
-const pageSizes = [5, 10, 25];
+const ds = new ArrayListDataSource(students, {
+  filters: [
+    {
+      id: 'filter-school',
+      by: 'school.id',
+      value: 'school-1'
+    }
+  ],
+  pagination: true,
+  page: 0,
+  pageSize: 10
+});
+const pageSizes = [5, 10, 15, 20];
 
 // students: Student[] loaded via getStudents({ count: 50 })
 ```

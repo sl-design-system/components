@@ -1,5 +1,14 @@
 # @sl-design-system/shared
 
+## 0.12.3
+
+### Patch Changes
+
+- [#3381](https://github.com/sl-design-system/components/pull/3381) [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1) - Improved focus behavior in `NewFocusGroupController`:
+
+  - The focused item now keeps `tabindex="0"` (instead of all elements being forced to `-1`), which makes Tab behavior consistent before and after arrow keys navigation.
+  - Focus handling on `focusin` is now more reliable when elements are re-rendered.
+
 ## 0.12.2
 
 ### Patch Changes
@@ -17,6 +26,7 @@
 ### Minor Changes
 
 - [#3139](https://github.com/sl-design-system/components/pull/3139) [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538) - Add `ForwardAriaMixin` that forwards ARIA attributes from a custom element host to a target element inside its shadow DOM.
+
   - **Reference attributes** (`aria-labelledby`, `aria-describedby`, `aria-controls`, etc.) are resolved to DOM elements and set via element reference properties (e.g. `ariaLabelledByElements`) on the target.
   - **Value attributes** (`aria-label`, `aria-disabled`, etc.) are forwarded as regular attributes on the target.
   - **`ariaDisabled` property** is explicitly intercepted: setting it to `'true'` sets `aria-disabled="true"` on the target; setting it to `null` removes `aria-disabled` from the target. This fixes a bug where the `MutationObserver` path could not propagate attribute _removal_, leaving the target in a stale disabled state.
@@ -26,6 +36,7 @@
   `ForwardAriaMixin` is the successor to `ObserveAttributesMixin`; `ObserveAttributesMixin` remains exported for backwards compatibility and may be removed in a future release.
 
   Also add helper functions exported from `@sl-design-system/shared/helpers/forward-aria.js` for inspecting the accessible state of elements that use `ForwardAriaMixin`:
+
   - `getForwardedAccessibleName(host)` — resolves the accessible name via `aria-labelledby` → `aria-label` → slotted text content
   - `getForwardedDescription(host)` — resolves the accessible description via `aria-describedby` → `aria-description`
   - `isForwardedDisabled(host)` — returns `false`, `true`, or `'aria'`
@@ -33,6 +44,7 @@
   - `getForwardedAriaProperty(host, name)` — reads a forwarded ARIA element-reference property from the forwarding target
 
 - [#3142](https://github.com/sl-design-system/components/pull/3142) [`dd96d1b`](https://github.com/sl-design-system/components/commit/dd96d1b88f030a7b4a81b51d77a8461b5692909c) - Improved `MediaController` (used in `sl-dialog`):
+
   - Added `device` getter to query the current breakpoint
   - Added `MediaControllerConfig` with an `onChange` callback that fires when the viewport crosses a breakpoint
   - Added `MediaChangeEvent` interface with `previous` and `current` device info
@@ -70,6 +82,7 @@
 ### Minor Changes
 
 - [#2636](https://github.com/sl-design-system/components/pull/2636) [`e3eb2de`](https://github.com/sl-design-system/components/commit/e3eb2de61e86203aab22cd55bbad4cc058e66a2d) - New utilities:
+
   - `dateListConverter` added
   - `NewFocusGroupController` added
 
@@ -134,6 +147,7 @@
 - [#1836](https://github.com/sl-design-system/components/pull/1836) [`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad) - - Remove the `FocusTrapController` and related `focus-trap` dependency
 
   This was only used within `<sl-dialog>`. That component no longer uses this functionality. Because this was internal API, it's not seen as a breaking change.
+
   - Add new `MediaController` class to help manage media queries
 
 ## 0.6.0
@@ -233,6 +247,7 @@
 ### Patch Changes
 
 - [#1328](https://github.com/sl-design-system/components/pull/1328) [`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204) - Various fixes:
+
   - Make it possible to close a tooltip with Escape key
   - Fix issue where the tooltip was broken after first show
   - Fix showing shared tooltip

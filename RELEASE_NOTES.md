@@ -4,6 +4,52 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# July 30, 2026
+
+## Breaking changes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md), [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) and [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) rename the `shape="square"` value to `shape="rect"` to align with the design. Update any usages of `shape="square"` to `shape="rect"`.
+
+## New features
+
+- [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md), [`radio-group`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md) and [`switch`](https://github.com/sl-design-system/components/blob/main/packages/components/switch/CHANGELOG.md) now support an `infotip` slot. The `<sl-infotip>` placed there automatically sizes itself for form controls, inherits the label's `describes` attribute, and positions itself without interfering with clicks or keyboard interactions.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) adds an `sl-toggle` event to `<sl-menu-button>` that emits `true` when the menu opens and `false` when it closes.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) adds a `fill` property with `"outline"` (default) and `"ghost"` values, and a new property to control the width of the dropdown.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) now propagates its `fill` to child buttons and menu-buttons, and applies `variant="inverted"` when the toolbar is inverted. Buttons with an explicit `fill` or `variant` already set keep their own value. See the updated [toolbar documentation](https://sanomalearning.design/categories/components/tool-bar/code/#fill-inheritance-and-variants) for examples.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) now makes all nodes selectable by default. Selectability is controlled by the `isSelectable` function, which returns `true` unless overridden.
+- [`teacher-assistant`](https://github.com/sl-design-system/components/blob/main/packages/themes/teacher-assistant/CHANGELOG.md) is a new theme package for the Teacher Assistant product (`@sl-design-system/teacher-assistant`).
+
+## Bug fixes
+
+- [`accordion`](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md) fixes animation handling to prevent nested component animations from interfering with accordion expand/collapse.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) improves keyboard navigation in the month and year selectors, and fixes focus returning to the correct element after selecting a year from the year view.
+- [`card`](https://github.com/sl-design-system/components/blob/main/packages/components/card/CHANGELOG.md) fixes images not being clipped by the card's border-radius, and prevents duplicate click events when a card with a title link also contains interactive content in the `menu-button` or `actions` slots.
+- [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md) sets a minimum border radius on the small variant to prevent it becoming too round when a theme has a large border radius.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) fixes `scrollMargin` handling in virtualized lists, fixes Safari-specific animations (chevron rotation and overlay transition), and exports listbox, option, and option-group elements automatically when importing `register.js`.
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) changes the calendar picker from a popover to a native `<dialog>` using `showModal()` for better focus trapping and screen reader support.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) adds accessible names to form controls rendered inside editable cells (customizable via `formControlColumnLabel` and `formControlLabel`), and fixes horizontal scroll synchronization when keyboard focus moves through sortable column headers.
+- [`icon`](https://github.com/sl-design-system/components/blob/main/packages/components/icon/CHANGELOG.md) adds a "Duotone Regular" variant (consistent with FontAwesome naming), and changes the default `--sl-icon-fill-accent` color to `currentcolor` at 50% opacity.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) fixes unstable scrolling in virtualized listboxes by disabling scroll anchoring and containing overscroll, preventing small touchpad scrolls from snapping back and wheel scrolling from leaking to the page.
+- [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) restores keyboard focus to the selected page button after choosing a page from the page number menu.
+- [`panel`](https://github.com/sl-design-system/components/blob/main/packages/components/panel/CHANGELOG.md) no longer renders an empty toolbar in the header when the actions slot is empty, preventing screen readers from announcing a toolbar that has no content.
+- [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md) fixes `aria-controls` and `aria-labelledby` relationships across the shadow DOM boundary, and exports listbox components automatically when importing `register.js`.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) gives the remove button a proper accessible label ("Remove tag 'X'"), uses `aria-disabled` instead of `disabled` to keep it keyboard-reachable when disabled, and fixes tag-list keyboard navigation in comboboxes.
+- [`tree`](https://github.com/sl-design-system/components/blob/main/packages/components/tree/CHANGELOG.md) fixes node labels not being visible in multiple-selection trees, and increases the gap between the tree-node icon and label to match the design.
+- [`virtual-list`](https://github.com/sl-design-system/components/blob/main/packages/components/virtual-list/CHANGELOG.md) fixes `scrollMargin` handling and grouped option behavior in virtualized lists.
+
+## Locales
+
+- [`locales`](https://github.com/sl-design-system/components/blob/main/packages/locales/CHANGELOG.md) adds a new `sl.tag.remove` translation key (a parameterized label for the tag remove button, e.g. "Remove tag 'X'") and a `sl.tagList.navigationInstructions` key, replacing the old `sl.tag.removalInstructions`. It also adds translations for infotip support in checkbox, radio, and switch. If you provide your own translations, make sure to update `@sl-design-system/locales` at the same time as these packages.
+
+## Data
+
+- [`data-source`](https://github.com/sl-design-system/components/blob/main/packages/components/data-source/CHANGELOG.md) adds a typed `filters` property to `FetchListDataSourceCallbackOptions`.
+
+## Theme updates
+
+- All themes have been updated with the latest tokens. Make sure to update your theme package alongside this release.
+- [`magister`](https://github.com/sl-design-system/components/blob/main/packages/themes/magister/CHANGELOG.md) additionally fixes the background color of the solid secondary button in dark mode to improve contrast.
+
 # June 23, 2026
 
 ## New features

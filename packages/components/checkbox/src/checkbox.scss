@@ -96,6 +96,7 @@
 
   [part='inner'] {
     block-size: var(--sl-size-250);
+    border-radius: min(var(--sl-size-borderRadius-default), var(--sl-size-borderRadius-md));
   }
 
   svg {

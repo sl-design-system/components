@@ -58,13 +58,15 @@ export const Basic: StoryObj = {
             path="fullName"
             header="Student"
             [renderer]="avatarRenderer"
-            [scopedElements]="scopedElements"></sl-grid-filter-column>
+            [scopedElements]="scopedElements"
+            value="ma"></sl-grid-filter-column>
           <sl-grid-filter-column path="group.name" header="Group"></sl-grid-filter-column>
           <sl-grid-filter-column
             path="school.id"
             header="School"
             labelPath="school.name"
-            mode="select"></sl-grid-filter-column>
+            mode="select"
+            value="school-3"></sl-grid-filter-column>
         </sl-grid>
       `
     };

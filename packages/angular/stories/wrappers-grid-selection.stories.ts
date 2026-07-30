@@ -86,9 +86,10 @@ export const Activate: StoryObj = {
       message = student
         ? `You have activated ${student.fullName}.`
         : 'You have not activated anybody yet.';
-      (event.target as HTMLElement)
-        .closest('div')!
-        .querySelector('#activation-message')!.textContent = message;
+      const el = document.getElementById('activation-message');
+      if (el) {
+        el.textContent = message;
+      }
 
       // Keep button aria state in sync with the active row.
       (event.target as { requestUpdate?(): void }).requestUpdate?.();

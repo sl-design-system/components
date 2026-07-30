@@ -7,18 +7,66 @@ import * as GridScrollingStories from './wrappers-grid-scrolling.stories';
 
 This section shows scrolling behavior in the Angular Grid wrapper.
 
+Like the regular Grid Storybook stories, these examples render the Student column with an avatar renderer.
+
 ## Vertical
 
 Vertical scrolling with constrained grid height.
+
+When content grows beyond the fixed block size, the grid body scrolls while the header remains visible.
 
 ### Template
 
 ```html
 <sl-grid [items]="students" style="block-size: 400px" [noSkipLinks]="true">
   <sl-grid-column path="id" header="Nr."></sl-grid-column>
-  <sl-grid-column [grow]="3" path="fullName" header="Student"></sl-grid-column>
+  <sl-grid-column
+    [grow]="3"
+    path="fullName"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
   <sl-grid-column path="email"></sl-grid-column>
   <sl-grid-column path="school.name" header="School"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+  avatarRenderer: (student: Student) => TemplateResult;
+  avatarScopedElements: { 'sl-avatar': Avatar };
+}
+```
+
+## Vertical overflow
+
+Vertical scrolling inside the grid itself using fixed block size and `overflow-y`.
+
+This pattern is useful when the page should not scroll and the grid must manage its own scroll area.
+
+### Template
+
+```html
+<style>
+  .overflow-grid {
+    block-size: 320px;
+    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    border-radius: var(--sl-size-borderRadius-default);
+    overflow-y: auto;
+  }
+</style>
+<sl-grid [items]="students" class="overflow-grid" [noBorder]="true" [noSkipLinks]="true">
+  <sl-grid-column path="studentNumber" header="Nr." [grow]="0"></sl-grid-column>
+  <sl-grid-column
+    path="fullName"
+    header="Student"
+    [grow]="3"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
 </sl-grid>
 ```
 
@@ -34,15 +82,21 @@ Vertical scrolling with constrained grid height.
 
 Horizontal scrolling with fixed-width columns and constrained inline size.
 
+The grid automatically enables horizontal overflow when total column width exceeds the container width.
+
 ### Template
 
 ```html
 <sl-grid [items]="students" style="inline-size: 420px" [noSkipLinks]="true">
-  <sl-grid-column path="id" header="Nr." width="140"></sl-grid-column>
-  <sl-grid-column path="firstName" header="First name" width="180"></sl-grid-column>
-  <sl-grid-column path="lastName" header="Last name" width="180"></sl-grid-column>
-  <sl-grid-column path="email" width="280"></sl-grid-column>
-  <sl-grid-column path="school.name" header="School" width="200"></sl-grid-column>
+  <sl-grid-column path="id" header="Nr." [width]="140"></sl-grid-column>
+  <sl-grid-column
+    path="fullName"
+    header="Student"
+    [width]="220"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email" [width]="280"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School" [width]="200"></sl-grid-column>
 </sl-grid>
 ```
 
@@ -58,16 +112,70 @@ Horizontal scrolling with fixed-width columns and constrained inline size.
 
 Combined vertical and horizontal scrolling with constrained width and height.
 
+This setup demonstrates two-axis scrolling in a compact container.
+
 ### Template
 
 ```html
 <sl-grid [items]="students" style="inline-size: 500px; block-size: 400px" [noSkipLinks]="true">
-  <sl-grid-column path="id" header="Nr." width="100"></sl-grid-column>
-  <sl-grid-column path="firstName" header="First name" width="150"></sl-grid-column>
-  <sl-grid-column path="lastName" header="Last name" width="150"></sl-grid-column>
-  <sl-grid-column path="email" width="250"></sl-grid-column>
-  <sl-grid-column path="school.name" header="School" width="180"></sl-grid-column>
-  <sl-grid-column path="group.name" header="Group" width="150"></sl-grid-column>
+  <sl-grid-column path="id" header="Nr." [width]="100"></sl-grid-column>
+  <sl-grid-column
+    path="fullName"
+    header="Student"
+    [width]="220"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email" [width]="250"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School" [width]="180"></sl-grid-column>
+  <sl-grid-column path="group.name" header="Group" [width]="150"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## Both sticky
+
+Combine horizontal and vertical scrolling with sticky header and sticky columns.
+
+Sticky columns keep key context visible while scrolling across wide datasets.
+
+### Template
+
+```html
+<style>
+  .cover {
+    background: var(--sl-elevation-surface-base-default);
+    block-size: 1rem;
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 3;
+  }
+  .sticky-grid::part(thead) {
+    inset-block-start: 1rem;
+  }
+</style>
+<div class="cover"></div>
+<sl-grid [items]="students" rowAction="activate" class="sticky-grid" [noSkipLinks]="true">
+  <sl-grid-selection-column [sticky]="true"></sl-grid-selection-column>
+  <sl-grid-column path="studentNumber" header="Nr." [grow]="0" [sticky]="true"></sl-grid-column>
+  <sl-grid-column path="group.name" [sticky]="true"></sl-grid-column>
+  <sl-grid-column
+    path="fullName"
+    header="Student"
+    [grow]="3"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="school.name"></sl-grid-column>
+  <sl-grid-column path="school.address"></sl-grid-column>
+  <sl-grid-column path="school.city"></sl-grid-column>
+  <sl-grid-column path="school.country" [sticky]="true"></sl-grid-column>
 </sl-grid>
 ```
 

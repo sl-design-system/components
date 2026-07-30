@@ -1,10 +1,35 @@
 # @sl-design-system/select
 
+## 2.2.0
+
+### Minor Changes
+
+- [#3549](https://github.com/sl-design-system/components/pull/3549) [`0a4f62e`](https://github.com/sl-design-system/components/commit/0a4f62e454ad02ea56889f73e0a5f35cda488dbc) - Add ability to change the width of the dropdown
+
+- [#3548](https://github.com/sl-design-system/components/pull/3548) [`9ca0bc2`](https://github.com/sl-design-system/components/commit/9ca0bc28d6596c061f33205f3422169960c8c180) - Add a fill property and values "outline" (default) and "ghost"
+
+### Patch Changes
+
+- [#3487](https://github.com/sl-design-system/components/pull/3487) [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987) - Export listbox components from the combobox and select packages and automatically register the listbox, option, and option group elements when importing `register.js` to simplify using options.
+
+- [#3483](https://github.com/sl-design-system/components/pull/3483) [`de31def`](https://github.com/sl-design-system/components/commit/de31defb47c51816aabf8dfa5d53666378f2d07c) - Accessibility improvements: fix `aria-controls` and `aria-labelledby` relationships in sl-select.
+
+  - Add `ariaControlsElements` element reference via `ElementInternals` on the select button to correctly associate with the listbox across shadow DOM boundary.
+  - Set `ariaLabelledByElements` on the listbox to propagate the associated form label across the shadow DOM boundary.
+
+- [#3530](https://github.com/sl-design-system/components/pull/3530) [`5ac49c3`](https://github.com/sl-design-system/components/commit/5ac49c306cc25d5ae7a334e87fc26736dcade9a7) - Fix `sl-select` selected content rendering when projected option content temporarily has a non-document root, such as during Angular light DOM updates. The component now preserves scoped custom element importing when available and falls back to the node owner document otherwise.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/listbox@0.2.1
+
 ## 2.1.5
 
 ### Patch Changes
 
 - [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for select screen reader support
+
   - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
   - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
   - Remove `aria-owns` from the select trigger/input because it is not needed for this implementation
@@ -35,6 +60,7 @@
 ### Patch Changes
 
 - [#3109](https://github.com/sl-design-system/components/pull/3109) [`01c7740`](https://github.com/sl-design-system/components/commit/01c7740ba9f15a3cbee3065a798424d783b2c452) - Accessibility improvements:
+
   - Moved the clear button from `sl-select-button` to `sl-select`, the clear button is now focusable on its own,
   - Added `aria-keyshortcuts` attribute to announce Backspace/Delete shortcuts to assistive technology,
   - Added `sl-clear` event to `sl-select` with consistent event ordering across click and keyboard interactions.
@@ -104,6 +130,7 @@
 ### Patch Changes
 
 - [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various fixes:
+
   - Fix built-in validation bug when there already is a custom error
   - Fix disabled select getting keyboard focus
   - Fix missing label in `<sl-form-validation-errors>`
@@ -177,6 +204,7 @@
   Make sure you have those custom elements loaded. If not, you can import them from the `@sl-design-system/listbox` package.
 
   Various improvements:
+
   - Add `clearable` property for clearing the selection
   - Hide the listbox popover when focus leaves the `<sl-select>` component
   - Show the listbox popover immediately; only animate it when closing
@@ -409,6 +437,7 @@
   This add a new `sl-validate` event that is fired when the validity of the form control is updated. It fires _after_ any builtin validation has been performed, so it can be used to override the validity of the control.
 
 - [#828](https://github.com/sl-design-system/components/pull/828) [`974e2a3`](https://github.com/sl-design-system/components/commit/974e2a305431be631be3b72a685dcf72199ea031) - Refactor `<sl-select>` to
+
   - use new `FormControlMixin` from the form package
   - use `aria-activedescendant` to indicate the currently focused option
 

@@ -1,5 +1,14 @@
 # @sl-design-system/icon
 
+## 1.4.3
+
+### Patch Changes
+
+- [#3512](https://github.com/sl-design-system/components/pull/3512) [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19) - Added "Duotone Regular" variant.
+  The naming might seem confusing, considering the default "duotone" variant is actually called "Duotone solid". But this naming is consistent with the naming by FontAwesome and prevents breaking changes.
+
+- [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Changed the `--sl-icon-fill-accent` default color (used in duotone icons) to the currentcolor with an opacity of 50%
+
 ## 1.4.2
 
 ### Patch Changes
@@ -62,9 +71,11 @@
 - [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
 
   The following icons have changed:
+
   - `circle` has been renamed to `circle-solid`
 
   The following icons have been added:
+
   - `badge-available`
   - `badge-away`
   - `badge-donotdisturb`
@@ -73,6 +84,7 @@
   - `info`
 
   The following items have been removed (mainly in cleaning up, they were never meant to be there)
+
   - `svg-sort`
   - `svg-sort-down`
   - `svg-sort-up`

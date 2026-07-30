@@ -1,5 +1,15 @@
 # @sl-design-system/time-field
 
+## 0.1.3
+
+### Patch Changes
+
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - Changed the token used in the selected state of the hour and minute options
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/listbox@0.2.1
+
 ## 0.1.2
 
 ### Patch Changes
@@ -51,6 +61,7 @@
 ### Patch Changes
 
 - [#2824](https://github.com/sl-design-system/components/pull/2824) [`ff5b844`](https://github.com/sl-design-system/components/commit/ff5b8447d854505f9d8619f2d7489d909dd757d0) - Multiple fixes:
+
   - For `required` time-field, native validation message is now used. The custom message "Please enter a time." appears only when the entered value is not a valid time.
   - Fixed an issue where the dialog time picker value did not update when the user typed a new value.
 

@@ -18,7 +18,7 @@ declare global {
 }
 
 export type ToggleGroupFill = 'outline' | 'solid';
-export type ToggleGroupShape = 'pill' | 'square';
+export type ToggleGroupShape = 'pill' | 'rect';
 export type ToggleGroupSize = 'sm' | 'md' | 'lg';
 
 /**
@@ -50,7 +50,11 @@ export class ToggleGroup extends LitElement {
     isFocusableElement: (el: ToggleButton) => !el.disabled
   });
 
-  /** If set, will disable all buttons in the group. */
+  /**
+   * If set, will disable all buttons in the group.
+   *
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
@@ -60,16 +64,30 @@ export class ToggleGroup extends LitElement {
    * When set to true multiple buttons can be active at the same time. In this case the group does
    * nothing when a button is toggled. Use this mode if you want to handle the toggling of buttons
    * yourself.
+   *
+   * @default false
    */
   @property({ type: Boolean }) multiple?: boolean;
 
-  /** Determines the size of all buttons in the group. */
+  /**
+   * Determines the size of all buttons in the group.
+   *
+   * @default 'md'
+   */
   @property({ reflect: true }) size?: ToggleGroupSize;
 
-  /** The shaoe of the group. */
+  /**
+   * The shape of the group.
+   *
+   * @default 'rect'
+   */
   @property({ reflect: true }) shape?: ToggleGroupShape;
 
-  /** The variant of the toggle-group. */
+  /**
+   * The fill of the group.
+   *
+   * @default 'solid'
+   */
   @property({ reflect: true }) fill?: ToggleGroupFill;
 
   override connectedCallback(): void {

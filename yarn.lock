@@ -7810,6 +7810,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/teacher-assistant@workspace:packages/themes/teacher-assistant":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/teacher-assistant@workspace:packages/themes/teacher-assistant"
+  dependencies:
+    "@sl-design-system/icon": "npm:1.4.2"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/teas@workspace:packages/themes/teas":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"

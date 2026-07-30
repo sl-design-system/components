@@ -73,6 +73,14 @@ describe('sl-select', () => {
       expect(button.renderRoot).to.have.trimmed.text('Placeholder');
     });
 
+    it('should pass fill="ghost" to the button and reflect it as an attribute', async () => {
+      el.fill = 'ghost';
+      await el.updateComplete;
+
+      expect(button.fill).to.equal('ghost');
+      expect(button).to.have.attribute('fill', 'ghost');
+    });
+
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;
@@ -948,6 +956,27 @@ describe('sl-select', () => {
 
       button = el.querySelector('sl-select-button')!;
       expect(button.getBoundingClientRect().width).to.equal(400);
+    });
+
+    it('should set the listbox width custom property to the button width when opening', async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      expect(el.listbox!.style.getPropertyValue('--_select-listbox-width')).to.equal('');
+
+      button.click();
+      await el.updateComplete;
+
+      expect(el.listbox!.style.getPropertyValue('--_select-listbox-width')).to.equal(
+        `${button.getBoundingClientRect().width}px`
+      );
     });
   });
 

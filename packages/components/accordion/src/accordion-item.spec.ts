@@ -98,6 +98,8 @@ describe('sl-accordion-item', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
       await el.updateComplete;
 
+      const wrapper = el.renderRoot.querySelector('.wrapper') as HTMLElement;
+
       summary.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -105,8 +107,10 @@ describe('sl-accordion-item', () => {
       expect(details).to.have.attribute('open');
       expect(details).to.have.class('opening');
 
-      // Trigger the animationend event
-      details.dispatchEvent(new Event('animationend'));
+      // Trigger the wrapper animationend event that accordion listens to
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
 
       expect(details).not.to.have.class('opening');
 
@@ -122,8 +126,10 @@ describe('sl-accordion-item', () => {
 
       expect(details).to.have.class('closing');
 
-      // Trigger the animationend event
-      details.dispatchEvent(new Event('animationend'));
+      // Trigger the wrapper animationend event that accordion listens to
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
 
       expect(details).not.to.have.attribute('open');
       expect(details).not.to.have.class('closing');
@@ -131,6 +137,70 @@ describe('sl-accordion-item', () => {
       // // Wait for the toggle event to be emitted
       await new Promise(resolve => setTimeout(resolve));
 
+      expect(el.open).to.be.false;
+    });
+
+    it('should ignore unrelated animationend events and still open and close', async () => {
+      const wrapper = el.renderRoot.querySelector('.wrapper') as HTMLElement;
+
+      summary.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(details).to.have.class('opening');
+
+      // Simulate nested animation events
+      details.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'other-animation'
+        })
+      );
+
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'another-animation'
+        })
+      );
+
+      expect(details).to.have.class('opening');
+      expect(details).to.have.attribute('open');
+
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
+
+      expect(details).not.to.have.class('opening');
+      expect(details).to.have.attribute('open');
+
+      summary.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(details).to.have.class('closing');
+
+      details.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'other-animation'
+        })
+      );
+
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'another-animation'
+        })
+      );
+
+      expect(details).to.have.class('closing');
+      expect(details).to.have.attribute('open');
+
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
+
+      expect(details).not.to.have.class('closing');
+      expect(details).not.to.have.attribute('open');
       expect(el.open).to.be.false;
     });
   });

@@ -1,3 +1,4 @@
+import { faCopy } from '@fortawesome/pro-regular-svg-icons';
 import { ButtonComponent } from '@sl-design-system/angular/button';
 import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
 import {
@@ -16,8 +17,11 @@ import {
   isListDataSourceGroupItem
 } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
+import { Icon as SlIcon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { html } from 'lit';
+
+SlIcon.register(faCopy);
 
 const avatarRenderer = (student: Student) => html`
   <sl-avatar
@@ -72,7 +76,6 @@ export const Activate: StoryObj = {
           fill="link"
           variant="primary">
           ${avatarRenderer(student)}
-          <span>${student.fullName}</span>
         </sl-button>
       `;
     };
@@ -140,7 +143,7 @@ export const Multiple: StoryObj = {
           <sl-grid-column path="email"></sl-grid-column>
 
           <sl-button fill="outline" slot="bulk-actions" variant="inverted">
-            <sl-icon name="copy"></sl-icon>
+            <sl-icon name="far-copy"></sl-icon>
             Duplicate
           </sl-button>
           <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
@@ -338,7 +341,6 @@ export const WithLinks: StoryObj = {
           fill="link"
           variant="primary">
           ${avatarRenderer(student)}
-          <span>${student.fullName}</span>
         </sl-button>
       `;
     };

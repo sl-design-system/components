@@ -5,8 +5,7 @@ import {
   GridSortColumnComponent
 } from '@sl-design-system/angular/grid';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { getStudents } from '@sl-design-system/example-data';
-import type { Student } from '@sl-design-system/example-data';
+import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 export default {
@@ -117,17 +116,21 @@ export const Grouped: StoryObj = {
   render: (_, { loaded }) => {
     const students = loaded['students'] as Student[];
 
+    const ds = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name',
+      groupSortDirection: 'desc'
+    });
+
     return {
-      description: 'Sort columns can also be used inside grouped headers.',
-      props: { students },
+      description:
+        'This example shows how sorting works in combination with grouping. Groups are sorted by their labels in descending order. Within the groups, students are sorted by name in ascending order.',
+      props: { ds },
       template: `
-        <sl-grid [items]="students" [noSkipLinks]="true">
-          <sl-grid-column-group header="Name">
-            <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
-            <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
-          </sl-grid-column-group>
-          <sl-grid-sort-column path="id" header="Student number"></sl-grid-sort-column>
-          <sl-grid-column path="school.name" header="School"></sl-grid-column>
+        <sl-grid [dataSource]="ds" [noSkipLinks]="true">
+          <sl-grid-sort-column path="studentNumber" header="Nr." [grow]="0"></sl-grid-sort-column>
+          <sl-grid-sort-column path="fullName" header="Student" direction="asc" [grow]="3"></sl-grid-sort-column>
+          <sl-grid-column path="email"></sl-grid-column>
         </sl-grid>
       `
     };

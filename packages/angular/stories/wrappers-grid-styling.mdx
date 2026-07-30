@@ -96,3 +96,69 @@ Show vertical separators between columns.
   students: Student[];
 }
 ```
+
+## Parts
+
+Use `[itemParts]` to assign CSS part names to rows based on their data, then target them with `sl-grid::part()` in your stylesheet.
+
+In this example rows with an average grade above 7.5 get a green background (`high-grades`) and rows below 5.5 get a red background (`low-grades`). The `grades` column also receives a bold, underline-on-hover style through the auto-generated `data grades` part.
+
+### Template
+
+```html
+<style>
+  sl-grid::part(thead) {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    clip-path: inset(0 0 -10px 0);
+  }
+  sl-grid::part(row):hover {
+    --rating-text-decoration: underline;
+  }
+  sl-grid::part(data grades) {
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+    text-decoration: var(--rating-text-decoration, none);
+  }
+  sl-grid::part(high-grades) {
+    --_body-cell-background: var(--sl-color-background-positive-subtlest);
+  }
+  sl-grid::part(low-grades) {
+    --_body-cell-background: var(--sl-color-background-negative-subtlest);
+  }
+</style>
+<sl-grid [items]="studentsWithGrades" [itemParts]="itemParts" [noSkipLinks]="true">
+  <sl-grid-column path="studentNumber" header="Nr." [grow]="0"></sl-grid-column>
+  <sl-grid-column path="fullName" header="Student" [grow]="3"></sl-grid-column>
+  <sl-grid-column
+    path="grades"
+    header="Rating (0-10)"
+    align="end"
+    [renderer]="ratingRenderer"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const studentsWithGrades = students.map(student => ({
+  ...student,
+  averageGrade: Math.random() * 10
+}));
+
+const ratingFormatter = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
+
+const ratingRenderer = ({ averageGrade }: { averageGrade: number }) =>
+  html`${ratingFormatter.format(averageGrade)}`;
+
+const itemParts = ({ averageGrade }: { averageGrade: number }): string | undefined => {
+  if (averageGrade < 5.5) {
+    return 'low-grades';
+  } else if (averageGrade > 7.5) {
+    return 'high-grades';
+  }
+
+  return undefined;
+};
+```

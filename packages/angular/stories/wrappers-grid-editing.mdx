@@ -28,9 +28,11 @@ Edit a text value directly in a grid column using `sl-grid-text-field-column`.
 ### Props
 
 ```typescript
+const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
+
+// props passed to template:
 {
-  people: Person[];
-  personLabel: ({ firstName, lastName }: Person) => `${firstName} ${lastName}`;
+  people: (loaded['people'] as Person[], personLabel);
 }
 ```
 
@@ -51,8 +53,9 @@ Use a select editor for controlled values like status.
 ### Props
 
 ```typescript
+// props passed to template:
 {
-  people: Person[],
+  people: loaded['people'] as Person[],
   statuses: ['Available', 'Busy', 'Away']
 }
 ```

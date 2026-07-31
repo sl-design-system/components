@@ -2317,7 +2317,9 @@ describe('sl-combobox', () => {
 
       const options = getRenderedVirtualOptions(combobox);
       expect(options[0]).not.to.have.attribute('disabled');
+      expect(options[0]).not.to.have.attribute('aria-disabled');
       expect(options[1]).to.have.attribute('disabled');
+      expect(options[1]).to.have.attribute('aria-disabled', 'true');
     });
 
     it('should update selected options when option-selected-path changes', async () => {

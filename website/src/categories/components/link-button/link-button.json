@@ -1,0 +1,12 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "link-button",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Link button",
+      "selector": "sl-link-button"
+    }
+  ]
+}
+

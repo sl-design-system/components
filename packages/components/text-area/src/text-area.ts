@@ -418,11 +418,11 @@ export class TextArea extends ObserveAttributesMixin(
    * is set. This ensures the component can distinguish between errors it set itself and errors set
    * externally by consumers.
    */
-  override setCustomValidity(message: string): void {
+  override setCustomValidity(message: string | Promise<string>): void {
     // Reset the flag because we don't know if this is from the component or external code.
     // This allows updateInternalValidity() to properly track its own errors.
     this.#countValiditySet = false;
-    this.textarea.setCustomValidity(message);
+    super.setCustomValidity(message);
   }
 
   /** Attaches focus and blur listeners to the current textarea. */

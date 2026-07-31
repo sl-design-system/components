@@ -1,5 +1,15 @@
 # @sl-design-system/listbox
 
+## 0.2.1
+
+### Patch Changes
+
+- [#3494](https://github.com/sl-design-system/components/pull/3494) [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e) - Prevent unstable scrolling in virtualized listboxes by disabling scroll anchoring and containing overscroll on the listbox host. This fixes cases where small touchpad scrolls could keep snapping the rendered range back to the same option, and prevents wheel scrolling at list boundaries from scrolling the underlying page.
+
+- Updated dependencies [[`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da), [`c399b00`](https://github.com/sl-design-system/components/commit/c399b0041473ee71943619133dbe05e640924186), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/virtual-list@0.2.0
+  - @sl-design-system/icon@1.4.3
+
 ## 0.2.0
 
 ### Minor Changes

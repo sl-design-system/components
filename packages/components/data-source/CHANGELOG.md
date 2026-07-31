@@ -1,5 +1,14 @@
 # @sl-design-system/data-source
 
+## 0.4.1
+
+### Patch Changes
+
+- [#3531](https://github.com/sl-design-system/components/pull/3531) [`e5ba453`](https://github.com/sl-design-system/components/commit/e5ba453452a216af22326950d0d121d7f0cf3401) - Add a typed `filters` property to `FetchListDataSourceCallbackOptions`.
+
+- Updated dependencies [[`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1)]:
+  - @sl-design-system/shared@0.12.3
+
 ## 0.4.0
 
 ### Minor Changes
@@ -84,6 +93,7 @@
   Instead of `<sl-grid>` using `ListDataSource` _and_ having a `GridViewModel` class _and_ using `SelectionController`, `ListDataSource` now is setup to handle all the view model logic internally. This means `<sl-grid>` no longer needs a separate view model and selection controller.
 
   If you try to combine grouping with pagination, it will log a warning to the console. Grouping and pagination are not compatible with each other. You can either group or paginate, but not both at the same time.
+
   - Added `ListDataSourceItem`, `ListDataSourceDataItem` and `ListDataSourceGroupItem` view model types
   - Added constructor options for filtering, grouping, pagination and sorting
   - Added the ability to customize how groups are sorted by adding `groupSortBy` and `groupSortDirection` options
@@ -109,6 +119,7 @@
 - [#2072](https://github.com/sl-design-system/components/pull/2072) [`77b348d`](https://github.com/sl-design-system/components/commit/77b348d19a4869f9242d8ea1c70d32d1e6d04212) - Fix regression with basic drag and drop of rows within grid
 
 - [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Several bug fixes:
+
   - Fix text being parsed as floating point numbers during sorting
   - Fix the `DataSourceFilterFunction` to include the value in the function
 
@@ -160,6 +171,7 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

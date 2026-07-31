@@ -1,5 +1,15 @@
 # @sl-design-system/toggle-button
 
+## 0.0.17
+
+### Patch Changes
+
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - Changed the default color of the icon from --sl-color-foreground-neutral-bold to --sl-color-foreground-neutral-onBold.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
 ## 0.0.16
 
 ### Patch Changes
@@ -114,6 +124,7 @@
 - [#1602](https://github.com/sl-design-system/components/pull/1602) [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b) - Fixed toggling `text-only` attribute.
 
 - [#1807](https://github.com/sl-design-system/components/pull/1807) [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768) - Incorporate the new contextual tokens and add new options:
+
   - add size `sm`
   - add shape `pill` | `square`
   - changed fill `ghost` `to solid`

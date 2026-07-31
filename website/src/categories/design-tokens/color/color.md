@@ -1,5 +1,6 @@
 ---
 title: Color
+eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Design Tokens
   key: Color

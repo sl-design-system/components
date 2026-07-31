@@ -479,7 +479,7 @@
         },
         "secondary": {
           "bold": {
-            "$value": "{magister.color.palette.blue.100}",
+            "$value": "{magister.color.background.accent.blue.subtle}",
             "$type": "color",
             "$description": "A vibrant background option used for secondary actions."
           },
@@ -1036,7 +1036,7 @@
             "$description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           },
           "onBold": {
-            "$value": "{magister.color.palette.grey.000}",
+            "$value": "{magister.color.foreground.accent.grey.bold}",
             "$type": "color",
             "$description": "Use for neutral actions on 'color.background.neutral.bold'"
           },

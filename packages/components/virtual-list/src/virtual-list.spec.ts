@@ -42,6 +42,29 @@ describe('sl-virtual-list', () => {
       expect(items).to.have.length(3);
       expect(items.map(i => i.textContent?.trim())).to.deep.equal(['Item 1', 'Item 2', 'Item 3']);
     });
+
+    it('should render in shadow DOM by default', () => {
+      expect(el.renderRoot).to.equal(el.shadowRoot);
+    });
+  });
+
+  describe('renderInLightDom', () => {
+    it('should render items in light DOM when enabled before connecting', async () => {
+      const element = document.createElement('sl-virtual-list') as VirtualList<string>;
+
+      element.renderInLightDom = true;
+      element.items = ['Item 1', 'Item 2', 'Item 3'];
+      element.style.lineHeight = '32px';
+      document.body.append(element);
+
+      await element.updateComplete;
+
+      expect(element.renderRoot).to.equal(element);
+      expect(element.shadowRoot).to.be.null;
+      expect(element.querySelectorAll('[part="item"]')).to.have.length(3);
+
+      element.remove();
+    });
   });
 
   describe('renderItem', () => {

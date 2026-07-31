@@ -1454,12 +1454,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const el = (item.element = this.shadowRoot!.createElement(tagName));
       el.id = item.id;
       el.disabled = !!item.disabled;
-      el.toggleAttribute('disabled', !!item.disabled);
-      if (item.disabled) {
-        el.setAttribute('aria-disabled', 'true');
-      } else {
-        el.removeAttribute('aria-disabled');
-      }
       el.innerText = item.label;
       el.selected = !!item.selected;
       el.value = item.value;

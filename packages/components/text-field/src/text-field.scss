@@ -36,6 +36,10 @@
   border-color: var(--sl-color-border-positive-plain);
 }
 
+:host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
 :host([size='lg']) {
   padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
 

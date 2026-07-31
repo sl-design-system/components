@@ -17,6 +17,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'shape'
   | 'size'
   | 'step'
   | 'valueAsNumber'
@@ -48,6 +49,10 @@ export default {
       control: 'inline-radio',
       options: ['md', 'lg']
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
     stepButtons: {
       control: 'inline-radio',
       options: ['end', 'edges']
@@ -66,6 +71,7 @@ export default {
     readonly,
     reportValidity,
     required,
+    shape,
     size,
     step,
     stepButtons,
@@ -89,6 +95,7 @@ export default {
             max=${ifDefined(max)}
             min=${ifDefined(min)}
             placeholder=${ifDefined(placeholder)}
+            shape=${ifDefined(shape)}
             size=${ifDefined(size)}
             step=${ifDefined(step)}
             step-buttons=${ifDefined(stepButtons)}></sl-number-field>
@@ -107,6 +114,13 @@ export default {
 
 export const Basic: Story = {
   args: {
+    valueAsNumber: 1024
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    shape: 'pill',
     valueAsNumber: 1024
   }
 };

@@ -12,6 +12,11 @@
   vertical-align: middle;
 }
 
+:host([shape='pill']),
+:host([shape='pill']) .field {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
 :host(:state(has-value)) .parts {
   color: var(--sl-color-foreground-plain);
 }
@@ -80,6 +85,16 @@
   display: inline-flex;
   flex-grow: 1;
   padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
+}
+
+:host([size='lg']) {
+  .field {
+    padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+  }
+
+  span[contenteditable] {
+    padding: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default)) 0;
+  }
 }
 
 .select-all {

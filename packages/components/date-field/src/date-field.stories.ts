@@ -20,8 +20,10 @@ type Props = Pick<
   | 'requireConfirmation'
   | 'required'
   | 'selectOnly'
+  | 'shape'
   | 'showValid'
   | 'showWeekNumbers'
+  | 'size'
   | 'value'
 > & {
   hint?: string | TemplateResult;
@@ -64,6 +66,14 @@ export default {
     slot: {
       table: { disable: true }
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
+    },
     value: {
       control: 'date'
     }
@@ -81,8 +91,10 @@ export default {
     requireConfirmation,
     required,
     selectOnly,
+    shape,
     showValid,
     showWeekNumbers,
+    size,
     slot,
     value,
     width
@@ -107,6 +119,8 @@ export default {
             min=${ifDefined(min?.toISOString())}
             month=${ifDefined(month?.toISOString())}
             placeholder=${ifDefined(placeholder)}
+            shape=${ifDefined(shape)}
+            size=${ifDefined(size)}
             style="width: ${width}">
             ${slot?.()}
           </sl-date-field>
@@ -124,6 +138,13 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Pill: Story = {
+  args: {
+    shape: 'pill',
+    value: new Date(2025, 0, 15)
+  }
+};
 
 export const Disabled: Story = {
   args: {

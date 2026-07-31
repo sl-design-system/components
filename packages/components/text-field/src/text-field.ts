@@ -36,6 +36,8 @@ declare global {
   }
 }
 
+export type TextFieldShape = 'rect' | 'pill';
+
 export type TextFieldSize = 'md' | 'lg';
 
 let nextUniqueId = 0;
@@ -138,6 +140,13 @@ export class TextField
 
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
+
+  /**
+   * The shape of the text-field.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: TextFieldShape;
 
   /**
    * The size of the input.

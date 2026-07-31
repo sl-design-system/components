@@ -17,6 +17,8 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'shape'
+  | 'size'
   | 'start'
   | 'value'
 > & {
@@ -43,7 +45,15 @@ export default {
       control: 'inline-radio',
       options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
     },
-    reportValidity: { table: { disable: true } }
+    reportValidity: { table: { disable: true } },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
+    }
   },
   render: ({
     disabled,
@@ -58,6 +68,8 @@ export default {
     readonly,
     reportValidity,
     required,
+    shape,
+    size,
     start,
     value,
     width
@@ -82,6 +94,8 @@ export default {
             placeholder=${ifDefined(placeholder)}
             ?readonly=${readonly}
             ?required=${required}
+            shape=${ifDefined(shape)}
+            size=${ifDefined(size)}
             start=${ifDefined(start)}
             .value=${value}></sl-time-field>
         </sl-form-field>
@@ -98,6 +112,13 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Pill: Story = {
+  args: {
+    shape: 'pill',
+    value: '13:30'
+  }
+};
 
 export const Disabled: Story = {
   args: {

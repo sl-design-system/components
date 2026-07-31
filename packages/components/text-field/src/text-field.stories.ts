@@ -6,6 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { TextField } from './text-field.js';
 
@@ -18,6 +19,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'shape'
   | 'showValid'
   | 'size'
   | 'type'
@@ -45,6 +47,10 @@ export default {
   argTypes: {
     maxLength: { type: 'number' },
     minLength: { type: 'number' },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
     size: {
       control: 'inline-radio',
       options: ['md', 'lg']
@@ -65,6 +71,7 @@ export default {
     placeholder,
     readonly,
     required,
+    shape,
     showValid,
     size,
     slot,
@@ -88,6 +95,7 @@ export default {
               .minLength=${minLength}
               .pattern=${pattern}
               .placeholder=${placeholder ?? ''}
+              shape=${ifDefined(shape)}
               .showValid=${showValid}
               .size=${size ?? 'md'}
               .type=${type ?? 'text'}
@@ -134,6 +142,13 @@ export const PrefixSuffix: Story = {
       <sl-icon slot="prefix" name="face-smile"></sl-icon>
       <sl-icon slot="suffix" name="face-smile"></sl-icon>
     `
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    hint: 'This field uses the pill shape.',
+    shape: 'pill'
   }
 };
 

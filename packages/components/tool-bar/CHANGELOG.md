@@ -1,5 +1,26 @@
 # @sl-design-system/tool-bar
 
+## 0.3.0
+
+### Minor Changes
+
+- [#3477](https://github.com/sl-design-system/components/pull/3477) [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee) - Toolbar improvements:
+  - Child buttons and menu-buttons inherit `fill`, and get `variant="inverted"` when the toolbar is `inverted`.
+  - Buttons and menu-buttons inside the toolbar can now have different variants and fills mixed together.
+
+  **Backwards compatibility:**
+  Buttons and menu-buttons used in the toolbar that already have an explicit `fill` or `variant` attribute set will keep their own value — the toolbar only propagates these attributes to elements that don't have them set explicitly.
+  Please check the updated Storybook examples for guidance on how to use the new features and updated [toolbar documentation](https://sanomalearning.design/categories/components/tool-bar/code/#fill-inheritance-and-variants).
+
+### Patch Changes
+
+- Updated dependencies [[`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b), [`d5d17f8`](https://github.com/sl-design-system/components/commit/d5d17f8859fc663af83f6e2dd47286b87bd96a48), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2)]:
+  - @sl-design-system/toggle-button@0.0.17
+  - @sl-design-system/menu@0.4.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/button@2.1.2
+  - @sl-design-system/toggle-group@0.0.17
+
 ## 0.2.5
 
 ### Patch Changes

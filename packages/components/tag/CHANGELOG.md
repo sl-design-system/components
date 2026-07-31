@@ -1,5 +1,21 @@
 # @sl-design-system/tag
 
+## 0.1.14
+
+### Patch Changes
+
+- [#3214](https://github.com/sl-design-system/components/pull/3214) [`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b) - Accessibility improvements to `<sl-tag>` and `<sl-tag-list>`:
+  - The remove button now has a proper accessible label ("Remove tag 'X'") instead of being `aria-hidden`
+  - The remove button uses `aria-disabled` instead of `disabled`, keeping it keyboard-reachable when the tag is disabled
+  - Focus is delegated to the remove button via the component's `focus()` implementation; `:state(focus-visible)` tracks focus for styling
+  - `<sl-tag-list>` correctly sets `role="listitem"` on each tag
+
+- [#3474](https://github.com/sl-design-system/components/pull/3474) [`ad9eb4c`](https://github.com/sl-design-system/components/commit/ad9eb4cc09826019d53960222e47f2f86b297671) - Improved keyboard and screen reader behavior for removable tags in comboboxes and tag lists. Comboboxes no longer move fake focus from the input to selected tags with Left/Right arrow keys, while tag navigation remains available once focus is inside the tag list. The hidden tag-list navigation instructions are now `aria-hidden` while still being exposed through `aria-describedby`.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
 ## 0.1.13
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @sl-design-system/card
 
+## 2.0.3
+
+### Patch Changes
+
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - Fixes issue where image is not clipped by border-radius
+
+- [#3501](https://github.com/sl-design-system/components/pull/3501) [`5f88323`](https://github.com/sl-design-system/components/commit/5f8832386719871a6930bb5a6da7b5c5d1a45512) - Prevent duplicate title link clicks in cards with interactive slotted content. Card link proxying now uses a single stable click listener and ignores clicks from controls in the `menu-button` and `actions` slots, including toggle buttons and menu buttons.
+
 ## 2.0.2
 
 ### Patch Changes

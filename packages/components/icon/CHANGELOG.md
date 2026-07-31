@@ -1,5 +1,14 @@
 # @sl-design-system/icon
 
+## 1.4.3
+
+### Patch Changes
+
+- [#3512](https://github.com/sl-design-system/components/pull/3512) [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19) - Added "Duotone Regular" variant.
+  The naming might seem confusing, considering the default "duotone" variant is actually called "Duotone solid". But this naming is consistent with the naming by FontAwesome and prevents breaking changes.
+
+- [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Changed the `--sl-icon-fill-accent` default color (used in duotone icons) to the currentcolor with an opacity of 50%
+
 ## 1.4.2
 
 ### Patch Changes

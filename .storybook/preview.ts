@@ -23,7 +23,6 @@ if (!('onscrollend' in window)) {
 if (!('focusGroup' in HTMLElement.prototype)) {
   const { polyfillBodyAndObserve } = await import('@microsoft/focusgroup-polyfill');
 
-  console.log('Applying focusGroup polyfill', polyfillBodyAndObserve);
   polyfillBodyAndObserve();
 }
 

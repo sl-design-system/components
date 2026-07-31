@@ -229,12 +229,9 @@ describe('sl-checkbox-group', () => {
       expect(allLarge).to.be.true;
     });
 
-    it.only('should handle navigating between options correctly', async () => {
+    it('should handle navigating between options correctly', async () => {
       expect(el.boxes?.at(0)).not.to.match(':state(checked)');
       expect(el.boxes?.at(1)).not.to.match(':state(checked)');
-
-      console.log(el.renderRoot.querySelector('[part="wrapper"]')?.getAttribute('focusgroup')); // toolbar block wrap
-      // console.log(el.renderRoot.querySelector('[part="wrapper"]')?.focusGroup); // undefined
 
       el.boxes?.at(0)?.focus();
       await userEvent.keyboard('{Space}');

@@ -44,12 +44,6 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
   /** @internal */
   static formAssociated = true;
 
-  // /** @internal */
-  // static override shadowRootOptions: ShadowRootInit = {
-  //   ...LitElement.shadowRootOptions,
-  //   delegatesFocus: true
-  // };
-
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -67,11 +61,11 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
   /** @internal */
   readonly internals = this.attachInternals();
 
-  /** @internal The slotted checkboxes. */
-  @queryAssignedElements({ selector: 'sl-checkbox' }) boxes?: Array<Checkbox<T>>;
-
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
+
+  /** @internal The slotted checkboxes. */
+  @queryAssignedElements({ selector: 'sl-checkbox' }) boxes?: Array<Checkbox<T>>;
 
   /** @internal Emits when the value of the group changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Array<T | null>>>;
@@ -107,10 +101,6 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
     return this.value?.filter((v): v is T => v !== null) ?? [];
   }
 
-  /**
-   * We need to override the setter as well, otherwise it won't work. See
-   * https://github.com/sl-design-system/components/issues/1441
-   */
   override set formValue(value: T[]) {
     super.formValue = value;
   }
@@ -128,6 +118,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
 
     const { signal } = this.#eventController;
 
+    this.addEventListener('click', this.#onClick, { signal });
     this.addEventListener('focusin', this.#onFocusin, { signal });
     this.addEventListener('focusout', this.#onFocusout, { signal });
     window.addEventListener(LOCALE_STATUS_EVENT, this.#updateValidity, { signal });
@@ -207,6 +198,16 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
 
     return super.reportValidity();
   }
+
+  /**
+   * Click an associated `<label>` element triggers a click on the host. When that happens, we
+   * manually focus the first checkbox in the group.
+   */
+  #onClick = (event: Event): void => {
+    if (event.target === this) {
+      this.boxes?.at(0)?.focus();
+    }
+  };
 
   #onFocusin = (): void => {
     this.focusEvent.emit();

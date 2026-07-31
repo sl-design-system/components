@@ -222,8 +222,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     `;
   }
 
-  override focus(): void {
-    this.input.focus();
+  override focus(options?: FocusOptions): void {
+    this.input.focus(options);
   }
 
   override blur(): void {

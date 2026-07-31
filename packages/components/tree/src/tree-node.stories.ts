@@ -135,9 +135,9 @@ export const All: Story = {
           Level 3 (last node in level, guides)
         </sl-tree-node>
         <sl-tree-node level="4" show-guides>Level 4 (guides)</sl-tree-node>
-        <sl-tree-node level="4" last-node-in-level show-guides
-          >Level 4 (last node in level, guides)</sl-tree-node
-        >
+        <sl-tree-node level="4" last-node-in-level show-guides>
+          Level 4 (last node in level, guides)
+        </sl-tree-node>
 
         <sl-tree-node multiple selectable>Level 0 (multiple)</sl-tree-node>
         <sl-tree-node multiple selectable indeterminate
@@ -145,30 +145,30 @@ export const All: Story = {
         >
         <sl-tree-node multiple selectable selected>Level 0 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="1" multiple selectable>Level 1 (multiple)</sl-tree-node>
-        <sl-tree-node level="1" multiple selectable indeterminate
-          >Level 1 (multiple, indeterminate)</sl-tree-node
-        >
+        <sl-tree-node level="1" multiple selectable indeterminate>
+          Level 1 (multiple, indeterminate)
+        </sl-tree-node>
         <sl-tree-node level="1" multiple selectable selected
           >Level 1 (multiple, selected)</sl-tree-node
         >
         <sl-tree-node level="2" multiple selectable>Level 2 (multiple)</sl-tree-node>
-        <sl-tree-node level="2" multiple selectable indeterminate
-          >Level 2 (multiple, indeterminate)</sl-tree-node
-        >
+        <sl-tree-node level="2" multiple selectable indeterminate>
+          Level 2 (multiple, indeterminate)
+        </sl-tree-node>
         <sl-tree-node level="2" multiple selectable selected
           >Level 2 (multiple, selected)</sl-tree-node
         >
         <sl-tree-node level="3" multiple selectable>Level 3 (multiple)</sl-tree-node>
-        <sl-tree-node level="3" multiple selectable indeterminate
-          >Level 3 (multiple, indeterminate)</sl-tree-node
-        >
+        <sl-tree-node level="3" multiple selectable indeterminate>
+          Level 3 (multiple, indeterminate)
+        </sl-tree-node>
         <sl-tree-node level="3" multiple selectable selected
           >Level 3 (multiple, selected)</sl-tree-node
         >
         <sl-tree-node level="4" multiple selectable>Level 4 (multiple)</sl-tree-node>
-        <sl-tree-node level="4" multiple selectable indeterminate
-          >Level 4 (multiple, indeterminate)</sl-tree-node
-        >
+        <sl-tree-node level="4" multiple selectable indeterminate>
+          Level 4 (multiple, indeterminate)
+        </sl-tree-node>
         <sl-tree-node level="4" multiple selectable selected
           >Level 4 (multiple, selected)</sl-tree-node
         >

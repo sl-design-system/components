@@ -22,6 +22,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './checkbox.scss.js';
 
 declare global {
@@ -71,6 +72,9 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
+
+  /** @internal */
+  readonly internals = this.attachInternals();
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -183,6 +187,14 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
       this.#syncInput(this.input);
     }
 
+    if (changes.has('checked')) {
+      if (this.checked) {
+        this.internals.states.add('checked');
+      } else {
+        this.internals.states.delete('checked');
+      }
+    }
+
     if (changes.has('disabled')) {
       this.updateValidity();
     }
@@ -218,7 +230,10 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
           <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
         </span>
       </div>
-      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
+      <slot
+        name="infotip"
+        focusgroup=${ifDefined(this.disabled ? 'none' : undefined)}
+        @slotchange=${() => this.#onInfotipSlotChange()}></slot>
     `;
   }
 

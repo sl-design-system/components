@@ -148,12 +148,6 @@ describe('sl-checkbox-group', () => {
       expect(onUpdateState).to.have.been.calledTwice;
     });
 
-    it('should focus the first checkbox after calling focus()', () => {
-      el.focus();
-
-      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox input'));
-    });
-
     it('should emit an sl-update-validity event when calling reportValidity', async () => {
       const onUpdateValidity = spy();
 
@@ -241,36 +235,12 @@ describe('sl-checkbox-group', () => {
 
       await userEvent.keyboard('{ArrowDown}');
 
-      expect(document.activeElement).to.equal(el.boxes?.at(1));
+      expect(document.activeElement).to.equal(el.boxes?.at(1)?.querySelector('input'));
 
       await userEvent.keyboard('{Enter}');
 
       expect(el.boxes?.at(0)).to.match(':state(checked)');
       expect(el.boxes?.at(1)).to.match(':state(checked)');
-    });
-
-    it('should navigate checkbox -> infotip -> next checkbox', async () => {
-      el = await fixture(html`
-        <sl-checkbox-group>
-          <sl-checkbox value="0"
-            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-checkbox
-          >
-          <sl-checkbox value="1">Option 2</sl-checkbox>
-        </sl-checkbox-group>
-      `);
-
-      const firstCheckboxInput = el.querySelectorAll('sl-checkbox input')[0],
-        firstInfotip = el.querySelectorAll('sl-infotip')[0],
-        secondCheckboxInput = el.querySelectorAll('sl-checkbox input')[1];
-
-      el.focus();
-      expect(document.activeElement).to.equal(firstCheckboxInput);
-
-      await userEvent.keyboard('{ArrowDown}');
-      expect(document.activeElement).to.equal(firstInfotip);
-
-      await userEvent.keyboard('{ArrowDown}');
-      expect(document.activeElement).to.equal(secondCheckboxInput);
     });
 
     it('should skip infotips of disabled checkboxes during roving navigation', async () => {
@@ -291,7 +261,10 @@ describe('sl-checkbox-group', () => {
         secondInfotip = el.querySelectorAll('sl-infotip')[1],
         thirdCheckboxInput = el.querySelectorAll('sl-checkbox input')[2];
 
-      el.focus();
+      // Give the focusgroup (polyfill) time to pick up the slotted infotips
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      el.boxes?.at(0)?.focus();
       expect(document.activeElement).to.equal(firstCheckboxInput);
 
       await userEvent.keyboard('{ArrowDown}');

@@ -138,9 +138,13 @@ dialog {
     transition-property: display, opacity;
   }
 
-  &:popover-open {
+  &[open] {
     display: grid;
     opacity: 1;
+  }
+
+  &::backdrop {
+    background: transparent;
   }
 }
 

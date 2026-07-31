@@ -23,7 +23,7 @@ export type OptionEmphasis = 'subtle' | 'bold';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };

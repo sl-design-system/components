@@ -32,7 +32,7 @@ export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
 @localized()
 export class Callout extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };

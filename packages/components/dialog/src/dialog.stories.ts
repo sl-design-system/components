@@ -1,4 +1,4 @@
-import { faBurst } from '@fortawesome/pro-regular-svg-icons';
+import { faBurst, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/combobox/register.js';
@@ -31,7 +31,7 @@ type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faBurst);
+Icon.register(faBurst, faTrash);
 
 export default {
   title: 'Overlay/Dialog',

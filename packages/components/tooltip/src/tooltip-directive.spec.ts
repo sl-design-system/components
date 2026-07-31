@@ -70,7 +70,7 @@ describe('tooltip()', () => {
 
   it('should use the parent shadow root to create the tooltip custom element', async () => {
     class TooltipDefined extends ScopedElementsMixin(LitElement) {
-      static get scopedElements(): ScopedElementsMap {
+      static override get scopedElements(): ScopedElementsMap {
         return {
           'sl-button': Button,
           'sl-tooltip': Tooltip

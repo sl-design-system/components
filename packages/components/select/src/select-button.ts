@@ -16,7 +16,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
-import { type SelectSize } from './select.js';
+import { type SelectFill, type SelectSize } from './select.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -33,7 +33,7 @@ declare global {
  */
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -46,7 +46,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** @internal */
-  #internals = this.attachInternals();
+  readonly internals = this.attachInternals();
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -59,6 +59,13 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /**
+   * The fill of the select.
+   *
+   * @default 'outline'
+   */
+  @property({ reflect: true }) fill?: SelectFill;
 
   /** The width of the longest option. */
   @property({ type: Number, attribute: 'option-size' }) optionSize?: number;
@@ -93,25 +100,25 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('clearable')) {
       if (this.clearable) {
-        this.#internals.states.add('clearable');
+        this.internals.states.add('clearable');
       } else {
-        this.#internals.states.delete('clearable');
+        this.internals.states.delete('clearable');
       }
     }
 
     if (changes.has('clearFocused')) {
       if (this.clearFocused) {
-        this.#internals.states.add('clear-focused');
+        this.internals.states.add('clear-focused');
       } else {
-        this.#internals.states.delete('clear-focused');
+        this.internals.states.delete('clear-focused');
       }
     }
 
     if (changes.has('selected')) {
       if (this.selected) {
-        this.#internals.states.add('has-selection');
+        this.internals.states.add('has-selection');
       } else {
-        this.#internals.states.delete('has-selection');
+        this.internals.states.delete('has-selection');
       }
     }
 

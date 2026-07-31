@@ -13,7 +13,11 @@ declare global {
   }
 }
 
-export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'assertive' }>;
+export type SlAnnounceEvent = CustomEvent<{
+  message: string;
+  urgency?: 'polite' | 'assertive';
+  force?: boolean;
+}>;
 
 /**
  * Utility that serves as a recipient for all live-aria notifications and supplies them for
@@ -29,6 +33,9 @@ export class Announcer extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   #events = new EventsController(this, {});
+
+  /** Counter used to make forced announcements unique for screen reader deduplication. */
+  #forceCounter = 0;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -48,15 +55,24 @@ export class Announcer extends LitElement {
       `[aria-live="${event.detail.urgency || 'polite'}"]`
     );
 
-    // make sure the message is not already in the container
-    if (container?.textContent?.indexOf(event.detail.message) === -1) {
-      const messageNode = document.createElement('li');
-      messageNode.innerText = event.detail.message;
+    const messageNode = document.createElement('li');
 
-      container?.appendChild(messageNode);
-      setTimeout(() => {
-        messageNode.remove();
-      }, 500);
+    if (event.detail.force) {
+      this.#forceCounter++;
+      // Append invisible zero width spaces to make each message unique for screen readers.
+      // We use % 4 so the suffix cycles through 1 – 4 characters, which is enough to avoid
+      // duplicates while messages are still in the live region (removed after 500ms).
+      messageNode.innerText = event.detail.message + '\u200B'.repeat((this.#forceCounter % 4) + 1);
+    } else if (container?.textContent?.indexOf(event.detail.message) === -1) {
+      // make sure the message is not already in the container
+      messageNode.innerText = event.detail.message;
+    } else {
+      return;
     }
+
+    container?.appendChild(messageNode);
+    setTimeout(() => {
+      messageNode.remove();
+    }, 500);
   }
 }

@@ -15,7 +15,7 @@ import {
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
-import { type Checkbox, type CheckboxSize } from './checkbox.js';
+import { Checkbox, type CheckboxSize } from './checkbox.js';
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -36,7 +36,7 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
  */
 export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-tooltip': Tooltip

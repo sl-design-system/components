@@ -6,13 +6,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "import-tokens": "yarn exec tokensstudio pull --host graphql.prod.tokens.studio",
+    "connect-figma-components": "yarn workspace @sl-design-system/connect-figma-components connect:publish",
+    "import-tokens": "yarn exec studio pull",
+    "import-tokens-local": "yarn exec studio pull",
+    "studio-auth": "yarn exec studio auth login",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "workspaces": [
+    "deprecated-tokens"
+  ],
   "devDependencies": {
     "@figma-export/cli": "^6.2.3",
     "@figma-export/output-components-as-svg": "^6.2.3",
     "@figma-export/transform-svg-with-svgo": "^6.2.3",
+    "@fortawesome/duotone-regular-svg-icons": "^7.2.0",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/pro-duotone-svg-icons": "^7.2.0",
@@ -25,12 +32,13 @@
     "@fortawesome/sharp-solid-svg-icons": "^7.2.0",
     "@tokens-studio/sd-transforms": "^2.0.1",
     "@tokens-studio/sdk": "^3.0.0",
+    "@tokens-studio/studio-cli": "0.2.0-rc.3",
     "cssnano": "^7.1.9",
     "esbuild": "^0.25.12",
     "fast-glob": "^3.3.3",
     "graphql": "^16.13.1",
     "postcss": "^8.5.15",
-    "sass": "^1.100.0",
+    "sass": "^1.101.0",
     "style-dictionary": "^5.1.1"
   }
 }

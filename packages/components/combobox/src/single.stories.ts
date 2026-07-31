@@ -39,6 +39,7 @@ export default {
     disabled: false,
     filterResults: false,
     label: 'Component',
+    maxWidth: '500px',
     placeholder: '',
     selectOnly: false,
     virtualList: false
@@ -85,7 +86,7 @@ export default {
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
             placeholder=${ifDefined(placeholder)}
-            style=${`max-width: ${maxWidth ?? 'none'}`}>
+            style=${`max-width: ${maxWidth || '500px'}`}>
             ${virtualList
               ? nothing
               : html`
@@ -205,6 +206,18 @@ export const Value: Story = {
   args: {
     ...Basic.args,
     value: 'Tooltip'
+  }
+};
+
+export const NumericOptionValues: Story = {
+  args: {
+    label: 'Chapter',
+    options: () => html`
+      <sl-option .value=${1}>Chapter 1</sl-option>
+      <sl-option .value=${2}>Chapter 2</sl-option>
+      <sl-option .value=${3}>Chapter 3</sl-option>
+    `,
+    value: '1'
   }
 };
 

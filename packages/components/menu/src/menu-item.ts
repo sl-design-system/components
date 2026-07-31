@@ -42,7 +42,7 @@ export type MenuItemEmphasis = 'subtle' | 'bold';
  */
 export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -178,6 +178,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
+    if (this.submenu && event.composedPath().includes(this.submenu)) {
+      return;
+    }
+
     if (this.#disabled) {
       event.preventDefault();
       event.stopPropagation();

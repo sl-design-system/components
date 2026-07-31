@@ -35,7 +35,7 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-label': Label,
       'sl-option': Option,

@@ -218,6 +218,76 @@ export const Sizes: Story = {
   `
 };
 
+export const MultipleBackgrounds: StoryObj = {
+  render: () => html`
+    <style>
+      .backgrounds {
+        display: grid;
+        gap: var(--sl-size-300);
+      }
+
+      .background {
+        border-radius: var(--sl-size-borderRadius-default);
+        display: grid;
+        gap: var(--sl-size-150);
+        padding: var(--sl-size-300);
+      }
+
+      .background--bold {
+        background: var(--sl-color-background-primary-bold);
+      }
+
+      .background--pattern {
+        background-color: var(--sl-color-background-accent-purple-bold);
+        background-image:
+          linear-gradient(135deg, rgb(255 255 255 / 18%) 25%, transparent 25%),
+          linear-gradient(225deg, rgb(255 255 255 / 18%) 25%, transparent 25%),
+          linear-gradient(45deg, rgb(0 0 0 / 12%) 25%, transparent 25%),
+          linear-gradient(315deg, rgb(0 0 0 / 12%) 25%, transparent 25%);
+        background-position:
+          16px 0,
+          16px 0,
+          0 0,
+          0 0;
+        background-size: 32px 32px;
+      }
+
+      .background--image {
+        background-image:
+          linear-gradient(rgb(0 0 0 / 12%), rgb(0 0 0 / 12%)),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 320'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300478f'/%3E%3Cstop offset='.55' stop-color='%233b8f72'/%3E%3Cstop offset='1' stop-color='%23f2b84b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='320' fill='url(%23sky)'/%3E%3Ccircle cx='640' cy='76' r='46' fill='%23fff0a8'/%3E%3Cpath d='M0 236 C100 188 174 220 260 176 C366 120 450 198 558 148 C650 106 724 132 800 96 L800 320 L0 320 Z' fill='%2300364c' opacity='.62'/%3E%3Cpath d='M0 278 C130 244 220 268 328 230 C428 195 528 250 640 218 C714 198 760 206 800 188 L800 320 L0 320 Z' fill='%231b5b49' opacity='.72'/%3E%3C/svg%3E");
+        background-size: cover;
+      }
+
+      h2 {
+        font-size: inherit;
+        font-weight: inherit;
+        margin: 0;
+      }
+    </style>
+    <div class="backgrounds">
+      ${[
+        ['background--bold', 'Bold background'],
+        ['background--pattern', 'Pattern background'],
+        ['background--image', 'Image background']
+      ].map(
+        ([className, title]) => html`
+          <section class="background ${className}">
+            ${variants.map(
+              variant => html`
+                <sl-inline-message indismissible size="lg" variant=${variant}>
+                  <h2 slot="title">${title}</h2>
+                  The inline message text remains readable on complex backgrounds.
+                </sl-inline-message>
+              `
+            )}
+          </section>
+        `
+      )}
+    </div>
+  `
+};
+
 export const All: StoryObj = {
   render: () => html`
     <style>

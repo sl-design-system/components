@@ -1,5 +1,16 @@
 # @sl-design-system/myvanin
 
+## 1.0.5
+
+### Patch Changes
+
+- [#3495](https://github.com/sl-design-system/components/pull/3495) [`4ce1186`](https://github.com/sl-design-system/components/commit/4ce1186f7bcafc04f78e91491d29a29c77b6e31a) - Up to date tokens.
+
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - Fixed typo in license in package.json
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+
 ## 1.0.4
 
 ### Patch Changes
@@ -105,11 +116,9 @@
 - [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
 
   The following icons have changed:
-
   - `circle` has been renamed to `circle-solid`
 
   The following icons have been added:
-
   - `badge-available`
   - `badge-away`
   - `badge-donotdisturb`
@@ -118,7 +127,6 @@
   - `info`
 
   The following items have been removed (mainly in cleaning up, they were never meant to be there)
-
   - `svg-sort`
   - `svg-sort-down`
   - `svg-sort-up`
@@ -180,7 +188,6 @@
 - [#1251](https://github.com/sl-design-system/components/pull/1251) [`a3da76c`](https://github.com/sl-design-system/components/commit/a3da76c7df521c2241b565dc22025715f1231e9c) - New search icon
 
 - [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - - Enhanced the color contrast of buttons when used on slightly darker backgrounds across all themes.
-
   - Enhanced the color contrast of inline messages to match our buttons.
 
 - [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - Fix missing triangle-exclamation-solid icon

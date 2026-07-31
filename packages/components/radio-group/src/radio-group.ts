@@ -1,5 +1,6 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type EventEmitter,
   EventsController,
@@ -83,18 +84,32 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   });
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<Radio<T>>(this, {
+  #rovingTabindexController = new RovingTabindexController<Radio<T> | Infotip>(this, {
     direction: () => (this.horizontal ? 'horizontal' : 'vertical'),
-    focusInIndex: (elements: Array<Radio<T>>) => {
+    focusInIndex: (elements: Array<Radio<T> | Infotip>) => {
       return elements.findIndex(el => {
-        return this.value ? !el.disabled && el.value === this.value : !el.disabled;
+        return this.#isRadioElement(el)
+          ? this.value
+            ? !el.disabled && el.value === this.value
+            : !el.disabled
+          : this.#isRadioElement(el.parentElement) &&
+              (this.value
+                ? !el.parentElement.disabled && el.parentElement.value === this.value
+                : !el.parentElement.disabled);
       });
     },
-    elementEnterAction: (el: Radio<T>) => {
-      this.value = el.value;
+    elementEnterAction: (el: Radio<T> | Infotip) => {
+      if (this.#isRadioElement(el)) {
+        this.value = el.value;
+      } else if (this.#isRadioElement(el.parentElement)) {
+        this.value = el.parentElement.value;
+      }
     },
-    elements: () => this.radios ?? [],
-    isFocusableElement: (el: Radio) => !el.disabled
+    elements: () => this.#focusableOptions(),
+    isFocusableElement: (el: Radio<T> | Infotip) =>
+      this.#isRadioElement(el)
+        ? !el.disabled
+        : this.#isRadioElement(el.parentElement) && !el.parentElement.disabled
   });
 
   /** @internal Element internals. */
@@ -271,5 +286,23 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     );
 
     this.updateValidity();
+  }
+
+  #focusableOptions(): Array<Radio<T> | Infotip> {
+    const options: Array<Radio<T> | Infotip> = [];
+
+    this.radios?.forEach(radio => {
+      options.push(radio);
+
+      if (radio.infotip) {
+        options.push(radio.infotip);
+      }
+    });
+
+    return options;
+  }
+
+  #isRadioElement(element: unknown): element is Radio<T> {
+    return element instanceof HTMLElement && element.tagName === 'SL-RADIO';
   }
 }

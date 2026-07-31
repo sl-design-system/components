@@ -41,7 +41,7 @@ export type ProgressColor = 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'te
 @localized()
 export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };

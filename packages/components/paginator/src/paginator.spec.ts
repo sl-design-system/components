@@ -81,6 +81,26 @@ describe('sl-paginator', () => {
       expect(getForwardedAriaAttribute(button!, 'aria-current')).to.equal('page');
     });
 
+    it('should render the current page as a primary outline button by default', () => {
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current'),
+        otherPage = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.page)');
+
+      expect(currentPage?.fill).to.equal('outline');
+      expect(currentPage?.variant).to.equal('primary');
+      expect(otherPage?.fill).to.equal('ghost');
+      expect(otherPage?.variant).to.be.undefined;
+    });
+
+    it('should render the current page as a primary solid button when emphasis is bold', async () => {
+      el.emphasis = 'bold';
+      await el.updateComplete;
+
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+
+      expect(currentPage?.fill).to.equal('solid');
+      expect(currentPage?.variant).to.equal('primary');
+    });
+
     it('should have a page size of 10', () => {
       const buttons = el.renderRoot.querySelectorAll('sl-button.page'),
         labels = Array.from(buttons).map(button => button.textContent?.trim());
@@ -186,6 +206,56 @@ describe('sl-paginator', () => {
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
       expect(getForwardedAccessibleName(currentPage!)).to.equal('10');
       expect(getForwardedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
+    });
+
+    it('should move focus to the selected page when a menu item is clicked', async () => {
+      const menuButtons = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-menu-button')),
+        menuButton = menuButtons.find(button =>
+          Array.from(button.querySelectorAll('sl-menu-item')).some(
+            item => item.textContent?.trim() === '12'
+          )
+        ),
+        trigger = menuButton?.shadowRoot?.querySelector<Button>('sl-button');
+
+      expect(menuButton).to.exist;
+      expect(trigger).to.exist;
+
+      const opened = new Promise<CustomEvent<boolean>>(resolve =>
+        menuButton!.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+          once: true
+        })
+      );
+
+      trigger!.click();
+
+      expect((await opened).detail).to.be.true;
+
+      const menuItem = Array.from(menuButton!.querySelectorAll('sl-menu-item')).find(
+        item => item.textContent?.trim() === '12'
+      );
+
+      expect(menuItem).to.exist;
+
+      menuItem!.focus();
+
+      const closed = new Promise<CustomEvent<boolean>>(resolve =>
+        menuButton!.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+          once: true
+        })
+      );
+
+      menuItem!.click();
+
+      expect((await closed).detail).to.be.false;
+
+      await el.updateComplete;
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+
+      expect(el.page).to.equal(11);
+      expect(currentPage?.textContent?.trim()).to.equal('12');
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(currentPage);
     });
 
     it('should update the current page when the page property is changed', async () => {

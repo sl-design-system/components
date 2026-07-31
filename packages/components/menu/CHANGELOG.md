@@ -1,5 +1,38 @@
 # @sl-design-system/menu
 
+## 0.4.0
+
+### Minor Changes
+
+- [#3520](https://github.com/sl-design-system/components/pull/3520) [`d5d17f8`](https://github.com/sl-design-system/components/commit/d5d17f8859fc663af83f6e2dd47286b87bd96a48) - Add an `sl-toggle` event to `sl-menu-button` that emits `true` when the menu opens and `false` when it closes.
+
+### Patch Changes
+
+- [#3553](https://github.com/sl-design-system/components/pull/3553) [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2) - Rename the "square" shape value to "rect" to match the design
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/button@2.1.2
+
+## 0.3.4
+
+### Patch Changes
+
+- [#3392](https://github.com/sl-design-system/components/pull/3392) [`f2d2914`](https://github.com/sl-design-system/components/commit/f2d2914f4622de01b49e49b78abc17956e7438d3) - Expose and enforce `aria-disabled="true"` on disabled menu items and toggle buttons so assistive technologies announce them as unavailable and the components remain non-interactive
+
+- [#3421](https://github.com/sl-design-system/components/pull/3421) [`db96be2`](https://github.com/sl-design-system/components/commit/db96be26709e837b1a4e3e6ea176b75c0823be2a) - Fix nested submenu item clicks being intercepted by parent menu items with submenus
+
+- [#3383](https://github.com/sl-design-system/components/pull/3383) [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba) - Expose `aria-disabled="true"` on disabled menu items so assistive technologies announce them as unavailable. Toolbar overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. Forwarded `ariaDisabled` now clears correctly through nested proxy targets
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/button@2.1.1
+
 ## 0.3.3
 
 ### Patch Changes
@@ -45,7 +78,6 @@
 - [#3001](https://github.com/sl-design-system/components/pull/3001) [`a7ac909`](https://github.com/sl-design-system/components/commit/a7ac90987881881bd0cb916c583e68c785b52622) - Improves accessibility of menu-groups with headers
 
 - [#3022](https://github.com/sl-design-system/components/pull/3022) [`a4a0c23`](https://github.com/sl-design-system/components/commit/a4a0c23a5341a2026c23e6e7fdf05cfdd44dc16c) - - `MenuButton` and `Button` now correctly block click/keyboard activation when `aria-disabled` is set, but remain focusable for improved accessibility and tooltip support.
-
   - Standalone `MenuButton` continues to use native `disabled` to remain non-focusable, while support for `aria-disabled` focusability has been improved.
 
 - [#3034](https://github.com/sl-design-system/components/pull/3034) [`fd4a0d7`](https://github.com/sl-design-system/components/commit/fd4a0d79b4c0d9a1438b437bc7a1122f03d08c11) - Changed styling so the hover and active state have an indicator. This makes it more accessible because we don't rely on only a subtle change in the background color.
@@ -154,7 +186,6 @@
 ### Patch Changes
 
 - [#1777](https://github.com/sl-design-system/components/pull/1777) [`67f5b81`](https://github.com/sl-design-system/components/commit/67f5b810558d124289f26e3cc3fb2c59da97bb5f) - Fixed several accessibility issues;
-
   - Improved VoiceOver in support Chrome
   - Fixed keyboard navigation in submenu
   - Applied new tokens to menu and menu item

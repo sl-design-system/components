@@ -161,6 +161,23 @@ export const Header: Story = {
   `
 };
 
+export const KeyboardHeaderScroll: Story = {
+  render: (_, { loaded: { students } }) => html`
+    <p>
+      This example shows keyboard navigation through sortable column headers in a horizontally
+      scrollable grid with a sticky selection column.
+    </p>
+    <sl-grid .items=${students} style="inline-size: 320px" no-skip-links>
+      <sl-grid-selection-column sticky></sl-grid-selection-column>
+      <sl-grid-sort-column grow="0" path="firstName" width="220"></sl-grid-sort-column>
+      <sl-grid-sort-column grow="0" path="lastName" width="220"></sl-grid-sort-column>
+      <sl-grid-sort-column grow="0" path="email" width="260"></sl-grid-sort-column>
+      <sl-grid-sort-column grow="0" path="school.name" width="260"></sl-grid-sort-column>
+    </sl-grid>
+    <button type="button">Focus after grid</button>
+  `
+};
+
 export const MenuButton: Story = {
   render: (_, { loaded: { students } }) => {
     const menuButtonRenderer: GridColumnDataRenderer<Student> = () => {

@@ -1,5 +1,36 @@
 # @sl-design-system/tree
 
+## 0.3.0
+
+### Minor Changes
+
+- [#3542](https://github.com/sl-design-system/components/pull/3542) [`10c8cd0`](https://github.com/sl-design-system/components/commit/10c8cd0b53f069fe6534ba8cd829a8cd9fde69fe) - Whether or not a tree node is selectable is now determined by the `isSelectable` function, which defaults to returning true. This means that all nodes are selectable by default, and only an explicit `isSelectable` returning false opts out.
+
+### Patch Changes
+
+- [#3522](https://github.com/sl-design-system/components/pull/3522) [`a22afc6`](https://github.com/sl-design-system/components/commit/a22afc6edfa80239b18e5a5dbdcd04e78bea4fe8) - Fix tree node labels not being visible in multiple-selection trees. Tree node content is now passed to the checkbox `label` slot so labels remain visible when checkbox infotip support is enabled.
+
+- [#3542](https://github.com/sl-design-system/components/pull/3542) [`10c8cd0`](https://github.com/sl-design-system/components/commit/10c8cd0b53f069fe6534ba8cd829a8cd9fde69fe) - Increase gap between tree-node icon and label to match figma
+
+- Updated dependencies [[`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`c399b00`](https://github.com/sl-design-system/components/commit/c399b0041473ee71943619133dbe05e640924186), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b), [`e5ba453`](https://github.com/sl-design-system/components/commit/e5ba453452a216af22326950d0d121d7f0cf3401)]:
+  - @sl-design-system/virtual-list@0.2.0
+  - @sl-design-system/checkbox@2.2.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/data-source@0.4.1
+
+## 0.2.5
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/virtual-list@0.1.0
+  - @sl-design-system/shared@0.12.2
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+import { faNarwhal as fadrNarwhal } from '@fortawesome/duotone-regular-svg-icons';
 import { faNarwhal as fadNarwhal } from '@fortawesome/pro-duotone-svg-icons';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
@@ -255,7 +256,7 @@ export const RegisterAdditionalIcons: Story = {
     Icon.register(fatPinata);
 
     // load multiple icons at once:
-    Icon.register(falPinata, fasPinata, fadNarwhal);
+    Icon.register(falPinata, fasPinata, fadNarwhal, fadrNarwhal);
 
     return html`
       <style>
@@ -272,6 +273,7 @@ export const RegisterAdditionalIcons: Story = {
         <sl-icon name="fat-pinata"></sl-icon>
         <sl-icon name="far-narwhal"></sl-icon>
         <sl-icon name="fad-narwhal"></sl-icon>
+        <sl-icon name="fadr-narwhal"></sl-icon>
       </section>
       <h2>Referring to a non-existing icon:</h2>
       <p>When the icon is not yet registered, or you are using a wrong name</p>

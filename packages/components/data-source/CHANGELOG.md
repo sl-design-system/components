@@ -1,5 +1,14 @@
 # @sl-design-system/data-source
 
+## 0.4.1
+
+### Patch Changes
+
+- [#3531](https://github.com/sl-design-system/components/pull/3531) [`e5ba453`](https://github.com/sl-design-system/components/commit/e5ba453452a216af22326950d0d121d7f0cf3401) - Add a typed `filters` property to `FetchListDataSourceCallbackOptions`.
+
+- Updated dependencies [[`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1)]:
+  - @sl-design-system/shared@0.12.3
+
 ## 0.4.0
 
 ### Minor Changes

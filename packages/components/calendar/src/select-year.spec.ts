@@ -230,6 +230,33 @@ describe('sl-select-year', () => {
       expect(el.years[0]).to.equal(initialFirst - 12);
     });
 
+    it('should keep column focus when ArrowUp loads previous years', async () => {
+      buttons.at(1)?.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      const newButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>('table button')
+      );
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons.at(10));
+    });
+
+    it('should continue arrow navigation after loading a new range', async () => {
+      buttons.at(1)?.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{ArrowRight}');
+      await el.updateComplete;
+
+      const newButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>('table button')
+      );
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons.at(11));
+    });
+
     it('should increment year range by 12 when ArrowDown is pressed on a last-row button', async () => {
       const initialFirst = el.years[0];
 
@@ -238,6 +265,18 @@ describe('sl-select-year', () => {
       await el.updateComplete;
 
       expect(el.years[0]).to.equal(initialFirst + 12);
+    });
+
+    it('should keep column focus when ArrowDown loads next years', async () => {
+      buttons.at(10)?.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      const newButtons = Array.from(
+        el.renderRoot.querySelectorAll<HTMLButtonElement>('table button')
+      );
+
+      expect(el.shadowRoot?.activeElement).to.equal(newButtons.at(1));
     });
 
     describe('when min/max are set', () => {
@@ -302,22 +341,51 @@ describe('sl-select-year', () => {
         expect(el.shadowRoot?.activeElement).to.equal(secondEnabled);
       });
 
-      it('should navigate to the second to last enabled button when you press ArrowRight and then ArrowLeft on the last enabled button', async () => {
+      it('should move focus to the previous enabled button after ArrowRight then ArrowLeft on the last enabled button', async () => {
         const enabledButtons = buttons.filter(b => !b.disabled),
           lastEnabled = enabledButtons.at(-1),
           secondToLastEnabled = enabledButtons.at(-2);
 
         lastEnabled?.focus();
 
-        // ArrowRight on last button - should do nothing (boundary)
+        // ArrowRight on last button - should do nothing
         await userEvent.keyboard('{ArrowRight}');
+
         expect(el.shadowRoot?.activeElement).to.equal(lastEnabled);
 
-        // ArrowLeft should now work and move to second-to-last button
+        // ArrowLeft should now move focus to the previous enabled button
         await userEvent.keyboard('{ArrowLeft}');
 
         expect(el.shadowRoot?.activeElement).to.equal(secondToLastEnabled);
       });
+    });
+  });
+
+  describe('dialog tab escape', () => {
+    it('should not cycle back to header when tabbing forward from the table', async () => {
+      const dialog = await fixture<HTMLDialogElement>(html`
+        <dialog open>
+          <sl-select-year></sl-select-year>
+        </dialog>
+      `);
+      const yearPicker = dialog.querySelector<SelectYear>('sl-select-year')!;
+
+      await yearPicker.updateComplete;
+
+      const rightArrow = yearPicker.renderRoot.querySelector<HTMLElement>(
+        'header sl-button:last-of-type'
+      );
+
+      rightArrow?.focus();
+      await userEvent.keyboard('{Tab}');
+      await yearPicker.updateComplete;
+
+      await userEvent.keyboard('{Tab}');
+      await yearPicker.updateComplete;
+
+      const activeInsideShadow = yearPicker.shadowRoot?.activeElement as HTMLElement | null;
+
+      expect(activeInsideShadow).to.be.null;
     });
   });
 });

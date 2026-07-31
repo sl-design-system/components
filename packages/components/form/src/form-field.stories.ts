@@ -74,7 +74,7 @@ export const CheckboxGroup: Story = {
 export const Combobox: Story = {
   args: {
     slot: () => html`
-      <sl-combobox required>
+      <sl-combobox required style="max-width: 500px">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>

@@ -87,7 +87,7 @@ button {
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 
-  &:focus-visible span {
+  &:is(:focus, :focus-visible) span {
     outline-color: var(--sl-color-border-focused);
   }
 

@@ -41,7 +41,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   'aria-labelledby'
 ]) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-skeleton': Skeleton,
@@ -203,10 +203,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   ?indeterminate=${item.indeterminate}
                   ?last-node-in-level=${item.lastNodeInLevel}
                   ?multiple=${this.dataSource?.multiple}
+                  ?selectable=${item.selectable}
+                  ?selected=${item.selected}
                   .level=${item.level}
                   .levelGuides=${this.hideGuides ? undefined : item.levelGuides}
                   .node=${item}
-                  .selected=${item.selected}
                   .type=${item.type}
                   aria-controls=${ifDefined(
                     item.children?.map(child => String(child.id)).join(' ')

@@ -121,7 +121,8 @@ export const Disabled: Story = {
 export const FormatCurrency: Story = {
   args: {
     formatOptions: { style: 'currency', currency: 'EUR' },
-    hint: 'The number is formatted as currency.',
+    hint: 'The number is formatted as EUR currency based on the current locale (e.g., "€9.90" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
+    reportValidity: true,
     step: 0.01,
     valueAsNumber: 9.9
   }
@@ -130,7 +131,8 @@ export const FormatCurrency: Story = {
 export const FormatPercent: Story = {
   args: {
     formatOptions: { style: 'percent', maximumFractionDigits: 2 },
-    hint: 'The number is formatted as a percentage.',
+    hint: 'The number is formatted as a percentage with a format based on the current locale (e.g., "1,000.25%" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
+    reportValidity: true,
     step: 0.01,
     valueAsNumber: 10
   }
@@ -139,15 +141,16 @@ export const FormatPercent: Story = {
 export const FormatUnit: Story = {
   args: {
     formatOptions: { style: 'unit', unit: 'meter', unitDisplay: 'long' },
-    hint: 'The number is formatted as a unit.',
+    hint: 'The number is formatted as meters with long unit display based on the current locale (e.g., "100 meters" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
     inputSize: 10,
+    reportValidity: true,
     valueAsNumber: 100
   }
 };
 
 export const MinMax: Story = {
   args: {
-    hint: 'The number must be between 0 and 10.',
+    hint: 'The number must be between 0 and 10. The current value ("50") is outside this range. Click the button to see an error message.',
     max: 10,
     min: 0,
     reportValidity: true,
@@ -165,7 +168,7 @@ export const Readonly: Story = {
 
 export const Required: Story = {
   args: {
-    hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    hint: 'This field is required and has a maximum value of 10. Leave it empty, type an invalid value or exceed the max to see an error message when clicking the button.',
     max: 10,
     reportValidity: true,
     required: true
@@ -192,7 +195,7 @@ export const CustomValidity: Story = {
     return html`
       <sl-form>
         <sl-form-field
-          hint="This story has built-in number validation and custom validation. Enter 42 to make it valid."
+          hint="This field uses built-in required validation and a custom validation that only accepts the value '42'. Enter any other number to see the custom error, then click Report validity to trigger and display the validation message. Leave the field empty to see the required validation message after clicking 'Report validity' button."
           label="Number">
           <sl-number-field @sl-validate=${onValidate} required></sl-number-field>
         </sl-form-field>

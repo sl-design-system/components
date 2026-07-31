@@ -1,9 +1,0 @@
-{
-	"target": {
-		"target-group": {
-			"$type": "text",
-			"$value": "Early readers",
-			"$description": ""
-		}
-	}
-}

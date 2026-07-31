@@ -136,6 +136,18 @@ describe('sl-menu-button', () => {
           expect(menu).to.match(':popover-open');
         });
 
+        it('should emit an sl-toggle event when the menu opens', async () => {
+          const event = new Promise<CustomEvent<boolean>>(resolve =>
+            el.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+              once: true
+            })
+          );
+
+          button.click();
+
+          expect((await event).detail).to.be.true;
+        });
+
         it('should not show the menu when the button is clicked while disabled', async () => {
           el.disabled = true;
           await el.updateComplete;
@@ -208,6 +220,18 @@ describe('sl-menu-button', () => {
           button.click();
 
           expect(menu).not.to.match(':popover-open');
+        });
+
+        it('should emit an sl-toggle event when the menu closes', async () => {
+          const event = new Promise<CustomEvent<boolean>>(resolve =>
+            el.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+              once: true
+            })
+          );
+
+          button.click();
+
+          expect((await event).detail).to.be.false;
         });
 
         it('should hide the menu when the escape key is pressed', async () => {

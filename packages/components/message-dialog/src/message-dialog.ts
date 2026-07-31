@@ -52,7 +52,7 @@ export interface MessageDialogButton<T = any> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       ...Dialog.scopedElements,
       'sl-button': Button,

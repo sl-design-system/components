@@ -40,7 +40,7 @@ declare global {
 @localized()
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-select-day': SelectDay,
@@ -81,20 +81,24 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /**
    * The list of dates that should display an indicator. Each item has a `date` and optional `color`
-   * and `label` values that are used to improve accessibility.
+   * and `label` values that are used to improve accessibility. Use `indicator-dates` to highlight
+   * specific dates with a visual indicator (for example, exam dates or assignment deadlines)
+   * without disabling them.
    */
   @property({ attribute: 'indicator-dates', converter: indicatorConverter })
   indicatorDates?: Indicator[];
 
   /**
-   * The maximum date selectable in the calendar.
+   * The maximum date selectable in the calendar. Dates outside the range are visually disabled and
+   * cannot be selected.
    *
    * @default undefined
    */
   @property({ converter: dateConverter }) max?: Date;
 
   /**
-   * The minimum date selectable in the calendar.
+   * The minimum date selectable in the calendar. Dates outside the range are visually disabled and
+   * cannot be selected.
    *
    * @default undefined
    */
@@ -299,7 +303,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.mode = this.#previousMode ?? 'day';
 
     requestAnimationFrame(() => {
-      this.renderRoot.querySelector('sl-select-day')?.focus();
+      this.#focusActiveMode();
     });
   }
 
@@ -345,6 +349,21 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       );
 
       button.ariaDescribedByElements = [...existingDescription, helperText];
+    }
+  }
+
+  #focusActiveMode(): void {
+    const selector =
+        this.mode === 'month'
+          ? 'sl-select-month'
+          : this.mode === 'year'
+            ? 'sl-select-year'
+            : 'sl-select-day',
+      subComponent = this.renderRoot.querySelector(selector);
+
+    if (subComponent) {
+      subComponent.focus();
+      this.#setHelperTextOnFirstButton(subComponent);
     }
   }
 }

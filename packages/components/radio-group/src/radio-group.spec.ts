@@ -1,5 +1,6 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -249,6 +250,59 @@ describe('sl-radio-group', () => {
 
       expect(radios.at(0)?.checked).to.be.false;
       expect(radios.at(1)?.checked).to.be.true;
+    });
+
+    it('should navigate radio -> infotip -> next radio', async () => {
+      el = await fixture(html`
+        <sl-radio-group>
+          <sl-radio value="1"
+            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-radio
+          >
+          <sl-radio value="2">Option 2</sl-radio>
+        </sl-radio-group>
+      `);
+
+      const firstRadio = el.querySelectorAll('sl-radio')[0],
+        firstInfotip = el.querySelectorAll('sl-infotip')[0],
+        secondRadio = el.querySelectorAll('sl-radio')[1];
+
+      el.focus();
+      expect(document.activeElement).to.equal(firstRadio);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(firstInfotip);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(secondRadio);
+    });
+
+    it('should skip infotips of disabled radios during roving navigation', async () => {
+      el = await fixture(html`
+        <sl-radio-group>
+          <sl-radio value="1"
+            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-radio
+          >
+          <sl-radio disabled value="2"
+            >Option 2<sl-infotip slot="infotip">More info option 2</sl-infotip></sl-radio
+          >
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+
+      const firstRadio = el.querySelectorAll('sl-radio')[0],
+        firstInfotip = el.querySelectorAll('sl-infotip')[0],
+        secondInfotip = el.querySelectorAll('sl-infotip')[1],
+        thirdRadio = el.querySelectorAll('sl-radio')[2];
+
+      el.focus();
+      expect(document.activeElement).to.equal(firstRadio);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(firstInfotip);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(thirdRadio);
+      expect(document.activeElement).not.to.equal(secondInfotip);
     });
   });
 

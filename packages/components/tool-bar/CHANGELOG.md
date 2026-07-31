@@ -1,5 +1,42 @@
 # @sl-design-system/tool-bar
 
+## 0.3.0
+
+### Minor Changes
+
+- [#3477](https://github.com/sl-design-system/components/pull/3477) [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee) - Toolbar improvements:
+  - Child buttons and menu-buttons inherit `fill`, and get `variant="inverted"` when the toolbar is `inverted`.
+  - Buttons and menu-buttons inside the toolbar can now have different variants and fills mixed together.
+
+  **Backwards compatibility:**
+  Buttons and menu-buttons used in the toolbar that already have an explicit `fill` or `variant` attribute set will keep their own value — the toolbar only propagates these attributes to elements that don't have them set explicitly.
+  Please check the updated Storybook examples for guidance on how to use the new features and updated [toolbar documentation](https://sanomalearning.design/categories/components/tool-bar/code/#fill-inheritance-and-variants).
+
+### Patch Changes
+
+- Updated dependencies [[`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b), [`d5d17f8`](https://github.com/sl-design-system/components/commit/d5d17f8859fc663af83f6e2dd47286b87bd96a48), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2)]:
+  - @sl-design-system/toggle-button@0.0.17
+  - @sl-design-system/menu@0.4.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/button@2.1.2
+  - @sl-design-system/toggle-group@0.0.17
+
+## 0.2.5
+
+### Patch Changes
+
+- [#3383](https://github.com/sl-design-system/components/pull/3383) [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba) - Expose `aria-disabled="true"` on disabled menu items so assistive technologies announce them as unavailable. Toolbar overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. Forwarded `ariaDisabled` now clears correctly through nested proxy targets
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`f2d2914`](https://github.com/sl-design-system/components/commit/f2d2914f4622de01b49e49b78abc17956e7438d3), [`db96be2`](https://github.com/sl-design-system/components/commit/db96be26709e837b1a4e3e6ea176b75c0823be2a), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/menu@0.3.4
+  - @sl-design-system/toggle-button@0.0.16
+  - @sl-design-system/toggle-group@0.0.16
+  - @sl-design-system/button@2.1.1
+
 ## 0.2.4
 
 ### Patch Changes

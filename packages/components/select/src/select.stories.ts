@@ -19,13 +19,14 @@ import { type Select, type SelectSize } from './select.js';
 
 type Props = Pick<
   Select,
-  'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'
+  'clearable' | 'disabled' | 'fill' | 'placeholder' | 'required' | 'size' | 'value'
 > & {
   hint?: string;
   label?: string;
   options?(): TemplateResult;
   reportValidity?: boolean;
   slot?(): TemplateResult;
+  styles?(): string;
 };
 type Story = StoryObj<Props>;
 
@@ -44,17 +45,45 @@ export default {
     value: null
   },
   argTypes: {
+    fill: {
+      control: 'inline-radio',
+      options: ['ghost', 'outline']
+    },
     size: {
       control: 'inline-radio',
       options: sizes
+    },
+    styles: {
+      table: {
+        disable: true
+      }
     },
     value: {
       control: 'text'
     }
   },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for sl-select-button because it uses ariaLabelledByElements to
+             * set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot
+             * reliably detect.
+             */
+            id: 'aria-input-field-name',
+            enabled: false,
+            selector: 'sl-select >> sl-select-button'
+          }
+        ]
+      }
+    }
+  },
   render: ({
     clearable,
     disabled,
+    fill,
     hint,
     label,
     options,
@@ -63,6 +92,7 @@ export default {
     required,
     size,
     slot,
+    styles,
     value
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
@@ -74,6 +104,7 @@ export default {
         #storybook-root {
           max-width: calc(100vw - 2rem);
         }
+        ${styles?.()}
       </style>
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
@@ -84,6 +115,7 @@ export default {
               ?disabled=${disabled}
               ?required=${required}
               .value=${value}
+              fill=${ifDefined(fill)}
               placeholder=${ifDefined(placeholder)}
               size=${ifDefined(size)}>
               ${options?.() ??
@@ -108,6 +140,12 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Ghost: Story = {
+  args: {
+    fill: 'ghost'
+  }
+};
 
 export const Clearable: Story = {
   args: {
@@ -370,6 +408,15 @@ export const TextOverflow: Story = {
         Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea
         cillum dolor est ut deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
       </sl-option>
+    `,
+    styles: () => `
+      sl-select {
+        inline-size: 200px;
+
+        &::part(listbox) {
+          inline-size: 400px;
+        }
+      }
     `
   }
 };
@@ -487,7 +534,9 @@ export const HideWhenOutOfView: StoryObj = {
         }
 
         header {
-          background: var(--sl-color-background-subtle);
+          background:
+            linear-gradient(var(--sl-color-background-subtle), var(--sl-color-background-subtle)),
+            var(--sl-elevation-surface-base-default);
           position: sticky;
           top: 0;
           padding: 24px;

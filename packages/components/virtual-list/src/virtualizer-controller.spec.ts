@@ -63,7 +63,7 @@ describe('VirtualizerController', () => {
     // Wait for the virtualizer to stabilize; items initially measure with
     // offsetHeight 0 during Lit's commit phase and the ResizeObserver needs
     // multiple animation frames to correct them.
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 10; i++) {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await host.updateComplete;
     }
@@ -176,5 +176,30 @@ describe('VirtualizerController', () => {
     items = Array.from(host.renderRoot.querySelectorAll<HTMLElement>('div[data-index]'));
     expect(items.length).to.be.greaterThan(0);
     expect(items[0].getAttribute('data-index')).to.equal('0');
+  });
+
+  it('should reset scrollMargin to auto when the option is cleared', async () => {
+    const container = document.createElement('div');
+    container.className = 'test-window-scroll-container';
+    container.style.cssText = 'min-height: 3000px; overflow: visible; padding-top: 200px;';
+    document.body.appendChild(container);
+
+    const host = document.createElement('test-host') as TestHost;
+    host.count = 50;
+    container.appendChild(host);
+
+    await host.updateComplete;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    const autoScrollMargin = host.virtualizer.instance.options.scrollMargin ?? 0;
+    expect(autoScrollMargin).to.be.greaterThanOrEqual(200);
+
+    host.virtualizer.updateOptions({ scrollMargin: 10 });
+    expect(host.virtualizer.instance.options.scrollMargin).to.equal(10);
+
+    host.virtualizer.updateOptions({ scrollMargin: undefined });
+    await host.updateComplete;
+
+    expect(host.virtualizer.instance.options.scrollMargin).to.be.closeTo(autoScrollMargin, 1);
   });
 });

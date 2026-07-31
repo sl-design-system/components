@@ -45,7 +45,7 @@ const getRequiredColumnSize = (renderedWidth: number, scrollWidth: number): numb
 @localized()
 export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-format-date': FormatDate,

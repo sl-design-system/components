@@ -11,7 +11,7 @@ import { state } from 'lit/decorators.js';
 
 export class DynamicArrayForm extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/progress-bar",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "status": "preview",
   "description": "Progress-bar component for the SL Design System",
   "license": "Apache-2.0",
@@ -43,12 +43,12 @@
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.6",
-    "lit": "^3.3.2"
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.3.3"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.6",
+    "@open-wc/scoped-elements": "^3.0.10",
     "lit": "^3.1.4"
   }
 }

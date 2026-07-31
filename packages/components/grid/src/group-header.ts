@@ -25,7 +25,7 @@ declare global {
 @localized()
 export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-checkbox': Checkbox,

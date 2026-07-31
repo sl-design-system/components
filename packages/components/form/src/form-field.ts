@@ -52,7 +52,7 @@ let nextUniqueId = 0;
  */
 export class FormField extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-error': Error,
       'sl-hint': Hint,

@@ -101,10 +101,18 @@ export function ForwardAriaMixin<
     setProxyTarget(target: HTMLElement): void {
       targetElements.set(this, target);
 
-      // Forward any element reference properties that were set before the target was available
+      // Forward any element reference properties that were set before the target was available.
+      // Empty values are skipped: components may call this again on an already initialized target
+      // (a checkbox re-syncs its input on every change, for example), and replaying "no references"
+      // would clobber references the target set on itself, since assigning null or an empty array
+      // reflects a removed or empty attribute.
       const stored = propertyStorage.get(this);
       if (stored) {
         for (const [prop, value] of stored) {
+          if (value === null || (Array.isArray(value) && value.length === 0)) {
+            continue;
+          }
+
           (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
         }
       }

@@ -318,8 +318,23 @@ describe('sl-tooltip', () => {
       tooltip.type = 'description';
       await tooltip.updateComplete;
 
-      expect(anchor.ariaDescribedByElements).to.include(tooltip);
+      expect(anchor.ariaDescribedByElements ?? []).to.include(tooltip);
       expect(anchor.ariaLabelledByElements ?? []).not.to.include(tooltip);
+    });
+
+    it('should not touch the anchor aria-labelledby when initialized with type "description"', async () => {
+      const el2: HTMLElement = await fixture(html`
+        <div>
+          <span id="t-label">Label</span>
+          <button aria-labelledby="t-label" id="t-anchor-2" type="button">Anchor</button>
+          <sl-tooltip for="t-anchor-2" type="description">Tip</sl-tooltip>
+        </div>
+      `);
+
+      const anchor2 = el2.querySelector('#t-anchor-2')!;
+      await el2.querySelector('sl-tooltip')!.updateComplete;
+
+      expect(anchor2).to.have.attribute('aria-labelledby', 't-label');
     });
   });
 

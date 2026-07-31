@@ -149,7 +149,11 @@ export class Tooltip extends LitElement {
       }
     }
 
-    if (changes.has('type')) {
+    // Skip this on the first update: `#updateAnchors()` above has already added the relation using
+    // the current type, so there is no relation for the previous type to clean up. Checking the
+    // previous type is not an alternative, since `undefined` is a valid one; it means `label`, and
+    // going from an untyped tooltip to `description` does need the labelling relation cleaned up.
+    if (changes.has('type') && this.hasUpdated) {
       this.anchors.forEach(anchor => {
         this.#removeAriaRelation(anchor, changes.get('type'));
         if (!this.disabled) {
@@ -300,6 +304,13 @@ export class Tooltip extends LitElement {
     const ariaProperty = this.#getAriaPropertyFromType(type);
 
     const refs = element[ariaProperty] ?? [];
+    if (!refs.includes(this)) {
+      // Nothing of ours to remove. Bail out instead of assigning, because assigning an (empty)
+      // array reflects an empty attribute on the element, wiping out any `aria-labelledby` or
+      // `aria-describedby` the element manages itself.
+      return;
+    }
+
     element[ariaProperty] = refs.filter((ref: Element) => ref !== this);
   }
 

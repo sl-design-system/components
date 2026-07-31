@@ -528,6 +528,34 @@ describe('ForwardAriaMixin', () => {
 
       expect(button.ariaLabelledByElements).to.have.members([labelB]);
     });
+
+    it('should replay stored references when the target is set again', () => {
+      el.ariaLabelledByElements = [labelA];
+
+      el.setProxyTarget(button);
+
+      expect(button.ariaLabelledByElements).to.have.members([labelA]);
+    });
+
+    it('should not replay empty references when the target is set again', () => {
+      // Something assigned an empty array earlier, e.g. a tooltip removing a relation it never
+      // added. Replaying that would wipe the references the target set on itself.
+      el.ariaLabelledByElements = [];
+      button.setAttribute('aria-labelledby', 'ref-label-b');
+
+      el.setProxyTarget(button);
+
+      expect(button).to.have.attribute('aria-labelledby', 'ref-label-b');
+    });
+
+    it('should not replay null references when the target is set again', () => {
+      el.ariaLabelledByElements = null;
+      button.setAttribute('aria-labelledby', 'ref-label-b');
+
+      el.setProxyTarget(button);
+
+      expect(button).to.have.attribute('aria-labelledby', 'ref-label-b');
+    });
   });
 
   describe('no observedAttributes specified', () => {

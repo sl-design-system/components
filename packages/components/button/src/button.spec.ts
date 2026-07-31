@@ -689,7 +689,7 @@ describe('sl-button', () => {
       await tooltipEl.updateComplete;
 
       expect(button.ariaDescribedByElements).to.include(tooltipEl);
-      expect(button.ariaLabelledByElements).not.to.include(tooltipEl);
+      expect(button.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
     });
 
     it('should set ariaLabelledByElements on the inner button when an icon-only button has a tooltip', async () => {

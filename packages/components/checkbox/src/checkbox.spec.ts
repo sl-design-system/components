@@ -274,6 +274,25 @@ describe('sl-checkbox', () => {
       tooltip.remove();
     });
 
+    it('should keep the label linked to the input after toggling checked', async () => {
+      // An sl-tooltip with type="description" assigns an empty array while cleaning up a
+      // labelling relation it never added. Syncing the input must not replay that.
+      el.ariaLabelledByElements = [];
+
+      // Re-run the label linking, the way a slotchange does
+      el.append(document.createTextNode(' '));
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const labelId = el.querySelector('label')!.id;
+      expect(el.input).to.have.attribute('aria-labelledby', labelId);
+
+      el.checked = true;
+      await el.updateComplete;
+
+      expect(el.input).to.have.attribute('aria-labelledby', labelId);
+      expect(getForwardedAccessibleName(el)).to.equal('Hello world');
+    });
+
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });

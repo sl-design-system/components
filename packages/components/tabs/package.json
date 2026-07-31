@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tabs",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "status": "stable",
   "description": "Tabs components for the SL Design System",
   "license": "Apache-2.0",
@@ -39,9 +39,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/menu": "^0.3.4",
-    "@sl-design-system/shared": "^0.12.2"
+    "@sl-design-system/icon": "^1.4.3",
+    "@sl-design-system/menu": "^0.4.0",
+    "@sl-design-system/shared": "^0.12.3"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

@@ -20,7 +20,24 @@ Breaking changes:
 New:
 
 - A `checked` custom state, so a checked checkbox can be styled with `:state(checked)`.
-- A `toggle(force?)` method that flips the checked state as if the user activated the checkbox: it
-  emits `sl-change`, marks the control dirty and updates its validity.
+- A `toggle(force?)` method that flips the checked state: it emits `sl-change`, marks the control
+  dirty and updates its validity. Unlike clicking, it does not check whether the checkbox is
+  disabled.
 - Proper form association: the checkbox contributes its value to the surrounding `<form>` and
   restores its initial state on reset.
+
+`sl-checkbox-group` now uses the `focusgroup` attribute for keyboard navigation instead of the
+`RovingTabindexController`.
+
+Breaking changes:
+
+- `disabled` and `required` no longer reflect to attributes, so `sl-checkbox-group[disabled]` and
+  `sl-checkbox-group[required]` selectors no longer match. Use the properties instead.
+- The checkboxes are now wrapped in a `[part="wrapper"]` element, which carries `role="group"`
+  instead of the host. The new `wrapper` CSS part is exposed for styling.
+- Only slotted `sl-checkbox` elements count as group members now, so other elements (an `sl-tooltip`
+  belonging to one of the checkboxes, for example) can be slotted without becoming part of the
+  value.
+
+Note that `focusgroup` is not yet implemented by any browser. Until it is, applications need to load
+a polyfill such as `@microsoft/focusgroup-polyfill` for keyboard navigation to work.

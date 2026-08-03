@@ -428,6 +428,42 @@ describe('sl-checkbox', () => {
       expect(el.checked).to.be.true;
       expect(onChange).to.have.been.calledOnce;
     });
+
+    it('should not treat a tabindex written after the first connect as author intent', async () => {
+      const parent = el.parentElement!;
+
+      // A focusgroup takes the checkbox out of the tab order while it is connected
+      el.setAttribute('tabindex', '-1');
+
+      parent.removeChild(el);
+      parent.appendChild(el);
+      await el.updateComplete;
+
+      // Outside of that focusgroup it has to become a tab stop again
+      expect(el.tabIndex).to.equal(0);
+    });
+  });
+
+  describe('with an author supplied tabindex', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-checkbox tabindex="-1">Hello world</sl-checkbox>`);
+    });
+
+    it('should keep the tabindex the author set', () => {
+      expect(el.tabIndex).to.equal(-1);
+    });
+
+    it('should restore it after the checkbox is enabled again', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el.tabIndex).to.equal(-1);
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el.tabIndex).to.equal(-1);
+    });
   });
 
   describe('without a label', () => {

@@ -148,6 +148,12 @@ describe('sl-checkbox-group', () => {
       expect(onUpdateState).to.have.been.calledTwice;
     });
 
+    it('should focus the first checkbox after calling focus()', () => {
+      el.focus();
+
+      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox'));
+    });
+
     it('should emit an sl-update-validity event when calling reportValidity', async () => {
       const onUpdateValidity = spy();
 
@@ -241,6 +247,55 @@ describe('sl-checkbox-group', () => {
 
       expect(el.boxes?.at(0)).to.match(':state(checked)');
       expect(el.boxes?.at(1)).to.match(':state(checked)');
+    });
+
+    it('should expose the group as a single tab stop', async () => {
+      // Give the focusgroup (polyfill) time to assign the roving tabindex
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.boxes?.at(0)).to.have.property('tabIndex', 0);
+      expect(el.boxes?.at(1)).to.have.property('tabIndex', -1);
+      expect(el.boxes?.at(2)).to.have.property('tabIndex', -1);
+    });
+
+    it('should navigate checkbox -> infotip -> next checkbox', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox value="0"
+            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-checkbox
+          >
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      const firstCheckbox = el.querySelectorAll('sl-checkbox')[0],
+        firstInfotip = el.querySelectorAll('sl-infotip')[0],
+        secondCheckbox = el.querySelectorAll('sl-checkbox')[1];
+
+      // Give the focusgroup (polyfill) time to pick up the slotted infotips
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      el.focus();
+      expect(document.activeElement).to.equal(firstCheckbox);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(firstInfotip);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(secondCheckbox);
+    });
+
+    it('should skip a disabled checkbox when calling focus()', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox disabled value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      el.focus();
+
+      expect(document.activeElement).to.equal(el.querySelectorAll('sl-checkbox')[1]);
     });
 
     it('should skip infotips of disabled checkboxes during roving navigation', async () => {

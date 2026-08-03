@@ -193,6 +193,15 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
     `;
   }
 
+  /**
+   * The group itself is not focusable; focus goes to the first checkbox the user could reach with
+   * the keyboard. Without this, `focus()` on the host silently does nothing, which would break
+   * `autofocus` and the "jump to this field" links in `sl-form-validation-errors`.
+   */
+  override focus(options?: FocusOptions): void {
+    this.#firstFocusableBox()?.focus(options);
+  }
+
   override reportValidity(): boolean {
     this.boxes?.forEach(box => box.reportValidity());
 
@@ -200,12 +209,12 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
   }
 
   /**
-   * Click an associated `<label>` element triggers a click on the host. When that happens, we
+   * Clicking an associated `<label>` element triggers a click on the host. When that happens, we
    * manually focus the first checkbox in the group.
    */
   #onClick = (event: Event): void => {
     if (event.target === this) {
-      this.boxes?.at(0)?.focus();
+      this.#firstFocusableBox()?.focus();
     }
   };
 
@@ -252,6 +261,11 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ForwardAriaMixin(Li
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
     this.#updateValidity();
+  }
+
+  /** The first checkbox that can actually take focus; a disabled one cannot. */
+  #firstFocusableBox(): Checkbox<T> | undefined {
+    return this.boxes?.find(box => !box.disabled);
   }
 
   #stopEvent(event: Event): void {

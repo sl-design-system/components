@@ -63,6 +63,13 @@ export class Checkbox<T = any> extends FormControlMixin(LitElement) {
    */
   #authorTabIndex?: number;
 
+  /**
+   * Whether the author's tabindex has been read yet. Only the very first connect counts: by the
+   * time a checkbox is re-connected, a focusgroup may have written its own tabindex to the host,
+   * and mistaking that for author intent would pin the checkbox out of the tab order for good.
+   */
+  #authorTabIndexRead = false;
+
   /** @internal Element internals. */
   readonly internals = this.attachInternals();
 
@@ -141,8 +148,12 @@ export class Checkbox<T = any> extends FormControlMixin(LitElement) {
     this.setFormControlElement(this);
 
     // Read this before the first `#updateTabIndex()` call overwrites the attribute.
-    if (this.#authorTabIndex === undefined && this.hasAttribute('tabindex')) {
-      this.#authorTabIndex = this.tabIndex;
+    if (!this.#authorTabIndexRead) {
+      this.#authorTabIndexRead = true;
+
+      if (this.hasAttribute('tabindex')) {
+        this.#authorTabIndex = this.tabIndex;
+      }
     }
 
     this.#updateTabIndex();

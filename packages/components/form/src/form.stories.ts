@@ -14,8 +14,8 @@ import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/time-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html, nothing } from 'lit';
-import '../register.js';
 import { type Form } from './form.js';
+import './register.js';
 
 type Props = Pick<Form, 'disabled' | 'value'> & {
   buttons?(): TemplateResult;
@@ -98,12 +98,14 @@ export default {
         .value=${value}>
         ${fields(args)}
         <sl-button-bar>
-          ${buttons?.() ??
-          html`
-            <sl-button @click=${onToggle}>Toggle</sl-button>
-            ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-            <sl-button @click=${onReport} variant="primary">Report</sl-button>
-          `}
+          ${
+            buttons?.() ??
+            html`
+              <sl-button @click=${onToggle}>Toggle</sl-button>
+              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
+              <sl-button @click=${onReport} variant="primary">Report</sl-button>
+            `
+          }
         </sl-button-bar>
       </sl-form>
       <pre>${JSON.stringify(value, null, 2)}</pre>

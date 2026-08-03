@@ -5,7 +5,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { Tooltip } from './tooltip.js';
 
 describe('sl-tooltip shared', () => {

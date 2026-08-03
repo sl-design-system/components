@@ -6,12 +6,12 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Listbox, Option, OptionGroup } from '../index.js';
-import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type GroupedOption } from './grouped-option.js';
+import './register.js';
 import { type SelectedGroup } from './selected-group.js';
+import { Listbox, Option, OptionGroup } from './index.js';
 
 describe('sl-combobox', () => {
   it('should export and register listbox option components', () => {

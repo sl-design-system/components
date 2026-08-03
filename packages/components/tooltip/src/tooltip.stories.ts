@@ -6,7 +6,7 @@ import '@sl-design-system/spinner/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
-import '../register.js';
+import './register.js';
 import { tooltip } from './tooltip-directive.js';
 import { type Tooltip } from './tooltip.js';
 
@@ -68,18 +68,20 @@ export default {
           place-items: center;
         }
       </style>
-      ${example
-        ? example?.(props)
-        : html`
-            <sl-button
-              aria-describedby="tooltip"
-              style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
-              Button
-            </sl-button>
-            <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}
-              >${message}</sl-tooltip
-            >
-          `}
+      ${
+        example
+          ? example?.(props)
+          : html`
+              <sl-button
+                aria-describedby="tooltip"
+                style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
+                Button
+              </sl-button>
+              <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}
+                >${message}</sl-tooltip
+              >
+            `
+      }
     `;
   }
 } satisfies Meta<Props>;

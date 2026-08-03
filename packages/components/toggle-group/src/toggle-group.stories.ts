@@ -69,7 +69,7 @@ export default {
     },
     shape: {
       control: 'inline-radio',
-      options: ['pill', 'square']
+      options: ['pill', 'rect']
     },
     slot: {
       table: { disable: true }

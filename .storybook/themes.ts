@@ -149,6 +149,16 @@ export const themes: Theme[] = [
     }
   },
   {
+    id: 'teacher-assistant',
+    name: 'Teacher Assistant',
+    fonts: ['/themes/teacher-assistant/fonts.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/teacher-assistant');
+
+      setup();
+    }
+  },
+  {
     id: 'teas',
     name: 'TEAS',
     fonts: ['https://use.typekit.net/fgr4zwk.css'],

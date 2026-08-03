@@ -40,6 +40,7 @@
     "release": "wireit",
     "start": "wireit",
     "storybook": "wireit",
+    "studio-auth": "yarn workspace @sl-design-system/scripts studio-auth",
     "test": "wireit",
     "version": "wireit",
     "website": "wireit",

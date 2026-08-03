@@ -1,5 +1,30 @@
 # @sl-design-system/combobox
 
+## 0.1.11
+
+### Patch Changes
+
+- [#3464](https://github.com/sl-design-system/components/pull/3464) [`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da) - Improved virtual list scrolling and grouped option behavior.
+  - Fixed `scrollMargin` handling so automatic window-scroll offsets are not overwritten by an implicit `0`, and clearing `scrollMargin` restores automatic behavior.
+  - Kept cached virtual-list measurements enabled internally for more stable rendering
+  - Prevented grouped combobox headers from being matched and selected as regular options
+  - Updated virtual-list and listbox stories to use deterministic `auto` scrolling and rerender selected item state correctly near the end of long lists
+
+- [#3478](https://github.com/sl-design-system/components/pull/3478) [`294cd38`](https://github.com/sl-design-system/components/commit/294cd38b8d5484fe06c8f83d85e74762639535ae) - Fix Safari-specific combobox animations by rotating the chevron from the toggle button's `aria-expanded` state and avoiding unsupported `overlay` transition behavior when closing the listbox.
+
+- [#3487](https://github.com/sl-design-system/components/pull/3487) [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987) - Export listbox components from the combobox and select packages and automatically register the listbox, option, and option group elements when importing `register.js` to simplify using options.
+
+- [#3543](https://github.com/sl-design-system/components/pull/3543) [`c399b00`](https://github.com/sl-design-system/components/commit/c399b0041473ee71943619133dbe05e640924186) - Improve VoiceOver support for virtualized combobox options by rendering listbox-managed virtual options in the light DOM and stabilizing `aria-activedescendant` updates during virtual scrolling.
+
+- [#3474](https://github.com/sl-design-system/components/pull/3474) [`ad9eb4c`](https://github.com/sl-design-system/components/commit/ad9eb4cc09826019d53960222e47f2f86b297671) - Improved keyboard and screen reader behavior for removable tags in comboboxes and tag lists. Comboboxes no longer move fake focus from the input to selected tags with Left/Right arrow keys, while tag navigation remains available once focus is inside the tag list. The hidden tag-list navigation instructions are now `aria-hidden` while still being exposed through `aria-describedby`.
+
+- [#3214](https://github.com/sl-design-system/components/pull/3214) [`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b) - Improved keyboard focus behavior for removable selected tags in multi-select comboboxes. Focus now stays within the selected tag list when removing tags one by one and only returns to the input after the last tag is removed. The combobox also avoids showing a separate fake tag focus indicator when focus is on a tag remove button
+
+- Updated dependencies [[`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`ad9eb4c`](https://github.com/sl-design-system/components/commit/ad9eb4cc09826019d53960222e47f2f86b297671), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e)]:
+  - @sl-design-system/tag@0.1.14
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/listbox@0.2.1
+
 ## 0.1.10
 
 ### Patch Changes

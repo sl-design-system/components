@@ -47,7 +47,7 @@
       },
       "dependencies": [
         "analyze",
-"..:build:themes:styles"
+        "..:build:themes:styles"
       ],
       "files": [
         ".eleventy.cjs",
@@ -96,7 +96,6 @@
         "tsconfig.tsbuildinfo"
       ]
     },
-
     "lint": {
       "dependencies": [
         "lint:scss",

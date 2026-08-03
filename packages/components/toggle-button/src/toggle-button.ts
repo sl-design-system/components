@@ -2,22 +2,14 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { ButtonShape } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
-import {
-  type CSSResultGroup,
-  LitElement,
-  PropertyValues,
-  type TemplateResult,
-  html,
-  nothing
-} from 'lit';
-import { property, query, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './toggle-button.scss.js';
+import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
+import { property, state } from 'lit/decorators.js';
+import styles from './toggle-button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -26,26 +18,22 @@ declare global {
 }
 
 export type ToggleButtonFill = 'outline' | 'solid';
-export type ToggleButtonShape = 'rect' | 'pill';
 export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 
 /**
- * A button that lets the user toggle between two states.
+ * Lets the user toggle between two states.
  *
- * @customElement sl-toggle-button
+ * ```html
+ * <sl-toggle-button>
+ *   <sl-icon name="far-gear" slot="default"></sl-icon>
+ *   <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+ * </sl-toggle-button>
+ * ```
  *
  * @slot default - The icon shown in the default state of the button
  * @slot pressed - The icon shown in the pressed state of the button
- *
- * @csspart button - The internal <code>&lt;button&gt;</code> element.
- * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
- *
- * @cssstate error - Set when there is an error with the toggle button, for example when there are no icons in an icon-only toggle button.
- * @cssstate pressed - Set when the toggle button is in the pressed state.
- * @cssstate icon-only - Set when the toggle button has icons and no text.
- * @cssstate text-only - Set when the toggle button has text and no icons.
  */
-export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
+export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -55,94 +43,108 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = {
-    ...LitElement.shadowRootOptions,
-    delegatesFocus: true
-  };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal The button element. */
-  @query('button') button!: HTMLButtonElement;
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  });
+
+  /** Either an instanceof of Tooltip, or a cleanup function. */
+  #tooltip?: Tooltip | (() => void);
+
+  /** @internal Whether the `aria-label` attribute is being changed internally. */
+  #isInternalAriaLabelUpdate = false;
+
+  /** @internal The author-provided `aria-disabled` value before disabled syncing. */
+  #ariaDisabledDefinedByUser?: string | null;
 
   /** @internal The default (non-pressed) icon. */
   @state() defaultIcon?: Icon;
 
-  /**
-   * Whether the button is disabled; when set no interaction is possible.
-   *
-   * @default false
-   */
+  /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /**
-   * The variant of the toggle-button.
-   *
-   * @default 'solid'
-   */
+  /** The variant of the toggle-button. */
   @property({ reflect: true }) fill?: ToggleButtonFill;
 
   /** @internal True when the user has slotted text in the button. */
   @state() hasText?: boolean;
 
-  /** @internal */
-  readonly internals = this.attachInternals();
+  /** @internal Used for setting the tooltip on the button. */
+  @property({ reflect: true, attribute: 'aria-label' }) label?: string;
 
   /**
-   * The pressed state of the button.
-   *
-   * @default false
+   * The pressed state of the button. Set the default value, so the `aria-pressed` attribute is
+   * added to the element.
    */
-  @property({ type: Boolean }) pressed?: boolean;
+  @property({ type: Boolean, reflect: true }) pressed = false;
 
   /** @internal The pressed icon. */
   @state() pressedIcon?: Icon;
 
-  /**
-   * The shape of the button.
-   *
-   * @default 'rect'
-   */
-  @property({ reflect: true }) shape?: ToggleButtonShape;
-
-  /**
-   * The size of the button.
-   *
-   * @default 'md'
-   */
+  /** The size of the button. */
   @property({ reflect: true }) size?: ToggleButtonSize;
+
+  /** The shape of the button. */
+  @property({ reflect: true }) shape?: ButtonShape;
 
   /** @internal Emits when the button has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  /** The tooltip text for the button. */
-  @property() tooltip?: string;
+  override attributeChangedCallback(name: string, old: string | null, value: string | null): void {
+    if (name === 'aria-label' && this.#isInternalAriaLabelUpdate) {
+      return;
+    }
+
+    super.attributeChangedCallback(name, old, value);
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('role', 'button');
+
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
+  }
+
+  override disconnectedCallback(): void {
+    if (this.#tooltip instanceof Tooltip) {
+      this.#tooltip.remove();
+    } else if (this.#tooltip) {
+      this.#tooltip();
+    }
+
+    this.#tooltip = undefined;
+
+    super.disconnectedCallback();
+  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.setProxyTarget(this.button);
-
     if (import.meta.env?.DEV) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
-        this.internals.states.delete('error');
+        this.removeAttribute('error');
 
         if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && !this.hasText) {
           if (!this.defaultIcon) {
             console.error(
               'There needs to be an sl-icon in the "default" slot for the component to work'
             );
-            this.internals.states.add('error');
+            this.setAttribute('error', '');
           } else if (!this.pressedIcon) {
             console.error(
               'There needs to be an sl-icon in the "pressed" slot for the component to work'
             );
-            this.internals.states.add('error');
+            this.setAttribute('error', '');
           } else if (this.defaultIcon.name === this.pressedIcon.name) {
             console.error('Do not use the same icon for both states of the toggle button.');
-            this.internals.states.add('error');
+            this.setAttribute('error', '');
           }
         }
       });
@@ -153,77 +155,93 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
     super.updated(changes);
 
     if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
-      const iconOnly = !this.hasText && (!!this.defaultIcon || !!this.pressedIcon),
-        textOnly = !!this.hasText && !this.defaultIcon && !this.pressedIcon,
-        hasIconOnly = this.internals.states.has('icon-only');
+      this.toggleAttribute('icon-only', this.#isIconOnly());
+      this.toggleAttribute('text-only', !!this.hasText && !this.defaultIcon && !this.pressedIcon);
 
-      if (iconOnly) {
-        this.internals.states.add('icon-only');
-        this.internals.states.delete('text-only');
-      } else if (textOnly) {
-        this.internals.states.delete('icon-only');
-        this.internals.states.add('text-only');
-      } else {
-        this.internals.states.delete('icon-only');
-        this.internals.states.delete('text-only');
-      }
-
-      // Trigger an update when the icon-only state changes
-      if (hasIconOnly !== iconOnly) {
-        this.requestUpdate();
+      // If the tooltip is still lazy, its ariaRelation might be outdated now that icons have loaded.
+      // We clear it so that when it is (re)initialized later in this update, it uses the correct relation.
+      if (typeof this.#tooltip === 'function') {
+        this.#tooltip();
+        this.#tooltip = undefined;
       }
     }
 
     if (changes.has('defaultIcon') || changes.has('pressedIcon')) {
       [this.defaultIcon, this.pressedIcon].filter(Boolean).forEach(icon => {
-        // Map the button size to the appropriate icon size: xs for sm, otherwise md
         icon!.size = this.size === 'sm' ? 'xs' : 'md';
       });
     }
 
-    if (changes.has('pressed')) {
-      if (this.pressed) {
-        this.internals.states.add('pressed');
-      } else {
-        this.internals.states.delete('pressed');
+    if (this.label) {
+      if (this.#tooltip instanceof Tooltip) {
+        if (changes.has('label')) {
+          this.#tooltip.textContent = this.label;
+        }
+      } else if (!this.#tooltip) {
+        this.#tooltip = Tooltip.lazy(
+          this,
+          tooltip => {
+            this.#tooltip = tooltip;
+            tooltip.textContent = this.label!;
+            this.#updateAriaAttributes();
+          },
+          {
+            ariaRelation: this.#isIconOnly() ? 'label' : 'description',
+            context: this.shadowRoot!
+          }
+        );
       }
+    } else {
+      if (this.#tooltip instanceof Tooltip) {
+        this.#tooltip.remove();
+        this.#tooltip = undefined;
+      } else if (this.#tooltip) {
+        this.#tooltip();
+        this.#tooltip = undefined;
+      }
+    }
+
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.#ariaDisabledDefinedByUser ??= this.getAttribute('aria-disabled');
+        this.setAttribute('aria-disabled', 'true');
+      } else if (this.#ariaDisabledDefinedByUser === null) {
+        this.removeAttribute('aria-disabled');
+        this.#ariaDisabledDefinedByUser = undefined;
+      } else if (this.#ariaDisabledDefinedByUser !== undefined) {
+        this.setAttribute('aria-disabled', this.#ariaDisabledDefinedByUser);
+        this.#ariaDisabledDefinedByUser = undefined;
+      }
+    }
+
+    if (changes.has('pressed')) {
+      this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
+    }
+
+    if (
+      changes.has('label') ||
+      changes.has('hasText') ||
+      changes.has('defaultIcon') ||
+      changes.has('pressedIcon')
+    ) {
+      this.#updateAriaAttributes();
     }
   }
 
   override render(): TemplateResult {
-    let ariaType: 'description' | 'label' | undefined;
-    if (this.tooltip) {
-      ariaType = this.internals.states.has('icon-only') ? 'label' : 'description';
-    }
-
     return html`
-      <button
-        @click=${this.#onClick}
-        ?disabled=${this.disabled}
-        aria-pressed=${Boolean(this.pressed).toString()}
-        id="button"
-        part="button"
-        type="button">
+      <div part="wrapper">
         <slot @slotchange=${this.#onIconSlotChange} name="default"></slot>
         <slot @slotchange=${this.#onIconSlotChange} name="pressed">
           <sl-icon name="check-solid" size=${this.size === 'sm' ? 'xs' : 'md'}></sl-icon>
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
-      </button>
-      ${
-        this.tooltip
-          ? html`
-              <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
-                ${this.tooltip}
-              </sl-tooltip>
-            `
-          : nothing
-      }
+      </div>
     `;
   }
 
   #onClick(event: Event): void {
-    if (this.disabled || this.button.ariaDisabled === 'true') {
+    if (this.disabled || this.ariaDisabled === 'true') {
       event.preventDefault();
       event.stopImmediatePropagation();
 
@@ -238,11 +256,17 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
     if (event.target.matches('[name="default"]')) {
       this.defaultIcon = event.target
         .assignedElements({ flatten: true })
-        .find(element => element instanceof Icon);
+        .find((element): element is Icon => element instanceof Icon);
     } else {
       this.pressedIcon = event.target
         .assignedElements({ flatten: true })
-        .find(element => element instanceof Icon);
+        .find((element): element is Icon => element instanceof Icon);
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (['Enter', ' '].includes(event.key)) {
+      this.#onClick(event);
     }
   }
 
@@ -250,5 +274,51 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
     this.hasText = !!event.target
       .assignedNodes({ flatten: true })
       .filter(node => node.textContent && node.textContent.trim().length > 0).length;
+  }
+
+  /**
+   * Update aria-label, aria-describedby and aria-labelledby. For icon-only buttons, aria-label is
+   * removed only after the tooltip is created, setting aria-labelledby as the accessible name.
+   * Otherwise, aria-label is used as the accessible name, and the tooltip provides a description
+   * via aria-describedby.
+   */
+  #updateAriaAttributes(): void {
+    if (!this.label) {
+      // When the label is cleared, also clear all ARIA attributes that may
+      // reference a now-removed tooltip to avoid stale relationships.
+      this.#isInternalAriaLabelUpdate = true;
+      this.removeAttribute('aria-label');
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-describedby');
+      this.#isInternalAriaLabelUpdate = false;
+      return;
+    }
+
+    if (this.#tooltip instanceof Tooltip) {
+      const isIconOnly = this.#isIconOnly();
+      this.#isInternalAriaLabelUpdate = true;
+      if (isIconOnly) {
+        this.removeAttribute('aria-label');
+        this.setAttribute('aria-labelledby', this.#tooltip.id);
+        this.removeAttribute('aria-describedby');
+      } else {
+        this.setAttribute('aria-label', this.label);
+        this.setAttribute('aria-describedby', this.#tooltip.id);
+        this.removeAttribute('aria-labelledby');
+      }
+      this.#isInternalAriaLabelUpdate = false;
+    } else {
+      // While the tooltip is lazy, keep aria-label as a fallback
+      this.#isInternalAriaLabelUpdate = true;
+      this.setAttribute('aria-label', this.label);
+      this.#isInternalAriaLabelUpdate = false;
+      this.removeAttribute('aria-labelledby');
+      this.removeAttribute('aria-describedby');
+    }
+  }
+
+  /** @internal Returns true if the button only contains icons and no text. */
+  #isIconOnly(): boolean {
+    return !this.hasText && (!!this.defaultIcon || !!this.pressedIcon);
   }
 }

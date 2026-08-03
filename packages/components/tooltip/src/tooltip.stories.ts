@@ -14,6 +14,7 @@ type Props = Pick<Tooltip, 'disabled' | 'open' | 'type'> & {
   tooltip(): TemplateResult;
   trigger: string[];
 };
+type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Tooltip',
@@ -88,22 +89,22 @@ export default {
   `
 } satisfies Meta<Props>;
 
-export const Basic = {};
+export const Basic: Story = {};
 
-export const ClickTrigger = {
+export const ClickTrigger: Story = {
   args: {
     text: 'Click again to dismiss',
     trigger: ['click']
   }
 };
 
-export const Disabled = {
+export const Disabled: Story = {
   args: {
     disabled: true
   }
 };
 
-export const HoverBridge = {
+export const HoverBridge: Story = {
   args: {
     maxWidth: 200,
     showHoverBridge: true,
@@ -111,7 +112,7 @@ export const HoverBridge = {
   }
 };
 
-export const Shared: StoryObj<Props> = {
+export const Shared: Story = {
   args: {
     text: 'Works on the current selection'
   },
@@ -125,13 +126,12 @@ export const Shared: StoryObj<Props> = {
   `
 };
 
-export const All = {
-  args: {
-    tooltip: () => html`
-      <sl-tooltip for="button" open style="position-area: top">Top</sl-tooltip>
-      <sl-tooltip for="button" open style="position-area: right">Right</sl-tooltip>
-      <sl-tooltip for="button" open style="position-area: bottom">Bottom</sl-tooltip>
-      <sl-tooltip for="button" open style="position-area: left">Left</sl-tooltip>
-    `
-  }
+export const All: Story = {
+  render: () => html`
+    <sl-button id="button">Anchor</sl-button>
+    <sl-tooltip for="button" open style="position-area: top">Top</sl-tooltip>
+    <sl-tooltip for="button" open style="position-area: right">Right</sl-tooltip>
+    <sl-tooltip for="button" open style="position-area: bottom">Bottom</sl-tooltip>
+    <sl-tooltip for="button" open style="position-area: left">Left</sl-tooltip>
+  `
 };

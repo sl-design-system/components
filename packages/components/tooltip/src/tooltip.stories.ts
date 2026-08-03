@@ -127,6 +127,9 @@ export const Shared: Story = {
 };
 
 export const All: Story = {
+  parameters: {
+    layout: 'centered'
+  },
   render: () => html`
     <sl-button id="button">Anchor</sl-button>
     <sl-tooltip for="button" open style="position-area: top">Top</sl-tooltip>

@@ -131,6 +131,13 @@ export const All: Story = {
     layout: 'centered'
   },
   render: () => html`
+    <style>
+      #root-inner {
+        display: grid;
+        height: calc(20rem);
+        place-items: center;
+      }
+    </style>
     <sl-button id="button">Anchor</sl-button>
     <sl-tooltip for="button" open style="position-area: top">Top</sl-tooltip>
     <sl-tooltip for="button" open style="position-area: right">Right</sl-tooltip>

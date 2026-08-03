@@ -110,10 +110,14 @@ describe('sl-column', () => {
         'tbody tr:first-of-type td:first-of-type'
       )!;
 
+      const { paddingBlockStart: beforeStart, paddingBlockEnd: beforeEnd } = getComputedStyle(cell);
+
       cell.append(document.createElement('sl-tooltip'));
 
-      expect(getComputedStyle(cell).paddingBlockStart).not.to.equal('0px');
-      expect(getComputedStyle(cell).paddingBlockEnd).not.to.equal('0px');
+      const { paddingBlockStart: afterStart, paddingBlockEnd: afterEnd } = getComputedStyle(cell);
+
+      expect(afterStart).to.equal(beforeStart);
+      expect(afterEnd).to.equal(beforeEnd);
     });
   });
 

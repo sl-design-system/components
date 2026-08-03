@@ -5,7 +5,6 @@
 ### Patch Changes
 
 - [#3214](https://github.com/sl-design-system/components/pull/3214) [`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b) - Accessibility improvements to `<sl-tag>` and `<sl-tag-list>`:
-
   - The remove button now has a proper accessible label ("Remove tag 'X'") instead of being `aria-hidden`
   - The remove button uses `aria-disabled` instead of `disabled`, keeping it keyboard-reachable when the tag is disabled
   - Focus is delegated to the remove button via the component's `focus()` implementation; `:state(focus-visible)` tracks focus for styling
@@ -154,7 +153,6 @@
 ### Minor Changes
 
 - [#1813](https://github.com/sl-design-system/components/pull/1813) [`7b2fdc6`](https://github.com/sl-design-system/components/commit/7b2fdc6ee42af1b096b6f019b0f9e9daba5ed950) - Various improvements:
-
   - Add missing `disabled` property to `<sl-tag-list>` so the stack tag can be disabled
   - Change design from a visual stack to a regular tag with a `<number>+` text
   - Use the same size (`24px` for `md`, `36px` for `lg`) that is used elsewhere in the design system
@@ -180,12 +178,10 @@
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes
 
   `<sl-tag-list>`:
-
   - Use `aria-labelledby` for the tooltip instead of `aria-describedby`
   - Do not set an `aria-label` on the host element; `role="list"` provides enough information
 
   `<sl-tag>`:
-
   - Add ability to use Delete or Backspace keys to remove the tag
   - Use `aria-description` to describe how to remove the tag using the keyboard
   - Make the delete button have `aria-hidden="true"`

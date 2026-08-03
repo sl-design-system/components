@@ -71,11 +71,9 @@
 - [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
 
   The following icons have changed:
-
   - `circle` has been renamed to `circle-solid`
 
   The following icons have been added:
-
   - `badge-available`
   - `badge-away`
   - `badge-donotdisturb`
@@ -84,7 +82,6 @@
   - `info`
 
   The following items have been removed (mainly in cleaning up, they were never meant to be there)
-
   - `svg-sort`
   - `svg-sort-down`
   - `svg-sort-up`

@@ -13,6 +13,7 @@ type Props = Pick<
   | 'readonly'
   | 'required'
   | 'rows'
+  | 'showCount'
   | 'showValid'
   | 'size'
   | 'resize'
@@ -64,6 +65,7 @@ export default {
     minLength,
     placeholder,
     required,
+    showCount,
     showValid,
     size,
     resize,
@@ -91,6 +93,7 @@ export default {
               .placeholder=${placeholder ?? ''}
               .resize=${resize}
               .rows=${rows}
+              .showCount=${showCount}
               .showValid=${showValid}
               .size=${size}
               .value=${value}
@@ -153,6 +156,14 @@ export const Valid: Story = {
   args: {
     hint: 'After clicking the button, this field will show it is valid.',
     showValid: true
+  }
+};
+
+export const ShowCount: Story = {
+  args: {
+    hint: 'A character counter is shown below the textarea. It turns orange when 90% of the limit is reached and red when you have exceeded the limit. Exceeding the limit does not block input — you can type or paste more and then edit it down.',
+    showCount: 50,
+    required: true
   }
 };
 

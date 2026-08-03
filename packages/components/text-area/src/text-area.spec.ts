@@ -743,4 +743,266 @@ describe('sl-text-area', () => {
       expect(el.shadowRoot!.activeElement).to.equal(textarea);
     });
   });
+
+  describe('show-count', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-area show-count="5"></sl-text-area>`);
+    });
+
+    it('should become invalid when the soft limit is exceeded', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should not show a validation message before reportValidity', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+      expect(el.getLocalizedValidationMessage()).to.equal('');
+    });
+
+    it('should show validation message after reportValidity when over the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+      expect(el.validationMessage).to.equal('Please remove at least 1 character.');
+    });
+
+    it('should render count text before reportValidity when over the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      const count = el.renderRoot.querySelector('.count');
+
+      expect(count).to.exist;
+      expect(count?.textContent?.trim()).to.equal('1 character too many');
+    });
+
+    it('should hide count text after reportValidity when over the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdefghijklmnopqrs');
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')?.textContent?.trim()).to.equal(
+        '14 characters too many'
+      );
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
+    });
+
+    it('should connect count span to textarea with ariaDescribedByElements when count is visible', async () => {
+      const textarea = el.querySelector('textarea')!;
+      const count = el.renderRoot.querySelector('.count');
+
+      await el.updateComplete;
+
+      expect(count).to.exist;
+      expect(count).to.have.attribute('id');
+
+      const linkedElements = Array.from(textarea.ariaDescribedByElements ?? []);
+
+      expect(linkedElements.some(el => el.textContent?.trim() === '5 characters remaining')).to.be
+        .true;
+    });
+
+    it('should include hint element in ariaDescribedByElements when both hint and count are present', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      // Simulate what form-field does: add a hint element and append its ID to aria-describedby.
+      const hintEl = document.createElement('span');
+      hintEl.id = 'test-hint-123';
+      hintEl.textContent = 'Hint text';
+      document.body.append(hintEl);
+
+      textarea.setAttribute('aria-describedby', 'test-hint-123');
+
+      // Wait for the MutationObserver to fire and re-sync.
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const list = Array.from(textarea.ariaDescribedByElements ?? []);
+
+      // Both hint and count description should be in element references.
+      expect(list.some(el => el.id === 'test-hint-123')).to.be.true;
+      expect(list.some(el => el.textContent?.trim() === '5 characters remaining')).to.be.true;
+
+      hintEl.remove();
+    });
+
+    it('should preserve existing aria-describedby ids when count is visible', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      const hintEl = document.createElement('span');
+      hintEl.id = 'sl-form-field-hint-1';
+      document.body.append(hintEl);
+
+      textarea.setAttribute('aria-describedby', 'sl-form-field-hint-1');
+      // Wait for MutationObserver to fire and re-sync.
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const refs = Array.from(textarea.ariaDescribedByElements ?? []);
+
+      expect(refs.some(el => el.id === 'sl-form-field-hint-1')).to.be.true;
+      expect(refs.some(el => el.id.endsWith('-description'))).to.be.true;
+
+      hintEl.remove();
+    });
+
+    it('should refresh external aria-describedby refs when ids change while count is visible', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      const hintOne = document.createElement('span'),
+        hintTwo = document.createElement('span');
+
+      hintOne.id = 'sl-form-field-hint-1';
+      hintTwo.id = 'sl-form-field-hint-2';
+      document.body.append(hintOne, hintTwo);
+
+      textarea.setAttribute('aria-describedby', hintOne.id);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      textarea.setAttribute('aria-describedby', hintTwo.id);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const refs = Array.from(textarea.ariaDescribedByElements ?? []);
+
+      expect(refs.some(el => el.id === hintOne.id)).to.be.false;
+      expect(refs.some(el => el.id === hintTwo.id)).to.be.true;
+      expect(refs.some(el => el.id.endsWith('-description'))).to.be.true;
+
+      hintOne.remove();
+      hintTwo.remove();
+    });
+
+    it('should keep count description element in accessibility tree', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      await el.updateComplete;
+
+      const refs = Array.from(textarea.ariaDescribedByElements ?? []);
+      const description = refs.find(
+        el => el.id.includes('sl-text-area-count-') && el.id.endsWith('-description')
+      );
+
+      expect(description).to.exist;
+      expect(description).not.to.have.attribute('hidden');
+    });
+
+    it('should clear count from ariaDescribedByElements when count is hidden', async () => {
+      const textarea = el.querySelector('textarea')!;
+
+      el.focus();
+      await userEvent.keyboard('abcdefghijklmnopqrs');
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(Array.from(textarea.ariaDescribedByElements ?? [])).to.deep.equal([]);
+    });
+
+    it('should remove show-validity after going back under the soft limit', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+      expect(el).to.have.attribute('show-validity', 'invalid');
+
+      const textarea = el.querySelector('textarea')!;
+      textarea.value = 'abc';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('show-validity', 'invalid');
+      expect(el.valid).to.be.true;
+      expect(el.validationMessage).to.equal('');
+    });
+
+    it('should keep showing validation message on overflow after returning under limit once', async () => {
+      el.focus();
+      await userEvent.keyboard('abcdef');
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      const textarea = el.querySelector('textarea')!;
+
+      textarea.value = 'abc';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      textarea.value = 'abcdefghijklmnopqrs';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
+    });
+
+    it('should show overflow validation after required reportValidity was called earlier', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.reportValidity()).to.be.false;
+      expect(el.validationMessage).to.equal('Please fill out this field.');
+
+      const textarea = el.querySelector('textarea')!;
+
+      textarea.value = 'abcdefghijklmnopqrs';
+      textarea.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
+    });
+
+    it('should use the latest programmatic value when updating validity after reportValidity', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.reportValidity()).to.be.false;
+      expect(el.validationMessage).to.equal('Please fill out this field.');
+
+      el.value = 'abcdefghijklmnopqrs';
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.count')).to.be.null;
+      expect(el.validationMessage).to.equal('Please remove at least 14 characters.');
+    });
+
+    it('should expose count in ariaDescribedByElements when used inside form-field', async () => {
+      const wrapped = await fixture(html`
+        <sl-form-field label="Label" hint="Hint text">
+          <sl-text-area show-count="5"></sl-text-area>
+        </sl-form-field>
+      `);
+      const area = wrapped.querySelector('sl-text-area') as TextArea,
+        textarea = area.querySelector('textarea')!;
+
+      await area.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(
+        Array.from(textarea.ariaDescribedByElements ?? []).some(
+          el => el.id.includes('sl-text-area-count-') && el.id.endsWith('-description')
+        )
+      ).to.be.true;
+    });
+  });
 });

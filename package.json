@@ -395,7 +395,7 @@
   },
   "devDependencies": {
     "@af-utils/scrollend-polyfill": "^0.0.14",
-    "@axe-core/playwright": "^4.11.3",
+    "@axe-core/playwright": "^4.12.1",
     "@changesets/cli": "^2.31.1",
     "@changesets/get-github-info": "^0.8.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",

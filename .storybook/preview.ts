@@ -19,6 +19,13 @@ if (!('onscrollend' in window)) {
   await import('@af-utils/scrollend-polyfill' as any);
 }
 
+// Load the polyfill for the focusGroup API if needed
+if (!('focusGroup' in HTMLElement.prototype)) {
+  const { polyfillBodyAndObserve } = await import('@microsoft/focusgroup-polyfill');
+
+  polyfillBodyAndObserve();
+}
+
 // Set a fixed date in non-development environments for consistent Storybook snapshots
 if (!import.meta.env?.DEV) {
   MockDate.set('2025-06-01T00:00:00Z');

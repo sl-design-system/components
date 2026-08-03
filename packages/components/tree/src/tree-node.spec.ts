@@ -288,34 +288,37 @@ describe('sl-tree-node', () => {
       expect(checkbox).to.exist;
     });
 
-    it('should render the label in the checkbox label slot', () => {
-      const checkbox = el.renderRoot.querySelector('sl-checkbox') as HTMLElement | null,
-        labelSlot = checkbox?.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
-        input = checkbox?.querySelector<HTMLInputElement>('input[slot="input"]'),
-        label = checkbox?.querySelector<HTMLLabelElement>('label[slot="label"]'),
-        labelText = label
-          ?.querySelector('slot')
+    it('should render the node text in the checkbox label', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox'),
+        labelText = checkbox?.shadowRoot
+          ?.querySelector<HTMLSlotElement>('slot:not([name])')
           ?.assignedNodes({ flatten: true })
           .map(node => node.textContent ?? '')
           .join('')
           .trim();
 
-      expect(labelSlot).to.exist;
-      expect(label).to.have.property('htmlFor', input?.id);
-      expect(label?.id).to.equal(`${input?.id}-label`);
-      expect(input?.labels?.[0]).to.equal(label);
       expect(labelText).to.equal('Lorem');
     });
 
-    it('should use the checkbox label as the input accessible name', async () => {
-      const checkbox = el.renderRoot.querySelector('sl-checkbox') as HTMLElement | null,
-        input = checkbox?.querySelector<HTMLInputElement>('input[slot="input"]'),
-        label = checkbox?.querySelector<HTMLLabelElement>('label[slot="label"]');
+    it('should use the node text as the checkbox accessible name', async () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox');
 
       await new Promise(requestAnimationFrame);
 
-      expect(label?.id).not.to.equal('');
-      expect(input).to.have.attribute('aria-labelledby', label?.id);
+      const labelText = (checkbox?.internals.ariaLabelledByElements ?? [])
+        .flatMap(element => Array.from(element.querySelectorAll('slot')))
+        .flatMap(slot => slot.assignedNodes({ flatten: true }))
+        .map(node => node.textContent ?? '')
+        .join('')
+        .trim();
+
+      expect(labelText).to.equal('Lorem');
+    });
+
+    it('should not make the checkbox a tab stop of its own', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+
+      expect(checkbox).to.have.property('tabIndex', -1);
     });
 
     it('should toggle the checkbox when clicking the text', async () => {

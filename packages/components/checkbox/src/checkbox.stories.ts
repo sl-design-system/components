@@ -240,8 +240,8 @@ export const NoVisibleLabel: StoryObj = {
     return html`
       <p style="margin: 0 0 1rem 0">
         This checkbox has no internal or external label. It only has an
-        <code>aria-label</code> attribute. That attribute is automatically applied to the
-        <code>input</code> element.
+        <code>aria-label</code> attribute. Since the checkbox is the form control itself, that
+        attribute stays on the host and overrides the (empty) slotted label.
       </p>
       <sl-checkbox aria-label="Check me"></sl-checkbox>
     `;

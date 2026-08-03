@@ -5,6 +5,13 @@ import sinonChai from 'sinon-chai';
 import { chai } from 'vitest';
 import { commands } from 'vitest/browser';
 
+// Load the polyfill for the focusGroup API if needed
+if (!('focusGroup' in HTMLElement.prototype)) {
+  const { polyfillBodyAndObserve } = await import('@microsoft/focusgroup-polyfill');
+
+  polyfillBodyAndObserve();
+}
+
 chai.use(chaiDatetime);
 chai.use(chaiDom);
 chai.use(sinonChai);

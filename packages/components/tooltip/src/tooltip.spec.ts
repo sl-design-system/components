@@ -199,6 +199,10 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
     });
 
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
     it('should bind to every element referenced by "for"', () => {
       expect(tooltip.anchors).to.deep.equal([first, second]);
     });
@@ -221,16 +225,23 @@ describe('sl-tooltip', () => {
       expect(tooltip.anchors).to.deep.equal([second, first]);
     });
 
+    // These use fake timers so no wall clock time passes while the hover delay elapses. With real
+    // timers the pointer can emit a genuine mouseout into that window, which cancels the pending
+    // show and makes the test fail depending on where the cursor happens to sit.
     it('should show the tooltip when hovering any anchor', async () => {
+      vi.useFakeTimers();
+
       second.dispatchEvent(new Event('mouseover', { bubbles: true }));
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip).to.match(':popover-open');
     });
 
     it('should reposition to the anchor that triggered it', async () => {
+      vi.useFakeTimers();
+
       second.dispatchEvent(new Event('mouseover', { bubbles: true }));
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 10);
 
       expect(tooltip.anchor).to.equal(second);
       expect(second.style.anchorName).to.equal(`--${tooltip.id}`);
@@ -241,11 +252,13 @@ describe('sl-tooltip', () => {
     });
 
     it('should not hide the tooltip when moving between anchors', async () => {
+      vi.useFakeTimers();
+
       first.dispatchEvent(new Event('mouseover', { bubbles: true }));
-      await waitFor(Tooltip.hoverShowDelay + 10);
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverShowDelay + 10);
 
       first.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, relatedTarget: second }));
-      await waitFor(Tooltip.hoverHideDelay + 10);
+      await vi.advanceTimersByTimeAsync(Tooltip.hoverHideDelay + 10);
 
       expect(tooltip).to.match(':popover-open');
     });

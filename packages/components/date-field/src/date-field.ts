@@ -263,6 +263,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override connectedCallback(): void {
     super.connectedCallback();
 
+    // // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    // const style = document.createElement('style');
+    // style.innerHTML = `
+    //   sl-date-field:hover:not(:focus-within) {
+    //     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+    //   }
+    // `;
+    // this.prepend(style);
+
     this.internals.role = 'group';
     this.setFormControlElement(this);
 

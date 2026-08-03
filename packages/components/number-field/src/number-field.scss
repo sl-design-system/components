@@ -4,6 +4,13 @@
   slot[name='input']::slotted(input) {
     text-align: center;
   }
+
+  .minus {
+    border-end-end-radius: 0;
+    border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
+    border-inline-start: none;
+    border-start-end-radius: 0;
+  }
 }
 
 ::slotted(input) {

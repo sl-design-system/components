@@ -14,8 +14,8 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Breadcrumbs',
-  globals: {
-    viewport: undefined
+  parameters: {
+    viewport: { disable: true }
   },
   args: {
     hideHomeLabel: false,
@@ -94,9 +94,9 @@ export const Inverted: Story = {
 
 export const Mobile: Story = {
   ...Basic,
-  globals: {
+  parameters: {
     viewport: {
-      value: 'mobile'
+      defaultViewport: 'mobile'
     }
   }
 };

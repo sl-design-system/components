@@ -7,7 +7,7 @@ const cwd = new URL('.', import.meta.url).pathname;
 const setupTheme = theme => {
   const sourceGlobal = join(cwd, '../packages/themes/core/global.css');
   const destinationGlobal = join(cwd, `${theme}/global.css`);
-  cp(sourceGlobal, destinationGlobal, () => console.log(`🌍 ✅ ${theme}`));
+  cp(sourceGlobal, destinationGlobal, () => console.log(`🌍 ✅ ✍️ ${theme}`));
 
   const themeName = theme.split('/').pop();
   const sourceThemeFiles = [
@@ -31,7 +31,10 @@ const setupTheme = theme => {
         else {
           let content = `/* file: ${file} */\n` + data;
           if (file.includes(`${themeName}.css`)) {
-            content = content.replace(new RegExp(`\\[data-brand="${themeName}"\\]`, 'g'), 'body');
+            content = content.replace(
+              new RegExp(`\\[data-brand=['"]${themeName}['"]\\]`, 'g'),
+              'body'
+            );
           }
           resolve(content);
         }
@@ -42,7 +45,7 @@ const setupTheme = theme => {
     .then(parts => {
       writeFile(join(cwd, `${theme}/theme.css`), parts.join('\n\n'), err => {
         if (err) console.error(`🎨 ⚠️ ✍️ ${theme}:`, err);
-        else console.log(`🎨 ✅ ✍️${theme}`);
+        else console.log(`🎨 ✅ ✍️ ${theme}`);
       });
     })
     .catch(err => console.error(`🎨 ⚠️ 👓 ${theme}:`, err));

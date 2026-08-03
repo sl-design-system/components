@@ -124,16 +124,27 @@ const parseCells = (el: Element | undefined) => {
         cellSpecs.id = `specs-${index}`;
         cellSpecs.classList.add('cell-specs');
         const computed = window.getComputedStyle(cellContents);
-        // console.log('cell', index, cellContents, computed);
+
+        const classes = cellContents.className.split(' ').filter(c => c !== 'fallback');
+        const classContainer = document.createElement('div');
+        cellSpecs.appendChild(classContainer);
+
+        const typeLabel = document.createElement('sl-badge');
+        typeLabel.setAttribute('color', 'orange');
+        typeLabel.textContent = `.${classes[0]}`;
+        typeLabel.size = 'lg';
+        classContainer.appendChild(typeLabel);
+
+        const sizeLabel = document.createElement('sl-badge');
+        sizeLabel.setAttribute('color', 'blue');
+        sizeLabel.textContent = `.${classes[1]}`;
+        classContainer.appendChild(sizeLabel);
+
         const label = document.createElement('sl-badge');
         const big = cellContents.matches(':where(.display, .heading)') ?? false;
         label.setAttribute('color', big ? 'purple' : 'teal');
         label.textContent = `${computed.fontSize}/${computed.lineHeight} | ${computed.fontWeight} | ${computed.letterSpacing}`;
         cellSpecs.appendChild(label);
-
-        const element = document.createElement('strong');
-        element.textContent = `${cellContents.tagName}.${cellContents.className.replace(/\s+/g, '.')}`;
-        cellSpecs.appendChild(element);
 
         const font = document.createElement('span');
         font.textContent = `Font: ${computed.fontFamily}`;
@@ -163,7 +174,7 @@ export const TypographyStyles: Story = {
     <style>
       .typography-grid {
         display: grid;
-        grid-template-columns: repeat(4, max-content);
+        grid-template-columns: repeat(2, max-content);
         grid-auto-rows: max-content;
         gap: 1rem;
         align-items: center;
@@ -224,18 +235,6 @@ export const TypographyStyles: Story = {
       class="typography-grid ${ifDefined(textBox !== 'none' ? textBox : '')} ${ifDefined(
         showComputed ? 'show-computed' : ''
       )}">
-      <div>
-        <span>Size</span>
-
-        ${styleNames.map(
-          () => html`
-            <sl-badge variant="info">lg</sl-badge>
-            <sl-badge variant="info">md</sl-badge>
-            <sl-badge variant="info">sm</sl-badge>
-          `
-        )}
-      </div>
-
       <div class="typography">
         <span>Typography</span>
         <div><h1 class="display lg">Display LG</h1></div>
@@ -266,14 +265,10 @@ export const TypographyStyles: Story = {
 
         <div><p class="caption lg">Caption LG</p></div>
         <div>${variant === 'advanced' ? html`<p class="caption md">Caption MD</p>` : nothing}</div>
-        <div></div>
       </div>
       <div class="specs">
         <span>Specs</span>
       </div>
     </div>
-    <sl-popover id="style-popover" position="top" anchor="clicked-cell">
-      <div id="style-content">Click on any typography element to see its computed styles</div>
-    </sl-popover>
   `
 };

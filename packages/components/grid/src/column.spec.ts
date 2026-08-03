@@ -100,6 +100,21 @@ describe('sl-column', () => {
         )
       ).to.deep.equal([true, false, false]);
     });
+
+    it('should keep cell padding when ellipsized text adds a tooltip', async () => {
+      el.querySelector('sl-grid-column')!.ellipsizeText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
+        'tbody tr:first-of-type td:first-of-type'
+      )!;
+
+      cell.append(document.createElement('sl-tooltip'));
+
+      expect(getComputedStyle(cell).paddingBlockStart).not.to.equal('0px');
+      expect(getComputedStyle(cell).paddingBlockEnd).not.to.equal('0px');
+    });
   });
 
   describe('path', () => {

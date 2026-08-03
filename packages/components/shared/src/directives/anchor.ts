@@ -20,9 +20,9 @@ export interface AnchorDirectiveConfig extends PositionPopoverOptions {
   element?: Element | Ref<Element>;
 
   /**
-   * Setting this to true will cause the directive to do nothing if CSS anchor positioning
-   * is supported in the browser. It will then use CSS anchor positioning to position the
-   * element. In older browsers it will still use floating-ui to position the element.
+   * Setting this to true will cause the directive to do nothing if CSS anchor positioning is
+   * supported in the browser. It will then use CSS anchor positioning to position the element. In
+   * older browsers it will still use floating-ui to position the element.
    */
   supportCSSAnchorPositioning?: boolean;
 }
@@ -47,7 +47,10 @@ export class AnchorDirective extends Directive {
 
   override update(part: ElementPart, [config = {}]: DirectiveParameters<this>): void {
     // Do nothing if CSS anchor positioning is supported or if the directive is already initialized on this element
-    if ((config.supportCSSAnchorPositioning && 'anchorName' in document.documentElement.style) || this.#host) {
+    if (
+      (config.supportCSSAnchorPositioning && 'anchorName' in document.documentElement.style) ||
+      this.#host
+    ) {
       return;
     }
 
@@ -77,7 +80,9 @@ export class AnchorDirective extends Directive {
 
       if (!anchorElement && host.hasAttribute('anchor')) {
         anchorElement =
-          (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
+          (host.getRootNode() as HTMLElement)?.querySelector(
+            `#${host.getAttribute('anchor') ?? ''}`
+          ) || undefined;
       }
 
       if (anchorElement) {

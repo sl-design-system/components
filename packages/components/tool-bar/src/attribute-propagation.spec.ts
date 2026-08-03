@@ -125,6 +125,32 @@ describe('fill', () => {
 
     expect(nestedButton).to.have.attribute('fill', 'ghost');
   });
+
+  it('should not override an explicit child fill attribute', async () => {
+    const button = document.createElement('sl-button');
+    button.setAttribute('fill', 'solid');
+    button.textContent = 'Explicit fill';
+    el.appendChild(button);
+    await el.updateComplete;
+
+    el.fill = 'ghost';
+    await el.updateComplete;
+
+    expect(button).to.have.attribute('fill', 'solid');
+  });
+
+  it('should not override an explicit child menu-button fill attribute', async () => {
+    const menuButton = el.querySelector('sl-menu-button');
+
+    expect(menuButton).to.exist;
+
+    menuButton!.setAttribute('fill', 'outline');
+
+    el.fill = 'ghost';
+    await el.updateComplete;
+
+    expect(menuButton!).to.have.attribute('fill', 'outline');
+  });
 });
 
 describe('inverted', () => {
@@ -204,6 +230,44 @@ describe('inverted', () => {
     const overflowMenuButton = el.shadowRoot?.querySelector('sl-menu-button');
     expect(overflowMenuButton).to.exist;
     expect(overflowMenuButton).to.have.attribute('variant', 'inverted');
+  });
+
+  it('should not override an explicit child variant attribute when inverted is true', async () => {
+    const button = document.createElement('sl-button');
+    button.setAttribute('variant', 'primary');
+    button.textContent = 'Explicit variant';
+    el.appendChild(button);
+    await el.updateComplete;
+
+    el.inverted = true;
+    await el.updateComplete;
+
+    expect(button).to.have.attribute('variant', 'primary');
+  });
+
+  it('should not override an explicit child menu-button variant when inverted is true', async () => {
+    const menuButton = el.querySelector('sl-menu-button');
+
+    expect(menuButton).to.exist;
+
+    menuButton!.setAttribute('variant', 'primary');
+
+    el.inverted = true;
+    await el.updateComplete;
+
+    expect(menuButton!).to.have.attribute('variant', 'primary');
+  });
+
+  it('should not override an explicit child divider inverted attribute', async () => {
+    const explicitDivider = document.createElement('sl-tool-bar-divider');
+    explicitDivider.setAttribute('inverted', '');
+    el.appendChild(explicitDivider);
+    await el.updateComplete;
+
+    el.inverted = false;
+    await el.updateComplete;
+
+    expect(explicitDivider).to.have.attribute('inverted');
   });
 });
 

@@ -260,7 +260,9 @@ describe('sl-tab-group', () => {
     });
 
     it('should not have put aria-controls attributes on the tabs', () => {
-      const noControls = Array.from(el.querySelectorAll('sl-tab')).every(tab => !tab.hasAttribute('aria-controls'));
+      const noControls = Array.from(el.querySelectorAll('sl-tab')).every(
+        tab => !tab.hasAttribute('aria-controls')
+      );
 
       expect(noControls).to.be.true;
     });
@@ -298,7 +300,9 @@ describe('sl-tab-group', () => {
     });
 
     it('should disable the menu items for disabled tabs', () => {
-      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(menuItem => !!menuItem.disabled);
+      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(
+        menuItem => !!menuItem.disabled
+      );
 
       expect(menuItems).to.eql([false, false, true]);
     });

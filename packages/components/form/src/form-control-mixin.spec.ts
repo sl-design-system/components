@@ -3,9 +3,16 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { FormControlMixin, type FormControlShowValidity, type SlUpdateValidityEvent } from './form-control-mixin.js';
+import {
+  FormControlMixin,
+  type FormControlShowValidity,
+  type SlUpdateValidityEvent
+} from './form-control-mixin.js';
 
-/** Helper to set the writable `showValidity` property that the `FormControl` interface marks readonly. */
+/**
+ * Helper to set the writable `showValidity` property that the `FormControl` interface marks
+ * readonly.
+ */
 function setShowValidity(el: NativeTestElement, value: FormControlShowValidity): void {
   (el as unknown as { showValidity: FormControlShowValidity }).showValidity = value;
 }
@@ -54,7 +61,10 @@ describe('FormControlMixin', () => {
     });
 
     it('should have a static extendsFormControlMixin property', () => {
-      expect((NativeTestElement as unknown as { extendsFormControlMixin: boolean }).extendsFormControlMixin).to.be.true;
+      expect(
+        (NativeTestElement as unknown as { extendsFormControlMixin: boolean })
+          .extendsFormControlMixin
+      ).to.be.true;
     });
 
     it('should not be dirty', () => {
@@ -216,7 +226,9 @@ describe('FormControlMixin', () => {
     let requiredEl: RequiredNativeTestElement;
 
     beforeEach(async () => {
-      requiredEl = await fixture(html`<fcm-required-native-test required></fcm-required-native-test>`);
+      requiredEl = await fixture(
+        html`<fcm-required-native-test required></fcm-required-native-test>`
+      );
     });
 
     it('should return true when the control is valid', async () => {
@@ -611,7 +623,9 @@ describe('FormControlMixin', () => {
     let requiredEl: RequiredNativeTestElement;
 
     beforeEach(async () => {
-      requiredEl = await fixture(html`<fcm-required-native-test required></fcm-required-native-test>`);
+      requiredEl = await fixture(
+        html`<fcm-required-native-test required></fcm-required-native-test>`
+      );
     });
 
     it('should return a localized message for valueMissing', () => {

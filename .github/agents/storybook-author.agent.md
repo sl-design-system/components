@@ -1,7 +1,19 @@
 ---
 name: storybook-author
 description: Specializes in creating and maintaining Storybook stories for web components with proper args, argTypes, and interactive examples
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'microsoft/playwright-mcp/*', 'runSubagent', 'usages', 'problems', 'changes', 'openSimpleBrowser']
+tools:
+  [
+    'edit',
+    'search',
+    'runCommands',
+    'runTasks',
+    'microsoft/playwright-mcp/*',
+    'runSubagent',
+    'usages',
+    'problems',
+    'changes',
+    'openSimpleBrowser'
+  ]
 model: Claude Sonnet 4.5
 handoffs:
   - label: Implement Component
@@ -68,12 +80,7 @@ export default {
     }
   },
   render: ({ property1, property2 }) => html`
-    <sl-component
-      .property1=${property1}
-      ?property2=${property2}
-    >
-      Content
-    </sl-component>
+    <sl-component .property1=${property1} ?property2=${property2}> Content </sl-component>
   `
 } satisfies Meta<Props>;
 
@@ -194,14 +201,10 @@ Use Lit html and directives for rendering:
 
 ```typescript
 render: ({ disabled, variant, size, text }) => html`
-  <sl-component
-    ?disabled=${disabled}
-    variant=${ifDefined(variant)}
-    size=${ifDefined(size)}
-  >
+  <sl-component ?disabled=${disabled} variant=${ifDefined(variant)} size=${ifDefined(size)}>
     ${text}
   </sl-component>
-`
+`;
 ```
 
 ### 7. Story Variants
@@ -222,11 +225,7 @@ export const WithIcon: Story = {
     icon: true
   },
   render: ({ disabled, variant, size, text }) => html`
-    <sl-component
-      ?disabled=${disabled}
-      .variant=${variant}
-      .size=${size}
-    >
+    <sl-component ?disabled=${disabled} .variant=${variant} .size=${size}>
       <sl-icon name="check"></sl-icon> ${text}
     </sl-component>
   `
@@ -311,7 +310,7 @@ argTypes: {
 Use for optional attributes:
 
 ```typescript
-html`<sl-component variant=${ifDefined(variant)}></sl-component>`
+html`<sl-component variant=${ifDefined(variant)}></sl-component>`;
 ```
 
 ### nothing
@@ -320,11 +319,8 @@ Use for conditional rendering:
 
 ```typescript
 html`
-  <sl-component>
-    ${icon ? html`<sl-icon name="check"></sl-icon>` : nothing}
-    ${text}
-  </sl-component>
-`
+  <sl-component> ${icon ? html`<sl-icon name="check"></sl-icon>` : nothing} ${text} </sl-component>
+`;
 ```
 
 ### repeat
@@ -335,10 +331,12 @@ Use for lists:
 import { repeat } from 'lit/directives/repeat.js';
 
 html`
-  ${repeat(items, item => item.id, item => html`
-    <sl-option value=${item.value}>${item.label}</sl-option>
-  `)}
-`
+  ${repeat(
+    items,
+    item => item.id,
+    item => html` <sl-option value=${item.value}>${item.label}</sl-option> `
+  )}
+`;
 ```
 
 ### classMap / styleMap
@@ -351,11 +349,9 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 html`
   <div class=${classMap({ active: isActive, disabled: isDisabled })}>
-    <div style=${styleMap({ color: textColor, fontSize: `${size}px` })}>
-      Content
-    </div>
+    <div style=${styleMap({ color: textColor, fontSize: `${size}px` })}>Content</div>
   </div>
-`
+`;
 ```
 
 ## Story Categories
@@ -402,7 +398,7 @@ parameters: {
           id: 'color-contrast',
           selector: 'sl-component:not([disabled])'
         }
-      ]
+      ];
     }
   }
 }
@@ -413,7 +409,9 @@ parameters: {
 ```typescript
 parameters: {
   // Disable snapshot for interactive stories
-  chromatic: { disableSnapshot: true }
+  chromatic: {
+    disableSnapshot: true;
+  }
 }
 ```
 
@@ -422,7 +420,7 @@ parameters: {
 ```typescript
 parameters: {
   viewport: {
-    defaultViewport: 'reset' // Full width
+    defaultViewport: 'reset'; // Full width
   }
 }
 ```
@@ -442,9 +440,7 @@ export const WithData: Story = {
   ],
   render: (_, { loaded: { students } }) => html`
     <sl-grid>
-      ${students.map(student => html`
-        <sl-avatar .displayName=${student.fullName}></sl-avatar>
-      `)}
+      ${students.map(student => html` <sl-avatar .displayName=${student.fullName}></sl-avatar> `)}
     </sl-grid>
   `
 };
@@ -458,13 +454,8 @@ render: ({ value }) => {
     console.log('Value changed:', event.detail);
   };
 
-  return html`
-    <sl-component
-      .value=${value}
-      @sl-change=${onChange}
-    ></sl-component>
-  `;
-}
+  return html` <sl-component .value=${value} @sl-change=${onChange}></sl-component> `;
+};
 ```
 
 ### Custom CSS in Stories
@@ -483,7 +474,7 @@ render: () => html`
   <section>
     <sl-component>Example</sl-component>
   </section>
-`
+`;
 ```
 
 ### Complex Slot Content
@@ -549,12 +540,16 @@ export const Sizes: Story = {
 export const Variants: Story = {
   render: () => html`
     <style>
-      section { display: flex; flex-direction: column; gap: 1rem; }
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
     </style>
     <section>
-      ${['primary', 'secondary', 'danger'].map(variant => html`
-        <sl-component variant=${variant}>${variant}</sl-component>
-      `)}
+      ${['primary', 'secondary', 'danger'].map(
+        variant => html` <sl-component variant=${variant}>${variant}</sl-component> `
+      )}
     </section>
   `
 };
@@ -565,8 +560,9 @@ export const Variants: Story = {
 ```typescript
 export const Overflow: Story = {
   args: {
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
-          'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
+      'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
   }
 };
 ```
@@ -594,6 +590,7 @@ yarn chromatic
 ## Testing Stories
 
 Stories are automatically tested with:
+
 - **Accessibility** - Via @storybook/addon-a11y
 - **Visual regression** - Via Chromatic
 - **Unit tests** - Via @storybook/addon-vitest (configured in vitest.config.ts)

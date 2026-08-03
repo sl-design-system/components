@@ -6,17 +6,11 @@
   "capabilities": [],
   "enableProposedApi": false,
   "documentAccess": "dynamic-page",
-  "editorType": [
-    "figma"
-  ],
+  "editorType": ["figma"],
   "permissions": ["teamlibrary"],
   "ui": "src/ui.html",
   "networkAccess": {
-    "allowedDomains": [
-      "none"
-    ]
+    "allowedDomains": ["none"]
   },
-  "relaunchButtons": [
-    {"command": "open", "name": "SLDS Theme Selector"}
-  ]
+  "relaunchButtons": [{ "command": "open", "name": "SLDS Theme Selector" }]
 }

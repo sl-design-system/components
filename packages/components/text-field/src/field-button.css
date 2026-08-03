@@ -42,7 +42,11 @@
 }
 
 ::slotted(sl-icon) {
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border-radius: var(--sl-size-borderRadius-child);
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   padding: calc((var(--sl-size-300) - max(1cap, var(--sl-icon-size))) / 2);

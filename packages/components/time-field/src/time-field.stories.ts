@@ -83,8 +83,7 @@ export default {
             ?readonly=${readonly}
             ?required=${required}
             start=${ifDefined(start)}
-            .value=${value}
-          ></sl-time-field>
+            .value=${value}></sl-time-field>
         </sl-form-field>
         ${reportValidity
           ? html`

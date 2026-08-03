@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonSize } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -23,7 +26,7 @@ export type DrawerAttachment = 'right' | 'left' | 'top' | 'bottom';
  */
 export class Drawer extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar
@@ -57,8 +60,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @close=${this.#onClose}
         aria-labelledby="title"
-        part="dialog"
-      >
+        part="dialog">
         <div>
           <sl-button-bar>
             <sl-button

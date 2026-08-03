@@ -113,7 +113,9 @@ describe('sl-form', () => {
     });
 
     it('should mark required fields', () => {
-      const allRequired = Array.from(el.querySelectorAll('sl-form-field')).every(field => field.mark === 'required');
+      const allRequired = Array.from(el.querySelectorAll('sl-form-field')).every(
+        field => field.mark === 'required'
+      );
 
       expect(allRequired).to.be.true;
     });
@@ -322,7 +324,9 @@ describe('sl-form', () => {
     });
 
     it('should mark optional fields', () => {
-      const allOptional = Array.from(el.querySelectorAll('sl-form-field')).every(field => field.mark === 'optional');
+      const allOptional = Array.from(el.querySelectorAll('sl-form-field')).every(
+        field => field.mark === 'optional'
+      );
 
       expect(allOptional).to.be.true;
     });
@@ -338,7 +342,7 @@ describe('sl-form', () => {
 
   describe('custom components', () => {
     class customComponent extends ScopedElementsMixin(LitElement) {
-      static get scopedElements(): ScopedElementsMap {
+      static override get scopedElements(): ScopedElementsMap {
         return {
           'sl-form-field': FormField,
           'sl-text-field': TextField

@@ -1,5 +1,8 @@
 import { localized } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import {
   Button,
   type ButtonFill,
@@ -8,10 +11,23 @@ import {
   type ButtonVariant
 } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { EventsController, type PopoverPosition } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  type PopoverPosition,
+  event
+} from '@sl-design-system/shared';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { isForwardedDisabled } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './menu-button.css' with { type: 'css' };
@@ -25,8 +41,7 @@ declare global {
 }
 
 /**
- * Custom element that combines a button and a menu and automatically wires them up
- * together.
+ * Custom element that combines a button and a menu and automatically wires them up together.
  *
  * @csspart button - The button element.
  *
@@ -36,7 +51,7 @@ declare global {
 @localized()
 export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
@@ -65,14 +80,18 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   /** @internal The button. */
   @query('sl-button') button!: Button;
 
+  /** @internal Emits when the menu opens or closes. The event detail is `true` when open and `false` when closed. */
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
   /**
    * Whether the button is disabled; when set no interaction is possible.
+   *
    * @default false
    */
   @property({ type: Boolean }) disabled?: boolean;
 
   /**
    * The fill of the button.
+   *
    * @default 'outline'
    */
   @property() fill: ButtonFill = 'outline';
@@ -82,24 +101,28 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
 
   /**
    * The position of the menu relative to the button.
+   *
    * @default 'bottom-start'
    */
   @property() position?: PopoverPosition;
 
   /**
    * The shape of the button.
-   * @default 'square'
+   *
+   * @default 'rect'
    */
   @property() shape?: ButtonShape;
 
   /**
    * The size of the button.
+   *
    * @default 'md'
    */
   @property() size?: ButtonSize;
 
   /**
    * The variant of the button.
+   *
    * @default 'secondary'
    */
   @property() variant?: ButtonVariant;
@@ -130,8 +153,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         part="button"
         shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}
-        variant=${ifDefined(this.variant)}
-      >
+        variant=${ifDefined(this.variant)}>
         <slot name="button"></slot>
         ${iconOnly ? nothing : html`<sl-icon name="angle-down"></sl-icon>`}
       </sl-button>
@@ -141,8 +163,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
-        part="menu"
-      >
+        part="menu">
         <slot></slot>
       </sl-menu>
     `;
@@ -219,6 +240,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
 
   #onToggle(event: ToggleEvent): void {
     this.#popoverState = event.newState;
+    this.toggleEvent.emit(event.newState === 'open');
 
     if (event.newState === 'closed' && this.menu.matches(':focus-within')) {
       this.button.focus();

@@ -61,7 +61,9 @@ export class CustomMessageComponent {
       <div>
         <h4>show() with HTML Content</h4>
         <p>You can use <code>show()</code> method to render HTML content in the message.</p>
-        <sl-button (click)="showCustomMessage()" variant="primary">Show custom HTML message</sl-button>
+        <sl-button (click)="showCustomMessage()" variant="primary">
+          Show custom HTML message
+        </sl-button>
       </div>
     </div>
   `
@@ -80,7 +82,8 @@ export class MessageDialogStaticMethodsComponent {
   async showAlertNonCancellable(): Promise<void> {
     await this.messageDialogService.show({
       title: 'Important Notice',
-      message: 'This is a critical alert that cannot be cancelled. You must acknowledge it by clicking OK.',
+      message:
+        'This is a critical alert that cannot be cancelled. You must acknowledge it by clicking OK.',
       buttons: [{ text: 'OK', variant: 'primary', autofocus: true }],
       disableCancel: true
     });
@@ -160,17 +163,21 @@ export class MessageDialogStaticMethodsComponent {
       <div>
         <h4>showModal() with custom Angular component</h4>
         <p>
-          Use <code>showModal()</code> to render a custom Angular component as the message content. Pass data via the
-          <code>data</code> property and access it with <code>&#64;Inject('MESSAGE_DIALOG_DATA')</code>.
+          Use <code>showModal()</code> to render a custom Angular component as the message content.
+          Pass data via the <code>data</code> property and access it with
+          <code>&#64;Inject('MESSAGE_DIALOG_DATA')</code>.
         </p>
-        <sl-button (click)="showWithComponent()" variant="primary">Show with custom component</sl-button>
+        <sl-button (click)="showWithComponent()" variant="primary"
+          >Show with custom component</sl-button
+        >
       </div>
 
       <div>
         <h4>Non-cancellable dialog with Angular component</h4>
         <p>
-          Use <code>disableCancel: true</code> to prevent users from dismissing critical dialogs. When enabled, the
-          dialog cannot be closed by pressing Escape or clicking the backdrop, ensuring users must explicitly respond.
+          Use <code>disableCancel: true</code> to prevent users from dismissing critical dialogs.
+          When enabled, the dialog cannot be closed by pressing Escape or clicking the backdrop,
+          ensuring users must explicitly respond.
         </p>
         <sl-button (click)="showCriticalAction()" variant="danger">Critical action</sl-button>
       </div>
@@ -208,7 +215,9 @@ export class MessageDialogCustomComponentExampleComponent {
       component: CustomMessageComponent,
       data: 'You are about to perform a critical action that requires confirmation.',
       title: 'Critical Action Required',
-      buttons: [{ text: 'I Understand, Proceed', variant: 'danger', autofocus: true, value: 'proceed' }],
+      buttons: [
+        { text: 'I Understand, Proceed', variant: 'danger', autofocus: true, value: 'proceed' }
+      ],
       disableCancel: true
     });
 
@@ -239,8 +248,11 @@ export class MessageDialogCustomComponentExampleComponent {
       <div>
         <h4>Multiple dialogs</h4>
         <p>Open multiple dialogs simultaneously and manage them independently.</p>
-        <sl-button (click)="openMultipleDialogs()" variant="primary">Open multiple dialogs</sl-button>
-        <p style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
+        <sl-button (click)="openMultipleDialogs()" variant="primary"
+          >Open multiple dialogs</sl-button
+        >
+        <p
+          style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
           You can also programmatically close all dialogs using
           <code>closeAll()</code> in your code.
         </p>
@@ -249,7 +261,9 @@ export class MessageDialogCustomComponentExampleComponent {
       <div>
         <h4>Sequential dialogs</h4>
         <p>Show dialogs one after another based on what the user chooses.</p>
-        <sl-button (click)="showSequentialDialogs()" variant="info">Show sequential dialogs</sl-button>
+        <sl-button (click)="showSequentialDialogs()" variant="info"
+          >Show sequential dialogs</sl-button
+        >
       </div>
     </div>
   `
@@ -354,7 +368,8 @@ export const StaticMethods: StoryFn = () => ({
 });
 
 export const WithCustomComponent: StoryFn = () => ({
-  description: 'Use <strong>showModal()</strong> to render a custom Angular component as the message content.',
+  description:
+    'Use <strong>showModal()</strong> to render a custom Angular component as the message content.',
   template: '<sla-message-dialog-custom-component></sla-message-dialog-custom-component>'
 });
 

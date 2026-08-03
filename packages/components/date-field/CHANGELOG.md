@@ -1,5 +1,54 @@
 # @sl-design-system/date-field
 
+## 0.1.5
+
+### Patch Changes
+
+- [#3381](https://github.com/sl-design-system/components/pull/3381) [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1) - Accessibility improvements: the calendar picker changed from a popover to a native `<dialog>` using `showModal()` for better focus trapping and screen reader support. Added `aria-label` to the dialog, improved backdrop click detection and kept `aria-expanded` in sync when closing.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`3031653`](https://github.com/sl-design-system/components/commit/3031653700af857a00bc49770a36a52f72f3fcaf), [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/calendar@0.0.10
+  - @sl-design-system/button@2.1.2
+
+## 0.1.4
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/calendar@0.0.9
+  - @sl-design-system/form@1.4.2
+  - @sl-design-system/button@2.1.1
+
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`6882876`](https://github.com/sl-design-system/components/commit/6882876fb35019f2b69d30dadb23780d577bb591), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/calendar@0.0.8
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/shared@0.12.1
+  - @sl-design-system/text-field@1.6.10
+
+## 0.1.2
+
+### Patch Changes
+
+- [#3084](https://github.com/sl-design-system/components/pull/3084) [`a0cf57d`](https://github.com/sl-design-system/components/commit/a0cf57dc9617a8d484b89e6fe3b21770f4e0856e) - Align calendar and date-field spacing, padding and width behavior with the updated picker layout
+
+- Updated dependencies [[`a0cf57d`](https://github.com/sl-design-system/components/commit/a0cf57dc9617a8d484b89e6fe3b21770f4e0856e), [`cf96680`](https://github.com/sl-design-system/components/commit/cf966804d9b39e98af54dbd6331c6a269e2da333), [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e)]:
+  - @sl-design-system/calendar@0.0.7
+  - @sl-design-system/button@2.0.1
+  - @sl-design-system/form@1.4.0
+
 ## 0.1.1
 
 ### Patch Changes

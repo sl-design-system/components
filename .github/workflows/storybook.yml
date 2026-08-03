@@ -15,14 +15,13 @@ on:
   workflow_dispatch:
 
 env:
-  CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
-  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   HUSKY: 0
   TOKENS_STUDIO_API_KEY: ${{ secrets.TOKENS_STUDIO_2_API_KEY }}
 
 permissions:
   contents: read
+  id-token: write
   pull-requests: write
 
 jobs:
@@ -31,29 +30,71 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: 'yarn'
 
-      # Set up GitHub Actions caching for Wireit.
       - uses: google/wireit@setup-github-actions-caching/v2
 
       - run: yarn install --immutable
 
       - run: yarn storybook
 
-      - uses: azure/static-web-apps-deploy@v1
-        id: deploy
+      - uses: aws-actions/configure-aws-credentials@v6
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          action: upload
-          app_location: dist
-          production_branch: main
-          skip_api_build: true
-          skip_app_build: true
+          audience: sts.amazonaws.com
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+      - name: Set branch name
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "name=storybook-${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=main" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Ensure Amplify branch exists
+        if: github.event_name == 'pull_request'
+        run: |
+          if aws amplify get-branch \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
+            --branch-name "${{ steps.branch.outputs.name }}" >/dev/null 2>&1; then
+            echo "Amplify branch '${{ steps.branch.outputs.name }}' already exists."
+          else
+            aws amplify create-branch \
+              --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
+              --branch-name "${{ steps.branch.outputs.name }}"
+          fi
+
+      - name: Deploy to AWS Amplify
+        id: deploy
+        run: |
+          DEPLOYMENT=$(aws amplify create-deployment \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
+            --branch-name "${{ steps.branch.outputs.name }}" \
+            --output json)
+
+          JOB_ID=$(echo "$DEPLOYMENT" | jq -r '.jobId')
+          ZIP_URL=$(echo "$DEPLOYMENT" | jq -r '.zipUploadUrl')
+
+          cd dist && zip -qr ../deployment.zip . && cd ..
+          curl -sSf -T deployment.zip "$ZIP_URL"
+
+          aws amplify start-deployment \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
+            --branch-name "${{ steps.branch.outputs.name }}" \
+            --job-id "$JOB_ID"
+
+          DEFAULT_DOMAIN=$(aws amplify get-app \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
+            --query 'app.defaultDomain' \
+            --output text)
+          echo "preview_url=https://${{ steps.branch.outputs.name }}.${DEFAULT_DOMAIN}" >> "$GITHUB_OUTPUT"
 
       - if: github.event_name == 'pull_request'
         uses: peter-evans/find-comment@v3
@@ -61,16 +102,37 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: Storybook preview
+          body-includes: '### 🕸 Preview deploys'
+
+      - if: github.event_name == 'pull_request'
+        name: Build comment body
+        id: comment
+        env:
+          EXISTING_BODY: ${{ steps.fc.outputs.comment-body }}
+          PREVIEW_URL: ${{ steps.deploy.outputs.preview_url }}
+        run: |
+          BODY="### 🕸 Preview deploys"
+          BODY="$BODY
+          - **Storybook:** $PREVIEW_URL"
+
+          WEBSITE_LINE=$(echo "$EXISTING_BODY" | grep '^- \*\*Website:\*\*' || true)
+          if [ -n "$WEBSITE_LINE" ]; then
+            BODY="$BODY
+          $WEBSITE_LINE"
+          fi
+
+          {
+            echo "body<<EOF"
+            echo "$BODY"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - if: github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ### 🕸 Storybook preview
-            You can view a preview [here](${{ steps.deploy.outputs.static_web_app_url }}) (commit [`${{ github.event.pull_request.head.sha }}`](https://github.com/sl-design-system/components/commit/${{ github.event.pull_request.head.sha }})).
+          body: ${{ steps.comment.outputs.body }}
           edit-mode: replace
 
   cleanup:
@@ -78,7 +140,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Cleanup
     steps:
-      - uses: azure/static-web-apps-deploy@v1
+      - uses: aws-actions/configure-aws-credentials@v6
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-          action: close
+          audience: sts.amazonaws.com
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+      - name: Delete PR branch from Amplify
+        run: |
+          aws amplify delete-branch \
+            --app-id "${{ secrets.AWS_AMPLIFY_APP_ID }}" \
+            --branch-name "storybook-${{ github.event.pull_request.number }}"

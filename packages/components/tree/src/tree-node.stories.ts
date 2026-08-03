@@ -68,8 +68,7 @@ export default {
         level=${level}
         ?multiple=${multiple}
         ?selected=${selected}
-        type=${ifDefined(type)}
-      >
+        type=${ifDefined(type)}>
         ${text}
       </sl-tree-node>
     `;
@@ -132,22 +131,32 @@ export const All: Story = {
           Level 3 (last node in level, guides)
         </sl-tree-node>
         <sl-tree-node level="4" show-guides>Level 4 (guides)</sl-tree-node>
-        <sl-tree-node level="4" last-node-in-level show-guides>Level 4 (last node in level, guides)</sl-tree-node>
+        <sl-tree-node level="4" last-node-in-level show-guides
+          >Level 4 (last node in level, guides)</sl-tree-node
+        >
 
         <sl-tree-node multiple>Level 0 (multiple)</sl-tree-node>
         <sl-tree-node multiple indeterminate>Level 0 (multiple, indeterminate)</sl-tree-node>
         <sl-tree-node multiple selected>Level 0 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="1" multiple>Level 1 (multiple)</sl-tree-node>
-        <sl-tree-node level="1" multiple indeterminate>Level 1 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="1" multiple indeterminate
+          >Level 1 (multiple, indeterminate)</sl-tree-node
+        >
         <sl-tree-node level="1" multiple selected>Level 1 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="2" multiple>Level 2 (multiple)</sl-tree-node>
-        <sl-tree-node level="2" multiple indeterminate>Level 2 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="2" multiple indeterminate
+          >Level 2 (multiple, indeterminate)</sl-tree-node
+        >
         <sl-tree-node level="2" multiple selected>Level 2 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="3" multiple>Level 3 (multiple)</sl-tree-node>
-        <sl-tree-node level="3" multiple indeterminate>Level 3 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="3" multiple indeterminate
+          >Level 3 (multiple, indeterminate)</sl-tree-node
+        >
         <sl-tree-node level="3" multiple selected>Level 3 (multiple, selected)</sl-tree-node>
         <sl-tree-node level="4" multiple>Level 4 (multiple)</sl-tree-node>
-        <sl-tree-node level="4" multiple indeterminate>Level 4 (multiple, indeterminate)</sl-tree-node>
+        <sl-tree-node level="4" multiple indeterminate
+          >Level 4 (multiple, indeterminate)</sl-tree-node
+        >
         <sl-tree-node level="4" multiple selected>Level 4 (multiple, selected)</sl-tree-node>
       </div>
     `;

@@ -1,12 +1,21 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button, ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToolBar } from '@sl-design-system/tool-bar';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
+import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './panel.css' with { type: 'css' };
 
@@ -44,7 +53,7 @@ export type TogglePlacement = 'start' | 'end';
 @localized()
 export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
@@ -62,10 +71,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
 
   /**
-   * The density of the panel.
-   * Note: the `plain` and `comfortable` density values are deprecated and will be removed in the future.
-   * @param {'plain' | 'comfortable'} - These density values are deprecated and will be removed in the future.
+   * The density of the panel. Note: the `plain` and `comfortable` density values are deprecated and
+   * will be removed in the future.
+   *
    * @default 'default'
+   * @param {'plain' | 'comfortable'} - These density values are deprecated and will be removed in
+   *   the future.
    */
   @property({ reflect: true }) density?: PanelDensity;
 
@@ -77,32 +88,44 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   /**
    * The fill of the buttons in the tool-bar.
+   *
    * @default 'ghost'
    */
   @property() fill: Extract<ButtonFill, 'ghost' | 'outline'> = 'ghost';
 
   /**
-   * The text shown in the header. Use this property if your heading is a string. If you need
-   * more flexibility, such as an icon or other elements, use the `heading` slot.
+   * The text shown in the header. Use this property if your heading is a string. If you need more
+   * flexibility, such as an icon or other elements, use the `heading` slot.
    */
   @property() heading?: string;
 
   /** Hide the border around the panel when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
-  /** The placement of the toggle button when it's collapsible.
+  /**
+   * The placement of the toggle button when it's collapsible.
+   *
    * @default `start`
-   * */
+   */
   @property({ reflect: true, attribute: 'toggle-placement' }) togglePlacement?: TogglePlacement;
 
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  /** Tracks the active requestAnimationFrame ID for state updates to allow debouncing/cancellations on rapid toggles. */
+  /**
+   * Tracks the active requestAnimationFrame ID for state updates to allow debouncing/cancellations
+   * on rapid toggles.
+   */
   #toggleRafId?: number;
 
-  /** Tracks whether the `no-transition` attribute was added by the component's internal lifecycle rather than a user. */
+  /**
+   * Tracks whether the `no-transition` attribute was added by the component's internal lifecycle
+   * rather than a user.
+   */
   #addedNoTransitionInternally = false;
+
+  /** @internal Whether the actions slot has slotted elements. */
+  @state() private hasActions = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -152,35 +175,47 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div part="header" @slotchange=${this.#onHeaderSlotChange}>
-        ${this.collapsible
-          ? html`
-              <sl-button
-                @click=${() => this.toggle()}
-                aria-label=${this.collapsed
-                  ? msg('Expand panel', { id: 'sl.panel.expand' })
-                  : msg('Collapse panel', { id: 'sl.panel.collapse' })}
-                aria-controls="body"
-                aria-expanded=${this.collapsed ? 'false' : 'true'}
-                class="toggle"
-                fill="ghost"
-              >
-                <sl-icon class=${!this.collapsed ? 'upside-down' : ''} name="chevron-down"></sl-icon>
-              </sl-button>
-              <div part="wrapper">${this.#renderHeading()}</div>
-            `
-          : html`<div part="wrapper">${this.#renderHeading()}</div>`}
+        ${
+          this.collapsible
+            ? html`
+                <sl-button
+                  @click=${() => this.toggle()}
+                  aria-label=${
+                    this.collapsed
+                      ? msg('Expand panel', { id: 'sl.panel.expand' })
+                      : msg('Collapse panel', { id: 'sl.panel.collapse' })
+                  }
+                  aria-controls="body"
+                  aria-expanded=${this.collapsed ? 'false' : 'true'}
+                  class="toggle"
+                  fill="ghost">
+                  <sl-icon
+                    class=${!this.collapsed ? 'upside-down' : ''}
+                    name="chevron-down"></sl-icon>
+                </sl-button>
+                <div part="wrapper">${this.#renderHeading()}</div>
+              `
+            : html`<div part="wrapper">${this.#renderHeading()}</div>`
+        }
         <slot name="aside">
-          <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
-            <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
-          </sl-tool-bar>
+          ${
+            this.hasActions
+              ? html`
+                  <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
+                    <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
+                  </sl-tool-bar>
+                `
+              : html`<slot @slotchange=${this.#onActionsSlotChange} hidden name="actions"></slot>`
+          }
         </slot>
       </div>
       <div
         id="body"
         part="body"
+        ?inert=${this.collapsible && !!this.collapsed}
+        aria-hidden=${ifDefined(this.collapsible && this.collapsed ? 'true' : undefined)}
         aria-labelledby=${ifDefined(this.collapsible ? 'heading' : undefined)}
-        role=${ifDefined(this.collapsible ? 'region' : undefined)}
-      >
+        role=${ifDefined(this.collapsible ? 'region' : undefined)}>
         <div part="inner">
           <div part="content">
             <slot></slot>
@@ -202,6 +237,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   /**
    * Toggles the collapsed state of the panel. This only does something if the panel is collapsible.
+   *
    * @param force Whether to force the panel to be collapsed or expanded.
    */
   toggle(force: boolean = !this.collapsed): void {
@@ -260,7 +296,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     const actionsSlot = this.renderRoot.querySelector('slot[name="actions"]') as HTMLSlotElement,
       hasActions = actionsSlot?.assignedElements({ flatten: true }).length > 0;
 
-    this.toggleAttribute('no-header', !hasSlottedContent && !hasActions && !this.heading && !this.collapsible);
+    this.toggleAttribute(
+      'no-header',
+      !hasSlottedContent && !hasActions && !this.heading && !this.collapsible
+    );
   }
 
   #onActionsSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -272,6 +311,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.toggleAttribute('has-actions', elements.length > 0);
+    this.hasActions = elements.length > 0;
+    this.toggleAttribute('has-actions', this.hasActions);
   }
 }

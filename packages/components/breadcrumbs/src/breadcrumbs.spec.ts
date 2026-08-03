@@ -70,7 +70,9 @@ describe('sl-breadcrumbs', () => {
     });
 
     it('should have a separator after each list item except the last one', () => {
-      const separators = el.renderRoot.querySelectorAll('li + sl-icon[name="breadcrumb-separator"]');
+      const separators = el.renderRoot.querySelectorAll(
+        'li + sl-icon[name="breadcrumb-separator"]'
+      );
 
       expect(separators).to.have.length(3);
     });
@@ -251,12 +253,16 @@ describe('sl-breadcrumbs', () => {
       expect(el.querySelectorAll('a')).to.have.length(6);
 
       // Separator after home link, button and 2 visible links
-      expect(el.renderRoot.querySelectorAll('sl-icon[name="breadcrumb-separator"]')).to.have.length(4);
+      expect(el.renderRoot.querySelectorAll('sl-icon[name="breadcrumb-separator"]')).to.have.length(
+        4
+      );
     });
 
     it('should only show the last 3 breadcrumbs', () => {
       const slots = Array.from(
-          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+          el.renderRoot.querySelectorAll<HTMLSlotElement>(
+            'slot[name^="breadcrumb-"]:not([name*="menu"])'
+          )
         ),
         visibleLinks = slots.map(slot => slot.assignedElements()[0]);
 
@@ -268,7 +274,9 @@ describe('sl-breadcrumbs', () => {
 
     it('should have an expand button to show the rest of the breadcrumbs', () => {
       const button = el.renderRoot.querySelector('sl-button'),
-        menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]')),
+        menuSlots = Array.from(
+          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]')
+        ),
         menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
 
       expect(button).to.exist;
@@ -311,7 +319,9 @@ describe('sl-breadcrumbs', () => {
 
     it('should only show the last 2 breadcrumbs', () => {
       const slots = Array.from(
-        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+        el.renderRoot.querySelectorAll<HTMLSlotElement>(
+          'slot[name^="breadcrumb-"]:not([name*="menu"])'
+        )
       );
       const visibleLinks = slots.map(slot => slot.assignedElements()[0]);
 
@@ -322,7 +332,9 @@ describe('sl-breadcrumbs', () => {
 
     it('should show all hidden links in the popover', () => {
       const button = el.renderRoot.querySelector('sl-button'),
-        menuSlots = Array.from(el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]')),
+        menuSlots = Array.from(
+          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-menu-"]')
+        ),
         menuItems = menuSlots.map(slot => slot.assignedElements()[0]);
 
       expect(button).to.exist;
@@ -513,7 +525,9 @@ describe('sl-breadcrumbs', () => {
 
       // All 3 breadcrumbs should be visible
       const slots = Array.from(
-        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+        el.renderRoot.querySelectorAll<HTMLSlotElement>(
+          'slot[name^="breadcrumb-"]:not([name*="menu"])'
+        )
       );
 
       expect(slots).to.have.length(3);
@@ -532,7 +546,9 @@ describe('sl-breadcrumbs', () => {
 
       // Should process all elements, not just anchors
       const slots = Array.from(
-        el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+        el.renderRoot.querySelectorAll<HTMLSlotElement>(
+          'slot[name^="breadcrumb-"]:not([name*="menu"])'
+        )
       );
 
       expect(slots.length).to.be.greaterThan(0);
@@ -620,7 +636,9 @@ describe('sl-breadcrumbs', () => {
 
     it('should mark truncated links with data-has-tooltip attribute', () => {
       const slots = Array.from(
-          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+          el.renderRoot.querySelectorAll<HTMLSlotElement>(
+            'slot[name^="breadcrumb-"]:not([name*="menu"])'
+          )
         ),
         visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[],
         truncatedLinks = visibleLinks.filter(link => link.hasAttribute('data-has-tooltip'));
@@ -631,7 +649,9 @@ describe('sl-breadcrumbs', () => {
 
     it('should not mark non-truncated links for tooltips', () => {
       const slots = Array.from(
-          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+          el.renderRoot.querySelectorAll<HTMLSlotElement>(
+            'slot[name^="breadcrumb-"]:not([name*="menu"])'
+          )
         ),
         visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
 
@@ -650,7 +670,9 @@ describe('sl-breadcrumbs', () => {
 
     it('should detect truncation based on offsetWidth vs scrollWidth', () => {
       const slots = Array.from(
-          el.renderRoot.querySelectorAll<HTMLSlotElement>('slot[name^="breadcrumb-"]:not([name*="menu"])')
+          el.renderRoot.querySelectorAll<HTMLSlotElement>(
+            'slot[name^="breadcrumb-"]:not([name*="menu"])'
+          )
         ),
         visibleLinks = slots.map(slot => slot.assignedElements()[0]) as HTMLElement[];
 

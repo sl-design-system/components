@@ -171,9 +171,9 @@ describe('sl-select-day', () => {
 
     describe('days of the week', () => {
       it('should render the days of the week', () => {
-        const daysOfWeek = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('.days-of-week .day-of-week')).map(
-          day => day.textContent?.trim()
-        );
+        const daysOfWeek = Array.from(
+          el.renderRoot.querySelectorAll<HTMLElement>('.days-of-week .day-of-week')
+        ).map(day => day.textContent?.trim());
 
         expect(daysOfWeek).to.deep.equal(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
       });
@@ -198,9 +198,9 @@ describe('sl-select-day', () => {
         el.firstDayOfWeek = 0;
         await el.updateComplete;
 
-        const daysOfWeek = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('.days-of-week .day-of-week')).map(
-          day => day.textContent?.trim()
-        );
+        const daysOfWeek = Array.from(
+          el.renderRoot.querySelectorAll<HTMLElement>('.days-of-week .day-of-week')
+        ).map(day => day.textContent?.trim());
 
         expect(daysOfWeek).to.deep.equal(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']);
       });
@@ -310,7 +310,9 @@ describe('sl-select-day', () => {
       await el.updateComplete;
 
       const originalMonth = el.month;
-      el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(new Date(2023, 2, 31));
+      el.renderRoot
+        .querySelector<MonthView>('sl-month-view:not([inert])')
+        ?.focus(new Date(2023, 2, 31));
 
       await userEvent.keyboard('{ArrowRight}');
       await new Promise(resolve => requestAnimationFrame(resolve));
@@ -376,7 +378,9 @@ describe('sl-select-day', () => {
 
     describe('forward', () => {
       it('should show the next month when using the keyboard', async () => {
-        el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(new Date(2023, 2, 31));
+        el.renderRoot
+          .querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.focus(new Date(2023, 2, 31));
 
         await userEvent.keyboard('{ArrowRight}');
         await new Promise(resolve => requestAnimationFrame(resolve));
@@ -398,7 +402,9 @@ describe('sl-select-day', () => {
       });
 
       it('should focus the first day of the next month when using the keyboard', async () => {
-        el.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')?.focus(new Date(2023, 2, 31));
+        el.renderRoot
+          .querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.focus(new Date(2023, 2, 31));
 
         await userEvent.keyboard('{ArrowRight}');
         await new Promise(resolve => requestAnimationFrame(resolve));

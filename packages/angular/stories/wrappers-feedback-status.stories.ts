@@ -9,7 +9,13 @@ export default {
   title: 'Wrappers/Feedback & Status',
   decorators: [
     moduleMetadata({
-      imports: [BadgeComponent, InlineMessageComponent, ProgressBarComponent, SkeletonComponent, SpinnerComponent]
+      imports: [
+        BadgeComponent,
+        InlineMessageComponent,
+        ProgressBarComponent,
+        SkeletonComponent,
+        SpinnerComponent
+      ]
     })
   ]
 } as Meta;

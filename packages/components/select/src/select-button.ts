@@ -1,13 +1,22 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.css' with { type: 'css' };
-import { type SelectSize } from './select.js';
+import { type SelectFill, type SelectSize } from './select.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -16,15 +25,15 @@ declare global {
 }
 
 /**
- * SelectButton is used internally by the Select component to display the selected
- * option and handle user interactions.
+ * SelectButton is used internally by the Select component to display the selected option and handle
+ * user interactions.
  *
  * @csspart placeholder - The placeholder text when no option is selected.
  * @csspart selected-option - The container for the selected option.
  */
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -37,7 +46,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** @internal */
-  #internals = this.attachInternals();
+  readonly internals = this.attachInternals();
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -50,6 +59,13 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /**
+   * The fill of the select.
+   *
+   * @default 'outline'
+   */
+  @property({ reflect: true }) fill?: SelectFill;
 
   /** The width of the longest option. */
   @property({ type: Number, attribute: 'option-size' }) optionSize?: number;
@@ -84,25 +100,25 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('clearable')) {
       if (this.clearable) {
-        this.#internals.states.add('clearable');
+        this.internals.states.add('clearable');
       } else {
-        this.#internals.states.delete('clearable');
+        this.internals.states.delete('clearable');
       }
     }
 
     if (changes.has('clearFocused')) {
       if (this.clearFocused) {
-        this.#internals.states.add('clear-focused');
+        this.internals.states.add('clear-focused');
       } else {
-        this.#internals.states.delete('clear-focused');
+        this.internals.states.delete('clear-focused');
       }
     }
 
     if (changes.has('selected')) {
       if (this.selected) {
-        this.#internals.states.add('has-selection');
+        this.internals.states.add('has-selection');
       } else {
-        this.#internals.states.delete('has-selection');
+        this.internals.states.delete('has-selection');
       }
     }
 
@@ -124,11 +140,12 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       <div
         class="wrapper"
         part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
-        style="inline-size: ${inlineSize}"
-      >
-        ${hasSelected
-          ? html`<span part="selected"><slot name="selected-content"></slot></span>`
-          : this.placeholder || '\u00a0'}
+        style="inline-size: ${inlineSize}">
+        ${
+          hasSelected
+            ? html`<span part="selected"><slot name="selected-content"></slot></span>`
+            : this.placeholder || '\u00a0'
+        }
       </div>
       <span class="status" aria-hidden="true">
         <sl-icon name="chevron-down"></sl-icon>
@@ -137,7 +154,12 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (!this.disabled && this.clearable && this.selected && ['Backspace', 'Delete'].includes(event.key)) {
+    if (
+      !this.disabled &&
+      this.clearable &&
+      this.selected &&
+      ['Backspace', 'Delete'].includes(event.key)
+    ) {
       event.preventDefault();
       event.stopPropagation();
 

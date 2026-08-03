@@ -1,16 +1,13 @@
 import config from '../../eslint.config.mjs';
 
-/**
- * NOTE: All paths are relative to where eslint is run from,
- * in our case the root of the monorepo.
- */
+/** NOTE: All paths are relative to where eslint is run from, in our case the root of the monorepo. */
 export default [
   {
     ignores: [
       '**/*.[json|md]',
       'packages/components/**/*.d.ts',
       'packages/components/**/*.scss.ts',
-      'packages/components/shared/src/vendor/*.ts',
+      'packages/components/shared/src/vendor/*.ts'
     ]
   },
   ...config

@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "arrowParens": "avoid",
+  "bracketSameLine": true,
+  "htmlWhitespaceSensitivity": "css",
+  "ignorePatterns": [
+    "*dist",
+    "*generated",
+    "packages/components/shared/src/vendor",
+    "packages/tokens/src/tokens",
+    "website"
+  ],
+  "insertFinalNewline": true,
+  "jsdoc": true,
+  "printWidth": 100,
+  "singleQuote": true,
+  "sortPackageJson": false,
+  "tabWidth": 2,
+  "trailingComma": "none"
+}

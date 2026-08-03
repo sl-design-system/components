@@ -1,7 +1,10 @@
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { getForwardedAriaAttribute, getForwardedAriaProperty } from '@sl-design-system/shared/helpers/forward-aria.js';
+import {
+  getForwardedAriaAttribute,
+  getForwardedAriaProperty
+} from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -30,6 +33,12 @@ describe('sl-panel', () => {
 
     it('should not have has-actions attribute', () => {
       expect(el).not.to.have.attribute('has-actions');
+    });
+
+    it('should not render an empty tool bar', () => {
+      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
+
+      expect(toolBar).not.to.exist;
     });
 
     it('should not render the wrapper as a button', () => {
@@ -107,6 +116,39 @@ describe('sl-panel', () => {
       const body = el.renderRoot.querySelector('[part="body"]');
 
       expect(body).to.have.attribute('aria-labelledby', 'heading');
+    });
+
+    it('should hide the body from assistive technology when collapsed', async () => {
+      const body = el.renderRoot.querySelector('[part="body"]');
+
+      expect(body).not.to.have.attribute('aria-hidden');
+      expect(body).not.to.have.attribute('inert');
+
+      el.toggle(true);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(body).to.have.attribute('aria-hidden', 'true');
+      expect(body).to.have.attribute('inert');
+
+      el.toggle(false);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(body).not.to.have.attribute('aria-hidden');
+      expect(body).not.to.have.attribute('inert');
+    });
+
+    it('should hide initially collapsed body from assistive technology', async () => {
+      const collapsedEl = await fixture<Panel>(
+        html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`
+      );
+      const body = collapsedEl.renderRoot.querySelector('[part="body"]');
+
+      expect(body).to.have.attribute('aria-hidden', 'true');
+      expect(body).to.have.attribute('inert');
     });
 
     it('should emit an sl-toggle event when button is clicked', async () => {
@@ -283,6 +325,26 @@ describe('sl-panel', () => {
       expect(el).to.have.attribute('has-actions');
     });
 
+    it('should render a tool bar for actions', async () => {
+      // Slot distribution happens async; the toolbar is rendered on the subsequent update.
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
+      expect(toolBar).to.exist;
+    });
+
+    it('should remove the tool bar when actions are removed', async () => {
+      el.querySelector('[slot="actions"]')?.remove();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
+
+      expect(toolBar).not.to.exist;
+      expect(el).not.to.have.attribute('has-actions');
+    });
+
     it('should slot the content into the default slot', () => {
       const elements = el.renderRoot
         .querySelector<HTMLSlotElement>('slot:not([name])')
@@ -340,7 +402,9 @@ describe('sl-panel', () => {
 
   describe('animations', () => {
     it('should manage no-transition attribute during lifecycle', async () => {
-      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
+      const el = await fixture<Panel>(
+        html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`
+      );
 
       // In connectedCallback, it should have been added
       // But fixture() might wait until first update
@@ -349,30 +413,38 @@ describe('sl-panel', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      expect(el.hasAttribute('no-transition'), 'no-transition should be removed after initialization').to.be.false;
+      expect(
+        el.hasAttribute('no-transition'),
+        'no-transition should be removed after initialization'
+      ).to.be.false;
     });
 
     it('should NOT remove no-transition if it was provided by the user', async () => {
-      const el = await fixture<Panel>(
-        html`<sl-panel collapsible collapsed no-transition heading="Heading">Body content</sl-panel>`
-      );
+      const el = await fixture<Panel>(html`
+        <sl-panel collapsible collapsed no-transition heading="Heading">Body content</sl-panel>
+      `);
 
       await el.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
       await new Promise(resolve => requestAnimationFrame(resolve));
 
-      expect(el.hasAttribute('no-transition'), 'no-transition should STILL be present since the user provided it').to.be
-        .true;
+      expect(
+        el.hasAttribute('no-transition'),
+        'no-transition should STILL be present since the user provided it'
+      ).to.be.true;
     });
 
     it('should disable transitions when no-transition attribute is present', async () => {
-      const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
+      const el = await fixture<Panel>(
+        html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`
+      );
 
       for (let i = 0; i < 3; i++) {
         await new Promise(resolve => requestAnimationFrame(resolve));
       }
 
-      expect(el.hasAttribute('no-transition'), 'no-transition should be removed initially').to.be.false;
+      expect(el.hasAttribute('no-transition'), 'no-transition should be removed initially').to.be
+        .false;
 
       const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement,
         initialProperty = getComputedStyle(body).transitionProperty,
@@ -399,7 +471,9 @@ describe('sl-panel', () => {
     });
 
     it('should not animate on initial render when collapsed is true', async () => {
-      const el = await fixture<Panel>(html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`);
+      const el = await fixture<Panel>(
+        html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`
+      );
 
       const body = el.renderRoot.querySelector('[part="body"]') as HTMLElement;
       let transitionStarted = false;
@@ -419,12 +493,17 @@ describe('sl-panel', () => {
       body.removeEventListener('transitionrun', onTransition);
       body.removeEventListener('transitionstart', onTransition);
 
-      expect(transitionStarted, 'Animation should NOT start on initial render when collapsed is true').to.be.false;
+      expect(
+        transitionStarted,
+        'Animation should NOT start on initial render when collapsed is true'
+      ).to.be.false;
     });
 
     it('should animate normally when toggling after initialization', async () => {
       let transitionStarted = false;
-      const el = await fixture<Panel>(html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`);
+      const el = await fixture<Panel>(
+        html`<sl-panel collapsible heading="Heading">Body content</sl-panel>`
+      );
 
       await el.updateComplete;
 
@@ -450,7 +529,8 @@ describe('sl-panel', () => {
 
       await new Promise(resolve => setTimeout(resolve, 200));
 
-      expect(transitionStarted, 'Animation SHOULD start when toggling after initialization').to.be.true;
+      expect(transitionStarted, 'Animation SHOULD start when toggling after initialization').to.be
+        .true;
     });
   });
 });

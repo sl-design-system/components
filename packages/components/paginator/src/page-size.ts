@@ -1,10 +1,16 @@
 import { localized, msg, str } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
+import {
+  LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
+  type ListDataSource
+} from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
 import { Option } from '@sl-design-system/listbox';
 import { Select } from '@sl-design-system/select';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, event, getPluralCategory } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -22,14 +28,14 @@ declare global {
 }
 
 /**
- * A component that can be used with the paginator.
- * The component adds a possibility to select/change the amount of items that would be visible per page.
+ * A component that can be used with the paginator. The component adds a possibility to
+ * select/change the amount of items that would be visible per page.
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-label': Label,
       'sl-option': Option,
@@ -51,10 +57,9 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   }
 
   /**
-   * By setting a dataSource, the paginator will listen for changes on the data source
-   * and control the data source when the user selects a new page in the component.
-   * This can be very useful when the paginator is used in combination with a data source-driven
-   * component, such as `<sl-grid>`.
+   * By setting a dataSource, the paginator will listen for changes on the data source and control
+   * the data source when the user selects a new page in the component. This can be very useful when
+   * the paginator is used in combination with a data source-driven component, such as `<sl-grid>`.
    */
   @property({ attribute: false })
   set dataSource(dataSource: ListDataSource<T> | undefined) {
@@ -69,15 +74,19 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   }
 
   /**
-   * The label to display for the 'items' per page selector.
-   * If not set, defaults to "Items".
-   * You can use this to set a custom label, such as "Students" or "Books" or something else.
-   * Please remember to provide a translation for the label in your application.
+   * The label to display for the 'items' per page selector. If not set, defaults to "Items". You
+   * can use this to set a custom label, such as "Students" or "Books" or something else. Please
+   * remember to provide a translation for the label in your application.
    */
   @property({ attribute: false }) itemLabel?: string;
 
   get pageSize(): number {
-    return this.#dataSource?.pageSize ?? this.#pageSize ?? this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
+    return (
+      this.#dataSource?.pageSize ??
+      this.#pageSize ??
+      this.pageSizes?.at(0) ??
+      LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE
+    );
   }
 
   /** Items per page. */
@@ -109,20 +118,28 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   }
 
   override render(): TemplateResult {
+    const itemLabel = this.itemLabel ?? msg('Items', { id: 'sl.paginator.defaultItemLabel' });
+
     return html`
-      <sl-label for="sizes"
-        >${msg(str`${this.itemLabel ? this.itemLabel : 'Items'} per page:`, { id: 'sl.paginator.itemsPerPage' })}
+      <sl-label for="sizes">
+        <span>${msg(str`${itemLabel} per page:`, { id: 'sl.paginator.itemsPerPage' })}</span>
       </sl-label>
-      <sl-select @sl-change=${this.#onChange} ?disabled=${!this.pageSizes} id="sizes" value=${ifDefined(this.pageSize)}>
-        ${this.pageSizes?.map(
-          size => html`
+      <sl-select
+        @sl-change=${this.#onChange}
+        ?disabled=${!this.pageSizes}
+        id="sizes"
+        value=${ifDefined(this.pageSize)}>
+        ${this.pageSizes?.map(size => {
+          const sizeLabel = this.itemLabel ?? this.#getDefaultItemLabel(size);
+
+          return html`
             <sl-option
-              aria-label=${`${size} ${msg(str`${this.itemLabel ? this.itemLabel : 'items'} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
+              aria-label=${`${size} ${msg(str`${sizeLabel} per page`, { id: 'sl.paginator.itemsPerPageOption' })}`}
               .value=${size}
               >${size}</sl-option
             >
-          `
-        )}
+          `;
+        })}
       </sl-select>
     `;
   }
@@ -133,6 +150,17 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
 
     this.dataSource?.setPageSize(pageSize);
     this.dataSource?.update();
+  }
+
+  #getDefaultItemLabel(count: number): string {
+    switch (getPluralCategory(count)) {
+      case 'one':
+        return msg('item', { id: 'sl.paginator.defaultItemLabelOne' });
+      case 'few':
+        return msg('items', { id: 'sl.paginator.defaultItemLabelFew' });
+      default:
+        return msg('items', { id: 'sl.paginator.defaultItemLabelOther' });
+    }
   }
 
   #onUpdate = () => {

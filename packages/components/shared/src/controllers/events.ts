@@ -25,7 +25,12 @@ export class EventsController implements ReactiveController {
       const handler = typeof registration === 'function' ? registration : registration.handler;
       const options = typeof registration === 'function' ? undefined : registration.options;
 
-      this.listen(this.#host, name as keyof GlobalEventHandlersEventMap, handler as EventListener, options);
+      this.listen(
+        this.#host,
+        name as keyof GlobalEventHandlersEventMap,
+        handler as EventListener,
+        options
+      );
     });
   }
 

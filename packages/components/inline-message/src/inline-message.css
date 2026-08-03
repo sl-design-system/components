@@ -1,6 +1,10 @@
 :host {
+  --_background: var(--sl-color-background-info-subtlest);
+
   align-items: center;
-  background: var(--sl-color-background-info-subtlest);
+  background:
+    linear-gradient(var(--_background), var(--_background)),
+    var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-info-bold);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-info-bold);
@@ -72,7 +76,8 @@ sl-button {
 }
 
 :host([variant='success']) {
-  background: var(--sl-color-background-positive-subtlest);
+  --_background: var(--sl-color-background-positive-subtlest);
+
   border-color: var(--sl-color-border-positive-bold);
   color: var(--sl-color-foreground-positive-bold);
 
@@ -82,7 +87,8 @@ sl-button {
 }
 
 :host([variant='danger']) {
-  background: var(--sl-color-background-negative-subtlest);
+  --_background: var(--sl-color-background-negative-subtlest);
+
   border-color: var(--sl-color-border-negative-bold);
   color: var(--sl-color-foreground-negative-bold);
 
@@ -92,7 +98,8 @@ sl-button {
 }
 
 :host([variant='warning']) {
-  background: var(--sl-color-background-caution-subtlest);
+  --_background: var(--sl-color-background-caution-subtlest);
+
   border-color: var(--sl-color-border-caution-bold);
   color: var(--sl-color-foreground-caution-bold);
 

@@ -15,8 +15,8 @@
   "devDependencies": {
     "@figma/eslint-plugin-figma-plugins": "^0.16.1",
     "@figma/plugin-typings": "^1.118.0",
-    "@typescript-eslint/eslint-plugin": "^8.59.0",
-    "@typescript-eslint/parser": "^8.59.0",
+    "@typescript-eslint/eslint-plugin": "^8.65.0",
+    "@typescript-eslint/parser": "^8.65.0",
     "eslint": "^9.27.0",
     "typescript": "^6.0.3"
   }

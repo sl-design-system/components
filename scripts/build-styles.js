@@ -10,18 +10,24 @@ await Promise.allSettled(
   files.map(async file => {
     try {
       // Step 1: compile SCSS to CSS
-      const { css } = compileString(
-        `${await fs.readFile(file, 'utf8')}`,
-        { loadPaths: ['node_modules'] }
-      );
+      const { css } = compileString(`${await fs.readFile(file, 'utf8')}`, {
+        loadPaths: ['node_modules']
+      });
 
       // Step 2: lint CSS
       let { code } = await stylelint.lint({ code: css, fix: true });
 
-      code = code.toString().split('\n').map(str => `  ${str}`.trimEnd()).join('\n');
+      code = code
+        .toString()
+        .split('\n')
+        .map(str => `  ${str}`.trimEnd())
+        .join('\n');
 
       // Step 3: write CSS to TS template
-      await fs.writeFile(`${file}.ts`, `import { css } from 'lit';\n\nexport default css\`\n${code}\`;\n`);
+      await fs.writeFile(
+        `${file}.ts`,
+        `import { css } from 'lit';\n\nexport default css\`\n${code}\`;\n`
+      );
     } catch (err) {
       console.log(err);
       process.exitCode = 1;

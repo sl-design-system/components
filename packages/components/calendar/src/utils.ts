@@ -16,8 +16,8 @@ export interface Day {
   disabled?: boolean;
 
   /**
-   * Whether this day is the first enabled day of the month. You cannot navigate
-   * past this day using keyboard navigation.
+   * Whether this day is the first enabled day of the month. You cannot navigate past this day using
+   * keyboard navigation.
    */
   firstActiveDayOfMonth?: boolean;
 
@@ -26,13 +26,14 @@ export interface Day {
 
   /**
    * Whether this day has an indicator.
+   *
    * @default { color: 'blue', label: undefined }
    */
   indicator?: { color?: IndicatorColor; label?: string };
 
   /**
-   * Whether this day is the last enabled day of the month. You cannot navigate
-   * past this date using keyboard navigation.
+   * Whether this day is the last enabled day of the month. You cannot navigate past this date using
+   * keyboard navigation.
    */
   lastActiveDayOfMonth?: boolean;
 
@@ -83,9 +84,7 @@ export interface Calendar {
 
 const weekdayNamesCache: Record<string, WeekDayNames> = {};
 
-/**
- * Returns cached weekday names for locale for all styles ('long', 'short', 'narrow')
- */
+/** Returns cached weekday names for locale for all styles ('long', 'short', 'narrow') */
 function getCachedWeekdayNames(locale: string): WeekDayNames {
   const cachedWeekdayNames = weekdayNamesCache[locale];
 
@@ -115,9 +114,7 @@ function getCachedWeekdayNames(locale: string): WeekDayNames {
   return weekdayNamesCache[locale];
 }
 
-/**
- * Returns weekday names for locale
- */
+/** Returns weekday names for locale */
 export function getWeekdayNames({
   locale,
   style = 'long',
@@ -154,7 +151,10 @@ export function getWeekNumber(d: Date, firstDayOfWeek: number): number {
   const week1 = new Date(date.getFullYear(), 0, 4);
 
   // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-  return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
+  return (
+    1 +
+    Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7)
+  );
 }
 
 export interface CreateCalendarOptions {
@@ -169,7 +169,15 @@ export interface CreateCalendarOptions {
 
 export function createCalendar(
   date: Date,
-  { disabledDates, end, firstDayOfWeek, indicatorDates, max, min, showToday = false }: CreateCalendarOptions
+  {
+    disabledDates,
+    end,
+    firstDayOfWeek,
+    indicatorDates,
+    max,
+    min,
+    showToday = false
+  }: CreateCalendarOptions
 ): Calendar {
   const weekOptions = { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday };
 
@@ -191,7 +199,15 @@ export function createPeriod(
   { disabledDates, firstDayOfWeek, indicatorDates, max, min, showToday }: CreatePeriodOptions
 ): Calendar {
   const calendar: Calendar = { weeks: [] },
-    weekOptions = { disabledDates, firstDayOfWeek, indicatorDates, max, min, relativeMonth: start, showToday };
+    weekOptions = {
+      disabledDates,
+      firstDayOfWeek,
+      indicatorDates,
+      max,
+      min,
+      relativeMonth: start,
+      showToday
+    };
 
   let nextWeek = createWeek(start, weekOptions);
   do {
@@ -281,7 +297,15 @@ export interface CreateWeekOptions {
 
 export function createWeek(
   date: Date,
-  { disabledDates, firstDayOfWeek, indicatorDates, max, min, relativeMonth, showToday }: CreateWeekOptions
+  {
+    disabledDates,
+    firstDayOfWeek,
+    indicatorDates,
+    max,
+    min,
+    relativeMonth,
+    showToday
+  }: CreateWeekOptions
 ): Week {
   let weekStartDate = new Date(date);
 
@@ -326,7 +350,16 @@ export interface CreateDayOptions {
 
 export function createDay(
   date: Date,
-  { disabledDates, indicatorDates, max, min, relativeMonth, showToday, startOfWeek, weekOrder }: CreateDayOptions
+  {
+    disabledDates,
+    indicatorDates,
+    max,
+    min,
+    relativeMonth,
+    showToday,
+    startOfWeek,
+    weekOrder
+  }: CreateDayOptions
 ): Day {
   const today = normalizeDateTime(new Date()),
     indicator = indicatorDates?.find(i => isSameDate(i.date, date)),
@@ -352,10 +385,12 @@ export function createDay(
 export const indicatorConverter = {
   fromAttribute: (value: string | null) =>
     value
-      ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor; label?: string }>).map(i => ({
-          ...i,
-          date: dateConverter.fromAttribute?.(i.date)
-        }))
+      ? (JSON.parse(value) as Array<{ date: string; color?: IndicatorColor; label?: string }>).map(
+          i => ({
+            ...i,
+            date: dateConverter.fromAttribute?.(i.date)
+          })
+        )
       : undefined,
   toAttribute: (value?: Indicator[]) =>
     value

@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { type PathKeys, getNameByPath, getStringByPath, getValueByPath, setValueByPath } from './path.js';
+import {
+  type PathKeys,
+  getNameByPath,
+  getStringByPath,
+  getValueByPath,
+  setValueByPath
+} from './path.js';
 
 describe('path utils', () => {
   describe('getNameByPath', () => {

@@ -32,15 +32,17 @@ export const Basic: Story = {
     });
 
     return html`
-      <p>This example shows the basics of grouping. Students are sorted by name and grouped by school.</p>
+      <p>
+        This example shows the basics of grouping. Students are sorted by name and grouped by
+        school.
+      </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-sort-column
           direction="asc"
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -103,9 +105,10 @@ export const Collapsed: Story = {
 
     return html`
       <p>
-        This example shows how you start with all groups collapsed. When you expand a group, its products are loaded and
-        displayed. This example uses the <code>FetchListDataSource</code> to load the products on demand. The groups are
-        passed to the data source in the constructor via the <code>groups</code> option. It uses data from
+        This example shows how you start with all groups collapsed. When you expand a group, its
+        products are loaded and displayed. This example uses the <code>FetchListDataSource</code> to
+        load the products on demand. The groups are passed to the data source in the constructor via
+        the <code>groups</code> option. It uses data from
         <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
       </p>
       <sl-grid .dataSource=${dataSource}>
@@ -140,9 +143,9 @@ export const SortedByFunction: Story = {
 
     return html`
       <p>
-        This example shows how a custom sort function is used to place "Koninklijk Atheneum" above all other
-        (alphabetically) sorted schools. Within the groups, students are sorted by their name using the regular sort
-        header.
+        This example shows how a custom sort function is used to place "Koninklijk Atheneum" above
+        all other (alphabetically) sorted schools. Within the groups, students are sorted by their
+        name using the regular sort header.
       </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-sort-column
@@ -150,8 +153,7 @@ export const SortedByFunction: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -175,8 +177,7 @@ export const DragAndDrop: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -201,8 +202,7 @@ export const Selection: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -227,8 +227,7 @@ export const Both: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
@@ -254,22 +253,20 @@ export const CustomGroupHeader: Story = {
     return html`
       <p>
         This example shows how you can customize the group header. By using the
-        <code>groupHeaderRenderer</code> callback property, it adds an "Add student" button to the group header. When
-        doing this, do not forget to also set the <code>scopedElements</code> property to include the custom elements
-        used in the renderer.
+        <code>groupHeaderRenderer</code> callback property, it adds an "Add student" button to the
+        group header. When doing this, do not forget to also set the
+        <code>scopedElements</code> property to include the custom elements used in the renderer.
       </p>
       <sl-grid
         .dataSource=${dataSource}
         .groupHeaderRenderer=${groupHeaderRenderer}
-        .scopedElements=${{ 'sl-button': Button }}
-      >
+        .scopedElements=${{ 'sl-button': Button }}>
         <sl-grid-sort-column
           direction="asc"
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>

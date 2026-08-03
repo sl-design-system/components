@@ -14,7 +14,11 @@ export class ShortcutController implements ReactiveController {
   #target: ShortcutTarget;
   #unregister?: ReturnType<typeof tinykeys>;
 
-  constructor(host: ReactiveControllerHost & HTMLElement, shortcuts?: ShortcutMap, target: ShortcutTarget = window) {
+  constructor(
+    host: ReactiveControllerHost & HTMLElement,
+    shortcuts?: ShortcutMap,
+    target: ShortcutTarget = window
+  ) {
     this.#host = host;
     this.#host.addController(this);
     this.#shortcuts = shortcuts;

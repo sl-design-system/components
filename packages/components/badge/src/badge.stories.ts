@@ -5,11 +5,22 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Badge, type BadgeColor, type BadgeVariant } from './badge.js';
 
-type Props = Pick<Badge, 'color' | 'emphasis' | 'size' | 'variant'> & { icon?: boolean; text?: string };
+type Props = Pick<Badge, 'color' | 'emphasis' | 'size' | 'variant'> & {
+  icon?: boolean;
+  text?: string;
+};
 type Story = StoryObj<Props>;
 
 const colors: BadgeColor[] = ['blue', 'green', 'grey', 'orange', 'purple', 'red', 'teal', 'yellow'],
-  variants: BadgeVariant[] = ['neutral', 'primary', 'info', 'danger', 'success', 'warning', 'accent'];
+  variants: BadgeVariant[] = [
+    'neutral',
+    'primary',
+    'info',
+    'danger',
+    'success',
+    'warning',
+    'accent'
+  ];
 
 export default {
   title: 'Feedback & status/Badge',
@@ -54,8 +65,7 @@ export default {
       color=${ifDefined(color)}
       emphasis=${ifDefined(emphasis)}
       size=${ifDefined(size)}
-      variant=${ifDefined(variant)}
-    >
+      variant=${ifDefined(variant)}>
       ${icon ? html`<sl-icon name="check"></sl-icon>` : nothing} ${text}
     </sl-badge>
   `
@@ -85,12 +95,14 @@ export const Variant: Story = {
       }
     </style>
     <p>
-      The <code>variant</code> property has been deprecated. Use the new <code>color</code> property instead. The
-      variants still work, but are mapped to the matching <code>color</code> property.
+      The <code>variant</code> property has been deprecated. Use the new <code>color</code> property
+      instead. The variants still work, but are mapped to the matching <code>color</code> property.
     </p>
     <div>
       ${variants.map(
-        variant => html`<sl-badge .emphasis=${emphasis} .size=${size} variant=${variant}>${variant}</sl-badge>`
+        variant => html`
+          <sl-badge .emphasis=${emphasis} .size=${size} variant=${variant}>${variant}</sl-badge>
+        `
       )}
     </div>
   `
@@ -122,12 +134,20 @@ export const All: Story = {
         ${[undefined, 'bold'].map(emphasis =>
           colors.map(
             color => html`
-              <span style="font-weight: ${emphasis ? 'var(--sl-text-new-typeset-fontWeight-semiBold)' : 'regular'}">
+              <span
+                style="font-weight: ${emphasis
+                  ? 'var(--sl-text-new-typeset-fontWeight-semiBold)'
+                  : 'regular'}">
                 ${color}
               </span>
               <div class="wrapper">
-                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm">In progress</sl-badge>
-                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm"></sl-badge>
+                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm"
+                  >In progress</sl-badge
+                >
+                <sl-badge
+                  color=${ifDefined(color)}
+                  emphasis=${ifDefined(emphasis)}
+                  size="sm"></sl-badge>
               </div>
               <div class="wrapper">
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>8</sl-badge>
@@ -137,14 +157,18 @@ export const All: Story = {
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>100</sl-badge>
               </div>
               <div class="wrapper">
-                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="lg">8</sl-badge>
+                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="lg"
+                  >8</sl-badge
+                >
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="lg">
                   <sl-icon name="check"></sl-icon>
                 </sl-badge>
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="lg">
                   <sl-icon name="check"></sl-icon> Status
                 </sl-badge>
-                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="lg">Status</sl-badge>
+                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="lg"
+                  >Status</sl-badge
+                >
               </div>
             `
           )

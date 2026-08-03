@@ -12,7 +12,8 @@ export const singlelineHtmlTemplateTrimmed = {
     fixable: 'code',
     schema: [],
     messages: {
-      unnecessaryWhitespace: 'Single-line HTML template literals should not have unnecessary whitespace at the beginning or end'
+      unnecessaryWhitespace:
+        'Single-line HTML template literals should not have unnecessary whitespace at the beginning or end'
     }
   },
   create(context) {

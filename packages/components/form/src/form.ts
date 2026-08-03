@@ -7,7 +7,13 @@ import {
   getValueByPath,
   setValueByPath
 } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
@@ -25,12 +31,12 @@ export type SlSubmitEvent = CustomEvent<void> & { target: Form };
 /**
  * This component is a wrapper for the form controls.
  *
- * It is used to provide the ability to report the validity of all the form controls,
- * not just the invalid ones. By calling the `reportValidity()` method, it in turn will
- * call the `reportValidity()` methods of all the form controls.
+ * It is used to provide the ability to report the validity of all the form controls, not just the
+ * invalid ones. By calling the `reportValidity()` method, it in turn will call the
+ * `reportValidity()` methods of all the form controls.
  *
- * This wrapper is necessary because the native form lacks this behavior.
- * See https://github.com/whatwg/html/issues/9878
+ * This wrapper is necessary because the native form lacks this behavior. See
+ * https://github.com/whatwg/html/issues/9878
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Form<T extends Record<string, any> = Record<string, any>> extends LitElement {
@@ -47,9 +53,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   #showValidity = false;
 
   /**
-   * The form value explicitly set; this may be set before the form controls have
-   * registered themselves with the form. So we cache this value so that we can
-   * set it on the form controls when they are ready.
+   * The form value explicitly set; this may be set before the form controls have registered
+   * themselves with the form. So we cache this value so that we can set it on the form controls
+   * when they are ready.
    */
   #value: T | undefined;
 
@@ -110,7 +116,11 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   get value(): T {
     const value = this.controls.reduce((value, control) => {
       if (control.name) {
-        setValueByPath(value as T, control.name as PathKeys<T>, control.formValue as Path<T, PathKeys<T>>);
+        setValueByPath(
+          value as T,
+          control.name as PathKeys<T>,
+          control.formValue as Path<T, PathKeys<T>>
+        );
       }
       return value;
     }, {}) as T;
@@ -127,7 +137,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     this.#value = value;
 
     if (value) {
-      this.controls.filter(c => c.name).forEach(c => (c.formValue = getValueByPath(value, c.name! as PathKeys<T>)));
+      this.controls
+        .filter(c => c.name)
+        .forEach(c => (c.formValue = getValueByPath(value, c.name! as PathKeys<T>)));
     } else {
       this.controls.forEach(c => (c.formValue = undefined));
     }
@@ -150,7 +162,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   // Waits for the form and all controls that implement `updateComplete` to complete their update cycle
   protected override async getUpdateComplete(): Promise<boolean> {
     const superComplete = await super.getUpdateComplete();
-    await Promise.all(this.controls.map(c => c.updateComplete).filter((p): p is Promise<boolean> => p !== undefined));
+    await Promise.all(
+      this.controls.map(c => c.updateComplete).filter((p): p is Promise<boolean> => p !== undefined)
+    );
     return superComplete;
   }
 
@@ -251,10 +265,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     }, 0);
 
     /**
-     * If the required form controls outnumber the optional form controls,
-     * then mark the optional form controls. If the optional form controls
-     * outnumber the required form controls, mark the required form controls.
-     * If there is only a single form element, do nothing.
+     * If the required form controls outnumber the optional form controls, then mark the optional
+     * form controls. If the optional form controls outnumber the required form controls, mark the
+     * required form controls. If there is only a single form element, do nothing.
      */
     const optionalCount = this.fields.length - requiredCount,
       mark = requiredCount <= optionalCount ? 'required' : 'optional';

@@ -257,8 +257,12 @@ describe('sl-form-field', () => {
 
       const errors = el.querySelectorAll('sl-error');
       expect(errors).to.have.lengthOf(2);
-      expect(errors[1].id).to.equal(el.querySelector('sl-radio-group')?.getAttribute('aria-describedby'));
-      expect(errors[0].id).to.equal(el.querySelector('sl-text-field input')?.getAttribute('aria-describedby'));
+      expect(errors[1].id).to.equal(
+        el.querySelector('sl-radio-group')?.getAttribute('aria-describedby')
+      );
+      expect(errors[0].id).to.equal(
+        el.querySelector('sl-text-field input')?.getAttribute('aria-describedby')
+      );
     });
 
     it('should remove the error once the control is valid', async () => {

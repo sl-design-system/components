@@ -28,6 +28,10 @@ describe('sl-button', () => {
       expect(button).to.have.attribute('type', 'button');
     });
 
+    it('should have a "button" CSS part on the inner button', () => {
+      expect(button).to.have.attribute('part', 'button');
+    });
+
     it('should not be disabled', () => {
       expect(button).not.to.have.attribute('disabled');
       expect(el).not.to.have.attribute('disabled');
@@ -164,7 +168,9 @@ describe('sl-button', () => {
 
     describe('icon combined with text', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-button size="lg"><sl-icon name="star"></sl-icon> You're a star</sl-button>`);
+        el = await fixture(
+          html`<sl-button size="lg"><sl-icon name="star"></sl-icon> You're a star</sl-button>`
+        );
       });
 
       it('should not have an icon-only attribute', () => {
@@ -211,7 +217,9 @@ describe('sl-button', () => {
       wrapper.addEventListener('click', () => (captureCalled = true), { capture: true });
       wrapper.addEventListener('click', () => (bubbleCalled = true));
 
-      innerButton?.dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true, cancelable: true }));
+      innerButton?.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, composed: true, cancelable: true })
+      );
 
       expect(captureCalled, 'capture listener on parent should be called').to.be.true;
       expect(bubbleCalled, 'bubble listener on parent should NOT be called').to.be.false;
@@ -606,7 +614,9 @@ describe('sl-button', () => {
       it('should set ariaLabelledByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-labelledby="nonexistent">Click me</sl-button>`);
 
-        expect(getForwardedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)).to.deep.equal([]);
+        expect(
+          getForwardedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)
+        ).to.deep.equal([]);
       });
     });
 
@@ -633,7 +643,9 @@ describe('sl-button', () => {
       it('should set ariaDescribedByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-describedby="nonexistent">Click me</sl-button>`);
 
-        expect(getForwardedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)).to.deep.equal([]);
+        expect(
+          getForwardedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)
+        ).to.deep.equal([]);
       });
     });
   });

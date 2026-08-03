@@ -1,5 +1,13 @@
 import { autoJoin } from 'prosemirror-commands';
-import { Fragment, type Node, NodeRange, type NodeType, type ResolvedPos, type Schema, Slice } from 'prosemirror-model';
+import {
+  Fragment,
+  type Node,
+  NodeRange,
+  type NodeType,
+  type ResolvedPos,
+  type Schema,
+  Slice
+} from 'prosemirror-model';
 import { wrapInList as pslWrapInList, splitListItem } from 'prosemirror-schema-list';
 import {
   type Command,
@@ -13,7 +21,10 @@ import { ReplaceAroundStep, liftTarget } from 'prosemirror-transform';
 import { type EditorView } from 'prosemirror-view';
 import { type DispatchFn } from './commands.js';
 
-export const rootListDepth = (pos: ResolvedPos, nodes: { [key: string]: NodeType }): number | undefined => {
+export const rootListDepth = (
+  pos: ResolvedPos,
+  nodes: { [key: string]: NodeType }
+): number | undefined => {
   // Get the depth of the nearest ancestor list
   const { bulletList, orderedList, listItem } = nodes;
 
@@ -88,7 +99,12 @@ export function liftSelectionList(state: EditorState, tr: Transaction): Transact
   return tr;
 }
 
-export const toggleList = (state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string): boolean => {
+export const toggleList = (
+  state: EditorState,
+  dispatch: DispatchFn,
+  view: EditorView,
+  listType: string
+): boolean => {
   const { selection } = state,
     fromNode = selection.$from.node(selection.$from.depth - 2),
     endNode = selection.$to.node(selection.$to.depth - 2);
@@ -142,7 +158,10 @@ function liftListItem(state: EditorState, selection: Selection, tr: Transaction)
   const { $from, $to } = selection,
     nodeType: NodeType = state.schema.nodes['listItem'];
 
-  let range = $from.blockRange($to, node => !!node.childCount && node.firstChild?.type === nodeType);
+  let range = $from.blockRange(
+    $to,
+    node => !!node.childCount && node.firstChild?.type === nodeType
+  );
   if (!range || range.depth < 2 || $from.node(range.depth - 1).type !== nodeType) {
     return tr;
   }
@@ -198,10 +217,17 @@ export function liftFollowingList(
   return tr;
 }
 
-export function isRangeOfType(doc: Node, $from: ResolvedPos, $to: ResolvedPos, nodeType: NodeType): boolean {
+export function isRangeOfType(
+  doc: Node,
+  $from: ResolvedPos,
+  $to: ResolvedPos,
+  nodeType: NodeType
+): boolean {
   // Step through block-nodes between $from and $to and returns false if a node is
   // found that isn't of the specified type
-  return getAncestorNodesBetween(doc, $from, $to).filter(node => node.type !== nodeType).length === 0;
+  return (
+    getAncestorNodesBetween(doc, $from, $to).filter(node => node.type !== nodeType).length === 0
+  );
 }
 
 export function getAncestorNodesBetween(doc: Node, $from: ResolvedPos, $to: ResolvedPos): Node[] {
@@ -295,14 +321,25 @@ export function liftListItems(): Command {
 }
 
 export function wrapInList(nodeType: NodeType): Command {
-  return autoJoin(pslWrapInList(nodeType), (before, after) => before.type === after.type && before.type === nodeType);
+  return autoJoin(
+    pslWrapInList(nodeType),
+    (before, after) => before.type === after.type && before.type === nodeType
+  );
 }
 
-export function toggleUnorderedList(state: EditorState, dispatch: DispatchFn, view: EditorView): boolean {
+export function toggleUnorderedList(
+  state: EditorState,
+  dispatch: DispatchFn,
+  view: EditorView
+): boolean {
   return toggleList(state, dispatch, view, 'bulletList');
 }
 
-export function toggleOrderedList(state: EditorState, dispatch: DispatchFn, view: EditorView): boolean {
+export function toggleOrderedList(
+  state: EditorState,
+  dispatch: DispatchFn,
+  view: EditorView
+): boolean {
   return toggleList(state, dispatch, view, 'orderedList');
 }
 
@@ -311,7 +348,8 @@ export const splitListItemKeepMarks =
   (state: EditorState, dispatch?: DispatchFn): boolean => {
     // see https://github.com/ProseMirror/prosemirror-commands/blob/master/src/commands.js#L321-L327
     return splitListItem(itemType)(state, tr => {
-      const marks = state.storedMarks || (state.selection.$to.parentOffset && state.selection.$from.marks());
+      const marks =
+        state.storedMarks || (state.selection.$to.parentOffset && state.selection.$from.marks());
 
       if (marks) {
         tr.ensureMarks(marks);

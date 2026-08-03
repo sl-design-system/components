@@ -32,8 +32,8 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
       <td part="data select delegate-focus">
         <sl-select
           @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item.data)}
-          .value=${getValueByPath(item.data, this.path!)}
-        >
+          aria-label=${this.getFormControlLabel(item.data)}
+          .value=${getValueByPath(item.data, this.path!)}>
           ${this.options?.map(option =>
             typeof option === 'string'
               ? html`<sl-option .value=${option}>${option}</sl-option>`

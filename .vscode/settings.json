@@ -1,12 +1,25 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.format.oxc": "always"
   },
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
   "editor.tabSize": 2,
-  "eslint.experimental.useFlatConfig": true,
-  "eslint.format.enable": true,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "[css][scss]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "always"
+    }
+  },
+  "[markdown]": {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 100
+  },
+  "[typescript][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    }
   }
 }

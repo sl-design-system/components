@@ -5,7 +5,7 @@
 
   display: flex;
   flex-direction: column;
-  isolation: isolate; // Prevent any possible z-index clashes with other DOM elements
+  isolation: isolate; /* Prevent any possible z-index clashes with other DOM elements */
 }
 
 :host([align-tabs='center']) .fade-container {
@@ -143,7 +143,7 @@
   pointer-events: none;
   position: absolute;
   visibility: hidden;
-  z-index: 1; // Make sure the fade is above the scroller
+  z-index: 1; /* Make sure the fade is above the scroller */
 }
 
 .fade-start {
@@ -189,18 +189,18 @@
   background: var(--sl-color-border-selected);
   block-size: var(--sl-size-050);
   border-radius: var(--sl-size-050) var(--sl-size-050) 0 0;
-  inline-size: 100px; // Default value; actual width depends on calculated value
+  inline-size: 100px; /* Default value; actual width depends on calculated value */
   inset: auto auto 0 0;
   opacity: 0;
   position: absolute;
   transform-origin: center left;
   transition-property:
-    width, height, translate; // TODO: `width` and `height` are not animated on the GPU, but `scale` is not working properly in Safari e.g. when zooming in/out (so we cannot use it right now). Change to `scale` when Safari supports it in a proper way.
+    width, height, translate; /* TODO: `width` and `height` are not animated on the GPU, but `scale` is not working properly in Safari e.g. when zooming in/out (so we cannot use it right now). Change to `scale` when Safari supports it in a proper way. */
 
   transition-timing-function: ease-in-out;
   translate: 0;
 
-  /** z-index is set to 2 to make sure the indicator is above the tab, when that is selected, focused or hovered */
+  /* z-index is set to 2 to make sure the indicator is above the tab, when that is selected, focused or hovered */
   z-index: 2;
 
   @media (prefers-reduced-motion: no-preference) {

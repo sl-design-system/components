@@ -23,7 +23,8 @@
 }
 
 .other {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  border-block-start: var(--sl-color-elevation-border-raised) solid
+    var(--sl-size-borderWidth-default);
   margin-block: var(--sl-size-075) var(--sl-size-025);
   padding-block-start: var(--sl-size-175);
   padding-inline-start: var(--sl-size-300);

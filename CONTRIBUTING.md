@@ -14,18 +14,19 @@ These are the steps to follow when creating a new component:
 
 1. Create a new folder in `packages` with the name of your component
 2. Add the following files in the new folder:
-  - `.eslintrc.cjs`
-  - `index.ts`
-  - `package.json`
-  - `register.ts`
-  - `tsconfig.json`
-  - `src/<component-name>.ts`
-  - `src/<component-name>.scss`
+
+- `.eslintrc.cjs`
+- `index.ts`
+- `package.json`
+- `register.ts`
+- `tsconfig.json`
+- `src/<component-name>.ts`
+- `src/<component-name>.scss`
 
 When in doubt, copy the files from an existing component and rename accordingly.
 
 3. Add the new component to `tsconfig.all.json` in the root of the project.
-This is used for typechecking your component by the TypeScript compiler.
+   This is used for typechecking your component by the TypeScript compiler.
 
 4. Add a `src/<component-name>.stories.ts` file and start writing Storybook stories
 
@@ -38,6 +39,7 @@ This is used for typechecking your component by the TypeScript compiler.
 This is an international project and as such everything uses the American English language.
 
 When writing code in this project, please follow the following naming conventions:
+
 - For NPM packages, we use the `sl-design-system` organization with component name for the actual packages; for example: `@sl-design-system/button`
 - For web components, we use the `sl-` prefix; for example: `<sl-button>`
 - All web component events use the `sl-` prefix and "dasherize" convention; for example: `sl-active-item-change`
@@ -47,6 +49,7 @@ When writing code in this project, please follow the following naming convention
 The main branch of the repository is called `main`. All releases are done from this branch automatically using GitHub Actions and `changesets`. If you want to work on something, please create a new branch from `main`.
 
 When creating a branch, please prefix the branch with the type of thing you intend to work on:
+
 - `chore/update-dependencies`
 - `docs/improve-button`
 - `feature/my-cool-component`

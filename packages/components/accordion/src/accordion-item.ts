@@ -1,7 +1,13 @@
 import { localized } from '@lit/localize';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './accordion-item.css' with { type: 'css' };
@@ -71,20 +77,21 @@ export class AccordionItem extends LitElement {
           aria-expanded=${this.open ? 'true' : 'false'}
           id="summary"
           part="summary"
-          tabindex=${this.disabled ? -1 : 0}
-        >
-          ${this.iconType === 'chevron'
-            ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
-            : html`
-                <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
-                  <g class="horizontal-line">
-                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
-                  </g>
-                  <g class="vertical-line">
-                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
-                  </g>
-                </svg>
-              `}
+          tabindex=${this.disabled ? -1 : 0}>
+          ${
+            this.iconType === 'chevron'
+              ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
+              : html`
+                  <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <g class="horizontal-line">
+                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                    </g>
+                    <g class="vertical-line">
+                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                    </g>
+                  </svg>
+                `
+          }
           <slot name="summary">${this.summary}</slot>
           <slot name="summary-extras"></slot>
         </summary>
@@ -100,17 +107,16 @@ export class AccordionItem extends LitElement {
   }
 
   /**
-   * This is a workaround for `delegatesFocus` not allowing you to select
-   * any text in the content of the accordion item.
-   * See https://issues.chromium.org/issues/40622041
+   * This is a workaround for `delegatesFocus` not allowing you to select any text in the content of
+   * the accordion item. See https://issues.chromium.org/issues/40622041
    */
   override focus(options?: FocusOptions): void {
     this.renderRoot.querySelector('summary')?.focus(options);
   }
 
   /**
-   * Toggles the component state between open or closed. If the `force` parameter is
-   * provided, the state will be set to the value of the parameter.
+   * Toggles the component state between open or closed. If the `force` parameter is provided, the
+   * state will be set to the value of the parameter.
    *
    * @param force - The state to forcibly set the component to
    */
@@ -144,17 +150,19 @@ export class AccordionItem extends LitElement {
    * Animate the details opening or closing. This process is done in steps.
    *
    * Opening:
+   *
    * 1. Add the `open` attribute to the details element, so the wrapper is visible
    * 2. Add an `animationend` listener that will remove the `opening` class
    * 3. Add the `opening` class to the details in the next frame (for browser compatibility)
    *
    * Closing:
+   *
    * 1. Add an `animationend` listener that will remove the `closing` class and `open` attribute
    * 2. Add the `closing` class to the details in the next frame (for browser compatibility)
    *
-   * The specific order of adding/removing the `open` attribute is necessary for the animation
-   * to work. This will also trigger the `toggle` event, which in turn will trigger our own
-   * `sl-toggle` event.
+   * The specific order of adding/removing the `open` attribute is necessary for the animation to
+   * work. This will also trigger the `toggle` event, which in turn will trigger our own `sl-toggle`
+   * event.
    *
    * @param state - The state which we should animate to
    */
@@ -178,17 +186,21 @@ export class AccordionItem extends LitElement {
       details?.setAttribute('open', '');
     }
 
-    details.addEventListener(
-      'animationend',
-      () => {
-        details.classList.remove(state);
+    const onAnimationEnd = (event: AnimationEvent): void => {
+      // Ignore bubbled animation events from nested content
+      if (event.target !== wrapper || event.animationName !== 'content-expand') {
+        return;
+      }
 
-        if (state === 'closing') {
-          details.removeAttribute('open');
-        }
-      },
-      { once: true }
-    );
+      details.removeEventListener('animationend', onAnimationEnd);
+      details.classList.remove(state);
+
+      if (state === 'closing') {
+        details.removeAttribute('open');
+      }
+    };
+
+    details.addEventListener('animationend', onAnimationEnd);
 
     requestAnimationFrame(() => details.classList.add(state));
   }

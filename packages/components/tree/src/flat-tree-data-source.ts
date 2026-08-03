@@ -18,9 +18,7 @@ export interface FlatTreeDataSourceOptions<T> extends FlatTreeDataSourceMapping<
   multiple?: boolean;
 }
 
-/**
- * A tree model that represents a flat list of nodes.
- */
+/** A tree model that represents a flat list of nodes. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
   /** The mapping from the source model to the tree model. */
@@ -76,6 +74,7 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       getLevel: options.getLevel ?? (() => 0),
       isExpandable: options.isExpandable ?? (() => false),
       isExpanded: options.isExpanded,
+      isSelectable: options.isSelectable,
       isSelected: options.isSelected
     };
 
@@ -134,7 +133,11 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
     return rootNodes;
   }
 
-  #mapToTreeNode(item: T, parent?: TreeDataSourceNode<T>, lastNodeInLevel?: boolean): TreeDataSourceNode<T> {
+  #mapToTreeNode(
+    item: T,
+    parent?: TreeDataSourceNode<T>,
+    lastNodeInLevel?: boolean
+  ): TreeDataSourceNode<T> {
     const {
       getAriaDescription,
       getChildrenCount,
@@ -144,10 +147,13 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       getLevel,
       isExpandable,
       isExpanded,
+      isSelectable,
       isSelected
     } = this.#mapping;
 
-    const expandable = isExpandable(item);
+    const expandable = isExpandable(item),
+      // Nodes are selectable by default; only an explicit `isSelectable` returning false opts out.
+      selectable = isSelectable?.(item) ?? true;
 
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
@@ -162,7 +168,8 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       lastNodeInLevel,
       level: getLevel(item),
       parent,
-      selected: isSelected?.(item),
+      selectable,
+      selected: selectable ? isSelected?.(item) : false,
       type: 'node'
     };
 

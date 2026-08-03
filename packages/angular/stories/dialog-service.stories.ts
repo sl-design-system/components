@@ -25,7 +25,9 @@ import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storyboo
     <p>{{ data.message }}</p>
     <div>Example content.</div>
     <sl-button (click)="dialogRef.close('cancelled')" slot="primary-actions">Cancel</sl-button>
-    <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">Confirm</sl-button>
+    <sl-button (click)="dialogRef.close('confirmed')" slot="primary-actions" variant="primary">
+      Confirm
+    </sl-button>
   `
 })
 export class ExampleDialogComponent {
@@ -229,6 +231,7 @@ export const DialogServiceExample: StoryFn = () => ({
 });
 
 export const FormInDialogExample: StoryFn = () => ({
-  description: 'This example demonstrates how to use a form inside a dialog opened with the DialogService.',
+  description:
+    'This example demonstrates how to use a form inside a dialog opened with the DialogService.',
   template: '<sla-dialog-form-example></sla-dialog-form-example>'
 });

@@ -10,17 +10,17 @@ const STRING_DASHERIZE_REGEXP = /[ _]/g,
  * Returns the lowerCamelCase form of a string.
  *
  * ```javascript
- * camelize('innerHTML')          // 'innerHTML'
- * camelize('action_name')        // 'actionName'
- * camelize('css-class-name')     // 'cssClassName'
- * camelize('object.path.name')   // 'objectPathName'
- * camelize('my favorite items')  // 'myFavoriteItems'
- * camelize('My Favorite Items')  // 'myFavoriteItems'
+ * camelize('innerHTML'); // 'innerHTML'
+ * camelize('action_name'); // 'actionName'
+ * camelize('css-class-name'); // 'cssClassName'
+ * camelize('object.path.name'); // 'objectPathName'
+ * camelize('my favorite items'); // 'myFavoriteItems'
+ * camelize('My Favorite Items'); // 'myFavoriteItems'
  * ```
  *
- * @method camelize
+ * @function camelize
  * @param str The string to camelize.
- * @return the camelized string.
+ * @returns The camelized string.
  */
 export function camelize(str: string): string {
   return str
@@ -34,15 +34,15 @@ export function camelize(str: string): string {
  * Returns the Capitalized form of a string
  *
  * ```javascript
- * capitalize('innerHTML')         // 'InnerHTML'
- * capitalize('action_name')       // 'Action_name'
- * capitalize('css-class-name')    // 'Css-class-name'
- * capitalize('my favorite items') // 'My favorite items'
+ * capitalize('innerHTML'); // 'InnerHTML'
+ * capitalize('action_name'); // 'Action_name'
+ * capitalize('css-class-name'); // 'Css-class-name'
+ * capitalize('my favorite items'); // 'My favorite items'
  * ```
  *
- * @method capitalize
+ * @function capitalize
  * @param str The string to capitalize.
- * @return The capitalized string.
+ * @returns The capitalized string.
  */
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -52,15 +52,15 @@ export function capitalize(str: string): string {
  * Returns the UpperCamelCase form of a string.
  *
  * ```javascript
- * classify('innerHTML')          // 'InnerHTML'
- * classify('action_name')        // 'ActionName'
- * classify('css-class-name')     // 'CssClassName'
- * classify('my favorite items')  // 'MyFavoriteItems'
+ * classify('innerHTML'); // 'InnerHTML'
+ * classify('action_name'); // 'ActionName'
+ * classify('css-class-name'); // 'CssClassName'
+ * classify('my favorite items'); // 'MyFavoriteItems'
  * ```
  *
- * @method classify
- * @param str the string to classify
- * @return the classified string
+ * @function classify
+ * @param str The string to classify
+ * @returns The classified string
  */
 export function classify(str: string): string {
   return str
@@ -73,15 +73,15 @@ export function classify(str: string): string {
  * Replaces underscores, spaces, or camelCase with dashes.
  *
  * ```javascript
- * dasherize('innerHTML')         // 'inner-html'
- * dasherize('action_name')       // 'action-name'
- * dasherize('css-class-name')    // 'css-class-name'
- * dasherize('my favorite items') // 'my-favorite-items'
+ * dasherize('innerHTML'); // 'inner-html'
+ * dasherize('action_name'); // 'action-name'
+ * dasherize('css-class-name'); // 'css-class-name'
+ * dasherize('my favorite items'); // 'my-favorite-items'
  * ```
  *
- * @method dasherize
+ * @function dasherize
  * @param str The string to dasherize.
- * @return the dasherized string.
+ * @returns The dasherized string.
  */
 export function dasherize(str: string): string {
   return decamelize(str).replace(STRING_DASHERIZE_REGEXP, '-');
@@ -91,15 +91,15 @@ export function dasherize(str: string): string {
  * Converts a camelized string into all lower case separated by underscores.
  *
  * ```javascript
- * decamelize('innerHTML')         // 'inner_html'
- * decamelize('action_name')       // 'action_name'
- * decamelize('css-class-name')    // 'css-class-name'
- * decamelize('my favorite items') // 'my favorite items'
+ * decamelize('innerHTML'); // 'inner_html'
+ * decamelize('action_name'); // 'action_name'
+ * decamelize('css-class-name'); // 'css-class-name'
+ * decamelize('my favorite items'); // 'my favorite items'
  * ```
  *
- * @method decamelize
+ * @function decamelize
  * @param str The string to decamelize.
- * @return the decamelized string.
+ * @returns The decamelized string.
  */
 export function decamelize(str: string): string {
   return str.replace(STRING_DECAMELIZE_REGEXP, '$1_$2').toLowerCase();
@@ -109,15 +109,15 @@ export function decamelize(str: string): string {
  * Returns the Humanized form of a string
  *
  * ```javascript
- * humanize('innerHTML')         // 'Inner html'
- * humanize('action_name')       // 'Action name'
- * humanize('css-class-name')    // 'Css class name'
- * humanize('my favorite items') // 'My favorite items'
+ * humanize('innerHTML'); // 'Inner html'
+ * humanize('action_name'); // 'Action name'
+ * humanize('css-class-name'); // 'Css class name'
+ * humanize('my favorite items'); // 'My favorite items'
  * ```
  *
- * @method humanize
+ * @function humanize
  * @param str The string to humanize.
- * @return The humanized string.
+ * @returns The humanized string.
  */
 export function humanize(str: string): string {
   return capitalize(
@@ -132,20 +132,155 @@ export function humanize(str: string): string {
 }
 
 /**
- * More general than decamelize. Returns the lower\_case\_and\_underscored
- * form of a string.
+ * More general than decamelize. Returns the lower_case_and_underscored form of a string.
  *
  * ```javascript
- * underscore('innerHTML')          // 'inner_html'
- * underscore('action_name')        // 'action_name'
- * underscore('css-class-name')     // 'css_class_name'
- * underscore('my favorite items')  // 'my_favorite_items'
+ * underscore('innerHTML'); // 'inner_html'
+ * underscore('action_name'); // 'action_name'
+ * underscore('css-class-name'); // 'css_class_name'
+ * underscore('my favorite items'); // 'my_favorite_items'
  * ```
  *
- * @method underscore
+ * @function underscore
  * @param str The string to underscore.
- * @return the underscored string.
+ * @returns The underscored string.
  */
 export function underscore(str: string): string {
-  return str.replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2').replace(STRING_UNDERSCORE_REGEXP_2, '_').toLowerCase();
+  return str
+    .replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2')
+    .replace(STRING_UNDERSCORE_REGEXP_2, '_')
+    .toLowerCase();
+}
+
+// Cache for Intl.PluralRules instances to avoid repeated allocations
+const pluralRulesCache = new Map<string, Intl.PluralRules>();
+
+// Track the active @lit/localize locale so that getCharacterPluralSuffix stays
+// in sync with the locale used by msg()/str`` without requiring consumers to
+// manually keep document.documentElement.lang up-to-date.
+let litLocalizeActiveLocale: string | undefined;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('lit-localize-status', ((
+    event: CustomEvent<{ status: string; readyLocale?: string }>
+  ) => {
+    if (event.detail?.status === 'ready') {
+      litLocalizeActiveLocale = event.detail.readyLocale;
+    }
+  }) as EventListener);
+}
+
+/**
+ * Returns the locale-specific pluralized form used for the "character" label. Uses Intl.PluralRules
+ * API to determine the correct plural form for the current locale.
+ *
+ * Note: despite the historical name, this helper does not always return a literal suffix. Some
+ * locales can require a full localized word or form rather than an English-style ending.
+ *
+ * ```javascript
+ * getCharacterPluralSuffix(1)  // '' in English ("character"), but may be a full singular form in other locales
+ * getCharacterPluralSuffix(2)  // 's' in English ("characters"), but may be a different localized plural form
+ * getCharacterPluralSuffix(5)  // 's' in English ("characters"), but may be a different localized plural form
+ *
+ * @function getCharacterPluralSuffix
+ * @param count The number of characters
+ * @param locale Optional locale override. If omitted, uses the active @lit/localize locale,
+ *   then falls back to document.documentElement.lang or navigator.language.
+ * @returns The plural suffix for the word "character" in the current locale
+ * ```
+ */
+export function getCharacterPluralSuffix(count: number, locale?: string): string {
+  locale ??=
+    litLocalizeActiveLocale ||
+    (typeof document !== 'undefined' && document.documentElement.lang) ||
+    (typeof navigator !== 'undefined' && navigator.language) ||
+    'en';
+  // For English (source locale), use simple pluralization
+  if (locale === 'en' || locale.startsWith('en-')) {
+    return count === 1 ? '' : 's';
+  }
+
+  // For other locales, use Intl.PluralRules
+  try {
+    // Get cached PluralRules instance or create a new one
+    let pr = pluralRulesCache.get(locale);
+    if (!pr) {
+      pr = new Intl.PluralRules(locale);
+      pluralRulesCache.set(locale, pr);
+    }
+    const rule = pr.select(count);
+
+    // Polish pluralization rules for "znak" (character):
+    // one (1) → "znak" (no suffix)
+    // few (2-4, 22-24, 32-34, etc.) → "znaki" (suffix: 'i')
+    // many (0, 5+, 11-14, etc.) → "znaków" (suffix: 'ów')
+    if (locale === 'pl' || locale.startsWith('pl-')) {
+      switch (rule) {
+        case 'one':
+          return '';
+        case 'few':
+          return 'i';
+        case 'many':
+          return 'ów';
+        default:
+          return 'ów';
+      }
+    }
+
+    // Spanish pluralization rules for "carácter":
+    // this branch returns the full localized form, not just a suffix
+    // one (1) → "carácter"
+    // other (0, 2+) → "caracteres"
+    if (locale.startsWith('es')) {
+      return rule === 'one' ? 'carácter' : 'caracteres';
+    }
+
+    // Italian pluralization rules for "carattere":
+    // one (1) → "carattere"
+    // other (0, 2+) → "caratteri"
+    if (locale === 'it' || locale.startsWith('it-')) {
+      return rule === 'one' ? 'e' : 'i';
+    }
+
+    // For other languages (Dutch, English, etc.), fall back to simple plural logic
+    return count === 1 ? '' : 's';
+  } catch {
+    // Fallback if Intl.PluralRules is not supported
+    return count === 1 ? '' : 's';
+  }
+}
+
+/**
+ * Returns the CLDR plural category for the given count and locale. Uses Intl.PluralRules to
+ * determine the category. Falls back to a simple 'one'/'other' distinction if Intl.PluralRules is
+ * not supported.
+ *
+ * ```javascript
+ * getPluralCategory(1); // 'one'
+ * getPluralCategory(2); // 'other' in English, 'few' in Polish
+ * getPluralCategory(5); // 'other' in English, 'many' in Polish
+ * ```
+ *
+ * @function getPluralCategory
+ * @param count The number to determine the plural category for.
+ * @returns The CLDR plural category: 'zero', 'one', 'two', 'few', 'many', or 'other'.
+ */
+export function getPluralCategory(count: number): Intl.LDMLPluralRule {
+  const locale =
+    litLocalizeActiveLocale ||
+    (typeof document !== 'undefined' && document.documentElement.lang) ||
+    (typeof navigator !== 'undefined' && navigator.language) ||
+    'en';
+
+  try {
+    let pr = pluralRulesCache.get(locale);
+
+    if (!pr) {
+      pr = new Intl.PluralRules(locale);
+      pluralRulesCache.set(locale, pr);
+    }
+    return pr.select(count);
+  } catch {
+    return count === 1 ? 'one' : 'other';
+  }
 }

@@ -34,6 +34,7 @@ export const FormatDate: StoryObj = {
 export const FormatNumber: StoryObj = {
   render: () => ({
     description: 'The format-number component formats a number according to the specified format.',
-    template: '<sl-format-number [value]="1234.56" format="currency" currency="USD"></sl-format-number>'
+    template:
+      '<sl-format-number [value]="1234.56" format="currency" currency="USD"></sl-format-number>'
   })
 };

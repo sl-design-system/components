@@ -3,6 +3,11 @@
   background: transparent;
   display: flex;
   flex-wrap: nowrap;
+  min-inline-size: 0;
+}
+
+:host(:state(measuring)) {
+  contain: inline-size;
 }
 
 :host([align='end']) [part='wrapper'] {
@@ -54,6 +59,10 @@
 
 sl-menu-button {
   margin-inline-start: var(--sl-size-100);
+
+  &[hidden] {
+    display: none;
+  }
 
   sl-icon + hr {
     display: none;

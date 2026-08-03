@@ -1,6 +1,7 @@
 :host {
   border-radius: var(--sl-size-borderRadius-default);
   inline-size: 100%;
+  overflow: clip;
   position: relative;
 }
 
@@ -125,7 +126,7 @@
   :host([fit-image][image-backdrop]) {
     slot[name='media'] {
       background: transparent;
-      z-index: 1; // Ensure backdrop is below the image
+      z-index: 1; /* Ensure backdrop is below the image */
     }
 
     figure .backdrop {
@@ -149,7 +150,11 @@
     --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
     --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
-    background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+    background: color-mix(
+      in srgb,
+      var(--_bg-color),
+      var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+    );
     border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   }
 
@@ -197,7 +202,7 @@
   slot.title::slotted(a[href]) {
     color: var(
       --sl-color-foreground-plain
-    ) !important; // There is no way to do this with a selector that has more weight than what is set in the global styles
+    ) !important; /* There is no way to do this with a selector that has more weight than what is set in the global styles */
 
     text-decoration: none;
   }
@@ -222,7 +227,8 @@
   :host(.sl-has-menu-button) {
     .header {
       padding-inline-end: calc(
-        2 * var(--sl-size-100) + calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2)
+        2 * var(--sl-size-100) +
+          calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-action)) * 2)
       );
       position: relative;
     }

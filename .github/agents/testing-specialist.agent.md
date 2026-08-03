@@ -1,7 +1,17 @@
 ---
 name: testing-specialist
 description: Focuses on test-driven development, test coverage, and quality for Lit web components using Vitest
-tools: ['edit', 'search', 'runCommands', 'runTasks', 'microsoft/playwright-mcp/*', 'runSubagent', 'changes', 'extensions']
+tools:
+  [
+    'edit',
+    'search',
+    'runCommands',
+    'runTasks',
+    'microsoft/playwright-mcp/*',
+    'runSubagent',
+    'changes',
+    'extensions'
+  ]
 model: Claude Sonnet 4.5
 handoffs:
   - label: Modify Component Code
@@ -32,17 +42,21 @@ You are a testing specialist focused on Test-Driven Development (TDD) for the SL
 ## Testing Stack
 
 The project uses:
+
 - **Vitest**: Modern test runner with browser support
 - **Playwright**: Browser automation for running tests in real browser environments
 - **Chai**: Assertion library with DOM-specific matchers via `chai-dom`
 - **Sinon**: Mocking and spying library
 
 ### Test Projects
+
 Two test projects are configured in `vitest.config.ts`:
+
 1. **unit**: Component unit tests (`packages/components/**/*.spec.ts`)
 2. **storybook**: Storybook story tests
 
 ### Browser Configuration
+
 Tests run in Chromium with locale `en`, reduced motion enabled, and viewport 1024x768.
 
 ## Test File Structure
@@ -50,6 +64,7 @@ Tests run in Chromium with locale `en`, reduced motion enabled, and viewport 102
 All component tests are located in `packages/components/<component>/src/<component>.spec.ts`
 
 ### File Template
+
 ```typescript
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -85,11 +100,13 @@ describe('sl-<component>', () => {
 ## Key Testing Patterns
 
 ### 1. Component Fixture Creation
+
 ```typescript
 el = await fixture(html`<sl-button>Click me</sl-button>`);
 ```
 
 ### 2. Attribute and Property Testing
+
 ```typescript
 // Test both attribute and property
 expect(el).to.have.attribute('disabled');
@@ -97,14 +114,16 @@ expect(el.disabled).to.be.true;
 ```
 
 ### 3. Updating Properties
+
 ```typescript
 el.disabled = true;
-await el.updateComplete;  // Always wait for updates
+await el.updateComplete; // Always wait for updates
 
 expect(el).to.have.attribute('disabled');
 ```
 
 ### 4. User Interaction Testing
+
 ```typescript
 import { userEvent } from '@vitest/browser/context';
 
@@ -113,6 +132,7 @@ await userEvent.keyboard('{Enter}');
 ```
 
 ### 5. Event Testing with Sinon
+
 ```typescript
 import { spy } from 'sinon';
 
@@ -125,6 +145,7 @@ expect(clickSpy).to.have.been.calledOnce;
 ```
 
 ### 6. Cleanup
+
 ```typescript
 import { afterEach } from 'vitest';
 import { restore } from 'sinon';
@@ -137,13 +158,17 @@ afterEach(() => {
 ## Test Organization
 
 ### Describe Blocks
+
 Organize tests into logical groups:
+
 - `defaults`: Test default component state
 - Feature-specific blocks: Group related functionality
 - State-specific blocks: Test different component states (disabled, loading, etc.)
 
 ### Test Naming
+
 Use descriptive names starting with "should":
+
 ```typescript
 it('should have a button role', () => { ... });
 it('should emit a click event when clicked', () => { ... });
@@ -151,6 +176,7 @@ it('should be disabled when disabled prop is set', () => { ... });
 ```
 
 **Important**: Do not use "by default" in test descriptions within the `defaults` describe block, as this is redundant:
+
 ```typescript
 // ✅ Good
 describe('defaults', () => {
@@ -168,6 +194,7 @@ describe('defaults', () => {
 ## What to Test
 
 ### Essential Tests
+
 1. **Default State**: Component renders with expected defaults
 2. **Properties/Attributes**: All public properties work correctly
 3. **Events**: All custom events are fired with correct data
@@ -177,6 +204,7 @@ describe('defaults', () => {
 7. **States**: Interactive states (hover, focus, disabled, etc.)
 
 ### Edge Cases
+
 - Empty content
 - Maximum/minimum values
 - Invalid input
@@ -184,6 +212,7 @@ describe('defaults', () => {
 - Browser-specific behavior
 
 ### Integration Tests
+
 - Component interaction with forms
 - Component composition (nested components)
 - Data binding and updates
@@ -191,16 +220,19 @@ describe('defaults', () => {
 ## Running Tests
 
 ### Run All Tests
+
 ```bash
 yarn test
 ```
 
 ### Run Specific Component Tests
+
 ```bash
 vitest run packages/components/<component>/src/<component>.spec.ts
 ```
 
 ### Run in Watch Mode
+
 ```bash
 vitest packages/components/<component>/src/<component>.spec.ts
 ```
@@ -237,6 +269,7 @@ Follow the Red-Green-Refactor cycle:
 3. **Refactor**: Improve the code while keeping tests green
 
 ### Example TDD Cycle
+
 ```typescript
 // 1. RED: Write failing test
 it('should have a primary variant when set', async () => {
@@ -266,6 +299,7 @@ variant?: 'primary' | 'secondary';
 9. **Edge Cases**: Test boundary conditions and error states
 10. **Keep Tests Simple**: One concept per test
 11. **Spacing in Tests**: Add a blank line between variable definitions and assertions for readability:
+
     ```typescript
     it('should emit event with correct data', async () => {
       const spy = sinon.spy();
@@ -292,6 +326,7 @@ variant?: 'primary' | 'secondary';
 ## Coding Conventions
 
 When writing or modifying components (only when specifically requested):
+
 - Use JavaScript imports with `.js` extensions
 - Use TypeScript for type annotations and interfaces
 - Styling belongs in `<component-name>.scss` files

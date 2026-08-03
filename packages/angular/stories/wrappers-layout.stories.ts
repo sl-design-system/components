@@ -28,7 +28,8 @@ export const Accordion: StoryObj = {
 
 export const Card: StoryObj = {
   render: () => ({
-    description: 'A card is a flexible and extensible content container with multiple variants and options.',
+    description:
+      'A card is a flexible and extensible content container with multiple variants and options.',
     template: `
       <sl-card>
         <h1>Title</h1>

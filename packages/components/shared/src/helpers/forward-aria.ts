@@ -2,9 +2,9 @@ import { type LitElement } from 'lit';
 import { type ForwardAriaMixinInterface } from '../mixins/forward-aria-mixin.js';
 
 /**
- * Follows the forwarding target chain to the deepest element. When the target itself
- * also uses `ForwardAriaMixin`, its `getProxyTarget()` is followed recursively
- * so that the helpers read from the actual native element where ARIA ends up.
+ * Follows the forwarding target chain to the deepest element. When the target itself also uses
+ * `ForwardAriaMixin`, its `getProxyTarget()` is followed recursively so that the helpers read from
+ * the actual native element where ARIA ends up.
  */
 function resolveDeepTarget(host: LitElement & ForwardAriaMixinInterface): HTMLElement | undefined {
   let target = host.getProxyTarget();
@@ -19,8 +19,8 @@ function resolveDeepTarget(host: LitElement & ForwardAriaMixinInterface): HTMLEl
 }
 
 /**
- * Returns the accessible name for the given element that uses `ForwardAriaMixin`,
- * following the accessible name computation priority: aria-labelledby → aria-label → text content.
+ * Returns the accessible name for the given element that uses `ForwardAriaMixin`, following the
+ * accessible name computation priority: aria-labelledby → aria-label → text content.
  *
  * @param host The custom element host that uses `ForwardAriaMixin`.
  */
@@ -53,8 +53,8 @@ export function getForwardedAccessibleName(host: LitElement & ForwardAriaMixinIn
 }
 
 /**
- * Returns the accessible description for the given element that uses `ForwardAriaMixin`,
- * following the priority: aria-describedby → aria-description.
+ * Returns the accessible description for the given element that uses `ForwardAriaMixin`, following
+ * the priority: aria-describedby → aria-description.
  *
  * @param host The custom element host that uses `ForwardAriaMixin`.
  */
@@ -75,22 +75,24 @@ export function getForwardedDescription(host: LitElement & ForwardAriaMixinInter
 }
 
 /**
- * Returns the value of the given ARIA attribute on the forwarding target element.
- * Because `ForwardAriaMixin` forwards ARIA attributes from the host to
- * the target, this is where the actual value ends up.
+ * Returns the value of the given ARIA attribute on the forwarding target element. Because
+ * `ForwardAriaMixin` forwards ARIA attributes from the host to the target, this is where the actual
+ * value ends up.
  *
  * @param host The custom element host that uses `ForwardAriaMixin`.
  * @param name The ARIA attribute name (e.g. 'aria-expanded', 'aria-current').
  */
-export function getForwardedAriaAttribute(host: LitElement & ForwardAriaMixinInterface, name: string): string | null {
+export function getForwardedAriaAttribute(
+  host: LitElement & ForwardAriaMixinInterface,
+  name: string
+): string | null {
   return resolveDeepTarget(host)?.getAttribute(name) ?? null;
 }
 
 /**
- * Returns the value of the given ARIA property on the forwarding target element.
- * This is useful for element reference properties like `ariaLabelledByElements`
- * or `ariaDescribedByElements` that `ForwardAriaMixin` forwards from
- * the host to the target.
+ * Returns the value of the given ARIA property on the forwarding target element. This is useful for
+ * element reference properties like `ariaLabelledByElements` or `ariaDescribedByElements` that
+ * `ForwardAriaMixin` forwards from the host to the target.
  *
  * @param host The custom element host that uses `ForwardAriaMixin`.
  * @param name The property name on the target element (e.g. 'ariaLabelledByElements').
@@ -103,14 +105,15 @@ export function getForwardedAriaProperty<K extends keyof HTMLElement>(
 }
 
 /**
- * Returns the disabled state of the given element:
- * - `false` if the element is not disabled
- * - `true` if the element is natively disabled (the `disabled` attribute/property)
- * - `'aria'` if the element is disabled via `aria-disabled="true"`
+ * Returns the disabled state of the given element: - `false` if the element is not disabled -
+ * `true` if the element is natively disabled (the `disabled` attribute/property) - `'aria'` if the
+ * element is disabled via `aria-disabled="true"`
  *
  * @param host The custom element host that uses `ForwardAriaMixin`.
  */
-export function isForwardedDisabled(host: LitElement & ForwardAriaMixinInterface): false | true | 'aria' {
+export function isForwardedDisabled(
+  host: LitElement & ForwardAriaMixinInterface
+): false | true | 'aria' {
   if ((host as unknown as { disabled?: boolean }).disabled) {
     return true;
   }

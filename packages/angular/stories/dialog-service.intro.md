@@ -4,12 +4,12 @@ The **DialogService** provides an API for programmatically opening and managing 
 
 ### Main Methods
 
-
 #### `showModal<T, R>(config: DialogConfig<T>): DialogRef<R>`
 
-Opens a dialog with a custom Angular component. 
+Opens a dialog with a custom Angular component.
 
 **Configuration:**
+
 - `component` (required) - The Angular component class to render.
 - `data` (optional) - Data to pass to the component via `@Inject('DIALOG_DATA')`.
 
@@ -57,6 +57,7 @@ dialogRef.afterClosed().subscribe(result => {
 Closes all currently opened dialogs at once. This could be useful when you need to close multiple dialogs simultaneously.
 
 **Parameters:**
+
 - `result` - Optional result value to pass to all dialogs. This value will be emitted to all `afterClosed()` subscribers.
 
 **Example:**
@@ -103,20 +104,23 @@ dialogRef.afterClosed().subscribe(result => {
 Closes the dialog with an optional result value. The result will be emitted to all `afterClosed()` subscribers.
 
 **Parameters:**
+
 - `result` - Optional result value to pass to subscribers
 
 **Example:**
 
 ```typescript
 // In the dialog component:
-@Component({ /* ... */ })
+@Component({
+  /* ... */
+})
 export class MyDialogComponent {
   constructor(public dialogRef: DialogRef<string>) {}
-  
+
   save() {
     this.dialogRef.close('saved');
   }
-  
+
   cancel() {
     this.dialogRef.close('cancelled');
   }
@@ -172,7 +176,7 @@ this.dialogService.showModal<MyDialogComponent, string>({
 interface DialogConfig<T> extends Partial<DialogProps> {
   /** Angular component to render in the dialog */
   component: Type<T>;
-  
+
   /** Data to pass to the component via @Inject('DIALOG_DATA') */
   data?: unknown;
 }

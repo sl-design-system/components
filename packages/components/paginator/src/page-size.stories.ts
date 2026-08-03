@@ -18,8 +18,7 @@ export default {
       <sl-paginator-page-size
         .itemLabel=${itemLabel}
         .pageSize=${pageSize}
-        .pageSizes=${pageSizes}
-      ></sl-paginator-page-size>
+        .pageSizes=${pageSizes}></sl-paginator-page-size>
     `;
   }
 } satisfies Meta<Props>;
@@ -36,7 +35,11 @@ export const DataSource: Story = {
     dataSource.setPageSize(5);
     dataSource.update();
 
-    return html`<sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
+    return html`
+      <sl-paginator-page-size
+        .dataSource=${dataSource}
+        .pageSizes=${pageSizes}></sl-paginator-page-size>
+    `;
   }
 };
 

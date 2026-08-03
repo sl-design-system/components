@@ -7,18 +7,14 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/**
- * Extract story templates and generate MDX documentation
- */
+/** Extract story templates and generate MDX documentation */
 class StoryTemplateExtractor {
   constructor() {
     this.angularStoriesPath = path.join(__dirname, '../packages/angular/stories');
     this.outputPath = path.join(__dirname, '../packages/angular/stories/generated');
   }
 
-  /**
-   * Normalize indentation by removing common leading whitespace
-   */
+  /** Normalize indentation by removing common leading whitespace */
   normalizeIndentation(text, baseIndent = 0) {
     if (!text) return text;
 
@@ -44,15 +40,15 @@ class StoryTemplateExtractor {
     if (minIndent === Infinity || minIndent === 0) return text;
 
     // Remove the common indentation from all lines
-    return lines.map(line => {
-      if (line.trim().length === 0) return ''; // Keep empty lines empty
-      return line.substring(Math.max(minIndent - baseIndent, 0));
-    }).join('\n');
+    return lines
+      .map(line => {
+        if (line.trim().length === 0) return ''; // Keep empty lines empty
+        return line.substring(Math.max(minIndent - baseIndent, 0));
+      })
+      .join('\n');
   }
 
-  /**
-   * Extract stories using JSON parsing for simple objects
-   */
+  /** Extract stories using JSON parsing for simple objects */
   extractStoriesWithJSON(content) {
     const stories = [];
 
@@ -86,7 +82,9 @@ class StoryTemplateExtractor {
 
         // Only warn if regex also failed to extract a template
         if (!regexResult.template) {
-          console.warn(`Failed to parse story ${storyName}: No template found with JSON or regex parsing`);
+          console.warn(
+            `Failed to parse story ${storyName}: No template found with JSON or regex parsing`
+          );
         }
 
         stories.push(regexResult);
@@ -115,7 +113,9 @@ class StoryTemplateExtractor {
 
         // Only warn if regex also failed to extract a template
         if (!regexResult.template) {
-          console.warn(`Failed to parse story ${storyName}: No template found with JSON or regex parsing`);
+          console.warn(
+            `Failed to parse story ${storyName}: No template found with JSON or regex parsing`
+          );
         }
 
         stories.push(regexResult);
@@ -125,16 +125,14 @@ class StoryTemplateExtractor {
     return stories;
   }
 
-  /**
-   * Parse story object content as JSON
-   */
+  /** Parse story object content as JSON */
   parseStoryObjectAsJSON(objectContent) {
     try {
       // For simple string properties, we can convert to JSON format
       // Replace single quotes with double quotes for JSON compatibility
       let jsonContent = objectContent
-        .replace(/'/g, '"')  // Convert single quotes to double quotes
-        .replace(/(\w+):/g, '"$1":');  // Add quotes around property names
+        .replace(/'/g, '"') // Convert single quotes to double quotes
+        .replace(/(\w+):/g, '"$1":'); // Add quotes around property names
 
       // Wrap in braces to make it a valid JSON object
       const wrappedContent = `{${jsonContent}}`;
@@ -145,9 +143,7 @@ class StoryTemplateExtractor {
     }
   }
 
-  /**
-   * Fallback regex parsing for stories that can't be parsed as JSON
-   */
+  /** Fallback regex parsing for stories that can't be parsed as JSON */
   extractStoryWithRegex(storyName, storyContent) {
     let template = null;
     let props = null;
@@ -182,9 +178,7 @@ class StoryTemplateExtractor {
     if (descriptionMatch) {
       description = descriptionMatch[2].trim();
     } else {
-      descriptionMatch = storyContent.match(
-        /description:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/
-      );
+      descriptionMatch = storyContent.match(/description:\s*(["'`])((?:\\.|(?!\1)[\s\S])*?)\1/);
       if (descriptionMatch) {
         description = descriptionMatch[2].trim();
       }
@@ -198,9 +192,7 @@ class StoryTemplateExtractor {
     };
   }
 
-  /**
-   * Extract import statements from the file
-   */
+  /** Extract import statements from the file */
   extractImports(content) {
     const importRegex = /^import\s+(?:{[^}]+}|[^;]+)\s+from\s+['"]([^'"]+)['"];?$/gm;
     const imports = [];
@@ -226,9 +218,7 @@ class StoryTemplateExtractor {
     return imports.join('\n');
   }
 
-  /**
-   * Parse a TypeScript story file and extract component information
-   */
+  /** Parse a TypeScript story file and extract component information */
   parseStoryFile(filePath) {
     const content = fs.readFileSync(filePath, 'utf-8');
     const fileName = path.basename(filePath, '.stories.ts');
@@ -237,7 +227,8 @@ class StoryTemplateExtractor {
     const fileImports = this.extractImports(content);
 
     // Extract component definitions using regex (still needed for @Component classes)
-    const componentRegex = /@Component\s*\(\s*{[\s\S]*?}\s*\)\s*export\s+class\s+(\w+)[\s\S]*?(?=@Component|export\s+default|$)/g;
+    const componentRegex =
+      /@Component\s*\(\s*{[\s\S]*?}\s*\)\s*export\s+class\s+(\w+)[\s\S]*?(?=@Component|export\s+default|$)/g;
     const components = [];
 
     let match;
@@ -317,9 +308,7 @@ class StoryTemplateExtractor {
     };
   }
 
-  /**
-   * Generate MDX content from parsed story data
-   */
+  /** Generate MDX content from parsed story data */
   generateMDX(storyData) {
     const { title, components, stories, fileName, fileImports } = storyData;
 
@@ -370,8 +359,12 @@ To add custom introduction content, create ${fileName}.intro.md */}
 \`\`\`typescript
 ${fileImports ? fileImports + '\n\n' : ''}@Component({
   selector: '${component.selector}',
-  template: \`${component.template}\`${component.imports ? `,
-  imports: [${component.imports}]` : ''}
+  template: \`${component.template}\`${
+    component.imports
+      ? `,
+  imports: [${component.imports}]`
+      : ''
+  }
 })
 export class ${component.name} {
 ${component.classContent || '  // Component logic here'}
@@ -415,10 +408,18 @@ The examples above use the following custom component(s):
             referencedComponents.forEach(refComp => {
               mdx += `
 \`\`\`typescript
-@Component({${refComp.selector ? `
-  selector: '${refComp.selector}',` : ''}
-  standalone: true,${refComp.imports ? `
-  imports: [${refComp.imports}],` : ''}
+@Component({${
+                refComp.selector
+                  ? `
+  selector: '${refComp.selector}',`
+                  : ''
+              }
+  standalone: true,${
+    refComp.imports
+      ? `
+  imports: [${refComp.imports}],`
+      : ''
+  }
   template: \`${refComp.template}\`
 })
 export class ${refComp.name} {
@@ -436,13 +437,17 @@ ${refComp.classContent || '  // Component logic here'}
 \`\`\`html
 ${story.template}
 \`\`\`
-${story.props ? `
+${
+  story.props
+    ? `
 ### Props
 
 \`\`\`typescript
 ${story.props}
 \`\`\`
-` : ''}
+`
+    : ''
+}
 
 `;
       }
@@ -450,9 +455,7 @@ ${story.props}
     return mdx;
   }
 
-  /**
-   * Check if source file is newer than output file
-   */
+  /** Check if source file is newer than output file */
   isSourceNewer(sourceFile, outputFile) {
     if (!fs.existsSync(outputFile)) {
       return true; // Output doesn't exist, need to generate
@@ -464,9 +467,7 @@ ${story.props}
     return sourceStats.mtime > outputStats.mtime;
   }
 
-  /**
-   * Process a single story file
-   */
+  /** Process a single story file */
   processSingleStory(file, forceRegenerate = false) {
     const filePath = path.join(this.angularStoriesPath, file);
     const fileName = path.basename(file, '.stories.ts');
@@ -488,9 +489,7 @@ ${story.props}
     }
   }
 
-  /**
-   * Process all story files in the Angular stories directory
-   */
+  /** Process all story files in the Angular stories directory */
   processAllStories(forceRegenerate = false) {
     const startTime = Date.now();
 
@@ -504,7 +503,8 @@ ${story.props}
       fs.mkdirSync(this.outputPath, { recursive: true });
     }
 
-    const storyFiles = fs.readdirSync(this.angularStoriesPath)
+    const storyFiles = fs
+      .readdirSync(this.angularStoriesPath)
       .filter(file => file.endsWith('.stories.ts'));
 
     console.log(`Found ${storyFiles.length} story files to process...`);
@@ -534,9 +534,7 @@ ${story.props}
     console.log(`📁 Generated files are in: ${this.outputPath}`);
   }
 
-  /**
-   * Watch for changes and regenerate
-   */
+  /** Watch for changes and regenerate */
   watch() {
     console.log(`👀 Watching ${this.angularStoriesPath} for changes...`);
 
@@ -558,11 +556,10 @@ ${story.props}
     });
   }
 
-  /**
-   * Process specific files (for CLI usage)
-   */
+  /** Process specific files (for CLI usage) */
   processSpecificFiles(filePatterns) {
-    const storyFiles = fs.readdirSync(this.angularStoriesPath)
+    const storyFiles = fs
+      .readdirSync(this.angularStoriesPath)
       .filter(file => file.endsWith('.stories.ts'))
       .filter(file => {
         return filePatterns.some(pattern => {

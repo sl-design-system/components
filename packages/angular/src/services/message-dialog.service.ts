@@ -8,7 +8,11 @@ import {
   Type,
   createComponent
 } from '@angular/core';
-import { MessageDialog, type MessageDialogButton, type MessageDialogConfig } from '@sl-design-system/message-dialog';
+import {
+  MessageDialog,
+  type MessageDialogButton,
+  type MessageDialogConfig
+} from '@sl-design-system/message-dialog';
 import '@sl-design-system/message-dialog/register.js';
 import { type TemplateResult } from 'lit';
 import { Observable, Subject } from 'rxjs';
@@ -26,7 +30,10 @@ interface MessageDialogServiceConfigBase<R = unknown> {
 }
 
 /** Configuration for a message dialog with an Angular component. */
-export interface MessageDialogServiceComponentConfig<T, R = unknown> extends MessageDialogServiceConfigBase<R> {
+export interface MessageDialogServiceComponentConfig<
+  T,
+  R = unknown
+> extends MessageDialogServiceConfigBase<R> {
   /** The component to show. */
   component: Type<T>;
 
@@ -35,15 +42,14 @@ export interface MessageDialogServiceComponentConfig<T, R = unknown> extends Mes
 }
 
 /** Configuration for a message dialog with a text message. */
-export interface MessageDialogServiceMessageConfig<R = unknown> extends MessageDialogServiceConfigBase<R> {
+export interface MessageDialogServiceMessageConfig<
+  R = unknown
+> extends MessageDialogServiceConfigBase<R> {
   /** The message to show. */
   message: string | TemplateResult;
 }
 
-/**
- * Configuration for opening a message dialog.
- * You must provide either `component` or `message`.
- */
+/** Configuration for opening a message dialog. You must provide either `component` or `message`. */
 export type MessageDialogServiceConfig<T = unknown, R = unknown> =
   | MessageDialogServiceComponentConfig<T, R>
   | MessageDialogServiceMessageConfig<R>;
@@ -54,6 +60,7 @@ export type MessageDialogServiceConfig<T = unknown, R = unknown> =
  * Use it to close the dialog and get notified when it closes.
  *
  * Example:
+ *
  * ```typescript
  * const dialogRef = this.messageDialogService.showModal({
  *   component: MyComponent,
@@ -93,9 +100,7 @@ export class MessageDialogRef<T = unknown> {
     return this.#afterClosedSubject.asObservable();
   }
 
-  /**
-   * Closes the dialog. You can pass a value to send to subscribers.
-   */
+  /** Closes the dialog. You can pass a value to send to subscribers. */
   close(result?: T): void {
     this.#manualClose = true;
     this.#result = result;
@@ -142,8 +147,8 @@ export class MessageDialogRef<T = unknown> {
 /**
  * Service for showing message dialogs.
  *
- * Use it to show message dialogs with custom components or simple messages.
- * You can pass data, handle when dialogs close, and use custom buttons.
+ * Use it to show message dialogs with custom components or simple messages. You can pass data,
+ * handle when dialogs close, and use custom buttons.
  */
 @Injectable({
   providedIn: 'root'
@@ -248,9 +253,7 @@ export class MessageDialogService {
     });
   }
 
-  /**
-   * Set up click listeners on buttons to capture the result before the dialog closes.
-   */
+  /** Set up click listeners on buttons to capture the result before the dialog closes. */
   #setupButtonClickListeners<R>(
     dialog: MessageDialog<R>,
     dialogRef: MessageDialogRef<R>,
@@ -313,7 +316,9 @@ export class MessageDialogService {
         'close',
         async () => {
           // Wait until all animations have finished before cleaning up
-          await Promise.allSettled(internalDialog.getAnimations({ subtree: true }).map(a => a.finished));
+          await Promise.allSettled(
+            internalDialog.getAnimations({ subtree: true }).map(a => a.finished)
+          );
 
           // Emit the result to subscribers
           dialogRef.emitClose();
@@ -331,7 +336,9 @@ export class MessageDialogService {
         // Wait until all animations have finished before emitting cancel
         const internalDialogElement = dialog.shadowRoot?.querySelector('dialog');
         if (internalDialogElement) {
-          await Promise.allSettled(internalDialogElement.getAnimations({ subtree: true }).map(a => a.finished));
+          await Promise.allSettled(
+            internalDialogElement.getAnimations({ subtree: true }).map(a => a.finished)
+          );
         }
 
         dialogRef.emitCancel();
@@ -343,11 +350,11 @@ export class MessageDialogService {
   /**
    * Shows a simple alert message to the user with an `OK` button.
    *
-   * This is a method that wraps the static `MessageDialog.alert()` method.
-   * The dialog will automatically close when the user clicks OK or presses Escape.
+   * This is a method that wraps the static `MessageDialog.alert()` method. The dialog will
+   * automatically close when the user clicks OK or presses Escape.
    *
-   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
-   * If you need more control over the dialog lifecycle, use `showModal()` instead.
+   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`. If you
+   * need more control over the dialog lifecycle, use `showModal()` instead.
    */
   async alert(message: string, title?: string): Promise<void> {
     await MessageDialog.alert(message, title);
@@ -356,12 +363,12 @@ export class MessageDialogService {
   /**
    * Shows a confirmation dialog with `OK` and `Cancel` buttons.
    *
-   * This is a method that wraps the static `MessageDialog.confirm()` method.
-   * The dialog returns `true` if the user clicks OK, `false` if they click Cancel,
-   * or `undefined` if they close the dialog using Escape or backdrop click.
+   * This is a method that wraps the static `MessageDialog.confirm()` method. The dialog returns
+   * `true` if the user clicks OK, `false` if they click Cancel, or `undefined` if they close the
+   * dialog using Escape or backdrop click.
    *
-   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
-   * If you need more control over the dialog lifecycle, use `showModal()` instead.
+   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`. If you
+   * need more control over the dialog lifecycle, use `showModal()` instead.
    */
   async confirm(message: string, title?: string): Promise<boolean | undefined> {
     return await MessageDialog.confirm(message, title);
@@ -370,11 +377,12 @@ export class MessageDialogService {
   /**
    * Shows a message dialog with custom configuration using the static MessageDialog API.
    *
-   * This is a method that wraps the static `MessageDialog.show()` method.
-   * It allows you to create custom message dialogs with multiple buttons and custom actions.
+   * This is a method that wraps the static `MessageDialog.show()` method. It allows you to create
+   * custom message dialogs with multiple buttons and custom actions.
    *
-   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
-   * If you need more control over the dialog lifecycle or want to use Angular components, use `showModal()` instead.
+   * This method uses the static MessageDialog API and does not return a `MessageDialogRef`. If you
+   * need more control over the dialog lifecycle or want to use Angular components, use
+   * `showModal()` instead.
    */
   async show<T = unknown>(config: MessageDialogConfig<T>): Promise<T | undefined> {
     // Make a copy to prevent changes to the original config object
@@ -392,6 +400,7 @@ export class MessageDialogService {
    * This method can be useful when you need to close multiple message dialogs at once.
    *
    * Example:
+   *
    * ```typescript
    * // Close all dialogs without passing a result
    * messageDialogService.closeAll();
@@ -408,7 +417,11 @@ export class MessageDialogService {
     });
   }
 
-  #createComponent<T, D = unknown>(component: Type<T>, data?: unknown, dialogRef?: MessageDialogRef<D>) {
+  #createComponent<T, D = unknown>(
+    component: Type<T>,
+    data?: unknown,
+    dialogRef?: MessageDialogRef<D>
+  ) {
     // Create providers for MessageDialogRef and MESSAGE_DIALOG_DATA
     const providers = [];
 

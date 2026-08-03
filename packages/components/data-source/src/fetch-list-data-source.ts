@@ -1,4 +1,4 @@
-import { type DataSourceSort } from './data-source.js';
+import { type DataSourceFilter, type DataSourceSort } from './data-source.js';
 import {
   ListDataSource,
   type ListDataSourceDataItem,
@@ -11,6 +11,7 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FetchListDataSourceCallbackOptions<T = any> {
+  filters?: Array<DataSourceFilter<T>>;
   group: FetchListDataSourceGroupItem<T>['id'];
   page: number;
   pageSize: number;
@@ -24,7 +25,7 @@ export interface FetchListDataSourceCallbackResult<T> {
 }
 
 export type FetchListDataSourceCallback<T> = (
-  options: FetchListDataSourceCallbackOptions
+  options: FetchListDataSourceCallbackOptions<T>
 ) => Promise<FetchListDataSourceCallbackResult<T>>;
 
 export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
@@ -40,15 +41,15 @@ export interface FetchListDataSourceGroupItem<T = any> extends ListDataSourceGro
 
 export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> {
   /**
-   * The function to call to fetch the data. This function should return a promise
-   * that resolves to an object containing the items and the total number of items.
+   * The function to call to fetch the data. This function should return a promise that resolves to
+   * an object containing the items and the total number of items.
    */
   fetchPage: FetchListDataSourceCallback<T>;
 
   /**
-   * An explicit array of groups. Use this when you initially only want to show the groups.
-   * The groups can be collapsed by default. When the user expands a group, the items
-   * can then be loaded on demand.
+   * An explicit array of groups. Use this when you initially only want to show the groups. The
+   * groups can be collapsed by default. When the user expands a group, the items can then be loaded
+   * on demand.
    */
   groups?: Array<Partial<ListDataSourceGroupItem> & { collapsed?: boolean }>;
 
@@ -59,14 +60,15 @@ export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> 
   placeholder?: FetchListDataSourcePlaceholder<T>;
 
   /**
-   * The total number of items in the data source. If not provided, the data source will
-   * use the total number of items returned by the fetch function. This is useful when
-   * the data source is paginated and the total number of items is not known in advance.
+   * The total number of items in the data source. If not provided, the data source will use the
+   * total number of items returned by the fetch function. This is useful when the data source is
+   * paginated and the total number of items is not known in advance.
    */
   size?: number;
 }
 
-export type FetchListDataSourceEvent = CustomEvent<FetchListDataSourceCallbackOptions>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FetchListDataSourceEvent<T = any> = CustomEvent<FetchListDataSourceCallbackOptions<T>>;
 
 export class FetchListDataSourceError extends Error {
   constructor(
@@ -205,15 +207,21 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   /**
-   * Override this function if you are extending the `FetchListDataSource` class to
-   * provide any additional options you may need when `fetchPage` is called.
+   * Override this function if you are extending the `FetchListDataSource` class to provide any
+   * additional options you may need when `fetchPage` is called.
    */
   getFetchOptions(
     group: FetchListDataSourceGroupItem<T>,
     page: number,
     pageSize: number
-  ): FetchListDataSourceCallbackOptions {
-    return { filters: Array.from(this.filters.values()), group: group.id, page, pageSize, sort: this.sort };
+  ): FetchListDataSourceCallbackOptions<T> {
+    return {
+      filters: Array.from(this.filters.values()),
+      group: group.id,
+      page,
+      pageSize,
+      sort: this.sort
+    };
   }
 
   #createItemsArray(): Array<ListDataSourceItem<T>> {
@@ -293,7 +301,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     });
   }
 
-  #flattenGroups(groups: Map<unknown, FetchListDataSourceGroupItem<T>>): Array<ListDataSourceItem<T>> {
+  #flattenGroups(
+    groups: Map<unknown, FetchListDataSourceGroupItem<T>>
+  ): Array<ListDataSourceItem<T>> {
     const items: Array<ListDataSourceItem<T>> = [];
 
     let index = 0;

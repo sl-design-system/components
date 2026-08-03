@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -9,7 +10,14 @@ import { type Checkbox } from './checkbox.js';
 
 type Props = Pick<
   Checkbox,
-  'checked' | 'disabled' | 'indeterminate' | 'required' | 'showValid' | 'showValidity' | 'size' | 'value'
+  | 'checked'
+  | 'disabled'
+  | 'indeterminate'
+  | 'required'
+  | 'showValid'
+  | 'showValidity'
+  | 'size'
+  | 'value'
 > & {
   hint?: string;
   label?: string;
@@ -170,8 +178,9 @@ export const Indeterminate: StoryObj = {
       <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
       <h2>In group, with children</h2>
       <p>
-        When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to select all in a
-        list of items for example) this is how the indeterminate state should behave:
+        When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to
+        select all in a list of items for example) this is how the indeterminate state should
+        behave:
       </p>
       <ul>
         <li>
@@ -185,15 +194,21 @@ export const Indeterminate: StoryObj = {
 
               <ul>
                 <li>
-                  <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1">Andre</sl-checkbox>
+                  <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1"
+                    >Andre</sl-checkbox
+                  >
                 </li>
                 <li>
-                  <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2">Paul Bunyan</sl-checkbox>
+                  <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2"
+                    >Paul Bunyan</sl-checkbox
+                  >
                 </li>
               </ul>
             </li>
             <li>
-              <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3">Two sandwiches</sl-checkbox>
+              <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3"
+                >Two sandwiches</sl-checkbox
+              >
             </li>
           </ul>
         </li>
@@ -204,10 +219,14 @@ export const Indeterminate: StoryObj = {
               <sl-checkbox @sl-change=${onChange} name="short-1" id="short-1">Smurfs</sl-checkbox>
             </li>
             <li>
-              <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2">Mushrooms</sl-checkbox>
+              <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2"
+                >Mushrooms</sl-checkbox
+              >
             </li>
             <li>
-              <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3">One Sandwich</sl-checkbox>
+              <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3"
+                >One Sandwich</sl-checkbox
+              >
             </li>
           </ul>
         </li>
@@ -220,10 +239,22 @@ export const NoVisibleLabel: StoryObj = {
   render: () => {
     return html`
       <p style="margin: 0 0 1rem 0">
-        This checkbox has no internal or external label. It only has an <code>aria-label</code> attribute. That
-        attribute is automatically applied to the <code>input</code> element.
+        This checkbox has no internal or external label. It only has an
+        <code>aria-label</code> attribute. That attribute is automatically applied to the
+        <code>input</code> element.
       </p>
       <sl-checkbox aria-label="Check me"></sl-checkbox>
+    `;
+  }
+};
+
+export const Infotip: StoryObj = {
+  render: () => {
+    return html`
+      <sl-checkbox>
+        Option 1
+        <sl-infotip slot="infotip">This is an info tip for option 1</sl-infotip>
+      </sl-checkbox>
     `;
   }
 };
@@ -262,7 +293,9 @@ export const CustomValidity: Story = {
       };
 
       return html`
-        <sl-checkbox @sl-validate=${onValidate} required value="1">I agree to all terms &amp; conditions</sl-checkbox>
+        <sl-checkbox @sl-validate=${onValidate} required value="1"
+          >I agree to all terms &amp; conditions</sl-checkbox
+        >
       `;
     }
   }
@@ -286,7 +319,9 @@ export const CustomAsyncValidity: Story = {
       };
 
       return html`
-        <sl-checkbox @sl-validate=${onValidate} required value="1">I agree to all terms &amp; conditions</sl-checkbox>
+        <sl-checkbox @sl-validate=${onValidate} required value="1"
+          >I agree to all terms &amp; conditions</sl-checkbox
+        >
       `;
     }
   }

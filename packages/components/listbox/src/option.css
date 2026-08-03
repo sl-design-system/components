@@ -1,27 +1,54 @@
 :host {
   --_bg-color: transparent;
-  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
+  border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   display: block;
   hyphens: auto;
   inline-size: calc(100% - var(--sl-size-100) * 2);
   margin-inline: var(--sl-size-100);
-  outline: 0;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
   overflow-wrap: anywhere;
+  position: relative;
   scroll-margin-block: var(--sl-size-100);
   user-select: none;
 }
 
+:host(:where(:focus-visible, [current])) {
+  outline-color: var(--sl-color-border-focused);
+  z-index: 1;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :host(:where(:hover, :active)) [part='container'] {
-    transition: background 200ms ease-in-out;
+    transition: background 100ms ease-in;
   }
 }
 
-:host(:where(:focus, :hover, [current])) {
+:host(:where(:hover, [current])) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+:host(:where(:focus-visible, [current]):not([selected], :hover)) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+}
+
+:host(:where(:hover, :focus-visible, [current]))::before {
+  background: var(--sl-color-background-selected-bold);
+  border-radius: var(--sl-size-borderRadius-none) var(--sl-size-borderRadius-child)
+    var(--sl-size-borderRadius-child) var(--sl-size-borderRadius-none);
+  content: '';
+  inline-size: var(--sl-size-050);
+  inset-block: var(--sl-size-025);
+  inset-inline-start: calc(var(--sl-size-100) * -1);
+  position: absolute;
+}
+
+:host(:where(:hover, [current]):not([selected])) {
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
 }
 
 :host(:where([aria-selected='true'], [selected])) sl-icon {
@@ -75,7 +102,11 @@
 
 [part='container'] {
   align-items: center;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: flex;

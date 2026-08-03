@@ -44,7 +44,62 @@ export interface ToolBarItemMenu extends ToolBarItemBase {
   menuItems: Array<ToolBarItemButton | ToolBarItemDivider | ToolBarItemMenu>;
 }
 
-export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup | ToolBarItemMenu;
+export type ToolBarItem =
+  | ToolBarItemButton
+  | ToolBarItemDivider
+  | ToolBarItemGroup
+  | ToolBarItemMenu;
+
+function getLabelFromAriaLabelledBy(host: HTMLElement): string {
+  const labelledBy = host.ariaLabelledByElements ?? [];
+
+  if (labelledBy.length) {
+    return labelledBy
+      .map(el => el.textContent?.trim())
+      .filter(Boolean)
+      .join(' ');
+  }
+
+  const labelledByIds = host.getAttribute('aria-labelledby');
+
+  if (!labelledByIds) {
+    return '';
+  }
+
+  const root = host.getRootNode(),
+    getLabelledByElement =
+      root instanceof Document || root instanceof ShadowRoot
+        ? (id: string) => root.querySelector<HTMLElement>(`#${CSS.escape(id)}`)
+        : undefined;
+
+  return labelledByIds
+    .split(/\s+/)
+    .map(id => getLabelledByElement?.(id)?.textContent?.trim())
+    .filter(Boolean)
+    .join(' ');
+}
+
+function getMenuButtonLabel(menuButton: MenuButton): string {
+  const fromForwardedAria =
+    getForwardedAccessibleName(menuButton) || getForwardedDescription(menuButton);
+
+  if (fromForwardedAria) {
+    return fromForwardedAria;
+  }
+
+  const fromHostAria =
+    getLabelFromAriaLabelledBy(menuButton) || menuButton.getAttribute('aria-label') || '';
+
+  if (fromHostAria) {
+    return fromHostAria;
+  }
+
+  return Array.from(menuButton.children)
+    .filter((el): el is HTMLElement => el instanceof HTMLElement && el.slot === 'button')
+    .map(el => el.textContent?.trim())
+    .filter(Boolean)
+    .join(' ');
+}
 
 export function mapButtonToItem(button: Button): ToolBarItemButton {
   const label = getForwardedAccessibleName(button) || getForwardedDescription(button),
@@ -64,8 +119,10 @@ export function mapButtonToItem(button: Button): ToolBarItemButton {
 }
 
 export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
-  const label = getForwardedAccessibleName(menuButton) || getForwardedDescription(menuButton),
-    menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el => mapMenuItemToItem(el)),
+  const label = getMenuButtonLabel(menuButton),
+    menuItems = Array.from(menuButton.querySelectorAll('sl-menu-item')).map(el =>
+      mapMenuItemToItem(el)
+    ),
     disabled = isForwardedDisabled(menuButton);
 
   return {
@@ -87,7 +144,8 @@ export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton {
     disabled: menuItem.hasAttribute('disabled'),
     icon: menuItem.querySelector('sl-icon')?.getAttribute('name'),
     label: menuItem.textContent?.trim() || undefined,
-    visible: true
+    visible: true,
+    click: () => menuItem.click()
   };
 }
 

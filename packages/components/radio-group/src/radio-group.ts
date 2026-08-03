@@ -1,8 +1,24 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type Infotip } from '@sl-design-system/infotip';
+import {
+  type EventEmitter,
+  EventsController,
+  RovingTabindexController,
+  event
+} from '@sl-design-system/shared';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './radio-group.css' with { type: 'css' };
 import { type Radio, type RadioButtonSize } from './radio.js';
@@ -23,11 +39,11 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  * A group of radio buttons.
  *
  * ```html
- *   <sl-radio-group>
- *     <sl-radio value="1">Option 1</sl-radio>
- *     <sl-radio value="2">Option 2</sl-radio>
- *     <sl-radio value="3">Option 3</sl-radio>
- *   </sl-radio-group>
+ * <sl-radio-group>
+ *   <sl-radio value="1">Option 1</sl-radio>
+ *   <sl-radio value="2">Option 2</sl-radio>
+ *   <sl-radio value="3">Option 3</sl-radio>
+ * </sl-radio-group>
  * ```
  *
  * @slot default - A list of `sl-radio` elements.
@@ -39,7 +55,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   static formAssociated = true;
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -56,7 +75,8 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
 
   /** When an option is checked, update the state. */
   #observer = new MutationObserver(mutations => {
-    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+    const { target } =
+      mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
 
     this.#observer.disconnect();
     this.#setSelectedOption(target as Radio<T>);
@@ -64,18 +84,32 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   });
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<Radio<T>>(this, {
+  #rovingTabindexController = new RovingTabindexController<Radio<T> | Infotip>(this, {
     direction: () => (this.horizontal ? 'horizontal' : 'vertical'),
-    focusInIndex: (elements: Array<Radio<T>>) => {
+    focusInIndex: (elements: Array<Radio<T> | Infotip>) => {
       return elements.findIndex(el => {
-        return this.value ? !el.disabled && el.value === this.value : !el.disabled;
+        return this.#isRadioElement(el)
+          ? this.value
+            ? !el.disabled && el.value === this.value
+            : !el.disabled
+          : this.#isRadioElement(el.parentElement) &&
+              (this.value
+                ? !el.parentElement.disabled && el.parentElement.value === this.value
+                : !el.parentElement.disabled);
       });
     },
-    elementEnterAction: (el: Radio<T>) => {
-      this.value = el.value;
+    elementEnterAction: (el: Radio<T> | Infotip) => {
+      if (this.#isRadioElement(el)) {
+        this.value = el.value;
+      } else if (this.#isRadioElement(el.parentElement)) {
+        this.value = el.parentElement.value;
+      }
     },
-    elements: () => this.radios ?? [],
-    isFocusableElement: (el: Radio) => !el.disabled
+    elements: () => this.#focusableOptions(),
+    isFocusableElement: (el: Radio<T> | Infotip) =>
+      this.#isRadioElement(el)
+        ? !el.disabled
+        : this.#isRadioElement(el.parentElement) && !el.parentElement.disabled
   });
 
   /** @internal Element internals. */
@@ -96,7 +130,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   /** Whether the group is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
-  /** The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. */
+  /**
+   * The orientation of the radio options; when true, the radio buttons are displayed next to each
+   * other instead of below each other.
+   */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
   /** Whether the user is required to select an option in the group. */
@@ -107,6 +144,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
 
   /**
    * The size of the radio buttons in the group.
+   *
    * @default md
    */
   @property() size?: RadioButtonSize;
@@ -130,12 +168,10 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  /** @ignore Stores the initial state of the radio group */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
   }
 
-  /** @ignore Resets the radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
 
@@ -250,5 +286,23 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     );
 
     this.updateValidity();
+  }
+
+  #focusableOptions(): Array<Radio<T> | Infotip> {
+    const options: Array<Radio<T> | Infotip> = [];
+
+    this.radios?.forEach(radio => {
+      options.push(radio);
+
+      if (radio.infotip) {
+        options.push(radio.infotip);
+      }
+    });
+
+    return options;
+  }
+
+  #isRadioElement(element: unknown): element is Radio<T> {
+    return element instanceof HTMLElement && element.tagName === 'SL-RADIO';
   }
 }

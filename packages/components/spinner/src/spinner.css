@@ -1,5 +1,5 @@
 :host {
-  // this is a css var because we offer this as part of the api
+  /* This is a css var because we offer this as part of the api */
   --sl-spinner-size: var(--sl-size-200);
   --_spin-duration: 20s;
 

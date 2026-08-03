@@ -213,7 +213,8 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
   focusToElement(elementIndex: number): void;
 
   focusToElement(elementOrIndex: T | number): void {
-    this.currentIndex = typeof elementOrIndex === 'number' ? elementOrIndex : this.elements.indexOf(elementOrIndex);
+    this.currentIndex =
+      typeof elementOrIndex === 'number' ? elementOrIndex : this.elements.indexOf(elementOrIndex);
     this.elementEnterAction(this.elements[this.currentIndex]);
     this.focus({ preventScroll: false });
 
@@ -299,7 +300,11 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     // Original wrapping behavior
     let steps = length;
     let nextIndex = (length + this.currentIndex + diff) % length;
-    while (steps && this.elements[nextIndex] && !this.isFocusableElement(this.elements[nextIndex])) {
+    while (
+      steps &&
+      this.elements[nextIndex] &&
+      !this.isFocusableElement(this.elements[nextIndex])
+    ) {
       nextIndex = (length + nextIndex + diff) % length;
       steps -= 1;
     }
@@ -331,22 +336,36 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
     } else if (event.type === 'focusout' && relatedTarget === null) {
       return true;
     } else {
-      return !this.elements.includes(relatedTarget as T) || !this.elements.includes(event.composedPath()[0] as T);
+      return (
+        !this.elements.includes(relatedTarget as T) ||
+        !this.elements.includes(event.composedPath()[0] as T)
+      );
     }
   }
 
   // Event handlers
   #onFocusin = (event: FocusEvent): void => {
-    if (!this.#isFocusMovingOutOfScope(event)) {
-      this.#hostContainsFocus();
-    }
     const path = event.composedPath() as T[];
     let targetIndex = -1;
     path.find(el => {
       targetIndex = this.elements.indexOf(el);
       return targetIndex !== -1;
     });
+
+    if (targetIndex === -1) {
+      // Elements may change when the range or page updates, so check again.
+      this.#cachedElements = undefined;
+      path.find(el => {
+        targetIndex = this.elements.indexOf(el);
+        return targetIndex !== -1;
+      });
+    }
+
     this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
+
+    if (!this.#isFocusMovingOutOfScope(event) && targetIndex > -1) {
+      this.#hostContainsFocus();
+    }
   };
 
   #onFocusout = (event: FocusEvent): void => {
@@ -419,7 +438,10 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
               const searchColumn = searchIndex % this.#directionLength();
 
               // Check if we're still in the same column
-              if (searchColumn === targetColumn && this.isFocusableElement(this.elements[searchIndex])) {
+              if (
+                searchColumn === targetColumn &&
+                this.isFocusableElement(this.elements[searchIndex])
+              ) {
                 this.focusToElement(searchIndex);
                 found = true;
                 break;
@@ -509,7 +531,9 @@ export class NewFocusGroupController<T extends HTMLElement> implements ReactiveC
   // Tabindex management
   #manageTabindexes(): void {
     if (this.focused) {
-      this.#updateTabindexes(() => ({ tabIndex: -1 }));
+      const activeElement = this.elements[this.currentIndex] ?? this.focusInElement;
+
+      this.#updateTabindexes(el => ({ tabIndex: el === activeElement ? 0 : -1 }));
     } else {
       // Find the first focusable element for tabindex=0
       let focusableElement = this.focusInElement;

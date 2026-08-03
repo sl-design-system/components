@@ -3,7 +3,7 @@ import chaiDatetime from 'chai-datetime';
 import chaiDom from 'chai-dom';
 import sinonChai from 'sinon-chai';
 import { chai } from 'vitest';
-import { commands } from 'vitest/browser'
+import { commands } from 'vitest/browser';
 
 chai.use(chaiDatetime);
 chai.use(chaiDom);

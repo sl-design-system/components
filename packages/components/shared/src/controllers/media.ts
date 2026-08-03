@@ -16,8 +16,8 @@ export type MediaControllerConfig = {
 };
 
 /**
- * A controller that listens for media query changes and updates the host element
- * when the media query matches or no longer matches.
+ * A controller that listens for media query changes and updates the host element when the media
+ * query matches or no longer matches.
  */
 export class MediaController implements ReactiveController {
   #config?: MediaControllerConfig;

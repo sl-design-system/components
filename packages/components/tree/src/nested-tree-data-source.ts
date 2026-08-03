@@ -18,9 +18,7 @@ export interface NestedTreeDataSourceOptions<T> extends NestedTreeDataSourceMapp
   multiple?: boolean;
 }
 
-/**
- * A tree model that represents a nested list of nodes.
- */
+/** A tree model that represents a nested list of nodes. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
   /** The mapping from the source model to the tree model. */
@@ -76,6 +74,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       getLabel: options.getLabel ?? (() => ''),
       isExpandable: options.isExpandable ?? (() => false),
       isExpanded: options.isExpanded,
+      isSelectable: options.isSelectable,
       isSelected: options.isSelected
     };
 
@@ -96,7 +95,11 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
     this.dispatchEvent(new CustomEvent('sl-update'));
   }
 
-  #mapToTreeNode(item: T, parent?: TreeDataSourceNode<T>, lastNodeInLevel?: boolean): TreeDataSourceNode<T> {
+  #mapToTreeNode(
+    item: T,
+    parent?: TreeDataSourceNode<T>,
+    lastNodeInLevel?: boolean
+  ): TreeDataSourceNode<T> {
     const {
       getAriaDescription,
       getChildren,
@@ -106,10 +109,13 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       getLabel,
       isExpandable,
       isExpanded,
+      isSelectable,
       isSelected
     } = this.#mapping;
 
-    const expandable = isExpandable(item);
+    const expandable = isExpandable(item),
+      // Nodes are selectable by default; only an explicit `isSelectable` returning false opts out.
+      selectable = isSelectable?.(item) ?? true;
 
     const treeNode: TreeDataSourceNode<T> = {
       id: getId(item),
@@ -124,7 +130,8 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       lastNodeInLevel,
       level: parent ? parent.level + 1 : 0,
       parent,
-      selected: isSelected?.(item),
+      selectable,
+      selected: selectable ? isSelected?.(item) : false,
       type: 'node'
     };
 

@@ -6,8 +6,5 @@ export default {
   exclude: ['./packages/components/**/*.{d,spec,stories}.ts'],
   litelement: true,
   packagejson: false,
-  plugins: [
-    eventDecoratorPlugin(),
-    angularWrapperPlugin({ outDir: 'packages/angular/src/' })
-  ]
+  plugins: [eventDecoratorPlugin(), angularWrapperPlugin({ outDir: 'packages/angular/src/' })]
 };

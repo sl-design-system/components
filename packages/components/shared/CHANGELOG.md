@@ -1,5 +1,25 @@
 # @sl-design-system/shared
 
+## 0.12.3
+
+### Patch Changes
+
+- [#3381](https://github.com/sl-design-system/components/pull/3381) [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1) - Improved focus behavior in `NewFocusGroupController`:
+  - The focused item now keeps `tabindex="0"` (instead of all elements being forced to `-1`), which makes Tab behavior consistent before and after arrow keys navigation.
+  - Focus handling on `focusin` is now more reliable when elements are re-rendered.
+
+## 0.12.2
+
+### Patch Changes
+
+- [#3383](https://github.com/sl-design-system/components/pull/3383) [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba) - Expose `aria-disabled="true"` on disabled menu items so assistive technologies announce them as unavailable. Toolbar overflow menu items now preserve disabled semantics with `aria-disabled` instead of rendering hard-disabled menu items, keeping them reachable while preventing activation. Forwarded `ariaDisabled` now clears correctly through nested proxy targets
+
+## 0.12.1
+
+### Patch Changes
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
 ## 0.12.0
 
 ### Minor Changes

@@ -83,7 +83,10 @@ describe('sl-form-validation-errors', () => {
 
     it('should have a danger variant when invalid', () => {
       expect(el.errors.variant).to.equal('danger');
-      expect(el.errors.renderRoot.querySelector('sl-inline-message')).to.have.attribute('variant', 'danger');
+      expect(el.errors.renderRoot.querySelector('sl-inline-message')).to.have.attribute(
+        'variant',
+        'danger'
+      );
     });
 
     it('should indicate that there are fields with errors', () => {
@@ -96,7 +99,10 @@ describe('sl-form-validation-errors', () => {
       const links = Array.from(el.errors.renderRoot.querySelectorAll<HTMLAnchorElement>('li a'));
 
       expect(links).to.have.length(2);
-      expect(links.map(l => l.hash)).to.deep.equal(['#sl-form-field-control-6', '#sl-form-field-control-7']);
+      expect(links.map(l => l.hash)).to.deep.equal([
+        '#sl-form-field-control-6',
+        '#sl-form-field-control-7'
+      ]);
       expect(links.map(l => l.textContent?.trim())).to.deep.equal(['Foo', 'Bar']);
     });
 
@@ -163,7 +169,10 @@ describe('sl-form-validation-errors', () => {
 
     it('should have a success variant when invalid', () => {
       expect(el.errors.variant).to.equal('success');
-      expect(el.errors.renderRoot.querySelector('sl-inline-message')).to.have.attribute('variant', 'success');
+      expect(el.errors.renderRoot.querySelector('sl-inline-message')).to.have.attribute(
+        'variant',
+        'success'
+      );
     });
 
     it('should indicate that all fields with valid', () => {

@@ -36,13 +36,30 @@ describe('sl-column', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col =>
+        col.textContent?.trim()
+      );
 
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });
 
+    it('should visually hide the header text when set', async () => {
+      el.querySelector('sl-grid-column')!.hideHeaderText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const span = el.renderRoot.querySelector('th span');
+
+      expect(span).to.have.trimmed.text('First name');
+      expect(span).to.have.class('visually-hidden');
+    });
+
     it('should have the right justify-content value', () => {
-      expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal(['start', 'start', 'end']);
+      expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal([
+        'start',
+        'start',
+        'end'
+      ]);
     });
 
     it('should have the right grow value', () => {
@@ -103,9 +120,51 @@ describe('sl-column', () => {
     });
 
     it('should render "No path set" for the column that has no path', () => {
-      const cells = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+      const cells = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el =>
+        el.textContent?.trim()
+      );
 
       expect(cells).to.deep.equal(['Foo', '', 'No path set']);
+    });
+  });
+
+  describe('form control label', () => {
+    it('should fall back to the path label when the header is empty', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column header=" " path="address.zip"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Zip');
+    });
+
+    it('should use the form control column label when provided', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column
+            form-control-column-label="Postal code"
+            path="address.zip"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Postal code');
+    });
+
+    it('should add trimmed row context when provided', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="status" .formControlLabel=${() => ' John Doe '}></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ status: 'Available' })).to.equal('Status John Doe');
     });
   });
 
@@ -125,7 +184,9 @@ describe('sl-column', () => {
     });
 
     it('should render nothing', () => {
-      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el =>
+        el.textContent?.trim()
+      );
 
       expect(data).to.deep.equal(['Bar', '']);
     });
@@ -134,7 +195,9 @@ describe('sl-column', () => {
   describe('custom renderer', () => {
     beforeEach(async () => {
       const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
-        return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
+        return html`
+          <sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>
+        `;
       };
 
       el = await fixture(html`
@@ -142,8 +205,7 @@ describe('sl-column', () => {
           <sl-grid-column
             header="Person"
             .renderer=${avatarRenderer}
-            .scopedElements=${{ 'sl-avatar': Avatar }}
-          ></sl-grid-column>
+            .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
           <sl-grid-column path="age" parts="number"></sl-grid-column>
         </sl-grid>
       `);
@@ -168,7 +230,10 @@ describe('sl-column', () => {
     });
 
     it('should have the right parts, including one set on the column', () => {
-      expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal(['data', 'data number age']);
+      expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal([
+        'data',
+        'data number age'
+      ]);
     });
   });
 

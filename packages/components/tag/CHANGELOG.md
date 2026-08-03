@@ -1,5 +1,44 @@
 # @sl-design-system/tag
 
+## 0.1.14
+
+### Patch Changes
+
+- [#3214](https://github.com/sl-design-system/components/pull/3214) [`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b) - Accessibility improvements to `<sl-tag>` and `<sl-tag-list>`:
+  - The remove button now has a proper accessible label ("Remove tag 'X'") instead of being `aria-hidden`
+  - The remove button uses `aria-disabled` instead of `disabled`, keeping it keyboard-reachable when the tag is disabled
+  - Focus is delegated to the remove button via the component's `focus()` implementation; `:state(focus-visible)` tracks focus for styling
+  - `<sl-tag-list>` correctly sets `role="listitem"` on each tag
+
+- [#3474](https://github.com/sl-design-system/components/pull/3474) [`ad9eb4c`](https://github.com/sl-design-system/components/commit/ad9eb4cc09826019d53960222e47f2f86b297671) - Improved keyboard and screen reader behavior for removable tags in comboboxes and tag lists. Comboboxes no longer move fake focus from the input to selected tags with Left/Right arrow keys, while tag navigation remains available once focus is inside the tag list. The hidden tag-list navigation instructions are now `aria-hidden` while still being exposed through `aria-describedby`.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
+## 0.1.13
+
+### Patch Changes
+
+- [#3408](https://github.com/sl-design-system/components/pull/3408) [`d6f8588`](https://github.com/sl-design-system/components/commit/d6f858895428de34e4398e275c4e6246b2088882) - Fixed stacked tag lists so the generated stack counter tag has `role="listitem"`, matching the slotted tags and satisfying ARIA list semantics
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tooltip@2.0.1
+
+## 0.1.12
+
+### Patch Changes
+
+- [#3112](https://github.com/sl-design-system/components/pull/3112) [`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56) - Added a 0.5px buffer to the tag list visibility calculation to prevent layout oscillation (flickering) caused by sub-pixel rounding errors at certain zoom levels.
+
+- Updated dependencies [[`7156788`](https://github.com/sl-design-system/components/commit/71567885f818c1725916456bda135c08a8f7abef), [`53cdac2`](https://github.com/sl-design-system/components/commit/53cdac2ee98ebfe90587479a9c101c1e0d248c5b)]:
+  - @sl-design-system/tooltip@2.0.0
+
 ## 0.1.11
 
 ### Patch Changes

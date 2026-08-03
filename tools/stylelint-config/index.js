@@ -1,7 +1,7 @@
 /** @type {import('stylelint').Config} */
 export default {
   extends: ['stylelint-config-standard'],
-  plugins: ['stylelint-use-logical', 'stylelint-order', 'stylelint-prettier'],
+  plugins: ['stylelint-use-logical', 'stylelint-order'],
   rules: {
     'color-named': 'never',
     'color-no-hex': true,
@@ -14,18 +14,7 @@ export default {
       }
     ],
     'csstools/use-logical': 'always',
-    'order/properties-alphabetical-order': true,
-    'prettier/prettier': [
-      true,
-      {
-        arrowParens: 'avoid',
-        printWidth: 120,
-        singleQuote: true,
-        tabWidth: 2,
-        trailingComma: 'none',
-        endOfLine: 'auto'
-      }
-    ]
+    'order/properties-alphabetical-order': true
   },
   overrides: [
     {

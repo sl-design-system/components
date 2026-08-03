@@ -28,8 +28,8 @@ export type DataSourceSort<Model> = {
 export type DataSourceUpdateEvent<Model = any> = CustomEvent<{ dataSource: DataSource<Model> }>;
 
 /**
- * Base class for all data sources. Data sources are used to filter and sort. Data sources
- * can be used for components such as combobox, grid, listbox, paginator, tree etc.
+ * Base class for all data sources. Data sources are used to filter and sort. Data sources can be
+ * used for components such as combobox, grid, listbox, paginator, tree etc.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<Model = any, ViewModel = Model> extends EventTarget {
@@ -49,18 +49,22 @@ export abstract class DataSource<Model = any, ViewModel = Model> extends EventTa
   abstract update(): void;
 
   /**
-   * Adds a filter to this data source. Filters can be used to filter the data
-   * in the data source. Filters are applied in the order they are added.
+   * Adds a filter to this data source. Filters can be used to filter the data in the data source.
+   * Filters are applied in the order they are added.
    *
    * @param id - Unique identifier for the filter
    * @param by - Either a property path (string) or a custom filter function
    * @param value - The value to filter by, if applicable
    *
-   * When a property path is provided, items will be filtered by that property.
-   * When a filter function is provided, it will be used to determine if an item
-   * should be included in the filtered results.
+   *   When a property path is provided, items will be filtered by that property. When a filter
+   *   function is provided, it will be used to determine if an item should be included in the
+   *   filtered results.
    */
-  abstract addFilter(id: string, by: PathKeys<Model> | DataSourceFilterFunction<Model>, value?: unknown): void;
+  abstract addFilter(
+    id: string,
+    by: PathKeys<Model> | DataSourceFilterFunction<Model>,
+    value?: unknown
+  ): void;
 
   /**
    * Removes a filter from this data source.
@@ -75,15 +79,18 @@ export abstract class DataSource<Model = any, ViewModel = Model> extends EventTa
    * @param by - Either a property path (string) or a custom sort function
    * @param direction - Sort direction, either 'asc' (ascending) or 'desc' (descending)
    *
-   * When a property path is provided, items will be sorted by that property.
-   * When a sort function is provided, it will be used to compare items during sorting.
-   * Setting a sort configuration will replace any existing sort configuration.
+   *   When a property path is provided, items will be sorted by that property. When a sort function
+   *   is provided, it will be used to compare items during sorting. Setting a sort configuration
+   *   will replace any existing sort configuration.
    */
-  abstract setSort(by: PathKeys<Model> | DataSourceSortFunction<Model>, direction: DataSourceSortDirection): void;
+  abstract setSort(
+    by: PathKeys<Model> | DataSourceSortFunction<Model>,
+    direction: DataSourceSortDirection
+  ): void;
 
   /**
-   * Removes the current sort configuration. This will clear any existing sort
-   * settings, allowing for unsorted data.
+   * Removes the current sort configuration. This will clear any existing sort settings, allowing
+   * for unsorted data.
    */
   abstract removeSort(): void;
 }

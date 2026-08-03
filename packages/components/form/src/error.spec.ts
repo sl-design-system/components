@@ -20,6 +20,12 @@ describe('sl-error', () => {
       expect(el.firstElementChild).to.be.an.instanceof(HTMLSlotElement);
       expect(el.firstElementChild).to.have.attribute('name', 'error-text');
     });
+
+    it('should render the triangle-exclamation-solid icon', () => {
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+    });
   });
 
   describe('in a form field', () => {

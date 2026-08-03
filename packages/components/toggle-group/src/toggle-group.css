@@ -5,8 +5,9 @@
   --_border-width: var(--sl-size-borderWidth-subtle);
   --_toggle-group-border: var(--_group-border-width);
   --_separator-width: var(--sl-border-width-button-outline);
-  --_pill-compensation: 0px border: var(--_group-border-width) solid var(--_border-color);
+  --_pill-compensation: 0px;
 
+  border: var(--_group-border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
   display: inline-flex;
   gap: var(--_border-width);
@@ -38,7 +39,9 @@
 ::slotted(sl-toggle-button) {
   --_border-width: 0px;
   --_button-border-radius: 0;
-  --_focus-outline-offset: calc(var(--sl-size-outlineOffset-default) + var(--sl-size-borderWidth-button-outline));
+  --_focus-outline-offset: calc(
+    var(--sl-size-outlineOffset-default) + var(--sl-size-borderWidth-button-outline)
+  );
 
   position: relative;
 
@@ -53,7 +56,7 @@
 }
 
 ::slotted(sl-toggle-button:focus-visible) {
-  // make sure the focus ring of the current button is shown above the next button.
+  /* Make sure the focus ring of the current button is shown above the next button. */
   z-index: 1;
 }
 

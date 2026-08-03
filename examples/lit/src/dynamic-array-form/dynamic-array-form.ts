@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Form, FormController, FormField } from '@sl-design-system/form';
@@ -8,7 +11,7 @@ import { state } from 'lit/decorators.js';
 
 export class DynamicArrayForm extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
@@ -31,7 +34,8 @@ export class DynamicArrayForm extends ScopedElementsMixin(LitElement) {
         </sl-button-bar>
         <sl-form-field label="Items">
           ${this.items.map(
-            (item, index) => html`<sl-text-field .name=${`items[${index}]`} .value=${item}></sl-text-field>`
+            (item, index) =>
+              html`<sl-text-field .name=${`items[${index}]`} .value=${item}></sl-text-field>`
           )}
         </sl-form-field>
       </sl-form>

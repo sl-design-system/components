@@ -34,7 +34,10 @@ export class CePassthrough<T extends HTMLElement> implements OnInit, OnChanges {
       };
 
       for (const eventName of Object.keys(eventNameMap)) {
-        element.addEventListener(eventName as keyof HTMLElementEventMap, reEmitEvent(eventNameMap[eventName]));
+        element.addEventListener(
+          eventName as keyof HTMLElementEventMap,
+          reEmitEvent(eventNameMap[eventName])
+        );
       }
     });
   }

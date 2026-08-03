@@ -41,9 +41,9 @@ dialog {
   dialog {
     border: 0;
     border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
-    max-inline-size: 100dvw; // Override Safari's default max-width on <dialog>
+    max-inline-size: 100dvw; /* Override Safari's default max-width on <dialog> */
 
-    // Exit animation
+    /* Exit animation */
     &:not(:modal),
     &.closing {
       translate: 0 100%;
@@ -57,7 +57,7 @@ dialog {
       }
     }
 
-    // Enter animation
+    /* Enter animation */
     &[open] {
       @starting-style {
         translate: 0 100%;
@@ -80,8 +80,10 @@ dialog {
       }
     }
 
-    // Use a slower fade-in for the backdrop, but not when closing so the
-    // backdrop fade-out finishes at the same time as the dialog transition.
+    /**
+     * Use a slower fade-in for the backdrop, but not when closing so the
+     * backdrop fade-out finishes at the same time as the dialog transition.
+     */
     dialog[open]:not(.closing)::backdrop {
       transition-duration: 0.5s;
     }
@@ -98,7 +100,7 @@ dialog {
       background: var(--sl-color-blanket-plain);
     }
 
-    // Exit animation
+    /* Exit animation */
     &:not(:modal),
     &.closing {
       opacity: 0;
@@ -113,7 +115,7 @@ dialog {
       }
     }
 
-    // Enter animation
+    /* Enter animation */
     &[open] {
       @starting-style {
         scale: 1.1;
@@ -129,8 +131,10 @@ dialog {
       transition-property: display, opacity, overlay, scale;
     }
 
-    // Use a slower fade-in for the backdrop, but not when closing so the
-    // backdrop fade-out finishes at the same time as the dialog transition.
+    /**
+     * Use a slower fade-in for the backdrop, but not when closing so the
+     * backdrop fade-out finishes at the same time as the dialog transition.
+     */
     dialog[open]:not(.closing)::backdrop {
       transition-duration: 0.5s;
     }
@@ -169,13 +173,14 @@ dialog {
   }
 }
 
-// Keep * selector instead of just h1 for backward compatibility
+/* Keep * selector instead of just h1 for backward compatibility */
 slot[name='title'] h1,
 slot[name='title']::slotted(*) {
+  /* Only applies on FF where text-box is not yet supported */
   color: var(--sl-color-foreground-bold);
   font-size: calc((24 / 14) * 1em);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  line-height: 1em; // Only applies on FF where text-box is not yet supported
+  line-height: 1em;
   margin: 0;
   padding-inline-end: calc(var(--sl-size-450) / 2);
   text-box: trim-both cap alphabetic;

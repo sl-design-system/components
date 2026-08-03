@@ -10,7 +10,7 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-combobox multiple style="inline-size: min(100%, 500px)" value='["0","1"]'>
+<sl-combobox aria-label="Subjects" multiple style="inline-size: min(100%, 500px)" value='["0","1"]'>
   <sl-listbox>
     <sl-option value="0">Mathematics</sl-option>
     <sl-option value="1">Geography</sl-option>
@@ -24,7 +24,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-combobox multiple value='["0","1"]'>
+  <sl-combobox aria-label="Subjects" multiple value='["0","1"]'>
     <sl-listbox>
       <sl-option value="0">Mathematics</sl-option>
       <sl-option value="1">Geography</sl-option>
@@ -63,6 +63,22 @@ For lists with fewer than 5 options and when your interface has plenty of space,
 
 ### Efficient Selection:
 When the options range from 5 to 15 items or when screen space is limited, using a [Select](/categories/components/select/usage) component is ideal. It presents all available choices in a concise, accessible format, keeping your UI clean and straightforward. For lists exceeding 15 options, a combobox becomes beneficial by offering search and filtering capabilities to help users navigate a bigger set of choices.
+
+</section>
+
+<section>
+
+## Layout Guidelines
+To maintain optimal readability and visual hierarchy, size a Combobox according to the expected amount of information.
+
+### Optimal Width
+Aim for an input width that reflects the expected content length. Extremely wide fields can break the user's scanning rhythm.
+
+### Maximum Width
+We recommend a max-width of 500px for the Combobox component. This makes group labels, selected groups, and tags easier to scan and prevents the input field from becoming disproportionately wide.
+
+### Avoid Full-Width
+While the component is responsive, avoid forcing it to full-width in wide containers. If a full-width container is unavoidable, apply the max-width constraint to keep the input focused.
 
 </section>
 

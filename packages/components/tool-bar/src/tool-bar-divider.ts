@@ -13,8 +13,8 @@ export class ToolBarDivider extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /**
-   * Set this to true to invert the color of the divider.
-   * This should be used when the tool-bar is displayed on a dark background.
+   * Set this to true to invert the color of the divider. This should be used when the tool-bar is
+   * displayed on a dark background.
    */
   @property({ type: Boolean, reflect: true }) inverted?: boolean;
 

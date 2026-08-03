@@ -91,8 +91,7 @@ export default {
             placeholder=${ifDefined(placeholder)}
             size=${ifDefined(size)}
             step=${ifDefined(step)}
-            step-buttons=${ifDefined(stepButtons)}
-          ></sl-number-field>
+            step-buttons=${ifDefined(stepButtons)}></sl-number-field>
         </sl-form-field>
         ${reportValidity
           ? html`
@@ -122,7 +121,8 @@ export const Disabled: Story = {
 export const FormatCurrency: Story = {
   args: {
     formatOptions: { style: 'currency', currency: 'EUR' },
-    hint: 'The number is formatted as currency.',
+    hint: 'The number is formatted as EUR currency based on the current locale (e.g., "€9.90" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
+    reportValidity: true,
     step: 0.01,
     valueAsNumber: 9.9
   }
@@ -131,7 +131,8 @@ export const FormatCurrency: Story = {
 export const FormatPercent: Story = {
   args: {
     formatOptions: { style: 'percent', maximumFractionDigits: 2 },
-    hint: 'The number is formatted as a percentage.',
+    hint: 'The number is formatted as a percentage with a format based on the current locale (e.g., "1,000.25%" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
+    reportValidity: true,
     step: 0.01,
     valueAsNumber: 10
   }
@@ -140,15 +141,16 @@ export const FormatPercent: Story = {
 export const FormatUnit: Story = {
   args: {
     formatOptions: { style: 'unit', unit: 'meter', unitDisplay: 'long' },
-    hint: 'The number is formatted as a unit.',
+    hint: 'The number is formatted as meters with long unit display based on the current locale (e.g., "100 meters" in "en"). Change the locale to see the format update. Type an invalid value to see an error message when clicking the button.',
     inputSize: 10,
+    reportValidity: true,
     valueAsNumber: 100
   }
 };
 
 export const MinMax: Story = {
   args: {
-    hint: 'The number must be between 0 and 10.',
+    hint: 'The number must be between 0 and 10. The current value ("50") is outside this range. Click the button to see an error message.',
     max: 10,
     min: 0,
     reportValidity: true,
@@ -166,10 +168,42 @@ export const Readonly: Story = {
 
 export const Required: Story = {
   args: {
-    hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    hint: 'This field is required and has a maximum value of 10. Leave it empty, type an invalid value or exceed the max to see an error message when clicking the button.',
     max: 10,
     reportValidity: true,
     required: true
+  }
+};
+
+export const CustomValidity: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    const onValidate = (event: Event & { target: NumberField }): void => {
+      const value = event.target.valueAsNumber;
+
+      let message = '';
+      if (value !== undefined && value !== 42) {
+        message = 'Enter 42';
+      }
+
+      event.target.setCustomValidity(message);
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field
+          hint="This field uses built-in required validation and a custom validation that only accepts the value '42'. Enter any other number to see the custom error, then click Report validity to trigger and display the validation message. Leave the field empty to see the required validation message after clicking 'Report validity' button."
+          label="Number">
+          <sl-number-field @sl-validate=${onValidate} required></sl-number-field>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 };
 
@@ -204,74 +238,95 @@ export const All: Story = {
 
       <span>Empty</span>
       <sl-number-field aria-label="Number field" placeholder="Placeholder"></sl-number-field>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" size="lg"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        size="lg"></sl-number-field>
 
       <span>Value</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" value="100"></sl-number-field>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" size="lg" value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        size="lg"
+        value="100"></sl-number-field>
 
       <span>Disabled</span>
-      <sl-number-field aria-label="Number field" disabled placeholder="Placeholder"></sl-number-field>
-      <sl-number-field aria-label="Number field" disabled placeholder="Placeholder" size="lg"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        disabled
+        placeholder="Placeholder"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        disabled
+        placeholder="Placeholder"
+        size="lg"></sl-number-field>
 
       <span>Disabled with value</span>
-      <sl-number-field aria-label="Number field" disabled placeholder="Placeholder" value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        disabled
+        placeholder="Placeholder"
+        value="100"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
         size="lg"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
 
       <span>Readonly</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" readonly value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        readonly
+        value="100"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
         readonly
         size="lg"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
 
       <span>Empty, step buttons: end</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" step-buttons="end"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        step-buttons="end"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
         size="lg"
-        step-buttons="end"
-      ></sl-number-field>
+        step-buttons="end"></sl-number-field>
 
       <span>Value, step buttons: end</span>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
         step-buttons="end"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
         size="lg"
         step-buttons="end"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
 
       <span>Disabled, step buttons: end</span>
       <sl-number-field
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
-        step-buttons="end"
-      ></sl-number-field>
+        step-buttons="end"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
         size="lg"
-        step-buttons="end"
-      ></sl-number-field>
+        step-buttons="end"></sl-number-field>
 
       <span>Disabled with value, step buttons: end</span>
       <sl-number-field
@@ -279,55 +334,51 @@ export const All: Story = {
         disabled
         placeholder="Placeholder"
         step-buttons="end"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
         size="lg"
         step-buttons="end"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
 
       <span>Empty, step buttons: edges</span>
-      <sl-number-field aria-label="Number field" placeholder="Placeholder" step-buttons="edges"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        step-buttons="edges"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
         size="lg"
-        step-buttons="edges"
-      ></sl-number-field>
+        step-buttons="edges"></sl-number-field>
 
       <span>Value, step buttons: edges</span>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
         step-buttons="edges"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         placeholder="Placeholder"
         size="lg"
         step-buttons="edges"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
 
       <span>Disabled, step buttons: edges</span>
       <sl-number-field
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
-        step-buttons="edges"
-      ></sl-number-field>
+        step-buttons="edges"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
         size="lg"
-        step-buttons="edges"
-      ></sl-number-field>
+        step-buttons="edges"></sl-number-field>
 
       <span>Disabled with value, step buttons: edges</span>
       <sl-number-field
@@ -335,16 +386,14 @@ export const All: Story = {
         disabled
         placeholder="Placeholder"
         step-buttons="edges"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
       <sl-number-field
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
         size="lg"
         step-buttons="edges"
-        value="100"
-      ></sl-number-field>
+        value="100"></sl-number-field>
     </div>
   `
 };

@@ -1,4 +1,7 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Form, FormController, FormField } from '@sl-design-system/form';
@@ -17,7 +20,7 @@ type Profile = {
 
 export class NestedForm extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'example-child-form': ChildForm,
       'sl-button': Button,
@@ -49,6 +52,7 @@ export class NestedForm extends ScopedElementsMixin(LitElement) {
         </sl-form-field>
 
         <sl-button-bar align="end">
+          <sl-button @click=${this.#onLoadProfile}>Load profile</sl-button>
           <sl-button @click=${this.#onClick}>Submit</sl-button>
         </sl-button-bar>
       </sl-form>
@@ -58,5 +62,20 @@ export class NestedForm extends ScopedElementsMixin(LitElement) {
 
   #onClick() {
     this.#form.reportValidity();
+  }
+
+  #onLoadProfile(): void {
+    this.#form.value = {
+      user: {
+        firstName: 'Captain',
+        lastName: 'Debug',
+        address: {
+          postalCode: '404OK',
+          houseNumber: '42',
+          street: 'Breakpoint Boulevard',
+          city: 'Stacktrace City'
+        }
+      }
+    };
   }
 }

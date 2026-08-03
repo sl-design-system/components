@@ -252,7 +252,9 @@ describe('sl-format-date', () => {
     });
 
     it('should treat empty date-style and time-style attributes as undefined when formatting', async () => {
-      el = await fixture(html`<sl-format-date date-style time-style .date=${date}></sl-format-date>`);
+      el = await fixture(
+        html`<sl-format-date date-style time-style .date=${date}></sl-format-date>`
+      );
 
       expect(el.dateStyle).to.equal('');
       expect(el.timeStyle).to.equal('');

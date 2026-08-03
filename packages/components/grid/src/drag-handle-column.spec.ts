@@ -19,8 +19,7 @@ describe('sl-grid-drag-handle-column', () => {
           .items=${[
             { id: 1, name: 'Item 1' },
             { id: 2, name: 'Item 2' }
-          ]}
-        >
+          ]}>
           <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
           <sl-grid-column path="name"></sl-grid-column>
         </sl-grid>
@@ -43,12 +42,15 @@ describe('sl-grid-drag-handle-column', () => {
       expect(el.draggableRows).to.equal('between');
     });
 
-    it('should render an empty header', () => {
+    it('should render a header with a visually hidden label', () => {
       const header = el.renderRoot.querySelector('th[part*="drag-handle"]');
 
       expect(header).to.exist;
-      expect(header).to.have.trimmed.text('');
       expect(header).to.have.attribute('role', 'columnheader');
+
+      const span = header!.querySelector('span.visually-hidden');
+      expect(span).to.exist;
+      expect(span).to.have.trimmed.text('Reorder');
     });
 
     it('should render draggable cells with grip icon', () => {
@@ -74,8 +76,7 @@ describe('sl-grid-drag-handle-column', () => {
             { id: 1, name: 'Draggable Item', draggable: true },
             { id: 2, name: 'Fixed Item', draggable: false },
             { id: 3, name: 'No draggable property' }
-          ]}
-        >
+          ]}>
           <sl-grid-drag-handle-column path="draggable"></sl-grid-drag-handle-column>
           <sl-grid-column path="name"></sl-grid-column>
         </sl-grid>
@@ -126,8 +127,7 @@ describe('sl-grid-drag-handle-column', () => {
           .items=${[
             { id: 1, name: 'Item 1' },
             { id: 2, name: 'Item 2' }
-          ]}
-        >
+          ]}>
           <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
           <sl-grid-column path="name"></sl-grid-column>
         </sl-grid>
@@ -168,8 +168,7 @@ describe('sl-grid-drag-handle-column', () => {
           .items=${[
             { id: 1, name: 'Draggable Item', draggable: true },
             { id: 2, name: 'Fixed Item', draggable: false }
-          ]}
-        >
+          ]}>
           <sl-grid-drag-handle-column path="draggable"></sl-grid-drag-handle-column>
           <sl-grid-column path="name"></sl-grid-column>
         </sl-grid>

@@ -1,7 +1,16 @@
 import { localized, msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { InlineMessage } from '@sl-design-system/inline-message';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormController } from './form-controller.js';
 import styles from './form-validation-errors.css' with { type: 'css' };
@@ -15,7 +24,7 @@ declare global {
 @localized()
 export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-inline-message': InlineMessage
     };
@@ -25,7 +34,11 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   #onUpdate = () => {
-    this.validity = this.controller?.showValidity ? (this.controller?.invalid ? 'invalid' : 'valid') : undefined;
+    this.validity = this.controller?.showValidity
+      ? this.controller?.invalid
+        ? 'invalid'
+        : 'valid'
+      : undefined;
 
     if (this.validity === 'invalid') {
       this.invalidControls =
@@ -91,17 +104,20 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <sl-inline-message .variant=${this.variant}>
-        ${this.variant === 'danger'
-          ? html`
-              ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
-              <ul>
-                ${Object.entries(this.invalidControls).map(
-                  ([label, control]) => html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
-                )}
-              </ul>
-              .
-            `
-          : msg('All fields are valid.', { id: 'sl.form.allFieldsValid' })}
+        ${
+          this.variant === 'danger'
+            ? html`
+                ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
+                <ul>
+                  ${Object.entries(this.invalidControls).map(
+                    ([label, control]) =>
+                      html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
+                  )}
+                </ul>
+                .
+              `
+            : msg('All fields are valid.', { id: 'sl.form.allFieldsValid' })
+        }
       </sl-inline-message>
     `;
   }

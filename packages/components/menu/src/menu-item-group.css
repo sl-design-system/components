@@ -14,5 +14,7 @@
 slot[name='header'] .heading,
 slot[name='header']::slotted(*) {
   color: var(--sl-color-foreground-subtlest);
+  font-size: calc((12 / 14) * 1em);
+  line-height: calc((16 / 12) * 1em);
   padding: var(--sl-space-new-md) 0;
 }

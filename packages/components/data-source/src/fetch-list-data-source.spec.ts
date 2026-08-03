@@ -1,11 +1,29 @@
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it } from 'vitest';
-import { FetchListDataSource, type FetchListDataSourceCallbackOptions } from './fetch-list-data-source.js';
+import { beforeEach, describe, expect, expectTypeOf, it } from 'vitest';
+import { type DataSourceFilter } from './data-source.js';
+import {
+  FetchListDataSource,
+  type FetchListDataSourceCallback,
+  type FetchListDataSourceCallbackOptions
+} from './fetch-list-data-source.js';
 import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
+
+  it('should provide typed filter options to the fetchPage callback', () => {
+    const fetchPage: FetchListDataSourceCallback<Person> = options => {
+      expectTypeOf(options.filters).toEqualTypeOf<Array<DataSourceFilter<Person>> | undefined>();
+      expectTypeOf(options.filters?.[0]?.by).toEqualTypeOf<
+        DataSourceFilter<Person>['by'] | undefined
+      >();
+
+      return Promise.resolve({ items: [] });
+    };
+
+    expectTypeOf(fetchPage).toEqualTypeOf<FetchListDataSourceCallback<Person>>();
+  });
 
   describe('defaults', () => {
     beforeEach(() => {
@@ -190,7 +208,9 @@ describe('FetchListDataSource', () => {
         ds.items.at(0);
 
         expect(ds.fetchPage).to.have.been.calledOnce;
-        expect(ds.fetchPage).to.have.been.calledWithMatch({ sort: { by: 'firstName', direction: 'desc' } });
+        expect(ds.fetchPage).to.have.been.calledWithMatch({
+          sort: { by: 'firstName', direction: 'desc' }
+        });
       });
 
       it('should emit an update event after fetching a page', async () => {

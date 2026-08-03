@@ -1,10 +1,30 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, ObserveAttributesMixin, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { type Infotip } from '@sl-design-system/infotip';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  event
+} from '@sl-design-system/shared';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent
+} from '@sl-design-system/shared/events.js';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html,
+  nothing
+} from 'lit';
+import { property, state } from 'lit/decorators.js';
 import styles from './switch.css' with { type: 'css' };
 
 declare global {
@@ -21,30 +41,33 @@ let nextUniqueId = 0;
  * A toggle switch.
  *
  * ```html
- *   <sl-switch>Foo</sl-switch>
+ * <sl-switch>Foo</sl-switch>
  * ```
  *
  * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
+ * @slot infotip - The slot for the infotip element
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-disabled',
-  'aria-label',
-  'aria-labelledby'
-]) {
+export class Switch<T = any> extends ObserveAttributesMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement)),
+  ['aria-disabled', 'aria-label', 'aria-labelledby']
+) {
   /** @internal */
   static formAssociated = true;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -84,19 +107,19 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** Custom icon in "on" state. */
   @property({ reflect: true, attribute: 'icon-on' }) iconOn?: string;
 
-  /** Whether the toggle should be shown *after* the text. */
+  /** Whether the toggle should be shown _after_ the text. */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
+
+  @state() infotip?: Infotip;
 
   /**
    * The size of the switch.
+   *
    * @default md
    */
   @property({ reflect: true }) size?: SwitchSize;
 
-  /**
-   * The value of the switch when the switch is checked.
-   * See the formValue property for easy access.
-   */
+  /** The value of the switch when the switch is checked. See the formValue property for easy access. */
   @property() override value?: T;
 
   /** The input element in the light DOM. */
@@ -114,7 +137,9 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     super.connectedCallback();
 
     if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input =
+        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
+        document.createElement('input');
       this.input.slot = 'input';
       this.input.type = 'checkbox';
       this.input.role = 'switch';
@@ -141,12 +166,10 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#onLabelSlotChange();
   }
 
-  /** @ignore Stores the initial state of the switch */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
-  /** @ignore Resets the switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.formValue);
@@ -155,6 +178,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    this.#onInfotipSlotChange();
     this.updateValidity();
   }
 
@@ -183,6 +207,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     return html`
       <slot></slot>
       <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
       <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
       <div part="toggle">
         <div part="track">
@@ -203,7 +228,7 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.disabled || (this.infotip && event.composedPath().includes(this.infotip))) {
       return;
     }
 
@@ -288,14 +313,45 @@ export class Switch<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
             .join(' ')
         );
       }
+
+      if (this.infotip && !this.infotip.describes) {
+        this.infotip.describes = nodes
+          .map(node => node.textContent?.trim() || '')
+          .join(' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
     });
+  }
+
+  #onInfotipSlotChange(): void {
+    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="infotip"]'),
+      assignedElements = slot?.assignedElements({ flatten: true }) || [];
+
+    this.infotip =
+      assignedElements.find(
+        (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
+      ) || undefined;
+
+    if (this.infotip) {
+      this.infotip.setAttribute('size', 'sm');
+
+      if (!this.infotip.describes) {
+        // Ensure label is synthesized before reading it
+        this.#onLabelSlotChange();
+        this.infotip.describes = this.#label?.textContent?.replace(/\s+/g, ' ').trim() || '';
+      }
+    }
   }
 
   #syncInput(input: HTMLInputElement): void {
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-switch-${nextUniqueId++}`;
-    /** input type checkbox with role switch:  https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/ */
+    /**
+     * Input type checkbox with role switch:
+     * https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/
+     */
     input.role = 'switch';
 
     input.checked = !!this.checked;

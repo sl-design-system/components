@@ -11,7 +11,7 @@ eleventyNavigation:
 <sl-form-field>
   <sl-label>
     Username
-    <sl-infotip slot="infotip">This field requires a unique identifier used for account login.</sl-infotip>
+    <sl-infotip slot="infotip" size="sm">This field requires a unique identifier used for account login.</sl-infotip>
   </sl-label>
   <sl-text-field placeholder="Username"></sl-text-field>
 </sl-form-field>
@@ -24,7 +24,7 @@ eleventyNavigation:
 <sl-form-field>
   <sl-label>
     Username
-    <sl-infotip slot="infotip">This field requires a unique identifier used for account login.</sl-infotip>
+    <sl-infotip slot="infotip" size="sm">This field requires a unique identifier used for account login.</sl-infotip>
   </sl-label>
   <sl-text-field placeholder="Username"></sl-text-field>
 </sl-form-field>

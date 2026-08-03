@@ -1,4 +1,5 @@
 import { faStrawberry } from '@fortawesome/pro-regular-svg-icons';
+import { type ButtonSize } from '@sl-design-system/button';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
@@ -7,17 +8,24 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../register.js';
 
-type Props = { content: string };
+type Props = { content: string; size: ButtonSize };
 type Story = StoryObj<Props>;
 
 Icon.register(faStrawberry);
 
 export default {
-  title: 'Utilities/Infotip',
+  title: 'Overlay/Infotip',
   args: {
-    content: 'This field requires a unique identifier used for account login.'
+    content: 'This field requires a unique identifier used for account login.',
+    size: 'md'
   },
-  render: ({ content }) => html`<sl-infotip>${content}</sl-infotip>`
+  argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
+    }
+  },
+  render: ({ content, size }) => html`<sl-infotip size=${size}>${content}</sl-infotip>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
@@ -26,8 +34,8 @@ export const CustomIcon: Story = {
   args: {
     content: 'Strawberries are good for you.'
   },
-  render: ({ content }) => html`
-    <sl-infotip>
+  render: ({ content, size }) => html`
+    <sl-infotip size=${size}>
       <sl-icon name="far-strawberry" slot="icon"></sl-icon>
       ${content}
     </sl-infotip>
@@ -35,8 +43,8 @@ export const CustomIcon: Story = {
 };
 
 export const RichContent: Story = {
-  render: () => html`
-    <sl-infotip>
+  render: ({ size }) => html`
+    <sl-infotip size=${size}>
       <strong>Password requirements</strong>
       <ul style="margin: 0.25rem 0 0; padding-inline-start: 1.25rem;">
         <li>At least 8 characters</li>
@@ -48,11 +56,11 @@ export const RichContent: Story = {
 };
 
 export const InContext: Story = {
-  render: ({ content }) => html`
+  render: ({ content, size }) => html`
     <sl-form-field>
       <sl-label>
         Username
-        <sl-infotip slot="infotip">${content}</sl-infotip>
+        <sl-infotip slot="infotip" size=${size}>${content}</sl-infotip>
       </sl-label>
       <sl-text-field placeholder="Username"></sl-text-field>
     </sl-form-field>

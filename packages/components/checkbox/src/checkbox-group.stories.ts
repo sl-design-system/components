@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -61,8 +62,7 @@ export default {
               ?required=${required}
               .label=${label}
               .size=${size}
-              .value=${value}
-            >
+              .value=${value}>
               ${boxes?.() ??
               html`
                 <sl-checkbox value="0">Option 1</sl-checkbox>
@@ -118,6 +118,31 @@ export const ImplicitValue: Story = {
   }
 };
 
+export const Infotip: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group>
+        <sl-checkbox checked value="0"
+          >Option 1 with infotip and a very long label that should wrap to the next line. This label
+          is way too long to be used in the label for the "more info" button, so we have provided a
+          custom label for the button that is more descriptive and shorter than the label of the
+          checkbox. The label of the checkbox is way too long to be used in the label for the "more
+          info" button, so we have provided a custom label for the button that is shorter than the
+          label of the checkbox.
+          <sl-infotip slot="infotip" describes="Option 1"
+            >This is an info tip for option 1</sl-infotip
+          >
+        </sl-checkbox>
+        <sl-checkbox checked value="1">Option 2</sl-checkbox>
+        <sl-checkbox value="2"
+          >Option 3
+          <sl-infotip slot="infotip">This is an info tip for option 3</sl-infotip></sl-checkbox
+        >
+      </sl-checkbox-group>
+    `
+  }
+};
+
 export const WithoutValues: Story = {
   args: {
     boxes: () => html`
@@ -146,7 +171,9 @@ export const CustomValidity: Story = {
     hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
     slot: () => {
       const onValidate = (event: Event & { target: CheckboxGroup }): void => {
-        event.target.setCustomValidity(event.target.value?.includes('2') ? '' : 'Pick the middle option');
+        event.target.setCustomValidity(
+          event.target.value?.includes('2') ? '' : 'Pick the middle option'
+        );
       };
 
       return html`
@@ -170,7 +197,10 @@ export const CustomAsyncValidity: Story = {
         }
 
         const promise = new Promise<string>(resolve =>
-          setTimeout(() => resolve(event.target.value?.includes('2') ? '' : 'Pick the middle option'), 2000)
+          setTimeout(
+            () => resolve(event.target.value?.includes('2') ? '' : 'Pick the middle option'),
+            2000
+          )
         );
 
         event.target.setCustomValidity(promise);

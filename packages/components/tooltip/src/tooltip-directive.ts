@@ -14,7 +14,10 @@ type TooltipProperties = {
 
 type TooltipDirectiveParams = [content: unknown, config?: TooltipDirectiveConfig];
 
-/** Provides a Lit directive tooltip that attaches a lazily created Tooltip instance to a host element. */
+/**
+ * Provides a Lit directive tooltip that attaches a lazily created Tooltip instance to a host
+ * element.
+ */
 export class TooltipDirective extends AsyncDirective {
   config: TooltipDirectiveConfig = {};
   content?: unknown;

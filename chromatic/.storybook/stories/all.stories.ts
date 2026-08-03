@@ -30,7 +30,7 @@ import { All as AllTextField } from '../../../packages/components/text-field/src
 import { All as AllToggleButton } from '../../../packages/components/toggle-button/src/toggle-button.stories';
 import { All as AllToolbar } from '../../../packages/components/tool-bar/src/tool-bar.stories';
 import { All as AllTooltip } from '../../../packages/components/tooltip/src/tooltip.stories';
-import { allModes } from "../modes";
+import { allModes } from '../modes';
 
 export default {
   title: 'All',
@@ -46,9 +46,9 @@ export default {
 };
 
 /**
- * When adding an "All" story of a component you need to only include all variants that can have changes per style;
- * so when multiple variants or scenarios use the exact same styling or, more specifically, tokens,
- * there is no need to include all those scenarios.
+ * When adding an "All" story of a component you need to only include all variants that can have
+ * changes per style; so when multiple variants or scenarios use the exact same styling or, more
+ * specifically, tokens, there is no need to include all those scenarios.
  *
  * The All story always needs its own `render` function, otherwise this doesn't work.
  */

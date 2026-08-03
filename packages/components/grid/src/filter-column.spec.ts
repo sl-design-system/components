@@ -45,7 +45,9 @@ describe('sl-grid-filter-column', () => {
     });
 
     it('should have a header row count of 2', () => {
-      const headerRowCount = Array.from(el.querySelectorAll('sl-grid-filter-column')).map(col => col.headerRowCount);
+      const headerRowCount = Array.from(el.querySelectorAll('sl-grid-filter-column')).map(
+        col => col.headerRowCount
+      );
 
       expect(headerRowCount).to.deep.equal([2, 2]);
     });
@@ -75,7 +77,9 @@ describe('sl-grid-filter-column', () => {
     });
 
     it('should render the filter in the second header row', () => {
-      const headers = Array.from<GridFilter>(el.renderRoot.querySelectorAll('thead tr:last-of-type th > *'));
+      const headers = Array.from<GridFilter>(
+        el.renderRoot.querySelectorAll('thead tr:last-of-type th > *')
+      );
 
       expect(headers.every(h => h instanceof GridFilter)).to.be.true;
       expect(headers.map(h => h.mode)).to.deep.equal(['text', 'select']);
@@ -95,7 +99,10 @@ describe('sl-grid-filter-column', () => {
       el = await fixture(html`
         <sl-grid .items=${ITEMS}>
           <sl-grid-filter-column path="profession" value="Card"></sl-grid-filter-column>
-          <sl-grid-filter-column mode="select" path="membership" value="Premium"></sl-grid-filter-column>
+          <sl-grid-filter-column
+            mode="select"
+            path="membership"
+            value="Premium"></sl-grid-filter-column>
         </sl-grid>
       `);
 
@@ -106,14 +113,18 @@ describe('sl-grid-filter-column', () => {
       // Give grid time to filter the data
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const data = Array.from(el.renderRoot.querySelectorAll('td')).map(td => td.textContent?.trim());
+      const data = Array.from(el.renderRoot.querySelectorAll('td')).map(td =>
+        td.textContent?.trim()
+      );
 
       expect(el.renderRoot.querySelectorAll('tbody tr')).to.have.lengthOf(1);
       expect(data).to.deep.equal(['Cardiologist', 'Premium']);
     });
 
     it('should show the value in the search field', () => {
-      const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:first-of-type sl-grid-filter')!,
+      const filter = el.renderRoot.querySelector<GridFilter>(
+          'thead tr:last-of-type th:first-of-type sl-grid-filter'
+        )!,
         searchField = filter.renderRoot.querySelector('sl-search-field');
 
       expect(searchField).to.exist;
@@ -121,7 +132,9 @@ describe('sl-grid-filter-column', () => {
     });
 
     it('should remove the filter when the search field is cleared', async () => {
-      const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:first-of-type sl-grid-filter')!,
+      const filter = el.renderRoot.querySelector<GridFilter>(
+          'thead tr:last-of-type th:first-of-type sl-grid-filter'
+        )!,
         searchField = filter.renderRoot.querySelector('sl-search-field');
 
       expect(filter.value).to.equal('Card');
@@ -135,14 +148,18 @@ describe('sl-grid-filter-column', () => {
     });
 
     it('should show the value in the select field', () => {
-      const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:last-of-type sl-grid-filter')!,
+      const filter = el.renderRoot.querySelector<GridFilter>(
+          'thead tr:last-of-type th:last-of-type sl-grid-filter'
+        )!,
         selectButton = filter.renderRoot.querySelector('sl-select-button');
 
       expect(selectButton).to.have.trimmed.text('Premium');
     });
 
     it('should remove the filter when the select field is cleared', async () => {
-      const filter = el.renderRoot.querySelector<GridFilter>('thead tr:last-of-type th:last-of-type sl-grid-filter')!,
+      const filter = el.renderRoot.querySelector<GridFilter>(
+          'thead tr:last-of-type th:last-of-type sl-grid-filter'
+        )!,
         selectButton = filter.renderRoot.querySelector<HTMLElement>('sl-select-button');
 
       expect(filter.value).to.equal('Premium');
@@ -179,7 +196,9 @@ describe('sl-grid-filter-column', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const filter = el.renderRoot.querySelector('sl-grid-filter')!,
-        options = Array.from(filter.renderRoot.querySelectorAll('sl-option')).map(o => o.textContent?.trim());
+        options = Array.from(filter.renderRoot.querySelectorAll('sl-option')).map(o =>
+          o.textContent?.trim()
+        );
 
       expect(options).to.deep.equal(['Regular', 'Premium', 'VIP']);
     });

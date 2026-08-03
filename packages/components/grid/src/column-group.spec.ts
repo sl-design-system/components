@@ -25,7 +25,9 @@ describe('sl-column-group', () => {
         </sl-grid>
       `);
       await page.viewport(1024, 1024);
-      el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
+      el.items = [
+        { firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }
+      ];
       await el.updateComplete;
 
       // Give grid time to render the table structure
@@ -34,7 +36,9 @@ describe('sl-column-group', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col =>
+        col.textContent?.trim()
+      );
 
       expect(columns).to.deep.equal([
         'Name',
@@ -50,9 +54,9 @@ describe('sl-column-group', () => {
 
     it('should have the correct width', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
-      expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        370, 651, 185, 184, 171, 161, 169, 149
-      ]);
+      expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal(
+        [370, 651, 185, 184, 171, 161, 169, 149]
+      );
     });
   });
 
@@ -73,7 +77,9 @@ describe('sl-column-group', () => {
       `);
       await page.viewport(1024, 1024);
 
-      el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
+      el.items = [
+        { firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }
+      ];
       await el.updateComplete;
 
       // Give grid time to render the table structure
@@ -84,9 +90,9 @@ describe('sl-column-group', () => {
     it('should have the correct width when one is set explicitly', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
 
-      expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        268, 753, 215, 214, 201, 191, 199
-      ]);
+      expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal(
+        [268, 753, 215, 214, 201, 191, 199]
+      );
     });
   });
 });

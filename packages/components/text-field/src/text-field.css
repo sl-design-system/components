@@ -4,7 +4,11 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;

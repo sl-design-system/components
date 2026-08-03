@@ -42,10 +42,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "^1.3.6",
-    "@sl-design-system/shared": "^0.12.0"
+    "@sl-design-system/form": "^1.4.2",
+    "@sl-design-system/shared": "^0.12.3"
   },
   "devDependencies": {
+    "@open-wc/scoped-elements": "3.0.10",
     "prosemirror-commands": "^1.5.2",
     "prosemirror-history": "^1.4.0",
     "prosemirror-inputrules": "^1.4.0",
@@ -56,6 +57,7 @@
     "prosemirror-view": "^1.33.8"
   },
   "peerDependencies": {
+    "@open-wc/scoped-elements": "3.0.10",
     "prosemirror-commands": "^1.5.2",
     "prosemirror-history": "^1.4.0",
     "prosemirror-inputrules": "^1.4.0",

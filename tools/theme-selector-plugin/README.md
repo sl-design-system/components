@@ -1,6 +1,5 @@
-
 The basics of plugin development can be found here:
-  https://www.figma.com/plugin-docs/plugin-quickstart-guide/
+https://www.figma.com/plugin-docs/plugin-quickstart-guide/
 
 When developing the plugin can be loaded in Figma by selecting (from the menu bar) `Plugins` > `Development` > `Import plugin from manifest`.
 When you run `yarn watch` in this folder the plugin will be hot reloaded on changes.

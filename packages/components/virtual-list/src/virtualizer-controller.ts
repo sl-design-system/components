@@ -11,18 +11,22 @@ import {
 } from '@tanstack/virtual-core';
 import { type ReactiveController, type ReactiveControllerHost } from 'lit';
 
-export type VirtualizerControllerOptions<TScrollElement extends Element | Window, TItemElement extends Element> = Omit<
+export type VirtualizerControllerOptions<
+  TScrollElement extends Element | Window,
+  TItemElement extends Element
+> = Omit<
   VirtualizerOptions<TScrollElement, TItemElement>,
   'getScrollElement' | 'observeElementRect' | 'observeElementOffset' | 'scrollToFn'
 >;
 
 /**
- * A reactive controller that manages virtualization using @tanstack/virtual-core.
- * This controller integrates TanStack Virtual with Lit's reactive update cycle.
+ * A reactive controller that manages virtualization using @tanstack/virtual-core. This controller
+ * integrates TanStack Virtual with Lit's reactive update cycle.
  */
-export class VirtualizerController<TScrollElement extends Element | Window, TItemElement extends Element>
-  implements ReactiveController
-{
+export class VirtualizerController<
+  TScrollElement extends Element | Window,
+  TItemElement extends Element
+> implements ReactiveController {
   /** Cleanup function to be called when disconnected. */
   #cleanup: () => void = () => {};
 
@@ -76,16 +80,31 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
     this.#cleanup();
   }
 
-  updateOptions(options: Partial<VirtualizerControllerOptions<TScrollElement, TItemElement>>): void {
+  updateOptions(
+    options: Partial<VirtualizerControllerOptions<TScrollElement, TItemElement>>
+  ): void {
     if (!this.instance) {
       this.#options = { ...this.#options, ...options };
       return;
     }
 
-    const resolvedOptions = { ...this.instance?.options, ...options };
-
     // Check if we're using window scrolling (scroll parent is document.documentElement or document.body)
-    const isWindowScroll = this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
+    const isWindowScroll =
+      this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
+    const scrollMarginWasUpdated = Object.prototype.hasOwnProperty.call(options, 'scrollMargin');
+
+    let resolvedOptions = { ...this.instance?.options, ...options };
+
+    if (scrollMarginWasUpdated) {
+      this.#hasCustomScrollMargin = options.scrollMargin !== undefined;
+
+      if (!this.#hasCustomScrollMargin) {
+        resolvedOptions = {
+          ...resolvedOptions,
+          scrollMargin: isWindowScroll ? this.#getOffset() : 0
+        };
+      }
+    }
 
     if (isWindowScroll) {
       (this.instance as Virtualizer<Window, TItemElement>).setOptions(
@@ -104,27 +123,29 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
 
     const options = {
       ...this.#options,
-      onChange: (instance: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>, sync: boolean) => {
+      onChange: (
+        instance: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>,
+        sync: boolean
+      ) => {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.#host.updateComplete.then(() => this.#host.requestUpdate());
-        this.#options.onChange?.(instance as unknown as Virtualizer<TScrollElement, TItemElement>, sync);
+        this.#options.onChange?.(
+          instance as unknown as Virtualizer<TScrollElement, TItemElement>,
+          sync
+        );
       }
     };
 
     this.#scrollElement = getScrollParent(this.#host);
 
     // Check if we're using window scrolling (scroll parent is document.documentElement or document.body)
-    const isWindowScroll = this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
+    const isWindowScroll =
+      this.#scrollElement === document.documentElement || this.#scrollElement === document.body;
 
     if (isWindowScroll) {
-      const getOffset = () => {
-        const rect = this.#host.getBoundingClientRect();
-        return rect.top + window.scrollY;
-      };
-
       // Track if user explicitly provided scrollMargin
       this.#hasCustomScrollMargin = options.scrollMargin !== undefined;
-      const initialScrollMargin = options.scrollMargin ?? getOffset();
+      const initialScrollMargin = options.scrollMargin ?? this.#getOffset();
 
       const resolvedOptions: VirtualizerOptions<Window, TItemElement> = {
         ...options,
@@ -142,7 +163,7 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
       const doUpdateScrollMargin = () => {
         const virtualizer = this.#virtualizer as Virtualizer<Window, TItemElement>;
 
-        // Skip if disposed, already pending update, or user provided custom scrollMargin
+        // Skip if disposed, already pending update, user provided custom scrollMargin
         if (this.#disposed || this.#updateTaskId || this.#hasCustomScrollMargin) {
           return;
         }
@@ -154,7 +175,7 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
             return;
           }
 
-          const newMargin = getOffset();
+          const newMargin = this.#getOffset();
           if (Math.abs(newMargin - (virtualizer.options.scrollMargin || 0)) > 1) {
             virtualizer.setOptions({
               ...virtualizer.options,
@@ -185,7 +206,7 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
         resizeObserver.observe(this.#host.parentElement);
       }
 
-      // Window resize always triggers update
+      // Window resize
       window.addEventListener('resize', onWindowResize);
 
       const originalCleanup = this.instance._didMount();
@@ -213,5 +234,10 @@ export class VirtualizerController<TScrollElement extends Element | Window, TIte
     }
 
     this.#cleanup = this.instance._didMount();
+  }
+
+  #getOffset(): number {
+    const rect = this.#host.getBoundingClientRect();
+    return rect.top + window.scrollY;
   }
 }

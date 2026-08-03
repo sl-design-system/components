@@ -54,8 +54,23 @@ describe('sl-infotip', () => {
       expect(popover).not.to.match(':popover-open');
     });
 
+    it('should focus the trigger button when focusing the host', async () => {
+      el.focus();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(button);
+    });
+
     it('should open the popover when clicking the trigger button', async () => {
       await userEvent.click(button);
+
+      expect(popover).to.match(':popover-open');
+    });
+
+    it('should open the popover when pressing Enter after focusing the host', async () => {
+      el.focus();
+      await new Promise(resolve => setTimeout(resolve));
+      await userEvent.keyboard('{Enter}');
 
       expect(popover).to.match(':popover-open');
     });

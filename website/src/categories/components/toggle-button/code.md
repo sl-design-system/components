@@ -10,11 +10,11 @@ eleventyNavigation:
 <section class="no-heading">
 <div class="ds-example">
   <div class="ds-example__code-wrapper">
-    <sl-toggle-button>
+    <sl-toggle-button aria-label="Show settings">
       <sl-icon name="far-gear" slot="default"></sl-icon>
       <sl-icon name="fas-gear" slot="pressed"></sl-icon>
     </sl-toggle-button>
-    <sl-toggle-button fill="outline" pressed>
+    <sl-toggle-button fill="outline" aria-label="Show settings" pressed>
       <sl-icon name="far-gear" slot="default"></sl-icon>
       <sl-icon name="fas-gear" slot="pressed"></sl-icon>
     </sl-toggle-button>
@@ -24,12 +24,12 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-toggle-button>
+  <sl-toggle-button aria-label="Show settings">
     <sl-icon name="far-gear" slot="default"></sl-icon>
     <sl-icon name="fas-gear" slot="pressed"></sl-icon>
   </sl-toggle-button>
 
-  <sl-toggle-button fill="outline" pressed>
+  <sl-toggle-button fill="outline" aria-label="Show settings" pressed>
     <sl-icon name="far-gear" slot="default"></sl-icon>
     <sl-icon name="fas-gear" slot="pressed"></sl-icon>
   </sl-toggle-button>

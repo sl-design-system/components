@@ -31,9 +31,19 @@ export class TextAreaDirective extends FormControlElementDirective<TextArea> {
     if (this.element.valid) {
       return null;
     } else if (this.element.validity.tooLong) {
-      return { maxlength: { requiredLength: this.element.maxLength, actualLength: this.element.value.length } };
+      return {
+        maxlength: {
+          requiredLength: this.element.maxLength,
+          actualLength: this.element.value.length
+        }
+      };
     } else if (this.element.validity.tooShort) {
-      return { minlength: { requiredLength: this.element.minLength, actualLength: this.element.value.length } };
+      return {
+        minlength: {
+          requiredLength: this.element.minLength,
+          actualLength: this.element.value.length
+        }
+      };
     } else if (this.element.validity.valueMissing) {
       return { required: true };
     }

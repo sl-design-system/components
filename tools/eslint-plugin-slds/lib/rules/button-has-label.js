@@ -16,7 +16,7 @@ export const buttonHasLabel = {
     schema: [],
     messages: {
       missingText: 'sl-button elements must have text content or aria-label for accessibility',
-      mustBeAriaRelationLabel: 'for the tooltip directive ariaRelation must be \'label\''
+      mustBeAriaRelationLabel: "for the tooltip directive ariaRelation must be 'label'"
     }
   },
   create(context) {
@@ -29,7 +29,8 @@ export const buttonHasLabel = {
         // Tooltip with ariaRelation: 'label' variant
         const templateSource = context.sourceCode.getText(node),
           hasTooltip = /tooltip\s*\(/.test(templateSource),
-          hasTooltipWithAriaRelationLabel = /tooltip\s*\([^)]*ariaRelation\s*:\s*['"]label['"]/.test(templateSource);
+          hasTooltipWithAriaRelationLabel =
+            /tooltip\s*\([^)]*ariaRelation\s*:\s*['"]label['"]/.test(templateSource);
 
         const analyzer = TemplateAnalyzer.create(node);
 
@@ -47,14 +48,13 @@ export const buttonHasLabel = {
               return;
             }
 
-            const loc = analyzer.resolveLocation(
-              element.sourceCodeLocation.startTag,
-              context.sourceCode
-            ) || node.loc;
+            const loc =
+              analyzer.resolveLocation(element.sourceCodeLocation.startTag, context.sourceCode) ||
+              node.loc;
 
             if (loc) {
               if (hasTooltip && !hasTooltipWithAriaRelationLabel) {
-                context.report({ loc, messageId: 'mustBeAriaRelationLabel' })
+                context.report({ loc, messageId: 'mustBeAriaRelationLabel' });
               } else if (!hasAccessibleName(element)) {
                 context.report({ loc, messageId: 'missingText' });
               }

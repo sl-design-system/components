@@ -1,5 +1,28 @@
 # @sl-design-system/time-field
 
+## 0.1.3
+
+### Patch Changes
+
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - Changed the token used in the selected state of the hour and minute options
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/listbox@0.2.1
+
+## 0.1.2
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
 ## 0.1.1
 
 ### Patch Changes

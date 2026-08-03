@@ -32,45 +32,38 @@ const preview: Preview = {
   decorators: [
     (story, data) => {
       return html`
-      <style>
-        h1:not(:first-of-type) {
-          margin-top: 40px;
-          border-top: 1px solid currentColor;
-          padding-top: 24px;
-        }
+        <style>
+          h1:not(:first-of-type) {
+            margin-top: 40px;
+            border-top: 1px solid currentColor;
+            padding-top: 24px;
+          }
 
-        #root-inner{
-          max-width: 1280px;
-          padding: 16px;
-        }
-      </style>
-      ${singleState.includes(data.id)
+          #root-inner {
+            max-width: 1280px;
+            padding: 16px;
+          }
+        </style>
+        ${singleState.includes(data.id)
           ? story()
           : html`<h1>State: Default <small>(including "disabled")</small></h1>
-            ${story()}
-            <h1>State: Hover</h1>
-            <div class="sb-fake-hover">
               ${story()}
-            </div>
-            <h1>State: Active</h1>
-            <div class="sb-fake-active">
-              ${story()}
-            </div>
-            <h1>State: Focus</h1>
-            <div class="sb-fake-focus-visible">
-              ${story()}
-            </div>
-            `
-        }`
+              <h1>State: Hover</h1>
+              <div class="sb-fake-hover">${story()}</div>
+              <h1>State: Active</h1>
+              <div class="sb-fake-active">${story()}</div>
+              <h1>State: Focus</h1>
+              <div class="sb-fake-focus-visible">${story()}</div> `}
+      `;
     },
-    (story) => {
+    story => {
       withThemeFromJSXProvider({
         themes: Object.fromEntries(themes.map(t => [t.id, t])),
         defaultTheme: 'sanoma-learning'
       });
 
       return story();
-    },
+    }
   ],
   loaders: [
     async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
@@ -81,7 +74,7 @@ const preview: Preview = {
     pseudo: {
       hover: '.sb-fake-hover *',
       active: '.sb-fake-active *',
-      focusVisible: '.sb-fake-focus-visible *',
+      focusVisible: '.sb-fake-focus-visible *'
     },
     options: {
       storySort: {

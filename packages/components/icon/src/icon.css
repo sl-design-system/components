@@ -1,21 +1,24 @@
 :host {
-  --sl-icon-fill-accent: var(--sl-color-background-primary-interactive-bold);
+  /* This uses a hardcoded % because the available tokens are not suitable. */
+  --sl-icon-fill-accent: color-mix(in srgb, currentcolor 30%, transparent);
   --sl-icon-fill-default: currentcolor;
   --sl-icon-size: var(
     --sl-size-200,
     1rem
-  ); // we need a fallback to prevent the icon flashing at the default size before the CSS variables from the theme are applied
+  ); /* we need a fallback to prevent the icon flashing at the default size before the CSS variables from the theme are applied */
 
   aspect-ratio: 1 / 1;
   display: inline-grid;
-  flex-shrink: 0; // Prevent shrinking in flex containers
+  flex-shrink: 0;
+
+  /* Prevent shrinking in flex containers */
   inline-size: max(0.8em, var(--sl-icon-size));
   outline: none;
   place-content: center;
   translate: 0;
 }
 
-// There are some really old browsers that don't support `cap` yet, so we use a fallback with `em`.
+/* There are some really old browsers that don't support `cap` yet, so we use a fallback with `em`. */
 @supports (inline-size: 1cap) {
   :host {
     inline-size: max(1cap, var(--sl-icon-size));

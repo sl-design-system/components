@@ -41,7 +41,7 @@ dialog {
     opacity: 0;
   }
 
-  // Exit animation
+  /* Exit animation */
   &:not(:modal) {
     opacity: 0;
     scale: 0.7;
@@ -51,7 +51,7 @@ dialog {
     }
   }
 
-  // Enter animation
+  /* Enter animation */
   @starting-style {
     display: flex;
     scale: 1.1;
@@ -75,7 +75,7 @@ h1 {
   color: var(--sl-color-foreground-bold);
   font-size: calc((24 / 14) * 1em);
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  line-height: 1em; // Only applies on FF where text-box is not yet supported
+  line-height: 1em; /* Only applies on FF where text-box is not yet supported */
   margin: 0;
   text-box: trim-both cap alphabetic;
 }

@@ -39,6 +39,10 @@
   border-color: transparent;
 }
 
+:host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
 :host([show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);

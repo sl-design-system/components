@@ -42,6 +42,7 @@
   --_bg-opacity: var(
     --sl-opacity-interactive-plain-hover
   ); // var(--sl-opacity-interactive-bold-hover);
+
   --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
 
   background: color-mix(
@@ -49,6 +50,10 @@
     var(--_bg-color),
     var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
   );
+
+  ::slotted(sl-icon) {
+    color: var(--sl-color-foreground-selected-bold);
+  }
 }
 
 :host(:active) {

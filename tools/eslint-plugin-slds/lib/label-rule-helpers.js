@@ -290,6 +290,10 @@ export const hasMeaningfulContent = (node, analyzer, sourceCode) => {
     return node.data.trim() !== '';
   }
 
+  if (node.type === 'comment') {
+    return false;
+  }
+
   if (node.type !== 'tag') {
     return true;
   }

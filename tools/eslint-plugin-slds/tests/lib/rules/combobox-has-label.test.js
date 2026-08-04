@@ -24,6 +24,9 @@ ruleTester.run('combobox-has-label', comboboxHasLabel, {
     {
       code: 'element.insertAdjacentHTML("beforeend", `<sl-combobox aria-labelledby="combobox-label"></sl-combobox>`);'
     },
+    {
+      code: 'element.innerHTML = `<h3>${unrelatedTitle}</h3><sl-combobox aria-label="${label}"></sl-combobox>`;'
+    },
     { code: 'const template = `<sl-combobox></sl-combobox>`;' }
   ],
   invalid: [
@@ -57,6 +60,10 @@ ruleTester.run('combobox-has-label', comboboxHasLabel, {
     },
     {
       code: 'dialog.innerHTML = `<sl-combobox data-aria-label="Choose an option"></sl-combobox>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'element.innerHTML = `<h3>${unrelatedTitle}</h3><sl-combobox></sl-combobox>`;',
       errors: [{ messageId: 'missingLabel' }]
     },
     {

@@ -25,14 +25,16 @@ const getRawTemplateContent = node => {
   }
 
   if (node.type === 'TemplateLiteral') {
-    // Skip template literals with expressions/interpolations (e.g., `<sl-combobox aria-label="${label}">`)
-    // because dynamic attribute values might provide the required label.
-    // Analyzing only the static quasis would lose the interpolated parts and create false positives.
-    if (node.expressions.length > 0) {
-      return null;
-    }
+    // Join static template parts and insert a fixed placeholder for expressions.
+    // This lets us still catch unlabeled comboboxes when other dynamic text is present,
+    // and still treat dynamic aria-label values as labels because the quoted attribute stays intact.
+    return node.quasis
+      .map((quasi, index) => {
+        const value = quasi.value.cooked ?? '';
 
-    return node.quasis.map(quasi => quasi.value.cooked ?? '').join('');
+        return index < node.expressions.length ? `${value}__EXPR__` : value;
+      })
+      .join('');
   }
 
   return null;

@@ -63,6 +63,10 @@ ruleTester.run('text-field-has-label', textFieldHasLabel, {
       errors: [{ messageId: 'missingLabel' }]
     },
     {
+      code: 'html`<sl-form-field><sl-label slot="label"><!-- label comment --></sl-label><sl-text-field></sl-text-field></sl-form-field>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
       code: 'html`<sl-form-field>${slot?.() ?? html`<sl-text-field></sl-text-field>`}</sl-form-field>`;',
       errors: [{ messageId: 'missingLabel' }]
     },

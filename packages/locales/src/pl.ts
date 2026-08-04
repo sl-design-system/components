@@ -61,7 +61,7 @@ export const templates = {
   'sl.grid.rowActivated': str`Wiersz ${0} aktywowany`,
   'sl.grid.rowDeactivated': str`Wiersz ${0} dezaktywowany`,
   'sl.grid.selectAllRows': 'Zaznacz wszystkie wiersze',
-  'sl.grid.selectGroup': 'Wybierz grupę',
+  'sl.grid.selectGroup': 'Grupa',
   'sl.grid.selectionStatusMessage': str`${0} z ${1} wybranych`,
   'sl.grid.selectRow': 'Zaznacz wiersz',
   'sl.grid.skipToEndOfTable': 'Przejdź do końca tabeli',

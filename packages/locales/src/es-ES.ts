@@ -61,7 +61,7 @@ export const templates = {
   'sl.grid.rowActivated': str`Fila ${0} activada`,
   'sl.grid.rowDeactivated': str`Fila ${0} desactivada`,
   'sl.grid.selectAllRows': 'Seleccionar todas las filas',
-  'sl.grid.selectGroup': 'Seleccionar grupo',
+  'sl.grid.selectGroup': 'Grupo',
   'sl.grid.selectionStatusMessage': str`${0} de ${1} seleccionados`,
   'sl.grid.selectRow': 'Seleccionar fila',
   'sl.grid.skipToEndOfTable': 'Ir al final de la tabla',

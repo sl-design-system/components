@@ -487,8 +487,8 @@
   <target>En la fila activada <x id="0" equiv-text="${rowNumber}"/></target>
 </trans-unit>
 <trans-unit id="sl.grid.selectGroup">
-  <source>Select group</source>
-  <target>Seleccionar grupo</target>
+  <source>Group</source>
+  <target>Grupo</target>
 </trans-unit>
 <trans-unit id="sl.textArea.charCountTooMany_one">
   <source><x id="0" equiv-text="${over}"/> character too many</source>

@@ -178,7 +178,7 @@ export const CustomValidity: Story = {
       };
 
       return html`
-        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Pick an option" required>
+        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Your favorite number" required>
           <sl-checkbox value="1">One</sl-checkbox>
           <sl-checkbox value="2">Two</sl-checkbox>
           <sl-checkbox value="3">Three</sl-checkbox>
@@ -208,7 +208,7 @@ export const CustomAsyncValidity: Story = {
       };
 
       return html`
-        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Pick an option" required>
+        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Your favorite number" required>
           <sl-checkbox value="1">One</sl-checkbox>
           <sl-checkbox value="2">Two</sl-checkbox>
           <sl-checkbox value="3">Three</sl-checkbox>

@@ -33,5 +33,12 @@
   }
 </style>
 
-<script src="/storybook-static/piwik-pro.js"></script>
+<script>
+  if (location.hostname === 'storybook.sanomalearning.design') {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = '/storybook-static/piwik-pro.js';
+    document.head.appendChild(script);
+  }
+</script>
 <script src="/storybook-static/sidebar-controls.js"></script>

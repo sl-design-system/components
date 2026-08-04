@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.12.3
+
+### Patch Changes
+
+- [#3381](https://github.com/sl-design-system/components/pull/3381) [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1) - Improved focus behavior in `NewFocusGroupController`:
+  - The focused item now keeps `tabindex="0"` (instead of all elements being forced to `-1`), which makes Tab behavior consistent before and after arrow keys navigation.
+  - Focus handling on `focusin` is now more reliable when elements are re-rendered.
+
 ## 0.12.2
 
 ### Patch Changes

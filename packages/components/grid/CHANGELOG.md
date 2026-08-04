@@ -1,5 +1,24 @@
 # @sl-design-system/grid
 
+## 0.7.5
+
+### Patch Changes
+
+- [#3508](https://github.com/sl-design-system/components/pull/3508) [`89f2dc9`](https://github.com/sl-design-system/components/commit/89f2dc9729425ecd5f0bb029aeb476c1f33e3d2f) - Added accessible names to text field and select controls rendered inside editable grid cells. New `formControlColumnLabel` and `formControlLabel` properties can be used to customize the generated label with column and row context, such as `Zip John Doe` or `Status John Doe`, improving screen reader navigation in editable grids.
+
+- [#3525](https://github.com/sl-design-system/components/pull/3525) [`c864af4`](https://github.com/sl-design-system/components/commit/c864af478c373179c7ae662ba8caefbdde9a544c) - Fix horizontal scroll synchronization when keyboard focus moves through sortable grid column headers. The grid now keeps the header and body aligned when the header is scrolled by keyboard navigation.
+
+- Updated dependencies [[`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987), [`de31def`](https://github.com/sl-design-system/components/commit/de31defb47c51816aabf8dfa5d53666378f2d07c), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`0a4f62e`](https://github.com/sl-design-system/components/commit/0a4f62e454ad02ea56889f73e0a5f35cda488dbc), [`5ac49c3`](https://github.com/sl-design-system/components/commit/5ac49c306cc25d5ae7a334e87fc26736dcade9a7), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee), [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e), [`9ca0bc2`](https://github.com/sl-design-system/components/commit/9ca0bc28d6596c061f33205f3422169960c8c180), [`e5ba453`](https://github.com/sl-design-system/components/commit/e5ba453452a216af22326950d0d121d7f0cf3401), [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2)]:
+  - @sl-design-system/checkbox@2.2.0
+  - @sl-design-system/select@2.2.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/tool-bar@0.3.0
+  - @sl-design-system/listbox@0.2.1
+  - @sl-design-system/data-source@0.4.1
+  - @sl-design-system/button@2.1.2
+  - @sl-design-system/toggle-group@0.0.17
+
 ## 0.7.4
 
 ### Patch Changes

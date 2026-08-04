@@ -210,10 +210,6 @@ export const updateTheme = async (themeId: string): Promise<void> => {
   resources.global.href = `/themes/${themeId}/global.css`;
   resources.global.rel = 'stylesheet';
 
-  // resources.typography ??= document.head.appendChild(document.createElement('link'));
-  // resources.typography.href = `/themes/${themeId}/typography.css`;
-  // resources.typography.rel = 'stylesheet';
-
   resources.fonts?.forEach(font => font.remove());
   if (theme.fonts) {
     resources.fonts = theme.fonts.map(font => {

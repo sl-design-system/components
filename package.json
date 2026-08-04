@@ -14,9 +14,9 @@
     "packages/components/*",
     "packages/locales",
     "packages/themes/*",
-    "packages/tokens",
     "scripts",
     "scripts/connect-figma-components",
+    "scripts/themes",
     "tools/eslint-config",
     "tools/eslint-plugin-slds",
     "tools/example-data",
@@ -73,10 +73,10 @@
       ]
     },
     "build:components:styles": {
-      "command": "node scripts/build-styles.js 'packages/components/**/*.scss'",
+      "command": "node scripts/themes/build-styles.js 'packages/components/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-styles.js",
+        "scripts/themes/build-styles.js",
         "packages/components/**/*.scss"
       ],
       "output": [
@@ -99,10 +99,10 @@
       ]
     },
     "build:examples:styles": {
-      "command": "node scripts/build-styles.js 'examples/lit/**/*.scss'",
+      "command": "node scripts/themes/build-styles.js 'examples/lit/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-styles.js",
+        "scripts/themes/build-styles.js",
         "examples/lit/**/*.scss"
       ],
       "output": [
@@ -154,24 +154,24 @@
       ]
     },
     "build:themes:setup": {
-      "command": "node scripts/setup-themes.js",
+      "command": "node scripts/themes/setup-themes.js",
       "clean": false,
       "files": [
-        "scripts/setup-themes.js",
+        "scripts/themes/setup-themes.js",
         "packages/themes/core/global.css",
         "packages/themes/core/typography.css",
-        "scripts/export/core-css/**/*.css"
+        "scripts/themes/export/core-css/**/*.css"
       ],
       "output": [
         "packages/themes/*/theme.css"
       ]
     },
     "build:themes:styles": {
-      "command": "node scripts/build-themes.js --studio",
+      "command": "node scripts/themes/build-themes.js --studio",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-themes.js",
-        "packages/tokens/src/**/*.json"
+        "scripts/themes/build-themes.js",
+        "scripts/themes/export/slds-legacy/**/*.json"
       ],
       "output": [
         "packages/themes/**/*.{css,scss}",
@@ -275,8 +275,8 @@
       "clean": false,
       "files": [
         "scripts/import-icons.js",
-        "packages/tokens/src/tokens/core.json",
-        "packages/tokens/src/tokens/*/base.json"
+        "scripts/themes/slds-legacy/core.json",
+        "scripts/themes/slds-legacy/*/base.json"
       ],
       "output": [
         "packages/themes/*/icons.ts",

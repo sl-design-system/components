@@ -7876,10 +7876,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/scripts-themes@workspace:scripts/themes":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/scripts-themes@workspace:scripts/themes"
+  dependencies:
+    "@figma-export/cli": "npm:^6.2.3"
+    "@figma-export/output-components-as-svg": "npm:^6.2.3"
+    "@figma-export/transform-svg-with-svgo": "npm:^6.2.3"
+    "@tokens-studio/sd-transforms": "npm:^2.0.1"
+    "@tokens-studio/sdk": "npm:^3.0.0"
+    "@tokens-studio/studio-cli": "npm:0.2.0-rc.3"
+    cssnano: "npm:^7.1.9"
+    fast-glob: "npm:^3.3.3"
+    oxfmt: "npm:^0.61.0"
+    postcss: "npm:^8.5.15"
+    sass: "npm:^1.101.0"
+    style-dictionary: "npm:^5.1.1"
+    stylelint: "npm:^17.14.1"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/scripts@workspace:scripts":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/scripts@workspace:scripts"
   dependencies:
+    "@custom-elements-manifest/analyzer": "npm:^0.11.0"
     "@figma-export/cli": "npm:^6.2.3"
     "@figma-export/output-components-as-svg": "npm:^6.2.3"
     "@figma-export/transform-svg-with-svgo": "npm:^6.2.3"
@@ -7894,18 +7915,10 @@ __metadata:
     "@fortawesome/sharp-light-svg-icons": "npm:^7.2.0"
     "@fortawesome/sharp-regular-svg-icons": "npm:^7.2.0"
     "@fortawesome/sharp-solid-svg-icons": "npm:^7.2.0"
-    "@tokens-studio/sd-transforms": "npm:^2.0.1"
-    "@tokens-studio/sdk": "npm:^3.0.0"
-    "@tokens-studio/studio-cli": "npm:0.2.0-rc.3"
-    cssnano: "npm:^7.1.9"
+    "@lit/localize-tools": "npm:^0.8.2"
     esbuild: "npm:^0.25.12"
     fast-glob: "npm:^3.3.3"
-    graphql: "npm:^16.13.1"
     oxfmt: "npm:^0.61.0"
-    postcss: "npm:^8.5.15"
-    sass: "npm:^1.101.0"
-    style-dictionary: "npm:^5.1.1"
-    stylelint: "npm:^17.14.1"
   languageName: unknown
   linkType: soft
 
@@ -8131,12 +8144,6 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     lit: ^3.1.4
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/tokens@workspace:packages/tokens":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/tokens@workspace:packages/tokens"
   languageName: unknown
   linkType: soft
 
@@ -15957,13 +15964,6 @@ __metadata:
   peerDependencies:
     graphql: ">=0.11 <=16"
   checksum: 10c0/ba373df11ea8c6349c9f67335a0dfb09050a09ecc6b724b64730d242675c41d9f4b4a114b190b8711d014f8491c2bb8249e0df8308d51c4b27c921f87c4f6c58
-  languageName: node
-  linkType: hard
-
-"graphql@npm:^16.13.1":
-  version: 16.13.2
-  resolution: "graphql@npm:16.13.2"
-  checksum: 10c0/64e822a0a0e4398781e4bc9765b88d370c08261498b517add4b878038ef7be2005b6b394a79a5102b9379d57052f60bc7f23fec8f39808d101984a74772ebd9d
   languageName: node
   linkType: hard
 

@@ -19,10 +19,11 @@ const execAsync = promisify(exec);
 library.add(fas, far, fal, fat, fad, fadr, fass, fasr, fasl);
 
 const cwd = new URL('.', import.meta.url).pathname;
+const coreTokensPath = join(cwd, './themes/export/slds-legacy/');
 
 const {
   default: { icon: coreIconTokens }
-} = await import('../packages/tokens/src/tokens/core.json', { with: { type: 'json' } });
+} = await import(join(coreTokensPath, 'core.json'), { with: { type: 'json' } });
 
 const coreIcons = coreIconTokens; // Keep the full icon object for getFormattedIcons
 const coreIconFontFamily = coreIconTokens.fontFamily;
@@ -80,7 +81,7 @@ const getIconPrefixFromStyle = style => {
 
 const buildIconsFromBaseNew = async theme => {
   // 1. Get icon tokens from `base-new.json` which uses routing prefixes
-  const baseNewModule = await import(`../packages/tokens/src/tokens/${theme}/base-new.json`, {
+  const baseNewModule = await import(join(coreTokensPath, theme, 'base-new.json'), {
     with: { type: 'json' }
   });
   const baseNewData = baseNewModule.default;
@@ -207,12 +208,10 @@ const buildAllIcons = async () => {
   const themes = folders
     .map(folder => basename(folder))
     .filter(theme => theme.indexOf('core') < 0)
-    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)));
+    .filter(theme => existsSync(join(coreTokensPath, theme, 'base-new.json')));
 
   const buildPromises = themes.map(theme => {
-    const hasBaseNewJson = existsSync(
-      join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)
-    );
+    const hasBaseNewJson = existsSync(join(coreTokensPath, theme, 'base-new.json'));
 
     return buildIconsFromBaseNew(theme);
   });

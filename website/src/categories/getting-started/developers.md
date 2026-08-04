@@ -86,7 +86,7 @@ Or if you use `yarn`:
 
 To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning.
 
-Please note that the webfonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. If is up to you to load the webfonts in your application.
+Please note that the (web)fonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. If is up to you to load the (web)fonts in your application.
 
 You can install a theme as by installing the NPM package, in this example we use the `sanoma-learning` theme.
 
@@ -115,7 +115,7 @@ The simplest way to include the theme is by including the theme stylesheet in yo
 <div class="ds-code">
 
 ```html
-<link href="./node_modules/@sl-design-system/sanoma-learning/light.css" rel="stylesheet">
+<link href="./node_modules/@sl-design-system/sanoma-learning/theme.css" rel="stylesheet">
 ```
 
 </div>
@@ -123,12 +123,10 @@ The simplest way to include the theme is by including the theme stylesheet in yo
 The theme packages also support package exports, meaning you can import the stylesheet directly from the package (if your build system supports it):
 
 ```scss
-@import '@sl-design-system/sanoma-learning/light.css';
+@import '@sl-design-system/sanoma-learning/theme.css';
 ```
 
-If your theme supports dark mode you can also use `dark.css`.
-
-If you need to have more control over theming, you can use the split files in the `css` and `scss` folders of the theme package. These folders contain split files for the base, light and dark theme. You can include these files in your application as you see fit.
+If your theme has a dark mode version both the tokens for light and dark mode are in this file. You can switch the mode based on the user preference (this is by default). Or you can set `style="--color-scheme: light;"` or `style="--color-scheme: dark;"` on the HTML tag of your page to force a certain color mode.
 
 If you are working in an Angular application you can do this by adding the theme stylesheet in your `angular.json`, as explained [in the official Angular documentation](https://angular.io/guide/workspace-config#styles-and-scripts-configuration).
 

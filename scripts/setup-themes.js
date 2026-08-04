@@ -35,6 +35,8 @@ const setupTheme = theme => {
               new RegExp(`\\[data-brand=['"]${themeName}['"]\\]`, 'g'),
               'body'
             );
+            content = content.replace(new RegExp(`Open Sans`, 'g'), 'open-sans');
+            content = content.replace(new RegExp(`Proxima Nova`, 'g'), 'proxima-nova');
           }
           resolve(content);
         }

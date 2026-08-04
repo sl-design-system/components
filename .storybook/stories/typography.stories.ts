@@ -127,12 +127,13 @@ const parseCells = (el: Element | undefined) => {
 
         const classes = cellContents.className.split(' ').filter(c => c !== 'fallback');
         const classContainer = document.createElement('div');
+        classContainer.style.display = 'flex';
+        classContainer.style.gap = '4px';
         cellSpecs.appendChild(classContainer);
 
         const typeLabel = document.createElement('sl-badge');
         typeLabel.setAttribute('color', 'orange');
         typeLabel.textContent = `.${classes[0]}`;
-        typeLabel.size = 'lg';
         classContainer.appendChild(typeLabel);
 
         const sizeLabel = document.createElement('sl-badge');

@@ -112,9 +112,8 @@ const preview: Preview = {
       return story();
     },
     (story, { globals: { mode = 'light' } }) => {
-      //TODO if you remove these it takes the user preference from the system.
-      // document.documentElement.style.setProperty('--color-scheme', mode);
-      // document.documentElement.style.setProperty('color-scheme', mode);
+      // If you remove this it takes the user preference from the system.
+      document.documentElement.style.setProperty('--color-scheme', mode);
 
       return story();
     },

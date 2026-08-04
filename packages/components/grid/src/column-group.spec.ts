@@ -55,7 +55,7 @@ describe('sl-column-group', () => {
     it('should have the correct width', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal(
-        [381, 640, 191, 190, 169, 158, 168, 143]
+        [376, 645, 188, 187, 170, 159, 168, 147]
       );
     });
   });
@@ -91,7 +91,7 @@ describe('sl-column-group', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
 
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal(
-        [290, 731, 219, 219, 198, 187, 197]
+        [278, 743, 218, 217, 199, 189, 197]
       );
     });
   });

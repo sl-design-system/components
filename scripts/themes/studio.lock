@@ -3,7 +3,7 @@
 # Commit this file to version control.
 
 version = 2
-generated_at = "2026-08-04T12:09:06Z"
+generated_at = "2026-08-04T13:52:17Z"
 cli_version = "dev"
 dependencies = []
 
@@ -23,18 +23,18 @@ dependencies = []
   source_ref_name = "main"
   preset_hash = "sha256:682797888d970f3e50b89ba220d984af170b3ac6035e2e018517aa8912b2561e"
   output_hash = "sha256:bb7dd7d3a7eef1b9ff1f345e971a19a81655b9a3a8a2c3727516dfc6b871df19"
-  updated_at = "2026-08-04T12:09:06Z"
+  updated_at = "2026-08-04T13:52:17Z"
 
 [[exports]]
   name = "core-css"
   preset_id = "898af612-5ca5-43b7-9cf7-c826a742b36d"
   advisory_name = "core-css"
   source_ref_type = "branch"
-  source_ref_name = "no-routing-new-setup"
+  source_ref_name = "super-user"
   preset_hash = "sha256:5605a06c8b06241654a5ddfecbae4589d52b4a9884f5f0737c7befaa49bf0112"
-  output_hash = "sha256:56d25fdf8787fe10266bb6320c0e68bc69a59983c7de69551ce6c1ee8efd7675"
-  updated_at = "2026-08-04T12:09:04Z"
+  output_hash = "sha256:541e925719f98221a46f847153f81c2a189a6197aa75307c4c0fd3549244e268"
+  updated_at = "2026-08-04T13:52:16Z"
 
 [integrity]
-  lockfile_hash = "sha256:c287485219464f4888f6e118559131eb976c770c43ca2f65112d0b9691c0c7dc"
+  lockfile_hash = "sha256:375d777f7fd1f85d704a321874d107153033546e4d9c84ed99a8bffdb949297e"
   algorithm = "sha256"

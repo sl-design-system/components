@@ -107,7 +107,7 @@ const preview: Preview = {
       return story();
     },
     (story, { globals: { userGroup = 'advanced' } }) => {
-      document.documentElement.setAttribute('data-User-Group', userGroup);
+      document.querySelector('body')?.setAttribute('data-User-Group', userGroup);
 
       return story();
     },
@@ -143,7 +143,7 @@ const preview: Preview = {
       toolbar: {
         dynamicTitle: true,
         icon: 'users',
-        items: ['early', 'developing', 'advanced']
+        items: ['early', 'developing', 'advanced', 'superuser']
       }
     },
     mode: {

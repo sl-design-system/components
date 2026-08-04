@@ -322,7 +322,7 @@ const getThemes = async folder => {
 
 const build = async (production = false, tokensPath) => {
   const cwd = new URL('.', import.meta.url).pathname,
-    themeBase = join(cwd, '../packages/themes'),
+    themeBase = join(cwd, '../../packages/themes'),
     themes = await getThemes(join(cwd, tokensPath));
 
   // Filter out themes that don't have base.json

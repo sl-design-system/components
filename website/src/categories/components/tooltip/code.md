@@ -2,8 +2,7 @@
 title: Tooltip code
 tags: code
 APIdescription: {
-  sl-tooltip: "Tooltip component has a range of properties to define the experience in different use cases. <code>sl-tooltip</code> component is recommended to use in all non-LitElement applications. Tooltip component should be a sibling of the element it is describing (not a child element).",
-  TooltipDirective: "When working on the application with LitElement, <code>TooltipDirective</code> can be used as an alternative way for adding <code>sl-tooltip</code> component. This is a LitElement specific directive."
+  sl-tooltip: "Tooltip component has a range of properties to define the experience in different use cases. The tooltip should be a sibling of the element it belongs to (not a child element) and is linked to that element with the <code>for</code> attribute."
 }
 eleventyNavigation:
   parent: Tooltip
@@ -39,105 +38,155 @@ The tooltip should be a sibling of the elements it belongs to (not a child eleme
 
 </div>
 
-Every element listed in `for` gets the tooltip's hover, focus and click triggers, and the tooltip is positioned against whichever one the user interacted with.
-
-Use `type` to control how the tooltip is linked for screen readers. The default, `label`, exposes the tooltip as the accessible name of the anchor and is what you want for icon-only buttons. Use `type="description"` — as in the example above — when the anchor already has its own label and the tooltip only adds extra information.
+Every element listed in `for` gets the tooltip's triggers, and the tooltip is positioned against whichever one the user interacted with. The tooltip looks up the ids in its own root node, so the tooltip and its anchors need to live in the same document or shadow root.
 
 </section>
 <ds-install-info link-in-navigation package="tooltip"></ds-install-info>
 <section>
 
-## TooltipDirective API
+## Label or description
 
-When working on the application with LitElement, `TooltipDirective` can be used as an alternative way for adding `sl-tooltip` component.
-This is a LitElement specific directive - a custom LitElement directive. More information you can find [here](https://lit.dev/docs/templates/custom-directives/).
-
-The `TooltipDirective` can be added to the anchor element e.g. button by passing a `string` for the tooltip content:
-
-
-<div class="ds-code">
-
-  ```js
-    ${tooltip('This tooltip is from a directive')}
-  ```
-
-</div>
-
-The complete usage example might appear as follows:
-
+Use `type` to control how the tooltip is linked for screen readers. The default, `label`, exposes the tooltip as the accessible name of the anchor and is what you want for icon-only buttons. Use `type="description"` when the anchor already has its own label and the tooltip only adds extra information.
 
 <div class="ds-code">
 
   ```html
-    <sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>
+<sl-button id="edit" fill="outline"><sl-icon name="far-pen"></sl-icon></sl-button>
+<sl-tooltip for="edit">Edit</sl-tooltip>
+
+<sl-button id="publish" fill="solid" variant="primary">Publish</sl-button>
+<sl-tooltip for="publish" type="description">Makes the page visible to everyone</sl-tooltip>
   ```
 
 </div>
 
-### Add config with the directive
-
-You can also pass a second argument: a **config** object. Use this to control how the tooltip appears.
-
-<div class="ds-code">
-
-```js
-// Basic string content + position + max width
-html`<sl-button ${tooltip('More info', { position: 'right', maxWidth: 240 })}>Hover me</sl-button>`;
-
-// Use ariaRelation: 'label' when the tooltip should be used as the accessible label (e.g. icon only buttons)
-html`<sl-button ${tooltip('Settings', { ariaRelation: 'label' })}><sl-icon name="smile"></sl-icon></sl-button>`;
-```
-
-</div>
-
-### Available config options
-
-- **position**: Where the tooltip shows relative to the anchor. One of: `top`, `right`, `bottom`, `left`, `top-start`, `top-end`, `right-start`, `right-end`, `bottom-start`, `bottom-end`, `left-start`, `left-end`. Default: `top`.
-- **maxWidth**: A `number` (pixels). The maximum width of the tooltip.
-- **ariaRelation**: How the tooltip is linked for screen readers. A `description` (default) uses `aria-describedby`, `label` uses `aria-labelledby` and should be used when the tooltip text is the actual label of the anchor element (like an icon-only button).
-
-If you omit a `config` it just uses its default behaviour. Config options are optional.
+You don't have to add `aria-labelledby` or `aria-describedby` yourself; the tooltip sets the relation on every anchor it belongs to, and removes it again when it is disabled or removed. See the [accessibility page](/categories/components/tooltip/accessibility/) for more about this.
 
 </section>
 
 <section>
 
-## Tooltip.lazy helper
+## Triggers
 
-`Tooltip.lazy` is a small helper that creates a tooltip only when the user first hovers or focuses the target element.
-This avoids unnecessary processing if the user never interacts with it.
+By default the tooltip shows when the user hovers over the anchor or focuses it with the keyboard. Use `trigger` to change that; it takes a space separated list of `hover`, `focus` and `click`. Use `manual` when the tooltip should only be shown programmatically.
 
-Basic shape:
+<div class="ds-example">
 
-```ts
-import { Tooltip } from '@sl-design-system/tooltip';
+<sl-button id="click-trigger" fill="solid" variant="primary">Click me</sl-button>
+<sl-tooltip for="click-trigger" trigger="click" type="description">Click the button again to dismiss me</sl-tooltip>
 
-const cleanup = Tooltip.lazy(targetElement, tooltip => {
-  // Runs once when the tooltip is actually created
-  tooltip.textContent = 'Hello there';
-});
-```
+</div>
 
-With options:
+<div class="ds-code">
 
-```ts
-Tooltip.lazy(button, tooltip => {
-    tooltip.textContent = 'Settings';
-    tooltip.position = 'bottom-start';
-  },
-  {
-    ariaRelation: 'label',
-    context: shadowRoot,
-    parentNode: someContainer,
+  ```html
+<sl-button id="click-trigger">Click me</sl-button>
+<sl-tooltip for="click-trigger" trigger="click" type="description">Click the button again to dismiss me</sl-tooltip>
+  ```
+
+</div>
+
+A few details worth knowing:
+
+- Focusing the anchor with the mouse does not show the tooltip; only keyboard focus (`:focus-visible`) does. That way the tooltip stays out of the way when a dialog returns focus to the button that opened it, for example.
+- Pressing <kbd>Escape</kbd> hides the tooltip while it is open.
+- Hovering is delayed to prevent tooltips from flashing by when the pointer moves across the screen. The delays are static properties, so changing them applies to every tooltip in the application:
+
+<div class="ds-code">
+
+  ```js
+  import { Tooltip } from '@sl-design-system/tooltip';
+
+  Tooltip.hoverShowDelay = 150; // default, in milliseconds
+  Tooltip.hoverHideDelay = 0; // default, in milliseconds
+  ```
+
+</div>
+
+</section>
+
+<section>
+
+## Showing and hiding programmatically
+
+Set the `open` property to show or hide the tooltip regardless of its triggers. The tooltip is a [popover](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API), so you can also call `showPopover()` and `hidePopover()` on it directly.
+
+To check whether a tooltip is showing, don't read the `open` property; use `matches(':popover-open')` instead. That also covers tooltips that were opened by one of the triggers.
+
+<div class="ds-code">
+
+  ```js
+  const tooltip = document.querySelector('sl-tooltip');
+
+  tooltip.open = true;
+
+  if (tooltip.matches(':popover-open')) {
+    // The tooltip is showing
   }
-);
-```
+  ```
 
-### Available options
+</div>
 
-- **ariaRelation**: How the tooltip is linked for screen readers. A `description` (default) uses `aria-describedby`, `label` uses `aria-labelledby` and should be used when the tooltip text is the actual label of the anchor element (like an icon-only button).
-- **context**: A `Document` or `ShadowRoot` to create the `<sl-tooltip>` element in. If not provided, the tooltip will be created on the target element if it has a `shadowRoot`, or the root node of the target element.
-- **parentNode**: A `Node` where the tooltip element should be inserted. This can be useful when you don't want the tooltip to be added next to the anchor element. If not provided, it will be added next to the anchor element.
+Use `disabled` to stop a tooltip from showing altogether. A disabled tooltip hides itself if it is open, ignores its triggers and drops the ARIA relation with its anchors, so screen readers no longer announce it.
+
+</section>
+
+<section>
+
+## Positioning and size
+
+The tooltip positions itself with [CSS anchor positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning). It renders above the anchor by default, and flips to the other side when there is not enough room. Since this is plain CSS, you change the position by styling the tooltip:
+
+<div class="ds-code">
+
+  ```css
+  sl-tooltip {
+    /* Show the tooltip to the right of the anchor instead of above it */
+    position-area: right;
+
+    /* Prevent long tooltips from becoming too wide */
+    max-inline-size: 200px;
+  }
+  ```
+
+</div>
+
+Not every browser supports CSS anchor positioning yet. In those browsers you need the CSS Anchor Positioning polyfill, see [add polyfills](/categories/getting-started/developers/#add-polyfills) in the getting started guide.
+
+The tooltip renders an invisible element between the anchor and the tooltip, so the pointer can travel from one to the other without the tooltip disappearing. It is available as the `hover-bridge` CSS part, which is handy when you want to see what it covers:
+
+<div class="ds-code">
+
+  ```css
+  sl-tooltip::part(hover-bridge) {
+    background: hotpink;
+  }
+  ```
+
+</div>
+
+</section>
+
+<section>
+
+## Migrating from older versions
+
+The tooltip was rewritten to use the browser's popover and CSS anchor positioning APIs. If you are coming from an older version:
+
+<div class="ds-table-wrapper">
+
+|Before|Now|
+|-|-|
+|`Tooltip.lazy(element, callback, options)`|Render an `<sl-tooltip>` with a `for` attribute; there is nothing to create lazily anymore|
+|The `tooltip()` directive from `@sl-design-system/tooltip`|Render an `<sl-tooltip>` with a `for` attribute|
+|`aria-describedby="my-tooltip"` on the anchor|`for="my-anchor"` on the tooltip, combined with `type`|
+|`position="bottom"`|The `position-area` CSS property|
+|`maxWidth="200"`|The `max-inline-size` CSS property|
+|`ariaRelation="label"`|`type="label"`, which is the default|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>
 

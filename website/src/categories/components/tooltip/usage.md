@@ -13,11 +13,11 @@ eleventyNavigation:
 
 </div>
 
+The tooltip should be a sibling of the element it is describing (not a child element). The `for` attribute links it to that element by `id`.
+
 <div class="ds-code">
 
   ```html
-Tooltip component should be a sibling of the element it is describing (not a child element).
-
 <sl-button id="button">Button with a tooltip</sl-button>
 <sl-tooltip for="button" type="description">This is a tooltip with some additional information</sl-tooltip>
   ```

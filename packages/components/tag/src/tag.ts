@@ -9,7 +9,7 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './tag.scss.js';
+import styles from './tag.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -183,32 +183,40 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         tabindex=${ifDefined(labelTabIndex)}>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
-      ${this.labelDescription
-        ? html`<span id="label-description" class="visually-hidden">${this.labelDescription}</span>`
-        : nothing}
-      ${this.removable
-        ? html`
-            <button
-              @blur=${this.#onBlur}
-              @click=${this.#onRemove}
-              @focus=${this.#onFocus}
-              @keydown=${this.#onKeydown}
-              aria-describedby=${ifDefined(buttonDescription || undefined)}
-              aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
-              aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
-              part="button"
-              type="button">
-              <sl-icon name="xmark"></sl-icon>
-            </button>
-            ${this.navigationDescription
-              ? html`
-                  <span id="navigation-description" class="visually-hidden" aria-hidden="true"
-                    >${this.navigationDescription}</span
-                  >
-                `
-              : nothing}
-          `
-        : nothing}
+      ${
+        this.labelDescription
+          ? html`
+              <span id="label-description" class="visually-hidden">${this.labelDescription}</span>
+            `
+          : nothing
+      }
+      ${
+        this.removable
+          ? html`
+              <button
+                @blur=${this.#onBlur}
+                @click=${this.#onRemove}
+                @focus=${this.#onFocus}
+                @keydown=${this.#onKeydown}
+                aria-describedby=${ifDefined(buttonDescription || undefined)}
+                aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+                aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
+                part="button"
+                type="button">
+                <sl-icon name="xmark"></sl-icon>
+              </button>
+              ${
+                this.navigationDescription
+                  ? html`
+                      <span id="navigation-description" class="visually-hidden" aria-hidden="true"
+                        >${this.navigationDescription}</span
+                      >
+                    `
+                  : nothing
+              }
+            `
+          : nothing
+      }
     `;
   }
 

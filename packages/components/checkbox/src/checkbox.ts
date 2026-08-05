@@ -22,7 +22,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import styles from './checkbox.scss.js';
+import styles from './checkbox.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -207,9 +207,11 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
               part="svg"
               version="1.1"
               viewBox="0 0 24 24">
-              ${this.indeterminate
-                ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
-                : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
+              ${
+                this.indeterminate
+                  ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
+                  : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`
+              }
             </svg>
           </div>
         </div>

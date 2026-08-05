@@ -19,8 +19,8 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import '../register.js';
 import { type MenuButton } from './menu-button.js';
+import './register.js';
 
 type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'shape' | 'size' | 'variant'> & {
   alignSelf: string;

@@ -9,7 +9,7 @@ import {
   html
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import styles from './radio.scss.js';
+import styles from './radio.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -135,13 +135,15 @@ export class Radio<T = any> extends LitElement {
         aria-checked=${Boolean(this.checked)}
         aria-disabled=${this.disabled ? 'true' : 'false'}>
         <div part="box">
-          ${this.checked
-            ? html`
-                <svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="6"></circle>
-                </svg>
-              `
-            : html`<svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24"></svg>`}
+          ${
+            this.checked
+              ? html`
+                  <svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="6"></circle>
+                  </svg>
+                `
+              : html`<svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24"></svg>`
+          }
         </div>
         <span part="label">
           <slot @slotchange=${() => this.#onLabelSlotChange()}></slot>

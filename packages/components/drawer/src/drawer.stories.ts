@@ -1,8 +1,8 @@
 import '@sl-design-system/button/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../register.js';
 import { type Drawer } from './drawer.js';
+import './register.js';
 
 export default {
   title: 'Overlay/Drawer',

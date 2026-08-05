@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './badge.scss.js';
+import styles from './badge.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

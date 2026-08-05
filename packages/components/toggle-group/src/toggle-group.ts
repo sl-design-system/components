@@ -9,7 +9,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './toggle-group.scss.js';
+import styles from './toggle-group.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

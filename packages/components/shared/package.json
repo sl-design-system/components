@@ -4,7 +4,17 @@
   "description": "Shared code for the SL Design System components",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/index.js",
+      "./controllers/new-focus-group.js": "./dist/controllers/new-focus-group.js",
+      "./converters.js": "./dist/converters.js",
+      "./date.js": "./dist/date.js",
+      "./events.js": "./dist/events.js",
+      "./helpers/forward-aria.js": "./dist/helpers/forward-aria.js",
+      "./mixins.js": "./dist/mixins.js",
+      "./package.json": "./package.json"
+    }
   },
   "repository": {
     "type": "git",
@@ -12,38 +22,15 @@
     "directory": "packages/components/shared"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
-    ".": {
-      "import": "./index.js",
-      "types": "./index.d.ts"
-    },
-    "./controllers/focus-group.js": {
-      "import": "./src/controllers/new-focus-group.js",
-      "types": "./src/controllers/new-focus-group.d.ts"
-    },
-    "./converters.js": {
-      "import": "./src/converters.js",
-      "types": "./src/converters.d.ts"
-    },
-    "./date.js": {
-      "import": "./src/date.js",
-      "types": "./src/date.d.ts"
-    },
-    "./events.js": {
-      "import": "./src/events.js",
-      "types": "./src/events.d.ts"
-    },
-    "./helpers/forward-aria.js": {
-      "import": "./src/helpers/forward-aria.js",
-      "types": "./src/helpers/forward-aria.d.ts"
-    },
-    "./mixins.js": {
-      "import": "./src/mixins.js",
-      "types": "./src/mixins.d.ts"
-    },
+    ".": "./src/index.ts",
+    "./controllers/new-focus-group.js": "./src/controllers/new-focus-group.ts",
+    "./converters.js": "./src/converters.ts",
+    "./date.js": "./src/date.ts",
+    "./events.js": "./src/events.ts",
+    "./helpers/forward-aria.js": "./src/helpers/forward-aria.ts",
+    "./mixins.js": "./src/mixins.ts",
     "./package.json": "./package.json"
   },
   "files": [
@@ -53,6 +40,17 @@
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "tsdown": {
+    "entry": [
+      "src/index.ts",
+      "src/controllers/new-focus-group.ts",
+      "src/converters.ts",
+      "src/date.ts",
+      "src/events.ts",
+      "src/helpers/forward-aria.ts",
+      "src/mixins.ts"
+    ]
   },
   "devDependencies": {
     "@floating-ui/dom": "^1.7.6",

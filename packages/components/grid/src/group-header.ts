@@ -14,7 +14,7 @@ import {
 } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './group-header.scss.js';
+import styles from './group-header.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -56,24 +56,28 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      ${this.dragHandle
-        ? html`
-            <div part="drag-handle">
-              <sl-icon name="grip-lines"></sl-icon>
-            </div>
-          `
-        : nothing}
-      ${this.selectable
-        ? html`
-            <div part="checkbox">
-              <sl-checkbox
-                @sl-change=${this.#onChange}
-                .checked=${this.selected === 'all'}
-                .indeterminate=${this.selected === 'some'}
-                size="sm"></sl-checkbox>
-            </div>
-          `
-        : nothing}
+      ${
+        this.dragHandle
+          ? html`
+              <div part="drag-handle">
+                <sl-icon name="grip-lines"></sl-icon>
+              </div>
+            `
+          : nothing
+      }
+      ${
+        this.selectable
+          ? html`
+              <div part="checkbox">
+                <sl-checkbox
+                  @sl-change=${this.#onChange}
+                  .checked=${this.selected === 'all'}
+                  .indeterminate=${this.selected === 'some'}
+                  size="sm"></sl-checkbox>
+              </div>
+            `
+          : nothing
+      }
       <sl-button
         @click=${this.#onClick}
         aria-expanded=${this.collapsed ? 'false' : 'true'}

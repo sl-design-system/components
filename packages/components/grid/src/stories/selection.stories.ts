@@ -17,7 +17,7 @@ import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../../register.js';
+import '.././register.js';
 import { type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
@@ -206,8 +206,7 @@ sl-dialog::part(body) {
 sl-grid::part(bulk-actions) {
   inset-block-start: calc(anchor(bottom) - var(--sl-size-300));
   position-anchor: --grid-dialog;
-}</pre
-      >
+}</pre>
 
       <p>
         There is a known issue where the bulk actions bar gets placed under the dialog overlay when

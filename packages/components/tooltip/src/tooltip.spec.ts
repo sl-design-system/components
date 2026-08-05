@@ -7,7 +7,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { Tooltip } from './tooltip.js';
 
 class TooltipAssignedSlotHost extends LitElement {

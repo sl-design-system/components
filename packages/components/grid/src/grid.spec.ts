@@ -10,8 +10,8 @@ import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
+import './register.js';
 import { waitForGridToRenderData } from './utils.js';
 
 type Person = { firstName: string; lastName: string; email?: string };

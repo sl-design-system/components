@@ -31,7 +31,7 @@ import {
 } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
-import styles from './select.scss.js';
+import styles from './select.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -375,18 +375,20 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     return html`
       <slot name="button"></slot>
-      ${showClearButton
-        ? html`
-            <button
-              @click=${this.#onClearButtonClick}
-              @focusin=${this.#onClearButtonFocusin}
-              @focusout=${this.#onClearButtonFocusout}
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
-              <sl-icon name="circle-xmark"></sl-icon>
-              <sl-icon name="circle-xmark-solid"></sl-icon>
-            </button>
-          `
-        : nothing}
+      ${
+        showClearButton
+          ? html`
+              <button
+                @click=${this.#onClearButtonClick}
+                @focusin=${this.#onClearButtonFocusin}
+                @focusout=${this.#onClearButtonFocusout}
+                aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
+                <sl-icon name="circle-xmark"></sl-icon>
+                <sl-icon name="circle-xmark-solid"></sl-icon>
+              </button>
+            `
+          : nothing
+      }
       <sl-listbox
         ${anchor({
           element: this.button,

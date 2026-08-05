@@ -3,7 +3,7 @@ import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { type TimeField } from './time-field.js';
 
 type Props = Pick<
@@ -85,13 +85,15 @@ export default {
             start=${ifDefined(start)}
             .value=${value}></sl-time-field>
         </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
-            `
-          : nothing}
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }

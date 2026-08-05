@@ -4,7 +4,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './ellipsize-text.scss.js';
+import styles from './ellipsize-text.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

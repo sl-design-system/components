@@ -5,7 +5,7 @@ import { html } from 'lit';
 import { spy, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { type ToggleButton } from './toggle-button.js';
 
 describe('sl-toggle-button', () => {

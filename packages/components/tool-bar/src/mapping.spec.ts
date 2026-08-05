@@ -6,7 +6,6 @@ import '@sl-design-system/menu/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import '../register.js';
 import {
   type ToolBarItemButton,
   mapButtonToItem,
@@ -14,6 +13,7 @@ import {
   mapMenuButtonToItem,
   mapMenuItemToItem
 } from './mapping.js';
+import './register.js';
 import { type ToolBar } from './tool-bar.js';
 
 describe('mapButtonToItem', () => {

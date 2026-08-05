@@ -6,8 +6,8 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type DateField } from './date-field.js';
+import './register.js';
 
 type Props = Pick<
   DateField,
@@ -111,13 +111,15 @@ export default {
             ${slot?.()}
           </sl-date-field>
         </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
-            `
-          : nothing}
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }

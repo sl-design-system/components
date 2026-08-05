@@ -27,7 +27,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './date-field.scss.js';
+import styles from './date-field.css' with { type: 'css' };
 import {
   type DateFormatPart,
   getDateFormat,
@@ -351,29 +351,33 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return html`
       <div class="field">
         <div class="wrapper">
-          ${this.selectAll
-            ? html`
-                <span
-                  @blur=${this.#onSelectAllBlur}
-                  @keydown=${this.#onSelectAllKeydown}
-                  @mousedown=${this.#onSelectAllMouseDown}
-                  class="select-all"
-                  contenteditable="true">
-                  ${this.#getFormattedValue()}
-                </span>
-              `
-            : html`
-                <div class="parts">${parts.map(part => this.renderPart(part, locale))}</div>
-                ${this.placeholder
-                  ? html`
-                      <div
-                        aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
-                        class="placeholder">
-                        ${this.placeholder}
-                      </div>
-                    `
-                  : nothing}
-              `}
+          ${
+            this.selectAll
+              ? html`
+                  <span
+                    @blur=${this.#onSelectAllBlur}
+                    @keydown=${this.#onSelectAllKeydown}
+                    @mousedown=${this.#onSelectAllMouseDown}
+                    class="select-all"
+                    contenteditable="true">
+                    ${this.#getFormattedValue()}
+                  </span>
+                `
+              : html`
+                  <div class="parts">${parts.map(part => this.renderPart(part, locale))}</div>
+                  ${
+                    this.placeholder
+                      ? html`
+                          <div
+                            aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
+                            class="placeholder">
+                            ${this.placeholder}
+                          </div>
+                        `
+                      : nothing
+                  }
+                `
+          }
         </div>
 
         <sl-field-button
@@ -395,36 +399,45 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @keydown=${this.#onKeydown}
         aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
         id="dialog">
-        ${this.calendarVisible
-          ? html`
-              <slot @slotchange=${this.#onSlotChange} @sl-change=${this.#onChange} name="calendar">
-                <sl-calendar
-                  .selected=${this.value}
-                  ?show-week-numbers=${this.showWeekNumbers}
-                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-                  locale=${ifDefined(this.locale)}
-                  max=${ifDefined(this.max?.toISOString())}
-                  min=${ifDefined(this.min?.toISOString())}
-                  month=${ifDefined(this.month?.toISOString())}
-                  show-today></sl-calendar>
-              </slot>
-              ${hasExtraControls
-                ? html`
-                    <sl-button-bar>
-                      <slot></slot>
-                      ${this.requireConfirmation
-                        ? html`
-                            <sl-button @click=${this.#onConfirm} variant="primary">
-                              ${msg('Confirm', { id: 'sl.dateField.confirm' })}
-                              <sl-icon name="check"></sl-icon>
-                            </sl-button>
-                          `
-                        : nothing}
-                    </sl-button-bar>
-                  `
-                : nothing}
-            `
-          : nothing}
+        ${
+          this.calendarVisible
+            ? html`
+                <slot
+                  @slotchange=${this.#onSlotChange}
+                  @sl-change=${this.#onChange}
+                  name="calendar">
+                  <sl-calendar
+                    .selected=${this.value}
+                    ?show-week-numbers=${this.showWeekNumbers}
+                    first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                    locale=${ifDefined(this.locale)}
+                    max=${ifDefined(this.max?.toISOString())}
+                    min=${ifDefined(this.min?.toISOString())}
+                    month=${ifDefined(this.month?.toISOString())}
+                    show-today></sl-calendar>
+                </slot>
+                ${
+                  hasExtraControls
+                    ? html`
+                        <sl-button-bar>
+                          <slot></slot>
+                          ${
+                            this.requireConfirmation
+                              ? html`
+                                  <sl-button @click=${this.#onConfirm} variant="primary">
+                                    ${msg('Confirm', { id: 'sl.dateField.confirm' })}
+                                    <sl-icon name="check"></sl-icon>
+                                  </sl-button>
+                                `
+                              : nothing
+                          }
+                        </sl-button-bar>
+                      `
+                    : nothing
+                }
+              `
+            : nothing
+        }
       </dialog>
     `;
   }

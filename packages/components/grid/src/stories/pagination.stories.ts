@@ -9,7 +9,7 @@ import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../../register.js';
+import '.././register.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;

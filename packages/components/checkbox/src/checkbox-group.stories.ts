@@ -4,8 +4,8 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
-import '../register.js';
 import { type CheckboxGroup } from './checkbox-group.js';
+import './register.js';
 
 type Props = Pick<CheckboxGroup, 'disabled' | 'required' | 'size' | 'value'> & {
   hint?: string;
@@ -55,23 +55,27 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-checkbox-group
-              ?disabled=${disabled}
-              ?required=${required}
-              .label=${label}
-              .size=${size}
-              .value=${value}>
-              ${boxes?.() ??
-              html`
-                <sl-checkbox value="0">Option 1</sl-checkbox>
-                <sl-checkbox value="1">Option 2</sl-checkbox>
-                <sl-checkbox value="2">Option 3</sl-checkbox>
-                <sl-checkbox disabled value="3">Option 4</sl-checkbox>
-              `}
-            </sl-checkbox-group>
-          `}
+          ${
+            slot?.() ??
+            html`
+              <sl-checkbox-group
+                ?disabled=${disabled}
+                ?required=${required}
+                .label=${label}
+                .size=${size}
+                .value=${value}>
+                ${
+                  boxes?.() ??
+                  html`
+                    <sl-checkbox value="0">Option 1</sl-checkbox>
+                    <sl-checkbox value="1">Option 2</sl-checkbox>
+                    <sl-checkbox value="2">Option 3</sl-checkbox>
+                    <sl-checkbox disabled value="3">Option 4</sl-checkbox>
+                  `
+                }
+              </sl-checkbox-group>
+            `
+          }
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>

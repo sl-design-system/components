@@ -44,7 +44,7 @@ import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
 import { GridFilterColumn } from './filter-column.js';
 import { type GridFilter, type SlFilterRegisterEvent } from './filter.js';
-import styles from './grid.scss.js';
+import styles from './grid.css' with { type: 'css' };
 import { GridGroupHeader } from './group-header.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';
@@ -462,18 +462,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      ${!this.noSkipLinks
-        ? html`
-            <a
-              id="table-start"
-              href="#table-end"
-              class="skip-link-start"
-              @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
-              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}>
-              ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
-            </a>
-          `
-        : nothing}
+      ${
+        !this.noSkipLinks
+          ? html`
+              <a
+                id="table-start"
+                href="#table-end"
+                class="skip-link-start"
+                @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+                @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}>
+                ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
+              </a>
+            `
+          : nothing
+      }
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
@@ -490,17 +492,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
-        ${this.scrollbar
-          ? html`
-              <tfoot>
-                <tr class="scrollbar">
-                  <td>
-                    <sl-scrollbar scroller="tbody"></sl-scrollbar>
-                  </td>
-                </tr>
-              </tfoot>
-            `
-          : nothing}
+        ${
+          this.scrollbar
+            ? html`
+                <tfoot>
+                  <tr class="scrollbar">
+                    <td>
+                      <sl-scrollbar scroller="tbody"></sl-scrollbar>
+                    </td>
+                  </tr>
+                </tfoot>
+              `
+            : nothing
+        }
       </table>
 
       <div part="bulk-actions" popover="manual">
@@ -524,18 +528,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </sl-tooltip>
       </div>
 
-      ${!this.noSkipLinks
-        ? html`
-            <a
-              id="table-end"
-              href="#table-start"
-              class="skip-link-end"
-              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
-              @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
-              >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
-            >
-          `
-        : nothing}
+      ${
+        !this.noSkipLinks
+          ? html`
+              <a
+                id="table-end"
+                href="#table-start"
+                class="skip-link-end"
+                @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
+                @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+                >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
+              >
+            `
+          : nothing
+      }
     `;
   }
 
@@ -660,12 +666,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ?drag-handle=${draggable}
             ?selectable=${selectable}
             .selected=${item.selected ?? 'none'}>
-            ${this.groupHeaderRenderer?.(item) ??
-            html`
-              <span slot="group-heading">
-                ${item.label} ${typeof item.count === 'number' ? `(${item.count})` : nothing}
-              </span>
-            `}
+            ${
+              this.groupHeaderRenderer?.(item) ??
+              html`
+                <span slot="group-heading">
+                  ${item.label} ${typeof item.count === 'number' ? `(${item.count})` : nothing}
+                </span>
+              `
+            }
           </sl-grid-group-header>
         </td>
       </tr>

@@ -28,7 +28,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { FieldButton } from './field-button.js';
-import styles from './text-field.scss.js';
+import styles from './text-field.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -272,9 +272,11 @@ export class TextField
   renderSuffix(): TemplateResult | typeof nothing {
     return html`
       <slot @slotchange=${this.onSuffixSlotChange} name="suffix">
-        ${this.showValidity === 'valid'
-          ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
-          : nothing}
+        ${
+          this.showValidity === 'valid'
+            ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
+            : nothing
+        }
       </slot>
     `;
   }

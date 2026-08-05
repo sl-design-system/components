@@ -153,7 +153,7 @@ export const Grouping: StoryObj = {
   ],
   render: (_, { loaded }) => {
     const people = loaded['people'] as Person[];
-    const ds = new ArrayListDataSource(people, {
+    const dataSource = new ArrayListDataSource(people, {
       groupBy: 'profession',
       groupLabelPath: 'profession'
     });
@@ -161,9 +161,9 @@ export const Grouping: StoryObj = {
     return {
       description:
         'This example shows drag and drop behavior in combination with grouping. Items can be dragged and dropped both within and between groups.',
-      props: { ds },
+      props: { dataSource },
       template: `
-        <sl-grid [dataSource]="ds" [noSkipLinks]="true">
+        <sl-grid [dataSource]="dataSource" [noSkipLinks]="true">
           <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>

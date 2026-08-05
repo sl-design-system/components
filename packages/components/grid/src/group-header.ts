@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
@@ -42,6 +42,9 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** Whether the group is draggable. */
   @property({ type: Boolean, attribute: 'drag-handle' }) dragHandle?: boolean;
 
+  /** Accessible label for the group selection checkbox. */
+  @property({ attribute: 'group-label' }) groupLabel?: string;
+
   /** Whether you can select the entire group. */
   @property({ type: Boolean, reflect: true }) selectable?: boolean;
 
@@ -55,6 +58,10 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   override render(): TemplateResult {
+    const selectGroupLabel = this.groupLabel
+      ? msg(str`${this.groupLabel} group`, { id: 'sl.grid.selectGroupWithName' })
+      : msg('Group', { id: 'sl.grid.selectGroup' });
+
     return html`
       ${this.dragHandle
         ? html`
@@ -68,7 +75,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
             <div part="checkbox">
               <sl-checkbox
                 @sl-change=${this.#onChange}
-                aria-label=${msg('Group', { id: 'sl.grid.selectGroup' })}
+                aria-label=${selectGroupLabel}
                 .checked=${this.selected === 'all'}
                 .indeterminate=${this.selected === 'some'}
                 size="sm"></sl-checkbox>

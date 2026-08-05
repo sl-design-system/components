@@ -233,6 +233,43 @@ describe('sl-grid', () => {
 
       expect(rowIndices).to.deep.equal(['1', '2', '3', '4']);
     });
+
+    it('should use the group name in the grouped selection checkbox aria-label', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${new ArrayListDataSource<Student>(
+            [
+              {
+                firstName: 'John',
+                lastName: 'Doe',
+                school: { id: 1, name: 'School A' }
+              },
+              {
+                firstName: 'Jane',
+                lastName: 'Smith',
+                school: { id: 2, name: 'School B' }
+              }
+            ],
+            {
+              groupBy: 'school.id',
+              groupLabelPath: 'school.name'
+            }
+          )}>
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const groupHeader = el.renderRoot.querySelector('sl-grid-group-header'),
+        checkbox = groupHeader?.renderRoot.querySelector('sl-checkbox'),
+        input = checkbox?.querySelector('input');
+
+      expect(checkbox).to.exist;
+      expect(input).to.have.attribute('aria-label', 'School A group');
+    });
   });
 
   describe('multiple select bulk actions', () => {

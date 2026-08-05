@@ -39,6 +39,7 @@ import {
   render
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
@@ -658,6 +659,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
             ?collapsed=${collapsed}
             ?drag-handle=${draggable}
+            group-label=${ifDefined(item.label)}
             ?selectable=${selectable}
             .selected=${item.selected ?? 'none'}>
             ${this.groupHeaderRenderer?.(item) ??

@@ -3,7 +3,7 @@
 const { readFile } = require('fs/promises');
 const { join } = require('path');
 
-const coreCssDir = join(__dirname, '../../../scripts/export/core-css');
+const coreCssDir = join(__dirname, '../../../scripts/themes/export/core-css');
 
 /**
  * Parse CSS custom properties from CSS source text into a Map of name → value.

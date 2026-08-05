@@ -4,7 +4,15 @@
   "description": "Locales for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/locale-codes.js",
+      "./es-ES.js": "./dist/es-ES.js",
+      "./it.js": "./dist/it.js",
+      "./nl.js": "./dist/nl.js",
+      "./pl.js": "./dist/pl.js",
+      "./package.json": "./package.json"
+    }
   },
   "repository": {
     "type": "git",
@@ -12,34 +20,12 @@
     "directory": "packages/locales"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "exports": {
-    ".": {
-      "import": "./index.js",
-      "types": "./index.d.ts"
-    },
-    "./es-ES.xlf": "./src/es-ES.xlf",
-    "./it.js": {
-      "import": "./src/it.js",
-      "types": "./src/it.d.ts"
-    },
-    "./it.xlf": "./src/it.xlf",
-    "./nl.js": {
-      "import": "./src/nl.js",
-      "types": "./src/nl.d.ts"
-    },
-    "./nl.xlf": "./src/nl.xlf",
-    "./es-ES.js": {
-      "import": "./src/es-ES.js",
-      "types": "./src/es-ES.d.ts"
-    },
-    "./pl.js": {
-      "import": "./src/pl.js",
-      "types": "./src/pl.d.ts"
-    },
-    "./pl.xlf": "./src/pl.xlf",
+    ".": "./src/locale-codes.ts",
+    "./es-ES.js": "./src/es-ES.js",
+    "./it.js": "./src/it.js",
+    "./nl.js": "./src/nl.js",
+    "./pl.js": "./src/pl.js",
     "./package.json": "./package.json"
   },
   "files": [

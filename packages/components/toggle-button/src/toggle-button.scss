@@ -181,7 +181,6 @@ button {
     cursor: default;
 
     &[aria-pressed='true'] {
-      // --_bg-color: var(--sl-color-background-disabled);
       --_bg-color: var(--sl-color-background-neutral-bold);
     }
   }

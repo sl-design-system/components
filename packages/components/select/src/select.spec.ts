@@ -31,7 +31,7 @@ describe('sl-select', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -326,7 +326,7 @@ describe('sl-select', () => {
   describe('groups', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option-group label="Group 1">
             <sl-option value="1">Option 1</sl-option>
             <sl-option value="2">Option 2</sl-option>
@@ -441,7 +441,7 @@ describe('sl-select', () => {
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select disabled>
+        <sl-select aria-label="Select an option" disabled>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
           <sl-option>Option 3</sl-option>
@@ -480,7 +480,7 @@ describe('sl-select', () => {
   describe('required', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select required>
+        <sl-select aria-label="Select an option" required>
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -567,7 +567,7 @@ describe('sl-select', () => {
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-            <sl-select value="2">
+            <sl-select aria-label="Select an option" value="2">
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
               <sl-option value="3">Option 3</sl-option>
@@ -612,7 +612,7 @@ describe('sl-select', () => {
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-            <sl-select>
+            <sl-select aria-label="Select an option">
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
               <sl-option value="3">Option 3</sl-option>
@@ -722,7 +722,7 @@ describe('sl-select', () => {
   describe('keyboard interactions', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -924,7 +924,7 @@ describe('sl-select', () => {
     it('should not use the full available width if options are smaller', async () => {
       el = await fixture(html`
         <div style="inline-size: 800px; inset: 0 auto auto 0; position: fixed">
-          <sl-select>
+          <sl-select aria-label="Select an option">
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>
             <sl-option value="longer">This is a longer option text.</sl-option>
@@ -941,7 +941,7 @@ describe('sl-select', () => {
     it('should respect parent max-width when option text is wider', async () => {
       el = await fixture(html`
         <div style="max-inline-size: 400px; inset: 0 auto auto 0; position: fixed">
-          <sl-select>
+          <sl-select aria-label="Select an option">
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>
             <sl-option value="very-long"
@@ -960,7 +960,7 @@ describe('sl-select', () => {
 
     it('should set the listbox width custom property to the button width when opening', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -983,7 +983,7 @@ describe('sl-select', () => {
   describe('selected content rendering', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -1175,7 +1175,7 @@ describe('sl-select', () => {
     it('should sync value and form value when selected option implicit value changes', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-select name="fruit">
+          <sl-select aria-label="Select fruit" name="fruit">
             <sl-option>Apple</sl-option>
             <sl-option>Banana</sl-option>
           </sl-select>
@@ -1210,7 +1210,7 @@ describe('sl-select', () => {
     it('should sync value when selected option value attribute changes', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-select name="fruit">
+          <sl-select aria-label="Select fruit" name="fruit">
             <sl-option value="apple">Apple</sl-option>
             <sl-option value="banana">Banana</sl-option>
           </sl-select>
@@ -1240,7 +1240,7 @@ describe('sl-select', () => {
 
     it('should not recalculate width when only selected option value attribute changes', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="apple">Apple</sl-option>
           <sl-option value="banana">Banana</sl-option>
         </sl-select>
@@ -1297,7 +1297,7 @@ describe('sl-select', () => {
 
     it('should handle options with slotted element content', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1"> <strong>Bold</strong> text </sl-option>
           <sl-option value="2">Normal text</sl-option>
         </sl-select>
@@ -1321,7 +1321,7 @@ describe('sl-select', () => {
 
     it('should render selected content when a slotted node root is not a document', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1"><span>Option 1</span></sl-option>
           <sl-option value="2">Option 2</sl-option>
         </sl-select>
@@ -1346,7 +1346,7 @@ describe('sl-select', () => {
 
     it('should handle options with multiple slotted nodes', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">
             <span>First</span>
             <span>Second</span>
@@ -1374,7 +1374,7 @@ describe('sl-select', () => {
 
     it('should clone slotted nodes deeply', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">
             <div>
               <span class="nested"> <strong>Deep</strong> content </span>
@@ -1404,7 +1404,7 @@ describe('sl-select', () => {
 
     it('should handle empty option text', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="empty"></sl-option>
           <sl-option value="filled">Has text</sl-option>
         </sl-select>
@@ -1423,7 +1423,7 @@ describe('sl-select', () => {
 
     it('should update content when option content changes', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Initial</sl-option>
         </sl-select>
       `);
@@ -1462,7 +1462,7 @@ describe('sl-select', () => {
 
         override render(): TemplateResult {
           return html`
-            <sl-select>
+            <sl-select aria-label="Select an option">
               <sl-option value="1" label="Option 1">
                 <sl-icon name="far-star"></sl-icon>
                 Option 1
@@ -1504,7 +1504,7 @@ describe('sl-select', () => {
   describe('focus management', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -1548,7 +1548,7 @@ describe('sl-select', () => {
 
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select clearable value="1">
+        <sl-select aria-label="Select an option" clearable value="1">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>

@@ -7,6 +7,21 @@ import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
 import { type Mode, themes, updateTheme } from './themes.js';
 
+// Load the CSS Anchor Positioning polyfill if needed
+if (!('anchorName' in document.documentElement.style)) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+  (window as any).ANCHOR_POSITIONING_POLYFILL_OPTIONS = {
+    positionAreaContainingBlock: false
+  };
+
+  const { default: polyfill, patchAndPolyfillConstructedStylesheets } =
+    await import('@oddbird/css-anchor-positioning/fn');
+
+  patchAndPolyfillConstructedStylesheets();
+
+  await polyfill();
+}
+
 // Load the polyfill for the Invoker API if needed
 if (!('command' in HTMLButtonElement.prototype)) {
   const { apply } = await import('invokers-polyfill/fn');

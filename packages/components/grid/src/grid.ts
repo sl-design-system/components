@@ -1,4 +1,3 @@
-/* eslint-disable slds/button-has-label */
 /* eslint-disable lit/prefer-static-styles */
 import { localized, msg, str } from '@lit/localize';
 import {
@@ -28,7 +27,6 @@ import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { ToolBar } from '@sl-design-system/tool-bar';
-import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -131,8 +129,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
       'sl-toggle-group': ToggleGroup,
-      'sl-tool-bar': ToolBar,
-      'sl-tooltip': Tooltip
+      'sl-tool-bar': ToolBar
     };
   }
 
@@ -514,14 +511,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </sl-tool-bar>
         <sl-button
           @click=${this.#onCancelSelection}
-          aria-describedby="tooltip"
           fill="ghost"
+          tooltip=${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}
           variant="inverted">
           <sl-icon name="xmark"></sl-icon>
         </sl-button>
-        <sl-tooltip id="tooltip">
-          ${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}
-        </sl-tooltip>
       </div>
 
       ${!this.noSkipLinks

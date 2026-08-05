@@ -29,7 +29,7 @@ const parseCssProps = css => {
         currentValueParts = [];
       }
     } else {
-      const match = trimmed.match(/^(--[a-z][a-z0-9-]*):\s*(.*?)(;?)$/);
+      const match = trimmed.match(/^(--[A-Za-z][A-Za-z0-9-]*):\s*(.*?)(;?)$/);
       if (match) {
         const [, name, value, semi] = match;
         const propName = name.slice(2); // strip leading --
@@ -130,21 +130,28 @@ module.exports = async function () {
   // --- Border radius: --sl-size-border-radius-* tokens ---
   const borderRadiusRaw = [];
   for (const [name, value] of systemProps) {
-    if (/^sl-size-border-radius-/.test(name)) {
-      borderRadiusRaw.push({ token: `--${name}`, label: name.replace('sl-size-border-radius-', ''), value: resolveVar(value, allProps) });
+    if (/^sl-size-borderRadius-/.test(name) && !/var\(--sl-brand/.test(value)) {
+      borderRadiusRaw.push({ token: `--${name}`, label: name.replace('sl-size-borderRadius-', ''), value: resolveVar(value, allProps) });
     }
   }
   const borderRadius = sortByTokenSuffix(borderRadiusRaw);
 
-  // --- Typography typesets: --sl-typography-<typeset>-<property> ---
+  // --- Typography typesets: --sl-typography-<typeset>-<property>
   // Group by typeset name; each entry gets font-size, font-weight, line-height, etc.
+  const typographyPropMap = {
+    fontFamily: 'font-family',
+    fontSize: 'font-size',
+    fontWeight: 'font-weight',
+    lineHeight: 'line-height',
+    letterSpacing: 'letter-spacing',
+  };
   const typographyMap = new Map();
   for (const [name, value] of systemProps) {
-    const m = name.match(/^sl-typography-(.+)-(font-family|font-size|font-weight|line-height|letter-spacing)$/);
+    const m = name.match(/^(?:sl-typography)-(.+)-(fontFamily|fontSize|fontWeight|lineHeight|letterSpacing)$/);
     if (m) {
       const [, typeset, prop] = m;
       if (!typographyMap.has(typeset)) typographyMap.set(typeset, {});
-      typographyMap.get(typeset)[prop] = { token: `--${name}`, value: resolveVar(value, allProps) };
+      typographyMap.get(typeset)[typographyPropMap[prop]] = { token: `--${name}`, value: resolveVar(value, allProps) };
     }
   }
   const typography = [...typographyMap.entries()].sort((a, b) => {

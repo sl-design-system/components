@@ -61,7 +61,6 @@ Some users rely on screen readers or have visual impairments. Ensure that toolti
 |-|-|-|-|
 |1|Panel	|Contains the panel content|no|
 |2|Content	|An area to display any text content|no|
-|3|Pointer	|Indicates the direction of context that the tooltip is attributed to|yes|
 
 {.ds-table .ds-table-align-top}
 

@@ -501,6 +501,42 @@ describe('sl-tooltip', () => {
       expect(tooltip).to.match(':popover-open');
     });
 
+    it('should not show the tooltip when the anchor is focused programmatically', async () => {
+      tooltip.trigger = 'focus';
+      await tooltip.updateComplete;
+
+      // Clicking puts the browser in pointer modality; without a pointer interaction on a
+      // focusable element, even a programmatic focus() still matches :focus-visible
+      await userEvent.click(anchor);
+
+      // Move focus off the anchor again, so the focus() below actually fires a focus event
+      anchor.blur();
+      await tooltip.updateComplete;
+
+      // Focus the anchor the way a script would, e.g. a dialog restoring focus when it closes
+      anchor.focus();
+      await tooltip.updateComplete;
+
+      expect(document.activeElement).to.equal(anchor);
+      expect(anchor).not.to.match(':focus-visible');
+      expect(tooltip).not.to.match(':popover-open');
+    });
+
+    it('should set the active anchor when the anchor is focused programmatically', async () => {
+      // See the test above for why the anchor is clicked and blurred before focusing it
+      tooltip.trigger = 'focus';
+      await tooltip.updateComplete;
+
+      await userEvent.click(anchor);
+      anchor.blur();
+      await tooltip.updateComplete;
+
+      anchor.focus();
+      await tooltip.updateComplete;
+
+      expect(tooltip.anchor).to.equal(anchor);
+    });
+
     it('should hide the tooltip on blur', async () => {
       await userEvent.tab();
       await tooltip.updateComplete;

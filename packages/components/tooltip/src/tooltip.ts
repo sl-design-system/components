@@ -216,10 +216,16 @@ export class Tooltip extends LitElement {
     }
   };
 
-  #onFocus = (event: FocusEvent): void => {
+  #onFocus = (event: FocusEvent & { currentTarget: HTMLElement }): void => {
     if (this.#hasTrigger('focus')) {
-      this.#setActiveAnchor(event.currentTarget as HTMLElement);
-      this.showPopover();
+      this.#setActiveAnchor(event.currentTarget);
+
+      // Only show the tooltip if the focus event was triggered by keyboard navigation.
+      // This prevents the tooltip from showing when the element is focused
+      // programmatically, such as when closing a dialog.
+      if (event.currentTarget.matches(':focus-visible')) {
+        this.showPopover();
+      }
     }
   };
 

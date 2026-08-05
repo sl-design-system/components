@@ -1,10 +1,28 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { html } from 'lit';
+import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
+
+/** Stand-in for components like `<sl-button>` that delegate focus to their shadow DOM. */
+class DelegatingAnchor extends LitElement {
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
+
+  override render() {
+    return html`<button type="button">Anchor</button>`;
+  }
+}
+
+try {
+  customElements.define('delegating-anchor', DelegatingAnchor);
+} catch {
+  // Element may already be defined in watch / repeated test runs
+}
 
 describe('sl-tooltip', () => {
   let el: HTMLElement, anchor: HTMLElement, tooltip: Tooltip;
@@ -555,6 +573,29 @@ describe('sl-tooltip', () => {
       await tooltip.updateComplete;
 
       expect(tooltip).not.to.match(':popover-open');
+    });
+  });
+
+  describe('focus trigger with an anchor that delegates focus', () => {
+    // Anchors such as <sl-button> delegate focus to a control in their shadow DOM. That control
+    // is the element matching :focus-visible, the anchor itself never does.
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div>
+          <delegating-anchor id="d-anchor"></delegating-anchor>
+          <sl-tooltip for="d-anchor" type="description">Tip</sl-tooltip>
+        </div>
+      `);
+      anchor = el.querySelector('delegating-anchor')!;
+      tooltip = el.querySelector('sl-tooltip')!;
+      await tooltip.updateComplete;
+    });
+
+    it('should show the tooltip when the anchor is tabbed to', async () => {
+      await userEvent.tab();
+      await tooltip.updateComplete;
+
+      expect(tooltip).to.match(':popover-open');
     });
   });
 

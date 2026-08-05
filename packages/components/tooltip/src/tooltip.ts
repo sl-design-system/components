@@ -218,14 +218,18 @@ export class Tooltip extends LitElement {
 
   #onFocus = (event: FocusEvent): void => {
     if (this.#hasTrigger('focus')) {
-      const currentTarget = event.currentTarget as HTMLElement;
+      const anchor = event.currentTarget as HTMLElement;
 
-      this.#setActiveAnchor(currentTarget);
+      this.#setActiveAnchor(anchor);
 
-      // Only show the tooltip if the focus event was triggered by keyboard navigation.
-      // This prevents the tooltip from showing when the element is focused
-      // programmatically, such as when closing a dialog.
-      if (currentTarget.matches(':focus-visible')) {
+      // Only show the tooltip if the focus event was triggered by keyboard navigation. This
+      // prevents the tooltip from showing when the element is focused programmatically, such as
+      // when closing a dialog. The check uses the innermost element of the composed path, not the
+      // anchor: when the anchor is a component that delegates focus to a control in its shadow
+      // DOM, such as `<sl-button>`, that control is the element matching `:focus-visible`.
+      const focused = event.composedPath().at(0) ?? anchor;
+
+      if (focused instanceof Element && focused.matches(':focus-visible')) {
         this.showPopover();
       }
     }

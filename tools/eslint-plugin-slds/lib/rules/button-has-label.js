@@ -49,15 +49,17 @@ export const buttonHasLabel = {
         // Collect the ids of elements labelled by an <sl-tooltip for="..."> in the same
         // template. A tooltip without type="description" labels its anchor at runtime
         // (via ariaLabelledByElements), so it counts as an accessible name at lint time.
+        // `for` takes a space separated list of ids, so a single tooltip can label
+        // several elements.
         const tooltipLabelledIds = new Set();
         analyzer.traverse({
           enterElement(element) {
             if (element.name === 'sl-tooltip') {
               const attribs = element.attribs ?? {},
-                forId = (attribs['for'] ?? '').trim();
+                forIds = (attribs['for'] ?? '').trim().split(/\s+/).filter(Boolean);
 
-              if (forId && (attribs['type'] ?? 'label').trim() !== 'description') {
-                tooltipLabelledIds.add(forId);
+              if ((attribs['type'] ?? 'label').trim() !== 'description') {
+                forIds.forEach(id => tooltipLabelledIds.add(id));
               }
             }
           }

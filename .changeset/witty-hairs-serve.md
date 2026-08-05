@@ -2,7 +2,7 @@
 '@sl-design-system/eslint-plugin-slds': minor
 ---
 
-The `button-has-label` rule has been updated to match the rewritten tooltip. An icon-only `sl-button` now counts as labelled when it has a non-empty `tooltip` attribute, or when an `<sl-tooltip for="...">` in the same template points at its id (unless that tooltip is a `type="description"`, which describes the button instead of naming it).
+The `button-has-label` rule has been updated to match the rewritten tooltip. An icon-only `sl-button` now counts as labelled when it has a non-empty `tooltip` attribute, or when an `<sl-tooltip for="...">` in the same template points at its id (unless that tooltip is a `type="description"`, which describes the button instead of naming it). Tooltips that are shared between multiple elements, so with a space separated list of ids in `for`, label each of those elements.
 
 Support for the old tooltip directive has been removed, since the directive no longer exists in `@sl-design-system/tooltip`:
 

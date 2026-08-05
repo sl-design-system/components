@@ -33,6 +33,15 @@ export const Dialog = {
     </sl-button>
     <sl-dialog id="dialog" close-button>
       <h1 slot="title">Dialog title</h1>
+      <p>Opening this dialog hides the tooltip.</p>
+      <p>
+        If you opened it with keyboard focus on the trigger, the tooltip can reappear after closing
+        (focus returns to the trigger).
+      </p>
+      <p>
+        If you opened it with mouse click, the tooltip stays closed after closing until the trigger
+        is hovered/focused again.
+      </p>
       <sl-button slot="primary-actions" command="--close" commandfor="dialog">Close</sl-button>
     </sl-dialog>
   `

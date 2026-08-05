@@ -37,6 +37,13 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     },
     {
       code: 'html`<sl-button id="save"><sl-icon name="save"></sl-icon></sl-button><sl-tooltip for="save" type="label">Save</sl-tooltip>`;'
+    },
+    // One tooltip shared between several buttons labels each of them
+    {
+      code: 'html`<sl-button id="copy"><sl-icon name="far-copy"></sl-icon></sl-button><sl-button id="cut"><sl-icon name="far-scissors"></sl-icon></sl-button><sl-tooltip for="copy cut">Works on the selection</sl-tooltip>`;'
+    },
+    {
+      code: 'html`<sl-button id="paste"><sl-icon name="far-paste"></sl-icon></sl-button><sl-tooltip for="copy  paste\n cut">Works on the selection</sl-tooltip>`;'
     }
   ],
   invalid: [
@@ -111,6 +118,16 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     // sl-tooltip without a `for` attribute
     {
       code: 'html`<sl-button id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip>Bold</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // A shared tooltip with type="description" describes the buttons, it does not name them
+    {
+      code: 'html`<sl-button id="copy"><sl-icon name="far-copy"></sl-icon></sl-button><sl-button id="cut"><sl-icon name="far-scissors"></sl-icon></sl-button><sl-tooltip for="copy cut" type="description">Works on the selection</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }, { messageId: 'missingText' }]
+    },
+    // Only the buttons listed in `for` are labelled
+    {
+      code: 'html`<sl-button id="copy"><sl-icon name="far-copy"></sl-icon></sl-button><sl-button id="paste"><sl-icon name="far-paste"></sl-icon></sl-button><sl-tooltip for="copy cut">Works on the selection</sl-tooltip>`;',
       errors: [{ messageId: 'missingText' }]
     }
   ]

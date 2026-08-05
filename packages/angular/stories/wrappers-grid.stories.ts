@@ -37,6 +37,22 @@ const avatarRenderer = (student: StudentType) => {
 
 const avatarScopedElements = { 'sl-avatar': Avatar };
 
+const menuButtonRenderer = () => html`
+  <sl-menu-button fill="ghost" size="sm">
+    <sl-icon slot="button" name="ellipsis"></sl-icon>
+    <sl-menu-item>Do something with this student</sl-menu-item>
+    <sl-menu-item>Something else</sl-menu-item>
+    <hr />
+    <sl-menu-item>Delete person</sl-menu-item>
+  </sl-menu-button>
+`;
+
+const menuButtonScopedElements = {
+  'sl-icon': Icon,
+  'sl-menu-button': MenuButton,
+  'sl-menu-item': MenuItem
+};
+
 export default {
   title: 'Wrappers/Grid/Basics',
   decorators: [
@@ -243,24 +259,30 @@ export const MenuButtonStory: StoryObj = {
       return { students };
     }
   ],
+  play: async ({ canvasElement }) => {
+    const grid = canvasElement.querySelector('sl-grid') as
+      | (HTMLElement & {
+          requestUpdate?(): void;
+          updateComplete?: Promise<unknown>;
+          recalculateColumnWidths?(): Promise<void>;
+        })
+      | null;
+
+    // Wait until custom elements and fonts are ready, then re-measure columns.
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+    if ('fonts' in document) {
+      await (document as Document & { fonts: { ready: Promise<unknown> } }).fonts.ready;
+    }
+
+    await grid?.updateComplete;
+    await grid?.recalculateColumnWidths?.();
+
+    // Trigger observers that rely on viewport size changes.
+    window.dispatchEvent(new Event('resize'));
+  },
   render: (_, { loaded }) => {
     const students = loaded['students'] as StudentType[];
-
-    const menuButtonRenderer = () => html`
-      <sl-menu-button fill="ghost" size="sm">
-        <sl-icon slot="button" name="ellipsis"></sl-icon>
-        <sl-menu-item>Do something with this student</sl-menu-item>
-        <sl-menu-item>Something else</sl-menu-item>
-        <hr />
-        <sl-menu-item>Delete person</sl-menu-item>
-      </sl-menu-button>
-    `;
-
-    const menuButtonScopedElements = {
-      'sl-icon': Icon,
-      'sl-menu-button': MenuButton,
-      'sl-menu-item': MenuItem
-    };
 
     return {
       description:
@@ -283,11 +305,12 @@ export const MenuButtonStory: StoryObj = {
           <sl-grid-column path="email"></sl-grid-column>
           <sl-grid-column
             [grow]="0"
+            [autoWidth]="true"
             header="Actions"
             [hideHeaderText]="true"
+            [parts]="'menu-button'"
             [renderer]="menuButtonRenderer"
-            [scopedElements]="menuButtonScopedElements"
-            [width]="48"></sl-grid-column>
+            [scopedElements]="menuButtonScopedElements"></sl-grid-column>
         </sl-grid>
       `
     };

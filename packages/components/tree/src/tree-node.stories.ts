@@ -96,6 +96,12 @@ export const All: Story = {
           flex-direction: column;
           gap: var(--sl-size-100);
         }
+
+        .guides {
+          display: flex;
+          flex-direction: column;
+          gap: var(--sl-size-025);
+        }
       </style>
       <div class="container">
         <sl-tree-node disabled>Disabled</sl-tree-node>
@@ -121,23 +127,25 @@ export const All: Story = {
         <sl-tree-node expandable level="4">Level 4 (expandable)</sl-tree-node>
         <sl-tree-node expandable expanded level="4">Level 4 (expandable, expanded)</sl-tree-node>
 
-        <sl-tree-node expandable expanded>Level 0 (guides)</sl-tree-node>
-        <sl-tree-node .levelGuides=${[0]} level="1">Level 1 (guides)</sl-tree-node>
-        <sl-tree-node .levelGuides=${[0]} expandable expanded level="1" last-node-in-level>
-          Level 1 (last node in level, guides)
-        </sl-tree-node>
-        <sl-tree-node .levelGuides=${[1]} level="2">Level 2 (guides)</sl-tree-node>
-        <sl-tree-node .levelGuides=${[1]} expandable expanded level="2" last-node-in-level>
-          Level 2 (last node in level, guides)
-        </sl-tree-node>
-        <sl-tree-node .levelGuides=${[2]} level="3">Level 3 (guides)</sl-tree-node>
-        <sl-tree-node .levelGuides=${[2]} expandable expanded level="3" last-node-in-level>
-          Level 3 (last node in level, guides)
-        </sl-tree-node>
-        <sl-tree-node .levelGuides=${[3]} level="4">Level 4 (guides)</sl-tree-node>
-        <sl-tree-node .levelGuides=${[3]} level="4" last-node-in-level>
-          Level 4 (last node in level, guides)
-        </sl-tree-node>
+        <div class="guides">
+          <sl-tree-node expandable expanded>Level 0 (guides)</sl-tree-node>
+          <sl-tree-node .levelGuides=${[0]} level="1">Level 1 (guides)</sl-tree-node>
+          <sl-tree-node .levelGuides=${[0]} expandable expanded level="1" last-node-in-level>
+            Level 1 (last node in level, guides)
+          </sl-tree-node>
+          <sl-tree-node .levelGuides=${[1]} level="2">Level 2 (guides)</sl-tree-node>
+          <sl-tree-node .levelGuides=${[1]} expandable expanded level="2" last-node-in-level>
+            Level 2 (last node in level, guides)
+          </sl-tree-node>
+          <sl-tree-node .levelGuides=${[2]} level="3">Level 3 (guides)</sl-tree-node>
+          <sl-tree-node .levelGuides=${[2]} expandable expanded level="3" last-node-in-level>
+            Level 3 (last node in level, guides)
+          </sl-tree-node>
+          <sl-tree-node .levelGuides=${[3]} level="4">Level 4 (guides)</sl-tree-node>
+          <sl-tree-node .levelGuides=${[3]} level="4" last-node-in-level>
+            Level 4 (last node in level, guides)
+          </sl-tree-node>
+        </div>
 
         <sl-tree-node multiple selectable>Level 0 (multiple)</sl-tree-node>
         <sl-tree-node multiple selectable indeterminate

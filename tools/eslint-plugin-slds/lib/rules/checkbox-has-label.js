@@ -1,3 +1,4 @@
+import { TemplateAnalyzer } from 'eslint-plugin-lit/lib/template-analyzer.js';
 import {
   checkTemplateForLabel,
   hasAttribute,
@@ -7,6 +8,27 @@ import {
 
 const hasCheckboxLabel = (element, analyzer, sourceCode) => {
   return element.childNodes.some(child => hasMeaningfulContent(child, analyzer, sourceCode));
+};
+
+const collectTooltipLabelledIds = analyzer => {
+  const tooltipLabelledIds = new Set();
+
+  analyzer.traverse({
+    enterElement(element) {
+      if (element.name !== 'sl-tooltip') {
+        return;
+      }
+
+      const attribs = element.attribs ?? {},
+        forIds = (attribs['for'] ?? '').trim().split(/\s+/).filter(Boolean);
+
+      if ((attribs['type'] ?? 'label').trim() !== 'description') {
+        forIds.forEach(id => tooltipLabelledIds.add(id));
+      }
+    }
+  });
+
+  return tooltipLabelledIds;
 };
 
 /** @type {import('eslint').Rule.RuleModule} */
@@ -33,14 +55,19 @@ export const checkboxHasLabel = {
           return;
         }
 
+        const tooltipLabelledIds = collectTooltipLabelledIds(TemplateAnalyzer.create(node));
+
         checkTemplateForLabel({
           context,
           node,
           elementName: 'sl-checkbox',
           hasLabel(element, analyzer, sourceCode) {
+            const elementId = (analyzer.getAttributeValue(element, 'id', sourceCode) ?? '').trim();
+
             return (
               hasCheckboxLabel(element, analyzer, sourceCode) ||
-              hasAttribute(element, analyzer, sourceCode, 'aria-label', 'aria-labelledby')
+              hasAttribute(element, analyzer, sourceCode, 'aria-label', 'aria-labelledby') ||
+              (elementId !== '' && tooltipLabelledIds.has(elementId))
             );
           }
         });

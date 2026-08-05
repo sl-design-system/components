@@ -196,6 +196,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  /* eslint-disable slds/checkbox-has-label -- internal sl-checkbox uses slotted input + label to provide its accessible name */
   override render(): TemplateResult {
     return html`
       <sl-indent-guides
@@ -268,6 +269,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       </div>
     `;
   }
+  /* eslint-enable slds/checkbox-has-label */
 
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;

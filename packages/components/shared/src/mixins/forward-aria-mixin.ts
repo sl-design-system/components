@@ -85,6 +85,9 @@ export function ForwardAriaMixin<
     forwardedElementsStorage = new WeakMap<ForwardAriaImpl, Map<string, Element[]>>();
 
   class ForwardAriaImpl extends constructor {
+    /** Set while `#forwardAttributes()` cleans up the host attribute it just forwarded. */
+    #forwarding = false;
+
     #observer?: MutationObserver;
     #pendingAttributes = new Set<string>();
 
@@ -181,11 +184,13 @@ export function ForwardAriaMixin<
         // Always remove from pending so a queued forward doesn't re-add it.
         this.#pendingAttributes.delete(name);
 
-        // If the attribute is still present on the host, this call came from
-        // #forwardAttributes cleaning up after forwarding — the proxy was just
-        // set correctly, so don't touch it. Only clear the proxy when the
-        // attribute is already absent (i.e. an explicit external removal call).
-        if (!this.hasAttribute(name)) {
+        // #forwardAttributes removes the attribute from the host after forwarding it; the proxy
+        // was just set correctly, so leave it alone. Only an external removal should clear the
+        // proxy. The attribute being present on the host cannot be used to tell the two apart:
+        // when the host is observed by MutationObserver, a `setAttribute` followed by a
+        // `removeAttribute` in the same task removes an attribute that was never forwarded, and
+        // the proxy would keep the previously forwarded value.
+        if (!this.#forwarding) {
           const target = targetElements.get(this);
           if (target) {
             if (name === 'aria-disabled') {
@@ -268,7 +273,9 @@ export function ForwardAriaMixin<
           targetElement.setAttribute(name, value);
         }
 
+        this.#forwarding = true;
         this.removeAttribute(name);
+        this.#forwarding = false;
       }
 
       this.#pendingAttributes.clear();

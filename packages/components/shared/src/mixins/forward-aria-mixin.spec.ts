@@ -611,6 +611,40 @@ describe('ForwardAriaMixin', () => {
       label.remove();
     });
 
+    it('should clear the target when the attribute is set and removed before the observer runs', async () => {
+      defaultEl.setAttribute('aria-label', 'Forwarded');
+      await new Promise(resolve => setTimeout(resolve));
+
+      // Both happen before the MutationObserver gets a chance to forward the new value, so the
+      // attribute the host removes here was never forwarded to the target.
+      defaultEl.setAttribute('aria-label', 'Never forwarded');
+      defaultEl.removeAttribute('aria-label');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(defaultButton).not.to.have.attribute('aria-label');
+    });
+
+    it('should clear element references when the attribute is set and removed before the observer runs', async () => {
+      const labelA = document.createElement('span'),
+        labelB = document.createElement('span');
+
+      labelA.id = 'default-ref-a';
+      labelB.id = 'default-ref-b';
+      defaultEl.parentElement!.prepend(labelA, labelB);
+
+      defaultEl.setAttribute('aria-labelledby', 'default-ref-a');
+      await new Promise(resolve => setTimeout(resolve));
+
+      defaultEl.setAttribute('aria-labelledby', 'default-ref-b');
+      defaultEl.removeAttribute('aria-labelledby');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(defaultButton.ariaLabelledByElements).to.be.null;
+
+      labelA.remove();
+      labelB.remove();
+    });
+
     it('should forward pre-existing aria-* attributes after the target is set', async () => {
       const el = document.createElement('forward-aria-default-test') as InstanceType<
         typeof DefaultElement

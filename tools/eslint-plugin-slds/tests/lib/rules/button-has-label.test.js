@@ -22,17 +22,28 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     { code: 'html`<sl-button><sl-foo></sl-foo></sl-button>`;' },
     { code: 'const template = `<sl-button></sl-button>`;' },
     { code: 'html`<div><sl-button>First</sl-button><sl-button>Second</sl-button></div>`;' },
+    // tooltip attribute on sl-button
+    { code: "html`<sl-button tooltip='Save'><sl-icon name='save'></sl-icon></sl-button>`;" },
+    { code: 'html`<sl-button tooltip="Settings"><sl-icon name="gear"></sl-icon></sl-button>`;' },
     {
-      code: "html`<sl-button ${tooltip('Toolip example', { ariaRelation: 'label' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;"
+      code: 'html`<sl-button variant="primary" tooltip="Submit form"><sl-icon name="check"></sl-icon></sl-button>`;'
+    },
+    // sl-tooltip sibling with a `for` attribute referencing the button
+    {
+      code: 'html`<sl-button fill="outline" id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip for="bold">Bold</sl-tooltip>`;'
     },
     {
-      code: "html`<sl-button ${tooltip('Tiooltip example', { position: 'bottom-start', ariaRelation: 'label' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;"
+      code: 'html`<sl-tooltip for="italic">Italic</sl-tooltip><sl-button id="italic"><sl-icon name="far-italic"></sl-icon></sl-button>`;'
     },
     {
-      code: "html`<sl-button ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}><sl-icon name='face-smile' size='lg'></sl-icon></sl-button>`;"
+      code: 'html`<sl-button id="save"><sl-icon name="save"></sl-icon></sl-button><sl-tooltip for="save" type="label">Save</sl-tooltip>`;'
+    },
+    // One tooltip shared between several buttons labels each of them
+    {
+      code: 'html`<sl-button id="copy"><sl-icon name="far-copy"></sl-icon></sl-button><sl-button id="cut"><sl-icon name="far-scissors"></sl-icon></sl-button><sl-tooltip for="copy cut">Works on the selection</sl-tooltip>`;'
     },
     {
-      code: "html`<sl-button variant=\"primary\" fill=\"solid\" ${tooltip('My tooltip example', { ariaRelation: 'label', position: 'bottom-start', maxWidth: 100 })}>\n`;"
+      code: 'html`<sl-button id="paste"><sl-icon name="far-paste"></sl-icon></sl-button><sl-tooltip for="copy  paste\n cut">Works on the selection</sl-tooltip>`;'
     }
   ],
   invalid: [
@@ -68,13 +79,56 @@ ruleTester.run('button-has-label', buttonHasLabel, {
       code: 'html`<sl-button variant="primary" class="my-button"></sl-button>`;',
       errors: [{ messageId: 'missingText' }]
     },
+    // The removed tooltip directive no longer labels a button
     {
-      code: "html`<sl-button ${tooltip('Tip', { position: 'bottom-start' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;",
-      errors: [{ messageId: 'mustBeAriaRelationLabel' }]
+      code: "html`<sl-button ${tooltip('Tip', { ariaRelation: 'label' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;",
+      errors: [{ messageId: 'missingText' }]
     },
     {
-      code: "html`<sl-button ${tooltip('Tip', { ariaRelation: 'sth else but not label', position: 'bottom-start' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;",
-      errors: [{ messageId: 'mustBeAriaRelationLabel' }]
+      code: "html`<sl-button ${tooltip('Tip', { position: 'bottom-start' })}><sl-icon name='face-smile'></sl-icon></sl-button>`;",
+      errors: [{ messageId: 'missingText' }]
+    },
+    // A tooltip directive elsewhere in the template does not label an unrelated button either
+    {
+      code: "html`<div>${tooltip('Tip', { ariaRelation: 'label' })}<sl-button><sl-icon name='face-smile'></sl-icon></sl-button></div>`;",
+      errors: [{ messageId: 'missingText' }]
+    },
+    {
+      code: 'html`<sl-button tooltip="Save"></sl-button>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    {
+      code: "html`<sl-button tooltip=''><sl-icon name='save'></sl-icon></sl-button>`;",
+      errors: [{ messageId: 'missingText' }]
+    },
+    {
+      code: 'html`<sl-button tooltip=""><sl-icon name="save"></sl-icon></sl-button>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // sl-tooltip sibling referencing a different element
+    {
+      code: 'html`<sl-button id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip for="other">Other</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // sl-tooltip with type="description" does not label the button
+    {
+      code: 'html`<sl-button id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip for="bold" type="description">Bold</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // sl-tooltip without a `for` attribute
+    {
+      code: 'html`<sl-button id="bold"><sl-icon name="far-bold"></sl-icon></sl-button><sl-tooltip>Bold</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }]
+    },
+    // A shared tooltip with type="description" describes the buttons, it does not name them
+    {
+      code: 'html`<sl-button id="copy"><sl-icon name="far-copy"></sl-icon></sl-button><sl-button id="cut"><sl-icon name="far-scissors"></sl-icon></sl-button><sl-tooltip for="copy cut" type="description">Works on the selection</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }, { messageId: 'missingText' }]
+    },
+    // Only the buttons listed in `for` are labelled
+    {
+      code: 'html`<sl-button id="copy"><sl-icon name="far-copy"></sl-icon></sl-button><sl-button id="paste"><sl-icon name="far-paste"></sl-icon></sl-button><sl-tooltip for="copy cut">Works on the selection</sl-tooltip>`;',
+      errors: [{ messageId: 'missingText' }]
     }
   ]
 });

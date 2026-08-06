@@ -81,7 +81,7 @@ Buttons are used to trigger specific actions or functions. For example, you can 
 <section class="ds-cards">
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-1" size="sm"></sl-icon>
       <sl-button fill="solid" variant="primary" size="lg">Solid</sl-button>
     </div>
     <figcaption>
@@ -92,7 +92,7 @@ Buttons are used to trigger specific actions or functions. For example, you can 
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-2" size="sm"></sl-icon>
       <sl-button fill="outline" variant="primary" size="lg">Outline</sl-button>
     </div>
     <figcaption>
@@ -103,7 +103,7 @@ Outline buttons are important, but not essential in a user interface. Unlike sol
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-3" size="sm"></sl-icon>
       <sl-button fill="ghost" variant="primary" size="lg">Ghost</sl-button>
     </div>
     <figcaption>
@@ -114,7 +114,7 @@ Ghost buttons discreetly suggest actions or options in a user interface. They're
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-4" size="sm"></sl-icon>
       <sl-button fill="link" variant="primary" size="lg">Link</sl-button>
     </div>
     <figcaption>
@@ -134,7 +134,7 @@ Take a look at our button options designed for different user needs and situatio
 <section class="ds-cards">
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-5" size="sm"></sl-icon>
       <sl-button fill="solid" variant="primary" size="lg">Primary</sl-button>
     </div>
     <figcaption>
@@ -145,7 +145,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-6" size="sm"></sl-icon>
       <sl-button fill="solid" variant="default" size="lg">Default</sl-button>
     </div>
     <figcaption>
@@ -156,7 +156,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>    
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-7" size="sm"></sl-icon>
       <sl-button fill="solid" variant="success" size="lg">Success</sl-button>
     </div>
     <figcaption>
@@ -167,7 +167,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>    
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-8" size="sm"></sl-icon>
       <sl-button fill="solid" variant="warning" size="lg">Warning</sl-button>
     </div>
     <figcaption>
@@ -178,7 +178,7 @@ Take a look at our button options designed for different user needs and situatio
   </figure>
   <figure>    
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-9" size="sm"></sl-icon>
       <sl-button fill="solid" variant="danger" size="lg">Danger</sl-button>
     </div>
     <figcaption>
@@ -249,3 +249,5 @@ When the button label is concealed, a tooltip appears on hover, revealing the la
 ### Transition
 Hover and Active State Transitions: When users hover over a button or the button is in an active state, the background color and/or border color smoothly transition to provide visual feedback. 
 </section>
+
+<sl-tooltip for="interactive-example-1 interactive-example-2 interactive-example-3 interactive-example-4 interactive-example-5 interactive-example-6 interactive-example-7 interactive-example-8 interactive-example-9" type="description">Interactive example</sl-tooltip>

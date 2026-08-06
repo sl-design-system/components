@@ -78,6 +78,8 @@
 }
 
 :host([no-label]) {
+  display: inline-flex;
+
   [part='outer'] {
     padding-inline-start: var(--_padding-inline);
   }

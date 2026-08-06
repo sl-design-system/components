@@ -4,7 +4,6 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
-import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -237,23 +236,23 @@ export const WithTooltips: Story = {
         <sl-button
           @click=${onClick}
           aria-labelledby="tooltip-settings"
+          tooltip="Settings"
           variant="primary"
           id="btn-settings">
           <sl-icon name="far-gear"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-settings">Popover content for Settings</sl-popover>
-        <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
 
         <sl-button
           @click=${onClick}
           aria-labelledby="tooltip-edit"
           variant="primary"
           size="lg"
+          tooltip="Edit"
           id="btn-edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
         <sl-popover anchor="btn-edit">Popover content for Edit</sl-popover>
-        <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
       </div>
 
       <p>
@@ -263,26 +262,24 @@ export const WithTooltips: Story = {
       <div class="container">
         <sl-button
           @click=${onClick}
-          aria-describedby="tooltip-settings-1"
+          tooltip="Open settings popover"
           variant="primary"
           id="btn-settings-1">
           <sl-icon name="far-gear"></sl-icon>
           Settings
         </sl-button>
         <sl-popover anchor="btn-settings-1">Popover content for Settings</sl-popover>
-        <sl-tooltip id="tooltip-settings-1" position="bottom">Open settings popover</sl-tooltip>
 
         <sl-button
           @click=${onClick}
-          aria-describedby="tooltip-edit-1"
           variant="primary"
           size="lg"
+          tooltip="Open edit popover"
           id="btn-edit-1">
           <sl-icon name="far-pen"></sl-icon>
           Edit
         </sl-button>
         <sl-popover anchor="btn-edit-1">Popover content for Edit</sl-popover>
-        <sl-tooltip id="tooltip-edit-1" position="bottom">Open edit popover</sl-tooltip>
       </div>
     `;
   }

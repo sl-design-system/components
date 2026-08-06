@@ -1270,7 +1270,7 @@ describe('sl-combobox', () => {
         await waitForNextFrame();
 
         const tagList = el.renderRoot.querySelector('sl-tag-list')!,
-          stackTag = tagList.renderRoot.querySelector('.stack sl-tag'),
+          stackTag = tagList.renderRoot.querySelector('sl-tag.stack'),
           selectedTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
           visibleSelectedTags = selectedTags.filter(
             tag => getComputedStyle(tag).display !== 'none'

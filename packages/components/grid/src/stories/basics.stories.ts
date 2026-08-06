@@ -125,8 +125,8 @@ export const Header: Story = {
         path="firstName"
         .header=${() => html`
           <span>First name</span>
-          <sl-icon aria-describedby="tooltip" name="info"></sl-icon>
-          <sl-tooltip id="tooltip">Some information about the first name</sl-tooltip>
+          <sl-icon id="info-icon" name="info"></sl-icon>
+          <sl-tooltip for="info-icon">Some information about the first name</sl-tooltip>
         `}
         .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}>
       </sl-grid-column>

@@ -53,7 +53,6 @@ This is a monorepo containing multiple packages:
 - `/packages/angular` - Angular bindings for the web components
 - `/packages/locales` - Translations for web components
 - `/packages/themes` - CSS themes for different applications
-- `/packages/tokens` - Design tokens
 - `/packages/shared` - Shared utilities, mixins, and controllers
 - `/website` - Documentation website built with 11ty
 

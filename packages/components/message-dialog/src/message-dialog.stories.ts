@@ -18,10 +18,8 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Message dialog',
-  globals: {
-    viewport: undefined
-  },
   parameters: {
+    viewport: { disable: true },
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
@@ -49,9 +47,9 @@ export const Confirm: Story = {
 };
 
 export const Mobile: Story = {
-  globals: {
+  parameters: {
     viewport: {
-      value: 'mobile'
+      defaultViewport: 'mobile'
     }
   },
   args: {

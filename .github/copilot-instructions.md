@@ -17,7 +17,6 @@ This repository is a monorepo containing multiple packages. The repository is st
 - /packages/components/\* contains the Lit web components
 - /packages/locales contains all the translations for the web components
 - /packages/themes contains the CSS themes for the different applications
-- /packages/tokens contains the design tokens
 - /scripts contains the build scripts and other utilities
 - /tools/\* contains various tools and utilities that may or may not be published as packages
 - /website contains the sources for the documentation website, built with 11ty.dev

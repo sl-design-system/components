@@ -120,11 +120,26 @@ const preview: Preview = {
       }
 
       return story();
+    },
+    (story, { globals: { userGroup = 'superuser' } }) => {
+      document.querySelector('body')?.setAttribute('data-User-Group', userGroup);
+
+      return story();
+    },
+    (story, { globals: { mode = 'light' } }) => {
+      // If you remove this it takes the user preference from the system.
+      document.documentElement.style.setProperty('--color-scheme', mode);
+
+      return story();
+    },
+    (story, { globals: { viewport } }) => {
+      document.documentElement.setAttribute('data-Device', viewport.value || 'desktop');
+      return story();
     }
   ],
   loaders: [
-    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      await updateTheme(theme, mode as Mode);
+    async ({ globals: { theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme);
     }
   ],
   globalTypes: {
@@ -135,6 +150,15 @@ const preview: Preview = {
         dynamicTitle: true,
         icon: 'paintbrush',
         items: themes.map(({ id, name }) => ({ value: id, title: name }))
+      }
+    },
+    userGroup: {
+      name: 'Target Group',
+      defaultValue: 'superuser',
+      toolbar: {
+        dynamicTitle: true,
+        icon: 'users',
+        items: ['early', 'developing', 'advanced', 'superuser']
       }
     },
     mode: {

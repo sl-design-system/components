@@ -1,4 +1,3 @@
-import { TemplateAnalyzer } from 'eslint-plugin-lit/lib/template-analyzer.js';
 import {
   checkTemplateForLabel,
   hasAttribute,
@@ -49,13 +48,26 @@ export const checkboxHasLabel = {
     }
   },
   create(context) {
+    const tooltipLabelledIdsByAnalyzer = new WeakMap();
+
+    const getTooltipLabelledIds = analyzer => {
+      const cachedIds = tooltipLabelledIdsByAnalyzer.get(analyzer);
+
+      if (cachedIds) {
+        return cachedIds;
+      }
+
+      const tooltipLabelledIds = collectTooltipLabelledIds(analyzer);
+      tooltipLabelledIdsByAnalyzer.set(analyzer, tooltipLabelledIds);
+
+      return tooltipLabelledIds;
+    };
+
     return {
       TaggedTemplateExpression(node) {
         if (isNestedHtmlTemplate(node, context)) {
           return;
         }
-
-        const tooltipLabelledIds = collectTooltipLabelledIds(TemplateAnalyzer.create(node));
 
         checkTemplateForLabel({
           context,
@@ -63,6 +75,7 @@ export const checkboxHasLabel = {
           elementName: 'sl-checkbox',
           hasLabel(element, analyzer, sourceCode) {
             const elementId = (analyzer.getAttributeValue(element, 'id', sourceCode) ?? '').trim();
+            const tooltipLabelledIds = getTooltipLabelledIds(analyzer);
 
             return (
               hasCheckboxLabel(element, analyzer, sourceCode) ||

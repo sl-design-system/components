@@ -1,5 +1,5 @@
 import { Avatar } from '@sl-design-system/avatar';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, isListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type Person, getPeople, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
@@ -8,6 +8,29 @@ import { type GridDropFilter, type SlDropEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
+
+const regroupDroppedPerson = (
+  dataSource: ArrayListDataSource<Person>,
+  event: SlDropEvent<Person>
+): void => {
+  const { item, relativeItem } = event.detail,
+    targetMembership = relativeItem?.membership;
+
+  if (
+    !isListDataSourceDataItem(item) ||
+    !targetMembership ||
+    item.data.membership === targetMembership
+  ) {
+    return;
+  }
+
+  const updatedPeople = dataSource.unfilteredItems.map(({ data }) =>
+    data === item.data ? { ...data, membership: targetMembership } : data
+  );
+
+  dataSource.setData(updatedPeople);
+  dataSource.update();
+};
 
 export default {
   title: 'Grid/Drag and drop',
@@ -96,8 +119,18 @@ export const Grouping: Story = {
     const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
+    const onDrop = (event: SlDropEvent<Person>): void => {
+      regroupDroppedPerson(dataSource, event);
+    };
+
     return html`
-      <sl-grid .dataSource=${dataSource}>
+      <p>
+        This example shows drag and drop behavior in combination with grouping. You can drag
+        individual rows or complete groups. Reordering within a group keeps the current membership.
+        Dropping a row onto a different group moves the person into that group by updating the
+        membership field.
+      </p>
+      <sl-grid @sl-grid-drop=${onDrop} .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>

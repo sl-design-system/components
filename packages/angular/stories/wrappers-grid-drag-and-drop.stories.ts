@@ -5,8 +5,9 @@ import {
   GridSelectionColumnComponent
 } from '@sl-design-system/angular/grid';
 import { Avatar } from '@sl-design-system/avatar';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, isListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
+import { type SlDropEvent } from '@sl-design-system/grid';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { html } from 'lit';
 
@@ -22,6 +23,29 @@ const avatarRenderer = (student: Student) => {
 };
 
 const scopedElements = { 'sl-avatar': Avatar };
+
+const regroupDroppedPerson = (
+  dataSource: ArrayListDataSource<Person>,
+  event: SlDropEvent<Person>
+): void => {
+  const { item, relativeItem } = event.detail,
+    targetProfession = relativeItem?.profession;
+
+  if (
+    !isListDataSourceDataItem(item) ||
+    !targetProfession ||
+    item.data.profession === targetProfession
+  ) {
+    return;
+  }
+
+  const updatedPeople = dataSource.unfilteredItems.map(({ data }) =>
+    data === item.data ? { ...data, profession: targetProfession } : data
+  );
+
+  dataSource.setData(updatedPeople);
+  dataSource.update();
+};
 
 export default {
   title: 'Wrappers/Grid/Drag and drop',
@@ -147,23 +171,30 @@ export const Grouping: StoryObj = {
   loaders: [
     async () => {
       const { people } = await getPeople({ count: 30 });
+      const dataSource = new ArrayListDataSource(people, {
+        groupBy: 'profession',
+        groupLabelPath: 'profession'
+      });
 
-      return { people };
+      return { dataSource };
     }
   ],
   render: (_, { loaded }) => {
-    const people = loaded['people'] as Person[];
-    const dataSource = new ArrayListDataSource(people, {
-      groupBy: 'profession',
-      groupLabelPath: 'profession'
-    });
+    const dataSource = loaded['dataSource'] as ArrayListDataSource<Person>;
+    const onDrop = (event: Event): void => {
+      regroupDroppedPerson(dataSource, event as SlDropEvent<Person>);
+    };
 
     return {
       description:
-        'This example shows drag and drop behavior in combination with grouping. Items can be dragged and dropped both within and between groups.',
-      props: { dataSource },
+        'This example shows drag and drop behavior in combination with grouping. You can drag individual rows or complete groups. Reordering within a group keeps the current profession, while dropping a row onto another group moves the person into that group by updating the profession field.',
+      props: { dataSource, onDrop },
       template: `
-        <sl-grid [dataSource]="dataSource" [noSkipLinks]="true">
+        <sl-grid
+          [dataSource]="dataSource"
+          [noSkipLinks]="true"
+          draggableRows="between"
+          (slGridDrop)="onDrop($event)">
           <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
           <sl-grid-selection-column></sl-grid-selection-column>
           <sl-grid-column path="firstName"></sl-grid-column>

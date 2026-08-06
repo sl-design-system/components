@@ -642,17 +642,29 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderGroupRow(item: ListDataSourceGroupItem, index: number): TemplateResult {
+  renderGroupRow(item: ListDataSourceGroupItem<T>, index: number): TemplateResult {
     const collapsed = this.dataSource?.isGroupCollapsed(item.id),
       draggable = !!this.#columnDefinitions.find(
         col => !col.hidden && col instanceof GridDragHandleColumn
       ),
+      groupDraggable =
+        draggable &&
+        !!item.members?.length &&
+        (this.draggableRows === 'between' || this.draggableRows === 'between-or-on-top'),
       selectable = !!this.#columnDefinitions.find(
         col => !col.hidden && col instanceof GridSelectionColumn
       );
 
     return html`
-      <tr aria-rowindex=${index + 1} part="group" index=${index}>
+      <tr
+        @dragover=${(event: DragEvent) => this.#onGroupDragOver(event, item)}
+        @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
+        @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
+        @drop=${(event: DragEvent) => this.#onGroupDrop(event, item)}
+        aria-rowindex=${index + 1}
+        .draggable=${groupDraggable}
+        part="group"
+        index=${index}>
         <td part="group-header">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
@@ -833,7 +845,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     window.addEventListener('dragover', this.#onWindowDragOver);
 
-    const row = event.composedPath().at(0) as HTMLTableRowElement,
+    const row = event.currentTarget as HTMLTableRowElement,
       rowRect = row.getBoundingClientRect();
 
     if (isSafari) {
@@ -849,7 +861,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     event.dataTransfer!.effectAllowed = 'move';
-    event.dataTransfer!.setData('application/json', JSON.stringify(item));
+    event.dataTransfer!.setData('text/plain', String(item.id));
 
     // Create a clone of the row for the drag image
     this.#dragClone = this.#cloneRowForDragging(row, item);
@@ -869,7 +881,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.dropTargetMode = this.draggableRows;
       }
 
-      // this.view.refresh();
+      this.requestUpdate();
     });
 
     this.dragStartEvent.emit({ grid: this, item });
@@ -926,7 +938,34 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onDragEnd(event: DragEvent, item: ListDataSourceDataItem<T>): void {
+  #onGroupDragOver(event: DragEvent, item: ListDataSourceGroupItem<T>): void {
+    if (
+      !(
+        this.draggableRows === 'between' ||
+        (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
+      )
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    this.renderRoot
+      .querySelectorAll('.drop-target')
+      .forEach(el => el.classList.remove('drop-target'));
+
+    const row = event
+      .composedPath()
+      .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
+
+    if (!row || !item.members?.length) {
+      return;
+    }
+
+    row.classList.add('drop-target');
+  }
+
+  #onDragEnd(event: DragEvent, item: ListDataSourceItem<T>): void {
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
     event
@@ -944,60 +983,98 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dragClone?.remove();
     this.#dragClone = undefined;
 
-    // Force rerender
-    requestAnimationFrame(() => this.view.refresh());
+    // Force rerender immediately so drag-and-drop reordering becomes visible right away.
+    this.view.refresh();
 
     this.dragEndEvent.emit({ grid: this, item });
   }
 
   #onDrop(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
-    let cancelled = false;
-
     if (this.draggableRows === 'on-grid') {
-      cancelled = !this.dropEvent.emit({ grid: this, item: this.#dragItem!, position: 'on-grid' });
-
-      if (!cancelled) {
-        // Insert item at the end of the grid.
-      }
+      this.dropEvent.emit({ grid: this, item: this.#dragItem!, position: 'on-grid' });
     } else if (
       this.draggableRows === 'on-top' ||
       (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
     ) {
-      cancelled = !this.dropEvent.emit({
+      this.dropEvent.emit({
         grid: this,
         item: this.#dragItem!,
         relativeItem: item.data,
         position: 'on-top'
       });
-
-      if (!cancelled) {
-        // Insert item at the top of the group.
-        console.log('Item dropped on top of', this.#dragItem, item);
-      }
     } else if (
       this.draggableRows === 'between' ||
       (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
     ) {
-      const index = 0; //this.view.rows.indexOf(this.#dragItem!);
+      const draggedIndex = this.dataSource?.items.indexOf(this.#dragItem!) ?? -1,
+        targetIndex = this.dataSource?.items.indexOf(item) ?? -1;
 
       let relativeItem: T | undefined;
-      if (index === 0 && this.view.rows.length > 1) {
-        relativeItem = this.view.rows.at(index + 1);
-      } else if (index > 0 && index < this.view.rows.length) {
-        relativeItem = this.view.rows.at(index - 1);
+      if (draggedIndex !== -1 && targetIndex !== -1) {
+        // Calculate the relative item based on the drop position
+        const position = draggedIndex < targetIndex ? 'after' : 'before';
+        const relativeIdx = position === 'before' ? targetIndex : targetIndex - 1;
+        const relativeDataItem =
+          relativeIdx >= 0 ? this.dataSource?.items.at(relativeIdx) : undefined;
+        relativeItem = isListDataSourceDataItem(relativeDataItem)
+          ? relativeDataItem.data
+          : undefined;
       }
 
-      cancelled = !this.dropEvent.emit({
+      this.dropEvent.emit({
         grid: this,
         item: this.#dragItem!,
         relativeItem,
         position: 'after'
       });
 
-      if (!cancelled) {
-        // this.view.reorderItem(this.#dragItem!, relativeItem, index === 0 ? 'before' : 'after');
-      }
+      // Reorder the item in the data source
+      this.dataSource?.reorder(
+        this.#dragItem!,
+        item,
+        draggedIndex < targetIndex ? 'after' : 'before'
+      );
+
+      this.requestUpdate();
     }
+  }
+
+  #onGroupDrop(event: DragEvent, item: ListDataSourceGroupItem<T>): void {
+    if (
+      !(
+        this.draggableRows === 'between' ||
+        (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
+      )
+    ) {
+      return;
+    }
+
+    const row = event
+        .composedPath()
+        .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement),
+      members = item.members;
+
+    if (!row || !members?.length) {
+      return;
+    }
+
+    const { top, height } = row.getBoundingClientRect(),
+      position = event.clientY < top + height / 2 ? 'before' : 'after',
+      relativeItem = position === 'before' ? members[0] : members.at(-1);
+
+    if (!relativeItem) {
+      return;
+    }
+
+    this.dropEvent.emit({
+      grid: this,
+      item: this.#dragItem!,
+      relativeItem: relativeItem.data,
+      position
+    });
+
+    this.dataSource?.reorder(this.#dragItem!, relativeItem, position);
+    this.requestUpdate();
   }
 
   #onFilterRegister({ target }: SlFilterRegisterEvent & { target: GridFilter<T> }): void {

@@ -65,7 +65,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
     return html`
       ${this.dragHandle
         ? html`
-            <div part="drag-handle">
+            <div draggable="true" part="drag-handle">
               <sl-icon name="grip-lines"></sl-icon>
             </div>
           `

@@ -74,13 +74,14 @@ export const checkboxHasLabel = {
           node,
           elementName: 'sl-checkbox',
           hasLabel(element, analyzer, sourceCode) {
-            const elementId = (analyzer.getAttributeValue(element, 'id', sourceCode) ?? '').trim();
-            const tooltipLabelledIds = getTooltipLabelledIds(analyzer);
+            const rawId = analyzer.getAttributeValue(element, 'id', sourceCode);
+            const elementId = typeof rawId === 'string' ? rawId.trim() : '';
+            const tooltipLabelledIds = elementId !== '' ? getTooltipLabelledIds(analyzer) : null;
 
             return (
               hasCheckboxLabel(element, analyzer, sourceCode) ||
               hasAttribute(element, analyzer, sourceCode, 'aria-label', 'aria-labelledby') ||
-              (elementId !== '' && tooltipLabelledIds.has(elementId))
+              (elementId !== '' && tooltipLabelledIds !== null && tooltipLabelledIds.has(elementId))
             );
           }
         });

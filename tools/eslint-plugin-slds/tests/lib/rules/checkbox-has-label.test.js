@@ -41,6 +41,11 @@ ruleTester.run('checkbox-has-label', checkboxHasLabel, {
       errors: [{ messageId: 'missingLabel' }]
     },
     {
+      // bound id must not throw — non-string getAttributeValue result
+      code: 'html`<sl-checkbox id=${foo}></sl-checkbox>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
       code: 'html`<sl-checkbox>   </sl-checkbox>`;',
       errors: [{ messageId: 'missingLabel' }]
     },

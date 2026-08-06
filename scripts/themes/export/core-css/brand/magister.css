@@ -556,6 +556,7 @@
   --sl-brand-dark-opacity-muted: 0;
   --sl-brand-dark-opacity-subtle: 0.35;
   --sl-brand-dark-opacity-subtlest: 0.25;
+  --sl-brand-dark-theme-name: Magister Dark;
   --sl-brand-icon-typeset-fontWeight-regular: var(--sl-icon-typeset-fontWeight-icon-regular);
   --sl-brand-icon-typeset-fontWeight-solid: var(--sl-icon-typeset-fontWeight-icon-solid);
   --sl-brand-light-color-background-accent-blue-bold: var(--sl-brand-light-color-palette-blue-600);
@@ -1135,6 +1136,7 @@
   --sl-brand-light-opacity-muted: 0;
   --sl-brand-light-opacity-subtle: 0.2;
   --sl-brand-light-opacity-subtlest: 0.1;
+  --sl-brand-light-theme-name: Magister Light;
   --sl-brand-size-borderRadius-child: calc(var(--sl-size-borderRadius-md) / 2);
   --sl-brand-size-borderRadius-default: var(--sl-size-borderRadius-md);
   --sl-brand-size-borderRadius-focusRing-inside: calc(

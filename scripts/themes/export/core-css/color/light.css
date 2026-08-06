@@ -1,4 +1,5 @@
 body {
+  --sl-brand-theme-name: var(--sl-brand-light-theme-name);
   --sl-color-background-accent-blue-bold: var(--sl-brand-light-color-background-accent-blue-bold);
   --sl-color-background-accent-blue-interactive-bold: var(
     --sl-brand-light-color-background-accent-blue-interactive-bold

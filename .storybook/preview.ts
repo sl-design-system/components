@@ -121,7 +121,7 @@ const preview: Preview = {
 
       return story();
     },
-    (story, { globals: { userGroup = 'advanced' } }) => {
+    (story, { globals: { userGroup = 'superuser' } }) => {
       document.querySelector('body')?.setAttribute('data-User-Group', userGroup);
 
       return story();
@@ -154,7 +154,7 @@ const preview: Preview = {
     },
     userGroup: {
       name: 'Target Group',
-      defaultValue: 'advanced',
+      defaultValue: 'superuser',
       toolbar: {
         dynamicTitle: true,
         icon: 'users',

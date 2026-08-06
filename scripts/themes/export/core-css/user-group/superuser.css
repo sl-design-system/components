@@ -1,4 +1,4 @@
-[data-user-group='superuser'] {
+body {
   --sl-base-fontSize: 14px;
   --sl-caption-lg-fontSize-userGroup: var(--sl-caption-lg-fontSize-superuser);
   --sl-caption-lg-letterSpacing: 1%;

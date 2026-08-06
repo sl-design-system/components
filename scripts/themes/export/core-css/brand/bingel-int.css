@@ -584,6 +584,7 @@
   --sl-brand-light-opacity-muted: 0;
   --sl-brand-light-opacity-subtle: 0.2;
   --sl-brand-light-opacity-subtlest: 0.1;
+  --sl-brand-light-theme-name: Bingel International Light;
   --sl-brand-size-borderRadius-child: calc(var(--sl-size-borderRadius-md) / 2);
   --sl-brand-size-borderRadius-default: var(--sl-size-borderRadius-md);
   --sl-brand-size-borderRadius-focusRing-inside: calc(

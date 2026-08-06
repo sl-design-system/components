@@ -1,5 +1,6 @@
 @container style(--color-scheme: dark) {
   body {
+    --sl-brand-theme-name: var(--sl-brand-dark-theme-name);
     --sl-color-background-accent-blue-bold: var(--sl-brand-dark-color-background-accent-blue-bold);
     --sl-color-background-accent-blue-interactive-bold: var(
       --sl-brand-dark-color-background-accent-blue-interactive-bold

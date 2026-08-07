@@ -1,91 +1,36 @@
 :host {
-  --_arrow-block-size: var(--sl-size-050);
-  --_arrow-inline-size: var(--sl-size-100);
-  --_fade-duration: 150ms;
-  --_fade-in-easing: cubic-bezier(0, 0, 0.2, 1);
-  --_fade-out-easing: cubic-bezier(0.4, 0, 1, 1);
-  --_max-width: var(--sl-tooltip-max-width, auto);
-
   background: var(--sl-elevation-surface-raised-inverted);
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
   color: var(--sl-color-foreground-inverted-plain);
   font-weight: var(--sl-text-new-typeset-fontWeight-regular);
-  margin: 0;
-  max-inline-size: var(--_max-width);
+  margin: var(--sl-size-100);
   opacity: 0;
-  overflow: visible;
-  overflow-wrap: break-word;
-  padding-block: var(--sl-size-100);
-  padding-inline: var(--sl-size-150);
+  padding: var(--sl-size-100) var(--sl-size-150);
+  position-area: top;
+  position-try-fallbacks: flip-block;
+  text-align: center;
+  text-wrap: pretty;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition-duration: var(--_fade-duration);
-    transition-property: opacity;
-    transition-timing-function: var(--_fade-out-easing);
-  }
-
-  /**
-   * Because of :host and the fact that the element is often not inside a shadow root,
-   * the popover-polyfill can have a higher specificity. We need to use !important
-   * to overwrite the polyfill styling.
-   *
-   * This is only necessary for Firefox < 125 and older browsers that don't support popover
-   */
-  @supports not selector(:popover-open) {
-    background: var(--_background) !important;
-    color: var(--_color) !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    padding-block: var(--sl-size-100) !important;
-    padding-inline: var(--sl-size-150) !important;
-    position: fixed;
+    transition-behavior: allow-discrete;
+    transition-duration: 150ms;
+    transition-property: display, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
   }
 }
 
-.arrow {
-  background-color: inherit;
-  block-size: var(--_arrow-block-size);
-  clip-path: polygon(0 100%, 100% 100%, 50% 0);
-  display: flex;
-  inline-size: var(--_arrow-inline-size);
-  inset-block-end: calc(var(--_arrow-block-size) * -1);
-  position: absolute;
-  scale: 1 -1;
-}
+:host(:popover-open) {
+  opacity: 1;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 
-/* stylelint-disable-next-line selector-class-pattern */
-:host(:where(:popover-open, .\\:popover-open)) {
-  /* stylelint-disable-next-line scss/at-rule-no-unknown */
   @starting-style {
     display: block;
     opacity: 0;
   }
-
-  opacity: 1;
-  transition-timing-function: var(--_fade-in-easing);
 }
 
-:host([actual-placement^='bottom']) .arrow {
-  clip-path: polygon(50% 100%, 100% 0, 0 0);
-  inset-block-start: calc(var(--_arrow-block-size) * -1);
-}
-
-:host([actual-placement^='left']) .arrow {
-  block-size: var(--_arrow-inline-size);
-  clip-path: polygon(0 100%, 100% 50%, 0 0);
-  inline-size: var(--_arrow-block-size);
-  inset-inline-end: calc(var(--_arrow-block-size) * -1);
-}
-
-:host([actual-placement^='right']) .arrow {
-  block-size: var(--_arrow-inline-size);
-  clip-path: polygon(100% 100%, 100% 0, 0 50%);
-  inline-size: var(--_arrow-block-size);
-  inset-inline-start: calc(var(--_arrow-block-size) * -1);
-}
-
-.safe-triangle {
+[part='hover-bridge'] {
   position: fixed;
 }

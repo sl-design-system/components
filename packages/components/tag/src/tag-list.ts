@@ -278,19 +278,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     return html`
       ${this.stacked
         ? html`
-            <div class="stack">
-              <sl-tag
-                .labelDescription=${hiddenTagsDescription}
-                aria-describedby="tooltip"
-                role="listitem"
-                size=${ifDefined(this.size)}
-                variant=${ifDefined(this.variant)}>
-                +${this.stackSize}
-              </sl-tag>
-              <sl-tooltip id="tooltip" position="bottom" max-width="300">
-                ${hiddenTagsDescription}
-              </sl-tooltip>
-            </div>
+            <sl-tag
+              .tooltip=${hiddenTagsDescription}
+              class="stack"
+              role="listitem"
+              size=${ifDefined(this.size)}
+              variant=${ifDefined(this.variant)}>
+              +${this.stackSize}
+            </sl-tag>
           `
         : nothing}
       <div @sl-remove=${this.#onRemove} class="list">

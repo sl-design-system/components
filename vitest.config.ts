@@ -20,8 +20,7 @@ export default defineConfig({
             headless: true,
             provider: playwright(),
             instances: [{ browser: 'chromium' }]
-          },
-          setupFiles: ['.storybook/vitest.setup.ts']
+          }
         }
       },
       {

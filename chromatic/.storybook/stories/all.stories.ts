@@ -84,4 +84,4 @@ export const TextArea = { render: AllTextArea.render };
 export const TextField = { render: AllTextField.render };
 export const ToggleButton = { render: AllToggleButton.render };
 export const Toolbar = { render: AllToolbar.render };
-export const Tooltip = { render: AllTooltip.render };
+export const Tooltip = { parameters: AllTooltip.parameters, render: AllTooltip.render };

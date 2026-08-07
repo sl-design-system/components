@@ -1,5 +1,18 @@
 # @sl-design-system/text-area
 
+## 1.2.0
+
+### Minor Changes
+
+- [#3526](https://github.com/sl-design-system/components/pull/3526) [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92) - Add the possibility to show a character count. The new `showCount` property accepts a maximum character value and displays the remaining character count in the helper text below the text area.
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/announcer@0.1.1
+  - @sl-design-system/form@1.4.3
+
 ## 1.1.10
 
 ### Patch Changes

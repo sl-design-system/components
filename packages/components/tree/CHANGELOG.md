@@ -1,5 +1,16 @@
 # @sl-design-system/tree
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/checkbox@2.3.0
+  - @sl-design-system/button-bar@1.5.1
+  - @sl-design-system/data-source@0.4.2
+  - @sl-design-system/virtual-list@0.2.1
+
 ## 0.3.0
 
 ### Minor Changes

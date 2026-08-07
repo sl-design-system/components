@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/switch",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "status": "stable",
   "description": "Switch component for the SL Design System",
   "license": "Apache-2.0",
@@ -39,9 +39,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "^1.4.2",
+    "@sl-design-system/form": "^1.4.3",
     "@sl-design-system/icon": "^1.4.3",
-    "@sl-design-system/shared": "^0.12.3"
+    "@sl-design-system/shared": "^0.13.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10"

@@ -1,10 +1,18 @@
 # @sl-design-system/format-number
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+
 ## 0.0.8
 
 ### Patch Changes
 
 - [#3206](https://github.com/sl-design-system/components/pull/3206) [`a2cd742`](https://github.com/sl-design-system/components/commit/a2cd742cd2ea01ab773c21499f9c0fddcff34ab2) - Minor fixes and promote to preview status
+
   - Fixed unreachable `return html\`<slot></slot>\``dead code in`render()`
   - Added missing unit tests for `minimumIntegerDigits`, `minimumSignificantDigits`, `maximumSignificantDigits`, `notation`, `signDisplay`, `currencyDisplay`, negative numbers, zero, `useGrouping: true`, explicit `NaN`, no number set, and locale-aware formatting
 

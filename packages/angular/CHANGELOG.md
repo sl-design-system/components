@@ -1,5 +1,29 @@
 # @sl-design-system/angular
 
+## 4.2.0
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Use the new tooltip implementation
+
+  The tooltip directive has been updated to use the new tooltip implementation. This means that the tooltip is now created as a separate element and positioned using the `for` attribute. The old implementation, which used a lazy loader, has been removed. The API of the tooltip directive remains the same, but the DOM structure may have changed.
+
+  The directive also no longer creates an `<sl-tooltip>` element when the tooltip text is empty. Previously an empty tooltip was always inserted, which gave the anchor element an empty accessible name or description. The tooltip is now created as soon as the text becomes non-empty and removed again when it becomes empty.
+
+### Patch Changes
+
+- Updated dependencies [[`6fcae28`](https://github.com/sl-design-system/components/commit/6fcae285fa32e17026b3267c8075c78c6e009af5), [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92), [`ac75744`](https://github.com/sl-design-system/components/commit/ac75744df5693d272123778b53bba368992dad2c), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92)]:
+  - @sl-design-system/combobox@0.1.12
+  - @sl-design-system/locales@0.4.0
+  - @sl-design-system/checkbox@2.3.0
+  - @sl-design-system/text-area@1.2.0
+  - @sl-design-system/form@1.4.3
+  - @sl-design-system/number-field@0.1.11
+  - @sl-design-system/radio-group@1.2.1
+  - @sl-design-system/select@2.2.1
+  - @sl-design-system/switch@1.2.1
+  - @sl-design-system/text-field@1.6.12
+
 ## 4.1.1
 
 ### Patch Changes
@@ -86,6 +110,7 @@
 - [#2615](https://github.com/sl-design-system/components/pull/2615) [`e5fa66b`](https://github.com/sl-design-system/components/commit/e5fa66b00e9b89445a724890e28e6ba12dc19b92) - Add `ComboboxDirective` to forms
 
 - [#2512](https://github.com/sl-design-system/components/pull/2512) [`fcc7864`](https://github.com/sl-design-system/components/commit/fcc786484858d74bd8c93a40a6bb10b5f2d7664d) - - Add explicit `markForChanges()` to all `ControlValueAccessor` directives
+
   - Add support for the `<sl-number-field>` component:
     - Added `NumberFieldComponent` for exposing the web component API within Angular
     - Added `NumberFieldDirective` for Angular form integration
@@ -193,15 +218,18 @@
 ### Minor Changes
 
 - [#1210](https://github.com/sl-design-system/components/pull/1210) [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5) - Various improvements:
+
   - Remove the `FormsModule` and make all form directives standalone
 
   This is a breaking change and the reason for the minor version bump. If you are using the `FormsModule` in
   your Angular app, you will need to remove it and import the form directives you are using individually.
+
   - Generate Angular wrappers for all public web components
 
   This will make it easier to use the components in Angular apps. You only need to import a specific component
   to be able to get Angular bindings and type safety. This also removes the need for specifying the `CUSTOM_ELEMENTS_SCHEMA`
   everywhere.
+
   - Add `slTooltip` directive for ease-of-use in Angular
 
   This is syntactic sugar for the `sl-tooltip` web component. It allows you to use the `slTooltip` directive on any

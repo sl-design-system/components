@@ -116,8 +116,9 @@ export const Fixed: Story = {
 export const Grouping: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayListDataSource(people as Person[]);
-    dataSource.setGroupBy('membership');
+    const dataSource = new ArrayListDataSource(people as Person[], {
+      groupBy: 'membership'
+    });
 
     const onDrop = (event: SlDropEvent<Person>): void => {
       regroupDroppedPerson(dataSource, event);

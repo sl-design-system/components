@@ -51,7 +51,7 @@ describe('sl-grid-group-header', () => {
       const checkbox = el.renderRoot.querySelector('sl-checkbox');
 
       expect(checkbox).to.exist;
-      expect(checkbox).to.have.attribute('aria-label', 'Allergist group');
+      expect(getForwardedAriaAttribute(checkbox!, 'aria-label')).to.equal('Allergist group');
     });
   });
 

@@ -24,7 +24,7 @@ export default {
       imports: [GridComponent, GridColumnComponent, GridSelectionColumnComponent]
     })
   ]
-} as Meta;
+} as Meta<unknown>;
 
 export const Vertical: StoryObj = {
   loaders: [
@@ -42,7 +42,9 @@ export const Vertical: StoryObj = {
         'This example shows vertical scrolling with a constrained grid height. The grid will scroll vertically when there are more rows than can fit in the available space.',
       props: { students, avatarRenderer, avatarScopedElements },
       template: `
-        <sl-grid [items]="students" style="block-size: 400px" [noSkipLinks]="true">
+        <sl-grid
+          [items]="students"
+          [noSkipLinks]="true">
           <sl-grid-column path="id" header="Nr."></sl-grid-column>
           <sl-grid-column
             [grow]="3"
@@ -145,7 +147,10 @@ export const Both: StoryObj = {
         'This example shows both vertical and horizontal scrolling with constrained grid dimensions and many columns.',
       props: { students, avatarRenderer, avatarScopedElements },
       template: `
-        <sl-grid [items]="students" style="inline-size: 500px; block-size: 400px" [noSkipLinks]="true">
+        <sl-grid
+          [items]="students"
+          style="inline-size: 500px; block-size: 400px; overflow: auto; overscroll-behavior: contain;"
+          [noSkipLinks]="true">
           <sl-grid-column path="id" header="Nr." [width]="100"></sl-grid-column>
           <sl-grid-column
             path="fullName"

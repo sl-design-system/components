@@ -3,7 +3,7 @@ import * as GridDragAndDropStories from './wrappers-grid-drag-and-drop.stories';
 
 <Meta of={GridDragAndDropStories} />
 
-# Grid Drag And Drop
+# Grid Drag and Drop
 
 This section shows drag-and-drop support in the Angular Grid wrapper.
 
@@ -49,6 +49,9 @@ const scopedElements = { 'sl-avatar': Avatar };
 ## On top
 
 Drop rows on top of other rows and filter valid drop targets.
+
+In this example, `on-top` highlights allowed target rows and emits `slGridDrop` when a row is
+dropped. It does not reorder rows automatically.
 
 ### Template
 
@@ -101,10 +104,12 @@ Control which rows can be dragged by binding the drag handle column to a boolean
 ### Props
 
 ```typescript
-const people = (loadedPeople as Array<Person & { draggable: boolean }>).map((person, index) => ({
-  ...person,
-  draggable: index > 0 && index <= 15
-}));
+const people = (loaded['people'] as Array<Person & { draggable: boolean }>).map(
+  (person, index) => ({
+    ...person,
+    draggable: index > 0 && index <= 15
+  })
+);
 ```
 
 ## Grouping
@@ -114,7 +119,11 @@ Combine drag and drop with grouped data.
 ### Template
 
 ```html
-<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+<sl-grid
+  [dataSource]="ds"
+  [noSkipLinks]="true"
+  draggableRows="between"
+  (slGridDrop)="onDrop($event)">
   <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
   <sl-grid-selection-column></sl-grid-selection-column>
   <sl-grid-column path="firstName"></sl-grid-column>
@@ -131,6 +140,10 @@ const ds = new ArrayListDataSource(people, {
   groupBy: 'profession',
   groupLabelPath: 'profession'
 });
+
+const onDrop = (event: Event): void => {
+  regroupDroppedPerson(ds, event as SlDropEvent<Person>);
+};
 
 // people: Person[] loaded via getPeople({ count: 30 })
 ```

@@ -16,6 +16,15 @@ ruleTester.run('checkbox-has-label', checkboxHasLabel, {
     { code: 'html`<sl-checkbox aria-label="Accept terms"></sl-checkbox>`;' },
     { code: 'html`<sl-checkbox aria-labelledby="checkbox-label"></sl-checkbox>`;' },
     {
+      code: 'html`<sl-checkbox id="checkbox"></sl-checkbox><sl-tooltip for="checkbox">Toggle me</sl-tooltip>`;'
+    },
+    {
+      code: 'html`<sl-checkbox id="checkbox"></sl-checkbox><sl-tooltip for="checkbox another">Toggle me</sl-tooltip>`;'
+    },
+    {
+      code: 'html`${html`<sl-checkbox id="nested"></sl-checkbox><sl-tooltip for="nested">Toggle me</sl-tooltip>`}`;'
+    },
+    {
       code: 'html`<sl-form-field label="Accept terms"><sl-checkbox></sl-checkbox></sl-form-field>`;'
     },
     {
@@ -32,6 +41,11 @@ ruleTester.run('checkbox-has-label', checkboxHasLabel, {
       errors: [{ messageId: 'missingLabel' }]
     },
     {
+      // bound id must not throw — non-string getAttributeValue result
+      code: 'html`<sl-checkbox id=${foo}></sl-checkbox>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
       code: 'html`<sl-checkbox>   </sl-checkbox>`;',
       errors: [{ messageId: 'missingLabel' }]
     },
@@ -41,6 +55,14 @@ ruleTester.run('checkbox-has-label', checkboxHasLabel, {
     },
     {
       code: 'html`<sl-checkbox><sl-infotip slot="infotip">Info</sl-infotip></sl-checkbox>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'html`<sl-checkbox id="checkbox"></sl-checkbox><sl-tooltip type="description" for="checkbox">Toggle me</sl-tooltip>`;',
+      errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'html`<sl-tooltip for="nested">Toggle me</sl-tooltip>${html`<sl-checkbox id="nested"></sl-checkbox>`}`;',
       errors: [{ messageId: 'missingLabel' }]
     },
     {

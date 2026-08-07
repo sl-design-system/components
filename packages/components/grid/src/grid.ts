@@ -983,7 +983,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dragEndEvent.emit({ grid: this, item });
   }
 
-  #onDrop(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
+  #onDrop(event: DragEvent, item: ListDataSourceDataItem<T>): void {
     if (this.draggableRows === 'on-grid') {
       this.dropEvent.emit({ grid: this, item: this.#dragItem!, position: 'on-grid' });
     } else if (
@@ -1000,34 +1000,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.draggableRows === 'between' ||
       (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
     ) {
-      const draggedIndex = this.dataSource?.items.indexOf(this.#dragItem!) ?? -1,
-        targetIndex = this.dataSource?.items.indexOf(item) ?? -1;
-
-      let relativeItem: T | undefined;
-      if (draggedIndex !== -1 && targetIndex !== -1) {
-        // Calculate the relative item based on the drop position
-        const position = draggedIndex < targetIndex ? 'after' : 'before';
-        const relativeIdx = position === 'before' ? targetIndex : targetIndex - 1;
-        const relativeDataItem =
-          relativeIdx >= 0 ? this.dataSource?.items.at(relativeIdx) : undefined;
-        relativeItem = isListDataSourceDataItem(relativeDataItem)
-          ? relativeDataItem.data
-          : undefined;
-      }
+      const row = event
+          .composedPath()
+          .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement),
+        { top, height } = row?.getBoundingClientRect() ?? { top: 0, height: 0 },
+        position = event.clientY < top + height / 2 ? 'before' : 'after';
 
       this.dropEvent.emit({
         grid: this,
         item: this.#dragItem!,
-        relativeItem,
-        position: 'after'
+        relativeItem: item.data,
+        position
       });
 
-      // Reorder the item in the data source
-      this.dataSource?.reorder(
-        this.#dragItem!,
-        item,
-        draggedIndex < targetIndex ? 'after' : 'before'
-      );
+      // Items are already reordered during dragover; avoid reordering again on drop.
 
       this.requestUpdate();
     }

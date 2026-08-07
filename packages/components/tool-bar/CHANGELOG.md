@@ -1,10 +1,21 @@
 # @sl-design-system/tool-bar
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/menu@0.5.0
+  - @sl-design-system/toggle-button@1.0.0
+  - @sl-design-system/toggle-group@0.1.0
+
 ## 0.3.0
 
 ### Minor Changes
 
 - [#3477](https://github.com/sl-design-system/components/pull/3477) [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee) - Toolbar improvements:
+
   - Child buttons and menu-buttons inherit `fill`, and get `variant="inverted"` when the toolbar is `inverted`.
   - Buttons and menu-buttons inside the toolbar can now have different variants and fills mixed together.
 
@@ -46,6 +57,7 @@
   The overflow mapping now falls back from forwarded ARIA name/description to host `aria-labelledby` / `aria-label`, and finally to `slot="button"` text content, ensuring labels remain visible
 
 - [#3241](https://github.com/sl-design-system/components/pull/3241) [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411) - Fix overflow behavior:
+
   - Refactor overflow logic to more accurately calculate visible items, reserve space for the menu button, and handle the menu button margin correctly when all items are hidden.
   - Update `tool-bar.ts` to use the new measurement utilities (`measureMenuButtonWidth` and `measureConstrainedWidth`) for more reliable overflow calculations.
   - Update toolbar styles to prevent layout shifts during measurement and ensure correct sizing in flexible containers.
@@ -102,15 +114,18 @@
 ### Minor Changes
 
 - [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - **Breaking Changes:**
+
   - Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
   - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
 
   **New Features:**
+
   - Added `contained` property to enable contained mode
   - Added keyboard navigation support for arrow keys when toolbar is focused
   - Added `inverted` property to the divider component
 
   **Improvements:**
+
   - Improved overall styling and fixed overflow behavior issues
 
 ### Patch Changes
@@ -189,6 +204,7 @@
 ### Patch Changes
 
 - [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Various improvements:
+
   - Add `ellipsis-vertical` icon to the icon set
   - Add `inverted` boolean property so the menu button can be inverted
   - Fix overflow calculation so we never have an unnecessary menu button

@@ -1,5 +1,14 @@
 # @sl-design-system/inline-message
 
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/announcer@0.1.1
+
 ## 2.1.1
 
 ### Patch Changes
@@ -86,9 +95,11 @@
 ### Major Changes
 
 - [#2031](https://github.com/sl-design-system/components/pull/2031) [`79c250d`](https://github.com/sl-design-system/components/commit/79c250db048f1db459305df9c90b78e03f7b6162) - Breaking change:
+
   - Remove `action` slot for action buttons. The `action` slot has been removed due to accessibility reasons. We do not recommend using inline messages with interactive elements inside.
 
   Other changes:
+
   - Remove `role` - announcer (aria-live) is used in the component instead.
   - Added `announcer` to the component (for the `danger` variant there is `aria-live="assertive"` used, for the rest: `aria-live="polite"`).
 

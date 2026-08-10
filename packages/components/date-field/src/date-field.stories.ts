@@ -107,8 +107,7 @@ export default {
             min=${ifDefined(min?.toISOString())}
             month=${ifDefined(month?.toISOString())}
             placeholder=${ifDefined(placeholder)}
-            style="width: ${width}"
-          >
+            style="width: ${width}">
             ${slot?.()}
           </sl-date-field>
         </sl-form-field>
@@ -311,8 +310,7 @@ export const All: Story = {
             <sl-date-field
               max=${new Date('2025-06-20').toISOString()}
               min=${new Date('2025-06-10').toISOString()}
-              month=${new Date('2025-06-01').toISOString()}
-            ></sl-date-field>
+              month=${new Date('2025-06-01').toISOString()}></sl-date-field>
           </sl-form-field>
         </div>
       </section>

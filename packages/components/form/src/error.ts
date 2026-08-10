@@ -22,7 +22,7 @@ export type ErrorSize = 'sm' | 'md' | 'lg';
  */
 export class Error extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };

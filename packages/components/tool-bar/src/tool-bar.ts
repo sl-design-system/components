@@ -63,7 +63,7 @@ declare global {
 @localized()
 export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-menu': Menu,
@@ -156,14 +156,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /**
    * The fill of buttons and menu buttons (also overflow menu button).
    *
-   * @default 'solid'
+   * @default undefined
    */
   @property() fill?: ButtonFill;
 
   /**
    * Use this if you want the menu button that appears when the tool bar overflows to use the
-   * "inverted" variant. This also overrides all slotted button and menu-button variants to
-   * `inverted` when set.
+   * "inverted" variant. Slotted buttons and menu-buttons without an explicit `variant` also use the
+   * `inverted` variant when set.
    *
    * @default false
    */
@@ -266,12 +266,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       </div>
 
       <sl-menu-button
-        aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+        .ariaDisabled=${this.disabled ? 'true' : null}
         aria-label=${msg('Show more', { id: 'sl.toolBar.showMore' })}
         fill=${ifDefined(this.fill)}
         ?hidden=${this.menuItems.length === 0}
-        variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
-      >
+        variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
         <sl-icon name="ellipsis-vertical" slot="button"></sl-icon>
         ${this.menuItems.map(item => this.renderMenuItem(item))}
       </sl-menu-button>
@@ -294,9 +293,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return html`
         <sl-menu-item
           @click=${isDisabled ? undefined : () => item.click?.()}
-          ?disabled=${isDisabled}
-          ?selectable=${item.selectable}
-        >
+          aria-disabled=${ifDefined(isDisabled ? 'true' : undefined)}
+          ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
@@ -304,7 +302,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       const isDisabled = item.disabled || item.ariaDisabled;
 
       return html`
-        <sl-menu-item ?disabled=${isDisabled}>
+        <sl-menu-item aria-disabled=${ifDefined(isDisabled ? 'true' : undefined)}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
           <sl-menu slot="submenu"
             >${item.menuItems.map(menuItem => this.renderMenuItem(menuItem))}</sl-menu

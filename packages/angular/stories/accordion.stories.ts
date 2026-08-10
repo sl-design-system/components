@@ -15,8 +15,7 @@ import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular';
     <sl-accordion>
       <sl-accordion-item
         summary="Discovering Dinosaurs: A Prehistoric Adventure"
-        [open]="dinoState"
-      >
+        [open]="dinoState">
         Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
       </sl-accordion-item>
       <sl-accordion-item summary="Journey Through Ancient Civilizations">

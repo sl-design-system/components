@@ -1,4 +1,3 @@
-/* eslint-disable slds/button-has-label */
 /* eslint-disable lit/prefer-static-styles */
 import { localized, msg, str } from '@lit/localize';
 import {
@@ -10,6 +9,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import {
   ArrayListDataSource,
@@ -27,7 +27,6 @@ import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { ToolBar } from '@sl-design-system/tool-bar';
-import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -122,7 +121,7 @@ export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-ellipsize-text': EllipsizeText,
@@ -131,8 +130,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
       'sl-toggle-group': ToggleGroup,
-      'sl-tool-bar': ToolBar,
-      'sl-tooltip': Tooltip
+      'sl-tool-bar': ToolBar
     };
   }
 
@@ -179,6 +177,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The item before the dragged item when dragging started. */
   #itemBeforeDragItem?: ListDataSourceItem<T>;
+
+  /** Prevent recursive scroll syncing between the header and body. */
+  #scrollSyncing = false;
 
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
@@ -234,6 +235,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
+
+  /** Flag to skip the next focus announcement (e.g. after a click that already announced). */
+  #skipNextFocusAnnounce = false;
 
   /** The current active row. */
   @property({ attribute: false }) activeRow?: T;
@@ -406,7 +410,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     });
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
-    this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
+    this.tbody.addEventListener('scroll', () => this.#onBodyScroll(), { passive: true });
+    this.thead.addEventListener('scroll', () => this.#onHeaderScroll(), { passive: true });
+    this.tbody.addEventListener('focusin', (event: FocusEvent) => this.#onFocusIn(event));
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
@@ -450,8 +456,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <slot
         @sl-column-update=${this.#onColumnUpdate}
         @slotchange=${this.#onSlotChange}
-        style="display:none"
-      ></slot>
+        style="display:none"></slot>
       <style>
         ${this.renderStyles()}
       </style>
@@ -462,8 +467,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
               href="#table-end"
               class="skip-link-start"
               @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
-              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
-            >
+              @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}>
               ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
             </a>
           `
@@ -475,8 +479,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-filter-register=${this.#onFilterRegister}
           @sl-sorter-change=${this.#onSorterChange}
           @sl-sorter-register=${this.#onSorterRegister}
-          part="thead"
-        >
+          part="thead">
           ${this.#headerRows.map(row => this.renderHeaderRow(row))}
         </thead>
         <tbody id="tbody" part="tbody">
@@ -509,15 +512,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </sl-tool-bar>
         <sl-button
           @click=${this.#onCancelSelection}
-          aria-describedby="tooltip"
           fill="ghost"
-          variant="inverted"
-        >
+          tooltip=${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}
+          variant="inverted">
           <sl-icon name="xmark"></sl-icon>
         </sl-button>
-        <sl-tooltip id="tooltip">
-          ${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}
-        </sl-tooltip>
       </div>
 
       ${!this.noSkipLinks
@@ -599,28 +598,39 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   renderItemRow(item: ListDataSourceDataItem<T>, index: number): TemplateResult {
     const rows = this.#headerRows,
+      active = this.activeRow === item.data,
       selected = this.dataSource?.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
-        ...(this.activeRow === item.data ? ['active'] : []),
+        ...(active ? ['active'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.data)?.split(' ') || [])
-      ];
+      ],
+      ariaSelected =
+        this.rowAction === 'activate'
+          ? active
+            ? 'true'
+            : 'false'
+          : (this.dataSource?.selects ?? this.selects) === 'single'
+            ? selected
+              ? 'true'
+              : 'false'
+            : nothing;
 
     return html`
       <tr
-        @click=${() => this.#onClickRow(item)}
+        @click=${() => this.#onClickRow(item, index + 1)}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragenter=${(event: DragEvent) => this.#onDragEnter(event, item)}
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
-        aria-rowindex=${index}
+        aria-rowindex=${index + 1}
+        aria-selected=${ariaSelected}
         index=${index}
-        part=${parts.join(' ')}
-      >
+        part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
@@ -638,7 +648,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       );
 
     return html`
-      <tr part="group" index=${index}>
+      <tr aria-rowindex=${index + 1} part="group" index=${index}>
         <td part="group-header">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
@@ -648,8 +658,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ?drag-handle=${draggable}
             ?selectable=${selectable}
             .selected=${item.selected ?? 'none'}
-            style=${ifDefined(groupHeaderStyles)}
-          >
+            style=${ifDefined(groupHeaderStyles)}>
             ${this.groupHeaderRenderer?.(item) ??
             html`
               <span slot="group-heading">
@@ -731,7 +740,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
-  #onClickRow(item: ListDataSourceDataItem<T>): void {
+  #onClickRow(item: ListDataSourceDataItem<T>, index: number): void {
     if (this.rowAction === 'activate') {
       this.dataSource?.deselectAll();
       this.dataSource?.update();
@@ -742,15 +751,74 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.activeRow = item.data;
       }
 
+      // Capture the clicked row state before emitting: listeners may synchronously mutate activeRow.
+      const isNowActive = this.activeRow === item.data;
+
       this.activeRowChangeEvent.emit(this.activeRow);
+      this.#announceSelection(item, index, isNowActive);
     } else if (this.rowAction === 'select') {
       this.dataSource?.toggle(item);
       this.dataSource?.update();
+      this.#announceSelection(item, index);
+    } else {
+      return;
     }
+
+    this.#skipNextFocusAnnounce = true;
+
+    // Reset the flag soon so it only skips focus events from this click (e.g. focus moving to a button in the row)
+    setTimeout(() => (this.#skipNextFocusAnnounce = false));
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
     this.#addScopedElements(event.target.scopedElements);
+  }
+
+  #announceSelection(item: ListDataSourceDataItem<T>, index: number, selected?: boolean): void {
+    const isSelected =
+      selected !== undefined
+        ? selected
+        : this.rowAction === 'activate'
+          ? this.activeRow === item.data
+          : !!this.dataSource?.isSelected(item);
+
+    const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
+      rowNumber = index + headerRowCount;
+
+    announce(
+      isSelected
+        ? msg(str`Row ${rowNumber} activated`, { id: 'sl.grid.rowActivated' })
+        : msg(str`Row ${rowNumber} deactivated`, { id: 'sl.grid.rowDeactivated' }),
+      'polite'
+    );
+  }
+
+  #onFocusIn(event: FocusEvent): void {
+    // Skip the focus announcement if it was triggered by a click that is already announced
+    if (this.#skipNextFocusAnnounce) {
+      this.#skipNextFocusAnnounce = false;
+      return;
+    }
+
+    const row = (event.target as HTMLElement)?.closest?.('tr');
+
+    if (!row || this.rowAction !== 'activate' || !row.part.contains('active')) {
+      return;
+    }
+
+    const index = row.getAttribute('aria-rowindex');
+
+    if (index) {
+      const headerRowCount = this.thead?.querySelectorAll('tr').length ?? 0,
+        rowNumber = Number(index) + headerRowCount;
+
+      // Use 'assertive' so the user knows right away which row they are in
+      announce(
+        msg(str`In activated row ${rowNumber}`, { id: 'sl.grid.inActivatedRow' }),
+        'assertive',
+        true
+      );
+    }
   }
 
   #onDataSourceUpdate = () => {
@@ -956,11 +1024,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
+  #onBodyScroll(): void {
+    this.#onScroll();
+  }
+
+  #onHeaderScroll(): void {
+    if (this.thead.scrollLeft === this.tbody.scrollLeft) {
+      return;
+    }
+
+    this.#syncScrollLeft(this.thead, this.tbody);
+    this.#onScroll();
+  }
+
   #onScroll(): void {
     const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
 
     this.scrollbar = scrollWidth > offsetWidth;
-    this.thead.scrollLeft = scrollLeft;
+    this.#syncScrollLeft(this.tbody, this.thead);
 
     this.toggleAttribute('scrollable', this.scrollbar);
     this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
@@ -968,6 +1049,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'scrollable-end',
       this.scrollbar && Math.round(scrollLeft) < scrollWidth - offsetWidth
     );
+  }
+
+  #syncScrollLeft(source: HTMLElement, target: HTMLElement): void {
+    if (this.#scrollSyncing || target.scrollLeft === source.scrollLeft) {
+      return;
+    }
+
+    this.#scrollSyncing = true;
+    target.scrollLeft = source.scrollLeft;
+    this.#scrollSyncing = false;
   }
 
   #onSelectionChange = (): void => {

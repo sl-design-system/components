@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/ellipsize-text",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "status": "draft",
   "description": "Utility component that ellipsizes text if it doesn't fit",
   "license": "Apache-2.0",
@@ -39,12 +39,12 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/tooltip": "^2.0.0"
+    "@sl-design-system/tooltip": "^2.0.1"
   },
   "devDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   },
   "peerDependencies": {
-    "@open-wc/scoped-elements": "^3.0.6"
+    "@open-wc/scoped-elements": "^3.0.10"
   }
 }

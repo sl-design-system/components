@@ -1,5 +1,37 @@
 # @sl-design-system/panel
 
+## 0.3.8
+
+### Patch Changes
+
+- [#3521](https://github.com/sl-design-system/components/pull/3521) [`d9d8176`](https://github.com/sl-design-system/components/commit/d9d817690079b67ab0181be60b6a78d253ed072e) - Fix an accessibility issue where panels without actions rendered an empty toolbar in the header. The toolbar is now only rendered when the actions slot contains elements, preventing screen readers from announcing an empty toolbar.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/tool-bar@0.3.0
+
+## 0.3.7
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tool-bar@0.2.5
+
+## 0.3.6
+
+### Patch Changes
+
+- [#3365](https://github.com/sl-design-system/components/pull/3365) [`957d7c5`](https://github.com/sl-design-system/components/commit/957d7c531365a1a710d90c328e3a2e6608e7342d) - Hide collapsed panel content from assistive technology
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
 ## 0.3.5
 
 ### Patch Changes

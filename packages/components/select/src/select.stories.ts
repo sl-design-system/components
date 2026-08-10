@@ -19,13 +19,14 @@ import { type Select, type SelectSize } from './select.js';
 
 type Props = Pick<
   Select,
-  'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'
+  'clearable' | 'disabled' | 'fill' | 'placeholder' | 'required' | 'size' | 'value'
 > & {
   hint?: string;
   label?: string;
   options?(): TemplateResult;
   reportValidity?: boolean;
   slot?(): TemplateResult;
+  styles?(): string;
 };
 type Story = StoryObj<Props>;
 
@@ -44,17 +45,45 @@ export default {
     value: null
   },
   argTypes: {
+    fill: {
+      control: 'inline-radio',
+      options: ['ghost', 'outline']
+    },
     size: {
       control: 'inline-radio',
       options: sizes
+    },
+    styles: {
+      table: {
+        disable: true
+      }
     },
     value: {
       control: 'text'
     }
   },
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled for sl-select-button because it uses ariaLabelledByElements to
+             * set aria-labelledby across shadow DOM boundaries, which the a11y checker cannot
+             * reliably detect.
+             */
+            id: 'aria-input-field-name',
+            enabled: false,
+            selector: 'sl-select >> sl-select-button'
+          }
+        ]
+      }
+    }
+  },
   render: ({
     clearable,
     disabled,
+    fill,
     hint,
     label,
     options,
@@ -63,6 +92,7 @@ export default {
     required,
     size,
     slot,
+    styles,
     value
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
@@ -74,6 +104,7 @@ export default {
         #storybook-root {
           max-width: calc(100vw - 2rem);
         }
+        ${styles?.()}
       </style>
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
@@ -84,9 +115,9 @@ export default {
               ?disabled=${disabled}
               ?required=${required}
               .value=${value}
+              fill=${ifDefined(fill)}
               placeholder=${ifDefined(placeholder)}
-              size=${ifDefined(size)}
-            >
+              size=${ifDefined(size)}>
               ${options?.() ??
               html`
                 <sl-option value="1">Option 1</sl-option>
@@ -109,6 +140,12 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Ghost: Story = {
+  args: {
+    fill: 'ghost'
+  }
+};
 
 export const Clearable: Story = {
   args: {
@@ -371,6 +408,15 @@ export const TextOverflow: Story = {
         Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea
         cillum dolor est ut deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
       </sl-option>
+    `,
+    styles: () => `
+      sl-select {
+        inline-size: 200px;
+
+        &::part(listbox) {
+          inline-size: 400px;
+        }
+      }
     `
   }
 };
@@ -488,7 +534,9 @@ export const HideWhenOutOfView: StoryObj = {
         }
 
         header {
-          background: var(--sl-color-background-subtle);
+          background:
+            linear-gradient(var(--sl-color-background-subtle), var(--sl-color-background-subtle)),
+            var(--sl-elevation-surface-base-default);
           position: sticky;
           top: 0;
           padding: 24px;
@@ -522,8 +570,7 @@ export const HideWhenOutOfView: StoryObj = {
         <div class="scrollcontent">
           <sl-form-field
             hint="This will hide when the container is scrolled AND when the window is scrolled"
-            label="Container scroll"
-          >
+            label="Container scroll">
             <sl-select>
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
@@ -564,8 +611,7 @@ export const All: Story = {
         <sl-select
           placeholder="Select an option"
           size="lg"
-          aria-label="Large select with placeholder"
-        >
+          aria-label="Large select with placeholder">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -575,8 +621,7 @@ export const All: Story = {
         <sl-select
           placeholder="Select an option"
           value="Value 2"
-          aria-label="Medium select with selected value"
-        >
+          aria-label="Medium select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -585,8 +630,7 @@ export const All: Story = {
           placeholder="Select an option"
           value="Value 2"
           size="lg"
-          aria-label="Large select with selected value"
-        >
+          aria-label="Large select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -597,8 +641,7 @@ export const All: Story = {
           clearable
           placeholder="Select an option"
           value="Value 2"
-          aria-label="Medium clearable select with selected value"
-        >
+          aria-label="Medium clearable select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -608,8 +651,7 @@ export const All: Story = {
           placeholder="Select an option"
           value="Value 2"
           size="lg"
-          aria-label="Large clearable select with selected value"
-        >
+          aria-label="Large clearable select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -620,8 +662,7 @@ export const All: Story = {
           placeholder="Select an option"
           show-validity="valid"
           value="Value 2"
-          aria-label="Medium valid select with selected value"
-        >
+          aria-label="Medium valid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -631,8 +672,7 @@ export const All: Story = {
           show-validity="valid"
           value="Value 2"
           size="lg"
-          aria-label="Large valid select with selected value"
-        >
+          aria-label="Large valid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -643,8 +683,7 @@ export const All: Story = {
           placeholder="Select an option"
           show-validity="invalid"
           value="Value 2"
-          aria-label="Medium invalid select with selected value"
-        >
+          aria-label="Medium invalid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -654,8 +693,7 @@ export const All: Story = {
           show-validity="invalid"
           value="Value 2"
           size="lg"
-          aria-label="Large invalid select with selected value"
-        >
+          aria-label="Large invalid select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -666,8 +704,7 @@ export const All: Story = {
           disabled
           placeholder="Select an option"
           value="Value 2"
-          aria-label="Medium disabled select with selected value"
-        >
+          aria-label="Medium disabled select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
@@ -677,8 +714,7 @@ export const All: Story = {
           placeholder="Select an option"
           value="Value 2"
           size="lg"
-          aria-label="Large disabled select with selected value"
-        >
+          aria-label="Large disabled select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>

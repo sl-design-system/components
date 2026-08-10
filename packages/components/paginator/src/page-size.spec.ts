@@ -82,8 +82,7 @@ describe('sl-paginator-page-size', () => {
       el = await fixture(html`
         <sl-paginator-page-size
           .itemLabel=${'Students'}
-          page-sizes="[5,10,20]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,20]"></sl-paginator-page-size>
       `);
     });
 

@@ -6,10 +6,6 @@
     {
       "name": "Tooltip",
       "selector": "sl-tooltip"
-    },
-    {
-      "name": "TooltipDirective",
-      "selector": "TooltipDirective"
     }
   ]
 }

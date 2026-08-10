@@ -49,8 +49,7 @@ export class IndentGuides extends LitElement {
               first: index === 0,
               last: index === this.level - 1,
               visible: this.levelGuides?.includes(index) ?? false
-            })}
-          ></div>
+            })}></div>
         `
       )}
       ${this.selected ? html`<div class="selected"></div>` : nothing}

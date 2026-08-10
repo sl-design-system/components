@@ -1,5 +1,44 @@
 # @sl-design-system/button
 
+## 2.1.2
+
+### Patch Changes
+
+- [#3553](https://github.com/sl-design-system/components/pull/3553) [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2) - Rename the "square" shape value to "rect" to match the design
+
+- Updated dependencies [[`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1)]:
+  - @sl-design-system/shared@0.12.3
+
+## 2.1.1
+
+### Patch Changes
+
+- [#3289](https://github.com/sl-design-system/components/pull/3289) [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68) - Fix paginator selected page styling for `emphasis="bold"` by driving page button appearance via `fill`/`variant` (selected uses `variant="primary"` with `fill="solid"` for bold and `fill="outline"` for subtle), while keeping `aria-current="page"` for accessibility.
+
+  Update `sl-button` interaction styling so `fill="ghost"`/`fill="outline"` use the plain hover/active opacity tokens, and outline buttons marked `aria-current="page"` get a selected border color.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/shared@0.12.2
+
+## 2.1.0
+
+### Minor Changes
+
+- [#3360](https://github.com/sl-design-system/components/pull/3360) [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7) - Add `button` part to the internal `<button>`
+
+### Patch Changes
+
+- [#3299](https://github.com/sl-design-system/components/pull/3299) [`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638) - Minor style fixes:
+  - fix icon-only size regression by using `box-sizing: content-box`
+  - fix `<button>` growing larger than the host `<sl-button>`
+
+- [#3360](https://github.com/sl-design-system/components/pull/3360) [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7) - Styling fixes:
+  - Fix WebKit bug where the aspect-ratio of the inner button is ignored
+  - Fix bug where the inner button doesn't grow with the host element
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
 ## 2.0.1
 
 ### Patch Changes

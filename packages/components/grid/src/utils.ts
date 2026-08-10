@@ -13,3 +13,9 @@ export function waitForGridToRenderData(grid: Grid): Promise<void> {
     checkForTd();
   });
 }
+
+export function waitForAriaForwarding(): Promise<void> {
+  return new Promise(resolve =>
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+  );
+}

@@ -17,6 +17,8 @@ node_modules/
 .yarn/install-state.gz
 
 # Build output
+.claude/implement-design
+.implement-design
 custom-elements.json
 dist
 storybook-static

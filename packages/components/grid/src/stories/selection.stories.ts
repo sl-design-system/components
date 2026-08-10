@@ -13,8 +13,6 @@ import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
-import { tooltip } from '@sl-design-system/tooltip';
-import '@sl-design-system/tooltip/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../../register.js';
@@ -36,7 +34,10 @@ Icon.register(faCopy, faRightToLine, faTrash);
 
 export const Activate: Story = {
   render: (_, { loaded: { students } }) => {
+    let activeStudent: Student | undefined;
+
     const onActiveRowChange = ({ detail: student }: SlActiveRowChangeEvent<Student>): void => {
+      activeStudent = student;
       document.getElementById('selection')!.innerText = student
         ? `You have activated ${student.fullName}.`
         : 'You have not activated anybody yet.';
@@ -51,6 +52,15 @@ export const Activate: Story = {
         <code>sl-grid-active-row-change</code> event is dispatched when the active row changes,
         which you can use to update the UI or perform other actions based on the active row.
       </p>
+      <p>
+        <strong>Note:</strong> For accessibility, you should add <code>aria-pressed</code> and
+        <code>aria-description</code> to the button that activates the row. Set
+        <code>aria-pressed</code> to <code>"true"</code> when the row is active and
+        <code>"false"</code> when it is not. Set <code>aria-description</code> to "Activate row" or
+        "Deactivate row" depending on the state. The grid does not set these attributes for you, so
+        you need to track the active row using the <code>sl-grid-active-row-change</code> event and
+        update your renderer accordingly. See the code below for an example.
+      </p>
       <p id="selection">You have not activated anybody yet.</p>
       <sl-grid
         @sl-grid-active-row-change=${onActiveRowChange}
@@ -59,9 +69,19 @@ export const Activate: Story = {
         <sl-grid-column
           grow="3"
           header="Student"
-          .renderer=${(student: Student) => html`
-            <sl-button fill="link" variant="primary">${avatarRenderer(student)}</sl-button>
-          `}
+          .renderer=${(student: Student) => {
+            const isActive = activeStudent === student;
+
+            return html`
+              <sl-button
+                aria-description=${isActive ? 'Deactivate row' : 'Activate row'}
+                aria-pressed=${isActive ? 'true' : 'false'}
+                fill="link"
+                variant="primary">
+                ${avatarRenderer(student)}
+              </sl-button>
+            `;
+          }}
           .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
@@ -105,10 +125,10 @@ export const Multiple: Story = {
           Action 1
         </sl-button>
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
+          tooltip="I am a tooltip"
           variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
@@ -184,8 +204,7 @@ sl-dialog::part(body) {
 sl-grid::part(bulk-actions) {
   inset-block-start: calc(anchor(bottom) - var(--sl-size-300));
   position-anchor: --grid-dialog;
-}</pre
-      >
+}</pre>
 
       <p>
         There is a known issue where the bulk actions bar gets placed under the dialog overlay when
@@ -229,10 +248,10 @@ sl-grid::part(bulk-actions) {
               Action 1
             </sl-button>
             <sl-button
-              ${tooltip('I am a tooltip')}
               aria-disabled="true"
               fill="outline"
               slot="bulk-actions"
+              tooltip="I am a tooltip"
               variant="inverted">
               <sl-icon name="far-right-to-line"></sl-icon>
               Action 2
@@ -301,10 +320,10 @@ export const MultipleWithMenuButton: Story = {
           Action 1
         </sl-button>
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
+          tooltip="I am a tooltip"
           variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
@@ -446,7 +465,10 @@ export const WithFiltering: Story = {
 
 export const WithLinks: Story = {
   render: (_, { loaded: { students } }) => {
+    let activeStudent: Student | undefined;
+
     const onActiveRowChange = ({ detail: student }: SlActiveRowChangeEvent<Student>): void => {
+      activeStudent = student;
       document.getElementById('selection')!.innerText = student
         ? `You have activated ${student.fullName}.`
         : 'You have not activated or selected anybody yet.';
@@ -458,6 +480,7 @@ export const WithLinks: Story = {
 
       if (selected > 0) {
         grid.activeRow = undefined; // Reset selected student when selection changes
+        activeStudent = undefined;
 
         selection.innerText = `You have selected ${selected} ${selected > 1 ? 'students' : 'student'}.`;
       } else {
@@ -471,6 +494,15 @@ export const WithLinks: Story = {
         checkbox in the selection column while at the same time clicking anywhere else to activate
         the row. Using keyboard, you can do both.
       </p>
+      <p>
+        <strong>Note:</strong> For accessibility, you should add <code>aria-pressed</code> and
+        <code>aria-description</code> to the button that activates the row. Set
+        <code>aria-pressed</code> to <code>"true"</code> when the row is active and
+        <code>"false"</code> when it is not. Set <code>aria-description</code> to "Activate row" or
+        "Deactivate row" depending on the state. The grid does not set these attributes for you, so
+        you need to track the active row using the <code>sl-grid-active-row-change</code> event and
+        update your renderer accordingly. See the code below for an example.
+      </p>
       <p id="selection">You have not activated or selected anybody yet.</p>
       <sl-grid
         @sl-grid-active-row-change=${onActiveRowChange}
@@ -481,9 +513,19 @@ export const WithLinks: Story = {
         <sl-grid-column
           grow="3"
           header="Student"
-          .renderer=${(student: Student) => html`
-            <sl-button fill="link" variant="primary">${avatarRenderer(student)}</sl-button>
-          `}
+          .renderer=${(student: Student) => {
+            const isActive = activeStudent === student;
+
+            return html`
+              <sl-button
+                aria-description=${isActive ? 'Deactivate row' : 'Activate row'}
+                aria-pressed=${isActive ? 'true' : 'false'}
+                fill="link"
+                variant="primary">
+                ${avatarRenderer(student)}
+              </sl-button>
+            `;
+          }}
           .scopedElements=${{ 'sl-avatar': Avatar, 'sl-button': Button }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
 

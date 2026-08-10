@@ -100,8 +100,8 @@ export class Icon extends LitElement {
     }
   }
 
-  private static getColorToken(pathCounter: number, style: string): string {
-    return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
+  private static getColorToken(pathCounter: number, prefix: IconDefinition['prefix']): string {
+    return pathCounter === 0 && (prefix === 'fad' || prefix === 'fadr') ? 'accent' : 'default';
   }
 
   /**

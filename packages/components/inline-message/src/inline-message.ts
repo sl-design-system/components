@@ -44,7 +44,7 @@ export type SlDismissEvent = CustomEvent<void>;
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon
@@ -194,8 +194,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
               .size=${this.size === 'sm' ? 'sm' : 'md'}
               .variant=${this.variant ?? 'info'}
               aria-label=${msg('Close', { id: 'sl.common.close' })}
-              fill="ghost"
-            >
+              fill="ghost">
               <sl-icon name="xmark"></sl-icon>
             </sl-button>
           `}

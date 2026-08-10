@@ -1,5 +1,6 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin, type SlFormControlEvent } from '@sl-design-system/form';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type EventEmitter,
   EventsController,
@@ -20,7 +21,7 @@ import {
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
-import { type Checkbox, type CheckboxSize } from './checkbox.js';
+import { Checkbox, type CheckboxSize } from './checkbox.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -64,18 +65,22 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   });
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
+  #rovingTabindexController = new RovingTabindexController<Checkbox | Infotip>(this, {
     direction: 'vertical',
-    focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
-    elements: () => this.boxes || [],
-    isFocusableElement: (el: Checkbox) => !el.disabled
+    focusInIndex: (elements: Array<Checkbox | Infotip>) =>
+      elements.findIndex(el => el instanceof Checkbox && !el.disabled),
+    elements: () => this.#focusableBoxes(),
+    isFocusableElement: (el: Checkbox | Infotip) =>
+      el instanceof Checkbox
+        ? !el.disabled
+        : el.parentElement instanceof Checkbox && !el.parentElement.disabled
   });
 
   /** @internal */
   readonly internals = this.attachInternals();
 
   /** @internal The slotted checkboxes. */
-  @queryAssignedElements() boxes?: Array<Checkbox<T>>;
+  @queryAssignedElements({ selector: 'sl-checkbox' }) boxes?: Array<Checkbox<T>>;
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -178,8 +183,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
         @sl-change=${this.#stopEvent}
         @sl-focus=${this.#stopEvent}
         @sl-form-control=${this.#onFormControl}
-        @sl-validate=${this.#stopEvent}
-      ></slot>
+        @sl-validate=${this.#stopEvent}></slot>
     `;
   }
 
@@ -213,6 +217,20 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     // sl-form, only this control should be considered, not the slotted sl-checkbox.
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  #focusableBoxes(): Array<Checkbox | Infotip> {
+    const focusableBoxes: Array<Checkbox | Infotip> = [];
+
+    this.boxes?.forEach(box => {
+      focusableBoxes.push(box);
+
+      if (box.infotip) {
+        focusableBoxes.push(box.infotip);
+      }
+    });
+
+    return focusableBoxes;
   }
 
   async #onSlotChange(): Promise<void> {

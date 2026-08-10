@@ -383,6 +383,43 @@ describe('sl-calendar', () => {
       expect(el.mode).to.equal('month');
     });
 
+    it('should focus select-month after returning from year selector to month mode', async () => {
+      // Start in day mode, go to month mode
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-month')
+        ?.click();
+      await el.updateComplete;
+
+      // From month mode, go to year mode
+      el.renderRoot
+        .querySelector<SelectMonth>('sl-select-month')
+        ?.renderRoot.querySelector<HTMLElement>('.current-year')
+        ?.click();
+      await el.updateComplete;
+
+      // Select a year - should return to month mode
+      el.renderRoot
+        .querySelector<SelectYear>('sl-select-year')
+        ?.renderRoot.querySelector<HTMLElement>('button')
+        ?.click();
+      await el.updateComplete;
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month');
+      expect(selectMonth).to.exist;
+
+      const firstSelectableMonth = selectMonth!.renderRoot.querySelector<HTMLButtonElement>(
+        'table button:not(:disabled)'
+      );
+      expect(firstSelectableMonth).to.exist;
+
+      expect(el.mode).to.equal('month');
+      expect(el.shadowRoot?.activeElement).to.match('sl-select-month');
+      expect(selectMonth!.shadowRoot?.activeElement).to.equal(firstSelectableMonth);
+    });
+
     it('should focus select-day after returning from month selector', async () => {
       // Switch to month mode
       el.renderRoot
@@ -596,8 +633,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -610,8 +646,7 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-GB"
-          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-        ></sl-calendar>
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -624,8 +659,7 @@ describe('sl-calendar', () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-GB"
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -639,8 +673,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 15)).toISOString()}
-          max=${new Date(Date.UTC(2023, 5, 20)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 5, 20)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -654,8 +687,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const helperText = el.renderRoot.querySelector('.helper-text');
@@ -669,8 +701,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       const monthView = el.renderRoot
@@ -691,8 +722,7 @@ describe('sl-calendar', () => {
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       // Switch to month mode
@@ -716,13 +746,57 @@ describe('sl-calendar', () => {
       expect(monthButton?.ariaDescribedByElements).to.include(helperText);
     });
 
+    it('should set ariaDescribedByElements after returning from year selector to month mode', async () => {
+      el = await fixture(html`
+        <sl-calendar
+          locale="en-GB"
+          min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
+          max=${new Date(Date.UTC(2023, 11, 31)).toISOString()}></sl-calendar>
+      `);
+
+      // Switch to month mode
+      el.renderRoot
+        .querySelector<SelectDay>('sl-select-day')
+        ?.renderRoot.querySelector<HTMLElement>('.current-month')
+        ?.click();
+      await el.updateComplete;
+
+      // From month mode, go to year mode
+      el.renderRoot
+        .querySelector<SelectMonth>('sl-select-month')
+        ?.renderRoot.querySelector<HTMLElement>('.current-year')
+        ?.click();
+      await el.updateComplete;
+
+      // Select a year - should return to month mode
+      el.renderRoot
+        .querySelector<SelectYear>('sl-select-year')
+        ?.renderRoot.querySelector<HTMLElement>('button:not(:disabled)')
+        ?.click();
+      await el.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const selectMonth = el.renderRoot.querySelector<SelectMonth>('sl-select-month');
+      expect(selectMonth).to.exist;
+
+      const firstSelectableMonth = selectMonth!.renderRoot.querySelector<HTMLButtonElement>(
+        'table button:not(:disabled)'
+      );
+      expect(firstSelectableMonth).to.exist;
+
+      const helperText = el.renderRoot.querySelector('.helper-text');
+
+      expect(helperText).to.exist;
+      expect(selectMonth!.shadowRoot?.activeElement).to.equal(firstSelectableMonth);
+      expect(firstSelectableMonth!.ariaDescribedByElements).to.include(helperText);
+    });
+
     it('should set ariaDescribedByElements on a focused year button', async () => {
       el = await fixture(html`
         <sl-calendar
           locale="en-GB"
           min=${new Date(Date.UTC(2023, 0, 1)).toISOString()}
-          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}
-        ></sl-calendar>
+          max=${new Date(Date.UTC(2024, 11, 31)).toISOString()}></sl-calendar>
       `);
 
       // Switch to year mode
@@ -755,27 +829,24 @@ describe('sl-calendar', () => {
           show-today
           min=${new Date(Date.UTC(2023, 2, 1)).toISOString()}
           max=${new Date(Date.UTC(2023, 2, 31)).toISOString()}
-          .indicatorDates=${[{ date: indicatorDate, color: 'blue', label: 'Event' }]}
-        ></sl-calendar>
+          .indicatorDates=${[{ date: indicatorDate, color: 'blue', label: 'Event' }]}></sl-calendar>
       `);
 
       const monthView = el.renderRoot
           .querySelector<SelectDay>('sl-select-day')
           ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
         dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]'),
-        indicatorId = dayButton?.getAttribute('aria-describedby'),
-        indicatorTooltip = indicatorId
-          ? (monthView?.renderRoot as ShadowRoot)?.getElementById(indicatorId)
-          : null;
-
-      dayButton?.focus();
-
-      const helperText = el.renderRoot.querySelector('.helper-text');
+        indicatorTooltip = dayButton?.nextElementSibling,
+        helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(dayButton).to.exist;
       expect(indicatorTooltip).to.exist;
-      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
+      expect(indicatorTooltip).to.have.trimmed.text('Event');
+
+      dayButton?.focus();
+
       expect(dayButton?.ariaDescribedByElements).to.include(indicatorTooltip);
+      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
     });
   });
 });

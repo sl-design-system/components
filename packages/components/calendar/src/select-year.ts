@@ -16,7 +16,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property, queryAll, state } from 'lit/decorators.js';
+import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.scss.js';
@@ -30,7 +30,7 @@ declare global {
 @localized()
 export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon
@@ -62,12 +62,15 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
+    scope: (): HTMLTableElement => this.table,
     wrap: false
   });
 
   /** The buttons representing each year. */
   @queryAll('button') buttons!: NodeListOf<HTMLButtonElement>;
+
+  /** The years grid table used as focus scope. */
+  @query('table') table!: HTMLTableElement;
 
   /**
    * The maximum date selectable in the month.
@@ -140,8 +143,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${this.min && this.years.at(0)! < this.min.getFullYear()}
           aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
         <sl-button
@@ -149,8 +151,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${this.max && this.years.at(-1)! > this.max.getFullYear()}
           aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </header>
@@ -159,8 +160,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         aria-label=${msg(str`Years from ${this.years.at(0)!} to ${this.years.at(-1)!}`, {
           id: 'sl.calendar.yearsLabel'
         })}
-        role="grid"
-      >
+        role="grid">
         <tbody>
           ${rows.map(
             (row, rowIndex) => html`
@@ -188,8 +188,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
           ?disabled=${disabled}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
-          class=${classMap({ current, selected })}
-        >
+          class=${classMap({ current, selected })}>
           <span>${year}</span>
         </button>
       </td>
@@ -250,18 +249,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     if (shouldLoadNewRange) {
       await this.updateComplete;
 
-      const newButtons = Array.from(this.buttons),
-        newEnabledButtons = newButtons.filter(b => !b.disabled);
-
-      let targetButton: HTMLButtonElement | undefined;
-
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        targetButton = newEnabledButtons.at(-1);
-      } else {
-        targetButton = newEnabledButtons.at(0);
-      }
-
-      targetButton?.focus();
+      this.#focusAfterRangeChange(event.key, currentIndex);
     }
 
     // Otherwise, let the event bubble to the focus group controller
@@ -279,6 +267,41 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   #setYears(start: number, end: number): void {
     this.years = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  }
+
+  /** Moves focus to the right year button after loading a new year range. */
+  #focusAfterRangeChange(key: string, currentIndex: number): void {
+    const buttons = Array.from(this.buttons),
+      preferredIndices = this.#getPreferredBoundaryIndices(key, currentIndex, buttons.length),
+      targetIndex = preferredIndices.find(index => {
+        const button = buttons[index];
+
+        return !!button && !button.disabled;
+      });
+
+    if (targetIndex !== undefined) {
+      this.#focusGroupController.focusToElement(targetIndex);
+    }
+  }
+
+  /** Returns preferred button indexes to focus after crossing a grid edge. */
+  #getPreferredBoundaryIndices(key: string, currentIndex: number, length: number): number[] {
+    const column = currentIndex % this.#cols,
+      preferredIndices =
+        key === 'ArrowUp' ? [length - this.#cols + column] : key === 'ArrowDown' ? [column] : [];
+
+    // If that button cannot be focused, keep moving in the pressed direction.
+    if (key === 'ArrowLeft' || key === 'ArrowUp') {
+      for (let i = length - 1; i >= 0; i -= 1) {
+        preferredIndices.push(i);
+      }
+    } else {
+      for (let i = 0; i < length; i += 1) {
+        preferredIndices.push(i);
+      }
+    }
+
+    return preferredIndices;
   }
 
   // Announce if needed, we don't want to have the same message announced twice

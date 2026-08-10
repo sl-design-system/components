@@ -43,6 +43,17 @@ describe('sl-column', () => {
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });
 
+    it('should visually hide the header text when set', async () => {
+      el.querySelector('sl-grid-column')!.hideHeaderText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const span = el.renderRoot.querySelector('th span');
+
+      expect(span).to.have.trimmed.text('First name');
+      expect(span).to.have.class('visually-hidden');
+    });
+
     it('should have the right justify-content value', () => {
       expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal([
         'start',
@@ -117,6 +128,46 @@ describe('sl-column', () => {
     });
   });
 
+  describe('form control label', () => {
+    it('should fall back to the path label when the header is empty', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column header=" " path="address.zip"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Zip');
+    });
+
+    it('should use the form control column label when provided', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column
+            form-control-column-label="Postal code"
+            path="address.zip"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Postal code');
+    });
+
+    it('should add trimmed row context when provided', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="status" .formControlLabel=${() => ' John Doe '}></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ status: 'Available' })).to.equal('Status John Doe');
+    });
+  });
+
   describe('empty string value', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -154,8 +205,7 @@ describe('sl-column', () => {
           <sl-grid-column
             header="Person"
             .renderer=${avatarRenderer}
-            .scopedElements=${{ 'sl-avatar': Avatar }}
-          ></sl-grid-column>
+            .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
           <sl-grid-column path="age" parts="number"></sl-grid-column>
         </sl-grid>
       `);

@@ -41,7 +41,7 @@ export type ProgressColor = 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'te
 @localized()
 export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -131,12 +131,12 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         role="progressbar"
         aria-valuemin="0"
         aria-valuenow=${ifDefined(!this.indeterminate ? `${this.value}` : undefined)}
-        aria-valuemax="100"
-      >
+        aria-valuemax="100">
         <div
           class="progress"
-          style=${styleMap({ width: !this.indeterminate || this.variant ? `${this.value}%` : '' })}
-        ></div>
+          style=${styleMap({
+            width: !this.indeterminate || this.variant ? `${this.value}%` : ''
+          })}></div>
       </div>
       <slot name="error"></slot>
     `;

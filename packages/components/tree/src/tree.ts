@@ -41,7 +41,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   'aria-labelledby'
 ]) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-skeleton': Skeleton,
@@ -168,13 +168,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         aria-owns=${ifDefined(rootIds)}
         part="wrapper"
         role="treegrid"
-        style="block-size: ${virtualizer.getTotalSize()}px"
-      >
+        style="block-size: ${virtualizer.getTotalSize()}px">
         <div
           class="starter"
           style="translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px"
-        >
+          (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -205,10 +203,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   ?indeterminate=${item.indeterminate}
                   ?last-node-in-level=${item.lastNodeInLevel}
                   ?multiple=${this.dataSource?.multiple}
+                  ?selectable=${item.selectable}
+                  ?selected=${item.selected}
                   .level=${item.level}
                   .levelGuides=${this.hideGuides ? undefined : item.levelGuides}
                   .node=${item}
-                  .selected=${item.selected}
                   .type=${item.type}
                   aria-controls=${ifDefined(
                     item.children?.map(child => String(child.id)).join(' ')
@@ -225,8 +224,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                     item.parent ? item.parent.children?.length : this.dataSource?.size
                   )}
                   id=${item.id}
-                  tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}
-                >
+                  tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}>
                   ${this.renderer?.(item) ??
                   html`
                     ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}

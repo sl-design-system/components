@@ -58,8 +58,7 @@ export const Basic: Story = {
           grow="3"
           header="Student"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column ellipsize-text header="School" path="school.name"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
@@ -68,8 +67,7 @@ export const Basic: Story = {
         <sl-paginator-page-size
           .dataSource=${ds}
           .itemLabel=${'Students'}
-          page-sizes="[5,10,15,20]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,15,20]"></sl-paginator-page-size>
       </div>
     `;
   }
@@ -116,15 +114,13 @@ export const Filtering: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-filter-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
         <sl-grid-filter-column
           id="filter-school"
           header="School"
           label-path="school.name"
           mode="select"
-          path="school.id"
-        ></sl-grid-filter-column>
+          path="school.id"></sl-grid-filter-column>
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status .itemLabel=${'students'} .dataSource=${ds}></sl-paginator-status>
@@ -132,8 +128,7 @@ export const Filtering: Story = {
         <sl-paginator-page-size
           .itemLabel=${'Students'}
           .dataSource=${ds}
-          page-sizes="[5,10,15,20]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,15,20]"></sl-paginator-page-size>
       </div>
     `;
   }
@@ -204,8 +199,7 @@ export const LazyLoad: Story = {
         <sl-paginator .dataSource=${ds}></sl-paginator>
         <sl-paginator-page-size
           .dataSource=${ds}
-          page-sizes="[5,10,15,20]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,15,20]"></sl-paginator-page-size>
       </div>
     `;
   }
@@ -264,25 +258,21 @@ export const Manual: Story = {
           grow="3"
           header="Student"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column ellipsize-text header="School" path="school.name"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status
           .itemLabel=${'students'}
-          .totalItems=${(students as Student[]).length}
-        ></sl-paginator-status>
+          .totalItems=${(students as Student[]).length}></sl-paginator-status>
         <sl-paginator
           @sl-page-change=${onPageChange}
-          .totalItems=${(students as Student[]).length}
-        ></sl-paginator>
+          .totalItems=${(students as Student[]).length}></sl-paginator>
         <sl-paginator-page-size
           @sl-page-size-change=${onPageSizeChange}
           .itemLabel=${'Students'}
           page-size="10"
-          page-sizes="[5,10,15]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,15]"></sl-paginator-page-size>
       </div>
     `;
   }

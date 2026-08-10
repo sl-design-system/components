@@ -1,0 +1,12 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "date-field",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Date field",
+      "selector": "sl-date-field"
+    }
+  ]
+}
+

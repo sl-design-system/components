@@ -32,8 +32,7 @@ export const NoBorder: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
     </sl-grid>
   `
@@ -52,8 +51,7 @@ export const NoRowBorder: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
     </sl-grid>
   `
@@ -72,8 +70,7 @@ export const Striped: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
     </sl-grid>
   `
@@ -92,8 +89,7 @@ export const ColumnDivider: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
       <sl-grid-column header="School" path="school.name"></sl-grid-column>
     </sl-grid>
   `
@@ -171,14 +167,12 @@ export const Parts: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column
           align="end"
           header="Rating (0-10)"
           path="grades"
-          .renderer=${ratingRenderer}
-        ></sl-grid-column>
+          .renderer=${ratingRenderer}></sl-grid-column>
       </sl-grid>
     `;
   }

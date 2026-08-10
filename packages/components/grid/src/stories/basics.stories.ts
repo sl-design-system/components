@@ -47,13 +47,11 @@ export const Basic: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column
           header="Date of birth"
           .renderer=${dateOfBirthRenderer}
-          .scopedElements=${{ 'sl-format-date': FormatDate }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-format-date': FormatDate }}></sl-grid-column>
         <sl-grid-column ellipsize-text header="School" path="school.name"></sl-grid-column>
       </sl-grid>
     `;
@@ -92,8 +90,7 @@ export const EllipsizeText: Story = {
       style="max-inline-size: 500px"
       ellipsize-text
       column-divider
-      no-skip-links
-    >
+      no-skip-links>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="school.name"></sl-grid-column>
@@ -128,11 +125,10 @@ export const Header: Story = {
         path="firstName"
         .header=${() => html`
           <span>First name</span>
-          <sl-icon aria-describedby="tooltip" name="info"></sl-icon>
-          <sl-tooltip id="tooltip">Some information about the first name</sl-tooltip>
+          <sl-icon id="info-icon" name="info"></sl-icon>
+          <sl-tooltip for="info-icon">Some information about the first name</sl-tooltip>
         `}
-        .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}
-      >
+        .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}>
       </sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
@@ -142,8 +138,7 @@ export const Header: Story = {
           <span>City</span>
         `}
         path="school.city"
-        .scopedElements=${{ 'sl-icon': Icon }}
-      >
+        .scopedElements=${{ 'sl-icon': Icon }}>
       </sl-grid-column>
       <sl-grid-column
         .header=${() => html`
@@ -160,10 +155,26 @@ export const Header: Story = {
           'sl-icon': Icon,
           'sl-menu-button': MenuButtonComponent,
           'sl-menu-item': MenuItem
-        }}
-      >
+        }}>
       </sl-grid-column>
     </sl-grid>
+  `
+};
+
+export const KeyboardHeaderScroll: Story = {
+  render: (_, { loaded: { students } }) => html`
+    <p>
+      This example shows keyboard navigation through sortable column headers in a horizontally
+      scrollable grid with a sticky selection column.
+    </p>
+    <sl-grid .items=${students} style="inline-size: 320px" no-skip-links>
+      <sl-grid-selection-column sticky></sl-grid-selection-column>
+      <sl-grid-sort-column grow="0" path="firstName" width="220"></sl-grid-sort-column>
+      <sl-grid-sort-column grow="0" path="lastName" width="220"></sl-grid-sort-column>
+      <sl-grid-sort-column grow="0" path="email" width="260"></sl-grid-sort-column>
+      <sl-grid-sort-column grow="0" path="school.name" width="260"></sl-grid-sort-column>
+    </sl-grid>
+    <button type="button">Focus after grid</button>
   `
 };
 
@@ -199,12 +210,12 @@ export const MenuButton: Story = {
           grow="3"
           header="Person"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
         <sl-grid-column
           grow="0"
-          header=""
+          header="Actions"
+          hide-header-text
           parts="menu-button"
           .renderer=${menuButtonRenderer}
           .scopedElements=${{
@@ -212,8 +223,7 @@ export const MenuButton: Story = {
             'sl-menu-button': MenuButtonComponent,
             'sl-menu-item': MenuItem
           }}
-          width="48"
-        ></sl-grid-column>
+          width="48"></sl-grid-column>
       </sl-grid>
     `;
   }
@@ -299,11 +309,12 @@ export const Skeleton: Story = {
           <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
             <sl-skeleton
               style="aspect-ratio: 1; block-size: var(--sl-size-300); inline-size: auto"
-              variant="circle"
-            ></sl-skeleton>
+              variant="circle"></sl-skeleton>
             <sl-skeleton
-              style="block-size: 18px; inline-size: ${Math.max(Math.random() * 100, 30)}%"
-            ></sl-skeleton>
+              style="block-size: 18px; inline-size: ${Math.max(
+                Math.random() * 100,
+                30
+              )}%"></sl-skeleton>
           </div>
         `;
       } else {
@@ -313,8 +324,7 @@ export const Skeleton: Story = {
           <sl-avatar
             .displayName=${[firstName, infix, lastName].join(' ')}
             .pictureUrl=${pictureUrl}
-            size="sm"
-          ></sl-avatar>
+            size="sm"></sl-avatar>
         `;
       }
     };
@@ -344,8 +354,7 @@ export const Skeleton: Story = {
         <sl-grid-column
           header="Student"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
     `;

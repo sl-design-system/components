@@ -1,5 +1,28 @@
 # @sl-design-system/form
 
+## 1.4.2
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- Updated dependencies [[`e07c746`](https://github.com/sl-design-system/components/commit/e07c746bec373ae9fe9d0e7c274d9deeadca9544), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6)]:
+  - @sl-design-system/inline-message@2.1.1
+  - @sl-design-system/shared@0.12.2
+
+## 1.4.1
+
+### Patch Changes
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Fix `sl-label` not updating when the locale changes. The label now only moves text and element nodes into the `<label>` element, leaving Lit's internal comment markers in place so the parent component can properly re-render translated content.
+
+- Updated dependencies [[`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/shared@0.12.1
+
 ## 1.4.0
 
 ### Minor Changes

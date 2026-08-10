@@ -4,6 +4,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -38,8 +39,7 @@ export default {
       ?disabled=${disabled}
       ?reverse=${reverse}
       size=${ifDefined(size)}
-      .value=${value}
-    >
+      .value=${value}>
       ${text}
     </sl-switch>
   `
@@ -70,8 +70,7 @@ export const Empty: Story = {
       ?disabled=${disabled}
       ?reverse=${reverse}
       size=${ifDefined(size)}
-      .value=${value}
-    >
+      .value=${value}>
       ${text}
     </sl-switch>
   `
@@ -89,6 +88,57 @@ export const Reverse: Story = {
   }
 };
 
+export const Infotip: Story = {
+  render: ({ checked, disabled, size, value }) => html`
+    <style>
+      .wrapper {
+        flex-direction: column;
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .stretched {
+        align-self: stretch;
+      }
+    </style>
+    <div class="wrapper">
+      <sl-switch ?checked=${checked} ?disabled=${disabled} size=${ifDefined(size)} .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        class="stretched"
+        ?checked=${checked}
+        ?disabled=${disabled}
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        ?checked=${checked}
+        ?disabled=${disabled}
+        reverse
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+      <sl-switch
+        class="stretched"
+        ?checked=${checked}
+        ?disabled=${disabled}
+        reverse
+        size=${ifDefined(size)}
+        .value=${value}>
+        Receive notifications
+        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
+      </sl-switch>
+    </div>
+  `
+};
+
 export const CustomIcons: Story = {
   render: () => {
     return html`
@@ -96,19 +146,16 @@ export const CustomIcons: Story = {
         size="sm"
         icon-off="fas-sun-bright"
         icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons small"
-      ></sl-switch>
+        aria-label="Switch with custom icons small"></sl-switch>
       <sl-switch
         icon-off="fas-sun-bright"
         icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons"
-      ></sl-switch>
+        aria-label="Switch with custom icons"></sl-switch>
       <sl-switch
         size="lg"
         icon-off="fas-sun-bright"
         icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons large"
-      ></sl-switch>
+        aria-label="Switch with custom icons large"></sl-switch>
     `;
   }
 };
@@ -127,8 +174,7 @@ export const CustomValidity: Story = {
       <sl-form>
         <sl-form-field
           hint="This story has custom validation. If you do not toggle the switch, you will see a validation message. NOTE: This is a technical story; this is NOT meant as a functional example. The switch component should never be used in this way."
-          label="Do not do this in real code!"
-        >
+          label="Do not do this in real code!">
           <sl-switch @sl-validate=${onValidate} reverse>You must toggle me</sl-switch>
         </sl-form-field>
         <sl-button-bar>

@@ -20,15 +20,14 @@ export default defineConfig({
             headless: true,
             provider: playwright(),
             instances: [{ browser: 'chromium' }]
-          },
-          setupFiles: ['.storybook/vitest.setup.ts']
+          }
         }
       },
       {
         extends: true,
         test: {
           name: 'unit',
-          include: ['packages/components/**/*.spec.ts'],
+          include: ['packages/components/**/*.spec.ts', 'examples/lit/**/*.spec.ts'],
           browser: {
             enabled: true,
             headless: true,

@@ -41,7 +41,7 @@ export type SlSorterRegisterEvent = CustomEvent<void>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon
@@ -87,8 +87,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
             : msg('Sort ascending', { id: 'sl.grid.sortAscending' })}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
-        variant=${ifDefined(this.direction ? 'primary' : undefined)}
-      >
+        variant=${ifDefined(this.direction ? 'primary' : undefined)}>
         ${choose(
           this.direction,
           [

@@ -72,7 +72,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-field-button': FieldButton,
       'sl-icon': Icon
@@ -357,8 +357,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                   ? html`
                       <div
                         aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
-                        class="placeholder"
-                      >
+                        class="placeholder">
                         ${this.placeholder}
                       </div>
                     `
@@ -372,8 +371,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-expanded=${this.dialog && isPopoverOpen(this.dialog) ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select time', { id: 'sl.timeField.toggleDropdown' })}
-          tabindex=${this.disabled || this.readonly ? '-1' : '0'}
-        >
+          tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="clock"></sl-icon>
         </sl-field-button>
       </div>
@@ -391,14 +389,12 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @focusout=${this.#onDialogFocusout}
         @keydown=${this.#onKeydown}
         id="dialog"
-        popover
-      >
+        popover>
         <ul
           aria-label=${msg('Select hours', { id: 'sl.timeField.selectHours' })}
           class="hours"
           role="listbox"
-          tabindex="-1"
-        >
+          tabindex="-1">
           ${this.renderHours()}
         </ul>
         <hr aria-hidden="true" />
@@ -406,8 +402,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${msg('Select minutes', { id: 'sl.timeField.selectMinutes' })}
           class="minutes"
           role="listbox"
-          tabindex="-1"
-        >
+          tabindex="-1">
           ${this.renderMinutes()}
         </ul>
       </dialog>
@@ -490,8 +485,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${`${hour.toString()} ${getTimeUnitName(this.locale || 'default', 'hour')}`}
           aria-selected=${hour === this.#valueAsNumbers?.hour}
           role="option"
-          tabindex=${index === 0 ? '0' : '-1'}
-        >
+          tabindex=${index === 0 ? '0' : '-1'}>
           ${hour.toString().padStart(2, '0')}
         </li>
       `
@@ -516,8 +510,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${`${minute.toString()} ${getTimeUnitName(this.locale || 'default', 'minute')}`}
           aria-selected=${minute === this.#valueAsNumbers?.minute && !isDisabled}
           role="option"
-          tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}
-        >
+          tabindex=${ifDefined(isDisabled ? undefined : index === 0 ? '0' : '-1')}>
           ${minute.toString().padStart(2, '0')}
         </li>
       `;
@@ -916,7 +909,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.internals.states.add('has-focus');
 
     // Workaround for WebKit changing the selection on focus.
-    requestAnimationFrame(() => this.#selectContent(span));
+    this.#selectContentOnNextFrame(span);
   }
 
   #onPartKeydown(event: KeyboardEvent, partType: TimePartType): void {
@@ -970,7 +963,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.#enteredDigits = 0;
         this.#moveFocus(span, 1);
       } else {
-        requestAnimationFrame(() => this.#selectContent(span));
+        this.#selectContentOnNextFrame(span);
       }
 
       this.#trySetValue(true);
@@ -1088,6 +1081,19 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
       });
     }
+  }
+
+  /**
+   * Selects the content of the given part on the next frame, but only if it still has focus by
+   * then. Selecting the content of a contenteditable moves focus into it, so doing this after focus
+   * has already moved on (by tabbing to the field button, for example) would steal it back.
+   */
+  #selectContentOnNextFrame(span: HTMLElement): void {
+    requestAnimationFrame(() => {
+      if (this.shadowRoot?.activeElement === span) {
+        this.#selectContent(span);
+      }
+    });
   }
 
   #selectContent(span: HTMLElement): void {

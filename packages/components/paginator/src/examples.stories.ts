@@ -46,13 +46,11 @@ export const Connected: Story = {
         <sl-paginator
           @sl-page-change=${onPageChange}
           page-size="10"
-          total-items="200"
-        ></sl-paginator>
+          total-items="200"></sl-paginator>
         <sl-paginator-page-size
           @sl-page-size-change=${onPageSizeChange}
           page-size="10"
-          page-sizes="[5,10,15]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,15]"></sl-paginator-page-size>
       </section>
     `;
   }
@@ -125,8 +123,7 @@ export const DataSource: Story = {
                 <sl-paginator-status .dataSource=${this.dataSource}></sl-paginator-status>
                 <sl-paginator-page-size
                   .dataSource=${this.dataSource}
-                  page-sizes="[5,10,15,20]"
-                ></sl-paginator-page-size>
+                  page-sizes="[5,10,15,20]"></sl-paginator-page-size>
               </div>
               <div class="cards-container">
                 ${this.dataSource?.items.map(

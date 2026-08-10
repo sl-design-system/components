@@ -74,7 +74,7 @@ export const CheckboxGroup: Story = {
 export const Combobox: Story = {
   args: {
     slot: () => html`
-      <sl-combobox required>
+      <sl-combobox required style="max-width: 500px">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
@@ -170,14 +170,12 @@ export const Composite: Story = {
           name="rentalPeriodAmount"
           min="1"
           placeholder="0"
-          required
-        ></sl-number-field>
+          required></sl-number-field>
         <sl-select
           aria-label="Rental period unit"
           name="rentalPeriodUnit"
           placeholder="Select unit"
-          required
-        >
+          required>
           <sl-option value="day">Day</sl-option>
           <sl-option value="week">Week</sl-option>
           <sl-option value="month">Month</sl-option>

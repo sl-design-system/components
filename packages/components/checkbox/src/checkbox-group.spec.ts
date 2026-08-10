@@ -1,5 +1,6 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -253,6 +254,59 @@ describe('sl-checkbox-group', () => {
 
       expect(el.boxes?.[0].checked).to.be.true;
       expect(el.boxes?.[1].checked).to.be.true;
+    });
+
+    it('should navigate checkbox -> infotip -> next checkbox', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox value="0"
+            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-checkbox
+          >
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      const firstCheckboxInput = el.querySelectorAll('sl-checkbox input')[0],
+        firstInfotip = el.querySelectorAll('sl-infotip')[0],
+        secondCheckboxInput = el.querySelectorAll('sl-checkbox input')[1];
+
+      el.focus();
+      expect(document.activeElement).to.equal(firstCheckboxInput);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(firstInfotip);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(secondCheckboxInput);
+    });
+
+    it('should skip infotips of disabled checkboxes during roving navigation', async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox value="0"
+            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-checkbox
+          >
+          <sl-checkbox disabled value="1"
+            >Option 2<sl-infotip slot="infotip">More info option 2</sl-infotip></sl-checkbox
+          >
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      const firstCheckboxInput = el.querySelectorAll('sl-checkbox input')[0],
+        firstInfotip = el.querySelectorAll('sl-infotip')[0],
+        secondInfotip = el.querySelectorAll('sl-infotip')[1],
+        thirdCheckboxInput = el.querySelectorAll('sl-checkbox input')[2];
+
+      el.focus();
+      expect(document.activeElement).to.equal(firstCheckboxInput);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(firstInfotip);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(thirdCheckboxInput);
+      expect(document.activeElement).not.to.equal(secondInfotip);
     });
   });
 

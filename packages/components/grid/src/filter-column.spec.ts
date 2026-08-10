@@ -102,8 +102,7 @@ describe('sl-grid-filter-column', () => {
           <sl-grid-filter-column
             mode="select"
             path="membership"
-            value="Premium"
-          ></sl-grid-filter-column>
+            value="Premium"></sl-grid-filter-column>
         </sl-grid>
       `);
 

@@ -39,6 +39,8 @@ export type TreeNodeContextMenu<T> = (node: TreeDataSourceNode<T>) => Menu | und
 
 export type TreeNodeType = 'node' | 'placeholder' | 'skeleton';
 
+let nextCheckboxId = 0;
+
 /**
  * A tree node component. Used to represent a node in a tree. This component is not public API and
  * is used internally by `<sl-tree>`.
@@ -50,7 +52,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button-bar': ButtonBar,
       'sl-checkbox': Checkbox,
@@ -66,6 +68,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     click: this.#onClick,
     keydown: this.#onKeydown
   });
+
+  #checkboxInputId = `sl-tree-node-checkbox-${nextCheckboxId++}`;
 
   /** @internal Emits when the checked state of the checkbox changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<boolean>>;
@@ -126,6 +130,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ attribute: false }) node?: TreeDataSourceNode<T>;
 
   /**
+   * Whether the node can be selected. When false, the node does not render a checkbox and cannot be
+   * selected by the user.
+   *
+   * @default false
+   */
+  @property({ type: Boolean }) selectable?: boolean;
+
+  /**
    * Determines whether the node is selected or not.
    *
    * @default false
@@ -155,7 +167,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
      */
     this.setAttribute('role', 'row');
 
-    this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    if (this.selectable) {
+      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    }
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
@@ -173,19 +187,23 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    if (changes.has('indeterminate') || changes.has('selected')) {
-      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    if (changes.has('indeterminate') || changes.has('selectable') || changes.has('selected')) {
+      if (this.selectable) {
+        this.setAttribute('aria-selected', Boolean(this.selected).toString());
+      } else {
+        this.removeAttribute('aria-selected');
+      }
     }
   }
 
+  /* eslint-disable slds/checkbox-has-label -- internal sl-checkbox uses slotted input + label to provide its accessible name */
   override render(): TemplateResult {
     return html`
       <sl-indent-guides
         ?last-node-in-level=${this.lastNodeInLevel}
         .level=${this.level}
         .levelGuides=${this.levelGuides}
-        ?selected=${!this.multiple && this.selected}
-      ></sl-indent-guides>
+        ?selected=${!this.multiple && this.selected}></sl-indent-guides>
       <div aria-colindex="1" role="gridcell">
         ${this.expandable
           ? html`
@@ -209,13 +227,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                 'skeleton',
                 () => html`
                   <sl-skeleton
-                    style="inline-size: ${Math.max(20, Math.random() * 60)}%"
-                  ></sl-skeleton>
+                    style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>
                 `
               ]
             ],
             () =>
-              this.multiple
+              this.multiple && this.selectable
                 ? html`
                     <sl-checkbox
                       @sl-change=${this.#onChange}
@@ -223,10 +240,18 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                       ?indeterminate=${this.indeterminate}
                       exportparts="label"
                       part="checkbox"
-                      size="sm"
-                    >
-                      <input slot="input" tabindex="-1" type="checkbox" />
-                      <slot></slot>
+                      size="sm">
+                      <input
+                        id=${this.#checkboxInputId}
+                        slot="input"
+                        tabindex="-1"
+                        type="checkbox" />
+                      <label
+                        id=${`${this.#checkboxInputId}-label`}
+                        for=${this.#checkboxInputId}
+                        slot="label"
+                        ><slot></slot
+                      ></label>
                     </sl-checkbox>
                   `
                 : html`
@@ -244,6 +269,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       </div>
     `;
   }
+  /* eslint-enable slds/checkbox-has-label */
 
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;
@@ -271,7 +297,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
-    if (insideWrapper) {
+    if (insideWrapper && this.selectable) {
       event.preventDefault();
 
       this.selected = !this.selected;
@@ -291,6 +317,10 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
+
+      if (!this.selectable) {
+        return;
+      }
 
       this.selected = !this.selected;
       this.indeterminate = false;

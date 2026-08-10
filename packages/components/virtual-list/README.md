@@ -24,8 +24,7 @@ html`
   <sl-virtual-list
     .items=${items}
     .renderItem=${item => html`<div>${item}</div>`}
-    estimate-size="50"
-  >
+    estimate-size="50">
   </sl-virtual-list>
 `;
 ```

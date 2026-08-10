@@ -129,11 +129,15 @@
   --_bg-color: transparent;
 }
 
-:host([fill='outline']) button:hover {
+:host([fill='outline']) button[aria-current='page'] {
+  border-color: var(--sl-color-border-selected);
+}
+
+:host(:where([fill='ghost'], [fill='outline'])) button:hover {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
-:host([fill='outline']) button:active {
+:host(:where([fill='ghost'], [fill='outline'])) button:active {
   --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
@@ -218,6 +222,11 @@
   border-color: var(--sl-color-border-inverted);
 }
 
+::slotted(*) {
+  // Prevent the icon from ever gaining focus inside the button
+  pointer-events: none;
+}
+
 ::slotted(a) {
   color: inherit !important;
   text-decoration: none !important;
@@ -281,9 +290,4 @@ button:is(:disabled, [aria-disabled]) {
     transition-property: background, border-color, color, outline-color;
     transition-timing-function: var(--sl-animation-button-easing);
   }
-}
-
-::slotted(*) {
-  // Prevent the icon from ever gaining focus inside the button
-  pointer-events: none;
 }

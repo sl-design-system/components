@@ -44,7 +44,7 @@ export type SlFilterRegisterEvent = CustomEvent<void>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-option': Option,
@@ -125,21 +125,22 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     if (this.mode === 'select') {
+      const filterLabel = msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
+        id: 'sl.grid.filterByValue'
+      });
+
       return html`
         <sl-select
           @sl-change=${this.#onSelectChange}
           @sl-clear=${this.#onClear}
-          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
-            id: 'sl.grid.filterByValue'
-          })}
-          clearable
-        >
+          aria-label=${filterLabel}
+          .placeholder=${filterLabel}
+          clearable>
           ${this.options?.map(option => {
             return html`
               <sl-option
                 ?selected=${this.value?.includes(option.value as string)}
-                .value=${option.value}
-              >
+                .value=${option.value}>
                 ${option.label}
               </sl-option>
             `;
@@ -154,8 +155,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
           .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
             id: 'sl.grid.filterByValue'
           })}
-          .value=${this.value?.toString() ?? ''}
-        ></sl-search-field>
+          .value=${this.value?.toString() ?? ''}></sl-search-field>
       `;
     }
   }

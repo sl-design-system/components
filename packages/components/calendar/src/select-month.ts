@@ -22,7 +22,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property, queryAll, state } from 'lit/decorators.js';
+import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-month.scss.js';
@@ -37,7 +37,7 @@ declare global {
 @localized()
 export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-format-date': FormatDate,
@@ -70,12 +70,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     directionLength: this.#cols,
     elements: (): HTMLButtonElement[] => Array.from(this.buttons),
     isFocusableElement: (el: HTMLButtonElement) => !el.disabled,
-    scope: (): HTMLElement => this.renderRoot.querySelector('table')!,
+    scope: (): HTMLTableElement => this.table,
     wrap: false
   });
 
   /** The buttons representing each month. */
   @queryAll('button') buttons!: NodeListOf<HTMLButtonElement>;
+
+  /** The months grid table used as focus scope. */
+  @query('table') table!: HTMLTableElement;
 
   /**
    * The maximum date selectable in the month.
@@ -172,13 +175,11 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 )}
                 class="current-year"
                 fill="link"
-                variant="secondary"
-              >
+                variant="secondary">
                 <sl-format-date
                   .date=${this.month}
                   locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
+                  year="numeric"></sl-format-date>
                 <sl-icon name="caret-down-solid"></sl-icon>
               </sl-button>
             `
@@ -191,8 +192,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
               id: 'sl.calendar.previousYear'
             })}
             fill="ghost"
-            variant="secondary"
-          >
+            variant="secondary">
             <sl-icon name="chevron-left"></sl-icon>
           </sl-button>
           <sl-button
@@ -200,8 +200,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             ?disabled=${!this.#canSelectYear(1)}
             aria-label=${msg(str`Next year, ${currentYear + 1}`, { id: 'sl.calendar.nextYear' })}
             fill="ghost"
-            variant="secondary"
-          >
+            variant="secondary">
             <sl-icon name="chevron-right"></sl-icon>
           </sl-button>
         </div>
@@ -209,8 +208,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
       <table
         aria-label=${msg(str`Months of ${currentYear}`, { id: 'sl.calendar.monthsLabel' })}
-        role="grid"
-      >
+        role="grid">
         <tbody>
           ${rows.map(
             (row, rowIndex) => html`
@@ -242,8 +240,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?disabled=${month.disabled}
           aria-current=${ifDefined(current ? 'date' : undefined)}
           aria-pressed=${selected.toString()}
-          class=${classMap({ current, selected })}
-        >
+          class=${classMap({ current, selected })}>
           <span>${month.long}</span>
         </button>
       </td>
@@ -300,18 +297,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (shouldLoadNewRange) {
       await this.updateComplete;
 
-      const newButtons = Array.from(this.buttons),
-        newEnabledButtons = newButtons.filter(b => !b.disabled);
-
-      let targetButton: HTMLButtonElement | undefined;
-
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
-        targetButton = newEnabledButtons.at(-1);
-      } else {
-        targetButton = newEnabledButtons.at(0);
-      }
-
-      targetButton?.focus();
+      this.#focusAfterRangeChange(event.key, currentIndex);
     }
 
     // Otherwise, let the event bubble to the focus group controller
@@ -339,6 +325,41 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onToggleYearSelect(): void {
     this.toggleEvent.emit('year');
+  }
+
+  /** Moves focus to the right month button after loading a new year range. */
+  #focusAfterRangeChange(key: string, currentIndex: number): void {
+    const buttons = Array.from(this.buttons),
+      preferredIndices = this.#getPreferredBoundaryIndices(key, currentIndex, buttons.length),
+      targetIndex = preferredIndices.find(index => {
+        const button = buttons[index];
+
+        return !!button && !button.disabled;
+      });
+
+    if (targetIndex !== undefined) {
+      this.#focusGroupController.focusToElement(targetIndex);
+    }
+  }
+
+  /** Builds a list of preferred focus positions for boundary key navigation. */
+  #getPreferredBoundaryIndices(key: string, currentIndex: number, length: number): number[] {
+    const column = currentIndex % this.#cols,
+      preferredIndices =
+        key === 'ArrowUp' ? [length - this.#cols + column] : key === 'ArrowDown' ? [column] : [];
+
+    // If that target cannot be focused, fall back to the same arrow direction.
+    if (key === 'ArrowLeft' || key === 'ArrowUp') {
+      for (let i = length - 1; i >= 0; i -= 1) {
+        preferredIndices.push(i);
+      }
+    } else {
+      for (let i = 0; i < length; i += 1) {
+        preferredIndices.push(i);
+      }
+    }
+
+    return preferredIndices;
   }
 
   #isDisabled(year: number, month: number): boolean {

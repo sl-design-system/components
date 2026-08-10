@@ -48,8 +48,7 @@ export default {
       <sl-tab-group
         activation=${ifDefined(activation)}
         align-tabs=${ifDefined(alignTabs)}
-        ?vertical=${vertical}
-      >
+        ?vertical=${vertical}>
         ${tabs?.()}${tabPanels?.()}
       </sl-tab-group>
     `;

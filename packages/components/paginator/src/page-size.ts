@@ -35,7 +35,7 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-label': Label,
       'sl-option': Option,
@@ -126,10 +126,10 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
       </sl-label>
       <sl-select
         @sl-change=${this.#onChange}
+        aria-label=${msg(str`${itemLabel} per page`, { id: 'sl.paginator.itemsPerPageAriaLabel' })}
         ?disabled=${!this.pageSizes}
         id="sizes"
-        value=${ifDefined(this.pageSize)}
-      >
+        value=${ifDefined(this.pageSize)}>
         ${this.pageSizes?.map(size => {
           const sizeLabel = this.itemLabel ?? this.#getDefaultItemLabel(size);
 

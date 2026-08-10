@@ -52,7 +52,7 @@ let nextUniqueId = 0;
  */
 export class FormField extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-error': Error,
       'sl-hint': Hint,
@@ -213,8 +213,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         <slot
           @slotchange=${this.#onSlotchange}
           @sl-update-validity=${this.#onUpdateValidity}
-          part="controls"
-        ></slot>
+          part="controls"></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
       </div>
     `;

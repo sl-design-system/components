@@ -25,7 +25,7 @@ declare global {
 @localized()
 export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-checkbox': Checkbox,
@@ -68,19 +68,19 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
             <div part="checkbox">
               <sl-checkbox
                 @sl-change=${this.#onChange}
+                aria-label=${msg('Group', { id: 'sl.grid.selectGroup' })}
                 .checked=${this.selected === 'all'}
                 .indeterminate=${this.selected === 'some'}
-                size="sm"
-              ></sl-checkbox>
+                size="sm"></sl-checkbox>
             </div>
           `
         : nothing}
       <sl-button
         @click=${this.#onClick}
+        aria-expanded=${this.collapsed ? 'false' : 'true'}
         aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
         fill="ghost"
-        size="sm"
-      >
+        size="sm">
         <sl-icon name="chevron-down"></sl-icon>
       </sl-button>
       <div part="wrapper">

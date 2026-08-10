@@ -1,5 +1,72 @@
 # @sl-design-system/grid
 
+## 0.7.5
+
+### Patch Changes
+
+- [#3508](https://github.com/sl-design-system/components/pull/3508) [`89f2dc9`](https://github.com/sl-design-system/components/commit/89f2dc9729425ecd5f0bb029aeb476c1f33e3d2f) - Added accessible names to text field and select controls rendered inside editable grid cells. New `formControlColumnLabel` and `formControlLabel` properties can be used to customize the generated label with column and row context, such as `Zip John Doe` or `Status John Doe`, improving screen reader navigation in editable grids.
+
+- [#3525](https://github.com/sl-design-system/components/pull/3525) [`c864af4`](https://github.com/sl-design-system/components/commit/c864af478c373179c7ae662ba8caefbdde9a544c) - Fix horizontal scroll synchronization when keyboard focus moves through sortable grid column headers. The grid now keeps the header and body aligned when the header is scrolled by keyboard navigation.
+
+- Updated dependencies [[`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987), [`de31def`](https://github.com/sl-design-system/components/commit/de31defb47c51816aabf8dfa5d53666378f2d07c), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`0a4f62e`](https://github.com/sl-design-system/components/commit/0a4f62e454ad02ea56889f73e0a5f35cda488dbc), [`5ac49c3`](https://github.com/sl-design-system/components/commit/5ac49c306cc25d5ae7a334e87fc26736dcade9a7), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee), [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e), [`9ca0bc2`](https://github.com/sl-design-system/components/commit/9ca0bc28d6596c061f33205f3422169960c8c180), [`e5ba453`](https://github.com/sl-design-system/components/commit/e5ba453452a216af22326950d0d121d7f0cf3401), [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2)]:
+  - @sl-design-system/checkbox@2.2.0
+  - @sl-design-system/select@2.2.0
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/tool-bar@0.3.0
+  - @sl-design-system/listbox@0.2.1
+  - @sl-design-system/data-source@0.4.1
+  - @sl-design-system/button@2.1.2
+  - @sl-design-system/toggle-group@0.0.17
+
+## 0.7.4
+
+### Patch Changes
+
+- [#3376](https://github.com/sl-design-system/components/pull/3376) [`54e1beb`](https://github.com/sl-design-system/components/commit/54e1bebbb047dadca5213ce0fcb5049319c1f5e0) - Fixed sticky grid columns becoming transparent when using `row-action="activate"`
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- [#3379](https://github.com/sl-design-system/components/pull/3379) [`a470889`](https://github.com/sl-design-system/components/commit/a47088978b07ef027090972b93394c6c2ad58b01) - Added a `hide-header-text` property to Grid columns so header text can be visually hidden while remaining available to assistive technologies.
+
+- [#3390](https://github.com/sl-design-system/components/pull/3390) [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f) - Accessibility improvements for row activation and selection:
+  - Added `aria-selected` to the active/selected row in activate and single-select modes.
+  - The grid now announces row activation and deactivation to screen readers.
+  - When you focus an already active row with the keyboard, the grid reannounces it (using `force`).
+
+  **Note:** If you use a button to trigger row activation, you should add `aria-pressed` and `aria-description` to it yourself. The grid does not set these for you. See the `'Activate'` story for an example of how to do this.
+
+- [#3385](https://github.com/sl-design-system/components/pull/3385) [`5210ab7`](https://github.com/sl-design-system/components/commit/5210ab73ef22fed783135a1aa93dc73b32112f3a) - Accessibility improvement: added `aria-expanded` to the toggle group button in the group header.
+
+- Updated dependencies [[`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`b558bd7`](https://github.com/sl-design-system/components/commit/b558bd704911d6bbd090b51c7f98000666b9094f), [`7f08962`](https://github.com/sl-design-system/components/commit/7f08962d1e7313a87b58729d64c88e283c686e68), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/search-field@0.2.6
+  - @sl-design-system/toggle-group@0.0.16
+  - @sl-design-system/shared@0.12.2
+  - @sl-design-system/tool-bar@0.2.5
+  - @sl-design-system/select@2.1.5
+  - @sl-design-system/ellipsize-text@0.0.4
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/tooltip@2.0.1
+  - @sl-design-system/announcer@0.1.0
+  - @sl-design-system/button@2.1.1
+
+## 0.7.3
+
+### Patch Changes
+
+- [#3377](https://github.com/sl-design-system/components/pull/3377) [`112ba2f`](https://github.com/sl-design-system/components/commit/112ba2f0c36771746beb9ea55c6ba30753984400) - Fixed Grid row accessibility by rendering `aria-rowindex` as a 1-based value for both data rows and group rows instead of using the internal zero-based virtualizer index
+
+- [#3362](https://github.com/sl-design-system/components/pull/3362) [`32cbeef`](https://github.com/sl-design-system/components/commit/32cbeef88dc3a235f18653a1767c60b2b9fd3e85) - Add a localized, visually hidden label to the drag handle column header so screen readers can announce the column's purpose properly (includes the new `sl.grid.reorder` locale key).
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7)]:
+  - @sl-design-system/listbox@0.1.7
+  - @sl-design-system/button@2.1.0
+  - @sl-design-system/shared@0.12.1
+  - @sl-design-system/text-field@1.6.10
+
 ## 0.7.2
 
 ### Patch Changes

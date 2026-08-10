@@ -342,7 +342,7 @@ describe('sl-form', () => {
 
   describe('custom components', () => {
     class customComponent extends ScopedElementsMixin(LitElement) {
-      static get scopedElements(): ScopedElementsMap {
+      static override get scopedElements(): ScopedElementsMap {
         return {
           'sl-form-field': FormField,
           'sl-text-field': TextField

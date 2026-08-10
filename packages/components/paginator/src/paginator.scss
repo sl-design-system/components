@@ -27,11 +27,14 @@
   sl-select {
     min-inline-size: var(--sl-size-1000);
   }
+
+  sl-option::part(wrapper) {
+    white-space: nowrap;
+  }
 }
 
 .page {
   box-sizing: border-box;
-  color: var(--sl-color-foreground-neutral-bold);
   flex-shrink: 0;
   inline-size: calc(1lh + (var(--sl-size-100) * 2));
   padding-inline: 0;
@@ -47,33 +50,6 @@
   .page {
     inline-size: calc(1lh + (var(--sl-size-175) * 2));
   }
-}
-
-.current {
-  --_bg-color: var(--sl-color-background-selected-subtle);
-  --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-
-  color: var(--sl-color-foreground-primary-bold);
-
-  &:hover {
-    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-  }
-
-  &:active {
-    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
-  }
-}
-
-:host([emphasis='bold']) .current {
-  --_bg-color: var(--sl-color-background-selected-bold);
-  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
-
-  color: var(--sl-color-foreground-primary-onBold);
-}
-
-:host([emphasis='bold']) .current:not(:hover, :active) {
-  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
 }
 
 .wrapper {

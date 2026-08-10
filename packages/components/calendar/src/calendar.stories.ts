@@ -131,8 +131,7 @@ export default {
         max=${ifDefined(parseDate(max)?.toISOString())}
         min=${ifDefined(parseDate(min)?.toISOString())}
         month=${ifDefined(parseDate(month)?.toISOString())}
-        selected=${ifDefined(parseDate(selected)?.toISOString())}
-      ></sl-calendar>
+        selected=${ifDefined(parseDate(selected)?.toISOString())}></sl-calendar>
     `;
   }
 } satisfies Meta<Props>;
@@ -267,8 +266,7 @@ export const All: Story = {
           <span>Selected</span>
           <sl-calendar
             month=${mockDate.toISOString()}
-            selected=${selectedDate.toISOString()}
-          ></sl-calendar>
+            selected=${selectedDate.toISOString()}></sl-calendar>
         </div>
 
         <div class="calendar-wrapper">
@@ -291,8 +289,7 @@ export const All: Story = {
           <sl-calendar
             max=${new Date('2025-06-20').toISOString()}
             min=${new Date('2025-06-05').toISOString()}
-            month=${mockDate.toISOString()}
-          ></sl-calendar>
+            month=${mockDate.toISOString()}></sl-calendar>
         </div>
 
         <div class="calendar-wrapper">
@@ -306,8 +303,7 @@ export const All: Story = {
             ]
               .map(date => date.toISOString())
               .join(',')}
-            month=${mockDate.toISOString()}
-          ></sl-calendar>
+            month=${mockDate.toISOString()}></sl-calendar>
         </div>
 
         <div class="calendar-wrapper">
@@ -321,8 +317,7 @@ export const All: Story = {
               { date: new Date('2025-06-25').toISOString(), color: 'grey', label: 'Note' }
             ])}
             month=${mockDate.toISOString()}
-            show-today
-          ></sl-calendar>
+            show-today></sl-calendar>
         </div>
 
         <div class="calendar-wrapper">
@@ -330,8 +325,7 @@ export const All: Story = {
           <sl-calendar
             month=${mockDate.toISOString()}
             readonly
-            selected=${selectedDate.toISOString()}
-          ></sl-calendar>
+            selected=${selectedDate.toISOString()}></sl-calendar>
         </div>
       </section>
     `;

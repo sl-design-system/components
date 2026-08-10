@@ -5,24 +5,33 @@ import {
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
-import { Option } from '@sl-design-system/listbox';
-import '@sl-design-system/listbox/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import { Listbox, Option, OptionGroup } from '../index.js';
 import '../register.js';
 import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
 
 describe('sl-select', () => {
+  it('should export and register listbox option components', () => {
+    expect(Listbox).to.exist;
+    expect(Option).to.exist;
+    expect(OptionGroup).to.exist;
+
+    expect(customElements.get('sl-listbox')).to.equal(Listbox);
+    expect(customElements.get('sl-option')).to.equal(Option);
+    expect(customElements.get('sl-option-group')).to.equal(OptionGroup);
+  });
+
   let el: Select, button: SelectButton;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -62,6 +71,14 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       expect(button.renderRoot).to.have.trimmed.text('Placeholder');
+    });
+
+    it('should pass fill="ghost" to the button and reflect it as an attribute', async () => {
+      el.fill = 'ghost';
+      await el.updateComplete;
+
+      expect(button.fill).to.equal('ghost');
+      expect(button).to.have.attribute('fill', 'ghost');
     });
 
     it('should not be required', () => {
@@ -122,6 +139,12 @@ describe('sl-select', () => {
 
       expect(el).to.not.have.attribute('aria-labelledby');
       expect(el.button).to.have.attribute('aria-labelledby', 'id');
+    });
+
+    it('should set ariaControlsElements on the button pointing to the listbox', async () => {
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(el.button.internals.ariaControlsElements).to.deep.equal([el.listbox]);
     });
 
     it('should have set aria-selected to false on all options', () => {
@@ -303,7 +326,7 @@ describe('sl-select', () => {
   describe('groups', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option-group label="Group 1">
             <sl-option value="1">Option 1</sl-option>
             <sl-option value="2">Option 2</sl-option>
@@ -352,12 +375,73 @@ describe('sl-select', () => {
 
       expect(el.value).to.equal('5');
     });
+
+    it('should not have role="group" on option-group elements', () => {
+      const groups = el.querySelectorAll('sl-option-group');
+
+      groups.forEach(group => {
+        expect(group).not.to.have.attribute('role', 'group');
+      });
+    });
+
+    it('should have aria-hidden="true" on group headers', () => {
+      const groups = el.querySelectorAll('sl-option-group');
+
+      groups.forEach(group => {
+        const header = group.shadowRoot?.querySelector('sl-option-group-header');
+        expect(header).to.have.attribute('aria-hidden', 'true');
+      });
+    });
+
+    it('should have flattened aria-posinset and aria-setsize across all options', () => {
+      const options = el.options;
+
+      expect(options).to.have.lengthOf(4);
+
+      options.forEach((option, index) => {
+        expect(option).to.have.attribute('aria-posinset', (index + 1).toString());
+        expect(option).to.have.attribute('aria-setsize', '4');
+      });
+    });
+
+    it('should include group context in option accessible names', () => {
+      const options = el.options;
+
+      expect(options[0]).to.have.attribute('aria-label', 'Option 1 (Group 1)');
+      expect(options[1]).to.have.attribute('aria-label', 'Option 2 (Group 1)');
+      expect(options[2]).to.have.attribute('aria-label', 'Option 3 (Group 1)');
+      expect(options[3]).to.have.attribute('aria-label', 'Option 4 (Group 2)');
+    });
+
+    it('should have aria-selected="false" on all unselected options', () => {
+      const options = el.options;
+
+      options.forEach(option => {
+        expect(option).to.have.attribute('aria-selected', 'false');
+      });
+    });
+
+    it('should have aria-selected="true" only on the selected option', async () => {
+      button.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await el.updateComplete;
+
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      const options = el.options;
+
+      expect(options[0]).to.have.attribute('aria-selected', 'true');
+      expect(options[1]).to.have.attribute('aria-selected', 'false');
+      expect(options[2]).to.have.attribute('aria-selected', 'false');
+      expect(options[3]).to.have.attribute('aria-selected', 'false');
+    });
   });
 
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select disabled>
+        <sl-select aria-label="Select an option" disabled>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
           <sl-option>Option 3</sl-option>
@@ -396,7 +480,7 @@ describe('sl-select', () => {
   describe('required', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select required>
+        <sl-select aria-label="Select an option" required>
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -483,7 +567,7 @@ describe('sl-select', () => {
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-            <sl-select value="2">
+            <sl-select aria-label="Select an option" value="2">
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
               <sl-option value="3">Option 3</sl-option>
@@ -528,7 +612,7 @@ describe('sl-select', () => {
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-            <sl-select>
+            <sl-select aria-label="Select an option">
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
               <sl-option value="3">Option 3</sl-option>
@@ -612,12 +696,33 @@ describe('sl-select', () => {
 
       expect(el.shadowRoot!.activeElement).to.equal(button);
     });
+
+    it('should set ariaLabelledByElements on the select button from associated labels', async () => {
+      const select = el.renderRoot.querySelector('sl-select') as Select,
+        button = select.querySelector('sl-select-button') as SelectButton,
+        labels = Array.from(select.internals.labels) as Element[];
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(labels.length).to.equal(1);
+      expect(button.ariaLabelledByElements).to.deep.equal(labels);
+    });
+
+    it('should set ariaLabelledByElements on the listbox from associated labels', async () => {
+      const select = el.renderRoot.querySelector('sl-select') as Select,
+        labels = Array.from(select.internals.labels) as Element[];
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(labels.length).to.equal(1);
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal(labels);
+    });
   });
 
   describe('keyboard interactions', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -819,7 +924,7 @@ describe('sl-select', () => {
     it('should not use the full available width if options are smaller', async () => {
       el = await fixture(html`
         <div style="inline-size: 800px; inset: 0 auto auto 0; position: fixed">
-          <sl-select>
+          <sl-select aria-label="Select an option">
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>
             <sl-option value="longer">This is a longer option text.</sl-option>
@@ -836,7 +941,7 @@ describe('sl-select', () => {
     it('should respect parent max-width when option text is wider', async () => {
       el = await fixture(html`
         <div style="max-inline-size: 400px; inset: 0 auto auto 0; position: fixed">
-          <sl-select>
+          <sl-select aria-label="Select an option">
             <sl-option value="short">Short</sl-option>
             <sl-option value="medium-length">Medium length option</sl-option>
             <sl-option value="very-long"
@@ -852,12 +957,33 @@ describe('sl-select', () => {
       button = el.querySelector('sl-select-button')!;
       expect(button.getBoundingClientRect().width).to.equal(400);
     });
+
+    it('should set the listbox width custom property to the button width when opening', async () => {
+      el = await fixture(html`
+        <sl-select aria-label="Select an option">
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      expect(el.listbox!.style.getPropertyValue('--_select-listbox-width')).to.equal('');
+
+      button.click();
+      await el.updateComplete;
+
+      expect(el.listbox!.style.getPropertyValue('--_select-listbox-width')).to.equal(
+        `${button.getBoundingClientRect().width}px`
+      );
+    });
   });
 
   describe('selected content rendering', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -1049,7 +1175,7 @@ describe('sl-select', () => {
     it('should sync value and form value when selected option implicit value changes', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-select name="fruit">
+          <sl-select aria-label="Select fruit" name="fruit">
             <sl-option>Apple</sl-option>
             <sl-option>Banana</sl-option>
           </sl-select>
@@ -1084,7 +1210,7 @@ describe('sl-select', () => {
     it('should sync value when selected option value attribute changes', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <sl-select name="fruit">
+          <sl-select aria-label="Select fruit" name="fruit">
             <sl-option value="apple">Apple</sl-option>
             <sl-option value="banana">Banana</sl-option>
           </sl-select>
@@ -1114,7 +1240,7 @@ describe('sl-select', () => {
 
     it('should not recalculate width when only selected option value attribute changes', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="apple">Apple</sl-option>
           <sl-option value="banana">Banana</sl-option>
         </sl-select>
@@ -1171,7 +1297,7 @@ describe('sl-select', () => {
 
     it('should handle options with slotted element content', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1"> <strong>Bold</strong> text </sl-option>
           <sl-option value="2">Normal text</sl-option>
         </sl-select>
@@ -1193,9 +1319,34 @@ describe('sl-select', () => {
       expect(container).to.have.trimmed.text('Bold text');
     });
 
+    it('should render selected content when a slotted node root is not a document', async () => {
+      el = await fixture(html`
+        <sl-select aria-label="Select an option">
+          <sl-option value="1"><span>Option 1</span></sl-option>
+          <sl-option value="2">Option 2</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+
+      const node = el.querySelector('sl-option[value="1"] span')!;
+      Object.defineProperty(node, 'getRootNode', {
+        configurable: true,
+        value: () => document.createDocumentFragment()
+      });
+
+      el.value = '1';
+      await el.updateComplete;
+
+      const container = button.querySelector('[slot="selected-content"]');
+
+      expect(container).to.exist;
+      expect(container).to.have.trimmed.text('Option 1');
+    });
+
     it('should handle options with multiple slotted nodes', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">
             <span>First</span>
             <span>Second</span>
@@ -1223,7 +1374,7 @@ describe('sl-select', () => {
 
     it('should clone slotted nodes deeply', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">
             <div>
               <span class="nested"> <strong>Deep</strong> content </span>
@@ -1253,7 +1404,7 @@ describe('sl-select', () => {
 
     it('should handle empty option text', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="empty"></sl-option>
           <sl-option value="filled">Has text</sl-option>
         </sl-select>
@@ -1272,7 +1423,7 @@ describe('sl-select', () => {
 
     it('should update content when option content changes', async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Initial</sl-option>
         </sl-select>
       `);
@@ -1301,7 +1452,7 @@ describe('sl-select', () => {
 
     it('should upgrade any cloned custom elements of the selected option', async () => {
       class ScopedSelectWrapper extends ScopedElementsMixin(LitElement) {
-        static get scopedElements(): ScopedElementsMap {
+        static override get scopedElements(): ScopedElementsMap {
           return {
             'sl-icon': Icon,
             'sl-option': Option,
@@ -1311,7 +1462,7 @@ describe('sl-select', () => {
 
         override render(): TemplateResult {
           return html`
-            <sl-select>
+            <sl-select aria-label="Select an option">
               <sl-option value="1" label="Option 1">
                 <sl-icon name="far-star"></sl-icon>
                 Option 1
@@ -1353,7 +1504,7 @@ describe('sl-select', () => {
   describe('focus management', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
+        <sl-select aria-label="Select an option">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -1397,7 +1548,7 @@ describe('sl-select', () => {
 
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select clearable value="1">
+        <sl-select aria-label="Select an option" clearable value="1">
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -1569,6 +1720,230 @@ describe('sl-select', () => {
       expect(onChange).to.have.been.calledOnce;
       expect(onClear).to.have.been.calledOnce;
       expect(onChange).to.have.been.calledBefore(onClear);
+    });
+  });
+
+  describe('explicit aria-label/aria-labelledby handling', () => {
+    it('should not override explicit aria-label on the button with associated labels', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select aria-label="Explicit label">
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        button = select.querySelector('sl-select-button') as SelectButton;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(button).to.have.attribute('aria-label', 'Explicit label');
+      expect(button.ariaLabelledByElements ?? []).to.have.length(0);
+      expect(select.listbox).to.have.attribute('aria-label', 'Explicit label');
+      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
+    });
+
+    it('should propagate explicit aria-labelledby to the listbox via ariaLabelledByElements', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="explicit-label">Explicit label</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="explicit-label">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+      const select = wrapper.querySelector('sl-select') as Select,
+        explicitLabel = wrapper.querySelector('#explicit-label') as HTMLElement;
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'explicit-label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([explicitLabel]);
+    });
+
+    it('should keep listbox aria-label in sync after later aria-label changes', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select aria-label="Initial label">
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-label', 'Updated label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.button).to.have.attribute('aria-label', 'Updated label');
+      expect(select.listbox).to.have.attribute('aria-label', 'Updated label');
+      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
+    });
+
+    it('should keep listbox aria-labelledby in sync after later aria-labelledby changes', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="label-1">Label 1</span>
+          <span id="label-2">Label 2</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="label-1">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        label1 = wrapper.querySelector('#label-1') as HTMLElement,
+        label2 = wrapper.querySelector('#label-2') as HTMLElement;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'label-1');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label1]);
+      expect(select.button.ariaLabelledByElements).to.deep.equal([label1]);
+
+      select.setAttribute('aria-labelledby', 'label-2');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([label2]);
+      expect(select.button.ariaLabelledByElements).to.deep.equal([label2]);
+    });
+
+    it('should switch from associated labels to explicit aria-label', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        labels = Array.from(select.internals.labels) as Element[];
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal(labels);
+      expect(select.listbox).not.to.have.attribute('aria-label');
+
+      select.setAttribute('aria-label', 'New explicit label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox).to.have.attribute('aria-label', 'New explicit label');
+      expect(select.listbox?.ariaLabelledByElements ?? []).to.have.length(0);
+    });
+
+    it('should handle multiple aria-labelledby IDs separated by spaces', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="label-a">Label A</span>
+          <span id="label-b">Label B</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="label-a label-b">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        labelA = wrapper.querySelector('#label-a') as HTMLElement,
+        labelB = wrapper.querySelector('#label-b') as HTMLElement;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'label-a label-b');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([labelA, labelB]);
+    });
+
+    it('should filter out non existing aria-labelledby IDs', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <span id="label-exists">Label</span>
+          <sl-form-field label="Associated label">
+            <sl-select aria-labelledby="label-exists non-existent-id">
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select,
+        labelExists = wrapper.querySelector('#label-exists') as HTMLElement;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.setAttribute('aria-labelledby', 'label-exists non-existent-id');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox?.ariaLabelledByElements).to.deep.equal([labelExists]);
+    });
+
+    it('should use button aria-label when host aria-label is not set', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.button.setAttribute('aria-label', 'Button label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox).to.have.attribute('aria-label', 'Button label');
+    });
+
+    it('should reflect later button aria-label changes after proxying from host', async () => {
+      const wrapper = await fixture(html`
+        <sl-form-field label="Associated label">
+          <sl-select aria-label="Host label">
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+          </sl-select>
+        </sl-form-field>
+      `);
+
+      const select = wrapper.querySelector('sl-select') as Select;
+
+      await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      select.button.setAttribute('aria-label', 'Button label');
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(select.listbox).to.have.attribute('aria-label', 'Button label');
     });
   });
 });

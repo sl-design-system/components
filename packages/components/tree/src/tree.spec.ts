@@ -504,8 +504,7 @@ describe('sl-tree', () => {
           .renderer=${(node: TreeDataSourceNode<FlatDataNode>) => html`
             <span>${node.label}</span>
             <button id="btn-${node.id}">Button</button>
-          `}
-        ></sl-tree>
+          `}></sl-tree>
       `);
       await el.updateComplete;
     });

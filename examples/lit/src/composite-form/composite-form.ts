@@ -16,7 +16,7 @@ import styles from './composite-form.scss.js';
 
 export class CompositeForm extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
@@ -62,8 +62,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             ?disabled=${!this.#form.value?.firstName}
             name="lastName"
             placeholder="Enter a first name first"
-            required
-          ></sl-text-field>
+            required></sl-text-field>
         </sl-form-field>
 
         <sl-form-field>
@@ -87,8 +86,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             input-size="8"
             name="otherAge"
             placeholder="Your age"
-            required
-          ></sl-number-field>
+            required></sl-number-field>
         </sl-form-field>
 
         <sl-form-field label="Remarks">

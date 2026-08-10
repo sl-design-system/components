@@ -58,7 +58,7 @@ export class TextField
   implements ObserveAttributesMixinInterface
 {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-field-button': FieldButton,
       'sl-icon': Icon
@@ -260,8 +260,7 @@ export class TextField
         @change=${this.onChange}
         @input=${this.onInput}
         @slotchange=${this.onSlotChange}
-        name="input"
-      ></slot>
+        name="input"></slot>
     `;
   }
 

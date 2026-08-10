@@ -19,7 +19,6 @@ import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { SlToggleEvent } from '@sl-design-system/shared/events.js';
-import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -175,8 +174,7 @@ export default {
         .elevation=${elevation}
         .heading=${heading}
         .noBorder=${noBorder}
-        .togglePlacement=${togglePlacement}
-      >
+        .togglePlacement=${togglePlacement}>
         ${actions?.()}${content?.()}${prefix?.()}${suffix?.()}
       </sl-panel>
     `;
@@ -186,7 +184,7 @@ export default {
 export const Basic: Story = {
   args: {
     actions: () => html`
-      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+      <sl-button fill="ghost" slot="actions" tooltip="Remove">
         <sl-icon name="far-trash"></sl-icon>
       </sl-button>
     `,
@@ -198,7 +196,7 @@ export const Basic: Story = {
 export const WithPrefix: Story = {
   args: {
     actions: () => html`
-      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+      <sl-button fill="ghost" slot="actions" tooltip="Remove">
         <sl-icon name="far-trash"></sl-icon>
       </sl-button>
     `,
@@ -211,7 +209,7 @@ export const WithPrefix: Story = {
 export const WithSuffix: Story = {
   args: {
     actions: () => html`
-      <sl-button fill="ghost" slot="actions" aria-label="Remove">
+      <sl-button fill="ghost" slot="actions" tooltip="Remove">
         <sl-icon name="far-trash"></sl-icon>
       </sl-button>
     `,
@@ -250,67 +248,42 @@ export const OverflowActions: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button fill="ghost" slot="actions" aria-label="Edit"
-        ><sl-icon name="far-pen"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Copy"
-        ><sl-icon name="far-copy"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Paste"
-        ><sl-icon name="far-paste"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Book"
-        ><sl-icon name="far-book"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Share"
-        ><sl-icon name="far-share"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="List"
-        ><sl-icon name="far-list"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Link"
-        ><sl-icon name="far-link"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Lock"
-        ><sl-icon name="far-lock"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Unlock"
-        ><sl-icon name="far-unlock"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Settings"
-        ><sl-icon name="far-gear"></sl-icon
-      ></sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Remove"
-        ><sl-icon name="far-trash"></sl-icon
-      ></sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Edit">
+        <sl-icon name="far-pen"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Copy">
+        <sl-icon name="far-copy"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Paste">
+        <sl-icon name="far-paste"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Book">
+        <sl-icon name="far-book"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Share">
+        <sl-icon name="far-share"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="List">
+        <sl-icon name="far-list"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Link">
+        <sl-icon name="far-link"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Lock">
+        <sl-icon name="far-lock"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Unlock">
+        <sl-icon name="far-unlock"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Settings">
+        <sl-icon name="far-gear"></sl-icon>
+      </sl-button>
+      <sl-button fill="ghost" slot="actions" tooltip="Remove">
+        <sl-icon name="far-trash"></sl-icon>
+      </sl-button>
     `,
     content: () =>
       "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
-  }
-};
-
-export const ActionsWithTooltips: Story = {
-  args: {
-    ...Basic.args,
-    actions: () => html`
-      <sl-button aria-labelledby="edit-tooltip" fill="ghost" slot="actions">
-        <sl-icon name="far-pen"></sl-icon>
-      </sl-button>
-      <sl-tooltip id="edit-tooltip">Edit</sl-tooltip>
-      <sl-button aria-labelledby="copy-tooltip" fill="ghost" slot="actions">
-        <sl-icon name="far-copy"></sl-icon>
-      </sl-button>
-      <sl-tooltip id="copy-tooltip">Copy</sl-tooltip>
-      <sl-button aria-labelledby="paste-tooltip" fill="ghost" slot="actions">
-        <sl-icon name="far-paste"></sl-icon>
-      </sl-button>
-      <sl-tooltip id="paste-tooltip">Paste</sl-tooltip>
-      <sl-button aria-labelledby="share-tooltip" fill="ghost" slot="actions">
-        <sl-icon name="far-share"></sl-icon>
-      </sl-button>
-      <sl-tooltip id="share-tooltip">Share</sl-tooltip>
-    `,
-    content: () => 'This panel contains action buttons with tooltips.'
   }
 };
 
@@ -318,10 +291,10 @@ export const FixedInlineSize: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button fill="ghost" slot="actions" aria-label="Copy">
+      <sl-button fill="ghost" slot="actions" tooltip="Copy">
         <sl-icon name="far-copy"></sl-icon>
       </sl-button>
-      <sl-button fill="ghost" slot="actions" aria-label="Book">
+      <sl-button fill="ghost" slot="actions" tooltip="Book">
         <sl-icon name="far-book"> </sl-icon>
       </sl-button>
     `,
@@ -398,8 +371,7 @@ export const NoPaddingContent: Story = {
                   <sl-avatar
                     .displayName=${users[rowIndex].name}
                     .pictureUrl=${users[rowIndex].picture}
-                    size="md"
-                  ></sl-avatar>
+                    size="md"></sl-avatar>
                 </td>
                 <td class="cell">${users[rowIndex].days}</td>
                 <td class="cell">${users[rowIndex].since}</td>
@@ -460,8 +432,7 @@ export const ToggleExternally: Story = {
               <sl-panel
                 @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e)}
                 collapsible
-                heading="Discovering Dinosaurs 🦕"
-              >
+                heading="Discovering Dinosaurs 🦕">
                 Embark on a thrilling journey back in time to the age of dinosaurs, where colossal
                 creatures roamed the Earth 🌎 and ancient landscapes teemed with life. This
                 prehistoric adventure invites you to explore a world untouched by modern

@@ -39,16 +39,14 @@ export const Basic: Story = {
           path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-          value="ma"
-        ></sl-grid-filter-column>
+          value="ma"></sl-grid-filter-column>
         <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
         <sl-grid-filter-column
           header="School"
           label-path="school.name"
           mode="select"
           path="school.id"
-          value="school-3"
-        ></sl-grid-filter-column>
+          value="school-3"></sl-grid-filter-column>
       </sl-grid>
     `;
   }
@@ -78,15 +76,13 @@ export const DataSource: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-filter-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
         <sl-grid-filter-column
           id="filter-school"
           header="School"
           label-path="school.name"
           mode="select"
-          path="school.id"
-        ></sl-grid-filter-column>
+          path="school.id"></sl-grid-filter-column>
       </sl-grid>
     `;
   }
@@ -104,8 +100,7 @@ export const Selection: Story = {
         header="Student"
         path="fullName"
         .renderer=${avatarRenderer}
-        .scopedElements=${{ 'sl-avatar': Avatar }}
-      ></sl-grid-filter-column>
+        .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
       <sl-grid-filter-column path="email"></sl-grid-filter-column>
     </sl-grid>
   `
@@ -134,15 +129,13 @@ export const ExplicitOptions: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-filter-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
         <sl-grid-filter-column
           header="School"
           label-path="school.name"
           mode="select"
           .options=${schools}
-          path="school.id"
-        ></sl-grid-filter-column>
+          path="school.id"></sl-grid-filter-column>
       </sl-grid>
     `;
   }
@@ -166,8 +159,7 @@ export const Custom: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
     `;
@@ -215,8 +207,7 @@ export const Grouped: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-filter-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
         <sl-grid-filter-column path="email"></sl-grid-filter-column>
       </sl-grid>
     `;
@@ -271,8 +262,7 @@ export const Outside: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-filter-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-filter-column>
         <sl-grid-filter-column path="email"></sl-grid-filter-column>
       </sl-grid>
     `;

@@ -59,16 +59,14 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         <th
           class=${ifDefined(classes.join(' ') || undefined)}
           part="header selection"
-          role="columnheader"
-        >
+          role="columnheader">
           <sl-checkbox
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
             ?checked=${checked}
             ?indeterminate=${indeterminate}
             aria-label=${msg('Select all rows', { id: 'sl.grid.selectAllRows' })}
             class="selection-toggle"
-            size="sm"
-          ></sl-checkbox>
+            size="sm"></sl-checkbox>
         </th>
       `;
     } else {
@@ -78,8 +76,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         <th
           class=${ifDefined(classes.join(' ') || undefined)}
           part="header selection-placeholder"
-          role="columnheader"
-        ></th>
+          role="columnheader"></th>
       `;
     }
   }
@@ -91,15 +88,13 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
       <td
         @click=${this.#onClick}
         class=${ifDefined(classes.join(' ') || undefined)}
-        part="data selection"
-      >
+        part="data selection">
         <sl-checkbox
           @sl-change=${() => this.#onToggle(item)}
           ?checked=${item.selected}
           aria-label=${msg('Select row', { id: 'sl.grid.selectRow' })}
           class="selection-toggle"
-          size="sm"
-        ></sl-checkbox>
+          size="sm"></sl-checkbox>
       </td>
     `;
   }

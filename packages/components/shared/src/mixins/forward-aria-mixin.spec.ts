@@ -1,6 +1,6 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ForwardAriaMixin } from './forward-aria-mixin.js';
 
 class TestElement extends ForwardAriaMixin(LitElement, [
@@ -24,6 +24,22 @@ class TestElement extends ForwardAriaMixin(LitElement, [
 
 try {
   customElements.define('forward-aria-test', TestElement);
+} catch {
+  // Element may already be defined in watch / repeated test runs
+}
+
+class NestedAriaDisabledElement extends ForwardAriaMixin(LitElement, ['aria-disabled']) {
+  override render() {
+    return html`<forward-aria-test>Click me</forward-aria-test>`;
+  }
+
+  override firstUpdated(): void {
+    this.setProxyTarget(this.renderRoot.querySelector('forward-aria-test')!);
+  }
+}
+
+try {
+  customElements.define('forward-aria-nested-disabled-test', NestedAriaDisabledElement);
 } catch {
   // Element may already be defined in watch / repeated test runs
 }
@@ -176,6 +192,22 @@ describe('ForwardAriaMixin', () => {
       expect(btn).to.have.attribute('aria-disabled', 'true');
 
       deferredEl.remove();
+    });
+
+    it('should clear aria-disabled from a nested proxy target', async () => {
+      const nestedEl = await fixture<NestedAriaDisabledElement>(
+          html`<forward-aria-nested-disabled-test></forward-aria-nested-disabled-test>`
+        ),
+        innerEl = nestedEl.renderRoot.querySelector<TestElement>('forward-aria-test')!,
+        innerButton = innerEl.renderRoot.querySelector('button')!;
+
+      nestedEl.ariaDisabled = 'true';
+
+      expect(innerButton).to.have.attribute('aria-disabled', 'true');
+
+      nestedEl.ariaDisabled = null;
+
+      expect(innerButton).not.to.have.attribute('aria-disabled');
     });
   });
 
@@ -412,6 +444,120 @@ describe('ForwardAriaMixin', () => {
     });
   });
 
+  describe('removeAttribute', () => {
+    it('should remove a plain attribute from the proxy target', () => {
+      el.setAttribute('aria-label', 'Test label');
+      el.removeAttribute('aria-label');
+
+      expect(button).not.to.have.attribute('aria-label');
+    });
+
+    it('should remove aria-disabled from the proxy target', () => {
+      el.setAttribute('aria-disabled', 'true');
+      el.removeAttribute('aria-disabled');
+
+      expect(button).not.to.have.attribute('aria-disabled');
+    });
+
+    it('should clear element references from the proxy target', () => {
+      const label = document.createElement('span');
+      label.id = 'remove-label';
+      el.parentElement!.prepend(label);
+
+      el.setAttribute('aria-labelledby', 'remove-label');
+      el.removeAttribute('aria-labelledby');
+
+      expect(button.ariaLabelledByElements).to.be.null;
+
+      label.remove();
+    });
+
+    it('should not affect the proxy for attributes not in the observed list', () => {
+      button.setAttribute('aria-hidden', 'true');
+      el.removeAttribute('aria-hidden');
+
+      expect(button).to.have.attribute('aria-hidden', 'true');
+
+      button.removeAttribute('aria-hidden');
+    });
+  });
+
+  describe('element references', () => {
+    let labelA: HTMLElement, labelB: HTMLElement;
+
+    beforeEach(() => {
+      labelA = document.createElement('span');
+      labelA.id = 'ref-label-a';
+      labelB = document.createElement('span');
+      labelB.id = 'ref-label-b';
+      el.parentElement!.prepend(labelA, labelB);
+    });
+
+    afterEach(() => {
+      labelA.remove();
+      labelB.remove();
+    });
+
+    it('should replace previously forwarded references when the attribute changes', () => {
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+      el.setAttribute('aria-labelledby', 'ref-label-b');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelB]);
+    });
+
+    it('should not duplicate references when the same value is forwarded twice', () => {
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelA]);
+    });
+
+    it('should preserve references added by others when forwarding', () => {
+      button.ariaLabelledByElements = [labelB];
+
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelB, labelA]);
+    });
+
+    it('should preserve references added by others when the attribute is removed', () => {
+      button.ariaLabelledByElements = [labelB];
+
+      el.setAttribute('aria-labelledby', 'ref-label-a');
+      el.removeAttribute('aria-labelledby');
+
+      expect(button.ariaLabelledByElements).to.have.members([labelB]);
+    });
+
+    it('should replay stored references when the target is set again', () => {
+      el.ariaLabelledByElements = [labelA];
+
+      el.setProxyTarget(button);
+
+      expect(button.ariaLabelledByElements).to.have.members([labelA]);
+    });
+
+    it('should not replay empty references when the target is set again', () => {
+      // Something assigned an empty array earlier, e.g. a tooltip removing a relation it never
+      // added. Replaying that would wipe the references the target set on itself.
+      el.ariaLabelledByElements = [];
+      button.setAttribute('aria-labelledby', 'ref-label-b');
+
+      el.setProxyTarget(button);
+
+      expect(button).to.have.attribute('aria-labelledby', 'ref-label-b');
+    });
+
+    it('should not replay null references when the target is set again', () => {
+      el.ariaLabelledByElements = null;
+      button.setAttribute('aria-labelledby', 'ref-label-b');
+
+      el.setProxyTarget(button);
+
+      expect(button).to.have.attribute('aria-labelledby', 'ref-label-b');
+    });
+  });
+
   describe('no observedAttributes specified', () => {
     let defaultEl: InstanceType<typeof DefaultElement>, defaultButton: HTMLButtonElement;
 
@@ -463,6 +609,40 @@ describe('ForwardAriaMixin', () => {
       expect(defaultEl).not.to.have.attribute('aria-labelledby');
 
       label.remove();
+    });
+
+    it('should clear the target when the attribute is set and removed before the observer runs', async () => {
+      defaultEl.setAttribute('aria-label', 'Forwarded');
+      await new Promise(resolve => setTimeout(resolve));
+
+      // Both happen before the MutationObserver gets a chance to forward the new value, so the
+      // attribute the host removes here was never forwarded to the target.
+      defaultEl.setAttribute('aria-label', 'Never forwarded');
+      defaultEl.removeAttribute('aria-label');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(defaultButton).not.to.have.attribute('aria-label');
+    });
+
+    it('should clear element references when the attribute is set and removed before the observer runs', async () => {
+      const labelA = document.createElement('span'),
+        labelB = document.createElement('span');
+
+      labelA.id = 'default-ref-a';
+      labelB.id = 'default-ref-b';
+      defaultEl.parentElement!.prepend(labelA, labelB);
+
+      defaultEl.setAttribute('aria-labelledby', 'default-ref-a');
+      await new Promise(resolve => setTimeout(resolve));
+
+      defaultEl.setAttribute('aria-labelledby', 'default-ref-b');
+      defaultEl.removeAttribute('aria-labelledby');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(defaultButton.ariaLabelledByElements).to.be.null;
+
+      labelA.remove();
+      labelB.remove();
     });
 
     it('should forward pre-existing aria-* attributes after the target is set', async () => {

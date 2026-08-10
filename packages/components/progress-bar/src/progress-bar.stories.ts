@@ -42,8 +42,7 @@ export default {
         ?indeterminate=${indeterminate}
         .value=${value}
         .label=${label}
-        .variant=${variant}
-      >
+        .variant=${variant}>
         ${slot?.() ?? html`Uploaded ${value}% of 100%`}
       </sl-progress-bar>
     `;
@@ -91,8 +90,7 @@ export const Overflow: Story = {
         ?indeterminate=${indeterminate}
         .value=${value}
         .label=${label}
-        .variant=${variant}
-      >
+        .variant=${variant}>
         <span>Uploaded ${value}% of 100%</span>
       </sl-progress-bar>
       <sl-button fill="outline" class="minus">Decrease</sl-button>
@@ -227,8 +225,7 @@ export const Colors: StoryObj = {
       value="60"
       label="This should be the default succes color, event though the color is set to red"
       variant="success"
-      color="red"
-    >
+      color="red">
       60% of 100%
     </sl-progress-bar>
   `
@@ -272,8 +269,7 @@ export const All: StoryObj = {
     <sl-progress-bar
       value="100"
       label="Progress bar label in the success variant"
-      variant="success"
-    >
+      variant="success">
       File downloaded
     </sl-progress-bar>
     <sl-progress-bar value="40" label="Progress bar label in the warning variant" variant="warning">
@@ -292,22 +288,19 @@ export const All: StoryObj = {
     <sl-progress-bar
       value="100"
       variant="success"
-      aria-label="Progress bar label in the success variant"
-    >
+      aria-label="Progress bar label in the success variant">
       File uploaded
     </sl-progress-bar>
     <sl-progress-bar
       value="40"
       variant="warning"
-      aria-label="Progress bar label in the warning variant"
-    >
+      aria-label="Progress bar label in the warning variant">
       40% of 100%
     </sl-progress-bar>
     <sl-progress-bar
       value="50"
       variant="error"
-      aria-label="Progress bar label in the error variant"
-    >
+      aria-label="Progress bar label in the error variant">
       50% of 100%
       <span slot="error">This is a <strong>custom</strong> error</span>
     </sl-progress-bar>

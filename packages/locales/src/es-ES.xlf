@@ -10,10 +10,6 @@
   <source>Loading</source>
   <target>Cargando</target>
 </trans-unit>
-<trans-unit id="sl.tag.removalInstructions">
-  <source>Press the delete or backspace key to remove this item</source>
-  <target>Pulsa la tecla Supr o Retroceso para eliminar este elemento</target>
-</trans-unit>
 <trans-unit id="sl.common.selected">
   <source>Selected</source>
   <target>Seleccionado</target>
@@ -174,6 +170,10 @@
   <source>List of hidden elements</source>
   <target>Lista de elementos ocultados</target>
 </trans-unit>
+<trans-unit id="sl.tagList.navigationInstructions">
+  <source>Use arrow keys to move between removable tags.</source>
+  <target>Usa las teclas de flecha para moverte entre etiquetas eliminables.</target>
+</trans-unit>
 <trans-unit id="sl.combobox.selectedOptions">
   <source>Selected options</source>
   <target>Opciones seleccionadas</target>
@@ -233,6 +233,10 @@
 <trans-unit id="sl.paginator.itemsPerPage">
   <source><x id="0" equiv-text="${itemLabel}"/> per page:</source>
   <target><x id="0" equiv-text="${itemLabel}"/> por página:</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPageAriaLabel">
+  <source><x id="0" equiv-text="${itemLabel}"/> per page</source>
+  <target><x id="0" equiv-text="${itemLabel}"/> por página</target>
 </trans-unit>
 <trans-unit id="sl.paginator.itemsPerPageOption">
   <source><x id="0" equiv-text="${sizeLabel}"/> per page</source>
@@ -454,17 +458,73 @@
   <source>No later than <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></source>
   <target>No más tarde de <x id="0" equiv-text="${format(this.max, this.locale, this.#helperTextFormatOptions)}"/></target>
 </trans-unit>
-<trans-unit id="sl.combobox.hideOptions">
-  <source>Hide the options</source>
-  <target>Ocultar las opciones</target>
+<trans-unit id="sl.tag.remove">
+  <source>Remove tag '<x id="0" equiv-text="${this.label}"/>'</source>
+  <target>Eliminar etiqueta '<x id="0" equiv-text="${this.label}"/>'</target>
 </trans-unit>
-<trans-unit id="sl.combobox.showOptions">
-  <source>Show the options</source>
-  <target>Mostrar las opciones</target>
+<trans-unit id="sl.combobox.options">
+  <source>Options</source>
+  <target>Opciones</target>
 </trans-unit>
 <trans-unit id="sl.infotip.moreInformation">
   <source>More information</source>
   <target>Más información</target>
+</trans-unit>
+<trans-unit id="sl.infotip.moreInformationAbout">
+  <source>More information about <x id="0" equiv-text="${describes}"/></source>
+  <target>Más información sobre <x id="0" equiv-text="${describes}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.rowActivated">
+  <source>Row <x id="0" equiv-text="${rowNumber}"/> activated</source>
+  <target>Fila <x id="0" equiv-text="${rowNumber}"/> activada</target>
+</trans-unit>
+<trans-unit id="sl.grid.rowDeactivated">
+  <source>Row <x id="0" equiv-text="${rowNumber}"/> deactivated</source>
+  <target>Fila <x id="0" equiv-text="${rowNumber}"/> desactivada</target>
+</trans-unit>
+<trans-unit id="sl.grid.inActivatedRow">
+  <source>In activated row <x id="0" equiv-text="${rowNumber}"/></source>
+  <target>En la fila activada <x id="0" equiv-text="${rowNumber}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.selectGroup">
+  <source>Group</source>
+  <target>Grupo</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_one">
+  <source><x id="0" equiv-text="${over}"/> character too many</source>
+  <target><x id="0" equiv-text="${over}"/> carácter demasiado</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_few">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> caracteres demasiados</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountTooMany_other">
+  <source><x id="0" equiv-text="${over}"/> characters too many</source>
+  <target><x id="0" equiv-text="${over}"/> caracteres demasiados</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_one">
+  <source><x id="0" equiv-text="${remaining}"/> character remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> carácter restante</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_few">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> caracteres restantes</target>
+</trans-unit>
+<trans-unit id="sl.textArea.charCountRemaining_other">
+  <source><x id="0" equiv-text="${remaining}"/> characters remaining</source>
+  <target><x id="0" equiv-text="${remaining}"/> caracteres restantes</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_one">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> character.</source>
+  <target>Elimina al menos <x id="0" equiv-text="${over}"/> carácter.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_few">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Elimina al menos <x id="0" equiv-text="${over}"/> caracteres.</target>
+</trans-unit>
+<trans-unit id="sl.textArea.validation.tooLong_other">
+  <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
+  <target>Elimina al menos <x id="0" equiv-text="${over}"/> caracteres.</target>
 </trans-unit>
 </body>
 </file>

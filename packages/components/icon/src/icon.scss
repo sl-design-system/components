@@ -1,10 +1,8 @@
 :host {
-  --sl-icon-fill-accent: var(--sl-color-background-primary-interactive-bold);
+  // This uses a hardcoded % because the available tokens are not suitable.
+  --sl-icon-fill-accent: color-mix(in srgb, currentcolor 30%, transparent);
   --sl-icon-fill-default: currentcolor;
-  --sl-icon-size: var(
-    --sl-size-200,
-    1rem
-  ); // we need a fallback to prevent the icon flashing at the default size before the CSS variables from the theme are applied
+  --sl-icon-size: var(--sl-size-200, 1rem); // we need a fallback to prevent the icon flashing at the default size before the CSS variables from the theme are applied
 
   aspect-ratio: 1 / 1;
   display: inline-grid;

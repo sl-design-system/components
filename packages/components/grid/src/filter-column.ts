@@ -160,8 +160,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
             .mode=${this.mode || 'text'}
             .options=${this.options ?? this.internalOptions}
             .path=${this.path}
-            .value=${this.value}
-          >
+            .value=${this.value}>
           </sl-grid-filter>
         </th>
       `;

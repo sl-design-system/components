@@ -1,5 +1,77 @@
 # @sl-design-system/combobox
 
+## 0.1.11
+
+### Patch Changes
+
+- [#3464](https://github.com/sl-design-system/components/pull/3464) [`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da) - Improved virtual list scrolling and grouped option behavior.
+  - Fixed `scrollMargin` handling so automatic window-scroll offsets are not overwritten by an implicit `0`, and clearing `scrollMargin` restores automatic behavior.
+  - Kept cached virtual-list measurements enabled internally for more stable rendering
+  - Prevented grouped combobox headers from being matched and selected as regular options
+  - Updated virtual-list and listbox stories to use deterministic `auto` scrolling and rerender selected item state correctly near the end of long lists
+
+- [#3478](https://github.com/sl-design-system/components/pull/3478) [`294cd38`](https://github.com/sl-design-system/components/commit/294cd38b8d5484fe06c8f83d85e74762639535ae) - Fix Safari-specific combobox animations by rotating the chevron from the toggle button's `aria-expanded` state and avoiding unsupported `overlay` transition behavior when closing the listbox.
+
+- [#3487](https://github.com/sl-design-system/components/pull/3487) [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987) - Export listbox components from the combobox and select packages and automatically register the listbox, option, and option group elements when importing `register.js` to simplify using options.
+
+- [#3543](https://github.com/sl-design-system/components/pull/3543) [`c399b00`](https://github.com/sl-design-system/components/commit/c399b0041473ee71943619133dbe05e640924186) - Improve VoiceOver support for virtualized combobox options by rendering listbox-managed virtual options in the light DOM and stabilizing `aria-activedescendant` updates during virtual scrolling.
+
+- [#3474](https://github.com/sl-design-system/components/pull/3474) [`ad9eb4c`](https://github.com/sl-design-system/components/commit/ad9eb4cc09826019d53960222e47f2f86b297671) - Improved keyboard and screen reader behavior for removable tags in comboboxes and tag lists. Comboboxes no longer move fake focus from the input to selected tags with Left/Right arrow keys, while tag navigation remains available once focus is inside the tag list. The hidden tag-list navigation instructions are now `aria-hidden` while still being exposed through `aria-describedby`.
+
+- [#3214](https://github.com/sl-design-system/components/pull/3214) [`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b) - Improved keyboard focus behavior for removable selected tags in multi-select comboboxes. Focus now stays within the selected tag list when removing tags one by one and only returns to the input after the last tag is removed. The combobox also avoids showing a separate fake tag focus indicator when focus is on a tag remove button
+
+- Updated dependencies [[`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b), [`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`ad9eb4c`](https://github.com/sl-design-system/components/commit/ad9eb4cc09826019d53960222e47f2f86b297671), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e)]:
+  - @sl-design-system/tag@0.1.14
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/listbox@0.2.1
+
+## 0.1.10
+
+### Patch Changes
+
+- [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Improve scroll-to-item behavior and virtual list handling
+
+  Internal improvements to scrolling and virtual list constraints for better user experience. These improvements depend on the updated `@sl-design-system/listbox` and `@sl-design-system/virtual-list` packages.
+  - Improved scroll-to-item behavior when selecting options
+  - Better handling of virtual list constraints
+
+- [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for combobox screen reader support
+  - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
+  - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
+  - Remove `aria-owns` from the combobox input because it is not needed for this implementation
+  - Fixes issue where you can select an option multiple times when the "group selected" option is true
+
+- [#3427](https://github.com/sl-design-system/components/pull/3427) [`a2713a8`](https://github.com/sl-design-system/components/commit/a2713a8fd882d7672816aef39e09581c7ab559b0) - Fix combobox selection matching when option values and the combobox value use different primitive types.
+
+  The combobox now treats primitive values such as `1` and "1" as equivalent when resolving selected options. This prevents the selected option from being cleared when a value is provided as a string while the matching `sl-option` value is a number.
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Update `@open-wc/scoped-elements` due to typing fix
+
+  This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
+
+- [#3398](https://github.com/sl-design-system/components/pull/3398) [`0b948e2`](https://github.com/sl-design-system/components/commit/0b948e282dedb6787eb116d991233b4b2a766225) - Fixed select-only comboboxes so keyboard users can select and deselect the current option with Space while editable comboboxes still insert spaces in the input field
+
+- Updated dependencies [[`d6f8588`](https://github.com/sl-design-system/components/commit/d6f858895428de34e4398e275c4e6246b2088882), [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6), [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59), [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499)]:
+  - @sl-design-system/tag@0.1.13
+  - @sl-design-system/text-field@1.6.11
+  - @sl-design-system/listbox@0.2.0
+  - @sl-design-system/form@1.4.2
+
+## 0.1.9
+
+### Patch Changes
+
+- [#3366](https://github.com/sl-design-system/components/pull/3366) [`a4fc3d8`](https://github.com/sl-design-system/components/commit/a4fc3d88a9982bc6fa3d7a750ba321ac0c31f054) - Accessibility improvements of the toggle button, now uses proper aria: aria-label and aria-expanded (includes the new `sl.combobox.options` locale key).
+
+- [#3297](https://github.com/sl-design-system/components/pull/3297) [`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a) - Align `sl-combobox-create-custom-option` styling with other options styling.
+
+- [#3231](https://github.com/sl-design-system/components/pull/3231) [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d) - Changed the translation keys for certain elements. Make sure you also update `@sl-design-system/locales` when updating to these component versions.
+
+- Updated dependencies [[`5592e42`](https://github.com/sl-design-system/components/commit/5592e4221c4cb279449ec450624d26796ecc5f4a), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d), [`1480226`](https://github.com/sl-design-system/components/commit/1480226d34dc977bcc40b80878ff6ce28ece301d)]:
+  - @sl-design-system/listbox@0.1.7
+  - @sl-design-system/form@1.4.1
+  - @sl-design-system/text-field@1.6.10
+
 ## 0.1.8
 
 ### Patch Changes

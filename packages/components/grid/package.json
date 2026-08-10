@@ -9,6 +9,7 @@
     "exports": {
       ".": "./dist/index.js",
       "./register.js": "./dist/register.js",
+      "./utils.js": "./dist/utils.js",
       "./package.json": "./package.json"
     }
   },
@@ -27,6 +28,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./register.js": "./src/register.ts",
+    "./utils.js": "./src/utils.ts",
     "./package.json": "./package.json"
   },
   "files": [
@@ -38,6 +40,13 @@
   "sideEffects": [
     "register.js"
   ],
+  "tsdown": {
+    "entry": [
+      "src/index.ts",
+      "src/register.ts",
+      "src/utils.ts"
+    ]
+  },
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },

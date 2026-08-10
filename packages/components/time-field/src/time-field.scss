@@ -17,6 +17,18 @@
   border-radius: var(--sl-size-borderRadius-full);
 }
 
+:host([shape='pill']) {
+  .field {
+    padding-inline-start: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+  }
+}
+
+:host([shape='pill'][size='lg']) {
+  .field {
+    padding-inline-start: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+  }
+}
+
 :host(:state(has-value)) .parts {
   color: var(--sl-color-foreground-plain);
 }

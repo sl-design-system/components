@@ -25,6 +25,11 @@
   --_border-color: var(--sl-color-background-info-subtle);
 }
 
+:host([shape='pill']) .stack sl-tag {
+  border-end-start-radius: var(--sl-size-borderRadius-full);
+  border-start-start-radius: var(--sl-size-borderRadius-full);
+}
+
 ::slotted(*) {
   flex-shrink: 0;
 }

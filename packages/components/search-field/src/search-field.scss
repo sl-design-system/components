@@ -1,3 +1,7 @@
+:host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
 button {
   align-items: center;
   appearance: none;

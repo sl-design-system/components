@@ -62,6 +62,13 @@ sl-tag {
   outline-width: 0;
 }
 
+:host([shape='pill']) {
+  sl-tag-list sl-tag:first-of-type {
+    border-end-start-radius: var(--sl-size-borderRadius-full);
+    border-start-start-radius: var(--sl-size-borderRadius-full);
+  }
+}
+
 sl-icon {
   @media (prefers-reduced-motion: no-preference) {
     transition: rotate 0.2s ease-in-out;

@@ -40,6 +40,10 @@
   border-radius: var(--sl-size-borderRadius-full);
 }
 
+:host([shape='pill'][size='md']) {
+  padding-inline-start: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+}
+
 :host([size='lg']) {
   padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
 
@@ -51,6 +55,10 @@
   slot[name='suffix']::slotted(:not(sl-field-button)) {
     padding-inline-end: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
   }
+}
+
+:host([shape='pill'][size='lg']) {
+  padding-inline-start: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
 }
 
 :host([disabled]) {

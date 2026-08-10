@@ -25,6 +25,10 @@
   vertical-align: middle;
 }
 
+:host([icon-position='start']) {
+  flex-direction: row-reverse;
+}
+
 :host(:focus-within) {
   outline-color: var(--sl-color-border-focused);
 }

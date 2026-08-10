@@ -48,8 +48,11 @@ describe('sl-link', () => {
       expect(anchor).to.have.attribute('rel', 'noopener noreferrer');
     });
 
-    it('should add an aria description when missing', () => {
-      expect(anchor).to.have.attribute('aria-description', 'Opens in a new tab');
+    it('should add a screen reader only span when missing', () => {
+      const srOnly = anchor.querySelector('span.sr-only');
+
+      expect(srOnly).to.exist;
+      expect(srOnly?.textContent).to.include('opens in a new tab');
     });
 
     it('should render an indicator icon', () => {
@@ -81,16 +84,11 @@ describe('sl-link', () => {
     });
   });
 
-  describe('existing rel and aria-description', () => {
+  describe('existing rel and screen reader text', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-link>
-          <a
-            href="https://example.com"
-            rel="external nofollow"
-            aria-description="Custom description">
-            External
-          </a>
+          <a href="https://example.com" rel="external nofollow">External</a>
         </sl-link>
       `);
 
@@ -101,8 +99,10 @@ describe('sl-link', () => {
       expect(anchor).to.have.attribute('rel', 'external nofollow');
     });
 
-    it('should not override existing aria-description', () => {
-      expect(anchor).to.have.attribute('aria-description', 'Custom description');
+    it('should add screen reader only text even with existing rel', () => {
+      const srOnly = anchor.querySelector('span.sr-only');
+
+      expect(srOnly).to.exist;
     });
   });
 
@@ -289,6 +289,183 @@ describe('sl-link', () => {
 
       expect(anchor).to.have.attribute('target', '_blank');
       expect(el).to.have.attribute('has-indicator');
+    });
+  });
+
+  describe('icon position', () => {
+    it('should default to end position', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page">Link</a>
+        </sl-link>
+      `);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(el).to.have.attribute('icon-position', 'end');
+      expect(icon).to.have.attribute('name', 'far-arrow-right');
+    });
+
+    it('should show left arrow when position is start', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start">
+          <a href="/page">Link</a>
+        </sl-link>
+      `);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(el).to.have.attribute('icon-position', 'start');
+      expect(icon).to.have.attribute('name', 'far-arrow-left');
+    });
+
+    it('should ignore icon-position for external links', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start">
+          <a href="https://example.com">External</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'far-arrow-up-right-from-square');
+    });
+
+    it('should ignore icon-position for internal-new-tab links', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start">
+          <a href="/page" target="_blank">New tab</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'far-square-arrow-up-right');
+    });
+  });
+
+  describe('indicator icon changes', () => {
+    it('should show arrow-right for internal links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page">Internal</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'far-arrow-right');
+    });
+
+    it('should show square-arrow-up-right for internal-new-tab links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page" target="_blank">Internal new tab</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'far-square-arrow-up-right');
+    });
+
+    it('should show arrow-up-right-from-square for external links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="https://example.com">External</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'far-arrow-up-right-from-square');
+    });
+  });
+
+  describe('click delegation', () => {
+    it('should delegate clicks on the host to the anchor', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page">Link</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+
+      let clicked = false;
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        clicked = true;
+      });
+
+      el.click();
+      await el.updateComplete;
+
+      expect(clicked).to.be.true;
+    });
+
+    it('should not create double events when clicking the anchor directly', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page">Link</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+
+      let clickCount = 0;
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        clickCount++;
+      });
+
+      anchor.click();
+      await el.updateComplete;
+
+      expect(clickCount).to.equal(1);
+    });
+  });
+
+  describe('screen reader text for new tab links', () => {
+    it('should not add sr-only span if one already exists', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="https://example.com">
+            External
+            <span class="sr-only">(custom text)</span>
+          </a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+      const srOnlySpans = anchor.querySelectorAll('span.sr-only');
+
+      expect(srOnlySpans).to.have.lengthOf(1);
+      expect(srOnlySpans[0].textContent).to.include('custom text');
+    });
+
+    it('should add sr-only span for internal-new-tab links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page" target="_blank">New tab</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+      const srOnly = anchor.querySelector('span.sr-only');
+
+      expect(srOnly).to.exist;
+      expect(srOnly?.textContent).to.include('opens in a new tab');
     });
   });
 });

@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Link } from './link.js';
 
-interface Props extends Pick<Link, 'fill' | 'type'> {
+interface Props extends Pick<Link, 'fill' | 'type' | 'iconPosition'> {
   href: string;
   label: string;
   rel?: string;
@@ -29,16 +29,23 @@ export default {
     type: {
       control: 'inline-radio',
       options: ['internal', 'internal-new-tab', 'external']
+    },
+    iconPosition: {
+      control: 'inline-radio',
+      options: ['start', 'end']
     }
   },
-  render: ({ fill, href, label, rel, target, type }) => html`
-    <sl-link fill=${ifDefined(fill)} type=${ifDefined(type)}>
+  render: ({ fill, href, iconPosition, label, rel, target, type }) => html`
+    <sl-link
+      fill=${ifDefined(fill)}
+      type=${ifDefined(type)}
+      icon-position=${ifDefined(iconPosition)}>
       <a href=${href} rel=${ifDefined(rel)} target=${ifDefined(target)}>${label}</a>
     </sl-link>
   `
 } satisfies Meta<Props>;
 
-export const Internal: Story = {};
+export const Basic: Story = {};
 
 export const InternalNewTab: Story = {
   args: {
@@ -55,18 +62,23 @@ export const External: Story = {
   }
 };
 
-export const Outline: Story = {
+export const ClickEvent: Story = {
   args: {
-    fill: 'outline'
-  }
+    href: '/dashboard',
+    label: 'Open dashboard'
+  },
+  render: ({ fill, href, iconPosition, label, rel, target, type }) => html`
+    <sl-link
+      fill=${ifDefined(fill)}
+      type=${ifDefined(type)}
+      icon-position=${ifDefined(iconPosition)}
+      @click=${() => {
+        console.log('Link clicked!');
+      }}>
+      <a href=${href} rel=${ifDefined(rel)} target=${ifDefined(target)}>${label}</a>
+    </sl-link>
+  `
 };
-
-export const Ghost: Story = {
-  args: {
-    fill: 'ghost'
-  }
-};
-
 export const ForcedExternalType: Story = {
   args: {
     href: '/internal-route',
@@ -97,6 +109,10 @@ export const All: Story = {
           <a href="/dashboard">Internal link button</a>
         </sl-link>
 
+        <sl-link fill="outline" icon-position="start">
+          <a href="/dashboard">Internal link button</a>
+        </sl-link>
+
         <sl-link fill="outline">
           <a href="/reports" target="_blank">Internal link button (new tab)</a>
         </sl-link>
@@ -110,6 +126,10 @@ export const All: Story = {
           <a href="/dashboard">Internal link button</a>
         </sl-link>
 
+        <sl-link icon-position="start">
+          <a href="/dashboard">Internal link button</a>
+        </sl-link>
+
         <sl-link>
           <a href="/reports" target="_blank">Internal link button (new tab)</a>
         </sl-link>
@@ -120,6 +140,10 @@ export const All: Story = {
       </div>
       <div>
         <sl-link fill="ghost">
+          <a href="/dashboard">Internal link button</a>
+        </sl-link>
+
+        <sl-link fill="ghost" icon-position="start">
           <a href="/dashboard">Internal link button</a>
         </sl-link>
 

@@ -1,4 +1,5 @@
 import {
+  faArrowLeft,
   faArrowRight,
   faArrowUpRightFromSquare,
   faSquareArrowUpRight
@@ -38,7 +39,7 @@ export type LinkVariant =
   | 'danger'
   | 'inverted';
 
-Icon.register(faArrowRight, faArrowUpRightFromSquare, faSquareArrowUpRight);
+Icon.register(faArrowRight, faArrowLeft, faArrowUpRightFromSquare, faSquareArrowUpRight);
 
 /**
  * A standalone link that is visually styled as a button.
@@ -94,6 +95,13 @@ export class Link extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) type?: LinkType;
 
+  /**
+   * Position of the internal link indicator icon.
+   *
+   * @default 'end'
+   */
+  @property({ reflect: true, attribute: 'icon-position' }) iconPosition: 'start' | 'end' = 'end';
+
   get #indicatorIcon(): string {
     switch (this.linkType) {
       case 'internal-new-tab':
@@ -101,7 +109,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
       case 'external':
         return 'far-arrow-up-right-from-square';
       default:
-        return 'far-arrow-right';
+        return this.iconPosition === 'start' ? 'far-arrow-left' : 'far-arrow-right';
     }
   }
 
@@ -229,11 +237,21 @@ export class Link extends ScopedElementsMixin(LitElement) {
       anchor.setAttribute('rel', 'noopener noreferrer');
     }
 
-    if (opensInNewTab && !anchor.hasAttribute('aria-description')) {
-      anchor.setAttribute(
-        'aria-description',
-        msg('Opens in a new tab', { id: 'link.opens-in-new-tab' })
-      );
+    if (opensInNewTab && !anchor.querySelector('span.sr-only')) {
+      const srOnly = document.createElement('span');
+      srOnly.className = 'sr-only';
+      srOnly.style.cssText = `
+          clip: rect(1px, 1px, 1px, 1px);
+          clip-path: inset(50%);
+          height: 1px;
+          width: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+      `;
+      srOnly.textContent = `(${msg('opens in a new tab', { id: 'link.opens-in-new-tab' })})`;
+      anchor.appendChild(srOnly);
     }
 
     this.toggleAttribute('has-indicator', opensInNewTab);

@@ -38,7 +38,8 @@
     "custom-elements.json"
   ],
   "sideEffects": [
-    "register.js"
+    "./src/register.ts",
+    "./dist/register.js"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"

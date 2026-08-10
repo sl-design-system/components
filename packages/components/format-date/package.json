@@ -38,7 +38,8 @@
     "custom-elements.json"
   ],
   "sideEffects": [
-    "register.js"
+    "./src/register.ts",
+    "./dist/register.js"
   ],
   "tsdown": {
     "entry": [

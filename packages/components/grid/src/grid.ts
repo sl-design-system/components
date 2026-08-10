@@ -178,6 +178,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The item before the dragged item when dragging started. */
   #itemBeforeDragItem?: ListDataSourceItem<T>;
 
+  /** The item after the dragged item when dragging started. */
+  #itemAfterDragItem?: ListDataSourceItem<T>;
+
   /** Prevent recursive scroll syncing between the header and body. */
   #scrollSyncing = false;
 
@@ -867,7 +870,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     );
 
     this.#dragItem = item;
-    this.#itemBeforeDragItem = this.dataSource?.items.at(this.dataSource?.items.indexOf(item) - 1);
+    const dragItemIndex = this.dataSource?.items.indexOf(item) ?? -1;
+    this.#itemBeforeDragItem = this.dataSource?.items.at(dragItemIndex - 1);
+    this.#itemAfterDragItem = this.dataSource?.items.at(dragItemIndex + 1);
 
     // Update styles in the next frame, after the drag image has been created
     requestAnimationFrame(() => {
@@ -973,6 +978,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       .forEach(el => el.classList.remove('drop-target'));
 
     this.#dragItem = this.dropTargetMode = this.#itemBeforeDragItem = undefined;
+    this.#itemAfterDragItem = undefined;
 
     this.#dragClone?.remove();
     this.#dragClone = undefined;
@@ -1006,12 +1012,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         { top, height } = row?.getBoundingClientRect() ?? { top: 0, height: 0 },
         position = event.clientY < top + height / 2 ? 'before' : 'after';
 
-      this.dropEvent.emit({
+      const proceeded = this.dropEvent.emit({
         grid: this,
         item: this.#dragItem!,
         relativeItem: item.data,
         position
       });
+
+      if (!proceeded) {
+        this.#restoreDraggedItemPosition();
+      }
 
       // Items are already reordered during dragover; avoid reordering again on drop.
 
@@ -1046,15 +1056,32 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.dropEvent.emit({
-      grid: this,
-      item: this.#dragItem!,
-      relativeItem: relativeItem.data,
-      position
-    });
-
-    this.dataSource?.reorder(this.#dragItem!, relativeItem, position);
+    if (
+      this.dropEvent.emit({
+        grid: this,
+        item: this.#dragItem!,
+        relativeItem: relativeItem.data,
+        position
+      })
+    ) {
+      this.dataSource?.reorder(this.#dragItem!, relativeItem, position);
+    }
     this.requestUpdate();
+  }
+
+  #restoreDraggedItemPosition(): void {
+    if (!this.#dragItem) {
+      return;
+    }
+
+    if (this.#itemBeforeDragItem) {
+      this.dataSource?.reorder(this.#dragItem, this.#itemBeforeDragItem, 'after');
+      return;
+    }
+
+    if (this.#itemAfterDragItem) {
+      this.dataSource?.reorder(this.#dragItem, this.#itemAfterDragItem, 'before');
+    }
   }
 
   #onFilterRegister({ target }: SlFilterRegisterEvent & { target: GridFilter<T> }): void {

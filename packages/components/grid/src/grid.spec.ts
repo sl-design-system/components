@@ -334,6 +334,72 @@ describe('sl-grid', () => {
       expect(reorderSpy.firstCall.args[2]).to.equal('after');
     });
 
+    it('should not reorder when dropping a row on a group header if sl-grid-drop is canceled', async () => {
+      const dataSource = new ArrayListDataSource<Student>(
+        [
+          {
+            firstName: 'John',
+            lastName: 'Doe',
+            school: { id: 1, name: 'School A' }
+          },
+          {
+            firstName: 'Jane',
+            lastName: 'Smith',
+            school: { id: 2, name: 'School B' }
+          }
+        ],
+        {
+          groupBy: 'school.id',
+          groupLabelPath: 'school.name'
+        }
+      );
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const reorderSpy = spy(dataSource, 'reorder'),
+        dragHandleCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          "tbody tr:not([part~='group']) td[part*='drag-handle']"
+        )!,
+        dataRow = dragHandleCell.closest('tr')!,
+        targetGroupRow = Array.from(
+          el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr[part~='group']")
+        )[1],
+        dragStartEvent = new DragEvent('dragstart', {
+          bubbles: true,
+          cancelable: true,
+          dataTransfer: new DataTransfer()
+        }),
+        dropEvent = new DragEvent('drop', {
+          bubbles: true,
+          cancelable: true,
+          clientY: targetGroupRow.getBoundingClientRect().bottom - 1,
+          dataTransfer: new DataTransfer()
+        });
+
+      el.addEventListener('sl-grid-drop', event => event.preventDefault());
+
+      dragHandleCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+      dataRow.dispatchEvent(dragStartEvent);
+      targetGroupRow.dispatchEvent(
+        new DragEvent('dragover', {
+          bubbles: true,
+          cancelable: true,
+          clientY: targetGroupRow.getBoundingClientRect().bottom - 1,
+          dataTransfer: new DataTransfer()
+        })
+      );
+      targetGroupRow.dispatchEvent(dropEvent);
+
+      expect(reorderSpy).not.to.have.been.called;
+    });
+
     it('should allow dragging and dropping a complete group', async () => {
       const dataSource = new ArrayListDataSource<Student>(
         [
@@ -481,6 +547,87 @@ describe('sl-grid', () => {
       sourceRow.dispatchEvent(dragEndEvent);
 
       expect(refreshSpy).to.have.been.calledOnce;
+    });
+
+    it('should restore row order when a between drop is canceled', async () => {
+      const dataSource = new ArrayListDataSource<Student>(
+        [
+          {
+            firstName: 'John',
+            lastName: 'Doe',
+            school: { id: 1, name: 'School A' }
+          },
+          {
+            firstName: 'Jane',
+            lastName: 'Smith',
+            school: { id: 1, name: 'School A' }
+          },
+          {
+            firstName: 'Alice',
+            lastName: 'Brown',
+            school: { id: 2, name: 'School B' }
+          }
+        ],
+        {
+          groupBy: 'school.id',
+          groupLabelPath: 'school.name'
+        }
+      );
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const sourceRow = Array.from(
+          el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr:not([part~='group'])")
+        )[0],
+        dragHandleCell = sourceRow.querySelector<HTMLTableCellElement>('td[part*="drag-handle"]')!,
+        targetRow = Array.from(
+          el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr:not([part~='group'])")
+        )[1],
+        dragStartEvent = new DragEvent('dragstart', {
+          bubbles: true,
+          cancelable: true,
+          dataTransfer: new DataTransfer()
+        }),
+        dragOverEvent = new DragEvent('dragover', {
+          bubbles: true,
+          cancelable: true,
+          clientY: targetRow.getBoundingClientRect().bottom - 1,
+          dataTransfer: new DataTransfer()
+        }),
+        dropEvent = new DragEvent('drop', {
+          bubbles: true,
+          cancelable: true,
+          clientY: targetRow.getBoundingClientRect().bottom - 1,
+          dataTransfer: new DataTransfer()
+        }),
+        dragEndEvent = new DragEvent('dragend', {
+          bubbles: true,
+          cancelable: true,
+          dataTransfer: new DataTransfer()
+        });
+
+      el.addEventListener('sl-grid-drop', event => event.preventDefault());
+
+      dragHandleCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+      sourceRow.dispatchEvent(dragStartEvent);
+      targetRow.dispatchEvent(dragOverEvent);
+      targetRow.dispatchEvent(dropEvent);
+      sourceRow.dispatchEvent(dragEndEvent);
+
+      await waitForGridToRenderData(el);
+
+      const reorderedRows = Array.from(
+        el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr:not([part~='group'])")
+      ).map(row => row.querySelector('td:last-of-type')?.textContent?.trim());
+
+      expect(reorderedRows).to.deep.equal(['John', 'Jane', 'Alice']);
     });
   });
 

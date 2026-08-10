@@ -6,7 +6,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "exports": {
-      ".": "./dist/locale-codes.js",
+      ".": "./dist/index.js",
       "./es-ES.js": "./dist/es-ES.js",
       "./it.js": "./dist/it.js",
       "./nl.js": "./dist/nl.js",
@@ -22,10 +22,10 @@
   "type": "module",
   "exports": {
     ".": "./src/locale-codes.ts",
-    "./es-ES.js": "./src/es-ES.js",
-    "./it.js": "./src/it.js",
-    "./nl.js": "./src/nl.js",
-    "./pl.js": "./src/pl.js",
+    "./es-ES.js": "./src/es-ES.ts",
+    "./it.js": "./src/it.ts",
+    "./nl.js": "./src/nl.ts",
+    "./pl.js": "./src/pl.ts",
     "./package.json": "./package.json"
   },
   "files": [

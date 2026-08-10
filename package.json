@@ -65,7 +65,7 @@
         "build:locales:code"
       ],
       "files": [
-        "packages/locales/**/*.ts"
+        "packages/locales/src/*.ts"
       ]
     },
     "build:locales:code": {

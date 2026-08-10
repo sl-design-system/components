@@ -23,7 +23,6 @@
     "directory": "packages/components/shared"
   },
   "type": "module",
-  "types": "./index.d.ts",
   "exports": {
     ".": "./src/index.ts",
     "./controllers/new-focus-group.js": "./src/controllers/new-focus-group.ts",

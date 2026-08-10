@@ -20,7 +20,6 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "types": "./index.d.ts",
   "exports": {
     ".": "./src/index.ts",
     "./package.json": "./package.json"

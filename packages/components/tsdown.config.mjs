@@ -10,7 +10,7 @@ export default defineConfig({
 
   clean: !process.argv.includes('--watch'),
   deps: {
-    skipNodeModulesBundle: true
+    neverBundle: true
   },
   dts: {
     tsgo: true

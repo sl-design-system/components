@@ -100,9 +100,9 @@
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.2201.3",
-    "@angular-devkit/build-angular": "^22.1.3",
     "@angular-devkit/core": "^22.1.3",
     "@angular/animations": "^22.1.1",
+    "@angular/build": "^22.1.3",
     "@angular/cli": "^22.1.3",
     "@angular/common": "^22.1.1",
     "@angular/compiler": "^22.1.1",

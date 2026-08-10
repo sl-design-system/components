@@ -836,19 +836,17 @@ describe('sl-calendar', () => {
           .querySelector<SelectDay>('sl-select-day')
           ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
         dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]'),
-        indicatorId = dayButton?.getAttribute('aria-describedby'),
-        indicatorTooltip = indicatorId
-          ? (monthView?.renderRoot as ShadowRoot)?.getElementById(indicatorId)
-          : null;
-
-      dayButton?.focus();
-
-      const helperText = el.renderRoot.querySelector('.helper-text');
+        indicatorTooltip = dayButton?.nextElementSibling,
+        helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(dayButton).to.exist;
       expect(indicatorTooltip).to.exist;
-      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
+      expect(indicatorTooltip).to.have.trimmed.text('Event');
+
+      dayButton?.focus();
+
       expect(dayButton?.ariaDescribedByElements).to.include(indicatorTooltip);
+      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
     });
   });
 });

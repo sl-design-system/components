@@ -222,6 +222,11 @@
   border-color: var(--sl-color-border-inverted);
 }
 
+::slotted(*) {
+  /* Prevent the icon from ever gaining focus inside the button */
+  pointer-events: none;
+}
+
 ::slotted(a) {
   color: inherit !important;
   text-decoration: none !important;
@@ -285,9 +290,4 @@ button:is(:disabled, [aria-disabled]) {
     transition-property: background, border-color, color, outline-color;
     transition-timing-function: var(--sl-animation-button-easing);
   }
-}
-
-::slotted(*) {
-  /* Prevent the icon from ever gaining focus inside the button */
-  pointer-events: none;
 }

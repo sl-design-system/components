@@ -2,7 +2,6 @@ import { faSchool } from '@fortawesome/pro-regular-svg-icons';
 import { type BadgeSize } from '@sl-design-system/badge';
 import '@sl-design-system/badge/register.js';
 import { Icon } from '@sl-design-system/icon';
-import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -103,6 +102,11 @@ export default {
     vertical
   }) => {
     return html`
+      <style>
+        sl-avatar::part(tooltip) {
+          max-inline-size: 200px;
+        }
+      </style>
       <sl-avatar
         .displayName=${displayName}
         ?image-only=${imageOnly}

@@ -107,10 +107,18 @@ export class ButtonBar extends LitElement {
   async #onMutate(): Promise<void> {
     const buttons = (this.buttons ?? []).filter(el => el.tagName !== 'STYLE');
 
+    if (buttons.length) {
+      this.#internals.states.delete('empty');
+      this.#updateButtons();
+    } else {
+      this.#internals.states.add('empty');
+    }
+
     const icons = await Promise.all(
       buttons.map(async el => {
         if (el instanceof ReactiveElement) {
-          await el.updateComplete;
+          // Give the button time to set the `icon-only` state
+          await new Promise(resolve => setTimeout(resolve));
         }
 
         // Also check for the `icon-only` attribute for backward compatibility with older button versions
@@ -127,13 +135,6 @@ export class ButtonBar extends LitElement {
       this.#internals.states.add('icon-only');
     } else {
       this.#internals.states.delete('icon-only');
-    }
-
-    if (buttons.length) {
-      this.#internals.states.delete('empty');
-      this.#updateButtons();
-    } else {
-      this.#internals.states.add('empty');
     }
   }
 

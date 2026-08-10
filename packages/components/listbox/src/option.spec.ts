@@ -30,6 +30,18 @@ describe('sl-option', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should remove aria-disabled when re-enabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.have.attribute('aria-disabled');
     });
 
     it('should not be selected by default', () => {

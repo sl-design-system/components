@@ -27,8 +27,8 @@ type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'shape' | 'size
   ariaDisabled?: string;
   body: string | (() => TemplateResult);
   justifySelf: string;
-  label?: string;
   menuItems?(): TemplateResult;
+  tooltip?: string;
 };
 type Story = StoryObj<Props>;
 
@@ -101,6 +101,9 @@ export default {
       control: 'inline-radio',
       options: ['md', 'lg']
     },
+    tooltip: {
+      control: 'text'
+    },
     variant: {
       control: 'inline-radio',
       options: ['default', 'primary', 'info']
@@ -117,11 +120,11 @@ export default {
     disabled,
     fill,
     justifySelf,
-    label,
     menuItems,
     position,
     shape,
     size,
+    tooltip,
     variant
   }) => {
     return html`
@@ -131,16 +134,19 @@ export default {
           height: calc(100dvh - 2rem);
           place-items: center;
         }
+        sl-menu-button::part(tooltip) {
+          max-inline-size: 200px;
+        }
       </style>
       <sl-menu-button
         ?disabled=${disabled}
         aria-disabled=${ifDefined(ariaDisabled)}
-        aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
         position=${ifDefined(position)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
         style=${styleMap({ alignSelf, justifySelf })}
+        tooltip=${ifDefined(tooltip)}
         variant=${ifDefined(variant)}>
         ${typeof body === 'string' ? html`<div slot="button">${body}</div>` : body()}
         ${menuItems?.()}
@@ -152,7 +158,6 @@ export default {
 export const Basic: Story = {
   args: {
     body: () => html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
-    label: 'Settings',
     menuItems: () => html`
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>
@@ -162,7 +167,8 @@ export const Basic: Story = {
         <sl-icon name="far-trash"></sl-icon>
         Delete...
       </sl-menu-item>
-    `
+    `,
+    tooltip: 'Settings'
   }
 };
 
@@ -245,7 +251,8 @@ export const IconAndText: Story = {
       <sl-icon name="far-gear" slot="button"></sl-icon>
       <span slot="button">Settings</span>
     `,
-    label: undefined
+    tooltip:
+      'I am a tooltip for an icon and text menu button, so I should be a description, not a label'
   }
 };
 
@@ -253,7 +260,7 @@ export const Text: Story = {
   args: {
     ...Basic.args,
     body: () => html`<span slot="button">Settings</span>`,
-    label: undefined
+    tooltip: undefined
   }
 };
 
@@ -347,95 +354,6 @@ export const Avatar: Story = {
   }
 };
 
-export const WithTooltips: Story = {
-  parameters: {
-    a11y: {
-      config: {
-        rules: [
-          {
-            /**
-             * The rule is disabled for icon-only sl-menu-buttons because they use
-             * ariaLabelledByElements to set aria-labelledby across shadow DOM boundaries, which the
-             * a11y checker cannot detect.
-             */
-            id: 'aria-command-name',
-            enabled: false,
-            selector: 'sl-menu-button >> sl-button[icon-only]'
-          }
-        ]
-      }
-    }
-  },
-  render: () => html`
-    <style>
-      .container {
-        display: flex;
-        gap: 0.6rem;
-        align-items: center;
-      }
-    </style>
-    <p>Menu buttons with tooltips connected via <code>aria-labelledby</code></p>
-    <div class="container">
-      <sl-menu-button aria-labelledby="tooltip-settings" fill="outline">
-        <sl-icon name="far-gear" slot="button"></sl-icon>
-        <sl-menu-item>
-          <sl-icon name="far-pen"></sl-icon>
-          Rename...
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete...
-        </sl-menu-item>
-      </sl-menu-button>
-      <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
-
-      <sl-menu-button aria-labelledby="tooltip-edit" fill="outline" size="lg">
-        <sl-icon name="far-pen" slot="button"></sl-icon>
-        <sl-menu-item>
-          <sl-icon name="far-pen"></sl-icon>
-          Rename...
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete...
-        </sl-menu-item>
-      </sl-menu-button>
-      <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
-    </div>
-
-    <p>Menu buttons with tooltips connected via <code>aria-describedby</code></p>
-    <div class="container">
-      <sl-menu-button aria-describedby="tooltip-settings-1" fill="outline">
-        <sl-icon name="far-gear" slot="button"></sl-icon>
-        <span slot="button">Settings</span>
-        <sl-menu-item>
-          <sl-icon name="far-pen"></sl-icon>
-          Rename...
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete...
-        </sl-menu-item>
-      </sl-menu-button>
-      <sl-tooltip id="tooltip-settings-1" position="bottom">Open settings menu</sl-tooltip>
-
-      <sl-menu-button aria-describedby="tooltip-edit-1" fill="outline" size="lg">
-        <sl-icon name="far-pen" slot="button"></sl-icon>
-        <span slot="button">Edit</span>
-        <sl-menu-item>
-          <sl-icon name="far-pen"></sl-icon>
-          Rename...
-        </sl-menu-item>
-        <sl-menu-item>
-          <sl-icon name="far-trash"></sl-icon>
-          Delete...
-        </sl-menu-item>
-      </sl-menu-button>
-      <sl-tooltip id="tooltip-edit-1" position="bottom">Open edit menu</sl-tooltip>
-    </div>
-  `
-};
-
 export const All: Story = {
   render: () => html`
     <style>
@@ -456,7 +374,7 @@ export const All: Story = {
       <span>aria-disabled</span>
 
       <span>md</span>
-      <sl-menu-button aria-label="Label">
+      <sl-menu-button tooltip="Label">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -516,7 +434,7 @@ export const All: Story = {
       </sl-menu-button>
 
       <span>lg</span>
-      <sl-menu-button aria-label="Label" size="lg">
+      <sl-menu-button size="lg" tooltip="Label">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -575,7 +493,7 @@ export const All: Story = {
         </sl-menu-item>
       </sl-menu-button>
       <span>Ghost</span>
-      <sl-menu-button aria-label="Label" fill="ghost">
+      <sl-menu-button fill="ghost" tooltip="Label">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>

@@ -11,7 +11,7 @@ describe('sl-number-field', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field></sl-number-field>`);
+      el = await fixture(html`<sl-number-field aria-label="Number"></sl-number-field>`);
     });
 
     it('should have no buttons', () => {
@@ -134,7 +134,9 @@ describe('sl-number-field', () => {
 
   describe('with value', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field value="1000"></sl-number-field>`);
+      el = await fixture(
+        html`<sl-number-field aria-label="Number" value="1000"></sl-number-field>`
+      );
     });
 
     it('should have the correct initial value', () => {
@@ -181,7 +183,7 @@ describe('sl-number-field', () => {
 
   describe('required', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field required></sl-number-field>`);
+      el = await fixture(html`<sl-number-field aria-label="Number" required></sl-number-field>`);
     });
 
     it('should be invalid', () => {
@@ -256,7 +258,9 @@ describe('sl-number-field', () => {
 
   describe('min', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field min="2" value="-1"></sl-number-field>`);
+      el = await fixture(
+        html`<sl-number-field aria-label="Number" min="2" value="-1"></sl-number-field>`
+      );
     });
 
     it('should be invalid when value is lower than min', () => {
@@ -276,7 +280,9 @@ describe('sl-number-field', () => {
 
   describe('max', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field max="12" value="13"></sl-number-field>`);
+      el = await fixture(
+        html`<sl-number-field aria-label="Number" max="12" value="13"></sl-number-field>`
+      );
     });
 
     it('should be invalid when value is greater than max', () => {
@@ -296,7 +302,7 @@ describe('sl-number-field', () => {
 
   describe('dynamic min/max changes', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field value="50"></sl-number-field>`);
+      el = await fixture(html`<sl-number-field aria-label="Number" value="50"></sl-number-field>`);
     });
 
     it('should be valid initially without min/max', () => {
@@ -366,7 +372,9 @@ describe('sl-number-field', () => {
 
   describe('step buttons', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field step-buttons="end" value="10"></sl-number-field>`);
+      el = await fixture(
+        html`<sl-number-field aria-label="Number" step-buttons="end" value="10"></sl-number-field>`
+      );
     });
 
     it('should have step buttons', () => {
@@ -409,7 +417,9 @@ describe('sl-number-field', () => {
 
   describe('step up and down with arrow keys', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field value="10" step="1"></sl-number-field>`);
+      el = await fixture(
+        html`<sl-number-field aria-label="Number" value="10" step="1"></sl-number-field>`
+      );
     });
 
     it('should increase the value when ArrowUp key is pressed', async () => {
@@ -448,6 +458,7 @@ describe('sl-number-field', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-number-field
+          aria-label="Number"
           value="10.809"
           .formatOptions=${{ style: 'percent', maximumFractionDigits: 2 }}></sl-number-field>
       `);
@@ -466,7 +477,7 @@ describe('sl-number-field', () => {
 
   describe('validation', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field></sl-number-field>`);
+      el = await fixture(html`<sl-number-field aria-label="Number"></sl-number-field>`);
     });
 
     it('should toggle the validation message when the number becomes (in)valid', async () => {

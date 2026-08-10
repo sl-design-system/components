@@ -125,13 +125,16 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     if (this.mode === 'select') {
+      const filterLabel = msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
+        id: 'sl.grid.filterByValue'
+      });
+
       return html`
         <sl-select
           @sl-change=${this.#onSelectChange}
           @sl-clear=${this.#onClear}
-          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`, {
-            id: 'sl.grid.filterByValue'
-          })}
+          aria-label=${filterLabel}
+          .placeholder=${filterLabel}
           clearable>
           ${this.options?.map(option => {
             return html`

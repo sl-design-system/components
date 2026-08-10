@@ -307,4 +307,45 @@ describe('sl-tag', () => {
       expect(el.renderRoot.querySelector('sl-tooltip')).not.to.exist;
     });
   });
+
+  describe('tooltip property', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-tag>My label</sl-tag>`);
+    });
+
+    it('should show a tooltip with the given text when set to a string', async () => {
+      el.tooltip = 'Custom tooltip';
+      await el.updateComplete;
+
+      const label = el.renderRoot.querySelector('[part="label"]'),
+        tooltip = el.renderRoot.querySelector('sl-tooltip');
+
+      expect(tooltip).to.exist;
+      expect(tooltip).to.have.trimmed.text('Custom tooltip');
+      expect(label).to.have.attribute('aria-describedby', 'tooltip');
+    });
+
+    it('should be focusable when a string tooltip is set', async () => {
+      el.tooltip = 'Custom tooltip';
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('[part="label"]')).to.have.attribute('tabindex', '0');
+    });
+
+    it('should not override an explicit string tooltip based on truncation', async () => {
+      el.tooltip = 'Custom tooltip';
+      await el.updateComplete;
+
+      // Give the resize observer time to run; it must not clear the explicit tooltip
+      // even though the label is not truncated.
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+
+      const tooltip = el.renderRoot.querySelector('sl-tooltip');
+
+      expect(tooltip).to.exist;
+      expect(tooltip).to.have.trimmed.text('Custom tooltip');
+      expect(el.tooltip).to.equal('Custom tooltip');
+    });
+  });
 });

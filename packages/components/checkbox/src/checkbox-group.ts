@@ -80,7 +80,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   readonly internals = this.attachInternals();
 
   /** @internal The slotted checkboxes. */
-  @queryAssignedElements() boxes?: Array<Checkbox<T>>;
+  @queryAssignedElements({ selector: 'sl-checkbox' }) boxes?: Array<Checkbox<T>>;
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;

@@ -28,6 +28,14 @@
     <meta property="og:site_name" content="Sanoma Learning Design System"/>
   </head>
   <body>
+    <script>
+      if (location.hostname === 'sanomalearning.design') {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = '/assets/scripts/piwik-pro.js';
+        document.head.appendChild(script);
+      }
+    </script>
     <header class="ds-top-navigation">
       <button class="ds-top-navigation__hamburger" aria-expanded="false" aria-haspopup="menu" aria-controls="main-menu" aria-label="Show navigation menu"></button>
       <a href="/" class="ds-top-navigation__logo" title="Go to homepage"></a>

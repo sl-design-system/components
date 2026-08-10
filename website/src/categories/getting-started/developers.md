@@ -165,10 +165,12 @@ Make sure you include the polyfills before you include the SLDS components. This
 The following web standards require polyfills at this time:
 - [Scoped Custom Element Registry](https://github.com/WICG/webcomponents/blob/gh-pages/proposals/Scoped-Custom-Element-Registries.md)
 - [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API)
+- [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning)
 
 To use these polyfills, you need to install the following packages:
 - `@webcomponents/scoped-custom-element-registry`
 - `invokers-polyfill` (version >= 1.0.2, earlier versions do not work properly with custom elements)
+- `@oddbird/css-anchor-positioning`
 
 Once installed you need to import the polyfills in your application. You can do this by importing the polyfills in your main JS file:
 
@@ -183,6 +185,31 @@ Another option is to include them in your HTML:
 <script src="./node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
 <script src="./node_modules/invokers-polyfill/invokers-polyfill.min.js"></script>
 ```
+
+### CSS Anchor Positioning
+
+Components such as the tooltip position themselves using [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning). Browsers without support for it need the [CSS Anchor Positioning polyfill](https://anchor-positioning.oddbird.net/), otherwise those components end up in the wrong place on the screen.
+
+This polyfill needs a little more setup than the other two. Our components style their shadow DOM with constructed stylesheets, which the polyfill only picks up after `patchAndPolyfillConstructedStylesheets()` has patched `CSSStyleSheet` and `ShadowRoot`. So instead of importing the package directly, import its `/fn` entrypoint and apply it yourself:
+
+```js
+if (!('anchorName' in document.documentElement.style)) {
+  window.ANCHOR_POSITIONING_POLYFILL_OPTIONS = { positionAreaContainingBlock: false };
+
+  const { default: polyfill, patchAndPolyfillConstructedStylesheets } = await import(
+    '@oddbird/css-anchor-positioning/fn'
+  );
+
+  patchAndPolyfillConstructedStylesheets();
+
+  await polyfill();
+}
+```
+
+A couple of notes about this snippet:
+- The `anchorName` check makes sure the polyfill is only downloaded and applied in browsers that need it.
+- `patchAndPolyfillConstructedStylesheets()` has to run before the first component is upgraded, so run this before importing any `register.js`. The `polyfill()` call after it takes care of anchor positioning in the light DOM.
+- `positionAreaContainingBlock: false` tells the polyfill not to wrap positioned elements in an extra element. That wrapper breaks CSS that relies on the DOM structure of our components. This is the same configuration we use in our own Storybook.
 
 ### No longer needed
 

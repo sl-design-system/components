@@ -116,6 +116,41 @@ const people = (loaded['people'] as Array<Person & { draggable: boolean }>).map(
 
 Combine drag and drop with grouped data.
 
+`regroupDroppedPerson` keeps grouping consistent after a drop:
+
+- It reads the dropped item and target row from `slGridDrop`.
+- It exits early if the drop is not row-to-row, if there is no target profession, or if the
+  profession already matches.
+- It updates only the dropped person's `profession` in `dataSource.unfilteredItems`, then calls
+  `setData()` and `update()` so groups are recalculated.
+
+### `regroupDroppedPerson`
+
+```typescript
+const regroupDroppedPerson = (
+  dataSource: ArrayListDataSource<Person>,
+  event: SlDropEvent<Person>
+): void => {
+  const { item, relativeItem } = event.detail,
+    targetProfession = relativeItem?.profession;
+
+  if (
+    !isListDataSourceDataItem(item) ||
+    !targetProfession ||
+    item.data.profession === targetProfession
+  ) {
+    return;
+  }
+
+  const updatedPeople = dataSource.unfilteredItems.map(({ data }) =>
+    data === item.data ? { ...data, profession: targetProfession } : data
+  );
+
+  dataSource.setData(updatedPeople);
+  dataSource.update();
+};
+```
+
 ### Template
 
 ```html

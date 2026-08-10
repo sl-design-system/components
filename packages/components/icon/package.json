@@ -41,6 +41,9 @@
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
+  "dependencies": {
+    "@sl-design-system/shared": "^0.12.3"
+  },
   "devDependencies": {
     "lit": "^3.3.3"
   },

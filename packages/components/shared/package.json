@@ -10,6 +10,7 @@
       "./controllers/new-focus-group.js": "./dist/controllers/new-focus-group.js",
       "./converters.js": "./dist/converters.js",
       "./date.js": "./dist/date.js",
+      "./dev-mode.js": "./dist/dev-mode.js",
       "./events.js": "./dist/events.js",
       "./helpers/forward-aria.js": "./dist/helpers/forward-aria.js",
       "./mixins.js": "./dist/mixins.js",
@@ -28,6 +29,7 @@
     "./controllers/new-focus-group.js": "./src/controllers/new-focus-group.ts",
     "./converters.js": "./src/converters.ts",
     "./date.js": "./src/date.ts",
+    "./dev-mode.js": "./src/dev-mode.ts",
     "./events.js": "./src/events.ts",
     "./helpers/forward-aria.js": "./src/helpers/forward-aria.ts",
     "./mixins.js": "./src/mixins.ts",
@@ -47,6 +49,7 @@
       "src/controllers/new-focus-group.ts",
       "src/converters.ts",
       "src/date.ts",
+      "src/dev-mode.ts",
       "src/events.ts",
       "src/helpers/forward-aria.ts",
       "src/mixins.ts"

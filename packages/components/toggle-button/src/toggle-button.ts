@@ -4,6 +4,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -124,7 +125,7 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
 
     this.setProxyTarget(this.button);
 
-    if (import.meta.env?.DEV) {
+    if (isDevMode()) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
         this.internals.states.delete('error');

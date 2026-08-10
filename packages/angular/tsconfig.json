@@ -4,6 +4,7 @@
     "declaration": false,
     "emitDeclarationOnly": false,
     "esModuleInterop": true,
+    "module": "esnext",
     "moduleResolution": "bundler",
     "noPropertyAccessFromIndexSignature": true,
     "outDir": "./out-tsc",

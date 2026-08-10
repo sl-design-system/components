@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
@@ -30,6 +29,7 @@ import {
   isPopoverOpen,
   setValueByPath
 } from '@sl-design-system/shared';
+import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -463,12 +463,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const value = this.#ariaAutocomplete;
 
       // Warn developers about conflicting configuration
-      if (
-        import.meta.env?.DEV &&
-        this.selectOnly &&
-        this.autocomplete &&
-        this.autocomplete !== 'off'
-      ) {
+      if (isDevMode() && this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
         console.warn(
           `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
             'Select-only comboboxes have a read-only input field and therefore cannot have autocomplete. ' +

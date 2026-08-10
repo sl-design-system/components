@@ -8,14 +8,14 @@
     "exports": {
       ".": "./dist/index.js",
       "./es-ES.js": "./dist/es-ES.js",
-      "./es-ES.xlf": "./src/es-ES.xlf",
       "./it.js": "./dist/it.js",
-      "./it.xlf": "./src/it.xlf",
       "./nl.js": "./dist/nl.js",
-      "./nl.xlf": "./src/nl.xlf",
       "./pl.js": "./dist/pl.js",
-      "./pl.xlf": "./src/pl.xlf",
-      "./package.json": "./package.json"
+      "./package.json": "./package.json",
+      "./es-ES.xlf": "./src/es-ES.xlf",
+      "./it.xlf": "./src/it.xlf",
+      "./nl.xlf": "./src/nl.xlf",
+      "./pl.xlf": "./src/pl.xlf"
     }
   },
   "repository": {
@@ -27,14 +27,14 @@
   "exports": {
     ".": "./src/locale-codes.ts",
     "./es-ES.js": "./src/es-ES.ts",
-    "./es-ES.xlf": "./src/es-ES.xlf",
     "./it.js": "./src/it.ts",
-    "./it.xlf": "./src/it.xlf",
     "./nl.js": "./src/nl.ts",
-    "./nl.xlf": "./src/nl.xlf",
     "./pl.js": "./src/pl.ts",
-    "./pl.xlf": "./src/pl.xlf",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./es-ES.xlf": "./src/es-ES.xlf",
+    "./it.xlf": "./src/it.xlf",
+    "./nl.xlf": "./src/nl.xlf",
+    "./pl.xlf": "./src/pl.xlf"
   },
   "files": [
     "**/*.d.ts",

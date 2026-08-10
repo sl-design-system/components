@@ -15,7 +15,8 @@ import {
   LitElement,
   type PropertyValues,
   type TemplateResult,
-  html
+  html,
+  nothing
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import styles from './link.scss.js';
@@ -27,6 +28,8 @@ declare global {
 }
 
 export type LinkFill = 'solid' | 'outline' | 'ghost';
+
+export type LinkShape = 'rect' | 'pill';
 
 export type LinkType = 'internal' | 'internal-new-tab' | 'external';
 
@@ -75,18 +78,18 @@ export class Link extends ScopedElementsMixin(LitElement) {
   @query('slot') slotElement!: HTMLSlotElement;
 
   /**
-   * The link's color variant.
-   *
-   * @default 'secondary'
-   */
-  @property({ reflect: true }) variant?: LinkVariant;
-
-  /**
    * The fill style of the link button.
    *
    * @default 'solid'
    */
   @property({ reflect: true }) fill?: LinkFill;
+
+  /**
+   * Position of the internal link indicator icon.
+   *
+   * @default 'end'
+   */
+  @property({ reflect: true, attribute: 'icon-position' }) iconPosition: 'start' | 'end' = 'end';
 
   /**
    * Override the inferred link type.
@@ -96,11 +99,21 @@ export class Link extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) type?: LinkType;
 
   /**
-   * Position of the internal link indicator icon.
+   * The shape of the link button.
    *
-   * @default 'end'
+   * @default 'rect'
    */
-  @property({ reflect: true, attribute: 'icon-position' }) iconPosition: 'start' | 'end' = 'end';
+  @property({ reflect: true }) shape?: LinkShape;
+
+  /**
+   * The link's color variant.
+   *
+   * @default 'secondary'
+   */
+  @property({ reflect: true }) variant?: LinkVariant;
+
+  /** No icon will be shown on internal links when this attribute is set. */
+  @property({ type: Boolean, reflect: true, attribute: 'no-icon' }) noIcon = false;
 
   get #indicatorIcon(): string {
     switch (this.linkType) {
@@ -133,7 +146,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange}></slot>
-      <sl-icon .name=${this.#indicatorIcon} part="icon"></sl-icon>
+      ${!this.noIcon ? html`<sl-icon .name=${this.#indicatorIcon} part="icon"></sl-icon>` : nothing}
     `;
   }
 

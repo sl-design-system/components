@@ -25,8 +25,24 @@
   vertical-align: middle;
 }
 
+::slotted(a[href]) {
+  align-items: center;
+  appearance: none;
+  color: var(--_fg-color) !important;
+  display: inline-flex;
+  font: inherit;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  gap: var(--sl-size-075);
+  justify-content: center;
+  text-decoration: none !important;
+}
+
 :host([icon-position='start']) {
   flex-direction: row-reverse;
+}
+
+:host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
 }
 
 :host(:focus-within) {
@@ -158,18 +174,10 @@
 :host([fill='ghost']) {
   --_bg-color: transparent;
   --_border-color: transparent;
-}
 
-::slotted(a[href]) {
-  align-items: center;
-  appearance: none;
-  color: var(--_fg-color) !important;
-  display: inline-flex;
-  font: inherit;
-  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  gap: var(--sl-size-075);
-  justify-content: center;
-  text-decoration: none !important;
+  ::slotted(a[href]) {
+    text-decoration: underline !important;
+  }
 }
 
 ::slotted(a[href]:focus-visible),
@@ -183,7 +191,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  ::slotted(a[href]:where(:active, :focus-visible, :hover)) {
+  :host {
     transition-duration: var(--sl-animation-button-duration);
     transition-property: background, border-color, color, outline-color;
     transition-timing-function: var(--sl-animation-button-easing);

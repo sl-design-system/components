@@ -15,5 +15,15 @@
   "devDependencies": {
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3"
+  },
+  "exports": {
+    ".": "./lit/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": "./dist/index.js",
+      "./package.json": "./package.json"
+    }
   }
 }

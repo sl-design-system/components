@@ -7359,7 +7359,7 @@ __metadata:
     chai: "npm:^6.2.2"
     chai-datetime: "npm:^1.8.1"
     chai-dom: "npm:^1.12.1"
-    chromatic: "npm:^15.3.1"
+    chromatic: "npm:^18.1.0"
     eslint: "npm:^9.27.0"
     husky: "npm:^9.1.7"
     invokers-polyfill: "npm:^1.0.3"
@@ -11834,22 +11834,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:^15.3.1":
-  version: 15.3.1
-  resolution: "chromatic@npm:15.3.1"
+"chromatic@npm:^18.1.0":
+  version: 18.1.0
+  resolution: "chromatic@npm:18.1.0"
+  dependencies:
+    semver: "npm:^7.3.5"
   peerDependencies:
     "@chromatic-com/cypress": ^0.*.* || ^1.0.0
     "@chromatic-com/playwright": ^0.*.* || ^1.0.0
+    "@chromatic-com/vitest": ^0.*.* || ^1.0.0
   peerDependenciesMeta:
     "@chromatic-com/cypress":
       optional: true
     "@chromatic-com/playwright":
       optional: true
+    "@chromatic-com/vitest":
+      optional: true
   bin:
-    chroma: dist/bin.js
-    chromatic: dist/bin.js
-    chromatic-cli: dist/bin.js
-  checksum: 10c0/9987fd93a8b61b1f2f4ea9544ac9a2e280904c5731c49394a4b505ddcf4e50093691e5aa2b944a6182bd52745c782e275fd283d1e5778d75f8bb5e70fb66768e
+    chroma: dist/bin.cjs
+    chromatic: dist/bin.cjs
+    chromatic-cli: dist/bin.cjs
+  checksum: 10c0/cf64a6b14d6d3a3c2cc51fd024d651b4f7c90c4647fe3d5d5dee7033108f0188157b32bb98432568bc3b0fafd42966f9c527d12f171d76f4e7cd9ea50cbb1606
   languageName: node
   linkType: hard
 

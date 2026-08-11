@@ -52,12 +52,16 @@
     "build": {
       "dependencies": [
         "build:components",
+        "build:examples",
         "build:locales",
         "build:themes"
       ]
     },
     "build:components": {
       "command": "tsdown --config packages/components/tsdown.config.mjs --concurrency=4"
+    },
+    "build:examples": {
+      "command": "tsdown --config examples/lit/tsdown.config.js --concurrency=4"
     },
     "build:locales": {
       "command": "tsdown --config packages/locales/tsdown.config.js",
@@ -303,7 +307,7 @@
     "chai": "^6.2.2",
     "chai-datetime": "^1.8.1",
     "chai-dom": "^1.12.1",
-    "chromatic": "^15.3.1",
+    "chromatic": "^18.1.0",
     "eslint": "^9.27.0",
     "husky": "^9.1.7",
     "invokers-polyfill": "^1.0.3",

@@ -391,6 +391,44 @@
         "$type": "icons",
         "$description": "icon.core.angle-down"
       },
+      "arrow-left": {
+        "$value": "arrow-left",
+        "$type": "text",
+        "$description": "icon.core.arrow-left",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      },
+      "arrow-right": {
+        "$value": "arrow-right",
+        "$type": "text",
+        "$description": "icon.core.arrow-right",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      },
+      "arrow-up-right-from-square": {
+        "$value": "arrow-up-right-from-square",
+        "$type": "text",
+        "$description": "icon.core.arrow-up-right-from-square",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [
+              "ALL_SCOPES"
+            ],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      },
       "breadcrumb-separator": {
         "$value": "slash-forward",
         "$type": "icons",
@@ -557,6 +595,20 @@
         "$value": "magnifying-glass",
         "$type": "icons",
         "$description": "icon.core.search"
+      },
+      "square-arrow-up-right": {
+        "$value": "square-arrow-up-right",
+        "$type": "text",
+        "$description": "icon.core.square-arrow-up-right",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [
+              "ALL_SCOPES"
+            ],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
       },
       "triangle-exclamation-solid": {
         "$value": "triangle-exclamation",

@@ -15,6 +15,24 @@ export const icons = {
   applets: {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path d="M4.16 5.093a1 1 0 0 0-.293.707v4.4a1 1 0 0 0 1 1H6.6a1 1 0 0 0 1-1V7.467H5.667v1.066h.866v1.6h-1.6V5.867h2.134a.533.533 0 1 0 0-1.067h-2.2a1 1 0 0 0-.707.293M8.693 5.093A1 1 0 0 0 8.4 5.8v4.4a1 1 0 0 0 1 1h1.733a1 1 0 0 0 1-1V7.467H10.2v1.066h.867v1.6h-1.6V5.867H11.6a.533.533 0 0 0 0-1.067H9.4a1 1 0 0 0-.707.293"/><path fill-rule="evenodd" d="M8 15.333A7.333 7.333 0 1 0 8 .667a7.333 7.333 0 0 0 0 14.666m4.431-2.902A6.267 6.267 0 1 0 3.57 3.57a6.267 6.267 0 0 0 8.862 8.862" clip-rule="evenodd"/></g><defs><clipPath id="a"><path d="M0 0h16v16H0z"/></clipPath></defs></svg>'
   },
+  'arrow-left': {
+    value: 'arrow-left',
+    type: 'text',
+    description: 'icon.core.arrow-left',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M7 239c-9.4 9.4-9.4 24.6 0 33.9L175 441c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9L81.9 280 488 280c13.3 0 24-10.7 24-24s-10.7-24-24-24L81.9 232 209 105c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L7 239z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'arrow-right': {
+    value: 'arrow-right',
+    type: 'text',
+    description: 'icon.core.arrow-right',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M505 273c9.4-9.4 9.4-24.6 0-33.9L337 71c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l127 127-406.1 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l406.1 0-127 127c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0L505 273z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'arrow-up-right-from-square': {
+    value: 'arrow-up-right-from-square',
+    type: 'text',
+    description: 'icon.core.arrow-up-right-from-square',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M288 24c0 13.3 10.7 24 24 24l118.1 0-231 231c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l231-231 0 118.1c0 13.3 10.7 24 24 24s24-10.7 24-24l0-176c0-13.3-10.7-24-24-24L312 0c-13.3 0-24 10.7-24 24zM80 96C35.8 96 0 131.8 0 176L0 432c0 44.2 35.8 80 80 80l256 0c44.2 0 80-35.8 80-80l0-88c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 88c0 17.7-14.3 32-32 32L80 464c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l88 0c13.3 0 24-10.7 24-24s-10.7-24-24-24L80 96z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   'badge-available': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.73 3.316a1 1 0 0 1-.046 1.414l-7.333 7a1 1 0 0 1-1.368 0l-4.667-4.5a1 1 0 0 1 1.368-1.46l3.983 3.86 6.65-6.36a1 1 0 0 1 1.412.046" clip-rule="evenodd"/></svg>'
   },
@@ -302,6 +320,12 @@ export const icons = {
   },
   'sort-up': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><g><path d="M7.54 15.32c.25.22.655.22.937 0h-.032l5-4c.344-.25.375-.718.125-1.062a.71.71 0 0 0-1.03-.094L8.007 13.79l-4.531-3.625a.744.744 0 0 0-1.063.094c-.25.344-.219.812.125 1.062zM13.57 5.195a.71.71 0 0 0-.093-1.03l-5-4c-.282-.22-.688-.22-.938 0l-5 4a.714.714 0 0 0-.125 1.03.7.7 0 0 0 .64.286l-.012.01h10.072l-.016-.013a.7.7 0 0 0 .472-.283"/></g></svg>'
+  },
+  'square-arrow-up-right': {
+    value: 'square-arrow-up-right',
+    type: 'text',
+    description: 'icon.core.square-arrow-up-right',
+    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M384 80c8.8 0 16 7.2 16 16l0 320c0 8.8-7.2 16-16 16L64 432c-8.8 0-16-7.2-16-16L48 96c0-8.8 7.2-16 16-16l320 0zm64 16c0-35.3-28.7-64-64-64L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320zM272 296c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24l-112 0c-13.3 0-24 10.7-24 24s10.7 24 24 24l54.1 0-103 103c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l103-103 0 54.1z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   star: {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.493 5.107 8.616.896H7.384l-1.792 4.21-4.567.488-.373 1.174 3.6 3.037-1.193 4.554 1.002.745 3.925-2.442 3.924 2.442 1.003-.745-1.217-4.44 3.652-3.15-.373-1.175zm-2.507-1.63L6.86 6.317l-.444.322-3.1.272 2.488 2.001.172.544-.856 3.039 2.594-1.662h.568l2.595 1.662-.901-2.94.172-.544 2.507-2.1-3-.272-.445-.321z" clip-rule="evenodd"/></svg>'

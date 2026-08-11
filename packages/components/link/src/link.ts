@@ -1,9 +1,3 @@
-import {
-  faArrowLeft,
-  faArrowRight,
-  faArrowUpRightFromSquare,
-  faSquareArrowUpRight
-} from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
@@ -41,8 +35,6 @@ export type LinkVariant =
   | 'warning'
   | 'danger'
   | 'inverted';
-
-Icon.register(faArrowRight, faArrowLeft, faArrowUpRightFromSquare, faSquareArrowUpRight);
 
 /**
  * A standalone link that is visually styled as a button.
@@ -118,11 +110,11 @@ export class Link extends ScopedElementsMixin(LitElement) {
   get #indicatorIcon(): string {
     switch (this.linkType) {
       case 'internal-new-tab':
-        return 'far-square-arrow-up-right';
+        return 'square-arrow-up-right';
       case 'external':
-        return 'far-arrow-up-right-from-square';
+        return 'arrow-up-right-from-square';
       default:
-        return this.iconPosition === 'start' ? 'far-arrow-left' : 'far-arrow-right';
+        return this.iconPosition === 'start' ? 'arrow-left' : 'arrow-right';
     }
   }
 

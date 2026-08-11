@@ -1,5 +1,14 @@
 # @sl-design-system/button
 
+## 2.1.2
+
+### Patch Changes
+
+- [#3553](https://github.com/sl-design-system/components/pull/3553) [`1dc227b`](https://github.com/sl-design-system/components/commit/1dc227bea30bebf0b912252ea1cf2cc608e76db2) - Rename the "square" shape value to "rect" to match the design
+
+- Updated dependencies [[`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1)]:
+  - @sl-design-system/shared@0.12.3
+
 ## 2.1.1
 
 ### Patch Changes

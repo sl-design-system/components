@@ -1,17 +1,13 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type Infotip } from '@sl-design-system/infotip';
-import {
-  type EventEmitter,
-  EventsController,
-  ObserveAttributesMixin,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -47,11 +43,7 @@ let nextUniqueId = 0;
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
-  'aria-disabled',
-  'aria-label',
-  'aria-labelledby'
-]) {
+export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElement)) {
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
@@ -321,7 +313,14 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     }
 
     requestAnimationFrame(() => {
-      if (!this.input.hasAttribute('aria-labelledby') && this.input.labels?.length) {
+      // Only link the label(s) if nothing else labels the input already. Checking the attribute is
+      // not enough: assigning `ariaLabelledByElements` (which is how an sl-tooltip labels its
+      // anchor) reflects an empty `aria-labelledby` attribute, and removing those references again
+      // leaves that empty attribute behind.
+      const labelledBy =
+        !!this.input.getAttribute('aria-labelledby') || !!this.input.ariaLabelledByElements?.length;
+
+      if (!labelledBy && this.input.labels?.length) {
         this.input.setAttribute(
           'aria-labelledby',
           Array.from(this.input.labels)
@@ -385,6 +384,6 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     input.checked = !!this.checked;
     input.indeterminate = !!this.indeterminate;
 
-    this.setAttributesTarget(input);
+    this.setProxyTarget(input);
   }
 }

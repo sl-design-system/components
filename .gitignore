@@ -49,10 +49,6 @@ __snapshots__
 .idea/
 
 # Package build output
-examples/**/*.d.ts
-examples/**/*.d.ts.map
-examples/**/*.js
-examples/**/*.js.map
 packages/themes/**/*.css
 !packages/themes/**/fonts.css
 !packages/themes/core/*.css

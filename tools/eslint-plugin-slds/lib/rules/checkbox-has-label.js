@@ -49,6 +49,21 @@ export const checkboxHasLabel = {
     }
   },
   create(context) {
+    const tooltipLabelledIdsByAnalyzer = new WeakMap();
+
+    const getTooltipLabelledIds = analyzer => {
+      const cachedIds = tooltipLabelledIdsByAnalyzer.get(analyzer);
+
+      if (cachedIds) {
+        return cachedIds;
+      }
+
+      const tooltipLabelledIds = collectTooltipLabelledIds(analyzer);
+      tooltipLabelledIdsByAnalyzer.set(analyzer, tooltipLabelledIds);
+
+      return tooltipLabelledIds;
+    };
+
     return {
       TaggedTemplateExpression(node) {
         if (isNestedHtmlTemplate(node, context)) {
@@ -62,12 +77,14 @@ export const checkboxHasLabel = {
           node,
           elementName: 'sl-checkbox',
           hasLabel(element, analyzer, sourceCode) {
-            const elementId = (analyzer.getAttributeValue(element, 'id', sourceCode) ?? '').trim();
+            const rawId = analyzer.getAttributeValue(element, 'id', sourceCode);
+            const elementId = typeof rawId === 'string' ? rawId.trim() : '';
+            const tooltipLabelledIds = elementId !== '' ? getTooltipLabelledIds(analyzer) : null;
 
             return (
               hasCheckboxLabel(element, analyzer, sourceCode) ||
               hasAttribute(element, analyzer, sourceCode, 'aria-label', 'aria-labelledby') ||
-              (elementId !== '' && tooltipLabelledIds.has(elementId))
+              (elementId !== '' && tooltipLabelledIds !== null && tooltipLabelledIds.has(elementId))
             );
           }
         });

@@ -26,7 +26,9 @@
 }
 
 :host([shape='pill']) .stack sl-tag {
+  border-end-end-radius: var(--sl-size-borderRadius-default);
   border-end-start-radius: var(--sl-size-borderRadius-full);
+  border-start-end-radius: var(--sl-size-borderRadius-default);
   border-start-start-radius: var(--sl-size-borderRadius-full);
 }
 

@@ -59,7 +59,7 @@ describe('sl-link', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 
       expect(icon).to.exist;
-      expect(icon).to.have.attribute('name', 'far-arrow-up-right-from-square');
+      expect(icon).to.have.attribute('name', 'arrow-up-right-from-square');
     });
   });
 
@@ -303,7 +303,7 @@ describe('sl-link', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 
       expect(el).to.have.attribute('icon-position', 'end');
-      expect(icon).to.have.attribute('name', 'far-arrow-right');
+      expect(icon).to.have.attribute('name', 'arrow-right');
     });
 
     it('should show left arrow when position is start', async () => {
@@ -316,7 +316,7 @@ describe('sl-link', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 
       expect(el).to.have.attribute('icon-position', 'start');
-      expect(icon).to.have.attribute('name', 'far-arrow-left');
+      expect(icon).to.have.attribute('name', 'arrow-left');
     });
 
     it('should ignore icon-position for external links', async () => {
@@ -330,7 +330,7 @@ describe('sl-link', () => {
 
       const icon = el.renderRoot.querySelector('sl-icon');
 
-      expect(icon).to.have.attribute('name', 'far-arrow-up-right-from-square');
+      expect(icon).to.have.attribute('name', 'arrow-up-right-from-square');
     });
 
     it('should ignore icon-position for internal-new-tab links', async () => {
@@ -344,7 +344,7 @@ describe('sl-link', () => {
 
       const icon = el.renderRoot.querySelector('sl-icon');
 
-      expect(icon).to.have.attribute('name', 'far-square-arrow-up-right');
+      expect(icon).to.have.attribute('name', 'square-arrow-up-right');
     });
   });
 
@@ -360,7 +360,7 @@ describe('sl-link', () => {
 
       const icon = el.renderRoot.querySelector('sl-icon');
 
-      expect(icon).to.have.attribute('name', 'far-arrow-right');
+      expect(icon).to.have.attribute('name', 'arrow-right');
     });
 
     it('should show square-arrow-up-right for internal-new-tab links', async () => {
@@ -374,7 +374,7 @@ describe('sl-link', () => {
 
       const icon = el.renderRoot.querySelector('sl-icon');
 
-      expect(icon).to.have.attribute('name', 'far-square-arrow-up-right');
+      expect(icon).to.have.attribute('name', 'square-arrow-up-right');
     });
 
     it('should show arrow-up-right-from-square for external links', async () => {
@@ -388,7 +388,42 @@ describe('sl-link', () => {
 
       const icon = el.renderRoot.querySelector('sl-icon');
 
-      expect(icon).to.have.attribute('name', 'far-arrow-up-right-from-square');
+      expect(icon).to.have.attribute('name', 'arrow-up-right-from-square');
+    });
+  });
+
+  describe('internal start indicator attribute', () => {
+    it('should set data-sl-internal-icon-start for internal start icon position', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start">
+          <a href="/page">Link</a>
+        </sl-link>
+      `);
+
+      expect(el).to.have.attribute('data-sl-internal-icon-start');
+    });
+
+    it('should not set data-sl-internal-icon-start for external links', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start">
+          <a href="https://example.com">External</a>
+        </sl-link>
+      `);
+
+      expect(el).not.to.have.attribute('data-sl-internal-icon-start');
+    });
+
+    it('should remove data-sl-internal-icon-start when no-icon is enabled', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start">
+          <a href="/page">Link</a>
+        </sl-link>
+      `);
+
+      el.noIcon = true;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('data-sl-internal-icon-start');
     });
   });
 

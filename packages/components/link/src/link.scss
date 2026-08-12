@@ -37,7 +37,7 @@
   text-decoration: none !important;
 }
 
-:host([icon-position='start']) {
+:host([data-sl-internal-icon-start]) {
   flex-direction: row-reverse;
 }
 

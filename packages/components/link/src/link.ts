@@ -146,6 +146,10 @@ export class Link extends ScopedElementsMixin(LitElement) {
     if (changes.has('type')) {
       this.#syncAnchor();
     }
+
+    if (changes.has('iconPosition') || changes.has('noIcon')) {
+      this.#syncIndicatorStartAttribute();
+    }
   }
 
   #getAnchor(): HTMLAnchorElement | undefined {
@@ -218,11 +222,18 @@ export class Link extends ScopedElementsMixin(LitElement) {
     this.#syncAnchor();
   };
 
+  #syncIndicatorStartAttribute(): void {
+    const hasInternalStartIndicator = !this.noIcon && this.#indicatorIcon === 'arrow-left';
+
+    this.toggleAttribute('data-sl-internal-icon-start', hasInternalStartIndicator);
+  }
+
   #syncAnchor(): void {
     const anchor = this.#getAnchor();
 
     if (!anchor) {
       this.toggleAttribute('has-indicator', false);
+      this.#syncIndicatorStartAttribute();
 
       return;
     }
@@ -260,6 +271,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
     }
 
     this.toggleAttribute('has-indicator', opensInNewTab);
+    this.#syncIndicatorStartAttribute();
 
     // Re-observe after making all changes
     this.#observeAnchor(anchor);

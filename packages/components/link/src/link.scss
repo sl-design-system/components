@@ -63,6 +63,10 @@
   --_fg-color: var(--sl-color-foreground-primary-bold);
 }
 
+:host(:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+}
+
 :host([variant='primary']:where(:not([fill]), [fill='solid'])) {
   --_fg-color: var(--sl-color-foreground-primary-onBold);
 }

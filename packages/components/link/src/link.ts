@@ -46,7 +46,7 @@ export type LinkVariant =
  * ```
  *
  * @slot default - Place a single <code>&lt;a&gt;</code> element inside the component.
- * @csspart indicator - The new-tab indicator icon.
+ * @csspart icon - The new-tab indicator icon.
  */
 @localized()
 export class Link extends ScopedElementsMixin(LitElement) {
@@ -62,6 +62,9 @@ export class Link extends ScopedElementsMixin(LitElement) {
 
   /** Internal state management for CSS custom states. */
   #internals = this.attachInternals();
+
+  /** Target value captured before this component injected _blank. */
+  #managedTarget?: { anchor: HTMLAnchorElement; originalTarget: string | null };
 
   /** Observe changes to slotted anchor attributes. */
   #observer = new MutationObserver(() => this.#syncAnchor());
@@ -124,12 +127,12 @@ export class Link extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.addEventListener('click', this.#onClick);
+    this.addEventListener('click', this.#onClick, true);
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-    this.removeEventListener('click', this.#onClick);
+    this.removeEventListener('click', this.#onClick, true);
 
     super.disconnectedCallback();
   }
@@ -169,14 +172,29 @@ export class Link extends ScopedElementsMixin(LitElement) {
       return newTab ? 'internal-new-tab' : 'internal';
     }
 
-    // Relative paths are always internal
-    if (/^(\/|#|\.\/|\.\.\/)/.test(href)) {
-      return newTab ? 'internal-new-tab' : 'internal';
+    if (href.startsWith('//')) {
+      const authority = href.slice(2).split(/[/?#]/)[0];
+
+      if (!authority) {
+        return newTab ? 'internal-new-tab' : 'internal';
+      }
+
+      const currentHost = globalThis.location?.host;
+
+      if (!currentHost) {
+        return 'external';
+      }
+
+      return authority.toLowerCase() === currentHost.toLowerCase()
+        ? newTab
+          ? 'internal-new-tab'
+          : 'internal'
+        : 'external';
     }
 
     try {
-      // At this point, href should be an absolute URL
-      const url = new URL(href);
+      const baseHref = globalThis.location?.href;
+      const url = baseHref ? new URL(href, baseHref) : new URL(href);
 
       // Non-HTTP(S) protocols (mailto:, tel:, etc.) are treated as external
       if (url.protocol !== 'http:' && url.protocol !== 'https:') {
@@ -185,7 +203,13 @@ export class Link extends ScopedElementsMixin(LitElement) {
 
       // Compare origins if we have location context
       if (globalThis.location?.origin) {
-        return url.origin === globalThis.location.origin ? 'internal' : 'external';
+        const isInternal = url.origin === globalThis.location.origin;
+
+        if (isInternal) {
+          return newTab ? 'internal-new-tab' : 'internal';
+        }
+
+        return 'external';
       }
 
       // No location context - treat absolute URLs as external to be safe
@@ -216,14 +240,58 @@ export class Link extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // Click was on padding or icon - delegate to the anchor
+    // Suppress the original host/icon click and re-dispatch on the anchor
+    // so bubbling listeners receive a single click with the original modifiers.
     event.preventDefault();
-    anchor.click();
+    event.stopImmediatePropagation();
+
+    anchor.dispatchEvent(new MouseEvent('click', event));
   };
 
   #onSlotChange = (): void => {
     this.#syncAnchor();
   };
+
+  #restoreManagedTarget(): void {
+    if (!this.#managedTarget) {
+      return;
+    }
+
+    if (this.#managedTarget.originalTarget == null) {
+      this.#managedTarget.anchor.removeAttribute('target');
+    } else {
+      this.#managedTarget.anchor.setAttribute('target', this.#managedTarget.originalTarget);
+    }
+
+    this.#managedTarget = undefined;
+  }
+
+  #syncTarget(anchor: HTMLAnchorElement): void {
+    const shouldOpenInNewTab = this.linkType === 'external' || this.linkType === 'internal-new-tab';
+    const managed = this.#managedTarget;
+
+    if (!shouldOpenInNewTab) {
+      if (managed?.anchor === anchor) {
+        this.#restoreManagedTarget();
+      }
+
+      return;
+    }
+
+    if (anchor.target === '_blank' && managed?.anchor !== anchor) {
+      return;
+    }
+
+    if (anchor.target !== '_blank') {
+      if (managed?.anchor !== anchor) {
+        this.#managedTarget = { anchor, originalTarget: anchor.getAttribute('target') };
+      } else {
+        managed.originalTarget = anchor.getAttribute('target');
+      }
+
+      anchor.target = '_blank';
+    }
+  }
 
   #syncReversedState(): void {
     const hasInternalStartIndicator = !this.noIcon && this.#indicatorIcon === 'arrow-left';
@@ -239,6 +307,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
     const anchor = this.#getAnchor();
 
     if (!anchor) {
+      this.#restoreManagedTarget();
       this.toggleAttribute('has-indicator', false);
       this.#syncReversedState();
 
@@ -248,11 +317,12 @@ export class Link extends ScopedElementsMixin(LitElement) {
     // Disconnect observer to prevent infinite loop from our own changes
     this.#observer.disconnect();
 
-    this.linkType = this.type ?? this.#inferType(anchor);
-
-    if (this.linkType === 'external') {
-      anchor.target = '_blank';
+    if (this.#managedTarget && this.#managedTarget.anchor !== anchor) {
+      this.#restoreManagedTarget();
     }
+
+    this.linkType = this.type ?? this.#inferType(anchor);
+    this.#syncTarget(anchor);
 
     const opensInNewTab = anchor.target === '_blank';
 

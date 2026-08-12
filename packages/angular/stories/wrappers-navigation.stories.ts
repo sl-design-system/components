@@ -66,6 +66,7 @@ export class TreeExampleComponent {
 @Component({
   selector: 'sla-link-example',
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <div style="display: grid; gap: 1rem; justify-items: start;">
       <sl-link>
@@ -88,7 +89,6 @@ export default {
   title: 'Wrappers/Navigation',
   decorators: [
     moduleMetadata({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         BreadcrumbsComponent,
         TabComponent,

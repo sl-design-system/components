@@ -82,6 +82,27 @@ describe('sl-link', () => {
     it('should show the indicator icon', () => {
       expect(el).to.have.attribute('has-indicator');
     });
+
+    it('should treat absolute same-origin _blank links as internal-new-tab', async () => {
+      const href = `${globalThis.location.origin}/reports`;
+
+      el = await fixture(html`
+        <sl-link>
+          <a href=${href} target="_blank">Reports</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+      await el.updateComplete;
+
+      expect(anchor).to.have.attribute('target', '_blank');
+      expect(el.linkType).to.equal('internal-new-tab');
+      expect(el).to.have.attribute('has-indicator');
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'square-arrow-up-right');
+    });
   });
 
   describe('existing rel and screen reader text', () => {
@@ -135,6 +156,23 @@ describe('sl-link', () => {
     });
 
     it('should force external behavior on internal link', () => {
+      expect(anchor).to.have.attribute('target', '_blank');
+      expect(el).to.have.attribute('has-indicator');
+    });
+  });
+
+  describe('type override to internal-new-tab', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-link type="internal-new-tab">
+          <a href="/internal-page">Force new tab</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+    });
+
+    it('should force internal-new-tab behavior on internal link', () => {
       expect(anchor).to.have.attribute('target', '_blank');
       expect(el).to.have.attribute('has-indicator');
     });
@@ -210,6 +248,42 @@ describe('sl-link', () => {
 
       expect(anchor).not.to.have.attribute('target', '_blank');
       expect(el).not.to.have.attribute('has-indicator');
+    });
+
+    it('should treat same-origin protocol-relative links as internal', async () => {
+      const host = new URL(globalThis.location.href).host;
+
+      el = await fixture(html`
+        <sl-link>
+          <a href=${`//${host}/page`}>Protocol-relative</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+
+      expect(anchor).not.to.have.attribute('target', '_blank');
+      expect(el).not.to.have.attribute('has-indicator');
+    });
+
+    it('should treat cross-origin protocol-relative links as external', async () => {
+      const currentUrl = new URL(globalThis.location.href);
+      const externalHost = `alt-${currentUrl.hostname}`;
+      const protocolRelativeUrl = `//${externalHost}${currentUrl.port ? `:${currentUrl.port}` : ''}/page`;
+
+      expect(new URL(`${currentUrl.protocol}${protocolRelativeUrl}`).origin).not.to.equal(
+        currentUrl.origin
+      );
+
+      el = await fixture(html`
+        <sl-link>
+          <a href=${protocolRelativeUrl}>Protocol-relative external</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+
+      expect(anchor).to.have.attribute('target', '_blank');
+      expect(el).to.have.attribute('has-indicator');
     });
   });
 
@@ -289,6 +363,36 @@ describe('sl-link', () => {
 
       expect(anchor).to.have.attribute('target', '_blank');
       expect(el).to.have.attribute('has-indicator');
+    });
+
+    it('should remove injected target when type changes back to internal', async () => {
+      el.type = 'external';
+      await el.updateComplete;
+
+      el.type = 'internal';
+      await el.updateComplete;
+
+      expect(anchor).not.to.have.attribute('target');
+      expect(el).not.to.have.attribute('has-indicator');
+    });
+
+    it('should restore a consumer-supplied target when type changes back to internal', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page" target="_self">Link</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+
+      el.type = 'external';
+      await el.updateComplete;
+
+      el.type = 'internal';
+      await el.updateComplete;
+
+      expect(anchor).to.have.attribute('target', '_self');
+      expect(el).not.to.have.attribute('has-indicator');
     });
   });
 
@@ -468,6 +572,60 @@ describe('sl-link', () => {
       await el.updateComplete;
 
       expect(clickCount).to.equal(1);
+    });
+
+    it('should emit only one bubbled click and preserve modifiers for host-originated clicks', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <sl-link>
+            <a href="/page">Link</a>
+          </sl-link>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-link')!;
+
+      const clicks: MouseEvent[] = [];
+      wrapper.addEventListener('click', event => {
+        event.preventDefault();
+        clicks.push(event as MouseEvent);
+      });
+
+      el.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, cancelable: true, composed: true, ctrlKey: true })
+      );
+      await el.updateComplete;
+
+      expect(clicks).to.have.lengthOf(1);
+      expect(clicks[0].ctrlKey).to.be.true;
+    });
+
+    it('should emit only one bubbled click and preserve modifiers for shadow icon clicks', async () => {
+      const wrapper = await fixture(html`
+        <div>
+          <sl-link>
+            <a href="/page">Link</a>
+          </sl-link>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-link')!;
+
+      const icon = el.renderRoot.querySelector('sl-icon')!;
+      const clicks: MouseEvent[] = [];
+
+      wrapper.addEventListener('click', event => {
+        event.preventDefault();
+        clicks.push(event as MouseEvent);
+      });
+
+      icon.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, cancelable: true, composed: true, metaKey: true })
+      );
+      await el.updateComplete;
+
+      expect(clicks).to.have.lengthOf(1);
+      expect(clicks[0].metaKey).to.be.true;
     });
   });
 

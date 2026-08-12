@@ -126,7 +126,7 @@
   border-start-start-radius: inherit;
   display: inline-grid;
   flex-grow: 1;
-  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
+  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default)) var(--sl-size-100);
 
   > div {
     align-items: center;

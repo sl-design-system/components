@@ -6,6 +6,7 @@ import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
+import '@sl-design-system/number-field/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
@@ -241,6 +242,15 @@ export const All: Story = {
         <sl-time-field name="timeField" required></sl-time-field>
       </sl-form-field>
 
+      <sl-form-field hint="Hint text" label="Number field">
+        <sl-number-field
+          name="numberField"
+          placeholder="123"
+          required
+          style="max-inline-size: 10rem;"
+          step-buttons="end"></sl-number-field>
+      </sl-form-field>
+
       <sl-form-field hint="Hint text" label="Text area">
         <sl-text-area
           ?disabled=${disabled}
@@ -337,10 +347,15 @@ export const AllValid: Story = {
     reportValidity: true,
     reset: true,
     value: {
+      checkbox: 'checked',
+      checkboxGroup: ['1'],
       comboboxSingle: 'Option 2',
       comboboxMultiple: ['Option 1', 'Option 2'],
       dateField: new Date(),
+      numberField: '123',
+      radioGroup: '2',
       select: '2',
+      textArea: 'Text area',
       textField: 'Text field',
       timeField: '12:00'
     }
@@ -365,6 +380,16 @@ export const AllLarge: Story = {
 
       <sl-form-field hint="Hint text" label="Time field">
         <sl-time-field name="timeField" required size="lg"></sl-time-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Number field">
+        <sl-number-field
+          name="numberField"
+          placeholder="123"
+          required
+          style="max-inline-size: 10rem;"
+          step-buttons="end"
+          size="lg"></sl-number-field>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Text area">
@@ -468,6 +493,16 @@ export const AllPill: Story = {
         <sl-time-field name="timeField" required shape="pill"></sl-time-field>
       </sl-form-field>
 
+      <sl-form-field hint="Hint text" label="Number field">
+        <sl-number-field
+          name="numberField"
+          placeholder="123"
+          required
+          shape="pill"
+          style="max-inline-size: 10rem;"
+          step-buttons="end"></sl-number-field>
+      </sl-form-field>
+
       <sl-form-field hint="Hint text" label="Combobox single">
         <sl-combobox
           ?disabled=${disabled}
@@ -536,6 +571,17 @@ export const AllPillLarge: Story = {
 
       <sl-form-field hint="Hint text" label="Time field">
         <sl-time-field name="timeField" required shape="pill" size="lg"></sl-time-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Number field">
+        <sl-number-field
+          name="numberField"
+          placeholder="123"
+          required
+          shape="pill"
+          style="max-inline-size: 10rem;"
+          step-buttons="end"
+          size="lg"></sl-number-field>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Combobox single">

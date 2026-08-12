@@ -1,6 +1,6 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, type ListDataSourceGroupItem } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
 import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
@@ -864,9 +864,15 @@ describe('sl-grid', () => {
         ],
         { groupBy: 'group' }
       );
+      const groupHeaderRenderer = (item: ListDataSourceGroupItem<Person>) => {
+        return html`
+          <span slot="group-heading">${item.label}</span>
+          <button type="button">Add</button>
+        `;
+      };
 
       el = await fixture(html`
-        <sl-grid .dataSource=${dataSource}>
+        <sl-grid .dataSource=${dataSource} .groupHeaderRenderer=${groupHeaderRenderer}>
           <sl-grid-column path="firstName" sticky width="100"></sl-grid-column>
           <sl-grid-column path="lastName" sticky width="100"></sl-grid-column>
           <sl-grid-column path="email"></sl-grid-column>

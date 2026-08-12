@@ -303,8 +303,13 @@ export const StickyColumnsWithCustomGroupHeader: Story = {
         .dataSource=${dataSource}
         .groupHeaderRenderer=${groupHeaderRenderer}
         .scopedElements=${{ 'sl-button': Button }}>
-        <sl-grid-column grow="0" header="Nr." path="studentNumber" sticky></sl-grid-column>
-        <sl-grid-column path="group.name" sticky></sl-grid-column>
+        <sl-grid-column
+          grow="0"
+          header="Nr."
+          path="studentNumber"
+          sticky
+          width="120"></sl-grid-column>
+        <sl-grid-column grow="0" path="group.name" sticky width="220"></sl-grid-column>
         <sl-grid-column
           grow="3"
           header="Student"

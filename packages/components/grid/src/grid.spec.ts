@@ -872,25 +872,46 @@ describe('sl-grid', () => {
       };
 
       el = await fixture(html`
-        <sl-grid .dataSource=${dataSource} .groupHeaderRenderer=${groupHeaderRenderer}>
+        <sl-grid
+          style="inline-size: 250px;"
+          .dataSource=${dataSource}
+          .groupHeaderRenderer=${groupHeaderRenderer}>
           <sl-grid-column path="firstName" sticky width="100"></sl-grid-column>
           <sl-grid-column path="lastName" sticky width="100"></sl-grid-column>
-          <sl-grid-column path="email"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
         </sl-grid>
       `);
 
       await waitForGridToRenderData(el);
       await el.updateComplete;
 
+      const groupCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr[part~="group"] td[part~="group-header"]'
+        ),
+        tbody = el.renderRoot.querySelector<HTMLTableSectionElement>('tbody')!,
+        stickyCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr:not([part~="group"]) td.sticky-start-first'
+        );
       const groupHeader = el.renderRoot.querySelector<HTMLElement>(
         'tbody tr[part~="group"] sl-grid-group-header'
       );
 
+      tbody.scrollLeft = 150;
+      tbody.dispatchEvent(new Event('scroll'));
+
       expect(groupHeader).to.exist;
+      expect(groupCell).to.exist;
+      expect(stickyCell).to.exist;
       expect(groupHeader?.classList.contains('sticky-start-last')).to.be.true;
       expect(groupHeader?.style.position).to.equal('sticky');
       expect(groupHeader?.style.insetInlineStart).to.equal('0px');
       expect(groupHeader?.style.inlineSize).to.equal('200px');
+      expect(groupCell!.getBoundingClientRect().width).to.be.greaterThan(
+        tbody.getBoundingClientRect().width
+      );
+      expect(Math.round(groupHeader!.getBoundingClientRect().left)).to.equal(
+        Math.round(stickyCell!.getBoundingClientRect().left)
+      );
     });
   });
 });

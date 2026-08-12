@@ -134,7 +134,7 @@
     z-index: 2; // Make sure we are above the <thead> element
   }
 
-  :is(td, th).sticky-start-last {
+  :is(td, th, sl-grid-group-header).sticky-start-last {
     overflow: visible clip;
 
     &::after {

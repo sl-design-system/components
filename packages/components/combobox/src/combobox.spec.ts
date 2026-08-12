@@ -1298,6 +1298,13 @@ describe('sl-combobox', () => {
           `+${selectedTags.length - visibleSelectedTags.length}`
         );
         expect(visibleSelectedTags.length).to.be.greaterThan(0);
+
+        const inputRect = input.getBoundingClientRect(),
+          lastVisibleTagRect = visibleSelectedTags.at(-1)!.getBoundingClientRect(),
+          gap = inputRect.left - lastVisibleTagRect.right;
+
+        expect(gap).to.be.at.least(0);
+        expect(gap).to.be.lessThan(16);
       });
 
       it('should not flicker when selecting many items in a limited space', async () => {

@@ -2094,6 +2094,17 @@ describe('sl-combobox', () => {
         expect(el.valid).to.be.false;
       });
 
+      it('should pass invalid show-validity to the text field when reported', async () => {
+        el.reportValidity();
+        await el.updateComplete;
+
+        expect(el).to.have.attribute('show-validity', 'invalid');
+        expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute(
+          'show-validity',
+          'invalid'
+        );
+      });
+
       it('should be invalid when it has a placeholder', async () => {
         el.placeholder = 'Placeholder';
         await el.updateComplete;

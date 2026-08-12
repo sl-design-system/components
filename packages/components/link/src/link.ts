@@ -60,6 +60,9 @@ export class Link extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Internal state management for CSS custom states. */
+  #internals = this.attachInternals();
+
   /** Observe changes to slotted anchor attributes. */
   #observer = new MutationObserver(() => this.#syncAnchor());
 
@@ -148,7 +151,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('iconPosition') || changes.has('noIcon')) {
-      this.#syncIndicatorStartAttribute();
+      this.#syncReversedState();
     }
   }
 
@@ -222,10 +225,14 @@ export class Link extends ScopedElementsMixin(LitElement) {
     this.#syncAnchor();
   };
 
-  #syncIndicatorStartAttribute(): void {
+  #syncReversedState(): void {
     const hasInternalStartIndicator = !this.noIcon && this.#indicatorIcon === 'arrow-left';
 
-    this.toggleAttribute('data-sl-internal-icon-start', hasInternalStartIndicator);
+    if (hasInternalStartIndicator) {
+      this.#internals.states.add('reversed');
+    } else {
+      this.#internals.states.delete('reversed');
+    }
   }
 
   #syncAnchor(): void {
@@ -233,7 +240,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
 
     if (!anchor) {
       this.toggleAttribute('has-indicator', false);
-      this.#syncIndicatorStartAttribute();
+      this.#syncReversedState();
 
       return;
     }
@@ -271,7 +278,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
     }
 
     this.toggleAttribute('has-indicator', opensInNewTab);
-    this.#syncIndicatorStartAttribute();
+    this.#syncReversedState();
 
     // Re-observe after making all changes
     this.#observeAnchor(anchor);

@@ -392,28 +392,28 @@ describe('sl-link', () => {
     });
   });
 
-  describe('internal start indicator attribute', () => {
-    it('should set data-sl-internal-icon-start for internal start icon position', async () => {
+  describe('reversed state', () => {
+    it('should set the reversed state for internal start icon position', async () => {
       el = await fixture(html`
         <sl-link icon-position="start">
           <a href="/page">Link</a>
         </sl-link>
       `);
 
-      expect(el).to.have.attribute('data-sl-internal-icon-start');
+      expect(el).to.match(':state(reversed)');
     });
 
-    it('should not set data-sl-internal-icon-start for external links', async () => {
+    it('should not set the reversed state for external links', async () => {
       el = await fixture(html`
         <sl-link icon-position="start">
           <a href="https://example.com">External</a>
         </sl-link>
       `);
 
-      expect(el).not.to.have.attribute('data-sl-internal-icon-start');
+      expect(el).not.to.match(':state(reversed)');
     });
 
-    it('should remove data-sl-internal-icon-start when no-icon is enabled', async () => {
+    it('should remove the reversed state when no-icon is enabled', async () => {
       el = await fixture(html`
         <sl-link icon-position="start">
           <a href="/page">Link</a>
@@ -423,7 +423,7 @@ describe('sl-link', () => {
       el.noIcon = true;
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('data-sl-internal-icon-start');
+      expect(el).not.to.match(':state(reversed)');
     });
   });
 

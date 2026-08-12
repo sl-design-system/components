@@ -37,7 +37,7 @@
   text-decoration: none !important;
 }
 
-:host([data-sl-internal-icon-start]) {
+:host(:state(reversed)) {
   flex-direction: row-reverse;
 }
 

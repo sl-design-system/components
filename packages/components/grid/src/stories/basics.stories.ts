@@ -112,7 +112,7 @@ export const EllipsizeTextWithCustomContent: Story = {
     const files: ResourceFile[] = [
       {
         empty: null,
-        name: 'Leerdolenoverzicht Of Course havo-vwo bovenbouw very very long filename.pdf',
+        name: 'Some name which has extremely long and very very long filename.pdf',
         type: 'pdf'
       },
       {

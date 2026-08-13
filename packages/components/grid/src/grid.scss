@@ -134,7 +134,7 @@
     z-index: 2; // Make sure we are above the <thead> element
   }
 
-  :is(td, th, sl-grid-group-header).sticky-start-last {
+  :is(td, th).sticky-start-last {
     overflow: visible clip;
 
     &::after {
@@ -145,6 +145,15 @@
       position: absolute;
       z-index: 1;
     }
+  }
+
+  sl-grid-group-header.sticky-start-last::after {
+    background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
+    content: '';
+    inline-size: 1rem;
+    inset: 0 -1rem 0 auto;
+    position: absolute;
+    z-index: 1;
   }
 
   td.sticky-start-last {
@@ -313,7 +322,7 @@ tbody {
     }
   }
 
-  tr:last-of-type td {
+  tr:last-of-type:not([part~='group']) td {
     // Hide the bottom border of the last row; tbody already has a bottom border
     border-block-end: none;
   }

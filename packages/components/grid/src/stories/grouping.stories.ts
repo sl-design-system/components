@@ -314,13 +314,14 @@ export const StickyColumnsWithCustomGroupHeader: Story = {
           grow="3"
           header="Student"
           path="fullName"
+          width="260"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
-        <sl-grid-column path="email"></sl-grid-column>
-        <sl-grid-column path="school.name"></sl-grid-column>
-        <sl-grid-column path="school.address"></sl-grid-column>
-        <sl-grid-column path="school.city"></sl-grid-column>
-        <sl-grid-column path="school.country"></sl-grid-column>
+        <sl-grid-column path="email" width="260"></sl-grid-column>
+        <sl-grid-column path="school.name" width="260"></sl-grid-column>
+        <sl-grid-column path="school.address" width="240"></sl-grid-column>
+        <sl-grid-column path="school.city" width="160"></sl-grid-column>
+        <sl-grid-column path="school.country" width="160"></sl-grid-column>
       </sl-grid>
     `;
   }

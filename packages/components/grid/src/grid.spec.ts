@@ -859,15 +859,15 @@ describe('sl-grid', () => {
     it('should make the group header follow the sticky start columns', async () => {
       const dataSource = new ArrayListDataSource(
         [
-          { firstName: 'John', lastName: 'Doe', group: 'A' },
-          { firstName: 'Jane', lastName: 'Smith', group: 'A' }
+          { firstName: 'John', lastName: 'Doe', group: 'Netherlands' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'Netherlands' }
         ],
         { groupBy: 'group' }
       );
       const groupHeaderRenderer = (item: ListDataSourceGroupItem<Person>) => {
         return html`
-          <span slot="group-heading">${item.label}</span>
-          <button type="button">Add</button>
+          <span slot="group-heading">${item.label} (${item.count})</span>
+          <button type="button">Add student</button>
         `;
       };
 
@@ -876,8 +876,8 @@ describe('sl-grid', () => {
           style="inline-size: 250px;"
           .dataSource=${dataSource}
           .groupHeaderRenderer=${groupHeaderRenderer}>
-          <sl-grid-column path="firstName" sticky width="100"></sl-grid-column>
-          <sl-grid-column path="lastName" sticky width="100"></sl-grid-column>
+          <sl-grid-column path="firstName" sticky width="120"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="220"></sl-grid-column>
           <sl-grid-column path="email" width="300"></sl-grid-column>
         </sl-grid>
       `);
@@ -905,13 +905,48 @@ describe('sl-grid', () => {
       expect(groupHeader?.classList.contains('sticky-start-last')).to.be.true;
       expect(groupHeader?.style.position).to.equal('sticky');
       expect(groupHeader?.style.insetInlineStart).to.equal('0px');
-      expect(groupHeader?.style.inlineSize).to.equal('200px');
+      expect(groupHeader?.style.inlineSize).to.equal('340px');
+      expect(getComputedStyle(groupHeader!).overflowX).to.equal('visible');
       expect(groupCell!.getBoundingClientRect().width).to.be.greaterThan(
         tbody.getBoundingClientRect().width
       );
       expect(Math.round(groupHeader!.getBoundingClientRect().left)).to.equal(
         Math.round(stickyCell!.getBoundingClientRect().left)
       );
+    });
+
+    it('should keep the last collapsed group row the same height as the other group rows', async () => {
+      const dataSource = new ArrayListDataSource(
+        [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'B' }
+        ],
+        { groupBy: 'group' }
+      );
+
+      dataSource.collapseGroup('A');
+      dataSource.collapseGroup('B');
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" sticky width="100"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="100"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupRows = Array.from(
+        el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="group"]')
+      );
+
+      expect(groupRows).to.have.lengthOf(2);
+      expect(groupRows.map(row => row.getBoundingClientRect().height)).to.deep.equal([
+        groupRows[0].getBoundingClientRect().height,
+        groupRows[0].getBoundingClientRect().height
+      ]);
     });
   });
 });

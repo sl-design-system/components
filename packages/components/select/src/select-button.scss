@@ -48,6 +48,8 @@
 }
 
 :host([shape='pill'][size='lg']) {
+  padding-inline-end: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+
   .wrapper {
     padding-inline-start: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
   }

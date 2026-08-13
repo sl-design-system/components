@@ -45,6 +45,10 @@ sl-text-field {
   }
 }
 
+:host([shape='pill']) sl-text-field {
+  padding-inline-end: var(--sl-size-050);
+}
+
 sl-tag-list {
   flex: 0 1 auto;
   max-inline-size: 66%;

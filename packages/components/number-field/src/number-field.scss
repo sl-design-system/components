@@ -15,6 +15,12 @@
   }
 }
 
+/* Keep number-field pill layout independent from text-field's pill inline-end padding. */
+:host([shape='pill']:not([size='lg'])),
+:host([shape='pill'][size='lg']) {
+  padding-inline-end: 0;
+}
+
 :host([step-buttons='edges'][shape='pill']:not([size='lg'])) {
   .minus {
     padding-inline-start: var(--sl-size-150);
@@ -35,24 +41,53 @@
   }
 }
 
-/* Override TextField's pill start padding so the left edge button sits flush. */
 :host([step-buttons='edges'][shape='pill']) {
   padding-inline-start: 0;
 }
 
 :host([step-buttons='end']) {
   .plus {
-    padding-inline-end: var(--sl-size-150);
+    padding-inline-end: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+  }
+}
+
+:host(:hover:not(:focus-within)) sl-field-button:not(:hover) {
+  background: var(--sl-color-background-input-plain);
+}
+
+:host([size='lg']:not([shape='pill'])) {
+  sl-field-button {
+    padding: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+  }
+}
+
+:host([size='lg'][shape='pill']) {
+  sl-field-button {
+    padding: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default))
+      calc(var(--sl-size-200) + var(--sl-size-025) - var(--sl-size-borderWidth-default));
+  }
+}
+
+:host([size='lg'][step-buttons='end'][shape='pill']) {
+  .plus {
+    padding-inline-end: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+  }
+}
+
+:host([step-buttons='edges']:not([shape='pill'])) {
+  sl-field-button {
+    padding: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
+  }
+}
+
+:host([step-buttons='end']:not([shape='pill'], [size='lg'])) {
+  sl-field-button {
+    padding: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
   }
 }
 
 ::slotted(input) {
   text-overflow: ellipsis;
-}
-
-/* Keep non-hovered step buttons plain on field hover, but allow hovered button state to show. */
-:host(:hover:not(:focus-within)) sl-field-button:not(:hover) {
-  background: var(--sl-color-background-input-plain);
 }
 
 .step-buttons {
@@ -74,29 +109,6 @@
 sl-field-button {
   aspect-ratio: auto;
   inline-size: auto;
-  padding: var(--sl-size-125);
-}
-
-:host([size='lg']) {
-  sl-field-button {
-    padding: var(--sl-size-200);
-  }
-}
-
-:host([size='lg'][step-buttons='end'][shape='pill']) {
-  .plus {
-    padding-inline-end: calc(var(--sl-size-200) + var(--sl-size-025));
-  }
-}
-
-:host([size='lg'][step-buttons='end']:not([shape='pill'])) {
-  .plus {
-    padding-inline-end: var(--sl-size-200);
-  }
-}
-
-:host([step-buttons='end']:not([shape='pill'], [size='lg'])) {
-  .plus {
-    padding-inline-end: var(--sl-size-125);
-  }
+  padding: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default))
+    calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
 }

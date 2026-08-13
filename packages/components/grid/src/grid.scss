@@ -307,6 +307,7 @@ tbody {
     border-block-end: 0;
     border-end-end-radius: 0;
     border-end-start-radius: 0;
+    min-block-size: calc(var(--sl-grid-tbody-min-height, 0px) + var(--sl-size-150));
   }
 
   &.drop-target {

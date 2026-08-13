@@ -948,5 +948,37 @@ describe('sl-grid', () => {
         groupRows[0].getBoundingClientRect().height
       ]);
     });
+
+    it('should keep the sticky horizontal scrollbar below the last row', async () => {
+      const dataSource = new ArrayListDataSource(
+        [{ firstName: 'John', lastName: 'Doe', group: 'A' }],
+        { groupBy: 'group' }
+      );
+      dataSource.collapseGroup('A');
+
+      el = await fixture(html`
+        <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" width="200"></sl-grid-column>
+          <sl-grid-column path="lastName" width="200"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const tbody = el.renderRoot.querySelector<HTMLTableSectionElement>('tbody')!,
+        tfoot = el.renderRoot.querySelector<HTMLTableSectionElement>('tfoot'),
+        row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr[part~="group"]');
+
+      expect(tfoot).to.exist;
+      expect(row).to.exist;
+      expect(parseFloat(getComputedStyle(tbody).minBlockSize)).to.be.closeTo(
+        row!.getBoundingClientRect().height + 12,
+        1
+      );
+      expect(
+        tfoot!.getBoundingClientRect().top - row!.getBoundingClientRect().bottom
+      ).to.be.closeTo(12, 1);
+    });
   });
 });

@@ -93,8 +93,9 @@ export class ToggleGroup extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // https://twitter.com/LeonieWatson/status/1545788775644667904
-    this.setAttribute('role', 'region');
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'group');
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {

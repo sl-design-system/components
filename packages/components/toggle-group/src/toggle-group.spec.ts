@@ -51,6 +51,16 @@ describe('sl-toggle-group', () => {
       expect(el.size).to.be.undefined;
     });
 
+    it('should have group semantics', () => {
+      expect(el).to.have.attribute('role', 'group');
+    });
+
+    it('should not override an explicit role', async () => {
+      el = await fixture(html`<sl-toggle-group role="toolbar"></sl-toggle-group>`);
+
+      expect(el).to.have.attribute('role', 'toolbar');
+    });
+
     it('should propagate disabled to the buttons', async () => {
       const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
 

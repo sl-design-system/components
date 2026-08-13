@@ -52,13 +52,25 @@ describe('sl-toggle-group', () => {
     });
 
     it('should have group semantics', () => {
-      expect(el).to.have.attribute('role', 'group');
+      expect(el).not.to.have.attribute('role');
+      expect(el.internals.role).to.equal('group');
     });
 
     it('should not override an explicit role', async () => {
       el = await fixture(html`<sl-toggle-group role="toolbar"></sl-toggle-group>`);
 
       expect(el).to.have.attribute('role', 'toolbar');
+      expect(el.internals.role).to.equal('group');
+    });
+
+    it('should restore the default semantics when an explicit role is removed', async () => {
+      el = await fixture(html`<sl-toggle-group role="toolbar"></sl-toggle-group>`);
+
+      el.removeAttribute('role');
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('role');
+      expect(el.internals.role).to.equal('group');
     });
 
     it('should propagate disabled to the buttons', async () => {

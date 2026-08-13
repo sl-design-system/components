@@ -928,7 +928,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.internals.states.add('has-focus');
 
     // Workaround for WebKit changing the selection on focus.
-    requestAnimationFrame(() => this.#selectContent(span));
+    this.#selectContentOnNextFrame(span);
   }
 
   #onPartKeydown(event: KeyboardEvent, partType: TimePartType): void {
@@ -982,7 +982,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.#enteredDigits = 0;
         this.#moveFocus(span, 1);
       } else {
-        requestAnimationFrame(() => this.#selectContent(span));
+        this.#selectContentOnNextFrame(span);
       }
 
       this.#trySetValue(true);
@@ -1100,6 +1100,19 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
       });
     }
+  }
+
+  /**
+   * Selects the content of the given part on the next frame, but only if it still has focus by
+   * then. Selecting the content of a contenteditable moves focus into it, so doing this after focus
+   * has already moved on (by tabbing to the field button, for example) would steal it back.
+   */
+  #selectContentOnNextFrame(span: HTMLElement): void {
+    requestAnimationFrame(() => {
+      if (this.shadowRoot?.activeElement === span) {
+        this.#selectContent(span);
+      }
+    });
   }
 
   #selectContent(span: HTMLElement): void {

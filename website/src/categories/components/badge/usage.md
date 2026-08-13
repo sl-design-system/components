@@ -74,7 +74,7 @@ Understanding when to use subtle and bold emphasis for badge components is cruci
 <section class="ds-cards">
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-1" size="sm"></sl-icon>
       <sl-badge size="lg" variant="accent">Subtle</sl-badge>
     </div>
     <figcaption>
@@ -86,7 +86,7 @@ Use subtle emphasis when the information conveyed by the badge is important but 
   </figure>
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-2" size="sm"></sl-icon>
       <sl-badge emphasis="bold" size="lg" variant="accent">Bold</sl-badge>
     </div>
     <figcaption>
@@ -124,3 +124,5 @@ With these options, you can tweak the appearance of the badge in Figma. They are
 </div>
 
 </section>
+
+<sl-tooltip for="interactive-example-1 interactive-example-2" type="description">Interactive example</sl-tooltip>

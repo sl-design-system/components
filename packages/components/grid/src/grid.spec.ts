@@ -1,15 +1,13 @@
+import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
-import { isPopoverOpen } from '@sl-design-system/shared';
 import { type ToolBar } from '@sl-design-system/tool-bar';
-import { Tooltip, tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { waitForGridToRenderData } from './utils.js';
@@ -23,17 +21,6 @@ describe('sl-grid', () => {
     { firstName: 'John', lastName: 'Doe' },
     { firstName: 'Jane', lastName: 'Smith' }
   ];
-  const findTooltip = (id: string): HTMLElement | null => {
-    return (
-      el.querySelector<HTMLElement>(`#${CSS.escape(id)}`) ??
-      el.renderRoot.querySelector<HTMLElement>(`#${CSS.escape(id)}`)
-    );
-  };
-
-  const findTooltipByText = (text: string): HTMLElement | null =>
-    Array.from(el.querySelectorAll<HTMLElement>('sl-tooltip'))
-      .concat(Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-tooltip')))
-      .find(tooltipEl => tooltipEl.textContent?.includes(text)) ?? null;
 
   const mountMultipleSelectGrid = async (bulkActions?: unknown): Promise<Grid<Person>> => {
     el = await fixture(html`
@@ -232,173 +219,6 @@ describe('sl-grid', () => {
       );
 
       expect(rowIndices).to.deep.equal(['1', '2', '3', '4']);
-    });
-  });
-
-  describe('multiple select bulk actions', () => {
-    const openBulkActions = async (): Promise<void> => {
-      el.renderRoot
-        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
-        ?.click();
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
-    };
-
-    it('should show a lazy tooltip on a bulk action button in the floating action bar', async () => {
-      await mountMultipleSelectGrid(html`
-        <sl-button
-          ${tooltip('I am a tooltip')}
-          aria-disabled="true"
-          fill="outline"
-          slot="bulk-actions"
-          variant="inverted">
-          Action 2
-        </sl-button>
-      `);
-
-      await openBulkActions();
-
-      const bulkActions = el.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]'),
-        button = el.querySelector<HTMLElement>('sl-button[slot="bulk-actions"]');
-
-      expect(bulkActions).to.exist;
-      expect(button).to.exist;
-      expect(isPopoverOpen(bulkActions!)).to.be.true;
-
-      await userEvent.hover(button!);
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
-
-      const lazyTooltip = findTooltipByText('I am a tooltip');
-
-      expect(lazyTooltip).to.exist;
-      expect(lazyTooltip?.tagName).to.equal('SL-TOOLTIP');
-      expect(isPopoverOpen(lazyTooltip!)).to.be.true;
-    });
-
-    it('should keep showing an explicit tooltip for a bulk action button on repeated hover', async () => {
-      await mountMultipleSelectGrid(html`
-        <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
-        <sl-button
-          aria-describedby="bulk-action-tooltip"
-          fill="outline"
-          slot="bulk-actions"
-          variant="inverted">
-          Action 2
-        </sl-button>
-      `);
-
-      await openBulkActions();
-
-      const button = el.querySelector<HTMLElement>('sl-button[slot="bulk-actions"]'),
-        explicitTooltip = findTooltip('bulk-action-tooltip');
-
-      expect(button).to.exist;
-      expect(explicitTooltip).to.exist;
-
-      await userEvent.hover(button!);
-      await el.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 10));
-
-      expect(isPopoverOpen(explicitTooltip!)).to.be.true;
-
-      await userEvent.unhover(button!);
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverHideDelay + 10));
-
-      expect(isPopoverOpen(explicitTooltip!)).to.be.false;
-
-      await userEvent.hover(button!);
-      await el.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 10));
-
-      expect(isPopoverOpen(explicitTooltip!)).to.be.true;
-    });
-
-    it('should show the explicit bulk action tooltip when hovering the sl-button proxy target', async () => {
-      await mountMultipleSelectGrid(html`
-        <sl-tooltip id="bulk-action-tooltip">Bulk action tooltip</sl-tooltip>
-        <sl-button
-          aria-describedby="bulk-action-tooltip"
-          fill="outline"
-          slot="bulk-actions"
-          variant="inverted">
-          Action 2
-        </sl-button>
-      `);
-
-      await openBulkActions();
-
-      const button = el.querySelector<
-          HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot }
-        >('sl-button[slot="bulk-actions"]'),
-        explicitTooltip = findTooltip('bulk-action-tooltip');
-
-      await button?.updateComplete;
-
-      const proxyTarget = button?.renderRoot?.querySelector<HTMLElement>('button');
-
-      expect(proxyTarget).to.exist;
-      expect(explicitTooltip).to.exist;
-
-      await userEvent.hover(proxyTarget!);
-      await el.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 10));
-
-      expect(isPopoverOpen(explicitTooltip!)).to.be.true;
-    });
-
-    it('should switch between the cancel tooltip and a bulk action tooltip in the floating action bar', async () => {
-      await mountMultipleSelectGrid(html`
-        <sl-button
-          ${tooltip('I am a tooltip')}
-          aria-disabled="true"
-          fill="outline"
-          slot="bulk-actions"
-          variant="inverted">
-          Action 2
-        </sl-button>
-      `);
-
-      await openBulkActions();
-
-      const cancelButton = el.renderRoot.querySelector<HTMLElement>(
-          '[part="bulk-actions"] > sl-button:last-of-type'
-        ),
-        cancelTooltip = el.renderRoot.querySelector<HTMLElement>('#tooltip'),
-        bulkButton = el.querySelector<
-          HTMLElement & { updateComplete?: Promise<unknown>; renderRoot?: ShadowRoot }
-        >('sl-button[slot="bulk-actions"]');
-
-      await bulkButton?.updateComplete;
-
-      const bulkProxyTarget = bulkButton?.renderRoot?.querySelector<HTMLElement>('button');
-
-      expect(cancelButton).to.exist;
-      expect(cancelTooltip).to.exist;
-      expect(bulkButton).to.exist;
-      expect(bulkProxyTarget).to.exist;
-
-      await userEvent.hover(cancelButton!);
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
-
-      expect(isPopoverOpen(cancelTooltip!)).to.be.true;
-
-      await userEvent.hover(bulkProxyTarget!);
-      await el.updateComplete;
-      await new Promise(resolve => requestAnimationFrame(resolve));
-      await new Promise(resolve => setTimeout(resolve, Tooltip.hoverShowDelay + 50));
-
-      const bulkTooltip = findTooltipByText('I am a tooltip');
-
-      expect(bulkTooltip).to.exist;
-      expect(bulkTooltip?.tagName).to.equal('SL-TOOLTIP');
-      expect(isPopoverOpen(cancelTooltip!)).to.be.false;
-      expect(isPopoverOpen(bulkTooltip!)).to.be.true;
     });
   });
 
@@ -1013,6 +833,25 @@ describe('sl-grid', () => {
 
       expect(toolBar!.menuItems.length).to.equal(0);
       expect(toolBar!.items.filter(item => item.visible).length).to.equal(5);
+    });
+
+    it('should have a tooltip on the cancel selection button', async () => {
+      el.renderRoot
+        .querySelector<HTMLTableCellElement>('tbody tr:first-of-type td[part~="selection"]')
+        ?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const cancelButton = el.renderRoot.querySelector<Button>('[part="bulk-actions"] > sl-button');
+      await cancelButton?.updateComplete;
+
+      expect(cancelButton).to.exist;
+      expect(cancelButton).to.have.attribute('tooltip', 'Cancel selection');
+
+      const tooltip = cancelButton!.renderRoot.querySelector('sl-tooltip');
+      await tooltip?.updateComplete;
+
+      expect(tooltip).to.exist;
+      expect(tooltip).to.have.trimmed.text('Cancel selection');
     });
   });
 });

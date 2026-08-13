@@ -78,9 +78,16 @@ export function ForwardAriaMixin<
   // methods and the defineProperty interceptors (which can't access #private fields).
   const targetElements = new WeakMap<ForwardAriaImpl, HTMLElement>(),
     propertyStorage = new WeakMap<ForwardAriaImpl, Map<string, Element[] | Element | null>>(),
-    ariaDisabledStorage = new WeakMap<ForwardAriaImpl, string | null>();
+    ariaDisabledStorage = new WeakMap<ForwardAriaImpl, string | null>(),
+    // Tracks which elements each attribute forward contributed to the target's element
+    // reference properties, so a re-forward or removal only replaces our own references
+    // and leaves references added by others (e.g. a tooltip registering itself) intact.
+    forwardedElementsStorage = new WeakMap<ForwardAriaImpl, Map<string, Element[]>>();
 
   class ForwardAriaImpl extends constructor {
+    /** Set while `#forwardAttributes()` cleans up the host attribute it just forwarded. */
+    #forwarding = false;
+
     #observer?: MutationObserver;
     #pendingAttributes = new Set<string>();
 
@@ -97,10 +104,18 @@ export function ForwardAriaMixin<
     setProxyTarget(target: HTMLElement): void {
       targetElements.set(this, target);
 
-      // Forward any element reference properties that were set before the target was available
+      // Forward any element reference properties that were set before the target was available.
+      // Empty values are skipped: components may call this again on an already initialized target
+      // (a checkbox re-syncs its input on every change, for example), and replaying "no references"
+      // would clobber references the target set on itself, since assigning null or an empty array
+      // reflects a removed or empty attribute.
       const stored = propertyStorage.get(this);
       if (stored) {
         for (const [prop, value] of stored) {
+          if (value === null || (Array.isArray(value) && value.length === 0)) {
+            continue;
+          }
+
           (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
         }
       }
@@ -164,6 +179,48 @@ export function ForwardAriaMixin<
       }
     }
 
+    override removeAttribute(name: string): void {
+      if (observedAttributes ? observedAttributes.includes(name) : name.startsWith('aria-')) {
+        // Always remove from pending so a queued forward doesn't re-add it.
+        this.#pendingAttributes.delete(name);
+
+        // #forwardAttributes removes the attribute from the host after forwarding it; the proxy
+        // was just set correctly, so leave it alone. Only an external removal should clear the
+        // proxy. The attribute being present on the host cannot be used to tell the two apart:
+        // when the host is observed by MutationObserver, a `setAttribute` followed by a
+        // `removeAttribute` in the same task removes an attribute that was never forwarded, and
+        // the proxy would keep the previously forwarded value.
+        if (!this.#forwarding) {
+          const target = targetElements.get(this);
+          if (target) {
+            if (name === 'aria-disabled') {
+              setAriaDisabled(target, null);
+              ariaDisabledStorage.set(this, null);
+            } else {
+              const elementsProp = ELEMENT_REFERENCES[name];
+              if (elementsProp?.endsWith('Elements')) {
+                const forwarded = forwardedElementsStorage.get(this),
+                  previous = forwarded?.get(elementsProp) ?? [],
+                  current =
+                    (target as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
+                  remaining = current.filter(el => !previous.includes(el));
+
+                (target as unknown as Record<string, Element[] | null>)[elementsProp] =
+                  remaining.length ? remaining : null;
+                forwarded?.delete(elementsProp);
+              } else if (elementsProp) {
+                (target as unknown as Record<string, Element | null>)[elementsProp] = null;
+              } else {
+                target.removeAttribute(name);
+              }
+            }
+          }
+        }
+      }
+
+      super.removeAttribute(name);
+    }
+
     #forwardAttributes(): void {
       const targetElement = targetElements.get(this);
 
@@ -191,7 +248,23 @@ export function ForwardAriaMixin<
             .filter((el): el is HTMLElement => el !== null);
 
           if (elementsProp.endsWith('Elements')) {
-            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = elements;
+            let forwarded = forwardedElementsStorage.get(this);
+            if (!forwarded) {
+              forwarded = new Map();
+              forwardedElementsStorage.set(this, forwarded);
+            }
+
+            const current =
+                (targetElement as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
+              ours = new Set<Element>([...(forwarded.get(elementsProp) ?? []), ...elements]);
+
+            // Keep references added by others, but replace the ones from our previous forward
+            (targetElement as unknown as Record<string, Element[]>)[elementsProp] = [
+              ...current.filter(el => !ours.has(el)),
+              ...elements
+            ];
+
+            forwarded.set(elementsProp, elements);
           } else {
             (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
               elements[0] ?? null;
@@ -200,7 +273,9 @@ export function ForwardAriaMixin<
           targetElement.setAttribute(name, value);
         }
 
+        this.#forwarding = true;
         this.removeAttribute(name);
+        this.#forwarding = false;
       }
 
       this.#pendingAttributes.clear();

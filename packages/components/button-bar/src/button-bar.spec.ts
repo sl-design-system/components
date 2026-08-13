@@ -101,7 +101,7 @@ describe('sl-button-bar', () => {
       `);
 
       // Give the buttons a chance to update
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have the icon-only state', () => {
@@ -123,7 +123,7 @@ describe('sl-button-bar', () => {
       `);
 
       // Give the buttons a chance to update
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should not have the icon-only state', () => {
@@ -143,7 +143,7 @@ describe('sl-button-bar', () => {
       `);
 
       // Give the buttons a chance to update
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should not match :state(icon-only)', () => {
@@ -165,7 +165,7 @@ describe('sl-button-bar', () => {
       `);
 
       // Give the buttons a chance to update
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have the icon-only state', () => {
@@ -188,7 +188,7 @@ describe('sl-button-bar', () => {
       el.appendChild(button);
 
       // Wait for the slot change and update
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).not.to.match(':state(empty)');
     });

@@ -38,7 +38,7 @@ export class ToggleGroup extends LitElement {
       this.renderRoot
         .querySelector('slot')
         ?.assignedElements({ flatten: true })
-        .filter((element): element is ToggleButton => element instanceof ToggleButton) ?? []
+        .filter(element => element instanceof ToggleButton) ?? []
     );
   }
 
@@ -111,14 +111,11 @@ export class ToggleGroup extends LitElement {
 
   #onSlotChange(): void {
     this.#rovingTabindexController.clearElementCache();
-
     this.#updateButtonProperties();
   }
 
   #onToggle(event: SlToggleEvent): void {
-    if (this.multiple) {
-      return;
-    } else if (event.detail) {
+    if (!this.multiple && event.detail) {
       this.#buttons
         .filter(button => button !== event.target)
         .forEach(button => (button.pressed = false));
@@ -130,6 +127,7 @@ export class ToggleGroup extends LitElement {
       if (typeof this.disabled === 'boolean') {
         button.disabled = this.disabled;
       }
+
       button.fill = this.fill;
 
       if (this.size) {

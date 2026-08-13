@@ -431,7 +431,7 @@ td {
       --_body-cell-background-interactive-opacity 0.2s ease-in-out;
   }
 
-  &:has(> :not(sl-ellipsize-text)) {
+  &:has(> :not(sl-ellipsize-text, sl-tooltip)) {
     padding-block: 0;
   }
 }

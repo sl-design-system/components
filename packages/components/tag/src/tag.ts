@@ -37,6 +37,7 @@ export type TagVariant = 'neutral' | 'info';
  *
  * @csspart label - The wrapper around the tag label.
  * @csspart button - The remove button.
+ * @csspart tooltip - The tooltip shown when the content is truncated.
  */
 @localized()
 export class Tag extends ScopedElementsMixin(LitElement) {
@@ -73,8 +74,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** @internal Whether a tooltip should be shown. */
-  @state() tooltip?: boolean;
+  /**
+   * The text to be shown in the tooltip. If the tooltip property isn't set explicitly to a string,
+   * the component itself will automatically determine when to show a tooltip based on the content's
+   * truncation.
+   */
+  @property() tooltip?: boolean | string;
 
   /** @internal The label of the tag component. */
   @state() label = '';
@@ -174,11 +179,18 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         .join(' ');
 
     return html`
-      ${this.tooltip ? html`<sl-tooltip id="tooltip">${this.label}</sl-tooltip>` : nothing}
+      ${this.tooltip
+        ? html`
+            <sl-tooltip for="label" part="tooltip">
+              ${typeof this.tooltip === 'string' ? this.tooltip : this.label}
+            </sl-tooltip>
+          `
+        : nothing}
       <div
         @blur=${this.#onBlur}
         @focus=${this.#onFocus}
         aria-describedby=${ifDefined(labelDescribedBy || undefined)}
+        id="label"
         part="label"
         tabindex=${ifDefined(labelTabIndex)}>
         <slot @slotchange=${this.#onSlotChange}></slot>
@@ -259,6 +271,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
+    // When the tooltip is set explicitly to a string, we always show it and never override it
+    // based on the truncation state of the label.
+    if (typeof this.tooltip === 'string' && this.tooltip !== '') {
+      return;
+    }
+
     const label = this.renderRoot.querySelector('[part="label"]');
 
     this.tooltip = !!(label && label.clientWidth < label.scrollWidth);

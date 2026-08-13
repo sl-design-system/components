@@ -150,13 +150,13 @@ export const All: Story = {
       }
     </style>
     <div class="fill-variants">
-      <div>${iconVariants('outline')}</div>
       <div>${iconVariants('solid')}</div>
+      <div>${iconVariants('outline')}</div>
       <div>${iconVariants('ghost')}</div>
     </div>
     <div class="color-variants">
-      <div>${colorVariants('outline')}</div>
       <div>${colorVariants('solid')}</div>
+      <div>${colorVariants('outline')}</div>
       <div>${colorVariants('ghost')}</div>
     </div>
 
@@ -164,12 +164,12 @@ export const All: Story = {
       class="inverted color-variants"
       style="background-color: var(--sl-color-background-primary-bold); padding: 1rem;">
       <div>
-        <sl-link fill="outline" variant="inverted">
+        <sl-link fill="solid" variant="inverted">
           <a href="/start">Inverted</a>
         </sl-link>
       </div>
       <div>
-        <sl-link fill="solid" variant="inverted">
+        <sl-link fill="outline" variant="inverted">
           <a href="/start">Inverted</a>
         </sl-link>
       </div>

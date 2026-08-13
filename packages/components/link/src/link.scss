@@ -49,6 +49,10 @@
   outline-color: var(--sl-color-border-focused);
 }
 
+:host(:where([variant='inverted']):focus-within) {
+  outline-color: var(--sl-color-border-inverted);
+}
+
 :host(:hover) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
@@ -57,14 +61,15 @@
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
+:host(:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-secondary-bold);
+}
+
 :host([variant='primary']) {
   --_bg-color: var(--sl-color-background-primary-bold);
   --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
-  --_fg-color: var(--sl-color-foreground-primary-bold);
-}
-
-:host(:where([fill='ghost'], [fill='outline'])) {
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-primary-onBold);
 }
 
 :host([variant='primary']:where(:not([fill]), [fill='solid'])) {
@@ -78,12 +83,13 @@
 :host([variant='primary']:where([fill='ghost'], [fill='outline'])) {
   --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-primary-bold);
 }
 
 :host([variant='success']) {
   --_bg-color: var(--sl-color-background-positive-bold);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
-  --_fg-color: var(--sl-color-foreground-positive-bold);
+  --_fg-color: var(--sl-color-foreground-positive-onBold);
 }
 
 :host([variant='success']:where(:not([fill]), [fill='solid'])) {
@@ -96,12 +102,13 @@
 
 :host([variant='success']:where([fill='ghost'], [fill='outline'])) {
   --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-positive-bold);
 }
 
 :host([variant='warning']) {
   --_bg-color: var(--sl-color-background-caution-bold);
   --_bg-mix-color: var(--sl-color-background-caution-interactive-bold);
-  --_fg-color: var(--sl-color-foreground-caution-bold);
+  --_fg-color: var(--sl-color-foreground-caution-onBold);
 }
 
 :host([variant='warning']:where(:not([fill]), [fill='solid'])) {
@@ -114,6 +121,7 @@
 
 :host([variant='warning']:where([fill='ghost'], [fill='outline'])) {
   --_bg-mix-color: var(--sl-color-background-caution-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-caution-bold);
 }
 
 :host([variant='danger']) {
@@ -132,15 +140,12 @@
 
 :host([variant='danger']:where([fill='ghost'], [fill='outline'])) {
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-negative-bold);
 }
 
 :host([variant='info']) {
   --_bg-color: var(--sl-color-background-info-bold);
   --_bg-mix-color: var(--sl-color-background-info-interactive-bold);
-  --_fg-color: var(--sl-color-foreground-info-bold);
-}
-
-:host([variant='info']:where(:not([fill]), [fill='solid'])) {
   --_fg-color: var(--sl-color-foreground-info-onBold);
 }
 
@@ -150,12 +155,13 @@
 
 :host([variant='info']:where([fill='ghost'], [fill='outline'])) {
   --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-info-bold);
 }
 
 :host([variant='inverted']) {
   --_bg-color: var(--sl-color-background-inverted-bold);
   --_bg-mix-color: var(--sl-color-background-inverted-interactive-bold);
-  --_fg-color: var(--sl-color-foreground-inverted-bold);
+  --_fg-color: var(--sl-color-foreground-inverted-onBold);
 }
 
 :host([variant='inverted']:where(:not([fill]), [fill='solid'])) {
@@ -168,6 +174,7 @@
 
 :host([variant='inverted']:where([fill='ghost'], [fill='outline'])) {
   --_bg-mix-color: var(--sl-color-background-inverted-interactive-plain);
+  --_fg-color: var(--sl-color-foreground-inverted-bold);
 }
 
 :host([fill='outline']) {

@@ -669,6 +669,61 @@ describe('sl-tag-list', () => {
       expect(el.stackSize).to.equal(2);
     });
 
+    it('should constrain the last visible tag when it does not fit next to the stack', async () => {
+      el = await fixture(html`
+        <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+          <sl-tag removable>Tag 1</sl-tag>
+          <sl-tag removable>Tag 2</sl-tag>
+          <sl-tag removable>Very long selected tag that should overflow</sl-tag>
+        </sl-tag-list>
+      `);
+
+      // Container is 140px, stack 40px, gap 10px => remaining width is 90px.
+      // The last tag is 180px, but it should remain visible and truncate inside that space.
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 140, 20);
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach((tag, index) => {
+        tag.getBoundingClientRect = () => new DOMRect(0, 0, index === 2 ? 180 : 100, 20);
+      });
+
+      await triggerVisibilityUpdate();
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      expect(tags.map(t => t.style.display)).to.deep.equal(['none', 'none', '']);
+      expect(tags[2].style.maxInlineSize).to.equal('90px');
+      expect(el.stackSize).to.equal(2);
+    });
+
+    it('should restore a constrained tag max-inline-size before measuring again', async () => {
+      el = await fixture(html`
+        <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+          <sl-tag removable>Tag 1</sl-tag>
+          <sl-tag removable>Very long selected tag that should overflow</sl-tag>
+        </sl-tag-list>
+      `);
+
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 140, 20);
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach((tag, index) => {
+        tag.getBoundingClientRect = () => new DOMRect(0, 0, index === 1 ? 180 : 100, 20);
+      });
+
+      await triggerVisibilityUpdate();
+
+      const longTag = el.querySelectorAll('sl-tag')[1] as HTMLElement;
+
+      expect(longTag.style.maxInlineSize).to.equal('90px');
+
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 300, 20);
+      await triggerVisibilityUpdate();
+
+      expect(longTag.style.maxInlineSize).to.equal('');
+      expect(el.stackSize).to.equal(0);
+    });
+
     it('should not overwrite cached stack width when the stack measurement is 0', async () => {
       el = await fixture(html`
         <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">

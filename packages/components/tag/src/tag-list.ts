@@ -78,11 +78,17 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Original disabled state of tags temporarily disabled through the tag list. */
   #tagDisabledState = new WeakMap<Tag, boolean | undefined>();
 
+  /** Original max-inline-size of tags temporarily constrained through stacked overflow. */
+  #tagMaxInlineSizeState = new WeakMap<Tag, string>();
+
   /** Number of completed passes before the initial visibility is considered stable. */
   #initialVisibilityPasses = 0;
 
   /** Currently observed stack element, if stacked mode is active. */
   #observedStack?: HTMLElement;
+
+  /** Currently observed parent element, if connected. */
+  #observedParent?: HTMLElement;
 
   /**
    * Stacked lists stay hidden until the first visibility calculation settles. These helpers keep
@@ -130,6 +136,25 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
 
     this.#observedStack = nextObservedStack;
+  }
+
+  /** Recalculate tag visibility when the available space from the parent changes. */
+  #syncParentObservation(): void {
+    const nextObservedParent = this.parentElement ?? undefined;
+
+    if (this.#observedParent === nextObservedParent) {
+      return;
+    }
+
+    if (this.#observedParent) {
+      this.#resizeObserver.unobserve(this.#observedParent);
+    }
+
+    if (nextObservedParent) {
+      this.#resizeObserver.observe(nextObservedParent);
+    }
+
+    this.#observedParent = nextObservedParent;
   }
 
   /**
@@ -216,6 +241,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.setAttribute('role', 'list');
     this.#resetInitialVisibilityState();
     this.#syncStackObservation();
+    this.#syncParentObservation();
 
     this.#resizeObserver.observe(this);
   }
@@ -223,6 +249,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
     this.#observedStack = undefined;
+    this.#observedParent = undefined;
 
     if (this.#breakResizeObserverLoop) {
       clearTimeout(this.#breakResizeObserverLoop);
@@ -264,7 +291,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         this.#resetInitialVisibilityState();
         this.stackSize = 0;
         this.removeAttribute('data-stacked-active');
-        this.tags.forEach(tag => (tag.style.display = ''));
+        this.tags.forEach(tag => {
+          tag.style.display = '';
+          this.#restoreTagMaxInlineSize(tag);
+        });
       }
     }
 
@@ -386,6 +416,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.tags.forEach(tag => {
       tag.navigationDescription = undefined;
+      this.#restoreTagMaxInlineSize(tag);
       this.#restoreTagDisabledState(tag);
       tag.removeAttribute('role');
     });
@@ -450,6 +481,23 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#tagDisabledState.delete(tag);
   }
 
+  #setTagMaxInlineSize(tag: Tag, maxInlineSize: number): void {
+    if (!this.#tagMaxInlineSizeState.has(tag)) {
+      this.#tagMaxInlineSizeState.set(tag, tag.style.maxInlineSize);
+    }
+
+    tag.style.maxInlineSize = `${Math.max(0, maxInlineSize)}px`;
+  }
+
+  #restoreTagMaxInlineSize(tag: Tag): void {
+    if (!this.#tagMaxInlineSizeState.has(tag)) {
+      return;
+    }
+
+    tag.style.maxInlineSize = this.#tagMaxInlineSizeState.get(tag) ?? '';
+    this.#tagMaxInlineSizeState.delete(tag);
+  }
+
   #runVisibilityUpdate(): void {
     if (this.stack) {
       const measuredStackInlineSize = this.stack.getBoundingClientRect().width;
@@ -502,12 +550,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     try {
       // Reset visibility of all tags
-      this.tags.forEach(tag => (tag.style.display = ''));
+      this.tags.forEach(tag => {
+        tag.style.display = '';
+        this.#restoreTagMaxInlineSize(tag);
+      });
 
-      // Measure available width after restoring tag visibility.
-      // This prevents the layout from getting stuck in a collapsed width that
-      // was based on a previous stacked state.
-      availableWidth = this.getBoundingClientRect().width;
+      // Measure available width after restoring tag visibility. If CSS caps the list with a
+      // max-inline-size (for example in comboboxes), use that cap so a previously collapsed list can
+      // reveal more tags after its container grows again without visually stretching the list.
+      availableWidth = Math.max(this.getBoundingClientRect().width, this.#getMaxInlineSize(styles));
       this.style.inlineSize = `${availableWidth}px`;
 
       sizes = this.tags.map(t => t.getBoundingClientRect().width);
@@ -544,6 +595,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       }
     }
 
+    this.#constrainLastVisibleTag(availableWidth, sizes, gap);
+
     // Excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left,
     // when we exclude them, we need to set tabindex -1 explicitly.
     this.tags.forEach(tag => {
@@ -570,6 +623,32 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
     this.#clearRovingTabindexCache();
+  }
+
+  #getMaxInlineSize(styles: CSSStyleDeclaration): number {
+    const maxInlineSize = Number.parseFloat(styles.maxInlineSize);
+
+    return Number.isFinite(maxInlineSize) ? maxInlineSize : 0;
+  }
+
+  #constrainLastVisibleTag(availableWidth: number, sizes: number[], gap: number): void {
+    const visibleTagIndexes = this.tags
+      .map((tag, index) => (tag.style.display === 'none' ? undefined : index))
+      .filter((index): index is number => index !== undefined);
+
+    if (!visibleTagIndexes.length) {
+      return;
+    }
+
+    const lastVisibleTagIndex = visibleTagIndexes.at(-1)!,
+      usedWidth = visibleTagIndexes
+        .slice(0, -1)
+        .reduce((total, index) => total + sizes[index] + gap, 0),
+      maxInlineSize = availableWidth - usedWidth;
+
+    if (sizes[lastVisibleTagIndex] > maxInlineSize + SUBPIXEL_BUFFER_PX) {
+      this.#setTagMaxInlineSize(this.tags[lastVisibleTagIndex], maxInlineSize);
+    }
   }
 
   #clearRovingTabindexCache(): void {

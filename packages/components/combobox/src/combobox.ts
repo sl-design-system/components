@@ -524,6 +524,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         placeholder=${ifDefined(
           this.multiple && this.selectedItems.length ? undefined : this.placeholder
         )}
+        show-validity=${ifDefined(this.showValidity)}
         size=${ifDefined(this.size)}>
         ${this.multiple && this.selectedItems.length
           ? html`

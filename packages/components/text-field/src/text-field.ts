@@ -146,7 +146,7 @@ export class TextField
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /**
-   * The shape of the text-field.
+   * The shape of the field.
    *
    * @default 'rect'
    */

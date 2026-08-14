@@ -904,9 +904,6 @@ describe('sl-grid', () => {
         ),
         actions = groupHeader?.renderRoot.querySelector<HTMLElement>('[part="actions"]');
 
-      tbody.scrollLeft = 150;
-      tbody.dispatchEvent(new Event('scroll'));
-
       expect(actionButton).to.exist;
       expect(groupHeader).to.exist;
       expect(groupCell).to.exist;
@@ -918,7 +915,13 @@ describe('sl-grid', () => {
         groupHeader?.style.getPropertyValue('--sl-grid-group-header-sticky-inline-size')
       ).to.equal('340px');
       expect(getComputedStyle(headingWrapper!).position).to.equal('sticky');
+      expect(getComputedStyle(headingWrapper!, '::after').content).to.equal('none');
       expect(getComputedStyle(actions!).position).to.equal('sticky');
+
+      tbody.scrollLeft = 150;
+      tbody.dispatchEvent(new Event('scroll'));
+
+      expect(getComputedStyle(headingWrapper!, '::after').content).to.equal('""');
       expect(groupCell!.getBoundingClientRect().width).to.be.greaterThan(
         tbody.getBoundingClientRect().width
       );
@@ -962,6 +965,11 @@ describe('sl-grid', () => {
       );
 
       expect(groupRows).to.have.lengthOf(2);
+      expect(
+        getComputedStyle(groupRows[1].querySelector('td')!).getPropertyValue(
+          'border-block-end-color'
+        )
+      ).to.equal('rgba(0, 0, 0, 0)');
       expect(groupRows.map(row => row.getBoundingClientRect().height)).to.deep.equal([
         groupRows[0].getBoundingClientRect().height,
         groupRows[0].getBoundingClientRect().height
@@ -991,6 +999,9 @@ describe('sl-grid', () => {
 
       expect(tfoot).to.exist;
       expect(row).to.exist;
+      expect(
+        getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
+      ).not.to.equal('rgba(0, 0, 0, 0)');
       expect(parseFloat(getComputedStyle(tbody).minBlockSize)).to.be.closeTo(
         row!.getBoundingClientRect().height + 12,
         1

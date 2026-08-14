@@ -20,8 +20,8 @@
 }
 
 :host(.sticky-start-last) [part='group-heading-wrapper']::after {
-  background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
-  content: '';
+  background: var(--sl-grid-group-header-sticky-start-shadow);
+  content: var(--sl-grid-group-header-sticky-start-shadow-content, none);
   inline-size: 1rem;
   inset: 0 -1rem 0 auto;
   position: absolute;

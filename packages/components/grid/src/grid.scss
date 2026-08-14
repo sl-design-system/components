@@ -147,6 +147,15 @@
     }
   }
 
+  sl-grid-group-header.sticky-start-last {
+    --sl-grid-group-header-sticky-start-shadow: linear-gradient(
+      to right,
+      rgb(79 79 79 / 10%),
+      transparent
+    );
+    --sl-grid-group-header-sticky-start-shadow-content: '';
+  }
+
   td.sticky-start-last {
     background:
       var(--_vertical-border-end), var(--_body-cell-background-interactive),
@@ -317,6 +326,11 @@ tbody {
   tr:last-of-type:not([part~='group']) td {
     // Hide the bottom border of the last row; tbody already has a bottom border
     border-block-end: none;
+  }
+
+  &:not(:has(+ tfoot)) tr:last-of-type[part~='group'] td {
+    // Preserve the group row height without drawing a double border above the tbody border
+    border-block-end-color: transparent;
   }
 }
 

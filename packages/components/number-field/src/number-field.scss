@@ -23,21 +23,21 @@
 
 :host([step-buttons='edges'][shape='pill']:not([size='lg'])) {
   .minus {
-    padding-inline-start: var(--sl-size-150);
+    padding-inline-start: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
   }
 
   .plus {
-    padding-inline-end: var(--sl-size-150);
+    padding-inline-end: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
   }
 }
 
 :host([step-buttons='edges'][shape='pill'][size='lg'][shape='pill']) {
   .minus {
-    padding-inline-start: calc(var(--sl-size-200) + var(--sl-size-025));
+    padding-inline-start: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
   }
 
   .plus {
-    padding-inline-end: calc(var(--sl-size-200) + var(--sl-size-025));
+    padding-inline-end: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
   }
 }
 

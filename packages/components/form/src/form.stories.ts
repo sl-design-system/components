@@ -247,7 +247,7 @@ export const All: Story = {
           name="numberField"
           placeholder="123"
           required
-          style="max-inline-size: 10rem;"
+          style="max-inline-size: 12rem;"
           step-buttons="end"></sl-number-field>
       </sl-form-field>
 
@@ -387,7 +387,7 @@ export const AllLarge: Story = {
           name="numberField"
           placeholder="123"
           required
-          style="max-inline-size: 10rem;"
+          style="max-inline-size: 12rem;"
           step-buttons="end"
           size="lg"></sl-number-field>
       </sl-form-field>
@@ -499,7 +499,7 @@ export const AllPill: Story = {
           placeholder="123"
           required
           shape="pill"
-          style="max-inline-size: 10rem;"
+          style="max-inline-size: 12rem;"
           step-buttons="end"></sl-number-field>
       </sl-form-field>
 
@@ -579,7 +579,7 @@ export const AllPillLarge: Story = {
           placeholder="123"
           required
           shape="pill"
-          style="max-inline-size: 10rem;"
+          style="max-inline-size: 12rem;"
           step-buttons="end"
           size="lg"></sl-number-field>
       </sl-form-field>

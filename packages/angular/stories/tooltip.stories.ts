@@ -14,7 +14,33 @@ export default {
 export const Directive: StoryObj = {
   render: () => ({
     description:
-      'You can use the tooltip as a directive by adding the slTooltip attribute to any element.',
-    template: '<sl-button slTooltip="Hello World">Hover me</sl-button>'
+      'Use slTooltip on any element. In Angular, style the generated `sl-tooltip` element directly.',
+    template: `
+      <style>
+        .tooltip-demo {
+          display: inline-flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .part-tooltip + sl-tooltip {
+          display: block;
+          inline-size: 50px;
+          box-sizing: border-box;
+          overflow-wrap: anywhere;
+          padding-inline: 0;
+          --sl-tooltip-position-area: right;
+        }
+      </style>
+
+      <div class="tooltip-demo">
+        <sl-button slTooltip="Hello World">Default tooltip</sl-button>
+
+        <sl-button class="part-tooltip" slTooltip="Styled through a sibling selector">
+          Tooltip with CSS selector styling
+        </sl-button>
+      </div>
+    `
   })
 };

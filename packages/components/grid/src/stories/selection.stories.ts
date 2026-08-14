@@ -204,8 +204,7 @@ sl-dialog::part(body) {
 sl-grid::part(bulk-actions) {
   inset-block-start: calc(anchor(bottom) - var(--sl-size-300));
   position-anchor: --grid-dialog;
-}</pre
-      >
+}</pre>
 
       <p>
         There is a known issue where the bulk actions bar gets placed under the dialog overlay when

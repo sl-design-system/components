@@ -1,0 +1,113 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridSortingStories from './wrappers-grid-sorting.stories';
+
+<Meta of={GridSortingStories} />
+
+# Grid Sorting
+
+This section shows sorting behavior in the Angular Grid wrapper.
+
+Use these examples to test simple sorting, data source sorting, and custom sorters.
+
+## Basic
+
+Use sort columns to let users sort rows by one or more fields.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-sort-column path="id" header="Nr."></sl-grid-sort-column>
+  <sl-grid-sort-column path="firstName" header="First name"></sl-grid-sort-column>
+  <sl-grid-sort-column path="lastName" header="Last name"></sl-grid-sort-column>
+  <sl-grid-column path="school.name" header="School"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+}
+```
+
+## Data source
+
+Sorting also works when the grid uses a data source.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-sort-column path="id" header="Nr."></sl-grid-sort-column>
+  <sl-grid-sort-column path="firstName" header="First name"></sl-grid-sort-column>
+  <sl-grid-sort-column path="lastName" header="Last name"></sl-grid-sort-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  ds: ArrayListDataSource<Student>;
+}
+```
+
+## Custom sorter
+
+Provide a custom sorter function for specific sort behavior.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-sort-column
+    path="firstName"
+    header="First name length"
+    [sorter]="sortByNameLength"></sl-grid-sort-column>
+  <sl-grid-column path="lastName" header="Last name"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[];
+  sortByNameLength: (a: { firstName: string }, b: { firstName: string }) => {
+    return a.firstName.length - b.firstName.length;
+  };
+}
+```
+
+## Grouped
+
+This example shows how sorting works in combination with grouping. Groups are sorted by their labels in descending order (`groupSortDirection: 'desc'`). Within the groups, students are sorted by name in ascending order via the `direction` attribute on `sl-grid-sort-column`.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" [noSkipLinks]="true">
+  <sl-grid-sort-column path="studentNumber" header="Nr." [grow]="0"></sl-grid-sort-column>
+  <sl-grid-sort-column
+    path="fullName"
+    header="Student"
+    direction="asc"
+    [grow]="3"></sl-grid-sort-column>
+  <sl-grid-column path="email"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  ds: new ArrayListDataSource(students, {
+    groupBy: 'school.id',
+    groupLabelPath: 'school.name',
+    groupSortDirection: 'desc'
+  });
+}
+```

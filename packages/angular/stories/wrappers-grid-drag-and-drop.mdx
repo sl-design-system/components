@@ -1,0 +1,184 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridDragAndDropStories from './wrappers-grid-drag-and-drop.stories';
+
+<Meta of={GridDragAndDropStories} />
+
+# Grid Drag and Drop
+
+This section shows drag-and-drop support in the Angular Grid wrapper.
+
+## Basic
+
+Basic row reordering with a drag handle and avatar-rendered student column.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+  <sl-grid-column path="id" header="Nr."></sl-grid-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    path="fullName"
+    [renderer]="avatarRenderer"
+    [scopedElements]="scopedElements"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const avatarRenderer = (student: Student) => {
+  const { firstName, infix, lastName, pictureUrl } = student;
+
+  return html`
+    <sl-avatar
+      .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}
+      .pictureUrl=${pictureUrl}
+      size="sm"></sl-avatar>
+  `;
+};
+
+const scopedElements = { 'sl-avatar': Avatar };
+
+// students: Student[] loaded via getStudents({ count: 20 })
+```
+
+## On top
+
+Drop rows on top of other rows and filter valid drop targets.
+
+In this example, `on-top` highlights allowed target rows and emits `slGridDrop` when a row is
+dropped. It does not reorder rows automatically.
+
+### Template
+
+```html
+<sl-grid
+  [items]="people"
+  draggableRows="on-top"
+  [dropFilter]="dropFilter"
+  [noSkipLinks]="true"
+  (slGridDrop)="onDrop($event)">
+  <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="profession"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const dropFilter = (person: Person): boolean => {
+  return (person as Person & { membership?: string }).membership !== 'Regular';
+};
+
+const onDrop = (event: Event): void => {
+  const detail = (event as CustomEvent<{ item: Person; relativeItem: Person }>).detail;
+  console.log('Dropped', detail.item, detail.relativeItem);
+};
+
+// people: Person[] loaded via getPeople({ count: 20 })
+```
+
+## Fixed
+
+Control which rows can be dragged by binding the drag handle column to a boolean path.
+
+### Template
+
+```html
+<sl-grid [items]="people" [noSkipLinks]="true">
+  <sl-grid-drag-handle-column path="draggable"></sl-grid-drag-handle-column>
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="profession"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const people = (loaded['people'] as Array<Person & { draggable: boolean }>).map(
+  (person, index) => ({
+    ...person,
+    draggable: index > 0 && index <= 15
+  })
+);
+```
+
+## Grouping
+
+Combine drag and drop with grouped data.
+
+`regroupDroppedPerson` keeps grouping consistent after a drop:
+
+- It reads the dropped item and target row from `slGridDrop`.
+- It exits early if the drop is not row-to-row, if there is no target profession, or if the
+  profession already matches.
+- It updates only the dropped person's `profession` in `dataSource.unfilteredItems`, then calls
+  `setData()` and `update()` so groups are recalculated.
+
+### `regroupDroppedPerson`
+
+```typescript
+const regroupDroppedPerson = (
+  dataSource: ArrayListDataSource<Person>,
+  event: SlDropEvent<Person>
+): void => {
+  const { item, relativeItem } = event.detail,
+    targetProfession = relativeItem?.profession;
+
+  if (
+    !isListDataSourceDataItem(item) ||
+    !targetProfession ||
+    item.data.profession === targetProfession
+  ) {
+    return;
+  }
+
+  const updatedPeople = dataSource.unfilteredItems.map(({ data }) =>
+    data === item.data ? { ...data, profession: targetProfession } : data
+  );
+
+  dataSource.setData(updatedPeople);
+  dataSource.update();
+};
+```
+
+### Template
+
+```html
+<sl-grid
+  [dataSource]="ds"
+  [noSkipLinks]="true"
+  draggableRows="between"
+  (slGridDrop)="onDrop($event)">
+  <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+  <sl-grid-column path="profession"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const ds = new ArrayListDataSource(people, {
+  groupBy: 'profession',
+  groupLabelPath: 'profession'
+});
+
+const onDrop = (event: Event): void => {
+  regroupDroppedPerson(ds, event as SlDropEvent<Person>);
+};
+
+// people: Person[] loaded via getPeople({ count: 30 })
+```

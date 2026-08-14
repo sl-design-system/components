@@ -1159,5 +1159,27 @@ describe('ArrayListDataSource', () => {
         'Ophthalmologist'
       ]);
     });
+
+    it('should keep items from filtered out groups when reordering visible groups', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      ds.addFilter('visible-group-1', 'profession', 'Endocrinologist');
+      ds.addFilter('visible-group-2', 'profession', 'Gastroenterologist');
+      ds.update();
+
+      const visibleGroups = ds.items.filter((item): item is ListDataSourceGroupItem<Person> =>
+          isListDataSourceGroupItem(item)
+        ),
+        endocrinologist = visibleGroups.find(group => group.label === 'Endocrinologist')!,
+        gastroenterologist = visibleGroups.find(group => group.label === 'Gastroenterologist')!;
+
+      ds.reorder(gastroenterologist, endocrinologist, 'before');
+
+      const allIds = [...people.map(({ id }) => id)].sort((a, b) => a - b),
+        unfilteredIds = ds.unfilteredItems.map(({ data }) => data.id).sort((a, b) => a - b);
+
+      expect(ds.totalSize).to.equal(people.length);
+      expect(unfilteredIds).to.deep.equal(allIds);
+    });
   });
 });

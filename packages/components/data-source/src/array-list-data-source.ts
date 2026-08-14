@@ -96,11 +96,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       return;
     }
 
-    const groupIds = this.items
-        .filter((listItem): listItem is ListDataSourceGroupItem<T> =>
-          isListDataSourceGroupItem(listItem)
-        )
-        .map(({ id }) => id),
+    const groupIds = Array.from(new Set(this.#mappedItems.map(({ groupId }) => groupId))),
       from = groupIds.indexOf(item.id),
       to = groupIds.indexOf(targetGroupId);
 

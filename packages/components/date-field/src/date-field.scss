@@ -107,6 +107,16 @@
   border-color: var(--sl-color-border-positive-plain);
 }
 
+:host([size='lg']) {
+  .wrapper {
+    padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+  }
+
+  span[contenteditable] {
+    padding: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default)) 0;
+  }
+}
+
 .field {
   align-items: center;
   anchor-name: --field;
@@ -118,16 +128,6 @@
   border-radius: var(--sl-size-borderRadius-default);
   display: inline-flex;
   flex-grow: 1;
-}
-
-:host([size='lg']) {
-  .wrapper {
-    padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
-  }
-
-  span[contenteditable] {
-    padding: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default)) 0;
-  }
 }
 
 .select-all {

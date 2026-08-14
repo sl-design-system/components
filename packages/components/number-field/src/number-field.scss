@@ -15,9 +15,7 @@
   }
 }
 
-/* Keep number-field pill layout independent from text-field's pill inline-end padding. */
-:host([shape='pill']:not([size='lg'])),
-:host([shape='pill'][size='lg']) {
+:host([shape='pill']:is(:not([size='lg']), [size='lg'])) {
   padding-inline-end: 0;
 }
 
@@ -31,7 +29,7 @@
   }
 }
 
-:host([step-buttons='edges'][shape='pill'][size='lg'][shape='pill']) {
+:host([step-buttons='edges'][shape='pill'][size='lg']) {
   .minus {
     padding-inline-start: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
   }

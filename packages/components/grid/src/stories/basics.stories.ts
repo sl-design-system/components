@@ -10,7 +10,7 @@ import { Icon } from '@sl-design-system/icon';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { LitElement, type TemplateResult, html } from 'lit';
+import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import '../../register.js';
@@ -18,6 +18,12 @@ import { type GridColumnDataRenderer } from '../column.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
+
+interface ResourceFile {
+  empty: null;
+  name: string;
+  type: 'pdf' | 'xls' | 'zip';
+}
 
 export default {
   title: 'Grid/Basics',
@@ -99,6 +105,136 @@ export const EllipsizeText: Story = {
       <sl-grid-column path="school.country"></sl-grid-column>
     </sl-grid>
   `
+};
+
+export const EllipsizeTextWithCustomContent: Story = {
+  render: () => {
+    const files: ResourceFile[] = [
+      {
+        empty: null,
+        name: 'Some name which has extremely long and very very long filename.pdf',
+        type: 'pdf'
+      },
+      {
+        empty: null,
+        name: 'OC_6VG_U1-5_woordenlijsten.zip',
+        type: 'zip'
+      },
+      {
+        empty: null,
+        name: 'Examendioom',
+        type: 'xls'
+      }
+    ];
+
+    const fileTypeStyles = css`
+      & .file-type {
+        align-items: center;
+        block-size: var(--sl-size-300);
+        display: inline-flex;
+        inline-size: var(--sl-size-300);
+        justify-content: center;
+      }
+
+      & .file-type svg {
+        block-size: var(--sl-size-300);
+        fill: none;
+        inline-size: var(--sl-size-300);
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+
+      & .file-type.pdf {
+        color: var(--sl-color-foreground-negative-bold);
+      }
+
+      & .file-type.xls {
+        color: var(--sl-color-foreground-positive-bold);
+      }
+
+      & .file-type.zip {
+        color: var(--sl-color-foreground-accent-orange-bold);
+      }
+    `;
+
+    const downloadStyles = css`
+      & .download {
+        align-items: center;
+        appearance: none;
+        background: transparent;
+        block-size: var(--sl-size-300);
+        border: 0;
+        color: var(--sl-color-foreground-neutral-bold);
+        cursor: pointer;
+        display: inline-flex;
+        inline-size: var(--sl-size-300);
+        justify-content: center;
+        padding: 0;
+      }
+
+      & .download svg {
+        block-size: var(--sl-size-300);
+        fill: none;
+        inline-size: var(--sl-size-300);
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+    `;
+
+    const fileTypeRenderer: GridColumnDataRenderer<ResourceFile> = ({ type }) => {
+      return html`
+        <span aria-label="${type.toUpperCase()} file" class="file-type ${type}" role="img">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M6 2h8l4 4v16H6z"></path>
+            <path d="M14 2v5h4"></path>
+            <path d="M9 13h6"></path>
+            <path d="M9 17h6"></path>
+          </svg>
+        </span>
+      `;
+    };
+
+    const downloadRenderer: GridColumnDataRenderer<ResourceFile> = ({ name }) => {
+      return html`
+        <button aria-label="Download ${name}" class="download" type="button">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M12 3v11"></path>
+            <path d="m7 10 5 5 5-5"></path>
+            <path d="M5 19h14"></path>
+          </svg>
+        </button>
+      `;
+    };
+
+    return html`
+      <p>
+        This example reproduces the layout where an ellipsized text cell is combined with custom
+        rendered icon and action cells. Hover the truncated file name to show its tooltip.
+      </p>
+      <sl-grid .items=${files} style="max-inline-size: 420px" ellipsize-text no-skip-links>
+        <sl-grid-column
+          grow="0"
+          header="Type"
+          hide-header-text
+          width="48"
+          .renderer=${fileTypeRenderer}
+          .renderStyles=${() => fileTypeStyles}></sl-grid-column>
+        <sl-grid-column grow="0" header="Name" path="name" width="260"></sl-grid-column>
+        <sl-grid-column grow="0" header="Info" path="empty" width="80"></sl-grid-column>
+        <sl-grid-column
+          grow="0"
+          header="Download"
+          hide-header-text
+          width="48"
+          .renderer=${downloadRenderer}
+          .renderStyles=${() => downloadStyles}></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const Header: Story = {

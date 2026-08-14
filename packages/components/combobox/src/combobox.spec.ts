@@ -1298,6 +1298,13 @@ describe('sl-combobox', () => {
           `+${selectedTags.length - visibleSelectedTags.length}`
         );
         expect(visibleSelectedTags.length).to.be.greaterThan(0);
+
+        const inputRect = input.getBoundingClientRect(),
+          lastVisibleTagRect = visibleSelectedTags.at(-1)!.getBoundingClientRect(),
+          gap = inputRect.left - lastVisibleTagRect.right;
+
+        expect(gap).to.be.at.least(0);
+        expect(gap).to.be.lessThan(16);
       });
 
       it('should not flicker when selecting many items in a limited space', async () => {
@@ -2092,6 +2099,17 @@ describe('sl-combobox', () => {
 
       it('should be invalid', () => {
         expect(el.valid).to.be.false;
+      });
+
+      it('should pass invalid show-validity to the text field when reported', async () => {
+        el.reportValidity();
+        await el.updateComplete;
+
+        expect(el).to.have.attribute('show-validity', 'invalid');
+        expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute(
+          'show-validity',
+          'invalid'
+        );
       });
 
       it('should be invalid when it has a placeholder', async () => {

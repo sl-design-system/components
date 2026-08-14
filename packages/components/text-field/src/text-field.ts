@@ -98,6 +98,10 @@ export class TextField
   /** @internal Embedded or slotted field buttons. */
   @state() fieldButtons: FieldButton[] = [];
 
+  /** @internal Used for styling when a suffix sl-field-button is present. */
+  @property({ type: Boolean, reflect: true, attribute: 'has-suffix-field-button' })
+  hasSuffixFieldButton = false;
+
   /** The formatted value, to be used as the input value. */
   @state()
   get formattedValue(): string {
@@ -416,9 +420,10 @@ export class TextField
    * suffix slot to the `fieldButtons` state for further processing.
    */
   protected onSuffixSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const button = event.target
-      .assignedElements({ flatten: true })
-      .find((el): el is FieldButton => el instanceof FieldButton);
+    const assignedElements = event.target.assignedElements({ flatten: true }),
+      button = assignedElements.find((el): el is FieldButton => el instanceof FieldButton);
+
+    this.hasSuffixFieldButton = button !== undefined;
 
     if (button) {
       this.fieldButtons = [...this.fieldButtons, button];

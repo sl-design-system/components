@@ -16,6 +16,15 @@
   padding: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
 }
 
+:host([slot='prefix']) {
+  border-end-end-radius: 0;
+  border-end-start-radius: inherit;
+  border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
+  border-inline-start: none;
+  border-start-end-radius: 0;
+  border-start-start-radius: inherit;
+}
+
 :host([disabled]) {
   color: var(--sl-color-foreground-disabled);
   cursor: default;

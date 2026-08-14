@@ -61,6 +61,10 @@
   padding-inline: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
 }
 
+:host([shape='pill'][has-suffix-field-button]) {
+  padding-inline-end: 0;
+}
+
 :host([disabled]) {
   background: var(--sl-color-background-disabled);
   border-color: var(--sl-color-border-disabled);

@@ -966,7 +966,7 @@ describe('sl-grid', () => {
       expect(groupHeader).not.to.have.class('sticky-start-last');
     });
 
-    it('should use the same width fallback as sticky cells for group headers', async () => {
+    it('should use the same width fallback for group headers and sticky offsets', async () => {
       const dataSource = new ArrayListDataSource(
         [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],
         { groupBy: 'group' }
@@ -975,7 +975,8 @@ describe('sl-grid', () => {
       el = await fixture(html`
         <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
           <sl-grid-column path="firstName" sticky width="0"></sl-grid-column>
-          <sl-grid-column path="lastName" width="300"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="0"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
         </sl-grid>
       `);
 
@@ -987,13 +988,18 @@ describe('sl-grid', () => {
         ),
         stickyCell = el.renderRoot.querySelector<HTMLTableCellElement>(
           'tbody tr:not([part~="group"]) td.sticky-start-first'
+        ),
+        stickyBoundaryCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr:not([part~="group"]) td.sticky-start-last'
         );
 
       expect(stickyCell).to.exist;
+      expect(stickyBoundaryCell).to.exist;
       expect(
         groupHeader?.style.getPropertyValue('--sl-grid-group-header-sticky-inline-size')
-      ).to.equal('100px');
+      ).to.equal('200px');
       expect(Math.round(stickyCell!.getBoundingClientRect().width)).to.equal(100);
+      expect(getComputedStyle(stickyBoundaryCell!).insetInlineStart).to.equal('100px');
     });
 
     it('should use group-specific sticky classes for group headers', async () => {

@@ -1323,7 +1323,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       return undefined;
     }
 
-    const inlineSize = columns.reduce((acc, { width }) => acc + (width || 100), 0);
+    const inlineSize = columns.reduce((acc, col) => acc + this.#getColumnWidth(col), 0);
 
     return `--sl-grid-group-header-sticky-inline-size: ${inlineSize}px;`;
   }
@@ -1338,13 +1338,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       columns = this.#columnDefinitions.slice(0, index);
     }
 
-    return columns.filter(col => !col.hidden).reduce((acc, { width = 0 }) => acc + width, 0);
+    return columns
+      .filter(col => !col.hidden)
+      .reduce((acc, col) => acc + this.#getColumnWidth(col), 0);
   }
 
   #getStickyStartColumns(): Array<GridColumn<T>> {
     return this.#columnDefinitions.filter(
       col => !col.hidden && col.sticky && col.stickyPosition === 'start'
     );
+  }
+
+  #getColumnWidth(col: GridColumn<T>): number {
+    return col.width || 100;
   }
 
   #removeColumn(col: GridColumn): void {

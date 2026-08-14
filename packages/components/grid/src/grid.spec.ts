@@ -910,7 +910,7 @@ describe('sl-grid', () => {
       expect(headingWrapper).to.exist;
       expect(actions).to.exist;
       expect(stickyCell).to.exist;
-      expect(groupHeader?.classList.contains('sticky-start-last')).to.be.true;
+      expect(groupHeader).to.have.class('group-sticky-start-last');
       expect(
         groupHeader?.style.getPropertyValue('--sl-grid-group-header-sticky-inline-size')
       ).to.equal('340px');
@@ -962,7 +962,64 @@ describe('sl-grid', () => {
         );
 
       expect(stickyCell).to.exist;
-      expect(groupHeader).to.have.class('sticky-start-last');
+      expect(groupHeader).to.have.class('group-sticky-start-last');
+      expect(groupHeader).not.to.have.class('sticky-start-last');
+    });
+
+    it('should use the same width fallback as sticky cells for group headers', async () => {
+      const dataSource = new ArrayListDataSource(
+        [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" sticky width="0"></sl-grid-column>
+          <sl-grid-column path="lastName" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupHeader = el.renderRoot.querySelector<GridGroupHeader>(
+          'tbody tr[part~="group"] sl-grid-group-header'
+        ),
+        stickyCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr:not([part~="group"]) td.sticky-start-first'
+        );
+
+      expect(stickyCell).to.exist;
+      expect(
+        groupHeader?.style.getPropertyValue('--sl-grid-group-header-sticky-inline-size')
+      ).to.equal('100px');
+      expect(Math.round(stickyCell!.getBoundingClientRect().width)).to.equal(100);
+    });
+
+    it('should use group-specific sticky classes for group headers', async () => {
+      const dataSource = new ArrayListDataSource(
+        [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" sticky width="120"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="220"></sl-grid-column>
+          <sl-grid-column .hidden=${true} path="email" sticky width="180"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupHeader = el.renderRoot.querySelector<GridGroupHeader>(
+        'tbody tr[part~="group"] sl-grid-group-header'
+      );
+
+      expect(groupHeader).to.have.class('group-sticky-start-last');
+      expect(groupHeader).not.to.have.class('sticky-start-last');
     });
 
     it('should keep the last collapsed group row the same height as the other group rows', async () => {

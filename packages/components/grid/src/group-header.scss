@@ -4,8 +4,8 @@
   inline-size: 100%;
 }
 
-:host(.sticky-start-first),
-:host(.sticky-start-last) {
+:host(.group-sticky-start-first),
+:host(.group-sticky-start-last) {
   [part='actions'] {
     inset-inline-end: var(--sl-size-150);
     position: sticky;
@@ -19,7 +19,7 @@
   }
 }
 
-:host(.sticky-start-last) [part='group-heading-wrapper']::after {
+:host(.group-sticky-start-last) [part='group-heading-wrapper']::after {
   background: var(--sl-grid-group-header-sticky-start-shadow);
   content: var(--sl-grid-group-header-sticky-start-shadow-content, none);
   inline-size: 1rem;

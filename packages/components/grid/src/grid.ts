@@ -1312,7 +1312,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     return [
-      `sticky-start-${columns.at(-1)?.stickyOrder ?? (columns.length > 1 ? 'last' : 'first')}`
+      `group-sticky-start-${columns.at(-1)?.stickyOrder ?? (columns.length > 1 ? 'last' : 'first')}`
     ];
   }
 
@@ -1323,7 +1323,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       return undefined;
     }
 
-    const inlineSize = columns.reduce((acc, { width }) => acc + (width ?? 100), 0);
+    const inlineSize = columns.reduce((acc, { width }) => acc + (width || 100), 0);
 
     return `--sl-grid-group-header-sticky-inline-size: ${inlineSize}px;`;
   }

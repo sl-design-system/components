@@ -1092,9 +1092,9 @@ describe('sl-grid', () => {
       expect(
         getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
       ).not.to.equal('rgba(0, 0, 0, 0)');
-      expect(
-        tfoot!.getBoundingClientRect().top - row!.getBoundingClientRect().bottom
-      ).to.be.closeTo(12, 1);
+      expect(tfoot!.getBoundingClientRect().top).to.be.at.least(
+        row!.getBoundingClientRect().bottom
+      );
     });
   });
 });

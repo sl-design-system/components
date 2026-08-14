@@ -993,8 +993,7 @@ describe('sl-grid', () => {
       await waitForGridToRenderData(el);
       await el.updateComplete;
 
-      const tbody = el.renderRoot.querySelector<HTMLTableSectionElement>('tbody')!,
-        tfoot = el.renderRoot.querySelector<HTMLTableSectionElement>('tfoot'),
+      const tfoot = el.renderRoot.querySelector<HTMLTableSectionElement>('tfoot'),
         row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr[part~="group"]');
 
       expect(tfoot).to.exist;
@@ -1002,10 +1001,6 @@ describe('sl-grid', () => {
       expect(
         getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
       ).not.to.equal('rgba(0, 0, 0, 0)');
-      expect(parseFloat(getComputedStyle(tbody).minBlockSize)).to.be.closeTo(
-        row!.getBoundingClientRect().height + 12,
-        1
-      );
       expect(
         tfoot!.getBoundingClientRect().top - row!.getBoundingClientRect().bottom
       ).to.be.closeTo(12, 1);

@@ -147,15 +147,6 @@
     }
   }
 
-  sl-grid-group-header.sticky-start-last::after {
-    background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
-    content: '';
-    inline-size: 1rem;
-    inset: 0 -1rem 0 auto;
-    position: absolute;
-    z-index: 1;
-  }
-
   td.sticky-start-last {
     background:
       var(--_vertical-border-end), var(--_body-cell-background-interactive),

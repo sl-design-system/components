@@ -10,6 +10,7 @@ import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
+import { type GridGroupHeader } from './group-header.js';
 import { waitForGridToRenderData } from './utils.js';
 
 type Person = { firstName: string; lastName: string; email?: string; group?: string };
@@ -885,33 +886,51 @@ describe('sl-grid', () => {
       await waitForGridToRenderData(el);
       await el.updateComplete;
 
-      const groupCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+      const actionButton = el.renderRoot.querySelector<HTMLButtonElement>(
+          'tbody tr[part~="group"] sl-grid-group-header button'
+        ),
+        groupCell = el.renderRoot.querySelector<HTMLTableCellElement>(
           'tbody tr[part~="group"] td[part~="group-header"]'
         ),
         tbody = el.renderRoot.querySelector<HTMLTableSectionElement>('tbody')!,
         stickyCell = el.renderRoot.querySelector<HTMLTableCellElement>(
           'tbody tr:not([part~="group"]) td.sticky-start-first'
         );
-      const groupHeader = el.renderRoot.querySelector<HTMLElement>(
+      const groupHeader = el.renderRoot.querySelector<GridGroupHeader>(
         'tbody tr[part~="group"] sl-grid-group-header'
       );
+      const headingWrapper = groupHeader?.renderRoot.querySelector<HTMLElement>(
+          '[part="group-heading-wrapper"]'
+        ),
+        actions = groupHeader?.renderRoot.querySelector<HTMLElement>('[part="actions"]');
 
       tbody.scrollLeft = 150;
       tbody.dispatchEvent(new Event('scroll'));
 
+      expect(actionButton).to.exist;
       expect(groupHeader).to.exist;
       expect(groupCell).to.exist;
+      expect(headingWrapper).to.exist;
+      expect(actions).to.exist;
       expect(stickyCell).to.exist;
       expect(groupHeader?.classList.contains('sticky-start-last')).to.be.true;
-      expect(groupHeader?.style.position).to.equal('sticky');
-      expect(groupHeader?.style.insetInlineStart).to.equal('0px');
-      expect(groupHeader?.style.inlineSize).to.equal('340px');
-      expect(getComputedStyle(groupHeader!).overflowX).to.equal('visible');
+      expect(
+        groupHeader?.style.getPropertyValue('--sl-grid-group-header-sticky-inline-size')
+      ).to.equal('340px');
+      expect(getComputedStyle(headingWrapper!).position).to.equal('sticky');
+      expect(getComputedStyle(actions!).position).to.equal('sticky');
       expect(groupCell!.getBoundingClientRect().width).to.be.greaterThan(
         tbody.getBoundingClientRect().width
       );
       expect(Math.round(groupHeader!.getBoundingClientRect().left)).to.equal(
+        Math.round(groupCell!.getBoundingClientRect().left)
+      );
+      expect(Math.round(headingWrapper!.getBoundingClientRect().left)).to.equal(
         Math.round(stickyCell!.getBoundingClientRect().left)
+      );
+      expect(Math.round(actionButton!.getBoundingClientRect().right)).to.be.closeTo(
+        Math.round(tbody.getBoundingClientRect().right - 12),
+        1
       );
     });
 

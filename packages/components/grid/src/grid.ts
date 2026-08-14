@@ -1323,7 +1323,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     const inlineSize = columns.reduce((acc, { width }) => acc + (width ?? 100), 0);
 
-    return `flex-grow: 0; inline-size: ${inlineSize}px; inset-inline-start: 0px; position: sticky;`;
+    return `--sl-grid-group-header-sticky-inline-size: ${inlineSize}px;`;
   }
 
   /** Returns the left offset, taking any sticky columns into account. */

@@ -56,38 +56,42 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      ${this.dragHandle
-        ? html`
-            <div part="drag-handle">
-              <sl-icon name="grip-lines"></sl-icon>
-            </div>
-          `
-        : nothing}
-      ${this.selectable
-        ? html`
-            <div part="checkbox">
-              <sl-checkbox
-                @sl-change=${this.#onChange}
-                aria-label=${msg('Group', { id: 'sl.grid.selectGroup' })}
-                .checked=${this.selected === 'all'}
-                .indeterminate=${this.selected === 'some'}
-                size="sm"></sl-checkbox>
-            </div>
-          `
-        : nothing}
-      <sl-button
-        @click=${this.#onClick}
-        aria-expanded=${this.collapsed ? 'false' : 'true'}
-        aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
-        fill="ghost"
-        size="sm">
-        <sl-icon name="chevron-down"></sl-icon>
-      </sl-button>
       <div part="wrapper">
-        <div part="group-heading">
-          <slot name="group-heading"></slot>
+        <div part="group-heading-wrapper">
+          ${this.dragHandle
+            ? html`
+                <div part="drag-handle">
+                  <sl-icon name="grip-lines"></sl-icon>
+                </div>
+              `
+            : nothing}
+          ${this.selectable
+            ? html`
+                <div part="checkbox">
+                  <sl-checkbox
+                    @sl-change=${this.#onChange}
+                    aria-label=${msg('Group', { id: 'sl.grid.selectGroup' })}
+                    .checked=${this.selected === 'all'}
+                    .indeterminate=${this.selected === 'some'}
+                    size="sm"></sl-checkbox>
+                </div>
+              `
+            : nothing}
+          <sl-button
+            @click=${this.#onClick}
+            aria-expanded=${this.collapsed ? 'false' : 'true'}
+            aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+            fill="ghost"
+            size="sm">
+            <sl-icon name="chevron-down"></sl-icon>
+          </sl-button>
+          <div part="group-heading">
+            <slot name="group-heading"></slot>
+          </div>
         </div>
-        <slot></slot>
+        <div part="actions">
+          <slot></slot>
+        </div>
       </div>
     `;
   }

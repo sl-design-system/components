@@ -1311,7 +1311,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       return [];
     }
 
-    return [`sticky-start-${columns.length > 1 ? 'last' : 'first'}`];
+    return [
+      `sticky-start-${columns.at(-1)?.stickyOrder ?? (columns.length > 1 ? 'last' : 'first')}`
+    ];
   }
 
   #getGroupHeaderStyles(): string | undefined {

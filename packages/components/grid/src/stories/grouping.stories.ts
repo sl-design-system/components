@@ -239,16 +239,15 @@ export const CustomGroupHeader: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[], {
-      groupBy: 'school.id',
-      groupLabelPath: 'school.name'
-    });
-
-    const groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
-      return html`
-        <span slot="group-heading">${item.label} (${item.count})</span>
-        <sl-button size="sm">Add student</sl-button>
-      `;
-    };
+        groupBy: 'school.id',
+        groupLabelPath: 'school.name'
+      }),
+      groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
+        return html`
+          <span slot="group-heading">${item.label} (${item.count})</span>
+          <sl-button size="sm">Add student</sl-button>
+        `;
+      };
 
     return html`
       <p>
@@ -278,16 +277,15 @@ export const StickyColumnsWithCustomGroupHeader: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[], {
-      groupBy: 'school.id',
-      groupLabelPath: 'school.name'
-    });
-
-    const groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
-      return html`
-        <span slot="group-heading">${item.label} (${item.count})</span>
-        <sl-button size="sm">Add student</sl-button>
-      `;
-    };
+        groupBy: 'school.id',
+        groupLabelPath: 'school.name'
+      }),
+      groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
+        return html`
+          <span slot="group-heading">${item.label} (${item.count})</span>
+          <sl-button size="sm">Add student</sl-button>
+        `;
+      };
 
     return html`
       <style>

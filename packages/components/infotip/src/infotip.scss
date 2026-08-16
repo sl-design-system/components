@@ -8,3 +8,34 @@
 :host([size='sm']) ::slotted(sl-icon) {
   --sl-icon-size: var(--sl-size-150);
 }
+
+button {
+  anchor-name: --anchor;
+  appearance: none;
+  aspect-ratio: 1 / 1;
+  background: transparent;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  cursor: pointer;
+  display: inline-flex;
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: var(--sl-size-050);
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+  }
+}
+
+sl-icon {
+  color: var(--sl-color-foreground-subtlest);
+}
+
+sl-popover {
+  position-anchor: --anchor;
+
+  &::part(container) {
+    max-inline-size: min(80dvw, 400px);
+    padding: var(--sl-size-200);
+  }
+}

@@ -8,16 +8,16 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
-import { type Popover } from './popover.js';
 
 Icon.register(faGear, faPen);
 
-type Props = Pick<Popover, 'position'> & {
+type Props = {
   alignSelf: string;
   body: string | (() => TemplateResult);
   maxWidth: number;
   noDescribedby: boolean;
   justifySelf: string;
+  positionArea: string;
 };
 type Story = StoryObj<Props>;
 
@@ -26,8 +26,7 @@ export default {
   args: {
     alignSelf: 'center',
     body: "I'm a popover example",
-    justifySelf: 'center',
-    position: 'bottom'
+    justifySelf: 'center'
   },
   argTypes: {
     alignSelf: {
@@ -44,30 +43,12 @@ export default {
       control: 'inline-radio',
       options: ['start', 'center', 'end']
     },
-    position: {
-      control: 'select',
-      options: [
-        'top',
-        'top-start',
-        'top-end',
-        'right',
-        'right-start',
-        'right-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'left',
-        'left-start',
-        'left-end'
-      ]
+    positionArea: {
+      control: 'inline-radio',
+      options: ['top', 'right', 'bottom', 'left']
     }
   },
-  render: ({ alignSelf, justifySelf, body, maxWidth, position, noDescribedby }) => {
-    const onClick = (): void => {
-      const popover = document.querySelector('sl-popover') as HTMLElement;
-      popover.togglePopover();
-    };
-
+  render: ({ alignSelf, justifySelf, body, maxWidth, positionArea, noDescribedby }) => {
     return html`
       <style>
         #root-inner {
@@ -78,15 +59,17 @@ export default {
         sl-popover {
           --sl-popover-max-inline-size: ${maxWidth ? `${maxWidth}px` : 'none'};
         }
+        sl-popover::part(arrow) {
+          position-anchor: --popover;
+        }
       </style>
       <sl-button
-        @click=${onClick}
-        id="button"
-        variant="primary"
-        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
+        command="toggle-popover"
+        commandfor="popover"
+        style=${styleMap({ alignSelf, justifySelf })}>
         Toggle
       </sl-button>
-      <sl-popover anchor="button" ?no-describedby=${noDescribedby} .position=${position}>
+      <sl-popover id="popover" ?no-describedby=${noDescribedby} style=${styleMap({ positionArea })}>
         ${typeof body === 'string' ? body : body()}
       </sl-popover>
     `;

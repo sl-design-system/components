@@ -1,50 +1,26 @@
 :host {
   --_arrow-block-size: var(--sl-size-125);
   --_arrow-inline-size: var(--sl-size-250);
+  --_offset: var(--sl-size-150); /* The distance between the popover and its anchor. */
 
-  background: var(--sl-elevation-surface-raised-default);
-  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-  border-radius: var(--sl-size-borderRadius-default);
-  box-shadow: var(--sl-elevation-shadow-overlay);
-  color: var(--sl-color-foreground-plain);
-  margin: 0;
+  border: 0;
+  container-type: anchored;
+  inset: auto;
+  margin: var(--sl-size-100);
+  max-block-size: var(--sl-popover-max-block-size, 100%);
   max-inline-size: var(--sl-popover-max-inline-size, 80vw);
   opacity: 0;
   overflow: visible;
   padding: 0;
+  position-area: bottom span-all;
+  position-try-fallbacks: top, left, right;
 
   @media (prefers-reduced-motion: no-preference) {
     transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
   }
-
-  /**
-   * Because of :host and the fact that the element is often not inside a shadow root,
-   * the popover-polyfill can have a higher specificity. We need to use !important
-   * to overwrite the polyfill styling.
-   *
-   * This is only necessary for Firefox < 125 and older browsers that don't support popover
-   */
-  @supports not selector(:popover-open) {
-    background: var(--sl-elevation-surface-raised-default) !important;
-    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain) !important;
-    color: var(--sl-color-foreground-plain) !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    padding: var(--sl-size-100) var(--sl-size-150) !important;
-    position: fixed;
-  }
 }
 
-.container {
-  box-sizing: border-box;
-  max-block-size: inherit;
-  overflow: auto;
-  padding: var(--sl-size-300);
-}
-
-/* stylelint-disable-next-line selector-class-pattern */
-:host(:where(:popover-open, .\\:popover-open)) {
-  /* stylelint-disable-next-line scss/at-rule-no-unknown */
+:host(:popover-open) {
   @starting-style {
     display: block;
     opacity: 0;
@@ -53,27 +29,33 @@
   opacity: 1;
 }
 
-:host([actual-placement^='bottom']) [part='arrow'] {
-  inset-block-start: calc(var(--_arrow-block-size) * -1);
+[part='wrapper'] {
+  anchor-name: --wrapper;
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  color: var(--sl-color-foreground-plain);
+  margin: var(--_offset) 0 0 0;
+
+  @container anchored(fallback: top) {
+    margin: 0 0 var(--_offset) 0;
+  }
+
+  @container anchored(fallback: right) {
+    margin: 0 0 0 var(--_offset);
+  }
+
+  @container anchored(fallback: left) {
+    margin: 0 var(--_offset) 0 0;
+  }
 }
 
-:host([actual-placement^='left']) [part='arrow'] {
-  inset-inline-end: calc(var(--_arrow-inline-size) * -1);
-  rotate: 90deg;
-  transform-origin: left;
-  translate: calc(var(--_arrow-block-size) / 2) calc(var(--_arrow-inline-size) / -2);
-}
-
-:host([actual-placement^='right']) [part='arrow'] {
-  inset-inline-start: calc(var(--_arrow-inline-size) * -1);
-  rotate: -90deg;
-  transform-origin: right;
-  translate: calc(var(--_arrow-block-size) / -2) calc(var(--_arrow-inline-size) / -2);
-}
-
-:host([actual-placement^='top']) [part='arrow'] {
-  inset-block-end: calc(var(--_arrow-block-size) * -1);
-  scale: 1 -1;
+[part='container'] {
+  box-sizing: border-box;
+  max-block-size: inherit;
+  overflow: auto;
+  padding: var(--sl-size-300);
 }
 
 [part='arrow'] {
@@ -81,7 +63,26 @@
   display: inline-flex;
   fill: var(--sl-elevation-surface-raised-default);
   inline-size: var(--_arrow-inline-size);
-  position: absolute;
+  inset-block-start: calc(anchor(--wrapper top) - var(--_arrow-block-size));
+  inset-inline-start: calc(anchor(center) - var(--_arrow-inline-size) / 2);
+  position: fixed;
   stroke: var(--sl-color-border-plain);
   stroke-width: calc(var(--sl-size-borderWidth-default) * 2);
+
+  @container anchored(fallback: top) {
+    inset-block-start: anchor(--wrapper bottom);
+    rotate: 180deg;
+  }
+
+  @container anchored(fallback: right) {
+    inset-block-start: calc(anchor(center) - var(--_arrow-block-size) / 2);
+    inset-inline-start: calc(anchor(--wrapper left) - 14px);
+    rotate: 270deg;
+  }
+
+  @container anchored(fallback: left) {
+    inset-block-start: calc(anchor(center) - var(--_arrow-block-size) / 2);
+    inset-inline-start: calc(anchor(--wrapper right) - var(--_arrow-block-size) / 2);
+    rotate: 90deg;
+  }
 }

@@ -174,11 +174,15 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
         this.#description = undefined;
         this.#isSynthesizedDescription = false;
       }
-      this.#syncDescriptionAria();
+      this.#syncAria();
       this.toggleAttribute(
         'has-description',
         !!this.description || this.#descriptionText().length > 0
       );
+    }
+
+    if (changes.has('tooltip')) {
+      this.#syncAria();
     }
   }
 
@@ -225,6 +229,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
     this.#onInfotipSlotChange();
+    this.#syncAria();
   }
 
   override focus(): void {
@@ -321,7 +326,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       this.#isSynthesizedDescription = false;
     }
 
-    this.#syncDescriptionAria();
+    this.#syncAria();
     this.toggleAttribute('has-description', descriptionText.length > 0);
   }
 
@@ -353,15 +358,22 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       .trim();
   }
 
-  #syncDescriptionAria(): void {
-    requestAnimationFrame(() => {
-      if (this.#description?.id && this.wrapper) {
-        const describedBy = this.wrapper.getAttribute('aria-describedby');
-        const ids = new Set(describedBy ? describedBy.split(' ') : []);
-        ids.add(this.#description.id);
-        this.wrapper.setAttribute('aria-describedby', Array.from(ids).join(' '));
-      }
-    });
+  #syncAria(): void {
+    if (!this.wrapper) {
+      return;
+    }
+
+    const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
+    const elements: Element[] = [];
+
+    if (this.#description) {
+      elements.push(this.#description);
+    }
+    if (tooltip) {
+      elements.push(tooltip);
+    }
+
+    this.wrapper.ariaDescribedByElements = elements.length > 0 ? elements : null;
   }
 
   #onInfotipSlotChange(): void {

@@ -111,7 +111,7 @@ describe('sl-checkbox', () => {
       const descriptionEl = el.querySelector('[slot="description"]');
       expect(descriptionEl).to.exist;
       expect(descriptionEl?.textContent).to.equal('Helper text');
-      expect(el.input.getAttribute('aria-describedby')).to.include(descriptionEl!.id);
+      expect(el.input.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
     });
 
     it('should set description from slot', async () => {
@@ -127,7 +127,7 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
       const descriptionEl = el.querySelector('[slot="description"]');
       expect(descriptionEl).to.exist;
-      expect(el.input.getAttribute('aria-describedby')).to.include(descriptionEl!.id);
+      expect(el.input.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
     });
 
     it('should update has-description attribute dynamically', async () => {
@@ -159,7 +159,7 @@ describe('sl-checkbox', () => {
 
       const slottedEl = el.querySelector('span[slot="description"]');
       expect(slottedEl).to.exist;
-      expect(el.input.getAttribute('aria-describedby')).to.include(slottedEl!.id);
+      expect(el.input.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
 
       slottedEl?.remove();
       await el.updateComplete;
@@ -169,7 +169,7 @@ describe('sl-checkbox', () => {
       const synthesizedEl = el.querySelector('[slot="description"]');
       expect(synthesizedEl).to.exist;
       expect(synthesizedEl?.textContent).to.equal('Property fallback');
-      expect(el.input.getAttribute('aria-describedby')).to.include(synthesizedEl!.id);
+      expect(el.input.ariaDescribedByElements).to.include(synthesizedEl as HTMLElement);
     });
   });
 
@@ -185,14 +185,15 @@ describe('sl-checkbox', () => {
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
     });
 
-    it('should link tooltip to input via aria-describedby', async () => {
+    it('should link tooltip to wrapper via ariaDescribedByElements', async () => {
       el = await fixture(html`<sl-checkbox tooltip="Tooltip information">Option</sl-checkbox>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
-      expect(el.input.getAttribute('aria-describedby')).to.include(tooltip!.id);
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('#wrapper');
+      expect(wrapper?.ariaDescribedByElements).to.include(tooltip as HTMLElement);
     });
   });
 

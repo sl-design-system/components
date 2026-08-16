@@ -50,8 +50,8 @@ describe('sl-radio', () => {
       const descriptionEl = el.querySelector('[slot="description"]');
       expect(descriptionEl).to.exist;
       expect(descriptionEl?.textContent).to.equal('Helper text');
-      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
-      expect(wrapper?.getAttribute('aria-describedby')).to.include(descriptionEl!.id);
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
     });
 
     it('should set description from slot', async () => {
@@ -67,8 +67,8 @@ describe('sl-radio', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
       const descriptionEl = el.querySelector('[slot="description"]');
       expect(descriptionEl).to.exist;
-      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
-      expect(wrapper?.getAttribute('aria-describedby')).to.include(descriptionEl!.id);
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
     });
 
     it('should update has-description attribute dynamically', async () => {
@@ -100,8 +100,8 @@ describe('sl-radio', () => {
 
       const slottedEl = el.querySelector('span[slot="description"]');
       expect(slottedEl).to.exist;
-      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
-      expect(wrapper?.getAttribute('aria-describedby')).to.include(slottedEl!.id);
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
 
       slottedEl?.remove();
       await el.updateComplete;
@@ -111,7 +111,7 @@ describe('sl-radio', () => {
       const synthesizedEl = el.querySelector('[slot="description"]');
       expect(synthesizedEl).to.exist;
       expect(synthesizedEl?.textContent).to.equal('Property fallback');
-      expect(wrapper?.getAttribute('aria-describedby')).to.include(synthesizedEl!.id);
+      expect(wrapper?.ariaDescribedByElements).to.include(synthesizedEl as HTMLElement);
     });
   });
 
@@ -125,6 +125,17 @@ describe('sl-radio', () => {
       expect(tooltip?.getAttribute('for')).to.equal('wrapper');
       expect(tooltip?.getAttribute('type')).to.equal('description');
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
+    });
+
+    it('should link tooltip to wrapper via ariaDescribedByElements', async () => {
+      el = await fixture(html`<sl-radio tooltip="Tooltip information">Option</sl-radio>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const tooltip = el.renderRoot.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(tooltip as HTMLElement);
     });
   });
 

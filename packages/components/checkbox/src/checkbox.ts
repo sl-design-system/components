@@ -202,7 +202,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     super.firstUpdated(changes);
 
     this.#onDescriptionSlotChange();
-    this.#syncTooltipAria();
+    this.#syncAria();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -228,7 +228,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
         this.#description = undefined;
         this.#isSynthesizedDescription = false;
       }
-      this.#syncDescriptionAria();
+      this.#syncAria();
       this.toggleAttribute(
         'has-description',
         !!this.description || this.#descriptionText().length > 0
@@ -236,7 +236,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     }
 
     if (changes.has('tooltip')) {
-      this.#syncTooltipAria();
+      this.#syncAria();
     }
 
     if (changes.has('disabled')) {
@@ -486,7 +486,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       this.#isSynthesizedDescription = false;
     }
 
-    this.#syncDescriptionAria();
+    this.#syncAria();
     this.toggleAttribute('has-description', descriptionText.length > 0);
   }
 
@@ -518,43 +518,17 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       .trim();
   }
 
-  #syncDescriptionAria(): void {
-    if (this.input) {
-      const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
-      const existing = (this.input.ariaDescribedByElements ?? []).filter(
-        el => el !== this.#description && el !== tooltip
-      );
-      const elements = [...existing];
-      if (this.#description) {
-        elements.push(this.#description);
-      }
-      if (tooltip) {
-        elements.push(tooltip);
-      }
-      if (elements.length > 0) {
-        this.input.ariaDescribedByElements = elements;
-      } else if (this.input.ariaDescribedByElements) {
-        this.input.ariaDescribedByElements = null;
-      }
+  #syncAria(): void {
+    if (!this.input) {
+      return;
     }
 
-    if (this.#description?.id && this.input) {
-      const describedBy = this.input.getAttribute('aria-describedby');
-      const ids = new Set(describedBy ? describedBy.split(' ') : []);
-      ids.add(this.#description.id);
-      this.input.setAttribute('aria-describedby', Array.from(ids).join(' '));
+    const elements: Element[] = [];
+    if (this.#description) {
+      elements.push(this.#description);
     }
-  }
 
-  #syncTooltipAria(): void {
-    const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
-    if (this.input && tooltip) {
-      tooltip.id ||= `sl-checkbox-tooltip-${nextUniqueId++}`;
-      const describedBy = this.input.getAttribute('aria-describedby');
-      const ids = new Set(describedBy ? describedBy.split(' ') : []);
-      ids.add(tooltip.id);
-      this.input.setAttribute('aria-describedby', Array.from(ids).join(' '));
-    }
+    this.input.ariaDescribedByElements = elements.length > 0 ? elements : null;
   }
 
   #onInfotipSlotChange(): void {

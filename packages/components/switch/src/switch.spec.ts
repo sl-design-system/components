@@ -57,34 +57,135 @@ describe('sl-switch', () => {
   it('should toggle when clicking the label', async () => {
     el = await fixture(html`<sl-switch>Label</sl-switch>`);
 
-    await userEvent.click(el.querySelector('label')!);
+    await userEvent.click(el.renderRoot.querySelector('[part="label"]')!);
     await el.updateComplete;
 
     expect(el.checked).to.be.true;
   });
 
+  it('should not render an input element in the light DOM', async () => {
+    el = await fixture(html`<sl-switch>Label</sl-switch>`);
+
+    expect(el.querySelector('input')).to.be.null;
+    expect(el.renderRoot.querySelector('input')).to.exist;
+  });
+
+  it('should be the form control element itself', async () => {
+    el = await fixture(html`<sl-switch>Label</sl-switch>`);
+
+    expect(el.formControlElement).to.equal(el);
+  });
+
+  it('should stop listening when disconnected', async () => {
+    el = await fixture(html`<sl-switch>Label</sl-switch>`);
+
+    const parent = el.parentElement!;
+    el.remove();
+
+    el.click();
+    await el.updateComplete;
+
+    expect(el.checked).not.to.be.true;
+
+    // Reconnecting should start listening again
+    parent.append(el);
+    await el.updateComplete;
+
+    el.click();
+    await el.updateComplete;
+
+    expect(el.checked).to.be.true;
+  });
+
+  it('should label the input with the slotted text', async () => {
+    el = await fixture(html`<sl-switch>Label</sl-switch>`);
+    await el.updateComplete;
+
+    const label = el.renderRoot.querySelector<HTMLElement>('#label');
+
+    expect(el).to.match(':state(has-label)');
+    expect(el.renderRoot.querySelector('input')).to.have.attribute('aria-labelledby', 'label');
+    expect(label).to.exist;
+    expect(label!.querySelector('slot')!.assignedNodes()[0].textContent).to.contain('Label');
+  });
+
+  describe('description', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-switch>
+          Label
+          <span slot="description">Description</span>
+        </sl-switch>
+      `);
+
+      await el.updateComplete;
+
+      input = el.renderRoot.querySelector('input')!;
+    });
+
+    it('should have the has-description state', () => {
+      expect(el).to.match(':state(has-description)');
+    });
+
+    it('should describe the input with the description', () => {
+      expect(input).to.have.attribute('aria-describedby', 'description');
+    });
+
+    it('should render the description below the label', () => {
+      const label = el.renderRoot.querySelector('[part="label"]')!.getBoundingClientRect(),
+        description = el.renderRoot.querySelector('[part="description"]')!.getBoundingClientRect();
+
+      expect(description.top).to.be.at.least(label.bottom);
+    });
+
+    it('should indent the description to the same level as the label', () => {
+      const label = el.renderRoot.querySelector('[part="label"]')!.getBoundingClientRect(),
+        description = el.renderRoot.querySelector('[part="description"]')!.getBoundingClientRect();
+
+      expect(description.left).to.equal(label.left);
+    });
+
+    it('should indent the description to the same level as the label when reversed', async () => {
+      el.reverse = true;
+      await el.updateComplete;
+
+      const label = el.renderRoot.querySelector('[part="label"]')!.getBoundingClientRect(),
+        description = el.renderRoot.querySelector('[part="description"]')!.getBoundingClientRect();
+
+      expect(description.left).to.equal(label.left);
+    });
+
+    it('should not describe the input when there is no description', async () => {
+      const withoutDescription = await fixture<Switch>(html`<sl-switch>Label</sl-switch>`);
+      await withoutDescription.updateComplete;
+
+      expect(withoutDescription).not.to.match(':state(has-description)');
+      expect(withoutDescription.renderRoot.querySelector('input')).not.to.have.attribute(
+        'aria-describedby'
+      );
+    });
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch aria-label="Test switch"></sl-switch>`);
-      input = el.querySelector('input')!;
+      input = el.renderRoot.querySelector('input')!;
     });
 
     it('should not be checked', () => {
-      expect(el).not.to.have.attribute('checked');
       expect(el.checked).not.to.be.true;
+      expect(el).not.to.match(':state(checked)');
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
     });
 
     it('should be checked when set', async () => {
       el.checked = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('checked');
+      expect(el).to.match(':state(checked)');
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
     });
 
     it('should not be disabled', () => {
@@ -127,28 +228,85 @@ describe('sl-switch', () => {
       expect(el.renderRoot.querySelector('sl-icon')).to.exist;
     });
 
-    it('should proxy the aria-disabled attribute to the input element', async () => {
+    it('should have a checkbox input with role switch', () => {
+      expect(input).to.exist;
+      expect(input).to.have.attribute('role', 'switch');
+      expect(input.type).to.equal('checkbox');
+    });
+
+    it('should not reference the label element when there is no slotted text', () => {
+      expect(el).not.to.match(':state(has-label)');
+      expect(input).not.to.have.attribute('aria-labelledby');
+    });
+
+    it('should reference the label element once text is slotted', async () => {
+      el.append(document.createTextNode('Label'));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(el).to.match(':state(has-label)');
+      expect(input).to.have.attribute('aria-labelledby', 'label');
+    });
+
+    it('should forward the aria-disabled attribute to the input element', async () => {
       el.setAttribute('aria-disabled', 'true');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-disabled');
-      expect(el.input).to.have.attribute('aria-disabled', 'true');
+      expect(input).to.have.attribute('aria-disabled', 'true');
     });
 
-    it('should proxy the aria-label attribute to the input element', async () => {
+    it('should forward the aria-label attribute to the input element', async () => {
       el.setAttribute('aria-label', 'Label');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-label');
-      expect(el.input).to.have.attribute('aria-label', 'Label');
+      expect(input).to.have.attribute('aria-label', 'Label');
     });
 
-    it('should proxy the aria-labelledby attribute to the input element', async () => {
-      el.setAttribute('aria-labelledby', 'id');
+    it('should forward the aria-labelledby attribute to the input element', async () => {
+      const label = document.createElement('span');
+      label.id = 'switch-label';
+      el.parentElement!.prepend(label);
+
+      el.setAttribute('aria-labelledby', 'switch-label');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el).to.not.have.attribute('aria-labelledby');
-      expect(el.input).to.have.attribute('aria-labelledby', 'id');
+      expect(input.ariaLabelledByElements).to.include(label);
+
+      label.remove();
+    });
+
+    it('should not toggle when aria-disabled is set', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.checked).not.to.be.true;
+    });
+
+    it('should not toggle on Space when aria-disabled is set', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      el.focus();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+
+      expect(el.checked).not.to.be.true;
+      expect(input).not.to.match(':checked');
+    });
+
+    it('should still be focusable when aria-disabled is set', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      el.focus();
+
+      expect(el.shadowRoot!.activeElement).to.equal(input);
     });
 
     it('should be pristine', () => {
@@ -280,7 +438,6 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
 
       el.click();
       await el.updateComplete;
@@ -288,7 +445,6 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(false);
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
     });
 
     it('should toggle the state when clicking the toggle', async () => {
@@ -298,7 +454,6 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
     });
 
     it('should toggle the state on Enter', async () => {
@@ -308,14 +463,12 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
 
       await userEvent.keyboard('{Enter}');
 
       expect(el.checked).to.equal(false);
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
     });
 
     it('should toggle the state on Space', async () => {
@@ -325,14 +478,12 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
 
       await userEvent.keyboard('{Space}');
 
       expect(el.checked).to.equal(false);
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
-      expect(input.checked).to.be.false;
     });
 
     it('should support custom icons', async () => {
@@ -366,7 +517,6 @@ describe('sl-switch', () => {
       expect(el.checked).not.to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
     });
 
     it('should not change the state on Enter', async () => {
@@ -376,7 +526,6 @@ describe('sl-switch', () => {
       expect(el.checked).not.to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
     });
 
     it('should not change the state on Space', async () => {
@@ -386,7 +535,6 @@ describe('sl-switch', () => {
       expect(el.checked).not.to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
     });
   });
 
@@ -399,7 +547,6 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
     });
   });
 
@@ -416,7 +563,7 @@ describe('sl-switch', () => {
 
         el = form.firstElementChild as Switch;
 
-        input = el.querySelector('input')!;
+        input = el.renderRoot.querySelector('input')!;
       });
 
       it('should revert back to the initial state', async () => {
@@ -427,7 +574,7 @@ describe('sl-switch', () => {
         expect(el.checked).to.equal(true);
         expect(input).to.have.attribute('aria-checked', 'true');
         expect(input).to.match(':checked');
-        expect(input.checked).to.be.true;
+        expect(input).to.match(':checked');
 
         form.reset();
 
@@ -436,7 +583,7 @@ describe('sl-switch', () => {
         expect(el.checked).to.equal(false);
         expect(input).to.have.attribute('aria-checked', 'false');
         expect(input).not.to.match(':checked');
-        expect(input.checked).to.be.false;
+        expect(input).not.to.match(':checked');
       });
 
       it('should emit an sl-change event', async () => {
@@ -462,7 +609,7 @@ describe('sl-switch', () => {
 
         el = form.firstElementChild as Switch;
 
-        input = el.querySelector('input')!;
+        input = el.renderRoot.querySelector('input')!;
       });
 
       it('should revert back to the initial states', async () => {
@@ -473,7 +620,7 @@ describe('sl-switch', () => {
         expect(el.checked).to.equal(false);
         expect(input).to.have.attribute('aria-checked', 'false');
         expect(input).not.to.match(':checked');
-        expect(input.checked).to.be.false;
+        expect(input).not.to.match(':checked');
 
         form.reset();
 
@@ -482,7 +629,7 @@ describe('sl-switch', () => {
         expect(el.checked).to.equal(true);
         expect(input).to.have.attribute('aria-checked', 'true');
         expect(input).to.match(':checked');
-        expect(input.checked).to.be.true;
+        expect(input).to.match(':checked');
       });
 
       it('should emit an sl-change event', async () => {
@@ -535,18 +682,21 @@ describe('sl-switch', () => {
       label?.click();
       await el.updateComplete;
 
-      expect(control).to.have.attribute('checked');
+      expect(control).to.match(':state(checked)');
       expect(control?.checked).to.be.true;
     });
 
-    it('should focus the input when the label is clicked', async () => {
-      const input = el.renderRoot.querySelector('input'),
+    it('should focus the switch when the label is clicked', async () => {
+      const control = el.renderRoot.querySelector('sl-switch'),
         label = el.renderRoot.querySelector('label');
 
       label?.click();
       await el.updateComplete;
 
-      expect(el.shadowRoot!.activeElement).to.equal(input);
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+      expect(control!.shadowRoot!.activeElement).to.equal(
+        control!.renderRoot.querySelector('input')
+      );
     });
 
     it('should toggle the switch when the label is clicked', async () => {
@@ -556,11 +706,9 @@ describe('sl-switch', () => {
       label?.click();
       await el.updateComplete;
 
-      expect(control).to.have.attribute('checked');
+      expect(control).to.match(':state(checked)');
       expect(control?.checked).to.be.true;
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
-      expect(input.checked).to.be.true;
+      expect(control!.renderRoot.querySelector('input')).to.have.attribute('aria-checked', 'true');
     });
   });
 });

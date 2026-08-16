@@ -44,7 +44,11 @@
       "import": "./src/mixins.js",
       "types": "./src/mixins.d.ts"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./slot.js": {
+      "import": "./src/slot.js",
+      "types": "./src/slot.d.ts"
+    }
   },
   "files": [
     "**/*.d.ts",

@@ -5,14 +5,23 @@ import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/infotip/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Switch } from './switch.js';
 
-type Props = Pick<Switch, 'checked' | 'disabled' | 'reverse' | 'size' | 'value'> & {
-  text: string;
+type Props = Pick<
+  Switch,
+  'checked' | 'disabled' | 'iconOff' | 'iconOn' | 'reverse' | 'size' | 'value'
+> & {
+  component(): TemplateResult;
+  description: string;
+  infotip(): string | TemplateResult;
+  label: string;
+  tooltip(): TemplateResult;
+  styles(): string;
 };
 type Story = StoryObj<Props>;
 
@@ -23,140 +32,164 @@ export default {
   args: {
     checked: false,
     disabled: false,
+    label: 'Enable Dyslexia-Friendly Font',
     reverse: false,
-    text: 'Text inside the switch',
     value: '12345'
   },
   argTypes: {
+    description: {
+      control: 'text'
+    },
+    iconOff: {
+      table: { disable: true }
+    },
+    iconOn: {
+      table: { disable: true }
+    },
+    infotip: {
+      table: { disable: true }
+    },
     size: {
       control: 'inline-radio',
       options: ['sm', 'md', 'lg']
+    },
+    styles: {
+      table: { disable: true }
     }
   },
-  render: ({ checked, disabled, reverse, size, text, value }) => html`
-    <sl-switch
-      ?checked=${checked}
-      ?disabled=${disabled}
-      ?reverse=${reverse}
-      size=${ifDefined(size)}
-      .value=${value}>
-      ${text}
-    </sl-switch>
+  render: ({
+    checked,
+    component,
+    description,
+    disabled,
+    iconOff,
+    iconOn,
+    infotip,
+    label,
+    reverse,
+    size,
+    styles,
+    tooltip,
+    value
+  }) => html`
+    ${styles
+      ? html`
+          <style>
+            ${styles()}
+          </style>
+        `
+      : nothing}
+    ${component
+      ? component()
+      : html`
+          <sl-switch
+            ?checked=${checked}
+            ?disabled=${disabled}
+            icon-off=${ifDefined(iconOff)}
+            icon-on=${ifDefined(iconOn)}
+            id="switch"
+            ?reverse=${reverse}
+            size=${ifDefined(size)}
+            .value=${value}>
+            ${label} ${description ? html`<div slot="description">${description}</div>` : nothing}
+            ${infotip ? html`<sl-infotip slot="infotip">${infotip()}</sl-infotip>` : nothing}
+          </sl-switch>
+        `}
+    ${tooltip ? tooltip() : nothing}
   `
 } satisfies Meta<Props>;
 
-export const Basic: Story = {};
+export const Basic: Story = {
+  args: {
+    description:
+      'Switches all reading materials, quizzes, and menu text to OpenDyslexic, a typeface designed to help readers with dyslexia process letters more easily.'
+  }
+};
 
 export const Checked: Story = {
   args: {
+    ...Basic.args,
     checked: true
   }
 };
 
 export const Disabled: Story = {
   args: {
-    disabled: true
+    disabled: true,
+    label: 'This switch is disabled. You cannot toggle or focus it.'
   }
 };
 
-export const Empty: Story = {
+export const AriaDisabled: Story = {
   args: {
-    text: ''
-  },
-  render: ({ checked, disabled, reverse, size, text, value }) => html`
-    <sl-switch
-      aria-label="Switch with no label"
-      ?checked=${checked}
-      ?disabled=${disabled}
-      ?reverse=${reverse}
-      size=${ifDefined(size)}
-      .value=${value}>
-      ${text}
-    </sl-switch>
-  `
+    component: () => html`
+      <sl-switch aria-disabled="true" id="switch">
+        This switch has the aria-disabled attribute meaning it looks disabled, but you can still
+        focus it.
+      </sl-switch>
+    `,
+    tooltip: () => html`
+      <sl-tooltip for="switch" type="description">
+        You can combine the aria-disabled attribute with a tooltip to explain why the switch is
+        disabled.
+      </sl-tooltip>
+    `
+  }
+};
+
+export const Icons: Story = {
+  args: {
+    iconOff: 'fas-sun-bright',
+    iconOn: 'fas-moon-stars',
+    label: '',
+    styles: () => `
+      sl-switch {
+        width: fit-content;
+      }
+    `,
+    tooltip: () =>
+      html`<sl-tooltip for="switch">Click to toggle between light and dark mode.</sl-tooltip>`
+  }
 };
 
 export const Overflow: Story = {
   args: {
-    text: 'Ad fugiat esse qui dolore. Est dolore non aute consectetur nisi commodo magna dolore aute irure elit. Ipsum nulla labore minim anim nisi laborum. Reprehenderit non aliqua aliqua amet in enim dolor duis Lorem. Do magna amet ea laboris aliqua. Eu dolor nostrud adipisicing nostrud in cillum eu magna est non id culpa eiusmod. Esse non cillum officia et ad aute incididunt ea elit commodo adipisicing adipisicing.'
+    description: 'Clicking the description does not toggle the switch.',
+    label:
+      'Always try and keep your labels short and concise, but if you have a long label, the switch will wrap it to multiple lines. The toggle will always stay aligned to the top of the label, so it is clear clicking the description will not do anything.'
   }
 };
 
 export const Reverse: Story = {
   args: {
+    label:
+      'Reverse is not meant for regular use, but it is available if you need it for a specific design.',
     reverse: true
   }
 };
 
 export const Infotip: Story = {
-  render: ({ checked, disabled, size, value }) => html`
-    <style>
-      .wrapper {
-        flex-direction: column;
-        display: flex;
-        gap: 1rem;
-        align-items: flex-start;
-      }
+  args: {
+    description: 'We look at which exercises you find difficult to suggest what to practice next.',
+    infotip: () => html`
+      <style>
+        sl-infotip p {
+          margin: 0;
 
-      .stretched {
-        align-self: stretch;
-      }
-    </style>
-    <div class="wrapper">
-      <sl-switch ?checked=${checked} ?disabled=${disabled} size=${ifDefined(size)} .value=${value}>
-        Receive notifications
-        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
-      </sl-switch>
-      <sl-switch
-        class="stretched"
-        ?checked=${checked}
-        ?disabled=${disabled}
-        size=${ifDefined(size)}
-        .value=${value}>
-        Receive notifications
-        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
-      </sl-switch>
-      <sl-switch
-        ?checked=${checked}
-        ?disabled=${disabled}
-        reverse
-        size=${ifDefined(size)}
-        .value=${value}>
-        Receive notifications
-        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
-      </sl-switch>
-      <sl-switch
-        class="stretched"
-        ?checked=${checked}
-        ?disabled=${disabled}
-        reverse
-        size=${ifDefined(size)}
-        .value=${value}>
-        Receive notifications
-        <sl-infotip slot="infotip">You can change this preference later in settings.</sl-infotip>
-      </sl-switch>
-    </div>
-  `
-};
-
-export const CustomIcons: Story = {
-  render: () => {
-    return html`
-      <sl-switch
-        size="sm"
-        icon-off="fas-sun-bright"
-        icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons small"></sl-switch>
-      <sl-switch
-        icon-off="fas-sun-bright"
-        icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons"></sl-switch>
-      <sl-switch
-        size="lg"
-        icon-off="fas-sun-bright"
-        icon-on="fas-moon-stars"
-        aria-label="Switch with custom icons large"></sl-switch>
-    `;
+          + p {
+            margin-block-start: var(--sl-size-100);
+          }
+        }
+      </style>
+      <p>
+        Your answers stay within your school. We keep them for the length of the school year, and
+        your teacher never sees which suggestions you got.
+      </p>
+      <p>
+        <a href="https://example.com">Read how we use your data</a>
+      </p>
+    `,
+    label: 'Personalized practice suggestions'
   }
 };
 
@@ -173,8 +206,8 @@ export const CustomValidity: Story = {
     return html`
       <sl-form>
         <sl-form-field
-          hint="This story has custom validation. If you do not toggle the switch, you will see a validation message. NOTE: This is a technical story; this is NOT meant as a functional example. The switch component should never be used in this way."
-          label="Do not do this in real code!">
+          hint="This story has custom validation. If you do not toggle the switch, you will see a validation message."
+          label="Do not do this in real code! The switch component should never be used in this way.">
           <sl-switch @sl-validate=${onValidate} reverse>You must toggle me</sl-switch>
         </sl-form-field>
         <sl-button-bar>

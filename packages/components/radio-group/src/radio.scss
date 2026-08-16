@@ -86,6 +86,11 @@
   svg circle {
     fill: var(--sl-color-foreground-disabled);
   }
+
+  [part='label'],
+  [part='description'] {
+    color: var(--sl-color-foreground-disabled);
+  }
 }
 
 :host([size='lg']) {
@@ -99,6 +104,10 @@
 
   [part='label'] {
     margin-block-start: calc((var(--sl-size-400) - 1lh) / 2);
+  }
+
+  [part='description'] {
+    font-size: var(--sl-text-size-body-md, 14px);
   }
 }
 
@@ -128,8 +137,23 @@
   outline-offset: var(--sl-size-outlineOffset-default);
 }
 
+[part='content'] {
+  display: flex;
+  flex-direction: column;
+}
+
 [part='label'] {
   margin-block-start: calc((var(--sl-size-300) - 1lh) / 2);
+}
+
+[part='description'] {
+  color: var(--sl-color-foreground-subtlest);
+  font-size: var(--sl-text-size-body-sm);
+  line-height: var(--sl-text-typeset-lineHeight-200, 16px);
+}
+
+:host(:not([has-description])) [part='description'] {
+  display: none;
 }
 
 ::slotted(sl-infotip) {

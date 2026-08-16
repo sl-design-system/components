@@ -1,4 +1,8 @@
 import { localized, msg } from '@lit/localize';
+import {
+  type ScopedElementsMap,
+  ScopedElementsMixin
+} from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type Infotip } from '@sl-design-system/infotip';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
@@ -8,12 +12,14 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
   type PropertyValues,
   type TemplateResult,
   html,
+  nothing,
   svg
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -35,20 +41,33 @@ let nextUniqueId = 0;
  *
  * @csspart outer - The outer container of the checkbox.
  * @csspart inner - The inner container of the checkbox.
+ * @csspart content - The container for the label and description.
  * @csspart label - The label of the checkbox.
+ * @csspart description - The description of the checkbox.
+ * @csspart tooltip - The tooltip element shown when tooltip property is set.
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
+ * @slot description - Description text shown below the label.
  * @slot input - The slot for the input element
  * @slot infotip - The slot for the infotip element
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElement)) {
+export class Checkbox<T = any> extends ForwardAriaMixin(
+  FormControlMixin(ScopedElementsMixin(LitElement))
+) {
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true
   };
+
+  /** @internal */
+  static override get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-tooltip': Tooltip
+    };
+  }
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -60,6 +79,12 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
     focusout: this.#onFocusout,
     keydown: this.#onKeydown
   });
+
+  /** The description instance in the light DOM. */
+  #description?: HTMLElement;
+
+  /** Whether the description element was synthesized internally. */
+  #isSynthesizedDescription = false;
 
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
@@ -79,6 +104,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
    * @default false
    */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
+
+  /** A description of the checkbox that will be rendered below the label. */
+  @property() description?: string;
 
   /**
    * Whether the checkbox is disabled; when set no interaction is possible.
@@ -119,6 +147,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
    * @default 'md'
    */
   @property({ reflect: true }) size?: CheckboxSize;
+
+  /** The text that will be shown in a tooltip. */
+  @property() tooltip?: string;
 
   /**
    * The value of the checkbox when the checkbox is checked. See the formValue property for easy
@@ -164,6 +195,13 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
+    this.#onDescriptionSlotChange();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.#onDescriptionSlotChange();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -173,6 +211,33 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
 
     if (props.some(prop => changes.has(prop))) {
       this.#syncInput(this.input);
+    }
+
+    if (changes.has('description')) {
+      if (this.description) {
+        if (
+          !this.#description ||
+          !this.#description.parentElement ||
+          !this.#isSynthesizedDescription
+        ) {
+          this.#description = document.createElement('span');
+          this.#description.id ||= `sl-checkbox-description-${nextUniqueId++}`;
+          this.#description.slot = 'description';
+          this.#description.setAttribute('aria-hidden', 'true');
+          this.#isSynthesizedDescription = true;
+          this.append(this.#description);
+        }
+        this.#description.textContent = this.description;
+      } else if (this.#description && this.#isSynthesizedDescription) {
+        this.#description.remove();
+        this.#description = undefined;
+        this.#isSynthesizedDescription = false;
+      }
+      this.#syncDescriptionAria();
+      this.toggleAttribute(
+        'has-description',
+        !!this.description || this.#descriptionText().length > 0
+      );
     }
 
     if (changes.has('disabled')) {
@@ -186,7 +251,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
 
   override render(): TemplateResult {
     return html`
-      <div part="wrapper">
+      <div id="wrapper" part="wrapper">
         <slot
           @keydown=${this.#onKeydown}
           @slotchange=${this.#onInputSlotChange}
@@ -205,12 +270,26 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
             </svg>
           </div>
         </div>
-        <span part="label">
-          <slot name="label"></slot>
-          <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
-        </span>
+        <div part="content">
+          <span part="label">
+            <slot name="label"></slot>
+            <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+          </span>
+          <span part="description">
+            <slot name="description" @slotchange=${() => this.#onDescriptionSlotChange()}
+              >${this.description}</slot
+            >
+          </span>
+        </div>
       </div>
       <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
+      ${this.tooltip
+        ? html`
+            <sl-tooltip for="wrapper" part="tooltip" type="description">
+              ${this.tooltip}
+            </sl-tooltip>
+          `
+        : nothing}
     `;
   }
 
@@ -354,6 +433,75 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
       .join(' ')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  #onDescriptionSlotChange(): void {
+    const descriptionText = this.#descriptionText();
+    const slottedDescription = Array.from(this.childNodes).find(
+      (node): node is HTMLElement =>
+        node.nodeType === Node.ELEMENT_NODE &&
+        (node as Element).getAttribute('slot') === 'description'
+    );
+
+    if (slottedDescription) {
+      if (slottedDescription !== this.#description) {
+        if (this.#isSynthesizedDescription && this.#description) {
+          this.#description.remove();
+        }
+        slottedDescription.id ||= `sl-checkbox-description-${nextUniqueId++}`;
+        slottedDescription.setAttribute('aria-hidden', 'true');
+        this.#description = slottedDescription;
+        this.#isSynthesizedDescription = false;
+      }
+    } else if (!this.description && this.#description) {
+      if (this.#isSynthesizedDescription && this.#description.parentElement === this) {
+        this.#description.remove();
+      }
+      this.#description = undefined;
+      this.#isSynthesizedDescription = false;
+    }
+
+    this.#syncDescriptionAria();
+    this.toggleAttribute('has-description', descriptionText.length > 0);
+  }
+
+  #descriptionText(): string {
+    if (this.description) {
+      return this.description.trim();
+    }
+
+    const slottedNodes = Array.from(this.childNodes).filter(
+      node =>
+        node.nodeType === Node.ELEMENT_NODE &&
+        (node as Element).getAttribute('slot') === 'description'
+    );
+
+    if (!slottedNodes.length) {
+      return '';
+    }
+
+    const descriptionSlot = this.shadowRoot?.querySelector<HTMLSlotElement>(
+        'slot[name="description"]'
+      ),
+      descriptionSlotNodes = descriptionSlot?.assignedNodes({ flatten: true }) || [],
+      nodes = descriptionSlotNodes.length ? descriptionSlotNodes : slottedNodes;
+
+    return nodes
+      .map(node => node.textContent?.trim() || '')
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  #syncDescriptionAria(): void {
+    requestAnimationFrame(() => {
+      if (this.#description?.id) {
+        const describedBy = this.input.getAttribute('aria-describedby');
+        const ids = new Set(describedBy ? describedBy.split(' ') : []);
+        ids.add(this.#description.id);
+        this.input.setAttribute('aria-describedby', Array.from(ids).join(' '));
+      }
+    });
   }
 
   #onInfotipSlotChange(): void {

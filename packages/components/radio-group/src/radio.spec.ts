@@ -37,6 +37,71 @@ describe('sl-radio', () => {
     expect(el.infotip?.describes).to.equal('Label');
   });
 
+  describe('description', () => {
+    it('should set description from property', async () => {
+      el = await fixture(html`<sl-radio description="Helper text">Option</sl-radio>`);
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+      const descriptionSlot = el.renderRoot.querySelector('slot[name="description"]');
+      expect(descriptionSlot).to.exist;
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const descriptionEl = el.querySelector('[slot="description"]');
+      expect(descriptionEl).to.exist;
+      expect(descriptionEl?.textContent).to.equal('Helper text');
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+      expect(wrapper?.getAttribute('aria-describedby')).to.include(descriptionEl!.id);
+    });
+
+    it('should set description from slot', async () => {
+      el = await fixture(html`
+        <sl-radio>
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const descriptionEl = el.querySelector('[slot="description"]');
+      expect(descriptionEl).to.exist;
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+      expect(wrapper?.getAttribute('aria-describedby')).to.include(descriptionEl!.id);
+    });
+
+    it('should update has-description attribute dynamically', async () => {
+      el = await fixture(html`<sl-radio>Option</sl-radio>`);
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+
+      el.description = 'Added description';
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+
+      el.description = undefined;
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+    });
+  });
+
+  describe('tooltip', () => {
+    it('should render an sl-tooltip when tooltip property is set', async () => {
+      el = await fixture(html`<sl-radio tooltip="Tooltip information">Option</sl-radio>`);
+      await el.updateComplete;
+
+      const tooltip = el.renderRoot.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      expect(tooltip?.getAttribute('for')).to.equal('wrapper');
+      expect(tooltip?.getAttribute('type')).to.equal('description');
+      expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
+    });
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-radio>Hello world</sl-radio>`);

@@ -246,6 +246,33 @@ export const NoVisibleLabel: StoryObj = {
   }
 };
 
+export const Description: StoryObj = {
+  render: () => {
+    return html`
+      <div style="display: flex; flex-direction: column; gap: var(--sl-size-200);">
+        <sl-checkbox description="This is a description set via property"
+          >Checkbox with property description</sl-checkbox
+        >
+        <sl-checkbox>
+          Checkbox with slotted description
+          <span slot="description">This is a custom slotted description</span>
+        </sl-checkbox>
+      </div>
+    `;
+  }
+};
+
+export const TooltipStory: StoryObj = {
+  name: 'Tooltip',
+  render: () => {
+    return html`
+      <sl-checkbox tooltip="This is a tooltip description for the checkbox"
+        >Hover me for tooltip</sl-checkbox
+      >
+    `;
+  }
+};
+
 export const Infotip: StoryObj = {
   render: () => {
     return html`

@@ -146,6 +146,31 @@ describe('sl-checkbox', () => {
 
       expect(el.hasAttribute('has-description')).to.be.false;
     });
+
+    it('should restore synthesized description when slotted description is removed and property is present', async () => {
+      el = await fixture(html`
+        <sl-checkbox description="Property fallback">
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-checkbox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]');
+      expect(slottedEl).to.exist;
+      expect(el.input.getAttribute('aria-describedby')).to.include(slottedEl!.id);
+
+      slottedEl?.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+      const synthesizedEl = el.querySelector('[slot="description"]');
+      expect(synthesizedEl).to.exist;
+      expect(synthesizedEl?.textContent).to.equal('Property fallback');
+      expect(el.input.getAttribute('aria-describedby')).to.include(synthesizedEl!.id);
+    });
   });
 
   describe('tooltip', () => {
@@ -158,6 +183,16 @@ describe('sl-checkbox', () => {
       expect(tooltip?.getAttribute('for')).to.equal('wrapper');
       expect(tooltip?.getAttribute('type')).to.equal('description');
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
+    });
+
+    it('should link tooltip to input via aria-describedby', async () => {
+      el = await fixture(html`<sl-checkbox tooltip="Tooltip information">Option</sl-checkbox>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const tooltip = el.renderRoot.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      expect(el.input.getAttribute('aria-describedby')).to.include(tooltip!.id);
     });
   });
 

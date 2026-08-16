@@ -161,21 +161,15 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('description')) {
-      if (this.description) {
-        if (
-          !this.#description ||
-          !this.#description.parentElement ||
-          !this.#isSynthesizedDescription
-        ) {
-          this.#description = document.createElement('span');
-          this.#description.id ||= `sl-radio-description-${nextUniqueId++}`;
-          this.#description.slot = 'description';
-          this.#description.setAttribute('aria-hidden', 'true');
-          this.#isSynthesizedDescription = true;
-          this.append(this.#description);
-        }
-        this.#description.textContent = this.description;
-      } else if (this.#description && this.#isSynthesizedDescription) {
+      const hasCustomSlotted = Array.from(this.childNodes).some(
+        node =>
+          node !== this.#description &&
+          node.nodeType === Node.ELEMENT_NODE &&
+          (node as Element).getAttribute('slot') === 'description'
+      );
+      if (this.description && !hasCustomSlotted) {
+        this.#ensureSynthesizedDescription();
+      } else if (!this.description && this.#description && this.#isSynthesizedDescription) {
         this.#description.remove();
         this.#description = undefined;
         this.#isSynthesizedDescription = false;
@@ -275,25 +269,51 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #ensureSynthesizedDescription(): void {
+    if (!this.description) {
+      if (this.#description && this.#isSynthesizedDescription) {
+        this.#description.remove();
+        this.#description = undefined;
+        this.#isSynthesizedDescription = false;
+      }
+      return;
+    }
+
+    if (!this.#description || !this.#description.parentElement || !this.#isSynthesizedDescription) {
+      this.#description = document.createElement('span');
+      this.#description.id ||= `sl-radio-description-${nextUniqueId++}`;
+      this.#description.slot = 'description';
+      this.#description.setAttribute('aria-hidden', 'true');
+      this.#isSynthesizedDescription = true;
+      this.append(this.#description);
+    }
+    this.#description.textContent = this.description;
+  }
+
   #onDescriptionSlotChange(): void {
     const descriptionText = this.#descriptionText();
     const slottedDescription = Array.from(this.childNodes).find(
       (node): node is HTMLElement =>
         node.nodeType === Node.ELEMENT_NODE &&
-        (node as Element).getAttribute('slot') === 'description'
+        (node as Element).getAttribute('slot') === 'description' &&
+        (!this.#isSynthesizedDescription || node !== this.#description)
     );
 
     if (slottedDescription) {
-      if (slottedDescription !== this.#description) {
-        if (this.#isSynthesizedDescription && this.#description) {
-          this.#description.remove();
-        }
-        slottedDescription.id ||= `sl-radio-description-${nextUniqueId++}`;
-        slottedDescription.setAttribute('aria-hidden', 'true');
-        this.#description = slottedDescription;
-        this.#isSynthesizedDescription = false;
+      if (
+        this.#isSynthesizedDescription &&
+        this.#description &&
+        this.#description !== slottedDescription
+      ) {
+        this.#description.remove();
       }
-    } else if (!this.description && this.#description) {
+      slottedDescription.id ||= `sl-radio-description-${nextUniqueId++}`;
+      slottedDescription.setAttribute('aria-hidden', 'true');
+      this.#description = slottedDescription;
+      this.#isSynthesizedDescription = false;
+    } else if (this.description) {
+      this.#ensureSynthesizedDescription();
+    } else if (this.#description) {
       if (this.#isSynthesizedDescription && this.#description.parentElement === this) {
         this.#description.remove();
       }

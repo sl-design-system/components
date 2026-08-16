@@ -202,6 +202,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     super.firstUpdated(changes);
 
     this.#onDescriptionSlotChange();
+    this.#syncTooltipAria();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -214,21 +215,15 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     }
 
     if (changes.has('description')) {
-      if (this.description) {
-        if (
-          !this.#description ||
-          !this.#description.parentElement ||
-          !this.#isSynthesizedDescription
-        ) {
-          this.#description = document.createElement('span');
-          this.#description.id ||= `sl-checkbox-description-${nextUniqueId++}`;
-          this.#description.slot = 'description';
-          this.#description.setAttribute('aria-hidden', 'true');
-          this.#isSynthesizedDescription = true;
-          this.append(this.#description);
-        }
-        this.#description.textContent = this.description;
-      } else if (this.#description && this.#isSynthesizedDescription) {
+      const hasCustomSlotted = Array.from(this.childNodes).some(
+        node =>
+          node !== this.#description &&
+          node.nodeType === Node.ELEMENT_NODE &&
+          (node as Element).getAttribute('slot') === 'description'
+      );
+      if (this.description && !hasCustomSlotted) {
+        this.#ensureSynthesizedDescription();
+      } else if (!this.description && this.#description && this.#isSynthesizedDescription) {
         this.#description.remove();
         this.#description = undefined;
         this.#isSynthesizedDescription = false;
@@ -238,6 +233,10 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
         'has-description',
         !!this.description || this.#descriptionText().length > 0
       );
+    }
+
+    if (changes.has('tooltip')) {
+      this.#syncTooltipAria();
     }
 
     if (changes.has('disabled')) {
@@ -435,25 +434,51 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       .trim();
   }
 
+  #ensureSynthesizedDescription(): void {
+    if (!this.description) {
+      if (this.#description && this.#isSynthesizedDescription) {
+        this.#description.remove();
+        this.#description = undefined;
+        this.#isSynthesizedDescription = false;
+      }
+      return;
+    }
+
+    if (!this.#description || !this.#description.parentElement || !this.#isSynthesizedDescription) {
+      this.#description = document.createElement('span');
+      this.#description.id ||= `sl-checkbox-description-${nextUniqueId++}`;
+      this.#description.slot = 'description';
+      this.#description.setAttribute('aria-hidden', 'true');
+      this.#isSynthesizedDescription = true;
+      this.append(this.#description);
+    }
+    this.#description.textContent = this.description;
+  }
+
   #onDescriptionSlotChange(): void {
     const descriptionText = this.#descriptionText();
     const slottedDescription = Array.from(this.childNodes).find(
       (node): node is HTMLElement =>
         node.nodeType === Node.ELEMENT_NODE &&
-        (node as Element).getAttribute('slot') === 'description'
+        (node as Element).getAttribute('slot') === 'description' &&
+        (!this.#isSynthesizedDescription || node !== this.#description)
     );
 
     if (slottedDescription) {
-      if (slottedDescription !== this.#description) {
-        if (this.#isSynthesizedDescription && this.#description) {
-          this.#description.remove();
-        }
-        slottedDescription.id ||= `sl-checkbox-description-${nextUniqueId++}`;
-        slottedDescription.setAttribute('aria-hidden', 'true');
-        this.#description = slottedDescription;
-        this.#isSynthesizedDescription = false;
+      if (
+        this.#isSynthesizedDescription &&
+        this.#description &&
+        this.#description !== slottedDescription
+      ) {
+        this.#description.remove();
       }
-    } else if (!this.description && this.#description) {
+      slottedDescription.id ||= `sl-checkbox-description-${nextUniqueId++}`;
+      slottedDescription.setAttribute('aria-hidden', 'true');
+      this.#description = slottedDescription;
+      this.#isSynthesizedDescription = false;
+    } else if (this.description) {
+      this.#ensureSynthesizedDescription();
+    } else if (this.#description) {
       if (this.#isSynthesizedDescription && this.#description.parentElement === this) {
         this.#description.remove();
       }
@@ -494,14 +519,42 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   }
 
   #syncDescriptionAria(): void {
-    requestAnimationFrame(() => {
-      if (this.#description?.id) {
-        const describedBy = this.input.getAttribute('aria-describedby');
-        const ids = new Set(describedBy ? describedBy.split(' ') : []);
-        ids.add(this.#description.id);
-        this.input.setAttribute('aria-describedby', Array.from(ids).join(' '));
+    if (this.input) {
+      const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
+      const existing = (this.input.ariaDescribedByElements ?? []).filter(
+        el => el !== this.#description && el !== tooltip
+      );
+      const elements = [...existing];
+      if (this.#description) {
+        elements.push(this.#description);
       }
-    });
+      if (tooltip) {
+        elements.push(tooltip);
+      }
+      if (elements.length > 0) {
+        this.input.ariaDescribedByElements = elements;
+      } else if (this.input.ariaDescribedByElements) {
+        this.input.ariaDescribedByElements = null;
+      }
+    }
+
+    if (this.#description?.id && this.input) {
+      const describedBy = this.input.getAttribute('aria-describedby');
+      const ids = new Set(describedBy ? describedBy.split(' ') : []);
+      ids.add(this.#description.id);
+      this.input.setAttribute('aria-describedby', Array.from(ids).join(' '));
+    }
+  }
+
+  #syncTooltipAria(): void {
+    const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
+    if (this.input && tooltip) {
+      tooltip.id ||= `sl-checkbox-tooltip-${nextUniqueId++}`;
+      const describedBy = this.input.getAttribute('aria-describedby');
+      const ids = new Set(describedBy ? describedBy.split(' ') : []);
+      ids.add(tooltip.id);
+      this.input.setAttribute('aria-describedby', Array.from(ids).join(' '));
+    }
   }
 
   #onInfotipSlotChange(): void {

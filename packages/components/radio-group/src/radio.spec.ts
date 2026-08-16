@@ -87,6 +87,32 @@ describe('sl-radio', () => {
 
       expect(el.hasAttribute('has-description')).to.be.false;
     });
+
+    it('should restore synthesized description when slotted description is removed and property is present', async () => {
+      el = await fixture(html`
+        <sl-radio description="Property fallback">
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]');
+      expect(slottedEl).to.exist;
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+      expect(wrapper?.getAttribute('aria-describedby')).to.include(slottedEl!.id);
+
+      slottedEl?.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+      const synthesizedEl = el.querySelector('[slot="description"]');
+      expect(synthesizedEl).to.exist;
+      expect(synthesizedEl?.textContent).to.equal('Property fallback');
+      expect(wrapper?.getAttribute('aria-describedby')).to.include(synthesizedEl!.id);
+    });
   });
 
   describe('tooltip', () => {

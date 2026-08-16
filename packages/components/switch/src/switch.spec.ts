@@ -2,6 +2,7 @@ import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/infotip/register.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -9,6 +10,13 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import '../register.js';
 import { Switch } from './switch.js';
+
+/** Returns the horizontal center of the given element. */
+const center = (el: Element): number => {
+  const { left, right } = el.getBoundingClientRect();
+
+  return (left + right) / 2;
+};
 
 describe('sl-switch', () => {
   let el: Switch, input: HTMLInputElement;
@@ -547,6 +555,156 @@ describe('sl-switch', () => {
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
+    });
+  });
+
+  describe('tooltip', () => {
+    let tooltip: Tooltip;
+
+    const waitFor = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    beforeEach(async () => {
+      // The switch is given a fixed width away from the viewport edges, so the tooltip has room
+      // to center itself on whichever part of the switch it is anchored to.
+      const wrapper = await fixture<HTMLElement>(html`
+        <div style="margin: 100px auto; width: 300px">
+          <sl-switch tooltip="More information">Label</sl-switch>
+        </div>
+      `);
+
+      el = wrapper.querySelector('sl-switch')!;
+      await el.updateComplete;
+
+      input = el.renderRoot.querySelector('input')!;
+      tooltip = el.renderRoot.querySelector('sl-tooltip')!;
+      await tooltip.updateComplete;
+    });
+
+    it('should not have a tooltip by default', async () => {
+      const withoutTooltip = await fixture<Switch>(html`<sl-switch>Label</sl-switch>`);
+      await withoutTooltip.updateComplete;
+
+      expect(withoutTooltip.renderRoot.querySelector('sl-tooltip')).to.be.null;
+    });
+
+    it('should render an sl-tooltip with a tooltip part when the property is set', () => {
+      expect(tooltip).to.exist;
+      expect(el.renderRoot.querySelector('[part="tooltip"]')).to.equal(tooltip);
+      expect(tooltip).to.have.trimmed.text('More information');
+    });
+
+    it('should remove the tooltip when the property is unset', async () => {
+      el.tooltip = undefined;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-tooltip')).to.be.null;
+    });
+
+    it('should describe the input when the switch has a label', () => {
+      expect(tooltip.type).to.equal('description');
+      expect(input.ariaDescribedByElements).to.include(tooltip);
+      expect(input.ariaLabelledByElements ?? []).not.to.include(tooltip);
+    });
+
+    it('should describe the input alongside the description', async () => {
+      const withDescription = await fixture<Switch>(html`
+        <sl-switch tooltip="More information">
+          Label
+          <span slot="description">Description</span>
+        </sl-switch>
+      `);
+      await withDescription.updateComplete;
+
+      const describedBy =
+        withDescription.renderRoot.querySelector('input')!.ariaDescribedByElements;
+
+      expect(describedBy).to.include(withDescription.renderRoot.querySelector('sl-tooltip'));
+      expect(describedBy).to.include(
+        withDescription.renderRoot.querySelector('[part="description"]')
+      );
+    });
+
+    it('should label the input when the switch has no label', async () => {
+      const withoutLabel = await fixture<Switch>(
+        html`<sl-switch tooltip="Toggle dark mode"> </sl-switch>`
+      );
+      await withoutLabel.updateComplete;
+
+      const tooltipEl = withoutLabel.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = withoutLabel.renderRoot.querySelector('input')!;
+
+      expect(tooltipEl.type).to.equal('label');
+      expect(inputEl.ariaLabelledByElements).to.include(tooltipEl);
+      expect(inputEl.ariaDescribedByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should center the tooltip on the entire switch when hovering', async () => {
+      el.renderRoot
+        .querySelector('[part="track"]')!
+        .dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 50);
+
+      const container = el.renderRoot.querySelector('[part="container"]')!;
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchor).to.equal(container);
+      expect(center(tooltip)).to.be.closeTo(center(container), 1);
+    });
+
+    it('should center the tooltip on the toggle when it has focus', async () => {
+      await userEvent.tab();
+      await waitFor(50);
+
+      const toggle = el.renderRoot.querySelector('[part="toggle"]')!;
+
+      expect(el.shadowRoot!.activeElement).to.equal(input);
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchor).to.equal(toggle);
+      expect(center(tooltip)).to.be.closeTo(center(toggle), 1);
+    });
+
+    it('should show the tooltip when hovering a disabled switch', async () => {
+      const disabled = await fixture<Switch>(
+        html`<sl-switch disabled tooltip="Ask your teacher to unlock this">Label</sl-switch>`
+      );
+      await disabled.updateComplete;
+
+      const tooltipEl = disabled.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      disabled.renderRoot
+        .querySelector('[part="track"]')!
+        .dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 50);
+
+      expect(tooltipEl).to.match(':popover-open');
+    });
+
+    it('should position the tooltip of each switch against its own switch', async () => {
+      const wrapper = await fixture<HTMLElement>(html`
+        <div style="display: grid; gap: 200px; grid-template-columns: 1fr 1fr; margin: 100px">
+          <sl-switch tooltip="First">First</sl-switch>
+          <sl-switch tooltip="Second">Second</sl-switch>
+        </div>
+      `);
+
+      const [first, second] = Array.from(wrapper.querySelectorAll<Switch>('sl-switch'));
+      await Promise.all([first.updateComplete, second.updateComplete]);
+
+      const secondTooltip = second.renderRoot.querySelector('sl-tooltip')!;
+      await secondTooltip.updateComplete;
+
+      second.renderRoot
+        .querySelector('[part="track"]')!
+        .dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 50);
+
+      const secondContainer = second.renderRoot.querySelector('[part="container"]')!;
+
+      expect(secondTooltip).to.match(':popover-open');
+      expect(center(secondTooltip)).to.be.closeTo(center(secondContainer), 1);
     });
   });
 

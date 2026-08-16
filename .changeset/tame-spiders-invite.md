@@ -32,6 +32,7 @@ The description is linked to the control with `aria-describedby`, so screen read
 - `description` - The wrapper around the description
 - `input` - The visually hidden input element
 - `label` - The wrapper around the label text
+- `tooltip` - The tooltip shown when the `tooltip` property is set
 - `value` - The wrapper around the label and the infotip
 
 #### New CSS states
@@ -39,3 +40,15 @@ The description is linked to the control with `aria-describedby`, so screen read
 - `checked` - Set when the switch is on
 - `has-description` - Set when there is text in the description slot
 - `has-label` - Set when there is text in the default slot
+
+#### New `tooltip` property
+
+The switch can show a tooltip, the same way `<sl-button>` does, without having to add an `<sl-tooltip>` yourself:
+
+```html
+<sl-switch aria-disabled="true" tooltip="Ask your teacher to unlock this setting">
+  Enable Dyslexia-Friendly Font
+</sl-switch>
+```
+
+When you hover anywhere on the switch, the tooltip is centered on the switch as a whole; when the toggle has focus, the tooltip is centered on the toggle. The tooltip describes the switch, unless the switch has no label, in which case it labels the switch.

@@ -5,7 +5,6 @@ import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/infotip/register.js';
-import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -14,13 +13,12 @@ import { type Switch } from './switch.js';
 
 type Props = Pick<
   Switch,
-  'checked' | 'disabled' | 'iconOff' | 'iconOn' | 'reverse' | 'size' | 'value'
+  'checked' | 'disabled' | 'iconOff' | 'iconOn' | 'reverse' | 'size' | 'tooltip' | 'value'
 > & {
   component(): TemplateResult;
   description: string;
   infotip(): string | TemplateResult;
   label: string;
-  tooltip(): TemplateResult;
   styles(): string;
 };
 type Story = StoryObj<Props>;
@@ -90,12 +88,12 @@ export default {
             id="switch"
             ?reverse=${reverse}
             size=${ifDefined(size)}
+            tooltip=${ifDefined(tooltip)}
             .value=${value}>
             ${label} ${description ? html`<div slot="description">${description}</div>` : nothing}
             ${infotip ? html`<sl-infotip slot="infotip">${infotip()}</sl-infotip>` : nothing}
           </sl-switch>
         `}
-    ${tooltip ? tooltip() : nothing}
   `
 } satisfies Meta<Props>;
 
@@ -123,16 +121,17 @@ export const Disabled: Story = {
 export const AriaDisabled: Story = {
   args: {
     component: () => html`
-      <sl-switch aria-disabled="true" id="switch">
+      <sl-switch
+        aria-disabled="true"
+        tooltip="You can combine the aria-disabled attribute with a tooltip to explain why the switch is disabled.">
         This switch has the aria-disabled attribute meaning it looks disabled, but you can still
         focus it.
       </sl-switch>
     `,
-    tooltip: () => html`
-      <sl-tooltip for="switch" type="description">
-        You can combine the aria-disabled attribute with a tooltip to explain why the switch is
-        disabled.
-      </sl-tooltip>
+    styles: () => `
+      sl-switch::part(tooltip) {
+        max-inline-size: 200px;
+      }
     `
   }
 };
@@ -147,8 +146,7 @@ export const Icons: Story = {
         width: fit-content;
       }
     `,
-    tooltip: () =>
-      html`<sl-tooltip for="switch">Click to toggle between light and dark mode.</sl-tooltip>`
+    tooltip: 'Click to toggle between light and dark mode.'
   }
 };
 
@@ -163,7 +161,7 @@ export const Overflow: Story = {
 export const Reverse: Story = {
   args: {
     label:
-      'Reverse is not meant for regular use, but it is available if you need it for a specific design.',
+      'Reverse is not meant for regular use, but it is available if you need it for a specific design, such as when used within a form field.',
     reverse: true
   }
 };

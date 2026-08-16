@@ -13,6 +13,7 @@ import {
 } from '@sl-design-system/shared/events.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { getSlottedText, hasSlottedContent } from '@sl-design-system/shared/slot.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -41,11 +42,13 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  * @csspart description - The wrapper around the description, below the label.
  * @csspart label - The wrapper around the label text.
  * @csspart toggle - The wrapper around the input and the track.
+ * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
  * @csspart track - The track the handle moves in.
  * @csspart handle - The handle that moves from one side of the track to the other.
  *
  * @cssstate checked - Set when the switch is on.
  * @cssstate has-description - Set when there is text in the description slot.
+ * @cssstate has-label - Set when there is text in the default slot.
  * @cssstate no-label - Set when there is no text in the default slot.
  *
  * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
@@ -62,7 +65,8 @@ export class Switch<T = any> extends ForwardAriaMixin(
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -138,6 +142,9 @@ export class Switch<T = any> extends ForwardAriaMixin(
    */
   @property({ reflect: true }) size?: SwitchSize;
 
+  /** The text that will be shown in a tooltip. */
+  @property() tooltip?: string;
+
   /** The value of the switch when the switch is checked. See the formValue property for easy access. */
   @property() override value?: T;
 
@@ -210,25 +217,35 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
   override render(): TemplateResult {
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
-      size = this.size === 'md' ? 'xs' : 'md';
+      size = this.size === 'md' ? 'xs' : 'md',
+      hasLabel = this.internals.states.has('has-label'),
+      // If the switch has no label, the tooltip functions as the label, otherwise as the description
+      tooltipType = hasLabel ? 'description' : 'label',
+      describedBy = [
+        this.internals.states.has('has-description') && 'description',
+        this.tooltip && hasLabel && 'tooltip'
+      ]
+        .filter(Boolean)
+        .join(' '),
+      labelledBy = [hasLabel && 'label', this.tooltip && !hasLabel && 'tooltip']
+        .filter(Boolean)
+        .join(' ');
 
     return html`
-      <div part="container">
+      <div id="container" part="container">
         <div part="wrapper">
-          <label for="input" part="label">
+          <label for="input" id="label" part="label">
             <slot @slotchange=${this.#onLabelSlotChange}></slot>
           </label>
 
           <slot name="infotip" @slotchange=${this.#onInfotipSlotChange}></slot>
         </div>
 
-        <label part="toggle">
+        <label id="toggle" part="toggle">
           <input
             aria-checked=${this.checked ? 'true' : 'false'}
-            aria-describedby=${this.internals.states.has('has-description')
-              ? 'description'
-              : nothing}
-            aria-labelledby=${this.internals.states.has('has-label') ? 'label' : nothing}
+            aria-describedby=${describedBy || nothing}
+            aria-labelledby=${labelledBy || nothing}
             .checked=${!!this.checked}
             ?disabled=${this.disabled}
             @input=${this.#onInput}
@@ -249,6 +266,14 @@ export class Switch<T = any> extends ForwardAriaMixin(
           <slot name="description" @slotchange=${this.#onDescriptionSlotChange}></slot>
         </div>
       </div>
+
+      ${this.tooltip
+        ? html`
+            <sl-tooltip for="container toggle" id="tooltip" part="tooltip" type=${tooltipType}>
+              ${this.tooltip}
+            </sl-tooltip>
+          `
+        : nothing}
     `;
   }
 
@@ -312,10 +337,15 @@ export class Switch<T = any> extends ForwardAriaMixin(
     const text = getSlottedText(event.target);
 
     if (text) {
+      this.internals.states.add('has-label');
       this.internals.states.delete('no-label');
     } else {
+      this.internals.states.delete('has-label');
       this.internals.states.add('no-label');
     }
+
+    // Trigger update to ensure the aria-labelledby attribute is updated correctly.
+    this.requestUpdate();
 
     if (this.infotip && !this.infotip.describes) {
       this.infotip.describes = text;

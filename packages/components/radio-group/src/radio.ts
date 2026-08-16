@@ -26,6 +26,7 @@ declare global {
 export type RadioButtonSize = 'md' | 'lg';
 
 let nextUniqueId = 0;
+const priorAriaHidden = new WeakMap<HTMLElement, string | null>();
 
 /**
  * A radio button with 2 states; unchecked and checked.
@@ -63,6 +64,12 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The description instance in the light DOM. */
   #description?: HTMLElement;
+
+  /** Previously owned description element reference. */
+  #previousDescription?: HTMLElement;
+
+  /** Previously owned tooltip element reference. */
+  #previousTooltip?: HTMLElement;
 
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
@@ -312,15 +319,54 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       ) {
         this.#description.remove();
       }
+      if (
+        this.#description &&
+        this.#description !== slottedDescription &&
+        !this.#isSynthesizedDescription
+      ) {
+        if (priorAriaHidden.has(this.#description)) {
+          const prior = priorAriaHidden.get(this.#description);
+          if (prior !== null && prior !== undefined) {
+            this.#description.setAttribute('aria-hidden', prior);
+          } else {
+            this.#description.removeAttribute('aria-hidden');
+          }
+          priorAriaHidden.delete(this.#description);
+        }
+      }
       slottedDescription.id ||= `sl-radio-description-${nextUniqueId++}`;
+      if (!priorAriaHidden.has(slottedDescription)) {
+        priorAriaHidden.set(slottedDescription, slottedDescription.getAttribute('aria-hidden'));
+      }
       slottedDescription.setAttribute('aria-hidden', 'true');
       this.#description = slottedDescription;
       this.#isSynthesizedDescription = false;
     } else if (this.description) {
+      if (this.#description && !this.#isSynthesizedDescription) {
+        if (priorAriaHidden.has(this.#description)) {
+          const prior = priorAriaHidden.get(this.#description);
+          if (prior !== null && prior !== undefined) {
+            this.#description.setAttribute('aria-hidden', prior);
+          } else {
+            this.#description.removeAttribute('aria-hidden');
+          }
+          priorAriaHidden.delete(this.#description);
+        }
+      }
       this.#ensureSynthesizedDescription();
     } else if (this.#description) {
       if (this.#isSynthesizedDescription && this.#description.parentElement === this) {
         this.#description.remove();
+      } else if (!this.#isSynthesizedDescription) {
+        if (priorAriaHidden.has(this.#description)) {
+          const prior = priorAriaHidden.get(this.#description);
+          if (prior !== null && prior !== undefined) {
+            this.#description.setAttribute('aria-hidden', prior);
+          } else {
+            this.#description.removeAttribute('aria-hidden');
+          }
+          priorAriaHidden.delete(this.#description);
+        }
       }
       this.#description = undefined;
       this.#isSynthesizedDescription = false;
@@ -364,16 +410,25 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
-    const elements: Element[] = [];
+    const previousOwned = [this.#previousDescription, this.#previousTooltip].filter(
+      (el): el is HTMLElement => !!el
+    );
 
+    const existingRefs = (this.wrapper.ariaDescribedByElements ?? []).filter(
+      el => !previousOwned.includes(el as HTMLElement)
+    );
+
+    const nextRefs = [...existingRefs];
     if (this.#description) {
-      elements.push(this.#description);
+      nextRefs.push(this.#description);
     }
     if (tooltip) {
-      elements.push(tooltip);
+      nextRefs.push(tooltip);
     }
 
-    this.wrapper.ariaDescribedByElements = elements.length > 0 ? elements : null;
+    this.wrapper.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
+    this.#previousDescription = this.#description;
+    this.#previousTooltip = tooltip ?? undefined;
   }
 
   #onInfotipSlotChange(): void {

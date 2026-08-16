@@ -147,7 +147,7 @@ describe('sl-checkbox', () => {
       expect(el.hasAttribute('has-description')).to.be.false;
     });
 
-    it('should restore synthesized description when slotted description is removed and property is present', async () => {
+    it('should restore synthesized description and aria-hidden when slotted description is removed and property is present', async () => {
       el = await fixture(html`
         <sl-checkbox description="Property fallback">
           Option
@@ -159,17 +159,41 @@ describe('sl-checkbox', () => {
 
       const slottedEl = el.querySelector('span[slot="description"]');
       expect(slottedEl).to.exist;
+      expect(slottedEl?.getAttribute('aria-hidden')).to.equal('true');
       expect(el.input.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
 
       slottedEl?.remove();
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
+      expect(slottedEl?.hasAttribute('aria-hidden')).to.be.false;
       expect(el.hasAttribute('has-description')).to.be.true;
       const synthesizedEl = el.querySelector('[slot="description"]');
       expect(synthesizedEl).to.exist;
       expect(synthesizedEl?.textContent).to.equal('Property fallback');
       expect(el.input.ariaDescribedByElements).to.include(synthesizedEl as HTMLElement);
+    });
+
+    it('should preserve external ariaDescribedByElements when description is added', async () => {
+      const external = document.createElement('div');
+      external.id = 'external-desc';
+      document.body.appendChild(external);
+
+      el = await fixture(html`<sl-checkbox aria-describedby="external-desc">Option</sl-checkbox>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input.ariaDescribedByElements).to.include(external);
+
+      el.description = 'Added description';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input.ariaDescribedByElements).to.include(external);
+      const descriptionEl = el.querySelector('[slot="description"]');
+      expect(el.input.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+
+      external.remove();
     });
   });
 

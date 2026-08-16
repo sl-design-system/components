@@ -88,7 +88,7 @@ describe('sl-radio', () => {
       expect(el.hasAttribute('has-description')).to.be.false;
     });
 
-    it('should restore synthesized description when slotted description is removed and property is present', async () => {
+    it('should restore synthesized description and aria-hidden when slotted description is removed and property is present', async () => {
       el = await fixture(html`
         <sl-radio description="Property fallback">
           Option
@@ -100,6 +100,7 @@ describe('sl-radio', () => {
 
       const slottedEl = el.querySelector('span[slot="description"]');
       expect(slottedEl).to.exist;
+      expect(slottedEl?.getAttribute('aria-hidden')).to.equal('true');
       const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
       expect(wrapper?.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
 
@@ -107,11 +108,34 @@ describe('sl-radio', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
+      expect(slottedEl?.hasAttribute('aria-hidden')).to.be.false;
       expect(el.hasAttribute('has-description')).to.be.true;
       const synthesizedEl = el.querySelector('[slot="description"]');
       expect(synthesizedEl).to.exist;
       expect(synthesizedEl?.textContent).to.equal('Property fallback');
       expect(wrapper?.ariaDescribedByElements).to.include(synthesizedEl as HTMLElement);
+    });
+
+    it('should preserve external ariaDescribedByElements when description is added', async () => {
+      el = await fixture(html`<sl-radio>Option</sl-radio>`);
+      await el.updateComplete;
+
+      const external = document.createElement('div');
+      external.id = 'external-desc';
+      document.body.appendChild(external);
+
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
+      wrapper.ariaDescribedByElements = [external];
+
+      el.description = 'Added description';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(wrapper.ariaDescribedByElements).to.include(external);
+      const descriptionEl = el.querySelector('[slot="description"]');
+      expect(wrapper.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+
+      external.remove();
     });
   });
 

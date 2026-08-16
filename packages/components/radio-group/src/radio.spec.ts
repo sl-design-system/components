@@ -137,6 +137,30 @@ describe('sl-radio', () => {
 
       external.remove();
     });
+
+    it('should update has-description when slotted text mutates reactively', async () => {
+      el = await fixture(html`
+        <sl-radio>
+          Option
+          <span slot="description"></span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+
+      const span = el.querySelector('span[slot="description"]')!;
+      span.textContent = 'Dynamic reactive description';
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+
+      span.textContent = '';
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+    });
   });
 
   describe('tooltip', () => {

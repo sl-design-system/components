@@ -74,6 +74,11 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
 
+  #mutationObserver = new MutationObserver(() => {
+    this.#onLabelSlotChange();
+    this.#onDescriptionSlotChange();
+  });
+
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
@@ -145,8 +150,16 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       this.#tabIndex = parseInt(this.getAttribute('tabindex') || '0', 10);
     }
 
+    this.#mutationObserver.observe(this, { characterData: true, childList: true, subtree: true });
+
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
+  }
+
+  override disconnectedCallback(): void {
+    this.#mutationObserver.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {

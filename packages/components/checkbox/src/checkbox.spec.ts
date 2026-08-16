@@ -195,6 +195,30 @@ describe('sl-checkbox', () => {
 
       external.remove();
     });
+
+    it('should update has-description when slotted text mutates reactively', async () => {
+      el = await fixture(html`
+        <sl-checkbox>
+          Option
+          <span slot="description"></span>
+        </sl-checkbox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+
+      const span = el.querySelector('span[slot="description"]')!;
+      span.textContent = 'Dynamic reactive description';
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+
+      span.textContent = '';
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+    });
   });
 
   describe('tooltip', () => {
@@ -209,15 +233,14 @@ describe('sl-checkbox', () => {
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
     });
 
-    it('should link tooltip to wrapper via ariaDescribedByElements', async () => {
+    it('should link tooltip to input via ariaDescribedByElements', async () => {
       el = await fixture(html`<sl-checkbox tooltip="Tooltip information">Option</sl-checkbox>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
-      const wrapper = el.renderRoot.querySelector<HTMLElement>('#wrapper');
-      expect(wrapper?.ariaDescribedByElements).to.include(tooltip as HTMLElement);
+      expect(el.input.ariaDescribedByElements).to.include(tooltip as HTMLElement);
     });
   });
 

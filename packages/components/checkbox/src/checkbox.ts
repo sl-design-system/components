@@ -96,6 +96,11 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
 
+  #mutationObserver = new MutationObserver(() => {
+    this.#onLabelSlotChange();
+    this.#onDescriptionSlotChange();
+  });
+
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -201,8 +206,16 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     this.setFormControlElement(this.input);
 
+    this.#mutationObserver.observe(this, { characterData: true, childList: true, subtree: true });
+
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
+  }
+
+  override disconnectedCallback(): void {
+    this.#mutationObserver.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {

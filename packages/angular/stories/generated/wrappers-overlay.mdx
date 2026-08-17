@@ -115,7 +115,9 @@ You can show a confirmation dialog using the static <code>MessageDialog.confirm(
       'Confirm Delete'
     );
     console.log('Confirmation result:', result);
-    alert(`User selected: ${result === true ? 'OK' : result === false ? 'Cancel' : 'Closed dialog'}`);
+    alert(
+      `User selected: ${result === true ? 'OK' : result === false ? 'Cancel' : 'Closed dialog'}`
+    );
   }
 
 ```
@@ -198,7 +200,8 @@ You can also use the <code>sl-message-dialog</code> component declaratively in y
 
   dialogConfig: {
     title: 'Declarative Dialog',
-    message: 'This message dialog was created using the Angular wrapper component declaratively.',
+    message:
+      'This message dialog was created using the Angular wrapper component declaratively.',
     buttons: [
       { text: 'Cancel', fill: 'ghost' },
       { text: 'OK', variant: 'primary', autofocus: true }

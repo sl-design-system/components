@@ -410,6 +410,28 @@ describe('sl-checkbox', () => {
 
       external.remove();
     });
+
+    it('should not restore an aria-describedby attribute removed before forwarding runs', async () => {
+      const external = document.createElement('span');
+      external.id = 'removed-description';
+      external.textContent = 'Removed description';
+      document.body.append(external);
+
+      el = document.createElement('sl-checkbox');
+      el.description = 'Helper text';
+      el.textContent = 'Option';
+      el.setAttribute('aria-describedby', 'removed-description');
+      el.removeAttribute('aria-describedby');
+      document.body.append(el);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const description = el.querySelector('[slot="description"]') as HTMLElement;
+      expect(el.input.ariaDescribedByElements).to.include(description);
+      expect(el.input.ariaDescribedByElements ?? []).not.to.include(external);
+
+      external.remove();
+    });
   });
 
   describe('defaults', () => {

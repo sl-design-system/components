@@ -217,11 +217,20 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     queueMicrotask(() => this.#syncAria());
   }
 
-  override setAttribute(name: string, value: string): void {
+  override removeAttribute(name: string): void {
+    super.removeAttribute(name);
     if (name === 'aria-describedby') {
-      this.#externalDescribedByElements = this.#ariaDescribedByAttributeElements(value);
+      queueMicrotask(() => {
+        console.log(
+          'remove reconcile before',
+          this.input?.ariaDescribedByElements,
+          this.#externalDescribedByElements
+        );
+        this.#externalDescribedByElements = this.#externalAriaFromInput();
+        console.log('remove reconcile after', this.#externalDescribedByElements);
+        this.#syncAria();
+      });
     }
-    super.setAttribute(name, value);
   }
 
   override connectedCallback(): void {
@@ -265,6 +274,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
+    queueMicrotask(() => this.#syncAria());
   }
 
   override disconnectedCallback(): void {
@@ -658,7 +668,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     const previousOwned = this.#ownedAria();
 
     const existingRefs = (this.input.ariaDescribedByElements ?? []).filter(
-      el => !previousOwned.includes(el as HTMLElement)
+      el => !previousOwned.includes(el)
     );
 
     this.#externalDescribedByElements = this.#uniqueAriaRefs([
@@ -681,25 +691,31 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
   #clearOwnedAriaFrom(input: HTMLInputElement): void {
     const owned = this.#ownedAria(),
-      nextRefs = (input.ariaDescribedByElements ?? []).filter(
-        el => !owned.includes(el as HTMLElement)
-      );
+      nextRefs = (input.ariaDescribedByElements ?? []).filter(el => !owned.includes(el));
 
     input.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
   }
 
-  #ownedAria(): HTMLElement[] {
-    return [
+  #ownedAria(): Element[] {
+    const elements: Array<Element | undefined> = [
       ...this.#previousDescriptions,
       ...this.#descriptions,
       this.#previousTooltipDescription,
       this.#tooltipDescription,
       this.#previousTooltip
-    ].filter((el): el is HTMLElement => !!el);
+    ];
+
+    return elements.filter((el): el is Element => !!el);
   }
 
   #uniqueAriaRefs(elements: Element[]): Element[] {
     return Array.from(new Set(elements));
+  }
+
+  #externalAriaFromInput(): Element[] {
+    const owned = this.#ownedAria();
+
+    return (this.input?.ariaDescribedByElements ?? []).filter(el => !owned.includes(el));
   }
 
   #ariaDescribedByAttributeElements(value: string | null): HTMLElement[] {
@@ -789,5 +805,6 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     this.setProxyTarget(input);
     this.#syncAria();
+    queueMicrotask(() => this.#syncAria());
   }
 }

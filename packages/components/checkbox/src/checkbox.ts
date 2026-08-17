@@ -207,13 +207,13 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     this.checked = value === this.value || (this.value === undefined && value === true);
   }
 
-  override get ariaDescribedByElements(): Element[] | null {
+  override get ariaDescribedByElements(): readonly Element[] | null {
     return super.ariaDescribedByElements;
   }
 
-  override set ariaDescribedByElements(value: Element[] | null) {
+  override set ariaDescribedByElements(value: readonly Element[] | null) {
     this.#externalDescribedByElements = (value ?? []).filter(el => !this.#ownedAria().includes(el));
-    super.ariaDescribedByElements = value;
+    super.ariaDescribedByElements = value ? [...value] : null;
     queueMicrotask(() => this.#syncAria());
   }
 

@@ -314,6 +314,26 @@ describe('sl-checkbox', () => {
       expect(el.querySelector('label')?.htmlFor).to.equal(input.id);
     });
 
+    it('should prefer a custom input inserted before the owned fallback input', async () => {
+      el = await fixture(html`<sl-checkbox description="Helper text">Option</sl-checkbox>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const fallbackInput = el.input,
+        input = document.createElement('input'),
+        description = el.querySelector('[slot="description"]') as HTMLElement;
+      input.slot = 'input';
+      input.type = 'checkbox';
+      el.insertBefore(input, fallbackInput);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(fallbackInput.isConnected).to.be.false;
+      expect(el.input).to.equal(input);
+      expect(el.input.ariaDescribedByElements).to.include(description);
+      expect(el.querySelector('label')?.htmlFor).to.equal(input.id);
+    });
+
     it('should restore an owned fallback input when a custom input is removed', async () => {
       el = await fixture(html`<sl-checkbox description="Helper text">Option</sl-checkbox>`);
       await el.updateComplete;

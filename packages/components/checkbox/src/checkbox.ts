@@ -420,7 +420,11 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
   #onInputSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      input = elements.findLast((el): el is HTMLInputElement => el instanceof HTMLInputElement);
+      input =
+        elements.find(
+          (el): el is HTMLInputElement =>
+            el instanceof HTMLInputElement && el !== this.#synthesizedInput
+        ) ?? this.#synthesizedInput;
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
@@ -435,6 +439,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       this.#syncInput(this.input);
       this.#syncAria();
       this.#syncLabelTarget();
+      if (this.#isSynthesizedInput && !this.input.parentElement) {
+        this.append(this.input);
+      }
 
       this.setFormControlElement(this.input);
     } else if (!this.#isSynthesizedInput) {

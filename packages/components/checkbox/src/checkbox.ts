@@ -685,6 +685,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     }
 
     this.input.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
+    this.#syncAriaDescribedByAttribute(nextRefs);
     this.#previousDescriptions = this.#descriptions;
     this.#previousTooltipDescription = this.#tooltipDescription;
     this.#previousTooltip =
@@ -696,6 +697,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       nextRefs = (input.ariaDescribedByElements ?? []).filter(el => !owned.includes(el));
 
     input.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
+    this.#syncAriaDescribedByAttribute(nextRefs, input);
   }
 
   #ownedAria(): Element[] {
@@ -712,6 +714,18 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
   #uniqueAriaRefs(elements: Element[]): Element[] {
     return Array.from(new Set(elements));
+  }
+
+  #syncAriaDescribedByAttribute(elements: Element[], input = this.input): void {
+    if (!elements.length) {
+      input.removeAttribute('aria-describedby');
+      return;
+    }
+
+    const ids = elements.map(el => (el instanceof HTMLElement ? el.id : '')).filter(Boolean);
+    if (ids.length === elements.length) {
+      input.setAttribute('aria-describedby', ids.join(' '));
+    }
   }
 
   #externalAriaFromInput(): Element[] {
@@ -754,7 +768,6 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       this.#tooltipDescription = document.createElement('span');
       this.#tooltipDescription.id ||= `sl-checkbox-tooltip-description-${nextUniqueId++}`;
       this.#tooltipDescription.slot = 'tooltip-description';
-      this.#tooltipDescription.setAttribute('aria-hidden', 'true');
       this.append(this.#tooltipDescription);
     }
     if (this.#tooltipDescription.textContent !== tooltip) {

@@ -3,7 +3,8 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
 import {
   getForwardedAccessibleName,
-  getForwardedAriaProperty
+  getForwardedAriaProperty,
+  getForwardedDescription
 } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
@@ -286,6 +287,25 @@ describe('sl-checkbox', () => {
       expect(tooltipDescription).to.exist;
       expect(tooltipDescription?.textContent).to.equal('Tooltip information');
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
+    });
+
+    it('should expose tooltip as the input description when inside a checkbox group', async () => {
+      const group = await fixture<LitElement>(html`
+        <sl-checkbox-group>
+          <sl-checkbox tooltip="Tooltip for option 1" value="1">Option 1</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+      await group.updateComplete;
+      el = group.querySelector('sl-checkbox')!;
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const tooltipDescription = el.querySelector<HTMLElement>('[slot="tooltip-description"]');
+      expect(tooltipDescription).to.exist;
+      expect(tooltipDescription?.hasAttribute('aria-hidden')).to.be.false;
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
+      expect(el.input.getAttribute('aria-describedby')).to.contain(tooltipDescription?.id);
+      expect(getForwardedDescription(el)).to.equal('Tooltip for option 1');
     });
 
     it('should move description and tooltip references to a late-slotted input', async () => {

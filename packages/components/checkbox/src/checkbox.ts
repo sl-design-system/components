@@ -99,6 +99,12 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
 
+  /** Whether the input element was synthesized internally. */
+  #isSynthesizedInput = false;
+
+  /** The input element synthesized internally. */
+  #synthesizedInput?: HTMLInputElement;
+
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
 
@@ -203,8 +209,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     if (!this.input) {
       this.input =
-        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
-        document.createElement('input');
+        this.querySelector<HTMLInputElement>('input[slot="input"]') || this.#createInput();
       this.input.slot = 'input';
       this.input.type = 'checkbox';
       this.#syncInput(this.input);
@@ -247,7 +252,6 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     ) {
       this.#descriptions.forEach(description => this.#restoreAriaHidden(description));
     }
-    this.#tooltipDescription?.remove();
 
     super.disconnectedCallback();
   }
@@ -422,10 +426,23 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     if (input) {
       if (this.input && this.input !== input) {
         this.#clearOwnedAriaFrom(this.input);
+        if (this.#isSynthesizedInput && this.input.parentElement === this) {
+          this.input.remove();
+        }
       }
       this.input = input;
+      this.#isSynthesizedInput = input === this.#synthesizedInput;
       this.#syncInput(this.input);
       this.#syncAria();
+      this.#syncLabelTarget();
+
+      this.setFormControlElement(this.input);
+    } else if (!this.#isSynthesizedInput) {
+      this.input = this.#createInput();
+      this.#syncInput(this.input);
+      this.#syncAria();
+      this.#syncLabelTarget();
+      this.append(this.input);
 
       this.setFormControlElement(this.input);
     }
@@ -448,7 +465,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     const labelText = this.#labelText();
     if (nodes.length > 0 && labelText.length > 0) {
       this.#label ||= document.createElement('label');
-      this.#label.htmlFor = this.input.id;
+      this.#syncLabelTarget();
       this.#label.id ||= `sl-checkbox-label-${nextUniqueId++}`;
       this.#label.setAttribute('aria-hidden', 'true');
       this.#label.slot = 'label';
@@ -675,6 +692,21 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     if (this.#tooltipDescription.textContent !== tooltip) {
       this.#tooltipDescription.textContent = tooltip;
     }
+  }
+
+  #syncLabelTarget(): void {
+    if (this.#label) {
+      this.#label.htmlFor = this.input.id;
+    }
+  }
+
+  #createInput(): HTMLInputElement {
+    const input = document.createElement('input');
+    input.slot = 'input';
+    input.type = 'checkbox';
+    this.#synthesizedInput = input;
+    this.#isSynthesizedInput = true;
+    return input;
   }
 
   #onInfotipSlotChange(): void {

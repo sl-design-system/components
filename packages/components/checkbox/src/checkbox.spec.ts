@@ -307,8 +307,56 @@ describe('sl-checkbox', () => {
 
       expect(oldInput.ariaDescribedByElements ?? []).not.to.include(description);
       expect(oldInput.ariaDescribedByElements ?? []).not.to.include(tooltipDescription);
+      expect(oldInput.isConnected).to.be.false;
       expect(el.input).to.equal(input);
       expect(el.input.ariaDescribedByElements).to.include(description);
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
+      expect(el.querySelector('label')?.htmlFor).to.equal(input.id);
+    });
+
+    it('should restore an owned fallback input when a custom input is removed', async () => {
+      el = await fixture(html`<sl-checkbox description="Helper text">Option</sl-checkbox>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const firstInput = el.input,
+        input = document.createElement('input'),
+        description = el.querySelector('[slot="description"]') as HTMLElement;
+      input.slot = 'input';
+      input.type = 'checkbox';
+      el.append(input);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(firstInput.isConnected).to.be.false;
+      expect(el.input).to.equal(input);
+
+      input.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input).not.to.equal(input);
+      expect(el.input.isConnected).to.be.true;
+      expect(el.input.type).to.equal('checkbox');
+      expect(el.input.ariaDescribedByElements).to.include(description);
+      expect(el.querySelector('label')?.htmlFor).to.equal(el.input.id);
+    });
+
+    it('should keep tooltip description when reconnected with unchanged tooltip', async () => {
+      el = await fixture(html`<sl-checkbox tooltip="Tooltip information">Option</sl-checkbox>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const parent = el.parentElement!,
+        tooltipDescription = el.querySelector('[slot="tooltip-description"]') as HTMLElement;
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
+
+      el.remove();
+      parent.append(el);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(tooltipDescription.isConnected).to.be.true;
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
     });
   });

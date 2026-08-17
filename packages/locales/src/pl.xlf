@@ -526,6 +526,10 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Usuń co najmniej <x id="0" equiv-text="${over}"/> znaków.</target>
 </trans-unit>
+<trans-unit id="sl.grid.selectGroupWithName">
+  <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
+  <target><x id="0" equiv-text="${this.groupLabel}"/> grupa</target>
+</trans-unit>
 <trans-unit id="link.opens-in-new-tab">
   <source>opens in a new tab</source>
   <target>otwiera się w nowej karcie</target>

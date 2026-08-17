@@ -63,6 +63,7 @@ export const templates = {
   'sl.grid.rowDeactivated': str`Rij ${0} gedeactiveerd`,
   'sl.grid.selectAllRows': 'Selecteer alle rijen',
   'sl.grid.selectGroup': 'Groep',
+  'sl.grid.selectGroupWithName': str`${0} groep`,
   'sl.grid.selectionStatusMessage': str`${0} van ${1} geselecteerd`,
   'sl.grid.selectRow': 'Selecteer rij',
   'sl.grid.skipToEndOfTable': 'Naar het einde van de tabel',

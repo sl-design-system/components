@@ -28,6 +28,10 @@ const { setLocale } = configureLocalization({
   }
 });
 
+const nextFrame = async (): Promise<void> => {
+  await new Promise(resolve => requestAnimationFrame(resolve));
+};
+
 const preview: Preview = {
   decorators: [
     (story, { globals: { locale = sourceLocale } }) => {
@@ -46,6 +50,8 @@ const preview: Preview = {
   loaders: [
     async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
       await updateTheme(theme, mode as Mode);
+      await nextFrame();
+      await nextFrame();
     }
   ],
   globalTypes: {

@@ -53,10 +53,6 @@ sl-tag-list {
   z-index: 1;
 }
 
-sl-tag-list[data-stacked-active] {
-  flex-grow: 1;
-}
-
 sl-tag {
   outline-offset: 0;
   outline-width: 0;

@@ -35,7 +35,7 @@ Use the Time Field when the task requires an exact clock time and you want to ac
 
 ### Keyboard navigation
 
-Use the Time Field when forms must support speed and accessibility for keyboard-centric users. The input accepts typed values, opens the dropdown via keyboard, and allows navigation of hour/minute columns with the arrow keys. This is especially useful in dense forms, operational tooling, or power-user interfaces where mouse interaction is secondary.
+Use the Time Field when forms must support speed and accessibility for keyboard-centric users. The input accepts typed values, opens the dropdown via keyboard, and allows navigation of hour/minute columns with the arrow keys. When focus is placed on the hour or minute segment of the input, pressing the Arrow Up or Arrow Down key increments or decrements that segment's value, acting as a spinbutton. This is especially useful in dense forms, operational tooling, or power-user interfaces where mouse interaction is secondary.
 
 </section>
 
@@ -103,7 +103,7 @@ With these options you can tweak the appearance of the time field in Figma. They
 |Size|`md` `lg`| The time field is available in two sizes. If not specified the default value is `md` (medium).                                                                                                                                                                                    |
 |Placeholder|`on` or `off`| If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.                                                                                                                                |
 |Text|`value`| Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
-|Placeholder text|`value`| Use placeholder text to show the expected time format (e.g., "HH:MM" or "14:30"). The placeholder disappears once users begin typing. It should not replace the label but serve as a format hint.|
+|Placeholder text|`value`| Use placeholder text to show the expected time format (e.g., "HH:MM"). The placeholder disappears once users begin typing. It should not replace the label but serve as a format hint.|
 |Label|`value`| Provide users with a clear, concise label that describes the time being requested (e.g., "Start time", "Appointment time", "Exam time").                                                                                                                                          |
 
 {.ds-table .ds-table-align-top}
@@ -127,7 +127,7 @@ When steps are configured, the dropdown shows stepped options in the hour and/or
 When `enforceSteps` = `true`, only stepped values are valid. If a user types an invalid time, a validation message appears after the field is blurred (i.e., when the user leaves the field). The typed value remains visible until corrected. The dropdown content and order still do not change.
 
 ### Keyboard Navigation
-Press Tab to focus the field and start typing or press tab again so the focus moves to the clock icon and then press Enter/Space to open the dropdown. Use the Arrow keys to navigate the hour and minute columns. Typing in the input updates the value; in strict mode, off-step values are validated when the field loses focus. Press Esc to close the dropdown and return focus to the input.
+Press Tab to focus the field and start typing or press tab again so the focus moves to the clock icon and then press Enter/Space to open the dropdown. Use the Arrow keys to navigate the hour and minute columns. When focus is on the hour or minute segment within the input itself, Arrow Up/Down acts as a spinbutton, incrementing or decrementing that segment's value. Typing in the input updates the value; in strict mode, off-step values are validated when the field loses focus. Press Esc to close the dropdown and return focus to the input.
 
 ### How to Open the Dropdown
 Click on the field or dropdown button, or press Enter/Space when the button with the clock icon has focus.

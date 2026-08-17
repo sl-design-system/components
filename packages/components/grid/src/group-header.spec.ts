@@ -42,6 +42,19 @@ describe('sl-grid-group-header', () => {
     });
   });
 
+  describe('selection checkbox', () => {
+    it('should use the group label in the checkbox aria-label', async () => {
+      el = await fixture(html`
+        <sl-grid-group-header group-label="Allergist" selectable></sl-grid-group-header>
+      `);
+
+      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+
+      expect(checkbox).to.exist;
+      expect(getForwardedAriaAttribute(checkbox!, 'aria-label')).to.equal('Allergist group');
+    });
+  });
+
   describe('toggle button', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-grid-group-header></sl-grid-group-header>`);

@@ -25,7 +25,7 @@ export type LinkFill = 'solid' | 'outline' | 'ghost';
 
 export type LinkShape = 'rect' | 'pill';
 
-export type LinkType = 'internal' | 'internal-new-tab' | 'external';
+export type LinkType = 'internal' | 'internal-new-tab' | 'external' | 'email' | 'tel';
 
 export type LinkVariant =
   | 'primary'
@@ -119,6 +119,10 @@ export class Link extends ScopedElementsMixin(LitElement) {
         return 'square-arrow-up-right';
       case 'external':
         return 'arrow-up-right-from-square';
+      case 'email':
+        return 'envelope';
+      case 'tel':
+        return 'mobile';
       default:
         return this.iconPosition === 'start' ? 'arrow-left' : 'arrow-right';
     }
@@ -144,7 +148,9 @@ export class Link extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange}></slot>
-      ${!this.noIcon ? html`<sl-icon .name=${this.#indicatorIcon} part="icon"></sl-icon>` : nothing}
+      ${!(this.noIcon && this.linkType === 'internal')
+        ? html`<sl-icon .name=${this.#indicatorIcon} part="icon"></sl-icon>`
+        : nothing}
     `;
   }
 
@@ -196,7 +202,15 @@ export class Link extends ScopedElementsMixin(LitElement) {
       const baseHref = globalThis.location?.href;
       const url = baseHref ? new URL(href, baseHref) : new URL(href);
 
-      // Non-HTTP(S) protocols (mailto:, tel:, etc.) are treated as external
+      if (url.protocol === 'mailto:') {
+        return 'email';
+      }
+
+      if (url.protocol === 'tel:') {
+        return 'tel';
+      }
+
+      // Non-HTTP(S) protocols are treated as external
       if (url.protocol !== 'http:' && url.protocol !== 'https:') {
         return 'external';
       }
@@ -245,6 +259,9 @@ export class Link extends ScopedElementsMixin(LitElement) {
     event.preventDefault();
     event.stopImmediatePropagation();
 
+    // Focus the anchor to ensure that the focus state is applied correctly, even when the link is clicked via the host or icon.
+    anchor.focus({ preventScroll: true });
+
     anchor.dispatchEvent(new MouseEvent('click', event));
   };
 
@@ -257,7 +274,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    if (this.#managedTarget.originalTarget == null) {
+    if (this.#managedTarget.originalTarget === null) {
       this.#managedTarget.anchor.removeAttribute('target');
     } else {
       this.#managedTarget.anchor.setAttribute('target', this.#managedTarget.originalTarget);
@@ -269,6 +286,14 @@ export class Link extends ScopedElementsMixin(LitElement) {
   #syncTarget(anchor: HTMLAnchorElement): void {
     const shouldOpenInNewTab = this.linkType === 'external' || this.linkType === 'internal-new-tab';
     const managed = this.#managedTarget;
+
+    // Email and tel links should never open in a new tab
+    if (this.linkType === 'email' || this.linkType === 'tel') {
+      if (anchor.hasAttribute('target')) {
+        anchor.removeAttribute('target');
+      }
+      return;
+    }
 
     if (!shouldOpenInNewTab) {
       if (managed?.anchor === anchor) {
@@ -330,9 +355,9 @@ export class Link extends ScopedElementsMixin(LitElement) {
       anchor.setAttribute('rel', 'noopener noreferrer');
     }
 
-    if (opensInNewTab && !anchor.querySelector('span.sr-only')) {
+    if (opensInNewTab && !anchor.querySelector('span.sl-link-new-tab')) {
       const srOnly = document.createElement('span');
-      srOnly.className = 'sr-only';
+      srOnly.className = 'sl-link-new-tab';
       srOnly.style.cssText = `
           clip: rect(1px, 1px, 1px, 1px);
           clip-path: inset(50%);

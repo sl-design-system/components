@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   faArrowUpRightFromSquare,
   faFileLines,
@@ -6,10 +6,10 @@ import {
   faFolderOpen
 } from '@fortawesome/pro-regular-svg-icons';
 import { BreadcrumbsComponent } from '@sl-design-system/angular/breadcrumbs';
+import { LinkComponent } from '@sl-design-system/angular/link';
 import { TabComponent, TabGroupComponent, TabPanelComponent } from '@sl-design-system/angular/tabs';
 import { TreeComponent } from '@sl-design-system/angular/tree';
 import { Icon as SlIcon } from '@sl-design-system/icon';
-import '@sl-design-system/link/register.js';
 import { FlatTreeDataSource } from '@sl-design-system/tree';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
@@ -66,7 +66,7 @@ export class TreeExampleComponent {
 @Component({
   selector: 'sla-link-example',
   standalone: true,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [LinkComponent],
   template: `
     <div style="display: grid; gap: 1rem; justify-items: start;">
       <sl-link>
@@ -91,6 +91,7 @@ export default {
     moduleMetadata({
       imports: [
         BreadcrumbsComponent,
+        LinkComponent,
         TabComponent,
         TabGroupComponent,
         TabPanelComponent,

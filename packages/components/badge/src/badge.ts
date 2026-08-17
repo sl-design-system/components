@@ -75,7 +75,6 @@ export class Badge extends LitElement {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    console.log('slotchange', event);
     const elements = event.target.assignedElements({ flatten: true }),
       icon = elements.length === 1 && elements[0].tagName === 'SL-ICON',
       text = event.target

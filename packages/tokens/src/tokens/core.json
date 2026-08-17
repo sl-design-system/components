@@ -529,6 +529,11 @@
         "$type": "icons",
         "$description": "icon.core.ellipsis-vertical"
       },
+      "envelope": {
+        "$value": "envelope",
+        "$type": "text",
+        "$description": "icon.core.envelope"
+      },
       "face-smile": {
         "$value": "face-smile",
         "$type": "icons",
@@ -558,6 +563,11 @@
         "$value": "minus",
         "$type": "icons",
         "$description": "icon.core.minus"
+      },
+      "mobile": {
+        "$value": "mobile",
+        "$type": "text",
+        "$description": "icon.core.mobile"
       },
       "octagon-exclamation-solid": {
         "$value": "octagon-exclamation",

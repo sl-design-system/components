@@ -5,7 +5,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Link } from './link.js';
 
-interface Props extends Pick<Link, 'fill' | 'iconPosition' | 'shape' | 'type' | 'variant'> {
+interface Props extends Pick<
+  Link,
+  'fill' | 'iconPosition' | 'shape' | 'type' | 'variant' | 'noIcon'
+> {
   href: string;
   linkText: string;
   rel?: string;
@@ -32,11 +35,14 @@ export default {
     },
     type: {
       control: 'inline-radio',
-      options: ['internal', 'internal-new-tab', 'external']
+      options: ['internal', 'internal-new-tab', 'external', 'email', 'tel']
     },
     iconPosition: {
       control: 'inline-radio',
       options: ['start', 'end']
+    },
+    noIcon: {
+      control: 'boolean'
     },
     shape: {
       control: 'inline-radio',
@@ -45,6 +51,10 @@ export default {
     variant: {
       control: 'radio',
       options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'inverted']
+    },
+    target: {
+      control: 'inline-radio',
+      options: [undefined, '_self', '_blank', '_parent', '_top']
     }
   },
   render: ({
@@ -57,7 +67,8 @@ export default {
     shape,
     target,
     type,
-    variant
+    variant,
+    noIcon
   }) => html`
     ${description ? html`<p>${description}</p>` : nothing}
     <sl-link
@@ -65,7 +76,8 @@ export default {
       type=${ifDefined(type)}
       icon-position=${ifDefined(iconPosition)}
       shape=${ifDefined(shape)}
-      variant=${ifDefined(variant)}>
+      variant=${ifDefined(variant)}
+      ?no-icon=${noIcon ?? nothing}>
       <a href=${href} rel=${ifDefined(rel)} target=${ifDefined(target)}>${linkText}</a>
     </sl-link>
   `
@@ -76,32 +88,55 @@ export const Basic: Story = {};
 export const linkTypes: Story = {
   argTypes: {
     ...Basic.argTypes,
-    type: { table: { disable: true } }
+    type: { table: { disable: true } },
+    linkText: { table: { disable: true } },
+    href: { table: { disable: true } }
   },
-  render: ({ fill, iconPosition, linkText, variant, shape }) => html`
+  render: ({ fill, iconPosition, noIcon, variant, shape }) => html`
     <div style="display: grid; gap: 1rem; justify-items: start;">
       <sl-link
         fill=${ifDefined(fill)}
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
-        variant=${ifDefined(variant)}>
-        <a href="/dashboard">${linkText}</a>
+        variant=${ifDefined(variant)}
+        ?no-icon=${noIcon ?? nothing}>
+        <a href="/dashboard">Internal link</a>
       </sl-link>
 
       <sl-link
         fill=${ifDefined(fill)}
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
-        variant=${ifDefined(variant)}>
-        <a href="/reports" target="_blank">${linkText}</a>
+        variant=${ifDefined(variant)}
+        ?no-icon=${noIcon ?? nothing}>
+        <a href="/reports" target="_blank">Internal link</a>
       </sl-link>
 
       <sl-link
         fill=${ifDefined(fill)}
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
-        variant=${ifDefined(variant)}>
-        <a href="https://sanomalearning.design" target="_blank">${linkText}</a>
+        variant=${ifDefined(variant)}
+        ?no-icon=${noIcon ?? nothing}>
+        <a href="https://sanomalearning.design" target="_blank">External link</a>
+      </sl-link>
+
+      <sl-link
+        fill=${ifDefined(fill)}
+        icon-position=${ifDefined(iconPosition)}
+        shape=${ifDefined(shape)}
+        variant=${ifDefined(variant)}
+        ?no-icon=${noIcon ?? nothing}>
+        <a href="mailto:team@sanomalearning.design" target="_blank">Email link</a>
+      </sl-link>
+
+      <sl-link
+        fill=${ifDefined(fill)}
+        icon-position=${ifDefined(iconPosition)}
+        shape=${ifDefined(shape)}
+        variant=${ifDefined(variant)}
+        ?no-icon=${noIcon ?? nothing}>
+        <a href="tel:+123456789012" target="_blank">Telephone link</a>
       </sl-link>
     </div>
   `
@@ -206,6 +241,14 @@ function iconVariants(fill: 'solid' | 'outline' | 'ghost') {
 
     <sl-link fill=${fill} shape="pill">
       <a href="/dashboard">Internal link</a>
+    </sl-link>
+
+    <sl-link fill=${fill}>
+      <a href="mailto:team@sanomalearning.design">Email link</a>
+    </sl-link>
+
+    <sl-link fill=${ifDefined(fill)}>
+      <a href="tel:+123456789012">Telephone link</a>
     </sl-link>
   `;
 }

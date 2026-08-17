@@ -180,6 +180,12 @@ export const icons = {
     description: 'icon.core.ellipsis-vertical',
     svg: '<svg viewBox="0 0 128 512" xmlns="http://www.w3.org/2000/svg"><path d="M112 80a48 48 0 1 1 -96 0 48 48 0 1 1 96 0zM16 256c0-26.5 21.5-48 48-48s48 21.5 48 48-21.5 48-48 48-48-21.5-48-48zm96 176c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48 48 21.5 48 48z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
+  envelope: {
+    value: 'envelope',
+    type: 'text',
+    description: 'icon.core.envelope',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M61.4 64C27.5 64 0 91.5 0 125.4 0 126.3 0 127.1 .1 128L0 128 0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256-.1 0c0-.9 .1-1.7 .1-2.6 0-33.9-27.5-61.4-61.4-61.4L61.4 64zM464 192.3L464 384c0 8.8-7.2 16-16 16L64 400c-8.8 0-16-7.2-16-16l0-191.7 154.8 117.4c31.4 23.9 74.9 23.9 106.4 0L464 192.3zM48 125.4C48 118 54 112 61.4 112l389.2 0c7.4 0 13.4 6 13.4 13.4 0 4.2-2 8.2-5.3 10.7L280.2 271.5c-14.3 10.8-34.1 10.8-48.4 0L53.3 136.1c-3.3-2.5-5.3-6.5-5.3-10.7z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   error: {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M8 2.5a1 1 0 0 1 1 1V9a1 1 0 1 1-2 0V3.5a1 1 0 0 1 1-1m1.125 10a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0" clip-rule="evenodd"/></svg>'
   },
@@ -245,6 +251,12 @@ export const icons = {
     type: 'icons',
     description: 'icon.core.minus',
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M0 256c0-13.3 10.7-24 24-24l400 0c13.3 0 24 10.7 24 24s-10.7 24-24 24L24 280c-13.3 0-24-10.7-24-24z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  mobile: {
+    value: 'mobile',
+    type: 'text',
+    description: 'icon.core.mobile',
+    svg: '<svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M80 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l224 0c8.8 0 16-7.2 16-16l0-384c0-8.8-7.2-16-16-16L80 48zM16 64C16 28.7 44.7 0 80 0L304 0c35.3 0 64 28.7 64 64l0 384c0 35.3-28.7 64-64 64L80 512c-35.3 0-64-28.7-64-64L16 64zM152 368l80 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'non-cas': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" d="m9.867 10.62 4.422 4.424a.534.534 0 1 0 .755-.755l-3.09-3.089h2.18a.534.534 0 0 0 .533-.533V8a.533.533 0 0 0-.534-.533H12v-1.6h2.133a.534.534 0 0 0 0-1.067h-2.666a.534.534 0 0 0-.534.533V8a.533.533 0 0 0 .534.533H13.6v1.6h-2.133a.53.53 0 0 0-.4.18l-1.2-1.2v-3.78a.533.533 0 0 0-.534-.533H6.667a.533.533 0 0 0-.534.533v.046L1.711.956a.534.534 0 0 0-.755.755L4.046 4.8h-2.18a.533.533 0 0 0-.533.533v5.334a.533.533 0 0 0 .534.533h2.666a.533.533 0 0 0 0-1.067H2.4V5.867h2.133a.53.53 0 0 0 .4-.18l1.2 1.2v3.78a.533.533 0 0 0 1.067 0V8.533h.58L8.8 9.554v1.113a.533.533 0 0 0 1.067 0zM8.22 7.468 7.2 6.446v-.58h1.6v1.6z" clip-rule="evenodd"/></g><defs><clipPath id="a"><path d="M0 0h16v16H0z"/></clipPath></defs></svg>'

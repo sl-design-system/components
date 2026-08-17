@@ -49,7 +49,7 @@ describe('sl-link', () => {
     });
 
     it('should add a screen reader only span when missing', () => {
-      const srOnly = anchor.querySelector('span.sr-only');
+      const srOnly = anchor.querySelector('span.sl-link-new-tab');
 
       expect(srOnly).to.exist;
       expect(srOnly?.textContent).to.include('opens in a new tab');
@@ -121,7 +121,7 @@ describe('sl-link', () => {
     });
 
     it('should add screen reader only text even with existing rel', () => {
-      const srOnly = anchor.querySelector('span.sr-only');
+      const srOnly = anchor.querySelector('span.sl-link-new-tab');
 
       expect(srOnly).to.exist;
     });
@@ -288,7 +288,7 @@ describe('sl-link', () => {
   });
 
   describe('non-http protocols', () => {
-    it('should treat mailto: links as external', async () => {
+    it('should treat mailto: links as email type', async () => {
       el = await fixture(html`
         <sl-link>
           <a href="mailto:test@example.com">Email</a>
@@ -296,12 +296,44 @@ describe('sl-link', () => {
       `);
 
       anchor = el.querySelector('a')!;
+      await el.updateComplete;
 
-      expect(anchor).to.have.attribute('target', '_blank');
-      expect(el).to.have.attribute('has-indicator');
+      expect(el.linkType).to.equal('email');
+      expect(anchor).not.to.have.attribute('target');
+      expect(el).not.to.have.attribute('has-indicator');
     });
 
-    it('should treat tel: links as external', async () => {
+    it('should remove target="_blank" from mailto: links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="mailto:test@example.com" target="_blank">Email</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+      await el.updateComplete;
+
+      expect(el.linkType).to.equal('email');
+      expect(anchor).not.to.have.attribute('target');
+      expect(el).not.to.have.attribute('has-indicator');
+    });
+
+    it('should show envelope icon for email links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="mailto:test@example.com">Email</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'envelope');
+    });
+
+    it('should treat tel: links as tel type', async () => {
       el = await fixture(html`
         <sl-link>
           <a href="tel:+1234567890">Phone</a>
@@ -309,9 +341,71 @@ describe('sl-link', () => {
       `);
 
       anchor = el.querySelector('a')!;
+      await el.updateComplete;
 
-      expect(anchor).to.have.attribute('target', '_blank');
-      expect(el).to.have.attribute('has-indicator');
+      expect(el.linkType).to.equal('tel');
+      expect(anchor).not.to.have.attribute('target');
+      expect(el).not.to.have.attribute('has-indicator');
+    });
+
+    it('should remove target="_blank" from tel: links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="tel:+1234567890" target="_blank">Phone</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+      await el.updateComplete;
+
+      expect(el.linkType).to.equal('tel');
+      expect(anchor).not.to.have.attribute('target');
+      expect(el).not.to.have.attribute('has-indicator');
+    });
+
+    it('should show mobile icon for tel links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="tel:+1234567890">Phone</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'mobile');
+    });
+
+    it('should not add sr-only text for email links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="mailto:test@example.com">Email</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+      await el.updateComplete;
+
+      const srOnly = anchor.querySelector('span.sl-link-new-tab');
+
+      expect(srOnly).to.not.exist;
+    });
+
+    it('should not add sr-only text for tel links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="tel:+1234567890">Phone</a>
+        </sl-link>
+      `);
+
+      anchor = el.querySelector('a')!;
+      await el.updateComplete;
+
+      const srOnly = anchor.querySelector('span.sl-link-new-tab');
+
+      expect(srOnly).to.not.exist;
     });
   });
 
@@ -630,24 +724,24 @@ describe('sl-link', () => {
   });
 
   describe('screen reader text for new tab links', () => {
-    it('should not add sr-only span if one already exists', async () => {
+    it('should not add sl-link-new-tab span if one already exists', async () => {
       el = await fixture(html`
         <sl-link>
           <a href="https://example.com">
             External
-            <span class="sr-only">(custom text)</span>
+            <span class="sl-link-new-tab">(custom text)</span>
           </a>
         </sl-link>
       `);
 
       anchor = el.querySelector('a')!;
-      const srOnlySpans = anchor.querySelectorAll('span.sr-only');
+      const srOnlySpans = anchor.querySelectorAll('span.sl-link-new-tab');
 
       expect(srOnlySpans).to.have.lengthOf(1);
       expect(srOnlySpans[0].textContent).to.include('custom text');
     });
 
-    it('should add sr-only span for internal-new-tab links', async () => {
+    it('should add sl-link-new-tab span for internal-new-tab links', async () => {
       el = await fixture(html`
         <sl-link>
           <a href="/page" target="_blank">New tab</a>
@@ -655,10 +749,90 @@ describe('sl-link', () => {
       `);
 
       anchor = el.querySelector('a')!;
-      const srOnly = anchor.querySelector('span.sr-only');
+      const srOnly = anchor.querySelector('span.sl-link-new-tab');
 
       expect(srOnly).to.exist;
       expect(srOnly?.textContent).to.include('opens in a new tab');
+    });
+  });
+
+  describe('noIcon property', () => {
+    it('should show icon for internal links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page">Internal link</a>
+        </sl-link>
+      `);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'arrow-right');
+    });
+
+    it('should hide icon when noIcon is true for internal links', async () => {
+      el = await fixture(html`
+        <sl-link no-icon>
+          <a href="/page">Internal link</a>
+        </sl-link>
+      `);
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.not.exist;
+    });
+
+    it('should still show icon when noIcon is true for internal-new-tab links', async () => {
+      el = await fixture(html`
+        <sl-link no-icon>
+          <a href="/page" target="_blank">New tab link</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'square-arrow-up-right');
+    });
+
+    it('should still show icon when noIcon is true for external links', async () => {
+      el = await fixture(html`
+        <sl-link no-icon>
+          <a href="https://example.com">External link</a>
+        </sl-link>
+      `);
+
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'arrow-up-right-from-square');
+    });
+
+    it('should toggle icon visibility when noIcon changes for internal links', async () => {
+      el = await fixture(html`
+        <sl-link>
+          <a href="/page">Internal link</a>
+        </sl-link>
+      `);
+
+      let icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.exist;
+
+      el.noIcon = true;
+      await el.updateComplete;
+
+      icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.not.exist;
+
+      el.noIcon = false;
+      await el.updateComplete;
+
+      icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.exist;
     });
   });
 });

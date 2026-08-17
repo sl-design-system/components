@@ -208,7 +208,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('description')) {
       const hasCustomSlotted = Array.from(this.childNodes).some(
         node =>
-          !this.#descriptions.includes(node as HTMLElement) &&
+          (!this.#isSynthesizedDescription || !this.#descriptions.includes(node as HTMLElement)) &&
           node.nodeType === Node.ELEMENT_NODE &&
           (node as Element).getAttribute('slot') === 'description'
       );

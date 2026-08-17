@@ -88,6 +88,28 @@ describe('sl-radio', () => {
       expect(wrapper?.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
     });
 
+    it('should keep a tracked slotted description when property fallback changes', async () => {
+      el = await fixture(html`
+        <sl-radio description="Property fallback">
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]') as HTMLElement,
+        wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
+      el.description = 'Updated property fallback';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const descriptions = Array.from(el.querySelectorAll('[slot="description"]'));
+      expect(descriptions).to.deep.equal([slottedEl]);
+      expect(wrapper.ariaDescribedByElements).to.include(slottedEl);
+      expect(slottedEl.textContent).to.equal('Slotted description');
+    });
+
     it('should link all slotted description elements to the wrapper', async () => {
       el = await fixture(html`
         <sl-radio>

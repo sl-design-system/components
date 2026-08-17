@@ -310,7 +310,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     if (changes.has('description')) {
       const hasCustomSlotted = Array.from(this.childNodes).some(
         node =>
-          !this.#descriptions.includes(node as HTMLElement) &&
+          (!this.#isSynthesizedDescription || !this.#descriptions.includes(node as HTMLElement)) &&
           node.nodeType === Node.ELEMENT_NODE &&
           (node as Element).getAttribute('slot') === 'description'
       );
@@ -465,6 +465,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     if (input) {
       const customValidity = this.#customValidityMessage();
       if (this.input && this.input !== input) {
+        this.#syncForwardedAria(this.input, input);
         this.#clearOwnedAriaFrom(this.input);
         if (this.#isSynthesizedInput && this.input.parentElement === this) {
           this.input.remove();
@@ -482,7 +483,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       this.setFormControlElement(this.input);
     } else if (!this.#isSynthesizedInput) {
       const customValidity = this.#customValidityMessage();
-      this.input = this.#createInput();
+      const input = this.#synthesizedInput ?? this.#createInput();
+      this.#syncForwardedAria(this.input, input);
+      this.input = input;
       this.#syncInput(this.input, customValidity);
       this.#syncAria();
       this.#syncLabelTarget();
@@ -700,6 +703,22 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     this.#syncAriaDescribedByAttribute(nextRefs, input);
   }
 
+  #syncForwardedAria(from: HTMLInputElement, to: HTMLInputElement): void {
+    to.ariaLabel = from.ariaLabel;
+    from.ariaLabel = null;
+
+    to.ariaDisabled = from.ariaDisabled;
+    from.ariaDisabled = null;
+
+    to.ariaLabelledByElements = from.ariaLabelledByElements;
+    from.ariaLabelledByElements = null;
+
+    this.#hostDescribedByElements = this.#externalAriaFrom(from);
+    this.#externalDescribedByElements = this.#hostDescribedByElements;
+    from.ariaDescribedByElements = null;
+    from.removeAttribute('aria-describedby');
+  }
+
   #ownedAria(): Element[] {
     const elements: Array<Element | undefined> = [
       ...this.#previousDescriptions,
@@ -729,9 +748,13 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   }
 
   #externalAriaFromInput(): Element[] {
+    return this.#externalAriaFrom(this.input);
+  }
+
+  #externalAriaFrom(input?: HTMLInputElement): Element[] {
     const owned = this.#ownedAria();
 
-    return (this.input?.ariaDescribedByElements ?? []).filter(el => !owned.includes(el));
+    return (input?.ariaDescribedByElements ?? []).filter(el => !owned.includes(el));
   }
 
   #ariaDescribedByAttributeElements(value: string | null): HTMLElement[] {

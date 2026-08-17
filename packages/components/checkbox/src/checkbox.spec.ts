@@ -147,6 +147,27 @@ describe('sl-checkbox', () => {
       expect(el.input.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
     });
 
+    it('should keep a tracked slotted description when property fallback changes', async () => {
+      el = await fixture(html`
+        <sl-checkbox description="Property fallback">
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-checkbox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]') as HTMLElement;
+      el.description = 'Updated property fallback';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const descriptions = Array.from(el.querySelectorAll('[slot="description"]'));
+      expect(descriptions).to.deep.equal([slottedEl]);
+      expect(el.input.ariaDescribedByElements).to.include(slottedEl);
+      expect(slottedEl.textContent).to.equal('Slotted description');
+    });
+
     it('should link all slotted description elements to the input', async () => {
       el = await fixture(html`
         <sl-checkbox>
@@ -332,6 +353,38 @@ describe('sl-checkbox', () => {
       expect(el.input.ariaDescribedByElements).to.include(description);
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
       expect(el.querySelector('label')?.htmlFor).to.equal(input.id);
+    });
+
+    it('should move forwarded ARIA state to a late-slotted input', async () => {
+      const label = document.createElement('span');
+      label.id = 'late-input-label';
+      label.textContent = 'Forwarded label';
+
+      el = await fixture(html`<sl-checkbox>Option</sl-checkbox>`);
+      el.insertAdjacentElement('afterend', label);
+      el.setAttribute('aria-label', 'Forwarded aria label');
+      el.setAttribute('aria-disabled', 'true');
+      el.setAttribute('aria-labelledby', 'late-input-label');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const fallbackInput = el.input,
+        input = document.createElement('input');
+      input.slot = 'input';
+      input.type = 'checkbox';
+      el.append(input);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(fallbackInput.ariaLabel).to.be.null;
+      expect(fallbackInput.ariaDisabled).to.be.null;
+      expect(fallbackInput.ariaLabelledByElements ?? []).not.to.include(label);
+      expect(el.input).to.equal(input);
+      expect(el.input.ariaLabel).to.equal('Forwarded aria label');
+      expect(el.input.ariaDisabled).to.equal('true');
+      expect(el.input.ariaLabelledByElements).to.include(label);
+
+      label.remove();
     });
 
     it('should prefer a custom input inserted before the owned fallback input', async () => {

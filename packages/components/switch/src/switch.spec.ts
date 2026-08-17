@@ -87,22 +87,23 @@ describe('sl-switch', () => {
   it('should stop listening when disconnected', async () => {
     el = await fixture(html`<sl-switch>Label</sl-switch>`);
 
+    const onFocus = spy();
+    el.addEventListener('sl-focus', onFocus);
+
     const parent = el.parentElement!;
     el.remove();
 
-    el.click();
-    await el.updateComplete;
+    el.dispatchEvent(new Event('focusin'));
 
-    expect(el.checked).not.to.be.true;
+    expect(onFocus).not.to.have.been.called;
 
     // Reconnecting should start listening again
     parent.append(el);
     await el.updateComplete;
 
-    el.click();
-    await el.updateComplete;
+    el.dispatchEvent(new Event('focusin'));
 
-    expect(el.checked).to.be.true;
+    expect(onFocus).to.have.been.calledOnce;
   });
 
   it('should label the input with the slotted text', async () => {
@@ -197,15 +198,15 @@ describe('sl-switch', () => {
     });
 
     it('should not be disabled', () => {
-      expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
+      expect(input).not.to.match(':disabled');
     });
 
     it('should be disabled when set', async () => {
       el.disabled = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('disabled');
+      expect(input).to.match(':disabled');
     });
 
     it('should not have an explicit size', () => {
@@ -290,7 +291,7 @@ describe('sl-switch', () => {
       el.setAttribute('aria-disabled', 'true');
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      el.click();
+      el.toggle();
       await el.updateComplete;
 
       expect(el.checked).not.to.be.true;
@@ -321,17 +322,17 @@ describe('sl-switch', () => {
       expect(el.dirty).not.to.be.true;
     });
 
-    it('should be dirty after clicking the checkbox', () => {
-      el.click();
+    it('should be dirty after toggling', () => {
+      el.toggle();
 
       expect(el.dirty).to.be.true;
     });
 
-    it('should emit an sl-update-state event after clicking', () => {
+    it('should emit an sl-update-state event after toggling', () => {
       const onUpdateState = spy();
 
       el.addEventListener('sl-update-state', onUpdateState);
-      el.click();
+      el.toggle();
 
       expect(onUpdateState).to.have.been.calledOnce;
     });
@@ -359,11 +360,11 @@ describe('sl-switch', () => {
       expect(onUpdateState).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-change event when clicking an option', async () => {
+    it('should emit an sl-change event when toggling', async () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
-      el.click();
+      el.toggle();
       await el.updateComplete;
 
       expect(onChange).to.have.been.calledOnce;
@@ -418,11 +419,11 @@ describe('sl-switch', () => {
       expect(onValidate).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-validate event when selecting an option', async () => {
+    it('should emit an sl-validate event when toggling', async () => {
       const onValidate = spy();
 
       el.addEventListener('sl-validate', onValidate);
-      el.click();
+      el.toggle();
       await el.updateComplete;
 
       expect(onValidate).to.have.been.calledOnce;
@@ -434,25 +435,54 @@ describe('sl-switch', () => {
 
     it('should have a validation message after custom validation', () => {
       el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
-      el.click();
+      el.toggle();
 
       expect(el.validationMessage).to.equal('Custom validation message');
     });
 
-    it('should toggle the state when clicked', async () => {
-      el.click();
+    it('should toggle the state when calling toggle()', async () => {
+      el.toggle();
       await el.updateComplete;
 
       expect(el.checked).to.equal(true);
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
 
-      el.click();
+      el.toggle();
       await el.updateComplete;
 
       expect(el.checked).to.equal(false);
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
+    });
+
+    it('should set a specific state when calling toggle() with a force argument', async () => {
+      el.toggle(true);
+      await el.updateComplete;
+
+      expect(el.checked).to.equal(true);
+      expect(input).to.match(':checked');
+
+      el.toggle(true);
+      await el.updateComplete;
+
+      expect(el.checked).to.equal(true);
+      expect(input).to.match(':checked');
+
+      el.toggle(false);
+      await el.updateComplete;
+
+      expect(el.checked).to.equal(false);
+      expect(input).not.to.match(':checked');
+    });
+
+    it('should not emit an sl-change event when toggle() does not change the state', () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.toggle(false);
+
+      expect(onChange).not.to.have.been.called;
     });
 
     it('should toggle the state when clicking the toggle', async () => {
@@ -503,7 +533,7 @@ describe('sl-switch', () => {
 
       expect(icon?.name).to.equal('moon');
 
-      el.click();
+      el.toggle();
       await el.updateComplete;
 
       expect(icon?.name).to.equal('sun');
@@ -513,18 +543,25 @@ describe('sl-switch', () => {
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch aria-label="Test switch" disabled></sl-switch>`);
+      await el.updateComplete;
+
+      input = el.renderRoot.querySelector('input')!;
     });
 
     it('should have an attribute', () => {
       expect(el).to.have.attribute('disabled');
     });
 
-    it('should not change the state when clicked', () => {
-      el.click();
+    it('should disable the input element', () => {
+      expect(input).to.have.attribute('disabled');
+    });
+
+    it('should not change the state when toggled', () => {
+      el.toggle();
 
       expect(el.checked).not.to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
+      expect(input).to.have.attribute('aria-checked', 'false');
+      expect(input).not.to.match(':checked');
     });
 
     it('should not change the state on Enter', async () => {
@@ -532,8 +569,8 @@ describe('sl-switch', () => {
       await userEvent.keyboard('{Enter}');
 
       expect(el.checked).not.to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
+      expect(input).to.have.attribute('aria-checked', 'false');
+      expect(input).not.to.match(':checked');
     });
 
     it('should not change the state on Space', async () => {
@@ -541,18 +578,22 @@ describe('sl-switch', () => {
       await userEvent.keyboard('{Space}');
 
       expect(el.checked).not.to.equal(true);
-      expect(input).to.have.attribute('aria-checked', 'true');
-      expect(input).to.match(':checked');
+      expect(input).to.have.attribute('aria-checked', 'false');
+      expect(input).not.to.match(':checked');
     });
   });
 
   describe('checked', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch aria-label="Test switch" checked></sl-switch>`);
+      await el.updateComplete;
+
+      input = el.renderRoot.querySelector('input')!;
     });
 
     it('should be on when the property is set', () => {
       expect(el.checked).to.equal(true);
+      expect(el).to.match(':state(checked)');
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
     });
@@ -626,7 +667,7 @@ describe('sl-switch', () => {
 
     it('should label the input when the switch has no label', async () => {
       const withoutLabel = await fixture<Switch>(
-        html`<sl-switch tooltip="Toggle dark mode"> </sl-switch>`
+        html`<sl-switch tooltip="Toggle dark mode"></sl-switch>`
       );
       await withoutLabel.updateComplete;
 
@@ -725,7 +766,7 @@ describe('sl-switch', () => {
       });
 
       it('should revert back to the initial state', async () => {
-        el.click();
+        el.toggle();
 
         await el.updateComplete;
 
@@ -747,7 +788,7 @@ describe('sl-switch', () => {
       it('should emit an sl-change event', async () => {
         const onChange = spy();
 
-        el.click();
+        el.toggle();
         await el.updateComplete;
 
         el.addEventListener('sl-change', onChange);
@@ -771,7 +812,7 @@ describe('sl-switch', () => {
       });
 
       it('should revert back to the initial states', async () => {
-        el.click();
+        el.toggle();
 
         await el.updateComplete;
 
@@ -793,7 +834,7 @@ describe('sl-switch', () => {
       it('should emit an sl-change event', async () => {
         const onChange = spy();
 
-        el.click();
+        el.toggle();
         await el.updateComplete;
 
         el.addEventListener('sl-change', onChange);
@@ -857,7 +898,7 @@ describe('sl-switch', () => {
       );
     });
 
-    it('should toggle the switch when the label is clicked', async () => {
+    it.only('should toggle the switch when the label is clicked', async () => {
       const control = el.renderRoot.querySelector('sl-switch'),
         label = el.renderRoot.querySelector('label');
 

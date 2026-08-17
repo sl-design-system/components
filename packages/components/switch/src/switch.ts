@@ -128,6 +128,11 @@ export class Switch<T = any> extends ForwardAriaMixin(
   /** @internal The infotip instance when one is slotted. */
   infotip?: Infotip;
 
+  /** @internal The input element in the shadow DOM. */
+  get input(): HTMLInputElement {
+    return this.renderRoot.querySelector('input')!;
+  }
+
   /**
    * When set, the toggle is shown before the label.
    *
@@ -165,6 +170,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
     const { signal } = this.#eventController;
 
+    this.addEventListener('click', this.#onClick, { signal });
     this.addEventListener('focusin', this.#onFocusin, { signal });
     this.addEventListener('focusout', this.#onFocusout, { signal });
 
@@ -189,7 +195,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.setProxyTarget(this.renderRoot.querySelector('input')!);
+    this.setProxyTarget(this.input);
 
     this.internals.setFormValue(this.nativeFormValue);
     this.updateValidity();
@@ -277,36 +283,36 @@ export class Switch<T = any> extends ForwardAriaMixin(
     `;
   }
 
-  #onFocusin = (): void => {
-    this.focusEvent.emit();
-  };
+  /**
+   * Toggles the switch on or off. Pass `force` to set a specific state: `true` turns the switch on,
+   * `false` turns it off. Does nothing when the switch is disabled, or when it already is in the
+   * requested state.
+   *
+   * @param force - Optional boolean to force a specific state.
+   */
+  toggle(force?: boolean): void {
+    const ariaDisabled =
+      this.hasAttribute('aria-disabled') ||
+      (this.hasUpdated && this.input.hasAttribute('aria-disabled'));
 
-  #onFocusout = (): void => {
-    this.blurEvent.emit();
-    this.updateState({ touched: true });
-  };
-
-  #onInput(event: Event & { target: HTMLInputElement }): void {
-    if (event.target.hasAttribute('aria-disabled')) {
-      event.preventDefault();
-
+    if (this.disabled || ariaDisabled) {
       return;
     }
 
-    this.checked = event.target.checked;
-    this.changeEvent.emit(this.formValue);
-    this.updateState({ dirty: true });
-    this.updateValidity();
-  }
+    const checked = force ?? !this.checked;
 
-  #onKeydown(event: KeyboardEvent & { target: HTMLInputElement }): void {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      event.stopPropagation();
-
-      event.target.click();
+    if (checked !== !!this.checked) {
+      this.#setChecked(checked);
     }
   }
+
+  #onClick = (event: MouseEvent): void => {
+    // If the user clicks the label in the sl-form-field, it will trigger a click event here
+    // where event.target === this. Toggle the switch, like the native input would do.
+    if (event.target === this) {
+      this.toggle();
+    }
+  };
 
   #onDescriptionSlotChange(event: Event): void {
     if (hasSlottedContent(event.target)) {
@@ -319,6 +325,15 @@ export class Switch<T = any> extends ForwardAriaMixin(
     this.requestUpdate();
   }
 
+  #onFocusin = (): void => {
+    this.focusEvent.emit();
+  };
+
+  #onFocusout = (): void => {
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  };
+
   #onInfotipSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedElements = event.target.assignedElements({ flatten: true }) || [];
 
@@ -326,10 +341,33 @@ export class Switch<T = any> extends ForwardAriaMixin(
       (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
     );
 
-    if (this.infotip && !this.infotip.describes) {
-      const labelSlot = this.renderRoot.querySelector('slot:not([name])');
+    if (this.infotip) {
+      this.infotip.setAttribute('size', 'sm');
 
-      this.infotip.describes = (labelSlot && getSlottedText(labelSlot)) ?? '';
+      if (!this.infotip.describes) {
+        const labelSlot = this.renderRoot.querySelector('slot:not([name])');
+
+        this.infotip.describes = (labelSlot && getSlottedText(labelSlot)) ?? '';
+      }
+    }
+  }
+
+  #onInput(event: Event & { target: HTMLInputElement }): void {
+    if (event.target.hasAttribute('aria-disabled')) {
+      event.preventDefault();
+
+      return;
+    }
+
+    this.#setChecked(event.target.checked);
+  }
+
+  #onKeydown(event: KeyboardEvent & { target: HTMLInputElement }): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      event.target.click();
     }
   }
 
@@ -350,5 +388,13 @@ export class Switch<T = any> extends ForwardAriaMixin(
     if (this.infotip && !this.infotip.describes) {
       this.infotip.describes = text;
     }
+  }
+
+  /** Updates the checked state and notifies the outside world about the change. */
+  #setChecked(checked: boolean): void {
+    this.checked = checked;
+    this.changeEvent.emit(this.formValue);
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 }

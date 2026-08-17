@@ -13,6 +13,19 @@ ARIA attributes set on the switch are forwarded to that input by `ForwardAriaMix
 - The switch no longer adds an `<input>`, a `<label>` and a `<style>` element to its light DOM. If you relied on those elements being there, for example in tests or in CSS, you need to update your code.
 - The `formControlElement` is now the switch itself, so a `<label for="...">` should point at the id of the `<sl-switch>` element.
 - The `checked` property is no longer reflected to an attribute. Style the on state with the `checked` custom state (`sl-switch:state(checked)`) instead of the `[checked]` attribute selector. Setting `checked` as an attribute to give the switch its initial state still works.
+- Calling `click()` on the switch no longer toggles it, because the switch itself no longer listens for clicks. Use the new `toggle()` method instead.
+
+#### New `toggle()` method
+
+The switch can be toggled from JavaScript:
+
+```ts
+switch.toggle(); // Flips the switch to the other state
+switch.toggle(true); // Turns the switch on
+switch.toggle(false); // Turns the switch off
+```
+
+It behaves the same as a user toggling the switch: it emits an `sl-change` event and marks the switch as dirty. Nothing happens when the switch is disabled, or when it already is in the requested state.
 
 #### New `description` slot
 

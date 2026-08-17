@@ -74,7 +74,18 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
 
-  #mutationObserver = new MutationObserver(() => {
+  #mutationObserver = new MutationObserver(mutations => {
+    const isOnlyInternal = mutations.every(m => {
+      const target = m.target;
+      return (
+        this.#isSynthesizedDescription &&
+        this.#description &&
+        (target === this.#description || this.#description.contains(target))
+      );
+    });
+    if (isOnlyInternal) {
+      return;
+    }
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
   });
@@ -312,7 +323,9 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       this.#isSynthesizedDescription = true;
       this.append(this.#description);
     }
-    this.#description.textContent = this.description;
+    if (this.#description.textContent !== this.description) {
+      this.#description.textContent = this.description;
+    }
   }
 
   #onDescriptionSlotChange(): void {

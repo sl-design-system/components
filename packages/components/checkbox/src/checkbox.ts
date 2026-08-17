@@ -96,7 +96,20 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
 
-  #mutationObserver = new MutationObserver(() => {
+  #mutationObserver = new MutationObserver(mutations => {
+    const isOnlyInternal = mutations.every(m => {
+      const target = m.target;
+      return (
+        (this.#isSynthesizedDescription &&
+          this.#description &&
+          (target === this.#description || this.#description.contains(target))) ||
+        (this.#label && (target === this.#label || this.#label.contains(target))) ||
+        (this.input && (target === this.input || this.input.contains(target)))
+      );
+    });
+    if (isOnlyInternal) {
+      return;
+    }
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
   });
@@ -472,7 +485,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       this.#isSynthesizedDescription = true;
       this.append(this.#description);
     }
-    this.#description.textContent = this.description;
+    if (this.#description.textContent !== this.description) {
+      this.#description.textContent = this.description;
+    }
   }
 
   #onDescriptionSlotChange(): void {

@@ -233,14 +233,15 @@ describe('sl-checkbox', () => {
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
     });
 
-    it('should link tooltip to input via ariaDescribedByElements', async () => {
+    it('should link tooltip to wrapper via ariaDescribedByElements', async () => {
       el = await fixture(html`<sl-checkbox tooltip="Tooltip information">Option</sl-checkbox>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
-      expect(el.input.ariaDescribedByElements).to.include(tooltip as HTMLElement);
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('#wrapper');
+      expect(wrapper?.ariaDescribedByElements).to.include(tooltip as HTMLElement);
     });
   });
 

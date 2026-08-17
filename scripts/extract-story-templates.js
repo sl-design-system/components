@@ -312,6 +312,8 @@ class StoryTemplateExtractor {
   generateMDX(storyData) {
     const { title, components, stories, fileName, fileImports } = storyData;
 
+    const normalizeDescription = description => description?.replace(/\\`/g, '`') ?? description;
+
     // Check for custom introduction file
     const introFile = path.join(this.angularStoriesPath, `${fileName}.intro.md`);
     let customIntro = '';
@@ -349,7 +351,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
 `;
 
       if (story.description) {
-        mdx += `${story.description}
+        mdx += `${normalizeDescription(story.description)}
 
 `;
       }

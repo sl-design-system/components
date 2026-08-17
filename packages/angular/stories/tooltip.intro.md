@@ -1,21 +1,22 @@
-You can use the tooltip as a directive by adding the `slTooltip` attribute to any element.
+Use the tooltip directive by adding `slTooltip` to a focusable element.
 
-You can customize tooltip styling with CSS.
-
-Global tooltip styling:
-
-```css
-sl-tooltip {
-  max-inline-size: 200px;
-  position-area: right;
-}
+```html
+<sl-button slTooltip="Tooltip with default styling">Default tooltip</sl-button>
 ```
 
-Or scope styling to a specific trigger using the tooltip part:
+The directive creates an `sl-tooltip` element at runtime. This element is not part of your Angular
+component template, so template scoped styles might not apply to it. Use global CSS selectors to
+style tooltips created by the directive.
 
 ```css
-sl-button::part(tooltip) {
-  max-inline-size: 200px;
+/* Global styling for all generated tooltips by directive */
+sl-tooltip {
+  max-inline-size: 70px;
+}
+
+/* Scoped styling for one trigger */
+.styled-tooltip-trigger + sl-tooltip {
+  max-inline-size: 70px;
   position-area: right;
 }
 ```

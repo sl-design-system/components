@@ -2,6 +2,21 @@ import { TooltipDirective } from '@sl-design-system/angular';
 import { ButtonComponent } from '@sl-design-system/angular/button';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
+const styleId = 'tooltip-directive-story-styles',
+  styleContent = `
+    .styled-tooltip-trigger + sl-tooltip {
+      max-inline-size: 70px;
+      position-area: right;
+    }
+  `;
+
+if (typeof document !== 'undefined' && !document.getElementById(styleId)) {
+  const style = document.createElement('style');
+  style.id = styleId;
+  style.textContent = styleContent;
+  document.head.append(style);
+}
+
 export default {
   title: 'Components/Tooltip',
   decorators: [
@@ -13,32 +28,40 @@ export default {
 
 export const Directive: StoryObj = {
   render: () => ({
-    description:
-      'Use slTooltip on any element. In Angular, style the generated `sl-tooltip` element directly.',
+    description: `Use slTooltip on focusable elements. If local template styles do not apply, use a global selector to style generated tooltips.
+
+\`\`\`typescript
+const styleId = 'tooltip-directive-story-styles',
+  styleContent = \`
+    .styled-tooltip-trigger + sl-tooltip {
+      max-inline-size: 70px;
+      position-area: right;
+    }
+  \`;
+
+if (typeof document !== 'undefined' && !document.getElementById(styleId)) {
+  const style = document.createElement('style');
+  style.id = styleId;
+  style.textContent = styleContent;
+  document.head.append(style);
+}
+\`\`\``,
     template: `
       <style>
         .tooltip-demo {
-          display: inline-flex;
-          flex-wrap: wrap;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-block-size: 100vh;
           gap: 1rem;
-          align-items: flex-start;
-        }
-
-        .part-tooltip + sl-tooltip {
-          display: block;
-          inline-size: 50px;
-          box-sizing: border-box;
-          overflow-wrap: anywhere;
-          padding-inline: 0;
-          --sl-tooltip-position-area: right;
         }
       </style>
 
       <div class="tooltip-demo">
-        <sl-button slTooltip="Hello World">Default tooltip</sl-button>
+        <sl-button slTooltip="Tooltip with default styling">Default tooltip</sl-button>
 
-        <sl-button class="part-tooltip" slTooltip="Styled through a sibling selector">
-          Tooltip with CSS selector styling
+        <sl-button class="styled-tooltip-trigger" slTooltip="Styled tooltip on the right with max-inline-size set">
+          Tooltip with custom styling
         </sl-button>
       </div>
     `

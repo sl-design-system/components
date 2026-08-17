@@ -96,6 +96,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   /** Previously owned light DOM tooltip description reference. */
   #previousTooltipDescription?: HTMLElement;
 
+  /** External aria-describedby references forwarded to the native input. */
+  #externalDescribedByElements: Element[] = [];
+
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
 
@@ -204,7 +207,29 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     this.checked = value === this.value || (this.value === undefined && value === true);
   }
 
+  override get ariaDescribedByElements(): Element[] | null {
+    return super.ariaDescribedByElements;
+  }
+
+  override set ariaDescribedByElements(value: Element[] | null) {
+    this.#externalDescribedByElements = (value ?? []).filter(el => !this.#ownedAria().includes(el));
+    super.ariaDescribedByElements = value;
+    queueMicrotask(() => this.#syncAria());
+  }
+
+  override setAttribute(name: string, value: string): void {
+    if (name === 'aria-describedby') {
+      this.#externalDescribedByElements = this.#ariaDescribedByAttributeElements(value);
+    }
+    super.setAttribute(name, value);
+  }
+
   override connectedCallback(): void {
+    this.#externalDescribedByElements = this.#uniqueAriaRefs([
+      ...this.#externalDescribedByElements,
+      ...this.#ariaDescribedByAttributeElements(this.getAttribute('aria-describedby'))
+    ]);
+
     super.connectedCallback();
 
     if (!this.input) {
@@ -630,17 +655,18 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       return;
     }
 
-    const previousOwned = [
-      ...this.#previousDescriptions,
-      this.#previousTooltipDescription,
-      this.#previousTooltip
-    ].filter((el): el is HTMLElement => !!el);
+    const previousOwned = this.#ownedAria();
 
     const existingRefs = (this.input.ariaDescribedByElements ?? []).filter(
       el => !previousOwned.includes(el as HTMLElement)
     );
 
-    const nextRefs = [...existingRefs];
+    this.#externalDescribedByElements = this.#uniqueAriaRefs([
+      ...this.#externalDescribedByElements,
+      ...existingRefs
+    ]);
+
+    const nextRefs = [...this.#externalDescribedByElements];
     nextRefs.push(...this.#descriptions);
     if (this.#tooltipDescription) {
       nextRefs.push(this.#tooltipDescription);
@@ -654,18 +680,35 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   }
 
   #clearOwnedAriaFrom(input: HTMLInputElement): void {
-    const owned = [
-        ...this.#previousDescriptions,
-        ...this.#descriptions,
-        this.#previousTooltipDescription,
-        this.#tooltipDescription,
-        this.#previousTooltip
-      ].filter((el): el is HTMLElement => !!el),
+    const owned = this.#ownedAria(),
       nextRefs = (input.ariaDescribedByElements ?? []).filter(
         el => !owned.includes(el as HTMLElement)
       );
 
     input.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
+  }
+
+  #ownedAria(): HTMLElement[] {
+    return [
+      ...this.#previousDescriptions,
+      ...this.#descriptions,
+      this.#previousTooltipDescription,
+      this.#tooltipDescription,
+      this.#previousTooltip
+    ].filter((el): el is HTMLElement => !!el);
+  }
+
+  #uniqueAriaRefs(elements: Element[]): Element[] {
+    return Array.from(new Set(elements));
+  }
+
+  #ariaDescribedByAttributeElements(value: string | null): HTMLElement[] {
+    const root = this.getRootNode() as Document | ShadowRoot;
+
+    return (value ?? '')
+      .split(/\s+/)
+      .map(id => (id ? root.querySelector<HTMLElement>(`#${CSS.escape(id)}`) : null))
+      .filter((el): el is HTMLElement => !!el);
   }
 
   #restoreAriaHidden(description: HTMLElement): void {
@@ -745,5 +788,6 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     input.indeterminate = !!this.indeterminate;
 
     this.setProxyTarget(input);
+    this.#syncAria();
   }
 }

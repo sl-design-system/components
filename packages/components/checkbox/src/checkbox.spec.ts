@@ -379,6 +379,37 @@ describe('sl-checkbox', () => {
       expect(tooltipDescription.isConnected).to.be.true;
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
     });
+
+    it('should merge externally forwarded ariaDescribedByElements with owned descriptions', async () => {
+      el = await fixture(html`
+        <sl-checkbox description="Helper text" tooltip="Tooltip information">Option</sl-checkbox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const external = document.createElement('span'),
+        description = el.querySelector('[slot="description"]') as HTMLElement,
+        tooltipDescription = el.querySelector('[slot="tooltip-description"]') as HTMLElement;
+      external.textContent = 'External description';
+      el.insertAdjacentElement('afterend', external);
+
+      el.ariaDescribedByElements = [external];
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input.ariaDescribedByElements).to.include(external);
+      expect(el.input.ariaDescribedByElements).to.include(description);
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
+
+      el.disabled = true;
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input.ariaDescribedByElements).to.include(external);
+      expect(el.input.ariaDescribedByElements).to.include(description);
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
+
+      external.remove();
+    });
   });
 
   describe('defaults', () => {

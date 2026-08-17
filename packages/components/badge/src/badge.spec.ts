@@ -53,7 +53,7 @@ describe('sl-badge', () => {
     });
 
     it('should add the attribute `round` when the text changes to only have one character', async () => {
-      el.textContent = '9';
+      (el.firstChild as Text).data = '9';
       await el.updateComplete;
       expect(el).to.have.attribute('round');
     });
@@ -88,7 +88,7 @@ describe('sl-badge', () => {
       expect(el).to.have.attribute('round');
     });
 
-    it('should remove the `round` attribute when the text changes to more that 1 character', async () => {
+    it('should remove the `round` attribute when the text changes to more than 1 character', async () => {
       el.textContent = '99+';
       await el.updateComplete;
 

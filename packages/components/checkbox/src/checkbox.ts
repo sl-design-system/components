@@ -99,6 +99,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   /** External aria-describedby references forwarded to the native input. */
   #externalDescribedByElements: Element[] = [];
 
+  /** External aria-describedby references owned by the host forwarding path. */
+  #hostDescribedByElements: Element[] = [];
+
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
 
@@ -212,7 +215,8 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   }
 
   override set ariaDescribedByElements(value: readonly Element[] | null) {
-    this.#externalDescribedByElements = (value ?? []).filter(el => !this.#ownedAria().includes(el));
+    this.#hostDescribedByElements = (value ?? []).filter(el => !this.#ownedAria().includes(el));
+    this.#externalDescribedByElements = this.#hostDescribedByElements;
     super.ariaDescribedByElements = value ? [...value] : null;
     queueMicrotask(() => this.#syncAria());
   }
@@ -221,23 +225,19 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     super.removeAttribute(name);
     if (name === 'aria-describedby') {
       queueMicrotask(() => {
-        console.log(
-          'remove reconcile before',
-          this.input?.ariaDescribedByElements,
-          this.#externalDescribedByElements
-        );
-        this.#externalDescribedByElements = this.#externalAriaFromInput();
-        console.log('remove reconcile after', this.#externalDescribedByElements);
+        this.#hostDescribedByElements = this.#externalAriaFromInput();
+        this.#externalDescribedByElements = this.#hostDescribedByElements;
         this.#syncAria();
       });
     }
   }
 
   override connectedCallback(): void {
-    this.#externalDescribedByElements = this.#uniqueAriaRefs([
-      ...this.#externalDescribedByElements,
+    this.#hostDescribedByElements = this.#uniqueAriaRefs([
+      ...this.#hostDescribedByElements,
       ...this.#ariaDescribedByAttributeElements(this.getAttribute('aria-describedby'))
     ]);
+    this.#externalDescribedByElements = this.#hostDescribedByElements;
 
     super.connectedCallback();
 
@@ -463,6 +463,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
+      const customValidity = this.#customValidityMessage();
       if (this.input && this.input !== input) {
         this.#clearOwnedAriaFrom(this.input);
         if (this.#isSynthesizedInput && this.input.parentElement === this) {
@@ -471,7 +472,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       }
       this.input = input;
       this.#isSynthesizedInput = input === this.#synthesizedInput;
-      this.#syncInput(this.input);
+      this.#syncInput(this.input, customValidity);
       this.#syncAria();
       this.#syncLabelTarget();
       if (this.#isSynthesizedInput && !this.input.parentElement) {
@@ -480,8 +481,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
       this.setFormControlElement(this.input);
     } else if (!this.#isSynthesizedInput) {
+      const customValidity = this.#customValidityMessage();
       this.input = this.#createInput();
-      this.#syncInput(this.input);
+      this.#syncInput(this.input, customValidity);
       this.#syncAria();
       this.#syncLabelTarget();
       this.append(this.input);
@@ -672,7 +674,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     );
 
     this.#externalDescribedByElements = this.#uniqueAriaRefs([
-      ...this.#externalDescribedByElements,
+      ...this.#hostDescribedByElements,
       ...existingRefs
     ]);
 
@@ -775,6 +777,14 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     return input;
   }
 
+  #customValidityMessage(): string | undefined {
+    if (this.input?.validity.customError) {
+      return this.input.validationMessage;
+    }
+
+    return this.customValidity;
+  }
+
   #onInfotipSlotChange(): void {
     const slot: HTMLSlotElement | undefined | null =
       this.shadowRoot?.querySelector('slot[name="infotip"]');
@@ -794,14 +804,24 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     }
   }
 
-  #syncInput(input: HTMLInputElement): void {
+  #syncInput(input: HTMLInputElement, customValidity = this.customValidity): void {
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-checkbox-${nextUniqueId++}`;
+    input.name = this.name ?? '';
     input.required = !!this.required;
+    input.value = this.value?.toString() || '';
 
     input.checked = !!this.checked;
     input.indeterminate = !!this.indeterminate;
+    if (customValidity !== undefined) {
+      input.setCustomValidity(customValidity);
+    }
+    if (this.showValidity === 'invalid') {
+      input.setAttribute('aria-invalid', 'true');
+    } else {
+      input.removeAttribute('aria-invalid');
+    }
 
     this.setProxyTarget(input);
     this.#syncAria();

@@ -339,6 +339,11 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
+      el.name = 'terms';
+      el.value = 'accepted';
+      el.setCustomValidity('Required custom message');
+      await el.updateComplete;
+
       const firstInput = el.input,
         input = document.createElement('input'),
         description = el.querySelector('[slot="description"]') as HTMLElement;
@@ -358,6 +363,9 @@ describe('sl-checkbox', () => {
       expect(el.input).not.to.equal(input);
       expect(el.input.isConnected).to.be.true;
       expect(el.input.type).to.equal('checkbox');
+      expect(el.input.name).to.equal('terms');
+      expect(el.input.value).to.equal('accepted');
+      expect(el.input.validationMessage).to.equal('Required custom message');
       expect(el.input.ariaDescribedByElements).to.include(description);
       expect(el.querySelector('label')?.htmlFor).to.equal(el.input.id);
     });
@@ -407,6 +415,31 @@ describe('sl-checkbox', () => {
       expect(el.input.ariaDescribedByElements).to.include(external);
       expect(el.input.ariaDescribedByElements).to.include(description);
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
+
+      external.remove();
+    });
+
+    it('should not restore an external input reference removed by the consumer', async () => {
+      el = await fixture(html`<sl-checkbox description="Helper text">Option</sl-checkbox>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const external = document.createElement('span'),
+        description = el.querySelector('[slot="description"]') as HTMLElement;
+      external.textContent = 'External description';
+      el.insertAdjacentElement('afterend', external);
+      el.input.ariaDescribedByElements = [...(el.input.ariaDescribedByElements ?? []), external];
+      expect(el.input.ariaDescribedByElements).to.include(external);
+
+      el.input.ariaDescribedByElements = (el.input.ariaDescribedByElements ?? []).filter(
+        item => item !== external
+      );
+      el.tooltip = 'Tooltip information';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input.ariaDescribedByElements ?? []).not.to.include(external);
+      expect(el.input.ariaDescribedByElements).to.include(description);
 
       external.remove();
     });

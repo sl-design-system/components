@@ -130,6 +130,48 @@ describe('sl-checkbox', () => {
       expect(el.input.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
     });
 
+    it('should prefer slotted description over property fallback', async () => {
+      el = await fixture(html`
+        <sl-checkbox description="Property fallback">
+          Option
+          <span slot="description"></span>
+        </sl-checkbox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]');
+      expect(el.hasAttribute('has-description')).to.be.false;
+      expect(el.querySelector('[slot="description"]')?.textContent).to.equal('');
+      expect(el.input.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
+    });
+
+    it('should link all slotted description elements to the input', async () => {
+      el = await fixture(html`
+        <sl-checkbox>
+          Option
+          <span slot="description">First description</span>
+          <span slot="description" aria-hidden="false">Second description</span>
+        </sl-checkbox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const descriptions = Array.from(el.querySelectorAll<HTMLElement>('[slot="description"]'));
+      expect(descriptions).to.have.length(2);
+      descriptions.forEach(description => {
+        expect(description.getAttribute('aria-hidden')).to.equal('true');
+        expect(el.input.ariaDescribedByElements).to.include(description);
+      });
+
+      descriptions[1].remove();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(descriptions[1].getAttribute('aria-hidden')).to.equal('false');
+      expect(el.input.ariaDescribedByElements).to.include(descriptions[0]);
+      expect(el.input.ariaDescribedByElements).not.to.include(descriptions[1]);
+    });
+
     it('should update has-description attribute dynamically', async () => {
       el = await fixture(html`<sl-checkbox>Option</sl-checkbox>`);
       await el.updateComplete;
@@ -233,15 +275,41 @@ describe('sl-checkbox', () => {
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
     });
 
-    it('should link tooltip to wrapper via ariaDescribedByElements', async () => {
+    it('should link tooltip description to input via ariaDescribedByElements', async () => {
       el = await fixture(html`<sl-checkbox tooltip="Tooltip information">Option</sl-checkbox>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
-      const wrapper = el.renderRoot.querySelector<HTMLElement>('#wrapper');
-      expect(wrapper?.ariaDescribedByElements).to.include(tooltip as HTMLElement);
+      const tooltipDescription = el.querySelector<HTMLElement>('[slot="tooltip-description"]');
+      expect(tooltipDescription).to.exist;
+      expect(tooltipDescription?.textContent).to.equal('Tooltip information');
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
+    });
+
+    it('should move description and tooltip references to a late-slotted input', async () => {
+      el = await fixture(html`
+        <sl-checkbox description="Helper text" tooltip="Tooltip information">Option</sl-checkbox>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const oldInput = el.input,
+        input = document.createElement('input'),
+        tooltipDescription = el.querySelector('[slot="tooltip-description"]') as HTMLElement,
+        description = el.querySelector('[slot="description"]') as HTMLElement;
+      input.slot = 'input';
+      input.type = 'checkbox';
+      el.append(input);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(oldInput.ariaDescribedByElements ?? []).not.to.include(description);
+      expect(oldInput.ariaDescribedByElements ?? []).not.to.include(tooltipDescription);
+      expect(el.input).to.equal(input);
+      expect(el.input.ariaDescribedByElements).to.include(description);
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
     });
   });
 

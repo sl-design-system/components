@@ -62,11 +62,11 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The description instance in the light DOM. */
-  #description?: HTMLElement;
+  /** The description instances in the light DOM. */
+  #descriptions: HTMLElement[] = [];
 
-  /** Previously owned description element reference. */
-  #previousDescription?: HTMLElement;
+  /** Previously owned description element references. */
+  #previousDescriptions: HTMLElement[] = [];
 
   /** Previously owned tooltip element reference. */
   #previousTooltip?: HTMLElement;
@@ -79,8 +79,9 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       const target = m.target;
       return (
         this.#isSynthesizedDescription &&
-        this.#description &&
-        (target === this.#description || this.#description.contains(target))
+        this.#descriptions.some(
+          description => target === description || description.contains(target)
+        )
       );
     });
     if (isOnlyInternal) {
@@ -106,7 +107,8 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Indicates if the radio button shows it is (in)valid. */
-  @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
+  @property({ attribute: 'show-validity', reflect: true })
+  showValidity: FormControlShowValidity;
 
   @state() infotip?: Infotip;
 
@@ -161,7 +163,11 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       this.#tabIndex = parseInt(this.getAttribute('tabindex') || '0', 10);
     }
 
-    this.#mutationObserver.observe(this, { characterData: true, childList: true, subtree: true });
+    this.#mutationObserver.observe(this, {
+      characterData: true,
+      childList: true,
+      subtree: true
+    });
 
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
@@ -171,17 +177,11 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver.disconnect();
 
     if (
-      this.#description &&
+      this.#descriptions.length &&
       !this.#isSynthesizedDescription &&
-      priorAriaHidden.has(this.#description)
+      this.#descriptions.some(description => priorAriaHidden.has(description))
     ) {
-      const prior = priorAriaHidden.get(this.#description);
-      if (prior !== null && prior !== undefined) {
-        this.#description.setAttribute('aria-hidden', prior);
-      } else {
-        this.#description.removeAttribute('aria-hidden');
-      }
-      priorAriaHidden.delete(this.#description);
+      this.#descriptions.forEach(description => this.#restoreAriaHidden(description));
     }
 
     super.disconnectedCallback();
@@ -208,15 +208,19 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('description')) {
       const hasCustomSlotted = Array.from(this.childNodes).some(
         node =>
-          node !== this.#description &&
+          !this.#descriptions.includes(node as HTMLElement) &&
           node.nodeType === Node.ELEMENT_NODE &&
           (node as Element).getAttribute('slot') === 'description'
       );
-      if (this.description && !hasCustomSlotted) {
+      if (this.description?.trim() && !hasCustomSlotted) {
         this.#ensureSynthesizedDescription();
-      } else if (!this.description && this.#description && this.#isSynthesizedDescription) {
-        this.#description.remove();
-        this.#description = undefined;
+      } else if (
+        !this.description?.trim() &&
+        this.#descriptions.length &&
+        this.#isSynthesizedDescription
+      ) {
+        this.#descriptions.forEach(description => description.remove());
+        this.#descriptions = [];
         this.#isSynthesizedDescription = false;
       }
       this.#syncAria();
@@ -225,6 +229,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('tooltip')) {
       this.#syncAria();
+      requestAnimationFrame(() => this.#syncAria());
     }
   }
 
@@ -317,122 +322,98 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #ensureSynthesizedDescription(): void {
-    if (!this.description) {
-      if (this.#description && this.#isSynthesizedDescription) {
-        this.#description.remove();
-        this.#description = undefined;
+    if (!this.description?.trim()) {
+      if (this.#descriptions.length && this.#isSynthesizedDescription) {
+        this.#descriptions.forEach(description => description.remove());
+        this.#descriptions = [];
         this.#isSynthesizedDescription = false;
       }
       return;
     }
 
-    if (!this.#description || !this.#description.parentElement || !this.#isSynthesizedDescription) {
-      this.#description = document.createElement('span');
-      this.#description.id ||= `sl-radio-description-${nextUniqueId++}`;
-      this.#description.slot = 'description';
-      this.#description.setAttribute('aria-hidden', 'true');
+    const [description] = this.#descriptions;
+    if (!description || !description.parentElement || !this.#isSynthesizedDescription) {
+      const synthesized = document.createElement('span');
+      synthesized.id ||= `sl-radio-description-${nextUniqueId++}`;
+      synthesized.slot = 'description';
+      synthesized.setAttribute('aria-hidden', 'true');
       this.#isSynthesizedDescription = true;
-      this.append(this.#description);
+      this.#descriptions = [synthesized];
+      this.append(synthesized);
     }
-    if (this.#description.textContent !== this.description) {
-      this.#description.textContent = this.description;
+    if (this.#descriptions[0].textContent !== this.description) {
+      this.#descriptions[0].textContent = this.description;
     }
   }
 
   #onDescriptionSlotChange(): void {
-    const descriptionText = this.#descriptionText();
-    const slottedDescription = Array.from(this.childNodes).find(
+    const slottedDescriptions = Array.from(this.childNodes).filter(
       (node): node is HTMLElement =>
         node.nodeType === Node.ELEMENT_NODE &&
         (node as Element).getAttribute('slot') === 'description' &&
-        (!this.#isSynthesizedDescription || node !== this.#description)
+        (!this.#isSynthesizedDescription || !this.#descriptions.includes(node as HTMLElement))
     );
 
-    if (slottedDescription) {
-      if (
-        this.#isSynthesizedDescription &&
-        this.#description &&
-        this.#description !== slottedDescription
-      ) {
-        this.#description.remove();
+    if (slottedDescriptions.length) {
+      if (this.#isSynthesizedDescription) {
+        this.#descriptions.forEach(description => description.remove());
+      } else {
+        this.#descriptions
+          .filter(description => !slottedDescriptions.includes(description))
+          .forEach(description => this.#restoreAriaHidden(description));
       }
-      if (
-        this.#description &&
-        this.#description !== slottedDescription &&
-        !this.#isSynthesizedDescription
-      ) {
-        if (priorAriaHidden.has(this.#description)) {
-          const prior = priorAriaHidden.get(this.#description);
-          if (prior !== null && prior !== undefined) {
-            this.#description.setAttribute('aria-hidden', prior);
-          } else {
-            this.#description.removeAttribute('aria-hidden');
-          }
-          priorAriaHidden.delete(this.#description);
+      slottedDescriptions.forEach(description => {
+        description.id ||= `sl-radio-description-${nextUniqueId++}`;
+        if (!priorAriaHidden.has(description)) {
+          priorAriaHidden.set(description, description.getAttribute('aria-hidden'));
         }
-      }
-      slottedDescription.id ||= `sl-radio-description-${nextUniqueId++}`;
-      if (!priorAriaHidden.has(slottedDescription)) {
-        priorAriaHidden.set(slottedDescription, slottedDescription.getAttribute('aria-hidden'));
-      }
-      slottedDescription.setAttribute('aria-hidden', 'true');
-      this.#description = slottedDescription;
+        description.setAttribute('aria-hidden', 'true');
+      });
+      this.#descriptions = slottedDescriptions;
       this.#isSynthesizedDescription = false;
-    } else if (this.description) {
-      if (this.#description && !this.#isSynthesizedDescription) {
-        if (priorAriaHidden.has(this.#description)) {
-          const prior = priorAriaHidden.get(this.#description);
-          if (prior !== null && prior !== undefined) {
-            this.#description.setAttribute('aria-hidden', prior);
-          } else {
-            this.#description.removeAttribute('aria-hidden');
-          }
-          priorAriaHidden.delete(this.#description);
-        }
+    } else if (this.description?.trim()) {
+      if (!this.#isSynthesizedDescription) {
+        this.#descriptions.forEach(description => this.#restoreAriaHidden(description));
       }
       this.#ensureSynthesizedDescription();
-    } else if (this.#description) {
-      if (this.#isSynthesizedDescription && this.#description.parentElement === this) {
-        this.#description.remove();
-      } else if (!this.#isSynthesizedDescription) {
-        if (priorAriaHidden.has(this.#description)) {
-          const prior = priorAriaHidden.get(this.#description);
-          if (prior !== null && prior !== undefined) {
-            this.#description.setAttribute('aria-hidden', prior);
-          } else {
-            this.#description.removeAttribute('aria-hidden');
-          }
-          priorAriaHidden.delete(this.#description);
-        }
+    } else if (this.#descriptions.length) {
+      if (this.#isSynthesizedDescription) {
+        this.#descriptions.forEach(description => description.remove());
+      } else {
+        this.#descriptions.forEach(description => this.#restoreAriaHidden(description));
       }
-      this.#description = undefined;
+      this.#descriptions = [];
       this.#isSynthesizedDescription = false;
     }
 
     this.#syncAria();
-    this.toggleAttribute('has-description', descriptionText.length > 0);
+    this.toggleAttribute('has-description', this.#descriptionText().length > 0);
   }
 
   #descriptionText(): string {
-    if (this.description) {
-      return this.description.trim();
-    }
-
     const slottedNodes = Array.from(this.childNodes).filter(
       node =>
         node.nodeType === Node.ELEMENT_NODE &&
-        (node as Element).getAttribute('slot') === 'description'
+        (node as Element).getAttribute('slot') === 'description' &&
+        (!this.#isSynthesizedDescription || !this.#descriptions.includes(node as HTMLElement))
     );
-
-    if (!slottedNodes.length) {
-      return '';
-    }
 
     const descriptionSlot = this.shadowRoot?.querySelector<HTMLSlotElement>(
         'slot[name="description"]'
       ),
-      descriptionSlotNodes = descriptionSlot?.assignedNodes({ flatten: true }) || [],
+      descriptionSlotNodes = (descriptionSlot?.assignedNodes({ flatten: true }) || []).filter(
+        node =>
+          !(
+            this.#isSynthesizedDescription &&
+            node instanceof HTMLElement &&
+            this.#descriptions.includes(node)
+          )
+      ),
       nodes = descriptionSlotNodes.length ? descriptionSlotNodes : slottedNodes;
+
+    if (!nodes.length) {
+      return this.description?.trim() || '';
+    }
 
     return nodes
       .map(node => node.textContent?.trim() || '')
@@ -447,7 +428,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
-    const previousOwned = [this.#previousDescription, this.#previousTooltip].filter(
+    const previousOwned = [...this.#previousDescriptions, this.#previousTooltip].filter(
       (el): el is HTMLElement => !!el
     );
 
@@ -456,16 +437,26 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     );
 
     const nextRefs = [...existingRefs];
-    if (this.#description) {
-      nextRefs.push(this.#description);
-    }
+    nextRefs.push(...this.#descriptions);
     if (tooltip) {
       nextRefs.push(tooltip);
     }
 
     this.wrapper.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
-    this.#previousDescription = this.#description;
+    this.#previousDescriptions = this.#descriptions;
     this.#previousTooltip = tooltip ?? undefined;
+  }
+
+  #restoreAriaHidden(description: HTMLElement): void {
+    if (priorAriaHidden.has(description)) {
+      const prior = priorAriaHidden.get(description);
+      if (prior !== null && prior !== undefined) {
+        description.setAttribute('aria-hidden', prior);
+      } else {
+        description.removeAttribute('aria-hidden');
+      }
+      priorAriaHidden.delete(description);
+    }
   }
 
   #onInfotipSlotChange(): void {

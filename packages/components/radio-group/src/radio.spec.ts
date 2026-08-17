@@ -71,6 +71,50 @@ describe('sl-radio', () => {
       expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
     });
 
+    it('should prefer slotted description over property fallback', async () => {
+      el = await fixture(html`
+        <sl-radio description="Property fallback">
+          Option
+          <span slot="description"></span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]'),
+        wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(el.hasAttribute('has-description')).to.be.false;
+      expect(el.querySelector('[slot="description"]')?.textContent).to.equal('');
+      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
+    });
+
+    it('should link all slotted description elements to the wrapper', async () => {
+      el = await fixture(html`
+        <sl-radio>
+          Option
+          <span slot="description">First description</span>
+          <span slot="description" aria-hidden="false">Second description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const descriptions = Array.from(el.querySelectorAll<HTMLElement>('[slot="description"]')),
+        wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
+      expect(descriptions).to.have.length(2);
+      descriptions.forEach(description => {
+        expect(description.getAttribute('aria-hidden')).to.equal('true');
+        expect(wrapper.ariaDescribedByElements).to.include(description);
+      });
+
+      descriptions[1].remove();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(descriptions[1].getAttribute('aria-hidden')).to.equal('false');
+      expect(wrapper.ariaDescribedByElements).to.include(descriptions[0]);
+      expect(wrapper.ariaDescribedByElements).not.to.include(descriptions[1]);
+    });
+
     it('should update has-description attribute dynamically', async () => {
       el = await fixture(html`<sl-radio>Option</sl-radio>`);
       await el.updateComplete;

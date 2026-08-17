@@ -170,6 +170,20 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#mutationObserver.disconnect();
 
+    if (
+      this.#description &&
+      !this.#isSynthesizedDescription &&
+      priorAriaHidden.has(this.#description)
+    ) {
+      const prior = priorAriaHidden.get(this.#description);
+      if (prior !== null && prior !== undefined) {
+        this.#description.setAttribute('aria-hidden', prior);
+      } else {
+        this.#description.removeAttribute('aria-hidden');
+      }
+      priorAriaHidden.delete(this.#description);
+    }
+
     super.disconnectedCallback();
   }
 
@@ -206,10 +220,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
         this.#isSynthesizedDescription = false;
       }
       this.#syncAria();
-      this.toggleAttribute(
-        'has-description',
-        !!this.description || this.#descriptionText().length > 0
-      );
+      this.toggleAttribute('has-description', this.#descriptionText().length > 0);
     }
 
     if (changes.has('tooltip')) {

@@ -152,9 +152,9 @@ export const Icons: Story = {
 
 export const Overflow: Story = {
   args: {
-    description: 'Clicking the description does not toggle the switch.',
-    label:
-      'Always try and keep your labels short and concise, but if you have a long label, the switch will wrap it to multiple lines. The toggle will always stay aligned to the top of the label, so it is clear clicking the description will not do anything.'
+    description:
+      'If you need a lot of text to explain the switch, you can use a description slot. Use that instead of having a label that spans multiple lines. The toggle will center vertically on the label and description.',
+    label: 'Do not use long labels'
   }
 };
 

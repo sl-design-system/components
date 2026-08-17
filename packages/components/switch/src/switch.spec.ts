@@ -175,6 +175,70 @@ describe('sl-switch', () => {
     });
   });
 
+  describe('clicking', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-switch>
+          Label
+          <sl-infotip slot="infotip">More info</sl-infotip>
+          <span slot="description">Description</span>
+        </sl-switch>
+      `);
+
+      await el.updateComplete;
+
+      input = el.renderRoot.querySelector('input')!;
+    });
+
+    it('should toggle when clicking the wrapper', async () => {
+      el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!.click();
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+      expect(input).to.match(':checked');
+    });
+
+    it('should toggle when clicking the description', async () => {
+      el.renderRoot.querySelector<HTMLElement>('[part="description"]')!.click();
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+      expect(input).to.match(':checked');
+    });
+
+    it('should toggle when clicking the slotted description text', async () => {
+      el.querySelector<HTMLElement>('[slot="description"]')!.click();
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+      expect(input).to.match(':checked');
+    });
+
+    it('should toggle when clicking the slotted label text', async () => {
+      await userEvent.click(el.renderRoot.querySelector('[part="label"]')!);
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+      expect(input).to.match(':checked');
+    });
+
+    it('should not toggle when clicking the infotip', async () => {
+      el.querySelector<HTMLElement>('sl-infotip')!.click();
+      await el.updateComplete;
+
+      expect(el.checked).not.to.be.true;
+      expect(input).not.to.match(':checked');
+    });
+
+    it('should not toggle when clicking the infotip button', async () => {
+      await userEvent.click(el.querySelector('sl-infotip')!);
+      await el.updateComplete;
+
+      expect(el.checked).not.to.be.true;
+      expect(input).not.to.match(':checked');
+    });
+  });
+
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-switch aria-label="Test switch"></sl-switch>`);

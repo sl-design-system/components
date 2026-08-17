@@ -5,11 +5,7 @@
   --_handle-color: var(--sl-color-foreground-neutral-plain);
   --_handle-block-size: var(--sl-size-250);
   --_icon-size: var(--sl-size-150);
-  --_toggle-block-size: var(--_track-block-size) + var(--_toggle-padding) * 2;
   --_toggle-padding: var(--sl-size-050);
-  --_track-block-size: calc(
-    var(--_handle-block-size) + var(--_track-padding) * 2 + var(--sl-size-borderWidth-default) * 2
-  );
   --_track-inline-size: var(--sl-size-600);
   --_track-padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-default));
 
@@ -27,22 +23,8 @@
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
-:host([reverse]) {
-  [part='container'] {
-    grid-template-columns: auto 1fr;
-  }
-
-  [part='wrapper'] {
-    grid-area: 1 / 2;
-  }
-
-  [part='toggle'] {
-    grid-area: 1 / 1;
-  }
-
-  [part='description'] {
-    grid-area: 2 / 2;
-  }
+:host([reverse]) [part='container'] {
+  grid-template: 'toggle wrapper' / auto 1fr;
 }
 
 :host([size='sm']) {
@@ -78,28 +60,35 @@
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
-:host(:state(has-description)) [part='description'] {
-  display: block;
+:host(:state(has-description)) {
+  [part='wrapper'] {
+    grid-template: 'label infotip' 'description description' / auto 1fr;
+  }
+
+  [part='description'] {
+    display: block;
+  }
 }
 
 :host(:state(no-label)) {
   [part='container'] {
-    grid-template-columns: auto;
+    grid-template: 'toggle' / auto;
   }
 
   [part='wrapper'] {
     display: none;
   }
+}
 
-  [part='toggle'] {
-    grid-column: 1 / -1;
-  }
+::slotted(sl-infotip) {
+  justify-self: start;
 }
 
 [part='container'] {
+  align-items: center;
   display: grid;
-  gap: 0 var(--sl-size-100);
-  grid-template-columns: 1fr auto;
+  gap: var(--sl-size-100);
+  grid-template: 'wrapper toggle' / 1fr auto;
 
   &:has(input[aria-disabled], input[disabled]) {
     --_handle-color: var(--sl-color-foreground-disabled);
@@ -117,21 +106,22 @@
 }
 
 [part='wrapper'] {
-  display: flex;
-  gap: var(--sl-size-100);
-  grid-area: 1 / 1;
+  align-items: center;
+  display: grid;
+  gap: var(--sl-size-050) var(--sl-size-100);
+  grid-area: wrapper;
+  grid-template: 'label infotip' / auto 1fr;
 }
 
 [part='label'] {
   cursor: pointer;
-  margin-block-start: calc((var(--_toggle-block-size) - 1lh) / 2);
 }
 
 [part='toggle'] {
-  align-self: start;
+  align-self: center;
   cursor: pointer;
   display: flex;
-  grid-area: 1 / 2;
+  grid-area: toggle;
   padding: var(--_toggle-padding);
   position: relative;
 }
@@ -202,5 +192,5 @@ input {
 [part='description'] {
   color: var(--sl-color-foreground-subtlest);
   display: none;
-  grid-area: 2 / 1;
+  grid-area: description;
 }

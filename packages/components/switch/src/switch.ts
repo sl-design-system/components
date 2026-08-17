@@ -22,7 +22,7 @@ import {
   html,
   nothing
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
 declare global {
@@ -48,7 +48,6 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *
  * @cssstate checked - Set when the switch is on.
  * @cssstate has-description - Set when there is text in the description slot.
- * @cssstate has-label - Set when there is text in the default slot.
  * @cssstate no-label - Set when there is no text in the default slot.
  *
  * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
@@ -129,9 +128,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
   infotip?: Infotip;
 
   /** @internal The input element in the shadow DOM. */
-  get input(): HTMLInputElement {
-    return this.renderRoot.querySelector('input')!;
-  }
+  @query('input') input!: HTMLInputElement;
 
   /**
    * When set, the toggle is shown before the label.
@@ -224,32 +221,34 @@ export class Switch<T = any> extends ForwardAriaMixin(
   override render(): TemplateResult {
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
       size = this.size === 'md' ? 'xs' : 'md',
-      hasLabel = this.internals.states.has('has-label'),
-      // If the switch has no label, the tooltip functions as the label, otherwise as the description
-      tooltipType = hasLabel ? 'description' : 'label',
-      describedBy = [
-        this.internals.states.has('has-description') && 'description',
-        this.tooltip && hasLabel && 'tooltip'
-      ]
-        .filter(Boolean)
-        .join(' '),
-      labelledBy = [hasLabel && 'label', this.tooltip && !hasLabel && 'tooltip']
-        .filter(Boolean)
-        .join(' ');
+      hasDescription = this.internals.states.has('has-description'),
+      hasLabel = this.internals.states.has('has-label');
+
+    const describedBy = [hasDescription && 'description', this.tooltip && hasLabel && 'tooltip']
+      .filter(Boolean)
+      .join(' ');
+
+    const labelledBy = [hasLabel && 'label', this.tooltip && !hasLabel && 'tooltip']
+      .filter(Boolean)
+      .join(' ');
 
     return html`
       <div id="container" part="container">
-        <div part="wrapper">
-          <label for="input" id="label" part="label">
+        <div @click=${this.#onWrapperClick} part="wrapper">
+          <div id="label" part="label">
             <slot @slotchange=${this.#onLabelSlotChange}></slot>
-          </label>
+          </div>
 
           <slot name="infotip" @slotchange=${this.#onInfotipSlotChange}></slot>
+
+          <div id="description" part="description">
+            <slot name="description" @slotchange=${this.#onDescriptionSlotChange}></slot>
+          </div>
         </div>
 
         <label id="toggle" part="toggle">
           <input
-            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-checked=${Boolean(this.checked).toString()}
             aria-describedby=${describedBy || nothing}
             aria-labelledby=${labelledBy || nothing}
             .checked=${!!this.checked}
@@ -267,15 +266,15 @@ export class Switch<T = any> extends ForwardAriaMixin(
             </div>
           </div>
         </label>
-
-        <div id="description" part="description">
-          <slot name="description" @slotchange=${this.#onDescriptionSlotChange}></slot>
-        </div>
       </div>
 
       ${this.tooltip
         ? html`
-            <sl-tooltip for="container toggle" id="tooltip" part="tooltip" type=${tooltipType}>
+            <sl-tooltip
+              for="container toggle"
+              id="tooltip"
+              part="tooltip"
+              type=${hasLabel ? 'description' : 'label'}>
               ${this.tooltip}
             </sl-tooltip>
           `
@@ -307,9 +306,9 @@ export class Switch<T = any> extends ForwardAriaMixin(
   }
 
   #onClick = (event: MouseEvent): void => {
-    // If the user clicks the label in the sl-form-field, it will trigger a click event here
-    // where event.target === this. Toggle the switch, like the native input would do.
-    if (event.target === this) {
+    // This handles the case where the user clicks on the <label> element
+    // that is part of the `<sl-label>` in `<sl-form-field>`.
+    if (event.composedPath().at(0) === this) {
       this.toggle();
     }
   };
@@ -375,10 +374,8 @@ export class Switch<T = any> extends ForwardAriaMixin(
     const text = getSlottedText(event.target);
 
     if (text) {
-      this.internals.states.add('has-label');
       this.internals.states.delete('no-label');
     } else {
-      this.internals.states.delete('has-label');
       this.internals.states.add('no-label');
     }
 
@@ -389,6 +386,18 @@ export class Switch<T = any> extends ForwardAriaMixin(
       this.infotip.describes = text;
     }
   }
+
+  #onWrapperClick = (event: MouseEvent): void => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const path = event.composedPath();
+    if (this.infotip && path.includes(this.infotip)) {
+      return;
+    }
+
+    this.toggle();
+  };
 
   /** Updates the checked state and notifies the outside world about the change. */
   #setChecked(checked: boolean): void {

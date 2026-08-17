@@ -195,7 +195,7 @@ export class TextField
       // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
       const style = document.createElement('style');
       style.innerHTML = `
-        sl-text-field:has(input:hover):not(:focus-within) {
+        sl-text-field:has(input:hover):not(:focus-within):not(:has(sl-field-button:hover)) {
           --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
         }
       `;
@@ -208,7 +208,9 @@ export class TextField
 
     // Set the `fieldButtons` using a microtask so we do not create a lifecycle loop
     requestAnimationFrame(() => {
-      const buttons = this.renderRoot.querySelectorAll('sl-field-button');
+      const buttons = [...this.renderRoot.querySelectorAll('*')].filter(
+        (el): el is FieldButton => el instanceof FieldButton
+      );
       if (buttons.length) {
         this.fieldButtons = [...this.fieldButtons, ...buttons];
       }
@@ -240,8 +242,14 @@ export class TextField
       setTimeout(() => this.updateValidity());
     }
 
-    if (changes.has('disabled') || changes.has('fieldButtons') || changes.has('size')) {
+    if (
+      changes.has('disabled') ||
+      changes.has('fieldButtons') ||
+      changes.has('shape') ||
+      changes.has('size')
+    ) {
       this.fieldButtons.forEach(button => {
+        button.shape = this.shape;
         button.size = this.size;
         button.disabled ??= this.disabled;
       });

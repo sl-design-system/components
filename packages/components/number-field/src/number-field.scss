@@ -72,7 +72,7 @@
   }
 }
 
-:host([step-buttons='edges']:not([shape='pill'])) {
+:host([step-buttons='edges']:not([shape='pill'], [size='lg'])) {
   sl-field-button {
     padding: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
   }

@@ -291,6 +291,87 @@ export const All: Story = {
         <span>Disabled</span>
         <sl-text-field aria-label="Text field" disabled value="Value"></sl-text-field>
         <sl-text-field aria-label="Text field" disabled size="lg" value="Value"></sl-text-field>
+
+        <span>Empty (pill)</span>
+        <sl-text-field
+          aria-label="Text field"
+          placeholder="Placeholder"
+          shape="pill"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          placeholder="Placeholder"
+          shape="pill"
+          size="lg"></sl-text-field>
+
+        <span>Value (pill)</span>
+        <sl-text-field aria-label="Text field" shape="pill" value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" shape="pill" size="lg" value="Value"></sl-text-field>
+
+        <span>Invalid (pill)</span>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="invalid"
+          shape="pill"
+          value="Invalid"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="invalid"
+          shape="pill"
+          size="lg"
+          value="Invalid"></sl-text-field>
+
+        <span>Valid (pill)</span>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="valid"
+          shape="pill"
+          value="Valid"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="valid"
+          shape="pill"
+          size="lg"
+          value="Valid"></sl-text-field>
+
+        <span>Prefix/suffix (pill)</span>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill" size="lg">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
+
+        <span>Field button (pill)</span>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill">
+          <sl-field-button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </sl-field-button>
+        </sl-text-field>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill" size="lg">
+          <sl-field-button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </sl-field-button>
+        </sl-text-field>
+
+        <span>Readonly (pill)</span>
+        <sl-text-field aria-label="Text field" readonly shape="pill" value="Value"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          readonly
+          shape="pill"
+          size="lg"
+          value="Value"></sl-text-field>
+
+        <span>Disabled (pill)</span>
+        <sl-text-field aria-label="Text field" disabled shape="pill" value="Value"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          disabled
+          shape="pill"
+          size="lg"
+          value="Value"></sl-text-field>
       </div>
     `;
   }

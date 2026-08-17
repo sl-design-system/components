@@ -733,6 +733,138 @@ export const All: Story = {
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
+
+        <span>Placeholder (pill)</span>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          aria-label="Medium pill select with placeholder">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          size="lg"
+          aria-label="Large pill select with placeholder">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Selected (pill)</span>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          aria-label="Medium pill select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          size="lg"
+          aria-label="Large pill select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Clearable (pill)</span>
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          aria-label="Medium pill clearable select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          size="lg"
+          aria-label="Large pill clearable select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Valid (pill)</span>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          show-validity="valid"
+          value="Value 2"
+          aria-label="Medium pill valid select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          show-validity="valid"
+          value="Value 2"
+          size="lg"
+          aria-label="Large pill valid select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Invalid (pill)</span>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          show-validity="invalid"
+          value="Value 2"
+          aria-label="Medium pill invalid select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          show-validity="invalid"
+          value="Value 2"
+          size="lg"
+          aria-label="Large pill invalid select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Disabled (pill)</span>
+        <sl-select
+          disabled
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          aria-label="Medium pill disabled select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          disabled
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          size="lg"
+          aria-label="Large pill disabled select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
       </div>
     `;
   }

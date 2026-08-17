@@ -125,8 +125,15 @@ export const All: Story = {
         gap: 1rem;
         grid-template-columns: auto 1fr 1fr;
       }
+
+      .section-header {
+        grid-column: 1 / -1;
+        font-weight: 600;
+        padding-top: 0.5rem;
+      }
     </style>
     <div class="wrapper">
+      <span class="section-header">Rect</span>
       <span></span>
       <span style="justify-self: center">md</span>
       <span style="justify-self: center">lg</span>
@@ -146,6 +153,37 @@ export const All: Story = {
       <span>Disabled</span>
       <sl-search-field aria-label="Search" disabled value="Value"></sl-search-field>
       <sl-search-field aria-label="Search" disabled size="lg" value="Value"></sl-search-field>
+
+      <span class="section-header">Pill</span>
+      <span></span>
+      <span style="justify-self: center">md</span>
+      <span style="justify-self: center">lg</span>
+
+      <span>Empty</span>
+      <sl-search-field placeholder="Placeholder" shape="pill"></sl-search-field>
+      <sl-search-field placeholder="Placeholder" shape="pill" size="lg"></sl-search-field>
+
+      <span>Value</span>
+      <sl-search-field aria-label="Search" shape="pill" value="Value"></sl-search-field>
+      <sl-search-field aria-label="Search" shape="pill" size="lg" value="Value"></sl-search-field>
+
+      <span>Readonly</span>
+      <sl-search-field aria-label="Search" readonly shape="pill" value="Value"></sl-search-field>
+      <sl-search-field
+        aria-label="Search"
+        readonly
+        shape="pill"
+        size="lg"
+        value="Value"></sl-search-field>
+
+      <span>Disabled</span>
+      <sl-search-field aria-label="Search" disabled shape="pill" value="Value"></sl-search-field>
+      <sl-search-field
+        aria-label="Search"
+        disabled
+        shape="pill"
+        size="lg"
+        value="Value"></sl-search-field>
     </div>
   `
 };

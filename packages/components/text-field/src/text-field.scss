@@ -38,6 +38,12 @@
 
 :host([shape='pill']) {
   border-radius: var(--sl-size-borderRadius-full);
+
+  sl-field-button {
+    padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
+    padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default))
+      calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+  }
 }
 
 :host([shape='pill']:not([size='lg'])) {
@@ -59,6 +65,14 @@
 
 :host([shape='pill'][size='lg']) {
   padding-inline: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+
+  sl-field-button {
+    padding-block: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+    padding-inline: calc(
+        var(--sl-size-200) + var(--sl-size-025) - var(--sl-size-borderWidth-default)
+      )
+      calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+  }
 }
 
 :host([shape='pill'][has-suffix-field-button]) {

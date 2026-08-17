@@ -334,6 +334,62 @@ export const All: Story = {
               month=${new Date('2025-06-01').toISOString()}></sl-date-field>
           </sl-form-field>
         </div>
+
+        <div class="date-field-wrapper">
+          <span>Pill</span>
+          <sl-form-field label="Date">
+            <sl-date-field shape="pill"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Pill with value</span>
+          <sl-form-field label="Date">
+            <sl-date-field .value=${mockDate} shape="pill"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Pill, disabled</span>
+          <sl-form-field label="Date">
+            <sl-date-field disabled shape="pill"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Pill, readonly</span>
+          <sl-form-field label="Date">
+            <sl-date-field .value=${mockDate} readonly shape="pill"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Pill size md</span>
+          <sl-form-field label="Date">
+            <sl-date-field shape="pill" size="md"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Pill size lg</span>
+          <sl-form-field label="Date">
+            <sl-date-field shape="pill" size="lg"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Size md</span>
+          <sl-form-field label="Date">
+            <sl-date-field size="md"></sl-date-field>
+          </sl-form-field>
+        </div>
+
+        <div class="date-field-wrapper">
+          <span>Size lg</span>
+          <sl-form-field label="Date">
+            <sl-date-field size="lg"></sl-date-field>
+          </sl-form-field>
+        </div>
       </section>
     `;
   }

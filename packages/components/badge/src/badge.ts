@@ -41,7 +41,7 @@ export class Badge extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  #mutationObserver?: MutationObserver;
+  #mutationObserver = new MutationObserver(() => this.#updateRoundAttribute());
 
   /**
    * The color of the badge.
@@ -75,7 +75,6 @@ export class Badge extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#mutationObserver = new MutationObserver(() => this.#updateRoundAttribute());
     this.#mutationObserver.observe(this, {
       childList: true,
       characterData: true,
@@ -85,7 +84,7 @@ export class Badge extends LitElement {
 
   override disconnectedCallback(): void {
     super.disconnectedCallback();
-    this.#mutationObserver?.disconnect();
+    this.#mutationObserver.disconnect();
   }
 
   override render(): TemplateResult {

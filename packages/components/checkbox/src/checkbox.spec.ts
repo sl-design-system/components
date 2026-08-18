@@ -294,6 +294,8 @@ describe('sl-checkbox', () => {
       expect(tooltip).to.exist;
       expect(tooltip?.getAttribute('for')).to.equal('wrapper');
       expect(tooltip?.getAttribute('type')).to.equal('description');
+      expect(tooltip?.style.positionArea).to.equal('right');
+      expect(tooltip?.style.positionTryFallbacks).to.equal('flip-inline, top');
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
     });
 

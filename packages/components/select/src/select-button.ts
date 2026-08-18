@@ -6,8 +6,10 @@ import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
+
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -47,10 +49,10 @@ export class SelectButton extends ScopedElementsMixin(ElementInternalsMixin(LitE
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Will display a clear button when an option is selected. */
-  @property({ type: Boolean, reflect: true }) clearable?: boolean;
+  @cssState() @property({ type: Boolean, reflect: true }) clearable?: boolean;
 
   /** @internal Whether the clear button is focused. */
-  @property({ type: Boolean, attribute: false }) clearFocused?: boolean;
+  @cssState() @property({ type: Boolean, attribute: false }) clearFocused?: boolean;
 
   /** @internal Emits when the user clears the selection via Backspace or Delete. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
@@ -75,7 +77,7 @@ export class SelectButton extends ScopedElementsMixin(ElementInternalsMixin(LitE
   @property({ type: Boolean }) required?: boolean;
 
   /** The selected option. */
-  @property({ attribute: false }) selected?: Option | null;
+  @cssState('has-selection') @property({ attribute: false }) selected?: Option | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize;
@@ -95,30 +97,6 @@ export class SelectButton extends ScopedElementsMixin(ElementInternalsMixin(LitE
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    if (changes.has('clearable')) {
-      if (this.clearable) {
-        this.elementInternals.states.add('clearable');
-      } else {
-        this.elementInternals.states.delete('clearable');
-      }
-    }
-
-    if (changes.has('clearFocused')) {
-      if (this.clearFocused) {
-        this.elementInternals.states.add('clear-focused');
-      } else {
-        this.elementInternals.states.delete('clear-focused');
-      }
-    }
-
-    if (changes.has('selected')) {
-      if (this.selected) {
-        this.elementInternals.states.add('has-selection');
-      } else {
-        this.elementInternals.states.delete('has-selection');
-      }
-    }
 
     if (changes.has('required')) {
       if (this.required) {

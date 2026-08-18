@@ -5,13 +5,15 @@ import {
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Infotip } from '@sl-design-system/infotip';
-import { type EventEmitter, cssState, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { ElementInternalsMixin, ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { getSlottedText } from '@sl-design-system/shared/slot.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {

@@ -1,5 +1,5 @@
 import { type ReactiveController, type ReactiveElement } from 'lit';
-import { type ElementInternalsMixinInterface } from '../mixins/element-internals-mixin.js';
+import { type ElementInternalsMixinInterface } from '../mixins/element-internals.js';
 import { dasherize } from '../string.js';
 
 /** The controller of an element, so all its CSS states are handled by a single one. */

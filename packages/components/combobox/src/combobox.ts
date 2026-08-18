@@ -35,7 +35,8 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
+
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { type SlRemoveEvent, Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import {

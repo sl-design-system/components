@@ -32,6 +32,10 @@
       "import": "./src/date.js",
       "types": "./src/date.d.ts"
     },
+    "./decorators/css-state.js": {
+      "import": "./src/decorators/css-state.js",
+      "types": "./src/decorators/css-state.d.ts"
+    },
     "./events.js": {
       "import": "./src/events.js",
       "types": "./src/events.d.ts"
@@ -43,6 +47,10 @@
     "./mixins.js": {
       "import": "./src/mixins.js",
       "types": "./src/mixins.d.ts"
+    },
+    "./mixins/element-internals.js": {
+      "import": "./src/mixins/element-internals.js",
+      "types": "./src/mixins/element-internals.d.ts"
     },
     "./package.json": "./package.json",
     "./slot.js": {

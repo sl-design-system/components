@@ -1,6 +1,7 @@
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
-import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
+
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,

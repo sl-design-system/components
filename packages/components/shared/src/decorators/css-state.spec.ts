@@ -2,7 +2,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type ReactiveController, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ElementInternalsMixin } from '../mixins/element-internals-mixin.js';
+import { ElementInternalsMixin } from '../mixins/element-internals.js';
 import { cssState } from './css-state.js';
 
 class DecoratedElement extends ElementInternalsMixin(LitElement) {

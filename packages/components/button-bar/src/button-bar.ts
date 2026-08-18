@@ -1,5 +1,6 @@
 import { type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
-import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
+
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,

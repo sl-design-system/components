@@ -1,7 +1,3 @@
-export {
-  type ElementInternalsMixinInterface,
-  ElementInternalsMixin
-} from './mixins/element-internals-mixin.js';
 export { type Locale, LocaleMixin } from './mixins/locale-mixin.js';
 export {
   type ObserveAttributesMixinInterface,

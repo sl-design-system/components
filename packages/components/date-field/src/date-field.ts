@@ -11,12 +11,14 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
+
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,
@@ -199,7 +201,7 @@ export class DateField extends LocaleMixin(
   @property() placeholder?: string;
 
   /** @internal Whether the placeholder is currently shown. */
-  @state() placeholderShown?: boolean;
+  @cssState() @state() placeholderShown?: boolean;
 
   /**
    * Whether the date field is readonly.
@@ -240,7 +242,7 @@ export class DateField extends LocaleMixin(
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
   /** The selected date in the calendar. */
-  @property({ converter: dateConverter }) override value?: Date;
+  @cssState('has-value') @property({ converter: dateConverter }) override value?: Date;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -305,23 +307,9 @@ export class DateField extends LocaleMixin(
       }
     }
 
-    if (changes.has('placeholderShown')) {
-      if (this.placeholderShown) {
-        this.elementInternals.states.add('placeholder-shown');
-      } else {
-        this.elementInternals.states.delete('placeholder-shown');
-      }
-    }
-
     if (changes.has('value')) {
       if (this.calendar && !isSameDate(this.value, this.calendar?.selected)) {
         this.calendar.selected = this.value;
-      }
-
-      if (this.value) {
-        this.elementInternals.states.add('has-value');
-      } else {
-        this.elementInternals.states.delete('has-value');
       }
 
       this.elementInternals.setFormValue(this.formValue);

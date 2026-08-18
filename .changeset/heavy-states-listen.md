@@ -12,6 +12,9 @@ Add an `ElementInternalsMixin` and a `@cssState` decorator:
   (`experimentalDecorators`) and the standard TC39 decorators.
 
 ```ts
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+
 class MyElement extends ElementInternalsMixin(LitElement) {
   // Sets the `checked` state; style it with `my-element:state(checked)`
   @cssState() @property({ type: Boolean }) checked?: boolean;

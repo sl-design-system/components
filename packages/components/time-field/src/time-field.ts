@@ -13,12 +13,14 @@ import {
   event,
   isPopoverOpen
 } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
+
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,
@@ -171,7 +173,7 @@ export class TimeField extends LocaleMixin(
   @property() placeholder?: string;
 
   /** @internal Whether the placeholder is currently shown. */
-  @state() placeholderShown?: boolean;
+  @cssState() @state() placeholderShown?: boolean;
 
   /**
    * Whether the time field is readonly.
@@ -288,21 +290,7 @@ export class TimeField extends LocaleMixin(
       }
     }
 
-    if (changes.has('placeholderShown')) {
-      if (this.placeholderShown) {
-        this.elementInternals.states.add('placeholder-shown');
-      } else {
-        this.elementInternals.states.delete('placeholder-shown');
-      }
-    }
-
     if (changes.has('value')) {
-      if (this.value) {
-        this.elementInternals.states.add('has-value');
-      } else {
-        this.elementInternals.states.delete('has-value');
-      }
-
       this.elementInternals.setFormValue(this.value || null);
     }
 

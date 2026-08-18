@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ElementInternalsMixin } from './element-internals-mixin.js';
+import { ElementInternalsMixin } from './element-internals.js';
 
 class InternalsElement extends ElementInternalsMixin(LitElement) {
   override render() {

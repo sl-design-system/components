@@ -1,5 +1,5 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
-import { LitElement, html } from 'lit';
+import { LitElement, type ReactiveController, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ElementInternalsMixin } from '../mixins/element-internals-mixin.js';
@@ -35,6 +35,33 @@ describe('cssState', () => {
 
   beforeEach(async () => {
     el = await fixture(html`<decorated-element></decorated-element>`);
+  });
+
+  it('should share a single controller between all the decorated properties', () => {
+    const controllers: ReactiveController[] = [];
+
+    class CountingElement extends DecoratedElement {
+      override addController(controller: ReactiveController): void {
+        controllers.push(controller);
+        super.addController(controller);
+      }
+    }
+
+    try {
+      customElements.define('decorated-counting-element', CountingElement);
+    } catch {
+      // Already defined
+    }
+
+    const counting = document.createElement('decorated-counting-element');
+    document.body.append(counting);
+
+    // The element decorates four properties, but they are all handled by one controller
+    expect(
+      controllers.filter(controller => controller.constructor.name === 'CssStateController')
+    ).to.have.length(1);
+
+    counting.remove();
   });
 
   it('should not set the state when the property is falsy', () => {

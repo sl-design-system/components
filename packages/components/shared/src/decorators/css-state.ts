@@ -2,31 +2,54 @@ import { type ReactiveController, type ReactiveElement } from 'lit';
 import { type ElementInternalsMixinInterface } from '../mixins/element-internals-mixin.js';
 import { dasherize } from '../string.js';
 
+/** The controller of an element, so all its CSS states are handled by a single one. */
+const controllers = new WeakMap<ReactiveElement, CssStateController>();
+
+/** A property whose value is reflected into a custom CSS state. */
+interface CssStateEntry {
+  /** Returns the current value of the property. */
+  read(): unknown;
+
+  /** The value the state was last set from; undefined until the first update. */
+  previous?: boolean;
+
+  /** The name of the custom CSS state. */
+  state: string;
+}
+
 /**
- * Keeps a custom CSS state in sync with the value of a boolean property. The state is updated
- * before the host renders, so styles depending on it are applied in the same frame.
+ * Keeps custom CSS states in sync with the values of boolean properties. The states are updated
+ * before the host renders, so styles depending on them are applied in the same frame.
+ *
+ * An element has at most one controller, no matter how many properties it decorates; use
+ * `CssStateController.for()` to get it.
  */
 class CssStateController implements ReactiveController {
-  /** The value the state was last set from; undefined until the first update. */
-  #previous?: boolean;
+  /** The properties reflected into a custom CSS state, in the order they were decorated. */
+  #entries: CssStateEntry[] = [];
 
-  constructor(
-    private host: ReactiveElement,
-    private read: () => unknown,
-    private state: string
-  ) {
+  /** Returns the controller of the given element, creating it on first use. */
+  static for(host: ReactiveElement): CssStateController {
+    let controller = controllers.get(host);
+
+    if (!controller) {
+      controller = new CssStateController(host);
+      controllers.set(host, controller);
+    }
+
+    return controller;
+  }
+
+  private constructor(private host: ReactiveElement) {
     host.addController(this);
   }
 
+  /** Reflects the value returned by `read` into the given custom CSS state. */
+  observe(read: () => unknown, state: string): void {
+    this.#entries.push({ read, state });
+  }
+
   hostUpdate(): void {
-    const value = !!this.read();
-
-    if (value === this.#previous) {
-      return;
-    }
-
-    this.#previous = value;
-
     const { elementInternals } = this.host as unknown as ElementInternalsMixinInterface;
 
     if (!elementInternals) {
@@ -35,12 +58,20 @@ class CssStateController implements ReactiveController {
       );
     }
 
-    const { states } = elementInternals;
+    for (const entry of this.#entries) {
+      const value = !!entry.read();
 
-    if (value) {
-      states.add(this.state);
-    } else {
-      states.delete(this.state);
+      if (value === entry.previous) {
+        continue;
+      }
+
+      entry.previous = value;
+
+      if (value) {
+        elementInternals.states.add(entry.state);
+      } else {
+        elementInternals.states.delete(entry.state);
+      }
     }
   }
 }
@@ -86,7 +117,7 @@ export function cssState(name?: string): any {
       context.addInitializer(function (this: unknown) {
         const host = this as ReactiveElement;
 
-        new CssStateController(host, () => context.access.get(host), state);
+        CssStateController.for(host).observe(() => context.access.get(host), state);
       });
 
       return;
@@ -96,7 +127,10 @@ export function cssState(name?: string): any {
       state = name ?? dasherize(String(key));
 
     ((protoOrValue as ReactiveElement).constructor as typeof ReactiveElement).addInitializer(el => {
-      new CssStateController(el, () => (el as unknown as Record<PropertyKey, unknown>)[key], state);
+      CssStateController.for(el).observe(
+        () => (el as unknown as Record<PropertyKey, unknown>)[key],
+        state
+      );
     });
   };
 }

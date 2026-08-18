@@ -36,6 +36,59 @@ export type CheckboxSize = 'sm' | 'md' | 'lg';
 
 let nextUniqueId = 0;
 const priorAriaHidden = new WeakMap<HTMLElement, string | null>();
+const forwardedAriaElementProperties = [
+  'ariaActiveDescendantElement',
+  'ariaControlsElements',
+  'ariaDescribedByElements',
+  'ariaDetailsElements',
+  'ariaLabelledByElements',
+  'ariaOwnsElements'
+] as const;
+const forwardedAriaValueProperties = [
+  'ariaAtomic',
+  'ariaAutoComplete',
+  'ariaBrailleLabel',
+  'ariaBrailleRoleDescription',
+  'ariaBusy',
+  'ariaChecked',
+  'ariaColCount',
+  'ariaColIndex',
+  'ariaColIndexText',
+  'ariaColSpan',
+  'ariaCurrent',
+  'ariaDescription',
+  'ariaDisabled',
+  'ariaExpanded',
+  'ariaHasPopup',
+  'ariaHidden',
+  'ariaInvalid',
+  'ariaKeyShortcuts',
+  'ariaLabel',
+  'ariaLevel',
+  'ariaLive',
+  'ariaModal',
+  'ariaMultiLine',
+  'ariaMultiSelectable',
+  'ariaOrientation',
+  'ariaPlaceholder',
+  'ariaPosInSet',
+  'ariaPressed',
+  'ariaReadOnly',
+  'ariaRelevant',
+  'ariaRequired',
+  'ariaRoleDescription',
+  'ariaRowCount',
+  'ariaRowIndex',
+  'ariaRowIndexText',
+  'ariaRowSpan',
+  'ariaSelected',
+  'ariaSetSize',
+  'ariaSort',
+  'ariaValueMax',
+  'ariaValueMin',
+  'ariaValueNow',
+  'ariaValueText'
+] as const;
 
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
@@ -463,7 +516,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
-      const customValidity = this.#customValidityMessage();
+      const customValidity = this.#customValidityMessage(input);
       if (this.input && this.input !== input) {
         this.#syncForwardedAria(this.input, input);
         this.#clearOwnedAriaFrom(this.input);
@@ -482,7 +535,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
       this.setFormControlElement(this.input);
     } else if (!this.#isSynthesizedInput) {
-      const customValidity = this.#customValidityMessage();
+      const customValidity = this.input.validity.customError ? this.input.validationMessage : '';
       const input = this.#synthesizedInput ?? this.#createInput();
       this.#syncForwardedAria(this.input, input);
       this.input = input;
@@ -704,18 +757,17 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   }
 
   #syncForwardedAria(from: HTMLInputElement, to: HTMLInputElement): void {
-    to.ariaLabel = from.ariaLabel;
-    from.ariaLabel = null;
+    forwardedAriaValueProperties.forEach(prop => {
+      to[prop] = from[prop];
+      from[prop] = null;
+    });
+    forwardedAriaElementProperties.forEach(prop => {
+      to[prop] = from[prop] as never;
+      from[prop] = null as never;
+    });
 
-    to.ariaDisabled = from.ariaDisabled;
-    from.ariaDisabled = null;
-
-    to.ariaLabelledByElements = from.ariaLabelledByElements;
-    from.ariaLabelledByElements = null;
-
-    this.#hostDescribedByElements = this.#externalAriaFrom(from);
+    this.#hostDescribedByElements = this.#externalAriaFrom(to);
     this.#externalDescribedByElements = this.#hostDescribedByElements;
-    from.ariaDescribedByElements = null;
     from.removeAttribute('aria-describedby');
   }
 
@@ -813,9 +865,13 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     return input;
   }
 
-  #customValidityMessage(): string | undefined {
+  #customValidityMessage(input = this.input): string | undefined {
     if (this.input?.validity.customError) {
       return this.input.validationMessage;
+    }
+
+    if (input === this.#synthesizedInput) {
+      return this.customValidity ?? '';
     }
 
     return this.customValidity;

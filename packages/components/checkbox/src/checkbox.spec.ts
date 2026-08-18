@@ -356,15 +356,27 @@ describe('sl-checkbox', () => {
     });
 
     it('should move forwarded ARIA state to a late-slotted input', async () => {
-      const label = document.createElement('span');
+      const label = document.createElement('span'),
+        controls = document.createElement('span'),
+        details = document.createElement('span'),
+        owns = document.createElement('span');
       label.id = 'late-input-label';
       label.textContent = 'Forwarded label';
+      controls.id = 'late-input-controls';
+      details.id = 'late-input-details';
+      owns.id = 'late-input-owns';
 
       el = await fixture(html`<sl-checkbox>Option</sl-checkbox>`);
       el.insertAdjacentElement('afterend', label);
+      label.insertAdjacentElement('afterend', controls);
+      controls.insertAdjacentElement('afterend', details);
+      details.insertAdjacentElement('afterend', owns);
       el.setAttribute('aria-label', 'Forwarded aria label');
       el.setAttribute('aria-disabled', 'true');
       el.setAttribute('aria-labelledby', 'late-input-label');
+      el.setAttribute('aria-controls', 'late-input-controls');
+      el.setAttribute('aria-details', 'late-input-details');
+      el.setAttribute('aria-owns', 'late-input-owns');
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -379,12 +391,21 @@ describe('sl-checkbox', () => {
       expect(fallbackInput.ariaLabel).to.be.null;
       expect(fallbackInput.ariaDisabled).to.be.null;
       expect(fallbackInput.ariaLabelledByElements ?? []).not.to.include(label);
+      expect(fallbackInput.ariaControlsElements ?? []).not.to.include(controls);
+      expect(fallbackInput.ariaDetailsElements ?? []).not.to.include(details);
+      expect(fallbackInput.ariaOwnsElements ?? []).not.to.include(owns);
       expect(el.input).to.equal(input);
       expect(el.input.ariaLabel).to.equal('Forwarded aria label');
       expect(el.input.ariaDisabled).to.equal('true');
       expect(el.input.ariaLabelledByElements).to.include(label);
+      expect(el.input.ariaControlsElements).to.include(controls);
+      expect(el.input.ariaDetailsElements).to.include(details);
+      expect(el.input.ariaOwnsElements).to.include(owns);
 
       label.remove();
+      controls.remove();
+      details.remove();
+      owns.remove();
     });
 
     it('should prefer a custom input inserted before the owned fallback input', async () => {
@@ -441,6 +462,32 @@ describe('sl-checkbox', () => {
       expect(el.input.validationMessage).to.equal('Required custom message');
       expect(el.input.ariaDescribedByElements).to.include(description);
       expect(el.querySelector('label')?.htmlFor).to.equal(el.input.id);
+    });
+
+    it('should clear stale custom validity when reusing the fallback input', async () => {
+      el = await fixture(html`<sl-checkbox>Option</sl-checkbox>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      el.setCustomValidity('Stale custom message');
+      await el.updateComplete;
+      expect(el.input.validationMessage).to.equal('Stale custom message');
+
+      const input = document.createElement('input');
+      input.slot = 'input';
+      input.type = 'checkbox';
+      el.append(input);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      input.setCustomValidity('');
+      expect(input.validationMessage).to.equal('');
+
+      input.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input.validationMessage).to.equal('');
     });
 
     it('should keep tooltip description when reconnected with unchanged tooltip', async () => {

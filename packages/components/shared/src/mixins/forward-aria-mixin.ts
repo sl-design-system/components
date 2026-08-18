@@ -15,6 +15,23 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
   'aria-owns': 'ariaOwnsElements'
 };
 
+/**
+ * The attribute `<sl-label>` sets on a form control to communicate the id of its `<label>` element.
+ * A `<label for="...">` can only point at an element in the same tree, so when the control renders
+ * its actual form control element in the shadow DOM the native association never reaches it. This
+ * attribute is treated as an `aria-labelledby` so the label is forwarded to the target as an
+ * element reference, which does cross the shadow boundary.
+ */
+const LABEL_ID_ATTRIBUTE = 'data-label-id';
+
+/** Returns whether the attribute is one this mixin forwards to the target. */
+const isForwardable = (name: string): boolean =>
+  name.startsWith('aria-') || name === LABEL_ID_ATTRIBUTE;
+
+/** Returns the element reference property an attribute forwards to, if any. */
+const elementReference = (name: string): keyof ARIAMixin | undefined =>
+  name === LABEL_ID_ATTRIBUTE ? 'ariaLabelledByElements' : ELEMENT_REFERENCES[name];
+
 function setAriaDisabled(target: HTMLElement, value: string | null): void {
   target.ariaDisabled = value === 'true' ? 'true' : null;
 }
@@ -53,6 +70,11 @@ function setAriaDisabled(target: HTMLElement, value: string | null): void {
  *
  * **Observed attributes:** Pass an array of attribute names to forward only those. When omitted,
  * all `aria-*` attributes are forwarded automatically using a MutationObserver.
+ *
+ * **`data-label-id`:** The attribute `<sl-label>` sets on a form control is forwarded as if it were
+ * `aria-labelledby`, so the `<label>` reaches a target inside the shadow DOM, where a `<label
+ * for="...">` cannot. Unlike the ARIA attributes it is left on the host, since `<sl-label>` manages
+ * it.
  */
 export function ForwardAriaMixin<
   T extends Constructor<ReactiveElement> & { observedAttributes?: string[] }
@@ -63,7 +85,7 @@ export function ForwardAriaMixin<
   const interceptedProps = new Set<keyof ARIAMixin>();
   if (observedAttributes) {
     for (const attr of observedAttributes) {
-      const prop = ELEMENT_REFERENCES[attr];
+      const prop = elementReference(attr);
       if (prop) {
         interceptedProps.add(prop);
       }
@@ -139,14 +161,14 @@ export function ForwardAriaMixin<
       if (!observedAttributes) {
         // Collect any aria-* attributes already present on the element
         for (const { name } of this.attributes) {
-          if (name.startsWith('aria-')) {
+          if (isForwardable(name)) {
             this.#pendingAttributes.add(name);
           }
         }
 
         this.#observer = new MutationObserver(mutations => {
           for (const { attributeName } of mutations) {
-            if (attributeName?.startsWith('aria-')) {
+            if (attributeName && isForwardable(attributeName)) {
               this.#pendingAttributes.add(attributeName);
             }
           }
@@ -180,7 +202,7 @@ export function ForwardAriaMixin<
     }
 
     override removeAttribute(name: string): void {
-      if (observedAttributes ? observedAttributes.includes(name) : name.startsWith('aria-')) {
+      if (observedAttributes ? observedAttributes.includes(name) : isForwardable(name)) {
         // Always remove from pending so a queued forward doesn't re-add it.
         this.#pendingAttributes.delete(name);
 
@@ -197,17 +219,17 @@ export function ForwardAriaMixin<
               setAriaDisabled(target, null);
               ariaDisabledStorage.set(this, null);
             } else {
-              const elementsProp = ELEMENT_REFERENCES[name];
+              const elementsProp = elementReference(name);
               if (elementsProp?.endsWith('Elements')) {
                 const forwarded = forwardedElementsStorage.get(this),
-                  previous = forwarded?.get(elementsProp) ?? [],
+                  previous = forwarded?.get(name) ?? [],
                   current =
                     (target as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
                   remaining = current.filter(el => !previous.includes(el));
 
                 (target as unknown as Record<string, Element[] | null>)[elementsProp] =
                   remaining.length ? remaining : null;
-                forwarded?.delete(elementsProp);
+                forwarded?.delete(name);
               } else if (elementsProp) {
                 (target as unknown as Record<string, Element | null>)[elementsProp] = null;
               } else {
@@ -238,7 +260,7 @@ export function ForwardAriaMixin<
           continue;
         }
 
-        const elementsProp = ELEMENT_REFERENCES[name];
+        const elementsProp = elementReference(name);
         if (elementsProp) {
           // Reference attribute: resolve space-separated IDs to DOM elements and
           // assign via the element reference property (singular or plural).
@@ -256,15 +278,16 @@ export function ForwardAriaMixin<
 
             const current =
                 (targetElement as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
-              ours = new Set<Element>([...(forwarded.get(elementsProp) ?? []), ...elements]);
+              ours = new Set<Element>([...(forwarded.get(name) ?? []), ...elements]);
 
-            // Keep references added by others, but replace the ones from our previous forward
+            // Keep references added by others (including the ones forwarded for another
+            // attribute), but replace the ones from our previous forward of this attribute
             (targetElement as unknown as Record<string, Element[]>)[elementsProp] = [
               ...current.filter(el => !ours.has(el)),
               ...elements
             ];
 
-            forwarded.set(elementsProp, elements);
+            forwarded.set(name, elements);
           } else {
             (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
               elements[0] ?? null;
@@ -273,9 +296,14 @@ export function ForwardAriaMixin<
           targetElement.setAttribute(name, value);
         }
 
-        this.#forwarding = true;
-        this.removeAttribute(name);
-        this.#forwarding = false;
+        // Leave `data-label-id` in place: it is not ARIA information that would be duplicated on
+        // the host, and `<sl-label>` owns the attribute; it sets and removes it as the form control
+        // it labels changes.
+        if (name !== LABEL_ID_ATTRIBUTE) {
+          this.#forwarding = true;
+          this.removeAttribute(name);
+          this.#forwarding = false;
+        }
       }
 
       this.#pendingAttributes.clear();

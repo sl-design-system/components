@@ -112,7 +112,7 @@ describe('sl-switch', () => {
 
     const label = el.renderRoot.querySelector<HTMLElement>('#label');
 
-    expect(el).to.match(':state(has-label)');
+    expect(el).not.to.match(':state(no-label)');
     expect(el.renderRoot.querySelector('input')).to.have.attribute('aria-labelledby', 'label');
     expect(label).to.exist;
     expect(label!.querySelector('slot')!.assignedNodes()[0].textContent).to.contain('Label');
@@ -308,7 +308,7 @@ describe('sl-switch', () => {
     });
 
     it('should not reference the label element when there is no slotted text', () => {
-      expect(el).not.to.match(':state(has-label)');
+      expect(el).to.match(':state(no-label)');
       expect(input).not.to.have.attribute('aria-labelledby');
     });
 
@@ -317,7 +317,7 @@ describe('sl-switch', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await el.updateComplete;
 
-      expect(el).to.match(':state(has-label)');
+      expect(el).not.to.match(':state(no-label)');
       expect(input).to.have.attribute('aria-labelledby', 'label');
     });
 

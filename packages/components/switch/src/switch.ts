@@ -12,7 +12,7 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
-import { getSlottedText, hasSlottedContent } from '@sl-design-system/shared/slot.js';
+import { getSlottedText } from '@sl-design-system/shared/slot.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
@@ -22,7 +22,7 @@ import {
   html,
   nothing
 } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
 declare global {
@@ -124,6 +124,12 @@ export class Switch<T = any> extends ForwardAriaMixin(
    */
   @property({ attribute: 'icon-on' }) iconOn?: string;
 
+  /** @internal Whether there is content in the description slot. */
+  @state() hasDescription = false;
+
+  /** @internal Whether there is text in the default slot. */
+  @state() hasLabel = false;
+
   /** @internal The infotip instance when one is slotted. */
   infotip?: Infotip;
 
@@ -201,6 +207,23 @@ export class Switch<T = any> extends ForwardAriaMixin(
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
+    // The slots do not exist yet during the first render, so derive this from the light DOM;
+    // `slotchange` triggers another update when the content changes later on.
+    this.hasDescription = !!this.querySelector('[slot="description"]');
+    this.hasLabel = !!this.#labelText();
+
+    if (this.hasLabel) {
+      this.internals.states.delete('no-label');
+    } else {
+      this.internals.states.add('no-label');
+    }
+
+    if (this.hasDescription) {
+      this.internals.states.add('has-description');
+    } else {
+      this.internals.states.delete('has-description');
+    }
+
     if (changes.has('checked')) {
       if (this.checked) {
         this.internals.states.add('checked');
@@ -221,8 +244,8 @@ export class Switch<T = any> extends ForwardAriaMixin(
   override render(): TemplateResult {
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
       size = this.size === 'md' ? 'xs' : 'md',
-      hasDescription = this.internals.states.has('has-description'),
-      hasLabel = this.internals.states.has('has-label');
+      hasDescription = this.hasDescription,
+      hasLabel = this.hasLabel;
 
     const describedBy = [hasDescription && 'description', this.tooltip && hasLabel && 'tooltip']
       .filter(Boolean)
@@ -313,15 +336,19 @@ export class Switch<T = any> extends ForwardAriaMixin(
     }
   };
 
-  #onDescriptionSlotChange(event: Event): void {
-    if (hasSlottedContent(event.target)) {
-      this.internals.states.add('has-description');
-    } else {
-      this.internals.states.delete('has-description');
-    }
-
-    // Trigger update to ensure the aria-describedby attribute is updated correctly.
+  #onDescriptionSlotChange(): void {
+    // Trigger an update; willUpdate() derives the state and the aria-describedby attribute.
     this.requestUpdate();
+  }
+
+  /** Returns the text of the child nodes that are assigned to the default slot. */
+  #labelText(): string {
+    return Array.from(this.childNodes)
+      .filter(node => !(node instanceof Element) || !node.hasAttribute('slot'))
+      .map(node => node.textContent?.trim() ?? '')
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   #onFocusin = (): void => {
@@ -371,19 +398,11 @@ export class Switch<T = any> extends ForwardAriaMixin(
   }
 
   #onLabelSlotChange(event: Event): void {
-    const text = getSlottedText(event.target);
-
-    if (text) {
-      this.internals.states.delete('no-label');
-    } else {
-      this.internals.states.add('no-label');
-    }
-
-    // Trigger update to ensure the aria-labelledby attribute is updated correctly.
+    // Trigger an update; willUpdate() derives the state and the aria-labelledby attribute.
     this.requestUpdate();
 
     if (this.infotip && !this.infotip.describes) {
-      this.infotip.describes = text;
+      this.infotip.describes = getSlottedText(event.target);
     }
   }
 

@@ -192,3 +192,138 @@ export const Value: Story = {
     value: '13:30'
   }
 };
+
+export const All: Story = {
+  render: () => {
+    return html`
+      <style>
+        section {
+          display: inline-grid;
+          gap: 2rem;
+          grid-template-columns: repeat(2, auto);
+        }
+        .time-field-wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+        .time-field-wrapper > span {
+          font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+        }
+      </style>
+      <section>
+        <div class="time-field-wrapper">
+          <span>Basic</span>
+          <sl-form-field label="Time">
+            <sl-time-field></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>With Value</span>
+          <sl-form-field label="Time">
+            <sl-time-field value="13:30"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Required</span>
+          <sl-form-field label="Time">
+            <sl-time-field required></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Disabled</span>
+          <sl-form-field label="Time">
+            <sl-time-field disabled></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Readonly</span>
+          <sl-form-field label="Time">
+            <sl-time-field readonly value="13:30"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Placeholder</span>
+          <sl-form-field label="Time">
+            <sl-time-field placeholder="Add a time"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Min/Max</span>
+          <sl-form-field label="Time">
+            <sl-time-field min="08:40" max="18:20" start="09:00"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Custom Steps</span>
+          <sl-form-field label="Time">
+            <sl-time-field hour-step="2" minute-step="10"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Pill</span>
+          <sl-form-field label="Time">
+            <sl-time-field shape="pill"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Pill with value</span>
+          <sl-form-field label="Time">
+            <sl-time-field shape="pill" value="13:30"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Pill, disabled</span>
+          <sl-form-field label="Time">
+            <sl-time-field disabled shape="pill"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Pill, readonly</span>
+          <sl-form-field label="Time">
+            <sl-time-field readonly shape="pill" value="13:30"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Pill size md</span>
+          <sl-form-field label="Time">
+            <sl-time-field shape="pill" size="md"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Pill size lg</span>
+          <sl-form-field label="Time">
+            <sl-time-field shape="pill" size="lg"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Size md</span>
+          <sl-form-field label="Time">
+            <sl-time-field size="md"></sl-time-field>
+          </sl-form-field>
+        </div>
+
+        <div class="time-field-wrapper">
+          <span>Size lg</span>
+          <sl-form-field label="Time">
+            <sl-time-field size="lg"></sl-time-field>
+          </sl-form-field>
+        </div>
+      </section>
+    `;
+  }
+};

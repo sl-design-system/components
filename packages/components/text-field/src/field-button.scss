@@ -35,6 +35,26 @@
   padding: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
 }
 
+:host([shape='pill']) {
+  background: var(
+    --_field-button-bg,
+    color-mix(
+      in srgb,
+      var(--_field-button-bg-color, transparent),
+      var(--_field-button-bg-mix-color, transparent) calc(100% * var(--_field-button-bg-opacity, 0))
+    )
+  );
+  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
+  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default))
+    calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+}
+
+:host([shape='pill'][size='lg']) {
+  padding-block: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+  padding-inline: calc(var(--sl-size-200) + var(--sl-size-025) - var(--sl-size-borderWidth-default))
+    calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+}
+
 :host(:hover) {
   --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);

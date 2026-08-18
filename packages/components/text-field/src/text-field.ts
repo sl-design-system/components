@@ -197,6 +197,9 @@ export class TextField
       style.innerHTML = `
         sl-text-field:has(input:hover):not(:focus-within):not(:has(sl-field-button:hover)) {
           --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+          --_field-button-bg-color: var(--sl-color-background-input-plain);
+          --_field-button-bg-mix-color: var(--sl-color-background-input-interactive);
+          --_field-button-bg-opacity: var(--sl-opacity-interactive-plain-idle);
         }
       `;
       this.prepend(style);

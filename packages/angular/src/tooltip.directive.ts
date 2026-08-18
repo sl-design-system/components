@@ -78,14 +78,16 @@ export class TooltipDirective implements AfterViewInit, OnDestroy {
 
   private getOrCreateAnchorId(): string {
     const element = this.elRef.nativeElement;
+    const root = element.getRootNode() as Document | ShadowRoot;
+    const getElementById = (id: string): Element | null => root.getElementById(id);
 
-    // Reuse an existing id only when it uniquely points to this exact element.
-    if (element.id && document.getElementById(element.id) === element) {
+    // Reuse an existing id only when it uniquely points to this exact element in the same root.
+    if (element.id && getElementById(element.id) === element) {
       return element.id;
     }
 
     let id = `sl-tooltip-${nextUniqueId++}`;
-    while (document.getElementById(id)) {
+    while (getElementById(id)) {
       id = `sl-tooltip-${nextUniqueId++}`;
     }
 

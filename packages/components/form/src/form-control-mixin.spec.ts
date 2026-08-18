@@ -659,4 +659,21 @@ describe('FormControlMixin', () => {
       expect(removeEventListenerSpy).to.have.been.calledWith('invalid');
     });
   });
+
+  describe('setFormControlElement', () => {
+    it('should move the invalid event listener to the new form control element', async () => {
+      el = await fixture(html`<fcm-native-test></fcm-native-test>`);
+
+      const oldInput = el.renderRoot.querySelector('input')!,
+        newInput = document.createElement('input'),
+        removeEventListenerSpy = spy(oldInput, 'removeEventListener');
+      el.append(newInput);
+
+      el.setFormControlElement(newInput);
+
+      expect(removeEventListenerSpy).to.have.been.calledWith('invalid');
+      expect(oldInput.dispatchEvent(new Event('invalid', { cancelable: true }))).to.be.true;
+      expect(newInput.dispatchEvent(new Event('invalid', { cancelable: true }))).to.be.false;
+    });
+  });
 });

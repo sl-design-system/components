@@ -89,6 +89,8 @@ const forwardedAriaValueProperties = [
   'ariaValueNow',
   'ariaValueText'
 ] as const;
+type ForwardedAriaElementProperty = (typeof forwardedAriaElementProperties)[number];
+type ForwardedAriaValueProperty = (typeof forwardedAriaValueProperties)[number];
 
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
@@ -154,6 +156,21 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
   /** External aria-describedby references owned by the host forwarding path. */
   #hostDescribedByElements: Element[] = [];
+
+  /** ARIA value state forwarded to whichever input is currently active. */
+  #forwardedAriaValueState = new Map<ForwardedAriaValueProperty, string>();
+
+  /** ARIA element-reference state forwarded to whichever input is currently active. */
+  #forwardedAriaElementState = new Map<ForwardedAriaElementProperty, Element[]>();
+
+  /** ARIA value state that this component applied to a given input. */
+  #appliedForwardedAriaValues = new WeakMap<HTMLInputElement, Set<ForwardedAriaValueProperty>>();
+
+  /** ARIA element-reference state that this component applied to a given input. */
+  #appliedForwardedAriaElements = new WeakMap<
+    HTMLInputElement,
+    Map<ForwardedAriaElementProperty, Element[]>
+  >();
 
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
@@ -522,7 +539,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     if (input) {
       const customValidity = this.#customValidityMessage(input);
       if (this.input && this.input !== input) {
-        this.#syncForwardedAria(this.input, input);
+        this.#syncForwardedAria(this.input, input, this.#isSynthesizedInput);
         this.#clearOwnedAriaFrom(this.input);
         if (this.#isSynthesizedInput && this.input.parentElement === this) {
           this.input.remove();
@@ -541,7 +558,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     } else if (!this.#isSynthesizedInput) {
       const customValidity = this.input.validity.customError ? this.input.validationMessage : '';
       const input = this.#synthesizedInput ?? this.#createInput();
-      this.#syncForwardedAria(this.input, input);
+      this.#syncForwardedAria(this.input, input, false);
       this.input = input;
       this.#syncInput(this.input, customValidity);
       this.#syncAria();
@@ -760,19 +777,155 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     this.#syncAriaDescribedByAttribute(nextRefs, input);
   }
 
-  #syncForwardedAria(from: HTMLInputElement, to: HTMLInputElement): void {
-    forwardedAriaValueProperties.forEach(prop => {
-      to[prop] = from[prop];
-      from[prop] = null;
-    });
-    forwardedAriaElementProperties.forEach(prop => {
-      to[prop] = from[prop] as never;
-      from[prop] = null as never;
-    });
+  #syncForwardedAria(
+    from: HTMLInputElement,
+    to: HTMLInputElement,
+    captureFromOldInput: boolean
+  ): void {
+    if (captureFromOldInput) {
+      this.#captureForwardedAria(from);
+    }
+
+    this.#applyForwardedAria(to);
+    this.#clearAppliedForwardedAria(from);
+    if (captureFromOldInput) {
+      this.#clearTrackedForwardedAria(from);
+    }
 
     this.#hostDescribedByElements = this.#externalAriaFrom(to);
     this.#externalDescribedByElements = this.#hostDescribedByElements;
-    from.removeAttribute('aria-describedby');
+    this.#syncAriaDescribedByAttribute(
+      this.#ariaElementRefs(from, 'ariaDescribedByElements'),
+      from
+    );
+  }
+
+  #captureForwardedAria(input: HTMLInputElement): void {
+    forwardedAriaValueProperties.forEach(prop => {
+      const value = input[prop];
+      if (value !== null) {
+        this.#forwardedAriaValueState.set(prop, value);
+      }
+    });
+
+    forwardedAriaElementProperties.forEach(prop => {
+      const refs = this.#ariaElementRefs(input, prop).filter(
+        el => prop !== 'ariaDescribedByElements' || !this.#ownedAria().includes(el)
+      );
+      if (refs.length) {
+        this.#forwardedAriaElementState.set(prop, refs);
+      }
+    });
+  }
+
+  #applyForwardedAria(input: HTMLInputElement): void {
+    forwardedAriaValueProperties.forEach(prop => {
+      const value = this.#forwardedAriaValueState.get(prop);
+      if (value !== undefined && input[prop] === null) {
+        input[prop] = value;
+        this.#appliedAriaValues(input).add(prop);
+      }
+    });
+
+    forwardedAriaElementProperties.forEach(prop => {
+      const forwardedRefs = this.#forwardedAriaElementState.get(prop);
+      if (!forwardedRefs?.length) {
+        return;
+      }
+
+      const existingRefs = this.#ariaElementRefs(input, prop),
+        addedRefs = forwardedRefs.filter(ref => !existingRefs.includes(ref));
+      if (!addedRefs.length) {
+        return;
+      }
+
+      this.#setAriaElementRefs(input, prop, [...existingRefs, ...addedRefs]);
+      this.#appliedAriaElements(input).set(prop, addedRefs);
+    });
+  }
+
+  #clearAppliedForwardedAria(input: HTMLInputElement): void {
+    this.#appliedForwardedAriaValues.get(input)?.forEach(prop => {
+      const value = this.#forwardedAriaValueState.get(prop);
+      if (value !== undefined && input[prop] === value) {
+        input[prop] = null;
+      }
+    });
+    this.#appliedForwardedAriaValues.delete(input);
+
+    this.#appliedForwardedAriaElements.get(input)?.forEach((refs, prop) => {
+      this.#setAriaElementRefs(
+        input,
+        prop,
+        this.#ariaElementRefs(input, prop).filter(ref => !refs.includes(ref))
+      );
+    });
+    this.#appliedForwardedAriaElements.delete(input);
+  }
+
+  #clearTrackedForwardedAria(input: HTMLInputElement): void {
+    forwardedAriaValueProperties.forEach(prop => {
+      const value = this.#forwardedAriaValueState.get(prop);
+      if (value !== undefined && input[prop] === value) {
+        input[prop] = null;
+      }
+    });
+
+    forwardedAriaElementProperties.forEach(prop => {
+      const forwardedRefs = this.#forwardedAriaElementState.get(prop);
+      if (forwardedRefs?.length) {
+        this.#setAriaElementRefs(
+          input,
+          prop,
+          this.#ariaElementRefs(input, prop).filter(ref => !forwardedRefs.includes(ref))
+        );
+      }
+    });
+  }
+
+  #ariaElementRefs(input: HTMLInputElement, prop: ForwardedAriaElementProperty): Element[] {
+    const value = input[prop];
+
+    if (value instanceof Element) {
+      return [value];
+    }
+
+    return value ? Array.from(value) : [];
+  }
+
+  #setAriaElementRefs(
+    input: HTMLInputElement,
+    prop: ForwardedAriaElementProperty,
+    refs: Element[]
+  ): void {
+    if (prop === 'ariaActiveDescendantElement') {
+      input[prop] = (refs[0] ?? null) as never;
+    } else {
+      input[prop] = (refs.length ? refs : null) as never;
+    }
+    if (prop === 'ariaDescribedByElements') {
+      this.#syncAriaDescribedByAttribute(refs, input);
+    }
+  }
+
+  #appliedAriaValues(input: HTMLInputElement): Set<ForwardedAriaValueProperty> {
+    let values = this.#appliedForwardedAriaValues.get(input);
+    if (!values) {
+      values = new Set();
+      this.#appliedForwardedAriaValues.set(input, values);
+    }
+
+    return values;
+  }
+
+  #appliedAriaElements(input: HTMLInputElement): Map<ForwardedAriaElementProperty, Element[]> {
+    let elements = this.#appliedForwardedAriaElements.get(input);
+    if (!elements) {
+      elements = new Map();
+      this.#appliedForwardedAriaElements.set(input, elements);
+    }
+
+    return elements;
   }
 
   #ownedAria(): Element[] {

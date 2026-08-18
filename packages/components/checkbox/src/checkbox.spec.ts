@@ -410,6 +410,59 @@ describe('sl-checkbox', () => {
       owns.remove();
     });
 
+    it('should preserve consumer ARIA when moving forwarded state between inputs', async () => {
+      const forwardedLabel = document.createElement('span'),
+        forwardedControls = document.createElement('span'),
+        customControls = document.createElement('span');
+      forwardedLabel.id = 'forwarded-input-label';
+      forwardedControls.id = 'forwarded-input-controls';
+      customControls.id = 'custom-input-controls';
+
+      el = await fixture(html`<sl-checkbox>Option</sl-checkbox>`);
+      el.insertAdjacentElement('afterend', forwardedLabel);
+      forwardedLabel.insertAdjacentElement('afterend', forwardedControls);
+      forwardedControls.insertAdjacentElement('afterend', customControls);
+      el.setAttribute('aria-label', 'Forwarded aria label');
+      el.setAttribute('aria-labelledby', 'forwarded-input-label');
+      el.setAttribute('aria-controls', 'forwarded-input-controls');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const fallbackInput = el.input,
+        input = document.createElement('input');
+      input.slot = 'input';
+      input.type = 'checkbox';
+      input.ariaLabel = 'Custom aria label';
+      input.ariaControlsElements = [customControls];
+      el.append(input);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input).to.equal(input);
+      expect(input.ariaLabel).to.equal('Custom aria label');
+      expect(input.ariaControlsElements).to.include(customControls);
+      expect(input.ariaControlsElements).to.include(forwardedControls);
+      expect(input.ariaLabelledByElements).to.include(forwardedLabel);
+      expect(fallbackInput.ariaLabel).to.be.null;
+      expect(fallbackInput.ariaControlsElements ?? []).not.to.include(forwardedControls);
+
+      input.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(input.ariaLabel).to.equal('Custom aria label');
+      expect(input.ariaControlsElements).to.include(customControls);
+      expect(input.ariaControlsElements ?? []).not.to.include(forwardedControls);
+      expect(el.input).not.to.equal(input);
+      expect(el.input.ariaLabel).to.equal('Forwarded aria label');
+      expect(el.input.ariaControlsElements).to.include(forwardedControls);
+      expect(el.input.ariaLabelledByElements).to.include(forwardedLabel);
+
+      forwardedLabel.remove();
+      forwardedControls.remove();
+      customControls.remove();
+    });
+
     it('should prefer a custom input inserted before the owned fallback input', async () => {
       el = await fixture(html`<sl-checkbox description="Helper text">Option</sl-checkbox>`);
       await el.updateComplete;

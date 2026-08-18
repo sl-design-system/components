@@ -276,6 +276,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
             aria-labelledby=${labelledBy || nothing}
             .checked=${!!this.checked}
             ?disabled=${this.disabled}
+            @click=${this.#onInputClick}
             @input=${this.#onInput}
             @keydown=${this.#onKeydown}
             id="input"
@@ -379,13 +380,17 @@ export class Switch<T = any> extends ForwardAriaMixin(
   }
 
   #onInput(event: Event & { target: HTMLInputElement }): void {
+    this.#setChecked(event.target.checked);
+  }
+
+  #onInputClick(event: Event & { target: HTMLInputElement }): void {
+    // An aria-disabled switch cannot be toggled, but stays focusable. The click has to be
+    // cancelled here, because the input event is not cancelable: by the time it fires the
+    // checkbox has already flipped, and since `checked` does not change, Lit will not re-commit
+    // the binding that would set it back.
     if (event.target.hasAttribute('aria-disabled')) {
       event.preventDefault();
-
-      return;
     }
-
-    this.#setChecked(event.target.checked);
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLInputElement }): void {

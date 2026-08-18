@@ -962,7 +962,7 @@ describe('sl-switch', () => {
       );
     });
 
-    it.only('should toggle the switch when the label is clicked', async () => {
+    it('should toggle the switch when the label is clicked', async () => {
       const control = el.renderRoot.querySelector('sl-switch'),
         label = el.renderRoot.querySelector('label');
 

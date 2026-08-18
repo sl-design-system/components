@@ -63,13 +63,13 @@ You can show a popover by associating it with an element using the anchor attrib
 
 ## Tooltip
 
-You can show a tooltip by assigning an id to the trigger element and using that id in the tooltip's for attribute.
+You can show a tooltip by assigning an `id` to the trigger element and using that id in the tooltip's `for` attribute.
 
 ### Template
 
 ```html
 <sl-button id="tooltip-trigger">Hover me</sl-button>
-  <sl-tooltip for="tooltip-trigger">Tooltip content</sl-tooltip>
+  <sl-tooltip for="tooltip-trigger" type="description">Tooltip content</sl-tooltip>
 ```
 
 

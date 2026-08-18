@@ -65,10 +65,10 @@ export const Popover: StoryObj = {
 export const Tooltip: StoryObj = {
   render: () => ({
     description:
-      "You can show a tooltip by assigning an id to the trigger element and using that id in the tooltip's for attribute.",
+      "You can show a tooltip by assigning an `id` to the trigger element and using that id in the tooltip's `for` attribute.",
     template: `
       <sl-button id="tooltip-trigger">Hover me</sl-button>
-      <sl-tooltip for="tooltip-trigger">Tooltip content</sl-tooltip>
+      <sl-tooltip for="tooltip-trigger" type="description">Tooltip content</sl-tooltip>
     `
   })
 };

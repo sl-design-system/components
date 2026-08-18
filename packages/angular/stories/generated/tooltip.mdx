@@ -12,8 +12,13 @@ To add custom introduction content, create tooltip.intro.md */}
 Use the tooltip directive by adding `slTooltip` to a focusable element.
 
 ```html
-<sl-button slTooltip="Tooltip with default styling">Default tooltip</sl-button>
+<sl-button slTooltip="More information">
+  <sl-icon name="face-smile"></sl-icon>
+</sl-button>
 ```
+
+Use the default tooltip (`type: 'label'` - `aria-labelledby`) with e.g. icon-only buttons.
+For elements that already have visible text, use `type: 'description'` (`aria-describedby`).
 
 The directive creates an `sl-tooltip` element at runtime. This element is not part of your Angular
 component template, so template scoped styles might not apply to it. Use global CSS selectors to
@@ -34,7 +39,18 @@ sl-tooltip {
 
 ## Directive
 
-Use slTooltip on focusable elements. If local template styles do not apply, use a global selector to style generated tooltips.
+Use `slTooltip` on focusable elements.
+
+How it works:
+- The directive creates an `<sl-tooltip>` next to the element when text is set.
+- It updates the tooltip when inputs change.
+- It removes the tooltip when text is empty.
+
+Type options:
+- `Default` (`aria-labelledby`): use with icon-only triggers, for example `slTooltip="..."`
+- `Description` (`aria-describedby`): use with elements that already have visible text, for example `[slTooltip]="{ text: '...', type: 'description' }"`
+
+If local styles do not work, use a global selector to style generated tooltips.
 
 ```typescript
 const styleId = 'tooltip-directive-story-styles',
@@ -59,6 +75,7 @@ if (typeof document !== 'undefined' && !document.getElementById(styleId)) {
 <style>
     .tooltip-demo {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: center;
       min-block-size: 100vh;
@@ -67,10 +84,16 @@ if (typeof document !== 'undefined' && !document.getElementById(styleId)) {
   </style>
 
   <div class="tooltip-demo">
-    <sl-button slTooltip="Tooltip with default styling">Default tooltip</sl-button>
+    <sl-button slTooltip="More information about this action">
+      <sl-icon name="face-smile"></sl-icon>
+    </sl-button>
 
-    <sl-button class="styled-tooltip-trigger" slTooltip="Styled tooltip on the right with max-inline-size set">
-      Tooltip with custom styling
+    <sl-button [slTooltip]="{ text: 'Tooltip used as aria description for a text button', type: 'description' }">
+      Tooltip with type
+    </sl-button>
+
+    <sl-button class="styled-tooltip-trigger" [slTooltip]="{ text: 'Styled tooltip on the right with max-inline-size set', type: 'description' }">
+      Styled tooltip
     </sl-button>
   </div>
 ```

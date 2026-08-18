@@ -73,6 +73,30 @@ describe('ForwardAriaMixin', () => {
     expect(fresh.getProxyTarget()).to.be.undefined;
   });
 
+  it('should not clean up ARIA already owned by a retargeted proxy target', () => {
+    const hostLabel = document.createElement('span'),
+      customTarget = document.createElement('button');
+    hostLabel.id = 'retarget-host-label';
+    document.body.append(hostLabel, customTarget);
+
+    el.setAttribute('aria-label', 'Host label');
+    el.setAttribute('aria-labelledby', 'retarget-host-label');
+    customTarget.setAttribute('aria-label', 'Custom label');
+    customTarget.ariaLabelledByElements = [hostLabel];
+
+    el.setProxyTarget(customTarget);
+    el.removeAttribute('aria-label');
+    el.removeAttribute('aria-labelledby');
+
+    expect(customTarget).to.have.attribute('aria-label', 'Custom label');
+    expect(customTarget.ariaLabelledByElements).to.deep.equal([hostLabel]);
+    expect(button).not.to.have.attribute('aria-label');
+    expect(button.ariaLabelledByElements).to.be.null;
+
+    hostLabel.remove();
+    customTarget.remove();
+  });
+
   it('should forward a plain attribute to the target element', () => {
     el.setAttribute('aria-disabled', 'true');
 

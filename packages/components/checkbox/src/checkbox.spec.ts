@@ -507,6 +507,45 @@ describe('sl-checkbox', () => {
       controls.remove();
     });
 
+    it('should not restore ARIA removed while a custom input was active', async () => {
+      const label = document.createElement('span');
+      label.id = 'removed-active-custom-label';
+
+      el = await fixture(html`
+        <sl-checkbox>
+          Option
+          <input slot="input" type="checkbox" />
+        </sl-checkbox>
+      `);
+      el.insertAdjacentElement('afterend', label);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const customInput = el.input;
+      el.setAttribute('aria-label', 'Removed label');
+      el.setAttribute('aria-labelledby', 'removed-active-custom-label');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(customInput.ariaLabel).to.equal('Removed label');
+      expect(customInput.ariaLabelledByElements).to.include(label);
+
+      el.removeAttribute('aria-label');
+      el.removeAttribute('aria-labelledby');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      customInput.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.input).not.to.equal(customInput);
+      expect(el.input.ariaLabel).to.be.null;
+      expect(el.input.ariaLabelledByElements).to.be.null;
+
+      label.remove();
+    });
+
     it('should prefer a custom input inserted before the owned fallback input', async () => {
       el = await fixture(html`<sl-checkbox description="Helper text">Option</sl-checkbox>`);
       await el.updateComplete;

@@ -79,6 +79,7 @@ export function ForwardAriaMixin<
   const targetElements = new WeakMap<ForwardAriaImpl, HTMLElement>(),
     propertyStorage = new WeakMap<ForwardAriaImpl, Map<string, Element[] | Element | null>>(),
     ariaDisabledStorage = new WeakMap<ForwardAriaImpl, string | null>(),
+    forwardedAttributesStorage = new WeakMap<ForwardAriaImpl, Map<string, string>>(),
     // Tracks which elements each attribute forward contributed to the target's element
     // reference properties, so a re-forward or removal only replaces our own references
     // and leaves references added by others (e.g. a tooltip registering itself) intact.
@@ -102,6 +103,11 @@ export function ForwardAriaMixin<
 
     /** @internal */
     setProxyTarget(target: HTMLElement): void {
+      const previousTarget = targetElements.get(this);
+      if (previousTarget && previousTarget !== target) {
+        this.#retargetForwardedState(previousTarget, target);
+      }
+
       targetElements.set(this, target);
 
       // Forward any element reference properties that were set before the target was available.
@@ -116,18 +122,85 @@ export function ForwardAriaMixin<
             continue;
           }
 
-          (target as unknown as Record<string, Element[] | Element | null>)[prop] = value;
+          this.#applyElementReference(target, prop, value);
         }
       }
 
       // Forward ariaDisabled if it was set via property before the target was available
       if (ariaDisabledStorage.has(this)) {
         const value = ariaDisabledStorage.get(this) ?? null;
-        setAriaDisabled(target, value);
+        if (target.ariaDisabled === null) {
+          setAriaDisabled(target, value);
+        }
       }
 
       // Forward any attributes that were set before the target was available
       this.#forwardAttributes();
+    }
+
+    #retargetForwardedState(from: HTMLElement, to: HTMLElement): void {
+      forwardedAttributesStorage.get(this)?.forEach((value, name) => {
+        if (!to.hasAttribute(name)) {
+          to.setAttribute(name, value);
+        }
+        if (from.getAttribute(name) === value) {
+          from.removeAttribute(name);
+        }
+      });
+
+      forwardedElementsStorage.get(this)?.forEach((refs, prop) => {
+        this.#applyElementReference(to, prop, refs);
+        this.#removeElementReference(from, prop, refs);
+      });
+
+      propertyStorage.get(this)?.forEach((value, prop) => {
+        if (value === null || (Array.isArray(value) && value.length === 0)) {
+          return;
+        }
+
+        this.#applyElementReference(to, prop, value);
+        this.#removeElementReference(from, prop, value);
+      });
+
+      if (ariaDisabledStorage.has(this)) {
+        const value = ariaDisabledStorage.get(this) ?? null;
+        if (to.ariaDisabled === null) {
+          setAriaDisabled(to, value);
+        }
+        if (from.ariaDisabled === value) {
+          setAriaDisabled(from, null);
+        }
+      }
+    }
+
+    #applyElementReference(target: HTMLElement, prop: string, value: Element[] | Element): void {
+      if (Array.isArray(value)) {
+        const current =
+            (target as unknown as Record<string, readonly Element[] | null>)[prop] ?? [],
+          next = [...current];
+
+        value.forEach(element => {
+          if (!next.includes(element)) {
+            next.push(element);
+          }
+        });
+
+        (target as unknown as Record<string, Element[] | null>)[prop] = next.length ? next : null;
+      } else if (!(target as unknown as Record<string, Element | null>)[prop]) {
+        (target as unknown as Record<string, Element | null>)[prop] = value;
+      }
+    }
+
+    #removeElementReference(target: HTMLElement, prop: string, value: Element[] | Element): void {
+      if (Array.isArray(value)) {
+        const current =
+            (target as unknown as Record<string, readonly Element[] | null>)[prop] ?? [],
+          next = current.filter(element => !value.includes(element));
+
+        (target as unknown as Record<string, Element[] | null>)[prop] = next.length ? next : null;
+      } else if ((target as unknown as Record<string, Element | null>)[prop] === value) {
+        (target as unknown as Record<string, Element | null>)[prop] = null;
+      }
     }
 
     override connectedCallback(): void {
@@ -212,6 +285,7 @@ export function ForwardAriaMixin<
                 (target as unknown as Record<string, Element | null>)[elementsProp] = null;
               } else {
                 target.removeAttribute(name);
+                forwardedAttributesStorage.get(this)?.delete(name);
               }
             }
           }
@@ -270,7 +344,14 @@ export function ForwardAriaMixin<
               elements[0] ?? null;
           }
         } else {
+          let forwardedAttributes = forwardedAttributesStorage.get(this);
+          if (!forwardedAttributes) {
+            forwardedAttributes = new Map();
+            forwardedAttributesStorage.set(this, forwardedAttributes);
+          }
+
           targetElement.setAttribute(name, value);
+          forwardedAttributes.set(name, value);
         }
 
         this.#forwarding = true;

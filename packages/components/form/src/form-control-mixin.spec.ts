@@ -675,5 +675,19 @@ describe('FormControlMixin', () => {
       expect(oldInput.dispatchEvent(new Event('invalid', { cancelable: true }))).to.be.true;
       expect(newInput.dispatchEvent(new Event('invalid', { cancelable: true }))).to.be.false;
     });
+
+    it('should restore the invalid event listener when reconnected with the same element', async () => {
+      el = await fixture(html`<fcm-native-test></fcm-native-test>`);
+
+      const parent = el.parentElement!,
+        input = el.renderRoot.querySelector('input')!;
+      el.remove();
+      expect(input.dispatchEvent(new Event('invalid', { cancelable: true }))).to.be.true;
+
+      parent.append(el);
+      el.setFormControlElement(input);
+
+      expect(input.dispatchEvent(new Event('invalid', { cancelable: true }))).to.be.false;
+    });
   });
 });

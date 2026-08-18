@@ -463,6 +463,50 @@ describe('sl-checkbox', () => {
       customControls.remove();
     });
 
+    it('should restore ARIA forwarded while a custom input was active', async () => {
+      const label = document.createElement('span'),
+        controls = document.createElement('span');
+      label.id = 'active-custom-label';
+      controls.id = 'active-custom-controls';
+
+      el = await fixture(html`
+        <sl-checkbox>
+          Option
+          <input slot="input" type="checkbox" />
+        </sl-checkbox>
+      `);
+      el.insertAdjacentElement('afterend', label);
+      label.insertAdjacentElement('afterend', controls);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const customInput = el.input;
+      el.setAttribute('aria-label', 'Forwarded while custom is active');
+      el.setAttribute('aria-labelledby', 'active-custom-label');
+      el.setAttribute('aria-controls', 'active-custom-controls');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(customInput.ariaLabel).to.equal('Forwarded while custom is active');
+      expect(customInput.ariaLabelledByElements).to.include(label);
+      expect(customInput.ariaControlsElements).to.include(controls);
+
+      customInput.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(customInput.ariaLabel).to.be.null;
+      expect(customInput.ariaLabelledByElements ?? []).not.to.include(label);
+      expect(customInput.ariaControlsElements ?? []).not.to.include(controls);
+      expect(el.input).not.to.equal(customInput);
+      expect(el.input.ariaLabel).to.equal('Forwarded while custom is active');
+      expect(el.input.ariaLabelledByElements).to.include(label);
+      expect(el.input.ariaControlsElements).to.include(controls);
+
+      label.remove();
+      controls.remove();
+    });
+
     it('should prefer a custom input inserted before the owned fallback input', async () => {
       el = await fixture(html`<sl-checkbox description="Helper text">Option</sl-checkbox>`);
       await el.updateComplete;

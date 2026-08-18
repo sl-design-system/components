@@ -515,10 +515,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      * @internal
      */
     setFormControlElement(element: FormControlElement): void {
-      if (this.#formControlElement === element) {
-        return;
-      }
-
       this.#formControlElement?.removeEventListener('invalid', this.#onInvalid);
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);

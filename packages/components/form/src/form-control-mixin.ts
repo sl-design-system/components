@@ -220,22 +220,20 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      * or null.
      */
     get nativeFormValue(): FormValue {
-      if (
-        this.formValue === null ||
-        this.formValue === undefined ||
-        this.formValue instanceof File ||
-        this.formValue instanceof FormData ||
-        typeof this.formValue === 'string'
-      ) {
-        return this.formValue ?? null;
-      } else if (typeof this.formValue === 'boolean') {
-        return Boolean(this.formValue).toString();
-      } else if (typeof this.formValue === 'number') {
-        return Number(this.formValue).toString();
-      } else if (typeof this.formValue === 'object' && 'toString' in this.formValue) {
-        return (this.formValue as { toString(): string }).toString();
+      const value = this.formValue;
+
+      if (value === null || value === undefined) {
+        return null;
+      } else if (typeof value === 'string' || value instanceof File || value instanceof FormData) {
+        return value;
+      } else if (typeof value === 'boolean') {
+        return Boolean(value).toString();
+      } else if (typeof value === 'number') {
+        return Number(value).toString();
+      } else if (typeof value === 'object' && 'toString' in value) {
+        return (value as { toString(): string }).toString();
       } else {
-        console.warn('Unknown form value type', this.formValue);
+        console.warn('Unknown form value type', value);
 
         return null;
       }

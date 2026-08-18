@@ -415,7 +415,7 @@ describe('sl-button', () => {
       });
 
       it('should be associated with the form', () => {
-        expect(el.internals.form).to.equal(form);
+        expect(el.elementInternals.form).to.equal(form);
       });
     });
 

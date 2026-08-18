@@ -28,7 +28,7 @@ export interface NativeFormControlElement extends HTMLElement {
 }
 
 export interface CustomFormControlElement extends HTMLElement {
-  internals: ElementInternals;
+  elementInternals: ElementInternals;
 }
 
 export type FormControlElement = NativeFormControlElement | CustomFormControlElement;
@@ -198,7 +198,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
       } else {
-        return this.formControlElement.internals.form;
+        return this.formControlElement.elementInternals.form;
       }
     }
 
@@ -211,7 +211,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.labels;
       } else {
-        return this.formControlElement.internals.labels as NodeListOf<HTMLLabelElement>;
+        return this.formControlElement.elementInternals.labels as NodeListOf<HTMLLabelElement>;
       }
     }
 
@@ -257,7 +257,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.validationMessage;
       } else {
-        return this.formControlElement.internals.validationMessage;
+        return this.formControlElement.elementInternals.validationMessage;
       }
     }
 
@@ -266,7 +266,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.validity;
       } else {
-        return this.formControlElement.internals.validity;
+        return this.formControlElement.elementInternals.validity;
       }
     }
 
@@ -330,7 +330,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
             this.formControlElement.removeAttribute('aria-invalid');
           }
         } else {
-          this.formControlElement.internals.ariaInvalid =
+          this.formControlElement.elementInternals.ariaInvalid =
             this.showValidity === 'invalid' ? 'true' : null;
         }
       }
@@ -347,7 +347,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
       const valid = isNative(this.formControlElement)
         ? this.formControlElement.reportValidity()
-        : this.formControlElement.internals.reportValidity();
+        : this.formControlElement.elementInternals.reportValidity();
 
       this.updateValidity();
 
@@ -507,7 +507,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
     /**
      * This tells the mixin what the form control element is. This can either be a native input or
-     * textarea element, or a Form Associated Custom Element (FACE) with an internals property.
+     * textarea element, or a Form Associated Custom Element (FACE) with an elementInternals
+     * property.
      *
      * The form control element must be either the same as the FormControlMixin host (in the case of
      * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
@@ -526,9 +527,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
         this.formControlElement.setCustomValidity(message);
       } else {
         if (message === '') {
-          this.formControlElement.internals.setValidity({});
+          this.formControlElement.elementInternals.setValidity({});
         } else {
-          this.formControlElement.internals.setValidity({ customError: true }, message);
+          this.formControlElement.elementInternals.setValidity({ customError: true }, message);
         }
       }
     }

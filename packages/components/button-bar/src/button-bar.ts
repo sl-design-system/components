@@ -1,4 +1,5 @@
 import { type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -32,12 +33,9 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * @cssState icon-only - Set when all buttons in the bar are icon-only.
  * @cssState empty - Set when there are no buttons in the bar.
  */
-export class ButtonBar extends LitElement {
+export class ButtonBar extends ElementInternalsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** Element internals. */
-  #internals = this.attachInternals();
 
   /** Observer for slot changes to update button states. */
   #observer = new MutationObserver(() => this.#onMutate());
@@ -108,10 +106,10 @@ export class ButtonBar extends LitElement {
     const buttons = (this.buttons ?? []).filter(el => el.tagName !== 'STYLE');
 
     if (buttons.length) {
-      this.#internals.states.delete('empty');
+      this.elementInternals.states.delete('empty');
       this.#updateButtons();
     } else {
-      this.#internals.states.add('empty');
+      this.elementInternals.states.add('empty');
     }
 
     const icons = await Promise.all(
@@ -132,9 +130,9 @@ export class ButtonBar extends LitElement {
     const iconOnly = !!icons.length && icons.every(Boolean);
 
     if (iconOnly) {
-      this.#internals.states.add('icon-only');
+      this.elementInternals.states.add('icon-only');
     } else {
-      this.#internals.states.delete('icon-only');
+      this.elementInternals.states.delete('icon-only');
     }
   }
 

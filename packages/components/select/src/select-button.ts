@@ -7,6 +7,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -31,7 +32,7 @@ declare global {
  * @csspart placeholder - The placeholder text when no option is selected.
  * @csspart selected-option - The container for the selected option.
  */
-export class SelectButton extends ScopedElementsMixin(LitElement) {
+export class SelectButton extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -44,9 +45,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -100,25 +98,25 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('clearable')) {
       if (this.clearable) {
-        this.internals.states.add('clearable');
+        this.elementInternals.states.add('clearable');
       } else {
-        this.internals.states.delete('clearable');
+        this.elementInternals.states.delete('clearable');
       }
     }
 
     if (changes.has('clearFocused')) {
       if (this.clearFocused) {
-        this.internals.states.add('clear-focused');
+        this.elementInternals.states.add('clear-focused');
       } else {
-        this.internals.states.delete('clear-focused');
+        this.elementInternals.states.delete('clear-focused');
       }
     }
 
     if (changes.has('selected')) {
       if (this.selected) {
-        this.internals.states.add('has-selection');
+        this.elementInternals.states.add('has-selection');
       } else {
-        this.internals.states.delete('has-selection');
+        this.elementInternals.states.delete('has-selection');
       }
     }
 

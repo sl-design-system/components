@@ -5,7 +5,7 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ElementInternalsMixin, ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
@@ -45,7 +45,9 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
  * @cssstate icon-only - Set when the toggle button has icons and no text.
  * @cssstate text-only - Set when the toggle button has text and no icons.
  */
-export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
+export class ToggleButton extends ForwardAriaMixin(
+  ScopedElementsMixin(ElementInternalsMixin(LitElement))
+) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -86,9 +88,6 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
   /** @internal True when the user has slotted text in the button. */
   @state() hasText?: boolean;
 
-  /** @internal */
-  readonly internals = this.attachInternals();
-
   /**
    * The pressed state of the button.
    *
@@ -127,22 +126,22 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
     if (import.meta.env?.DEV) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
-        this.internals.states.delete('error');
+        this.elementInternals.states.delete('error');
 
         if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && !this.hasText) {
           if (!this.defaultIcon) {
             console.error(
               'There needs to be an sl-icon in the "default" slot for the component to work'
             );
-            this.internals.states.add('error');
+            this.elementInternals.states.add('error');
           } else if (!this.pressedIcon) {
             console.error(
               'There needs to be an sl-icon in the "pressed" slot for the component to work'
             );
-            this.internals.states.add('error');
+            this.elementInternals.states.add('error');
           } else if (this.defaultIcon.name === this.pressedIcon.name) {
             console.error('Do not use the same icon for both states of the toggle button.');
-            this.internals.states.add('error');
+            this.elementInternals.states.add('error');
           }
         }
       });
@@ -155,17 +154,17 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
     if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
       const iconOnly = !this.hasText && (!!this.defaultIcon || !!this.pressedIcon),
         textOnly = !!this.hasText && !this.defaultIcon && !this.pressedIcon,
-        hasIconOnly = this.internals.states.has('icon-only');
+        hasIconOnly = this.elementInternals.states.has('icon-only');
 
       if (iconOnly) {
-        this.internals.states.add('icon-only');
-        this.internals.states.delete('text-only');
+        this.elementInternals.states.add('icon-only');
+        this.elementInternals.states.delete('text-only');
       } else if (textOnly) {
-        this.internals.states.delete('icon-only');
-        this.internals.states.add('text-only');
+        this.elementInternals.states.delete('icon-only');
+        this.elementInternals.states.add('text-only');
       } else {
-        this.internals.states.delete('icon-only');
-        this.internals.states.delete('text-only');
+        this.elementInternals.states.delete('icon-only');
+        this.elementInternals.states.delete('text-only');
       }
 
       // Trigger an update when the icon-only state changes
@@ -183,9 +182,9 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
 
     if (changes.has('pressed')) {
       if (this.pressed) {
-        this.internals.states.add('pressed');
+        this.elementInternals.states.add('pressed');
       } else {
-        this.internals.states.delete('pressed');
+        this.elementInternals.states.delete('pressed');
       }
     }
   }
@@ -193,7 +192,7 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
   override render(): TemplateResult {
     let ariaType: 'description' | 'label' | undefined;
     if (this.tooltip) {
-      ariaType = this.internals.states.has('icon-only') ? 'label' : 'description';
+      ariaType = this.elementInternals.states.has('icon-only') ? 'label' : 'description';
     }
 
     return html`

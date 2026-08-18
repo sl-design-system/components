@@ -12,6 +12,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -42,7 +43,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
+export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
 
@@ -75,9 +76,6 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
         ? !el.disabled
         : el.parentElement instanceof Checkbox && !el.parentElement.disabled
   });
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** @internal The slotted checkboxes. */
   @queryAssignedElements({ selector: 'sl-checkbox' }) boxes?: Array<Checkbox<T>>;
@@ -120,7 +118,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
 
-    this.internals.role = 'group';
+    this.elementInternals.role = 'group';
     this.setFormControlElement(this);
 
     // Listen for i18n updates and update the validation message
@@ -149,7 +147,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('required')) {
-      this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = this.required ? 'true' : 'false';
 
       this.#updateValidity();
     }
@@ -272,7 +270,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   }
 
   #updateValidity(): void {
-    this.internals.setValidity(
+    this.elementInternals.setValidity(
       { valueMissing: this.required && !this.boxes?.some(box => box.checked) },
       msg('Please check at least one option.', {
         id: 'sl.checkbox.validation.valueMissingMultiple'

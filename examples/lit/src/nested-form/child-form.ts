@@ -3,6 +3,7 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Form, FormControlMixin, FormController, FormField } from '@sl-design-system/form';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
 import { TextField } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,
@@ -21,7 +22,9 @@ export type Address = {
   city: string;
 };
 
-export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement)) {
+export class ChildForm extends ScopedElementsMixin(
+  FormControlMixin(ElementInternalsMixin(LitElement))
+) {
   /** @internal */
   static formAssociated = true;
 
@@ -39,9 +42,6 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
 
   #form = new FormController<Partial<Address>>(this);
   #valueUpdatedFromInternal = false;
-
-  /** Needed since we don't have a native input element. */
-  internals = this.attachInternals();
 
   /** Whether the address is a required field. */
   @property({ type: Boolean }) override required?: boolean;

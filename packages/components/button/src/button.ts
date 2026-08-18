@@ -1,6 +1,6 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { closestElementComposed } from '@sl-design-system/shared';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ElementInternalsMixin, ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
@@ -47,7 +47,9 @@ export type ButtonVariant =
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
  * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
  */
-export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
+export class Button extends ForwardAriaMixin(
+  ScopedElementsMixin(ElementInternalsMixin(LitElement))
+) {
   /** @internal */
   static formAssociated = true;
 
@@ -72,9 +74,6 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
 
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** @internal The button element. */
   @query('button') button!: HTMLButtonElement;
@@ -192,7 +191,7 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
     // If the button is icon only, the tooltip functions as the label, otherwise it functions as the description.
     let ariaType: 'description' | 'label' | undefined;
     if (this.tooltip) {
-      ariaType = this.internals.states.has('icon-only') ? 'label' : 'description';
+      ariaType = this.elementInternals.states.has('icon-only') ? 'label' : 'description';
     }
 
     return html`
@@ -221,15 +220,15 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (this.type === 'reset') {
-      if (this.internals.form) {
-        this.internals.form.reset();
+      if (this.elementInternals.form) {
+        this.elementInternals.form.reset();
       } else {
         // Workaround for not wanting a dependency on the `@sl-design-system/form` package
         (closestElementComposed(this, 'sl-form') as unknown as { reset(): void })?.reset();
       }
     } else if (this.type === 'submit') {
-      if (this.internals.form) {
-        this.internals.form.requestSubmit();
+      if (this.elementInternals.form) {
+        this.elementInternals.form.requestSubmit();
       } else {
         // Workaround for not wanting a dependency on the `@sl-design-system/form` package
         (
@@ -260,12 +259,12 @@ export class Button extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
           el.children[0].nodeName === 'SL-ICON');
     }
 
-    const hasIconOnly = this.internals.states.has('icon-only');
+    const hasIconOnly = this.elementInternals.states.has('icon-only');
 
     if (iconOnly) {
-      this.internals.states.add('icon-only');
+      this.elementInternals.states.add('icon-only');
     } else {
-      this.internals.states.delete('icon-only');
+      this.elementInternals.states.delete('icon-only');
     }
 
     // Trigger an update when the icon-only state changes

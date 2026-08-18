@@ -5,13 +5,13 @@ import {
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Infotip } from '@sl-design-system/infotip';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, cssState, event } from '@sl-design-system/shared';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ElementInternalsMixin, ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { getSlottedText } from '@sl-design-system/shared/slot.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
@@ -56,7 +56,7 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Switch<T = any> extends ForwardAriaMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement))
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement)))
 ) {
   /** @internal */
   static formAssociated = true;
@@ -84,9 +84,6 @@ export class Switch<T = any> extends ForwardAriaMixin(
   /** The initial state of the switch. */
   #initialState = false;
 
-  /** @internal Element internals. */
-  readonly internals = this.attachInternals();
-
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -101,7 +98,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
    *
    * @default false
    */
-  @property({ type: Boolean }) checked?: boolean;
+  @cssState() @property({ type: Boolean }) checked?: boolean;
 
   /**
    * Whether the switch is disabled; when set no interaction is possible.
@@ -125,10 +122,16 @@ export class Switch<T = any> extends ForwardAriaMixin(
   @property({ attribute: 'icon-on' }) iconOn?: string;
 
   /** @internal Whether there is content in the description slot. */
-  @state() hasDescription = false;
+  @cssState() @state() hasDescription = false;
 
   /** @internal Whether there is text in the default slot. */
   @state() hasLabel = false;
+
+  /** @internal Whether there is no text in the default slot. */
+  @cssState('no-label')
+  get noLabel(): boolean {
+    return !this.hasLabel;
+  }
 
   /** @internal The infotip instance when one is slotted. */
   infotip?: Infotip;
@@ -200,7 +203,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
     this.setProxyTarget(this.input);
 
-    this.internals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setFormValue(this.nativeFormValue);
     this.updateValidity();
   }
 
@@ -212,32 +215,12 @@ export class Switch<T = any> extends ForwardAriaMixin(
     this.hasDescription = !!this.querySelector('[slot="description"]');
     this.hasLabel = !!this.#labelText();
 
-    if (this.hasLabel) {
-      this.internals.states.delete('no-label');
-    } else {
-      this.internals.states.add('no-label');
-    }
-
-    if (this.hasDescription) {
-      this.internals.states.add('has-description');
-    } else {
-      this.internals.states.delete('has-description');
-    }
-
-    if (changes.has('checked')) {
-      if (this.checked) {
-        this.internals.states.add('checked');
-      } else {
-        this.internals.states.delete('checked');
-      }
-    }
-
     if (this.hasUpdated && changes.has('disabled')) {
       this.updateValidity();
     }
 
     if (changes.has('checked') || changes.has('value')) {
-      this.internals.setFormValue(this.nativeFormValue);
+      this.elementInternals.setFormValue(this.nativeFormValue);
     }
   }
 

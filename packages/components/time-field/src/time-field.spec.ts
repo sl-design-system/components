@@ -2042,7 +2042,7 @@ describe('sl-time-field', () => {
       label.click();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
     });
 
     it('should work with multiple labels associated via htmlFor', async () => {

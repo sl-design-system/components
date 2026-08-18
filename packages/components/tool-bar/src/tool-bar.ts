@@ -7,6 +7,7 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -61,7 +62,7 @@ declare global {
  * @slot default - The tool bar items.
  */
 @localized()
-export class ToolBar extends ScopedElementsMixin(LitElement) {
+export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -78,9 +79,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Timeout for debouncing forceRecalculation calls. */
   #forceRecalculationTimeout?: ReturnType<typeof setTimeout>;
-
-  /** @internal */
-  #internals = this.attachInternals();
 
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.refresh());
@@ -245,7 +243,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const slot = this.renderRoot.querySelector('slot')!;
 
     if (slot.assignedElements({ flatten: true }).length === 0) {
-      this.#internals.states.add('empty');
+      this.elementInternals.states.add('empty');
     }
 
     requestAnimationFrame(() => {
@@ -328,9 +326,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
 
     if (elements.length === 0) {
-      this.#internals.states.add('empty');
+      this.elementInternals.states.add('empty');
     } else {
-      this.#internals.states.delete('empty');
+      this.elementInternals.states.delete('empty');
     }
 
     for (const element of elements) {
@@ -418,7 +416,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (this.#fitContent) {
       // Fit-content: use CSS containment to measure the external constraint
-      availableWidth = measureConstrainedWidth(this, this.#internals);
+      availableWidth = measureConstrainedWidth(this, this.elementInternals);
     } else {
       availableWidth = getContentBoxWidth(this);
     }

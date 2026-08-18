@@ -24,7 +24,7 @@ describe('sl-radio-group', () => {
     });
 
     it('should have a role of radiogroup', () => {
-      expect(el.internals.role).to.equal('radiogroup');
+      expect(el.elementInternals.role).to.equal('radiogroup');
     });
 
     it('should not be disabled', () => {

@@ -21,6 +21,7 @@ import {
   type SlClearEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -62,7 +63,7 @@ export type SelectSize = 'md' | 'lg';
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Select<T = any> extends ObserveAttributesMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement)),
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement))),
   ['aria-describedby', 'aria-label', 'aria-labelledby']
 ) {
   /** @internal */
@@ -192,9 +193,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** @internal The clear button element. */
   @query('button') clearButton?: HTMLButtonElement;
@@ -326,7 +324,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     if (changes.has('required')) {
       this.button.required = this.required;
-      this.internals.ariaRequired = Boolean(this.required).toString();
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
     }
@@ -363,7 +361,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
          * (https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaControlsElements) when
          * browser support is sufficient.
          */
-        this.button.internals.ariaControlsElements = [this.listbox];
+        this.button.elementInternals.ariaControlsElements = [this.listbox];
       }
 
       this.#syncListboxLabeling();
@@ -803,7 +801,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.#buttonAriaObserver.disconnect();
 
     try {
-      const labels = Array.from(this.internals.labels) as Element[],
+      const labels = Array.from(this.elementInternals.labels) as Element[],
         { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel } =
           this.#getExplicitLabelState();
 
@@ -931,10 +929,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setFormValue(this.nativeFormValue);
 
     if (!this.validity.customError) {
-      this.internals.setValidity(
+      this.elementInternals.setValidity(
         { valueMissing: this.required && !this.selectedOption },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );

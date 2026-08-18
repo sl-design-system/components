@@ -9,6 +9,7 @@ export * from './src/controllers/roving-tabindex.js';
 export * from './src/controllers/shortcut.js';
 export * from './src/css.js';
 export * from './src/decorators/base.js';
+export * from './src/decorators/css-state.js';
 export * from './src/decorators/event.js';
 export * from './src/decorators/observe.js';
 export * from './src/dom.js';

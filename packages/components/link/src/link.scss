@@ -4,6 +4,11 @@
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
   --_fg-color: var(--sl-color-foreground-secondary-onBold);
   --_border-color: transparent;
+  --_block-padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action));
+  --_inline-padding: calc(var(--sl-size-200) - var(--sl-size-borderWidth-action));
+  --_inline-padding-icon: calc(
+    var(--sl-size-200) - var(--sl-size-borderWidth-action) + var(--sl-size-200) + var(--sl-size-075)
+  );
 
   background: color-mix(
     in srgb,
@@ -20,8 +25,7 @@
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-action))
-    calc(var(--sl-size-200) - var(--sl-size-borderWidth-action));
+  position: relative;
   vertical-align: middle;
 }
 
@@ -32,25 +36,45 @@
   display: inline-flex;
   font: inherit;
   font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
-  gap: var(--sl-size-075);
   justify-content: center;
+  padding: var(--_block-padding) var(--_inline-padding-icon) var(--_block-padding)
+    var(--_inline-padding);
   text-decoration: none !important;
 }
 
+::slotted(a[href]:focus-visible) {
+  outline-color: var(--sl-color-border-focused);
+}
+
+:host(:where([variant='inverted']) ::slotted(a[href]:focus-visible)) {
+  outline-color: var(--sl-color-border-inverted);
+}
+
+sl-icon {
+  inset-block-start: 50%;
+  inset-inline-end: var(--_inline-padding);
+  pointer-events: none;
+  position: absolute;
+  translate: 0 -50%;
+}
+
 :host(:state(reversed)) {
-  flex-direction: row-reverse;
+  ::slotted(a[href]) {
+    padding-inline: var(--_inline-padding-icon) var(--_inline-padding);
+  }
+
+  sl-icon {
+    inset-inline-end: unset;
+    inset-inline-start: var(--_inline-padding);
+  }
+}
+
+:host(:where([no-icon])) ::slotted(a[href]) {
+  padding-inline: var(--_inline-padding) var(--_inline-padding);
 }
 
 :host([shape='pill']) {
   border-radius: var(--sl-size-borderRadius-full);
-}
-
-:host(:focus-within) {
-  outline-color: var(--sl-color-border-focused);
-}
-
-:host(:where([variant='inverted']):focus-within) {
-  outline-color: var(--sl-color-border-inverted);
 }
 
 :host(:hover) {
@@ -59,6 +83,22 @@
 
 :host(:active) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+}
+
+:host([size='sm']) {
+  --_block-padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-action));
+  --_inline-padding: calc(var(--sl-size-175) - var(--sl-size-borderWidth-action));
+  --_inline-padding-icon: calc(
+    var(--sl-size-175) - var(--sl-size-borderWidth-action) + var(--sl-size-150) + var(--sl-size-075)
+  );
+}
+
+:host([size='lg']) {
+  --_block-padding: calc(var(--sl-size-175) - var(--sl-size-borderWidth-action));
+  --_inline-padding: calc(var(--sl-size-300) - var(--sl-size-borderWidth-action));
+  --_inline-padding-icon: calc(
+    var(--sl-size-300) - var(--sl-size-borderWidth-action) + var(--sl-size-200) + var(--sl-size-100)
+  );
 }
 
 :host(:where([fill='ghost'], [fill='outline'])) {
@@ -191,13 +231,7 @@
   }
 }
 
-::slotted(a[href]:focus-visible),
-::slotted(a[href]:focus),
-::slotted(a[href]:focus-within) {
-  outline: none;
-}
-
-:host(:hover) ::slotted(a[href]) {
+::slotted(a[href]:hover) {
   text-decoration: underline !important;
 }
 

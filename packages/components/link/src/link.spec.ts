@@ -500,7 +500,6 @@ describe('sl-link', () => {
 
       const icon = el.renderRoot.querySelector('sl-icon');
 
-      expect(el).to.have.attribute('icon-position', 'end');
       expect(icon).to.have.attribute('name', 'arrow-right');
     });
 
@@ -622,104 +621,6 @@ describe('sl-link', () => {
       await el.updateComplete;
 
       expect(el).not.to.match(':state(reversed)');
-    });
-  });
-
-  describe('click delegation', () => {
-    it('should delegate clicks on the host to the anchor', async () => {
-      el = await fixture(html`
-        <sl-link>
-          <a href="/page">Link</a>
-        </sl-link>
-      `);
-
-      anchor = el.querySelector('a')!;
-
-      let clicked = false;
-      anchor.addEventListener('click', e => {
-        e.preventDefault();
-        clicked = true;
-      });
-
-      el.click();
-      await el.updateComplete;
-
-      expect(clicked).to.be.true;
-    });
-
-    it('should not create double events when clicking the anchor directly', async () => {
-      el = await fixture(html`
-        <sl-link>
-          <a href="/page">Link</a>
-        </sl-link>
-      `);
-
-      anchor = el.querySelector('a')!;
-
-      let clickCount = 0;
-      anchor.addEventListener('click', e => {
-        e.preventDefault();
-        clickCount++;
-      });
-
-      anchor.click();
-      await el.updateComplete;
-
-      expect(clickCount).to.equal(1);
-    });
-
-    it('should emit only one bubbled click and preserve modifiers for host-originated clicks', async () => {
-      const wrapper = await fixture(html`
-        <div>
-          <sl-link>
-            <a href="/page">Link</a>
-          </sl-link>
-        </div>
-      `);
-
-      el = wrapper.querySelector('sl-link')!;
-
-      const clicks: MouseEvent[] = [];
-      wrapper.addEventListener('click', event => {
-        event.preventDefault();
-        clicks.push(event as MouseEvent);
-      });
-
-      el.dispatchEvent(
-        new MouseEvent('click', { bubbles: true, cancelable: true, composed: true, ctrlKey: true })
-      );
-      await el.updateComplete;
-
-      expect(clicks).to.have.lengthOf(1);
-      expect(clicks[0].ctrlKey).to.be.true;
-    });
-
-    it('should emit only one bubbled click and preserve modifiers for shadow icon clicks', async () => {
-      const wrapper = await fixture(html`
-        <div>
-          <sl-link>
-            <a href="/page">Link</a>
-          </sl-link>
-        </div>
-      `);
-
-      el = wrapper.querySelector('sl-link')!;
-
-      const icon = el.renderRoot.querySelector('sl-icon')!;
-      const clicks: MouseEvent[] = [];
-
-      wrapper.addEventListener('click', event => {
-        event.preventDefault();
-        clicks.push(event as MouseEvent);
-      });
-
-      icon.dispatchEvent(
-        new MouseEvent('click', { bubbles: true, cancelable: true, composed: true, metaKey: true })
-      );
-      await el.updateComplete;
-
-      expect(clicks).to.have.lengthOf(1);
-      expect(clicks[0].metaKey).to.be.true;
     });
   });
 

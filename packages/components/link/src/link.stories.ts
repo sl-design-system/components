@@ -7,7 +7,7 @@ import { type Link } from './link.js';
 
 interface Props extends Pick<
   Link,
-  'fill' | 'iconPosition' | 'shape' | 'type' | 'variant' | 'noIcon'
+  'fill' | 'iconPosition' | 'shape' | 'size' | 'type' | 'variant' | 'noIcon'
 > {
   href: string;
   linkText: string;
@@ -21,7 +21,6 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Navigation/Link',
   args: {
-    fill: 'solid',
     href: '/dashboard',
     linkText: 'Open dashboard'
   },
@@ -48,6 +47,10 @@ export default {
       control: 'inline-radio',
       options: ['rect', 'pill']
     },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
+    },
     variant: {
       control: 'radio',
       options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'inverted']
@@ -65,6 +68,7 @@ export default {
     linkText,
     rel,
     shape,
+    size,
     target,
     type,
     variant,
@@ -76,6 +80,7 @@ export default {
       type=${ifDefined(type)}
       icon-position=${ifDefined(iconPosition)}
       shape=${ifDefined(shape)}
+      size=${ifDefined(size)}
       variant=${ifDefined(variant)}
       ?no-icon=${noIcon ?? nothing}>
       <a href=${href} rel=${ifDefined(rel)} target=${ifDefined(target)}>${linkText}</a>
@@ -92,13 +97,14 @@ export const linkTypes: Story = {
     linkText: { table: { disable: true } },
     href: { table: { disable: true } }
   },
-  render: ({ fill, iconPosition, noIcon, variant, shape }) => html`
+  render: ({ fill, iconPosition, noIcon, variant, shape, size }) => html`
     <div style="display: grid; gap: 1rem; justify-items: start;">
       <sl-link
         fill=${ifDefined(fill)}
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
         variant=${ifDefined(variant)}
+        size=${ifDefined(size)}
         ?no-icon=${noIcon ?? nothing}>
         <a href="/dashboard">Internal link</a>
       </sl-link>
@@ -108,6 +114,7 @@ export const linkTypes: Story = {
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
         variant=${ifDefined(variant)}
+        size=${ifDefined(size)}
         ?no-icon=${noIcon ?? nothing}>
         <a href="/reports" target="_blank">Internal link</a>
       </sl-link>
@@ -117,6 +124,7 @@ export const linkTypes: Story = {
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
         variant=${ifDefined(variant)}
+        size=${ifDefined(size)}
         ?no-icon=${noIcon ?? nothing}>
         <a href="https://sanomalearning.design" target="_blank">External link</a>
       </sl-link>
@@ -126,6 +134,7 @@ export const linkTypes: Story = {
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
         variant=${ifDefined(variant)}
+        size=${ifDefined(size)}
         ?no-icon=${noIcon ?? nothing}>
         <a href="mailto:team@sanomalearning.design" target="_blank">Email link</a>
       </sl-link>
@@ -135,6 +144,7 @@ export const linkTypes: Story = {
         icon-position=${ifDefined(iconPosition)}
         shape=${ifDefined(shape)}
         variant=${ifDefined(variant)}
+        size=${ifDefined(size)}
         ?no-icon=${noIcon ?? nothing}>
         <a href="tel:+123456789012" target="_blank">Telephone link</a>
       </sl-link>
@@ -171,12 +181,13 @@ export const OverwriteLinkType: Story = {
 export const All: Story = {
   render: () => html`
     <style>
-      div:where(.fill-variants, .color-variants) {
+      div:where(.fill-variants, .color-variants, .size-variants) {
         display: grid;
         gap: 1rem;
         justify-items: start;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         margin-bottom: 2rem;
+        align-items: start;
       }
       div:where(.fill-variants, .color-variants) > div {
         display: grid;
@@ -185,10 +196,53 @@ export const All: Story = {
       }
     </style>
     <div class="fill-variants">
-      <div>${iconVariants('solid')}</div>
-      <div>${iconVariants('outline')}</div>
-      <div>${iconVariants('ghost')}</div>
+      <sl-link no-icon>
+        <a href="/dashboard">Internal link without icon</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="/dashboard">Internal link</a>
+      </sl-link>
+
+      <sl-link icon-position="start">
+        <a href="/dashboard">Internal link</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="/reports" target="_blank">Internal link in new tab</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="https://sanomalearning.com">External link</a>
+      </sl-link>
+
+      <sl-link shape="pill">
+        <a href="/dashboard">Internal link</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="mailto:team@sanomalearning.design">Email link</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="tel:+123456789012">Telephone link</a>
+      </sl-link>
     </div>
+
+    <div class="size-variants">
+      <sl-link size="sm">
+        <a href="/dashboard">Small link</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="/dashboard">Medium link</a>
+      </sl-link>
+
+      <sl-link size="lg">
+        <a href="/dashboard">Large link</a>
+      </sl-link>
+    </div>
+
     <div class="color-variants">
       <div>${colorVariants('solid')}</div>
       <div>${colorVariants('outline')}</div>
@@ -216,43 +270,6 @@ export const All: Story = {
     </div>
   `
 };
-
-function iconVariants(fill: 'solid' | 'outline' | 'ghost') {
-  return html`
-    <sl-link fill=${fill} no-icon>
-      <a href="/dashboard">Internal link without icon</a>
-    </sl-link>
-
-    <sl-link fill=${fill}>
-      <a href="/dashboard">Internal link</a>
-    </sl-link>
-
-    <sl-link fill=${fill} icon-position="start">
-      <a href="/dashboard">Internal link</a>
-    </sl-link>
-
-    <sl-link fill=${fill}>
-      <a href="/reports" target="_blank">Internal link in new tab</a>
-    </sl-link>
-
-    <sl-link fill=${fill}>
-      <a href="https://sanomalearning.com">External link</a>
-    </sl-link>
-
-    <sl-link fill=${fill} shape="pill">
-      <a href="/dashboard">Internal link</a>
-    </sl-link>
-
-    <sl-link fill=${fill}>
-      <a href="mailto:team@sanomalearning.design">Email link</a>
-    </sl-link>
-
-    <sl-link fill=${ifDefined(fill)}>
-      <a href="tel:+123456789012">Telephone link</a>
-    </sl-link>
-  `;
-}
-
 function colorVariants(fill: 'solid' | 'outline' | 'ghost') {
   return html`
     <sl-link fill=${fill} variant="primary">

@@ -87,14 +87,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
    *
    * @default 'end'
    */
-  @property({ reflect: true, attribute: 'icon-position' }) iconPosition: 'start' | 'end' = 'end';
-
-  /**
-   * Override the inferred link type.
-   *
-   * @default undefined
-   */
-  @property({ reflect: true }) type?: LinkType;
+  @property({ reflect: true, attribute: 'icon-position' }) iconPosition?: 'start' | 'end';
 
   /**
    * The shape of the link button.
@@ -104,6 +97,20 @@ export class Link extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) shape?: LinkShape;
 
   /**
+   * The size of the link button.
+   *
+   * @default 'medium'
+   */
+  @property({ reflect: true }) size?: 'sm' | 'md' | 'lg';
+
+  /**
+   * Override the inferred link type.
+   *
+   * @default undefined
+   */
+  @property({ reflect: true }) type?: LinkType;
+
+  /**
    * The link's color variant.
    *
    * @default 'secondary'
@@ -111,7 +118,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) variant?: LinkVariant;
 
   /** No icon will be shown on internal links when this attribute is set. */
-  @property({ type: Boolean, reflect: true, attribute: 'no-icon' }) noIcon = false;
+  @property({ type: Boolean, reflect: true, attribute: 'no-icon' }) noIcon?: boolean;
 
   get #indicatorIcon(): string {
     switch (this.linkType) {
@@ -128,30 +135,14 @@ export class Link extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.addEventListener('click', this.#onClick, true);
-  }
-
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-    this.removeEventListener('click', this.#onClick, true);
 
     super.disconnectedCallback();
   }
 
   override firstUpdated(): void {
     this.#syncAnchor();
-  }
-
-  override render(): TemplateResult {
-    return html`
-      <slot @slotchange=${this.#onSlotChange}></slot>
-      ${!(this.noIcon && this.linkType === 'internal')
-        ? html`<sl-icon .name=${this.#indicatorIcon} part="icon"></sl-icon>`
-        : nothing}
-    `;
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -162,6 +153,20 @@ export class Link extends ScopedElementsMixin(LitElement) {
     if (changes.has('iconPosition') || changes.has('noIcon')) {
       this.#syncReversedState();
     }
+  }
+
+  override render(): TemplateResult {
+    return html`
+      <slot @slotchange=${this.#onSlotChange}></slot>
+      ${!(this.noIcon && this.linkType === 'internal')
+        ? html`
+            <sl-icon
+              .name=${this.#indicatorIcon}
+              part="icon"
+              .size=${this.size === 'sm' ? 'sm' : undefined}></sl-icon>
+          `
+        : nothing}
+    `;
   }
 
   #getAnchor(): HTMLAnchorElement | undefined {
@@ -241,29 +246,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
       attributes: true
     });
   }
-
-  #onClick = (event: MouseEvent): void => {
-    const anchor = this.#getAnchor();
-
-    if (!anchor) {
-      return;
-    }
-
-    // If the click originated from the anchor itself, let it propagate naturally
-    if (event.target === anchor || anchor.contains(event.target as Node)) {
-      return;
-    }
-
-    // Suppress the original host/icon click and re-dispatch on the anchor
-    // so bubbling listeners receive a single click with the original modifiers.
-    event.preventDefault();
-    event.stopImmediatePropagation();
-
-    // Focus the anchor to ensure that the focus state is applied correctly, even when the link is clicked via the host or icon.
-    anchor.focus({ preventScroll: true });
-
-    anchor.dispatchEvent(new MouseEvent('click', event));
-  };
 
   #onSlotChange = (): void => {
     this.#syncAnchor();

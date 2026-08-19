@@ -103,19 +103,17 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-button
+      <button
         @click=${this.#onClick}
-        @keydown=${this.#onKeydown}
         aria-label=${this.#buttonLabel()}
-        fill="ghost"
         id="trigger"
-        size=${this.size}
-        part="button">
+        part="button"
+        popovertarget="popover">
         <slot name="icon">
           <sl-icon name="info"></sl-icon>
         </slot>
-      </sl-button>
-      <sl-popover anchor="trigger" part="popover" position="top">
+      </button>
+      <sl-popover id="popover" part="popover">
         <slot></slot>
       </sl-popover>
     `;
@@ -136,15 +134,10 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.stopPropagation();
-    }
-  }
-
   #onClick(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
+
     this.toggleInfotip();
   }
 

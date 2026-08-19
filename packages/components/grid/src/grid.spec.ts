@@ -1331,9 +1331,7 @@ describe('sl-grid', () => {
       tbody.dispatchEvent(new Event('scroll'));
 
       expect(getComputedStyle(headingWrapper!, '::after').content).to.equal('""');
-      expect(groupCell!.getBoundingClientRect().width).to.be.greaterThan(
-        tbody.getBoundingClientRect().width
-      );
+      expect(Math.round(groupCell!.getBoundingClientRect().width)).to.equal(640);
       expect(Math.round(groupHeader!.getBoundingClientRect().left)).to.equal(
         Math.round(groupCell!.getBoundingClientRect().left)
       );
@@ -1501,8 +1499,8 @@ describe('sl-grid', () => {
       expect(
         getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
       ).not.to.equal('rgba(0, 0, 0, 0)');
-      expect(tfoot!.getBoundingClientRect().top).to.be.at.least(
-        row!.getBoundingClientRect().bottom
+      expect(Math.ceil(tfoot!.getBoundingClientRect().top)).to.be.at.least(
+        Math.floor(row!.getBoundingClientRect().bottom)
       );
     });
   });

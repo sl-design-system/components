@@ -12,6 +12,9 @@
   }
 
   [part='group-heading-wrapper'] {
+    background:
+      var(--sl-grid-group-header-sticky-start-border, none),
+      var(--sl-elevation-surface-raised-sunken);
     flex: 0 0 var(--sl-grid-group-header-sticky-inline-size);
     inline-size: var(--sl-grid-group-header-sticky-inline-size);
     inset-inline-start: 0;

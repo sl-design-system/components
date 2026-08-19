@@ -560,7 +560,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(tbody td, thead tr th):nth-child(${index + 1}) {
+          :where(tbody tr:not([part~='group']) td, thead tr th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
             justify-content: ${col.align ?? 'start'};
@@ -648,6 +648,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         draggable &&
         !!item.members?.length &&
         (this.draggableRows === 'between' || this.draggableRows === 'between-or-on-top'),
+      groupHeaderClasses = this.#getGroupHeaderClasses(),
+      groupHeaderStyles = this.#getGroupHeaderStyles(),
       selectable = !!this.#columnDefinitions.find(
         col => !col.hidden && col instanceof GridSelectionColumn
       );
@@ -666,11 +668,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
+            class=${ifDefined(groupHeaderClasses.join(' ') || undefined)}
             ?collapsed=${collapsed}
             ?drag-handle=${draggable}
             group-label=${ifDefined(item.label)}
             ?selectable=${selectable}
-            .selected=${item.selected ?? 'none'}>
+            .selected=${item.selected ?? 'none'}
+            style=${ifDefined(groupHeaderStyles)}>
             ${this.groupHeaderRenderer?.(item) ??
             html`
               <span slot="group-heading">
@@ -1391,6 +1395,30 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #getGroupHeaderClasses(): string[] {
+    const columns = this.#getStickyStartColumns();
+
+    if (!columns.length) {
+      return [];
+    }
+
+    return [
+      `group-sticky-start-${columns.at(-1)?.stickyOrder ?? (columns.length > 1 ? 'last' : 'first')}`
+    ];
+  }
+
+  #getGroupHeaderStyles(): string | undefined {
+    const columns = this.#getStickyStartColumns();
+
+    if (!columns.length) {
+      return undefined;
+    }
+
+    const inlineSize = columns.reduce((acc, col) => acc + this.#getColumnWidth(col), 0);
+
+    return `--sl-grid-group-header-sticky-inline-size: ${inlineSize}px;`;
+  }
+
   /** Returns the left offset, taking any sticky columns into account. */
   #getStickyColumnOffset(index: number): number {
     let columns: Array<GridColumn<T>>;
@@ -1401,7 +1429,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       columns = this.#columnDefinitions.slice(0, index);
     }
 
-    return columns.filter(col => !col.hidden).reduce((acc, { width = 0 }) => acc + width, 0);
+    return columns
+      .filter(col => !col.hidden)
+      .reduce((acc, col) => acc + this.#getColumnWidth(col), 0);
+  }
+
+  #getStickyStartColumns(): Array<GridColumn<T>> {
+    return this.#columnDefinitions.filter(
+      col => !col.hidden && col.sticky && col.stickyPosition === 'start'
+    );
+  }
+
+  #getColumnWidth(col: GridColumn<T>): number {
+    return col.width || 100;
   }
 
   #removeColumn(col: GridColumn): void {

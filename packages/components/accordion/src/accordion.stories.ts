@@ -182,8 +182,7 @@ export const NoBottomBorder: Story = {
 sl-accordion-item:last-of-type::part(details) {
   border-block-end: none;
 }
-        </pre
-        >
+        </pre>
       </sl-accordion-item>
     `
   }

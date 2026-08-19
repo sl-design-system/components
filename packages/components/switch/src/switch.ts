@@ -315,8 +315,9 @@ export class Switch<T = any> extends ForwardAriaMixin(
    */
   toggle(force?: boolean): void {
     const ariaDisabled =
-      this.hasAttribute('aria-disabled') ||
-      (this.hasUpdated && this.input.hasAttribute('aria-disabled'));
+      this.ariaDisabled === 'true' ||
+      this.getAttribute('aria-disabled') === 'true' ||
+      (this.hasUpdated && this.input.getAttribute('aria-disabled') === 'true');
 
     if (this.disabled || ariaDisabled) {
       return;

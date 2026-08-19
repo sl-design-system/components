@@ -63,6 +63,18 @@ describe('sl-time-field', () => {
       expect(el.value).to.be.undefined;
     });
 
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
+    });
+
     it('should have an hour step of 1', () => {
       expect(TimeField.hourStep).to.equal(1);
       expect(el.hourStep).to.equal(1);

@@ -77,6 +77,7 @@ export type ComboboxItem<T = any, U = T> = ListboxItem<T, U> & {
 };
 
 export type ComboboxSize = 'md' | 'lg';
+export type ComboboxShape = 'rect' | 'pill';
 
 let nextUniqueId = 0;
 
@@ -276,6 +277,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
    * @default 'md'
    */
   @property({ reflect: true }) size?: ComboboxSize;
+
+  /**
+   * The shape of the combobox.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: ComboboxShape;
 
   /**
    * The value of the combobox. If `multiple` selection is enabled, then this will be an array of
@@ -519,6 +527,8 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         placeholder=${ifDefined(
           this.multiple && this.selectedItems.length ? undefined : this.placeholder
         )}
+        show-validity=${ifDefined(this.showValidity)}
+        shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}>
         ${
           this.multiple && this.selectedItems.length
@@ -526,6 +536,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
                 <sl-tag-list
                   ?disabled=${this.disabled}
                   aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
+                  shape=${ifDefined(this.shape)}
                   size=${ifDefined(this.size)}
                   slot="prefix"
                   stacked>

@@ -203,6 +203,19 @@ describe('sl-combobox', () => {
       expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('size', 'lg');
     });
 
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
+      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('shape', 'pill');
+    });
+
     it('should not have a placeholder', () => {
       expect(el.placeholder).to.be.undefined;
     });
@@ -2099,6 +2112,17 @@ describe('sl-combobox', () => {
 
       it('should be invalid', () => {
         expect(el.valid).to.be.false;
+      });
+
+      it('should pass invalid show-validity to the text field when reported', async () => {
+        el.reportValidity();
+        await el.updateComplete;
+
+        expect(el).to.have.attribute('show-validity', 'invalid');
+        expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute(
+          'show-validity',
+          'invalid'
+        );
       });
 
       it('should be invalid when it has a placeholder', async () => {

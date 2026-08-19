@@ -18,6 +18,7 @@ type Props = Pick<
   | 'filterResults'
   | 'groupSelected'
   | 'placeholder'
+  | 'shape'
   | 'selectOnly'
   | 'value'
 > & {
@@ -50,6 +51,10 @@ export default {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
     options: {
       table: { disable: true }
     }
@@ -68,6 +73,7 @@ export default {
     optionValuePath,
     options,
     placeholder,
+    shape,
     selectOnly,
     value,
     virtualList
@@ -89,6 +95,7 @@ export default {
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
             placeholder=${ifDefined(placeholder)}
+            shape=${ifDefined(shape)}
             style=${`max-width: ${maxWidth || '500px'}`}>
             ${
               virtualList
@@ -229,6 +236,13 @@ export const Value: Story = {
   args: {
     ...Basic.args,
     value: 'Tooltip'
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    ...Basic.args,
+    shape: 'pill'
   }
 };
 

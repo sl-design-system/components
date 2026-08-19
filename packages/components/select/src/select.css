@@ -5,6 +5,11 @@
   vertical-align: middle;
 }
 
+:host([shape='pill']) button,
+:host([shape='pill']) button sl-icon {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
 button {
   align-items: center;
   appearance: none;

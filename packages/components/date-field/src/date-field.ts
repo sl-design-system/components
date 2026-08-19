@@ -43,6 +43,10 @@ declare global {
   }
 }
 
+export type DateFieldShape = 'rect' | 'pill';
+
+export type DateFieldSize = 'md' | 'lg';
+
 type DatePartType = 'day' | 'month' | 'year';
 
 /**
@@ -233,6 +237,20 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
   /**
+   * The shape of the date field.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: DateFieldShape;
+
+  /**
+   * The size of the date field.
+   *
+   * @default 'md'
+   */
+  @property({ reflect: true }) size?: DateFieldSize;
+
+  /**
    * Shows the week numbers.
    *
    * @default false
@@ -387,6 +405,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-expanded=${this.dialog?.open ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select date', { id: 'sl.dateField.selectDate' })}
+          size=${ifDefined(this.size)}
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="calendar"></sl-icon>
         </sl-field-button>

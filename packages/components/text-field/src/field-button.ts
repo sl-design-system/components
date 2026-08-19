@@ -11,6 +11,8 @@ declare global {
 
 export type FieldButtonSize = 'md' | 'lg';
 
+export type FieldButtonShape = 'rect' | 'pill';
+
 /**
  * A button that is part of a text field. Use this component if you want to have an inline action
  * inside a text field. The clear button in a search field for example.
@@ -37,6 +39,14 @@ export class FieldButton extends LitElement {
    * @default 'md'
    */
   @property({ reflect: true }) size?: FieldButtonSize;
+
+  /**
+   * The shape of the field button. The shape will automatically be set when the component is
+   * embedded/slotted inside a text field.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: FieldButtonShape;
 
   override connectedCallback(): void {
     super.connectedCallback();

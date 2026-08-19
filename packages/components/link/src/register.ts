@@ -1,3 +1,3 @@
-import { Link } from './src/link.js';
+import { Link } from './link.js';
 
 customElements.define('sl-link', Link);

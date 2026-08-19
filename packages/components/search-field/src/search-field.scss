@@ -1,3 +1,15 @@
+:host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
+:host([shape='pill']:not([size='lg'])) {
+  padding-inline-end: var(--sl-size-050);
+}
+
+:host([shape='pill'][size='lg']) {
+  padding-inline-end: var(--sl-size-125);
+}
+
 button {
   align-items: center;
   appearance: none;

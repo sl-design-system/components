@@ -39,6 +39,22 @@
   border-color: transparent;
 }
 
+:host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
+
+  .wrapper {
+    padding-inline-start: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+  }
+}
+
+:host([shape='pill'][size='lg']) {
+  padding-inline-end: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+
+  .wrapper {
+    padding-inline-start: calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+  }
+}
+
 :host([show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);

@@ -71,6 +71,12 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   /** Previously owned tooltip element reference. */
   #previousTooltip?: HTMLElement;
 
+  /** Light DOM tooltip description used by the radio wrapper. */
+  #tooltipDescription?: HTMLElement;
+
+  /** Previously owned light DOM tooltip description reference. */
+  #previousTooltipDescription?: HTMLElement;
+
   /** Whether the description element was synthesized internally. */
   #isSynthesizedDescription = false;
 
@@ -78,10 +84,12 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     const isOnlyInternal = mutations.every(m => {
       const target = m.target;
       return (
-        this.#isSynthesizedDescription &&
-        this.#descriptions.some(
-          description => target === description || description.contains(target)
-        )
+        (this.#isSynthesizedDescription &&
+          this.#descriptions.some(
+            description => target === description || description.contains(target)
+          )) ||
+        (this.#tooltipDescription &&
+          (target === this.#tooltipDescription || this.#tooltipDescription.contains(target)))
       );
     });
     if (isOnlyInternal) {
@@ -171,6 +179,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
+    this.#syncTooltipDescription();
   }
 
   override disconnectedCallback(): void {
@@ -183,12 +192,17 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     ) {
       this.#descriptions.forEach(description => this.#restoreAriaHidden(description));
     }
+    this.#tooltipDescription?.remove();
 
     super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (changes.has('tooltip')) {
+      this.#syncTooltipDescription();
+    }
 
     if (this.wrapper) {
       if (changes.has('checked')) {
@@ -262,6 +276,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
         </div>
       </div>
       <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
+      <slot name="tooltip-description"></slot>
       ${this.tooltip
         ? html`
             <sl-tooltip
@@ -279,6 +294,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
   override firstUpdated(): void {
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
+    this.#syncTooltipDescription();
     this.#onInfotipSlotChange();
     this.#syncAria();
   }
@@ -431,10 +447,11 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]');
-    const previousOwned = [...this.#previousDescriptions, this.#previousTooltip].filter(
-      (el): el is HTMLElement => !!el
-    );
+    const previousOwned = [
+      ...this.#previousDescriptions,
+      this.#previousTooltipDescription,
+      this.#previousTooltip
+    ].filter((el): el is HTMLElement => !!el);
 
     const existingRefs = (this.wrapper.ariaDescribedByElements ?? []).filter(
       el => !previousOwned.includes(el as HTMLElement)
@@ -442,13 +459,37 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
 
     const nextRefs = [...existingRefs];
     nextRefs.push(...this.#descriptions);
-    if (tooltip) {
-      nextRefs.push(tooltip);
+    if (this.#tooltipDescription) {
+      nextRefs.push(this.#tooltipDescription);
     }
 
     this.wrapper.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
     this.#previousDescriptions = this.#descriptions;
-    this.#previousTooltip = tooltip ?? undefined;
+    this.#previousTooltipDescription = this.#tooltipDescription;
+    this.#previousTooltip =
+      this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]') ?? undefined;
+  }
+
+  #syncTooltipDescription(): void {
+    const tooltip = this.tooltip?.trim();
+
+    if (!tooltip) {
+      this.#tooltipDescription?.remove();
+      this.#tooltipDescription = undefined;
+      this.#syncAria();
+      return;
+    }
+
+    if (!this.#tooltipDescription?.parentElement) {
+      this.#tooltipDescription = document.createElement('span');
+      this.#tooltipDescription.id ||= `sl-radio-tooltip-description-${nextUniqueId++}`;
+      this.#tooltipDescription.slot = 'tooltip-description';
+      this.append(this.#tooltipDescription);
+    }
+    if (this.#tooltipDescription.textContent !== tooltip) {
+      this.#tooltipDescription.textContent = tooltip;
+    }
+    this.#syncAria();
   }
 
   #restoreAriaHidden(description: HTMLElement): void {

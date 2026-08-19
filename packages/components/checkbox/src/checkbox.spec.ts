@@ -309,7 +309,9 @@ describe('sl-checkbox', () => {
       const tooltipDescription = el.querySelector<HTMLElement>('[slot="tooltip-description"]');
       expect(tooltipDescription).to.exist;
       expect(tooltipDescription?.textContent).to.equal('Tooltip information');
+      expect(tooltipDescription?.localName).to.equal('span');
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
+      expect(el.input.ariaDescribedByElements).not.to.include(tooltip as HTMLElement);
     });
 
     it('should expose tooltip as the input description when inside a checkbox group', async () => {

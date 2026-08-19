@@ -243,15 +243,20 @@ describe('sl-radio', () => {
       expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
     });
 
-    it('should link tooltip to wrapper via ariaDescribedByElements', async () => {
+    it('should link tooltip description to wrapper via ariaDescribedByElements', async () => {
       el = await fixture(html`<sl-radio tooltip="Tooltip information">Option</sl-radio>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));
 
       const tooltip = el.renderRoot.querySelector('sl-tooltip');
       expect(tooltip).to.exist;
+      const tooltipDescription = el.querySelector<HTMLElement>('[slot="tooltip-description"]');
+      expect(tooltipDescription).to.exist;
+      expect(tooltipDescription?.localName).to.equal('span');
+      expect(tooltipDescription?.textContent).to.equal('Tooltip information');
       const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
-      expect(wrapper?.ariaDescribedByElements).to.include(tooltip as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).not.to.include(tooltip as HTMLElement);
     });
   });
 

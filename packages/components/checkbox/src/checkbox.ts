@@ -381,6 +381,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
         </div>
       </div>
       <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
+      <slot name="tooltip-description"></slot>
       ${this.tooltip
         ? html`
             <sl-tooltip

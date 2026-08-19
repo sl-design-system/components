@@ -6482,6 +6482,7 @@ __metadata:
     "@sl-design-system/combobox": "npm:^0.1.8"
     "@sl-design-system/form": "npm:^1.4.0"
     "@sl-design-system/icon": "npm:^1.4.2"
+    "@sl-design-system/link": "npm:*"
     "@sl-design-system/locales": "npm:^0.3.0"
     "@sl-design-system/number-field": "npm:^0.1.9"
     "@sl-design-system/radio-group": "npm:^1.1.8"
@@ -7028,6 +7029,21 @@ __metadata:
   resolution: "@sl-design-system/kampus@workspace:packages/themes/kampus"
   dependencies:
     "@sl-design-system/icon": "npm:1.4.3"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/link@npm:*, @sl-design-system/link@workspace:packages/components/link":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/link@workspace:packages/components/link"
+  dependencies:
+    "@lit/localize": "npm:^0.12.2"
+    "@open-wc/scoped-elements": "npm:^3.0.10"
+    "@sl-design-system/icon": "npm:^1.4.2"
+    lit: "npm:^3.3.3"
+  peerDependencies:
+    "@lit/localize": ^0.12.2
+    "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.3.3
   languageName: unknown
   linkType: soft
 

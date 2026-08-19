@@ -37,6 +37,7 @@
     { "path": "./packages/components/icon" },
     { "path": "./packages/components/infotip" },
     { "path": "./packages/components/inline-message" },
+    { "path": "./packages/components/link" },
     { "path": "./packages/components/listbox" },
     { "path": "./packages/components/menu" },
     { "path": "./packages/components/message-dialog" },

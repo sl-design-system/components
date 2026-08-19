@@ -1,5 +1,5 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
 
 declare global {
@@ -9,6 +9,10 @@ declare global {
 }
 
 let nextUniqueId = 0;
+
+const PLACEMENTS = ['top', 'right', 'bottom', 'left'] as const;
+
+export type PopoverPlacement = (typeof PLACEMENTS)[number];
 
 /**
  * A floating overlay that appears on top of other elements.
@@ -43,6 +47,9 @@ export class Popover extends LitElement {
   /** Controller for managing event listeners. */
   #eventController = new AbortController();
 
+  /** Element internals, for the custom state that reflects the placement. */
+  #internals = this.attachInternals();
+
   /** Controller for the listeners that only run while the popover is open. */
   #openController?: AbortController;
 
@@ -54,8 +61,11 @@ export class Popover extends LitElement {
    */
   @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;
 
-  /** @internal The wrapper around all the elements in the shadow DOM. */
-  @query('[part="wrapper"]') wrapper?: HTMLElement;
+  /**
+   * @internal The side of the anchor the popover ended up on. Exposed as an `anchored-<side>`
+   * custom state, so the offset and the arrow can be styled from CSS.
+   */
+  placement?: PopoverPlacement;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -71,6 +81,7 @@ export class Popover extends LitElement {
     // `anchor-name` of an element in the light DOM cannot be seen. A stylesheet in the light DOM is
     // in the same tree as the anchor, so there the name does resolve. The rule only ever targets
     // this popover, so several popovers on a page do not interfere with each other.
+    // This is a workaround until support for `position-anchor: match-parent` is added to browsers.
     this.#anchorStyle ??= document.createElement('style');
     this.#anchorStyle.textContent = `#${CSS.escape(this.id)}::part(arrow) { position-anchor: ${this.#anchorName}; }`;
     this.append(this.#anchorStyle);
@@ -95,7 +106,7 @@ export class Popover extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div anchored="bottom" part="wrapper">
+      <div part="wrapper">
         <div part="container">
           <slot></slot>
         </div>
@@ -169,7 +180,7 @@ export class Popover extends LitElement {
     this.#openController = undefined;
     this.#anchorElement = undefined;
 
-    this.wrapper?.setAttribute('anchored', 'bottom');
+    this.#setPlacement(undefined);
     this.style.removeProperty('position-anchor');
   }
 
@@ -192,10 +203,27 @@ export class Popover extends LitElement {
       right: popover.left - anchor.right
     };
 
-    const placement = (Object.keys(distances) as Array<keyof typeof distances>).reduce(
-      (furthest, side) => (distances[side] > distances[furthest] ? side : furthest)
+    this.#setPlacement(
+      (Object.keys(distances) as Array<keyof typeof distances>).reduce((furthest, side) =>
+        distances[side] > distances[furthest] ? side : furthest
+      )
     );
-
-    this.wrapper?.setAttribute('anchored', placement);
   };
+
+  /** Records the placement and reflects it as the only `anchored-<side>` custom state. */
+  #setPlacement(placement?: PopoverPlacement): void {
+    if (this.placement === placement) {
+      return;
+    }
+
+    this.placement = placement;
+
+    for (const side of PLACEMENTS) {
+      this.#internals.states.delete(`anchored-${side}`);
+    }
+
+    if (placement) {
+      this.#internals.states.add(`anchored-${placement}`);
+    }
+  }
 }

@@ -36,22 +36,16 @@
   }
 }
 
-/* The side the popover ended up on, set on the wrapper by the component so that it does not have
-   to leak onto the host. */
-[anchored='bottom'] {
-  [part='container'] {
-    margin-block-start: var(--_offset);
-  }
+:host(:state(anchored-bottom)) {
+  margin-block-start: var(--_offset);
 
   [part='arrow-wrapper'] {
     inset-block-start: calc(var(--_arrow-size) * -1 + var(--sl-size-borderWidth-default));
   }
 }
 
-[anchored='top'] {
-  [part='container'] {
-    margin-block-end: var(--_offset);
-  }
+:host(:state(anchored-top)) {
+  margin-block-end: var(--_offset);
 
   [part='arrow-wrapper'] {
     inset-block-end: var(--sl-size-borderWidth-default);
@@ -62,10 +56,8 @@
   }
 }
 
-[anchored='right'] {
-  [part='container'] {
-    margin-inline-start: var(--_offset);
-  }
+:host(:state(anchored-right)) {
+  margin-inline-start: var(--_offset);
 
   [part='arrow-wrapper'] {
     inset-inline-start: calc(var(--_arrow-size) * -1 + var(--sl-size-borderWidth-default));
@@ -76,10 +68,8 @@
   }
 }
 
-[anchored='left'] {
-  [part='container'] {
-    margin-inline-end: var(--_offset);
-  }
+:host(:state(anchored-left)) {
+  margin-inline-end: var(--_offset);
 
   [part='arrow-wrapper'] {
     inset-inline-end: var(--sl-size-borderWidth-default);
@@ -90,13 +80,11 @@
   }
 }
 
-/* Above and below the anchor the arrow slides along the horizontal edge of the wrapper; to the
-   left and right of it, along the vertical one. */
-:is([anchored='bottom'], [anchored='top']) [part='arrow'] {
+:host(:is(:state(anchored-bottom), :state(anchored-top))) [part='arrow'] {
   inset-inline-start: calc(anchor(center) - var(--_arrow-size) / 2);
 }
 
-:is([anchored='left'], [anchored='right']) [part='arrow'] {
+:host(:is(:state(anchored-left), :state(anchored-right))) [part='arrow'] {
   inset-block-start: calc(anchor(center) - var(--_arrow-size) / 2);
 }
 
@@ -111,6 +99,11 @@
   padding: var(--sl-size-200);
 }
 
+/**
+ * This is a workaround for Safari 26.6 which doesn't handle multiple anchors in
+ * combination with setting the position-anchor on ::part(arrow) properly. Works fine
+ * in STP 250. So in the future the arrow wrapper won't be necessary.
+ */
 [part='arrow-wrapper'] {
   position: absolute;
 }

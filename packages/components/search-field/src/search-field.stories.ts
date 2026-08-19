@@ -133,7 +133,6 @@ export const All: Story = {
       }
     </style>
     <div class="wrapper">
-      <span class="section-header">Rect</span>
       <span></span>
       <span style="justify-self: center">md</span>
       <span style="justify-self: center">lg</span>
@@ -154,36 +153,13 @@ export const All: Story = {
       <sl-search-field aria-label="Search" disabled value="Value"></sl-search-field>
       <sl-search-field aria-label="Search" disabled size="lg" value="Value"></sl-search-field>
 
-      <span class="section-header">Pill</span>
-      <span></span>
-      <span style="justify-self: center">md</span>
-      <span style="justify-self: center">lg</span>
-
-      <span>Empty</span>
+      <span>Empty (pill)</span>
       <sl-search-field placeholder="Placeholder" shape="pill"></sl-search-field>
       <sl-search-field placeholder="Placeholder" shape="pill" size="lg"></sl-search-field>
 
-      <span>Value</span>
+      <span>Value (pill)</span>
       <sl-search-field aria-label="Search" shape="pill" value="Value"></sl-search-field>
       <sl-search-field aria-label="Search" shape="pill" size="lg" value="Value"></sl-search-field>
-
-      <span>Readonly</span>
-      <sl-search-field aria-label="Search" readonly shape="pill" value="Value"></sl-search-field>
-      <sl-search-field
-        aria-label="Search"
-        readonly
-        shape="pill"
-        size="lg"
-        value="Value"></sl-search-field>
-
-      <span>Disabled</span>
-      <sl-search-field aria-label="Search" disabled shape="pill" value="Value"></sl-search-field>
-      <sl-search-field
-        aria-label="Search"
-        disabled
-        shape="pill"
-        size="lg"
-        value="Value"></sl-search-field>
     </div>
   `
 };

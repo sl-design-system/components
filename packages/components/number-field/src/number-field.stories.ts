@@ -420,60 +420,6 @@ export const All: Story = {
         shape="pill"
         size="lg"></sl-number-field>
 
-      <span>Pill with value</span>
-      <sl-number-field
-        aria-label="Number field"
-        placeholder="Placeholder"
-        shape="pill"
-        value="100"></sl-number-field>
-      <sl-number-field
-        aria-label="Number field"
-        placeholder="Placeholder"
-        shape="pill"
-        size="lg"
-        value="100"></sl-number-field>
-
-      <span>Pill, disabled</span>
-      <sl-number-field
-        aria-label="Number field"
-        disabled
-        placeholder="Placeholder"
-        shape="pill"></sl-number-field>
-      <sl-number-field
-        aria-label="Number field"
-        disabled
-        placeholder="Placeholder"
-        shape="pill"
-        size="lg"></sl-number-field>
-
-      <span>Pill, disabled with value</span>
-      <sl-number-field
-        aria-label="Number field"
-        disabled
-        placeholder="Placeholder"
-        shape="pill"
-        value="100"></sl-number-field>
-      <sl-number-field
-        aria-label="Number field"
-        disabled
-        placeholder="Placeholder"
-        shape="pill"
-        size="lg"
-        value="100"></sl-number-field>
-
-      <span>Pill, step buttons: end</span>
-      <sl-number-field
-        aria-label="Number field"
-        placeholder="Placeholder"
-        shape="pill"
-        step-buttons="end"></sl-number-field>
-      <sl-number-field
-        aria-label="Number field"
-        placeholder="Placeholder"
-        shape="pill"
-        size="lg"
-        step-buttons="end"></sl-number-field>
-
       <span>Pill, step buttons: end with value</span>
       <sl-number-field
         aria-label="Number field"
@@ -488,19 +434,6 @@ export const All: Story = {
         size="lg"
         step-buttons="end"
         value="100"></sl-number-field>
-
-      <span>Pill, step buttons: edges</span>
-      <sl-number-field
-        aria-label="Number field"
-        placeholder="Placeholder"
-        shape="pill"
-        step-buttons="edges"></sl-number-field>
-      <sl-number-field
-        aria-label="Number field"
-        placeholder="Placeholder"
-        shape="pill"
-        size="lg"
-        step-buttons="edges"></sl-number-field>
 
       <span>Pill, step buttons: edges with value</span>
       <sl-number-field

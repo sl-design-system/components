@@ -81,10 +81,16 @@ describe('sl-select', () => {
       expect(button).to.have.attribute('fill', 'ghost');
     });
 
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
     it('should pass shape="pill" to the button and reflect it as an attribute', async () => {
       el.shape = 'pill';
       await el.updateComplete;
 
+      expect(el).to.have.attribute('shape', 'pill');
       expect(button.shape).to.equal('pill');
       expect(button).to.have.attribute('shape', 'pill');
     });

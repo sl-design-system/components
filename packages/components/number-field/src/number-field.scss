@@ -13,6 +13,10 @@
     border-start-end-radius: 0;
     border-start-start-radius: inherit;
   }
+
+  .minus[disabled] {
+    border-color: var(--sl-color-border-disabled);
+  }
 }
 
 :host([shape='pill']:is(:not([size='lg']), [size='lg'])) {

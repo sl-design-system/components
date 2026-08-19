@@ -307,19 +307,6 @@ export const All: Story = {
         <sl-text-field aria-label="Text field" shape="pill" value="Value"></sl-text-field>
         <sl-text-field aria-label="Text field" shape="pill" size="lg" value="Value"></sl-text-field>
 
-        <span>Invalid (pill)</span>
-        <sl-text-field
-          aria-label="Text field"
-          show-validity="invalid"
-          shape="pill"
-          value="Invalid"></sl-text-field>
-        <sl-text-field
-          aria-label="Text field"
-          show-validity="invalid"
-          shape="pill"
-          size="lg"
-          value="Invalid"></sl-text-field>
-
         <span>Valid (pill)</span>
         <sl-text-field
           aria-label="Text field"
@@ -354,24 +341,6 @@ export const All: Story = {
             <sl-icon name="far-calendar"></sl-icon>
           </sl-field-button>
         </sl-text-field>
-
-        <span>Readonly (pill)</span>
-        <sl-text-field aria-label="Text field" readonly shape="pill" value="Value"></sl-text-field>
-        <sl-text-field
-          aria-label="Text field"
-          readonly
-          shape="pill"
-          size="lg"
-          value="Value"></sl-text-field>
-
-        <span>Disabled (pill)</span>
-        <sl-text-field aria-label="Text field" disabled shape="pill" value="Value"></sl-text-field>
-        <sl-text-field
-          aria-label="Text field"
-          disabled
-          shape="pill"
-          size="lg"
-          value="Value"></sl-text-field>
       </div>
     `;
   }

@@ -197,133 +197,72 @@ export const All: Story = {
   render: () => {
     return html`
       <style>
-        section {
+        .wrapper {
+          align-items: center;
           display: inline-grid;
-          gap: 2rem;
-          grid-template-columns: repeat(2, auto);
-        }
-        .time-field-wrapper {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-        .time-field-wrapper > span {
-          font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+          grid-template-columns: auto minmax(200px, 1fr) minmax(200px, 1fr);
+          gap: 1rem;
         }
       </style>
-      <section>
-        <div class="time-field-wrapper">
-          <span>Basic</span>
-          <sl-form-field label="Time">
-            <sl-time-field></sl-time-field>
-          </sl-form-field>
-        </div>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center">md</span>
+        <span style="justify-self: center">lg</span>
 
-        <div class="time-field-wrapper">
-          <span>With Value</span>
-          <sl-form-field label="Time">
-            <sl-time-field value="13:30"></sl-time-field>
-          </sl-form-field>
-        </div>
+        <span>Basic</span>
+        <sl-time-field aria-label="Medium time field"></sl-time-field>
+        <sl-time-field size="lg" aria-label="Large time field"></sl-time-field>
 
-        <div class="time-field-wrapper">
-          <span>Required</span>
-          <sl-form-field label="Time">
-            <sl-time-field required></sl-time-field>
-          </sl-form-field>
-        </div>
+        <span>With value</span>
+        <sl-time-field value="13:30" aria-label="Medium time field with value"></sl-time-field>
+        <sl-time-field
+          value="13:30"
+          size="lg"
+          aria-label="Large time field with value"></sl-time-field>
 
-        <div class="time-field-wrapper">
-          <span>Disabled</span>
-          <sl-form-field label="Time">
-            <sl-time-field disabled></sl-time-field>
-          </sl-form-field>
-        </div>
+        <span>Required</span>
+        <sl-time-field required aria-label="Medium required time field"></sl-time-field>
+        <sl-time-field size="lg" required aria-label="Large required time field"></sl-time-field>
 
-        <div class="time-field-wrapper">
-          <span>Readonly</span>
-          <sl-form-field label="Time">
-            <sl-time-field readonly value="13:30"></sl-time-field>
-          </sl-form-field>
-        </div>
+        <span>Disabled</span>
+        <sl-time-field disabled aria-label="Medium disabled time field"></sl-time-field>
+        <sl-time-field size="lg" disabled aria-label="Large disabled time field"></sl-time-field>
 
-        <div class="time-field-wrapper">
-          <span>Placeholder</span>
-          <sl-form-field label="Time">
-            <sl-time-field placeholder="Add a time"></sl-time-field>
-          </sl-form-field>
-        </div>
+        <span>Readonly</span>
+        <sl-time-field
+          readonly
+          value="13:30"
+          aria-label="Medium readonly time field"></sl-time-field>
+        <sl-time-field
+          size="lg"
+          readonly
+          value="13:30"
+          aria-label="Large readonly time field"></sl-time-field>
 
-        <div class="time-field-wrapper">
-          <span>Min/Max</span>
-          <sl-form-field label="Time">
-            <sl-time-field min="08:40" max="18:20" start="09:00"></sl-time-field>
-          </sl-form-field>
-        </div>
+        <span>Placeholder</span>
+        <sl-time-field
+          placeholder="Add a time"
+          aria-label="Medium time field with placeholder"></sl-time-field>
+        <sl-time-field
+          size="lg"
+          placeholder="Add a time"
+          aria-label="Large time field with placeholder"></sl-time-field>
 
-        <div class="time-field-wrapper">
-          <span>Custom Steps</span>
-          <sl-form-field label="Time">
-            <sl-time-field hour-step="2" minute-step="10"></sl-time-field>
-          </sl-form-field>
-        </div>
+        <span>Pill</span>
+        <sl-time-field shape="pill" aria-label="Medium pill time field"></sl-time-field>
+        <sl-time-field size="lg" shape="pill" aria-label="Large pill time field"></sl-time-field>
 
-        <div class="time-field-wrapper">
-          <span>Pill</span>
-          <sl-form-field label="Time">
-            <sl-time-field shape="pill"></sl-time-field>
-          </sl-form-field>
-        </div>
-
-        <div class="time-field-wrapper">
-          <span>Pill with value</span>
-          <sl-form-field label="Time">
-            <sl-time-field shape="pill" value="13:30"></sl-time-field>
-          </sl-form-field>
-        </div>
-
-        <div class="time-field-wrapper">
-          <span>Pill, disabled</span>
-          <sl-form-field label="Time">
-            <sl-time-field disabled shape="pill"></sl-time-field>
-          </sl-form-field>
-        </div>
-
-        <div class="time-field-wrapper">
-          <span>Pill, readonly</span>
-          <sl-form-field label="Time">
-            <sl-time-field readonly shape="pill" value="13:30"></sl-time-field>
-          </sl-form-field>
-        </div>
-
-        <div class="time-field-wrapper">
-          <span>Pill size md</span>
-          <sl-form-field label="Time">
-            <sl-time-field shape="pill" size="md"></sl-time-field>
-          </sl-form-field>
-        </div>
-
-        <div class="time-field-wrapper">
-          <span>Pill size lg</span>
-          <sl-form-field label="Time">
-            <sl-time-field shape="pill" size="lg"></sl-time-field>
-          </sl-form-field>
-        </div>
-
-        <div class="time-field-wrapper">
-          <span>Size md</span>
-          <sl-form-field label="Time">
-            <sl-time-field size="md"></sl-time-field>
-          </sl-form-field>
-        </div>
-
-        <div class="time-field-wrapper">
-          <span>Size lg</span>
-          <sl-form-field label="Time">
-            <sl-time-field size="lg"></sl-time-field>
-          </sl-form-field>
-        </div>
-      </section>
+        <span>Pill with value</span>
+        <sl-time-field
+          shape="pill"
+          value="13:30"
+          aria-label="Medium pill time field with value"></sl-time-field>
+        <sl-time-field
+          size="lg"
+          shape="pill"
+          value="13:30"
+          aria-label="Large pill time field with value"></sl-time-field>
+      </div>
     `;
   }
 };

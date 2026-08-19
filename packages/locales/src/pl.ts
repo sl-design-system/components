@@ -4,6 +4,7 @@
 import { str } from '@lit/localize';
 
 export const templates = {
+  'link.opens-in-new-tab': 'otwiera się w nowej karcie',
   'sl.breadcrumbs.breadcrumbTrail': 'Ścieżka nawigacji',
   'sl.breadcrumbs.home': 'Strona główna',
   'sl.breadcrumbs.moreBreadcrumbs': 'Więcej linków',

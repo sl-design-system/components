@@ -48,8 +48,8 @@ const preview: Preview = {
     }
   ],
   loaders: [
-    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
-      await updateTheme(theme, mode as Mode);
+    async ({ globals: { theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme);
       await nextFrame();
       await nextFrame();
     }

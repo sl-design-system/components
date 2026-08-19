@@ -1,0 +1,32 @@
+{
+  "$schema": "https://tokens.studio/schema/cli/v2.json",
+  "version": 2,
+  "sources": {
+    "core": {
+      "project": "e650d9a7-1a6d-4c68-b0cc-731b117c214a",
+      "ref": {
+        "type": "branch",
+        "name": "no-routing-new-setup"
+      }
+    },
+    "slds-legacy": {
+      "project": "29b6e5a1-f540-4668-9964-b23ea58cf875",
+      "ref": {
+        "type": "branch",
+        "name": "main"
+      }
+    }
+  },
+  "outputs": {
+    "slds-legacy": {
+      "format": "raw",
+      "source": "slds-legacy",
+      "dir": "./export/slds-legacy"
+    },
+    "core-css": {
+      "source": "core",
+      "use": { "id": "898af612-5ca5-43b7-9cf7-c826a742b36d", "name": "core-css" },
+      "dir": "./export/core-css"
+    }
+  }
+}

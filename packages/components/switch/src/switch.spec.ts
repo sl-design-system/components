@@ -767,17 +767,30 @@ describe('sl-switch', () => {
       expect(inputEl.ariaDescribedByElements ?? []).not.to.include(tooltipEl);
     });
 
-    it('should center the tooltip on the entire switch when hovering', async () => {
+    it('should center the tooltip on the label when hovering it', async () => {
+      el.renderRoot
+        .querySelector('[part="label"]')!
+        .dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 50);
+
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]')!;
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchor).to.equal(wrapper);
+      expect(center(tooltip)).to.be.closeTo(center(wrapper), 1);
+    });
+
+    it('should center the tooltip on the toggle when hovering it', async () => {
       el.renderRoot
         .querySelector('[part="track"]')!
         .dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 50);
 
-      const container = el.renderRoot.querySelector('[part="container"]')!;
+      const toggle = el.renderRoot.querySelector('[part="toggle"]')!;
 
       expect(tooltip).to.match(':popover-open');
-      expect(tooltip.anchor).to.equal(container);
-      expect(center(tooltip)).to.be.closeTo(center(container), 1);
+      expect(tooltip.anchor).to.equal(toggle);
+      expect(center(tooltip)).to.be.closeTo(center(toggle), 1);
     });
 
     it('should center the tooltip on the toggle when it has focus', async () => {
@@ -828,10 +841,10 @@ describe('sl-switch', () => {
         .dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 50);
 
-      const secondContainer = second.renderRoot.querySelector('[part="container"]')!;
+      const secondToggle = second.renderRoot.querySelector('[part="toggle"]')!;
 
       expect(secondTooltip).to.match(':popover-open');
-      expect(center(secondTooltip)).to.be.closeTo(center(secondContainer), 1);
+      expect(center(secondTooltip)).to.be.closeTo(center(secondToggle), 1);
     });
   });
 

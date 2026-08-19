@@ -48,6 +48,7 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *
  * @cssstate checked - Set when the switch is on.
  * @cssstate has-description - Set when there is text in the description slot.
+ * @cssstate has-infotip - Set when there is an infotip in the infotip slot.
  * @cssstate no-label - Set when there is no text in the default slot.
  *
  * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
@@ -224,6 +225,12 @@ export class Switch<T = any> extends ForwardAriaMixin(
       this.internals.states.delete('has-description');
     }
 
+    if (this.querySelector('[slot="infotip"]')) {
+      this.internals.states.add('has-infotip');
+    } else {
+      this.internals.states.delete('has-infotip');
+    }
+
     if (changes.has('checked')) {
       if (this.checked) {
         this.internals.states.add('checked');
@@ -256,8 +263,8 @@ export class Switch<T = any> extends ForwardAriaMixin(
       .join(' ');
 
     return html`
-      <div id="container" part="container">
-        <div @click=${this.#onWrapperClick} part="wrapper">
+      <div part="container">
+        <div @click=${this.#onWrapperClick} id="wrapper" part="wrapper">
           <div id="label" part="label">
             <slot @slotchange=${this.#onLabelSlotChange}></slot>
           </div>
@@ -295,7 +302,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
       ${this.tooltip
         ? html`
             <sl-tooltip
-              for="container toggle"
+              for="wrapper toggle"
               id="tooltip"
               part="tooltip"
               type=${hasLabel ? 'description' : 'label'}>
@@ -346,7 +353,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
   /** Returns the text of the child nodes that are assigned to the default slot. */
   #labelText(): string {
     return Array.from(this.childNodes)
-      .filter(node => !(node instanceof Element) || !node.hasAttribute('slot'))
+      .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent?.trim() ?? '')
       .join(' ')
       .replace(/\s+/g, ' ')
@@ -363,6 +370,9 @@ export class Switch<T = any> extends ForwardAriaMixin(
   };
 
   #onInfotipSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    // Trigger an update; willUpdate() derives the has-infotip state.
+    this.requestUpdate();
+
     const assignedElements = event.target.assignedElements({ flatten: true }) || [];
 
     this.infotip = assignedElements.find(

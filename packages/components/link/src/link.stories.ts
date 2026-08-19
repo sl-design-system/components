@@ -157,6 +157,8 @@ export const ClickEvent: Story = {
     linkText: 'Open dashboard'
   },
   render: ({ fill, href, iconPosition, linkText, rel, target, type }) => html`
+    There is a click event listener attached to the link below. Open the console to see the output
+    when the link is clicked.
     <sl-link
       fill=${ifDefined(fill)}
       type=${ifDefined(type)}
@@ -181,7 +183,7 @@ export const OverwriteLinkType: Story = {
 export const All: Story = {
   render: () => html`
     <style>
-      div:where(.fill-variants, .color-variants, .size-variants) {
+      div:where(.type-variants, .color-variants, .size-variants) {
         display: grid;
         gap: 1rem;
         justify-items: start;
@@ -195,7 +197,9 @@ export const All: Story = {
         justify-items: start;
       }
     </style>
-    <div class="fill-variants">
+
+    <h1>Link types</h1>
+    <div class="type-variants">
       <sl-link no-icon>
         <a href="/dashboard">Internal link without icon</a>
       </sl-link>
@@ -229,6 +233,7 @@ export const All: Story = {
       </sl-link>
     </div>
 
+    <h1>Link sizes</h1>
     <div class="size-variants">
       <sl-link size="sm">
         <a href="/dashboard">Small link</a>
@@ -243,12 +248,14 @@ export const All: Story = {
       </sl-link>
     </div>
 
+    <h1>Link color and fill variants</h1>
     <div class="color-variants">
       <div>${colorVariants('solid')}</div>
       <div>${colorVariants('outline')}</div>
       <div>${colorVariants('ghost')}</div>
     </div>
 
+    <h1>Inverted link color and fill variants</h1>
     <div
       class="inverted color-variants"
       style="background-color: var(--sl-color-background-primary-bold); padding: 1rem;">

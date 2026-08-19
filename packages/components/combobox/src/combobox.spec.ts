@@ -203,6 +203,19 @@ describe('sl-combobox', () => {
       expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('size', 'lg');
     });
 
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
+      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('shape', 'pill');
+    });
+
     it('should not have a placeholder', () => {
       expect(el.placeholder).to.be.undefined;
     });

@@ -45,6 +45,10 @@ declare global {
   }
 }
 
+export type TimeFieldShape = 'rect' | 'pill';
+
+export type TimeFieldSize = 'md' | 'lg';
+
 type TimePartType = 'hour' | 'minute';
 
 const timeSeparators = new Map<string, string>();
@@ -189,6 +193,20 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   /** @internal Whether the component is in "select all" mode, showing a single text input. */
   @state() selectAll?: boolean;
+
+  /**
+   * The shape of the time field.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: TimeFieldShape;
+
+  /**
+   * The size of the time field.
+   *
+   * @default 'md'
+   */
+  @property({ reflect: true }) size?: TimeFieldSize;
 
   /**
    * Whether the component is select only. This means you cannot type in the inputs, but you can
@@ -371,6 +389,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-expanded=${this.dialog && isPopoverOpen(this.dialog) ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select time', { id: 'sl.timeField.toggleDropdown' })}
+          size=${ifDefined(this.size)}
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="clock"></sl-icon>
         </sl-field-button>

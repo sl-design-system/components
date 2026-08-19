@@ -49,6 +49,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     'sl-form-field': this.#onFormField
   });
 
+  /** Stores blur listeners for cleanup when controls unregister. */
+  #controlBlurListeners = new WeakMap<HTMLElement & FormControl, EventListener>();
+
   /** Indicates whether to show validity state. */
   #showValidity = false;
 
@@ -75,6 +78,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
 
   /** Will disable the entire form when true. */
   @property({ type: Boolean }) disabled?: boolean;
+
+  /** Enables immediate validation for invalid, non-empty values when a control loses focus. */
+  @property({ attribute: 'validate-on-blur', type: Boolean }) validateOnBlur = false;
 
   /** Whether the form is invalid. */
   get invalid(): boolean {
@@ -202,6 +208,30 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return element instanceof HTMLElement && 'formControlElement' in element;
   }
 
+  #isEmptyValue(value: unknown): boolean {
+    if (value === '' || value === undefined || value === null) {
+      return true;
+    }
+
+    return Array.isArray(value) && value.length === 0;
+  }
+
+  #validateControlOnBlur(control: HTMLElement & FormControl): void {
+    if (!this.validateOnBlur) {
+      return;
+    }
+
+    const shouldValidateOnBlur = Boolean(control.dirty) && !this.#isEmptyValue(control.formValue);
+    const { validity } = control;
+    const hasIndependentInvalidState = !control.valid && !validity.valueMissing;
+
+    if (!shouldValidateOnBlur || !hasIndependentInvalidState) {
+      return;
+    }
+
+    control.reportValidity();
+  }
+
   #onFormControl(event: SlFormControlEvent): void {
     if (
       !(event.composedPath()[0] instanceof EventTarget) ||
@@ -215,10 +245,21 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     event.preventDefault();
     event.stopPropagation();
 
+    const onControlBlur: EventListener = () => this.#validateControlOnBlur(control);
+    control.addEventListener('sl-blur', onControlBlur);
+    this.#controlBlurListeners.set(control, onControlBlur);
+
     // Allow the control to unregister itself; this is necessary because by the
     // time `disconnectedCallback` is called, the control has already
     // been removed from the DOM; so any events emitted will never reach the form.
     event.detail.unregister = () => {
+      const onControlBlur = this.#controlBlurListeners.get(control);
+
+      if (onControlBlur) {
+        control.removeEventListener('sl-blur', onControlBlur);
+        this.#controlBlurListeners.delete(control);
+      }
+
       this.controls = this.controls.filter(c => c !== control);
     };
 

@@ -17,7 +17,7 @@ import { LitElement, type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';
 
-type Props = Pick<Form, 'disabled' | 'value'> & {
+type Props = Pick<Form, 'disabled' | 'validateOnBlur' | 'value'> & {
   buttons?(): TemplateResult;
   fields(args: Props): TemplateResult;
   reset: boolean;
@@ -53,10 +53,11 @@ export default {
   title: 'Form/Form',
   args: {
     disabled: false,
-    reportValidity: false
+    reportValidity: false,
+    validateOnBlur: false
   },
   render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, value } = args;
+    const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
 
     const onToggle = (): void => {
       const form = document.querySelector('sl-form')!;
@@ -95,6 +96,7 @@ export default {
         @sl-update-state=${onUpdate}
         @sl-update-validity=${onUpdate}
         ?disabled=${disabled}
+        ?validate-on-blur=${validateOnBlur}
         .value=${value}>
         ${fields(args)}
         <sl-button-bar>
@@ -203,6 +205,25 @@ export const Value: Story = {
     value: {
       textField: 'Hello world'
     }
+  }
+};
+
+export const ValidateOnBlur: Story = {
+  args: {
+    fields: () => html`
+      <sl-form-field hint="Invalid email format is shown on blur" label="Email">
+        <sl-text-field name="email" type="email"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Must match pattern AB-123 (shown on blur)" label="Code">
+        <sl-text-field name="code" pattern="[A-Z]{2}-[0-9]{3}" placeholder="AB-123"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Still only validated on submit when empty" label="Required text field">
+        <sl-text-field name="requiredField" required></sl-text-field>
+      </sl-form-field>
+    `,
+    validateOnBlur: true
   }
 };
 
@@ -349,6 +370,42 @@ export const AllValid: Story = {
       textField: 'Text field',
       timeField: '12:00'
     }
+  }
+};
+
+export const AllValidateOnBlur: Story = {
+  args: {
+    reportValidity: false,
+    validateOnBlur: true,
+    fields: ({ disabled }) => html`
+      <sl-form-field hint="Invalid email format is shown on blur" label="Email">
+        <sl-text-field ?disabled=${disabled} name="email" required type="email"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Must match pattern AB-123 (shown on blur)" label="Code">
+        <sl-text-field
+          ?disabled=${disabled}
+          name="code"
+          pattern="[A-Z]{2}-[0-9]{3}"
+          placeholder="AB-123"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Still only validated on submit when empty" label="Required text field">
+        <sl-text-field
+          ?disabled=${disabled}
+          name="requiredField"
+          placeholder="Placeholder"
+          required></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Select">
+        <sl-select ?disabled=${disabled} name="select" placeholder="Placeholder" required>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      </sl-form-field>
+    `
   }
 };
 

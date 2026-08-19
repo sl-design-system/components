@@ -195,6 +195,102 @@ describe('sl-form', () => {
 
       expect(onSubmit).to.have.been.calledOnce;
     });
+
+    it('should not validate on blur by default', async () => {
+      const textField = el.querySelector<TextField>('sl-text-field[name="bar"]'),
+        input = textField?.formControlElement as HTMLInputElement | undefined;
+
+      input!.value = 'invalid';
+      input?.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      input?.focus();
+      input?.blur();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField?.updateComplete;
+
+      expect(textField?.showValidity).to.be.undefined;
+    });
+  });
+
+  describe('validate on blur', () => {
+    it('should validate invalid non-empty values on blur when opt-in is enabled', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Code">
+            <sl-text-field name="code" required type="email"></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.validateOnBlur).to.be.true;
+      expect(el.controls).to.have.length(1);
+
+      const textField = el.controls[0] as TextField,
+        input = textField.formControlElement as HTMLInputElement,
+        reportValiditySpy = spy(textField, 'reportValidity');
+
+      input.type = 'email';
+      input.value = 'abc';
+      input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      textField.updateState({ dirty: true, touched: true });
+      textField.updateValidity();
+      await textField.updateComplete;
+
+      expect(textField.dirty).to.be.true;
+      expect(textField.formValue).to.equal('abc');
+      expect(textField.validity.valueMissing).to.be.false;
+      expect(textField.valid).to.be.false;
+      reportValiditySpy.resetHistory();
+      textField.dispatchEvent(new CustomEvent('sl-blur', { bubbles: true, composed: true }));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField.updateComplete;
+
+      expect(reportValiditySpy).to.have.been.calledOnce;
+      expect(textField.showValidity).to.equal('invalid');
+    });
+
+    it('should not validate empty required values on blur when opt-in is enabled', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Code">
+            <sl-text-field name="code" required></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const textField = el.querySelector<TextField>('sl-text-field[name="code"]'),
+        input = textField?.formControlElement as HTMLInputElement | undefined;
+
+      input?.focus();
+      input?.blur();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField?.updateComplete;
+
+      expect(textField?.showValidity).to.be.undefined;
+    });
+
+    it('should still validate empty required values on submit when opt-in is enabled', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Code">
+            <sl-text-field name="code" required></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const textField = el.querySelector<TextField>('sl-text-field[name="code"]');
+
+      expect(el.reportValidity()).to.be.false;
+      await textField?.updateComplete;
+
+      expect(textField?.showValidity).to.equal('invalid');
+    });
   });
 
   describe('reset', () => {

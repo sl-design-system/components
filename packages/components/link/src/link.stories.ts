@@ -151,25 +151,6 @@ export const linkTypes: Story = {
     </div>
   `
 };
-export const ClickEvent: Story = {
-  args: {
-    href: '/dashboard',
-    linkText: 'Open dashboard'
-  },
-  render: ({ fill, href, iconPosition, linkText, rel, target, type }) => html`
-    There is a click event listener attached to the link below. Open the console to see the output
-    when the link is clicked.
-    <sl-link
-      fill=${ifDefined(fill)}
-      type=${ifDefined(type)}
-      icon-position=${ifDefined(iconPosition)}
-      @click=${() => {
-        console.log('Link clicked!');
-      }}>
-      <a href=${href} rel=${ifDefined(rel)} target=${ifDefined(target)}>${linkText}</a>
-    </sl-link>
-  `
-};
 export const OverwriteLinkType: Story = {
   args: {
     href: '/internal-route',

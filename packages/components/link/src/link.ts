@@ -12,7 +12,7 @@ import {
   html,
   nothing
 } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import styles from './link.scss.js';
 
 declare global {
@@ -47,6 +47,7 @@ export type LinkVariant =
  *
  * @slot default - Place a single <code>&lt;a&gt;</code> element inside the component.
  * @csspart icon - The new-tab indicator icon.
+ * @cssstate reversed - The link has an internal indicator icon on the left side.
  */
 @localized()
 export class Link extends ScopedElementsMixin(LitElement) {
@@ -73,7 +74,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
   @state() linkType?: LinkType;
 
   /** @internal */
-  @query('slot') slotElement!: HTMLSlotElement;
+  @queryAssignedElements({ selector: 'a', flatten: true }) anchors?: HTMLAnchorElement[];
 
   /**
    * The fill style of the link button.
@@ -170,9 +171,7 @@ export class Link extends ScopedElementsMixin(LitElement) {
   }
 
   #getAnchor(): HTMLAnchorElement | undefined {
-    const assigned = this.slotElement?.assignedElements({ flatten: true }) ?? [];
-
-    return assigned.find((element): element is HTMLAnchorElement => element.tagName === 'A');
+    return this.anchors?.[0];
   }
 
   #inferType(anchor: HTMLAnchorElement): LinkType {
@@ -247,9 +246,9 @@ export class Link extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  #onSlotChange = (): void => {
+  #onSlotChange(): void {
     this.#syncAnchor();
-  };
+  }
 
   #restoreManagedTarget(): void {
     if (!this.#managedTarget) {
@@ -315,7 +314,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
 
     if (!anchor) {
       this.#restoreManagedTarget();
-      this.toggleAttribute('has-indicator', false);
       this.#syncReversedState();
 
       return;
@@ -353,8 +351,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
       srOnly.textContent = `(${msg('opens in a new tab', { id: 'link.opens-in-new-tab' })})`;
       anchor.appendChild(srOnly);
     }
-
-    this.toggleAttribute('has-indicator', opensInNewTab);
     this.#syncReversedState();
 
     // Re-observe after making all changes

@@ -20,7 +20,6 @@ describe('sl-link', () => {
 
     it('should not force opening in a new tab', () => {
       expect(anchor).not.to.have.attribute('target');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should not set rel when the link does not open in a new tab', () => {
@@ -41,14 +40,13 @@ describe('sl-link', () => {
 
     it('should always open in a new tab', () => {
       expect(anchor).to.have.attribute('target', '_blank');
-      expect(el).to.have.attribute('has-indicator');
     });
 
     it('should set rel when missing', () => {
       expect(anchor).to.have.attribute('rel', 'noopener noreferrer');
     });
 
-    it('should add a screen reader only span when missing', () => {
+    it('should add a "opens in new tab" span when missing', () => {
       const srOnly = anchor.querySelector('span.sl-link-new-tab');
 
       expect(srOnly).to.exist;
@@ -79,10 +77,6 @@ describe('sl-link', () => {
       expect(anchor).to.have.attribute('rel', 'noopener noreferrer');
     });
 
-    it('should show the indicator icon', () => {
-      expect(el).to.have.attribute('has-indicator');
-    });
-
     it('should treat absolute same-origin _blank links as internal-new-tab', async () => {
       const href = `${globalThis.location.origin}/reports`;
 
@@ -97,7 +91,6 @@ describe('sl-link', () => {
 
       expect(anchor).to.have.attribute('target', '_blank');
       expect(el.linkType).to.equal('internal-new-tab');
-      expect(el).to.have.attribute('has-indicator');
 
       const icon = el.renderRoot.querySelector('sl-icon');
 
@@ -140,7 +133,6 @@ describe('sl-link', () => {
 
     it('should respect an explicit internal type override', () => {
       expect(anchor).not.to.have.attribute('target', '_blank');
-      expect(el).not.to.have.attribute('has-indicator');
     });
   });
 
@@ -157,7 +149,6 @@ describe('sl-link', () => {
 
     it('should force external behavior on internal link', () => {
       expect(anchor).to.have.attribute('target', '_blank');
-      expect(el).to.have.attribute('has-indicator');
     });
   });
 
@@ -174,7 +165,6 @@ describe('sl-link', () => {
 
     it('should force internal-new-tab behavior on internal link', () => {
       expect(anchor).to.have.attribute('target', '_blank');
-      expect(el).to.have.attribute('has-indicator');
     });
   });
 
@@ -221,7 +211,6 @@ describe('sl-link', () => {
       anchor = el.querySelector('a')!;
 
       expect(anchor).not.to.have.attribute('target', '_blank');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should treat ../ paths as internal', async () => {
@@ -234,7 +223,6 @@ describe('sl-link', () => {
       anchor = el.querySelector('a')!;
 
       expect(anchor).not.to.have.attribute('target', '_blank');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should treat hash links as internal', async () => {
@@ -247,7 +235,6 @@ describe('sl-link', () => {
       anchor = el.querySelector('a')!;
 
       expect(anchor).not.to.have.attribute('target', '_blank');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should treat same-origin protocol-relative links as internal', async () => {
@@ -262,7 +249,6 @@ describe('sl-link', () => {
       anchor = el.querySelector('a')!;
 
       expect(anchor).not.to.have.attribute('target', '_blank');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should treat cross-origin protocol-relative links as external', async () => {
@@ -283,7 +269,6 @@ describe('sl-link', () => {
       anchor = el.querySelector('a')!;
 
       expect(anchor).to.have.attribute('target', '_blank');
-      expect(el).to.have.attribute('has-indicator');
     });
   });
 
@@ -300,7 +285,6 @@ describe('sl-link', () => {
 
       expect(el.linkType).to.equal('email');
       expect(anchor).not.to.have.attribute('target');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should remove target="_blank" from mailto: links', async () => {
@@ -315,7 +299,6 @@ describe('sl-link', () => {
 
       expect(el.linkType).to.equal('email');
       expect(anchor).not.to.have.attribute('target');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should show envelope icon for email links', async () => {
@@ -345,7 +328,6 @@ describe('sl-link', () => {
 
       expect(el.linkType).to.equal('tel');
       expect(anchor).not.to.have.attribute('target');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should remove target="_blank" from tel: links', async () => {
@@ -360,7 +342,6 @@ describe('sl-link', () => {
 
       expect(el.linkType).to.equal('tel');
       expect(anchor).not.to.have.attribute('target');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should show mobile icon for tel links', async () => {
@@ -409,20 +390,6 @@ describe('sl-link', () => {
     });
   });
 
-  describe('empty or missing anchor', () => {
-    it('should handle empty slot gracefully', async () => {
-      el = await fixture(html`<sl-link></sl-link>`);
-
-      expect(el).not.to.have.attribute('has-indicator');
-    });
-
-    it('should handle slot without anchor', async () => {
-      el = await fixture(html`<sl-link><span>Not a link</span></sl-link>`);
-
-      expect(el).not.to.have.attribute('has-indicator');
-    });
-  });
-
   describe('empty href', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -436,7 +403,6 @@ describe('sl-link', () => {
 
     it('should treat empty href as internal', () => {
       expect(anchor).not.to.have.attribute('target', '_blank');
-      expect(el).not.to.have.attribute('has-indicator');
     });
   });
 
@@ -456,7 +422,6 @@ describe('sl-link', () => {
       await el.updateComplete;
 
       expect(anchor).to.have.attribute('target', '_blank');
-      expect(el).to.have.attribute('has-indicator');
     });
 
     it('should remove injected target when type changes back to internal', async () => {
@@ -467,7 +432,6 @@ describe('sl-link', () => {
       await el.updateComplete;
 
       expect(anchor).not.to.have.attribute('target');
-      expect(el).not.to.have.attribute('has-indicator');
     });
 
     it('should restore a consumer-supplied target when type changes back to internal', async () => {
@@ -486,7 +450,6 @@ describe('sl-link', () => {
       await el.updateComplete;
 
       expect(anchor).to.have.attribute('target', '_self');
-      expect(el).not.to.have.attribute('has-indicator');
     });
   });
 

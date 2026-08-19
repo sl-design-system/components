@@ -1,5 +1,18 @@
 # @sl-design-system/text-field
 
+## 1.7.0
+
+### Minor Changes
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - A new `shape` property that defaults to `rect` but also accepts `pill` for rounded corners.
+  New styling of the field button.
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/form@1.4.3
+
 ## 1.6.11
 
 ### Patch Changes
@@ -56,6 +69,7 @@
 - [#2547](https://github.com/sl-design-system/components/pull/2547) [`8f29a45`](https://github.com/sl-design-system/components/commit/8f29a4527d8fbe2bace08e32e31ba93aee0baf68) - Bump patch version of `@open-wc/scoped-elements` peer dependency
 
 - [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - - Refactor internals to help fix `<sl-number-field>` behavior
+
   - Adding warning when `type="number"` is used that points to `<sl-number-field>`
 
 - [#2561](https://github.com/sl-design-system/components/pull/2561) [`0e2e426`](https://github.com/sl-design-system/components/commit/0e2e426041997a299f3e35bcde499909d62f7ce9) - Remove duplication of `observedAttributes` from the components and into the `ObserveAttributesMixin`
@@ -130,6 +144,7 @@
 ### Patch Changes
 
 - [#1785](https://github.com/sl-design-system/components/pull/1785) [`4e80437`](https://github.com/sl-design-system/components/commit/4e804374c3a02e88b04e4c1df662967740461f7c) - - Styling buttons improvements,
+
   - Formatting value changes - using `formattedValue` instead of `formatValue`.
 
 - [#1805](https://github.com/sl-design-system/components/pull/1805) [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb) - Fix able to submit a parent form using the enter key in readonly mode

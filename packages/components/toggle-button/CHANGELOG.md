@@ -1,5 +1,44 @@
 # @sl-design-system/toggle-button
 
+## 1.0.0
+
+### Major Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Refactor toggle button to use an internal `<button>` element. This improves accessibility and removes the need for manual keyboard and ARIA handling.
+
+  **Breaking changes**
+
+  - The `[pressed]`, `[icon-only]`, `[text-only]`, and `[error]` attributes have been replaced by CSS custom states (`:state(pressed)`, `:state(icon-only)`, `:state(text-only)`, `:state(error)`). Update any custom styles targeting these attributes.
+  - The `shape` property type has changed from `ButtonShape` to `ToggleButtonShape` (`'rect' | 'pill'`).
+  - The `pressed` property is no longer reflected as an attribute. Use `:state(pressed)` for styling.
+  - The `label` property (previously reflected as `aria-label`) has been removed. Use the new `tooltip` property instead.
+
+  **New features**
+
+  - Added a `tooltip` property for declaratively adding a tooltip. For icon-only buttons the tooltip acts as the accessible label; for other buttons it acts as an accessible description.
+  - Added CSS parts `button` and `tooltip` for styling the internal elements.
+  - Focus is now delegated to the internal `<button>` via `delegatesFocus: true`.
+  - ARIA attributes set on the host are now forwarded to the internal `<button>` via `ForwardAriaMixin`.
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Add `tooltip` property
+
+  Previously, adding a tooltip to any kind of component required adding a sibling `<sl-tooltip>` element manually and wiring up the correct `aria-describedby` or `aria-labelledby` relationship by hand. This was especially cumbersome for icon-only buttons, where the tooltip doubles as the accessible label.
+
+  The new `tooltip` property improves the Developer Experience by letting you set a tooltip directly on the component.
+
+  For buttons, it handles all the accessibility wiring automatically:
+
+  - For **icon-only buttons** the tooltip text acts as the accessible label (`aria-labelledby`).
+  - For **text buttons** the tooltip text acts as an accessible description (`aria-describedby`).
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/tooltip@3.0.0
+
 ## 0.0.17
 
 ### Patch Changes
@@ -124,6 +163,7 @@
 - [#1602](https://github.com/sl-design-system/components/pull/1602) [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b) - Fixed toggling `text-only` attribute.
 
 - [#1807](https://github.com/sl-design-system/components/pull/1807) [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768) - Incorporate the new contextual tokens and add new options:
+
   - add size `sm`
   - add shape `pill` | `square`
   - changed fill `ghost` `to solid`

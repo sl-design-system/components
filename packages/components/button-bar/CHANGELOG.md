@@ -1,5 +1,14 @@
 # @sl-design-system/button-bar
 
+## 1.5.1
+
+### Patch Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Fix not giving buttons enough time to set the icon-only state
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+
 ## 1.5.0
 
 ### Minor Changes
@@ -122,6 +131,7 @@
 ### Patch Changes
 
 - [#937](https://github.com/sl-design-system/components/pull/937) [`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097) - - Make `icon-only` take nested slotted buttons into account
+
   - Add `--sl-button-bar-align` and `--sl-button-bar-direction` public CSS API
 
 - [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies

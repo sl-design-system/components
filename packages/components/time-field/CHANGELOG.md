@@ -1,5 +1,19 @@
 # @sl-design-system/time-field
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - A new `shape` property that defaults to `rect` but also accepts `pill` for rounded corners.
+  A new `size` property that defaults to `md` but also accepts `lg`.
+  New styling of the field button.
+
+### Patch Changes
+
+- Updated dependencies [[`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60)]:
+  - @sl-design-system/text-field@1.7.0
+  - @sl-design-system/form@1.4.3
+
 ## 0.1.3
 
 ### Patch Changes
@@ -61,6 +75,7 @@
 ### Patch Changes
 
 - [#2824](https://github.com/sl-design-system/components/pull/2824) [`ff5b844`](https://github.com/sl-design-system/components/commit/ff5b8447d854505f9d8619f2d7489d909dd757d0) - Multiple fixes:
+
   - For `required` time-field, native validation message is now used. The custom message "Please enter a time." appears only when the entered value is not a valid time.
   - Fixed an issue where the dialog time picker value did not update when the user typed a new value.
 

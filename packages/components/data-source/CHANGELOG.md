@@ -1,5 +1,18 @@
 # @sl-design-system/data-source
 
+## 0.4.2
+
+### Patch Changes
+
+- [#3560](https://github.com/sl-design-system/components/pull/3560) [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612) - Improve `ArrayListDataSource` item order handling.
+
+  - Keep the new row order when items are reordered.
+  - Allow moving whole groups in grouped data.
+  - Keep group order after `update()`.
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+
 ## 0.4.1
 
 ### Patch Changes
@@ -77,6 +90,7 @@
 - [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements to the `data-source` package:
 
   #### DataSource
+
   - Now a fully `abstract` class without any implementation details
   - Removed the `id` parameter for `setSort()`
   - Changed the `DataSourceSort` interface to be simpler:
@@ -93,6 +107,7 @@
   Instead of `<sl-grid>` using `ListDataSource` _and_ having a `GridViewModel` class _and_ using `SelectionController`, `ListDataSource` now is setup to handle all the view model logic internally. This means `<sl-grid>` no longer needs a separate view model and selection controller.
 
   If you try to combine grouping with pagination, it will log a warning to the console. Grouping and pagination are not compatible with each other. You can either group or paginate, but not both at the same time.
+
   - Added `ListDataSourceItem`, `ListDataSourceDataItem` and `ListDataSourceGroupItem` view model types
   - Added constructor options for filtering, grouping, pagination and sorting
   - Added the ability to customize how groups are sorted by adding `groupSortBy` and `groupSortDirection` options
@@ -103,11 +118,13 @@
   - Changed `reorder()` to be an abstract method
 
   #### ArrayListDataSource
+
   - Refactored to use the new view model types from `ListDataSource`
   - Implemented group sorting
   - Implemented selection logic for groups (selected, unselected, indeterminate)
 
   #### FetchListDataSource
+
   - Refactored to use the new view model types from `ListDataSource`
   - Added `groups` constructor option when you want to use groups, but lazy load the data
   - Added ability to lazy load group items (per page)
@@ -118,6 +135,7 @@
 - [#2072](https://github.com/sl-design-system/components/pull/2072) [`77b348d`](https://github.com/sl-design-system/components/commit/77b348d19a4869f9242d8ea1c70d32d1e6d04212) - Fix regression with basic drag and drop of rows within grid
 
 - [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Several bug fixes:
+
   - Fix text being parsed as floating point numbers during sorting
   - Fix the `DataSourceFilterFunction` to include the value in the function
 
@@ -169,6 +187,7 @@
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
   the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
   - The base `DataSource` class has support for sorting and filtering
   - Grouping and pagination has been moved to the `ListDataSource` class
   - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively

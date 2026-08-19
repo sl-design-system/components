@@ -1,5 +1,13 @@
 # @sl-design-system/form
 
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/inline-message@2.1.2
+
 ## 1.4.2
 
 ### Patch Changes
@@ -28,6 +36,7 @@
 ### Minor Changes
 
 - [#3248](https://github.com/sl-design-system/components/pull/3248) [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f) - Standardized warning and error icons:
+
   - Changed `warning` icons from `octagon-exclamation-solid` to `triangle-exclamation-solid` in Callout, Inline message, and Progress bar.
   - Changed `circle-exclamation-solid` to `triangle-exclamation-solid` in validation messages in the Form field.
   - Changed `error/danger` icons from `diamond-exclamation-solid` or `octagon-exclamation-solid` to the new `octagon-xmark-solid` icon in Callout, Inline message, and Progress bar. Make sure to update your theme if you update any of these components.

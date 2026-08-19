@@ -1,5 +1,12 @@
 # @sl-design-system/announcer
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+
 ## 0.1.0
 
 ### Minor Changes

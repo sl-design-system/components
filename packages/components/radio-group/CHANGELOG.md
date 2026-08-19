@@ -1,5 +1,13 @@
 # @sl-design-system/radio-group
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/form@1.4.3
+
 ## 1.2.0
 
 ### Minor Changes
@@ -7,6 +15,7 @@
 - [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Add infotip support to checkbox, radio, and switch components
 
   Form controls now support an optional infotip slot that displays contextual help using the infotip component. The infotip automatically:
+
   - Sizes itself appropriately (sm) for form controls
   - Inherits the form control's label as its `describes` attribute if not explicitly set
   - Positions itself alongside the form control without interfering with clicks or keyboard interactions

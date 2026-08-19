@@ -1,10 +1,30 @@
 # @sl-design-system/combobox
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - A new `shape` property that defaults to `rect` but also accepts `pill` for rounded corners.
+
+### Patch Changes
+
+- [#3532](https://github.com/sl-design-system/components/pull/3532) [`6fcae28`](https://github.com/sl-design-system/components/commit/6fcae285fa32e17026b3267c8075c78c6e009af5) - Add `option-disabled-path` to map disabled option state when rendering combobox options from the `options` property.
+
+- [#3581](https://github.com/sl-design-system/components/pull/3581) [`318505d`](https://github.com/sl-design-system/components/commit/318505dbab6aae74f5638d2d6378a0f34c694030) - Fixed stacked tag lists and multi-select comboboxes so at least one selected tag remains visible and removable when selected values overflow. Long visible tags are now constrained and truncated instead of being hidden entirely behind the stack counter, and comboboxes no longer create a large gap between the visible tags and the input caret when stacking is active.
+
+- [#3593](https://github.com/sl-design-system/components/pull/3593) [`249b261`](https://github.com/sl-design-system/components/commit/249b261b85d36ace190d8eb80e0ec460377a8ac4) - Fix invalid combobox styling by applying `show-validity` to the internal text field.
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`318505d`](https://github.com/sl-design-system/components/commit/318505dbab6aae74f5638d2d6378a0f34c694030)]:
+  - @sl-design-system/tag@0.2.0
+  - @sl-design-system/text-field@1.7.0
+  - @sl-design-system/form@1.4.3
+
 ## 0.1.11
 
 ### Patch Changes
 
 - [#3464](https://github.com/sl-design-system/components/pull/3464) [`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da) - Improved virtual list scrolling and grouped option behavior.
+
   - Fixed `scrollMargin` handling so automatic window-scroll offsets are not overwritten by an implicit `0`, and clearing `scrollMargin` restores automatic behavior.
   - Kept cached virtual-list measurements enabled internally for more stable rendering
   - Prevented grouped combobox headers from being matched and selected as regular options
@@ -32,10 +52,12 @@
 - [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Improve scroll-to-item behavior and virtual list handling
 
   Internal improvements to scrolling and virtual list constraints for better user experience. These improvements depend on the updated `@sl-design-system/listbox` and `@sl-design-system/virtual-list` packages.
+
   - Improved scroll-to-item behavior when selecting options
   - Better handling of virtual list constraints
 
 - [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for combobox screen reader support
+
   - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
   - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
   - Remove `aria-owns` from the combobox input because it is not needed for this implementation
@@ -77,9 +99,11 @@
 ### Patch Changes
 
 - [#3211](https://github.com/sl-design-system/components/pull/3211) [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f) - Functional changes:
+
   - The popover opens when you click in the combobox, no longer when you enter the combobox with keyboard navigation.
 
   Accessibility improvements:
+
   - Forward ARIA attributes (`aria-label`, `aria-describedby`, `aria-labelledby`) from host element to the input element for proper screen reader support
   - Automatically associate label with input via `aria-labelledby` when a label is present
 
@@ -230,6 +254,7 @@
   ```
 
   You can customize the rendering of each option by using:
+
   - `optionLabelPath` to specify the path to the label in each option object
   - `optionValuePath` to specify the path to the value in each option object
 
@@ -239,6 +264,7 @@
   the options in both scenarios by using the `sl-option { ... }` selector.
 
 - [#1642](https://github.com/sl-design-system/components/pull/1642) [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39) - Various combobox fixes:
+
   - Add `aria-owns` for linking the input to the listbox
   - Add `aria-posinset` and `aria-setsize` to the listbox options for virtual lists
   - Add focus style to tags
@@ -261,6 +287,7 @@
 ### Patch Changes
 
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes/improvements:
+
   - The label was associated with the `<sl-combobox>` element instead of the `<input>` element
   - `aria-selected="false"` was missing on the non-selected options
   - `aria-multiselectable="true"` was missing on the listbox when the multiple property is set

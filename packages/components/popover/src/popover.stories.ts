@@ -57,10 +57,7 @@ export default {
           place-items: center;
         }
         sl-popover {
-          --sl-popover-max-inline-size: ${maxWidth ? `${maxWidth}px` : 'none'};
-        }
-        sl-popover::part(arrow) {
-          position-anchor: --popover;
+          max-inline-size: ${maxWidth ? `${maxWidth}px` : 'auto'};
         }
       </style>
       <sl-button

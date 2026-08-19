@@ -1,5 +1,5 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import styles from './popover.scss.js';
 
 declare global {
@@ -21,7 +21,8 @@ let nextUniqueId = 0;
  * @slot - Body content for the popover
  *
  * @csspart arrow - The arrow linking the popover to its anchor
- * @csspart container - The container for the popover
+ * @csspart container - The container for the slotted content
+ * @csspart wrapper - The wrapper around the container and its arrow
  */
 export class Popover extends LitElement {
   /** @internal */
@@ -29,6 +30,15 @@ export class Popover extends LitElement {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** The element the popover is anchored to, when it was opened by one. */
+  #anchorElement?: HTMLElement;
+
+  /** The `anchor-name` this popover points at; unique to this popover. */
+  #anchorName = '';
+
+  /** Stylesheet in the light DOM that anchors the arrow to the anchor element. */
+  #anchorStyle?: HTMLStyleElement;
 
   /** Controller for managing event listeners. */
   #eventController = new AbortController();
@@ -44,14 +54,26 @@ export class Popover extends LitElement {
    */
   @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;
 
+  /** @internal The wrapper around all the elements in the shadow DOM. */
+  @query('[part="wrapper"]') wrapper?: HTMLElement;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.id ||= `sl-popover-${nextUniqueId++}`;
+    this.#anchorName = `--popover-anchor-${this.id}`;
 
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
+
+    // The arrow is anchored to the anchor element, but it lives in the shadow DOM, where the
+    // `anchor-name` of an element in the light DOM cannot be seen. A stylesheet in the light DOM is
+    // in the same tree as the anchor, so there the name does resolve. The rule only ever targets
+    // this popover, so several popovers on a page do not interfere with each other.
+    this.#anchorStyle ??= document.createElement('style');
+    this.#anchorStyle.textContent = `#${CSS.escape(this.id)}::part(arrow) { position-anchor: ${this.#anchorName}; }`;
+    this.append(this.#anchorStyle);
 
     if (this.#eventController.signal.aborted) {
       this.#eventController = new AbortController();
@@ -65,25 +87,24 @@ export class Popover extends LitElement {
 
   override disconnectedCallback(): void {
     this.#eventController.abort();
-    this.#openController?.abort();
+    this.#anchorStyle?.remove();
+    this.#cleanup();
 
     super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
     return html`
-      <div part="wrapper">
+      <div anchored="bottom" part="wrapper">
         <div part="container">
           <slot></slot>
         </div>
-        <div aria-hidden="true" part="arrow">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xml:space="preserve"
-            clip-rule="evenodd"
-            viewBox="0 0 20 11">
-            <path d="M0 11 20 11 10 1 0 11" paint-order="stroke" />
-          </svg>
+        <div aria-hidden="true" part="arrow-wrapper">
+          <div part="arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M0 20 20 20 10 10Z" paint-order="stroke" />
+            </svg>
+          </div>
         </div>
       </div>
     `;
@@ -98,16 +119,17 @@ export class Popover extends LitElement {
   };
 
   #onToggle = (event: ToggleEvent): void => {
-    const open = event.newState === 'open';
+    // Whatever was set up the last time the popover opened is undone first, so reopening it from a
+    // different anchor cannot leave the previous one behind.
+    this.#cleanup();
 
-    if (open && event.source && event.source instanceof HTMLElement) {
-      this.style.positionAnchor = event.source.style.anchorName ||= `--${this.id}`;
+    if (event.newState !== 'open') {
+      return;
     }
 
-    this.#openController?.abort();
-
-    if (!open) {
-      return;
+    if (event.source instanceof HTMLElement) {
+      this.#anchorElement = event.source;
+      this.#linkAnchor(event.source);
     }
 
     this.#openController = new AbortController();
@@ -127,119 +149,53 @@ export class Popover extends LitElement {
   };
 
   /**
-   * Reads back where the popover ended up, so the arrow can be pointed at the anchor. There is no
-   * way to observe the applied `position-try-fallbacks` directly, nor to reference an anchor from
-   * inside a shadow root, so this compares the two boxes instead.
+   * Points the popover at its anchor. `anchor-name` takes a comma separated list, so a name set
+   * from a stylesheet or by another popover on the same anchor is kept, and this popover adds its
+   * own name to it rather than replacing what is there.
    */
+  #linkAnchor(anchor: HTMLElement): void {
+    const computed = getComputedStyle(anchor).anchorName,
+      names = computed && computed !== 'none' ? computed.split(',').map(name => name.trim()) : [];
+
+    if (!names.includes(this.#anchorName)) {
+      anchor.style.anchorName = [...names, this.#anchorName].join(', ');
+    }
+
+    this.style.positionAnchor = this.#anchorName;
+  }
+
+  #cleanup(): void {
+    this.#openController?.abort();
+    this.#openController = undefined;
+    this.#anchorElement = undefined;
+
+    this.wrapper?.setAttribute('anchored', 'bottom');
+    this.style.removeProperty('position-anchor');
+  }
+
   #updatePlacement = (): void => {
-    // if (!this.#anchorElement || !this.matches(':popover-open')) {
-    //   return;
-    // }
-    // const anchor = this.#anchorElement.getBoundingClientRect(),
-    //   popover = this.getBoundingClientRect();
-    // let placement: PopoverPlacement;
-    // if (popover.bottom <= anchor.top) {
-    //   placement = 'top';
-    // } else if (popover.top >= anchor.bottom) {
-    //   placement = 'bottom';
-    // } else if (popover.right <= anchor.left) {
-    //   placement = 'left';
-    // } else {
-    //   placement = 'right';
-    // }
-    // // How far along its edge the arrow has to sit to point at the middle of the anchor. The popover
-    // // is not always centered on its anchor: an aligned position lines their edges up instead, and
-    // // near the edge of the viewport the popover gets pushed back into view.
-    // const offset =
-    //   placement === 'left' || placement === 'right'
-    //     ? anchor.top + anchor.height / 2 - popover.top
-    //     : anchor.left + anchor.width / 2 - popover.left;
-    // this.setAttribute('actual-placement', placement);
-    // this.style.setProperty('--_arrow-offset', `${Math.round(offset)}px`);
+    if (!this.#anchorElement || !this.matches(':popover-open')) {
+      return;
+    }
+
+    const anchor = this.#anchorElement.getBoundingClientRect(),
+      popover = this.getBoundingClientRect();
+
+    // The distance between the two boxes on each side, negative when they overlap. When there is
+    // not enough room the popover is pushed onto its anchor, so it cannot be assumed to clear it
+    // completely; the side it is the furthest onto wins instead. On a tie the order below decides,
+    // which keeps the default side for a popover that covers its anchor entirely.
+    const distances = {
+      bottom: popover.top - anchor.bottom,
+      top: anchor.top - popover.bottom,
+      left: anchor.left - popover.right,
+      right: popover.left - anchor.right
+    };
+
+    const placement = (Object.keys(distances) as Array<keyof typeof distances>).reduce(
+      (furthest, side) => (distances[side] > distances[furthest] ? side : furthest)
+    );
+
+    this.wrapper?.setAttribute('anchored', placement);
   };
-
-  // #findAnchor(): Element | undefined {
-  //   if (!this.anchor) {
-  //     return undefined;
-  //   }
-
-  //   const rootNode = this.getRootNode() as Document | ShadowRoot | null;
-
-  //   return rootNode?.getElementById(this.anchor) ?? undefined;
-  // }
-
-  // /**
-  //  * Points the popover at its anchor. An existing `anchor-name` is reused, whether it was set in a
-  //  * stylesheet or by another popover on the same anchor. It is never cleaned up again: it is inert
-  //  * on its own, and removing it would break any other popover still pointing at it.
-  //  */
-  // #linkAnchor(): void {
-  //   const anchor = this.#anchorElement;
-
-  //   if (!(anchor instanceof HTMLElement)) {
-  //     return;
-  //   }
-
-  //   const existingName = getComputedStyle(anchor).anchorName,
-  //     anchorName = existingName && existingName !== 'none' ? existingName : `--${this.id}`;
-
-  //   anchor.style.anchorName = anchorName;
-  //   this.style.positionAnchor = anchorName;
-  //   this.toggleAttribute('anchored', true);
-
-  //   // Normally when using the `popovertarget` attribute with popovers, the browser will set
-  //   // `aria-details` on the anchor element itself. But since that attribute cannot be used in
-  //   // combination with custom elements, we need to set it ourselves.
-  //   if (!anchor.hasAttribute('aria-details')) {
-  //     anchor.setAttribute('aria-details', this.id);
-  //   }
-  // }
-
-  // #unlinkAnchor(): void {
-  //   const anchor = this.#anchorElement;
-
-  //   if (anchor?.getAttribute('aria-details') === this.id) {
-  //     anchor.removeAttribute('aria-details');
-  //   }
-
-  //   this.#updateAnchorState(false);
-  //   this.removeAttribute('anchored');
-  //   this.style.positionAnchor = '';
-  // }
-
-  // /** Reflects the open state of the popover on its anchor. */
-  // #updateAnchorState(expanded: boolean): void {
-  //   const anchor = this.#anchorElement;
-
-  //   if (!anchor) {
-  //     return;
-  //   }
-
-  //   anchor.setAttribute('aria-expanded', expanded.toString());
-
-  //   // TODO: Figure out whether we want to keep doing this. And if so, perhaps not just for buttons?
-  //   if (anchor.tagName !== 'SL-BUTTON') {
-  //     return;
-  //   }
-
-  //   if (expanded) {
-  //     const hasRichContent = Array.from(this.childNodes).some(
-  //       node => node.nodeType === Node.ELEMENT_NODE
-  //     );
-
-  //     anchor.setAttribute('popover-opened', '');
-
-  //     if (!hasRichContent && !this.noDescribedby && !anchor.ariaDescribedByElements?.length) {
-  //       anchor.setAttribute('aria-describedby', this.id);
-  //     }
-  //   } else {
-  //     anchor.removeAttribute('popover-opened');
-
-  //     // Only remove aria-describedby if we set it (so it matches our id). Otherwise we might remove
-  //     // references set by other components.
-  //     if (anchor.getAttribute('aria-describedby') === this.id) {
-  //       anchor.removeAttribute('aria-describedby');
-  //     }
-  //   }
-  // }
 }

@@ -159,6 +159,7 @@
       "files": [
         "scripts/themes/setup-themes.js",
         "packages/themes/core/global.css",
+        "packages/themes/core/icons.json",
         "packages/themes/core/typography.css",
         "scripts/themes/export/core-css/**/*.css"
       ],
@@ -244,6 +245,7 @@
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css",
         "!packages/themes/*/global.css",
+        "!packages/themes/*/icons.json",
         "!packages/themes/*/typography.css"
       ]
     },

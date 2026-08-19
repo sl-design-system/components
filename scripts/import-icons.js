@@ -1,32 +1,70 @@
 import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core';
 import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fadl } from '@fortawesome/duotone-light-svg-icons';
 import { fadr } from '@fortawesome/duotone-regular-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
-import { fat } from '@fortawesome/pro-thin-svg-icons';
 import { fasl } from '@fortawesome/sharp-light-svg-icons';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
+import { fasdl } from '@fortawesome/sharp-duotone-light-svg-icons';
+import { fasdr } from '@fortawesome/sharp-duotone-regular-svg-icons';
+import { fasds } from '@fortawesome/sharp-duotone-solid-svg-icons';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fg from 'fast-glob';
 import { promises as fs, existsSync } from 'fs';
 import { basename, join } from 'path';
 
+/**
+ * Font awesome icons have 2 variables that determine which icon set is used:
+ *
+ * Pack: classic, sharp, duotone, sharp-duotone (and the more exotic ones like chisel, graphite,
+ *
+ * Style: regular, light, thin; (these are used in classic, sharp, duotone, sharp-duotone. Note; we
+ * exclude "solid", this is set on an icon level and is not a stylistic choice for the theme)
+ *
+ * Type: solid, outline (internal for this script only)
+ */
+
 const execAsync = promisify(exec);
 
-library.add(fas, far, fal, fat, fad, fadr, fass, fasr, fasl);
+library.add(fas, far, fal, fad, fadl, fadr, fasdr, fasds, fasdl, fass, fasr, fasl);
+
+const packPrefixes = {
+  'Font Awesome 7 Pro': 'fa',
+  'Font Awesome 7 Pro Sharp': 'fas',
+  'Font Awesome 7 Pro Duotone': 'fad',
+  'Font Awesome 7 Pro Sharp Duotone': 'fasd'
+};
+const stylePrefixes = {
+  Solid: 's',
+  Regular: 'r',
+  Light: 'l'
+};
 
 const cwd = new URL('.', import.meta.url).pathname;
-const coreTokensPath = join(cwd, './themes/export/slds-legacy/');
+const iconsFilePath = join(cwd, '../packages/themes/');
 
-const {
-  default: { icon: coreIconTokens }
-} = await import(join(coreTokensPath, 'core.json'), { with: { type: 'json' } });
+const { default: coreIcons } = await import(join(iconsFilePath, 'core/icons.json'), {
+  with: { type: 'json' }
+});
 
-const coreIcons = coreIconTokens; // Keep the full icon object for getFormattedIcons
-const coreIconFontFamily = coreIconTokens.fontFamily;
+const getCssCustomProperty = (source, propertyName) => {
+  const propertyMatcher = new RegExp(`${propertyName}\\s*:\\s*([^;]+);`, 'g'),
+    matches = [...source.matchAll(propertyMatcher)];
+
+  if (!matches.length) {
+    return undefined;
+  }
+
+  // CSS custom properties can be overwritten later in the source, so use the last match.
+  return matches
+    .at(-1)[1]
+    .trim()
+    .replace(/^['\"]|['\"]$/g, '');
+};
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -37,66 +75,51 @@ const getFormattedIcons = (icons, collection) => {
   }, {});
 };
 
-const convertToIconDefinition = (iconName, style) => {
-  return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
+const convertToIconDefinition = (iconName, prefix) => {
+  return findIconDefinition({ prefix, iconName });
 };
 
 const getColorToken = (pathCounter, prefix) => {
-  return pathCounter === 0 && (prefix === 'fad' || prefix === 'fadr') ? 'accent' : 'default';
+  return pathCounter === 0 && (prefix.match(/^fad/) || prefix.match(/^fasd/))
+    ? 'accent'
+    : 'default';
 };
 
-const getIconStyle = (iconName, text, style) => {
-  const familyPrefix =
-      text.typeset.fontFamily.icon.value === 'Font Awesome 6 Sharp' ? 'sharp-' : '',
-    weight = style?.outline?.value
-      ? style.outline.value.split('.').pop().replace('}', '').replace('icon-', '')
-      : 'regular',
-    outlineStyle = iconName?.indexOf('-solid') > 0 ? 'solid' : weight;
+const findPrefix = (prefixes, key) => {
+  const match = Object.keys(prefixes).find(k => k.toLowerCase() === key?.toLowerCase());
 
-  return familyPrefix + outlineStyle;
+  return match ? prefixes[match] : undefined;
 };
 
-const getIconPrefixFromStyle = style => {
-  switch (style) {
-    case 'solid':
-      return 'fas';
-    case 'light':
-      return 'fal';
-    case 'thin':
-      return 'fat';
-    case 'duotone':
-      return 'fad';
-    case 'duotone-regular':
-      return 'fadr';
-    case 'sharp-light':
-      return 'fasl';
-    case 'sharp-solid':
-      return 'fass';
-    case 'sharp-regular':
-      return 'fasr';
-    default:
-      return 'far';
-  }
+const getIconShorthand = (pack, style) => {
+  const packPrefix = findPrefix(packPrefixes, pack) || 'fa';
+  const stylePrefix = findPrefix(stylePrefixes, style) || 'r';
+
+  return (packPrefix + stylePrefix).replace('fads', 'fad'); // duotone solid is the only shorthand that doesn't match the naming convention.
 };
 
-const buildIconsFromBaseNew = async theme => {
-  // 1. Get icon tokens from `base-new.json` which uses routing prefixes
-  const baseNewModule = await import(join(coreTokensPath, theme, 'base-new.json'), {
-    with: { type: 'json' }
-  });
-  const baseNewData = baseNewModule.default;
+const buildIconTS = async theme => {
+  // Get the font and style this theme uses for the icons
+  // Theme token values are generated as CSS custom properties.
+  const themeCssPath = join(iconsFilePath, theme, 'theme.css');
 
-  // Find the routing prefix that contains icon data (e.g., 'II-F', 'I-A', etc.)
-  const routingPrefix = Object.keys(baseNewData).find(key => baseNewData[key]?.icon);
-
-  if (!routingPrefix) {
-    console.warn(`No icon data found in base-new.json for ${theme}`);
-    return;
+  if (!existsSync(themeCssPath)) {
+    throw new Error(
+      `[${theme}] theme.css not found at ${themeCssPath}. Run "yarn import-tokens" first.`
+    );
   }
 
-  const {
-    icon: { typeset: iconTypeset }
-  } = baseNewData[routingPrefix];
+  // get all icons necessary for this theme
+  const themeCss = await fs.readFile(themeCssPath, 'utf8');
+
+  const iconPack =
+    getCssCustomProperty(themeCss, '--sl-text-new-typeset-fontFamily-icon') || // actual theme pakc
+    getCssCustomProperty(themeCss, '--sl-icon-typeset-fontFamily-classic') || // fallback to classic when pack is not set in theme, but it uses the correct FA version
+    'Font Awesome 7 Pro'; // Fallback to default FA version no font family is set in theme. This is the default for all themes that don't have a custom icon font family.
+
+  const iconStyle = getCssCustomProperty(themeCss, '--sl-brand-text-new-icon-outline-fontWeight');
+
+  console.log(`Building icons for ${theme}, With pack: ${iconPack}, and style: ${iconStyle}...`);
 
   const themeIconsPath = join(cwd, `../packages/themes/${theme}/theme-icons.json`);
   let themeIcons;
@@ -106,41 +129,26 @@ const buildIconsFromBaseNew = async theme => {
     themeIcons = themeIconsModule.default;
   }
 
-  // Create a style object compatible with the existing getIconStyle function
-  // In base-new.json, the structure is icon.typeset.fontWeight.{solid, regular}
-  const style = {
-    solid: iconTypeset?.fontWeight?.solid,
-    outline: iconTypeset?.fontWeight?.regular
-  };
-
-  // Create a text object compatible with getIconStyle - use core icon font family
-  const text = {
-    typeset: {
-      fontFamily: {
-        icon: {
-          value: coreIconFontFamily.classic.$value
-        }
-      }
-    }
-  };
-
   const icons = {
-    ...getFormattedIcons(coreIcons, 'core'),
-    ...(themeIcons ? getFormattedIcons({ themeIcons }, 'themeIcons') : {})
+    ...coreIcons,
+    ...(themeIcons || {})
   };
-
   // fetch all FA tokens and store these
-  Object.entries(icons).forEach(([iconName, value]) => {
-    const tokenValue = value['$value'] || value.value;
+  Object.entries(icons).forEach(([iconName, icon]) => {
+    const tokenValue = icon['fa-icon'];
+
     if (!tokenValue) {
+      // no fa-icon token value, so we can't find the icon in FA
+      console.warn(`[${theme}] ${iconName} doesn't have a fa-icon value`);
       delete icons[iconName];
       return;
     }
 
     const faIcon = convertToIconDefinition(
-      tokenValue.replace('fa-', ''),
-      getIconStyle(iconName, text, style)
+      tokenValue,
+      getIconShorthand(iconPack, icon.style || iconStyle)
     );
+
     if (!faIcon) {
       console.warn(`[${theme}] FontAwesome icon not found: ${tokenValue} (${iconName})`);
       delete icons[iconName];
@@ -157,8 +165,7 @@ const buildIconsFromBaseNew = async theme => {
 
     icons[iconName] = {
       value: tokenValue,
-      type: value['$type'] || value.type,
-      description: value['$description'] || value.description,
+      type: 'FontAwesome icon',
       svg
     };
   });
@@ -192,7 +199,8 @@ const buildIconsFromBaseNew = async theme => {
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(
-      Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
+      Object.entries({ ...icons, ...iconsCustom }).sort()
+      // Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
     ),
     source = `// This is a generated file, do not edit. Edit the core.json and theme-icons.json files instead.
 export const icons = ${JSON.stringify(sortedIcons, null, 2)};
@@ -207,14 +215,9 @@ const buildAllIcons = async () => {
 
   const themes = folders
     .map(folder => basename(folder))
-    .filter(theme => theme.indexOf('core') < 0)
-    .filter(theme => existsSync(join(coreTokensPath, theme, 'base-new.json')));
+    .filter(theme => theme.indexOf('core') < 0 && theme.indexOf('_onhold') < 0);
 
-  const buildPromises = themes.map(theme => {
-    const hasBaseNewJson = existsSync(join(coreTokensPath, theme, 'base-new.json'));
-
-    return buildIconsFromBaseNew(theme);
-  });
+  const buildPromises = themes.map(theme => buildIconTS(theme));
 
   await Promise.all(buildPromises);
 };
@@ -266,5 +269,5 @@ const exportCoreIcons = async () => {
   return iconsCustom;
 };
 
-const coreCustomIcons = await exportCoreIcons();
+// const coreCustomIcons = await exportCoreIcons();
 buildAllIcons();

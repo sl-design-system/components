@@ -3565,6 +3565,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/duotone-light-svg-icons@npm:^7.2.0":
+  version: 7.3.1
+  resolution: "@fortawesome/duotone-light-svg-icons@npm:7.3.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.3.1"
+  checksum: 10c0/91d44404fe361aeb5ca1716acf0c6ade827bc79f472409fa6353253133bdf76db257372cffc55d3204d23ddacb733de8d8cbf036d15375103a072d346dac9feb
+  languageName: node
+  linkType: hard
+
 "@fortawesome/duotone-regular-svg-icons@npm:^7.2.0":
   version: 7.3.0
   resolution: "@fortawesome/duotone-regular-svg-icons@npm:7.3.0"
@@ -3585,6 +3594,13 @@ __metadata:
   version: 7.3.0
   resolution: "@fortawesome/fontawesome-common-types@npm:7.3.0"
   checksum: 10c0/2d7310609b520e68cbc8737d551f526e434eb4cd093a3f7d420998809fa21e23aa96123c7d23bacb451ff49bb4eda79272583463ca6cf29a4335f24fe6babcd9
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-common-types@npm:7.3.1":
+  version: 7.3.1
+  resolution: "@fortawesome/fontawesome-common-types@npm:7.3.1"
+  checksum: 10c0/f443a0109773e57ceab3c35021c4f26baf8c29afc79efbea2324bcd9f7dd326f5ac415e46ead17eaf6e935bc23fce83993d4211a4cff375c19100ee65ea9e5cc
   languageName: node
   linkType: hard
 
@@ -3642,12 +3658,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-thin-svg-icons@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "@fortawesome/pro-thin-svg-icons@npm:7.2.0"
+"@fortawesome/sharp-duotone-light-svg-icons@npm:^7.2.0":
+  version: 7.3.1
+  resolution: "@fortawesome/sharp-duotone-light-svg-icons@npm:7.3.1"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:7.2.0"
-  checksum: 10c0/0282add216545fdbecfee51946ab451193a29bc319c590f24e7fd6e0f75362e3df1ac03005889fc83b6fa4359ca2558b532be8291285000f6e012d0c64f32429
+    "@fortawesome/fontawesome-common-types": "npm:7.3.1"
+  checksum: 10c0/63f42bdb56f165552ce28d41fe087e8a839efd7082df7f97ee6919ca53c898020fa14b22aa59a2130ef88ae1ca3dbf1f720ffcd3dc76df89863792235c2efaf8
+  languageName: node
+  linkType: hard
+
+"@fortawesome/sharp-duotone-regular-svg-icons@npm:^7.2.0":
+  version: 7.3.1
+  resolution: "@fortawesome/sharp-duotone-regular-svg-icons@npm:7.3.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.3.1"
+  checksum: 10c0/14896c72f0076c1241e3e9dcc8ab1cd9142685f6cac844ffe10733985810c64380c8e3443be3c9ed1e8f1deb43d82097a337a05b36df72e6d69325c74ec063a5
+  languageName: node
+  linkType: hard
+
+"@fortawesome/sharp-duotone-solid-svg-icons@npm:^7.2.0":
+  version: 7.3.1
+  resolution: "@fortawesome/sharp-duotone-solid-svg-icons@npm:7.3.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.3.1"
+  checksum: 10c0/323dc3ff9d43e3f92894028dfe9d4730504dfafe9e8575cdb259b3e9139fa6dd1e36ae9a8c67ff45d805efd274c1522ccdf65dd6b4abc8765a3490734323832c
   languageName: node
   linkType: hard
 
@@ -7625,6 +7659,7 @@ __metadata:
     "@figma-export/cli": "npm:^6.2.3"
     "@figma-export/output-components-as-svg": "npm:^6.2.3"
     "@figma-export/transform-svg-with-svgo": "npm:^6.2.3"
+    "@fortawesome/duotone-light-svg-icons": "npm:^7.2.0"
     "@fortawesome/duotone-regular-svg-icons": "npm:^7.2.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"
     "@fortawesome/free-brands-svg-icons": "npm:^7.2.0"
@@ -7632,7 +7667,9 @@ __metadata:
     "@fortawesome/pro-light-svg-icons": "npm:^7.2.0"
     "@fortawesome/pro-regular-svg-icons": "npm:^7.2.0"
     "@fortawesome/pro-solid-svg-icons": "npm:^7.2.0"
-    "@fortawesome/pro-thin-svg-icons": "npm:^7.2.0"
+    "@fortawesome/sharp-duotone-light-svg-icons": "npm:^7.2.0"
+    "@fortawesome/sharp-duotone-regular-svg-icons": "npm:^7.2.0"
+    "@fortawesome/sharp-duotone-solid-svg-icons": "npm:^7.2.0"
     "@fortawesome/sharp-light-svg-icons": "npm:^7.2.0"
     "@fortawesome/sharp-regular-svg-icons": "npm:^7.2.0"
     "@fortawesome/sharp-solid-svg-icons": "npm:^7.2.0"

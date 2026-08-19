@@ -751,6 +751,90 @@ describe('sl-switch', () => {
       );
     });
 
+    it('should describe the input when the switch has an aria-label', async () => {
+      const withAriaLabel = await fixture<Switch>(
+        html`<sl-switch aria-label="Dark mode" tooltip="Toggle dark mode"></sl-switch>`
+      );
+      await withAriaLabel.updateComplete;
+
+      const tooltipEl = withAriaLabel.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = withAriaLabel.renderRoot.querySelector('input')!;
+
+      expect(inputEl).to.have.attribute('aria-label', 'Dark mode');
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should keep describing the input when the switch rerenders', async () => {
+      const withAriaLabel = await fixture<Switch>(
+        html`<sl-switch aria-label="Dark mode" tooltip="Toggle dark mode"></sl-switch>`
+      );
+      await withAriaLabel.updateComplete;
+
+      // `ForwardAriaMixin` has moved the aria-label to the input by now.
+      expect(withAriaLabel).not.to.have.attribute('aria-label');
+
+      withAriaLabel.toggle();
+      await withAriaLabel.updateComplete;
+
+      const tooltipEl = withAriaLabel.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = withAriaLabel.renderRoot.querySelector('input')!;
+
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should describe the input when the switch is labelled by another element', async () => {
+      const wrapper = await fixture<HTMLElement>(html`
+        <div>
+          <span id="external-label">Dark mode</span>
+          <sl-switch aria-labelledby="external-label" tooltip="Toggle dark mode"></sl-switch>
+        </div>
+      `);
+
+      const labelledSwitch = wrapper.querySelector<Switch>('sl-switch')!;
+      await labelledSwitch.updateComplete;
+
+      const tooltipEl = labelledSwitch.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = labelledSwitch.renderRoot.querySelector('input')!;
+
+      expect(inputEl.ariaLabelledByElements).to.include(wrapper.querySelector('#external-label'));
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should describe the input when the switch is labelled by an sl-form-field', async () => {
+      const formField = await fixture<HTMLElement>(html`
+        <sl-form-field label="Dark mode">
+          <sl-switch tooltip="Toggle dark mode"></sl-switch>
+        </sl-form-field>
+      `);
+
+      const fieldSwitch = formField.querySelector<Switch>('sl-switch')!;
+      await fieldSwitch.updateComplete;
+
+      // The `<sl-label>` sets `data-label-id` after the switch has rendered.
+      expect(fieldSwitch).to.have.attribute('data-label-id');
+      await fieldSwitch.updateComplete;
+
+      const tooltipEl = fieldSwitch.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = fieldSwitch.renderRoot.querySelector('input')!;
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
     it('should label the input when the switch has no label', async () => {
       const withoutLabel = await fixture<Switch>(
         html`<sl-switch tooltip="Toggle dark mode"></sl-switch>`

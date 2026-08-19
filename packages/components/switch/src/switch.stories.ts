@@ -138,15 +138,15 @@ export const AriaDisabled: Story = {
 
 export const Icons: Story = {
   args: {
-    iconOff: 'fas-sun-bright',
-    iconOn: 'fas-moon-stars',
-    label: '',
-    styles: () => `
-      sl-switch {
-        width: fit-content;
-      }
-    `,
-    tooltip: 'Click to toggle between light and dark mode.'
+    component: () => html`
+      <sl-switch
+        aria-label="Dark mode"
+        icon-off="fas-sun-bright"
+        icon-on="fas-moon-stars"
+        style="width: fit-content;"
+        tooltip="Click to toggle between light and dark mode.">
+      </sl-switch>
+    `
   }
 };
 

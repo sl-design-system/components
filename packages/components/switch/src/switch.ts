@@ -252,13 +252,16 @@ export class Switch<T = any> extends ForwardAriaMixin(
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
       size = this.size === 'md' ? 'xs' : 'md',
       hasDescription = this.hasDescription,
-      hasLabel = this.hasLabel;
+      hasLabel = this.hasLabel,
+      // The tooltip only labels the switch when nothing else does; when the switch already has a
+      // name - a label, an `aria-label`, an `<sl-label>` - it describes it instead.
+      hasName = hasLabel || this.hasAccessibleName();
 
-    const describedBy = [hasDescription && 'description', this.tooltip && hasLabel && 'tooltip']
+    const describedBy = [hasDescription && 'description', this.tooltip && hasName && 'tooltip']
       .filter(Boolean)
       .join(' ');
 
-    const labelledBy = [hasLabel && 'label', this.tooltip && !hasLabel && 'tooltip']
+    const labelledBy = [hasLabel && 'label', this.tooltip && !hasName && 'tooltip']
       .filter(Boolean)
       .join(' ');
 
@@ -305,7 +308,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
               for="wrapper toggle"
               id="tooltip"
               part="tooltip"
-              type=${hasLabel ? 'description' : 'label'}>
+              type=${hasName ? 'description' : 'label'}>
               ${this.tooltip}
             </sl-tooltip>
           `

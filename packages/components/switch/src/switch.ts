@@ -413,13 +413,14 @@ export class Switch<T = any> extends ForwardAriaMixin(
   }
 
   #onWrapperClick = (event: MouseEvent): void => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const path = event.composedPath();
-    if (this.infotip && path.includes(this.infotip)) {
+    // Leave clicks inside the infotip alone: the bubble is slotted into the wrapper, so its
+    // content bubbles through here, and cancelling the event would break links and buttons in it.
+    if (this.infotip && event.composedPath().includes(this.infotip)) {
       return;
     }
+
+    event.preventDefault();
+    event.stopPropagation();
 
     this.toggle();
   };

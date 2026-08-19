@@ -812,6 +812,34 @@ describe('ForwardAriaMixin', () => {
       other.remove();
     });
 
+    it('should keep the label when an aria-labelledby pointing at it is removed', async () => {
+      labelEl.setAttribute('aria-labelledby', 'sl-label-test');
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      labelEl.removeAttribute('aria-labelledby');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.deep.equal([label]);
+    });
+
+    it('should keep the label when an aria-labelledby pointing at it changes', async () => {
+      const other = document.createElement('span');
+      other.id = 'sl-labelledby-test';
+      labelEl.parentElement!.prepend(other);
+
+      labelEl.setAttribute('aria-labelledby', 'sl-label-test');
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      labelEl.setAttribute('aria-labelledby', 'sl-labelledby-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.have.members([label, other]);
+
+      other.remove();
+    });
+
     it('should not affect a forwarded aria-describedby', async () => {
       const description = document.createElement('span');
       description.id = 'sl-hint-test';

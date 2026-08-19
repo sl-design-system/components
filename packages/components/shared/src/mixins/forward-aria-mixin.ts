@@ -32,6 +32,30 @@ const isForwardable = (name: string): boolean =>
 const elementReference = (name: string): keyof ARIAMixin | undefined =>
   name === LABEL_ID_ATTRIBUTE ? 'ariaLabelledByElements' : ELEMENT_REFERENCES[name];
 
+/**
+ * Returns the elements the _other_ forwarded attributes contributed to the same element reference
+ * property. Two attributes can end up in the same property and point at the same element:
+ * `data-label-id` and `aria-labelledby` both feed `ariaLabelledByElements` and may reference the
+ * same `<sl-label>`. Clearing one contribution must not remove an element the other still owns.
+ */
+const referencesOwnedByOthers = (
+  forwarded: Map<string, Element[]> | undefined,
+  name: string,
+  prop: keyof ARIAMixin
+): Set<Element> => {
+  const owned = new Set<Element>();
+
+  for (const [attribute, elements] of forwarded ?? []) {
+    if (attribute !== name && elementReference(attribute) === prop) {
+      for (const element of elements) {
+        owned.add(element);
+      }
+    }
+  }
+
+  return owned;
+};
+
 function setAriaDisabled(target: HTMLElement, value: string | null): void {
   target.ariaDisabled = value === 'true' ? 'true' : null;
 }
@@ -222,7 +246,10 @@ export function ForwardAriaMixin<
               const elementsProp = elementReference(name);
               if (elementsProp?.endsWith('Elements')) {
                 const forwarded = forwardedElementsStorage.get(this),
-                  previous = forwarded?.get(name) ?? [],
+                  stillOwned = referencesOwnedByOthers(forwarded, name, elementsProp),
+                  // Only drop what this attribute alone contributed; an element another
+                  // forwarded attribute also references stays.
+                  previous = (forwarded?.get(name) ?? []).filter(el => !stillOwned.has(el)),
                   current =
                     (target as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
                   remaining = current.filter(el => !previous.includes(el));
@@ -278,7 +305,11 @@ export function ForwardAriaMixin<
 
             const current =
                 (targetElement as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
-              ours = new Set<Element>([...(forwarded.get(name) ?? []), ...elements]);
+              stillOwned = referencesOwnedByOthers(forwarded, name, elementsProp),
+              ours = new Set<Element>([
+                ...(forwarded.get(name) ?? []).filter(el => !stillOwned.has(el)),
+                ...elements
+              ]);
 
             // Keep references added by others (including the ones forwarded for another
             // attribute), but replace the ones from our previous forward of this attribute

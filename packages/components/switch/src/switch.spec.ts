@@ -230,6 +230,28 @@ describe('sl-switch', () => {
       expect(input).not.to.match(':checked');
     });
 
+    it('should not cancel a click on a link inside the infotip', async () => {
+      const link = document.createElement('a');
+      link.href = 'https://example.com';
+      link.textContent = 'Read how we use your data';
+      el.querySelector('sl-infotip')!.append(link);
+      await el.updateComplete;
+
+      // The host is above the wrapper in the propagation path, so by the time this runs the
+      // wrapper has had its say. Cancel here so the link does not actually navigate.
+      let cancelled: boolean | undefined;
+      el.addEventListener('click', (event: MouseEvent) => {
+        cancelled = event.defaultPrevented;
+        event.preventDefault();
+      });
+
+      link.click();
+      await el.updateComplete;
+
+      expect(cancelled).to.be.false;
+      expect(el.checked).not.to.be.true;
+    });
+
     it('should not toggle when clicking the infotip button', async () => {
       await userEvent.click(el.querySelector('sl-infotip')!);
       await el.updateComplete;

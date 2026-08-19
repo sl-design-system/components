@@ -108,7 +108,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
    *
    * @default false
    */
-  @property({ type: Boolean }) override disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /**
    * Icon in "off" state.

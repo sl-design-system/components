@@ -427,7 +427,7 @@ describe('FlatTreeDataSource', () => {
           getLevel: ({ level }) => level,
           isExpandable: ({ expandable }) => expandable,
           isExpanded: ({ expanded }) => expanded ?? false,
-          loadChildren: errorSpy as (node: TestItem) => Promise<TestItem[]>
+          loadChildren: errorSpy
         }
       );
       errorDs.update();

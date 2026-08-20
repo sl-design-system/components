@@ -14,7 +14,7 @@
 #### New features
 
 - `toggle(force?)` toggles the switch from JavaScript the same way a user would: it emits an `sl-change` event and marks the switch as dirty. Pass `true` or `false` to set a specific state.
-- The `tooltip` property shows a tooltip without having to add an `<sl-tooltip>` yourself, the same way `<sl-button>` does. It describes the switch, or labels it when the switch has no label.
+- The `tooltip` property shows a tooltip without having to add an `<sl-tooltip>` yourself, the same way `<sl-button>` does. It describes the switch, or labels it when the switch has no name of its own: no label, `aria-label`, `aria-labelledby` or `<sl-label>`.
 - The `description` slot shows additional information below the label, linked to the control with `aria-describedby`.
 - New CSS parts: `container`, `description`, `label`, `tooltip` and `wrapper`.
-- New CSS states: `checked`, `has-description` and `no-label`.
+- New CSS states: `checked`, `has-description`, `has-infotip` and `no-label`.

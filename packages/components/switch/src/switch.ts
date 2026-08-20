@@ -25,7 +25,7 @@ import {
   nothing
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import styles from './switch.scss.js';
+import styles from './switch.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -50,6 +50,7 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *
  * @cssstate checked - Set when the switch is on.
  * @cssstate has-description - Set when there is text in the description slot.
+ * @cssstate has-infotip - Set when there is an infotip in the infotip slot.
  * @cssstate no-label - Set when there is no text in the default slot.
  *
  * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
@@ -107,7 +108,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
    *
    * @default false
    */
-  @property({ type: Boolean }) override disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /**
    * Icon in "off" state.
@@ -128,6 +129,12 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
   /** @internal Whether there is text in the default slot. */
   @state() hasLabel = false;
+
+  /** @internal Whether there is an infotip in the infotip slot. */
+  @cssState('has-infotip')
+  get hasInfotip(): boolean {
+    return !!this.querySelector('[slot="infotip"]');
+  }
 
   /** @internal Whether there is no text in the default slot. */
   @cssState('no-label')
@@ -191,10 +198,12 @@ export class Switch<T = any> extends ForwardAriaMixin(
     super.disconnectedCallback();
   }
 
+  /** @internal */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
+  /** @internal */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.formValue);
@@ -230,19 +239,22 @@ export class Switch<T = any> extends ForwardAriaMixin(
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
       size = this.size === 'md' ? 'xs' : 'md',
       hasDescription = this.hasDescription,
-      hasLabel = this.hasLabel;
+      hasLabel = this.hasLabel,
+      // The tooltip only labels the switch when nothing else does; when the switch already has a
+      // name - a label, an `aria-label`, an `<sl-label>` - it describes it instead.
+      hasName = hasLabel || this.hasAccessibleName();
 
-    const describedBy = [hasDescription && 'description', this.tooltip && hasLabel && 'tooltip']
+    const describedBy = [hasDescription && 'description', this.tooltip && hasName && 'tooltip']
       .filter(Boolean)
       .join(' ');
 
-    const labelledBy = [hasLabel && 'label', this.tooltip && !hasLabel && 'tooltip']
+    const labelledBy = [hasLabel && 'label', this.tooltip && !hasName && 'tooltip']
       .filter(Boolean)
       .join(' ');
 
     return html`
-      <div id="container" part="container">
-        <div @click=${this.#onWrapperClick} part="wrapper">
+      <div part="container">
+        <div @click=${this.#onWrapperClick} id="wrapper" part="wrapper">
           <div id="label" part="label">
             <slot @slotchange=${this.#onLabelSlotChange}></slot>
           </div>
@@ -269,25 +281,27 @@ export class Switch<T = any> extends ForwardAriaMixin(
             type="checkbox" />
           <div part="track">
             <div part="handle">
-              ${this.size === 'sm'
-                ? nothing
-                : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
+              ${
+                this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`
+              }
             </div>
           </div>
         </label>
       </div>
 
-      ${this.tooltip
-        ? html`
-            <sl-tooltip
-              for="container toggle"
-              id="tooltip"
-              part="tooltip"
-              type=${hasLabel ? 'description' : 'label'}>
-              ${this.tooltip}
-            </sl-tooltip>
-          `
-        : nothing}
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip
+                for="wrapper toggle"
+                id="tooltip"
+                part="tooltip"
+                type=${hasName ? 'description' : 'label'}>
+                ${this.tooltip}
+              </sl-tooltip>
+            `
+          : nothing
+      }
     `;
   }
 
@@ -300,8 +314,9 @@ export class Switch<T = any> extends ForwardAriaMixin(
    */
   toggle(force?: boolean): void {
     const ariaDisabled =
-      this.hasAttribute('aria-disabled') ||
-      (this.hasUpdated && this.input.hasAttribute('aria-disabled'));
+      this.ariaDisabled === 'true' ||
+      this.getAttribute('aria-disabled') === 'true' ||
+      (this.hasUpdated && this.input.getAttribute('aria-disabled') === 'true');
 
     if (this.disabled || ariaDisabled) {
       return;
@@ -330,7 +345,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
   /** Returns the text of the child nodes that are assigned to the default slot. */
   #labelText(): string {
     return Array.from(this.childNodes)
-      .filter(node => !(node instanceof Element) || !node.hasAttribute('slot'))
+      .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent?.trim() ?? '')
       .join(' ')
       .replace(/\s+/g, ' ')
@@ -347,6 +362,9 @@ export class Switch<T = any> extends ForwardAriaMixin(
   };
 
   #onInfotipSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    // Trigger an update; the has-infotip state is derived during the update.
+    this.requestUpdate();
+
     const assignedElements = event.target.assignedElements({ flatten: true }) || [];
 
     this.infotip = assignedElements.find(
@@ -397,13 +415,14 @@ export class Switch<T = any> extends ForwardAriaMixin(
   }
 
   #onWrapperClick = (event: MouseEvent): void => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const path = event.composedPath();
-    if (this.infotip && path.includes(this.infotip)) {
+    // Leave clicks inside the infotip alone: the bubble is slotted into the wrapper, so its
+    // content bubbles through here, and cancelling the event would break links and buttons in it.
+    if (this.infotip && event.composedPath().includes(this.infotip)) {
       return;
     }
+
+    event.preventDefault();
+    event.stopPropagation();
 
     this.toggle();
   };

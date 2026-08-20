@@ -43,7 +43,9 @@ document.addEventListener('keydown', event => {
 });
 
 addons.setConfig({
-  enableShortcuts: false,
+  ui: {
+    enableShortcuts: false
+  },
   theme,
   tagBadges: [
     {

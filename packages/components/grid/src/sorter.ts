@@ -15,7 +15,7 @@ import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type GridColumn } from './column.js';
-import styles from './sorter.scss.js';
+import styles from './sorter.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -80,11 +80,13 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
       <slot></slot>
       <sl-button
         @click=${this.#onClick}
-        aria-label=${this.direction === 'asc'
-          ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
-          : this.direction === 'desc'
-            ? msg('Remove sort', { id: 'sl.grid.removeSort' })
-            : msg('Sort ascending', { id: 'sl.grid.sortAscending' })}
+        aria-label=${
+          this.direction === 'asc'
+            ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
+            : this.direction === 'desc'
+              ? msg('Remove sort', { id: 'sl.grid.removeSort' })
+              : msg('Sort ascending', { id: 'sl.grid.sortAscending' })
+        }
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
         variant=${ifDefined(this.direction ? 'primary' : undefined)}>

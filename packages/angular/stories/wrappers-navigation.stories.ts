@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { faFileLines, faFolder, faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faArrowUpRightFromSquare,
+  faFileLines,
+  faFolder,
+  faFolderOpen
+} from '@fortawesome/pro-regular-svg-icons';
 import { BreadcrumbsComponent } from '@sl-design-system/angular/breadcrumbs';
+import { LinkComponent } from '@sl-design-system/angular/link';
 import { TabComponent, TabGroupComponent, TabPanelComponent } from '@sl-design-system/angular/tabs';
 import { TreeComponent } from '@sl-design-system/angular/tree';
 import { Icon as SlIcon } from '@sl-design-system/icon';
 import { FlatTreeDataSource } from '@sl-design-system/tree';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
-SlIcon.register(faFileLines, faFolder, faFolderOpen);
+SlIcon.register(faArrowUpRightFromSquare, faFileLines, faFolder, faFolderOpen);
 
 type Item = { id: number; expandable: boolean; level: number; name: string };
 
@@ -57,23 +63,45 @@ export class TreeExampleComponent {
   }
 }
 
+@Component({
+  selector: 'sla-link-example',
+  standalone: true,
+  imports: [LinkComponent],
+  template: `
+    <div style="display: grid; gap: 1rem; justify-items: start;">
+      <sl-link>
+        <a href="/dashboard">Internal link button</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="/reports" target="_blank">Internal link button (new tab)</a>
+      </sl-link>
+
+      <sl-link>
+        <a href="https://sanomalearning.com">External link button</a>
+      </sl-link>
+    </div>
+  `
+})
+export class LinkExampleComponent {}
+
 export default {
   title: 'Wrappers/Navigation',
   decorators: [
     moduleMetadata({
       imports: [
         BreadcrumbsComponent,
+        LinkComponent,
         TabComponent,
         TabGroupComponent,
         TabPanelComponent,
+        LinkExampleComponent,
         TreeComponent,
         TreeExampleComponent
       ]
     })
   ]
 } as Meta;
-
-SlIcon.register(faFileLines, faFolder, faFolderOpen);
 
 export const Breadcrumbs: StoryObj = {
   render: () => ({
@@ -113,5 +141,13 @@ export const Tree: StoryObj = {
 
       The example below demonstrates usage with a FlatTreeDataSource, which manages the tree state and provides methods for customizing node appearance and behavior. To implement, use &lt;sl-tree&gt; with a configured dataSource and provide item accessors for id, label, level, and expansion logic.`,
     template: '<sla-tree-example></sla-tree-example>'
+  })
+};
+
+export const Link: StoryObj = {
+  render: () => ({
+    description:
+      'A standalone link is visually styled as a button while keeping native anchor behavior. External links always open in a new tab and show an external-link indicator icon.',
+    template: '<sla-link-example></sla-link-example>'
   })
 };

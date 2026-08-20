@@ -5,6 +5,7 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
@@ -19,7 +20,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './toggle-button.scss.js';
+import styles from './toggle-button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -90,6 +91,18 @@ export class ToggleButton extends ForwardAriaMixin(
   /** @internal True when the user has slotted text in the button. */
   @state() hasText?: boolean;
 
+  /** @internal Whether the button shows only an icon. */
+  @cssState()
+  get iconOnly(): boolean {
+    return !this.hasText && (!!this.defaultIcon || !!this.pressedIcon);
+  }
+
+  /** @internal Whether the button shows only text. */
+  @cssState()
+  get textOnly(): boolean {
+    return !!this.hasText && !this.defaultIcon && !this.pressedIcon;
+  }
+
   /**
    * The pressed state of the button.
    *
@@ -117,18 +130,6 @@ export class ToggleButton extends ForwardAriaMixin(
   /** @internal Emits when the button has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  /** @internal Whether the button shows only an icon. */
-  @cssState()
-  get iconOnly(): boolean {
-    return !this.hasText && (!!this.defaultIcon || !!this.pressedIcon);
-  }
-
-  /** @internal Whether the button shows only text. */
-  @cssState()
-  get textOnly(): boolean {
-    return !!this.hasText && !this.defaultIcon && !this.pressedIcon;
-  }
-
   /** The tooltip text for the button. */
   @property() tooltip?: string;
 
@@ -137,7 +138,7 @@ export class ToggleButton extends ForwardAriaMixin(
 
     this.setProxyTarget(this.button);
 
-    if (import.meta.env?.DEV) {
+    if (isDevMode()) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
         this.elementInternals.states.delete('error');
@@ -193,13 +194,15 @@ export class ToggleButton extends ForwardAriaMixin(
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </button>
-      ${this.tooltip
-        ? html`
-            <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
-              ${this.tooltip}
-            </sl-tooltip>
-          `
-        : nothing}
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
+                ${this.tooltip}
+              </sl-tooltip>
+            `
+          : nothing
+      }
     `;
   }
 

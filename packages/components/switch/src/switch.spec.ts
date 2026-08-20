@@ -8,7 +8,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { Switch } from './switch.js';
 
 /** Returns the horizontal center of the given element. */
@@ -228,6 +228,28 @@ describe('sl-switch', () => {
 
       expect(el.checked).not.to.be.true;
       expect(input).not.to.match(':checked');
+    });
+
+    it('should not cancel a click on a link inside the infotip', async () => {
+      const link = document.createElement('a');
+      link.href = 'https://example.com';
+      link.textContent = 'Read how we use your data';
+      el.querySelector('sl-infotip')!.append(link);
+      await el.updateComplete;
+
+      // The host is above the wrapper in the propagation path, so by the time this runs the
+      // wrapper has had its say. Cancel here so the link does not actually navigate.
+      let cancelled: boolean | undefined;
+      el.addEventListener('click', (event: MouseEvent) => {
+        cancelled = event.defaultPrevented;
+        event.preventDefault();
+      });
+
+      link.click();
+      await el.updateComplete;
+
+      expect(cancelled).to.be.false;
+      expect(el.checked).not.to.be.true;
     });
 
     it('should not toggle when clicking the infotip button', async () => {
@@ -729,6 +751,90 @@ describe('sl-switch', () => {
       );
     });
 
+    it('should describe the input when the switch has an aria-label', async () => {
+      const withAriaLabel = await fixture<Switch>(
+        html`<sl-switch aria-label="Dark mode" tooltip="Toggle dark mode"></sl-switch>`
+      );
+      await withAriaLabel.updateComplete;
+
+      const tooltipEl = withAriaLabel.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = withAriaLabel.renderRoot.querySelector('input')!;
+
+      expect(inputEl).to.have.attribute('aria-label', 'Dark mode');
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should keep describing the input when the switch rerenders', async () => {
+      const withAriaLabel = await fixture<Switch>(
+        html`<sl-switch aria-label="Dark mode" tooltip="Toggle dark mode"></sl-switch>`
+      );
+      await withAriaLabel.updateComplete;
+
+      // `ForwardAriaMixin` has moved the aria-label to the input by now.
+      expect(withAriaLabel).not.to.have.attribute('aria-label');
+
+      withAriaLabel.toggle();
+      await withAriaLabel.updateComplete;
+
+      const tooltipEl = withAriaLabel.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = withAriaLabel.renderRoot.querySelector('input')!;
+
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should describe the input when the switch is labelled by another element', async () => {
+      const wrapper = await fixture<HTMLElement>(html`
+        <div>
+          <span id="external-label">Dark mode</span>
+          <sl-switch aria-labelledby="external-label" tooltip="Toggle dark mode"></sl-switch>
+        </div>
+      `);
+
+      const labelledSwitch = wrapper.querySelector<Switch>('sl-switch')!;
+      await labelledSwitch.updateComplete;
+
+      const tooltipEl = labelledSwitch.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = labelledSwitch.renderRoot.querySelector('input')!;
+
+      expect(inputEl.ariaLabelledByElements).to.include(wrapper.querySelector('#external-label'));
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
+    it('should describe the input when the switch is labelled by an sl-form-field', async () => {
+      const formField = await fixture<HTMLElement>(html`
+        <sl-form-field label="Dark mode">
+          <sl-switch tooltip="Toggle dark mode"></sl-switch>
+        </sl-form-field>
+      `);
+
+      const fieldSwitch = formField.querySelector<Switch>('sl-switch')!;
+      await fieldSwitch.updateComplete;
+
+      // The `<sl-label>` sets `data-label-id` after the switch has rendered.
+      expect(fieldSwitch).to.have.attribute('data-label-id');
+      await fieldSwitch.updateComplete;
+
+      const tooltipEl = fieldSwitch.renderRoot.querySelector('sl-tooltip')!;
+      await tooltipEl.updateComplete;
+
+      const inputEl = fieldSwitch.renderRoot.querySelector('input')!;
+      expect(tooltipEl.type).to.equal('description');
+      expect(inputEl.ariaDescribedByElements).to.include(tooltipEl);
+      expect(inputEl.ariaLabelledByElements ?? []).not.to.include(tooltipEl);
+    });
+
     it('should label the input when the switch has no label', async () => {
       const withoutLabel = await fixture<Switch>(
         html`<sl-switch tooltip="Toggle dark mode"></sl-switch>`
@@ -745,17 +851,30 @@ describe('sl-switch', () => {
       expect(inputEl.ariaDescribedByElements ?? []).not.to.include(tooltipEl);
     });
 
-    it('should center the tooltip on the entire switch when hovering', async () => {
+    it('should center the tooltip on the label when hovering it', async () => {
+      el.renderRoot
+        .querySelector('[part="label"]')!
+        .dispatchEvent(new Event('mouseover', { bubbles: true }));
+      await waitFor(Tooltip.hoverShowDelay + 50);
+
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]')!;
+
+      expect(tooltip).to.match(':popover-open');
+      expect(tooltip.anchor).to.equal(wrapper);
+      expect(center(tooltip)).to.be.closeTo(center(wrapper), 1);
+    });
+
+    it('should center the tooltip on the toggle when hovering it', async () => {
       el.renderRoot
         .querySelector('[part="track"]')!
         .dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 50);
 
-      const container = el.renderRoot.querySelector('[part="container"]')!;
+      const toggle = el.renderRoot.querySelector('[part="toggle"]')!;
 
       expect(tooltip).to.match(':popover-open');
-      expect(tooltip.anchor).to.equal(container);
-      expect(center(tooltip)).to.be.closeTo(center(container), 1);
+      expect(tooltip.anchor).to.equal(toggle);
+      expect(center(tooltip)).to.be.closeTo(center(toggle), 1);
     });
 
     it('should center the tooltip on the toggle when it has focus', async () => {
@@ -806,10 +925,10 @@ describe('sl-switch', () => {
         .dispatchEvent(new Event('mouseover', { bubbles: true }));
       await waitFor(Tooltip.hoverShowDelay + 50);
 
-      const secondContainer = second.renderRoot.querySelector('[part="container"]')!;
+      const secondToggle = second.renderRoot.querySelector('[part="toggle"]')!;
 
       expect(secondTooltip).to.match(':popover-open');
-      expect(center(secondTooltip)).to.be.closeTo(center(secondContainer), 1);
+      expect(center(secondTooltip)).to.be.closeTo(center(secondToggle), 1);
     });
   });
 

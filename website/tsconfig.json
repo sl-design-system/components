@@ -5,6 +5,7 @@
     "emitDeclarationOnly": false
   },
   "include": [
+    "../vite-env.d.ts",
     "src/**/*.ts"
   ]
 }

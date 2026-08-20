@@ -13,7 +13,7 @@ import {
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './button.scss.js';
+import styles from './button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -206,13 +206,15 @@ export class Button extends ForwardAriaMixin(
         type="button">
         <slot></slot>
       </button>
-      ${this.tooltip
-        ? html`
-            <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
-              ${this.tooltip}
-            </sl-tooltip>
-          `
-        : nothing}
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
+                ${this.tooltip}
+              </sl-tooltip>
+            `
+          : nothing
+      }
     `;
   }
 

@@ -8,7 +8,7 @@ import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { type Switch } from './switch.js';
 
 type Props = Pick<
@@ -70,30 +70,34 @@ export default {
     tooltip,
     value
   }) => html`
-    ${styles
-      ? html`
-          <style>
-            ${styles()}
-          </style>
-        `
-      : nothing}
-    ${component
-      ? component()
-      : html`
-          <sl-switch
-            ?checked=${checked}
-            ?disabled=${disabled}
-            icon-off=${ifDefined(iconOff)}
-            icon-on=${ifDefined(iconOn)}
-            id="switch"
-            ?reverse=${reverse}
-            size=${ifDefined(size)}
-            tooltip=${ifDefined(tooltip)}
-            .value=${value}>
-            ${label} ${description ? html`<div slot="description">${description}</div>` : nothing}
-            ${infotip ? html`<sl-infotip slot="infotip">${infotip()}</sl-infotip>` : nothing}
-          </sl-switch>
-        `}
+    ${
+      styles
+        ? html`
+            <style>
+              ${styles()}
+            </style>
+          `
+        : nothing
+    }
+    ${
+      component
+        ? component()
+        : html`
+            <sl-switch
+              ?checked=${checked}
+              ?disabled=${disabled}
+              icon-off=${ifDefined(iconOff)}
+              icon-on=${ifDefined(iconOn)}
+              id="switch"
+              ?reverse=${reverse}
+              size=${ifDefined(size)}
+              tooltip=${ifDefined(tooltip)}
+              .value=${value}>
+              ${label} ${description ? html`<div slot="description">${description}</div>` : nothing}
+              ${infotip ? html`<sl-infotip slot="infotip">${infotip()}</sl-infotip>` : nothing}
+            </sl-switch>
+          `
+    }
   `
 } satisfies Meta<Props>;
 
@@ -138,15 +142,15 @@ export const AriaDisabled: Story = {
 
 export const Icons: Story = {
   args: {
-    iconOff: 'fas-sun-bright',
-    iconOn: 'fas-moon-stars',
-    label: '',
-    styles: () => `
-      sl-switch {
-        width: fit-content;
-      }
-    `,
-    tooltip: 'Click to toggle between light and dark mode.'
+    component: () => html`
+      <sl-switch
+        aria-label="Dark mode"
+        icon-off="fas-sun-bright"
+        icon-on="fas-moon-stars"
+        style="width: fit-content;"
+        tooltip="Click to toggle between light and dark mode.">
+      </sl-switch>
+    `
   }
 };
 

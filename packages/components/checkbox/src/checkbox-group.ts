@@ -22,7 +22,7 @@ import {
   html
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './checkbox-group.scss.js';
+import styles from './checkbox-group.css' with { type: 'css' };
 import { Checkbox, type CheckboxSize } from './checkbox.js';
 
 declare global {

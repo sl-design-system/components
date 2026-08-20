@@ -32,7 +32,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './time-field.scss.js';
+import styles from './time-field.css' with { type: 'css' };
 import {
   type DateFormatPart,
   type PartialTimePart,
@@ -47,6 +47,10 @@ declare global {
     'sl-time-field': TimeField;
   }
 }
+
+export type TimeFieldShape = 'rect' | 'pill';
+
+export type TimeFieldSize = 'md' | 'lg';
 
 type TimePartType = 'hour' | 'minute';
 
@@ -193,6 +197,20 @@ export class TimeField extends LocaleMixin(
   @state() selectAll?: boolean;
 
   /**
+   * The shape of the time field.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: TimeFieldShape;
+
+  /**
+   * The size of the time field.
+   *
+   * @default 'md'
+   */
+  @property({ reflect: true }) size?: TimeFieldSize;
+
+  /**
    * Whether the component is select only. This means you cannot type in the inputs, but you can
    * still pick a time via the popover.
    *
@@ -320,37 +338,41 @@ export class TimeField extends LocaleMixin(
     return html`
       <div class="field">
         <div class="wrapper">
-          ${this.selectAll
-            ? html`
-                <span
-                  @blur=${this.#onSelectAllBlur}
-                  @keydown=${this.#onSelectAllKeydown}
-                  @mousedown=${this.#onSelectAllMouseDown}
-                  @beforeinput=${(event: InputEvent) => event.preventDefault()}
-                  @paste=${(event: ClipboardEvent) => event.preventDefault()}
-                  @drop=${(event: DragEvent) => event.preventDefault()}
-                  class="select-all"
-                  contenteditable="plaintext-only"
-                  >${this.#getFormattedValue()}</span
-                >
-              `
-            : html`
-                <div class="parts">
-                  ${parts.map(part => {
-                    const index = part.type === 'literal' ? -1 : timePartIndex++;
-                    return this.renderPart(part, locale, index);
-                  })}
-                </div>
-                ${this.placeholder
-                  ? html`
-                      <div
-                        aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
-                        class="placeholder">
-                        ${this.placeholder}
-                      </div>
-                    `
-                  : nothing}
-              `}
+          ${
+            this.selectAll
+              ? html`
+                  <span
+                    @blur=${this.#onSelectAllBlur}
+                    @keydown=${this.#onSelectAllKeydown}
+                    @mousedown=${this.#onSelectAllMouseDown}
+                    @beforeinput=${(event: InputEvent) => event.preventDefault()}
+                    @paste=${(event: ClipboardEvent) => event.preventDefault()}
+                    @drop=${(event: DragEvent) => event.preventDefault()}
+                    class="select-all"
+                    contenteditable="plaintext-only"
+                    >${this.#getFormattedValue()}</span
+                  >
+                `
+              : html`
+                  <div class="parts">
+                    ${parts.map(part => {
+                      const index = part.type === 'literal' ? -1 : timePartIndex++;
+                      return this.renderPart(part, locale, index);
+                    })}
+                  </div>
+                  ${
+                    this.placeholder
+                      ? html`
+                          <div
+                            aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
+                            class="placeholder">
+                            ${this.placeholder}
+                          </div>
+                        `
+                      : nothing
+                  }
+                `
+          }
         </div>
         <sl-field-button
           @click=${this.#onButtonClick}
@@ -359,6 +381,7 @@ export class TimeField extends LocaleMixin(
           aria-expanded=${this.dialog && isPopoverOpen(this.dialog) ? 'true' : 'false'}
           aria-haspopup="dialog"
           aria-label=${msg('Select time', { id: 'sl.timeField.toggleDropdown' })}
+          size=${ifDefined(this.size)}
           tabindex=${this.disabled || this.readonly ? '-1' : '0'}>
           <sl-icon name="clock"></sl-icon>
         </sl-field-button>

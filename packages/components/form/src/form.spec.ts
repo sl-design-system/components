@@ -273,6 +273,55 @@ describe('sl-form', () => {
       expect(textField?.showValidity).to.be.undefined;
     });
 
+    it('should validate empty required values on blur when touched and then cleared', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Code">
+            <sl-text-field name="code" required></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.validateOnBlur).to.be.true;
+      expect(el.controls).to.have.length(1);
+
+      const textField = el.controls[0] as TextField,
+        input = textField.formControlElement as HTMLInputElement,
+        reportValiditySpy = spy(textField, 'reportValidity');
+
+      // User enters value
+      input.value = 'something';
+      input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      textField.updateState({ dirty: true, touched: true });
+      textField.updateValidity();
+      await textField.updateComplete;
+
+      expect(textField.dirty).to.be.true;
+      expect(textField.formValue).to.equal('something');
+
+      // User clears the value
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      textField.updateValidity();
+      await textField.updateComplete;
+
+      expect(textField.formValue).to.equal('');
+      expect(textField.dirty).to.be.true;
+      expect(textField.validity.valueMissing).to.be.true;
+
+      reportValiditySpy.resetHistory();
+      textField.dispatchEvent(new CustomEvent('sl-blur', { bubbles: true, composed: true }));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField.updateComplete;
+
+      // Should validate on blur because the field was touched/dirty
+      expect(reportValiditySpy).to.have.been.calledOnce;
+      expect(textField.showValidity).to.equal('invalid');
+    });
+
     it('should still validate empty required values on submit when opt-in is enabled', async () => {
       el = await fixture(html`
         <sl-form validate-on-blur>

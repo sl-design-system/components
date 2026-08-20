@@ -221,11 +221,22 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
       return;
     }
 
-    const shouldValidateOnBlur = Boolean(control.dirty) && !this.#isEmptyValue(control.formValue);
+    const isDirty = Boolean(control.dirty);
+    const isEmpty = this.#isEmptyValue(control.formValue);
     const { validity } = control;
-    const hasIndependentInvalidState = !control.valid && !validity.valueMissing;
 
-    if (!shouldValidateOnBlur || !hasIndependentInvalidState) {
+    // Should validate on blur if the field is dirty (touched/modified)
+    if (!isDirty) {
+      return;
+    }
+
+    // Show validation if:
+    // 1. There's a format/validation error (not just "valueMissing"), OR
+    // 2. It's a required field that's now empty (was touched but then cleared)
+    const hasFormatError = !control.valid && !validity.valueMissing;
+    const isRequiredAndEmpty = control.required && isEmpty;
+
+    if (!hasFormatError && !isRequiredAndEmpty) {
       return;
     }
 

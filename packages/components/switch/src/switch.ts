@@ -187,10 +187,12 @@ export class Switch<T = any> extends ForwardAriaMixin(
     super.disconnectedCallback();
   }
 
+  /** @internal */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
+  /** @internal */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.formValue);

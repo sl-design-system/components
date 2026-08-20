@@ -9,7 +9,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormControl } from './form-control-mixin.js';
-import styles from './label.scss.js';
+import styles from './label.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -168,20 +168,24 @@ export class Label extends LitElement {
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
       <slot name="infotip"></slot>
-      ${this.mark === 'optional' && !this.required
-        ? html`
-            <span class="optional">
-              (${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})
-            </span>
-          `
-        : nothing}
-      ${this.mark === 'required' && this.required
-        ? html`
-            <span class="required">
-              (${msg('required', { id: 'sl.form.requiredLabelIndicator' })})
-            </span>
-          `
-        : nothing}
+      ${
+        this.mark === 'optional' && !this.required
+          ? html`
+              <span class="optional">
+                (${msg('optional', { id: 'sl.form.optionalLabelIndicator' })})
+              </span>
+            `
+          : nothing
+      }
+      ${
+        this.mark === 'required' && this.required
+          ? html`
+              <span class="required">
+                (${msg('required', { id: 'sl.form.requiredLabelIndicator' })})
+              </span>
+            `
+          : nothing
+      }
     `;
   }
 

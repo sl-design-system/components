@@ -16,8 +16,8 @@ import '@sl-design-system/time-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Form } from './form.js';
+import './register.js';
 
 type Props = Pick<Form, 'disabled' | 'value'> & {
   buttons?(): TemplateResult;
@@ -101,41 +101,43 @@ const renderAllFields = (
         step-buttons="end"></sl-number-field>
     </sl-form-field>
 
-    ${isPill
-      ? nothing
-      : html`
-          <sl-form-field hint="Hint text" label="Text area">
-            <sl-text-area
-              ?disabled=${disabled}
-              name="textArea"
-              placeholder="Placeholder"
-              required
-              size=${ifDefined(size)}></sl-text-area>
-          </sl-form-field>
+    ${
+      isPill
+        ? nothing
+        : html`
+            <sl-form-field hint="Hint text" label="Text area">
+              <sl-text-area
+                ?disabled=${disabled}
+                name="textArea"
+                placeholder="Placeholder"
+                required
+                size=${ifDefined(size)}></sl-text-area>
+            </sl-form-field>
 
-          <sl-form-field hint="Hint text" label="Checkbox">
-            <sl-checkbox
-              ?disabled=${disabled}
-              name="checkbox"
-              required
-              size=${ifDefined(size)}
-              value="checked"
-              >Checkbox</sl-checkbox
-            >
-          </sl-form-field>
+            <sl-form-field hint="Hint text" label="Checkbox">
+              <sl-checkbox
+                ?disabled=${disabled}
+                name="checkbox"
+                required
+                size=${ifDefined(size)}
+                value="checked"
+                >Checkbox</sl-checkbox
+              >
+            </sl-form-field>
 
-          <sl-form-field hint="Hint text" label="Checkbox group">
-            <sl-checkbox-group
-              ?disabled=${disabled}
-              name="checkboxGroup"
-              required
-              size=${ifDefined(size)}>
-              <sl-checkbox value="0">Check me</sl-checkbox>
-              <sl-checkbox value="1">No me</sl-checkbox>
-              <sl-checkbox value="2">I was here first</sl-checkbox>
-            </sl-checkbox-group>
-          </sl-form-field>
-        `}
+            <sl-form-field hint="Hint text" label="Checkbox group">
+              <sl-checkbox-group
+                ?disabled=${disabled}
+                name="checkboxGroup"
+                required
+                size=${ifDefined(size)}>
+                <sl-checkbox value="0">Check me</sl-checkbox>
+                <sl-checkbox value="1">No me</sl-checkbox>
+                <sl-checkbox value="2">I was here first</sl-checkbox>
+              </sl-checkbox-group>
+            </sl-form-field>
+          `
+    }
 
     <sl-form-field hint="Hint text" label="Combobox single">
       <sl-combobox
@@ -172,21 +174,23 @@ const renderAllFields = (
       </sl-combobox>
     </sl-form-field>
 
-    ${isPill
-      ? nothing
-      : html`
-          <sl-form-field hint="Hint text" label="Radio group">
-            <sl-radio-group
-              ?disabled=${disabled}
-              name="radioGroup"
-              required
-              size=${ifDefined(size)}>
-              <sl-radio value="1">One</sl-radio>
-              <sl-radio value="2">Two</sl-radio>
-              <sl-radio value="3">Three</sl-radio>
-            </sl-radio-group>
-          </sl-form-field>
-        `}
+    ${
+      isPill
+        ? nothing
+        : html`
+            <sl-form-field hint="Hint text" label="Radio group">
+              <sl-radio-group
+                ?disabled=${disabled}
+                name="radioGroup"
+                required
+                size=${ifDefined(size)}>
+                <sl-radio value="1">One</sl-radio>
+                <sl-radio value="2">Two</sl-radio>
+                <sl-radio value="3">Three</sl-radio>
+              </sl-radio-group>
+            </sl-form-field>
+          `
+    }
 
     <sl-form-field hint="Hint text" label="Select">
       <sl-select
@@ -202,20 +206,22 @@ const renderAllFields = (
       </sl-select>
     </sl-form-field>
 
-    ${isPill
-      ? nothing
-      : html`
-          <sl-form-field hint="Hint text" label="Switch">
-            <sl-switch
-              ?disabled=${disabled}
-              name="switch"
-              reverse
-              size=${ifDefined(size)}
-              value="toggled"
-              >Toggle me</sl-switch
-            >
-          </sl-form-field>
-        `}
+    ${
+      isPill
+        ? nothing
+        : html`
+            <sl-form-field hint="Hint text" label="Switch">
+              <sl-switch
+                ?disabled=${disabled}
+                name="switch"
+                reverse
+                size=${ifDefined(size)}
+                value="toggled"
+                >Toggle me</sl-switch
+              >
+            </sl-form-field>
+          `
+    }
   `;
 };
 
@@ -272,12 +278,14 @@ export default {
         .value=${value}>
         ${fields(args)}
         <sl-button-bar>
-          ${buttons?.() ??
-          html`
-            <sl-button @click=${onToggle}>Toggle</sl-button>
-            ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-            <sl-button @click=${onReport} variant="primary">Report</sl-button>
-          `}
+          ${
+            buttons?.() ??
+            html`
+              <sl-button @click=${onToggle}>Toggle</sl-button>
+              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
+              <sl-button @click=${onReport} variant="primary">Report</sl-button>
+            `
+          }
         </sl-button-bar>
       </sl-form>
       <pre>${JSON.stringify(value, null, 2)}</pre>

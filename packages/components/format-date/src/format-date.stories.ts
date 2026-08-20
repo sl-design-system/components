@@ -1,8 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type FormatDate } from './format-date.js';
+import './register.js';
 
 type Props = Pick<
   FormatDate,

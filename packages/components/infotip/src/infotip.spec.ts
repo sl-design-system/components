@@ -8,8 +8,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { Infotip } from './infotip.js';
+import './register.js';
 
 describe('sl-infotip', () => {
   let el: Infotip, button: Button, popover: Popover;

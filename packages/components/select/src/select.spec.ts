@@ -10,10 +10,10 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Listbox, Option, OptionGroup } from '../index.js';
-import '../register.js';
+import './register.js';
 import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
+import { Listbox, Option, OptionGroup } from './index.js';
 
 describe('sl-select', () => {
   it('should export and register listbox option components', () => {
@@ -1163,11 +1163,11 @@ describe('sl-select', () => {
           }
         });
 
-        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+        window.requestAnimationFrame = (callback: FrameRequestCallback) => {
           frameCallbacks.push(callback);
 
           return frameCallbacks.length;
-        }) as typeof window.requestAnimationFrame;
+        };
 
         const option = el.querySelector('sl-option[value="1"]')!;
         option.textContent = 'Update 1';
@@ -1291,11 +1291,11 @@ describe('sl-select', () => {
           }
         });
 
-        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+        window.requestAnimationFrame = (callback: FrameRequestCallback) => {
           frameCallbacks.push(callback);
 
           return frameCallbacks.length;
-        }) as typeof window.requestAnimationFrame;
+        };
 
         const option = el.querySelector('sl-option[value="apple"]')!;
         option.setAttribute('value', 'green-apple');

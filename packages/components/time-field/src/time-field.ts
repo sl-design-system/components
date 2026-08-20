@@ -29,7 +29,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './time-field.scss.js';
+import styles from './time-field.css' with { type: 'css' };
 import {
   type DateFormatPart,
   type PartialTimePart,
@@ -350,37 +350,41 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     return html`
       <div class="field">
         <div class="wrapper">
-          ${this.selectAll
-            ? html`
-                <span
-                  @blur=${this.#onSelectAllBlur}
-                  @keydown=${this.#onSelectAllKeydown}
-                  @mousedown=${this.#onSelectAllMouseDown}
-                  @beforeinput=${(event: InputEvent) => event.preventDefault()}
-                  @paste=${(event: ClipboardEvent) => event.preventDefault()}
-                  @drop=${(event: DragEvent) => event.preventDefault()}
-                  class="select-all"
-                  contenteditable="plaintext-only"
-                  >${this.#getFormattedValue()}</span
-                >
-              `
-            : html`
-                <div class="parts">
-                  ${parts.map(part => {
-                    const index = part.type === 'literal' ? -1 : timePartIndex++;
-                    return this.renderPart(part, locale, index);
-                  })}
-                </div>
-                ${this.placeholder
-                  ? html`
-                      <div
-                        aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
-                        class="placeholder">
-                        ${this.placeholder}
-                      </div>
-                    `
-                  : nothing}
-              `}
+          ${
+            this.selectAll
+              ? html`
+                  <span
+                    @blur=${this.#onSelectAllBlur}
+                    @keydown=${this.#onSelectAllKeydown}
+                    @mousedown=${this.#onSelectAllMouseDown}
+                    @beforeinput=${(event: InputEvent) => event.preventDefault()}
+                    @paste=${(event: ClipboardEvent) => event.preventDefault()}
+                    @drop=${(event: DragEvent) => event.preventDefault()}
+                    class="select-all"
+                    contenteditable="plaintext-only"
+                    >${this.#getFormattedValue()}</span
+                  >
+                `
+              : html`
+                  <div class="parts">
+                    ${parts.map(part => {
+                      const index = part.type === 'literal' ? -1 : timePartIndex++;
+                      return this.renderPart(part, locale, index);
+                    })}
+                  </div>
+                  ${
+                    this.placeholder
+                      ? html`
+                          <div
+                            aria-hidden=${ifDefined(this.placeholderShown ? undefined : 'true')}
+                            class="placeholder">
+                            ${this.placeholder}
+                          </div>
+                        `
+                      : nothing
+                  }
+                `
+          }
         </div>
         <sl-field-button
           @click=${this.#onButtonClick}

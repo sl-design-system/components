@@ -4,8 +4,8 @@ import '@sl-design-system/button-bar/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { InlineMessage, type InlineMessageVariant } from './inline-message';
+import './register.js';
 
 interface Props extends Pick<InlineMessage, 'indismissible' | 'size' | 'variant'> {
   title: string;

@@ -1,10 +1,18 @@
+import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  plugins: [importCssSheet()],
   test: {
-    onConsoleLog: log => !(log.startsWith('Lit is in dev mode') || log === 'null'),
+    onConsoleLog: log => {
+      return !(
+        log === 'null' ||
+        log == '[Error: ResizeObserver loop completed with undelivered notifications.]' ||
+        log.startsWith('Lit is in dev mode')
+      );
+    },
     projects: [
       {
         extends: true,
@@ -37,11 +45,7 @@ export default defineConfig({
                 reducedMotion: 'reduce'
               }
             }),
-            instances: [
-              {
-                browser: 'chromium'
-              }
-            ],
+            instances: [{ browser: 'chromium' }],
             viewport: { width: 1024, height: 768 }
           },
           setupFiles: 'vitest.setup.ts'

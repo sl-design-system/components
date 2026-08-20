@@ -5,8 +5,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { DateField } from './date-field.js';
+import './register.js';
 
 describe('sl-date-field', () => {
   let el: DateField;

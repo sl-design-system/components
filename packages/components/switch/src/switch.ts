@@ -25,7 +25,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './switch.scss.js';
+import styles from './switch.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

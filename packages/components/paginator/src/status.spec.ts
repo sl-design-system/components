@@ -3,7 +3,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
+import './register.js';
 import { PaginatorStatus } from './status.js';
 
 describe('sl-paginator-status', () => {

@@ -22,7 +22,7 @@ import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { TreeDataSource, type TreeDataSourceNode } from './tree-data-source.js';
 import { TreeNode } from './tree-node.js';
-import styles from './tree.scss.js';
+import styles from './tree.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -171,8 +171,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         style="block-size: ${virtualizer.getTotalSize()}px">
         <div
           class="starter"
-          style="translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px">
+          style="translate: 0px ${
+            (virtualItems[0]?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)
+          }px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -196,7 +197,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   @keydown=${this.#onKeydown}
                   data-index=${virtualItem.index}
                   ${
-                    ref(virtualizer.measureElement as RefOrCallback<Element>) /* must be *after* data-index */
+                    ref(
+                      virtualizer.measureElement as RefOrCallback<Element>
+                    ) /* must be *after* data-index */
                   }
                   ?expandable=${item.expandable}
                   ?expanded=${item.expanded}
@@ -216,20 +219,24 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
                   aria-label=${item.label}
                   aria-level=${item.level + 1}
                   aria-owns=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
-                  aria-posinset=${item.parent?.children
-                    ? (item.parent.children?.indexOf(item) ?? -1) + 1
-                    : (this.dataSource?.nodes.indexOf(item) ?? -1) + 1}
+                  aria-posinset=${
+                    item.parent?.children
+                      ? (item.parent.children?.indexOf(item) ?? -1) + 1
+                      : (this.dataSource?.nodes.indexOf(item) ?? -1) + 1
+                  }
                   aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
                   aria-setsize=${ifDefined(
                     item.parent ? item.parent.children?.length : this.dataSource?.size
                   )}
                   id=${item.id}
                   tabindex=${virtualItem.index === this.#indexOfFocusedNode ? '0' : '-1'}>
-                  ${this.renderer?.(item) ??
-                  html`
-                    ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-                    <span>${item.label}</span>
-                  `}
+                  ${
+                    this.renderer?.(item) ??
+                    html`
+                      ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+                      <span>${item.label}</span>
+                    `
+                  }
                 </sl-tree-node>
               `;
             }

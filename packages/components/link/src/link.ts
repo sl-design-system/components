@@ -13,7 +13,7 @@ import {
   nothing
 } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import styles from './link.scss.js';
+import styles from './link.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -159,14 +159,16 @@ export class Link extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange}></slot>
-      ${!(this.noIcon && this.linkType === 'internal')
-        ? html`
-            <sl-icon
-              .name=${this.#indicatorIcon}
-              part="icon"
-              .size=${this.size === 'sm' ? 'sm' : undefined}></sl-icon>
-          `
-        : nothing}
+      ${
+        !(this.noIcon && this.linkType === 'internal')
+          ? html`
+              <sl-icon
+                .name=${this.#indicatorIcon}
+                part="icon"
+                .size=${this.size === 'sm' ? 'sm' : undefined}></sl-icon>
+            `
+          : nothing
+      }
     `;
   }
 

@@ -12,7 +12,7 @@ import { Switch } from '@sl-design-system/switch';
 import { TextArea } from '@sl-design-system/text-area';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './composite-form.scss.js';
+import styles from './composite-form.css' with { type: 'css' };
 
 export class CompositeForm extends ScopedElementsMixin(LitElement) {
   /** @internal */

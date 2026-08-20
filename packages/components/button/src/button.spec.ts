@@ -11,8 +11,8 @@ import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { Button, type ButtonType } from './button.js';
+import './register.js';
 
 describe('sl-button', () => {
   let el: Button, button: HTMLButtonElement;
@@ -620,9 +620,7 @@ describe('sl-button', () => {
       it('should set ariaLabelledByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-labelledby="nonexistent">Click me</sl-button>`);
 
-        expect(
-          getForwardedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)
-        ).to.deep.equal([]);
+        expect(getForwardedAriaProperty(el, 'ariaLabelledByElements')).to.deep.equal([]);
       });
     });
 
@@ -649,9 +647,7 @@ describe('sl-button', () => {
       it('should set ariaDescribedByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-describedby="nonexistent">Click me</sl-button>`);
 
-        expect(
-          getForwardedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)
-        ).to.deep.equal([]);
+        expect(getForwardedAriaProperty(el, 'ariaDescribedByElements')).to.deep.equal([]);
       });
     });
   });

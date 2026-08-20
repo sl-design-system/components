@@ -6,8 +6,8 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { RadioGroup } from './radio-group.js';
+import './register.js';
 
 describe('sl-radio-group', () => {
   let el: RadioGroup;

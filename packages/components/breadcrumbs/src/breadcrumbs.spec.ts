@@ -2,8 +2,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { page } from 'vitest/browser';
-import '../register.js';
 import { Breadcrumbs } from './breadcrumbs.js';
+import './register.js';
 
 describe('sl-breadcrumbs', () => {
   let el: Breadcrumbs;

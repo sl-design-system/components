@@ -51,7 +51,7 @@ describe('sl-radio', () => {
       expect(descriptionEl).to.exist;
       expect(descriptionEl?.textContent).to.equal('Helper text');
       const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
-      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl);
     });
 
     it('should set description from slot', async () => {
@@ -68,7 +68,7 @@ describe('sl-radio', () => {
       const descriptionEl = el.querySelector('[slot="description"]');
       expect(descriptionEl).to.exist;
       const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
-      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl);
     });
 
     it('should prefer slotted description over property fallback', async () => {
@@ -85,7 +85,7 @@ describe('sl-radio', () => {
         wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
       expect(el.hasAttribute('has-description')).to.be.false;
       expect(el.querySelector('[slot="description"]')?.textContent).to.equal('');
-      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl);
     });
 
     it('should keep a tracked slotted description when property fallback changes', async () => {
@@ -168,7 +168,7 @@ describe('sl-radio', () => {
       expect(slottedEl).to.exist;
       expect(slottedEl?.getAttribute('aria-hidden')).to.equal('true');
       const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
-      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl);
 
       slottedEl?.remove();
       await el.updateComplete;
@@ -179,7 +179,7 @@ describe('sl-radio', () => {
       const synthesizedEl = el.querySelector('[slot="description"]');
       expect(synthesizedEl).to.exist;
       expect(synthesizedEl?.textContent).to.equal('Property fallback');
-      expect(wrapper?.ariaDescribedByElements).to.include(synthesizedEl as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).to.include(synthesizedEl);
     });
 
     it('should preserve external ariaDescribedByElements when description is added', async () => {
@@ -199,7 +199,7 @@ describe('sl-radio', () => {
 
       expect(wrapper.ariaDescribedByElements).to.include(external);
       const descriptionEl = el.querySelector('[slot="description"]');
-      expect(wrapper.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+      expect(wrapper.ariaDescribedByElements).to.include(descriptionEl);
 
       external.remove();
     });
@@ -254,9 +254,10 @@ describe('sl-radio', () => {
       expect(tooltipDescription).to.exist;
       expect(tooltipDescription?.localName).to.equal('span');
       expect(tooltipDescription?.textContent).to.equal('Tooltip information');
+      expect(tooltipDescription?.classList.contains('visually-hidden')).to.be.true;
       const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
-      expect(wrapper?.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
-      expect(wrapper?.ariaDescribedByElements).not.to.include(tooltip as HTMLElement);
+      expect(wrapper?.ariaDescribedByElements).to.include(tooltipDescription);
+      expect(wrapper?.ariaDescribedByElements).not.to.include(tooltip);
     });
   });
 

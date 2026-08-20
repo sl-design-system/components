@@ -188,7 +188,7 @@
   margin-block-start: var(--sl-size-050);
 }
 
-slot[name='tooltip-description'] {
+slot[name='tooltip-description']::slotted(.visually-hidden) {
   block-size: 1px;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);

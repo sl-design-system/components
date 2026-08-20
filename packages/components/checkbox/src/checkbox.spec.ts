@@ -112,7 +112,7 @@ describe('sl-checkbox', () => {
       const descriptionEl = el.querySelector('[slot="description"]');
       expect(descriptionEl).to.exist;
       expect(descriptionEl?.textContent).to.equal('Helper text');
-      expect(el.input.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+      expect(el.input.ariaDescribedByElements).to.include(descriptionEl);
     });
 
     it('should set description from slot', async () => {
@@ -128,7 +128,7 @@ describe('sl-checkbox', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
       const descriptionEl = el.querySelector('[slot="description"]');
       expect(descriptionEl).to.exist;
-      expect(el.input.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+      expect(el.input.ariaDescribedByElements).to.include(descriptionEl);
     });
 
     it('should prefer slotted description over property fallback', async () => {
@@ -144,7 +144,7 @@ describe('sl-checkbox', () => {
       const slottedEl = el.querySelector('span[slot="description"]');
       expect(el.hasAttribute('has-description')).to.be.false;
       expect(el.querySelector('[slot="description"]')?.textContent).to.equal('');
-      expect(el.input.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
+      expect(el.input.ariaDescribedByElements).to.include(slottedEl);
     });
 
     it('should keep a tracked slotted description when property fallback changes', async () => {
@@ -224,7 +224,7 @@ describe('sl-checkbox', () => {
       const slottedEl = el.querySelector('span[slot="description"]');
       expect(slottedEl).to.exist;
       expect(slottedEl?.getAttribute('aria-hidden')).to.equal('true');
-      expect(el.input.ariaDescribedByElements).to.include(slottedEl as HTMLElement);
+      expect(el.input.ariaDescribedByElements).to.include(slottedEl);
 
       slottedEl?.remove();
       await el.updateComplete;
@@ -235,7 +235,7 @@ describe('sl-checkbox', () => {
       const synthesizedEl = el.querySelector('[slot="description"]');
       expect(synthesizedEl).to.exist;
       expect(synthesizedEl?.textContent).to.equal('Property fallback');
-      expect(el.input.ariaDescribedByElements).to.include(synthesizedEl as HTMLElement);
+      expect(el.input.ariaDescribedByElements).to.include(synthesizedEl);
     });
 
     it('should preserve external ariaDescribedByElements when description is added', async () => {
@@ -255,7 +255,7 @@ describe('sl-checkbox', () => {
 
       expect(el.input.ariaDescribedByElements).to.include(external);
       const descriptionEl = el.querySelector('[slot="description"]');
-      expect(el.input.ariaDescribedByElements).to.include(descriptionEl as HTMLElement);
+      expect(el.input.ariaDescribedByElements).to.include(descriptionEl);
 
       external.remove();
     });
@@ -310,8 +310,9 @@ describe('sl-checkbox', () => {
       expect(tooltipDescription).to.exist;
       expect(tooltipDescription?.textContent).to.equal('Tooltip information');
       expect(tooltipDescription?.localName).to.equal('span');
-      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
-      expect(el.input.ariaDescribedByElements).not.to.include(tooltip as HTMLElement);
+      expect(tooltipDescription?.classList.contains('visually-hidden')).to.be.true;
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
+      expect(el.input.ariaDescribedByElements).not.to.include(tooltip);
     });
 
     it('should expose tooltip as the input description when inside a checkbox group', async () => {
@@ -328,7 +329,8 @@ describe('sl-checkbox', () => {
       const tooltipDescription = el.querySelector<HTMLElement>('[slot="tooltip-description"]');
       expect(tooltipDescription).to.exist;
       expect(tooltipDescription?.hasAttribute('aria-hidden')).to.be.false;
-      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription as HTMLElement);
+      expect(tooltipDescription?.classList.contains('visually-hidden')).to.be.true;
+      expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
       expect(el.input.getAttribute('aria-describedby')).to.contain(tooltipDescription?.id);
       expect(getForwardedDescription(el)).to.equal('Tooltip for option 1');
     });

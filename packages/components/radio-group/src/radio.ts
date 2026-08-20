@@ -279,17 +279,19 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       </div>
       <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
       <slot name="tooltip-description"></slot>
-      ${this.tooltip
-        ? html`
-            <sl-tooltip
-              for="wrapper"
-              part="tooltip"
-              style="position-area: right; position-try-fallbacks: flip-inline, top"
-              type="description">
-              ${this.tooltip}
-            </sl-tooltip>
-          `
-        : nothing}
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip
+                for="wrapper"
+                part="tooltip"
+                style="position-area: right; position-try-fallbacks: flip-inline, top"
+                type="description">
+                ${this.tooltip}
+              </sl-tooltip>
+            `
+          : nothing
+      }
     `;
   }
 
@@ -486,6 +488,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       this.#tooltipDescription = document.createElement('span');
       this.#tooltipDescription.id ||= `sl-radio-tooltip-description-${nextUniqueId++}`;
       this.#tooltipDescription.slot = 'tooltip-description';
+      this.#tooltipDescription.className = 'visually-hidden';
       this.append(this.#tooltipDescription);
     }
     if (this.#tooltipDescription.textContent !== tooltip) {

@@ -8,7 +8,7 @@ import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { type Switch } from './switch.js';
 
 type Props = Pick<
@@ -70,30 +70,34 @@ export default {
     tooltip,
     value
   }) => html`
-    ${styles
-      ? html`
-          <style>
-            ${styles()}
-          </style>
-        `
-      : nothing}
-    ${component
-      ? component()
-      : html`
-          <sl-switch
-            ?checked=${checked}
-            ?disabled=${disabled}
-            icon-off=${ifDefined(iconOff)}
-            icon-on=${ifDefined(iconOn)}
-            id="switch"
-            ?reverse=${reverse}
-            size=${ifDefined(size)}
-            tooltip=${ifDefined(tooltip)}
-            .value=${value}>
-            ${label} ${description ? html`<div slot="description">${description}</div>` : nothing}
-            ${infotip ? html`<sl-infotip slot="infotip">${infotip()}</sl-infotip>` : nothing}
-          </sl-switch>
-        `}
+    ${
+      styles
+        ? html`
+            <style>
+              ${styles()}
+            </style>
+          `
+        : nothing
+    }
+    ${
+      component
+        ? component()
+        : html`
+            <sl-switch
+              ?checked=${checked}
+              ?disabled=${disabled}
+              icon-off=${ifDefined(iconOff)}
+              icon-on=${ifDefined(iconOn)}
+              id="switch"
+              ?reverse=${reverse}
+              size=${ifDefined(size)}
+              tooltip=${ifDefined(tooltip)}
+              .value=${value}>
+              ${label} ${description ? html`<div slot="description">${description}</div>` : nothing}
+              ${infotip ? html`<sl-infotip slot="infotip">${infotip()}</sl-infotip>` : nothing}
+            </sl-switch>
+          `
+    }
   `
 } satisfies Meta<Props>;
 

@@ -23,7 +23,7 @@ import {
   nothing
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import styles from './switch.scss.js';
+import styles from './switch.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -294,25 +294,27 @@ export class Switch<T = any> extends ForwardAriaMixin(
             type="checkbox" />
           <div part="track">
             <div part="handle">
-              ${this.size === 'sm'
-                ? nothing
-                : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
+              ${
+                this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`
+              }
             </div>
           </div>
         </label>
       </div>
 
-      ${this.tooltip
-        ? html`
-            <sl-tooltip
-              for="wrapper toggle"
-              id="tooltip"
-              part="tooltip"
-              type=${hasName ? 'description' : 'label'}>
-              ${this.tooltip}
-            </sl-tooltip>
-          `
-        : nothing}
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip
+                for="wrapper toggle"
+                id="tooltip"
+                part="tooltip"
+                type=${hasName ? 'description' : 'label'}>
+                ${this.tooltip}
+              </sl-tooltip>
+            `
+          : nothing
+      }
     `;
   }
 

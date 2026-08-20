@@ -1,0 +1,57 @@
+{
+  "name": "@sl-design-system/link",
+  "version": "0.0.0",
+  "status": "draft",
+  "description": "Standalone link component for the SL Design System",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/index.js",
+      "./register.js": "./dist/register.js",
+      "./package.json": "./package.json"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/components/link"
+  },
+  "homepage": "https://sanomalearning.design/components/link",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "customElements": "custom-elements.json",
+  "exports": {
+    ".": "./src/index.ts",
+    "./register.js": "./src/register.ts",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.js.map",
+    "custom-elements.json"
+  ],
+  "sideEffects": [
+    "./src/register.ts",
+    "./dist/register.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "dependencies": {
+    "@sl-design-system/icon": "^1.4.2"
+  },
+  "devDependencies": {
+    "@lit/localize": "^0.12.2",
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.3.3"
+  },
+  "peerDependencies": {
+    "@lit/localize": "^0.12.2",
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.3.3"
+  }
+}

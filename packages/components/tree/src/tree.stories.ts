@@ -35,9 +35,9 @@ import '@sl-design-system/search-field/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
-import '../register.js';
 import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
+import './register.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
 
@@ -330,13 +330,15 @@ export default {
       onCollapseAll = () => dataSource?.collapseAll();
 
     return html`
-      ${styles
-        ? html`
-            <style>
-              ${styles}
-            </style>
-          `
-        : nothing}
+      ${
+        styles
+          ? html`
+              <style>
+                ${styles}
+              </style>
+            `
+          : nothing
+      }
       <sl-button-bar style="margin-block-end: 1rem">
         <sl-button @click=${onToggle}>Toggle selected</sl-button>
         <sl-button @click=${onToggleDescendants}>Toggle descendants</sl-button>

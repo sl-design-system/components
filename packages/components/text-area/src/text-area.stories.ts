@@ -1,7 +1,7 @@
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
-import '../register.js';
+import './register.js';
 import { type TextArea } from './text-area.js';
 
 type Props = Pick<
@@ -82,23 +82,25 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-text-area
-              ?disabled=${disabled}
-              ?readonly=${readonly}
-              ?required=${required}
-              .maxLength=${maxLength}
-              .minLength=${minLength}
-              .placeholder=${placeholder ?? ''}
-              .resize=${resize}
-              .rows=${rows}
-              .showCount=${showCount}
-              .showValid=${showValid}
-              .size=${size}
-              .value=${value}
-              .wrap=${wrap}></sl-text-area>
-          `}
+          ${
+            slot?.() ??
+            html`
+              <sl-text-area
+                ?disabled=${disabled}
+                ?readonly=${readonly}
+                ?required=${required}
+                .maxLength=${maxLength}
+                .minLength=${minLength}
+                .placeholder=${placeholder ?? ''}
+                .resize=${resize}
+                .rows=${rows}
+                .showCount=${showCount}
+                .showValid=${showValid}
+                .size=${size}
+                .value=${value}
+                .wrap=${wrap}></sl-text-area>
+            `
+          }
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>

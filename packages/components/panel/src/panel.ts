@@ -17,7 +17,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './panel.scss.js';
+import styles from './panel.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -175,32 +175,38 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div part="header" @slotchange=${this.#onHeaderSlotChange}>
-        ${this.collapsible
-          ? html`
-              <sl-button
-                @click=${() => this.toggle()}
-                aria-label=${this.collapsed
-                  ? msg('Expand panel', { id: 'sl.panel.expand' })
-                  : msg('Collapse panel', { id: 'sl.panel.collapse' })}
-                aria-controls="body"
-                aria-expanded=${this.collapsed ? 'false' : 'true'}
-                class="toggle"
-                fill="ghost">
-                <sl-icon
-                  class=${!this.collapsed ? 'upside-down' : ''}
-                  name="chevron-down"></sl-icon>
-              </sl-button>
-              <div part="wrapper">${this.#renderHeading()}</div>
-            `
-          : html`<div part="wrapper">${this.#renderHeading()}</div>`}
-        <slot name="aside">
-          ${this.hasActions
+        ${
+          this.collapsible
             ? html`
-                <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
-                  <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
-                </sl-tool-bar>
+                <sl-button
+                  @click=${() => this.toggle()}
+                  aria-label=${
+                    this.collapsed
+                      ? msg('Expand panel', { id: 'sl.panel.expand' })
+                      : msg('Collapse panel', { id: 'sl.panel.collapse' })
+                  }
+                  aria-controls="body"
+                  aria-expanded=${this.collapsed ? 'false' : 'true'}
+                  class="toggle"
+                  fill="ghost">
+                  <sl-icon
+                    class=${!this.collapsed ? 'upside-down' : ''}
+                    name="chevron-down"></sl-icon>
+                </sl-button>
+                <div part="wrapper">${this.#renderHeading()}</div>
               `
-            : html`<slot @slotchange=${this.#onActionsSlotChange} hidden name="actions"></slot>`}
+            : html`<div part="wrapper">${this.#renderHeading()}</div>`
+        }
+        <slot name="aside">
+          ${
+            this.hasActions
+              ? html`
+                  <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
+                    <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
+                  </sl-tool-bar>
+                `
+              : html`<slot @slotchange=${this.#onActionsSlotChange} hidden name="actions"></slot>`
+          }
         </slot>
       </div>
       <div

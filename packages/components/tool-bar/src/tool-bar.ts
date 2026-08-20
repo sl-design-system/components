@@ -32,7 +32,7 @@ import {
   revealAllItems
 } from './overflow.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
-import styles from './tool-bar.scss.js';
+import styles from './tool-bar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

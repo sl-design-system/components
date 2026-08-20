@@ -50,6 +50,9 @@ export class ToggleGroup extends LitElement {
     isFocusableElement: (el: ToggleButton) => !el.disabled
   });
 
+  /** @internal */
+  readonly internals = this.attachInternals();
+
   /**
    * If set, will disable all buttons in the group.
    *
@@ -93,8 +96,7 @@ export class ToggleGroup extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // https://twitter.com/LeonieWatson/status/1545788775644667904
-    this.setAttribute('role', 'region');
+    this.internals.role = 'group';
   }
 
   override updated(changes: PropertyValues<this>): void {

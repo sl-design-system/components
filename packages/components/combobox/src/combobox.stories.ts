@@ -202,6 +202,47 @@ export const All: Story = {
           <sl-option>Option 5</sl-option>
         </sl-listbox>
       </sl-combobox>
+
+      <sl-combobox placeholder="Pill single" shape="pill" aria-label="Choose an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox placeholder="Pill single" shape="pill" size="lg" aria-label="Choose an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+
+      <sl-combobox
+        multiple
+        placeholder="Pill multiple"
+        shape="pill"
+        .value=${['Option 1', 'Option 2']}
+        aria-label="Choose an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox
+        multiple
+        placeholder="Pill multiple"
+        shape="pill"
+        size="lg"
+        .value=${['Option 1', 'Option 2']}
+        aria-label="Choose an option">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
     </div>
   `
 };

@@ -44,6 +44,8 @@ let nextUniqueId = 0;
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElement)) {
+  static readonly #pointerFocusAttribute = 'data-pointer-focus';
+
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
@@ -58,7 +60,8 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
     click: this.#onClick,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout,
-    keydown: this.#onKeydown
+    keydown: this.#onKeydown,
+    pointerdown: this.#onPointerDown
   });
 
   /** The label instance in the light DOM. */
@@ -152,7 +155,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
       // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
       const style = document.createElement('style');
       style.innerHTML = `
-        sl-checkbox:has(input:focus-visible)::part(inner) {
+        sl-checkbox:has(input:focus-visible):not([data-pointer-focus])::part(inner) {
           outline-color: var(--sl-color-border-focused);
           transition: 200ms ease-in-out;
           transition-property: background, border-color, color, outline-color;
@@ -241,6 +244,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
       .composedPath()
       .find((el): el is HTMLLabelElement => el instanceof HTMLLabelElement);
     if (label?.parentElement === this) {
+      this.input.focus();
       this.input.click();
 
       event.preventDefault();
@@ -251,6 +255,8 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
     }
 
     event.stopPropagation();
+
+    this.input.focus();
 
     this.checked = !this.checked;
     this.input.checked = this.checked;
@@ -264,15 +270,25 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
   }
 
   #onFocusout(): void {
+    this.removeAttribute(Checkbox.#pointerFocusAttribute);
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
+      this.removeAttribute(Checkbox.#pointerFocusAttribute);
       event.preventDefault();
       event.stopPropagation();
       this.#onClick(event);
+    }
+  }
+
+  #onPointerDown(): void {
+    if (!this.disabled) {
+      // Mark this focus as pointer-initiated so the focus ring is suppressed.
+      // The attribute is cleared in #onFocusout once focus leaves the component.
+      this.setAttribute(Checkbox.#pointerFocusAttribute, '');
     }
   }
 

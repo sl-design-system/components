@@ -1240,6 +1240,10 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     const { hour, minute } = this.timeParts,
       hadValue = this.value !== undefined;
 
+    // Any typing/editing in the segmented input should mark the control dirty,
+    // including partial values that are not yet complete.
+    this.updateState({ dirty: true });
+
     if (hour !== undefined && minute !== undefined) {
       let constrainedMinutes = this.#getConstrainedMinutes(hour, minute);
 
@@ -1254,7 +1258,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       this.#scrollTimeIntoView(hour, constrainedMinutes);
       this.changeEvent.emit(this.value ?? '');
-      this.updateState({ dirty: true });
       this.updateValidity();
     } else {
       this.#preserveTimeParts = true;
@@ -1264,7 +1267,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       if (hadValue) {
         this.changeEvent.emit(this.value ?? '');
-        this.updateState({ dirty: true });
       }
 
       this.updateValidity();

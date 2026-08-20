@@ -1,6 +1,9 @@
 import { ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/date-field/register.js';
 import { TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
+import '@sl-design-system/time-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
@@ -13,6 +16,11 @@ import './register.js';
 
 describe('sl-form', () => {
   let el: Form;
+
+  interface SegmentedField extends HTMLElement {
+    renderRoot: ShadowRoot;
+    showValidity?: string;
+  }
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -320,6 +328,153 @@ describe('sl-form', () => {
       // Should validate on blur because the field was touched/dirty
       expect(reportValiditySpy).to.have.been.calledOnce;
       expect(textField.showValidity).to.equal('invalid');
+    });
+
+    it('should validate a required checkbox on blur after checking and unchecking with mouse', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Checkbox">
+            <sl-checkbox name="checkbox" required>Check me</sl-checkbox>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const checkbox = el.querySelector<HTMLElement & { checked?: boolean; showValidity?: string }>(
+          'sl-checkbox[name="checkbox"]'
+        )!,
+        label = checkbox.querySelector('label')!;
+
+      await userEvent.click(label);
+      await userEvent.click(label);
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await checkbox.updateComplete;
+
+      expect(checkbox.checked).to.be.false;
+      expect(checkbox.showValidity).to.equal('invalid');
+    });
+
+    it('should validate a required checkbox group on blur after checking and unchecking with mouse', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Checkbox group">
+            <sl-checkbox-group name="checkboxGroup" required>
+              <sl-checkbox value="1">Check me</sl-checkbox>
+              <sl-checkbox value="2">No me</sl-checkbox>
+            </sl-checkbox-group>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const checkboxGroup = el.querySelector<HTMLElement & { showValidity?: string }>(
+          'sl-checkbox-group[name="checkboxGroup"]'
+        )!,
+        checkbox = checkboxGroup.querySelector('sl-checkbox')!,
+        label = checkbox.querySelector('label')!;
+
+      await userEvent.click(label);
+      await userEvent.click(label);
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await checkboxGroup.updateComplete;
+
+      expect(checkboxGroup.showValidity).to.equal('invalid');
+    });
+
+    it('should not validate partial date input on blur by default', async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Date">
+            <sl-date-field name="date" required></sl-date-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const dateField = el.querySelector<SegmentedField>('sl-date-field')!,
+        firstPart = dateField.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+
+      firstPart.focus();
+      await userEvent.keyboard('1');
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await dateField.updateComplete;
+
+      expect(dateField.showValidity).to.be.undefined;
+    });
+
+    it('should validate partial date input on blur when opt-in is enabled', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Date">
+            <sl-date-field name="date" required></sl-date-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const dateField = el.querySelector<SegmentedField>('sl-date-field')!,
+        firstPart = dateField.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+
+      firstPart.focus();
+      await userEvent.keyboard('1');
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await dateField.updateComplete;
+
+      expect(dateField.showValidity).to.equal('invalid');
+    });
+
+    it('should not validate partial time input on blur by default', async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Time">
+            <sl-time-field name="time" required></sl-time-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const timeField = el.querySelector<SegmentedField>('sl-time-field')!,
+        firstPart = timeField.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+
+      firstPart.focus();
+      await userEvent.keyboard('1');
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await timeField.updateComplete;
+
+      expect(timeField.showValidity).to.be.undefined;
+    });
+
+    it('should validate partial time input on blur when opt-in is enabled', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Time">
+            <sl-time-field name="time" required></sl-time-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const timeField = el.querySelector<SegmentedField>('sl-time-field')!,
+        firstPart = timeField.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')!;
+
+      firstPart.focus();
+      await userEvent.keyboard('1');
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await timeField.updateComplete;
+
+      expect(timeField.showValidity).to.equal('invalid');
     });
 
     it('should still validate empty required values on submit when opt-in is enabled', async () => {

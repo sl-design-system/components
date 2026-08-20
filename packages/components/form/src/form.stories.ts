@@ -229,6 +229,72 @@ const createAllArgs = (options: AllStoryOptions = {}): Pick<Props, 'fields'> => 
   fields: args => renderAllFields(args, options)
 });
 
+const renderFormStory = (args: Props, description?: TemplateResult): TemplateResult => {
+  const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
+
+  const onToggle = (): void => {
+    const form = document.querySelector('sl-form')!;
+
+    form.disabled = !form.disabled;
+  };
+
+  const onReport = (): void => {
+    const form = document.querySelector('sl-form');
+
+    console.log(form?.reportValidity(), form?.value);
+  };
+
+  const onReset = (): void => {
+    document.querySelector('sl-form')?.reset();
+  };
+
+  const onUpdate = (): void => {
+    const form = document.querySelector('sl-form')!,
+      pre = form.nextElementSibling as HTMLPreElement;
+
+    pre.textContent = JSON.stringify(form.value, null, 2);
+  };
+
+  if (reportValidity) {
+    setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
+  }
+
+  return html`
+    <style>
+      sl-button[variant='primary'] {
+        margin-inline-start: auto;
+      }
+
+      .story-description {
+        color: var(--sl-color-text-subtle);
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-block: 0 var(--sl-size-300);
+      }
+    </style>
+    ${description ? html`<p class="story-description">${description}</p>` : nothing}
+    <sl-form
+      @sl-update-state=${onUpdate}
+      @sl-update-validity=${onUpdate}
+      ?disabled=${disabled}
+      ?validate-on-blur=${validateOnBlur}
+      .value=${value}>
+      ${fields(args)}
+      <sl-button-bar>
+        ${
+          buttons?.() ??
+          html`
+            <sl-button @click=${onToggle}>Toggle</sl-button>
+            ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
+            <sl-button @click=${onReport} variant="primary">Report</sl-button>
+          `
+        }
+      </sl-button-bar>
+    </sl-form>
+    <pre>${JSON.stringify(value, null, 2)}</pre>
+  `;
+};
+
 export default {
   title: 'Form/Form',
   args: {
@@ -236,63 +302,7 @@ export default {
     reportValidity: false,
     validateOnBlur: false
   },
-  render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
-
-    const onToggle = (): void => {
-      const form = document.querySelector('sl-form')!;
-
-      form.disabled = !form.disabled;
-    };
-
-    const onReport = (): void => {
-      const form = document.querySelector('sl-form');
-
-      console.log(form?.reportValidity(), form?.value);
-    };
-
-    const onReset = (): void => {
-      document.querySelector('sl-form')?.reset();
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-
-      pre.textContent = JSON.stringify(form.value, null, 2);
-    };
-
-    if (reportValidity) {
-      setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
-    }
-
-    return html`
-      <style>
-        sl-button[variant='primary'] {
-          margin-inline-start: auto;
-        }
-      </style>
-      <sl-form
-        @sl-update-state=${onUpdate}
-        @sl-update-validity=${onUpdate}
-        ?disabled=${disabled}
-        ?validate-on-blur=${validateOnBlur}
-        .value=${value}>
-        ${fields(args)}
-        <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
-        </sl-button-bar>
-      </sl-form>
-      <pre>${JSON.stringify(value, null, 2)}</pre>
-    `;
-  }
+  render: args => renderFormStory(args)
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
@@ -462,149 +472,51 @@ export const All: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Demonstrates all available form field types with validation enabled.
+        story: `Demonstrates the full default form.
 
-**Fields included (all required):**
-- Text field, Date field, Time field, Number field
-- Text area, Checkbox, Checkbox group, Radio group
-- Combobox (single & multiple), Select
-- Switch
+**Required fields:** Text field, Date field, Time field, Number field, Text area, Checkbox, Checkbox group, Combobox single, Combobox multiple, Radio group, and Select.
 
-Click "Report" to validate all fields at once.`
+**Optional field:** Switch.
+
+Click **Report** to validate the whole form at once.`
       }
     }
   },
-  render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
-
-    const onToggle = (): void => {
-      const form = document.querySelector('sl-form')!;
-      form.disabled = !form.disabled;
-    };
-
-    const onReport = (): void => {
-      const form = document.querySelector('sl-form');
-      console.log(form?.reportValidity(), form?.value);
-    };
-
-    const onReset = (): void => {
-      document.querySelector('sl-form')?.reset();
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-      pre.textContent = JSON.stringify(form.value, null, 2);
-    };
-
-    if (reportValidity) {
-      setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
-    }
-
-    return html`
-      <style>
-        sl-button[variant='primary'] {
-          margin-inline-start: auto;
-        }
-        .story-description {
-          font-size: 0.95rem;
-          line-height: 1.5;
-        }
-      </style>
-      <p class="story-description">
-        <strong>All field types with validation enabled.</strong> All fields are required. Click
-        "Report" to validate all fields at once. This story demonstrates all available form
-        components.
-      </p>
-      <sl-form
-        @sl-update-state=${onUpdate}
-        @sl-update-validity=${onUpdate}
-        ?disabled=${disabled}
-        ?validate-on-blur=${validateOnBlur}
-        .value=${value}>
-        ${fields(args)}
-        <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
-        </sl-button-bar>
-      </sl-form>
-      <pre>${JSON.stringify(value, null, 2)}</pre>
-    `;
-  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types in their default state.</strong> This story includes every form
+        control rendered by the default example. All visible fields are required except
+        <strong>Switch</strong>, which is optional. Click <strong>Report</strong> to show the
+        validation state for the full form.
+      `
+    ),
   args: {
     ...createAllArgs()
   }
 };
 
 export const AllDisabled: Story = {
-  render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
+  parameters: {
+    docs: {
+      description: {
+        story: `Shows the same field set as **All**, but with the entire form disabled.
 
-    const onToggle = (): void => {
-      const form = document.querySelector('sl-form')!;
-      form.disabled = !form.disabled;
-    };
-
-    const onReport = (): void => {
-      const form = document.querySelector('sl-form');
-      console.log(form?.reportValidity(), form?.value);
-    };
-
-    const onReset = (): void => {
-      document.querySelector('sl-form')?.reset();
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-      pre.textContent = JSON.stringify(form.value, null, 2);
-    };
-
-    if (reportValidity) {
-      setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
+All visible fields keep the same required or optional status: every field is required except **Switch**, which is optional.`
+      }
     }
-
-    return html`
-      <style>
-        sl-button[variant='primary'] {
-          margin-inline-start: auto;
-        }
-        .story-description {
-          font-size: 0.95rem;
-          line-height: 1.5;
-        }
-      </style>
-      <p class="story-description">
-        <strong>All field types in disabled state.</strong> The entire form is disabled, preventing
-        user interaction. Click "Toggle" to enable/disable the form.
-      </p>
-      <sl-form
-        @sl-update-state=${onUpdate}
-        @sl-update-validity=${onUpdate}
-        ?disabled=${disabled}
-        ?validate-on-blur=${validateOnBlur}
-        .value=${value}>
-        ${fields(args)}
-        <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
-        </sl-button-bar>
-      </sl-form>
-      <pre>${JSON.stringify(value, null, 2)}</pre>
-    `;
   },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types in a disabled state.</strong> The same set of controls as in
+        <strong>All</strong> is shown here, but the whole form is disabled. All visible fields are
+        required except <strong>Switch</strong>, which remains optional when the form is enabled
+        again via <strong>Toggle</strong>.
+      `
+    ),
   args: {
     ...All.args,
     disabled: true
@@ -615,75 +527,21 @@ export const AllInvalid: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Shows all field types in an **invalid state** with validation errors displayed.
+        story: `Shows the default form after validation has been triggered.
 
-Automatically calls \`reportValidity()\` when the story loads, triggering validation for all empty required fields.`
+All required fields start invalid until they are filled. **Switch** remains optional, so it does not show a required error.`
       }
     }
   },
-  render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
-
-    const onToggle = (): void => {
-      const form = document.querySelector('sl-form')!;
-      form.disabled = !form.disabled;
-    };
-
-    const onReport = (): void => {
-      const form = document.querySelector('sl-form');
-      console.log(form?.reportValidity(), form?.value);
-    };
-
-    const onReset = (): void => {
-      document.querySelector('sl-form')?.reset();
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-      pre.textContent = JSON.stringify(form.value, null, 2);
-    };
-
-    if (reportValidity) {
-      setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
-    }
-
-    return html`
-      <style>
-        sl-button[variant='primary'] {
-          margin-inline-start: auto;
-        }
-        .story-description {
-          font-size: 0.95rem;
-          line-height: 1.5;
-        }
-      </style>
-      <p class="story-description">
-        <strong>All field types in invalid state.</strong> All fields are shown with validation
-        errors. This demonstrates how validation messages appear when fields are empty or have
-        format errors.
-      </p>
-      <sl-form
-        @sl-update-state=${onUpdate}
-        @sl-update-validity=${onUpdate}
-        ?disabled=${disabled}
-        ?validate-on-blur=${validateOnBlur}
-        .value=${value}>
-        ${fields(args)}
-        <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
-        </sl-button-bar>
-      </sl-form>
-      <pre>${JSON.stringify(value, null, 2)}</pre>
-    `;
-  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types after validation has been triggered.</strong> Every visible required
+        field starts invalid until it gets a value. <strong>Switch</strong> is the only optional
+        control in this set, so it is shown without a required error.
+      `
+    ),
   args: {
     ...All.args,
     reportValidity: true
@@ -694,77 +552,21 @@ export const AllValid: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Shows all field types in a **valid state** with pre-filled values.
+        story: `Shows the default form with valid sample values.
 
-Demonstrates:
-- All required fields properly filled
-- No validation errors
-- Form ready for submission`
+Every required field is filled successfully. **Switch** remains optional, so the form is valid and ready to submit.`
       }
     }
   },
-  render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
-
-    const onToggle = (): void => {
-      const form = document.querySelector('sl-form')!;
-      form.disabled = !form.disabled;
-    };
-
-    const onReport = (): void => {
-      const form = document.querySelector('sl-form');
-      console.log(form?.reportValidity(), form?.value);
-    };
-
-    const onReset = (): void => {
-      document.querySelector('sl-form')?.reset();
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-      pre.textContent = JSON.stringify(form.value, null, 2);
-    };
-
-    if (reportValidity) {
-      setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
-    }
-
-    return html`
-      <style>
-        sl-button[variant='primary'] {
-          margin-inline-start: auto;
-        }
-        .story-description {
-          font-size: 0.95rem;
-          line-height: 1.5;
-        }
-      </style>
-      <p class="story-description">
-        <strong>All field types in valid state.</strong> All fields are pre-filled with valid
-        values. This demonstrates a form that is ready for submission with no errors.
-      </p>
-      <sl-form
-        @sl-update-state=${onUpdate}
-        @sl-update-validity=${onUpdate}
-        ?disabled=${disabled}
-        ?validate-on-blur=${validateOnBlur}
-        .value=${value}>
-        ${fields(args)}
-        <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
-        </sl-button-bar>
-      </sl-form>
-      <pre>${JSON.stringify(value, null, 2)}</pre>
-    `;
-  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types with valid sample values.</strong> Every visible required field has
+        been filled successfully, while <strong>Switch</strong> stays optional. Use this story as
+        the reference for a form that is ready to submit without validation errors.
+      `
+    ),
   args: {
     ...All.args,
     reportValidity: true,
@@ -789,82 +591,22 @@ export const AllValidateOnBlur: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Demonstrates \`validateOnBlur\` behavior with **all field types**. All fields are required.
+        story: `Demonstrates \`validateOnBlur\` on the full default form.
 
-**Validation behavior:**
-- ✓ Format/type errors (email, pattern) are shown immediately on blur when field is modified
-- ✓ Required empty fields only show errors if user modified them and cleared them
-- ✓ Just navigating through fields (Tab) without typing won't trigger errors
-- ✓ Empty required fields still validate on form submit
-
-**Try it:** Tab through without typing → navigate away → no errors. Type something → delete it → blur → error shown.`
+All visible fields are required except **Switch**. Required fields do not show an error when they are only focused and blurred, but they do show an error on blur after a value was changed and cleared. Untouched required fields still validate on submit.`
       }
     }
   },
-  render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
-
-    const onToggle = (): void => {
-      const form = document.querySelector('sl-form')!;
-      form.disabled = !form.disabled;
-    };
-
-    const onReport = (): void => {
-      const form = document.querySelector('sl-form');
-      console.log(form?.reportValidity(), form?.value);
-    };
-
-    const onReset = (): void => {
-      document.querySelector('sl-form')?.reset();
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-      pre.textContent = JSON.stringify(form.value, null, 2);
-    };
-
-    if (reportValidity) {
-      setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
-    }
-
-    return html`
-      <style>
-        sl-button[variant='primary'] {
-          margin-inline-start: auto;
-        }
-        .story-description {
-          font-size: 0.95rem;
-          line-height: 1.5;
-        }
-      </style>
-      <p class="story-description">
-        <strong>Validate on blur with all field types.</strong> Try tabbing through without typing —
-        no errors. Then type something and delete it — you'll see errors on blur. Format errors
-        (email, pattern) also show on blur. Only on submit will empty required fields show errors if
-        never touched.
-      </p>
-      <sl-form
-        @sl-update-state=${onUpdate}
-        @sl-update-validity=${onUpdate}
-        ?disabled=${disabled}
-        ?validate-on-blur=${validateOnBlur}
-        .value=${value}>
-        ${fields(args)}
-        <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
-        </sl-button-bar>
-      </sl-form>
-      <pre>${JSON.stringify(value, null, 2)}</pre>
-    `;
-  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Validate on blur across the full default form.</strong> All visible fields are
+        required except <strong>Switch</strong>. Required fields stay quiet when they are only
+        focused and blurred, but once a value is changed and cleared they show an error on blur.
+        Untouched required fields still validate on submit.
+      `
+    ),
   args: {
     reportValidity: false,
     validateOnBlur: true,
@@ -873,18 +615,75 @@ export const AllValidateOnBlur: Story = {
 };
 
 export const AllLarge: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: `Shows the same field set as **All**, but with large-sized controls.
+
+All visible fields are required except **Switch**, which remains optional.`
+      }
+    }
+  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types in large size.</strong> This uses the same field set as
+        <strong>All</strong>, but with larger controls for roomier layouts. All visible fields are
+        required except <strong>Switch</strong>, which remains optional.
+      `
+    ),
   args: {
     ...createAllArgs({ size: 'lg' })
   }
 };
 
 export const AllPill: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: `Shows the pill-shaped variant.
+
+**Visible required fields:** Text field, Date field, Time field, Number field, Combobox single, Combobox multiple, and Select.
+
+**Omitted in this variant:** Text area, Checkbox, Checkbox group, Radio group, and Switch.`
+      }
+    }
+  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Pill-shaped form controls.</strong> This variant only renders the controls that
+        support the pill shape in this demo: text, date, time, number, combobox single, combobox
+        multiple, and select. Every visible field is required; text area, checkbox, checkbox group,
+        radio group, and switch are intentionally omitted here.
+      `
+    ),
   args: {
     ...createAllArgs({ shape: 'pill' })
   }
 };
 
 export const AllPillLarge: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: `Shows the large pill-shaped variant.
+
+It renders the same pill-compatible controls as **AllPill**, and every visible field is required.`
+      }
+    }
+  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Pill-shaped form controls in large size.</strong> This is the large version of
+        <strong>All Pill</strong>. It renders the same pill-compatible controls only, and every
+        visible field is required.
+      `
+    ),
   args: {
     ...createAllArgs({ shape: 'pill', size: 'lg' })
   }

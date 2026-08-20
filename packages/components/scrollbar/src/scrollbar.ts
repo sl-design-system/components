@@ -6,7 +6,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './scrollbar.scss.js';
+import styles from './scrollbar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

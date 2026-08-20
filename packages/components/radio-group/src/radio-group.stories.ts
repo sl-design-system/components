@@ -4,8 +4,8 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
-import '../register.js';
 import { type RadioGroup } from './radio-group.js';
+import './register.js';
 
 type Props = Pick<
   RadioGroup,
@@ -71,31 +71,37 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-radio-group
-              ?disabled=${disabled}
-              ?horizontal=${horizontal}
-              ?required=${required}
-              ?show-valid=${showValid}
-              .size=${size}
-              .value=${value}>
-              ${options?.() ??
-              html`
-                <sl-radio value="1">One</sl-radio>
-                <sl-radio value="2">Two</sl-radio>
-                <sl-radio value="3">Three</sl-radio>
-              `}
-            </sl-radio-group>
-          `}
-        </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
+          ${
+            slot?.() ??
+            html`
+              <sl-radio-group
+                ?disabled=${disabled}
+                ?horizontal=${horizontal}
+                ?required=${required}
+                ?show-valid=${showValid}
+                .size=${size}
+                .value=${value}>
+                ${
+                  options?.() ??
+                  html`
+                    <sl-radio value="1">One</sl-radio>
+                    <sl-radio value="2">Two</sl-radio>
+                    <sl-radio value="3">Three</sl-radio>
+                  `
+                }
+              </sl-radio-group>
             `
-          : nothing}
+          }
+        </sl-form-field>
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }

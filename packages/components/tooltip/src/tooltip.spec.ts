@@ -3,7 +3,7 @@ import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { Tooltip } from './tooltip.js';
 
 /** Stand-in for components like `<sl-button>` that delegate focus to their shadow DOM. */
@@ -204,8 +204,11 @@ describe('sl-tooltip', () => {
     let first: HTMLElement, second: HTMLElement;
 
     beforeEach(async () => {
+      // Every hover in this block is dispatched synthetically, so the anchors are taken out of hit
+      // testing: whichever anchor the real cursor happens to sit on would otherwise emit genuine
+      // mouseover/mouseout events of its own, and those decide which anchor the tooltip binds to.
       el = await fixture(html`
-        <div>
+        <div style="pointer-events: none">
           <button id="multi-1" type="button">First</button>
           <button id="multi-2" type="button">Second</button>
           <sl-tooltip for="multi-1 multi-2" type="description">Tip</sl-tooltip>

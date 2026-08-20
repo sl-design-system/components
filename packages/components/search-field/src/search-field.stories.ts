@@ -3,7 +3,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../register.js';
+import './register.js';
 import { type SearchField } from './search-field.js';
 
 type Props = Pick<SearchField, 'disabled' | 'placeholder' | 'shape' | 'size' | 'value'>;

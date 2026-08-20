@@ -1,4 +1,68 @@
 {
+  "animation": {
+    "button": {
+      "duration": {
+        "$value": "{animation.duration.normal}",
+        "$type": "duration",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      },
+      "easing": {
+        "$value": "{animation.easing.ease-in-out}",
+        "$type": "text",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      }
+    },
+    "duration": {
+      "fast": {
+        "$value": "90ms",
+        "$type": "duration",
+        "$description": "animation.duration.fast",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      },
+      "normal": {
+        "$value": "200ms",
+        "$type": "duration",
+        "$description": "animation.duration.normal"
+      },
+      "slow": {
+        "$value": "500ms",
+        "$type": "duration",
+        "$description": "animation.duration.slow"
+      }
+    },
+    "easing": {
+      "ease-in-out": {
+        "$value": "ease-in-out",
+        "$type": "text",
+        "$description": "animation.easing.ease-in-out",
+        "$extensions": {
+          "com.figma": {
+            "scopes": [],
+            "codeSyntax": {},
+            "hiddenFromPublishing": false
+          }
+        }
+      }
+    }
+  },
   "color": {
     "black": {
       "$value": "#000000",

@@ -4,8 +4,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { Radio } from './radio.js';
+import './register.js';
 
 describe('sl-radio', () => {
   let el: Radio;

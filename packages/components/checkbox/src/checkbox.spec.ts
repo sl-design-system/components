@@ -11,8 +11,8 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { Checkbox } from './checkbox.js';
+import './register.js';
 
 describe('sl-checkbox', () => {
   let el: Checkbox, input: HTMLInputElement;

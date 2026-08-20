@@ -7,7 +7,7 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { TextField } from './text-field.js';
 
 type Props = Pick<
@@ -85,24 +85,26 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${control?.() ??
-          html`
-            <sl-text-field
-              ?disabled=${disabled}
-              ?readonly=${readonly}
-              ?required=${required}
-              .maxLength=${maxLength}
-              .minLength=${minLength}
-              .pattern=${pattern}
-              .placeholder=${placeholder ?? ''}
-              shape=${ifDefined(shape)}
-              .showValid=${showValid}
-              .size=${size ?? 'md'}
-              .type=${type ?? 'text'}
-              .value=${value}
-              >${slot?.() ?? nothing}</sl-text-field
-            >
-          `}
+          ${
+            control?.() ??
+            html`
+              <sl-text-field
+                ?disabled=${disabled}
+                ?readonly=${readonly}
+                ?required=${required}
+                .maxLength=${maxLength}
+                .minLength=${minLength}
+                .pattern=${pattern}
+                .placeholder=${placeholder ?? ''}
+                shape=${ifDefined(shape)}
+                .showValid=${showValid}
+                .size=${size ?? 'md'}
+                .type=${type ?? 'text'}
+                .value=${value}
+                >${slot?.() ?? nothing}</sl-text-field
+              >
+            `
+          }
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>

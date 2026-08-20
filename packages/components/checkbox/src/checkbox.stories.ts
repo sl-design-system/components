@@ -6,8 +6,8 @@ import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Checkbox } from './checkbox.js';
+import './register.js';
 
 type Props = Pick<
   Checkbox,
@@ -77,27 +77,31 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-checkbox
-              ?checked=${checked}
-              ?disabled=${disabled}
-              ?indeterminate=${indeterminate}
-              ?required=${required}
-              .showValid=${showValid}
-              .value=${value}
-              size=${ifDefined(size)}
-              >${text}</sl-checkbox
-            >
-          `}
-        </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
+          ${
+            slot?.() ??
+            html`
+              <sl-checkbox
+                ?checked=${checked}
+                ?disabled=${disabled}
+                ?indeterminate=${indeterminate}
+                ?required=${required}
+                .showValid=${showValid}
+                .value=${value}
+                size=${ifDefined(size)}
+                >${text}</sl-checkbox
+              >
             `
-          : nothing}
+          }
+        </sl-form-field>
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }

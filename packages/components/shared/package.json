@@ -14,6 +14,7 @@
       "./events.js": "./dist/events.js",
       "./helpers/forward-aria.js": "./dist/helpers/forward-aria.js",
       "./mixins.js": "./dist/mixins.js",
+      "./slot.js": "./dist/slot.js",
       "./package.json": "./package.json"
     }
   },
@@ -32,6 +33,7 @@
     "./events.js": "./src/events.ts",
     "./helpers/forward-aria.js": "./src/helpers/forward-aria.ts",
     "./mixins.js": "./src/mixins.ts",
+    "./slot.js": "./src/slot.ts",
     "./package.json": "./package.json"
   },
   "files": [
@@ -51,7 +53,8 @@
       "src/dev-mode.ts",
       "src/events.ts",
       "src/helpers/forward-aria.ts",
-      "src/mixins.ts"
+      "src/mixins.ts",
+      "src/slot.ts"
     ]
   },
   "devDependencies": {

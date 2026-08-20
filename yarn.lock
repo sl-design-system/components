@@ -7665,6 +7665,7 @@ __metadata:
     "@sl-design-system/form": "npm:^1.4.2"
     "@sl-design-system/icon": "npm:^1.4.3"
     "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/tooltip": "npm:^2.0.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown

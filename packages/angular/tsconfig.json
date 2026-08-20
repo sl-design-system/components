@@ -10,11 +10,7 @@
     "outDir": "./out-tsc",
     "paths": {
       "@sl-design-system/angular": ["./dist"],
-      "@sl-design-system/angular/*": ["./dist/*"],
-      // Resolve the locales to their built output; the Storybook webpack build
-      // cannot compile TypeScript sources from outside this project.
-      "@sl-design-system/locales": ["../locales/dist"],
-      "@sl-design-system/locales/*": ["../locales/dist/*"]
+      "@sl-design-system/angular/*": ["./dist/*"]
     }
   },
   "angularCompilerOptions": {

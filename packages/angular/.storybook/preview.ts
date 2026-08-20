@@ -37,12 +37,16 @@ const preview: Preview = {
     (story, { globals: { locale = sourceLocale } }) => {
       document.documentElement.lang = locale as string;
 
-      // Try and set the @lit/localize locale; ignore async loading failures
-      // since the locale can still be valid for components that use the Intl
-      // APIs.
-      void setLocale(locale as string).catch(() => {
-        // empty
-      });
+      // Try and set the @lit/localize locale; ignore failures since the locale
+      // can still be valid for components that use the Intl APIs. setLocale
+      // throws synchronously on an unknown locale, so catch that as well.
+      try {
+        void setLocale(locale as string).catch(() => {
+          // empty
+        });
+      } catch {
+        console.warn(`Could not set the @lit/localize locale to "${locale as string}"`);
+      }
 
       return story();
     }

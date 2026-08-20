@@ -1,6 +1,6 @@
 import { GridColumnComponent, GridComponent } from '@sl-design-system/angular/grid';
 import { type Student, getStudents } from '@sl-design-system/example-data';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 import { html } from 'lit';
 
 export default {

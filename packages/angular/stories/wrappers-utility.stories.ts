@@ -1,7 +1,7 @@
 import { EllipsizeTextComponent } from '@sl-design-system/angular/ellipsize-text';
 import { FormatDateComponent } from '@sl-design-system/angular/format-date';
 import { FormatNumberComponent } from '@sl-design-system/angular/format-number';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 export default {
   title: 'Wrappers/Utility',

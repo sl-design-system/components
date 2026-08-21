@@ -44,7 +44,6 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
  * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
  *
  * @cssstate error - Set when there is an error with the toggle button, for example when there are no icons in an icon-only toggle button.
- * @cssstate pressed - Set when the toggle button is in the pressed state.
  * @cssstate icon-only - Set when the toggle button has icons and no text.
  * @cssstate text-only - Set when the toggle button has text and no icons.
  */
@@ -88,6 +87,9 @@ export class ToggleButton extends ForwardAriaMixin(
    */
   @property({ reflect: true }) fill?: ToggleButtonFill;
 
+  /** @internal Whether the button is in an invalid state; only set in dev mode. */
+  @state() @cssState('error') hasError?: boolean;
+
   /** @internal True when the user has slotted text in the button. */
   @state() hasText?: boolean;
 
@@ -108,7 +110,7 @@ export class ToggleButton extends ForwardAriaMixin(
    *
    * @default false
    */
-  @property({ type: Boolean }) @cssState() pressed?: boolean;
+  @property({ type: Boolean, reflect: true }) pressed?: boolean;
 
   /** @internal The pressed icon. */
   @state() pressedIcon?: Icon;
@@ -141,22 +143,20 @@ export class ToggleButton extends ForwardAriaMixin(
     if (isDevMode()) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
-        this.elementInternals.states.delete('error');
-
         if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && !this.hasText) {
           if (!this.defaultIcon) {
             console.error(
               'There needs to be an sl-icon in the "default" slot for the component to work'
             );
-            this.elementInternals.states.add('error');
+            this.hasError = true;
           } else if (!this.pressedIcon) {
             console.error(
               'There needs to be an sl-icon in the "pressed" slot for the component to work'
             );
-            this.elementInternals.states.add('error');
+            this.hasError = true;
           } else if (this.defaultIcon.name === this.pressedIcon.name) {
             console.error('Do not use the same icon for both states of the toggle button.');
-            this.elementInternals.states.add('error');
+            this.hasError = true;
           }
         }
       });

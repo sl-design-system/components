@@ -104,16 +104,16 @@ describe('sl-toggle-group', () => {
       await userEvent.click(buttons[0]);
       await el.updateComplete;
 
-      expect(buttons[0]).to.match(':state(pressed)');
-      expect(buttons[1]).not.to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).to.have.attribute('pressed');
+      expect(buttons[1]).not.to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
 
       await userEvent.click(buttons[1]);
       await el.updateComplete;
 
-      expect(buttons[0]).not.to.match(':state(pressed)');
-      expect(buttons[1]).to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).not.to.have.attribute('pressed');
+      expect(buttons[1]).to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
     });
   });
 
@@ -147,16 +147,16 @@ describe('sl-toggle-group', () => {
       await userEvent.click(buttons[0]);
       await el.updateComplete;
 
-      expect(buttons[0]).to.match(':state(pressed)');
-      expect(buttons[1]).not.to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).to.have.attribute('pressed');
+      expect(buttons[1]).not.to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
 
       await userEvent.click(buttons[1]);
       await el.updateComplete;
 
-      expect(buttons[0]).to.match(':state(pressed)');
-      expect(buttons[1]).to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).to.have.attribute('pressed');
+      expect(buttons[1]).to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
     });
   });
 });

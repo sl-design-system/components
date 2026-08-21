@@ -415,6 +415,31 @@ describe('sl-toggle-button', () => {
 
       expect(errorStub).not.to.have.been.called;
     });
+
+    it('should set the error state when the icons are invalid', async () => {
+      el = await fixture(html`<sl-toggle-button></sl-toggle-button>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      expect(el.hasError).to.be.true;
+      expect(el).to.match(':state(error)');
+    });
+
+    it('should not set the error state when the icons are valid', async () => {
+      el = await fixture(html`
+        <sl-toggle-button>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      expect(el.hasError).not.to.be.true;
+      expect(el).not.to.match(':state(error)');
+    });
   });
 
   describe('tooltip', () => {

@@ -7,6 +7,7 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
@@ -151,6 +152,9 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
+  /** @internal Whether the tool bar has no slotted elements. */
+  @state() @cssState() empty?: boolean;
+
   /**
    * The fill of buttons and menu buttons (also overflow menu button).
    *
@@ -242,9 +246,7 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
   override firstUpdated(): void {
     const slot = this.renderRoot.querySelector('slot')!;
 
-    if (slot.assignedElements({ flatten: true }).length === 0) {
-      this.elementInternals.states.add('empty');
-    }
+    this.empty = slot.assignedElements({ flatten: true }).length === 0;
 
     requestAnimationFrame(() => {
       this.#measureItems();
@@ -325,11 +327,7 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
     const elements =
       this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
 
-    if (elements.length === 0) {
-      this.elementInternals.states.add('empty');
-    } else {
-      this.elementInternals.states.delete('empty');
-    }
+    this.empty = elements.length === 0;
 
     for (const element of elements) {
       if (element instanceof HTMLElement) {

@@ -36,7 +36,7 @@ describe('sl-button-bar', () => {
     });
 
     it('should not reverse the order', () => {
-      expect(el).not.to.have.attribute('reverse');
+      expect(el).not.to.match(':state(reverse)');
       expect(el.reverse).not.to.be.true;
     });
 
@@ -44,7 +44,7 @@ describe('sl-button-bar', () => {
       el.reverse = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('reverse');
+      expect(el).to.match(':state(reverse)');
     });
 
     it('should not be icon-only', () => {

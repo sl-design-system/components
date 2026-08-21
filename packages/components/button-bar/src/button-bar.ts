@@ -48,8 +48,11 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
   /** @internal The slotted buttons. */
   @queryAssignedElements({ flatten: true, selector: ':not(style)' }) buttons!: HTMLElement[];
 
-  /** @internal Whether there are no buttons in the bar. */
-  @state() @cssState() empty?: boolean;
+  /**
+   * @internal Whether there are no buttons in the bar. Defaults to `true`, since `slotchange`
+   * never fires for a slot that has no assigned nodes to begin with.
+   */
+  @state() @cssState() empty = true;
 
   /** @internal Whether all buttons in the bar are icon-only ghost buttons. */
   @state() @cssState() iconOnly?: boolean;
@@ -81,14 +84,6 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
    * @default undefined
    */
   @property() variant?: ButtonVariant;
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    // Manually call `#onMutate` to ensure the initial state is correct,
-    // since the MutationObserver won't fire for existing elements.
-    requestAnimationFrame(() => this.#onMutate());
-  }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
@@ -145,7 +140,7 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
       this.#observer.observe(el, { attributes: true });
     });
 
-    this.requestUpdate();
+    // Trigger an initial update of the button states
     void this.#onMutate();
   }
 

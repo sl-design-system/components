@@ -1311,12 +1311,9 @@ describe('sl-date-field', () => {
     });
 
     it('should clear preserved parts when value is set to undefined externally', async () => {
-      // Set March 31 (a month with 31 days)
       el.value = new Date(2023, 2, 31);
       await el.updateComplete;
 
-      // Increment month to April, making April 31 invalid. The component clears the value
-      // internally, while preserving the visible parts for validation.
       spans[0].focus();
       await userEvent.keyboard('{ArrowUp}');
       await el.updateComplete;

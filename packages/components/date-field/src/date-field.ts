@@ -271,14 +271,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.#value = value;
 
-    if (
-      value === undefined &&
-      oldValue === undefined &&
-      !this.#preserveDateParts &&
-      this.#hasPartialDate()
-    ) {
-      this.dateParts = {};
-      this.#enteredDigits = 0;
+    if (value === undefined && oldValue === undefined && this.#hasPartialDate()) {
+      if (this.#preserveDateParts) {
+        this.#preserveDateParts = false;
+      } else {
+        this.dateParts = {};
+        this.#enteredDigits = 0;
+      }
     }
   }
 

@@ -1330,6 +1330,23 @@ describe('sl-date-field', () => {
       expect(spans[2]).to.have.trimmed.text('YYYY');
     });
 
+    it('should clear partial parts from an empty field when value is set to undefined externally', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('4');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4 });
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
+    });
+
     it('should wrap day from 31 to 1 on ArrowUp', async () => {
       el.value = new Date(2026, 0, 31);
       await el.updateComplete;

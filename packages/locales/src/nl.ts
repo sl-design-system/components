@@ -84,7 +84,7 @@ export const templates = {
   'sl.numberField.validation.exceedsMaximum': str`De waarde moet kleiner dan of gelijk aan ${0} zijn.`,
   'sl.numberField.validation.invalidNumber': 'Voer een geldig getal in.',
   'sl.paginator.currentlyShowingAmount': str`Momenteel worden ${0} tot ${1} van ${2} weergegeven`,
-  'sl.paginator.currentPage': str`${0}, pagina`,
+  'sl.paginator.currentPage': 'Pagina',
   'sl.paginator.defaultItemLabel': 'Items',
   'sl.paginator.defaultItemLabelFew': 'items',
   'sl.paginator.defaultItemLabelOne': 'item',

@@ -134,6 +134,9 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
+  /** One-shot outside pointer listener used after clear to mirror native blur behavior. */
+  #outsidePointerBlurAbortController?: AbortController;
+
   /** Manage keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Option>(this, {
     direction: 'vertical',
@@ -298,6 +301,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       cancelAnimationFrame(this.#widthCalculationFrame);
       this.#widthCalculationFrame = undefined;
     }
+    this.#removeOutsidePointerBlurListener();
 
     super.disconnectedCallback();
   }
@@ -395,6 +399,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
                 @click=${this.#onClearButtonClick}
                 @focusin=${this.#onClearButtonFocusin}
                 @focusout=${this.#onClearButtonFocusout}
+                type="button"
                 aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
                 <sl-icon name="circle-xmark"></sl-icon>
                 <sl-icon name="circle-xmark-solid"></sl-icon>
@@ -556,7 +561,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #onClearButtonClick(event: Event): void {
-    event.preventDefault();
     event.stopPropagation();
 
     if (this.listbox && isPopoverOpen(this.listbox)) {
@@ -567,6 +571,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.#onClear();
     this.clearEvent.emit();
     this.button.focus();
+
+    // Clicking non-focusable content outside may not move focus away from the internal button.
+    // Listen for the next outside pointer interaction and treat it as leaving the field.
+    this.#listenForOutsidePointerBlur();
   }
 
   #onClearButtonFocusin(): void {
@@ -609,9 +617,45 @@ export class Select<T = any> extends ObserveAttributesMixin(
         this.#popoverClosing = true;
       }
 
-      this.blurEvent.emit();
-      this.updateState({ touched: true });
+      this.#emitBlurAndTouch();
+      this.#removeOutsidePointerBlurListener();
     }
+  }
+
+  #emitBlurAndTouch(): void {
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
+  #listenForOutsidePointerBlur(): void {
+    this.#removeOutsidePointerBlurListener();
+
+    const abortController = new AbortController();
+    this.#outsidePointerBlurAbortController = abortController;
+
+    window.addEventListener(
+      'pointerdown',
+      (event: PointerEvent): void => {
+        const target = event.composedPath()[0] as EventTarget | undefined;
+
+        if (target instanceof Node && this.contains(target)) {
+          return;
+        }
+
+        this.#emitBlurAndTouch();
+        this.#removeOutsidePointerBlurListener();
+      },
+      { capture: true, signal: abortController.signal }
+    );
+  }
+
+  #removeOutsidePointerBlurListener(): void {
+    if (!this.#outsidePointerBlurAbortController) {
+      return;
+    }
+
+    this.#outsidePointerBlurAbortController.abort();
+    this.#outsidePointerBlurAbortController = undefined;
   }
 
   #onKeydown(event: KeyboardEvent): void {

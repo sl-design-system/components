@@ -1,6 +1,8 @@
 import { ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/date-field/register.js';
+import '@sl-design-system/listbox/register.js';
+import '@sl-design-system/select/register.js';
 import { TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/time-field/register.js';
@@ -18,6 +20,12 @@ describe('sl-form', () => {
   let el: Form;
 
   interface SegmentedField extends HTMLElement {
+    renderRoot: ShadowRoot;
+    showValidity?: string;
+  }
+
+  interface SelectField extends HTMLElement {
+    dirty?: boolean;
     renderRoot: ShadowRoot;
     showValidity?: string;
   }
@@ -383,6 +391,58 @@ describe('sl-form', () => {
       await checkboxGroup.updateComplete;
 
       expect(checkboxGroup.showValidity).to.equal('invalid');
+    });
+
+    it('should not validate a required select immediately after clearing', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Select">
+            <sl-select clearable required value="1">
+              <sl-option value="1">Option 1</sl-option>
+              <sl-option value="2">Option 2</sl-option>
+              <sl-option value="3">Option 3</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const select = el.querySelector<SelectField>('sl-select')!,
+        clearButton = select.renderRoot.querySelector('button[aria-label]') as HTMLButtonElement;
+
+      await userEvent.click(clearButton);
+      await select.updateComplete;
+
+      expect(select.dirty).to.be.true;
+      expect(select.showValidity).to.be.undefined;
+    });
+
+    it('should validate a required select on blur after clearing', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Select">
+            <sl-select clearable required value="1">
+              <sl-option value="1">Option 1</sl-option>
+              <sl-option value="2">Option 2</sl-option>
+              <sl-option value="3">Option 3</sl-option>
+            </sl-select>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const select = el.querySelector<SelectField>('sl-select')!,
+        clearButton = select.renderRoot.querySelector('button[aria-label]') as HTMLButtonElement;
+
+      await userEvent.click(clearButton);
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await select.updateComplete;
+
+      expect(select.dirty).to.be.true;
+      expect(select.showValidity).to.equal('invalid');
     });
 
     it('should not validate partial date input on blur by default', async () => {

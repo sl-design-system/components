@@ -265,11 +265,21 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
     this.updateValidity();
   }
 
-  #onFocusin(): void {
-    this.focusEvent.emit();
+  #onFocusin(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (!relatedTarget || !this.contains(relatedTarget)) {
+      this.focusEvent.emit();
+    }
   }
 
-  #onFocusout(): void {
+  #onFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (relatedTarget && this.contains(relatedTarget)) {
+      return;
+    }
+
     this.removeAttribute(Checkbox.#pointerFocusAttribute);
     this.blurEvent.emit();
     this.updateState({ touched: true });

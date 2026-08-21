@@ -264,15 +264,8 @@ const renderFormStory = (args: Props, description?: TemplateResult): TemplateRes
       sl-button[variant='primary'] {
         margin-inline-start: auto;
       }
-
-      .story-description {
-        color: var(--sl-color-text-subtle);
-        font-size: 0.95rem;
-        line-height: 1.5;
-        margin-block: 0 var(--sl-size-300);
-      }
     </style>
-    ${description ? html`<p class="story-description">${description}</p>` : nothing}
+    ${description ? html`<p>${description}</p>` : nothing}
     <sl-form
       @sl-update-state=${onUpdate}
       @sl-update-validity=${onUpdate}
@@ -306,14 +299,13 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `A simple form with a single required text field.
-Perfect for testing basic form behavior and validation.`
-      }
-    }
-  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Simple required text field.</strong> Use this story to test basic form behavior.
+      `
+    ),
   args: {
     fields: () => html`
       <sl-form-field label="Text field">
@@ -340,19 +332,14 @@ export const Autofocus: Story = {
 };
 
 export const Reset: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Demonstrates form reset functionality.
-
-**Initial state:**
-- First field has pre-filled value: "Value set initially"
-- Second field is empty (required)
-
-Click "Reset" to restore initial values. Validation runs on load showing the second field as invalid.`
-      }
-    }
-  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Reset with start values.</strong> The first field starts filled. The second required
+        field starts empty. Click <strong>Reset</strong> to restore these values.
+      `
+    ),
   args: {
     reset: true,
     reportValidity: true,
@@ -422,18 +409,15 @@ export const Value: Story = {
 };
 
 export const ValidateOnBlur: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Demonstrates \`validateOnBlur\` behavior with three main scenarios:
-- **Email field**: Invalid email format is shown immediately on blur (when field has been modified)
-- **Code field**: Pattern validation (AB-123) is shown on blur (when field has been modified)
-- **Required field**: Only shows invalid if user entered text and then cleared it. Never-touched required fields won't show errors on blur, only on submit.
-
-Try: Tab through without typing → no errors. Type then delete → error on blur.`
-      }
-    }
-  },
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Validate on blur.</strong> Format and pattern errors show on blur after editing.
+        Required fields show an error on blur after typing and clearing. Untouched required fields
+        still validate on submit.
+      `
+    ),
   args: {
     fields: () => html`
       <sl-form-field hint="Invalid email format is shown on blur" label="Email">
@@ -469,27 +453,13 @@ export const CustomComponent: Story = {
 };
 
 export const All: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Demonstrates the full default form.
-
-**Required fields:** Text field, Date field, Time field, Number field, Text area, Checkbox, Checkbox group, Combobox single, Combobox multiple, Radio group, and Select.
-
-**Optional field:** Switch.
-
-Click **Report** to validate the whole form at once.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>All field types in their default state.</strong> This story includes every form
-        control rendered by the default example. All visible fields are required except
-        <strong>Switch</strong>, which is optional. Click <strong>Report</strong> to show the
-        validation state for the full form.
+        <strong>All field types in default state.</strong> This story shows all controls from the
+        default form. All visible fields are required except <strong>Switch</strong>. Click
+        <strong>Report</strong> to validate everything.
       `
     ),
   args: {
@@ -498,23 +468,12 @@ Click **Report** to validate the whole form at once.`
 };
 
 export const AllDisabled: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Shows the same field set as **All**, but with the entire form disabled.
-
-All visible fields keep the same required or optional status: every field is required except **Switch**, which is optional.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>All field types in a disabled state.</strong> The same set of controls as in
-        <strong>All</strong> is shown here, but the whole form is disabled. All visible fields are
-        required except <strong>Switch</strong>, which remains optional when the form is enabled
-        again via <strong>Toggle</strong>.
+        <strong>All field types, disabled.</strong> This is the same set as <strong>All</strong>,
+        but disabled. All visible fields are required except <strong>Switch</strong>.
       `
     ),
   args: {
@@ -524,22 +483,12 @@ All visible fields keep the same required or optional status: every field is req
 };
 
 export const AllInvalid: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Shows the default form after validation has been triggered.
-
-All required fields start invalid until they are filled. **Switch** remains optional, so it does not show a required error.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>All field types after validation has been triggered.</strong> Every visible required
-        field starts invalid until it gets a value. <strong>Switch</strong> is the only optional
-        control in this set, so it is shown without a required error.
+        <strong>All field types after validation.</strong> Every visible required field starts
+        invalid until it has a value. <strong>Switch</strong> is optional.
       `
     ),
   args: {
@@ -549,22 +498,12 @@ All required fields start invalid until they are filled. **Switch** remains opti
 };
 
 export const AllValid: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Shows the default form with valid sample values.
-
-Every required field is filled successfully. **Switch** remains optional, so the form is valid and ready to submit.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>All field types with valid sample values.</strong> Every visible required field has
-        been filled successfully, while <strong>Switch</strong> stays optional. Use this story as
-        the reference for a form that is ready to submit without validation errors.
+        <strong>All field types with valid values.</strong> Every visible required field is filled.
+        <strong>Switch</strong> stays optional. This story shows a form ready to submit.
       `
     ),
   args: {
@@ -588,23 +527,14 @@ Every required field is filled successfully. **Switch** remains optional, so the
 };
 
 export const AllValidateOnBlur: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Demonstrates \`validateOnBlur\` on the full default form.
-
-All visible fields are required except **Switch**. Required fields do not show an error when they are only focused and blurred, but they do show an error on blur after a value was changed and cleared. Untouched required fields still validate on submit.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>Validate on blur across the full default form.</strong> All visible fields are
-        required except <strong>Switch</strong>. Required fields stay quiet when they are only
-        focused and blurred, but once a value is changed and cleared they show an error on blur.
-        Untouched required fields still validate on submit.
+        <strong>Validate on blur for the full form.</strong> All visible fields are required except
+        <strong>Switch</strong>. Required fields stay quiet when only focused and blurred. After
+        typing and clearing, they show an error on blur. Untouched required fields validate on
+        submit.
       `
     ),
   args: {
@@ -615,22 +545,12 @@ All visible fields are required except **Switch**. Required fields do not show a
 };
 
 export const AllLarge: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Shows the same field set as **All**, but with large-sized controls.
-
-All visible fields are required except **Switch**, which remains optional.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>All field types in large size.</strong> This uses the same field set as
-        <strong>All</strong>, but with larger controls for roomier layouts. All visible fields are
-        required except <strong>Switch</strong>, which remains optional.
+        <strong>All field types in large size.</strong> Same fields as <strong>All</strong>, but
+        larger. All visible fields are required except <strong>Switch</strong>.
       `
     ),
   args: {
@@ -639,25 +559,14 @@ All visible fields are required except **Switch**, which remains optional.`
 };
 
 export const AllPill: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Shows the pill-shaped variant.
-
-**Visible required fields:** Text field, Date field, Time field, Number field, Combobox single, Combobox multiple, and Select.
-
-**Omitted in this variant:** Text area, Checkbox, Checkbox group, Radio group, and Switch.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>Pill-shaped form controls.</strong> This variant only renders the controls that
-        support the pill shape in this demo: text, date, time, number, combobox single, combobox
-        multiple, and select. Every visible field is required; text area, checkbox, checkbox group,
-        radio group, and switch are intentionally omitted here.
+        <strong>Pill shaped form controls.</strong> This story shows only controls that support pill
+        shape in this demo. Every visible field is required. Text area, checkbox, checkbox group,
+        radio group, and switch are not shown because they do not support the
+        <strong>shape</strong> property.
       `
     ),
   args: {
@@ -666,22 +575,14 @@ export const AllPill: Story = {
 };
 
 export const AllPillLarge: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Shows the large pill-shaped variant.
-
-It renders the same pill-compatible controls as **AllPill**, and every visible field is required.`
-      }
-    }
-  },
   render: args =>
     renderFormStory(
       args,
       html`
-        <strong>Pill-shaped form controls in large size.</strong> This is the large version of
-        <strong>All Pill</strong>. It renders the same pill-compatible controls only, and every
-        visible field is required.
+        <strong>Pill-shaped controls in large size.</strong> This is the large version of
+        <strong>All Pill</strong>. It shows the same pill shaped form controls, and every visible
+        field is required. Other controls are not shown because they do not support the
+        <strong>shape</strong> property.
       `
     ),
   args: {

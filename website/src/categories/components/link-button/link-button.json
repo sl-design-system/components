@@ -4,9 +4,8 @@
   "componentStatus": "draft",
   "componentTagName": [
     {
-      "name": "Link button",
+      "name": "Standalone link",
       "selector": "sl-link-button"
     }
   ]
 }
-

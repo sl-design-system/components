@@ -1,5 +1,5 @@
 import { type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
-
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
@@ -9,7 +9,7 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import styles from './button-bar.css' with { type: 'css' };
 
 declare global {
@@ -23,16 +23,13 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
 /**
  * Groups buttons together in a bar separated by whitespace.
  *
- * ```html
- * <sl-button-bar>
- *   <sl-button>Foo</sl-button>
- *   <sl-button>Bar</sl-button>
- * </sl-button-bar>
- * ```
+ * @customElement sl-button-bar
  *
- * @slot default - Buttons to be grouped in the bar.
- * @cssState icon-only - Set when all buttons in the bar are icon-only.
- * @cssState empty - Set when there are no buttons in the bar.
+ * @slot - Buttons to be grouped in the bar.
+ *
+ * @cssstate empty - Set when there are no buttons in the bar.
+ * @cssstate icon-only - Set when all buttons in the bar are icon-only.
+ * @cssstate reverse - Set when the button order is reversed.
  */
 export class ButtonBar extends ElementInternalsMixin(LitElement) {
   /** @internal */
@@ -49,7 +46,13 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
   @property({ reflect: true }) align?: ButtonBarAlign;
 
   /** @internal The slotted buttons. */
-  @queryAssignedElements({ flatten: true }) buttons?: HTMLElement[];
+  @queryAssignedElements({ flatten: true, selector: ':not(style)' }) buttons!: HTMLElement[];
+
+  /** @internal Whether there are no buttons in the bar. */
+  @state() @cssState() empty?: boolean;
+
+  /** @internal Whether all buttons in the bar are icon-only ghost buttons. */
+  @state() @cssState() iconOnly?: boolean;
 
   /**
    * Determines the fill of all buttons in the bar.
@@ -63,7 +66,7 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
    *
    * @default false
    */
-  @property({ type: Boolean, reflect: true }) reverse?: boolean;
+  @property({ type: Boolean }) @cssState() reverse?: boolean;
 
   /**
    * Determines the size of all buttons in the bar.
@@ -79,16 +82,18 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
    */
   @property() variant?: ButtonVariant;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Manually call `#onMutate` to ensure the initial state is correct,
+    // since the MutationObserver won't fire for existing elements.
+    requestAnimationFrame(() => this.#onMutate());
+  }
+
   override disconnectedCallback(): void {
     this.#observer.disconnect();
 
     super.disconnectedCallback();
-  }
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    void this.#onMutate();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -104,17 +109,16 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
   }
 
   async #onMutate(): Promise<void> {
-    const buttons = (this.buttons ?? []).filter(el => el.tagName !== 'STYLE');
+    if (this.buttons.length) {
+      this.empty = false;
 
-    if (buttons.length) {
-      this.elementInternals.states.delete('empty');
       this.#updateButtons();
     } else {
-      this.elementInternals.states.add('empty');
+      this.empty = true;
     }
 
     const icons = await Promise.all(
-      buttons.map(async el => {
+      this.buttons.map(async el => {
         if (el instanceof ReactiveElement) {
           // Give the button time to set the `icon-only` state
           await new Promise(resolve => setTimeout(resolve));
@@ -128,13 +132,7 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
       })
     );
 
-    const iconOnly = !!icons.length && icons.every(Boolean);
-
-    if (iconOnly) {
-      this.elementInternals.states.add('icon-only');
-    } else {
-      this.elementInternals.states.delete('icon-only');
-    }
+    this.iconOnly = !!icons.length && icons.every(Boolean);
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -147,26 +145,25 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
       this.#observer.observe(el, { attributes: true });
     });
 
+    this.requestUpdate();
     void this.#onMutate();
   }
 
   #updateButtons(): void {
-    this.buttons
-      ?.filter(el => el.tagName !== 'STYLE')
-      .forEach(element => {
-        const button = element as { fill?: ButtonFill; size?: ButtonSize; variant?: ButtonVariant };
+    this.buttons.forEach(element => {
+      const button = element as { fill?: ButtonFill; size?: ButtonSize; variant?: ButtonVariant };
 
-        if (this.size) {
-          button.size = this.size;
-        }
+      if (this.size) {
+        button.size = this.size;
+      }
 
-        if (this.fill) {
-          button.fill = this.fill;
-        }
+      if (this.fill) {
+        button.fill = this.fill;
+      }
 
-        if (this.variant) {
-          button.variant = this.variant;
-        }
-      });
+      if (this.variant) {
+        button.variant = this.variant;
+      }
+    });
   }
 }

@@ -3,7 +3,6 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Form, FormControlMixin, FormController, FormField } from '@sl-design-system/form';
-
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { TextField } from '@sl-design-system/text-field';
 import {

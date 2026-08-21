@@ -8,7 +8,6 @@ import { type Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,

@@ -43,7 +43,7 @@ export type ButtonVariant =
  *
  * @customElement sl-button
  *
- * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
+ * @slot - Text label of the button. Optionally an <code>sl-icon</code> can be added
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
  * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.

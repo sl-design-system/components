@@ -7,7 +7,6 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
-
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,

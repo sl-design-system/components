@@ -255,8 +255,8 @@
   <target>Seleziona numero di pagina</target>
 </trans-unit>
 <trans-unit id="sl.paginator.currentPage">
-  <source><x id="0" equiv-text="${this.page}"/>, page</source>
-  <target><x id="0" equiv-text="${this.page}"/>, pagina</target>
+  <source>Page</source>
+  <target>Pagina</target>
 </trans-unit>
 <trans-unit id="sl.paginator.pageOption">
   <source><x id="0" equiv-text="${index + 1}"/>, page</source>

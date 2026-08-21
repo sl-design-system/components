@@ -149,6 +149,10 @@ describe('sl-button', () => {
 
       it('should not have the icon-only state when text is added', async () => {
         el.appendChild(document.createTextNode('Favorite'));
+
+        // Let the MutationObserver deliver the mutation, which schedules the update that
+        // removes the state.
+        await new Promise(resolve => setTimeout(resolve));
         await el.updateComplete;
 
         expect(el).not.to.match(':state(icon-only)');

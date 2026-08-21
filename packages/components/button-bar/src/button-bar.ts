@@ -29,7 +29,6 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  *
  * @cssstate empty - Set when there are no buttons in the bar.
  * @cssstate icon-only - Set when all buttons in the bar are icon-only.
- * @cssstate reverse - Set when the button order is reversed.
  */
 export class ButtonBar extends ElementInternalsMixin(LitElement) {
   /** @internal */
@@ -69,7 +68,7 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
    *
    * @default false
    */
-  @property({ type: Boolean }) @cssState() reverse?: boolean;
+  @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
   /**
    * Determines the size of all buttons in the bar.

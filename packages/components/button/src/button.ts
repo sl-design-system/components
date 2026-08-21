@@ -1,5 +1,6 @@
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { closestElementComposed } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -11,7 +12,7 @@ import {
   html,
   nothing
 } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './button.css' with { type: 'css' };
 
@@ -47,6 +48,8 @@ export type ButtonVariant =
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
  * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
+ *
+ * @cssstate icon-only - Set when the button contains nothing but an icon.
  */
 export class Button extends ForwardAriaMixin(
   ScopedElementsMixin(ElementInternalsMixin(LitElement))
@@ -111,6 +114,9 @@ export class Button extends ForwardAriaMixin(
    * @default 'solid'
    */
   @property({ reflect: true }) fill?: ButtonFill;
+
+  /** @internal Whether the button contains nothing but an icon. */
+  @state() @cssState() iconOnly?: boolean;
 
   /**
    * The shape of the button.
@@ -192,7 +198,7 @@ export class Button extends ForwardAriaMixin(
     // If the button is icon only, the tooltip functions as the label, otherwise it functions as the description.
     let ariaType: 'description' | 'label' | undefined;
     if (this.tooltip) {
-      ariaType = this.elementInternals.states.has('icon-only') ? 'label' : 'description';
+      ariaType = this.iconOnly ? 'label' : 'description';
     }
 
     return html`
@@ -262,17 +268,6 @@ export class Button extends ForwardAriaMixin(
           el.children[0].nodeName === 'SL-ICON');
     }
 
-    const hasIconOnly = this.elementInternals.states.has('icon-only');
-
-    if (iconOnly) {
-      this.elementInternals.states.add('icon-only');
-    } else {
-      this.elementInternals.states.delete('icon-only');
-    }
-
-    // Trigger an update when the icon-only state changes
-    if (hasIconOnly !== iconOnly) {
-      this.requestUpdate();
-    }
+    this.iconOnly = iconOnly;
   }
 }

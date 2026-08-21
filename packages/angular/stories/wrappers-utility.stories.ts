@@ -27,7 +27,10 @@ export const EllipsizeText: StoryObj = {
 export const FormatDate: StoryObj = {
   render: () => ({
     description: 'The format-date component formats a date according to the specified format.',
-    template: '<sl-format-date [date]="new Date()" format="medium"></sl-format-date>'
+    props: {
+      date: new Date()
+    },
+    template: '<sl-format-date [date]="date" dateStyle="medium"></sl-format-date>'
   })
 };
 
@@ -35,6 +38,6 @@ export const FormatNumber: StoryObj = {
   render: () => ({
     description: 'The format-number component formats a number according to the specified format.',
     template:
-      '<sl-format-number [value]="1234.56" format="currency" currency="USD"></sl-format-number>'
+      '<sl-format-number [number]="1234.56" numberStyle="currency" currency="USD"></sl-format-number>'
   })
 };

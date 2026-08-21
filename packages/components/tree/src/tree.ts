@@ -3,8 +3,9 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
 import { VirtualizerController } from '@sl-design-system/virtual-list';

@@ -8,7 +8,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Calendar } from '@sl-design-system/calendar';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
 import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
@@ -18,6 +18,7 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,

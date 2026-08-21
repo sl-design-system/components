@@ -8,7 +8,7 @@ import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,

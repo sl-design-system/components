@@ -5,8 +5,17 @@ import { dasherize } from '../string.js';
 /** The controller of an element, so all its CSS states are handled by a single one. */
 const controllers = new WeakMap<ReactiveElement, CssStateController>();
 
+/** Options for the `@cssState` decorator. */
+export interface CssStateOptions {
+  /** Set the state while the property is falsy, instead of while it is truthy. */
+  invert?: boolean;
+}
+
 /** A property whose value is reflected into a custom CSS state. */
 interface CssStateEntry {
+  /** Whether the state is set while the property is falsy. */
+  invert: boolean;
+
   /** Returns the current value of the property. */
   read(): unknown;
 
@@ -45,8 +54,8 @@ class CssStateController implements ReactiveController {
   }
 
   /** Reflects the value returned by `read` into the given custom CSS state. */
-  observe(read: () => unknown, state: string): void {
-    this.#entries.push({ read, state });
+  observe(read: () => unknown, state: string, { invert = false }: CssStateOptions = {}): void {
+    this.#entries.push({ invert, read, state });
   }
 
   hostUpdate(): void {
@@ -59,7 +68,7 @@ class CssStateController implements ReactiveController {
     }
 
     for (const entry of this.#entries) {
-      const value = !!entry.read();
+      const value = entry.invert ? !entry.read() : !!entry.read();
 
       if (value === entry.previous) {
         continue;
@@ -85,10 +94,13 @@ class CssStateController implements ReactiveController {
  *   // Sets the `checked` state; style it with `my-element:state(checked)`
  *   @cssState() @property({ type: Boolean }) checked?: boolean;
  *
+ *   // Sets the `no-label` state while `hasLabel` is falsy
+ *   @cssState('no-label', { invert: true }) @state() hasLabel = false;
+ *
  *   // A getter works as well, for a state that is derived from other properties
- *   @cssState('no-label')
- *   get noLabel(): boolean {
- *     return !this.hasLabel;
+ *   @cssState('has-name')
+ *   get hasName(): boolean {
+ *     return this.hasLabel || this.hasAccessibleName();
  *   }
  * }
  * ```
@@ -97,9 +109,10 @@ class CssStateController implements ReactiveController {
  * (`experimentalDecorators`) and the standard TC39 decorators.
  *
  * @param name The name of the CSS state; defaults to the dasherized property name.
+ * @param options Options for the state; set `invert` to set it while the property is falsy.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function cssState(name?: string): any {
+export function cssState(name?: string, options?: CssStateOptions): any {
   return function (
     protoOrValue: unknown,
     nameOrContext:
@@ -117,7 +130,7 @@ export function cssState(name?: string): any {
       context.addInitializer(function (this: unknown) {
         const host = this as ReactiveElement;
 
-        CssStateController.for(host).observe(() => context.access.get(host), state);
+        CssStateController.for(host).observe(() => context.access.get(host), state, options);
       });
 
       return;
@@ -129,7 +142,8 @@ export function cssState(name?: string): any {
     ((protoOrValue as ReactiveElement).constructor as typeof ReactiveElement).addInitializer(el => {
       CssStateController.for(el).observe(
         () => (el as unknown as Record<PropertyKey, unknown>)[key],
-        state
+        state,
+        options
       );
     });
   };

@@ -9,7 +9,6 @@ import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
   RovingTabindexController,
   anchor,
   event,
@@ -22,6 +21,7 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import {
   type CSSResultGroup,
   LitElement,

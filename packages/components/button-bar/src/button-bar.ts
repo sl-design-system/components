@@ -134,9 +134,7 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
 
     // Workaround until `MutationObserver` can observe across slots; see
     // https://github.com/whatwg/dom/issues/1415
-    const assigned = new Set(
-      event.target.assignedElements({ flatten: true, selector: ':not(style)' })
-    );
+    const assigned = new Set(event.target.assignedElements({ flatten: true }));
     assigned.forEach(el => {
       this.#observer.observe(el, { attributes: true });
     });

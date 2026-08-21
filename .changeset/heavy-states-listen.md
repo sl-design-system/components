@@ -8,8 +8,9 @@ Add an `ElementInternalsMixin` and a `@cssState` decorator:
   so the component, its subclasses, other mixins and its tests all have one standardized way of
   getting to them.
 - `@cssState` keeps a custom CSS state in sync with a boolean property or getter. The state name
-  defaults to the dasherized property name. It works with both the legacy
-  (`experimentalDecorators`) and the standard TC39 decorators.
+  defaults to the dasherized property name, and `{ invert: true }` sets the state while the
+  property is falsy. It works with both the legacy (`experimentalDecorators`) and the standard
+  TC39 decorators.
 
 ```ts
 import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
@@ -19,10 +20,13 @@ class MyElement extends ElementInternalsMixin(LitElement) {
   // Sets the `checked` state; style it with `my-element:state(checked)`
   @cssState() @property({ type: Boolean }) checked?: boolean;
 
+  // Sets the `no-label` state while `hasLabel` is falsy
+  @cssState('no-label', { invert: true }) @state() hasLabel = false;
+
   // A getter works as well, for a state derived from other properties
-  @cssState('no-label')
-  get noLabel(): boolean {
-    return !this.hasLabel;
+  @cssState('has-name')
+  get hasName(): boolean {
+    return this.hasLabel || this.hasAccessibleName();
   }
 }
 ```

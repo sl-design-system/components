@@ -19,7 +19,6 @@ import {
 import {
   EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
   type Path,
   type PathKeys,
   anchor,
@@ -36,6 +35,7 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import { type SlRemoveEvent, Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import {

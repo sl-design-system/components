@@ -3,7 +3,7 @@ import { LitElement, type ReactiveController, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ElementInternalsMixin } from '../mixins/element-internals.js';
-import { cssState } from './css-state.js';
+import { type CssStateOptions, cssState } from './css-state.js';
 
 class DecoratedElement extends ElementInternalsMixin(LitElement) {
   @cssState() @property({ type: Boolean }) checked?: boolean;
@@ -12,11 +12,11 @@ class DecoratedElement extends ElementInternalsMixin(LitElement) {
 
   @cssState('custom-name') @state() renamed = false;
 
-  @state() hasLabel = false;
+  @cssState('no-label', { invert: true }) @state() hasLabel = false;
 
-  @cssState('no-label')
-  get noLabel(): boolean {
-    return !this.hasLabel;
+  @cssState('has-name')
+  get hasName(): boolean {
+    return this.hasLabel;
   }
 
   override render() {
@@ -56,7 +56,7 @@ describe('cssState', () => {
     const counting = document.createElement('decorated-counting-element');
     document.body.append(counting);
 
-    // The element decorates four properties, but they are all handled by one controller
+    // The element decorates five properties, but they are all handled by one controller
     expect(
       controllers.filter(controller => controller.constructor.name === 'CssStateController')
     ).to.have.length(1);
@@ -109,6 +109,15 @@ describe('cssState', () => {
   });
 
   it('should support a getter', async () => {
+    expect(el).not.to.match(':state(has-name)');
+
+    el.hasLabel = true;
+    await el.updateComplete;
+
+    expect(el).to.match(':state(has-name)');
+  });
+
+  it('should set an inverted state while the property is falsy', async () => {
     expect(el).to.match(':state(no-label)');
 
     el.hasLabel = true;
@@ -126,19 +135,24 @@ describe('cssState', () => {
     // Mimic what a standard decorator does: register an initializer, then run it on the host
     const initializers: Array<(this: unknown) => void> = [];
 
-    const decorate = cssState('standards') as (
-      value: unknown,
-      context: ClassFieldDecoratorContext
-    ) => void;
+    const context = (name: string) =>
+      ({
+        kind: 'field',
+        name,
+        static: false,
+        private: false,
+        access: { get: () => value },
+        addInitializer: (initializer: (this: unknown) => void) => initializers.push(initializer)
+      }) as unknown as ClassFieldDecoratorContext;
 
-    decorate(undefined, {
-      kind: 'field',
-      name: 'standards',
-      static: false,
-      private: false,
-      access: { get: () => value },
-      addInitializer: (initializer: (this: unknown) => void) => initializers.push(initializer)
-    } as unknown as ClassFieldDecoratorContext);
+    const decorate = (name: string, options?: CssStateOptions) =>
+      (cssState(name, options) as (value: unknown, context: ClassFieldDecoratorContext) => void)(
+        undefined,
+        context(name)
+      );
+
+    decorate('standards');
+    decorate('standards-inverted', { invert: true });
 
     // The controller reads the internals through the getter, so point those at our own set
     Object.defineProperty(host.elementInternals, 'states', {
@@ -153,11 +167,13 @@ describe('cssState', () => {
     await host.updateComplete;
 
     expect(states.has('standards')).to.be.true;
+    expect(states.has('standards-inverted')).to.be.false;
 
     value = false;
     host.requestUpdate();
     await host.updateComplete;
 
     expect(states.has('standards')).to.be.false;
+    expect(states.has('standards-inverted')).to.be.true;
   });
 });

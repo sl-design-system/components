@@ -14,8 +14,10 @@
       "./dev-mode.js": "./dist/dev-mode.js",
       "./events.js": "./dist/events.js",
       "./helpers/forward-aria.js": "./dist/helpers/forward-aria.js",
-      "./mixins.js": "./dist/mixins.js",
       "./mixins/element-internals.js": "./dist/mixins/element-internals.js",
+      "./mixins/forward-aria.js": "./dist/mixins/forward-aria.js",
+      "./mixins/locale.js": "./dist/mixins/locale.js",
+      "./mixins/observe-attributes.js": "./dist/mixins/observe-attributes.js",
       "./slot.js": "./dist/slot.js",
       "./package.json": "./package.json"
     }
@@ -35,8 +37,10 @@
     "./dev-mode.js": "./src/dev-mode.ts",
     "./events.js": "./src/events.ts",
     "./helpers/forward-aria.js": "./src/helpers/forward-aria.ts",
-    "./mixins.js": "./src/mixins.ts",
     "./mixins/element-internals.js": "./src/mixins/element-internals.ts",
+    "./mixins/forward-aria.js": "./src/mixins/forward-aria.ts",
+    "./mixins/locale.js": "./src/mixins/locale.ts",
+    "./mixins/observe-attributes.js": "./src/mixins/observe-attributes.ts",
     "./slot.js": "./src/slot.ts",
     "./package.json": "./package.json"
   },
@@ -58,8 +62,10 @@
       "src/dev-mode.ts",
       "src/events.ts",
       "src/helpers/forward-aria.ts",
-      "src/mixins.ts",
       "src/mixins/element-internals.ts",
+      "src/mixins/forward-aria.ts",
+      "src/mixins/locale.ts",
+      "src/mixins/observe-attributes.ts",
       "src/slot.ts"
     ]
   },

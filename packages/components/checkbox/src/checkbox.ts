@@ -7,7 +7,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import {
   type CSSResultGroup,
   LitElement,

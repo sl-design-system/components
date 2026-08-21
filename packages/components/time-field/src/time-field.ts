@@ -8,7 +8,6 @@ import { Icon } from '@sl-design-system/icon';
 import {
   type EventEmitter,
   EventsController,
-  LocaleMixin,
   anchor,
   event,
   isPopoverOpen
@@ -20,6 +19,7 @@ import {
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,
@@ -64,8 +64,8 @@ const timeSeparators = new Map<string, string>();
  * @cssState placeholder-shown - Set when the time field is empty and has a placeholder.
  */
 @localized()
-export class TimeField extends LocaleMixin(
-  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement)))
+export class TimeField extends FormControlMixin(
+  LocaleMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement)))
 ) {
   /** @internal */
   static formAssociated = true;

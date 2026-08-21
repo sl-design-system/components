@@ -5,6 +5,7 @@
   "inputFiles": ["packages/components/**/*.ts"],
   "output": {
     "mode": "runtime",
+    "language": "ts",
     "outputDir": "packages/locales/src",
     "localeCodesModule": "packages/locales/src/locale-codes.ts"
   },

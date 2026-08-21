@@ -3,6 +3,7 @@ import { type ReactiveElement } from 'lit';
 
 export interface ForwardAriaMixinInterface {
   getProxyTarget(): HTMLElement | undefined;
+  hasAccessibleName(): boolean;
   setProxyTarget(target: HTMLElement): void;
 }
 
@@ -13,6 +14,50 @@ const ELEMENT_REFERENCES: Record<string, keyof ARIAMixin> = {
   'aria-details': 'ariaDetailsElements',
   'aria-labelledby': 'ariaLabelledByElements',
   'aria-owns': 'ariaOwnsElements'
+};
+
+/**
+ * The attribute `<sl-label>` sets on a form control to communicate the id of its `<label>` element.
+ * A `<label for="...">` can only point at an element in the same tree, so when the control renders
+ * its actual form control element in the shadow DOM the native association never reaches it. This
+ * attribute is treated as an `aria-labelledby` so the label is forwarded to the target as an
+ * element reference, which does cross the shadow boundary.
+ */
+const LABEL_ID_ATTRIBUTE = 'data-label-id';
+
+/** The attributes that give the element an accessible name; see `hasAccessibleName()`. */
+const NAME_ATTRIBUTES = ['aria-label', 'aria-labelledby', LABEL_ID_ATTRIBUTE];
+
+/** Returns whether the attribute is one this mixin forwards to the target. */
+const isForwardable = (name: string): boolean =>
+  name.startsWith('aria-') || name === LABEL_ID_ATTRIBUTE;
+
+/** Returns the element reference property an attribute forwards to, if any. */
+const elementReference = (name: string): keyof ARIAMixin | undefined =>
+  name === LABEL_ID_ATTRIBUTE ? 'ariaLabelledByElements' : ELEMENT_REFERENCES[name];
+
+/**
+ * Returns the elements the _other_ forwarded attributes contributed to the same element reference
+ * property. Two attributes can end up in the same property and point at the same element:
+ * `data-label-id` and `aria-labelledby` both feed `ariaLabelledByElements` and may reference the
+ * same `<sl-label>`. Clearing one contribution must not remove an element the other still owns.
+ */
+const referencesOwnedByOthers = (
+  forwarded: Map<string, Element[]> | undefined,
+  name: string,
+  prop: keyof ARIAMixin
+): Set<Element> => {
+  const owned = new Set<Element>();
+
+  for (const [attribute, elements] of forwarded ?? []) {
+    if (attribute !== name && elementReference(attribute) === prop) {
+      for (const element of elements) {
+        owned.add(element);
+      }
+    }
+  }
+
+  return owned;
 };
 
 function setAriaDisabled(target: HTMLElement, value: string | null): void {
@@ -53,6 +98,16 @@ function setAriaDisabled(target: HTMLElement, value: string | null): void {
  *
  * **Observed attributes:** Pass an array of attribute names to forward only those. When omitted,
  * all `aria-*` attributes are forwarded automatically using a MutationObserver.
+ *
+ * **`data-label-id`:** The attribute `<sl-label>` sets on a form control is forwarded as if it were
+ * `aria-labelledby`, so the `<label>` reaches a target inside the shadow DOM, where a `<label
+ * for="...">` cannot. Unlike the ARIA attributes it is left on the host, since `<sl-label>` manages
+ * it.
+ *
+ * **Rendering:** the host can render based on the ARIA information it received, so a forward that
+ * changes what the target exposes requests an update. `hasAccessibleName()` answers whether the
+ * element is named from the outside, which is how a component decides whether its tooltip should
+ * label or describe it.
  */
 export function ForwardAriaMixin<
   T extends Constructor<ReactiveElement> & { observedAttributes?: string[] }
@@ -63,7 +118,7 @@ export function ForwardAriaMixin<
   const interceptedProps = new Set<keyof ARIAMixin>();
   if (observedAttributes) {
     for (const attr of observedAttributes) {
-      const prop = ELEMENT_REFERENCES[attr];
+      const prop = elementReference(attr);
       if (prop) {
         interceptedProps.add(prop);
       }
@@ -88,6 +143,9 @@ export function ForwardAriaMixin<
     /** Set while `#forwardAttributes()` cleans up the host attribute it just forwarded. */
     #forwarding = false;
 
+    /** Set while `setProxyTarget()` flushes what was set before the target existed. */
+    #initializing = false;
+
     #observer?: MutationObserver;
     #pendingAttributes = new Set<string>();
 
@@ -100,9 +158,53 @@ export function ForwardAriaMixin<
       return targetElements.get(this);
     }
 
+    /**
+     * Returns whether the element is given an accessible name from the outside: an `aria-label`, an
+     * `aria-labelledby`, or the `<label>` of an `<sl-label>`. A name the element gets from its own
+     * content is not visible from here; that is up to the component itself.
+     *
+     * Only the references this mixin forwarded count. Anything else that registered itself on the
+     * target - an `<sl-tooltip>` adding itself to `ariaLabelledByElements`, for example - is not a
+     * name from the outside, so a component can use this to decide whether its tooltip should label
+     * or describe it without that decision feeding back into itself.
+     *
+     * @internal
+     */
+    hasAccessibleName(): boolean {
+      // Until the attributes are forwarded, they are still on the host.
+      if (NAME_ATTRIBUTES.some(name => this.getAttribute(name))) {
+        return true;
+      }
+
+      const target = targetElements.get(this);
+      if (!target) {
+        return false;
+      }
+
+      // `aria-label` is forwarded as a plain attribute, the other two as element references.
+      const forwarded = forwardedElementsStorage.get(this);
+      if (
+        target.getAttribute('aria-label') ||
+        NAME_ATTRIBUTES.some(name => forwarded?.get(name)?.length)
+      ) {
+        return true;
+      }
+
+      // Nesting: a component using this mixin around this one resolved its `aria-labelledby` and
+      // set the element references as a property.
+      const labelledBy = propertyStorage.get(this)?.get('ariaLabelledByElements');
+
+      return Array.isArray(labelledBy) ? labelledBy.length > 0 : !!labelledBy;
+    }
+
     /** @internal */
     setProxyTarget(target: HTMLElement): void {
       targetElements.set(this, target);
+
+      // What is flushed below was already set on the host during the render that created the
+      // target, so it does not need a rerender; requesting one from `firstUpdated()` would only
+      // schedule a wasted update.
+      this.#initializing = true;
 
       // Forward any element reference properties that were set before the target was available.
       // Empty values are skipped: components may call this again on an already initialized target
@@ -128,6 +230,8 @@ export function ForwardAriaMixin<
 
       // Forward any attributes that were set before the target was available
       this.#forwardAttributes();
+
+      this.#initializing = false;
     }
 
     override connectedCallback(): void {
@@ -139,14 +243,14 @@ export function ForwardAriaMixin<
       if (!observedAttributes) {
         // Collect any aria-* attributes already present on the element
         for (const { name } of this.attributes) {
-          if (name.startsWith('aria-')) {
+          if (isForwardable(name)) {
             this.#pendingAttributes.add(name);
           }
         }
 
         this.#observer = new MutationObserver(mutations => {
           for (const { attributeName } of mutations) {
-            if (attributeName?.startsWith('aria-')) {
+            if (attributeName && isForwardable(attributeName)) {
               this.#pendingAttributes.add(attributeName);
             }
           }
@@ -180,7 +284,7 @@ export function ForwardAriaMixin<
     }
 
     override removeAttribute(name: string): void {
-      if (observedAttributes ? observedAttributes.includes(name) : name.startsWith('aria-')) {
+      if (observedAttributes ? observedAttributes.includes(name) : isForwardable(name)) {
         // Always remove from pending so a queued forward doesn't re-add it.
         this.#pendingAttributes.delete(name);
 
@@ -197,23 +301,29 @@ export function ForwardAriaMixin<
               setAriaDisabled(target, null);
               ariaDisabledStorage.set(this, null);
             } else {
-              const elementsProp = ELEMENT_REFERENCES[name];
+              const elementsProp = elementReference(name);
               if (elementsProp?.endsWith('Elements')) {
                 const forwarded = forwardedElementsStorage.get(this),
-                  previous = forwarded?.get(elementsProp) ?? [],
+                  stillOwned = referencesOwnedByOthers(forwarded, name, elementsProp),
+                  // Only drop what this attribute alone contributed; an element another
+                  // forwarded attribute also references stays.
+                  previous = (forwarded?.get(name) ?? []).filter(el => !stillOwned.has(el)),
                   current =
                     (target as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
                   remaining = current.filter(el => !previous.includes(el));
 
                 (target as unknown as Record<string, Element[] | null>)[elementsProp] =
                   remaining.length ? remaining : null;
-                forwarded?.delete(elementsProp);
+                forwarded?.delete(name);
               } else if (elementsProp) {
                 (target as unknown as Record<string, Element | null>)[elementsProp] = null;
               } else {
                 target.removeAttribute(name);
               }
             }
+
+            // The target lost ARIA information the host renders from; see `#forwardAttributes()`.
+            this.requestUpdate();
           }
         }
       }
@@ -232,13 +342,18 @@ export function ForwardAriaMixin<
       // not from our own shadow root.
       const root = this.getRootNode() as Document | ShadowRoot;
 
+      // Whether the target ends up with different ARIA information than it had before. Forwarding
+      // the same value again (the same `data-label-id` on every render of an `<sl-label>`, for
+      // example) leaves it unchanged.
+      let changed = false;
+
       for (const name of this.#pendingAttributes) {
         const value = this.getAttribute(name);
         if (!value) {
           continue;
         }
 
-        const elementsProp = ELEMENT_REFERENCES[name];
+        const elementsProp = elementReference(name);
         if (elementsProp) {
           // Reference attribute: resolve space-separated IDs to DOM elements and
           // assign via the element reference property (singular or plural).
@@ -254,31 +369,57 @@ export function ForwardAriaMixin<
               forwardedElementsStorage.set(this, forwarded);
             }
 
-            const current =
+            const previous = forwarded.get(name) ?? [],
+              current =
                 (targetElement as unknown as Record<string, Element[] | null>)[elementsProp] ?? [],
-              ours = new Set<Element>([...(forwarded.get(elementsProp) ?? []), ...elements]);
+              stillOwned = referencesOwnedByOthers(forwarded, name, elementsProp),
+              ours = new Set<Element>([...previous.filter(el => !stillOwned.has(el)), ...elements]);
 
-            // Keep references added by others, but replace the ones from our previous forward
+            changed ||=
+              previous.length !== elements.length ||
+              previous.some((element, index) => element !== elements[index]);
+
+            // Keep references added by others (including the ones forwarded for another
+            // attribute), but replace the ones from our previous forward of this attribute
             (targetElement as unknown as Record<string, Element[]>)[elementsProp] = [
               ...current.filter(el => !ours.has(el)),
               ...elements
             ];
 
-            forwarded.set(elementsProp, elements);
+            forwarded.set(name, elements);
           } else {
-            (targetElement as unknown as Record<string, Element | null>)[elementsProp] =
-              elements[0] ?? null;
+            const element = elements[0] ?? null;
+
+            changed ||=
+              (targetElement as unknown as Record<string, Element | null>)[elementsProp] !==
+              element;
+
+            (targetElement as unknown as Record<string, Element | null>)[elementsProp] = element;
           }
         } else {
+          changed ||= targetElement.getAttribute(name) !== value;
+
           targetElement.setAttribute(name, value);
         }
 
-        this.#forwarding = true;
-        this.removeAttribute(name);
-        this.#forwarding = false;
+        // Leave `data-label-id` in place: it is not ARIA information that would be duplicated on
+        // the host, and `<sl-label>` owns the attribute; it sets and removes it as the form control
+        // it labels changes.
+        if (name !== LABEL_ID_ATTRIBUTE) {
+          this.#forwarding = true;
+          this.removeAttribute(name);
+          this.#forwarding = false;
+        }
       }
 
       this.#pendingAttributes.clear();
+
+      // The forwarded attributes are part of what the host renders from: whether it has an
+      // accessible name, for one. The MutationObserver that picked them up bypasses Lit, so the
+      // update that reflects the new ARIA information has to be requested here.
+      if (changed && !this.#initializing) {
+        this.requestUpdate();
+      }
     }
   }
 

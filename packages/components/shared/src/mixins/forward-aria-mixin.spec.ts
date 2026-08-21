@@ -396,6 +396,141 @@ describe('ForwardAriaMixin', () => {
     });
   });
 
+  describe('requesting an update', () => {
+    it('should not request one for what is flushed when the target is set', async () => {
+      const fresh = await fixture<TestElement>(
+        html`<forward-aria-test aria-label="Test label">Click me</forward-aria-test>`
+      );
+
+      expect(fresh.renderRoot.querySelector('button')).to.have.attribute(
+        'aria-label',
+        'Test label'
+      );
+      expect(fresh.isUpdatePending).to.be.false;
+    });
+
+    it('should request one when an attribute is forwarded later on', () => {
+      el.setAttribute('aria-label', 'Test label');
+
+      expect(el.isUpdatePending).to.be.true;
+    });
+
+    it('should not request one when the same value is forwarded again', async () => {
+      el.setAttribute('aria-label', 'Test label');
+      await el.updateComplete;
+
+      el.setAttribute('aria-label', 'Test label');
+
+      expect(el.isUpdatePending).to.be.false;
+    });
+
+    it('should request one when a forwarded attribute is removed', async () => {
+      el.setAttribute('aria-label', 'Test label');
+      await el.updateComplete;
+
+      el.removeAttribute('aria-label');
+
+      expect(el.isUpdatePending).to.be.true;
+    });
+  });
+
+  describe('hasAccessibleName', () => {
+    let label: HTMLSpanElement;
+
+    beforeEach(() => {
+      label = document.createElement('span');
+      label.id = 'accessible-name-label';
+      label.textContent = 'My label';
+      el.parentElement!.prepend(label);
+    });
+
+    afterEach(() => label.remove());
+
+    it('should be false when nothing names the element', () => {
+      expect(el.hasAccessibleName()).to.be.false;
+    });
+
+    it('should be false before the target exists', () => {
+      const fresh = document.createElement('forward-aria-test') as TestElement;
+
+      expect(fresh.hasAccessibleName()).to.be.false;
+    });
+
+    it('should be true for an aria-label that is not forwarded yet', () => {
+      const fresh = document.createElement('forward-aria-test') as TestElement;
+      fresh.setAttribute('aria-label', 'Test label');
+
+      expect(fresh.hasAccessibleName()).to.be.true;
+    });
+
+    it('should be true for a forwarded aria-label', () => {
+      el.setAttribute('aria-label', 'Test label');
+
+      expect(el).not.to.have.attribute('aria-label');
+      expect(el.hasAccessibleName()).to.be.true;
+    });
+
+    it('should be true for a forwarded aria-labelledby', () => {
+      el.setAttribute('aria-labelledby', 'accessible-name-label');
+
+      expect(el.hasAccessibleName()).to.be.true;
+    });
+
+    it('should be false when the aria-labelledby does not resolve to an element', () => {
+      el.setAttribute('aria-labelledby', 'nonexistent');
+
+      expect(el.hasAccessibleName()).to.be.false;
+    });
+
+    it('should be false again after the aria-label is removed', () => {
+      el.setAttribute('aria-label', 'Test label');
+      el.removeAttribute('aria-label');
+
+      expect(el.hasAccessibleName()).to.be.false;
+    });
+
+    it('should be false again after the aria-labelledby is removed', () => {
+      el.setAttribute('aria-labelledby', 'accessible-name-label');
+      el.removeAttribute('aria-labelledby');
+
+      expect(el.hasAccessibleName()).to.be.false;
+    });
+
+    it('should be false for an aria-describedby', () => {
+      el.setAttribute('aria-describedby', 'accessible-name-label');
+
+      expect(el.hasAccessibleName()).to.be.false;
+    });
+
+    it('should be false for a reference the target registered itself', () => {
+      // What an `<sl-tooltip>` does when it labels the element it is anchored to. The element
+      // asks whether it is named from the outside to decide exactly that, so this must not count.
+      const tooltip = document.createElement('span');
+      button.ariaLabelledByElements = [...(button.ariaLabelledByElements ?? []), tooltip];
+
+      expect(el.hasAccessibleName()).to.be.false;
+    });
+
+    it('should be true for a data-label-id', async () => {
+      const labelled = await fixture<TestElement>(
+        html`<forward-aria-test data-label-id="accessible-name-label">Click me</forward-aria-test>`
+      );
+
+      expect(labelled.hasAccessibleName()).to.be.true;
+    });
+
+    it('should be true when a nested mixin was given the references as a property', async () => {
+      const nested = await fixture<TestElement>(
+        html`<forward-aria-test>Click me</forward-aria-test>`
+      );
+
+      // What the outer mixin does when it forwards its own aria-labelledby to this host.
+      nested.ariaLabelledByElements = [label];
+
+      expect(nested.hasAccessibleName()).to.be.true;
+    });
+  });
+
   describe('nested mixin', () => {
     class InnerElement extends ForwardAriaMixin(LitElement, ['aria-labelledby']) {
       override render() {
@@ -661,6 +796,217 @@ describe('ForwardAriaMixin', () => {
       expect(el).not.to.have.attribute('aria-label');
 
       el.remove();
+    });
+  });
+
+  describe('data-label-id', () => {
+    let labelEl: InstanceType<typeof LabelIdElement>,
+      labelButton: HTMLButtonElement,
+      label: HTMLLabelElement;
+
+    // Mirrors how the form controls apply the mixin: no explicit list of attributes, so the
+    // MutationObserver picks up the attribute <sl-label> sets on the control.
+    class LabelIdElement extends ForwardAriaMixin(LitElement) {
+      override render() {
+        return html`<button><slot></slot></button>`;
+      }
+
+      override firstUpdated(): void {
+        this.setProxyTarget(this.renderRoot.querySelector('button')!);
+      }
+    }
+
+    try {
+      customElements.define('forward-aria-label-id-test', LabelIdElement);
+    } catch {
+      // Already defined
+    }
+
+    class ExplicitLabelIdElement extends ForwardAriaMixin(LitElement, [
+      'aria-labelledby',
+      'data-label-id'
+    ]) {
+      override render() {
+        return html`<button><slot></slot></button>`;
+      }
+
+      override firstUpdated(): void {
+        this.setProxyTarget(this.renderRoot.querySelector('button')!);
+      }
+    }
+
+    try {
+      customElements.define('forward-aria-explicit-label-id-test', ExplicitLabelIdElement);
+    } catch {
+      // Already defined
+    }
+
+    beforeEach(async () => {
+      labelEl = await fixture(
+        html`<forward-aria-label-id-test>Click me</forward-aria-label-id-test>`
+      );
+      labelButton = labelEl.renderRoot.querySelector('button')!;
+
+      label = document.createElement('label');
+      label.id = 'sl-label-test';
+      label.textContent = 'Label';
+      labelEl.parentElement!.prepend(label);
+    });
+
+    afterEach(() => label.remove());
+
+    it('should forward the label to the target as an element reference', async () => {
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.deep.equal([label]);
+    });
+
+    it('should leave the attribute on the host', async () => {
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelEl).to.have.attribute('data-label-id', 'sl-label-test');
+    });
+
+    it('should forward an attribute that is already there when the target is set', async () => {
+      const el = document.createElement('forward-aria-label-id-test') as InstanceType<
+        typeof LabelIdElement
+      >;
+      el.setAttribute('data-label-id', 'sl-label-test');
+      el.textContent = 'Click me';
+
+      document.body.appendChild(el);
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('button')!.ariaLabelledByElements).to.deep.equal([label]);
+
+      el.remove();
+    });
+
+    it('should update the reference when another label is set', async () => {
+      const other = document.createElement('label');
+      other.id = 'sl-label-other';
+      other.textContent = 'Other label';
+      labelEl.parentElement!.prepend(other);
+
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      labelEl.setAttribute('data-label-id', 'sl-label-other');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.deep.equal([other]);
+
+      other.remove();
+    });
+
+    it('should clear the reference when the attribute is removed', async () => {
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      labelEl.removeAttribute('data-label-id');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.be.null;
+    });
+
+    it('should set an empty array when the label does not exist', async () => {
+      labelEl.setAttribute('data-label-id', 'nonexistent');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.deep.equal([]);
+    });
+
+    it('should keep references added by others', async () => {
+      const tooltip = document.createElement('span');
+      tooltip.id = 'sl-tooltip-test';
+      labelEl.parentElement!.prepend(tooltip);
+
+      labelButton.ariaLabelledByElements = [tooltip];
+
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.have.members([tooltip, label]);
+
+      tooltip.remove();
+    });
+
+    it('should keep an aria-labelledby forwarded alongside it', async () => {
+      const other = document.createElement('span');
+      other.id = 'sl-labelledby-test';
+      labelEl.parentElement!.prepend(other);
+
+      labelEl.setAttribute('aria-labelledby', 'sl-labelledby-test');
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.have.members([other, label]);
+
+      other.remove();
+    });
+
+    it('should keep the label when an aria-labelledby pointing at it is removed', async () => {
+      labelEl.setAttribute('aria-labelledby', 'sl-label-test');
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      labelEl.removeAttribute('aria-labelledby');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.deep.equal([label]);
+    });
+
+    it('should keep the label when an aria-labelledby pointing at it changes', async () => {
+      const other = document.createElement('span');
+      other.id = 'sl-labelledby-test';
+      labelEl.parentElement!.prepend(other);
+
+      labelEl.setAttribute('aria-labelledby', 'sl-label-test');
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      labelEl.setAttribute('aria-labelledby', 'sl-labelledby-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaLabelledByElements).to.have.members([label, other]);
+
+      other.remove();
+    });
+
+    it('should not affect a forwarded aria-describedby', async () => {
+      const description = document.createElement('span');
+      description.id = 'sl-hint-test';
+      labelEl.parentElement!.prepend(description);
+
+      labelEl.setAttribute('aria-describedby', 'sl-hint-test');
+      labelEl.setAttribute('data-label-id', 'sl-label-test');
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(labelButton.ariaDescribedByElements).to.deep.equal([description]);
+      expect(labelButton.ariaLabelledByElements).to.deep.equal([label]);
+
+      description.remove();
+    });
+
+    it('should forward the label when it is in the list of observed attributes', async () => {
+      const explicit = document.createElement(
+        'forward-aria-explicit-label-id-test'
+      ) as InstanceType<typeof ExplicitLabelIdElement>;
+
+      explicit.textContent = 'Click me';
+      document.body.appendChild(explicit);
+      await explicit.updateComplete;
+
+      // No MutationObserver involved, so this is forwarded synchronously
+      explicit.setAttribute('data-label-id', 'sl-label-test');
+
+      expect(explicit.renderRoot.querySelector('button')!.ariaLabelledByElements).to.deep.equal([
+        label
+      ]);
+
+      explicit.remove();
     });
   });
 });

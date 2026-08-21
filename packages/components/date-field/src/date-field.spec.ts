@@ -837,6 +837,30 @@ describe('sl-date-field', () => {
 
       expect(el.formValue).to.equal('2026-03-14');
     });
+
+    it('should clear inputs when formValue is set to undefined externally', async () => {
+      el = await fixture(
+        html`<sl-date-field aria-label="Date" .value=${new Date(2023, 2, 31)}></sl-date-field>`
+      );
+      await el.updateComplete;
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4, day: 31, year: 2023 });
+
+      el.formValue = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
+    });
   });
 
   describe('accessibility', () => {
@@ -1284,6 +1308,29 @@ describe('sl-date-field', () => {
       expect(spans[0]).to.have.trimmed.text('04');
       expect(spans[1]).to.have.trimmed.text('31');
       expect(spans[2]).to.have.trimmed.text('2023');
+    });
+
+    it('should clear preserved parts when value is set to undefined externally', async () => {
+      // Set March 31 (a month with 31 days)
+      el.value = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      // Increment month to April, making April 31 invalid. The component clears the value
+      // internally, while preserving the visible parts for validation.
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4, day: 31, year: 2023 });
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
     });
 
     it('should wrap day from 31 to 1 on ArrowUp', async () => {

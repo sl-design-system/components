@@ -6,7 +6,8 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  type ValidationErrors
+  type ValidationErrors,
+  Validators
 } from '@angular/forms';
 import { ButtonComponent } from '@sl-design-system/angular/button';
 import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
@@ -635,6 +636,145 @@ export class LoginFormComponent {
   }
 }
 
+@Component({
+  selector: 'sla-all-form-controls-reactive-blur',
+  template: `
+    <sl-form #form [formGroup]="formGroup">
+      <sl-form-field label="Text field">
+        <sl-text-field formControlName="textField" required autofocus></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field formControlName="numberField" required></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Date field">
+        <sl-date-field formControlName="dateField" required></sl-date-field>
+      </sl-form-field>
+
+      <sl-form-field label="Time field">
+        <sl-time-field formControlName="timeField" required></sl-time-field>
+      </sl-form-field>
+
+      <sl-form-field label="Text area">
+        <sl-text-area formControlName="textArea" required></sl-text-area>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox">
+        <sl-checkbox formControlName="checkbox" required>Checkbox</sl-checkbox>
+      </sl-form-field>
+
+      <sl-form-field label="Select">
+        <sl-select formControlName="select" required>
+          @for (option of options(); track option.value) {
+            <sl-option [value]="option.value">{{ option.label }}</sl-option>
+          }
+        </sl-select>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - single select">
+        <sl-combobox formControlName="comboboxSingle" required style="max-width: 500px">
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - multiple select">
+        <sl-combobox formControlName="comboboxMultiple" multiple required style="max-width: 500px">
+          <sl-listbox>
+            @for (option of options(); track option.value) {
+              <sl-option>{{ option.label }}</sl-option>
+            }
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Switch">
+        <sl-switch formControlName="switch" reverse>Toggle me</sl-switch>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox group">
+        <sl-checkbox-group formControlName="checkboxGroup" required>
+          <sl-checkbox value="0">One</sl-checkbox>
+          <sl-checkbox value="1">Two</sl-checkbox>
+          <sl-checkbox value="2">Three</sl-checkbox>
+        </sl-checkbox-group>
+      </sl-form-field>
+
+      <sl-form-field label="Radio group">
+        <sl-radio-group formControlName="radioGroup" required>
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+      </sl-form-field>
+
+      <sl-button-bar align="end">
+        <sl-button (click)="onClick()" variant="primary">Report validity</sl-button>
+      </sl-button-bar>
+    </sl-form>
+
+    <pre>{{ formGroup.value | json }}</pre>
+  `,
+  imports: [
+    JsonPipe,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    ComboboxDirective,
+    DateFieldDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective,
+    TimeFieldDirective
+  ]
+})
+export class AllFormControlsReactiveBlurComponent {
+  @ViewChild('form') form!: ElementRef<Form>;
+
+  formGroup = new FormGroup(
+    {
+      checkbox: new FormControl(false, Validators.requiredTrue),
+      checkboxGroup: new FormControl([], Validators.required),
+      comboboxSingle: new FormControl('', Validators.required),
+      comboboxMultiple: new FormControl('', Validators.required),
+      dateField: new FormControl('', Validators.required),
+      numberField: new FormControl(null, Validators.required),
+      radioGroup: new FormControl('', Validators.required),
+      select: new FormControl('', Validators.required),
+      switch: new FormControl(false),
+      textArea: new FormControl('', Validators.required),
+      textField: new FormControl('', Validators.required),
+      timeField: new FormControl('', Validators.required)
+    },
+    { updateOn: 'blur' }
+  );
+
+  options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.options.set([
+        { label: 'Option 1', value: '1' },
+        { label: 'Option 2', value: '2' },
+        { label: 'Option 3', value: '3' }
+      ]);
+    }, 500);
+  }
+
+  onClick(): void {
+    this.form.nativeElement.reportValidity();
+  }
+}
+
 export default {
   title: 'Components/Forms',
   decorators: [
@@ -642,6 +782,7 @@ export default {
       imports: [
         AllFormControlsReactiveComponent,
         AllFormControlsEmptyReactiveComponent,
+        AllFormControlsReactiveBlurComponent,
         AllFormControlsTemplateComponent,
         AllFormControlsEmptyTemplateComponent,
         LoginFormComponent,
@@ -675,6 +816,12 @@ export const AllEmptyReactive: StoryFn = () => ({
   description:
     'An example form that includes all form controls using reactive forms with empty initial values.',
   template: '<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>'
+});
+
+export const AllReactiveBlur: StoryFn = () => ({
+  description:
+    'An example form that includes all form controls using reactive forms with on-blur validation. Validation errors are shown only after a field loses focus.',
+  template: '<sla-all-form-controls-reactive-blur></sla-all-form-controls-reactive-blur>'
 });
 
 export const AllTemplate: StoryFn = () => ({

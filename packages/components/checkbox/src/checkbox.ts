@@ -28,6 +28,8 @@ declare global {
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 
+const POINTER_FOCUS_ATTRIBUTE = 'data-pointer-focus';
+
 let nextUniqueId = 0;
 
 /**
@@ -44,8 +46,6 @@ let nextUniqueId = 0;
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElement)) {
-  static readonly #pointerFocusAttribute = 'data-pointer-focus';
-
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
@@ -280,14 +280,14 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
       return;
     }
 
-    this.removeAttribute(Checkbox.#pointerFocusAttribute);
+    this.removeAttribute(POINTER_FOCUS_ATTRIBUTE);
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
-      this.removeAttribute(Checkbox.#pointerFocusAttribute);
+      this.removeAttribute(POINTER_FOCUS_ATTRIBUTE);
       event.preventDefault();
       event.stopPropagation();
       this.#onClick(event);
@@ -298,7 +298,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(FormControlMixin(LitElem
     if (!this.disabled) {
       // Mark this focus as pointer-initiated so the focus ring is suppressed.
       // The attribute is cleared in #onFocusout once focus leaves the component.
-      this.setAttribute(Checkbox.#pointerFocusAttribute, '');
+      this.setAttribute(POINTER_FOCUS_ATTRIBUTE, '');
     }
   }
 

@@ -1320,11 +1320,13 @@ describe('sl-date-field', () => {
 
       expect(el.value).to.be.undefined;
       expect(el.dateParts).to.deep.equal({ month: 4, day: 31, year: 2023 });
+      expect(el.valid).to.be.false;
 
       el.value = undefined;
       await el.updateComplete;
 
       expect(el.dateParts).to.deep.equal({});
+      expect(el.valid).to.be.true;
       expect(spans[0]).to.have.trimmed.text('MM');
       expect(spans[1]).to.have.trimmed.text('DD');
       expect(spans[2]).to.have.trimmed.text('YYYY');
@@ -1337,11 +1339,13 @@ describe('sl-date-field', () => {
 
       expect(el.value).to.be.undefined;
       expect(el.dateParts).to.deep.equal({ month: 4 });
+      expect(el.valid).to.be.true;
 
       el.value = undefined;
       await el.updateComplete;
 
       expect(el.dateParts).to.deep.equal({});
+      expect(el.valid).to.be.true;
       expect(spans[0]).to.have.trimmed.text('MM');
       expect(spans[1]).to.have.trimmed.text('DD');
       expect(spans[2]).to.have.trimmed.text('YYYY');

@@ -108,7 +108,7 @@ export class ToggleButton extends ForwardAriaMixin(
    *
    * @default false
    */
-  @cssState() @property({ type: Boolean }) pressed?: boolean;
+  @property({ type: Boolean }) @cssState() pressed?: boolean;
 
   /** @internal The pressed icon. */
   @state() pressedIcon?: Icon;

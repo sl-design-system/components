@@ -130,6 +130,9 @@ export class DateField extends LocaleMixin(
   /** @internal Whether the default slot contains action controls. */
   @state() hasActionSlotContent?: boolean;
 
+  /** @internal Whether the date field currently has focus. */
+  @state() @cssState() hasFocus?: boolean;
+
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date | undefined>>;
 
@@ -204,7 +207,7 @@ export class DateField extends LocaleMixin(
   @property() placeholder?: string;
 
   /** @internal Whether the placeholder is currently shown. */
-  @cssState() @state() placeholderShown?: boolean;
+  @state() @cssState() placeholderShown?: boolean;
 
   /**
    * Whether the date field is readonly.
@@ -259,7 +262,7 @@ export class DateField extends LocaleMixin(
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
   /** The selected date in the calendar. */
-  @cssState('has-value') @property({ converter: dateConverter }) override value?: Date;
+  @property({ converter: dateConverter }) @cssState('has-value') override value?: Date;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -345,7 +348,7 @@ export class DateField extends LocaleMixin(
   /** @internal */
   override focus(): void {
     this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
-    this.elementInternals.states.add('has-focus');
+    this.hasFocus = true;
   }
 
   override render(): TemplateResult {
@@ -701,7 +704,7 @@ export class DateField extends LocaleMixin(
     }
 
     if (!this.selectAll && !isSpinbutton) {
-      this.elementInternals.states.delete('has-focus');
+      this.hasFocus = false;
     }
   }
 
@@ -716,7 +719,7 @@ export class DateField extends LocaleMixin(
     }
 
     this.#enteredDigits = 0;
-    this.elementInternals.states.add('has-focus');
+    this.hasFocus = true;
 
     // Workaround for WebKit changing the selection on focus.
     requestAnimationFrame(() => this.#selectContent(span));
@@ -1000,7 +1003,7 @@ export class DateField extends LocaleMixin(
 
   #exitSelectAll(refocus = false): void {
     this.selectAll = false;
-    this.elementInternals.states.delete('has-focus');
+    this.hasFocus = false;
 
     if (refocus) {
       requestAnimationFrame(() => {

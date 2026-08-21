@@ -194,7 +194,7 @@ export class RadioGroup<T = any> extends FormControlMixin(ElementInternalsMixin(
     }
 
     if (changes.has('required')) {
-      this.elementInternals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
     }

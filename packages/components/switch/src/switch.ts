@@ -101,7 +101,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
    *
    * @default false
    */
-  @cssState() @property({ type: Boolean }) checked?: boolean;
+  @property({ type: Boolean }) @cssState() checked?: boolean;
 
   /**
    * Whether the switch is disabled; when set no interaction is possible.
@@ -125,7 +125,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
   @property({ attribute: 'icon-on' }) iconOn?: string;
 
   /** @internal Whether there is content in the description slot. */
-  @cssState() @state() hasDescription = false;
+  @state() @cssState() hasDescription = false;
 
   /** @internal Whether there is text in the default slot. */
   @state() hasLabel = false;

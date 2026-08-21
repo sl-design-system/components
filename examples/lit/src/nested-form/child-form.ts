@@ -22,8 +22,8 @@ export type Address = {
   city: string;
 };
 
-export class ChildForm extends ScopedElementsMixin(
-  FormControlMixin(ElementInternalsMixin(LitElement))
+export class ChildForm extends FormControlMixin(
+  ScopedElementsMixin(ElementInternalsMixin(LitElement))
 ) {
   /** @internal */
   static formAssociated = true;

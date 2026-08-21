@@ -23,7 +23,7 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
 /**
  * Groups buttons together in a bar separated by whitespace.
  *
- * @customElement sl-button-bar
+ * @element sl-button-bar
  *
  * @slot - Buttons to be grouped in the bar.
  *
@@ -135,7 +135,9 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
 
     // Workaround until `MutationObserver` can observe across slots; see
     // https://github.com/whatwg/dom/issues/1415
-    const assigned = new Set(event.target.assignedElements({ flatten: true }));
+    const assigned = new Set(
+      event.target.assignedElements({ flatten: true, selector: ':not(style)' })
+    );
     assigned.forEach(el => {
       this.#observer.observe(el, { attributes: true });
     });

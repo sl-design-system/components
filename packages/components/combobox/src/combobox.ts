@@ -454,7 +454,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     if (changes.has('required')) {
-      this.elementInternals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
     }
   }
 

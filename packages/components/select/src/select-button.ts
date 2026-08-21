@@ -48,10 +48,10 @@ export class SelectButton extends ScopedElementsMixin(ElementInternalsMixin(LitE
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Will display a clear button when an option is selected. */
-  @cssState() @property({ type: Boolean, reflect: true }) clearable?: boolean;
+  @property({ type: Boolean, reflect: true }) @cssState() clearable?: boolean;
 
   /** @internal Whether the clear button is focused. */
-  @cssState() @property({ type: Boolean, attribute: false }) clearFocused?: boolean;
+  @property({ type: Boolean, attribute: false }) @cssState() clearFocused?: boolean;
 
   /** @internal Emits when the user clears the selection via Backspace or Delete. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
@@ -79,7 +79,7 @@ export class SelectButton extends ScopedElementsMixin(ElementInternalsMixin(LitE
   @property({ reflect: true }) shape?: SelectShape;
 
   /** The selected option. */
-  @cssState('has-selection') @property({ attribute: false }) selected?: Option | null;
+  @property({ attribute: false }) @cssState('has-selection') selected?: Option | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize;

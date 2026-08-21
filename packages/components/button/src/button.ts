@@ -41,7 +41,7 @@ export type ButtonVariant =
 /**
  * A single, simple button, with optionally an icon.
  *
- * @customElement sl-button
+ * @element sl-button
  *
  * @slot - Text label of the button. Optionally an <code>sl-icon</code> can be added
  *

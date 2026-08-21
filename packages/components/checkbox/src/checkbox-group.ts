@@ -147,7 +147,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
     }
 
     if (changes.has('required')) {
-      this.elementInternals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValidity();
     }

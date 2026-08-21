@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "standalone-link",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Standalone link",
+      "selector": "sl-link-button"
+    }
+  ]
+}

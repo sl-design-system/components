@@ -1,6 +1,8 @@
 import { msg } from '@lit/localize';
 import { type Constructor } from '@open-wc/dedupe-mixin';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
+import { type ElementInternalsMixinInterface } from '@sl-design-system/shared/mixins/element-internals.js';
 import { type PropertyValues, type ReactiveElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -27,9 +29,13 @@ export interface NativeFormControlElement extends HTMLElement {
   setCustomValidity(message: string): void;
 }
 
-export interface CustomFormControlElement extends HTMLElement {
-  elementInternals: ElementInternals;
-}
+/**
+ * A Form Associated Custom Element. Both names are optional: an element applying
+ * `ElementInternalsMixin` has them both, while an element that has not been updated to the new name
+ * yet only has the deprecated `internals`.
+ */
+export interface CustomFormControlElement
+  extends HTMLElement, Partial<ElementInternalsMixinInterface> {}
 
 export type FormControlElement = NativeFormControlElement | CustomFormControlElement;
 
@@ -87,6 +93,39 @@ export interface FormControl {
 
 const isNative = (element: FormControlElement): element is NativeFormControlElement =>
   element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement;
+
+/** Elements for which the deprecation warning below has already been logged. */
+const warnedAboutInternals = new WeakSet<CustomFormControlElement>();
+
+/**
+ * Returns the `ElementInternals` of a Form Associated Custom Element. Prefers `elementInternals`,
+ * but falls back to the deprecated `internals` property for elements that have not been updated to
+ * the new name yet.
+ */
+const elementInternalsOf = (element: CustomFormControlElement): ElementInternals => {
+  if (element.elementInternals) {
+    return element.elementInternals;
+  }
+
+  if (element.internals) {
+    if (isDevMode() && !warnedAboutInternals.has(element)) {
+      warnedAboutInternals.add(element);
+
+      console.warn(
+        `${element.localName}: Exposing the ElementInternals as 'internals' is deprecated and ` +
+          "support for it will be removed in a future version. Expose them as 'elementInternals' " +
+          "instead, for example by applying the 'ElementInternalsMixin' from " +
+          "'@sl-design-system/shared'."
+      );
+    }
+
+    return element.internals;
+  }
+
+  throw new Error(
+    'A Form Associated Custom Element must expose its ElementInternals as elementInternals for the FormControlMixin to work'
+  );
+};
 
 /**
  * Mixin that adds form control functionality to a component.
@@ -198,7 +237,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
       } else {
-        return this.formControlElement.elementInternals.form;
+        return elementInternalsOf(this.formControlElement).form;
       }
     }
 
@@ -211,7 +250,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.labels;
       } else {
-        return this.formControlElement.elementInternals.labels as NodeListOf<HTMLLabelElement>;
+        return elementInternalsOf(this.formControlElement).labels as NodeListOf<HTMLLabelElement>;
       }
     }
 
@@ -257,7 +296,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.validationMessage;
       } else {
-        return this.formControlElement.elementInternals.validationMessage;
+        return elementInternalsOf(this.formControlElement).validationMessage;
       }
     }
 
@@ -266,7 +305,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (isNative(this.formControlElement)) {
         return this.formControlElement.validity;
       } else {
-        return this.formControlElement.elementInternals.validity;
+        return elementInternalsOf(this.formControlElement).validity;
       }
     }
 
@@ -330,7 +369,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
             this.formControlElement.removeAttribute('aria-invalid');
           }
         } else {
-          this.formControlElement.elementInternals.ariaInvalid =
+          elementInternalsOf(this.formControlElement).ariaInvalid =
             this.showValidity === 'invalid' ? 'true' : null;
         }
       }
@@ -347,7 +386,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
       const valid = isNative(this.formControlElement)
         ? this.formControlElement.reportValidity()
-        : this.formControlElement.elementInternals.reportValidity();
+        : elementInternalsOf(this.formControlElement).reportValidity();
 
       this.updateValidity();
 
@@ -508,7 +547,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     /**
      * This tells the mixin what the form control element is. This can either be a native input or
      * textarea element, or a Form Associated Custom Element (FACE) with an elementInternals
-     * property.
+     * property (or the deprecated internals property).
      *
      * The form control element must be either the same as the FormControlMixin host (in the case of
      * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
@@ -527,9 +566,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
         this.formControlElement.setCustomValidity(message);
       } else {
         if (message === '') {
-          this.formControlElement.elementInternals.setValidity({});
+          elementInternalsOf(this.formControlElement).setValidity({});
         } else {
-          this.formControlElement.elementInternals.setValidity({ customError: true }, message);
+          elementInternalsOf(this.formControlElement).setValidity({ customError: true }, message);
         }
       }
     }

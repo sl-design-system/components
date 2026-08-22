@@ -114,8 +114,13 @@ export class ButtonBar extends ElementInternalsMixin(LitElement) {
     const icons = await Promise.all(
       this.buttons.map(async el => {
         if (el instanceof ReactiveElement) {
-          // Give the button time to set the `icon-only` state
-          await new Promise(resolve => setTimeout(resolve));
+          // The button only works out whether it is icon-only in a `requestAnimationFrame` after
+          // its first render, and reflecting that into the custom state costs another update on
+          // top of it. Wait for each step in order: the first render (which schedules the frame),
+          // then the frame itself, then the update that applies the state.
+          await el.updateComplete;
+          await new Promise(resolve => requestAnimationFrame(resolve));
+          await el.updateComplete;
         }
 
         // Also check for the `icon-only` attribute for backward compatibility with older button versions

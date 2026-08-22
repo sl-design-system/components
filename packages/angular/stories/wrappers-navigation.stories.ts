@@ -11,7 +11,7 @@ import { TabComponent, TabGroupComponent, TabPanelComponent } from '@sl-design-s
 import { TreeComponent } from '@sl-design-system/angular/tree';
 import { Icon as SlIcon } from '@sl-design-system/icon';
 import { FlatTreeDataSource } from '@sl-design-system/tree';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 SlIcon.register(faArrowUpRightFromSquare, faFileLines, faFolder, faFolderOpen);
 

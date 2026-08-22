@@ -720,17 +720,25 @@ describe('sl-tooltip', () => {
 
   describe('delay (fake timers)', () => {
     beforeEach(async () => {
-      vi.useFakeTimers();
-
       el = await fixture(html`
         <div>
           <button id="delay-anchor" type="button">Anchor</button>
           <sl-tooltip for="delay-anchor" type="description">Tip</sl-tooltip>
+          <div id="delay-elsewhere" style="block-size: 200px"></div>
         </div>
       `);
       anchor = el.querySelector('#delay-anchor')!;
       tooltip = el.querySelector('sl-tooltip')!;
       await tooltip.updateComplete;
+
+      // Earlier tests click their anchor, which leaves the real pointer on the exact spot where
+      // this fixture renders its own anchor. The browser then dispatches a real mouseover on it,
+      // which starts a hover show that the synthetic events below do not account for. Park the
+      // pointer elsewhere first, so only the synthetic events drive the tests, and switch to fake
+      // timers after that has settled.
+      await userEvent.hover(el.querySelector('#delay-elsewhere')!);
+
+      vi.useFakeTimers();
     });
 
     afterEach(() => {

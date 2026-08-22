@@ -1,8 +1,12 @@
 import { type Constructor } from '@open-wc/dedupe-mixin';
 import { type ReactiveElement } from 'lit';
+import { isDevMode } from '../dev-mode.js';
 
 export interface ElementInternalsMixinInterface {
   readonly elementInternals: ElementInternals;
+
+  /** @deprecated Use `elementInternals` instead. */
+  readonly internals: ElementInternals;
 }
 
 /**
@@ -30,8 +34,29 @@ export function ElementInternalsMixin<T extends Constructor<ReactiveElement>>(
     /** The element internals of this element. */
     #internals = this.attachInternals();
 
+    /** Whether the deprecation warning for `internals` has already been logged. */
+    #warnedAboutInternals = false;
+
     /** The element internals of this element. */
     get elementInternals(): ElementInternals {
+      return this.#internals;
+    }
+
+    /**
+     * The element internals of this element.
+     *
+     * @deprecated Use `elementInternals` instead.
+     */
+    get internals(): ElementInternals {
+      if (isDevMode() && !this.#warnedAboutInternals) {
+        this.#warnedAboutInternals = true;
+
+        console.warn(
+          `${this.localName}: The 'internals' property is deprecated and will be removed in a ` +
+            "future version. Use 'elementInternals' instead."
+        );
+      }
+
       return this.#internals;
     }
   }

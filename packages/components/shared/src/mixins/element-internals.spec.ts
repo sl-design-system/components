@@ -1,6 +1,6 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { type MockInstance, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ElementInternalsMixin } from './element-internals.js';
 
 class InternalsElement extends ElementInternalsMixin(LitElement) {
@@ -32,6 +32,38 @@ describe('ElementInternalsMixin', () => {
 
   it('should attach the element internals', () => {
     expect(el.elementInternals).to.be.instanceOf(ElementInternals);
+  });
+
+  describe('deprecated internals alias', () => {
+    let warn: MockInstance<typeof console.warn>;
+
+    beforeEach(() => {
+      warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+      warn.mockRestore();
+    });
+
+    it('should expose the same internals as elementInternals', () => {
+      expect(el.internals).to.equal(el.elementInternals);
+    });
+
+    it('should log a deprecation warning in dev mode', () => {
+      expect(el.internals).to.be.instanceOf(ElementInternals);
+
+      expect(warn).toHaveBeenCalledOnce();
+      expect(warn).toHaveBeenCalledWith(
+        expect.stringContaining("The 'internals' property is deprecated")
+      );
+    });
+
+    it('should only log the deprecation warning once per element', () => {
+      expect(el.internals).to.equal(el.internals);
+      expect(el.internals).to.equal(el.elementInternals);
+
+      expect(warn).toHaveBeenCalledOnce();
+    });
   });
 
   it('should attach separate internals per instance', async () => {

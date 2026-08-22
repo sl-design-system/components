@@ -18,10 +18,10 @@ import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-i
 
 class MyElement extends ElementInternalsMixin(LitElement) {
   // Sets the `checked` state; style it with `my-element:state(checked)`
-  @cssState() @property({ type: Boolean }) checked?: boolean;
+  @property({ type: Boolean }) @cssState() checked?: boolean;
 
   // Sets the `no-label` state while `hasLabel` is falsy
-  @cssState('no-label', { invert: true }) @state() hasLabel = false;
+  @state() @cssState('no-label', { invert: true }) hasLabel = false;
 
   // A getter works as well, for a state derived from other properties
   @cssState('has-name')

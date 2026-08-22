@@ -4,6 +4,8 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -50,7 +52,7 @@ export type LinkVariant =
  * @cssstate reversed - The link has an internal indicator icon on the left side.
  */
 @localized()
-export class Link extends ScopedElementsMixin(LitElement) {
+export class Link extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -60,9 +62,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** Internal state management for CSS custom states. */
-  #internals = this.attachInternals();
 
   /** Target value captured before this component injected _blank. */
   #managedTarget?: { anchor: HTMLAnchorElement; originalTarget: string | null };
@@ -121,6 +120,12 @@ export class Link extends ScopedElementsMixin(LitElement) {
   /** No icon will be shown on internal links when this attribute is set. */
   @property({ type: Boolean, reflect: true, attribute: 'no-icon' }) noIcon?: boolean;
 
+  /** @internal Whether the indicator icon is rendered before the link text. */
+  @cssState()
+  get reversed(): boolean {
+    return !this.noIcon && this.#indicatorIcon === 'arrow-left';
+  }
+
   get #indicatorIcon(): string {
     switch (this.linkType) {
       case 'internal-new-tab':
@@ -149,10 +154,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('type')) {
       this.#syncAnchor();
-    }
-
-    if (changes.has('iconPosition') || changes.has('noIcon')) {
-      this.#syncReversedState();
     }
   }
 
@@ -301,22 +302,11 @@ export class Link extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #syncReversedState(): void {
-    const hasInternalStartIndicator = !this.noIcon && this.#indicatorIcon === 'arrow-left';
-
-    if (hasInternalStartIndicator) {
-      this.#internals.states.add('reversed');
-    } else {
-      this.#internals.states.delete('reversed');
-    }
-  }
-
   #syncAnchor(): void {
     const anchor = this.#getAnchor();
 
     if (!anchor) {
       this.#restoreManagedTarget();
-      this.#syncReversedState();
 
       return;
     }
@@ -353,7 +343,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
       srOnly.textContent = `(${msg('opens in a new tab', { id: 'link.opens-in-new-tab' })})`;
       anchor.appendChild(srOnly);
     }
-    this.#syncReversedState();
 
     // Re-observe after making all changes
     this.#observeAnchor(anchor);

@@ -9,7 +9,7 @@ import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-sy
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { isDateInList, isSameDate } from '@sl-design-system/shared/date.js';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,

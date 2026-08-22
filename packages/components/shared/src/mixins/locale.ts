@@ -25,6 +25,19 @@ documentElementObserver.observe(document.documentElement, {
   attributeFilter: ['lang']
 });
 
+/**
+ * Mixin that gives the element a `locale` property. It defaults to the language of the document -
+ * the `lang` attribute on `<html>`, or the language of the browser when there is none - and follows
+ * it when that changes; set the property or the `locale` attribute to override it:
+ *
+ * ```ts
+ * class MyElement extends LocaleMixin(LitElement) {
+ *   override render(): TemplateResult {
+ *     return html`${new Intl.NumberFormat(this.locale).format(1234.5)}`;
+ *   }
+ * }
+ * ```
+ */
 export function LocaleMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<Locale> {

@@ -6,9 +6,8 @@ Refactor toggle button to use an internal `<button>` element. This improves acce
 
 **Breaking changes**
 
-- The `[pressed]`, `[icon-only]`, `[text-only]`, and `[error]` attributes have been replaced by CSS custom states (`:state(pressed)`, `:state(icon-only)`, `:state(text-only)`, `:state(error)`). Update any custom styles targeting these attributes.
+- The `[icon-only]`, `[text-only]`, and `[error]` attributes have been replaced by CSS custom states (`:state(icon-only)`, `:state(text-only)`, `:state(error)`). Update any custom styles targeting these attributes. The `[pressed]` attribute is unchanged and still reflects the `pressed` property.
 - The `shape` property type has changed from `ButtonShape` to `ToggleButtonShape` (`'rect' | 'pill'`).
-- The `pressed` property is no longer reflected as an attribute. Use `:state(pressed)` for styling.
 - The `label` property (previously reflected as `aria-label`) has been removed. Use the new `tooltip` property instead.
 
 **New features**

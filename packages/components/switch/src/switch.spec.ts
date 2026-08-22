@@ -32,6 +32,7 @@ describe('sl-switch', () => {
     await el.updateComplete;
 
     expect(el.infotip).to.be.undefined;
+    expect(el).not.to.match(':state(has-infotip)');
   });
 
   it('should set an infotip describe label based on the switch label', async () => {
@@ -46,6 +47,7 @@ describe('sl-switch', () => {
 
     expect(el.infotip?.size).to.equal('sm');
     expect(el.infotip?.describes).to.equal('Label');
+    expect(el).to.match(':state(has-infotip)');
   });
 
   it('should not toggle when clicking the infotip', async () => {
@@ -269,7 +271,7 @@ describe('sl-switch', () => {
 
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
-      expect(el).not.to.match(':state(checked)');
+      expect(el).not.to.have.attribute('checked');
       expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
     });
@@ -278,7 +280,7 @@ describe('sl-switch', () => {
       el.checked = true;
       await el.updateComplete;
 
-      expect(el).to.match(':state(checked)');
+      expect(el).to.have.attribute('checked');
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
     });
@@ -679,7 +681,7 @@ describe('sl-switch', () => {
 
     it('should be on when the property is set', () => {
       expect(el.checked).to.equal(true);
-      expect(el).to.match(':state(checked)');
+      expect(el).to.have.attribute('checked');
       expect(input).to.have.attribute('aria-checked', 'true');
       expect(input).to.match(':checked');
     });
@@ -1064,7 +1066,7 @@ describe('sl-switch', () => {
       label?.click();
       await el.updateComplete;
 
-      expect(control).to.match(':state(checked)');
+      expect(control).to.have.attribute('checked');
       expect(control?.checked).to.be.true;
     });
 
@@ -1088,7 +1090,7 @@ describe('sl-switch', () => {
       label?.click();
       await el.updateComplete;
 
-      expect(control).to.match(':state(checked)');
+      expect(control).to.have.attribute('checked');
       expect(control?.checked).to.be.true;
       expect(control!.renderRoot.querySelector('input')).to.have.attribute('aria-checked', 'true');
     });

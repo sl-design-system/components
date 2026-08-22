@@ -1,6 +1,5 @@
 import esbuild from 'esbuild';
 import gzipPlugin from '@luncheon/esbuild-plugin-gzip';
-import { minifyHTMLLiteralsPlugin } from 'esbuild-plugin-minify-html-literals';
 import { readFile } from 'node:fs/promises';
 import { resolve as resolvePath } from 'node:path';
 import tinyGlob from 'tiny-glob';
@@ -81,7 +80,9 @@ if (DEV) {
     legalComments: 'external',
     plugins: [
       cssSheetPlugin,
-      minifyHTMLLiteralsPlugin(),
+      // `minify-html-literals` is disabled: it throws on a quoted attribute containing three or
+      // more expressions (as in `sl-virtual-list`), which fails the build and leaves the site
+      // without any JavaScript. esbuild still minifies the JS itself.
       gzipPlugin({
         gzip: true,
       }),

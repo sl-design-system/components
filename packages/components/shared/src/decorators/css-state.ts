@@ -11,6 +11,22 @@ export interface CssStateOptions {
   invert?: boolean;
 }
 
+/**
+ * The part of a standard (TC39) decorator context that `@cssState` uses. `access.get` is optional,
+ * because a setter context only gets an `access.set`.
+ */
+interface StandardDecoratorContext {
+  kind: string;
+  name: string | symbol;
+  private?: boolean;
+  static?: boolean;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  access: { get?(object: any): unknown };
+
+  addInitializer(initializer: (this: unknown) => void): void;
+}
+
 /** A property whose value is reflected into a custom CSS state. */
 interface CssStateEntry {
   /** Whether the state is set while the property is falsy. */
@@ -92,10 +108,10 @@ class CssStateController implements ReactiveController {
  * ```ts
  * class MyElement extends ElementInternalsMixin(LitElement) {
  *   // Sets the `checked` state; style it with `my-element:state(checked)`
- *   @cssState() @property({ type: Boolean }) checked?: boolean;
+ *   @property({ type: Boolean }) @cssState() checked?: boolean;
  *
  *   // Sets the `no-label` state while `hasLabel` is falsy
- *   @cssState('no-label', { invert: true }) @state() hasLabel = false;
+ *   @state() @cssState('no-label', { invert: true }) hasLabel = false;
  *
  *   // A getter works as well, for a state that is derived from other properties
  *   @cssState('has-name')
@@ -115,22 +131,34 @@ class CssStateController implements ReactiveController {
 export function cssState(name?: string, options?: CssStateOptions): any {
   return function (
     protoOrValue: unknown,
-    nameOrContext:
-      | PropertyKey
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      | (DecoratorContext & { access: { get(object: any): unknown } })
+    nameOrContext: PropertyKey | StandardDecoratorContext
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any {
     // Standard decorators pass a context object as the second argument
     if (typeof nameOrContext === 'object') {
       const context = nameOrContext,
         // Private names are reported including their `#` prefix
-        state = name ?? dasherize(String(context.name).replace(/^#/, ''));
+        state = name ?? dasherize(String(context.name).replace(/^#/, '')),
+        get = context.access.get;
+
+      // A setter context only has an `access.set`, so the value has to be read off the host
+      // through the paired getter. There is no paired getter to reach for a private setter.
+      if (!get && context.private) {
+        throw new Error(
+          `@cssState: cannot read the private ${context.kind} '${String(context.name)}'; ` +
+            'decorate a getter or a field instead.'
+        );
+      }
+
+      const read = get
+        ? (host: ReactiveElement) => get(host)
+        : (host: ReactiveElement) =>
+            (host as unknown as Record<PropertyKey, unknown>)[context.name];
 
       context.addInitializer(function (this: unknown) {
         const host = this as ReactiveElement;
 
-        CssStateController.for(host).observe(() => context.access.get(host), state, options);
+        CssStateController.for(host).observe(() => read(host), state, options);
       });
 
       return;

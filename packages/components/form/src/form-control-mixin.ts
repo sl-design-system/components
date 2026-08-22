@@ -115,7 +115,7 @@ const elementInternalsOf = (element: CustomFormControlElement): ElementInternals
         `${element.localName}: Exposing the ElementInternals as 'internals' is deprecated and ` +
           "support for it will be removed in a future version. Expose them as 'elementInternals' " +
           "instead, for example by applying the 'ElementInternalsMixin' from " +
-          "'@sl-design-system/shared'."
+          "'@sl-design-system/shared/mixins/element-internals.js'."
       );
     }
 

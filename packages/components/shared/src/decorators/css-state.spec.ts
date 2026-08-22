@@ -126,6 +126,64 @@ describe('cssState', () => {
     expect(el).not.to.match(':state(no-label)');
   });
 
+  it('should toggle the state from a standards mode setter context', async () => {
+    const states = new Set<string>(),
+      host = await fixture<DecoratedElement>(html`<decorated-element></decorated-element>`);
+
+    // A setter context has an `access.set` but no `access.get`, so the decorator has to read the
+    // value off the host through the paired getter instead
+    const initializers: Array<(this: unknown) => void> = [],
+      context = {
+        kind: 'setter',
+        name: 'checked',
+        static: false,
+        private: false,
+        access: { set: (_: unknown, value: unknown) => (host.checked = value as boolean) },
+        addInitializer: (initializer: (this: unknown) => void) => initializers.push(initializer)
+      } as unknown as ClassSetterDecoratorContext;
+
+    (cssState('setter-state') as (value: unknown, context: ClassSetterDecoratorContext) => void)(
+      undefined,
+      context
+    );
+
+    // The controller reads the internals through the getter, so point those at our own set
+    Object.defineProperty(host.elementInternals, 'states', {
+      get: () => states,
+      configurable: true
+    });
+
+    initializers.forEach(initializer => initializer.call(host));
+
+    host.checked = true;
+    await host.updateComplete;
+
+    expect(states.has('setter-state')).to.be.true;
+
+    host.checked = false;
+    await host.updateComplete;
+
+    expect(states.has('setter-state')).to.be.false;
+  });
+
+  it('should throw for a standards mode private setter context', () => {
+    const context = {
+      kind: 'setter',
+      name: '#hidden',
+      static: false,
+      private: true,
+      access: { set: () => {} },
+      addInitializer: () => {}
+    } as unknown as ClassSetterDecoratorContext;
+
+    expect(() =>
+      (cssState() as (value: unknown, context: ClassSetterDecoratorContext) => void)(
+        undefined,
+        context
+      )
+    ).to.throw(/cannot read the private setter/);
+  });
+
   it('should toggle the state in standards mode', async () => {
     const states = new Set<string>(),
       host = await fixture<DecoratedElement>(html`<decorated-element></decorated-element>`);

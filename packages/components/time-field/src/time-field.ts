@@ -175,6 +175,9 @@ export class TimeField extends FormControlMixin(
    */
   @property() placeholder?: string;
 
+  /** @internal Whether the time field has focus. */
+  @state() @cssState() hasFocus?: boolean;
+
   /** @internal Whether the placeholder is currently shown. */
   @state() @cssState() placeholderShown?: boolean;
 
@@ -233,6 +236,7 @@ export class TimeField extends FormControlMixin(
    */
   @state() timeParts: PartialTimePart = {};
 
+  @cssState('has-value')
   override get value(): string | undefined {
     return this.#value;
   }
@@ -324,7 +328,7 @@ export class TimeField extends FormControlMixin(
   /** @internal */
   override focus(): void {
     this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
-    this.elementInternals.states.add('has-focus');
+    this.hasFocus = true;
   }
 
   override render(): TemplateResult {
@@ -901,7 +905,7 @@ export class TimeField extends FormControlMixin(
     }
 
     if (!this.selectAll) {
-      this.elementInternals.states.delete('has-focus');
+      this.hasFocus = false;
     }
   }
 
@@ -916,7 +920,7 @@ export class TimeField extends FormControlMixin(
     }
 
     this.#enteredDigits = 0;
-    this.elementInternals.states.add('has-focus');
+    this.hasFocus = true;
 
     // Workaround for WebKit changing the selection on focus.
     this.#selectContentOnNextFrame(span);
@@ -942,7 +946,7 @@ export class TimeField extends FormControlMixin(
       event.preventDefault();
 
       this.selectAll = true;
-      this.elementInternals.states.add('has-focus');
+      this.hasFocus = true;
 
       requestAnimationFrame(() => {
         const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all')!;
@@ -1084,7 +1088,7 @@ export class TimeField extends FormControlMixin(
 
   #exitSelectAll(refocus = false): void {
     this.selectAll = false;
-    this.elementInternals.states.delete('has-focus');
+    this.hasFocus = false;
 
     if (refocus) {
       requestAnimationFrame(() => {

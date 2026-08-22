@@ -27,6 +27,71 @@ describe('sl-link', () => {
     });
   });
 
+  describe('reversed state', () => {
+    it('should not be reversed by default', async () => {
+      el = await fixture(html`<sl-link><a href="/dashboard">Dashboard</a></sl-link>`);
+
+      expect(el.reversed).to.be.false;
+      expect(el).not.to.match(':state(reversed)');
+    });
+
+    it('should be reversed when the icon is positioned at the start', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start"><a href="/dashboard">Dashboard</a></sl-link>
+      `);
+
+      expect(el.reversed).to.be.true;
+      expect(el).to.match(':state(reversed)');
+    });
+
+    it('should not be reversed when the icon is hidden', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start" no-icon><a href="/dashboard">Dashboard</a></sl-link>
+      `);
+
+      expect(el.reversed).to.be.false;
+      expect(el).not.to.match(':state(reversed)');
+    });
+
+    it('should not be reversed for external links', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start"><a href="https://example.com">Example</a></sl-link>
+      `);
+
+      expect(el.reversed).to.be.false;
+      expect(el).not.to.match(':state(reversed)');
+    });
+
+    it('should update the state when iconPosition changes', async () => {
+      el = await fixture(html`<sl-link><a href="/dashboard">Dashboard</a></sl-link>`);
+
+      expect(el).not.to.match(':state(reversed)');
+
+      el.iconPosition = 'start';
+      await el.updateComplete;
+
+      expect(el).to.match(':state(reversed)');
+
+      el.iconPosition = 'end';
+      await el.updateComplete;
+
+      expect(el).not.to.match(':state(reversed)');
+    });
+
+    it('should update the state when noIcon changes', async () => {
+      el = await fixture(html`
+        <sl-link icon-position="start"><a href="/dashboard">Dashboard</a></sl-link>
+      `);
+
+      expect(el).to.match(':state(reversed)');
+
+      el.noIcon = true;
+      await el.updateComplete;
+
+      expect(el).not.to.match(':state(reversed)');
+    });
+  });
+
   describe('external links', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -253,8 +318,9 @@ describe('sl-link', () => {
 
     it('should treat cross-origin protocol-relative links as external', async () => {
       const currentUrl = new URL(globalThis.location.href);
-      const externalHost = `alt-${currentUrl.hostname}`;
-      const protocolRelativeUrl = `//${externalHost}${currentUrl.port ? `:${currentUrl.port}` : ''}/page`;
+      // A fixed host, because deriving one from the current hostname produces an unparseable URL
+      // when the test server binds to an IP address (`alt-127.0.0.1` parses as a malformed IPv4).
+      const protocolRelativeUrl = '//example.com/page';
 
       expect(new URL(`${currentUrl.protocol}${protocolRelativeUrl}`).origin).not.to.equal(
         currentUrl.origin

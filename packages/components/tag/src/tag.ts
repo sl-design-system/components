@@ -5,6 +5,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
@@ -78,6 +79,9 @@ export class Tag extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) 
    * truncation.
    */
   @property() tooltip?: boolean | string;
+
+  /** @internal Whether the tag has visible focus. */
+  @state() @cssState() focusVisible?: boolean;
 
   /** @internal The label of the tag component. */
   @state() label = '';
@@ -233,13 +237,11 @@ export class Tag extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) 
   }
 
   #onBlur(): void {
-    this.elementInternals.states.delete('focus-visible');
+    this.focusVisible = false;
   }
 
   #onFocus(event: FocusEvent): void {
-    if ((event.target as HTMLElement).matches(':focus-visible')) {
-      this.elementInternals.states.add('focus-visible');
-    }
+    this.focusVisible = (event.target as HTMLElement).matches(':focus-visible');
   }
 
   #onKeydown(event: KeyboardEvent): void {

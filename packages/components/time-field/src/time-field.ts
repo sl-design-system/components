@@ -236,12 +236,12 @@ export class TimeField extends FormControlMixin(
    */
   @state() timeParts: PartialTimePart = {};
 
-  @cssState('has-value')
   override get value(): string | undefined {
     return this.#value;
   }
 
   @property()
+  @cssState('has-value')
   override set value(value: string | undefined) {
     if (value) {
       const time = this.#parseTime(value);

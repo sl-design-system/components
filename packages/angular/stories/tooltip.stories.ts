@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 import { ButtonComponent } from '../src/button/button.component';
 import { IconComponent } from '../src/icon/icon.component';
 import { TooltipDirective } from '../src/tooltip.directive';

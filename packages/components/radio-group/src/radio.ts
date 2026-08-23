@@ -180,6 +180,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onLabelSlotChange();
     this.#onDescriptionSlotChange();
     this.#syncTooltipDescription();
+    requestAnimationFrame(() => this.#syncAria());
   }
 
   override disconnectedCallback(): void {

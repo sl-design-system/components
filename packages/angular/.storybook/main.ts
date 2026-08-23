@@ -1,19 +1,22 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { type StorybookConfig } from '@storybook/angular';
+import { type StorybookConfig } from '@storybook/angular-vite';
 
 const packagesDir = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 
 /**
- * The design system packages point their exports at TypeScript sources, which the Angular webpack
- * build cannot compile from outside this project; it silently emits an empty module instead.
- * Resolve them to their built output so that side effects like the custom element registrations in
- * `register.js` actually run.
+ * Storybook consumes the design system the way an application does: through the built packages.
+ * Vite does not map the `paths` from tsconfig.json the way the webpack builder did, and it only
+ * rewrites the `.js` extensions the sources import each other with for files it considers project
+ * source, so point every package at its output explicitly.
  */
 const distAliases = (): Record<string, string> => {
   const componentsDir = join(packagesDir, 'components'),
-    aliases: Record<string, string> = {};
+    aliases: Record<string, string> = {
+      '@sl-design-system/angular': join(packagesDir, 'angular', 'dist'),
+      '@sl-design-system/locales': join(packagesDir, 'locales', 'dist')
+    };
 
   for (const name of readdirSync(componentsDir)) {
     const dist = join(componentsDir, name, 'dist');
@@ -22,8 +25,6 @@ const distAliases = (): Record<string, string> => {
       aliases[`@sl-design-system/${name}`] = dist;
     }
   }
-
-  aliases['@sl-design-system/locales'] = join(packagesDir, 'locales', 'dist');
 
   return aliases;
 };
@@ -40,7 +41,11 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true
   },
-  framework: '@storybook/angular',
+  framework: {
+    name: '@storybook/angular-vite',
+    // This is read from here rather than from the builder options in angular.json.
+    options: { compodoc: false }
+  },
   staticDirs: [
     { from: '../../themes', to: '/themes' },
     { from: '../../../.storybook/public', to: '/storybook-static' }
@@ -50,11 +55,13 @@ const config: StorybookConfig = {
     defaultName: 'Documentation',
     docsMode: false // 👈 Set to false to show both docs and canvas tabs
   },
-  webpackFinal: async config => {
-    config.resolve ??= {};
-    config.resolve.alias = { ...config.resolve.alias, ...distAliases() };
+  viteFinal: async config => {
+    const { mergeConfig } = await import('vite');
 
-    return config;
+    return mergeConfig(config, {
+      logLevel: 'warn',
+      resolve: { alias: distAliases() }
+    });
   }
 };
 

@@ -7,7 +7,7 @@ import {
 import { Button } from '@sl-design-system/button';
 import { ArrayListDataSource, isListDataSourceGroupItem } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 import { html } from 'lit';
 
 export default {

@@ -255,6 +255,7 @@ describe('sl-radio', () => {
       expect(tooltipDescription?.localName).to.equal('span');
       expect(tooltipDescription?.textContent).to.equal('Tooltip information');
       expect(tooltipDescription?.classList.contains('visually-hidden')).to.be.true;
+      expect(tooltipDescription?.getAttribute('aria-hidden')).to.equal('true');
       const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
       expect(wrapper?.ariaDescribedByElements).to.include(tooltipDescription);
       expect(wrapper?.ariaDescribedByElements).not.to.include(tooltip);

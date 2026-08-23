@@ -233,6 +233,10 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   }
 
   override connectedCallback(): void {
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'presentation');
+    }
+
     this.#hostDescribedByElements = this.#uniqueAriaRefs([
       ...this.#hostDescribedByElements,
       ...this.#ariaDescribedByAttributeElements(this.getAttribute('aria-describedby'))
@@ -332,7 +336,10 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     if (changes.has('tooltip')) {
       this.#syncTooltipDescription();
       this.#syncAria();
-      requestAnimationFrame(() => this.#syncAria());
+      requestAnimationFrame(() => {
+        this.#syncAria();
+        this.#syncTooltipAnchorAria();
+      });
     }
 
     if (changes.has('disabled')) {
@@ -785,9 +792,22 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       this.#tooltipDescription.className = 'visually-hidden';
       this.append(this.#tooltipDescription);
     }
+    this.#tooltipDescription.setAttribute('aria-hidden', 'true');
     if (this.#tooltipDescription.textContent !== tooltip) {
       this.#tooltipDescription.textContent = tooltip;
     }
+  }
+
+  #syncTooltipAnchorAria(): void {
+    const tooltip = this.shadowRoot?.querySelector<HTMLElement>('[part="tooltip"]'),
+      wrapper = this.shadowRoot?.querySelector<HTMLElement>('[part="wrapper"]');
+
+    if (!tooltip || !wrapper) {
+      return;
+    }
+
+    const nextRefs = (wrapper.ariaDescribedByElements ?? []).filter(el => el !== tooltip);
+    wrapper.ariaDescribedByElements = nextRefs.length > 0 ? nextRefs : null;
   }
 
   #syncLabelTarget(): void {

@@ -311,8 +311,12 @@ describe('sl-checkbox', () => {
       expect(tooltipDescription?.textContent).to.equal('Tooltip information');
       expect(tooltipDescription?.localName).to.equal('span');
       expect(tooltipDescription?.classList.contains('visually-hidden')).to.be.true;
+      expect(tooltipDescription?.getAttribute('aria-hidden')).to.equal('true');
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
       expect(el.input.ariaDescribedByElements).not.to.include(tooltip);
+
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements ?? []).not.to.include(tooltip);
     });
 
     it('should expose tooltip as the input description when inside a checkbox group', async () => {
@@ -328,7 +332,7 @@ describe('sl-checkbox', () => {
 
       const tooltipDescription = el.querySelector<HTMLElement>('[slot="tooltip-description"]');
       expect(tooltipDescription).to.exist;
-      expect(tooltipDescription?.hasAttribute('aria-hidden')).to.be.false;
+      expect(tooltipDescription?.getAttribute('aria-hidden')).to.equal('true');
       expect(tooltipDescription?.classList.contains('visually-hidden')).to.be.true;
       expect(el.input.ariaDescribedByElements).to.include(tooltipDescription);
       expect(el.input.getAttribute('aria-describedby')).to.contain(tooltipDescription?.id);
@@ -550,6 +554,10 @@ describe('sl-checkbox', () => {
       expect(input).to.exist;
       expect(input.id).to.match(/sl-checkbox-(\d+)/);
       expect(input.type).to.equal('checkbox');
+    });
+
+    it('should have a presentation role on the host', () => {
+      expect(el).to.have.attribute('role', 'presentation');
     });
 
     it('should not be checked', () => {

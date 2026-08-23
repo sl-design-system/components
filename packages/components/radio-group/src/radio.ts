@@ -491,6 +491,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
       this.#tooltipDescription.className = 'visually-hidden';
       this.append(this.#tooltipDescription);
     }
+    this.#tooltipDescription.setAttribute('aria-hidden', 'true');
     if (this.#tooltipDescription.textContent !== tooltip) {
       this.#tooltipDescription.textContent = tooltip;
     }

@@ -36,19 +36,24 @@
   }
 }
 
+/**
+ * The arrow is positioned off the anchor alone: the same distance that separates the popover from
+ * its anchor puts the arrow in that gap, and the border width lets it overlap the border of the
+ * container, so the two shapes join up. `anchor(center)` below centers it on the other axis.
+ */
 :host(:state(anchored-bottom)) {
   margin-block-start: var(--_offset);
 
-  [part='arrow-wrapper'] {
-    inset-block-start: calc(var(--_arrow-size) * -1 + var(--sl-size-borderWidth-default));
+  [part='arrow'] {
+    inset-block-end: calc(anchor(end) - var(--_offset) - var(--sl-size-borderWidth-default));
   }
 }
 
 :host(:state(anchored-top)) {
   margin-block-end: var(--_offset);
 
-  [part='arrow-wrapper'] {
-    inset-block-end: var(--sl-size-borderWidth-default);
+  [part='arrow'] {
+    inset-block-start: calc(anchor(start) - var(--_offset) - var(--sl-size-borderWidth-default));
   }
 
   svg {
@@ -59,8 +64,8 @@
 :host(:state(anchored-right)) {
   margin-inline-start: var(--_offset);
 
-  [part='arrow-wrapper'] {
-    inset-inline-start: calc(var(--_arrow-size) * -1 + var(--sl-size-borderWidth-default));
+  [part='arrow'] {
+    inset-inline-end: calc(anchor(end) - var(--_offset) - var(--sl-size-borderWidth-default));
   }
 
   svg {
@@ -71,8 +76,8 @@
 :host(:state(anchored-left)) {
   margin-inline-end: var(--_offset);
 
-  [part='arrow-wrapper'] {
-    inset-inline-end: var(--sl-size-borderWidth-default);
+  [part='arrow'] {
+    inset-inline-start: calc(anchor(start) - var(--_offset) - var(--sl-size-borderWidth-default));
   }
 
   svg {
@@ -97,15 +102,6 @@
   color: var(--sl-color-foreground-plain);
   overflow: auto;
   padding: var(--sl-size-200);
-}
-
-/**
- * This is a workaround for Safari 26.6 which doesn't handle multiple anchors in
- * combination with setting the position-anchor on ::part(arrow) properly. Works fine
- * in STP 250. So in the future the arrow wrapper won't be necessary.
- */
-[part='arrow-wrapper'] {
-  position: absolute;
 }
 
 [part='arrow'] {

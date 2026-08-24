@@ -3,7 +3,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
-import { Button, type ButtonSize } from '@sl-design-system/button';
+import { type ButtonSize } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -32,7 +32,6 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
       'sl-icon': Icon,
       'sl-popover': Popover
     };
@@ -41,17 +40,12 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
     ...LitElement.shadowRootOptions,
+    delegatesFocus: true,
     slotAssignment: 'manual'
   };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** The name of the element that this infotip describes. */
-  @property() describes?: string;
-
-  /** The size of the infotip button. */
-  @property({ reflect: true }) size: ButtonSize = 'md';
 
   /** Light DOM div that holds a copy of the content; manually assigned to the default slot. */
   #contentCopy?: HTMLElement;
@@ -61,6 +55,12 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
 
   /** The unique ID assigned to the content copy for use with aria-describedby. */
   contentId?: string;
+
+  /** The name of the element that this infotip describes. */
+  @property() describes?: string;
+
+  /** The size of the infotip button. */
+  @property({ reflect: true }) size: ButtonSize = 'md';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -95,11 +95,11 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <button
-        @click=${this.#onClick}
         aria-label=${this.#buttonLabel()}
+        command="toggle-popover"
+        commandfor="popover"
         id="trigger"
-        part="button"
-        popovertarget="popover">
+        part="button">
         <slot name="icon">
           <sl-icon name="info"></sl-icon>
         </slot>
@@ -110,37 +110,27 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  override focus(options?: FocusOptions): void {
-    const trigger = this.renderRoot.querySelector<Button>('sl-button');
-
-    if (trigger) {
-      trigger.focus(options);
-      return;
-    }
-
-    super.focus(options);
-  }
-
-  toggleInfotip(): void {
-    this.renderRoot.querySelector('sl-popover')?.togglePopover();
-  }
-
-  #onClick(event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.toggleInfotip();
-  }
-
   #buttonLabel(): string {
     const describes = this.describes?.trim();
 
     if (!describes) {
       return msg('More information', { id: 'sl.infotip.moreInformation' });
     }
+
     return msg(str`More information about ${describes}`, { id: 'sl.infotip.moreInformationAbout' });
   }
 
+  /**
+   * Renders a copy of the light DOM content in the popover, rather than the content itself.
+   *
+   * The infotip describes another element, which points at the content using `aria-describedby`
+   * (see `sl-form-field`, which adds `contentId` to the `aria-describedby` of its control). That
+   * only resolves ids in the same tree as the element using it, so the content has to be an element
+   * with an id here in the light DOM; inside the shadow root it would be out of reach. Cloning
+   * leaves the nodes the consumer wrote untouched, so a framework that keeps rendering into this
+   * element does not lose track of them, and manual slot assignment renders only the copy, so the
+   * content is not exposed to assistive technology twice.
+   */
   #syncContent(): void {
     this.#observer?.disconnect();
 

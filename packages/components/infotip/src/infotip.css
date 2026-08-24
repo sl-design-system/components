@@ -10,7 +10,6 @@
 }
 
 button {
-  anchor-name: --anchor;
   appearance: none;
   aspect-ratio: 1 / 1;
   background: transparent;
@@ -32,8 +31,6 @@ sl-icon {
 }
 
 sl-popover {
-  position-anchor: --anchor;
-
   &::part(container) {
     max-inline-size: min(80dvw, 400px);
   }

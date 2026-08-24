@@ -110,12 +110,10 @@ export class Popover extends LitElement {
         <div part="container">
           <slot></slot>
         </div>
-        <div aria-hidden="true" part="arrow-wrapper">
-          <div part="arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-              <path d="M0 20 20 20 10 10Z" paint-order="stroke" />
-            </svg>
-          </div>
+        <div aria-hidden="true" part="arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M0 20 20 20 10 10Z" paint-order="stroke" />
+          </svg>
         </div>
       </div>
     `;

@@ -469,6 +469,9 @@
     --sl-color-shadow-overlay2: var(--sl-brand-dark-color-shadow-overlay2);
     --sl-color-skeleton-plain: var(--sl-brand-dark-color-skeleton-plain);
     --sl-color-skeleton-subtle: var(--sl-brand-dark-color-skeleton-subtle);
+    --sl-computed-magister-brand-dark-color-background-accent-red-subtle: #c70e1359;
+    --sl-computed-neon-brand-dark-color-background-accent-red-subtle: #ac243e59;
+    --sl-computed-sanoma-learning-brand-dark-color-background-accent-red-subtle: #a0141859;
     --sl-elevation-surface-base-default: var(--sl-brand-dark-elevation-surface-base-default);
     --sl-elevation-surface-raised-alternative: var(
       --sl-brand-dark-elevation-surface-raised-alternative

@@ -1,4 +1,7 @@
 [data-brand='my-digital-book'] {
+  --sl-brand-dark-color-background-accent-red-subtle: var(
+    --sl-computed-my-digital-book-brand-dark-color-background-accent-red-subtle
+  );
   --sl-brand-icon-typeset-fontWeight-regular: var(--sl-icon-typeset-fontWeight-icon-regular);
   --sl-brand-icon-typeset-fontWeight-solid: var(--sl-icon-typeset-fontWeight-icon-solid);
   --sl-brand-light-color-background-accent-blue-bold: var(--sl-brand-light-color-palette-blue-500);

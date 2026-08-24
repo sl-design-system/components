@@ -273,10 +273,10 @@
       ]
     },
     "import-icons": {
-      "command": "node scripts/import-icons.js",
+      "command": "node scripts/build-icons.js",
       "clean": false,
       "files": [
-        "scripts/import-icons.js",
+        "scripts/build-icons.js",
         "scripts/themes/slds-legacy/core.json",
         "scripts/themes/slds-legacy/*/base.json"
       ],

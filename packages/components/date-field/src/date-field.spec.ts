@@ -5,8 +5,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { DateField } from './date-field.js';
+import './register.js';
 
 describe('sl-date-field', () => {
   let el: DateField;
@@ -132,6 +132,18 @@ describe('sl-date-field', () => {
 
       expect(el).to.have.attribute('required');
       expect(el.required).to.be.true;
+    });
+
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
     });
 
     it('should not be select-only', () => {

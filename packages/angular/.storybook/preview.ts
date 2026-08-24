@@ -1,7 +1,7 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { configureLocalization } from '@lit/localize';
 import { sourceLocale, targetLocales } from '@sl-design-system/locales';
-import { Preview } from '@storybook/angular';
+import { Preview } from '@storybook/angular-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { Mode, themes, updateTheme } from '../../../.storybook/themes';
 
@@ -28,17 +28,25 @@ const { setLocale } = configureLocalization({
   }
 });
 
+const nextFrame = async (): Promise<void> => {
+  await new Promise(resolve => requestAnimationFrame(resolve));
+};
+
 const preview: Preview = {
   decorators: [
     (story, { globals: { locale = sourceLocale } }) => {
       document.documentElement.lang = locale as string;
 
-      // Try and set the @lit/localize locale; ignore async loading failures
-      // since the locale can still be valid for components that use the Intl
-      // APIs.
-      void setLocale(locale as string).catch(() => {
-        // empty
-      });
+      // Try and set the @lit/localize locale; ignore failures since the locale
+      // can still be valid for components that use the Intl APIs. setLocale
+      // throws synchronously on an unknown locale, so catch that as well.
+      try {
+        void setLocale(locale as string).catch(() => {
+          // empty
+        });
+      } catch {
+        console.warn(`Could not set the @lit/localize locale to "${locale as string}"`);
+      }
 
       return story();
     }
@@ -46,6 +54,8 @@ const preview: Preview = {
   loaders: [
     async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
       await updateTheme(theme, mode as Mode);
+      await nextFrame();
+      await nextFrame();
     }
   ],
   globalTypes: {

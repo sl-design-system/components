@@ -10,10 +10,10 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Listbox, Option, OptionGroup } from '../index.js';
-import '../register.js';
+import './register.js';
 import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
+import { Listbox, Option, OptionGroup } from './index.js';
 
 describe('sl-select', () => {
   it('should export and register listbox option components', () => {
@@ -79,6 +79,20 @@ describe('sl-select', () => {
 
       expect(button.fill).to.equal('ghost');
       expect(button).to.have.attribute('fill', 'ghost');
+    });
+
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should pass shape="pill" to the button and reflect it as an attribute', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
+      expect(button.shape).to.equal('pill');
+      expect(button).to.have.attribute('shape', 'pill');
     });
 
     it('should not be required', () => {
@@ -1149,11 +1163,11 @@ describe('sl-select', () => {
           }
         });
 
-        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+        window.requestAnimationFrame = (callback: FrameRequestCallback) => {
           frameCallbacks.push(callback);
 
           return frameCallbacks.length;
-        }) as typeof window.requestAnimationFrame;
+        };
 
         const option = el.querySelector('sl-option[value="1"]')!;
         option.textContent = 'Update 1';
@@ -1277,11 +1291,11 @@ describe('sl-select', () => {
           }
         });
 
-        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+        window.requestAnimationFrame = (callback: FrameRequestCallback) => {
           frameCallbacks.push(callback);
 
           return frameCallbacks.length;
-        }) as typeof window.requestAnimationFrame;
+        };
 
         const option = el.querySelector('sl-option[value="apple"]')!;
         option.setAttribute('value', 'green-apple');

@@ -526,6 +526,14 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Verwijder minstens <x id="0" equiv-text="${over}"/> tekens.</target>
 </trans-unit>
+<trans-unit id="sl.grid.selectGroupWithName">
+  <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
+  <target><x id="0" equiv-text="${this.groupLabel}"/> groep</target>
+</trans-unit>
+<trans-unit id="link.opens-in-new-tab">
+  <source>opens in a new tab</source>
+  <target>opent in een nieuw tabblad</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

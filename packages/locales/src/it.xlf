@@ -526,6 +526,14 @@
   <source>Please remove at least <x id="0" equiv-text="${over}"/> characters.</source>
   <target>Rimuovi almeno <x id="0" equiv-text="${over}"/> caratteri.</target>
 </trans-unit>
+<trans-unit id="sl.grid.selectGroupWithName">
+  <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
+  <target><x id="0" equiv-text="${this.groupLabel}"/> gruppo</target>
+</trans-unit>
+<trans-unit id="link.opens-in-new-tab">
+  <source>opens in a new tab</source>
+  <target>si apre in una nuova scheda</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

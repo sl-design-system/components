@@ -7,7 +7,7 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
-import '../register.js';
+import './register.js';
 
 Icon.register(faGear, faPen);
 

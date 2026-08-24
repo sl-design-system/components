@@ -2,8 +2,8 @@ import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type NumberField } from './number-field.js';
+import './register.js';
 
 type Props = Pick<
   NumberField,
@@ -17,6 +17,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'shape'
   | 'size'
   | 'step'
   | 'valueAsNumber'
@@ -48,6 +49,10 @@ export default {
       control: 'inline-radio',
       options: ['md', 'lg']
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
     stepButtons: {
       control: 'inline-radio',
       options: ['end', 'edges']
@@ -66,6 +71,7 @@ export default {
     readonly,
     reportValidity,
     required,
+    shape,
     size,
     step,
     stepButtons,
@@ -89,17 +95,20 @@ export default {
             max=${ifDefined(max)}
             min=${ifDefined(min)}
             placeholder=${ifDefined(placeholder)}
+            shape=${ifDefined(shape)}
             size=${ifDefined(size)}
             step=${ifDefined(step)}
             step-buttons=${ifDefined(stepButtons)}></sl-number-field>
         </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
-            `
-          : nothing}
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }
@@ -107,6 +116,13 @@ export default {
 
 export const Basic: Story = {
   args: {
+    valueAsNumber: 1024
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    shape: 'pill',
     valueAsNumber: 1024
   }
 };
@@ -391,6 +407,47 @@ export const All: Story = {
         aria-label="Number field"
         disabled
         placeholder="Placeholder"
+        size="lg"
+        step-buttons="edges"
+        value="100"></sl-number-field>
+
+      <span>Pill</span>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        shape="pill"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        shape="pill"
+        size="lg"></sl-number-field>
+
+      <span>Pill, step buttons: end with value</span>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        shape="pill"
+        step-buttons="end"
+        value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        shape="pill"
+        size="lg"
+        step-buttons="end"
+        value="100"></sl-number-field>
+
+      <span>Pill, step buttons: edges with value</span>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        shape="pill"
+        step-buttons="edges"
+        value="100"></sl-number-field>
+      <sl-number-field
+        aria-label="Number field"
+        placeholder="Placeholder"
+        shape="pill"
         size="lg"
         step-buttons="edges"
         value="100"></sl-number-field>

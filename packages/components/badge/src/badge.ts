@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './badge.scss.js';
+import styles from './badge.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -41,6 +41,8 @@ export class Badge extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  #mutationObserver = new MutationObserver(() => this.#updateRoundAttribute());
+
   /**
    * The color of the badge.
    *
@@ -70,14 +72,36 @@ export class Badge extends LitElement {
    */
   @property({ reflect: true }) variant?: BadgeVariant;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#mutationObserver.observe(this, {
+      childList: true,
+      characterData: true,
+      subtree: true
+    });
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.#mutationObserver.disconnect();
+  }
+
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const elements = event.target.assignedElements({ flatten: true }),
+  #onSlotChange(): void {
+    this.#updateRoundAttribute();
+  }
+
+  #updateRoundAttribute(): void {
+    const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement | null;
+    if (!slot) return;
+
+    const elements = slot.assignedElements({ flatten: true }),
       icon = elements.length === 1 && elements[0].tagName === 'SL-ICON',
-      text = event.target
+      text = slot
         .assignedNodes({ flatten: true })
         .filter(node => node.nodeType === Node.TEXT_NODE)
         .map(node => node.textContent?.trim())

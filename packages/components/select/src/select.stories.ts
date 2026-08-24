@@ -14,12 +14,12 @@ import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
-import { type Select, type SelectSize } from './select.js';
+import './register.js';
+import { type Select, type SelectShape, type SelectSize } from './select.js';
 
 type Props = Pick<
   Select,
-  'clearable' | 'disabled' | 'fill' | 'placeholder' | 'required' | 'size' | 'value'
+  'clearable' | 'disabled' | 'fill' | 'placeholder' | 'required' | 'shape' | 'size' | 'value'
 > & {
   hint?: string;
   label?: string;
@@ -30,7 +30,8 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const sizes: SelectSize[] = ['md', 'lg'];
+const sizes: SelectSize[] = ['md', 'lg'],
+  shapes: SelectShape[] = ['rect', 'pill'];
 
 Icon.register(fasCircle, fasTriangle, fasHexagon, fasSquare);
 
@@ -41,6 +42,7 @@ export default {
     label: 'Label',
     placeholder: 'Select an option',
     required: false,
+    shape: 'rect',
     size: 'md',
     value: null
   },
@@ -52,6 +54,10 @@ export default {
     size: {
       control: 'inline-radio',
       options: sizes
+    },
+    shape: {
+      control: 'inline-radio',
+      options: shapes
     },
     styles: {
       table: {
@@ -90,6 +96,7 @@ export default {
     placeholder,
     reportValidity,
     required,
+    shape,
     size,
     slot,
     styles,
@@ -108,32 +115,39 @@ export default {
       </style>
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-select
-              ?clearable=${clearable}
-              ?disabled=${disabled}
-              ?required=${required}
-              .value=${value}
-              fill=${ifDefined(fill)}
-              placeholder=${ifDefined(placeholder)}
-              size=${ifDefined(size)}>
-              ${options?.() ??
-              html`
-                <sl-option value="1">Option 1</sl-option>
-                <sl-option value="2">Option 2</sl-option>
-                <sl-option value="3">Option 3</sl-option>
-              `}
-            </sl-select>
-          `}
-        </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
+          ${
+            slot?.() ??
+            html`
+              <sl-select
+                ?clearable=${clearable}
+                ?disabled=${disabled}
+                ?required=${required}
+                .value=${value}
+                fill=${ifDefined(fill)}
+                placeholder=${ifDefined(placeholder)}
+                shape=${ifDefined(shape)}
+                size=${ifDefined(size)}>
+                ${
+                  options?.() ??
+                  html`
+                    <sl-option value="1">Option 1</sl-option>
+                    <sl-option value="2">Option 2</sl-option>
+                    <sl-option value="3">Option 3</sl-option>
+                  `
+                }
+              </sl-select>
             `
-          : nothing}
+          }
+        </sl-form-field>
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }
@@ -144,6 +158,12 @@ export const Basic: Story = {};
 export const Ghost: Story = {
   args: {
     fill: 'ghost'
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    shape: 'pill'
   }
 };
 
@@ -715,6 +735,69 @@ export const All: Story = {
           value="Value 2"
           size="lg"
           aria-label="Large disabled select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Placeholder (pill)</span>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          aria-label="Medium pill select with placeholder">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          size="lg"
+          aria-label="Large pill select with placeholder">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Selected (pill)</span>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          aria-label="Medium pill select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          size="lg"
+          aria-label="Large pill select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Clearable (pill)</span>
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          aria-label="Medium pill clearable select with selected value">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select
+          clearable
+          placeholder="Select an option"
+          shape="pill"
+          value="Value 2"
+          size="lg"
+          aria-label="Large pill clearable select with selected value">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>

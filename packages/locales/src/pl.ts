@@ -4,6 +4,7 @@
 import { str } from '@lit/localize';
 
 export const templates = {
+  'link.opens-in-new-tab': 'otwiera się w nowej karcie',
   'sl.breadcrumbs.breadcrumbTrail': 'Ścieżka nawigacji',
   'sl.breadcrumbs.home': 'Strona główna',
   'sl.breadcrumbs.moreBreadcrumbs': 'Więcej linków',
@@ -62,6 +63,7 @@ export const templates = {
   'sl.grid.rowDeactivated': str`Wiersz ${0} dezaktywowany`,
   'sl.grid.selectAllRows': 'Zaznacz wszystkie wiersze',
   'sl.grid.selectGroup': 'Grupa',
+  'sl.grid.selectGroupWithName': str`${0} grupa`,
   'sl.grid.selectionStatusMessage': str`${0} z ${1} wybranych`,
   'sl.grid.selectRow': 'Zaznacz wiersz',
   'sl.grid.skipToEndOfTable': 'Przejdź do końca tabeli',

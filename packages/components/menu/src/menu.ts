@@ -17,7 +17,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { MenuItemGroup } from './menu-item-group.js';
 import { MenuItem } from './menu-item.js';
-import styles from './menu.scss.js';
+import styles from './menu.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -127,9 +127,9 @@ export class Menu extends LitElement {
       <slot
         @slotchange=${this.#onSlotchange}
         @sl-select=${this.#onSelect}
-        style="--sl-menu-item-indent: ${this.selects || this.selectableChildren
-          ? '1'
-          : '0'}"></slot>
+        style="--sl-menu-item-indent: ${
+          this.selects || this.selectableChildren ? '1' : '0'
+        }"></slot>
     `;
   }
 

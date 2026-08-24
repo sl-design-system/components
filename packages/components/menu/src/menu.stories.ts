@@ -18,8 +18,8 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
-import '../register.js';
 import { type Menu } from './menu.js';
+import './register.js';
 
 type Props = Pick<Menu, 'selects' | 'emphasis'> & { menuItems(): TemplateResult; maxWidth: string };
 type Story = StoryObj<Props>;

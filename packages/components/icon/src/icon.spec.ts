@@ -2,9 +2,9 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { SinonStub, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { Icon } from './icon.js';
 import { type IconDefinition } from './models.js';
+import './register.js';
 
 describe('sl-icon', () => {
   let el: Icon;

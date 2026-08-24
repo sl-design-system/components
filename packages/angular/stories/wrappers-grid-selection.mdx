@@ -1,0 +1,240 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridSelectionStories from './wrappers-grid-selection.stories';
+
+<Meta of={GridSelectionStories} />
+
+# Grid Selection
+
+This section documents selection patterns in the Angular Grid wrapper.
+
+Use these stories to learn row activation, checkbox selection, grouped selection, and bulk actions.
+
+## Activate
+
+Activate a row by clicking anywhere on it, or by focusing the student button and pressing Enter/Space.
+
+This story mirrors the regular Grid behavior where the student cell is a focusable button. The renderer updates `aria-pressed` and `aria-description` based on the current active row.
+
+### Template
+
+```html
+<p id="activation-message">You have not activated anybody yet.</p>
+<sl-grid
+  [items]="students"
+  rowAction="activate"
+  [noSkipLinks]="true"
+  (slGridActiveRowChange)="onActiveRowChange($event)">
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    [renderer]="activateRenderer"
+    [scopedElements]="avatarButtonScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+let activeStudent: Student | undefined;
+let message = 'You have not activated anybody yet.';
+
+const activateRenderer = (student: Student) => {
+  const isActive = activeStudent === student;
+
+  return html`
+    <sl-button
+      aria-description=${isActive ? 'Deactivate row' : 'Activate row'}
+      aria-pressed=${isActive ? 'true' : 'false'}
+      fill="link"
+      variant="primary">
+      ${avatarRenderer(student)}
+    </sl-button>
+  `;
+};
+```
+
+## Multiple
+
+Select multiple rows using the selection column and show bulk actions.
+
+This is the default bulk action pattern: select rows with checkboxes and trigger actions from the `bulk-actions` slot.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-selection-column [selectAll]="false"></sl-grid-selection-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+    <sl-icon name="far-copy"></sl-icon>
+    Duplicate
+  </sl-button>
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
+  <sl-button [disabled]="true" fill="outline" slot="bulk-actions" variant="inverted"
+    >Action 1</sl-button
+  >
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Action 2</sl-button>
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Action 3</sl-button>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[]; // first 5 students in this story
+}
+```
+
+## Multiple with menu button
+
+Use a menu button in the bulk actions bar for compact action groups.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-selection-column [selectAll]="false"></sl-grid-selection-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Duplicate</sl-button>
+  <sl-menu-button fill="outline" slot="bulk-actions" variant="inverted">
+    <span slot="button">Visibility</span>
+    <sl-menu-item>Hide</sl-menu-item>
+    <sl-menu-item>Show</sl-menu-item>
+  </sl-menu-button>
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  students: Student[]; // first 5 students in this story
+}
+```
+
+## Multiple row
+
+Select rows by clicking the row (`rowAction="select"`) and run bulk actions against a data source.
+
+### Template
+
+```html
+<sl-grid [dataSource]="ds" rowAction="select" [noSkipLinks]="true">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted" (click)="onUpdate()"
+    >Update emails</sl-button
+  >
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted" (click)="onCopy()"
+    >Duplicate</sl-button
+  >
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted" (click)="onDelete()"
+    >Delete</sl-button
+  >
+</sl-grid>
+```
+
+## With filtering
+
+Combine selection and filtering.
+
+Filtering changes visible rows, but selection state is preserved in the data source.
+
+### Template
+
+```html
+<sl-grid [items]="students" [noSkipLinks]="true">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-filter-column
+    header="Student"
+    path="fullName"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-filter-column>
+  <sl-grid-filter-column header="School" labelPath="school.name" mode="select" path="school.id">
+  </sl-grid-filter-column>
+</sl-grid>
+```
+
+## With links
+
+Mixed behavior: row activation plus checkbox-based selection and bulk actions.
+
+Like `Activate`, this story uses a focusable button renderer for keyboard row activation, while still supporting independent checkbox selection.
+
+### Template
+
+```html
+<p id="selection-message">You have not activated or selected anybody yet.</p>
+<sl-grid
+  [items]="students"
+  rowAction="activate"
+  [noSkipLinks]="true"
+  (slGridActiveRowChange)="onActiveRowChange($event)"
+  (slGridSelectionChange)="onSelectionChange($event)">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    [renderer]="activateRenderer"
+    [scopedElements]="avatarButtonScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Duplicate</sl-button>
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
+</sl-grid>
+```
+
+## Grouped
+
+Selection in grouped data with bulk delete.
+
+This story also includes a helper action to show selected student names.
+
+### Template
+
+```html
+<sl-button-bar style="margin-block-end: var(--sl-size-200)">
+  <sl-button (click)="onGetSelected()">Get selected students</sl-button>
+  <span [attr.id]="'selected-students-' + storyId">(no selected students)</span>
+</sl-button-bar>
+<sl-grid [dataSource]="ds" [noSkipLinks]="true" [attr.data-story-id]="storyId">
+  <sl-grid-selection-column></sl-grid-selection-column>
+  <sl-grid-column
+    [grow]="3"
+    header="Student"
+    [renderer]="avatarRenderer"
+    [scopedElements]="avatarScopedElements"></sl-grid-column>
+  <sl-grid-column path="email"></sl-grid-column>
+
+  <sl-button fill="outline" slot="bulk-actions" variant="inverted" (click)="onDelete()"
+    >Delete</sl-button
+  >
+</sl-grid>
+```
+
+### Notes
+
+- `Activate` and `WithLinks` intentionally use a focusable button renderer for keyboard activation parity with regular Grid stories.
+- `Multiple` and `MultipleWithMenuButton` show two bulk-action toolbar patterns.
+- `Grouped` handles deleting selected group members and individual selected rows.

@@ -8,7 +8,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './infotip.scss.js';
+import styles from './infotip.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

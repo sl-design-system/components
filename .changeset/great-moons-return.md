@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/shared': major
+'@sl-design-system/shared': minor
 ---
 
 Every mixin now has its own entry point, the same way `ElementInternalsMixin` has one, and the

@@ -76,22 +76,17 @@ export default {
 export const Basic: Story = {
   args: {
     maxWidth: 400,
-    body: () => {
-      const onClick = (): void => {
-        return;
-      };
-      return html`
-        <header style="font:var(--sl-text-new-heading-sm);">Hello! I am a popover!</header>
-        <section>
-          <p>
-            I'm a lightweight and flexible UI element that appears on top of other content. I am
-            often used to display additional information, actions, or contextual content without
-            disrupting the main flow of the interface.
-          </p>
-        </section>
-        <sl-button @click=${onClick} variant="primary">Button</sl-button>
-      `;
-    }
+    body: () => html`
+      <header style="font:var(--sl-text-new-heading-sm);">Hello! I am a popover!</header>
+      <section>
+        <p>
+          I'm a lightweight and flexible UI element that appears on top of other content. I am often
+          used to display additional information, actions, or contextual content without disrupting
+          the main flow of the interface.
+        </p>
+      </section>
+      <sl-button command="hide-popover" commandfor="popover" variant="primary">Close</sl-button>
+    `
   }
 };
 

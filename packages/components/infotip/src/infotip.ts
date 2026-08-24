@@ -21,16 +21,7 @@ let nextUniqueId = 0;
 /**
  * An info icon button that triggers a popover showing slotted content.
  *
- * You can use it inside the `infotip` slot of `<sl-label>`:
- *
- * ```html
- * <sl-label>
- *   Label text
- *   <sl-infotip slot="infotip">This is additional information.</sl-infotip>
- * </sl-label>
- * ```
- *
- * @slot default - The content to display inside the infotip popover.
+ * @slot - The content to display inside the infotip popover.
  * @slot icon - The icon to display in the button, defaults to `circle-info`.
  *
  * @csspart button - The button element.
@@ -39,15 +30,6 @@ let nextUniqueId = 0;
 @localized()
 export class Infotip extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = {
-    ...LitElement.shadowRootOptions,
-    slotAssignment: 'manual'
-  };
-
-  /** @internal */
-  static override styles: CSSResultGroup = styles;
-
-  /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -55,6 +37,15 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
       'sl-popover': Popover
     };
   }
+
+  /** @internal */
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    slotAssignment: 'manual'
+  };
+
+  /** @internal */
+  static override styles: CSSResultGroup = styles;
 
   /** The name of the element that this infotip describes. */
   @property() describes?: string;

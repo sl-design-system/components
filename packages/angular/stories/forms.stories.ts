@@ -420,6 +420,130 @@ export class AllFormControlsTemplateComponent {
 }
 
 @Component({
+  selector: 'sla-all-form-controls-template-driven-on-blur',
+  template: `
+    <sl-form #form validate-on-blur>
+      <sl-form-field label="Text field">
+        <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Number field">
+        <sl-number-field [(ngModel)]="formGroup.numberField" required></sl-number-field>
+      </sl-form-field>
+
+      <sl-form-field label="Date field">
+        <sl-date-field [(ngModel)]="formGroup.dateField" required></sl-date-field>
+      </sl-form-field>
+
+      <sl-form-field label="Time field">
+        <sl-time-field [(ngModel)]="formGroup.timeField" required></sl-time-field>
+      </sl-form-field>
+
+      <sl-form-field label="Text area">
+        <sl-text-area [(ngModel)]="formGroup.textArea" required></sl-text-area>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox">
+        <sl-checkbox [(ngModel)]="formGroup.checkbox" required>Checkbox</sl-checkbox>
+      </sl-form-field>
+
+      <sl-form-field label="Select">
+        <sl-select [(ngModel)]="formGroup.select" required>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - single select">
+        <sl-combobox [(ngModel)]="formGroup.comboboxSingle" required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Combobox - multiple select">
+        <sl-combobox [(ngModel)]="formGroup.comboboxMultiple" multiple required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field label="Switch">
+        <sl-switch [(ngModel)]="formGroup.switch" reverse>Toggle me</sl-switch>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox group">
+        <sl-checkbox-group [(ngModel)]="formGroup.checkboxGroup" required>
+          <sl-checkbox value="0">Check me</sl-checkbox>
+          <sl-checkbox value="1">No me</sl-checkbox>
+          <sl-checkbox value="2">I was here first</sl-checkbox>
+        </sl-checkbox-group>
+      </sl-form-field>
+
+      <sl-form-field label="Radio group">
+        <sl-radio-group [(ngModel)]="formGroup.radioGroup" required>
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+      </sl-form-field>
+
+      <sl-button-bar align="end">
+        <sl-button (click)="onClick()" variant="primary">Report validity</sl-button>
+      </sl-button-bar>
+    </sl-form>
+
+    <pre>{{ formGroup | json }}</pre>
+  `,
+  imports: [
+    JsonPipe,
+    FormsModule,
+    ButtonComponent,
+    ButtonBarComponent,
+    CheckboxDirective,
+    CheckboxGroupDirective,
+    ComboboxDirective,
+    DateFieldDirective,
+    NumberFieldDirective,
+    RadioGroupDirective,
+    SelectDirective,
+    SwitchDirective,
+    TextAreaDirective,
+    TextFieldDirective,
+    TimeFieldDirective
+  ]
+})
+export class AllFormControlsTemplateDrivenBlurComponent {
+  @ViewChild('form') form!: ElementRef<Form>;
+
+  formGroup = {
+    checkbox: false,
+    checkboxGroup: [],
+    comboboxMultiple: [],
+    comboboxSingle: '',
+    dateField: '',
+    numberField: '',
+    radioGroup: null,
+    select: '',
+    switch: false,
+    textArea: '',
+    textField: '',
+    timeField: ''
+  };
+
+  onClick(): void {
+    this.form.nativeElement.reportValidity();
+  }
+}
+
+@Component({
   selector: 'sla-all-form-controls-empty-template',
   template: `
     <sl-form #form>
@@ -740,23 +864,20 @@ export class LoginFormComponent {
 export class AllFormControlsReactiveBlurComponent {
   @ViewChild('form') form!: ElementRef<Form>;
 
-  formGroup = new FormGroup(
-    {
-      checkbox: new FormControl(false, Validators.requiredTrue),
-      checkboxGroup: new FormControl([], Validators.required),
-      comboboxSingle: new FormControl('', Validators.required),
-      comboboxMultiple: new FormControl('', Validators.required),
-      dateField: new FormControl('', Validators.required),
-      numberField: new FormControl(null, Validators.required),
-      radioGroup: new FormControl('', Validators.required),
-      select: new FormControl('', Validators.required),
-      switch: new FormControl(false),
-      textArea: new FormControl('', Validators.required),
-      textField: new FormControl('', Validators.required),
-      timeField: new FormControl('', Validators.required)
-    } //,
-    // { updateOn: 'blur' }
-  );
+  formGroup = new FormGroup({
+    checkbox: new FormControl(false, Validators.requiredTrue),
+    checkboxGroup: new FormControl([], Validators.required),
+    comboboxSingle: new FormControl('', Validators.required),
+    comboboxMultiple: new FormControl('', Validators.required),
+    dateField: new FormControl('', Validators.required),
+    numberField: new FormControl(null, Validators.required),
+    radioGroup: new FormControl('', Validators.required),
+    select: new FormControl('', Validators.required),
+    switch: new FormControl(false),
+    textArea: new FormControl('', Validators.required),
+    textField: new FormControl('', Validators.required),
+    timeField: new FormControl('', Validators.required)
+  });
 
   options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
 
@@ -784,6 +905,7 @@ export default {
         AllFormControlsEmptyReactiveComponent,
         AllFormControlsReactiveBlurComponent,
         AllFormControlsTemplateComponent,
+        AllFormControlsTemplateDrivenBlurComponent,
         AllFormControlsEmptyTemplateComponent,
         LoginFormComponent,
         CheckboxComponent,
@@ -820,13 +942,20 @@ export const AllEmptyReactive: StoryFn = () => ({
 
 export const AllReactiveOnBlur: StoryFn = () => ({
   description:
-    'An example form that includes all form controls using reactive forms with on-blur validation. Validation errors are shown only after a field loses focus.',
+    'Reactive forms example with `validate-on-blur` on `<sl-form>`. SLDS validates controls when they emit `sl-blur` (focus leaves the field), so errors are shown after interaction instead of during typing.',
   template: '<sla-all-form-controls-reactive-on-blur></sla-all-form-controls-reactive-on-blur>'
 });
 
 export const AllTemplate: StoryFn = () => ({
   description: 'An example form that includes all form controls using template-driven forms.',
   template: '<sla-all-form-controls-template></sla-all-form-controls-template>'
+});
+
+export const AllTemplateDrivenOnBlur: StoryFn = () => ({
+  description:
+    'Template-driven forms example with `validate-on-blur` on `<sl-form>`. Works with `[(ngModel)]` fields and shows validation feedback after blur, matching the reactive on-blur behavior.',
+  template:
+    '<sla-all-form-controls-template-driven-on-blur></sla-all-form-controls-template-driven-on-blur>'
 });
 
 export const AllEmptyTemplate: StoryFn = () => ({

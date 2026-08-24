@@ -39,7 +39,6 @@ describe('sl-checkbox', () => {
 
     await el.updateComplete;
 
-    expect(el.infotip?.size).to.equal('sm');
     expect(el.infotip?.describes).to.equal('Label');
   });
 

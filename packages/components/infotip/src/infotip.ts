@@ -3,7 +3,6 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
-import { type ButtonSize } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -58,9 +57,6 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
 
   /** The name of the element that this infotip describes. */
   @property() describes?: string;
-
-  /** The size of the infotip button. */
-  @property({ reflect: true }) size: ButtonSize = 'md';
 
   override connectedCallback(): void {
     super.connectedCallback();

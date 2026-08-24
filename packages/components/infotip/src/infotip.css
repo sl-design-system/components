@@ -4,11 +4,6 @@
   justify-content: center;
 }
 
-:host([size='sm']) sl-icon,
-:host([size='sm']) ::slotted(sl-icon) {
-  --sl-icon-size: var(--sl-size-150);
-}
-
 button {
   appearance: none;
   aspect-ratio: 1 / 1;

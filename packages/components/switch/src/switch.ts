@@ -386,14 +386,10 @@ export class Switch<T = any> extends ForwardAriaMixin(
       (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
     );
 
-    if (this.infotip) {
-      this.infotip.setAttribute('size', 'sm');
+    if (this.infotip && !this.infotip.describes) {
+      const labelSlot = this.renderRoot.querySelector('slot:not([name])');
 
-      if (!this.infotip.describes) {
-        const labelSlot = this.renderRoot.querySelector('slot:not([name])');
-
-        this.infotip.describes = (labelSlot && getSlottedText(labelSlot)) ?? '';
-      }
+      this.infotip.describes = (labelSlot && getSlottedText(labelSlot)) ?? '';
     }
   }
 

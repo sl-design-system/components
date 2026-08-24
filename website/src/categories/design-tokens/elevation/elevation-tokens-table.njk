@@ -1,0 +1,50 @@
+<section class="ds-tokens">
+<h2 id="elevation-shadow" class="ds-tokens__heading"><a class="header-anchor" href="#elevation-shadow">Elevation - shadow</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.elevationTokens.shadow -%}
+<tr>
+  <td>
+    <div class="ds-tokens__color-example">
+      <div style="width: 8rem; height: 8rem; background: var(--sl-elevation-surface-base-default); box-shadow: var({{ item.token }}); border-radius: 0.6rem; margin-block-end: 0.8rem;"></div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.description }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="elevation-surface" class="ds-tokens__heading"><a class="header-anchor" href="#elevation-surface">Elevation - surface</a></h2>
+<table class="ds-table" style="table-layout: fixed;"><thead>
+<tr>
+  <th style="width: 30%;">Value</th>
+  <th style="width: 35%;">Token title</th>
+  <th style="width: 35%;">Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.elevationTokens.surface -%}
+<tr>
+  <td>
+    <div class="ds-tokens__color-example">
+      <div class="ds-tokens__color" style="background-color: var({{ item.token }}); border: 1px solid var(--sl-color-border-plain);"></div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.description }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+

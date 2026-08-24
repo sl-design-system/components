@@ -1,8 +1,105 @@
 <section class="ds-tokens">
-<h2 class="ds-tokens__heading">Border</h2>
+<h2 id="border-width" class="ds-tokens__heading"><a class="header-anchor" href="#border-width">Border width</a></h2>
 <table class="ds-table"><thead>
 <tr>
-  <th>Example</th>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.borderTokens.borderWidth -%}
+<tr>
+  <td>
+    <div class="ds-tokens__border-example">
+      <div class="ds-tokens__border" style="border-width: var({{ item.token }});"></div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.description }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="border-radius" class="ds-tokens__heading"><a class="header-anchor" href="#border-radius">Border radius</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.borderTokens.borderRadius -%}
+<tr>
+  <td>
+    <div class="ds-tokens__border-example">
+      <div class="ds-tokens__border" style="border-radius: var({{ item.token }});"></div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.description }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="outline-width" class="ds-tokens__heading"><a class="header-anchor" href="#outline-width">Outline width</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.borderTokens.outlineWidth -%}
+<tr>
+  <td>
+    <div class="ds-tokens__border-example">
+      <div class="ds-tokens__border" style="outline: var({{ item.token }}) solid var(--sl-color-border-plain); border: none;"></div>
+      <code>{{ item.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ item.description }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="outline-offset" class="ds-tokens__heading"><a class="header-anchor" href="#outline-offset">Outline offset</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for item in tokens.borderTokens.outlineOffset -%}
+<tr>
+  <td>
+    <code>{{ item.value }}</code>
+  </td>
+  <td class="ds-tokens__description">{{ item.description }}</td>
+  <td><code>{{ item.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
+</section>
+
+<section class="ds-tokens">
+<h2 id="border" class="ds-tokens__heading"><a class="header-anchor" href="#border">Border - deprecated tokens</a></h2>
+<table class="ds-table"><thead>
+<tr>
+  <th>Value</th>
   <th>Token title</th>
   <th>Token</th>
 </tr></thead>

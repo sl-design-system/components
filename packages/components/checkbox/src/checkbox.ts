@@ -512,7 +512,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
   #onLabelSlotChange(): void {
     const nodes = Array.from(this.childNodes).filter(
       node =>
-        node.nodeType === Node.TEXT_NODE ||
+        (node.nodeType === Node.TEXT_NODE && !!node.textContent?.trim()) ||
         (node.nodeType === Node.ELEMENT_NODE &&
           !(node as Element).hasAttribute('slot') &&
           !(node instanceof HTMLStyleElement))
@@ -564,7 +564,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       labelSlotNodes = labelSlot?.assignedNodes({ flatten: true }) || [],
       lightDomNodes = Array.from(this.childNodes).filter(
         node =>
-          node.nodeType === Node.TEXT_NODE ||
+          (node.nodeType === Node.TEXT_NODE && !!node.textContent?.trim()) ||
           (node.nodeType === Node.ELEMENT_NODE &&
             !(node as Element).hasAttribute('slot') &&
             !(node instanceof HTMLStyleElement))
@@ -572,10 +572,30 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       nodes = labelSlotNodes.length ? labelSlotNodes : lightDomNodes;
 
     return nodes
-      .map(node => node.textContent?.trim() || '')
+      .map(node => this.#textFromNode(node))
       .join(' ')
       .replace(/\s+/g, ' ')
       .trim();
+  }
+
+  #textFromNode(node: Node): string {
+    if (node instanceof HTMLSlotElement) {
+      return (
+        node.assignedNodes({ flatten: true }).length
+          ? node.assignedNodes({ flatten: true })
+          : Array.from(node.childNodes)
+      )
+        .map(child => this.#textFromNode(child))
+        .join(' ');
+    }
+
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      return Array.from(node.childNodes)
+        .map(child => this.#textFromNode(child))
+        .join(' ');
+    }
+
+    return node.textContent?.trim() || '';
   }
 
   #ensureSynthesizedDescription(): void {

@@ -78,7 +78,6 @@
     background: var(--sl-color-background-disabled);
   }
 
-  [part='label'],
   [part='description'] {
     color: var(--sl-color-foreground-disabled);
   }

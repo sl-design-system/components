@@ -87,7 +87,6 @@
     fill: var(--sl-color-foreground-disabled);
   }
 
-  [part='label'],
   [part='description'] {
     color: var(--sl-color-foreground-disabled);
   }

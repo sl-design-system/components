@@ -637,11 +637,11 @@ export class LoginFormComponent {
 }
 
 @Component({
-  selector: 'sla-all-form-controls-reactive-blur',
+  selector: 'sla-all-form-controls-reactive-on-blur',
   template: `
-    <sl-form #form [formGroup]="formGroup">
+    <sl-form #form validate-on-blur [formGroup]="formGroup">
       <sl-form-field label="Text field">
-        <sl-text-field formControlName="textField" required autofocus></sl-text-field>
+        <sl-text-field formControlName="textField" required></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Number field">
@@ -673,7 +673,7 @@ export class LoginFormComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - single select">
-        <sl-combobox formControlName="comboboxSingle" required style="max-width: 500px">
+        <sl-combobox formControlName="comboboxSingle" required>
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -683,7 +683,7 @@ export class LoginFormComponent {
       </sl-form-field>
 
       <sl-form-field label="Combobox - multiple select">
-        <sl-combobox formControlName="comboboxMultiple" multiple required style="max-width: 500px">
+        <sl-combobox formControlName="comboboxMultiple" multiple required>
           <sl-listbox>
             @for (option of options(); track option.value) {
               <sl-option>{{ option.label }}</sl-option>
@@ -754,8 +754,8 @@ export class AllFormControlsReactiveBlurComponent {
       textArea: new FormControl('', Validators.required),
       textField: new FormControl('', Validators.required),
       timeField: new FormControl('', Validators.required)
-    },
-    { updateOn: 'blur' }
+    } //,
+    // { updateOn: 'blur' }
   );
 
   options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
@@ -818,10 +818,10 @@ export const AllEmptyReactive: StoryFn = () => ({
   template: '<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>'
 });
 
-export const AllReactiveBlur: StoryFn = () => ({
+export const AllReactiveOnBlur: StoryFn = () => ({
   description:
     'An example form that includes all form controls using reactive forms with on-blur validation. Validation errors are shown only after a field loses focus.',
-  template: '<sla-all-form-controls-reactive-blur></sla-all-form-controls-reactive-blur>'
+  template: '<sla-all-form-controls-reactive-on-blur></sla-all-form-controls-reactive-on-blur>'
 });
 
 export const AllTemplate: StoryFn = () => ({

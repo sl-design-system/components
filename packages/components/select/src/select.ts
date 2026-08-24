@@ -134,8 +134,12 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
-  /** One-shot outside pointer listener used after clear to mirror native blur behavior. */
-  #outsidePointerBlurAbortController?: AbortController;
+  /**
+   * Tracks pointer events outside to emit blur. This is necessary because: - When the button has
+   * focus and you click non-focusable content, focus doesn't move - So focusout never fires and
+   * blur is never emitted
+   */
+  #outsidePointerAbortController?: AbortController;
 
   /** Manage keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Option>(this, {
@@ -301,7 +305,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       cancelAnimationFrame(this.#widthCalculationFrame);
       this.#widthCalculationFrame = undefined;
     }
-    this.#removeOutsidePointerBlurListener();
+    this.#removeOutsidePointerListener();
 
     super.disconnectedCallback();
   }
@@ -533,9 +537,11 @@ export class Select<T = any> extends ObserveAttributesMixin(
       );
 
       this.currentOption = this.selectedOption ?? this.options[0];
+      this.#listenForOutsidePointer();
     } else {
       this.#popoverClosing = true;
       this.button.setAttribute('aria-expanded', 'false');
+      this.#removeOutsidePointerListener();
     }
   }
 
@@ -572,9 +578,8 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.clearEvent.emit();
     this.button.focus();
 
-    // Clicking non-focusable content outside may not move focus away from the internal button.
-    // Listen for the next outside pointer interaction and treat it as leaving the field.
-    this.#listenForOutsidePointerBlur();
+    // Listen for outside clicks to emit blur after clearing, even if popover is closed
+    this.#listenForOutsidePointer();
   }
 
   #onClearButtonFocusin(): void {
@@ -618,7 +623,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
       }
 
       this.#emitBlurAndTouch();
-      this.#removeOutsidePointerBlurListener();
     }
   }
 
@@ -627,11 +631,11 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.updateState({ touched: true });
   }
 
-  #listenForOutsidePointerBlur(): void {
-    this.#removeOutsidePointerBlurListener();
+  #listenForOutsidePointer(): void {
+    this.#removeOutsidePointerListener();
 
     const abortController = new AbortController();
-    this.#outsidePointerBlurAbortController = abortController;
+    this.#outsidePointerAbortController = abortController;
 
     window.addEventListener(
       'pointerdown',
@@ -642,20 +646,21 @@ export class Select<T = any> extends ObserveAttributesMixin(
           return;
         }
 
+        // Emit blur if clicking outside - either while popover is open or after clearing
         this.#emitBlurAndTouch();
-        this.#removeOutsidePointerBlurListener();
+        this.#removeOutsidePointerListener();
       },
       { capture: true, signal: abortController.signal }
     );
   }
 
-  #removeOutsidePointerBlurListener(): void {
-    if (!this.#outsidePointerBlurAbortController) {
+  #removeOutsidePointerListener(): void {
+    if (!this.#outsidePointerAbortController) {
       return;
     }
 
-    this.#outsidePointerBlurAbortController.abort();
-    this.#outsidePointerBlurAbortController = undefined;
+    this.#outsidePointerAbortController.abort();
+    this.#outsidePointerAbortController = undefined;
   }
 
   #onKeydown(event: KeyboardEvent): void {

@@ -208,35 +208,17 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return element instanceof HTMLElement && 'formControlElement' in element;
   }
 
-  #isEmptyValue(value: unknown): boolean {
-    if (value === '' || value === undefined || value === null) {
-      return true;
-    }
-
-    return Array.isArray(value) && value.length === 0;
-  }
-
   #validateControlOnBlur(control: HTMLElement & FormControl): void {
     if (!this.validateOnBlur) {
       return;
     }
 
-    const isDirty = Boolean(control.dirty);
-    const isEmpty = this.#isEmptyValue(control.formValue);
-    const { validity } = control;
+    const { validity } = control,
+      hasFormatError = !control.valid && !validity.valueMissing,
+      hasMissingRequiredValue = control.required && validity.valueMissing;
 
-    // Should validate on blur if the field is dirty (touched/modified)
-    if (!isDirty) {
-      return;
-    }
-
-    // Show validation if:
-    // 1. There's a format/validation error (not just "valueMissing"), OR
-    // 2. It's a required field that's now empty (was touched but then cleared)
-    const hasFormatError = !control.valid && !validity.valueMissing;
-    const isRequiredAndEmpty = control.required && isEmpty;
-
-    if (!hasFormatError && !isRequiredAndEmpty) {
+    // On blur, required fields should validate even when no value was entered yet.
+    if (!hasFormatError && !hasMissingRequiredValue) {
       return;
     }
 

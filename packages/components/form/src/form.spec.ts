@@ -267,7 +267,7 @@ describe('sl-form', () => {
       expect(textField.showValidity).to.equal('invalid');
     });
 
-    it('should not validate empty required values on blur when opt-in is enabled', async () => {
+    it('should validate empty required values on blur when opt-in is enabled', async () => {
       el = await fixture(html`
         <sl-form validate-on-blur>
           <sl-form-field label="Code">
@@ -286,7 +286,7 @@ describe('sl-form', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await textField?.updateComplete;
 
-      expect(textField?.showValidity).to.be.undefined;
+      expect(textField?.showValidity).to.equal('invalid');
     });
 
     it('should validate empty required values on blur when touched and then cleared', async () => {

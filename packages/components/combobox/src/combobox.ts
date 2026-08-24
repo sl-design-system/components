@@ -670,8 +670,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #onFocusout(event: FocusEvent): void {
-    const leavingComponent =
-      !event.relatedTarget || (event.relatedTarget !== this && event.relatedTarget !== this.input);
+    const relatedTarget = event.relatedTarget,
+      leavingComponent =
+        !(relatedTarget instanceof Node) ||
+        (!this.contains(relatedTarget) && !this.renderRoot.contains(relatedTarget));
 
     if (leavingComponent) {
       this.wrapper?.hidePopover();

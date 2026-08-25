@@ -34,8 +34,6 @@ declare global {
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 
-const POINTER_FOCUS_ATTRIBUTE = 'data-pointer-focus';
-
 let nextUniqueId = 0;
 const priorAriaHidden = new WeakMap<HTMLElement, string | null>();
 
@@ -473,14 +471,13 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       return;
     }
 
-    this.removeAttribute(POINTER_FOCUS_ATTRIBUTE);
+    this.removeAttribute('data-pointer-focus');
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
-      this.removeAttribute(POINTER_FOCUS_ATTRIBUTE);
       event.preventDefault();
       event.stopPropagation();
       this.#onClick(event);
@@ -489,9 +486,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
   #onPointerDown(): void {
     if (!this.disabled) {
-      // Mark this focus as pointer-initiated so the focus ring is suppressed.
-      // The attribute is cleared in #onFocusout once focus leaves the component.
-      this.setAttribute(POINTER_FOCUS_ATTRIBUTE, '');
+      this.setAttribute('data-pointer-focus', '');
     }
   }
 

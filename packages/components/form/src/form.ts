@@ -79,7 +79,10 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   /** Will disable the entire form when true. */
   @property({ type: Boolean }) disabled?: boolean;
 
-  /** Enables immediate validation for invalid, non-empty values when a control loses focus. */
+  /**
+   * Validates controls on blur: shows errors for format/value mistakes and for empty required
+   * fields.
+   */
   @property({ attribute: 'validate-on-blur', type: Boolean }) validateOnBlur = false;
 
   /** Whether the form is invalid. */
@@ -239,6 +242,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     event.stopPropagation();
 
     const onControlBlur: EventListener = () => this.#validateControlOnBlur(control);
+
     control.addEventListener('sl-blur', onControlBlur);
     this.#controlBlurListeners.set(control, onControlBlur);
 

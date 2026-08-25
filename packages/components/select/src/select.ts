@@ -140,7 +140,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
    * focus and you click non-focusable content, focus doesn't move - So focusout never fires and
    * blur is never emitted
    */
-  #outsidePointerAbortController?: AbortController;
+  #outsidePointer?: AbortController;
 
   /** Manage keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Option>(this, {
@@ -401,7 +401,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
                 @click=${this.#onClearButtonClick}
                 @focusin=${this.#onClearButtonFocusin}
                 @focusout=${this.#onClearButtonFocusout}
-                type="button"
                 aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
                 <sl-icon name="circle-xmark"></sl-icon>
                 <sl-icon name="circle-xmark-solid"></sl-icon>
@@ -633,7 +632,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.#removeOutsidePointerListener();
 
     const abortController = new AbortController();
-    this.#outsidePointerAbortController = abortController;
+    this.#outsidePointer = abortController;
 
     window.addEventListener(
       'pointerdown',
@@ -653,12 +652,12 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #removeOutsidePointerListener(): void {
-    if (!this.#outsidePointerAbortController) {
+    if (!this.#outsidePointer) {
       return;
     }
 
-    this.#outsidePointerAbortController.abort();
-    this.#outsidePointerAbortController = undefined;
+    this.#outsidePointer.abort();
+    this.#outsidePointer = undefined;
   }
 
   #onKeydown(event: KeyboardEvent): void {

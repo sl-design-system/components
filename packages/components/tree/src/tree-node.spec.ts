@@ -288,7 +288,7 @@ describe('sl-tree-node', () => {
       expect(checkbox).to.exist;
     });
 
-    it('should render the label in the checkbox label slot', () => {
+    it('should render the label in the checkbox label slot', async () => {
       const checkbox = el.renderRoot.querySelector('sl-checkbox') as HTMLElement | null,
         labelSlot = checkbox?.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="label"]'),
         input = checkbox?.querySelector<HTMLInputElement>('input[slot="input"]'),
@@ -300,7 +300,10 @@ describe('sl-tree-node', () => {
           .join('')
           .trim();
 
+      await new Promise(requestAnimationFrame);
+
       expect(labelSlot).to.exist;
+      expect(checkbox).not.to.have.attribute('no-label');
       expect(label).to.have.property('htmlFor', input?.id);
       expect(label?.id).to.equal(`${input?.id}-label`);
       expect(input?.labels?.[0]).to.equal(label);

@@ -138,6 +138,28 @@ export const Overflow: Story = {
   }
 };
 
+export const Description: Story = {
+  args: {
+    options: () => html`
+      <sl-radio description="Description for option 1" value="1">Label</sl-radio>
+      <sl-radio value="2">Label</sl-radio>
+      <sl-radio value="3">Label</sl-radio>
+      <sl-radio value="4">Label</sl-radio>
+      <sl-radio value="5">Label</sl-radio>
+    `
+  }
+};
+
+export const Tooltips: Story = {
+  args: {
+    options: () => html`
+      <sl-radio tooltip="This is a tooltip for option 1" value="1">Option 1</sl-radio>
+      <sl-radio tooltip="This is a tooltip for option 2" value="2">Option 2</sl-radio>
+      <sl-radio tooltip="This is a tooltip for option 3" value="3">Option 3</sl-radio>
+    `
+  }
+};
+
 export const Infotip: Story = {
   args: {
     options: () => html`

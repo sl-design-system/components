@@ -24,7 +24,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './calendar.css' with { type: 'css' };
+import styles from './calendar.scss.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
@@ -184,43 +184,41 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           `
         ]
       ])}
-      ${
-        this.min && this.max
+      ${this.min && this.max
+        ? html`
+            <div class="helper-text">
+              <sl-icon name="info"></sl-icon>
+              ${msg(
+                str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
+                { id: 'sl.calendar.rangeBetween' }
+              )}
+            </div>
+          `
+        : this.min
           ? html`
               <div class="helper-text">
                 <sl-icon name="info"></sl-icon>
                 ${msg(
-                  str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
-                  { id: 'sl.calendar.rangeBetween' }
+                  str`No earlier than ${format(this.min, this.locale, this.#helperTextFormatOptions)}`,
+                  {
+                    id: 'sl.calendar.rangeNoEarlierThan'
+                  }
                 )}
               </div>
             `
-          : this.min
+          : this.max
             ? html`
                 <div class="helper-text">
                   <sl-icon name="info"></sl-icon>
                   ${msg(
-                    str`No earlier than ${format(this.min, this.locale, this.#helperTextFormatOptions)}`,
+                    str`No later than ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
                     {
-                      id: 'sl.calendar.rangeNoEarlierThan'
+                      id: 'sl.calendar.rangeNoLaterThan'
                     }
                   )}
                 </div>
               `
-            : this.max
-              ? html`
-                  <div class="helper-text">
-                    <sl-icon name="info"></sl-icon>
-                    ${msg(
-                      str`No later than ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
-                      {
-                        id: 'sl.calendar.rangeNoLaterThan'
-                      }
-                    )}
-                  </div>
-                `
-              : nothing
-      }
+            : nothing}
     `;
   }
 

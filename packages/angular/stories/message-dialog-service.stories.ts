@@ -4,7 +4,7 @@ import { provideRouter, withHashLocation } from '@angular/router';
 import { MessageDialogService } from '@sl-design-system/angular';
 import { ButtonComponent } from '@sl-design-system/angular/button';
 import '@sl-design-system/button/register.js';
-import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
 
 @Component({
   standalone: true,

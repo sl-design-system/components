@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["utils.ts"],
-  "sourcesContent": ["import { type Grid } from './grid.js';\n\nexport function waitForGridToRenderData(grid: Grid): Promise<void> {\n  return new Promise(resolve => {\n    const checkForTd = () => {\n      if (grid.renderRoot.querySelector('td')) {\n        resolve();\n      } else {\n        setTimeout(checkForTd, 10);\n      }\n    };\n\n    checkForTd();\n  });\n}\n\nexport function waitForAriaForwarding(): Promise<void> {\n  return new Promise(resolve =>\n    requestAnimationFrame(() => requestAnimationFrame(() => resolve()))\n  );\n}\n"],
-  "mappings": "AAEO,gBAAS,wBAAwB,MAA2B;AACjE,SAAO,IAAI,QAAQ,aAAW;AAC5B,UAAM,aAAa,MAAM;AACvB,UAAI,KAAK,WAAW,cAAc,IAAI,GAAG;AACvC,gBAAQ;AAAA,MACV,OAAO;AACL,mBAAW,YAAY,EAAE;AAAA,MAC3B;AAAA,IACF;AAEA,eAAW;AAAA,EACb,CAAC;AACH;AAEO,gBAAS,wBAAuC;AACrD,SAAO,IAAI;AAAA,IAAQ,aACjB,sBAAsB,MAAM,sBAAsB,MAAM,QAAQ,CAAC,CAAC;AAAA,EACpE;AACF;",
-  "names": []
-}

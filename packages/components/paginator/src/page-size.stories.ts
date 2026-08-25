@@ -1,8 +1,8 @@
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import '../register.js';
 import { type PaginatorPageSize } from './page-size.js';
-import './register.js';
 
 type Props = Pick<PaginatorPageSize, 'itemLabel' | 'pageSize' | 'pageSizes'>;
 type Story = StoryObj<Props>;

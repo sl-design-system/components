@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["date.ts"],
-  "sourcesContent": ["export const dateConverter = {\n  fromAttribute: (value: string): Date | undefined => {\n    const date = Date.parse(value);\n\n    return isNaN(date) ? undefined : new Date(date);\n  },\n  toAttribute: (value: Date | undefined): string => {\n    return value ? value.toISOString() : '';\n  }\n};\n"],
-  "mappings": "AAAO,aAAM,gBAAgB;AAAA,EAC3B,eAAe,CAAC,UAAoC;AAClD,UAAM,OAAO,KAAK,MAAM,KAAK;AAE7B,WAAO,MAAM,IAAI,IAAI,SAAY,IAAI,KAAK,IAAI;AAAA,EAChD;AAAA,EACA,aAAa,CAAC,UAAoC;AAChD,WAAO,QAAQ,MAAM,YAAY,IAAI;AAAA,EACvC;AACF;",
-  "names": []
-}

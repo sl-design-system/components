@@ -4,7 +4,6 @@
 import { str } from '@lit/localize';
 
 export const templates = {
-  'link.opens-in-new-tab': 'se abre en una nueva pestaña',
   'sl.breadcrumbs.breadcrumbTrail': 'Ruta de navegación',
   'sl.breadcrumbs.home': 'Inicio',
   'sl.breadcrumbs.moreBreadcrumbs': 'Más enlaces',

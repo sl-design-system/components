@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["error.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    align-items: start;\n    color: var(--sl-color-foreground-negative-plain);\n    display: flex;\n    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);\n    gap: var(--sl-size-050);\n    padding-block-start: var(--sl-size-050);\n  }\n\n  slot {\n    display: inline-block;\n  }\n\n  sl-icon {\n    margin-block-start: calc((1lh - max(0.8em, var(--sl-icon-size))) / 2);\n  }\n\n  @supports (inline-size: 1cap) {\n    sl-icon {\n      margin-block-start: calc((1lh - max(1cap, var(--sl-icon-size))) / 2);\n    }\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

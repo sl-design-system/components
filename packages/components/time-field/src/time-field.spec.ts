@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import './register.js';
+import '../register.js';
 import { TimeField } from './time-field.js';
 
 /**
@@ -61,18 +61,6 @@ describe('sl-time-field', () => {
 
     it('should have no value', () => {
       expect(el.value).to.be.undefined;
-    });
-
-    it('should not have an explicit shape', () => {
-      expect(el).not.to.have.attribute('shape');
-      expect(el.shape).to.be.undefined;
-    });
-
-    it('should have a pill shape when set', async () => {
-      el.shape = 'pill';
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('shape', 'pill');
     });
 
     it('should have an hour step of 1', () => {

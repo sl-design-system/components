@@ -126,7 +126,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     if (typeof listenerScope === 'object') {
       this.#listenerScope = () => listenerScope;
     } else if (typeof listenerScope === 'function') {
-      this.#listenerScope = listenerScope;
+      this.#listenerScope = listenerScope as () => HTMLElement;
     }
   }
 

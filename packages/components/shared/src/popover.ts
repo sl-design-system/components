@@ -1,5 +1,5 @@
 import { arrow, flip, offset, shift, size } from '@floating-ui/core';
-import { autoUpdate, computePosition } from '@floating-ui/dom';
+import { type Elements, autoUpdate, computePosition } from '@floating-ui/dom';
 
 type Alignment = 'start' | 'end';
 type Side = 'top' | 'right' | 'bottom' | 'left';
@@ -78,8 +78,7 @@ export const positionPopover = (
             ? Math.min(options.maxWidth, maxInlineSize)
             : maxInlineSize;
 
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          Object.assign(elements.floating.style, {
+          Object.assign((elements as Elements).floating.style, {
             maxInlineSize: `${maxInlineSize}px`,
             maxBlockSize: `${maxBlockSize}px`,
             minBlockSize: `${minBlockSize}px`

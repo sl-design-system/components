@@ -17,7 +17,7 @@ import {
 import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
-import styles from './form.css' with { type: 'css' };
+import styles from './form.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

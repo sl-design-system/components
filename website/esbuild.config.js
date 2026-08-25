@@ -1,43 +1,10 @@
 import esbuild from 'esbuild';
 import gzipPlugin from '@luncheon/esbuild-plugin-gzip';
-import { readFile } from 'node:fs/promises';
-import { resolve as resolvePath } from 'node:path';
+import { minifyHTMLLiteralsPlugin } from 'esbuild-plugin-minify-html-literals';
 import tinyGlob from 'tiny-glob';
 
 const DEV = process.env.NODE_ENV !== 'PROD';
 const jsFolder = 'build';
-
-/**
- * The components import their styles as `import styles from './x.css' with { type: 'css' }`.
- * esbuild has no built-in support for that attribute, so resolve those imports into a custom
- * namespace and hand back a constructable stylesheet. Mirrors
- * `@sl-design-system/rolldown-plugin-css-sheet`, which does the same for rolldown and Vite.
- */
-const cssSheetPlugin = {
-  name: 'css-sheet',
-  setup(build) {
-    build.onResolve({ filter: /\.css$/ }, args => {
-      if (args.with?.type !== 'css') {
-        return null;
-      }
-
-      return { path: resolvePath(args.resolveDir, args.path), namespace: 'css-sheet' };
-    });
-
-    build.onLoad({ filter: /.*/, namespace: 'css-sheet' }, async args => {
-      const css = await readFile(args.path, 'utf8');
-
-      return {
-        contents: [
-          'const sheet = new CSSStyleSheet();',
-          `sheet.replaceSync(${JSON.stringify(css)});`,
-          'export default sheet;'
-        ].join('\n'),
-        loader: 'js'
-      };
-    });
-  }
-};
 
 const tsEntrypoints = [
   './src/ts/utils/active-element.ts',
@@ -55,7 +22,6 @@ let config = {
   minify: false,
   format: 'esm',
   treeShaking: true,
-  plugins: [cssSheetPlugin],
   write: true,
   sourcemap: true,
   splitting: true
@@ -79,10 +45,7 @@ if (DEV) {
     treeShaking: true,
     legalComments: 'external',
     plugins: [
-      cssSheetPlugin,
-      // `minify-html-literals` is disabled: it throws on a quoted attribute containing three or
-      // more expressions (as in `sl-virtual-list`), which fails the build and leaves the site
-      // without any JavaScript. esbuild still minifies the JS itself.
+      minifyHTMLLiteralsPlugin(),
       gzipPlugin({
         gzip: true,
       }),

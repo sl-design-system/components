@@ -1,7 +1,7 @@
 import { localized, msg, str } from '@lit/localize';
 import { Option } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html } from 'lit';
-import styles from './create-custom-option.css' with { type: 'css' };
+import styles from './create-custom-option.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

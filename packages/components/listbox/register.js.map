@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Listbox } from './src/listbox.js';\nimport { OptionGroup } from './src/option-group.js';\nimport { Option } from './src/option.js';\n\ncustomElements.define('sl-listbox', Listbox);\ncustomElements.define('sl-option-group', OptionGroup);\ncustomElements.define('sl-option', Option);\n"],
-  "mappings": "AAAA,SAAS,eAAe;AACxB,SAAS,mBAAmB;AAC5B,SAAS,cAAc;AAEvB,eAAe,OAAO,cAAc,OAAO;AAC3C,eAAe,OAAO,mBAAmB,WAAW;AACpD,eAAe,OAAO,aAAa,MAAM;",
-  "names": []
-}

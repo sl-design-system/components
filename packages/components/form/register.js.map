@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Error } from './src/error.js';\nimport { FormField } from './src/form-field.js';\nimport { FormValidationErrors } from './src/form-validation-errors.js';\nimport { Form } from './src/form.js';\nimport { Hint } from './src/hint.js';\nimport { Label } from './src/label.js';\n\ncustomElements.define('sl-error', Error);\ncustomElements.define('sl-form', Form);\ncustomElements.define('sl-form-field', FormField);\ncustomElements.define('sl-form-validation-errors', FormValidationErrors);\ncustomElements.define('sl-hint', Hint);\ncustomElements.define('sl-label', Label);\n"],
-  "mappings": "AAAA,SAAS,aAAa;AACtB,SAAS,iBAAiB;AAC1B,SAAS,4BAA4B;AACrC,SAAS,YAAY;AACrB,SAAS,YAAY;AACrB,SAAS,aAAa;AAEtB,eAAe,OAAO,YAAY,KAAK;AACvC,eAAe,OAAO,WAAW,IAAI;AACrC,eAAe,OAAO,iBAAiB,SAAS;AAChD,eAAe,OAAO,6BAA6B,oBAAoB;AACvE,eAAe,OAAO,WAAW,IAAI;AACrC,eAAe,OAAO,YAAY,KAAK;",
-  "names": []
-}

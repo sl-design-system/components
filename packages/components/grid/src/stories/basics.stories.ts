@@ -13,7 +13,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
-import '.././register.js';
+import '../../register.js';
 import { type GridColumnDataRenderer } from '../column.js';
 import { avatarRenderer } from './story-utils.js';
 

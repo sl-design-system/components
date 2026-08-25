@@ -11,7 +11,6 @@ import { All as AllCombobox } from '../../../packages/components/combobox/src/co
 import { All as AllDialog } from '../../../packages/components/dialog/src/dialog.stories';
 import { All as AllIcon } from '../../../packages/components/icon/src/icon.stories';
 import { All as AllInlineMessage } from '../../../packages/components/inline-message/src/inline-message.stories';
-import { All as AllLink } from '../../../packages/components/link/src/link.stories';
 import { All as AllMenu } from '../../../packages/components/menu/src/menu.stories';
 import { All as AllMenuButton } from '../../../packages/components/menu/src/menu-button.stories';
 import { All as AllMonthView } from '../../../packages/components/calendar/src/month-view.stories';
@@ -67,7 +66,6 @@ export const Combobox = { render: AllCombobox.render };
 export const Dialog = { render: AllDialog.render, play: AllDialog.play };
 export const Icon = { render: AllIcon.render };
 export const InlineMessage = { render: AllInlineMessage.render };
-export const Link = { render: AllLink.render };
 export const Menu = { render: AllMenu.render };
 export const MenuButton = { render: AllMenuButton.render };
 export const MonthView = { render: AllMonthView.render };

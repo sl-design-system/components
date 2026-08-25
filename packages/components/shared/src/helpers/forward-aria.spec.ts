@@ -192,7 +192,7 @@ describe('forward-aria helpers', () => {
 
         el = div.querySelector('proxy-helper-single')!;
 
-        const elements = getForwardedAriaProperty(el, 'ariaControlsElements');
+        const elements = getForwardedAriaProperty(el, 'ariaControlsElements' as keyof HTMLElement);
         expect(elements).to.deep.equal([div.querySelector('#ctrl-target')]);
       });
     });

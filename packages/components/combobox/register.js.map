@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import '@sl-design-system/listbox/register.js';\nimport { Combobox } from './src/combobox.js';\n\ncustomElements.define('sl-combobox', Combobox);\n"],
-  "mappings": "AAAA,OAAO;AACP,SAAS,gBAAgB;AAEzB,eAAe,OAAO,eAAe,QAAQ;",
-  "names": []
-}

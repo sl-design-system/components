@@ -21,8 +21,8 @@ import '@sl-design-system/icon/register.js';
 import { SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html } from 'lit';
+import '../register.js';
 import { type Panel, type PanelDensity, PanelElevation, type TogglePlacement } from './panel.js';
-import './register.js';
 
 type Props = Pick<
   Panel,

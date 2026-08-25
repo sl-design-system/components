@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["announce.ts"],
-  "sourcesContent": ["/**\n * Sends a notification to the live aria. Please be aware that sending messages too soon after each\n * other can cause the screenreader to stop reading the earlier messages, or even skip them, when a\n * new message is sent. If you want to send multiple messages in a row, consider using a single\n * message with all the information.\n *\n * @param message - The message to send to the live aria.\n * @param urgency - The urgency of the message. Default is 'polite'.\n * @param force - If true, bypasses deduplication and always announces the message.\n */\nexport function announce(message: string, urgency?: 'polite' | 'assertive', force?: boolean): void {\n  document.body.dispatchEvent(\n    new CustomEvent('sl-announce', { detail: { message, urgency, ...(force ? { force } : {}) } })\n  );\n}\n"],
-  "mappings": "AAUO,gBAAS,SAAS,SAAiB,SAAkC,OAAuB;AACjG,WAAS,KAAK;AAAA,IACZ,IAAI,YAAY,eAAe,EAAE,QAAQ,EAAE,SAAS,SAAS,GAAI,QAAQ,EAAE,MAAM,IAAI,CAAC,EAAG,EAAE,CAAC;AAAA,EAC9F;AACF;",
-  "names": []
-}

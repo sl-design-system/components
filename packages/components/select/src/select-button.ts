@@ -15,8 +15,8 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './select-button.css' with { type: 'css' };
-import { type SelectFill, type SelectShape, type SelectSize } from './select.js';
+import styles from './select-button.scss.js';
+import { type SelectFill, type SelectSize } from './select.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -75,9 +75,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** Mirrors the same property on the sl-select parent. */
   @property({ type: Boolean }) required?: boolean;
-
-  /** Mirrors the same property on the sl-select parent. */
-  @property({ reflect: true }) shape?: SelectShape;
 
   /** The selected option. */
   @property({ attribute: false }) selected?: Option | null;
@@ -144,11 +141,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         class="wrapper"
         part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
         style="inline-size: ${inlineSize}">
-        ${
-          hasSelected
-            ? html`<span part="selected"><slot name="selected-content"></slot></span>`
-            : this.placeholder || '\u00a0'
-        }
+        ${hasSelected
+          ? html`<span part="selected"><slot name="selected-content"></slot></span>`
+          : this.placeholder || '\u00a0'}
       </div>
       <span class="status" aria-hidden="true">
         <sl-icon name="chevron-down"></sl-icon>

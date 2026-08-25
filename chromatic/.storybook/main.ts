@@ -1,4 +1,3 @@
-import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
 import { type StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
@@ -6,6 +5,8 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
+    'storybook/addon-actions',
+    '@storybook/addon-storysource',
     '@storybook/addon-themes',
     'storybook-addon-pseudo-states',
     {
@@ -27,7 +28,7 @@ const config: StorybookConfig = {
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');
 
-    return mergeConfig(config, { logLevel: 'warn', plugins: [importCssSheet()] });
+    return mergeConfig(config, { logLevel: 'warn' });
   }
 };
 

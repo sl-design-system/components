@@ -36,6 +36,6 @@
     "eslint": "^9.27.0",
     "eslint-plugin-lit": "^2.1.1",
     "eslint-plugin-lit-a11y": "^4.1.4",
-    "mocha": "11.8.0"
+    "mocha": "11.7.6"
   }
 }

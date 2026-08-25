@@ -18,7 +18,7 @@ import { Switch } from '@sl-design-system/switch';
 import { TextArea } from '@sl-design-system/text-area';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import styles from './form-in-dialog.css' with { type: 'css' };
+import styles from './form-in-dialog.scss.js';
 
 export class FormInDialog extends Dialog {
   /** @internal */
@@ -118,19 +118,17 @@ export class FormInDialog extends Dialog {
             required></sl-number-field>
         </sl-form-field>
 
-        ${
-          this.#form.controls.amount?.dirty
-            ? html`
-                <sl-inline-message type="info">
-                  The rental amount for <strong>already rented</strong> lockers will remain
-                  <sl-format-number
-                    .formatOptions=${{ style: 'currency', currency: 'EUR' }}
-                    .number=${15}></sl-format-number
-                  >.
-                </sl-inline-message>
-              `
-            : nothing
-        }
+        ${this.#form.controls.amount?.dirty
+          ? html`
+              <sl-inline-message type="info">
+                The rental amount for <strong>already rented</strong> lockers will remain
+                <sl-format-number
+                  .formatOptions=${{ style: 'currency', currency: 'EUR' }}
+                  .number=${15}></sl-format-number
+                >.
+              </sl-inline-message>
+            `
+          : nothing}
 
         <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>
       </sl-form>

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { TimeField } from './src/time-field.js';\n\ncustomElements.define('sl-time-field', TimeField);\n"],
-  "mappings": "AAAA,SAAS,iBAAiB;AAE1B,eAAe,OAAO,iBAAiB,SAAS;",
-  "names": []
-}

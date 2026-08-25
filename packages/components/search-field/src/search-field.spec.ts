@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import './register.js';
+import '../register.js';
 import { type SearchField, type SlSearchEvent } from './search-field.js';
 
 describe('sl-search-field', () => {
@@ -33,18 +33,6 @@ describe('sl-search-field', () => {
 
       expect(el).to.have.attribute('disabled');
       expect(el.disabled).to.be.true;
-    });
-
-    it('should not have an explicit shape', () => {
-      expect(el).not.to.have.attribute('shape');
-      expect(el.shape).to.be.undefined;
-    });
-
-    it('should have a pill shape when set', async () => {
-      el.shape = 'pill';
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('shape', 'pill');
     });
   });
 

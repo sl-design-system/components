@@ -1,7 +1,7 @@
 import { EllipsizeTextComponent } from '@sl-design-system/angular/ellipsize-text';
 import { FormatDateComponent } from '@sl-design-system/angular/format-date';
 import { FormatNumberComponent } from '@sl-design-system/angular/format-number';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 export default {
   title: 'Wrappers/Utility',
@@ -27,10 +27,7 @@ export const EllipsizeText: StoryObj = {
 export const FormatDate: StoryObj = {
   render: () => ({
     description: 'The format-date component formats a date according to the specified format.',
-    props: {
-      date: new Date()
-    },
-    template: '<sl-format-date [date]="date" dateStyle="medium"></sl-format-date>'
+    template: '<sl-format-date [date]="new Date()" format="medium"></sl-format-date>'
   })
 };
 
@@ -38,6 +35,6 @@ export const FormatNumber: StoryObj = {
   render: () => ({
     description: 'The format-number component formats a number according to the specified format.',
     template:
-      '<sl-format-number [number]="1234.56" numberStyle="currency" currency="USD"></sl-format-number>'
+      '<sl-format-number [value]="1234.56" format="currency" currency="USD"></sl-format-number>'
   })
 };

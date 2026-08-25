@@ -1,37 +1,33 @@
-import { type AfterViewInit, Directive, ElementRef, Input, type OnDestroy } from '@angular/core';
+import {
+  type AfterViewInit,
+  Directive,
+  ElementRef,
+  Input,
+  type OnChanges,
+  type OnDestroy
+} from '@angular/core';
 import { type Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
-
-type TooltipInput = string | { text: string; type?: Tooltip['type'] };
-
-let nextUniqueId = 0;
 
 @Directive({
   selector: '[slTooltip]',
   standalone: true
 })
-export class TooltipDirective implements AfterViewInit, OnDestroy {
+export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
   /** Whether the view has been initialized; changes before that are ignored. */
   private initialized = false;
 
   private tooltip?: Tooltip;
 
-  private _slTooltip: TooltipInput = '';
+  @Input() slTooltip = '';
 
-  @Input()
-  set slTooltip(value: TooltipInput) {
-    this._slTooltip = value ?? '';
+  constructor(private elRef: ElementRef<HTMLElement>) {}
 
+  ngOnChanges(): void {
     if (this.initialized) {
       this.update();
     }
   }
-
-  get slTooltip(): TooltipInput {
-    return this._slTooltip;
-  }
-
-  constructor(private elRef: ElementRef<HTMLElement>) {}
 
   ngAfterViewInit(): void {
     this.initialized = true;
@@ -39,7 +35,8 @@ export class TooltipDirective implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.removeTooltip();
+    this.tooltip?.remove();
+    this.tooltip = undefined;
   }
 
   /**
@@ -48,63 +45,20 @@ export class TooltipDirective implements AfterViewInit, OnDestroy {
    * empty accessible name or description.
    */
   private update(): void {
-    const { text, type } = this.getTooltipData();
+    const text = this.slTooltip?.trim();
 
     if (!text) {
-      this.removeTooltip();
-      return;
+      this.tooltip?.remove();
+      this.tooltip = undefined;
+    } else if (this.tooltip) {
+      this.tooltip.textContent = text;
+    } else {
+      this.tooltip = document.createElement('sl-tooltip');
+      this.tooltip.for = this.elRef.nativeElement.id ||= `sl-tooltip-${Math.random()
+        .toString(36)
+        .slice(2)}`;
+      this.tooltip.textContent = text;
+      this.elRef.nativeElement.after(this.tooltip);
     }
-
-    const tooltip = this.tooltip ?? this.createTooltip(type);
-    tooltip.textContent = text;
-    tooltip.type = type;
-  }
-
-  private createTooltip(type?: Tooltip['type']): Tooltip {
-    const tooltip = document.createElement('sl-tooltip');
-
-    tooltip.for = this.getOrCreateAnchorId();
-    tooltip.type = type;
-    this.elRef.nativeElement.after(tooltip);
-
-    this.tooltip = tooltip;
-    return tooltip;
-  }
-
-  private removeTooltip(): void {
-    this.tooltip?.remove();
-    this.tooltip = undefined;
-  }
-
-  private getOrCreateAnchorId(): string {
-    const element = this.elRef.nativeElement;
-    const root = element.getRootNode() as Document | ShadowRoot;
-    const getElementById = (id: string): Element | null => root.getElementById(id);
-
-    // Reuse an existing id only when it uniquely points to this exact element in the same root.
-    if (element.id && getElementById(element.id) === element) {
-      return element.id;
-    }
-
-    let id = `sl-tooltip-${nextUniqueId++}`;
-    while (getElementById(id)) {
-      id = `sl-tooltip-${nextUniqueId++}`;
-    }
-
-    element.id = id;
-    return id;
-  }
-
-  private getTooltipData(): { text?: string; type?: Tooltip['type'] } {
-    if (typeof this._slTooltip === 'string') {
-      return {
-        text: this._slTooltip.trim()
-      };
-    }
-
-    return {
-      text: this._slTooltip.text?.trim(),
-      type: this._slTooltip.type
-    };
   }
 }

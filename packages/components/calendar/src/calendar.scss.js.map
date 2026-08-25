@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["calendar.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: inline-grid;\n    grid-template-columns: 1fr;\n  }\n\n  sl-select-day,\n  sl-select-month,\n  sl-select-year {\n    grid-area: 1/1;\n    inline-size: 100%;\n  }\n\n  .helper-text {\n    color: var(--sl-color-foreground-info-plain);\n    contain: inline-size;\n    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);\n    overflow-wrap: anywhere;\n    padding: var(--sl-size-050) var(--sl-size-100);\n    white-space: initial;\n  }\n\n  .helper-text sl-icon {\n    display: inline-block;\n    margin-inline-end: var(--sl-size-050);\n    vertical-align: middle;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

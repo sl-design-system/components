@@ -12,7 +12,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './listbox.css' with { type: 'css' };
+import styles from './listbox.scss.js';
 import { OptionGroupHeader } from './option-group-header.js';
 import { OptionGroup } from './option-group.js';
 import { Option, type OptionEmphasis } from './option.js';

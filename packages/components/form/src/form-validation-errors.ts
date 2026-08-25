@@ -13,7 +13,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type FormController } from './form-controller.js';
-import styles from './form-validation-errors.css' with { type: 'css' };
+import styles from './form-validation-errors.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -104,20 +104,18 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <sl-inline-message .variant=${this.variant}>
-        ${
-          this.variant === 'danger'
-            ? html`
-                ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
-                <ul>
-                  ${Object.entries(this.invalidControls).map(
-                    ([label, control]) =>
-                      html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
-                  )}
-                </ul>
-                .
-              `
-            : msg('All fields are valid.', { id: 'sl.form.allFieldsValid' })
-        }
+        ${this.variant === 'danger'
+          ? html`
+              ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
+              <ul>
+                ${Object.entries(this.invalidControls).map(
+                  ([label, control]) =>
+                    html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
+                )}
+              </ul>
+              .
+            `
+          : msg('All fields are valid.', { id: 'sl.form.allFieldsValid' })}
       </sl-inline-message>
     `;
   }

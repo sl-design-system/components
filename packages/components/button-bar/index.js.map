@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["index.ts"],
-  "sourcesContent": ["export * from './src/button-bar.js';\n"],
-  "mappings": "AAAA,cAAc;",
-  "names": []
-}

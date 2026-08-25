@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Dialog } from './src/dialog.js';\n\ncustomElements.define('sl-dialog', Dialog);\n"],
-  "mappings": "AAAA,SAAS,cAAc;AAEvB,eAAe,OAAO,aAAa,MAAM;",
-  "names": []
-}

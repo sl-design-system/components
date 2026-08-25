@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import './register.js';
+import '../register.js';
 import { VirtualList } from './virtual-list.js';
 
 describe('sl-virtual-list', () => {

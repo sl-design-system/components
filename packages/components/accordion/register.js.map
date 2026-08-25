@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { AccordionItem } from './src/accordion-item.js';\nimport { Accordion } from './src/accordion.js';\n\ncustomElements.define('sl-accordion', Accordion);\ncustomElements.define('sl-accordion-item', AccordionItem);\n"],
-  "mappings": "AAAA,SAAS,qBAAqB;AAC9B,SAAS,iBAAiB;AAE1B,eAAe,OAAO,gBAAgB,SAAS;AAC/C,eAAe,OAAO,qBAAqB,aAAa;",
-  "names": []
-}

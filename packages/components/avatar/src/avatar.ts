@@ -15,7 +15,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './avatar.css' with { type: 'css' };
+import styles from './avatar.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -163,36 +163,30 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       <div part="avatar">
         <slot @slotchange=${this.#onSlotChange} name="badge"></slot>
         <div part="picture" style=${styleMap({ clipPath: this.clipPath })}>
-          ${
-            this.pictureUrl
-              ? html`
-                  <img
-                    @error=${this.#onError}
-                    part="image"
-                    src=${this.pictureUrl}
-                    alt=${ifDefined(this.imageOnly ? this.displayName : '')} />
-                `
-              : html`
-                  <slot name="fallback">
-                    <span part="initials">${this.initials}</span>
-                  </slot>
-                `
-          }
+          ${this.pictureUrl
+            ? html`
+                <img
+                  @error=${this.#onError}
+                  part="image"
+                  src=${this.pictureUrl}
+                  alt=${ifDefined(this.imageOnly ? this.displayName : '')} />
+              `
+            : html`
+                <slot name="fallback">
+                  <span part="initials">${this.initials}</span>
+                </slot>
+              `}
         </div>
       </div>
-      ${
-        this.imageOnly
-          ? nothing
-          : html`
-              ${
-                this.tooltip
-                  ? html`<sl-tooltip for="name" part="tooltip">${this.displayName}</sl-tooltip>`
-                  : nothing
-              }
-              <span id="name" part="name">${this.displayName}</span>
-              <slot></slot>
-            `
-      }
+      ${this.imageOnly
+        ? nothing
+        : html`
+            ${this.tooltip
+              ? html`<sl-tooltip for="name" part="tooltip">${this.displayName}</sl-tooltip>`
+              : nothing}
+            <span id="name" part="name">${this.displayName}</span>
+            <slot></slot>
+          `}
     `;
   }
 

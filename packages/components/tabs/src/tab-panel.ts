@@ -1,5 +1,5 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './tab-panel.css' with { type: 'css' };
+import styles from './tab-panel.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

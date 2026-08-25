@@ -3,7 +3,7 @@ import { ArrayListDataSource, type ListDataSourceDataItem } from '@sl-design-sys
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
-import './register.js';
+import '../register.js';
 
 type Story = StoryObj;
 
@@ -85,10 +85,14 @@ export const DataSource: Story = {
           `;
 
           dataSource = new ArrayListDataSource(
-            Array.from({ length: 80 }, (_, index) => ({
-              nr: index + 1,
-              title: `Title of card number ${index + 1}`
-            })),
+            Array.from(
+              { length: 80 },
+              (_, index) =>
+                ({
+                  nr: index + 1,
+                  title: `Title of card number ${index + 1}`
+                }) as ExampleCard
+            ),
             { pagination: true }
           );
 

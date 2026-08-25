@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["accordion.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: block;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;",
-  "names": []
-}

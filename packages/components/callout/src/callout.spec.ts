@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
 import { Callout } from './callout.js';
-import './register.js';
 
 describe('sl-callout', () => {
   let el: Callout;

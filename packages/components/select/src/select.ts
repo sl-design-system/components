@@ -31,7 +31,7 @@ import {
 } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
-import styles from './select.css' with { type: 'css' };
+import styles from './select.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -48,7 +48,6 @@ declare global {
 }
 
 export type SelectFill = 'ghost' | 'outline';
-export type SelectShape = 'rect' | 'pill';
 export type SelectSize = 'md' | 'lg';
 
 /**
@@ -223,13 +222,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Whether the select is a required field. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /**
-   * The shape of the select.
-   *
-   * @default 'rect'
-   */
-  @property({ reflect: true }) shape?: SelectShape;
-
   /** @internal The selected option in the listbox. */
   @state() selectedOption?: Option<T>;
 
@@ -267,7 +259,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.fill = this.fill;
       this.button.placeholder = this.placeholder;
       this.button.required = !!this.required;
-      this.button.shape = this.shape;
       this.button.selected = this.selectedOption;
       this.button.showValid = !!this.showValid;
       this.button.showValidity = this.showValidity;
@@ -340,10 +331,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.#updateValueAndValidity();
     }
 
-    if (changes.has('shape')) {
-      this.button.shape = this.shape;
-    }
-
     if (changes.has('showValid')) {
       this.button.showValid = this.showValid;
     }
@@ -388,20 +375,18 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     return html`
       <slot name="button"></slot>
-      ${
-        showClearButton
-          ? html`
-              <button
-                @click=${this.#onClearButtonClick}
-                @focusin=${this.#onClearButtonFocusin}
-                @focusout=${this.#onClearButtonFocusout}
-                aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
-                <sl-icon name="circle-xmark"></sl-icon>
-                <sl-icon name="circle-xmark-solid"></sl-icon>
-              </button>
-            `
-          : nothing
-      }
+      ${showClearButton
+        ? html`
+            <button
+              @click=${this.#onClearButtonClick}
+              @focusin=${this.#onClearButtonFocusin}
+              @focusout=${this.#onClearButtonFocusout}
+              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
+              <sl-icon name="circle-xmark"></sl-icon>
+              <sl-icon name="circle-xmark-solid"></sl-icon>
+            </button>
+          `
+        : nothing}
       <sl-listbox
         ${anchor({
           element: this.button,

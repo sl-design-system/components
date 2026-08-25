@@ -3,9 +3,9 @@ import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import '../register.js';
 import { type MenuItem } from './menu-item.js';
 import { type Menu } from './menu.js';
-import './register.js';
 
 describe('sl-menu', () => {
   let el: Menu;

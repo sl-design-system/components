@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { TextArea } from './src/text-area.js';\n\ncustomElements.define('sl-text-area', TextArea);\n"],
-  "mappings": "AAAA,SAAS,gBAAgB;AAEzB,eAAe,OAAO,gBAAgB,QAAQ;",
-  "names": []
-}

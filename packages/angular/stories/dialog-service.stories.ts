@@ -15,7 +15,7 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
-import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
 
 @Component({
   standalone: true,

@@ -19,7 +19,7 @@ export class Config {
 
   static async getConfigSetting<T>(key: keyof ConfigSettings): Promise<T> {
     const config: ConfigSettings = await this.#waitForWindowProperty();
-    return config[key];
+    return config[key] as T;
   }
 
   static async #waitForWindowProperty(): Promise<ConfigSettings> {

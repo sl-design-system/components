@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 
 type Props = { text: string; width: number };
 type Story = StoryObj<Props>;

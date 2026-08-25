@@ -8,7 +8,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import { ArrayListDataSource, isListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
 import { type SlDropEvent } from '@sl-design-system/grid';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { html } from 'lit';
 
 const avatarRenderer = (student: Student) => {

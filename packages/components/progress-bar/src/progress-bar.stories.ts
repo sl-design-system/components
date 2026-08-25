@@ -2,8 +2,8 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
+import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
-import './register.js';
 
 type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'variant' | 'value'> & {
   slot?(): TemplateResult;

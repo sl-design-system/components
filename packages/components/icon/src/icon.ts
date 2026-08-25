@@ -1,4 +1,4 @@
-import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
+/// <reference types="vite/client" />
 import {
   type CSSResultGroup,
   LitElement,
@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import styles from './icon.css' with { type: 'css' };
+import styles from './icon.scss.js';
 import { type IconDefinition, type IconLibrary } from './models.js';
 
 declare global {
@@ -72,7 +72,7 @@ export class Icon extends LitElement {
   static register(icon: IconDefinition | IconLibrary, ...icons: IconDefinition[]): void {
     if (isIconDefinition(icon)) {
       [icon, ...icons].forEach(i => {
-        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && isDevMode()) {
+        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && import.meta.env?.DEV) {
           console.warn(`Icon ${i.prefix}-${i.iconName} is already in the registry`);
           return;
         }

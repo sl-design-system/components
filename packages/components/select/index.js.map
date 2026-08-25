@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["index.ts"],
-  "sourcesContent": ["export * from './src/select.js';\nexport { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';\n"],
-  "mappings": "AAAA,cAAc;AACd,SAAS,SAAS,QAAQ,mBAAmB;",
-  "names": []
-}

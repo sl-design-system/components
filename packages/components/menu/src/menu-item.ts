@@ -20,7 +20,7 @@ import {
   nothing
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import styles from './menu-item.css' with { type: 'css' };
+import styles from './menu-item.scss.js';
 import { Menu } from './menu.js';
 
 declare global {
@@ -167,11 +167,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
         <div part="wrapper">
           ${this.selectable && this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
           <slot></slot>
-          ${
-            this.shortcut
-              ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`
-              : nothing
-          }
+          ${this.shortcut
+            ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`
+            : nothing}
           ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
         </div>
       </div>

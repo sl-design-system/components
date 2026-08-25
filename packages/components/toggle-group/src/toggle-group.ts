@@ -9,7 +9,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './toggle-group.css' with { type: 'css' };
+import styles from './toggle-group.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -49,9 +49,6 @@ export class ToggleGroup extends LitElement {
     elements: () => this.#buttons || [],
     isFocusableElement: (el: ToggleButton) => !el.disabled
   });
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /**
    * If set, will disable all buttons in the group.
@@ -96,7 +93,8 @@ export class ToggleGroup extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'group';
+    // https://twitter.com/LeonieWatson/status/1545788775644667904
+    this.setAttribute('role', 'region');
   }
 
   override updated(changes: PropertyValues<this>): void {

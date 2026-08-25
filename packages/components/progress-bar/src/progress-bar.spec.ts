@@ -3,8 +3,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
-import './register.js';
 
 describe('sl-progress-bar', () => {
   let el: ProgressBar;

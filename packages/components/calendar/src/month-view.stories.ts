@@ -3,8 +3,8 @@ import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import '../register.js';
 import { type MonthView } from './month-view.js';
-import './register.js';
 import { type Day } from './utils.js';
 
 type Props = Pick<
@@ -85,15 +85,13 @@ export default {
     showWeekNumbers,
     styles
   }) => html`
-    ${
-      styles
-        ? html`
-            <style>
-              ${styles}
-            </style>
-          `
-        : nothing
-    }
+    ${styles
+      ? html`
+          <style>
+            ${styles}
+          </style>
+        `
+      : nothing}
     <sl-month-view
       ?hide-days-other-months=${hideDaysOtherMonths}
       ?readonly=${readonly}

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { MenuButton } from './src/menu-button.js';\nimport { MenuItemGroup } from './src/menu-item-group.js';\nimport { MenuItem } from './src/menu-item.js';\nimport { Menu } from './src/menu.js';\n\ncustomElements.define('sl-menu', Menu);\ncustomElements.define('sl-menu-button', MenuButton);\ncustomElements.define('sl-menu-item', MenuItem);\ncustomElements.define('sl-menu-item-group', MenuItemGroup);\n"],
-  "mappings": "AAAA,SAAS,kBAAkB;AAC3B,SAAS,qBAAqB;AAC9B,SAAS,gBAAgB;AACzB,SAAS,YAAY;AAErB,eAAe,OAAO,WAAW,IAAI;AACrC,eAAe,OAAO,kBAAkB,UAAU;AAClD,eAAe,OAAO,gBAAgB,QAAQ;AAC9C,eAAe,OAAO,sBAAsB,aAAa;",
-  "names": []
-}

@@ -2,8 +2,8 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import '../register.js';
 import { type Badge, type BadgeColor, type BadgeVariant } from './badge.js';
-import './register.js';
 
 type Props = Pick<Badge, 'color' | 'emphasis' | 'size' | 'variant'> & {
   icon?: boolean;
@@ -135,9 +135,9 @@ export const All: Story = {
           colors.map(
             color => html`
               <span
-                style="font-weight: ${
-                  emphasis ? 'var(--sl-text-new-typeset-fontWeight-semiBold)' : 'regular'
-                }">
+                style="font-weight: ${emphasis
+                  ? 'var(--sl-text-new-typeset-fontWeight-semiBold)'
+                  : 'regular'}">
                 ${color}
               </span>
               <div class="wrapper">

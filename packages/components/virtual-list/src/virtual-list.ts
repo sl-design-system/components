@@ -9,7 +9,7 @@ import {
 import { property } from 'lit/decorators.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './virtual-list.css' with { type: 'css' };
+import styles from './virtual-list.scss.js';
 import { VirtualizerController } from './virtualizer-controller.js';
 
 declare global {
@@ -132,9 +132,8 @@ export class VirtualList<T = any> extends LitElement {
       <div part="wrapper" style="block-size: ${virtualizer.getTotalSize()}px;">
         <div
           part="container"
-          style="${containerLayoutStyles}gap: ${this.gap ?? 0}px; translate: 0px ${
-            (virtualItems[0]?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)
-          }px">
+          style="${containerLayoutStyles}gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]
+            ?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)}px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -145,9 +144,9 @@ export class VirtualList<T = any> extends LitElement {
                 <div
                   part="item"
                   data-index=${virtualItem.index}
-                  style=${
-                    this.renderInLightDom ? 'box-sizing: border-box; inline-size: 100%;' : nothing
-                  }
+                  style=${this.renderInLightDom
+                    ? 'box-sizing: border-box; inline-size: 100%;'
+                    : nothing}
                   ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>

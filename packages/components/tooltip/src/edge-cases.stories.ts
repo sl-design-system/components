@@ -10,7 +10,7 @@ import '@sl-design-system/menu/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 
 Icon.register(faGear, faPen, faTrash, fasGear);
 

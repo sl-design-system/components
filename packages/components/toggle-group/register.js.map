@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { ToggleGroup } from './src/toggle-group.js';\n\ncustomElements.define('sl-toggle-group', ToggleGroup);\n"],
-  "mappings": "AAAA,SAAS,mBAAmB;AAE5B,eAAe,OAAO,mBAAmB,WAAW;",
-  "names": []
-}

@@ -5,9 +5,9 @@ import { Person } from '@sl-design-system/example-data';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
 import { GridColumnDataRenderer } from './column.js';
 import { type Grid } from './grid.js';
-import './register.js';
 
 describe('sl-column', () => {
   let el: Grid;

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["skeleton.ts"],
-  "sourcesContent": ["import { type CSSResultGroup, LitElement } from 'lit';\nimport { property } from 'lit/decorators.js';\nimport styles from './skeleton.scss.js';\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sl-skeleton': Skeleton;\n  }\n}\n\nexport type SkeletonEffect = 'none' | 'shimmer' | 'pulse' | 'sheen';\nexport type SkeletonVariant = 'circle' | 'default';\n\n/**\n * Skeletons are used as a temporary placeholder while content is loading to improve the user\n * experience.\n */\nexport class Skeleton extends LitElement {\n  /** @internal */\n  static override styles: CSSResultGroup = styles;\n\n  /**\n   * Skeleton's effect.\n   *\n   * @default 'shimmer'\n   */\n  @property({ reflect: true }) effect?: SkeletonEffect;\n\n  /**\n   * Skeleton's variant.\n   *\n   * @default 'default'\n   */\n  @property({ reflect: true }) variant?: SkeletonVariant;\n\n  override connectedCallback(): void {\n    super.connectedCallback();\n\n    this.setAttribute('aria-busy', 'true');\n  }\n}\n"],
-  "mappings": ";;;;;;;;;;AAAA,SAA8B,kBAAkB;AAChD,SAAS,gBAAgB;AACzB,OAAO,YAAY;AAeZ,aAAM,iBAAiB,WAAW;AAAA,EAEvC;AAAA;AAAA,SAAgB,SAAyB;AAAA;AAAA,EAgBhC,oBAA0B;AACjC,UAAM,kBAAkB;AAExB,SAAK,aAAa,aAAa,MAAM;AAAA,EACvC;AACF;AAd+B;AAAA,EAA5B,SAAS,EAAE,SAAS,KAAK,CAAC;AAAA,GAThB,SASkB;AAOA;AAAA,EAA5B,SAAS,EAAE,SAAS,KAAK,CAAC;AAAA,GAhBhB,SAgBkB;",
-  "names": []
-}

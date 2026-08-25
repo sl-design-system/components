@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { RadioGroup } from './src/radio-group.js';\nimport { Radio } from './src/radio.js';\n\ncustomElements.define('sl-radio', Radio);\ncustomElements.define('sl-radio-group', RadioGroup);\n"],
-  "mappings": "AAAA,SAAS,kBAAkB;AAC3B,SAAS,aAAa;AAEtB,eAAe,OAAO,YAAY,KAAK;AACvC,eAAe,OAAO,kBAAkB,UAAU;",
-  "names": []
-}

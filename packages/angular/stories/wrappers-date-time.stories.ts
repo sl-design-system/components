@@ -1,5 +1,5 @@
 import { CalendarComponent } from '@sl-design-system/angular/calendar';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 export default {
   title: 'Wrappers/Date & Time',

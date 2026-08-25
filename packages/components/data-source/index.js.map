@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["index.ts"],
-  "sourcesContent": ["export * from './src/array-list-data-source.js';\nexport * from './src/data-source.js';\nexport * from './src/fetch-list-data-source.js';\nexport * from './src/list-data-source.js';\n"],
-  "mappings": "AAAA,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;",
-  "names": []
-}

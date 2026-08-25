@@ -2,7 +2,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import './register.js';
+import '../register.js';
 import { type TagList } from './tag-list.js';
 import { type Tag } from './tag.js';
 

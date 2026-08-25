@@ -9,7 +9,7 @@ import {
   html
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './card.css' with { type: 'css' };
+import styles from './card.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

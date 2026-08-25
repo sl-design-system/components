@@ -27,7 +27,7 @@ import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { IndentGuides } from './indent-guides.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
-import styles from './tree-node.css' with { type: 'css' };
+import styles from './tree-node.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -205,17 +205,15 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         .levelGuides=${this.levelGuides}
         ?selected=${!this.multiple && this.selected}></sl-indent-guides>
       <div aria-colindex="1" role="gridcell">
-        ${
-          this.expandable
-            ? html`
-                <div class="expander">
-                  <div class="expander-inner">
-                    <sl-icon name="chevron-right" size="xs"></sl-icon>
-                  </div>
+        ${this.expandable
+          ? html`
+              <div class="expander">
+                <div class="expander-inner">
+                  <sl-icon name="chevron-right" size="xs"></sl-icon>
                 </div>
-              `
-            : nothing
-        }
+              </div>
+            `
+          : nothing}
         <div part="wrapper">
           ${choose(
             this.type,

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { FormatNumber } from './src/format-number.js';\n\ncustomElements.define('sl-format-number', FormatNumber);\n"],
-  "mappings": "AAAA,SAAS,oBAAoB;AAE7B,eAAe,OAAO,oBAAoB,YAAY;",
-  "names": []
-}

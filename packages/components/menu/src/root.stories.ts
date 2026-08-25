@@ -2,7 +2,7 @@ import { faGear, faRocket, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 
 type Story = StoryObj;
 

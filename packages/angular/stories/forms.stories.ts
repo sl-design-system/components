@@ -36,7 +36,7 @@ import { TextAreaComponent } from '@sl-design-system/angular/text-area';
 import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
 import { Form } from '@sl-design-system/form';
-import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
 import { DateFieldDirective } from '../src/forms/date-field.directive';
 
 @Component({

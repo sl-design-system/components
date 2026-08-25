@@ -6,7 +6,7 @@ import '@sl-design-system/menu/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import './register.js';
+import '../register.js';
 import { type ToolBar } from './tool-bar.js';
 
 Icon.register(faBell, faGear, faPen);

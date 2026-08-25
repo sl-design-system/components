@@ -6,8 +6,8 @@ import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
+import '../register.js';
 import { Dialog } from './dialog.js';
-import './register.js';
 
 describe('sl-dialog', () => {
   let el: Dialog, dialog: HTMLDialogElement;

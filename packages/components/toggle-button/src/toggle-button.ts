@@ -4,7 +4,6 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -18,7 +17,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './toggle-button.css' with { type: 'css' };
+import styles from './toggle-button.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -125,7 +124,7 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
 
     this.setProxyTarget(this.button);
 
-    if (isDevMode()) {
+    if (import.meta.env?.DEV) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
         this.internals.states.delete('error');
@@ -211,15 +210,13 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </button>
-      ${
-        this.tooltip
-          ? html`
-              <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
-                ${this.tooltip}
-              </sl-tooltip>
-            `
-          : nothing
-      }
+      ${this.tooltip
+        ? html`
+            <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
+              ${this.tooltip}
+            </sl-tooltip>
+          `
+        : nothing}
     `;
   }
 

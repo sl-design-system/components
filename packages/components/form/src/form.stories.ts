@@ -6,7 +6,6 @@ import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
-import '@sl-design-system/number-field/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
@@ -15,9 +14,8 @@ import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/time-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html, nothing } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import '../register.js';
 import { type Form } from './form.js';
-import './register.js';
 
 type Props = Pick<Form, 'disabled' | 'value'> & {
   buttons?(): TemplateResult;
@@ -26,11 +24,6 @@ type Props = Pick<Form, 'disabled' | 'value'> & {
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
-
-type AllStoryOptions = {
-  shape?: 'pill';
-  size?: 'lg';
-};
 
 interface SelectElement extends HTMLElement {
   value?: string;
@@ -55,179 +48,6 @@ try {
 } catch {
   /* empty */
 }
-
-const renderAllFields = (
-  { disabled }: Pick<Props, 'disabled'>,
-  options: AllStoryOptions = {}
-): TemplateResult => {
-  const { shape, size } = options,
-    isPill = shape === 'pill';
-
-  return html`
-    <sl-form-field hint="Hint text" label="Text field">
-      <sl-text-field
-        ?disabled=${disabled}
-        name="textField"
-        placeholder="Placeholder"
-        required
-        shape=${ifDefined(shape)}
-        size=${ifDefined(size)}></sl-text-field>
-    </sl-form-field>
-
-    <sl-form-field hint="Hint text" label="Date field">
-      <sl-date-field
-        name="dateField"
-        required
-        shape=${ifDefined(shape)}
-        size=${ifDefined(size)}></sl-date-field>
-    </sl-form-field>
-
-    <sl-form-field hint="Hint text" label="Time field">
-      <sl-time-field
-        name="timeField"
-        required
-        shape=${ifDefined(shape)}
-        size=${ifDefined(size)}></sl-time-field>
-    </sl-form-field>
-
-    <sl-form-field hint="Hint text" label="Number field">
-      <sl-number-field
-        name="numberField"
-        placeholder="123"
-        required
-        shape=${ifDefined(shape)}
-        size=${ifDefined(size)}
-        style="max-inline-size: 12rem;"
-        step-buttons="end"></sl-number-field>
-    </sl-form-field>
-
-    ${
-      isPill
-        ? nothing
-        : html`
-            <sl-form-field hint="Hint text" label="Text area">
-              <sl-text-area
-                ?disabled=${disabled}
-                name="textArea"
-                placeholder="Placeholder"
-                required
-                size=${ifDefined(size)}></sl-text-area>
-            </sl-form-field>
-
-            <sl-form-field hint="Hint text" label="Checkbox">
-              <sl-checkbox
-                ?disabled=${disabled}
-                name="checkbox"
-                required
-                size=${ifDefined(size)}
-                value="checked"
-                >Checkbox</sl-checkbox
-              >
-            </sl-form-field>
-
-            <sl-form-field hint="Hint text" label="Checkbox group">
-              <sl-checkbox-group
-                ?disabled=${disabled}
-                name="checkboxGroup"
-                required
-                size=${ifDefined(size)}>
-                <sl-checkbox value="0">Check me</sl-checkbox>
-                <sl-checkbox value="1">No me</sl-checkbox>
-                <sl-checkbox value="2">I was here first</sl-checkbox>
-              </sl-checkbox-group>
-            </sl-form-field>
-          `
-    }
-
-    <sl-form-field hint="Hint text" label="Combobox single">
-      <sl-combobox
-        ?disabled=${disabled}
-        name="comboboxSingle"
-        placeholder="Single select"
-        required
-        shape=${ifDefined(shape)}
-        size=${ifDefined(size)}>
-        <sl-listbox>
-          <sl-option>Option 1</sl-option>
-          <sl-option>Option 2</sl-option>
-          <sl-option>Option 3</sl-option>
-          <sl-option>Option 4</sl-option>
-        </sl-listbox>
-      </sl-combobox>
-    </sl-form-field>
-
-    <sl-form-field hint="Hint text" label="Combobox multiple">
-      <sl-combobox
-        ?disabled=${disabled}
-        name="comboboxMultiple"
-        multiple
-        placeholder="Multiple select"
-        required
-        shape=${ifDefined(shape)}
-        size=${ifDefined(size)}>
-        <sl-listbox>
-          <sl-option>Option 1</sl-option>
-          <sl-option>Option 2</sl-option>
-          <sl-option>Option 3</sl-option>
-          <sl-option>Option 4</sl-option>
-        </sl-listbox>
-      </sl-combobox>
-    </sl-form-field>
-
-    ${
-      isPill
-        ? nothing
-        : html`
-            <sl-form-field hint="Hint text" label="Radio group">
-              <sl-radio-group
-                ?disabled=${disabled}
-                name="radioGroup"
-                required
-                size=${ifDefined(size)}>
-                <sl-radio value="1">One</sl-radio>
-                <sl-radio value="2">Two</sl-radio>
-                <sl-radio value="3">Three</sl-radio>
-              </sl-radio-group>
-            </sl-form-field>
-          `
-    }
-
-    <sl-form-field hint="Hint text" label="Select">
-      <sl-select
-        ?disabled=${disabled}
-        name="select"
-        placeholder="Placeholder"
-        required
-        shape=${ifDefined(shape)}
-        size=${ifDefined(size)}>
-        <sl-option value="1">Option 1</sl-option>
-        <sl-option value="2">Option 2</sl-option>
-        <sl-option value="3">Option 3</sl-option>
-      </sl-select>
-    </sl-form-field>
-
-    ${
-      isPill
-        ? nothing
-        : html`
-            <sl-form-field hint="Hint text" label="Switch">
-              <sl-switch
-                ?disabled=${disabled}
-                name="switch"
-                reverse
-                size=${ifDefined(size)}
-                value="toggled"
-                >Toggle me</sl-switch
-              >
-            </sl-form-field>
-          `
-    }
-  `;
-};
-
-const createAllArgs = (options: AllStoryOptions = {}): Pick<Props, 'fields'> => ({
-  fields: args => renderAllFields(args, options)
-});
 
 export default {
   title: 'Form/Form',
@@ -278,14 +98,12 @@ export default {
         .value=${value}>
         ${fields(args)}
         <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
+          ${buttons?.() ??
+          html`
+            <sl-button @click=${onToggle}>Toggle</sl-button>
+            ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
+            <sl-button @click=${onReport} variant="primary">Report</sl-button>
+          `}
         </sl-button-bar>
       </sl-form>
       <pre>${JSON.stringify(value, null, 2)}</pre>
@@ -406,7 +224,96 @@ export const CustomComponent: Story = {
 
 export const All: Story = {
   args: {
-    ...createAllArgs()
+    fields: ({ disabled }) => html`
+      <sl-form-field hint="Hint text" label="Text field">
+        <sl-text-field
+          ?disabled=${disabled}
+          name="textField"
+          placeholder="Placeholder"
+          required></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Date field">
+        <sl-date-field name="dateField" required></sl-date-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Time field">
+        <sl-time-field name="timeField" required></sl-time-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Text area">
+        <sl-text-area
+          ?disabled=${disabled}
+          name="textArea"
+          placeholder="Placeholder"
+          required></sl-text-area>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Checkbox">
+        <sl-checkbox ?disabled=${disabled} name="checkbox" required value="checked"
+          >Checkbox</sl-checkbox
+        >
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Checkbox group">
+        <sl-checkbox-group ?disabled=${disabled} name="checkboxGroup" required>
+          <sl-checkbox value="0">Check me</sl-checkbox>
+          <sl-checkbox value="1">No me</sl-checkbox>
+          <sl-checkbox value="2">I was here first</sl-checkbox>
+        </sl-checkbox-group>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Combobox single">
+        <sl-combobox
+          ?disabled=${disabled}
+          name="comboboxSingle"
+          placeholder="Single select"
+          required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+            <sl-option>Option 4</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Combobox multiple">
+        <sl-combobox
+          ?disabled=${disabled}
+          name="comboboxMultiple"
+          multiple
+          placeholder="Multiple select"
+          required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+            <sl-option>Option 4</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Radio group">
+        <sl-radio-group ?disabled=${disabled} name="radioGroup" required>
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Select">
+        <sl-select ?disabled=${disabled} name="select" placeholder="Placeholder" required>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Switch">
+        <sl-switch ?disabled=${disabled} name="switch" reverse value="toggled">Toggle me</sl-switch>
+      </sl-form-field>
+    `
   }
 };
 
@@ -435,31 +342,13 @@ export const AllValid: Story = {
       comboboxSingle: 'Option 2',
       comboboxMultiple: ['Option 1', 'Option 2'],
       dateField: new Date(),
-      numberField: '123',
       radioGroup: '2',
       select: '2',
+      switch: 'toggled',
       textArea: 'Text area',
       textField: 'Text field',
       timeField: '12:00'
     }
-  }
-};
-
-export const AllLarge: Story = {
-  args: {
-    ...createAllArgs({ size: 'lg' })
-  }
-};
-
-export const AllPill: Story = {
-  args: {
-    ...createAllArgs({ shape: 'pill' })
-  }
-};
-
-export const AllPillLarge: Story = {
-  args: {
-    ...createAllArgs({ shape: 'pill', size: 'lg' })
   }
 };
 

@@ -10,7 +10,7 @@ import { SwitchComponent } from '@sl-design-system/angular/switch';
 import { TextAreaComponent } from '@sl-design-system/angular/text-area';
 import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 export default {
   title: 'Wrappers/Form',

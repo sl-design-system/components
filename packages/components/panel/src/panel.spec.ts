@@ -10,8 +10,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import '../register.js';
 import { type Panel } from './panel.js';
-import './register.js';
 
 describe('sl-panel', () => {
   let el: Panel;

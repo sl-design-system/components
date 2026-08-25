@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Popover } from './src/popover.js';\n\ncustomElements.define('sl-popover', Popover);\n"],
-  "mappings": "AAAA,SAAS,eAAe;AAExB,eAAe,OAAO,cAAc,OAAO;",
-  "names": []
-}

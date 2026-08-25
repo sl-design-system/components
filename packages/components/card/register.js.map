@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Card } from './src/card.js';\n\ncustomElements.define('sl-card', Card);\n"],
-  "mappings": "AAAA,SAAS,YAAY;AAErB,eAAe,OAAO,WAAW,IAAI;",
-  "names": []
-}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AccordionComponent } from '@sl-design-system/angular/accordion';
 import { ButtonComponent } from '@sl-design-system/angular/button';
-import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular';
 
 @Component({
   selector: 'sla-accordion-external-actions',

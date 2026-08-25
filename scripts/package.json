@@ -34,8 +34,8 @@
     "esbuild": "^0.25.12",
     "fast-glob": "^3.3.3",
     "graphql": "^16.13.1",
-    "postcss": "^8.5.26",
-    "sass": "^1.102.0",
+    "postcss": "^8.5.15",
+    "sass": "^1.101.7",
     "style-dictionary": "^5.1.1"
   }
 }

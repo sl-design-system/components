@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Calendar } from './src/calendar.js';\nimport { MonthView } from './src/month-view.js';\n\ncustomElements.define('sl-calendar', Calendar);\ncustomElements.define('sl-month-view', MonthView);\n"],
-  "mappings": "AAAA,SAAS,gBAAgB;AACzB,SAAS,iBAAiB;AAE1B,eAAe,OAAO,eAAe,QAAQ;AAC7C,eAAe,OAAO,iBAAiB,SAAS;",
-  "names": []
-}

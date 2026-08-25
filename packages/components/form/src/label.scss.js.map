@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["label.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    align-items: center;\n    display: inline-flex;\n    gap: var(--sl-size-050);\n  }\n\n  ::slotted([slot=\"label\"]) {\n    color: var(--sl-color-foreground-bold);\n    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);\n  }\n\n  .optional,\n  .required {\n    font-weight: var(--sl-text-new-typeset-fontWeight-regular);\n    margin-inline-start: var(--sl-size-050);\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

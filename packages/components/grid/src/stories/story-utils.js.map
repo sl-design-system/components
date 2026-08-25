@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["story-utils.ts"],
-  "sourcesContent": ["import { type Student } from '@sl-design-system/example-data';\nimport { html } from 'lit';\nimport { type GridColumnDataRenderer } from '../column.js';\n\nexport const avatarRenderer: GridColumnDataRenderer<Student> = (student: Student) => {\n  const { firstName, infix, lastName, pictureUrl } = student;\n\n  return html`\n    <sl-avatar\n      .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}\n      .pictureUrl=${pictureUrl}\n      size=\"sm\"\n    ></sl-avatar>\n  `;\n};\n"],
-  "mappings": "AACA,SAAS,YAAY;AAGd,aAAM,iBAAkD,CAAC,YAAqB;AACnF,QAAM,EAAE,WAAW,OAAO,UAAU,WAAW,IAAI;AAEnD,SAAO;AAAA;AAAA,qBAEY,CAAC,WAAW,OAAO,QAAQ,EAAE,OAAO,OAAO,EAAE,KAAK,GAAG,CAAC;AAAA,oBACvD,UAAU;AAAA;AAAA;AAAA;AAI9B;",
-  "names": []
-}

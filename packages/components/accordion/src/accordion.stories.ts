@@ -4,8 +4,8 @@ import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html } from 'lit';
+import '../register.js';
 import { type Accordion } from './accordion.js';
-import './register.js';
 
 export type Props = Pick<Accordion, 'iconType' | 'single'> & { items(): TemplateResult };
 export type Story = StoryObj<Props>;
@@ -182,7 +182,8 @@ export const NoBottomBorder: Story = {
 sl-accordion-item:last-of-type::part(details) {
   border-block-end: none;
 }
-        </pre>
+        </pre
+        >
       </sl-accordion-item>
     `
   }

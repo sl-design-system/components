@@ -6,7 +6,7 @@ import '@sl-design-system/icon/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 
 type Props = { content: string; size: ButtonSize };
 type Story = StoryObj<Props>;

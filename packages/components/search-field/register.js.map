@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { SearchField } from './src/search-field.js';\n\ncustomElements.define('sl-search-field', SearchField);\n"],
-  "mappings": "AAAA,SAAS,mBAAmB;AAE5B,eAAe,OAAO,mBAAmB,WAAW;",
-  "names": []
-}

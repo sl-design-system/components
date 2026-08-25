@@ -6,8 +6,8 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import '../register.js';
 import { type DateField } from './date-field.js';
-import './register.js';
 
 type Props = Pick<
   DateField,
@@ -20,10 +20,8 @@ type Props = Pick<
   | 'requireConfirmation'
   | 'required'
   | 'selectOnly'
-  | 'shape'
   | 'showValid'
   | 'showWeekNumbers'
-  | 'size'
   | 'value'
 > & {
   hint?: string | TemplateResult;
@@ -66,14 +64,6 @@ export default {
     slot: {
       table: { disable: true }
     },
-    shape: {
-      control: 'inline-radio',
-      options: ['rect', 'pill']
-    },
-    size: {
-      control: 'inline-radio',
-      options: ['md', 'lg']
-    },
     value: {
       control: 'date'
     }
@@ -91,10 +81,8 @@ export default {
     requireConfirmation,
     required,
     selectOnly,
-    shape,
     showValid,
     showWeekNumbers,
-    size,
     slot,
     value,
     width
@@ -119,34 +107,23 @@ export default {
             min=${ifDefined(min?.toISOString())}
             month=${ifDefined(month?.toISOString())}
             placeholder=${ifDefined(placeholder)}
-            shape=${ifDefined(shape)}
-            size=${ifDefined(size)}
             style="width: ${width}">
             ${slot?.()}
           </sl-date-field>
         </sl-form-field>
-        ${
-          reportValidity
-            ? html`
-                <sl-button-bar>
-                  <sl-button @click=${onClick}>Report validity</sl-button>
-                </sl-button-bar>
-              `
-            : nothing
-        }
+        ${reportValidity
+          ? html`
+              <sl-button-bar>
+                <sl-button @click=${onClick}>Report validity</sl-button>
+              </sl-button-bar>
+            `
+          : nothing}
       </sl-form>
     `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
-
-export const Pill: Story = {
-  args: {
-    shape: 'pill',
-    value: new Date(2025, 0, 15)
-  }
-};
 
 export const Disabled: Story = {
   args: {
@@ -334,48 +311,6 @@ export const All: Story = {
               max=${new Date('2025-06-20').toISOString()}
               min=${new Date('2025-06-10').toISOString()}
               month=${new Date('2025-06-01').toISOString()}></sl-date-field>
-          </sl-form-field>
-        </div>
-
-        <div class="date-field-wrapper">
-          <span>Size md</span>
-          <sl-form-field label="Date">
-            <sl-date-field size="md"></sl-date-field>
-          </sl-form-field>
-        </div>
-
-        <div class="date-field-wrapper">
-          <span>Size lg</span>
-          <sl-form-field label="Date">
-            <sl-date-field size="lg"></sl-date-field>
-          </sl-form-field>
-        </div>
-
-        <div class="date-field-wrapper">
-          <span>Pill</span>
-          <sl-form-field label="Date">
-            <sl-date-field shape="pill"></sl-date-field>
-          </sl-form-field>
-        </div>
-
-        <div class="date-field-wrapper">
-          <span>Pill with value</span>
-          <sl-form-field label="Date">
-            <sl-date-field .value=${mockDate} shape="pill"></sl-date-field>
-          </sl-form-field>
-        </div>
-
-        <div class="date-field-wrapper">
-          <span>Pill size md</span>
-          <sl-form-field label="Date">
-            <sl-date-field shape="pill" size="md"></sl-date-field>
-          </sl-form-field>
-        </div>
-
-        <div class="date-field-wrapper">
-          <span>Pill size lg</span>
-          <sl-form-field label="Date">
-            <sl-date-field shape="pill" size="lg"></sl-date-field>
           </sl-form-field>
         </div>
       </section>

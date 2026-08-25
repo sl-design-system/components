@@ -264,7 +264,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   }
 
   addFilter(id: string, by: PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
-    this.#filters.set(id, { id, by, value });
+    this.#filters.set(id, { id, by, value } as DataSourceFilter<T>);
   }
 
   removeFilter(id: string): void {

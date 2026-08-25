@@ -3,8 +3,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import '../register.js';
 import { type NumberField } from './number-field.js';
-import './register.js';
 
 describe('sl-number-field', () => {
   let el: NumberField;

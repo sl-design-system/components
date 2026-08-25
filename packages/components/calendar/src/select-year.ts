@@ -19,7 +19,7 @@ import {
 import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './select-year.css' with { type: 'css' };
+import styles from './select-year.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

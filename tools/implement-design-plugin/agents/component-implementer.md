@@ -28,11 +28,11 @@ It is the authoritative guide for _how_ to scaffold, structure, style, register,
 
 ## Steps (specifics come from the framework skill)
 
-1. **Scaffold** the component at `<base>/` exactly as the framework skill prescribes (file set, boilerplate, imports). A new Lit package needs no monorepo registration — the `packages/components/*` workspace glob picks it up — so just run `yarn install` from the repo root after scaffolding.
+1. **Scaffold** the component at `<base>/` exactly as the framework skill prescribes (file set, boilerplate, imports). Register it in the monorepo (`tsconfig.all.json`) only when `<base>` is the SLDS monorepo and the framework skill calls for it.
 2. **Implement the component**: the exact public API from the spec; correct accessibility role/state; the framework's composition/registration model (Lit: scoped custom elements + only the root registers globally; Angular: standalone component + custom-element schema or `@sl-design-system/angular` wrappers). Reproduce the design's content per data ownership.
 3. **Implement the styles** in plain **`.css`** (Lit: `import styles from './<name>.css' with { type: 'css' };` — no `.scss`, no build step): every visual decision via design tokens — **no `var()` fallbacks**, **light-mode semantic tokens** even for a dark design, logical properties, and prefer styling a component's `::part()` over wrapper elements. Don't set `display` unless it intentionally changes default rendering; private `--_x` props only when reused.
 4. **Write a basic Storybook story** for the component (so Stage 4 visual validation has something to render — this happens **before** validation now, not in Stage 5). Render the design's content with no/minimal args; page components set `parameters: { layout: 'fullscreen' }`.
-5. **Type-check** per the framework skill (`tsc --noEmit` against the shared tsconfig that covers `<base>`, not a per-package one); there is **no style-build step** anymore. Fix any errors before returning — but only the ones in your own files; the shared project may already have unrelated pre-existing errors.
+5. **Type-check** per the framework skill (`tsc --noEmit`); there is **no style-build step** anymore. Fix any errors before returning.
 
 ## Constraints (framework-agnostic design principles — always apply)
 

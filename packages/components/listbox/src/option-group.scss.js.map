@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["option-group.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: flex;\n    flex: 1;\n    inline-size: 100%;\n  }\n\n  :host(:not(:first-of-type)) {\n    border-block-start: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);\n    margin-block-start: var(--sl-size-050);\n    padding-block-start: var(--sl-size-050);\n  }\n\n  ::slotted(sl-option:first-of-type) {\n    margin-block-start: var(--sl-size-025);\n  }\n\n  [part=\"wrapper\"] {\n    flex: 1;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

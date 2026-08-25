@@ -11,8 +11,13 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { type ToolBarItem } from './mapping.js';
-import './register.js';
+import '../register.js';
+import {
+  type ToolBarItem,
+  type ToolBarItemButton,
+  type ToolBarItemDivider,
+  type ToolBarItemMenu
+} from './mapping.js';
 import { type ToolBar } from './tool-bar.js';
 
 Icon.register(faBell, faGear, faPen, faTrash, fasBell, fasGear);
@@ -159,21 +164,21 @@ describe('sl-tool-bar', () => {
     it('should map the slotted items', () => {
       expect(el.items).to.have.length(4);
 
-      let item: ToolBarItem = el.items[0];
+      let item: ToolBarItem = el.items[0] as ToolBarItemButton;
       expect(item.type).to.equal('button');
       expect(item.label).to.equal('Button');
       expect(item.icon).to.equal('far-gear');
       expect(item.visible).to.be.true;
 
-      item = el.items[1];
+      item = el.items[1] as ToolBarItemDivider;
       expect(item.type).to.equal('divider');
       expect(item.visible).to.be.true;
 
-      item = el.items[2];
+      item = el.items[2] as ToolBarItemDivider;
       expect(item.type).to.equal('divider');
       expect(item.visible).to.be.true;
 
-      item = el.items[3];
+      item = el.items[3] as ToolBarItemMenu;
       expect(item.type).to.equal('menu');
       expect(item.label).to.equal('Edit');
       expect(item.visible).to.be.true;

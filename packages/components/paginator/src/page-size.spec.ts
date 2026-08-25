@@ -2,8 +2,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
 import { PaginatorPageSize } from './page-size.js';
-import './register.js';
 
 describe('sl-paginator-page-size', () => {
   let el: PaginatorPageSize;

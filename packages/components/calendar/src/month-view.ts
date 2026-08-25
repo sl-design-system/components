@@ -21,7 +21,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './month-view.css' with { type: 'css' };
+import styles from './month-view.scss.js';
 import {
   type Calendar,
   type Day,
@@ -298,18 +298,16 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ${this.calendar?.weeks.map(
             week => html`
               <tr class="days" role="row">
-                ${
-                  this.showWeekNumbers
-                    ? html`
-                        <td
-                          aria-label=${msg(str`Week ${week.number}`, { id: 'sl.monthView.week' })}
-                          part="week-number"
-                          role="rowheader">
-                          ${week.number}
-                        </td>
-                      `
-                    : nothing
-                }
+                ${this.showWeekNumbers
+                  ? html`
+                      <td
+                        aria-label=${msg(str`Week ${week.number}`, { id: 'sl.monthView.week' })}
+                        part="week-number"
+                        role="rowheader">
+                        ${week.number}
+                      </td>
+                    `
+                  : nothing}
                 ${week.days.map(day => this.renderDay(day))}
               </tr>
             `
@@ -324,15 +322,13 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return html`
       <thead part="header">
         <tr role="row">
-          ${
-            this.showWeekNumbers
-              ? html`
-                  <th aria-label=${msg('Week', { id: 'sl.calendar.week' })} part="week-number">
-                    ${this.localizedWeekOfYear}
-                  </th>
-                `
-              : nothing
-          }
+          ${this.showWeekNumbers
+            ? html`
+                <th aria-label=${msg('Week', { id: 'sl.calendar.week' })} part="week-number">
+                  ${this.localizedWeekOfYear}
+                </th>
+              `
+            : nothing}
           ${this.weekDays.map(
             day => html`<th aria-label=${day.long} part="week-day"><span>${day.short}</span></th>`
           )}
@@ -377,15 +373,13 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 part=${parts.join(' ')}>
                 <span>${day.date.getDate()}</span>
               </button>
-              ${
-                day.indicator?.label
-                  ? html`
-                      <sl-tooltip for=${day.date.toISOString()} type="description">
-                        ${day.indicator.label}
-                      </sl-tooltip>
-                    `
-                  : nothing
-              }
+              ${day.indicator?.label
+                ? html`
+                    <sl-tooltip for=${day.date.toISOString()} type="description">
+                      ${day.indicator.label}
+                    </sl-tooltip>
+                  `
+                : nothing}
             `;
     }
 

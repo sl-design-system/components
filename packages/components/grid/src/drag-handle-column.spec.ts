@@ -3,9 +3,9 @@ import '@sl-design-system/icon/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
 import { type Grid } from './grid.js';
-import './register.js';
 import { waitForGridToRenderData } from './utils.js';
 
 describe('sl-grid-drag-handle-column', () => {

@@ -1,7 +1,7 @@
 import { Option } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './grouped-option.css' with { type: 'css' };
+import styles from './grouped-option.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

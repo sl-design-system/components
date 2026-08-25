@@ -5,8 +5,8 @@ import '@sl-design-system/toggle-group/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import '../register.js';
 import { type ButtonBar } from './button-bar.js';
-import './register.js';
 
 type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size'> & { buttons(): TemplateResult };
 type Story = StoryObj<Props>;
@@ -32,23 +32,21 @@ export default {
   },
   render: ({ align, buttons, reverse, size }) => html`
     <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
-      ${
-        buttons?.() ??
-        html`
-          <sl-button>
-            <sl-icon name="home-blank"></sl-icon>
-            Foo
-          </sl-button>
-          <sl-button>
-            <sl-icon name="pinata"></sl-icon>
-            Bar
-          </sl-button>
-          <sl-button>
-            <sl-icon name="face-smile"></sl-icon>
-            Baz
-          </sl-button>
-        `
-      }
+      ${buttons?.() ??
+      html`
+        <sl-button>
+          <sl-icon name="home-blank"></sl-icon>
+          Foo
+        </sl-button>
+        <sl-button>
+          <sl-icon name="pinata"></sl-icon>
+          Bar
+        </sl-button>
+        <sl-button>
+          <sl-icon name="face-smile"></sl-icon>
+          Baz
+        </sl-button>
+      `}
     </sl-button-bar>
   `
 } satisfies Meta<Props>;

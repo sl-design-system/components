@@ -2,7 +2,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '.././register.js';
+import '../../register.js';
 import { type GridColumnDataRenderer } from '../column.js';
 import { type GridItemParts } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';

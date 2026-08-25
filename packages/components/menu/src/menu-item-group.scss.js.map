@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["menu-item-group.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: flex;\n    flex: 1;\n  }\n\n  [part=\"wrapper\"] {\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n    gap: var(--sl-size-050);\n    margin-inline: var(--sl-space-new-md);\n  }\n\n  slot[name=\"header\"] .heading,\n  slot[name=\"header\"]::slotted(*) {\n    color: var(--sl-color-foreground-subtlest);\n    font-size: 0.8571428571em;\n    line-height: 1.3333333333em;\n    padding: var(--sl-space-new-md) 0;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

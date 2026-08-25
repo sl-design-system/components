@@ -27,7 +27,7 @@ import {
   nothing
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './text-area.css' with { type: 'css' };
+import styles from './text-area.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -312,22 +312,18 @@ export class TextArea extends ObserveAttributesMixin(
       <div class="field">
         <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
         <slot name="suffix">
-          ${
-            this.showValidity === 'valid'
-              ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
-              : nothing
-          }
+          ${this.showValidity === 'valid'
+            ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
+            : nothing}
         </slot>
       </div>
-      ${
-        this.#isCountVisible()
-          ? html`
-              <span class="count" count-state=${this.#getCountState()} id=${this.#countId}>
-                ${this.#getCountText()}
-              </span>
-            `
-          : nothing
-      }
+      ${this.#isCountVisible()
+        ? html`
+            <span class="count" count-state=${this.#getCountState()} id=${this.#countId}>
+              ${this.#getCountText()}
+            </span>
+          `
+        : nothing}
       <slot name="count-description"></slot>
     `;
   }

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["filter.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    align-items: center;\n    display: flex;\n    font-weight: var(--sl-text-typeset-fontWeight-regular);\n    gap: var(--sl-size-100);\n    inline-size: 100%;\n    min-inline-size: 0;\n    padding: var(--sl-size-075) var(--sl-size-150);\n  }\n\n  sl-search-field,\n  sl-select {\n    inline-size: 100%;\n    min-inline-size: 0;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

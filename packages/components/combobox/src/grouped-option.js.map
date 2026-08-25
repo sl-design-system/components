@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["grouped-option.ts"],
-  "sourcesContent": ["import { Option } from '@sl-design-system/listbox';\nimport { type CSSResultGroup, type TemplateResult, html } from 'lit';\nimport { property } from 'lit/decorators.js';\nimport styles from './grouped-option.scss.js';\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sl-combobox-grouped-option': GroupedOption;\n  }\n}\n\n/**\n * An option in a combobox that is grouped. This is a special type of option that displays a group\n * label.\n *\n * @slot default - The option's label.\n */\nexport class GroupedOption extends Option {\n  /** @internal */\n  static override styles: CSSResultGroup = [Option.styles, styles];\n\n  /** The group this option belongs to. */\n  @property() group?: string;\n\n  override render(): TemplateResult {\n    return html`\n      <div part=\"container\">\n        <sl-icon name=\"check\"></sl-icon>\n        <div part=\"wrapper\">\n          <slot></slot>\n          <span part=\"group\">${this.group}</span>\n        </div>\n      </div>\n    `;\n  }\n}\n"],
-  "mappings": ";;;;;;;;;;AAAA,SAAS,cAAc;AACvB,SAAmD,YAAY;AAC/D,SAAS,gBAAgB;AACzB,OAAO,YAAY;AAcZ,aAAM,sBAAsB,OAAO;AAAA,EAExC;AAAA;AAAA,SAAgB,SAAyB,CAAC,OAAO,QAAQ,MAAM;AAAA;AAAA,EAKtD,SAAyB;AAChC,WAAO;AAAA;AAAA;AAAA;AAAA;AAAA,+BAKoB,KAAK,KAAK;AAAA;AAAA;AAAA;AAAA,EAIvC;AACF;AAbc;AAAA,EAAX,SAAS;AAAA,GALC,cAKC;",
-  "names": []
-}

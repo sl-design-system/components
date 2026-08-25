@@ -25,7 +25,7 @@ import {
 import { property, query, queryAll, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './select-month.css' with { type: 'css' };
+import styles from './select-month.scss.js';
 import { Month } from './utils.js';
 
 declare global {
@@ -163,29 +163,27 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     return html`
       <header>
-        ${
-          this.#canSelectYear(-1) || this.#canSelectYear(1)
-            ? html`
-                <sl-button
-                  @click=${this.#onToggleYearSelect}
-                  aria-label=${msg(
-                    str`${format(this.month, this.locale, { year: 'numeric' })}, change year`,
-                    {
-                      id: 'sl.calendar.changeYear'
-                    }
-                  )}
-                  class="current-year"
-                  fill="link"
-                  variant="secondary">
-                  <sl-format-date
-                    .date=${this.month}
-                    locale=${ifDefined(this.locale)}
-                    year="numeric"></sl-format-date>
-                  <sl-icon name="caret-down-solid"></sl-icon>
-                </sl-button>
-              `
-            : html`<span class="current-year">${currentYear}</span>`
-        }
+        ${this.#canSelectYear(-1) || this.#canSelectYear(1)
+          ? html`
+              <sl-button
+                @click=${this.#onToggleYearSelect}
+                aria-label=${msg(
+                  str`${format(this.month, this.locale, { year: 'numeric' })}, change year`,
+                  {
+                    id: 'sl.calendar.changeYear'
+                  }
+                )}
+                class="current-year"
+                fill="link"
+                variant="secondary">
+                <sl-format-date
+                  .date=${this.month}
+                  locale=${ifDefined(this.locale)}
+                  year="numeric"></sl-format-date>
+                <sl-icon name="caret-down-solid"></sl-icon>
+              </sl-button>
+            `
+          : html`<span class="current-year">${currentYear}</span>`}
         <div class="arrows">
           <sl-button
             @click=${this.#onPrevious}

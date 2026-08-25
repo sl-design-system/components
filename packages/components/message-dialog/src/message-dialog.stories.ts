@@ -1,11 +1,11 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
+import '../register.js';
 import {
   MessageDialog,
   type MessageDialogButton,
   type MessageDialogConfig
 } from './message-dialog.js';
-import './register.js';
 
 type Props = {
   buttons: MessageDialogButton[];

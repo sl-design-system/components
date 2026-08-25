@@ -2,8 +2,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import '../register.js';
 import { MessageDialog } from './message-dialog.js';
-import './register.js';
 
 describe('sl-message-dialog', () => {
   let dialog: HTMLDialogElement, promise: Promise<unknown>;

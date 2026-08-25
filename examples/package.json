@@ -10,20 +10,10 @@
   "dependencies": {
     "@lit/localize": "^0.12.2",
     "@open-wc/scoped-elements": "^3.0.10",
-    "lit": "^3.3.3"
+    "lit": "^3.3.2"
   },
   "devDependencies": {
     "tsdown": "^0.22.14",
     "typescript": "^6.0.3"
-  },
-  "exports": {
-    ".": "./lit/index.ts",
-    "./package.json": "./package.json"
-  },
-  "publishConfig": {
-    "exports": {
-      ".": "./dist/index.js",
-      "./package.json": "./package.json"
-    }
   }
 }

@@ -18,7 +18,7 @@ import {
 } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon as SlIcon } from '@sl-design-system/icon';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { html } from 'lit';
 
 SlIcon.register(faCopy);

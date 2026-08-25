@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["tree.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    background: var(--sl-elevation-surface-base-default);\n    display: flex;\n    scroll-padding-block: var(--sl-size-100);\n  }\n\n  [part=\"wrapper\"] {\n    inline-size: 100%;\n    position: relative;\n  }\n\n  .starter {\n    display: flex;\n    flex-direction: column;\n    gap: var(--sl-size-025);\n    inline-size: 100%;\n    inset: 0 auto auto 0;\n    position: absolute;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Tooltip } from './src/tooltip.js';\n\ncustomElements.define('sl-tooltip', Tooltip);\n"],
-  "mappings": "AAAA,SAAS,eAAe;AAExB,eAAe,OAAO,cAAc,OAAO;",
-  "names": []
-}

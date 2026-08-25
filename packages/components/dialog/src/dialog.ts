@@ -24,7 +24,7 @@ import {
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './dialog.css' with { type: 'css' };
+import styles from './dialog.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -181,30 +181,26 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           <slot name="title" id="title">
             <h1>${title}</h1>
           </slot>
-          ${
-            this.#media.mobile
-              ? html`
-                  <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
-                    ${this.renderPrimaryActions()}
-                  </slot>
-                `
-              : nothing
-          }
-        </div>
-        ${
-          this.closeButton
+          ${this.#media.mobile
             ? html`
-                <sl-button
-                  @click=${this.#onCloseClick}
-                  aria-label=${msg('Close', { id: 'sl.common.close' })}
-                  class="sl-close"
-                  fill="ghost"
-                  variant="default">
-                  <sl-icon name="xmark"></sl-icon>
-                </sl-button>
+                <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
+                  ${this.renderPrimaryActions()}
+                </slot>
               `
-            : nothing
-        }
+            : nothing}
+        </div>
+        ${this.closeButton
+          ? html`
+              <sl-button
+                @click=${this.#onCloseClick}
+                aria-label=${msg('Close', { id: 'sl.common.close' })}
+                class="sl-close"
+                fill="ghost"
+                variant="default">
+                <sl-icon name="xmark"></sl-icon>
+              </sl-button>
+            `
+          : nothing}
       </slot>
     `;
   }
@@ -218,15 +214,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   renderBody(): TemplateResult {
     return html`
       <slot></slot>
-      ${
-        this.#media.mobile
-          ? html`
-              <sl-button-bar part="footer-bar">
-                <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
-              </sl-button-bar>
-            `
-          : nothing
-      }
+      ${this.#media.mobile
+        ? html`
+            <sl-button-bar part="footer-bar">
+              <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
+            </sl-button-bar>
+          `
+        : nothing}
     `;
   }
 

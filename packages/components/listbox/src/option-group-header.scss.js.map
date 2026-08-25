@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["option-group-header.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    color: var(--sl-color-foreground-subtlest);\n    display: block;\n    inline-size: 100%;\n  }\n\n  .wrapper {\n    font-size: 0.8571428571em;\n    line-height: 1.3333333333em;\n    padding: var(--sl-size-100);\n  }\n\n  .divider {\n    border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);\n    margin-block-start: var(--sl-size-050);\n    padding-block-start: var(--sl-size-050);\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

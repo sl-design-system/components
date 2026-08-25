@@ -27,7 +27,7 @@ import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './paginator.css' with { type: 'css' };
+import styles from './paginator.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -231,25 +231,23 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         1
       </sl-button>
 
-      ${
-        this.windowStart > 0
-          ? html`
-              <sl-menu-button
-                aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
-                fill="ghost"
-                size=${ifDefined(this.size)}>
-                <sl-icon name="ellipsis-down" slot="button"></sl-icon>
-                ${Array.from({ length: this.windowStart + 1 }).map(
-                  (_, i) => html`
-                    <sl-menu-item @click=${() => this.#onMenuPageClick(i + 1)}>
-                      ${i + 2}
-                    </sl-menu-item>
-                  `
-                )}
-              </sl-menu-button>
-            `
-          : nothing
-      }
+      ${this.windowStart > 0
+        ? html`
+            <sl-menu-button
+              aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
+              fill="ghost"
+              size=${ifDefined(this.size)}>
+              <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+              ${Array.from({ length: this.windowStart + 1 }).map(
+                (_, i) => html`
+                  <sl-menu-item @click=${() => this.#onMenuPageClick(i + 1)}>
+                    ${i + 2}
+                  </sl-menu-item>
+                `
+              )}
+            </sl-menu-button>
+          `
+        : nothing}
       ${Array.from({ length: this.pageCount - 2 }).map(
         (_, index) => html`
           <sl-button
@@ -266,40 +264,36 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
           </sl-button>
         `
       )}
-      ${
-        this.windowEnd < this.pageCount - 2
-          ? html`
-              <sl-menu-button
-                aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
-                fill="ghost"
-                size=${ifDefined(this.size)}>
-                <sl-icon name="ellipsis-down" slot="button"></sl-icon>
-                ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
-                  (_, i) => html`
-                    <sl-menu-item @click=${() => this.#onMenuPageClick(i + this.windowEnd + 1)}>
-                      ${i + this.windowEnd + 2}
-                    </sl-menu-item>
-                  `
-                )}
-              </sl-menu-button>
-            `
-          : nothing
-      }
-      ${
-        this.pageCount > 1
-          ? html`
-              <sl-button
-                @click=${() => this.#onPageClick(this.pageCount - 1)}
-                aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
-                class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
-                fill=${this.#getPageFill(this.pageCount - 1)}
-                size=${ifDefined(this.size)}
-                variant=${ifDefined(this.#getPageVariant(this.pageCount - 1))}>
-                ${this.pageCount}
-              </sl-button>
-            `
-          : nothing
-      }
+      ${this.windowEnd < this.pageCount - 2
+        ? html`
+            <sl-menu-button
+              aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
+              fill="ghost"
+              size=${ifDefined(this.size)}>
+              <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+              ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
+                (_, i) => html`
+                  <sl-menu-item @click=${() => this.#onMenuPageClick(i + this.windowEnd + 1)}>
+                    ${i + this.windowEnd + 2}
+                  </sl-menu-item>
+                `
+              )}
+            </sl-menu-button>
+          `
+        : nothing}
+      ${this.pageCount > 1
+        ? html`
+            <sl-button
+              @click=${() => this.#onPageClick(this.pageCount - 1)}
+              aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
+              class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
+              fill=${this.#getPageFill(this.pageCount - 1)}
+              size=${ifDefined(this.size)}
+              variant=${ifDefined(this.#getPageVariant(this.pageCount - 1))}>
+              ${this.pageCount}
+            </sl-button>
+          `
+        : nothing}
 
       <div class="wrapper">
         <sl-select

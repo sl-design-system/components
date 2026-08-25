@@ -3,8 +3,9 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { useArgs } from 'storybook/internal/preview-api';
+import '../register.js';
 import { type Calendar } from './calendar.js';
-import './register.js';
+import { IndicatorColor } from './utils.js';
 
 type Props = Pick<
   Calendar,
@@ -185,23 +186,23 @@ export const IndicatorDates: Story = {
       { date: new Date(), color: 'red', label: indicatorLabels.red.label },
       {
         date: new Date('2025-09-05'),
-        color: 'blue',
+        color: 'blue' as IndicatorColor,
         label: indicatorLabels.blue.label
       },
       { date: new Date('2025-09-24'), label: indicatorLabels.default.label },
       {
         date: new Date('2025-09-09'),
-        color: 'green',
+        color: 'green' as IndicatorColor,
         label: indicatorLabels.green.label
       },
       {
         date: new Date('2025-09-11'),
-        color: 'grey',
+        color: 'grey' as IndicatorColor,
         label: indicatorLabels.grey.label
       },
       {
         date: new Date('2025-09-12'),
-        color: 'yellow',
+        color: 'yellow' as IndicatorColor,
         label: indicatorLabels.yellow.label
       },
       { date: new Date('2025-09-18'), color: 'red', label: indicatorLabels.red.label }

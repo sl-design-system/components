@@ -12,7 +12,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './child-form.css' with { type: 'css' };
+import styles from './child-form.scss.js';
 
 export type Address = {
   postalCode: string;

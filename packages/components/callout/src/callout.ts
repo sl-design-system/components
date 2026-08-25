@@ -6,7 +6,7 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './callout.css' with { type: 'css' };
+import styles from './callout.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

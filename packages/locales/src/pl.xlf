@@ -530,10 +530,6 @@
   <source><x id="0" equiv-text="${this.groupLabel}"/> group</source>
   <target><x id="0" equiv-text="${this.groupLabel}"/> grupa</target>
 </trans-unit>
-<trans-unit id="link.opens-in-new-tab">
-  <source>opens in a new tab</source>
-  <target>otwiera się w nowej karcie</target>
-</trans-unit>
 </body>
 </file>
 </xliff>

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["child-form.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: block;\n  }\n\n  sl-form {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n  }\n\n  sl-form-field[name=\"street\"],\n  sl-form-field[name=\"city\"] {\n    grid-column: span 2;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

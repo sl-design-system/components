@@ -20,7 +20,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './tab-group.css' with { type: 'css' };
+import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 
@@ -303,27 +303,25 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
               </div>
             </div>
           </div>
-          ${
-            this.showMenu
-              ? html`
-                  <sl-menu-button
-                    @keydown=${this.#onKeydown}
-                    aria-label=${msg('Show all', { id: 'sl.tabs.showAll' })}
-                    fill="ghost">
-                    <sl-icon name="ellipsis" slot="button"></sl-icon>
-                    ${this.menuItems?.map(
-                      menuItem => html`
-                        <sl-menu-item
-                          @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                          ?disabled=${menuItem.disabled}>
-                          ${menuItem.title}
-                        </sl-menu-item>
-                      `
-                    )}
-                  </sl-menu-button>
-                `
-              : nothing
-          }
+          ${this.showMenu
+            ? html`
+                <sl-menu-button
+                  @keydown=${this.#onKeydown}
+                  aria-label=${msg('Show all', { id: 'sl.tabs.showAll' })}
+                  fill="ghost">
+                  <sl-icon name="ellipsis" slot="button"></sl-icon>
+                  ${this.menuItems?.map(
+                    menuItem => html`
+                      <sl-menu-item
+                        @click=${() => this.#onMenuItemClick(menuItem.tab)}
+                        ?disabled=${menuItem.disabled}>
+                        ${menuItem.title}
+                      </sl-menu-item>
+                    `
+                  )}
+                </sl-menu-button>
+              `
+            : nothing}
         </div>
       </div>
       <div part="panels">

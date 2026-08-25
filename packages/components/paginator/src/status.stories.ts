@@ -1,7 +1,7 @@
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import './register.js';
+import '../register.js';
 import { PaginatorStatus } from './status.js';
 
 type Props = Pick<PaginatorStatus, 'itemLabel' | 'pageSize' | 'page' | 'totalItems'>;

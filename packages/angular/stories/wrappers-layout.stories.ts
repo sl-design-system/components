@@ -1,7 +1,7 @@
 import { AccordionComponent, AccordionItemComponent } from '@sl-design-system/angular/accordion';
 import { CardComponent } from '@sl-design-system/angular/card';
 import { PanelComponent } from '@sl-design-system/angular/panel';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 export default {
   title: 'Wrappers/Layout',

@@ -5,8 +5,8 @@ import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import '../register.js';
 import { type Avatar, type AvatarColor, type AvatarSize } from './avatar.js';
-import './register.js';
 
 type Props = Pick<
   Avatar,
@@ -342,23 +342,19 @@ export const Sizes: Story = {
             ${subheading ? html`<span>${subheading}</span>` : nothing}
             <sl-badge .size=${badgeSizes[size]} color="red" emphasis="bold" slot="badge">
               ${badgeSizes[size] === 'sm' ? nothing : '2'}
-              ${
-                size !== 'sm' && size !== '4xl'
-                  ? badgeSizes[size] === 'sm'
-                    ? html`<span class="screen-reader-only">2 unread messages</span>`
-                    : html`<span class="screen-reader-only">unread messages</span>`
-                  : nothing
-              }
+              ${size !== 'sm' && size !== '4xl'
+                ? badgeSizes[size] === 'sm'
+                  ? html`<span class="screen-reader-only">2 unread messages</span>`
+                  : html`<span class="screen-reader-only">unread messages</span>`
+                : nothing}
             </sl-badge>
-            ${
-              size === 'sm' || size === '4xl'
-                ? html`
-                    <span class="screen-reader-only" role="status" slot="badge">
-                      2 unread messages
-                    </span>
-                  `
-                : nothing
-            }
+            ${size === 'sm' || size === '4xl'
+              ? html`
+                  <span class="screen-reader-only" role="status" slot="badge">
+                    2 unread messages
+                  </span>
+                `
+              : nothing}
           </sl-avatar>
         `
       )}

@@ -7,7 +7,7 @@ import {
 import { Avatar } from '@sl-design-system/avatar';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 import { html } from 'lit';
 
 const avatarRenderer = (student: Student) => {

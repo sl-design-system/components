@@ -51,14 +51,8 @@ The TreeComponent provides a flexible way to render hierarchical data structures
 
 
 ```typescript
-import {
-  faArrowUpRightFromSquare,
-  faFileLines,
-  faFolder,
-  faFolderOpen
-} from '@fortawesome/pro-regular-svg-icons';
+import { faFileLines, faFolder, faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
 import { BreadcrumbsComponent } from '@sl-design-system/angular/breadcrumbs';
-import { LinkComponent } from '@sl-design-system/angular/link';
 import { TabComponent, TabGroupComponent, TabPanelComponent } from '@sl-design-system/angular/tabs';
 import { TreeComponent } from '@sl-design-system/angular/tree';
 import { Icon as SlIcon } from '@sl-design-system/icon';
@@ -110,47 +104,6 @@ export class TreeExampleComponent {
     });
   }
 
-}
-```
-
-## Link
-
-A standalone link is visually styled as a button while keeping native anchor behavior. External links always open in a new tab and show an external-link indicator icon.
-
-
-```typescript
-import {
-  faArrowUpRightFromSquare,
-  faFileLines,
-  faFolder,
-  faFolderOpen
-} from '@fortawesome/pro-regular-svg-icons';
-import { BreadcrumbsComponent } from '@sl-design-system/angular/breadcrumbs';
-import { LinkComponent } from '@sl-design-system/angular/link';
-import { TabComponent, TabGroupComponent, TabPanelComponent } from '@sl-design-system/angular/tabs';
-import { TreeComponent } from '@sl-design-system/angular/tree';
-import { Icon as SlIcon } from '@sl-design-system/icon';
-import { FlatTreeDataSource } from '@sl-design-system/tree';
-
-@Component({
-  selector: 'sla-link-example',
-  template: `<div style="display: grid; gap: 1rem; justify-items: start;">
-    <sl-link>
-      <a href="/dashboard">Internal link button</a>
-    </sl-link>
-
-    <sl-link>
-      <a href="/reports" target="_blank">Internal link button (new tab)</a>
-    </sl-link>
-
-    <sl-link>
-      <a href="https://sanomalearning.com">External link button</a>
-    </sl-link>
-  </div>`,
-  imports: [LinkComponent]
-})
-export class LinkExampleComponent {
-  // Component logic here
 }
 ```
 

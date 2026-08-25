@@ -5,7 +5,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import './register.js';
+import '../register.js';
 import { TextArea } from './text-area.js';
 
 describe('sl-text-area', () => {

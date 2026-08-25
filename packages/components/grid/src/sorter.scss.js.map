@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["sorter.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    align-items: center;\n    display: flex;\n    flex: 1;\n    gap: var(--sl-size-100);\n    padding: var(--sl-size-150);\n  }\n\n  slot {\n    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);\n  }\n\n  sl-button {\n    margin-inline-start: auto;\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

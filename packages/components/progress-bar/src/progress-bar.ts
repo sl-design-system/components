@@ -16,7 +16,7 @@ import {
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './progress-bar.css' with { type: 'css' };
+import styles from './progress-bar.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -101,35 +101,27 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div>
-        ${
-          this.label
-            ? html`
-                <div id="label" class="label">
-                  ${this.label}
-                  ${
-                    this.variant
-                      ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
-                      : nothing
-                  }
-                </div>
-              `
-            : nothing
-        }
+        ${this.label
+          ? html`
+              <div id="label" class="label">
+                ${this.label}
+                ${this.variant
+                  ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
+                  : nothing}
+              </div>
+            `
+          : nothing}
         <div id="helper" class="helper">
           <slot></slot>
           <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
             ${msg('state', { id: 'sl.progressBar.state' })}:
-            ${
-              this.variant
-                ? html`${this.#getLocalizedVariant()}`
-                : html`${msg('active', { id: 'sl.progressBar.active' })}`
-            }
+            ${this.variant
+              ? html`${this.#getLocalizedVariant()}`
+              : html`${msg('active', { id: 'sl.progressBar.active' })}`}
           </span>
-          ${
-            this.variant && !this.label
-              ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
-              : nothing
-          }
+          ${this.variant && !this.label
+            ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
+            : nothing}
         </div>
       </div>
       <div

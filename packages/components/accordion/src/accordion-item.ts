@@ -10,7 +10,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './accordion-item.css' with { type: 'css' };
+import styles from './accordion-item.scss.js';
 import { type AccordionIconType } from './accordion.js';
 
 declare global {
@@ -78,20 +78,18 @@ export class AccordionItem extends LitElement {
           id="summary"
           part="summary"
           tabindex=${this.disabled ? -1 : 0}>
-          ${
-            this.iconType === 'chevron'
-              ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
-              : html`
-                  <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
-                    <g class="horizontal-line">
-                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
-                    </g>
-                    <g class="vertical-line">
-                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
-                    </g>
-                  </svg>
-                `
-          }
+          ${this.iconType === 'chevron'
+            ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
+            : html`
+                <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
+                  <g class="horizontal-line">
+                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                  </g>
+                  <g class="vertical-line">
+                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                  </g>
+                </svg>
+              `}
           <slot name="summary">${this.summary}</slot>
           <slot name="summary-extras"></slot>
         </summary>

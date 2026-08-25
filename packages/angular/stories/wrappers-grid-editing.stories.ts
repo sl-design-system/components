@@ -5,7 +5,7 @@ import {
   GridTextFieldColumnComponent
 } from '@sl-design-system/angular/grid';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
 

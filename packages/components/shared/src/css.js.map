@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["css.ts"],
-  "sourcesContent": ["import breakpoints from './breakpoints.scss.js';\n\nexport { breakpoints };\n\nexport const firstFocusableSelector =\n  'button:not([tabindex=\"-1\"]), [href]:not([tabindex=\"-1\"]), input:not([tabindex=\"-1\"]), select:not([tabindex=\"-1\"]), textarea:not([tabindex=\"-1\"]), [tabindex]:not([tabindex=\"-1\"]), [focusable]:not([tabindex=\"-1\"])';\n"],
-  "mappings": "AAAA,OAAO,iBAAiB;AAExB,SAAS;AAEF,aAAM,yBACX;",
-  "names": []
-}

@@ -5,7 +5,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import './register.js';
+import '../register.js';
 import { TextField } from './text-field.js';
 
 describe('sl-text-field', () => {
@@ -59,18 +59,6 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('size', 'lg');
-    });
-
-    it('should not have an explicit shape', () => {
-      expect(el).not.to.have.attribute('shape');
-      expect(el.shape).to.be.undefined;
-    });
-
-    it('should have a pill shape when set', async () => {
-      el.shape = 'pill';
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('shape', 'pill');
     });
 
     it('should not be readonly', () => {

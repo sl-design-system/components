@@ -2,9 +2,9 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import '../register.js';
 import { GridFilter } from './filter.js';
 import { Grid } from './grid.js';
-import './register.js';
 import { GridSorter } from './sorter.js';
 import { waitForGridToRenderData } from './utils.js';
 

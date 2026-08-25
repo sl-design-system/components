@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["custom-option.ts"],
-  "sourcesContent": ["import { Option } from '@sl-design-system/listbox';\nimport { type CSSResultGroup } from 'lit';\nimport styles from './custom-option.scss.js';\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sl-combobox-custom-option': CustomOption;\n  }\n}\n\n/**\n * A custom option in a combobox; used in combination with the `allowCustomValues` property of the\n * `sl-combobox` element.\n *\n * @slot default - The option's label.\n */\nexport class CustomOption extends Option {\n  /** @internal */\n  static override styles: CSSResultGroup = [Option.styles, styles];\n}\n"],
-  "mappings": "AAAA,SAAS,cAAc;AAEvB,OAAO,YAAY;AAcZ,aAAM,qBAAqB,OAAO;AAAA,EAEvC;AAAA;AAAA,SAAgB,SAAyB,CAAC,OAAO,QAAQ,MAAM;AAAA;AACjE;",
-  "names": []
-}

@@ -3,7 +3,7 @@ import '@sl-design-system/button-bar/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import './register.js';
+import '../register.js';
 import { type Tooltip } from './tooltip.js';
 
 type Props = Pick<Tooltip, 'disabled' | 'open' | 'type'> & {
@@ -69,20 +69,18 @@ export default {
     type
   }) => html`
     <sl-button id="button">Anchor</sl-button>
-    ${
-      tooltip
-        ? tooltip()
-        : html`
-            <sl-tooltip
-              ?disabled=${disabled}
-              ?open=${open}
-              for="button"
-              trigger=${ifDefined(trigger?.join(' ') || undefined)}
-              type=${ifDefined(type)}>
-              ${text}
-            </sl-tooltip>
-          `
-    }
+    ${tooltip
+      ? tooltip()
+      : html`
+          <sl-tooltip
+            ?disabled=${disabled}
+            ?open=${open}
+            for="button"
+            trigger=${ifDefined(trigger?.join(' ') || undefined)}
+            type=${ifDefined(type)}>
+            ${text}
+          </sl-tooltip>
+        `}
     <style>
       ${maxWidth ? `sl-tooltip { max-inline-size: ${maxWidth}px; }` : nothing}
       ${position ? `sl-tooltip { position-area: ${position} }` : nothing}

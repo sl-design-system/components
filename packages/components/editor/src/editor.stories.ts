@@ -3,8 +3,8 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import '../register.js';
 import { type Editor } from './editor.js';
-import './register.js';
 
 type Props = Pick<Editor, 'disabled' | 'value'> & { hint?: string; label?: string };
 type Story = StoryObj<Props>;

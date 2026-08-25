@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Switch } from './src/switch.js';\n\ncustomElements.define('sl-switch', Switch);\n"],
-  "mappings": "AAAA,SAAS,cAAc;AAEvB,eAAe,OAAO,aAAa,MAAM;",
-  "names": []
-}

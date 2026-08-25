@@ -2,8 +2,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { page } from 'vitest/browser';
+import '../register.js';
 import { type Grid } from './grid.js';
-import './register.js';
 
 describe('sl-column-group', () => {
   let el: Grid;

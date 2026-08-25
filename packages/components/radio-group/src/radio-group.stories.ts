@@ -4,8 +4,8 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
+import '../register.js';
 import { type RadioGroup } from './radio-group.js';
-import './register.js';
 
 type Props = Pick<
   RadioGroup,
@@ -71,37 +71,31 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${
-            slot?.() ??
-            html`
-              <sl-radio-group
-                ?disabled=${disabled}
-                ?horizontal=${horizontal}
-                ?required=${required}
-                ?show-valid=${showValid}
-                .size=${size}
-                .value=${value}>
-                ${
-                  options?.() ??
-                  html`
-                    <sl-radio value="1">One</sl-radio>
-                    <sl-radio value="2">Two</sl-radio>
-                    <sl-radio value="3">Three</sl-radio>
-                  `
-                }
-              </sl-radio-group>
-            `
-          }
+          ${slot?.() ??
+          html`
+            <sl-radio-group
+              ?disabled=${disabled}
+              ?horizontal=${horizontal}
+              ?required=${required}
+              ?show-valid=${showValid}
+              .size=${size}
+              .value=${value}>
+              ${options?.() ??
+              html`
+                <sl-radio value="1">One</sl-radio>
+                <sl-radio value="2">Two</sl-radio>
+                <sl-radio value="3">Three</sl-radio>
+              `}
+            </sl-radio-group>
+          `}
         </sl-form-field>
-        ${
-          reportValidity
-            ? html`
-                <sl-button-bar>
-                  <sl-button @click=${onClick}>Report validity</sl-button>
-                </sl-button-bar>
-              `
-            : nothing
-        }
+        ${reportValidity
+          ? html`
+              <sl-button-bar>
+                <sl-button @click=${onClick}>Report validity</sl-button>
+              </sl-button-bar>
+            `
+          : nothing}
       </sl-form>
     `;
   }
@@ -134,28 +128,6 @@ export const Overflow: Story = {
         Consequat ex dolor nostrud duis veniam ut est. Commodo dolor incididunt laborum cupidatat
         anim magna voluptate Lorem eu elit eiusmod mollit irure.
       </sl-radio>
-    `
-  }
-};
-
-export const Description: Story = {
-  args: {
-    options: () => html`
-      <sl-radio description="Description for option 1" value="1">Label</sl-radio>
-      <sl-radio value="2">Label</sl-radio>
-      <sl-radio value="3">Label</sl-radio>
-      <sl-radio value="4">Label</sl-radio>
-      <sl-radio value="5">Label</sl-radio>
-    `
-  }
-};
-
-export const Tooltips: Story = {
-  args: {
-    options: () => html`
-      <sl-radio tooltip="This is a tooltip for option 1" value="1">Option 1</sl-radio>
-      <sl-radio tooltip="This is a tooltip for option 2" value="2">Option 2</sl-radio>
-      <sl-radio tooltip="This is a tooltip for option 3" value="3">Option 3</sl-radio>
     `
   }
 };

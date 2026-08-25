@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["create-custom-option.ts"],
-  "sourcesContent": ["import { localized, msg, str } from '@lit/localize';\nimport { Option } from '@sl-design-system/listbox';\nimport { type CSSResultGroup, type TemplateResult, html } from 'lit';\nimport styles from './create-custom-option.scss.js';\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sl-combobox-create-custom-option': CreateCustomOption;\n  }\n}\n\n/**\n * A custom element for creating a new option in a combobox. This element is used in combination\n * with the `allowCustomValues` property of the `sl-combobox` element.\n *\n * @slot default - The option's label.\n */\n@localized()\nexport class CreateCustomOption extends Option {\n  /** @internal */\n  static override styles: CSSResultGroup = [Option.styles, styles];\n\n  override render(): TemplateResult {\n    return html`\n      <div part=\"container\">\n        <sl-icon name=\"plus\"></sl-icon>\n        <div part=\"wrapper\">\n          ${msg(str`Create \"${this.value}\"`, { id: 'sl.combobox.createCustomOption' })}\n        </div>\n      </div>\n    `;\n  }\n}\n"],
-  "mappings": ";;;;;;;;;;AAAA,SAAS,WAAW,KAAK,WAAW;AACpC,SAAS,cAAc;AACvB,SAAmD,YAAY;AAC/D,OAAO,YAAY;AAeZ,WAAM,qBAAN,cAAiC,OAAO;AAAA,EAIpC,SAAyB;AAChC,WAAO;AAAA;AAAA;AAAA;AAAA,YAIC,IAAI,cAAc,KAAK,KAAK,KAAK,EAAE,IAAI,iCAAiC,CAAC,CAAC;AAAA;AAAA;AAAA;AAAA,EAIpF;AACF;AAAA;AAda,mBAEK,SAAyB,CAAC,OAAO,QAAQ,MAAM;AAFpD,qBAAN;AAAA,EADN,UAAU;AAAA,GACE;",
-  "names": []
-}

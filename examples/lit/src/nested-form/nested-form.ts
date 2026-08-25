@@ -8,7 +8,7 @@ import { Form, FormController, FormField } from '@sl-design-system/form';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { type Address, ChildForm } from './child-form.js';
-import styles from './nested-form.css' with { type: 'css' };
+import styles from './nested-form.scss.js';
 
 type Profile = {
   user: {

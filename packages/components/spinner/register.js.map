@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["register.ts"],
-  "sourcesContent": ["import { Spinner } from './src/spinner.js';\n\ncustomElements.define('sl-spinner', Spinner);\n"],
-  "mappings": "AAAA,SAAS,eAAe;AAExB,eAAe,OAAO,cAAc,OAAO;",
-  "names": []
-}

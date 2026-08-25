@@ -25,7 +25,7 @@ import '@sl-design-system/toggle-button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import './register.js';
+import '../register.js';
 import { type ToggleGroup, ToggleGroupFill } from './toggle-group.js';
 
 type Props = Pick<ToggleGroup, 'disabled' | 'fill' | 'multiple' | 'shape' | 'size'> & {

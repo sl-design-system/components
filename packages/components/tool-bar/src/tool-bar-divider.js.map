@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["tool-bar-divider.ts"],
-  "sourcesContent": ["import { type CSSResultGroup, LitElement } from 'lit';\nimport { property } from 'lit/decorators.js';\nimport styles from './tool-bar-divider.scss.js';\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sl-tool-bar-divider': ToolBarDivider;\n  }\n}\n\nexport class ToolBarDivider extends LitElement {\n  /** @internal */\n  static override styles: CSSResultGroup = styles;\n\n  /**\n   * Set this to true to invert the color of the divider. This should be used when the tool-bar is\n   * displayed on a dark background.\n   */\n  @property({ type: Boolean, reflect: true }) inverted?: boolean;\n\n  override connectedCallback(): void {\n    super.connectedCallback();\n\n    this.setAttribute('aria-hidden', 'true');\n  }\n}\n"],
-  "mappings": ";;;;;;;;;;AAAA,SAA8B,kBAAkB;AAChD,SAAS,gBAAgB;AACzB,OAAO,YAAY;AAQZ,aAAM,uBAAuB,WAAW;AAAA,EAE7C;AAAA;AAAA,SAAgB,SAAyB;AAAA;AAAA,EAQhC,oBAA0B;AACjC,UAAM,kBAAkB;AAExB,SAAK,aAAa,eAAe,MAAM;AAAA,EACzC;AACF;AAP8C;AAAA,EAA3C,SAAS,EAAE,MAAM,SAAS,SAAS,KAAK,CAAC;AAAA,GAR/B,eAQiC;",
-  "names": []
-}

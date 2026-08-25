@@ -409,7 +409,7 @@ describe('NestedTreeDataSource', () => {
         getChildren: ({ children }) => children,
         isExpandable: () => true,
         isExpanded: ({ expanded }) => expanded ?? false,
-        loadChildren: errorSpy
+        loadChildren: errorSpy as (node: TestItem) => Promise<TestItem[]>
       });
       errorDs.update();
 

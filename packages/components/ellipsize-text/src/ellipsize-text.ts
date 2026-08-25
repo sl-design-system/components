@@ -5,7 +5,7 @@ import {
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { state } from 'lit/decorators.js';
-import styles from './ellipsize-text.css' with { type: 'css' };
+import styles from './ellipsize-text.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -51,11 +51,9 @@ export class EllipsizeText extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <slot id="slot"></slot>
-      ${
-        this.tooltip
-          ? html`<sl-tooltip for="slot" type="description">${this.textContent?.trim()}</sl-tooltip>`
-          : nothing
-      }
+      ${this.tooltip
+        ? html`<sl-tooltip for="slot" type="description">${this.textContent?.trim()}</sl-tooltip>`
+        : nothing}
     `;
   }
 

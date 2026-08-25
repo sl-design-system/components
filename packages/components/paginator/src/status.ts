@@ -13,7 +13,7 @@ import {
   html
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './status.css' with { type: 'css' };
+import styles from './status.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

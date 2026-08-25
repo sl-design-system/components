@@ -16,8 +16,8 @@ import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { userEvent, within } from 'storybook/test';
+import '../register.js';
 import { type Dialog } from './dialog.js';
-import './register.js';
 
 type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
   body?(): string | TemplateResult;
@@ -62,17 +62,15 @@ export default {
     };
 
     return html`
-      ${
-        maxWidth
-          ? html`
-              <style>
-                sl-dialog::part(dialog) {
-                  max-inline-size: ${maxWidth};
-                }
-              </style>
-            `
-          : nothing
-      }
+      ${maxWidth
+        ? html`
+            <style>
+              sl-dialog::part(dialog) {
+                max-inline-size: ${maxWidth};
+              }
+            </style>
+          `
+        : nothing}
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
         <h1 slot="title">${title}</h1>

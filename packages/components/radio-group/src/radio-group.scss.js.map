@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["radio-group.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    align-items: start;\n    display: flex;\n    flex-direction: column;\n    gap: var(--sl-size-050);\n    vertical-align: top;\n  }\n\n  :host([horizontal]) {\n    flex-direction: row;\n    gap: var(--sl-size-300);\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

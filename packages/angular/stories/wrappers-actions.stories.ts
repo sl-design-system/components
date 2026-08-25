@@ -9,7 +9,7 @@ import {
 import { ToggleButtonComponent } from '@sl-design-system/angular/toggle-button';
 import { ToggleGroupComponent } from '@sl-design-system/angular/toggle-group';
 import { ToolBarComponent } from '@sl-design-system/angular/tool-bar';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
 
 export default {
   title: 'Wrappers/Actions',

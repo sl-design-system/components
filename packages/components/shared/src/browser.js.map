@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["browser.ts"],
-  "sourcesContent": ["const testUserAgent = (regexp: RegExp): boolean => regexp.test(navigator.userAgent);\n\nexport const isSafari = testUserAgent(/^((?!chrome|android).)*safari/i);\n"],
-  "mappings": "AAAA,MAAM,gBAAgB,CAAC,WAA4B,OAAO,KAAK,UAAU,SAAS;AAE3E,aAAM,WAAW,cAAc,gCAAgC;",
-  "names": []
-}

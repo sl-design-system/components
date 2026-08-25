@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html, type nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './spinner.css' with { type: 'css' };
+import styles from './spinner.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

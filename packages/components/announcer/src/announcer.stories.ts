@@ -2,9 +2,9 @@ import '@sl-design-system/button/register.js';
 import { EventEmitter } from '@sl-design-system/shared';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import '../register.js';
 import { announce } from './announce.js';
 import { Announcer, SlAnnounceEvent } from './announcer.js';
-import './register.js';
 
 type Props = Announcer;
 type Story = StoryObj<Props>;

@@ -1,0 +1,150 @@
+:host {
+  align-items: center;
+  background: var(--_background, var(--sl-color-background-accent-grey-subtle));
+  block-size: 1lh;
+  border-radius: var(--sl-size-borderRadius-full);
+  color: var(--_color, var(--sl-color-foreground-accent-grey-bold));
+  display: inline-flex;
+  font-size: 0.857em;
+  gap: var(--sl-size-025);
+  justify-content: center;
+  line-height: 0.8lh;
+  min-inline-size: 1lh;
+  padding-inline: var(--sl-size-050);
+  vertical-align: middle;
+}
+
+:host([color='blue']),
+:host([variant='info']),
+:host([variant='primary']) {
+  --_background: var(--sl-color-background-accent-blue-subtle);
+  --_color: var(--sl-color-foreground-accent-blue-bold);
+}
+
+:host([color='blue'][emphasis='bold']),
+:host([variant='primary'][emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-blue-bold);
+  --_color: var(--sl-color-foreground-accent-blue-onBold);
+}
+
+:host([color='green']),
+:host([variant='success']) {
+  --_background: var(--sl-color-background-accent-green-subtle);
+  --_color: var(--sl-color-foreground-accent-green-bold);
+}
+
+:host([color='green'][emphasis='bold']),
+:host([variant='success'][emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-green-bold);
+  --_color: var(--sl-color-foreground-accent-green-onBold);
+}
+
+:host([color='orange']) {
+  --_background: var(--sl-color-background-accent-orange-subtle);
+  --_color: var(--sl-color-foreground-accent-orange-bold);
+}
+
+:host([color='orange'][emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-orange-bold);
+  --_color: var(--sl-color-foreground-accent-orange-onBold);
+}
+
+:host([color='purple']) {
+  --_background: var(--sl-color-background-accent-purple-subtle);
+  --_color: var(--sl-color-foreground-accent-purple-bold);
+}
+
+:host([color='purple'][emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-purple-bold);
+  --_color: var(--sl-color-foreground-accent-purple-onBold);
+}
+
+:host([color='red']),
+:host([variant='danger']) {
+  --_background: var(--sl-color-background-accent-red-subtle);
+  --_color: var(--sl-color-foreground-accent-red-bold);
+}
+
+:host([color='red'][emphasis='bold']),
+:host([variant='danger'][emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-red-bold);
+  --_color: var(--sl-color-foreground-accent-red-onBold);
+}
+
+:host([color='teal']) {
+  --_background: var(--sl-color-background-accent-teal-subtle);
+  --_color: var(--sl-color-foreground-accent-teal-bold);
+}
+
+:host([color='teal'][emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-teal-bold);
+  --_color: var(--sl-color-foreground-accent-teal-onBold);
+}
+
+:host([color='yellow']),
+:host([variant='warning']) {
+  --_background: var(--sl-color-background-accent-yellow-subtle);
+  --_color: var(--sl-color-foreground-accent-yellow-bold);
+}
+
+:host([color='yellow'][emphasis='bold']),
+:host([variant='warning'][emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-yellow-bold);
+  --_color: var(--sl-color-foreground-accent-yellow-onBold);
+}
+
+:host([size='sm']) {
+  line-height: var(--sl-size-100);
+}
+
+:host([size='lg']) {
+  font-size: 1em;
+  gap: var(--sl-size-050);
+  line-height: 1lh;
+  min-inline-size: calc(1lh + var(--sl-size-050));
+  padding: var(--sl-size-025) var(--sl-size-100);
+
+  ::slotted(sl-icon) {
+    --sl-icon-size: var(--sl-size-new-icon-xs);
+  }
+}
+
+:host([size='sm'][round]) {
+  background: transparent;
+  color: inherit;
+  font-size: 1em;
+  line-height: unset;
+}
+
+:host([size='sm'][round])::before {
+  background: var(--_background, var(--sl-color-background-accent-grey-subtle));
+  block-size: var(--sl-size-100);
+  border-radius: 50%;
+  content: '';
+  display: inline-flex;
+  inline-size: var(--sl-size-100);
+  margin-block-start: calc(
+    0.8em - var(--sl-size-100)
+  ); // This will  be overwritten when 1cap is supported.
+
+  margin-inline-end: var(--sl-size-050);
+
+  @supports (inline-size: 1cap) {
+    // There are some really old browsers that don't support `cap` yet, so we use a fallback with `em`.
+    margin-block-start: calc(1cap - var(--sl-size-100));
+  }
+}
+
+:host([round]),
+:host([size='sm']) {
+  padding-inline: 0;
+}
+
+:host([emphasis='bold']) {
+  --_background: var(--sl-color-background-accent-grey-bold);
+  --_color: var(--sl-color-foreground-accent-grey-onBold);
+}
+
+::slotted(sl-icon) {
+  --sl-icon-size: var(--sl-size-new-icon-2xs);
+}

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["index.ts"],
-  "sourcesContent": ["export * from './src/tool-bar.js';\nexport * from './src/tool-bar-divider.js';\n"],
-  "mappings": "AAAA,cAAc;AACd,cAAc;",
-  "names": []
-}

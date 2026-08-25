@@ -6,10 +6,10 @@ import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import '../register.js';
 import { FormField } from './form-field.js';
 import { Form } from './form.js';
 import { type Label } from './label.js';
-import './register.js';
 
 describe('sl-form', () => {
   let el: Form;

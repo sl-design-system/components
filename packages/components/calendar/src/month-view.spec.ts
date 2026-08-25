@@ -7,8 +7,8 @@ import { type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
+import '../register.js';
 import { MonthView } from './month-view.js';
-import './register.js';
 import { type Day } from './utils.js';
 
 describe('sl-month-view', () => {

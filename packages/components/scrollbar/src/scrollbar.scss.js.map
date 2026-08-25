@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["scrollbar.scss.ts"],
-  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    align-items: center;\n    background: var(--sl-color-background-neutral-subtle);\n    box-sizing: border-box;\n    display: flex;\n    padding: calc((var(--sl-size-150) - var(--sl-size-075)) / 2) var(--sl-size-050);\n    user-select: none;\n  }\n\n  :host([vertical]) {\n    padding: var(--sl-size-050) calc((var(--sl-size-150) - var(--sl-size-075)) / 2);\n  }\n\n  [part=\"track\"] {\n    display: flex;\n    flex: 1;\n  }\n\n  [part=\"thumb\"] {\n    --_bg-opacity: var(--sl-opacity-interactive-plain-idle);\n\n    background: color-mix(in srgb, var(--sl-color-background-neutral-interactive-plain), var(--sl-color-background-neutral-interactive-bold) calc(100% * var(--_bg-opacity)));\n    block-size: var(--sl-size-075);\n    border-radius: var(--sl-size-borderRadius-md);\n    inline-size: var(--sl-thumb-size, 100px);\n    translate: var(--sl-thumb-translate, 0) 0;\n  }\n\n  [part=\"thumb\"]:hover {\n    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);\n  }\n\n  [part=\"thumb\"]:active {\n    --_bg-opacity: var(--sl-opacity-interactive-plain-active);\n  }`;\n"],
-  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
-  "names": []
-}

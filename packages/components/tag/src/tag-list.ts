@@ -15,7 +15,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './tag-list.css' with { type: 'css' };
+import styles from './tag-list.scss.js';
 import { type SlRemoveEvent, Tag, type TagSize, type TagVariant } from './tag.js';
 
 const SUBPIXEL_BUFFER_PX = 0.5;
@@ -306,20 +306,18 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       this.stacked && this.stackSize > 0 ? this.#getHiddenTagsDescription() : '';
 
     return html`
-      ${
-        this.stacked
-          ? html`
-              <sl-tag
-                .tooltip=${hiddenTagsDescription}
-                class="stack"
-                role="listitem"
-                size=${ifDefined(this.size)}
-                variant=${ifDefined(this.variant)}>
-                +${this.stackSize}
-              </sl-tag>
-            `
-          : nothing
-      }
+      ${this.stacked
+        ? html`
+            <sl-tag
+              .tooltip=${hiddenTagsDescription}
+              class="stack"
+              role="listitem"
+              size=${ifDefined(this.size)}
+              variant=${ifDefined(this.variant)}>
+              +${this.stackSize}
+            </sl-tag>
+          `
+        : nothing}
       <div @sl-remove=${this.#onRemove} class="list">
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
@@ -337,7 +335,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   #onRemove(event: SlRemoveEvent & { target: Tag }): void {
     const elements = this.#rovingTabindexController.elements,
-      index = elements.indexOf(event.target),
+      index = elements.indexOf(event.target as Tag),
       nextIndex = index === 0 ? 1 : index - 1,
       nextFocusableTag = elements[nextIndex];
 
@@ -357,7 +355,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return false;
     }
 
-    const inlineSize = value.inlineSize;
+    const inlineSize = (value as { inlineSize: unknown }).inlineSize;
 
     return typeof inlineSize === 'number';
   }

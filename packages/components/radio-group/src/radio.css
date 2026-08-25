@@ -100,6 +100,10 @@
   [part='label'] {
     margin-block-start: calc((var(--sl-size-400) - 1lh) / 2);
   }
+
+  ::slotted(sl-infotip) {
+    margin-block-start: var(--sl-size-100);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

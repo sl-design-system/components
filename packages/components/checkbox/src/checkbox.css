@@ -108,6 +108,10 @@
   [part='label'] {
     margin-block-start: 0;
   }
+
+  ::slotted(sl-infotip) {
+    margin-block-start: calc(-1 * var(--sl-size-025));
+  }
 }
 
 :host([size='lg']) {
@@ -121,6 +125,10 @@
 
   [part='label'] {
     margin-block-start: calc((var(--sl-size-500) - 1lh) / 2);
+  }
+
+  ::slotted(sl-infotip) {
+    margin-block-start: var(--sl-size-100);
   }
 }
 

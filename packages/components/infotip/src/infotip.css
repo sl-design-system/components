@@ -21,7 +21,8 @@ button {
   }
 }
 
-sl-icon {
+sl-icon,
+::slotted(sl-icon) {
   color: var(--sl-color-foreground-subtlest);
 }
 

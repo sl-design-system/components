@@ -7659,7 +7659,6 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
     "@sl-design-system/icon": "npm:^1.4.3"
     "@sl-design-system/popover": "npm:^1.2.7"
     lit: "npm:^3.3.3"

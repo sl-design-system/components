@@ -92,12 +92,17 @@ export const Basic: Story = {
 
 export const NoDescribedBy: Story = {
   args: {
+    maxWidth: 400,
     noDescribedby: true,
     body: () => {
       return html`
-        Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam
-        consequat pariatur exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum
-        est ullamco nostrud sit pariatur. Ex nisi ipsum et est nulla ex ex.
+        A popover with plain text content describes the button that opens it: the popover sets
+        aria-describedby on that button, and a screen reader reads this whole text out as its
+        description. That works for a sentence or two, but a description is announced in one go,
+        with no way to pause it, skim it, or move through it. For a body this long that gets in the
+        way rather than helping. Setting no-describedby leaves the description off and keeps only
+        aria-details, which tells assistive technology that there is more to read here and lets the
+        user navigate to it when they are ready.
       `;
     }
   }
@@ -183,18 +188,6 @@ export const WithTooltips: Story = {
     }
   },
   render: () => {
-    const onClick = (event: Event): void => {
-      const button = event.currentTarget as HTMLElement,
-        popover =
-          button.nextElementSibling?.tagName === 'SL-POPOVER'
-            ? (button.nextElementSibling as HTMLElement)
-            : (button.parentElement?.querySelector(
-                `sl-popover[anchor="${button.id}"]`
-              ) as HTMLElement);
-
-      popover?.togglePopover();
-    };
-
     return html`
       <style>
         .container {
@@ -209,25 +202,25 @@ export const WithTooltips: Story = {
       </p>
       <div class="container">
         <sl-button
-          @click=${onClick}
           aria-labelledby="tooltip-settings"
+          command="toggle-popover"
+          commandfor="popover-settings"
           tooltip="Settings"
-          variant="primary"
-          id="btn-settings">
+          variant="primary">
           <sl-icon name="far-gear"></sl-icon>
         </sl-button>
-        <sl-popover anchor="btn-settings">Popover content for Settings</sl-popover>
+        <sl-popover id="popover-settings">Popover content for Settings</sl-popover>
 
         <sl-button
-          @click=${onClick}
           aria-labelledby="tooltip-edit"
-          variant="primary"
+          command="toggle-popover"
+          commandfor="popover-edit"
           size="lg"
           tooltip="Edit"
-          id="btn-edit">
+          variant="primary">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
-        <sl-popover anchor="btn-edit">Popover content for Edit</sl-popover>
+        <sl-popover id="popover-edit">Popover content for Edit</sl-popover>
       </div>
 
       <p>
@@ -236,82 +229,55 @@ export const WithTooltips: Story = {
       </p>
       <div class="container">
         <sl-button
-          @click=${onClick}
+          command="toggle-popover"
+          commandfor="popover-settings-1"
           tooltip="Open settings popover"
-          variant="primary"
-          id="btn-settings-1">
+          variant="primary">
           <sl-icon name="far-gear"></sl-icon>
           Settings
         </sl-button>
-        <sl-popover anchor="btn-settings-1">Popover content for Settings</sl-popover>
+        <sl-popover id="popover-settings-1">Popover content for Settings</sl-popover>
 
         <sl-button
-          @click=${onClick}
-          variant="primary"
+          command="toggle-popover"
+          commandfor="popover-edit-1"
           size="lg"
           tooltip="Open edit popover"
-          id="btn-edit-1">
+          variant="primary">
           <sl-icon name="far-pen"></sl-icon>
           Edit
         </sl-button>
-        <sl-popover anchor="btn-edit-1">Popover content for Edit</sl-popover>
+        <sl-popover id="popover-edit-1">Popover content for Edit</sl-popover>
       </div>
     `;
   }
 };
 
 export const All: Story = {
+  parameters: {
+    layout: 'centered'
+  },
   render: () => {
+    // There is no invoker here, so the popovers are anchored from CSS and opened programmatically
+    // to show every side at once.
     setTimeout(() => {
-      document.querySelectorAll('sl-popover').forEach(popover => {
-        popover.showPopover();
-      });
+      document.querySelectorAll('sl-popover').forEach(popover => popover.showPopover());
     });
 
     return html`
       <style>
-        div {
-          margin: 52px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+        sl-button {
+          anchor-name: --anchor;
+        }
+        sl-popover {
+          position-anchor: --anchor;
         }
       </style>
-      <div>
-        <sl-button id="anchor" variant="primary">
-          This is a popover anchor element (sl-button component) with all top and bottom popover
-          allowed positions shown all examples at once.
-        </sl-button>
-        <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="bottom">Bottom</sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="bottom-start">
-          Bottom start
-        </sl-popover>
-        <sl-popover anchor="anchor" popover="manual" position="bottom-end">Bottom end</sl-popover>
-      </div>
-
-      <div>
-        <sl-button id="anchor2" variant="primary" style="width: 120px">
-          This is a popover anchor element (sl-button component) with all right and left popover
-          allowed positions shown all examples at once
-        </sl-button>
-        <sl-popover anchor="anchor2" popover="manual" position="right">Right example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-start">
-          Right start example
-        </sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="right-end">
-          Right end example
-        </sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left">Left example</sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-start">
-          Left start example
-        </sl-popover>
-        <sl-popover anchor="anchor2" popover="manual" position="left-end">
-          Left end example
-        </sl-popover>
-      </div>
+      <sl-button>Anchor</sl-button>
+      <sl-popover popover="manual" style="position-area: top">Top</sl-popover>
+      <sl-popover popover="manual" style="position-area: right">Right</sl-popover>
+      <sl-popover popover="manual" style="position-area: bottom">Bottom</sl-popover>
+      <sl-popover popover="manual" style="position-area: left">Left</sl-popover>
     `;
   }
 };

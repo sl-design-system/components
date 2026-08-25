@@ -2,7 +2,7 @@ import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { Popover, type PopoverPlacement } from './popover.js';
 import './register.js';
@@ -137,7 +137,10 @@ describe('sl-popover', () => {
 
       button = el.querySelector('sl-button') as Button;
       popover = el.querySelector('sl-popover') as Popover;
-      anchorName = `--popover-anchor-${popover.id}`;
+
+      // The anchor name is unique to the popover, but not derived from its id; the id it falls
+      // back to is built from the same counter, so it can be read back from there.
+      anchorName = `--sl-popover-anchor-${popover.id.replace('sl-popover-', '')}`;
     });
 
     it('should not anchor the popover when it is opened without an invoker', async () => {
@@ -300,6 +303,172 @@ describe('sl-popover', () => {
     });
   });
 
+  describe('CSS anchoring', () => {
+    // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
+    const afterToggle = () => new Promise(resolve => setTimeout(resolve));
+
+    let anchor: HTMLElement, sheet: CSSStyleSheet;
+
+    beforeEach(async () => {
+      // The name comes from a stylesheet, not from an inline style, so closing the popover has to
+      // leave the declaration where it was.
+      sheet = new CSSStyleSheet();
+      sheet.replaceSync('#css-anchor { anchor-name: --css-anchor; }');
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+
+      el = await fixture(html`
+        <div>
+          <button id="css-anchor" style="position: fixed; inset: 300px auto auto 400px">
+            Anchor
+          </button>
+          <sl-popover style="position-anchor: --css-anchor">Popover content</sl-popover>
+        </div>
+      `);
+
+      anchor = el.querySelector('button') as HTMLElement;
+      popover = el.querySelector('sl-popover') as Popover;
+    });
+
+    afterEach(() => {
+      document.adoptedStyleSheets = document.adoptedStyleSheets.filter(s => s !== sheet);
+    });
+
+    it('should set the placement when the anchor comes from CSS alone', async () => {
+      popover.showPopover();
+      await afterToggle();
+
+      expect(popover.placement).to.equal('bottom');
+      expect(popover.matches(':state(anchored-bottom)')).to.be.true;
+    });
+
+    it('should point the arrow at the anchor that comes from CSS alone', async () => {
+      popover.showPopover();
+      await afterToggle();
+
+      const anchorRect = anchor.getBoundingClientRect(),
+        arrowRect = popover.renderRoot.querySelector('[part="arrow"]')!.getBoundingClientRect();
+
+      expect((arrowRect.left + arrowRect.right) / 2).to.be.closeTo(
+        (anchorRect.left + anchorRect.right) / 2,
+        0.5
+      );
+    });
+
+    it('should keep the position anchor the consumer set', async () => {
+      popover.showPopover();
+      await afterToggle();
+
+      expect(popover.style.positionAnchor).to.equal('--css-anchor');
+
+      popover.hidePopover();
+      await afterToggle();
+
+      expect(popover.style.positionAnchor).to.equal('--css-anchor');
+    });
+
+    it('should not leave a name that came from a stylesheet behind inline', async () => {
+      popover.showPopover({ source: anchor });
+      await afterToggle();
+
+      popover.hidePopover();
+      await afterToggle();
+
+      // The name is still there, but it comes from the stylesheet again, so a later class or
+      // theme change can update it.
+      expect(anchor.style.anchorName).to.equal('');
+      expect(getComputedStyle(anchor).anchorName).to.equal('--css-anchor');
+    });
+  });
+
+  describe('aria', () => {
+    // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
+    const afterToggle = () => new Promise(resolve => setTimeout(resolve));
+
+    let anchor: HTMLElement;
+
+    const setup = async (template: ReturnType<typeof html>) => {
+      el = await fixture(template);
+
+      anchor = el.querySelector('button') as HTMLElement;
+      popover = el.querySelector('sl-popover') as Popover;
+
+      popover.showPopover({ source: anchor });
+      await afterToggle();
+    };
+
+    it('should relate the invoker to the popover', async () => {
+      await setup(html`
+        <div>
+          <button>Toggle</button>
+          <sl-popover>Popover content</sl-popover>
+        </div>
+      `);
+
+      expect(anchor).to.have.attribute('aria-details', popover.id);
+      expect(anchor).to.have.attribute('aria-describedby', popover.id);
+    });
+
+    it('should not describe the invoker when no-describedby is set', async () => {
+      await setup(html`
+        <div>
+          <button>Toggle</button>
+          <sl-popover no-describedby>Popover content</sl-popover>
+        </div>
+      `);
+
+      expect(anchor).to.have.attribute('aria-details', popover.id);
+      expect(anchor).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should not describe the invoker when the popover has rich content', async () => {
+      await setup(html`
+        <div>
+          <button>Toggle</button>
+          <sl-popover>
+            <header>Please confirm</header>
+            <section>Are you sure?</section>
+          </sl-popover>
+        </div>
+      `);
+
+      expect(anchor).to.have.attribute('aria-details', popover.id);
+      expect(anchor).not.to.have.attribute('aria-describedby');
+    });
+
+    it('should leave attributes the consumer set alone', async () => {
+      await setup(html`
+        <div>
+          <button aria-describedby="other" aria-details="other">Toggle</button>
+          <sl-popover>Popover content</sl-popover>
+        </div>
+      `);
+
+      expect(anchor).to.have.attribute('aria-details', 'other');
+      expect(anchor).to.have.attribute('aria-describedby', 'other');
+
+      popover.hidePopover();
+      await afterToggle();
+
+      expect(anchor).to.have.attribute('aria-details', 'other');
+      expect(anchor).to.have.attribute('aria-describedby', 'other');
+    });
+
+    it('should remove the attributes it set when the popover closes', async () => {
+      await setup(html`
+        <div>
+          <button>Toggle</button>
+          <sl-popover>Popover content</sl-popover>
+        </div>
+      `);
+
+      popover.hidePopover();
+      await afterToggle();
+
+      expect(anchor).not.to.have.attribute('aria-details');
+      expect(anchor).not.to.have.attribute('aria-describedby');
+    });
+  });
+
   describe('invoker source', () => {
     // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
     const afterToggle = () => new Promise(resolve => setTimeout(resolve));
@@ -327,7 +496,9 @@ describe('sl-popover', () => {
       const anchorRect = otherButton.getBoundingClientRect(),
         popoverRect = popover.getBoundingClientRect();
 
-      expect(otherButton.style.anchorName).to.equal(`--popover-anchor-${popover.id}`);
+      expect(otherButton.style.anchorName).to.equal(
+        `--sl-popover-anchor-${popover.id.replace('sl-popover-', '')}`
+      );
       expect(popoverRect.top).to.be.at.least(anchorRect.bottom);
     });
 
@@ -342,7 +513,9 @@ describe('sl-popover', () => {
       await afterToggle();
 
       expect(button.style.anchorName).to.equal('');
-      expect(otherButton.style.anchorName).to.equal(`--popover-anchor-${popover.id}`);
+      expect(otherButton.style.anchorName).to.equal(
+        `--sl-popover-anchor-${popover.id.replace('sl-popover-', '')}`
+      );
     });
 
     it('should re-anchor the popover to a source that comes before the previous one', async () => {

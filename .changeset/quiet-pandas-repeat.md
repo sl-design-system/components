@@ -26,4 +26,5 @@ went with it; the browser toggles the popover.
   and `position` attributes it used to be given. It opens below the button and flips when there is
   not enough room, instead of always opening above it.
 - The popover content is capped at `min(80dvw, 400px)`.
-- The icon uses `--sl-color-foreground-subtlest`, and the button has its own focus ring.
+- The icon uses `--sl-color-foreground-subtlest`, both the default one and one you slot in yourself,
+  and the button has its own focus ring.

@@ -220,14 +220,15 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             ? html`
                 <li class="more-menu">
                   <sl-button
-                    @click=${this.#onClick}
                     aria-label=${msg('More breadcrumbs', { id: 'sl.breadcrumbs.moreBreadcrumbs' })}
+                    command="toggle-popover"
+                    commandfor="more-menu"
                     fill="ghost"
                     id="button"
                     variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
                     <sl-icon name="ellipsis"></sl-icon>
                   </sl-button>
-                  <sl-popover anchor="button">
+                  <sl-popover id="more-menu">
                     ${this.breadcrumbs
                       .slice(0, -this.collapseThreshold)
                       .map(
@@ -253,10 +254,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       </ul>
     `;
   }
-
-  #onClick = (): void => {
-    this.renderRoot.querySelector('sl-popover')?.togglePopover();
-  };
 
   #onMutation = (): void => {
     // Stop observing while we process the children

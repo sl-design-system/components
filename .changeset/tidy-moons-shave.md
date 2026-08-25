@@ -76,3 +76,7 @@ side when there is not enough room.
 
 - The popover no longer slides along its anchor to stay in view; it flips instead.
 - A `PopoverPlacement` type is exported for the side the popover ended up on.
+- The invoker is related to the popover with `aria-details`, and with `aria-describedby` when the
+  content is plain text and `no-describedby` is not set, just as the anchor was before. Attributes
+  you set yourself are left alone, and only the ones the popover added are removed again when it
+  closes.

@@ -93,6 +93,11 @@
   inset-block-start: calc(anchor(center) - var(--_arrow-size) / 2);
 }
 
+/* The maximum set on the popover has to reach the container for its `overflow` to kick in. */
+[part='wrapper'] {
+  max-block-size: inherit;
+}
+
 [part='container'] {
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
@@ -100,6 +105,7 @@
   box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;
   color: var(--sl-color-foreground-plain);
+  max-block-size: inherit;
   overflow: auto;
   padding: var(--sl-size-200);
 }

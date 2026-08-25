@@ -42,6 +42,8 @@ side when there is not enough room.
 - A `wrapper` part has been added around the container and the arrow, and `container` now wraps
   only the slotted content. A style that relied on `container` being the outermost element should
   target `wrapper` instead.
+- The padding of the container has been decreased from `--sl-size-300` to `--sl-size-200`, so every
+  popover is a little smaller than before.
 
 #### New features
 

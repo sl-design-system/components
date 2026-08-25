@@ -42,13 +42,13 @@ export function importCssSheet() {
 
       // Strip query string from importer path (Vite sometimes adds these)
       const importerPath = importer.includes('?') ? importer.split('?')[0] : importer;
-      if (!JS_EXTENSIONS.has(extname(importerPath))) return null;
-
       // Check import attributes directly (rolldown/tsdown)
       let isCssSheet = opts.attributes?.['type'] === 'css';
 
       // Fallback: read importer file to detect 'with { type: "css" }' (Vite)
       if (!isCssSheet) {
+        if (importerPath.startsWith('\0') || importerPath.startsWith('virtual:')) return null;
+        if (!JS_EXTENSIONS.has(extname(importerPath))) return null;
         try {
           const importerContent = await readFile(importerPath, 'utf8');
           const pattern = escapeRegex(source) + `['"] *with *\\{ *type: *['"]css['"]`;
@@ -62,6 +62,7 @@ export function importCssSheet() {
 
       const resolved = await this.resolve(source, importer, { skipSelf: true });
       if (!resolved) return null;
+      if (resolved.id.startsWith('\0') || resolved.id.startsWith('virtual:')) return null;
 
       return getVirtualId(resolved.id, source);
     },

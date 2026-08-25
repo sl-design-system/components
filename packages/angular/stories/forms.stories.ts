@@ -1,13 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  type ElementRef,
-  ViewChild,
-  type WritableSignal,
-  inject,
-  signal
-} from '@angular/core';
+import { Component, type ElementRef, ViewChild, type WritableSignal, signal } from '@angular/core';
 import {
   type AbstractControl,
   FormControl,

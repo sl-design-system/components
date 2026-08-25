@@ -8,7 +8,7 @@ import {
   html
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './button-bar.scss.js';
+import styles from './button-bar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

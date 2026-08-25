@@ -1,0 +1,133 @@
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
+describe('sl-avatar', () => {
+  let el;
+  beforeEach(async () => {
+    el = await fixture(
+      html`<sl-avatar display-name="Emma Henderson - Van Deursen">Straight A student</sl-avatar>`
+    );
+  });
+  it('should render the name', () => {
+    const name = el.renderRoot.querySelector('[part="name"]')?.textContent?.trim();
+    expect(name).to.equal('Emma Henderson - Van Deursen');
+  });
+  it('should render the subheading', () => {
+    const subheading = el.renderRoot
+      .querySelector('slot:not([name]')
+      ?.assignedNodes()
+      .map(n => n.textContent)
+      .join('')
+      .trim();
+    expect(subheading).to.equal('Straight A student');
+  });
+  it('should not have a color by default', () => {
+    expect(el).to.not.have.attribute('color');
+    expect(el.color).to.be.undefined;
+  });
+  it('should have a color when set', async () => {
+    el.color = 'blue';
+    await el.updateComplete;
+    expect(el).to.have.attribute('color', 'blue');
+  });
+  it('should not have an emphasis by default', () => {
+    expect(el).to.not.have.attribute('emphasis');
+    expect(el.emphasis).to.be.undefined;
+  });
+  it('should have an emphasis when set', async () => {
+    el.emphasis = 'bold';
+    await el.updateComplete;
+    expect(el).to.have.attribute('emphasis', 'bold');
+  });
+  it('should not have a shape by default', () => {
+    expect(el).to.not.have.attribute('shape');
+    expect(el.shape).to.be.undefined;
+  });
+  it('should have a shape when set', async () => {
+    el.shape = 'square';
+    await el.updateComplete;
+    expect(el).to.have.attribute('shape', 'square');
+  });
+  it('should only render the avatar part if imageOnly is set', async () => {
+    el.imageOnly = true;
+    await el.updateComplete;
+    const wrapper = el.renderRoot.querySelector('[part="wrapper"]'),
+      name = el.renderRoot.querySelector('[part="name"]');
+    expect(wrapper?.childElementCount).to.equal(1);
+    expect(wrapper?.children[0]).to.match('[part="avatar"]');
+    expect(name).not.to.exist;
+  });
+  it('should not render an image', () => {
+    expect(el.renderRoot.querySelector('img')).not.to.exist;
+  });
+  it('should not render an image if pictureUrl is invalid', async () => {
+    el.pictureUrl = 'https://sanomalearning.design/nonexistingavatar.jpg';
+    await el.updateComplete;
+    el.renderRoot.querySelector('img')?.dispatchEvent(new Event('error'));
+    await el.updateComplete;
+    expect(el.renderRoot.querySelector('img')).not.to.exist;
+  });
+  it('should render an image if pictureUrl is set and valid', async () => {
+    el.pictureUrl = 'https://randomuser.me/api/portraits/thumb/men/81.jpg';
+    await el.updateComplete;
+    const img = el.renderRoot.querySelector('img');
+    expect(img).to.exist;
+    expect(img).to.have.attribute('src', 'https://randomuser.me/api/portraits/thumb/men/81.jpg');
+  });
+  it('should have an empty alt attribute on the image', async () => {
+    el.pictureUrl = 'https://randomuser.me/api/portraits/thumb/men/81.jpg';
+    await el.updateComplete;
+    const img = el.renderRoot.querySelector('img');
+    expect(img).to.exist;
+    expect(img).to.have.attribute('alt', '');
+  });
+  it('should set the alt attribute to the display name if imageOnly is set', async () => {
+    el.imageOnly = true;
+    el.pictureUrl = 'https://randomuser.me/api/portraits/thumb/men/81.jpg';
+    await el.updateComplete;
+    const img = el.renderRoot.querySelector('img');
+    expect(img).to.exist;
+    expect(img).to.have.attribute('alt', 'Emma Henderson - Van Deursen');
+  });
+  it('should render the fallback content if pictureUrl is not set', async () => {
+    const fallback = document.createElement('div');
+    fallback.innerHTML = 'Fallback content';
+    el.appendChild(fallback);
+    await el.updateComplete;
+    const slotted = el.renderRoot.querySelector('slot:not([name]')?.assignedElements();
+    expect(slotted).to.have.length(1);
+    expect(slotted[0]).to.eql(fallback);
+  });
+  it('should render the implicit initials', () => {
+    const initials = el.renderRoot.querySelector('[part="initials"]');
+    expect(initials).to.have.text('ED');
+  });
+  it('should render the display initials when set', async () => {
+    const initials = el.renderRoot.querySelector('[part="initials"]');
+    el.displayInitials = 'JZ';
+    await el.updateComplete;
+    expect(initials).to.have.text('JZ');
+  });
+  it('should render the name but not the subheading on small', async () => {
+    el.size = 'sm';
+    await el.updateComplete;
+    const name = el.renderRoot.querySelector('[part="name"]'),
+      subheading = el.renderRoot.querySelector('slot:not([name])');
+    expect(name).to.have.text('Emma Henderson - Van Deursen');
+    expect(name).to.match('span');
+    expect(getComputedStyle(subheading).display).to.equal('none');
+  });
+  it('should wrap the contents in a div', () => {
+    const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+    expect(wrapper).to.match('div');
+  });
+  it('should wrap the contents in a link tag if href is set', async () => {
+    el.href = 'https://www.example.com';
+    await el.updateComplete;
+    const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+    expect(wrapper).to.have.attribute('href', 'https://www.example.com');
+    expect(wrapper).to.match('a');
+  });
+});
+//# sourceMappingURL=avatar.spec.js.map

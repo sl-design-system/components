@@ -1,0 +1,22 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    display: block;
+  }
+
+  sl-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  sl-button-bar,
+  sl-form-field[name='user.address'] {
+    grid-column: span 2;
+  }
+
+  example-child-form {
+    border: 1px solid #ccc;
+    padding: 1rem;
+  }
+`;
+//# sourceMappingURL=nested-form.scss.js.map

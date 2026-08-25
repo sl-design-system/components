@@ -1,0 +1,211 @@
+import '@sl-design-system/radio-group/register.js';
+import '@sl-design-system/text-field/register.js';
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
+import '../register.js';
+describe('sl-form-field', () => {
+  let el;
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field hint="Hint" label="My label">
+          <sl-text-field></sl-text-field>
+        </sl-form-field>
+      `);
+    });
+    it('should render the label in the light DOM', () => {
+      const label = el.querySelector('sl-label');
+      expect(label).to.have.text('My label');
+    });
+    it('should slot the label in the label slot', () => {
+      const label = el.querySelector('sl-label');
+      expect(label).to.have.attribute('slot', 'label');
+      expect(label?.assignedSlot?.name).to.equal('label');
+    });
+    it('should link the label to the form control', () => {
+      const input = el.querySelector('input');
+      expect(el.querySelector('label')?.htmlFor).to.equal(input?.id);
+      expect(input?.labels).to.include(el.querySelector('label'));
+    });
+    it('should unlink the label from the form control when the label property is cleared', async () => {
+      const input = el.querySelector('input');
+      expect(input).to.have.attribute('aria-describedby');
+      el.label = void 0;
+      await el.updateComplete;
+      expect(input).to.have.attribute('aria-describedby');
+      expect(input?.labels).to.have.lengthOf(0);
+    });
+    it('should render the hint in the light DOM', () => {
+      const hint = el.querySelector('sl-hint');
+      expect(hint).to.have.text('Hint');
+    });
+    it('should slot the hint in the hint slot', () => {
+      const hint = el.querySelector('sl-hint');
+      expect(hint).to.have.attribute('slot', 'hint');
+      expect(hint?.assignedSlot?.name).to.equal('hint');
+    });
+    it('should link the hint to the form control', () => {
+      const input = el.querySelector('input');
+      expect(el.querySelector('sl-hint')?.id).to.equal(input?.getAttribute('aria-describedby'));
+    });
+    it('should remove the hint id from aria-describedby when the hint property is cleared', async () => {
+      const input = el.querySelector('input');
+      expect(input).to.have.attribute('aria-describedby');
+      el.hint = void 0;
+      await el.updateComplete;
+      expect(input).not.to.have.attribute('aria-describedby');
+    });
+  });
+  describe('validation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-text-field required></sl-text-field>
+        </sl-form-field>
+      `);
+    });
+    it('should not show validation by default', () => {
+      expect(el.querySelector('sl-error')).not.to.exist;
+    });
+    it('should show validation after calling reportValidity', async () => {
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+    });
+    it('should not show validation after calling setCustomValidity', async () => {
+      el.querySelector('sl-text-field')?.setCustomValidity('Custom error');
+      await el.updateComplete;
+      expect(el.querySelector('sl-error')).not.to.exist;
+    });
+    it('should not show validation after calling setCustomValidity with a promise', async () => {
+      el.querySelector('sl-text-field')?.setCustomValidity(Promise.resolve('Custom error'));
+      await new Promise(resolve => setTimeout(resolve));
+      expect(el.querySelector('sl-error')).not.to.exist;
+    });
+    it('should show custom validation after calling reportValidity', async () => {
+      el.querySelector('sl-text-field')?.setCustomValidity('Custom error');
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      expect(el.querySelector('sl-error')).to.have.text('Custom error');
+    });
+    it('should show the builtin validation after resetting the custom validity', async () => {
+      const textField = el.querySelector('sl-text-field');
+      textField?.setCustomValidity('Custom error');
+      textField?.reportValidity();
+      await el.updateComplete;
+      expect(el.querySelector('sl-error')).to.have.text('Custom error');
+      textField?.setCustomValidity('');
+      await el.updateComplete;
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+    });
+    it('should link the error to the form control', async () => {
+      const input = el.querySelector('input');
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      const error = el.querySelector('sl-error');
+      expect(error).to.exist;
+      expect(error).to.have.attribute('id');
+      expect(error?.id).to.equal(input?.getAttribute('aria-describedby'));
+    });
+    it('should remove the aria-describedby when the error is resolved', async () => {
+      const textField = el.querySelector('sl-text-field');
+      textField?.reportValidity();
+      await el.updateComplete;
+      textField?.focus();
+      await userEvent.keyboard('Valid input');
+      expect(el.querySelector('sl-error')).not.to.exist;
+      expect(el.querySelector('input')).not.to.have.attribute('aria-describedby');
+    });
+  });
+  describe('custom hint', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-hint slot="hint">Hint text</sl-hint>
+          <sl-text-field></sl-text-field>
+        </sl-form-field>
+      `);
+      await new Promise(resolve => setTimeout(resolve));
+    });
+    it('should link the slotted hint to the form control', () => {
+      const input = el.querySelector('input');
+      expect(input).to.have.attribute('aria-describedby');
+    });
+    it('should remove the hint id from aria-describedby when the slotted hint is removed', async () => {
+      const input = el.querySelector('input');
+      el.querySelector('sl-hint')?.remove();
+      await new Promise(resolve => setTimeout(resolve));
+      expect(input).not.to.have.attribute('aria-describedby');
+    });
+  });
+  describe('custom label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-label slot="label">My label</sl-label>
+          <sl-text-field></sl-text-field>
+        </sl-form-field>
+      `);
+      await new Promise(resolve => setTimeout(resolve));
+    });
+    it('should link the slotted label to the form control', () => {
+      const input = el.querySelector('input');
+      expect(el.querySelector('label')?.htmlFor).to.equal(input?.id);
+      expect(input?.labels).to.include(el.querySelector('label'));
+    });
+    it('should unlink the label from the form control when the slotted label is removed', async () => {
+      const input = el.querySelector('input');
+      el.querySelector('sl-label')?.remove();
+      await new Promise(resolve => setTimeout(resolve));
+      expect(input?.labels).to.have.lengthOf(0);
+    });
+  });
+  describe('composite field', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-radio-group required>
+            <sl-radio value="1">Option 1</sl-radio>
+            <sl-radio value="2">Option 2</sl-radio>
+            <sl-radio value="3">Option 3</sl-radio>
+          </sl-radio-group>
+          <sl-text-field required></sl-text-field>
+        </sl-form-field>
+      `);
+    });
+    it('should show validation for all controls after calling reportValidity', async () => {
+      el.querySelector('sl-radio-group')?.reportValidity();
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      const errors = el.querySelectorAll('sl-error');
+      expect(errors).to.have.lengthOf(2);
+      expect(errors[1]).to.have.text('Please select an option.');
+      expect(errors[0]).to.have.text('Please fill in this field.');
+    });
+    it('should link the error to the correct form control', async () => {
+      el.querySelector('sl-radio-group')?.reportValidity();
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      const errors = el.querySelectorAll('sl-error');
+      expect(errors).to.have.lengthOf(2);
+      expect(errors[1].id).to.equal(
+        el.querySelector('sl-radio-group')?.getAttribute('aria-describedby')
+      );
+      expect(errors[0].id).to.equal(
+        el.querySelector('sl-text-field input')?.getAttribute('aria-describedby')
+      );
+    });
+    it('should remove the error once the control is valid', async () => {
+      el.querySelector('sl-radio-group')?.reportValidity();
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve, 10));
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+      expect(el.querySelector('sl-radio-group')).not.to.have.attribute('aria-describedby');
+    });
+  });
+});
+//# sourceMappingURL=form-field.spec.js.map

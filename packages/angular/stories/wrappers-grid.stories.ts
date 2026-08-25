@@ -19,7 +19,7 @@ import {
 import { getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 import { html } from 'lit';
 
 type StudentType = Awaited<ReturnType<typeof getStudents>>['students'][number];

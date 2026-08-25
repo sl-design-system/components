@@ -1,0 +1,197 @@
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
+import '../register.js';
+describe('sl-accordion-item', () => {
+  let el;
+  describe('defaults', () => {
+    let details;
+    let summary;
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-accordion-item summary="Accordion summary">Content of accordion</sl-accordion-item>
+      `);
+      await el.updateComplete;
+      details = el.renderRoot.querySelector('details');
+      summary = el.renderRoot.querySelector('summary');
+    });
+    it('should not be disabled', () => {
+      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).not.to.be.true;
+    });
+    it('should not have an icon type', () => {
+      expect(el).not.to.have.attribute('icon-type');
+      expect(el.iconType).to.be.undefined;
+    });
+    it('should have an icon type when set', async () => {
+      el.iconType = 'chevron';
+      await el.updateComplete;
+      expect(el).to.have.attribute('icon-type', 'chevron');
+    });
+    it('should render a custom svg icon', () => {
+      const icon = el.renderRoot.querySelector('svg');
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('part', 'icon');
+      expect(icon).to.contain('g.horizontal-line');
+      expect(icon).to.contain('g.vertical-line');
+    });
+    it('should render an sl-icon when icon type is "chevron"', async () => {
+      el.iconType = 'chevron';
+      await el.updateComplete;
+      const icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'chevron-down');
+      expect(icon).to.have.attribute('part', 'icon');
+    });
+    it('should have the correct attributes', () => {
+      expect(summary).to.have.attribute('aria-controls', 'content');
+      expect(summary).not.to.have.attribute('aria-disabled');
+      expect(summary).to.have.attribute('aria-expanded', 'false');
+    });
+    it('should open on click', async () => {
+      summary.click();
+      await new Promise(resolve => setTimeout(resolve));
+      expect(details).to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-expanded', 'true');
+    });
+    it('should open on Enter', async () => {
+      summary.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+      expect(details).to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-expanded', 'true');
+    });
+    it('should open on Space', async () => {
+      summary.focus();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+      expect(details).to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-expanded', 'true');
+    });
+    it('should animate opening and closing the details on click', async () => {
+      el.open = false;
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+      const wrapper = el.renderRoot.querySelector('.wrapper');
+      summary.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      expect(details).to.have.attribute('open');
+      expect(details).to.have.class('opening');
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
+      expect(details).not.to.have.class('opening');
+      await new Promise(resolve => setTimeout(resolve));
+      expect(el.open).to.be.true;
+      summary.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      expect(details).to.have.class('closing');
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
+      expect(details).not.to.have.attribute('open');
+      expect(details).not.to.have.class('closing');
+      await new Promise(resolve => setTimeout(resolve));
+      expect(el.open).to.be.false;
+    });
+    it('should ignore unrelated animationend events and still open and close', async () => {
+      const wrapper = el.renderRoot.querySelector('.wrapper');
+      summary.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      expect(details).to.have.class('opening');
+      details.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'other-animation'
+        })
+      );
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'another-animation'
+        })
+      );
+      expect(details).to.have.class('opening');
+      expect(details).to.have.attribute('open');
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
+      expect(details).not.to.have.class('opening');
+      expect(details).to.have.attribute('open');
+      summary.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      expect(details).to.have.class('closing');
+      details.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'other-animation'
+        })
+      );
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', {
+          bubbles: true,
+          animationName: 'another-animation'
+        })
+      );
+      expect(details).to.have.class('closing');
+      expect(details).to.have.attribute('open');
+      wrapper.dispatchEvent(
+        new AnimationEvent('animationend', { bubbles: true, animationName: 'content-expand' })
+      );
+      expect(details).not.to.have.class('closing');
+      expect(details).not.to.have.attribute('open');
+      expect(el.open).to.be.false;
+    });
+  });
+  describe('disabled', () => {
+    let details;
+    let summary;
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-accordion-item summary="Accordion summary of disabled item" disabled>
+          Content of disabled accordion item
+        </sl-accordion-item>
+      `);
+      await el.updateComplete;
+      details = el.renderRoot.querySelector('details');
+      summary = el.renderRoot.querySelector('summary');
+    });
+    it('should be disabled', () => {
+      expect(el.disabled).to.be.true;
+      expect(summary).to.have.attribute('aria-disabled', 'true');
+    });
+    it('should have a tabindex of -1', () => {
+      expect(summary).to.have.attribute('tabindex', '-1');
+    });
+    it('should have the correct attributes', () => {
+      expect(details).not.to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-controls', 'content');
+      expect(summary).to.have.attribute('aria-expanded', 'false');
+    });
+    it('should ignore clicks', async () => {
+      summary.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+      expect(details).not.to.have.attribute('open');
+      expect(summary).not.to.have.attribute('aria-expanded', 'true');
+    });
+    it('should ignore Enter', async () => {
+      summary.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+      expect(details).not.to.have.attribute('open');
+      expect(summary).not.to.have.attribute('aria-expanded', 'true');
+    });
+    it('should ignore Space', async () => {
+      summary.focus();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+      expect(details).not.to.have.attribute('open');
+      expect(summary).not.to.have.attribute('aria-expanded', 'true');
+    });
+  });
+});
+//# sourceMappingURL=accordion-item.spec.js.map

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["format.ts"],
+  "sourcesContent": ["export const format = (\n  value: number,\n  locale?: Intl.LocalesArgument,\n  options?: Intl.NumberFormatOptions\n): string => {\n  return new Intl.NumberFormat(locale, options).format(value);\n};\n"],
+  "mappings": "AAAO,aAAM,SAAS,CACpB,OACA,QACA,YACW;AACX,SAAO,IAAI,KAAK,aAAa,QAAQ,OAAO,EAAE,OAAO,KAAK;AAC5D;",
+  "names": []
+}

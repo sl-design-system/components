@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["checkbox-group.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    align-items: start;\n    display: flex;\n    flex-direction: column;\n    gap: var(--sl-size-050);\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

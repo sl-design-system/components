@@ -1,0 +1,23 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    background: var(--sl-elevation-surface-base-default);
+    display: flex;
+    scroll-padding-block: var(--sl-size-100);
+  }
+
+  [part='wrapper'] {
+    inline-size: 100%;
+    position: relative;
+  }
+
+  .starter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sl-size-025);
+    inline-size: 100%;
+    inset: 0 auto auto 0;
+    position: absolute;
+  }
+`;
+//# sourceMappingURL=tree.scss.js.map

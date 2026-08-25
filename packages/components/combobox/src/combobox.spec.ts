@@ -6,12 +6,12 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Listbox, Option, OptionGroup } from '../index.js';
-import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type GroupedOption } from './grouped-option.js';
+import './register.js';
 import { type SelectedGroup } from './selected-group.js';
+import { Listbox, Option, OptionGroup } from './index.js';
 
 describe('sl-combobox', () => {
   it('should export and register listbox option components', () => {
@@ -201,6 +201,19 @@ describe('sl-combobox', () => {
 
       expect(el).to.have.attribute('size', 'lg');
       expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('size', 'lg');
+    });
+
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
+      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('shape', 'pill');
     });
 
     it('should not have a placeholder', () => {

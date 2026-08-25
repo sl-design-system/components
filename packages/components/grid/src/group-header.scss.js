@@ -1,0 +1,55 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    align-items: center;
+    display: flex;
+    inline-size: 100%;
+  }
+
+  :host([collapsed]) sl-button sl-icon {
+    rotate: -90deg;
+  }
+
+  [part~='drag-handle'] {
+    align-items: center;
+    align-self: stretch;
+    cursor: grab;
+    display: inline-flex;
+    inline-size: var(--sl-size-600);
+    justify-content: center;
+    user-select: none;
+  }
+
+  [part='checkbox'] {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    padding: var(--sl-size-050) var(--sl-size-175);
+  }
+
+  sl-button {
+    margin-inline-start: var(--sl-size-150);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    sl-button sl-icon {
+      transition: rotate 0.2s ease-in-out;
+    }
+  }
+
+  [part='wrapper'] {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    gap: var(--sl-size-100);
+    justify-content: space-between;
+    margin-inline-start: var(--sl-size-100);
+    padding-inline-end: var(--sl-size-150);
+  }
+
+  [part='group-heading'] {
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+    padding-block: var(--sl-size-125);
+  }
+`;
+//# sourceMappingURL=group-header.scss.js.map

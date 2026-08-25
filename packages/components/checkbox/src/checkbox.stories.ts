@@ -6,8 +6,8 @@ import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Checkbox } from './checkbox.js';
+import './register.js';
 
 type Props = Pick<
   Checkbox,
@@ -77,27 +77,31 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-checkbox
-              ?checked=${checked}
-              ?disabled=${disabled}
-              ?indeterminate=${indeterminate}
-              ?required=${required}
-              .showValid=${showValid}
-              .value=${value}
-              size=${ifDefined(size)}
-              >${text}</sl-checkbox
-            >
-          `}
-        </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
+          ${
+            slot?.() ??
+            html`
+              <sl-checkbox
+                ?checked=${checked}
+                ?disabled=${disabled}
+                ?indeterminate=${indeterminate}
+                ?required=${required}
+                .showValid=${showValid}
+                .value=${value}
+                size=${ifDefined(size)}
+                >${text}</sl-checkbox
+              >
             `
-          : nothing}
+          }
+        </sl-form-field>
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }
@@ -242,6 +246,33 @@ export const NoVisibleLabel: StoryObj = {
       <p style="margin: 0 0 1rem 0">This checkbox has no label. It uses a tooltip as the label.</p>
       <sl-checkbox id="checkbox"></sl-checkbox>
       <sl-tooltip for="checkbox">Toggle me</sl-tooltip>
+    `;
+  }
+};
+
+export const Description: StoryObj = {
+  render: () => {
+    return html`
+      <div style="display: flex; flex-direction: column; gap: var(--sl-size-200);">
+        <sl-checkbox description="This is a description set via property"
+          >Checkbox with property description</sl-checkbox
+        >
+        <sl-checkbox>
+          Checkbox with slotted description
+          <span slot="description">This is a custom slotted description</span>
+        </sl-checkbox>
+      </div>
+    `;
+  }
+};
+
+export const TooltipStory: StoryObj = {
+  name: 'Tooltip',
+  render: () => {
+    return html`
+      <sl-checkbox tooltip="This is a tooltip description for the checkbox"
+        >Hover me for tooltip</sl-checkbox
+      >
     `;
   }
 };

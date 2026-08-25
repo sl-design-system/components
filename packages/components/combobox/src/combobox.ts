@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
@@ -30,6 +29,7 @@ import {
   isPopoverOpen,
   setValueByPath
 } from '@sl-design-system/shared';
+import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -48,7 +48,7 @@ import {
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './combobox.scss.js';
+import styles from './combobox.css' with { type: 'css' };
 import { CreateCustomOption } from './create-custom-option.js';
 import { CustomOption } from './custom-option.js';
 import { GroupedOption } from './grouped-option.js';
@@ -77,6 +77,7 @@ export type ComboboxItem<T = any, U = T> = ListboxItem<T, U> & {
 };
 
 export type ComboboxSize = 'md' | 'lg';
+export type ComboboxShape = 'rect' | 'pill';
 
 let nextUniqueId = 0;
 
@@ -278,6 +279,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   @property({ reflect: true }) size?: ComboboxSize;
 
   /**
+   * The shape of the combobox.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: ComboboxShape;
+
+  /**
    * The value of the combobox. If `multiple` selection is enabled, then this will be an array of
    * values. Otherwise, it will be a single value.
    */
@@ -401,7 +409,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.listbox = this.shadowRoot!.createElement('sl-listbox');
         this.listbox.items = this.items;
         this.listbox.renderer = (item, index: number) =>
-          this.#renderItem(item as ComboboxItem<T, U>, index) as unknown as TemplateResult;
+          this.#renderItem(item as ComboboxItem<T, U>, index);
         this.appendChild(this.listbox);
         this.#useVirtualList = true;
       } else if (changes.get('options')) {
@@ -463,12 +471,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const value = this.#ariaAutocomplete;
 
       // Warn developers about conflicting configuration
-      if (
-        import.meta.env?.DEV &&
-        this.selectOnly &&
-        this.autocomplete &&
-        this.autocomplete !== 'off'
-      ) {
+      if (isDevMode() && this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
         console.warn(
           `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
             'Select-only comboboxes have a read-only input field and therefore cannot have autocomplete. ' +
@@ -525,33 +528,37 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.multiple && this.selectedItems.length ? undefined : this.placeholder
         )}
         show-validity=${ifDefined(this.showValidity)}
+        shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}>
-        ${this.multiple && this.selectedItems.length
-          ? html`
-              <sl-tag-list
-                ?disabled=${this.disabled}
-                aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
-                size=${ifDefined(this.size)}
-                slot="prefix"
-                stacked>
-                ${repeat(
-                  this.selectedItems,
-                  item => item,
-                  item => html`
-                    <sl-tag
-                      @sl-remove=${(event: SlRemoveEvent) => {
-                        event.stopPropagation();
-                        this.#onRemove(item, event);
-                      }}
-                      ?disabled=${this.disabled}
-                      ?removable=${!this.disabled}>
-                      ${item.label}
-                    </sl-tag>
-                  `
-                )}
-              </sl-tag-list>
-            `
-          : nothing}
+        ${
+          this.multiple && this.selectedItems.length
+            ? html`
+                <sl-tag-list
+                  ?disabled=${this.disabled}
+                  aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
+                  shape=${ifDefined(this.shape)}
+                  size=${ifDefined(this.size)}
+                  slot="prefix"
+                  stacked>
+                  ${repeat(
+                    this.selectedItems,
+                    item => item,
+                    item => html`
+                      <sl-tag
+                        @sl-remove=${(event: SlRemoveEvent) => {
+                          event.stopPropagation();
+                          this.#onRemove(item, event);
+                        }}
+                        ?disabled=${this.disabled}
+                        ?removable=${!this.disabled}>
+                        ${item.label}
+                      </sl-tag>
+                    `
+                  )}
+                </sl-tag-list>
+              `
+            : nothing
+        }
         <slot name="input" slot="input"></slot>
         <button
           @click=${this.#onButtonClick}
@@ -1770,7 +1777,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       return;
     }
 
-    this.value = (this.multiple ? values : values[0]) as U | U[];
+    this.value = this.multiple ? values : values[0];
     this.#updateFormValue();
 
     if (emitEvent) {

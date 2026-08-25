@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["spinner.spec.ts"],
+  "sourcesContent": ["import { fixture } from '@sl-design-system/vitest-browser-lit';\nimport { html } from 'lit';\nimport { beforeEach, describe, expect, it } from 'vitest';\nimport '../register.js';\nimport { type Spinner } from './spinner.js';\n\ndescribe('sl-spinner', () => {\n  let el: Spinner;\n\n  beforeEach(async () => {\n    el = await fixture(html`<sl-spinner></sl-spinner>`);\n  });\n\n  it('should not have a default size', () => {\n    expect(el).not.to.have.attribute('size');\n  });\n\n  it('should not have a default variant', () => {\n    expect(el).not.to.have.attribute('variant');\n  });\n});\n"],
+  "mappings": "AAAA,SAAS,eAAe;AACxB,SAAS,YAAY;AACrB,SAAS,YAAY,UAAU,QAAQ,UAAU;AACjD,OAAO;AAGP,SAAS,cAAc,MAAM;AAC3B,MAAI;AAEJ,aAAW,YAAY;AACrB,SAAK,MAAM,QAAQ,+BAA+B;AAAA,EACpD,CAAC;AAED,KAAG,kCAAkC,MAAM;AACzC,WAAO,EAAE,EAAE,IAAI,GAAG,KAAK,UAAU,MAAM;AAAA,EACzC,CAAC;AAED,KAAG,qCAAqC,MAAM;AAC5C,WAAO,EAAE,EAAE,IAAI,GAAG,KAAK,UAAU,SAAS;AAAA,EAC5C,CAAC;AACH,CAAC;",
+  "names": []
+}

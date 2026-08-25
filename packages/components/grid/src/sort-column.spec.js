@@ -1,0 +1,125 @@
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
+import { GridSorter } from './sorter.js';
+import { waitForGridToRenderData } from './utils.js';
+const ITEMS = [
+  { firstName: 'John', lastName: 'Doe', age: 20 },
+  { firstName: 'Jane', lastName: 'Smith', age: 40 },
+  { firstName: 'Jimmy', lastName: 'Adams', age: 30 },
+  { firstName: 'Jane', lastName: 'Brown', age: 15 }
+];
+describe('sl-sort-column', () => {
+  let el;
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+          <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+          <sl-grid-sort-column path="age"></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+    });
+    it('should have a header row count of 1', () => {
+      const headerRowCount = Array.from(el.querySelectorAll('sl-grid-sort-column')).map(
+        col => col.headerRowCount
+      );
+      expect(headerRowCount).to.deep.equal([1, 1, 1]);
+    });
+    it('should set the role of the th elements to "columnheader"', () => {
+      const ths = Array.from(el.renderRoot.querySelectorAll('th'));
+      expect(ths.every(th => th.role === 'columnheader')).to.be.true;
+    });
+    it('should not have aria-sort set on the th elements', () => {
+      const ths = Array.from(el.renderRoot.querySelectorAll('th'));
+      expect(ths.every(th => !th.hasAttribute('aria-sort'))).to.be.true;
+    });
+    it('should set the correct parts on the th elements', () => {
+      const parts = Array.from(el.renderRoot.querySelectorAll('th')).map(th => th.part.value);
+      expect(parts).to.deep.equal([
+        'header sort first-name',
+        'header sort last-name',
+        'header sort age'
+      ]);
+    });
+    it('should render the sorter in the header row', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('thead tr th > *'));
+      expect(headers.every(h => h instanceof GridSorter)).to.be.true;
+      expect(headers.map(h => h.textContent?.trim())).to.deep.equal([
+        'First name',
+        'Last name',
+        'Age'
+      ]);
+    });
+    it('should not be sorted on any column', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('thead tr th > *'));
+      expect(headers.every(h => h.direction === void 0)).to.be.true;
+    });
+  });
+  describe('sorted', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+          <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+          <sl-grid-sort-column path="age" direction="asc"></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+    it('should have sorted the data', () => {
+      const rows = Array.from(el.renderRoot.querySelectorAll('tbody tr')).map(row =>
+        Array.from(row.querySelectorAll('td')).map(cell => cell.textContent?.trim())
+      );
+      expect(rows).to.deep.equal([
+        ['Jane', 'Brown', '15'],
+        ['John', 'Doe', '20'],
+        ['Jimmy', 'Adams', '30'],
+        ['Jane', 'Smith', '40']
+      ]);
+    });
+    it('should have aria-sort set on the sorted column', () => {
+      const ths = Array.from(el.renderRoot.querySelectorAll('th'));
+      expect(ths.map(th => th.getAttribute('aria-sort'))).to.deep.equal([null, null, 'ascending']);
+    });
+    it('should set the correct direction on the sorter element', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('thead tr th > *'));
+      expect(headers.map(h => h.direction)).to.deep.equal([void 0, void 0, 'asc']);
+    });
+    it('should change the aria-sort when the direction changes', async () => {
+      const sorter = el.renderRoot.querySelector('thead th:last-of-type sl-grid-sorter');
+      sorter?.renderRoot.querySelector('sl-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      expect(el.renderRoot.querySelector('th:last-of-type')).to.have.attribute(
+        'aria-sort',
+        'descending'
+      );
+    });
+    it('should change the sorting when clicking the sorter in another column', async () => {
+      const sorter = el.renderRoot.querySelector('thead th:first-of-type sl-grid-sorter');
+      sorter?.renderRoot.querySelector('sl-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const ths = Array.from(el.renderRoot.querySelectorAll('th'));
+      expect(ths.map(th => th.getAttribute('aria-sort'))).to.deep.equal(['ascending', null, null]);
+    });
+  });
+  describe('scopedElements', () => {
+    it('should retain sl-grid-sorter in scopedElements after they are set post-connectedCallback', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        </sl-grid>
+      `);
+      await waitForGridToRenderData(el);
+      const column = el.querySelector('sl-grid-sort-column');
+      column.scopedElements = { 'sl-other-element': HTMLElement };
+      expect(column.scopedElements).to.have.property('sl-grid-sorter', GridSorter);
+      expect(column.scopedElements).to.have.property('sl-other-element');
+    });
+  });
+});
+//# sourceMappingURL=sort-column.spec.js.map

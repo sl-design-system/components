@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Badge } from './src/badge.js';\n\ncustomElements.define('sl-badge', Badge);\n"],
+  "mappings": "AAAA,SAAS,aAAa;AAEtB,eAAe,OAAO,YAAY,KAAK;",
+  "names": []
+}

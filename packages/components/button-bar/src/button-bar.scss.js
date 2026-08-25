@@ -1,0 +1,31 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--sl-size-100);
+    justify-content: start;
+  }
+
+  :host([align='center']) {
+    justify-content: center;
+  }
+
+  :host([align='end']) {
+    justify-content: end;
+  }
+
+  :host([align='space-between']) {
+    justify-content: space-between;
+  }
+
+  :host([reverse]) {
+    flex-direction: row-reverse;
+  }
+
+  :host(:state(icon-only)) {
+    gap: var(--sl-size-050);
+  }
+`;
+//# sourceMappingURL=button-bar.scss.js.map

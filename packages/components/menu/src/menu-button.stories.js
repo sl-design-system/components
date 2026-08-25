@@ -1,0 +1,482 @@
+import {
+  faArrowUpShortWide,
+  faBook,
+  faCode,
+  faGear,
+  faList,
+  faPen,
+  faRectanglesMixed,
+  faRocket,
+  faTableCells,
+  faTableRows,
+  faTrash
+} from '@fortawesome/pro-regular-svg-icons';
+import '@sl-design-system/avatar/register.js';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
+import '@sl-design-system/tooltip/register.js';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
+import '../register.js';
+Icon.register(
+  faArrowUpShortWide,
+  faBook,
+  faCode,
+  faGear,
+  faList,
+  faPen,
+  faRectanglesMixed,
+  faRocket,
+  faTableCells,
+  faTableRows,
+  faTrash
+);
+export default {
+  title: 'Actions/Menu/Menu button',
+  args: {
+    alignSelf: 'center',
+    body: 'Button',
+    disabled: false,
+    justifySelf: 'center'
+  },
+  argTypes: {
+    alignSelf: {
+      control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    },
+    ariaDisabled: {
+      control: 'text'
+    },
+    body: {
+      table: { disable: true }
+    },
+    fill: {
+      control: 'inline-radio',
+      options: ['solid', 'outline', 'ghost']
+    },
+    justifySelf: {
+      control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    },
+    menuItems: {
+      table: { disable: true }
+    },
+    position: {
+      control: 'select',
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'right',
+        'right-start',
+        'right-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end'
+      ]
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
+    },
+    tooltip: {
+      control: 'text'
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['default', 'primary', 'info']
+    }
+  },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
+  render: ({
+    alignSelf,
+    ariaDisabled,
+    body,
+    disabled,
+    fill,
+    justifySelf,
+    menuItems,
+    position,
+    shape,
+    size,
+    tooltip,
+    variant
+  }) => {
+    return html`
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(100dvh - 2rem);
+          place-items: center;
+        }
+        sl-menu-button::part(tooltip) {
+          max-inline-size: 200px;
+        }
+      </style>
+      <sl-menu-button
+        ?disabled=${disabled}
+        aria-disabled=${ifDefined(ariaDisabled)}
+        fill=${ifDefined(fill)}
+        position=${ifDefined(position)}
+        shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
+        style=${styleMap({ alignSelf, justifySelf })}
+        tooltip=${ifDefined(tooltip)}
+        variant=${ifDefined(variant)}>
+        ${typeof body === 'string' ? html`<div slot="button">${body}</div>` : body()}
+        ${menuItems?.()}
+      </sl-menu-button>
+    `;
+  }
+};
+export const Basic = {
+  args: {
+    body: () => html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-pen"></sl-icon>
+        Rename...
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-trash"></sl-icon>
+        Delete...
+      </sl-menu-item>
+    `,
+    tooltip: 'Settings'
+  }
+};
+export const OpenCloseEvent = {
+  render: () => {
+    const onToggle = event => {
+      const wrapper = event.currentTarget.closest('.toggle-event'),
+        state = wrapper?.querySelector('[data-menu-state]'),
+        value = event.detail ? 'Open' : 'Closed';
+      wrapper?.toggleAttribute('data-open', event.detail);
+      if (state) {
+        state.textContent = value;
+      }
+    };
+    return html`
+      <style>
+        .toggle-event {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto auto;
+        }
+
+        .toggle-event__status {
+          background: var(--sl-color-background-neutral-subtlest);
+          border: 1px solid var(--sl-color-border-neutral-plain);
+          border-radius: var(--sl-size-borderRadius-default);
+          color: var(--sl-color-foreground-neutral-bold);
+          font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+          min-inline-size: 6rem;
+          padding: 0.4rem 0.6rem;
+          text-align: center;
+        }
+
+        .toggle-event[data-open] .toggle-event__status {
+          background: var(--sl-color-background-accent-green-subtle);
+          border-color: var(--sl-color-background-accent-green-bold);
+          color: var(--sl-color-foreground-accent-green-bold);
+        }
+      </style>
+      <div class="toggle-event">
+        <sl-menu-button @sl-toggle=${onToggle}>
+          <span slot="button">Actions</span>
+          <sl-menu-item>
+            <sl-icon name="far-pen"></sl-icon>
+            Rename...
+          </sl-menu-item>
+          <sl-menu-item>
+            <sl-icon name="far-trash"></sl-icon>
+            Delete...
+          </sl-menu-item>
+        </sl-menu-button>
+        <output aria-live="polite" class="toggle-event__status" data-menu-state>Closed</output>
+      </div>
+    `;
+  }
+};
+export const Disabled = {
+  args: {
+    ...Basic.args,
+    disabled: true
+  }
+};
+export const AriaDisabled = {
+  args: {
+    ...Basic.args,
+    ariaDisabled: 'true'
+  }
+};
+export const IconAndText = {
+  args: {
+    ...Basic.args,
+    body: () => html`
+      <sl-icon name="far-gear" slot="button"></sl-icon>
+      <span slot="button">Settings</span>
+    `,
+    tooltip:
+      'I am a tooltip for an icon and text menu button, so I should be a description, not a label'
+  }
+};
+export const Text = {
+  args: {
+    ...Basic.args,
+    body: () => html`<span slot="button">Settings</span>`,
+    tooltip: void 0
+  }
+};
+export const LongMenu = {
+  args: {
+    ...Basic.args,
+    menuItems: () => html`
+      <sl-menu-item>Menu item 1</sl-menu-item>
+      <sl-menu-item>Menu item 2</sl-menu-item>
+      <sl-menu-item>Menu item 3</sl-menu-item>
+      <sl-menu-item>Menu item 4</sl-menu-item>
+      <sl-menu-item>Menu item 5</sl-menu-item>
+      <sl-menu-item>Menu item 6</sl-menu-item>
+      <sl-menu-item>Menu item 7</sl-menu-item>
+      <sl-menu-item>Menu item 8</sl-menu-item>
+      <sl-menu-item>Menu item 9</sl-menu-item>
+      <sl-menu-item>Menu item 10</sl-menu-item>
+      <sl-menu-item>Menu item 11</sl-menu-item>
+      <sl-menu-item>Menu item 12</sl-menu-item>
+      <sl-menu-item>Menu item 13</sl-menu-item>
+      <sl-menu-item>Menu item 14</sl-menu-item>
+      <sl-menu-item>Menu item 15</sl-menu-item>
+    `
+  }
+};
+export const Submenu = {
+  args: {
+    ...Basic.args,
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Sort by
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
+          <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+    `
+  }
+};
+export const WithGroups = {
+  args: {
+    ...Basic.args,
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-code"></sl-icon>
+        Components
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-gear"></sl-icon>
+        Settings
+      </sl-menu-item>
+      <sl-menu-item-group>
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
+      <sl-menu-item-group heading="Design System">
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
+    `
+  }
+};
+export const Avatar = {
+  args: {
+    body: () => html`<sl-avatar display-name="John Doe" size="sm" slot="button"></sl-avatar>`,
+    fill: 'ghost',
+    menuItems: () => html`
+      <sl-menu-item>Profile...</sl-menu-item>
+      <sl-menu-item>Settings...</sl-menu-item>
+      <hr />
+      <sl-menu-item>Log out</sl-menu-item>
+    `
+  }
+};
+export const All = {
+  render: () => html`
+    <style>
+      .container {
+        align-items: center;
+        display: inline-grid;
+        gap: 1rem;
+        grid-template-columns: repeat(6, auto);
+        justify-items: center;
+      }
+    </style>
+    <div class="container">
+      <span></span>
+      <span>Icon</span>
+      <span>Icon & text</span>
+      <span>Text</span>
+      <span>Disabled</span>
+      <span>aria-disabled</span>
+
+      <span>md</span>
+      <sl-menu-button tooltip="Label">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button>
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button disabled>
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button aria-disabled="true">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+
+      <span>lg</span>
+      <sl-menu-button size="lg" tooltip="Label">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button size="lg">
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button disabled size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button aria-disabled="true" size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <span>Ghost</span>
+      <sl-menu-button fill="ghost" tooltip="Label">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+    </div>
+  `
+};
+//# sourceMappingURL=menu-button.stories.js.map

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/error.js';\nexport * from './src/form-control-mixin.js';\nexport * from './src/form-controller.js';\nexport * from './src/form-field.js';\nexport * from './src/form-validation-errors.js';\nexport * from './src/form.js';\nexport * from './src/hint.js';\nexport * from './src/label.js';\n"],
+  "mappings": "AAAA,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/radio.js';\nexport * from './src/radio-group.js';\n"],
+  "mappings": "AAAA,cAAc;AACd,cAAc;",
+  "names": []
+}

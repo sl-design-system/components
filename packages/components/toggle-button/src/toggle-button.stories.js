@@ -1,0 +1,249 @@
+import { faGear } from '@fortawesome/pro-regular-svg-icons';
+import { faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import '../register.js';
+Icon.register(faGear, fasGear);
+export default {
+  title: 'Actions/Toggle button',
+  args: {
+    disabled: false,
+    pressed: false,
+    tooltip: 'Toggle settings'
+  },
+  argTypes: {
+    fill: {
+      control: 'inline-radio',
+      options: ['outline', 'solid']
+    },
+    icons: {
+      table: { disable: true }
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['pill', 'rect']
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
+    }
+  },
+  render: ({ disabled, fill, icons, pressed, shape, size, tooltip }) => {
+    return html`
+      <sl-toggle-button
+        ?disabled=${disabled}
+        ?pressed=${pressed}
+        fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
+        tooltip=${ifDefined(tooltip)}>
+        ${icons?.()}
+      </sl-toggle-button>
+    `;
+  }
+};
+export const Basic = {
+  args: {
+    icons: () => html`
+      <sl-icon name="far-gear" slot="default"></sl-icon>
+      <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+    `
+  }
+};
+export const Disabled = {
+  args: {
+    ...Basic.args,
+    disabled: true
+  }
+};
+export const Outline = {
+  args: {
+    ...Basic.args,
+    fill: 'outline'
+  }
+};
+export const Pressed = {
+  args: {
+    ...Basic.args,
+    pressed: true
+  }
+};
+export const Errors = {
+  render: () => {
+    return html`
+      <p>
+        When the 'pressed' icon is not set you will get an error in the console and the button will
+        not look correct.
+        <strong>Note:</strong> these errors (button turning red and console errors) only show up
+        when running on localhost / in development mode.
+      </p>
+      <sl-toggle-button tooltip="Toggle settings" fill="outline">
+        <sl-icon name="pinata" slot="default"></sl-icon>
+      </sl-toggle-button>
+
+      <p>
+        Setting the same icon for both states as "workaround" will not work, you will get the same
+        error
+      </p>
+      <sl-toggle-button tooltip="Toggle settings" fill="outline">
+        <sl-icon name="far-gear" slot="default"></sl-icon>
+        <sl-icon name="far-gear" slot="pressed"></sl-icon>
+      </sl-toggle-button>
+    `;
+  }
+};
+export const All = {
+  render: () => {
+    const renderRow = options => {
+      return html`
+        <div>
+          <sl-toggle-button
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+            shape="pill"
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            fill=${ifDefined(options.fill)}
+            pressed
+            size=${ifDefined(options.size)}
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            fill=${ifDefined(options.fill)}
+            pressed
+            shape="pill"
+            size=${ifDefined(options.size)}
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            disabled
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            disabled
+            shape="pill"
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            disabled
+            fill=${ifDefined(options.fill)}
+            pressed
+            size=${ifDefined(options.size)}
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            disabled
+            fill=${ifDefined(options.fill)}
+            pressed
+            shape="pill"
+            size=${ifDefined(options.size)}
+            tooltip="Toggle settings">
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+      `;
+    };
+    return html`
+      <style>
+        section {
+          align-items: center;
+          align-self: start;
+          display: inline-grid;
+          gap: 0.5rem 2rem;
+          grid-template-columns: auto auto 1fr 1fr 1fr 1fr;
+          justify-items: center;
+        }
+        section div {
+          white-space: nowrap;
+        }
+        hr {
+          grid-column: span 6;
+          border: 1px solid var(--sl-color-border-disabled);
+          width: 100%;
+        }
+      </style>
+      <section>
+        <span style="grid-column: span 2">Subtle</span>
+        <span>Idle</span>
+        <span>Pressed</span>
+        <span>Disabled</span>
+        <span>Disabled + pressed</span>
+
+        <span style="grid-row: span 2">sm</span>
+        <span>Solid</span>
+        ${renderRow({
+          fill: 'solid',
+          size: 'sm'
+        })}
+        <span>Outline</span>
+        ${renderRow({
+          fill: 'outline',
+          size: 'sm'
+        })}
+        <hr />
+        <span style="grid-row: span 2;">md</span>
+        <span>Solid</span>
+        ${renderRow({
+          fill: 'solid',
+          size: 'md'
+        })}
+        <span>Outline</span>
+        ${renderRow({
+          fill: 'outline',
+          size: 'md'
+        })}
+        <hr />
+
+        <span style="grid-row: span 2">lg</span>
+        <span>Solid</span>
+        ${renderRow({
+          fill: 'solid',
+          size: 'lg'
+        })}
+        <span>Outline</span>
+        ${renderRow({
+          fill: 'outline',
+          size: 'lg'
+        })}
+      </section>
+      <p>
+        First item on the first row is the default combination of values; subtle, outline, md and
+        rect shape.
+      </p>
+    `;
+  }
+};
+//# sourceMappingURL=toggle-button.stories.js.map

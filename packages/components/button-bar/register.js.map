@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { ButtonBar } from './src/button-bar.js';\n\ncustomElements.define('sl-button-bar', ButtonBar);\n"],
+  "mappings": "AAAA,SAAS,iBAAiB;AAE1B,eAAe,OAAO,iBAAiB,SAAS;",
+  "names": []
+}

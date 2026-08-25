@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["number-field.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host([step-buttons=\"edges\"]) {\n    padding: 0;\n  }\n\n  :host([step-buttons=\"edges\"]) slot[name=\"input\"]::slotted(input) {\n    text-align: center;\n  }\n\n  ::slotted(input) {\n    text-overflow: ellipsis;\n  }\n\n  .step-buttons {\n    display: flex;\n  }\n\n  .step-buttons .plus {\n    padding-inline-start: var(--sl-size-025);\n  }\n\n  .step-buttons .minus {\n    padding-inline-end: var(--sl-size-025);\n  }\n\n  sl-field-button {\n    aspect-ratio: auto;\n    inline-size: auto;\n  }\n\n  sl-field-button.plus {\n    padding-inline-end: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));\n  }\n\n  sl-field-button.minus {\n    padding-inline-start: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

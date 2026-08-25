@@ -8,9 +8,9 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type ToolBarItem } from './mapping.js';
 import { calculateVisibility } from './overflow.js';
+import './register.js';
 import { type ToolBar } from './tool-bar.js';
 
 Icon.register(faBell, faGear, faPen, faTrash);

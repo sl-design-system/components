@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["form-in-dialog.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  dialog {\n    inline-size: 500px;\n  }\n\n  sl-form {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    padding-block: var(--sl-size-100);\n  }\n\n  sl-form-field,\n  sl-form-validation-errors,\n  sl-inline-message {\n    grid-column: 1/-1;\n  }\n\n  .rental-period::part(controls) {\n    display: grid;\n    gap: 0 var(--sl-size-100);\n    grid-template-columns: 1fr 3fr;\n  }\n\n  sl-switch {\n    grid-column: 1/-1;\n  }\n\n  .amount {\n    grid-column: 1/2;\n  }\n\n  .deposit {\n    grid-column: 2/3;\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

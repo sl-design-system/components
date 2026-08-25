@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Drawer } from './src/drawer.js';\n\ncustomElements.define('sl-drawer', Drawer);\n"],
+  "mappings": "AAAA,SAAS,cAAc;AAEvB,eAAe,OAAO,aAAa,MAAM;",
+  "names": []
+}

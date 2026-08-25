@@ -1,0 +1,19 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    align-items: center;
+    display: flex;
+    font-weight: var(--sl-text-typeset-fontWeight-regular);
+    gap: var(--sl-size-100);
+    inline-size: 100%;
+    min-inline-size: 0;
+    padding: var(--sl-size-075) var(--sl-size-150);
+  }
+
+  sl-search-field,
+  sl-select {
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+`;
+//# sourceMappingURL=filter.scss.js.map

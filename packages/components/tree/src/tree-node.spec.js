@@ -1,0 +1,304 @@
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { html } from 'lit';
+import { spy } from 'sinon';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { userEvent } from 'vitest/browser';
+import { TreeNode } from './tree-node.js';
+try {
+  customElements.define('sl-tree-node', TreeNode);
+} catch {}
+describe('sl-tree-node', () => {
+  let el;
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+    it('should have a row role', () => {
+      expect(el).to.have.attribute('role', 'row');
+    });
+    it('should not be disabled', () => {
+      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).to.not.be.true;
+    });
+    it('should be disabled when set', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+      expect(el).to.have.attribute('disabled');
+    });
+    it('should not be expandable', () => {
+      expect(el.expandable).to.not.be.true;
+      expect(el.renderRoot.querySelector('.expander')).to.not.exist;
+    });
+    it('should not be expanded', () => {
+      expect(el).not.to.have.attribute('aria-expanded');
+      expect(el.expanded).to.not.be.true;
+    });
+    it('should not be indeterminate', () => {
+      expect(el.indeterminate).to.not.be.true;
+    });
+    it('should not be the last node in the level', () => {
+      expect(el.lastNodeInLevel).to.not.be.true;
+    });
+    it('should be at the root level', () => {
+      expect(el.level).to.equal(0);
+    });
+    it('should not be selectable', () => {
+      expect(el.selectable).to.not.be.true;
+    });
+    it('should not be selected', () => {
+      expect(el).not.to.have.attribute('aria-selected');
+      expect(el.selected).to.not.be.true;
+    });
+    it('should have a tabindex of 0', () => {
+      expect(el.tabIndex).to.equal(0);
+    });
+    it('should have indent guides', () => {
+      const indentGuides = el.renderRoot.querySelector('sl-indent-guides');
+      expect(indentGuides).to.exist;
+      expect(indentGuides).to.have.property('level', 0);
+    });
+    it('should have a gridcell', () => {
+      const gridcell = el.renderRoot.querySelector('[role="gridcell"]');
+      expect(gridcell).to.exist;
+      expect(gridcell).to.have.attribute('aria-colindex', '1');
+    });
+    it('should not have a type', () => {
+      expect(el.type).to.be.undefined;
+    });
+    it('should render a spinner when type "placeholder"', async () => {
+      el.type = 'placeholder';
+      await el.updateComplete;
+      expect(el.renderRoot.querySelector('sl-spinner')).to.exist;
+    });
+    it('should render a skeleton when type "skeleton"', async () => {
+      el.type = 'skeleton';
+      await el.updateComplete;
+      expect(el.renderRoot.querySelector('sl-skeleton')).to.exist;
+    });
+  });
+  describe('expandable', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node expandable selectable>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+    it('should be expandable', () => {
+      expect(el.expandable).to.be.true;
+    });
+    it('should not be expanded', () => {
+      expect(el).to.have.attribute('aria-expanded', 'false');
+      expect(el.expanded).not.to.be.true;
+    });
+    it('should be expanded when set', async () => {
+      el.expanded = true;
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'true');
+    });
+    it('should render an expander', () => {
+      const expander = el.renderRoot.querySelector('.expander');
+      expect(expander).to.exist;
+      expect(expander).to.contain('sl-icon[name="chevron-right"]');
+    });
+    it('should toggle the expanded state when clicking the element', async () => {
+      el.click();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'true');
+      el.click();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+    it('should not toggle the expanded state when clicking the text', async () => {
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+    it('should toggle the expanded state when using the keyboard', async () => {
+      el.focus();
+      await userEvent.keyboard('{ArrowRight}');
+      expect(el).to.have.attribute('aria-expanded', 'true');
+      await userEvent.keyboard('{ArrowLeft}');
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+    it('should toggle the expanded state by using the toggle() method', async () => {
+      el.toggle();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'true');
+      el.toggle();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+    it('should force toggle the expanded state by using the toggle(true) method', async () => {
+      el.toggle();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'true');
+      el.toggle(true);
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'true');
+    });
+    it('should emit a toggle event when the expanded state changes', () => {
+      const onToggle = spy();
+      el.addEventListener('sl-toggle', event => {
+        onToggle(event.detail);
+      });
+      el.click();
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.firstArg).to.be.true;
+      el.toggle();
+      expect(onToggle).to.have.been.calledTwice;
+      expect(onToggle.lastCall.firstArg).to.be.false;
+    });
+  });
+  describe('single select', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node selectable .node=${{ hello: true }}>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+    it('should have an aria-selected attribute', () => {
+      expect(el).to.have.attribute('aria-selected', 'false');
+    });
+    it('should not render a checkbox', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+      expect(checkbox).to.not.exist;
+    });
+    it('should set the selected state when clicking the text', async () => {
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-selected', 'true');
+    });
+    it('should set the selected state when pressing enter', async () => {
+      el.focus();
+      await userEvent.keyboard('{Enter}');
+      expect(el).to.have.attribute('aria-selected', 'true');
+    });
+    it('should set the selected state when pressing space', async () => {
+      el.focus();
+      await userEvent.keyboard('{Space}');
+      expect(el).to.have.attribute('aria-selected', 'true');
+    });
+    it('should emit a select event when the text is clicked', () => {
+      const onSelect = spy();
+      el.addEventListener('sl-select', event => {
+        onSelect(event.detail);
+      });
+      el.querySelector('span')?.click();
+      expect(onSelect).to.have.been.calledOnce;
+      expect(onSelect.lastCall.firstArg).to.deep.equal({ hello: true });
+    });
+  });
+  describe('multiple select', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node multiple selectable>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+    it('should have an aria-selected attribute', () => {
+      expect(el).to.have.attribute('aria-selected', 'false');
+    });
+    it('should render a checkbox', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+      expect(checkbox).to.exist;
+    });
+    it('should render the label in the checkbox label slot', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox'),
+        labelSlot = checkbox?.shadowRoot?.querySelector('slot[name="label"]'),
+        input = checkbox?.querySelector('input[slot="input"]'),
+        label = checkbox?.querySelector('label[slot="label"]'),
+        labelText = label
+          ?.querySelector('slot')
+          ?.assignedNodes({ flatten: true })
+          .map(node => node.textContent ?? '')
+          .join('')
+          .trim();
+      expect(labelSlot).to.exist;
+      expect(label).to.have.property('htmlFor', input?.id);
+      expect(label?.id).to.equal(`${input?.id}-label`);
+      expect(input?.labels?.[0]).to.equal(label);
+      expect(labelText).to.equal('Lorem');
+    });
+    it('should use the checkbox label as the input accessible name', async () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox'),
+        input = checkbox?.querySelector('input[slot="input"]'),
+        label = checkbox?.querySelector('label[slot="label"]');
+      await new Promise(requestAnimationFrame);
+      expect(label?.id).not.to.equal('');
+      expect(input).to.have.attribute('aria-labelledby', label?.id);
+    });
+    it('should toggle the checkbox when clicking the text', async () => {
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-selected', 'true');
+      expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', true);
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-selected', 'false');
+      expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', false);
+    });
+    it('should emit a change event when the checkbox is toggled', () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', event => {
+        onChange(event.detail);
+      });
+      el.querySelector('span')?.click();
+      expect(onChange).to.have.been.calledOnce;
+      expect(onChange.lastCall.firstArg).to.be.true;
+      el.querySelector('span')?.click();
+      expect(onChange).to.have.been.calledTwice;
+      expect(onChange.lastCall.firstArg).to.not.be.true;
+    });
+  });
+  describe('not selectable', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node multiple .node=${{ hello: true }}>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+    it('should not have an aria-selected attribute', () => {
+      expect(el).not.to.have.attribute('aria-selected');
+    });
+    it('should not render a checkbox', () => {
+      expect(el.renderRoot.querySelector('sl-checkbox')).to.not.exist;
+    });
+    it('should not select when clicking the text', async () => {
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+      expect(el.selected).to.not.be.true;
+      expect(el).not.to.have.attribute('aria-selected');
+    });
+    it('should not select when pressing enter or space', async () => {
+      el.focus();
+      await userEvent.keyboard('{Enter}');
+      expect(el.selected).to.not.be.true;
+      await userEvent.keyboard('{Space}');
+      expect(el.selected).to.not.be.true;
+    });
+    it('should not emit a change event when clicking the text', () => {
+      const onChange = spy();
+      el.addEventListener('sl-change', event => {
+        onChange(event.detail);
+      });
+      el.querySelector('span')?.click();
+      expect(onChange).not.to.have.been.called;
+    });
+    it('should still toggle the expanded state when expandable', async () => {
+      el.expandable = true;
+      await el.updateComplete;
+      el.click();
+      await el.updateComplete;
+      expect(el).to.have.attribute('aria-expanded', 'true');
+    });
+  });
+});
+//# sourceMappingURL=tree-node.spec.js.map

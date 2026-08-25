@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { ProgressBar } from './src/progress-bar.js';\n\ncustomElements.define('sl-progress-bar', ProgressBar);\n"],
+  "mappings": "AAAA,SAAS,mBAAmB;AAE5B,eAAe,OAAO,mBAAmB,WAAW;",
+  "names": []
+}

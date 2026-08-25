@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { EllipsizeText } from './src/ellipsize-text.js';\n\ncustomElements.define('sl-ellipsize-text', EllipsizeText);\n"],
+  "mappings": "AAAA,SAAS,qBAAqB;AAE9B,eAAe,OAAO,qBAAqB,aAAa;",
+  "names": []
+}

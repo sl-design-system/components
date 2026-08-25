@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Editor } from './src/editor.js';\n\ncustomElements.define('sl-editor', Editor);\n"],
+  "mappings": "AAAA,SAAS,cAAc;AAEvB,eAAe,OAAO,aAAa,MAAM;",
+  "names": []
+}

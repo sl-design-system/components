@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["nested-form.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: block;\n  }\n\n  sl-form {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n  }\n\n  sl-button-bar,\n  sl-form-field[name=\"user.address\"] {\n    grid-column: span 2;\n  }\n\n  example-child-form {\n    border: 1px solid #ccc;\n    padding: 1rem;\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

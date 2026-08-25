@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/menu.js';\nexport * from './src/menu-button.js';\nexport * from './src/menu-item.js';\nexport * from './src/menu-item-group.js';\n"],
+  "mappings": "AAAA,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["commands.ts"],
+  "sourcesContent": ["import { AllSelection, type Command, type EditorState, type Transaction } from 'prosemirror-state';\nimport { createContentNode } from './utils.js';\n\nexport type DispatchFn = (tr: Transaction) => void;\n\nexport const setHTML =\n  (content: string): Command =>\n  (state: EditorState, dispatch?: DispatchFn): boolean => {\n    dispatch?.(\n      state.tr\n        .setSelection(new AllSelection(state.doc))\n        .replaceSelectionWith(createContentNode(state.schema, content))\n    );\n\n    return true;\n  };\n"],
+  "mappings": "AAAA,SAAS,oBAAsE;AAC/E,SAAS,yBAAyB;AAI3B,aAAM,UACX,CAAC,YACD,CAAC,OAAoB,aAAmC;AACtD;AAAA,IACE,MAAM,GACH,aAAa,IAAI,aAAa,MAAM,GAAG,CAAC,EACxC,qBAAqB,kBAAkB,MAAM,QAAQ,OAAO,CAAC;AAAA,EAClE;AAEA,SAAO;AACT;",
+  "names": []
+}

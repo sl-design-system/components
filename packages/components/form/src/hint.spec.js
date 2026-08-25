@@ -1,0 +1,36 @@
+import { fixture } from '@sl-design-system/vitest-browser-lit';
+import { html } from 'lit';
+import { beforeEach, describe, expect, it } from 'vitest';
+import '../register.js';
+describe('sl-hint', () => {
+  let el;
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-hint>My hint</sl-hint>`);
+    });
+    it('should have a default size of md', () => {
+      expect(el).to.have.attribute('size', 'md');
+    });
+    it('should not have an error slot', () => {
+      expect(el).not.to.have.attribute('slot', 'hint');
+    });
+    it('should have an error-text slot in the light DOM', () => {
+      expect(el.firstElementChild).to.be.an.instanceof(HTMLSlotElement);
+      expect(el.firstElementChild).to.have.attribute('name', 'hint-text');
+    });
+  });
+  describe('in a form field', () => {
+    beforeEach(async () => {
+      const field = await fixture(html`
+        <sl-form-field>
+          <sl-hint>My hint</sl-hint>
+        </sl-form-field>
+      `);
+      el = field.querySelector('sl-hint');
+    });
+    it('should have an error slot', () => {
+      expect(el).to.have.attribute('slot', 'hint');
+    });
+  });
+});
+//# sourceMappingURL=hint.spec.js.map

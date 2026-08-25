@@ -10,7 +10,7 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './breadcrumbs.scss.js';
+import styles from './breadcrumbs.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -186,58 +186,68 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="tooltips"></slot>
       <ul>
-        ${this.noHome
-          ? nothing
-          : html`
-              <li class="home">
-                ${!this.customHomeLink
-                  ? html`
-                      <a
-                        href=${this.homeUrl}
-                        aria-label=${ifDefined(
-                          isMobile() || this.hideHomeLabel
-                            ? msg('Home', { id: 'sl.breadcrumbs.home' })
-                            : undefined
-                        )}>
-                        <sl-icon name="home-blank"></sl-icon>
-                        ${isMobile() || this.hideHomeLabel
-                          ? ''
-                          : msg('Home', { id: 'sl.breadcrumbs.home' })}
-                      </a>
-                    `
-                  : html`<slot name="home"></slot>`}
-              </li>
-              <sl-icon name="breadcrumb-separator"></sl-icon>
-            `}
-        ${this.breadcrumbs.length > this.collapseThreshold
-          ? html`
-              <li class="more-menu">
-                <sl-button
-                  @click=${this.#onClick}
-                  aria-label=${msg('More breadcrumbs', { id: 'sl.breadcrumbs.moreBreadcrumbs' })}
-                  fill="ghost"
-                  id="button"
-                  variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
-                  <sl-icon name="ellipsis"></sl-icon>
-                </sl-button>
-                <sl-popover anchor="button">
-                  ${this.breadcrumbs
-                    .slice(0, -this.collapseThreshold)
-                    .map(
-                      (_, index) =>
-                        html`<slot name="breadcrumb-menu-${index}"></slot>` as TemplateResult
-                    )}
-                </sl-popover>
-              </li>
-              <sl-icon name="breadcrumb-separator"></sl-icon>
-            `
-          : nothing}
+        ${
+          this.noHome
+            ? nothing
+            : html`
+                <li class="home">
+                  ${
+                    !this.customHomeLink
+                      ? html`
+                          <a
+                            href=${this.homeUrl}
+                            aria-label=${ifDefined(
+                              isMobile() || this.hideHomeLabel
+                                ? msg('Home', { id: 'sl.breadcrumbs.home' })
+                                : undefined
+                            )}>
+                            <sl-icon name="home-blank"></sl-icon>
+                            ${
+                              isMobile() || this.hideHomeLabel
+                                ? ''
+                                : msg('Home', { id: 'sl.breadcrumbs.home' })
+                            }
+                          </a>
+                        `
+                      : html`<slot name="home"></slot>`
+                  }
+                </li>
+                <sl-icon name="breadcrumb-separator"></sl-icon>
+              `
+        }
+        ${
+          this.breadcrumbs.length > this.collapseThreshold
+            ? html`
+                <li class="more-menu">
+                  <sl-button
+                    @click=${this.#onClick}
+                    aria-label=${msg('More breadcrumbs', { id: 'sl.breadcrumbs.moreBreadcrumbs' })}
+                    fill="ghost"
+                    id="button"
+                    variant=${ifDefined(this.inverted ? 'inverted' : undefined)}>
+                    <sl-icon name="ellipsis"></sl-icon>
+                  </sl-button>
+                  <sl-popover anchor="button">
+                    ${this.breadcrumbs
+                      .slice(0, -this.collapseThreshold)
+                      .map(
+                        (_, index) =>
+                          html`<slot name="breadcrumb-menu-${index}"></slot>` as TemplateResult
+                      )}
+                  </sl-popover>
+                </li>
+                <sl-icon name="breadcrumb-separator"></sl-icon>
+              `
+            : nothing
+        }
         ${this.breadcrumbs.slice(Math.max(0, this.breadcrumbs.length - this.collapseThreshold)).map(
           (_, index, array) => html`
             <li><slot name="breadcrumb-${index}"></slot></li>
-            ${index < array.length - 1
-              ? html`<sl-icon name="breadcrumb-separator"></sl-icon>`
-              : nothing}
+            ${
+              index < array.length - 1
+                ? html`<sl-icon name="breadcrumb-separator"></sl-icon>`
+                : nothing
+            }
           `
         )}
       </ul>

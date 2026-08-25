@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/composite-form/composite-form.js';\nexport * from './src/dynamic-array-form/dynamic-array-form.js';\nexport * from './src/nested-form/nested-form.js';\nexport * from './src/form-in-dialog/form-in-dialog.js';\n"],
+  "mappings": "AAAA,cAAc;AACd,cAAc;AACd,cAAc;AACd,cAAc;",
+  "names": []
+}

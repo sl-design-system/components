@@ -4,8 +4,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { Radio } from './radio.js';
+import './register.js';
 
 describe('sl-radio', () => {
   let el: Radio;
@@ -35,6 +35,231 @@ describe('sl-radio', () => {
 
     expect(el.infotip?.size).to.equal('sm');
     expect(el.infotip?.describes).to.equal('Label');
+  });
+
+  describe('description', () => {
+    it('should set description from property', async () => {
+      el = await fixture(html`<sl-radio description="Helper text">Option</sl-radio>`);
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+      const descriptionSlot = el.renderRoot.querySelector('slot[name="description"]');
+      expect(descriptionSlot).to.exist;
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const descriptionEl = el.querySelector('[slot="description"]');
+      expect(descriptionEl).to.exist;
+      expect(descriptionEl?.textContent).to.equal('Helper text');
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl);
+    });
+
+    it('should set description from slot', async () => {
+      el = await fixture(html`
+        <sl-radio>
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const descriptionEl = el.querySelector('[slot="description"]');
+      expect(descriptionEl).to.exist;
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(descriptionEl);
+    });
+
+    it('should prefer slotted description over property fallback', async () => {
+      el = await fixture(html`
+        <sl-radio description="Property fallback">
+          Option
+          <span slot="description"></span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]'),
+        wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(el.hasAttribute('has-description')).to.be.false;
+      expect(el.querySelector('[slot="description"]')?.textContent).to.equal('');
+      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl);
+    });
+
+    it('should keep a tracked slotted description when property fallback changes', async () => {
+      el = await fixture(html`
+        <sl-radio description="Property fallback">
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]') as HTMLElement,
+        wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
+      el.description = 'Updated property fallback';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const descriptions = Array.from(el.querySelectorAll('[slot="description"]'));
+      expect(descriptions).to.deep.equal([slottedEl]);
+      expect(wrapper.ariaDescribedByElements).to.include(slottedEl);
+      expect(slottedEl.textContent).to.equal('Slotted description');
+    });
+
+    it('should link all slotted description elements to the wrapper', async () => {
+      el = await fixture(html`
+        <sl-radio>
+          Option
+          <span slot="description">First description</span>
+          <span slot="description" aria-hidden="false">Second description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const descriptions = Array.from(el.querySelectorAll<HTMLElement>('[slot="description"]')),
+        wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
+      expect(descriptions).to.have.length(2);
+      descriptions.forEach(description => {
+        expect(description.getAttribute('aria-hidden')).to.equal('true');
+        expect(wrapper.ariaDescribedByElements).to.include(description);
+      });
+
+      descriptions[1].remove();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(descriptions[1].getAttribute('aria-hidden')).to.equal('false');
+      expect(wrapper.ariaDescribedByElements).to.include(descriptions[0]);
+      expect(wrapper.ariaDescribedByElements).not.to.include(descriptions[1]);
+    });
+
+    it('should update has-description attribute dynamically', async () => {
+      el = await fixture(html`<sl-radio>Option</sl-radio>`);
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+
+      el.description = 'Added description';
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+
+      el.description = undefined;
+      await el.updateComplete;
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+    });
+
+    it('should restore synthesized description and aria-hidden when slotted description is removed and property is present', async () => {
+      el = await fixture(html`
+        <sl-radio description="Property fallback">
+          Option
+          <span slot="description">Slotted description</span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const slottedEl = el.querySelector('span[slot="description"]');
+      expect(slottedEl).to.exist;
+      expect(slottedEl?.getAttribute('aria-hidden')).to.equal('true');
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(slottedEl);
+
+      slottedEl?.remove();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(slottedEl?.hasAttribute('aria-hidden')).to.be.false;
+      expect(el.hasAttribute('has-description')).to.be.true;
+      const synthesizedEl = el.querySelector('[slot="description"]');
+      expect(synthesizedEl).to.exist;
+      expect(synthesizedEl?.textContent).to.equal('Property fallback');
+      expect(wrapper?.ariaDescribedByElements).to.include(synthesizedEl);
+    });
+
+    it('should preserve external ariaDescribedByElements when description is added', async () => {
+      el = await fixture(html`<sl-radio>Option</sl-radio>`);
+      await el.updateComplete;
+
+      const external = document.createElement('div');
+      external.id = 'external-desc';
+      document.body.appendChild(external);
+
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
+      wrapper.ariaDescribedByElements = [external];
+
+      el.description = 'Added description';
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(wrapper.ariaDescribedByElements).to.include(external);
+      const descriptionEl = el.querySelector('[slot="description"]');
+      expect(wrapper.ariaDescribedByElements).to.include(descriptionEl);
+
+      external.remove();
+    });
+
+    it('should update has-description when slotted text mutates reactively', async () => {
+      el = await fixture(html`
+        <sl-radio>
+          Option
+          <span slot="description"></span>
+        </sl-radio>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+
+      const span = el.querySelector('span[slot="description"]')!;
+      span.textContent = 'Dynamic reactive description';
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.true;
+
+      span.textContent = '';
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.hasAttribute('has-description')).to.be.false;
+    });
+  });
+
+  describe('tooltip', () => {
+    it('should render an sl-tooltip when tooltip property is set', async () => {
+      el = await fixture(html`<sl-radio tooltip="Tooltip information">Option</sl-radio>`);
+      await el.updateComplete;
+
+      const tooltip = el.renderRoot.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      expect(tooltip?.getAttribute('for')).to.equal('wrapper');
+      expect(tooltip?.getAttribute('type')).to.equal('description');
+      expect(tooltip?.style.positionArea).to.equal('right');
+      expect(tooltip?.style.positionTryFallbacks).to.equal('flip-inline, top');
+      expect(tooltip?.textContent?.trim()).to.equal('Tooltip information');
+    });
+
+    it('should link tooltip description to wrapper via ariaDescribedByElements', async () => {
+      el = await fixture(html`<sl-radio tooltip="Tooltip information">Option</sl-radio>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const tooltip = el.renderRoot.querySelector('sl-tooltip');
+      expect(tooltip).to.exist;
+      const tooltipDescription = el.querySelector<HTMLElement>('[slot="tooltip-description"]');
+      expect(tooltipDescription).to.exist;
+      expect(tooltipDescription?.localName).to.equal('span');
+      expect(tooltipDescription?.textContent).to.equal('Tooltip information');
+      expect(tooltipDescription?.classList.contains('visually-hidden')).to.be.true;
+      expect(tooltipDescription?.getAttribute('aria-hidden')).to.equal('true');
+      const wrapper = el.renderRoot.querySelector<HTMLElement>('[part="wrapper"]');
+      expect(wrapper?.ariaDescribedByElements).to.include(tooltipDescription);
+      expect(wrapper?.ariaDescribedByElements).not.to.include(tooltip);
+    });
   });
 
   describe('defaults', () => {

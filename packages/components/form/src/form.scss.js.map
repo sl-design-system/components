@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["form.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: flex;\n    flex-direction: column;\n    gap: var(--sl-size-300);\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

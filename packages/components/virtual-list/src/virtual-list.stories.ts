@@ -11,7 +11,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../register.js';
+import './register.js';
 import { type VirtualList } from './virtual-list.js';
 
 Icon.register(faArrowDown, faArrowDownToLine, faArrowUp, faArrowUpToLine);
@@ -55,9 +55,9 @@ export default {
     renderItem ??= (item: { id: number; name: string; description: string }) => html`
       <div
         part="item-content"
-        style=${item.id === scrollToPosition
-          ? '--_outline-color: var(--sl-color-border-focused)'
-          : ''}>
+        style=${
+          item.id === scrollToPosition ? '--_outline-color: var(--sl-color-border-focused)' : ''
+        }>
         <p part="item-name">${item.name}</p>
         <p part="item-description">${item.description}</p>
       </div>
@@ -79,25 +79,27 @@ export default {
     };
 
     return html`
-      ${overflow
-        ? html`
-            <style>
-              sl-virtual-list {
-                block-size: 400px;
-                border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-                border-radius: var(--sl-size-borderRadius-default);
-                overflow: auto;
-                margin: var(--sl-size-200);
-              }
-            </style>
-          `
-        : html`
-            <style>
-              sl-virtual-list {
-                padding-inline: var(--sl-size-200);
-              }
-            </style>
-          `}
+      ${
+        overflow
+          ? html`
+              <style>
+                sl-virtual-list {
+                  block-size: 400px;
+                  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+                  border-radius: var(--sl-size-borderRadius-default);
+                  overflow: auto;
+                  margin: var(--sl-size-200);
+                }
+              </style>
+            `
+          : html`
+              <style>
+                sl-virtual-list {
+                  padding-inline: var(--sl-size-200);
+                }
+              </style>
+            `
+      }
 
       <style>
         sl-button-bar {

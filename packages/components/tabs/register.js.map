@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { TabGroup } from './src/tab-group.js';\nimport { TabPanel } from './src/tab-panel.js';\nimport { Tab } from './src/tab.js';\n\ncustomElements.define('sl-tab', Tab);\ncustomElements.define('sl-tab-group', TabGroup);\ncustomElements.define('sl-tab-panel', TabPanel);\n"],
+  "mappings": "AAAA,SAAS,gBAAgB;AACzB,SAAS,gBAAgB;AACzB,SAAS,WAAW;AAEpB,eAAe,OAAO,UAAU,GAAG;AACnC,eAAe,OAAO,gBAAgB,QAAQ;AAC9C,eAAe,OAAO,gBAAgB,QAAQ;",
+  "names": []
+}

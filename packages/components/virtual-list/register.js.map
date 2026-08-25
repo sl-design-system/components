@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { VirtualList } from './src/virtual-list.js';\n\ncustomElements.define('sl-virtual-list', VirtualList);\n"],
+  "mappings": "AAAA,SAAS,mBAAmB;AAE5B,eAAe,OAAO,mBAAmB,WAAW;",
+  "names": []
+}

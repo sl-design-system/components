@@ -7,7 +7,7 @@ import {
   nothing
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './menu-item-group.scss.js';
+import styles from './menu-item-group.css' with { type: 'css' };
 import { MenuItem } from './menu-item.js';
 
 declare global {
@@ -54,9 +54,11 @@ export class MenuItemGroup extends LitElement {
     return html`
       <div part="wrapper">
         <slot name="header" @slotchange=${this.#onHeaderSlotchange}
-          >${this.heading
-            ? html`<div class="heading" aria-hidden="true">${this.heading}</div>`
-            : nothing}</slot
+          >${
+            this.heading
+              ? html`<div class="heading" aria-hidden="true">${this.heading}</div>`
+              : nothing
+          }</slot
         >
         <slot @slotchange=${this.#onSlotchange} @sl-select=${this.#onSelect}></slot>
       </div>

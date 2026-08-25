@@ -15,7 +15,7 @@ import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../../register.js';
+import '.././register.js';
 import { type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 

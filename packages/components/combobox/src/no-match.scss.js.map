@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["no-match.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    color: var(--sl-color-foreground-plain);\n    padding-inline: var(--sl-size-100);\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

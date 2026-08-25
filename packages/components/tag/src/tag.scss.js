@@ -1,0 +1,147 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    --_bg-color: var(--sl-color-background-neutral-subtlest);
+    --_br-color: var(--sl-color-border-neutral-plain);
+    --_button-bg-color: var(--sl-color-background-neutral-subtlest);
+    --_button-bg-interactive-color: var(--sl-color-background-neutral-interactive-plain);
+
+    align-items: center;
+    border: var(--sl-size-borderWidth-subtle) solid var(--_br-color);
+    border-radius: var(--sl-size-borderRadius-default);
+    color: var(--sl-color-foreground-neutral-bold);
+    display: inline-flex;
+    max-inline-size: 100%;
+    outline: transparent solid var(--sl-size-borderWidth-focusRing);
+    outline-offset: var(--sl-size-outlineOffset-default);
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :host {
+      transition: 200ms ease-in-out;
+      transition-property: background;
+    }
+  }
+
+  :host([removable]) [part='label'] {
+    border-inline-end: var(--sl-size-borderWidth-default) solid var(--_br-color);
+  }
+
+  :host([size='lg']) [part='label'] {
+    padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default)) var(--sl-size-150);
+  }
+
+  :host([size='lg']) button {
+    inline-size: calc(var(--sl-size-450) - var(--sl-size-borderWidth-default) * 2);
+  }
+
+  :host([size='lg']) sl-icon {
+    --sl-icon-size: var(--sl-size-new-icon-sm);
+  }
+
+  :host([variant='info']) {
+    --_bg-color: var(--sl-color-background-info-subtlest);
+    --_br-color: var(--sl-color-border-info-subtle);
+    --_button-bg-color: var(--sl-color-background-info-subtlest);
+    --_button-bg-interactive-color: var(--sl-color-background-info-interactive-plain);
+
+    color: var(--sl-color-foreground-info-bold);
+  }
+
+  :host([variant='info']) button:not([aria-disabled='true']) {
+    color: var(--sl-color-foreground-info-bold);
+  }
+
+  :host(:not([removable]):where(:focus-visible, :state(focus-visible))) {
+    outline-color: var(--sl-color-border-focused);
+    outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
+    position: relative;
+    z-index: 1;
+  }
+
+  [part='label'] {
+    background: var(--_bg-color);
+    display: block;
+    flex: 1;
+    font: var(--sl-text-new-body-md);
+    overflow: hidden;
+    padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-default)) var(--sl-size-100);
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  button {
+    align-items: center;
+    align-self: stretch;
+    aspect-ratio: 1;
+    background: var(--_button-bg-color);
+    border: 0;
+    box-sizing: border-box;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    flex-shrink: 0;
+    inline-size: calc(var(--sl-size-300) - var(--sl-size-borderWidth-default) * 2);
+    justify-content: center;
+    outline: 0;
+    padding: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    button {
+      transition: 200ms ease-in-out;
+      transition-property: background;
+    }
+  }
+
+  button:not([aria-disabled='true']):hover {
+    background: color-mix(
+      in srgb,
+      var(--_button-bg-color),
+      var(--_button-bg-interactive-color) calc(100% * var(--sl-opacity-interactive-plain-hover))
+    );
+  }
+
+  button:not([aria-disabled='true']):active {
+    background: color-mix(
+      in srgb,
+      var(--_button-bg-color),
+      var(--_button-bg-interactive-color) calc(100% * var(--sl-opacity-interactive-plain-active))
+    );
+  }
+
+  button[aria-disabled='true'] {
+    background: var(--sl-color-background-disabled);
+    color: var(--sl-color-foreground-disabled);
+    cursor: default;
+  }
+
+  button:focus-visible {
+    border-radius: 0 var(--sl-size-borderRadius-focusRing-inside)
+      var(--sl-size-borderRadius-focusRing-inside) 0;
+    outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+    outline-offset: calc(var(--sl-size-borderWidth-focusRing) * -1);
+    position: relative;
+    z-index: 1;
+  }
+
+  .visually-hidden {
+    block-size: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  sl-icon {
+    --sl-icon-size: var(--sl-size-new-icon-xs);
+
+    pointer-events: none;
+  }
+`;
+//# sourceMappingURL=tag.scss.js.map

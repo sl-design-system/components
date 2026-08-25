@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["date.ts"],
+  "sourcesContent": ["export function isSameDate(day1?: Date, day2?: Date): boolean {\n  return (\n    day1 instanceof Date &&\n    day2 instanceof Date &&\n    day1.getDate() === day2.getDate() &&\n    day1.getMonth() === day2.getMonth() &&\n    day1.getFullYear() === day2.getFullYear()\n  );\n}\n\nexport function isDateInList(date: Date, list?: Date[] | string): boolean {\n  if (!list) {\n    return false;\n  }\n\n  if (typeof list === 'string') {\n    list = list.split(',').map(item => new Date(item));\n  }\n\n  return list.some(item => isSameDate(item, date));\n}\n\nexport function normalizeDateTime(date: Date): Date {\n  return new Date(date.getFullYear(), date.getMonth(), date.getDate());\n}\n"],
+  "mappings": "AAAO,gBAAS,WAAW,MAAa,MAAsB;AAC5D,SACE,gBAAgB,QAChB,gBAAgB,QAChB,KAAK,QAAQ,MAAM,KAAK,QAAQ,KAChC,KAAK,SAAS,MAAM,KAAK,SAAS,KAClC,KAAK,YAAY,MAAM,KAAK,YAAY;AAE5C;AAEO,gBAAS,aAAa,MAAY,MAAiC;AACxE,MAAI,CAAC,MAAM;AACT,WAAO;AAAA,EACT;AAEA,MAAI,OAAO,SAAS,UAAU;AAC5B,WAAO,KAAK,MAAM,GAAG,EAAE,IAAI,UAAQ,IAAI,KAAK,IAAI,CAAC;AAAA,EACnD;AAEA,SAAO,KAAK,KAAK,UAAQ,WAAW,MAAM,IAAI,CAAC;AACjD;AAEO,gBAAS,kBAAkB,MAAkB;AAClD,SAAO,IAAI,KAAK,KAAK,YAAY,GAAG,KAAK,SAAS,GAAG,KAAK,QAAQ,CAAC;AACrE;",
+  "names": []
+}

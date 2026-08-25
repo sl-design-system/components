@@ -1,0 +1,143 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    --_bg-color: var(--sl-color-border-bold);
+    --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
+    --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+    --_handle-color: var(--sl-color-foreground-neutral-plain);
+    --_handle-size: var(--sl-size-250);
+    --_icon-size: var(--sl-size-150);
+    --_track-size: var(--sl-size-600);
+
+    align-items: center;
+    color: var(--sl-color-foreground-plain);
+    cursor: pointer;
+    display: inline-flex;
+    gap: var(--sl-size-100);
+    outline: none;
+    vertical-align: middle;
+  }
+
+  :host(:hover) {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+  }
+
+  :host(:active) {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+  }
+
+  :host([checked]) {
+    --_bg-color: var(--sl-color-background-selected-bold);
+    --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+    --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+    --_handle-color: var(--sl-color-foreground-selected-plain);
+    --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
+  }
+
+  :host([checked]) [part='track'] {
+    border-color: var(--sl-color-border-selected);
+  }
+
+  :host([checked]:hover) {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+  }
+
+  :host([checked]:active) {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+  }
+
+  :host([disabled]) {
+    --_handle-color: var(--sl-color-foreground-disabled);
+
+    cursor: default;
+    pointer-events: none;
+  }
+
+  :host([disabled]) [part='track'] {
+    background: var(--sl-color-background-disabled);
+    border-color: var(--sl-color-border-disabled);
+  }
+
+  :host([size='sm']) {
+    --_handle-size: var(--sl-size-150);
+    --_track-size: var(--sl-size-400);
+  }
+
+  :host([size='lg']) {
+    --_handle-size: var(--sl-size-350);
+    --_icon-size: var(--sl-size-200);
+    --_track-size: var(--sl-size-800);
+  }
+
+  ::slotted(input) {
+    block-size: 1px;
+    inline-size: 1px;
+    opacity: 0;
+    outline: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  ::slotted(label) {
+    cursor: pointer;
+  }
+
+  [part='toggle'] {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    padding: var(--sl-size-050);
+  }
+
+  :host([reverse]) [part='toggle'] {
+    justify-content: flex-start;
+    order: -1;
+  }
+
+  [part='track'] {
+    background: color-mix(
+      in srgb,
+      var(--_bg-color),
+      var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+    );
+    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-bold);
+    border-radius: calc((var(--_handle-size) + var(--sl-size-025) * 2) / 2);
+    box-sizing: border-box;
+    display: grid;
+    inline-size: var(--_track-size);
+    outline: transparent solid var(--sl-size-borderWidth-focusRing);
+    outline-offset: var(--sl-size-outlineOffset-default);
+    padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-default));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [part='track'] {
+      transition: 200ms ease-in-out;
+      transition-property: background, outline-color;
+    }
+  }
+
+  [part='handle'] {
+    aspect-ratio: 1;
+    background: var(--sl-color-background-inverted-bold);
+    block-size: var(--_handle-size);
+    border-radius: 50%;
+    box-shadow: var(--sl-elevation-shadow-sm);
+    color: var(--_handle-color);
+    display: grid;
+    place-content: center;
+    translate: var(--_handle-position, 0);
+    will-change: transform;
+  }
+
+  [part='handle'] sl-icon {
+    --sl-icon-size: var(--_icon-size);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [part='handle'] {
+      transition: translate 200ms ease-in-out;
+    }
+  }
+`;
+//# sourceMappingURL=switch.scss.js.map

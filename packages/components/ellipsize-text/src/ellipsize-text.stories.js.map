@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["ellipsize-text.stories.ts"],
+  "sourcesContent": ["import { type Meta, type StoryObj } from '@storybook/web-components-vite';\nimport { html } from 'lit';\nimport '../register.js';\n\ntype Props = { text: string; width: number };\ntype Story = StoryObj<Props>;\n\nexport default {\n  title: 'Utilities/Ellipsize Text',\n  render: ({ text, width }) =>\n    html`<sl-ellipsize-text style=\"width: ${width}px\">${text}</sl-ellipsize-text>`\n} satisfies Meta<Props>;\n\nexport const Basic: Story = {\n  args: {\n    width: 200,\n    text: 'This is a long text that should be truncated'\n  }\n};\n"],
+  "mappings": "AACA,SAAS,YAAY;AACrB,OAAO;AAKP,eAAe;AAAA,EACb,OAAO;AAAA,EACP,QAAQ,CAAC,EAAE,MAAM,MAAM,MACrB,wCAAwC,KAAK,OAAO,IAAI;AAC5D;AAEO,aAAM,QAAe;AAAA,EAC1B,MAAM;AAAA,IACJ,OAAO;AAAA,IACP,MAAM;AAAA,EACR;AACF;",
+  "names": []
+}

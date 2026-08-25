@@ -1,0 +1,92 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    --_background: var(--sl-color-background-info-subtlest);
+
+    align-items: center;
+    background:
+      linear-gradient(var(--_background), var(--_background)),
+      var(--sl-elevation-surface-raised-default);
+    border-radius: var(--sl-size-borderRadius-default);
+    color: var(--sl-color-foreground-info-bold);
+    display: grid;
+    gap: 0 var(--sl-size-100);
+    grid-template-columns: auto 1fr;
+    padding: var(--sl-size-150) var(--sl-size-200);
+
+    --sl-color-component-link-idle: var(--sl-color-foreground-info-bold);
+  }
+
+  ::slotted(a[href]) {
+    color: var(--sl-color-component-link-idle);
+  }
+
+  :host([density='relaxed']) {
+    padding: var(--sl-size-300);
+  }
+
+  :host([no-title]) [part='title'] {
+    display: none;
+  }
+
+  :host([no-title]) [part='content'] {
+    grid-area: 1/2;
+  }
+
+  :host([variant='success']) {
+    --_background: var(--sl-color-background-positive-subtlest);
+
+    color: var(--sl-color-foreground-positive-bold);
+
+    --sl-color-component-link-idle: var(--sl-color-foreground-positive-bold);
+  }
+
+  :host([variant='danger']) {
+    --_background: var(--sl-color-background-negative-subtlest);
+
+    color: var(--sl-color-foreground-negative-bold);
+
+    --sl-color-component-link-idle: var(--sl-color-foreground-negative-bold);
+  }
+
+  :host([variant='warning']) {
+    --_background: var(--sl-color-background-caution-subtlest);
+
+    color: var(--sl-color-foreground-caution-bold);
+
+    --sl-color-component-link-idle: var(--sl-color-foreground-caution-bold);
+  }
+
+  [part='content'] {
+    grid-column: 2;
+  }
+
+  [part='content'] slot {
+    display: block;
+    text-wrap: pretty;
+  }
+
+  [part='content'] > * {
+    display: block;
+  }
+
+  [part='icon'] {
+    align-items: center;
+    align-self: start;
+    block-size: 1lh;
+    display: inline-flex;
+  }
+
+  [part='title'] {
+    align-self: start;
+    font-size: 1.1428571429em;
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+    grid-area: 1/2;
+    margin-block-end: var(--sl-size-025);
+  }
+
+  [part='title'] slot {
+    display: block;
+  }
+`;
+//# sourceMappingURL=callout.scss.js.map

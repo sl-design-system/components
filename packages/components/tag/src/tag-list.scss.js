@@ -1,0 +1,39 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    display: flex;
+    gap: var(--sl-size-050);
+  }
+
+  :host([stacked]:not([data-visibility-resolved])) {
+    visibility: hidden;
+  }
+
+  :host([stacked]) {
+    flex-wrap: nowrap;
+  }
+
+  :host([stacked]) .list {
+    align-content: flex-end;
+    flex-wrap: nowrap;
+  }
+
+  ::slotted(*) {
+    flex-shrink: 0;
+  }
+
+  sl-tag.stack {
+    flex-shrink: 0;
+  }
+
+  sl-tag::part(tooltip) {
+    max-inline-size: calc(5 * var(--sl-size-800));
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sl-size-050);
+  }
+`;
+//# sourceMappingURL=tag-list.scss.js.map

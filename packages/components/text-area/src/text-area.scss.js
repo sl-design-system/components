@@ -1,0 +1,157 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    --_bg-color: var(--sl-color-background-input-plain);
+    --_bg-mix-color: var(--sl-color-background-input-interactive);
+    --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+    --_border: var(--sl-color-border-input);
+
+    align-items: start;
+    color: var(--sl-color-foreground-plain);
+    cursor: text;
+    display: inline-grid;
+    gap: 0;
+    grid-template-areas: 'field' 'count';
+    position: relative;
+  }
+
+  .field {
+    background: color-mix(
+      in srgb,
+      var(--_bg-color),
+      var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+    );
+    border: var(--sl-size-borderWidth-default) solid var(--_border);
+    border-radius: var(--sl-size-borderRadius-default);
+    display: flex;
+    grid-area: field;
+    outline: transparent solid var(--sl-size-borderWidth-focusRing);
+    outline-offset: var(--sl-size-outlineOffset-default);
+    place-self: stretch stretch;
+    position: relative;
+  }
+
+  :host(:focus-within) .field {
+    outline-color: var(--sl-color-border-focused);
+  }
+
+  :host(:hover:not(:focus-within)) {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  :host([show-validity='invalid']) {
+    --_bg-color: var(--sl-color-background-input-plain);
+    --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+    --_border: var(--sl-color-border-negative-plain);
+  }
+
+  :host([show-validity='valid']) {
+    --_bg-color: var(--sl-color-background-input-plain);
+    --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+    --_border: var(--sl-color-border-positive-plain);
+  }
+
+  :host([size='lg']) ::slotted(textarea) {
+    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+    padding-inline: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+  }
+
+  :host([size='lg']) .valid,
+  :host([size='lg']) slot[name='suffix']::slotted(*) {
+    inset-block-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+    inset-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+  }
+
+  :host([disabled]) {
+    color: var(--sl-color-foreground-disabled);
+    pointer-events: none;
+  }
+
+  :host([disabled]) slot[name='textarea']::slotted(textarea)::placeholder {
+    color: var(--sl-color-foreground-disabled);
+  }
+
+  :host([disabled]) .field {
+    background: var(--sl-color-background-disabled);
+    border-color: var(--sl-color-border-disabled);
+  }
+
+  :host(:where([resize='vertical'], [resize='auto'])) slot[name='textarea']::slotted(textarea) {
+    min-block-size: calc(var(--_sl-text-area-rows, 3) * 1lh);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :host(:where(:hover, :focus-within)) .field {
+      transition: 200ms ease-in-out;
+      transition-property: background, border, outline-color;
+    }
+  }
+
+  slot[name='textarea'] {
+    display: flex;
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  slot[name='textarea']::slotted(textarea) {
+    appearance: none;
+    background: none;
+    border: 0;
+    box-sizing: content-box;
+    color: currentcolor;
+    flex: 1;
+    font: inherit;
+    margin: 0;
+    min-block-size: 1lh;
+    outline: none;
+    padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
+    padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
+  }
+
+  slot[name='textarea']::slotted(textarea):focus {
+    outline: none;
+  }
+
+  slot[name='textarea']::slotted(textarea)::placeholder {
+    color: var(--sl-color-foreground-subtlest);
+    opacity: 1;
+  }
+
+  .valid,
+  slot[name='suffix']::slotted(sl-icon) {
+    inset-block-start: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
+    inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
+    position: absolute;
+  }
+
+  .valid {
+    color: var(--sl-color-foreground-positive-plain);
+  }
+
+  .count {
+    color: var(--sl-color-foreground-subtle);
+    grid-area: count;
+    margin-block-start: var(--sl-size-050);
+  }
+
+  .count[count-state='caution'] {
+    color: var(--sl-color-foreground-caution-plain);
+  }
+
+  .count[count-state='danger'] {
+    color: var(--sl-color-foreground-negative-plain);
+  }
+
+  slot[name='count-description']::slotted(.visually-hidden) {
+    block-size: 1px;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    inline-size: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+  }
+`;
+//# sourceMappingURL=text-area.scss.js.map

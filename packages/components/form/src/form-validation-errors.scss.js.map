@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["form-validation-errors.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: none;\n  }\n\n  ul {\n    display: inline;\n    margin: 0;\n    padding: 0;\n  }\n\n  li {\n    display: inline;\n  }\n\n  li::after {\n    content: \", \";\n  }\n\n  li:last-of-type::after {\n    content: \"\";\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

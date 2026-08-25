@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/format.js';\nexport * from './src/format-date.js';\n"],
+  "mappings": "AAAA,cAAc;AACd,cAAc;",
+  "names": []
+}

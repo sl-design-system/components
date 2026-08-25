@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Panel } from './src/panel.js';\n\ncustomElements.define('sl-panel', Panel);\n"],
+  "mappings": "AAAA,SAAS,aAAa;AAEtB,eAAe,OAAO,YAAY,KAAK;",
+  "names": []
+}

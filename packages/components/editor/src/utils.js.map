@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["utils.ts"],
+  "sourcesContent": ["import { DOMParser, DOMSerializer, type Node, type Schema } from 'prosemirror-model';\nimport { type EditorState } from 'prosemirror-state';\n\nexport const createContentNode = (schema: Schema, value = ''): Node => {\n  const element = document.createElement('div');\n\n  element.innerHTML = value.trim();\n\n  return DOMParser.fromSchema(schema).parse(element);\n};\n\nexport const getHTML = (state: EditorState): string => {\n  const fragment = DOMSerializer.fromSchema(state.schema).serializeFragment(state.doc.content),\n    element = document.createElement('div');\n\n  element.appendChild(fragment);\n\n  return element.innerHTML;\n};\n"],
+  "mappings": "AAAA,SAAS,WAAW,qBAA6C;AAG1D,aAAM,oBAAoB,CAAC,QAAgB,QAAQ,OAAa;AACrE,QAAM,UAAU,SAAS,cAAc,KAAK;AAE5C,UAAQ,YAAY,MAAM,KAAK;AAE/B,SAAO,UAAU,WAAW,MAAM,EAAE,MAAM,OAAO;AACnD;AAEO,aAAM,UAAU,CAAC,UAA+B;AACrD,QAAM,WAAW,cAAc,WAAW,MAAM,MAAM,EAAE,kBAAkB,MAAM,IAAI,OAAO,GACzF,UAAU,SAAS,cAAc,KAAK;AAExC,UAAQ,YAAY,QAAQ;AAE5B,SAAO,QAAQ;AACjB;",
+  "names": []
+}

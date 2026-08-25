@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["tab-panel.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: block;\n  }\n\n  :host([aria-hidden=\"true\"]) {\n    display: none;\n    pointer-events: none;\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

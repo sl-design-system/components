@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["format.ts"],
+  "sourcesContent": ["export const format = (\n  date: Date,\n  locale = 'default',\n  options?: Intl.DateTimeFormatOptions\n): string => {\n  return Intl.DateTimeFormat(locale, options).format(date);\n};\n"],
+  "mappings": "AAAO,aAAM,SAAS,CACpB,MACA,SAAS,WACT,YACW;AACX,SAAO,KAAK,eAAe,QAAQ,OAAO,EAAE,OAAO,IAAI;AACzD;",
+  "names": []
+}

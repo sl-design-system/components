@@ -1,0 +1,233 @@
+import { Avatar } from '@sl-design-system/avatar';
+import { Button } from '@sl-design-system/button';
+import {
+  ArrayListDataSource,
+  FetchListDataSource,
+  FetchListDataSourceError,
+  isListDataSourceGroupItem
+} from '@sl-design-system/data-source';
+import { getStudents } from '@sl-design-system/example-data';
+import { html } from 'lit';
+import '../../register.js';
+import { avatarRenderer } from './story-utils.js';
+export default {
+  title: 'Grid/Grouping',
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
+};
+export const Basic = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+    return html`
+      <p>
+        This example shows the basics of grouping. Students are sorted by name and grouped by
+        school.
+      </p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column
+          direction="asc"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const Collapsed = {
+  loaders: [
+    async () => {
+      const response = await fetch('https://dummyjson.com/products/categories');
+      return { categories: await response.json() };
+    }
+  ],
+  render: (_, { loaded: { categories } }) => {
+    const dataSource = new FetchListDataSource({
+      getId: item => item.id,
+      groupBy: 'category',
+      groups: categories.map(c => ({
+        id: c.slug,
+        label: c.name,
+        type: 'group',
+        collapsed: true
+      })),
+      pageSize: 30,
+      fetchPage: async ({ group, page, pageSize }) => {
+        const response = await fetch(
+          `https://dummyjson.com/products/category/${String(group)}?skip=${page * pageSize}&limit=${pageSize}`
+        );
+        if (response.ok) {
+          const { products, total } = await response.json();
+          return { items: products, totalItems: total };
+        } else {
+          throw new FetchListDataSourceError('Failed to fetch data', response);
+        }
+      }
+    });
+    return html`
+      <p>
+        This example shows how you start with all groups collapsed. When you expand a group, its
+        products are loaded and displayed. This example uses the <code>FetchListDataSource</code> to
+        load the products on demand. The groups are passed to the data source in the constructor via
+        the <code>groups</code> option. It uses data from
+        <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
+      </p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column header="Product" path="title"></sl-grid-column>
+        <sl-grid-column header="Category" path="category"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const SortedByFunction = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name',
+      groupSortBy: (a, b) => {
+        const valueA = (isListDataSourceGroupItem(a) ? a.label : a.group?.label) ?? '',
+          valueB = (isListDataSourceGroupItem(b) ? b.label : b.group?.label) ?? '';
+        if (valueA === valueB) {
+          return 0;
+        } else if (valueA.startsWith('Koninklijk')) {
+          return -1;
+        } else if (valueB.startsWith('Koninklijk')) {
+          return 1;
+        } else {
+          return valueA?.localeCompare(valueB);
+        }
+      }
+    });
+    return html`
+      <p>
+        This example shows how a custom sort function is used to place "Koninklijk Atheneum" above
+        all other (alphabetically) sorted schools. Within the groups, students are sorted by their
+        name using the regular sort header.
+      </p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column
+          direction="asc"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const DragAndDrop = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+    return html`
+      <p>This example shows how you combine grouping with drag and drop.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-sort-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const Selection = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name',
+      selects: 'multiple'
+    });
+    return html`
+      <p>This example shows how you combine grouping with selection.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-sort-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const Both = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+    return html`
+      <p>This example shows how you combine grouping with drag and drop and selection.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-sort-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const CustomGroupHeader = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+    const groupHeaderRenderer = item => {
+      return html`
+        <span slot="group-heading">${item.label} (${item.count})</span>
+        <sl-button size="sm">Add student</sl-button>
+      `;
+    };
+    return html`
+      <p>
+        This example shows how you can customize the group header. By using the
+        <code>groupHeaderRenderer</code> callback property, it adds an "Add student" button to the
+        group header. When doing this, do not forget to also set the
+        <code>scopedElements</code> property to include the custom elements used in the renderer.
+      </p>
+      <sl-grid
+        .dataSource=${dataSource}
+        .groupHeaderRenderer=${groupHeaderRenderer}
+        .scopedElements=${{ 'sl-button': Button }}>
+        <sl-grid-sort-column
+          direction="asc"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+//# sourceMappingURL=grouping.stories.js.map

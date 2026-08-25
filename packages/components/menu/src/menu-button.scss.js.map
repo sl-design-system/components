@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["menu-button.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: inline-flex;\n  }\n\n  sl-menu slot::slotted(:nth-child(1 of :not([slot]))) {\n    border-block-start: 0;\n    margin-block-start: 0;\n    padding-block-start: 0;\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

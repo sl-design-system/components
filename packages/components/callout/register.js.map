@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Callout } from './src/callout.js';\n\ncustomElements.define('sl-callout', Callout);\n"],
+  "mappings": "AAAA,SAAS,eAAe;AAExB,eAAe,OAAO,cAAc,OAAO;",
+  "names": []
+}

@@ -47,14 +47,14 @@
       },
       "dependencies": [
         "analyze",
-        "copy-tokens",
         "..:build:themes:styles"
       ],
       "files": [
         ".eleventy.cjs",
         "build/**/*.js",
         "src/*.md",
-        "src/{_data,_includes,assets,categories,scripts,site}/**/*"
+        "src/{_data,_includes,assets,categories,scripts,site}/**/*",
+        "../scripts/export/core-css/**/*.css"
       ],
       "output": [
         "dist/**/*.{html,js,json}"
@@ -94,30 +94,6 @@
       ],
       "output": [
         "tsconfig.tsbuildinfo"
-      ]
-    },
-    "copy-tokens": {
-      "dependencies": [
-        "copy-tokens:core",
-        "copy-tokens:base"
-      ]
-    },
-    "copy-tokens:core": {
-      "command": "cpx '../packages/tokens/src/tokens/core.json' 'src/_data/tokens/'",
-      "files": [
-        "../packages/tokens/src/tokens/core.json"
-      ],
-      "output": [
-        "src/_data/tokens/core.json"
-      ]
-    },
-    "copy-tokens:base": {
-      "command": "cpx '../packages/tokens/src/tokens/sanoma-learning/base.json' 'src/_data/tokens/'",
-      "files": [
-        "../packages/tokens/src/tokens/sanoma-learning/base.json"
-      ],
-      "output": [
-        "src/_data/tokens/base.json"
       ]
     },
     "lint": {

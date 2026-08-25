@@ -1,0 +1,30 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    display: inline-grid;
+    grid-template-columns: 1fr;
+  }
+
+  sl-select-day,
+  sl-select-month,
+  sl-select-year {
+    grid-area: 1/1;
+    inline-size: 100%;
+  }
+
+  .helper-text {
+    color: var(--sl-color-foreground-info-plain);
+    contain: inline-size;
+    font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+    overflow-wrap: anywhere;
+    padding: var(--sl-size-050) var(--sl-size-100);
+    white-space: initial;
+  }
+
+  .helper-text sl-icon {
+    display: inline-block;
+    margin-inline-end: var(--sl-size-050);
+    vertical-align: middle;
+  }
+`;
+//# sourceMappingURL=calendar.scss.js.map

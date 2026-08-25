@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["tool-bar-divider.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    background: linear-gradient(to right, transparent 0 var(--sl-size-100), var(--sl-color-border-plain) var(--sl-size-100) calc(var(--sl-size-100) + var(--sl-size-010)), transparent calc(var(--sl-size-100) + var(--sl-size-010)) 100%);\n    block-size: var(--sl-size-300);\n    display: inline-flex;\n    flex-shrink: 0;\n    inline-size: var(--sl-size-010);\n    padding-inline: var(--sl-size-100);\n  }\n\n  :host([inverted]) {\n    background: linear-gradient(to right, transparent 0 var(--sl-size-100), var(--sl-color-border-inverted) var(--sl-size-100) calc(var(--sl-size-100) + var(--sl-size-010)), transparent calc(var(--sl-size-100) + var(--sl-size-010)) 100%);\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

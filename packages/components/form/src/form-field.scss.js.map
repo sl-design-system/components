@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["form-field.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: flex;\n    flex-direction: column;\n  }\n\n  slot:not([name])::slotted(*) {\n    margin-block-start: var(--sl-size-050);\n  }\n\n  slot:not([name])::slotted(:is(sl-checkbox, sl-switch[reverse])) {\n    align-self: start;\n  }\n\n  .wrapper {\n    display: flex;\n    flex-direction: column;\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

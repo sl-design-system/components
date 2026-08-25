@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Scrollbar } from './src/scrollbar.js';\n\ncustomElements.define('sl-scrollbar', Scrollbar);\n"],
+  "mappings": "AAAA,SAAS,iBAAiB;AAE1B,eAAe,OAAO,gBAAgB,SAAS;",
+  "names": []
+}

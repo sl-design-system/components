@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export { announce } from './src/announce.js';\nexport { type SlAnnounceEvent, Announcer } from './src/announcer.js';\n"],
+  "mappings": "AAAA,SAAS,gBAAgB;AACzB,SAA+B,iBAAiB;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["no-match.ts"],
+  "sourcesContent": ["import { localized, msg, str } from '@lit/localize';\nimport { type CSSResultGroup, LitElement } from 'lit';\nimport { property } from 'lit/decorators.js';\nimport styles from './no-match.scss.js';\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sl-combobox-no-match': NoMatch;\n  }\n}\n\n/** Message component for when filtering a listbox yields no matches. */\n@localized()\nexport class NoMatch extends LitElement {\n  /** @internal */\n  static override styles: CSSResultGroup = styles;\n\n  /** The string that did not yield any matches. */\n  @property() value?: string;\n\n  override render(): string {\n    return msg(str`No options starting with \"${this.value}\" have been found.`, {\n      id: 'sl.combobox.noOptionsFound'\n    });\n  }\n}\n"],
+  "mappings": ";;;;;;;;;;AAAA,SAAS,WAAW,KAAK,WAAW;AACpC,SAA8B,kBAAkB;AAChD,SAAS,gBAAgB;AACzB,OAAO,YAAY;AAUZ,WAAM,UAAN,cAAsB,WAAW;AAAA,EAO7B,SAAiB;AACxB,WAAO,IAAI,gCAAgC,KAAK,KAAK,sBAAsB;AAAA,MACzE,IAAI;AAAA,IACN,CAAC;AAAA,EACH;AACF;AAAA;AAZa,QAEK,SAAyB;AAG7B;AAAA,EAAX,SAAS;AAAA,GALC,QAKC;AALD,UAAN;AAAA,EADN,UAAU;AAAA,GACE;",
+  "names": []
+}

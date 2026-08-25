@@ -1,0 +1,123 @@
+import { Avatar } from '@sl-design-system/avatar';
+import { ArrayListDataSource, isListDataSourceDataItem } from '@sl-design-system/data-source';
+import { getPeople, getStudents } from '@sl-design-system/example-data';
+import { html } from 'lit';
+import '../../register.js';
+import { avatarRenderer } from './story-utils.js';
+const regroupDroppedPerson = (dataSource, event) => {
+  const { item, relativeItem } = event.detail,
+    targetMembership = relativeItem?.membership;
+  if (
+    !isListDataSourceDataItem(item) ||
+    !targetMembership ||
+    item.data.membership === targetMembership
+  ) {
+    return;
+  }
+  const updatedPeople = dataSource.unfilteredItems.map(({ data }) =>
+    data === item.data ? { ...data, membership: targetMembership } : data
+  );
+  dataSource.setData(updatedPeople);
+  dataSource.update();
+};
+export default {
+  title: 'Grid/Drag and drop',
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
+  loaders: [async () => ({ students: (await getStudents()).students })]
+};
+export const Basic = {
+  render: (_, { loaded: { students } }) => {
+    return html`
+      <p>
+        This example shows basic drag and drop behavior. You can drag and row and drop it in between
+        other rows. This way you can reorder the items in the grid. This is the default behavior
+        when you add a
+        <code>sl-grid-drag-handle-column</code> to the grid. The column automatically sets the
+        <code>draggable-rows</code> property to <code>between</code>.
+      </p>
+      <sl-grid .items=${students}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-sort-column grow="0" header="Nr." path="studentNumber"></sl-grid-sort-column>
+        <sl-grid-sort-column
+          direction="asc"
+          grow="3"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const OnTop = {
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
+  render: (_, { loaded: { people } }) => {
+    const dropFilter = ({ membership }) => membership !== 'Regular';
+    const onDrop = event => {
+      console.log('Dropped', event.detail.item, event.detail.relativeItem);
+    };
+    return html`
+      <sl-grid
+        @sl-grid-drop=${onDrop}
+        draggable-rows="on-top"
+        .dropFilter=${dropFilter}
+        .items=${people}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="membership"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const Fixed = {
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
+  render: (_, { loaded: { people } }) => {
+    people.forEach((person, index) => (person.draggable = index > 0 && index <= 6));
+    return html`
+      <sl-grid .items=${people}>
+        <sl-grid-drag-handle-column path="draggable"></sl-grid-drag-handle-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+export const Grouping = {
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
+  render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayListDataSource(people, {
+      groupBy: 'membership'
+    });
+    const onDrop = event => {
+      regroupDroppedPerson(dataSource, event);
+    };
+    return html`
+      <p>
+        This example shows drag and drop behavior in combination with grouping. You can drag
+        individual rows or complete groups. Reordering within a group keeps the current membership.
+        Dropping a row onto a different group moves the person into that group by updating the
+        membership field.
+      </p>
+      <sl-grid @sl-grid-drop=${onDrop} .dataSource=${dataSource}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="membership"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+//# sourceMappingURL=drag-and-drop.stories.js.map

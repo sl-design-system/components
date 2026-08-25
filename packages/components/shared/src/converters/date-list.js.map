@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["date-list.ts"],
+  "sourcesContent": ["export const dateListConverter = {\n  fromAttribute: (value: string): Array<Date | undefined> => {\n    const dates = value\n      .split(',')\n      .filter(dateStr => !isNaN(Date.parse(dateStr)))\n      .map(dateStr => new Date(dateStr));\n    return dates;\n  },\n  toAttribute: (values: Array<Date | undefined>): string => {\n    const dates = values.filter(value => value instanceof Date).map(date => date.toISOString());\n    return dates.join(',');\n  }\n};\n"],
+  "mappings": "AAAO,aAAM,oBAAoB;AAAA,EAC/B,eAAe,CAAC,UAA2C;AACzD,UAAM,QAAQ,MACX,MAAM,GAAG,EACT,OAAO,aAAW,CAAC,MAAM,KAAK,MAAM,OAAO,CAAC,CAAC,EAC7C,IAAI,aAAW,IAAI,KAAK,OAAO,CAAC;AACnC,WAAO;AAAA,EACT;AAAA,EACA,aAAa,CAAC,WAA4C;AACxD,UAAM,QAAQ,OAAO,OAAO,WAAS,iBAAiB,IAAI,EAAE,IAAI,UAAQ,KAAK,YAAY,CAAC;AAC1F,WAAO,MAAM,KAAK,GAAG;AAAA,EACvB;AACF;",
+  "names": []
+}

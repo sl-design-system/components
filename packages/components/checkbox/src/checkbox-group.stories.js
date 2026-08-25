@@ -1,0 +1,216 @@
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
+import '@sl-design-system/tooltip/register.js';
+import { html } from 'lit';
+import '../register.js';
+export default {
+  title: 'Form/Checkbox/Checkbox group',
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-checkbox-group:not([disabled])'
+          },
+          {
+            // ElementInternals is used to set the role
+            id: 'aria-prohibited-attr',
+            enabled: false
+          }
+        ]
+      }
+    }
+  },
+  args: {
+    label: 'Label',
+    size: 'md'
+  },
+  argTypes: {
+    disabled: {
+      control: 'boolean'
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
+    }
+  },
+  render: ({ boxes, disabled, hint, label, required, size, slot, value }) => {
+    const onClick = event => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+    return html`
+      <sl-form>
+        <sl-form-field .hint=${hint} .label=${label}>
+          ${
+            slot?.() ??
+            html`
+              <sl-checkbox-group
+                aria-label=${label || 'Label'}
+                ?disabled=${disabled}
+                ?required=${required}
+                .label=${label}
+                .size=${size}
+                .value=${value}>
+                ${
+                  boxes?.() ??
+                  html`
+                    <sl-checkbox value="0">Option 1</sl-checkbox>
+                    <sl-checkbox value="1">Option 2</sl-checkbox>
+                    <sl-checkbox value="2">Option 3</sl-checkbox>
+                    <sl-checkbox disabled value="3">Option 4</sl-checkbox>
+                  `
+                }
+              </sl-checkbox-group>
+            `
+          }
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+      <style>
+        sl-tooltip {
+          position-area: right;
+        }
+      </style>
+    `;
+  }
+};
+export const Basic = {
+  args: {
+    hint: 'This is a hint'
+  }
+};
+export const Disabled = {
+  args: {
+    disabled: true
+  }
+};
+export const Required = {
+  args: {
+    hint: 'This checkbox is required and should display an error after reporting the validity',
+    required: true
+  }
+};
+export const Value = {
+  args: {
+    value: ['0', '2']
+  }
+};
+export const ImplicitValue = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group aria-label="Implicit value options">
+        <sl-checkbox checked value="0">Option 1</sl-checkbox>
+        <sl-checkbox checked value="1">Option 2</sl-checkbox>
+        <sl-checkbox value="2">Option 3</sl-checkbox>
+      </sl-checkbox-group>
+    `
+  }
+};
+export const Infotip = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group aria-label="Options with infotips">
+        <sl-checkbox checked value="0"
+          >Option 1 with infotip and a very long label that should wrap to the next line. This label
+          is way too long to be used in the label for the "more info" button, so we have provided a
+          custom label for the button that is more descriptive and shorter than the label of the
+          checkbox. The label of the checkbox is way too long to be used in the label for the "more
+          info" button, so we have provided a custom label for the button that is shorter than the
+          label of the checkbox.
+          <sl-infotip slot="infotip" describes="Option 1"
+            >This is an info tip for option 1</sl-infotip
+          >
+        </sl-checkbox>
+        <sl-checkbox checked value="1">Option 2</sl-checkbox>
+        <sl-checkbox value="2"
+          >Option 3
+          <sl-infotip slot="infotip">This is an info tip for option 3</sl-infotip></sl-checkbox
+        >
+      </sl-checkbox-group>
+    `
+  }
+};
+export const WithoutValues = {
+  args: {
+    boxes: () => html`
+      <sl-checkbox>Option 1</sl-checkbox>
+      <sl-checkbox>Option 2</sl-checkbox>
+      <sl-checkbox>Option 3</sl-checkbox>
+    `,
+    value: ['on', null, null]
+  }
+};
+export const NoLabel = {
+  render: () => {
+    return html`
+      <sl-checkbox-group aria-label="Choose at least one option">
+        <sl-checkbox value="1">One</sl-checkbox>
+        <sl-checkbox value="2">Two</sl-checkbox>
+        <sl-checkbox value="3">Three</sl-checkbox>
+      </sl-checkbox-group>
+    `;
+  }
+};
+export const Tooltips = {
+  args: {
+    boxes: () => html`
+      <sl-checkbox id="1" value="1">Option 1</sl-checkbox>
+      <sl-tooltip for="1" type="description">Tooltip for option 1</sl-tooltip>
+      <sl-checkbox id="2" value="2">Option 2</sl-checkbox>
+      <sl-tooltip for="2" type="description">Tooltip for option 2</sl-tooltip>
+      <sl-checkbox id="3" value="3">Option 3</sl-checkbox>
+      <sl-tooltip for="3" type="description">Tooltip for option 3</sl-tooltip>
+    `
+  }
+};
+export const CustomValidity = {
+  args: {
+    hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
+    slot: () => {
+      const onValidate = event => {
+        event.target.setCustomValidity(
+          event.target.value?.includes('2') ? '' : 'Pick the middle option'
+        );
+      };
+      return html`
+        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Your favorite number" required>
+          <sl-checkbox value="1">One</sl-checkbox>
+          <sl-checkbox value="2">Two</sl-checkbox>
+          <sl-checkbox value="3">Three</sl-checkbox>
+        </sl-checkbox-group>
+      `;
+    }
+  }
+};
+export const CustomAsyncValidity = {
+  args: {
+    hint: 'This story has an async validator. You need to select the middle option to make the field valid. It will wait 2 seconds before validating.',
+    slot: () => {
+      const onValidate = event => {
+        if (!event.target.value?.length) {
+          return;
+        }
+        const promise = new Promise(resolve =>
+          setTimeout(
+            () => resolve(event.target.value?.includes('2') ? '' : 'Pick the middle option'),
+            2e3
+          )
+        );
+        event.target.setCustomValidity(promise);
+      };
+      return html`
+        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Your favorite number" required>
+          <sl-checkbox value="1">One</sl-checkbox>
+          <sl-checkbox value="2">Two</sl-checkbox>
+          <sl-checkbox value="3">Three</sl-checkbox>
+        </sl-checkbox-group>
+      `;
+    }
+  }
+};
+//# sourceMappingURL=checkbox-group.stories.js.map

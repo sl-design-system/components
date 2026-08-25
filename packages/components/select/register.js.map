@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import '@sl-design-system/listbox/register.js';\nimport { Select } from './src/select.js';\n\ncustomElements.define('sl-select', Select);\n"],
+  "mappings": "AAAA,OAAO;AACP,SAAS,cAAc;AAEvB,eAAe,OAAO,aAAa,MAAM;",
+  "names": []
+}

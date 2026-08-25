@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { FormatDate } from './src/format-date';\n\ncustomElements.define('sl-format-date', FormatDate);\n"],
+  "mappings": "AAAA,SAAS,kBAAkB;AAE3B,eAAe,OAAO,kBAAkB,UAAU;",
+  "names": []
+}

@@ -1,0 +1,275 @@
+import { type Meta, type StoryObj } from '@storybook/web-components-vite';
+import { html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { ref } from 'lit/directives/ref.js';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
+import '@sl-design-system/inline-message/register.js';
+import '@sl-design-system/badge/register.js';
+import '@sl-design-system/popover/register.js';
+import { Icon } from '../../packages/components/icon/src/icon';
+import { faPlanetRinged } from '@fortawesome/pro-regular-svg-icons';
+import { Popover } from '@sl-design-system/popover';
+
+type Props = {
+  doubleStory: boolean;
+  earlyReaders: boolean;
+  fontStretch: number;
+  fontWeight: number;
+  straightL: boolean;
+  textRisers: boolean;
+  textBox?: string;
+  showComputed?: boolean;
+};
+type Story = StoryObj<Props>;
+
+export default {
+  title: 'Utilities/Typography',
+  tags: ['stable'],
+  parameters: {}
+} satisfies Meta<Props>;
+
+Icon.register(faPlanetRinged);
+
+export const Basic: Story = {
+  args: {
+    earlyReaders: false,
+    doubleStory: false,
+    fontStretch: 100,
+    fontWeight: 400,
+    straightL: false,
+    textRisers: false
+  },
+  argTypes: {
+    fontStretch: {
+      control: {
+        type: 'range',
+        min: 75,
+        max: 125,
+        step: 1
+      }
+    },
+    fontWeight: {
+      control: {
+        type: 'range',
+        min: 125,
+        max: 950,
+        step: 1
+      }
+    }
+  },
+  render: ({ earlyReaders, doubleStory, fontStretch, fontWeight, textRisers, straightL }) => html`
+    <style>
+      body .container * {
+        font-variation-settings:
+          'wght' ${fontWeight},
+          'wdth' ${fontStretch} !important;
+        font-feature-settings: ${ifDefined(textRisers ? '"ss01"' : undefined)}
+          ${ifDefined(earlyReaders ? '"ss02"' : undefined)}
+          ${ifDefined(doubleStory ? '"ss03"' : undefined)}
+          ${ifDefined(straightL ? '"ss04"' : undefined)} !important;
+      }
+    </style>
+    <sl-inline-message variant="warning"
+      >The font settings in this story overwrite the default font-variation-settings and
+      font-feature-settings.</sl-inline-message
+    >
+    <div class="container">
+      <h1 class="display lg">What are planets?</h1>
+      <h2 class="heading">Basic facts about the solar system</h2>
+      <p class="text">
+        A planet is a large celestial body that orbits a star — in our case, the Sun. The solar
+        system includes eight planets: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and
+        Neptune. Each planet has a different size, temperature, and atmosphere. Children in Poland
+        learn that Earth is the “błękitna planeta,” full of life. In Germany, they say: “Die Erde
+        ist unser Zuhause.” And in Finland: “Maapallo on elävä planeetta.”
+      </p>
+      <h2 class="title">How do planets move?</h2>
+      <p class="text">
+        Planets travel along paths called orbits around the Sun. This movement is called a
+        revolution. Earth takes about 365 days to complete one orbit. In the Netherlands, students
+        learn: “De aarde draait om de zon.” In Sweden: “Jorden kretsar runt solen.” This orbital
+        motion causes the changing seasons: spring, summer, autumn, and winter.
+      </p>
+      <p class="caption">
+        PL: ą, ć, ę, ł, ń, ó, ś, ź, ż, zł; FI: ä, ö; NL: ë, ï, é, è; DE: ä, ö, ü, ß;
+      </p>
+      <p class="caption">SV: å, ä, ö; DA: æ, ø, å; NO: æ, ø, å</p>
+      <hr />
+      <p class="caption">Infant characters: a g</p>
+      <p class="caption">Mirrored characters: p q, or d b</p>
+      <sl-button><sl-icon name="far-planet-ringed"></sl-icon>Spin the planet!</sl-button>
+    </div>
+  `
+};
+
+const styleNames = ['Display', 'Heading', 'Title', 'Text', 'Label', 'Caption'];
+
+const parseCells = (el: Element | undefined) => {
+  if (!el) return;
+  requestAnimationFrame(() => {
+    const specsContainer = el.querySelector('.specs');
+    if (specsContainer) {
+      specsContainer.innerHTML = '';
+      specsContainer
+        ?.appendChild(document.createElement('span'))
+        .appendChild(document.createTextNode('Specs'));
+    }
+    const cells = Array.from(el.querySelectorAll('.typography > div'));
+    cells.forEach((cell, index) => {
+      cell.id = `cell-${index}`;
+      const cellContents = cell.querySelector('*') as Element;
+      if (cellContents) {
+        const cellSpecs = document.createElement('div');
+        cellSpecs.id = `specs-${index}`;
+        cellSpecs.classList.add('cell-specs');
+        const computed = window.getComputedStyle(cellContents);
+
+        const classes = cellContents.className.split(' ').filter(c => c !== 'fallback');
+        const classContainer = document.createElement('div');
+        classContainer.style.display = 'flex';
+        classContainer.style.gap = '4px';
+        cellSpecs.appendChild(classContainer);
+
+        const typeLabel = document.createElement('sl-badge');
+        typeLabel.setAttribute('color', 'orange');
+        typeLabel.textContent = `.${classes[0]}`;
+        classContainer.appendChild(typeLabel);
+
+        const sizeLabel = document.createElement('sl-badge');
+        sizeLabel.setAttribute('color', 'blue');
+        sizeLabel.textContent = `.${classes[1]}`;
+        classContainer.appendChild(sizeLabel);
+
+        const label = document.createElement('sl-badge');
+        const big = cellContents.matches(':where(.display, .heading)') ?? false;
+        label.setAttribute('color', big ? 'purple' : 'teal');
+        label.textContent = `${computed.fontSize}/${computed.lineHeight} | ${computed.fontWeight} | ${computed.letterSpacing}`;
+        cellSpecs.appendChild(label);
+
+        const font = document.createElement('span');
+        font.textContent = `Font: ${computed.fontFamily}`;
+        cellSpecs.appendChild(font);
+
+        cellSpecs.classList.add('text', 'sm');
+        specsContainer?.appendChild(cellSpecs);
+      }
+      console.log('specsContainer', specsContainer);
+    });
+  });
+};
+const variant = document.documentElement.getAttribute('data-user-group') ?? 'advanced';
+
+export const TypographyStyles: Story = {
+  args: {
+    textBox: 'none',
+    showComputed: true
+  },
+  argTypes: {
+    textBox: {
+      control: { type: 'radio' },
+      options: ['none', 'untrimmed', 'trim-both-cap', 'trim-both-ex']
+    }
+  },
+  render: ({ textBox, showComputed }) => html`
+    <style>
+      .typography-grid {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        grid-auto-rows: max-content;
+        gap: 1rem;
+        align-items: center;
+      }
+      .typography-grid > div {
+        align-items: start;
+        display: grid;
+        grid-row: span ${styleNames.length * 3 + 1};
+        grid-template-rows: subgrid;
+      }
+      sl-badge {
+        align-self: flex-start;
+      }
+
+      .typography > div {
+        border: 1px solid var(--sl-color-border-accent-grey-plain);
+        padding: 4px;
+        position: relative;
+      }
+
+      .fallback:before {
+        content: '';
+        display: block;
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 4px;
+        background-color: var(--sl-color-background-accent-blue-bold);
+      }
+      .typography-grid:where(.untrimmed, .trim-both-cap, .trim-both-ex)
+        > .typography
+        > div
+        > *:not(sl-badge) {
+        background-color: var(--sl-color-background-accent-blue-subtle);
+      }
+      .typography-grid.trim-both-cap > .typography > div > * {
+        text-box-trim: trim-both;
+        text-box-edge: cap alphabetic;
+      }
+      .typography-grid.trim-both-ex > .typography > div > * {
+        text-box-trim: trim-both;
+        text-box-edge: ex alphabetic;
+      }
+      .typography-grid:not(.show-computed) .typography > div > sl-badge {
+        display: none;
+      }
+      .cell-specs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    </style>
+    <div
+      ${ref(e => parseCells(e))}
+      class="typography-grid ${ifDefined(textBox !== 'none' ? textBox : '')} ${ifDefined(
+        showComputed ? 'show-computed' : ''
+      )}">
+      <div class="typography">
+        <span>Typography</span>
+        <div><h1 class="display lg">Display LG</h1></div>
+        <div><h1 class="display md">Display MD</h1></div>
+        <div class=${variant !== 'advanced' ? 'fallback' : ''}>
+          <h1 class="display sm">Display SM</h1>
+        </div>
+
+        <div><h2 class="heading lg">Heading LG</h2></div>
+        <div><h2 class="heading md">Heading MD</h2></div>
+        <div class=${variant === 'early' ? 'fallback' : ''}>
+          <h2 class="heading sm">Heading SM</h2>
+        </div>
+
+        <div><h2 class="title lg">Title LG</h2></div>
+        <div class=${variant !== 'advanced' ? 'fallback' : ''}>
+          <h2 class="title md">Title MD</h2>
+        </div>
+        <div class=${variant === 'early' ? 'fallback' : ''}><h2 class="title sm">Title SM</h2></div>
+
+        <div><p class="text lg">Text LG</p></div>
+        <div><p class="text md">Text MD</p></div>
+        <div><p class="text sm">Text SM</p></div>
+
+        <div><p class="label lg">Label LG</p></div>
+        <div><p class="label md">Label MD</p></div>
+        <div>${variant !== 'early' ? html`<p class="label sm">Label SM</p>` : nothing}</div>
+
+        <div><p class="caption lg">Caption LG</p></div>
+        <div>${variant === 'advanced' ? html`<p class="caption md">Caption MD</p>` : nothing}</div>
+      </div>
+      <div class="specs">
+        <span>Specs</span>
+      </div>
+    </div>
+  `
+};

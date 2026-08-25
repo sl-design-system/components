@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/paginator.js';\nexport * from './src/page-size.js';\nexport * from './src/status.js';\n"],
+  "mappings": "AAAA,cAAc;AACd,cAAc;AACd,cAAc;",
+  "names": []
+}

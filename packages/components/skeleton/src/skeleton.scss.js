@@ -1,0 +1,87 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    background: linear-gradient(
+      to right,
+      var(--sl-color-skeleton-plain) 4%,
+      var(--sl-color-skeleton-subtle) 25%,
+      var(--sl-color-skeleton-plain) 36%
+    );
+    background-size: 2000px 100%;
+    border-radius: var(--sl-size-borderRadius-default);
+    display: block;
+    min-block-size: var(--sl-size-100);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :host {
+      animation: shimmer-effect 3s linear infinite;
+    }
+  }
+
+  :host([variant='circle']) {
+    border-radius: 50%;
+  }
+
+  :host([effect='sheen']) {
+    background-image: linear-gradient(
+      100deg,
+      var(--sl-color-skeleton-subtle),
+      var(--sl-color-skeleton-plain),
+      var(--sl-color-skeleton-plain),
+      var(--sl-color-skeleton-subtle)
+    );
+    background-size: 200% 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :host([effect='sheen']) {
+      animation: sheen-effect 3s linear infinite;
+    }
+  }
+
+  :host([effect='pulse']) {
+    background: var(--sl-color-skeleton-plain);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :host([effect='pulse']) {
+      animation: pulse-effect 3s ease-in-out 0.5s infinite;
+    }
+  }
+
+  @keyframes shimmer-effect {
+    0% {
+      background-position: -2000px 0;
+    }
+
+    100% {
+      background-position: 2000px 0;
+    }
+  }
+
+  @keyframes sheen-effect {
+    0% {
+      background-position: 300% 0;
+    }
+
+    100% {
+      background-position: -300% 0;
+    }
+  }
+
+  @keyframes pulse-effect {
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.4;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+//# sourceMappingURL=skeleton.scss.js.map

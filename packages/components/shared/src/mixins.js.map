@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["mixins.ts"],
+  "sourcesContent": ["export { type Locale, LocaleMixin } from './mixins/locale-mixin.js';\nexport {\n  type ObserveAttributesMixinInterface,\n  ObserveAttributesMixin\n} from './mixins/observe-attributes-mixin.js';\nexport { type ForwardAriaMixinInterface, ForwardAriaMixin } from './mixins/forward-aria-mixin.js';\n"],
+  "mappings": "AAAA,SAAsB,mBAAmB;AACzC;AAAA,EAEE;AAAA,OACK;AACP,SAAyC,wBAAwB;",
+  "names": []
+}

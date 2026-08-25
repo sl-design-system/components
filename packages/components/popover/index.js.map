@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/popover.js';\n"],
+  "mappings": "AAAA,cAAc;",
+  "names": []
+}

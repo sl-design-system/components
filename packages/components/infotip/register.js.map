@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Infotip } from './src/infotip.js';\n\ncustomElements.define('sl-infotip', Infotip);\n"],
+  "mappings": "AAAA,SAAS,eAAe;AAExB,eAAe,OAAO,cAAc,OAAO;",
+  "names": []
+}

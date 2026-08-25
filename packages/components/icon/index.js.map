@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["index.ts"],
+  "sourcesContent": ["export * from './src/icon.js';\nexport * from './src/models.js';\n"],
+  "mappings": "AAAA,cAAc;AACd,cAAc;",
+  "names": []
+}

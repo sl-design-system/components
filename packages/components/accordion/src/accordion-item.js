@@ -1,0 +1,192 @@
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __typeError = msg => {
+  throw TypeError(msg);
+};
+var __decorateClass = (decorators, target, key, kind) => {
+  var result = kind > 1 ? void 0 : kind ? __getOwnPropDesc(target, key) : target;
+  for (var i = decorators.length - 1, decorator; i >= 0; i--)
+    if ((decorator = decorators[i]))
+      result = (kind ? decorator(target, key, result) : decorator(result)) || result;
+  if (kind && result) __defProp(target, key, result);
+  return result;
+};
+var __accessCheck = (obj, member, msg) => member.has(obj) || __typeError('Cannot ' + msg);
+var __privateAdd = (obj, member, value) =>
+  member.has(obj)
+    ? __typeError('Cannot add the same private member more than once')
+    : member instanceof WeakSet
+      ? member.add(obj)
+      : member.set(obj, value);
+var __privateMethod = (obj, member, method) => (
+  __accessCheck(obj, member, 'access private method'),
+  method
+);
+var _AccordionItem_instances, onClick_fn, onToggle_fn, animateState_fn;
+import { localized } from '@lit/localize';
+import { event } from '@sl-design-system/shared';
+import { LitElement, html } from 'lit';
+import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import styles from './accordion-item.scss.js';
+export let AccordionItem = class extends LitElement {
+  constructor() {
+    super(...arguments);
+    __privateAdd(this, _AccordionItem_instances);
+  }
+  firstUpdated(changes) {
+    super.firstUpdated(changes);
+    if (this.open) {
+      this.renderRoot.querySelector('details')?.setAttribute('open', '');
+    }
+  }
+  updated(changes) {
+    super.updated(changes);
+    if (changes.has('open')) {
+      __privateMethod(this, _AccordionItem_instances, animateState_fn).call(
+        this,
+        this.open ? 'opening' : 'closing'
+      );
+    }
+  }
+  render() {
+    return html`
+      <details
+        @toggle=${__privateMethod(this, _AccordionItem_instances, onToggle_fn)}
+        part="details">
+        <summary
+          @click=${__privateMethod(this, _AccordionItem_instances, onClick_fn)}
+          aria-controls="content"
+          aria-disabled=${ifDefined(this.disabled ? 'true' : void 0)}
+          aria-expanded=${this.open ? 'true' : 'false'}
+          id="summary"
+          part="summary"
+          tabindex=${this.disabled ? -1 : 0}>
+          ${
+            this.iconType === 'chevron'
+              ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
+              : html`
+                  <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <g class="horizontal-line">
+                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                    </g>
+                    <g class="vertical-line">
+                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                    </g>
+                  </svg>
+                `
+          }
+          <slot name="summary">${this.summary}</slot>
+          <slot name="summary-extras"></slot>
+        </summary>
+        <div class="wrapper">
+          <div class="body">
+            <div aria-labelledby="summary" id="content" part="panel" role="region">
+              <slot></slot>
+            </div>
+          </div>
+        </div>
+      </details>
+    `;
+  }
+  /**
+   * This is a workaround for `delegatesFocus` not allowing you to select any text in the content of
+   * the accordion item. See https://issues.chromium.org/issues/40622041
+   */
+  focus(options) {
+    this.renderRoot.querySelector('summary')?.focus(options);
+  }
+  /**
+   * Toggles the component state between open or closed. If the `force` parameter is provided, the
+   * state will be set to the value of the parameter.
+   *
+   * @param force - The state to forcibly set the component to
+   */
+  toggle(force) {
+    if (typeof force === 'boolean' && force === this.open) {
+      return;
+    }
+    this.open = force ?? !this.open;
+  }
+};
+_AccordionItem_instances = new WeakSet();
+onClick_fn = function (event2) {
+  event2.preventDefault();
+  if (this.disabled) {
+    event2.stopPropagation();
+    return;
+  }
+  this.open = !this.open;
+};
+onToggle_fn = function (event2) {
+  this.open = event2.newState === 'open';
+  this.toggleEvent.emit(this.open);
+};
+/**
+ * Animate the details opening or closing. This process is done in steps.
+ *
+ * Opening:
+ *
+ * 1. Add the `open` attribute to the details element, so the wrapper is visible
+ * 2. Add an `animationend` listener that will remove the `opening` class
+ * 3. Add the `opening` class to the details in the next frame (for browser compatibility)
+ *
+ * Closing:
+ *
+ * 1. Add an `animationend` listener that will remove the `closing` class and `open` attribute
+ * 2. Add the `closing` class to the details in the next frame (for browser compatibility)
+ *
+ * The specific order of adding/removing the `open` attribute is necessary for the animation to
+ * work. This will also trigger the `toggle` event, which in turn will trigger our own `sl-toggle`
+ * event.
+ *
+ * @param state - The state which we should animate to
+ */
+animateState_fn = function (state) {
+  const details = this.renderRoot.querySelector('details'),
+    wrapper = this.renderRoot.querySelector('.wrapper');
+  if (
+    (details.hasAttribute('open') && state === 'opening') ||
+    (!details.hasAttribute('open') && state === 'closing')
+  ) {
+    return;
+  }
+  Object.assign(wrapper.style, {
+    animationDuration: 'var(--_transition-duration)',
+    transitionDuration: 'var(--_transition-duration)'
+  });
+  if (state === 'opening') {
+    details?.setAttribute('open', '');
+  }
+  const onAnimationEnd = event2 => {
+    if (event2.target !== wrapper || event2.animationName !== 'content-expand') {
+      return;
+    }
+    details.removeEventListener('animationend', onAnimationEnd);
+    details.classList.remove(state);
+    if (state === 'closing') {
+      details.removeAttribute('open');
+    }
+  };
+  details.addEventListener('animationend', onAnimationEnd);
+  requestAnimationFrame(() => details.classList.add(state));
+};
+/** @internal */
+AccordionItem.styles = styles;
+__decorateClass(
+  [property({ type: Boolean, reflect: true })],
+  AccordionItem.prototype,
+  'disabled',
+  2
+);
+__decorateClass(
+  [property({ attribute: 'icon-type', reflect: true })],
+  AccordionItem.prototype,
+  'iconType',
+  2
+);
+__decorateClass([property({ type: Boolean, reflect: true })], AccordionItem.prototype, 'open', 2);
+__decorateClass([property()], AccordionItem.prototype, 'summary', 2);
+__decorateClass([event({ name: 'sl-toggle' })], AccordionItem.prototype, 'toggleEvent', 2);
+AccordionItem = __decorateClass([localized()], AccordionItem);
+//# sourceMappingURL=accordion-item.js.map

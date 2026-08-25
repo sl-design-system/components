@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["composite-form.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: flex;\n    flex-direction: column;\n    gap: 1rem;\n  }\n\n  sl-form {\n    display: grid;\n    gap: 1rem;\n    grid-template-columns: 1fr 1fr;\n  }\n\n  sl-form > * {\n    grid-column: span 2;\n  }\n\n  sl-form-field[name=\"firstName\"],\n  sl-form-field[name=\"lastName\"] {\n    grid-column: span 1;\n  }\n\n  sl-number-field[name=\"otherAge\"] {\n    margin-inline-start: 2rem;\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["tab-panel.spec.ts"],
+  "sourcesContent": ["import { fixture } from '@sl-design-system/vitest-browser-lit';\nimport { html } from 'lit';\nimport { beforeEach, describe, expect, it } from 'vitest';\nimport '../register.js';\nimport { TabPanel } from './tab-panel.js';\n\ndescribe('sl-tab-panel', () => {\n  let el: TabPanel;\n\n  beforeEach(async () => {\n    el = await fixture(html`<sl-tab-panel></sl-tab-panel>`);\n  });\n\n  it('should have a tabpanel role', () => {\n    expect(el).to.have.attribute('role', 'tabpanel');\n  });\n});\n"],
+  "mappings": "AAAA,SAAS,eAAe;AACxB,SAAS,YAAY;AACrB,SAAS,YAAY,UAAU,QAAQ,UAAU;AACjD,OAAO;AAGP,SAAS,gBAAgB,MAAM;AAC7B,MAAI;AAEJ,aAAW,YAAY;AACrB,SAAK,MAAM,QAAQ,mCAAmC;AAAA,EACxD,CAAC;AAED,KAAG,+BAA+B,MAAM;AACtC,WAAO,EAAE,EAAE,GAAG,KAAK,UAAU,QAAQ,UAAU;AAAA,EACjD,CAAC;AACH,CAAC;",
+  "names": []
+}

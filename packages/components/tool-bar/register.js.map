@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { ToolBarDivider } from './src/tool-bar-divider.js';\nimport { ToolBar } from './src/tool-bar.js';\n\ncustomElements.define('sl-tool-bar', ToolBar);\ncustomElements.define('sl-tool-bar-divider', ToolBarDivider);\n"],
+  "mappings": "AAAA,SAAS,sBAAsB;AAC/B,SAAS,eAAe;AAExB,eAAe,OAAO,eAAe,OAAO;AAC5C,eAAe,OAAO,uBAAuB,cAAc;",
+  "names": []
+}

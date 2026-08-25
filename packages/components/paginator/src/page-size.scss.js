@@ -1,0 +1,21 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    align-items: center;
+    color: var(--sl-color-foreground-plain);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sl-size-100);
+    text-wrap: nowrap;
+  }
+
+  sl-select {
+    min-inline-size: var(--sl-size-1000);
+  }
+
+  sl-label label {
+    font: inherit;
+    font-weight: var(--sl-text-typeset-fontWeight-regular);
+  }
+`;
+//# sourceMappingURL=page-size.scss.js.map

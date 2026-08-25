@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { Skeleton } from './src/skeleton.js';\n\ncustomElements.define('sl-skeleton', Skeleton);\n"],
+  "mappings": "AAAA,SAAS,gBAAgB;AAEzB,eAAe,OAAO,eAAe,QAAQ;",
+  "names": []
+}

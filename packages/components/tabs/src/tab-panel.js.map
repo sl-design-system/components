@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["tab-panel.ts"],
+  "sourcesContent": ["import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';\nimport styles from './tab-panel.scss.js';\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sl-tab-panel': TabPanel;\n  }\n}\n\n/**\n * A tab panel component, to be used with the tab group component for your tab content.\n *\n * ```html\n * <sl-tab-panel>Content of the tab</sl-tab-panel>\n * ```\n *\n * @slot default - A place for the tab panel content.\n */\nexport class TabPanel extends LitElement {\n  /** @internal */\n  static override styles: CSSResultGroup = styles;\n\n  override connectedCallback(): void {\n    super.connectedCallback();\n\n    this.setAttribute('role', 'tabpanel');\n  }\n\n  override render(): TemplateResult {\n    return html`<slot></slot>`;\n  }\n}\n"],
+  "mappings": "AAAA,SAA8B,YAAiC,YAAY;AAC3E,OAAO,YAAY;AAiBZ,aAAM,iBAAiB,WAAW;AAAA,EAEvC;AAAA;AAAA,SAAgB,SAAyB;AAAA;AAAA,EAEhC,oBAA0B;AACjC,UAAM,kBAAkB;AAExB,SAAK,aAAa,QAAQ,UAAU;AAAA,EACtC;AAAA,EAES,SAAyB;AAChC,WAAO;AAAA,EACT;AACF;",
+  "names": []
+}

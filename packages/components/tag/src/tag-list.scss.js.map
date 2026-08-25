@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["tag-list.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: flex;\n    gap: var(--sl-size-050);\n  }\n\n  :host([stacked]:not([data-visibility-resolved])) {\n    visibility: hidden;\n  }\n\n  :host([stacked]) {\n    flex-wrap: nowrap;\n  }\n\n  :host([stacked]) .list {\n    align-content: flex-end;\n    flex-wrap: nowrap;\n  }\n\n  ::slotted(*) {\n    flex-shrink: 0;\n  }\n\n  sl-tag.stack {\n    flex-shrink: 0;\n  }\n\n  sl-tag::part(tooltip) {\n    max-inline-size: calc(5 * var(--sl-size-800));\n  }\n\n  .list {\n    display: flex;\n    flex-wrap: wrap;\n    gap: var(--sl-size-050);\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

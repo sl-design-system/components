@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["register.ts"],
+  "sourcesContent": ["import { TagList } from './src/tag-list.js';\nimport { Tag } from './src/tag.js';\n\ncustomElements.define('sl-tag-list', TagList);\ncustomElements.define('sl-tag', Tag);\n"],
+  "mappings": "AAAA,SAAS,eAAe;AACxB,SAAS,WAAW;AAEpB,eAAe,OAAO,eAAe,OAAO;AAC5C,eAAe,OAAO,UAAU,GAAG;",
+  "names": []
+}

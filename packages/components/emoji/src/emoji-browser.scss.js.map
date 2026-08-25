@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["emoji-browser.scss.ts"],
+  "sourcesContent": ["import { css } from 'lit';\n\nexport default css`\n  :host {\n    display: flex;\n    flex-direction: column;\n  }\n\n  sl-tab-group::part(wrapper) {\n    padding-inline: 1rem;\n  }\n\n  [part=\"wrapper\"] {\n    overflow: auto;\n    padding: 1rem;\n  }\n\n  sl-search-field + .emojis {\n    margin-block-start: 1rem;\n  }\n\n  .heading {\n    font: var(--sl-text-new-heading-md);\n    margin-block: 1rem 0.25rem;\n  }\n\n  .heading::first-letter {\n    text-transform: uppercase;\n  }\n\n  .emojis {\n    display: grid;\n    gap: 2px;\n    grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));\n    list-style: none;\n    margin: 0;\n    padding: 0;\n  }\n\n  .emoji {\n    display: inline-flex;\n  }\n\n  sl-button {\n    --_font: var(--sl-text-typeset-font-size-2xl) / var(--sl-text-typeset-font-size-2xl)\n      var(--sl-text-typeset-font-family-body);\n    --_padding-block: 0;\n    --_padding-inline: 0;\n\n    aspect-ratio: 1/1;\n    box-sizing: border-box;\n    inline-size: 32px;\n  }`;\n"],
+  "mappings": "AAAA,SAAS,WAAW;AAEpB,eAAe;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}

@@ -1,0 +1,132 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    --_indeterminate-duration: 20s;
+    --_fill-color: var(--sl-color-foreground-selected-plain);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :host {
+      --_indeterminate-duration: 1.2s;
+    }
+  }
+
+  :host {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sl-space-050);
+  }
+
+  :host([variant='success']) {
+    --_fill-color: var(--sl-color-foreground-positive-plain);
+  }
+
+  :host([variant='warning']) {
+    --_fill-color: var(--sl-color-foreground-caution-plain);
+  }
+
+  :host([variant='error']) {
+    --_fill-color: var(--sl-color-foreground-negative-plain);
+  }
+
+  :host([color='blue']:not([variant])) {
+    --_fill-color: var(--sl-color-foreground-accent-blue-plain);
+  }
+
+  :host([color='green']:not([variant])) {
+    --_fill-color: var(--sl-color-foreground-accent-green-plain);
+  }
+
+  :host([color='orange']:not([variant])) {
+    --_fill-color: var(--sl-color-foreground-accent-orange-plain);
+  }
+
+  :host([color='purple']:not([variant])) {
+    --_fill-color: var(--sl-color-foreground-accent-purple-plain);
+  }
+
+  :host([color='red']:not([variant])) {
+    --_fill-color: var(--sl-color-foreground-accent-red-plain);
+  }
+
+  :host([color='teal']:not([variant])) {
+    --_fill-color: var(--sl-color-foreground-accent-teal-plain);
+  }
+
+  :host([color='yellow']:not([variant])) {
+    --_fill-color: var(--sl-color-foreground-accent-yellow-plain);
+  }
+
+  :host([indeterminate]) .progress {
+    animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
+    position: relative;
+  }
+
+  :host(:not([indeterminate])) .progress {
+    inline-size: 100%;
+  }
+
+  .label {
+    color: var(--sl-color-foreground-bold);
+    display: flex;
+    font: var(--sl-text-new-heading-sm);
+    gap: var(--sl-space-100);
+    justify-content: space-between;
+  }
+
+  sl-icon {
+    --sl-icon-fill-default: var(--_fill-color);
+  }
+
+  .helper {
+    color: var(--sl-color-foreground-subtlest);
+    display: flex;
+    gap: var(--sl-space-100);
+    justify-content: space-between;
+  }
+
+  slot[name='error'] {
+    color: var(--sl-color-foreground-negative-plain);
+  }
+
+  .container {
+    align-items: stretch;
+    background: var(--sl-color-border-plain);
+    block-size: var(--sl-size-050);
+    border-radius: var(--sl-size-borderRadius-full);
+    display: flex;
+    inline-size: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress {
+    background: var(--_fill-color);
+    border-radius: var(--sl-size-borderRadius-full);
+    transform-origin: left;
+    transition:
+      400ms transform,
+      400ms width,
+      400ms background-color;
+  }
+
+  /** Hiding the aria-live element for the UI, but not for the screen readers. */
+  #live {
+    block-size: 0;
+    inline-size: 0;
+    overflow: hidden;
+  }
+
+  @keyframes indeterminate {
+    0% {
+      inline-size: 80%;
+      inset-inline-start: -80%;
+    }
+
+    100% {
+      inline-size: 10%;
+      inset-inline-start: 110%;
+    }
+  }
+`;
+//# sourceMappingURL=progress-bar.scss.js.map

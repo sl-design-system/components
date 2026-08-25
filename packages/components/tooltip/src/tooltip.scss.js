@@ -1,0 +1,44 @@
+import { css } from 'lit';
+export default css`
+  :host {
+    background: var(--sl-elevation-surface-raised-inverted);
+    border: 0;
+    border-radius: var(--sl-size-borderRadius-default);
+    box-sizing: border-box;
+    color: var(--sl-color-foreground-inverted-plain);
+    font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+    margin: var(--sl-size-100);
+    opacity: 0;
+    padding: var(--sl-size-100) var(--sl-size-150);
+    position-area: top;
+    position-try-fallbacks: flip-block;
+    text-align: center;
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :host {
+      transition-behavior: allow-discrete;
+      transition-duration: 150ms;
+      transition-property: display, opacity;
+      transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    }
+  }
+
+  :host(:popover-open) {
+    opacity: 1;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  @starting-style {
+    :host(:popover-open) {
+      display: block;
+      opacity: 0;
+    }
+  }
+
+  [part='hover-bridge'] {
+    position: fixed;
+  }
+`;
+//# sourceMappingURL=tooltip.scss.js.map

@@ -173,9 +173,34 @@ export class Popover extends LitElement {
     this.style.positionAnchor = this.#anchorName;
   }
 
+  /**
+   * Takes this popover's name back off its anchor, keeping any other name it has. Without this the
+   * name would stay behind on every element the popover was ever opened from, and since the browser
+   * resolves a duplicate `anchor-name` to the last one in tree order, reopening the popover from an
+   * earlier element would leave it anchored to the previous one.
+   */
+  #unlinkAnchor(): void {
+    if (!this.#anchorElement) {
+      return;
+    }
+
+    const names = this.#anchorElement.style.anchorName
+      .split(',')
+      .map(name => name.trim())
+      .filter(name => name && name !== this.#anchorName);
+
+    if (names.length) {
+      this.#anchorElement.style.anchorName = names.join(', ');
+    } else {
+      this.#anchorElement.style.removeProperty('anchor-name');
+    }
+  }
+
   #cleanup(): void {
     this.#openController?.abort();
     this.#openController = undefined;
+
+    this.#unlinkAnchor();
     this.#anchorElement = undefined;
 
     this.#setPlacement(undefined);

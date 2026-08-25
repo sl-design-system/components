@@ -1,11 +1,10 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { type PopoverPosition } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Popover } from './popover.js';
+import { Popover, type PopoverPlacement } from './popover.js';
 import './register.js';
 
 describe('sl-popover', () => {
@@ -29,7 +28,7 @@ describe('sl-popover', () => {
       el = await fixture(html`
         <div>
           <sl-button id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-          <sl-popover anchor="anchor">
+          <sl-popover>
             <header>Please confirm</header>
             <section>Are you sure you want to continue?</section>
             <footer>
@@ -68,7 +67,7 @@ describe('sl-popover', () => {
       el = await fixture(html`
         <div>
           <sl-button id="anchor2" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-          <sl-popover anchor="anchor2"> Popover content </sl-popover>
+          <sl-popover> Popover content </sl-popover>
         </div>
       `);
 
@@ -102,7 +101,7 @@ describe('sl-popover', () => {
           <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${hideOnClick}
             >Toggle popover</sl-button
           >
-          <sl-popover id="popover-2" anchor="anchor2"> Popover content </sl-popover>
+          <sl-popover id="popover-2"> Popover content </sl-popover>
         </div>
       `);
 
@@ -125,86 +124,98 @@ describe('sl-popover', () => {
     // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
     const afterToggle = () => new Promise(resolve => setTimeout(resolve));
 
+    /** The `anchor-name` the popover gives its anchor; unique to the popover. */
+    let anchorName: string;
+
     beforeEach(async () => {
       el = await fixture(html`
         <div>
           <sl-button id="anchor4" variant="primary">Toggle popover</sl-button>
-          <sl-popover anchor="anchor4" position="top-start">Popover content</sl-popover>
+          <sl-popover>Popover content</sl-popover>
         </div>
       `);
 
       button = el.querySelector('sl-button') as Button;
       popover = el.querySelector('sl-popover') as Popover;
+      anchorName = `--popover-anchor-${popover.id}`;
     });
 
-    it('should resolve the anchor attribute to an element', () => {
-      expect(popover.anchorElement).to.equal(button);
-    });
-
-    it('should reflect the position so it can be styled', () => {
-      expect(popover).to.have.attribute('position', 'top-start');
-    });
-
-    it('should default to the bottom position', async () => {
-      const other = await fixture<Popover>(html`<sl-popover>Popover content</sl-popover>`);
-
-      expect(other).to.have.attribute('position', 'bottom');
-    });
-
-    it('should link the anchor to the popover using CSS anchor positioning', () => {
-      expect(button.style.anchorName).to.equal(`--${popover.id}`);
-      expect(popover.style.positionAnchor).to.equal(`--${popover.id}`);
-    });
-
-    it('should mark the popover as anchored', () => {
-      expect(popover).to.have.attribute('anchored');
-    });
-
-    it('should not mark a popover without an anchor as anchored', async () => {
-      const other = await fixture<Popover>(html`<sl-popover>Popover content</sl-popover>`);
-
-      expect(other).not.to.have.attribute('anchored');
-    });
-
-    it('should reuse an anchor name that was set in CSS', async () => {
-      const wrapper = await fixture(html`
-        <div>
-          <sl-button id="anchor5" style="anchor-name: --custom">Toggle popover</sl-button>
-          <sl-popover anchor="anchor5">Popover content</sl-popover>
-        </div>
-      `);
-      const other = wrapper.querySelector('sl-popover') as Popover;
-
-      expect(other.style.positionAnchor).to.equal('--custom');
-    });
-
-    it('should mark the anchor as expanded while the popover is open', async () => {
+    it('should not anchor the popover when it is opened without an invoker', async () => {
       popover.showPopover();
       await afterToggle();
 
-      expect(button).to.have.attribute('popover-opened');
+      expect(popover.style.positionAnchor).to.equal('');
+      expect(popover.placement).to.be.undefined;
+    });
+
+    it('should anchor the popover to the element that invoked it', async () => {
+      popover.showPopover({ source: button });
+      await afterToggle();
+
+      expect(button.style.anchorName).to.equal(anchorName);
+      expect(popover.style.positionAnchor).to.equal(anchorName);
+    });
+
+    it('should keep an anchor name that was already set', async () => {
+      button.style.anchorName = '--custom';
+
+      popover.showPopover({ source: button });
+      await afterToggle();
+
+      expect(button.style.anchorName).to.equal(`--custom, ${anchorName}`);
+      expect(popover.style.positionAnchor).to.equal(anchorName);
+    });
+
+    it('should not add its anchor name to the same anchor twice', async () => {
+      popover.showPopover({ source: button });
+      await afterToggle();
 
       popover.hidePopover();
       await afterToggle();
 
-      expect(button).not.to.have.attribute('popover-opened');
+      popover.showPopover({ source: button });
+      await afterToggle();
+
+      expect(button.style.anchorName).to.equal(anchorName);
+    });
+
+    it('should stop anchoring the popover when it closes', async () => {
+      popover.showPopover({ source: button });
+      await afterToggle();
+
+      popover.hidePopover();
+      await afterToggle();
+
+      expect(popover.style.positionAnchor).to.equal('');
+      expect(popover.placement).to.be.undefined;
     });
 
     it('should set the placement the popover ended up on', async () => {
-      popover.showPopover();
+      popover.showPopover({ source: button });
       await afterToggle();
 
-      // The fixture sits at the top of the page, so a top position has to flip to the bottom.
+      // The fixture sits at the top of the page, so there is room below the anchor.
       const anchorRect = button.getBoundingClientRect(),
         popoverRect = popover.getBoundingClientRect();
 
       expect(popoverRect.top).to.be.at.least(anchorRect.bottom);
-      expect(popover).to.have.attribute('actual-placement', 'bottom');
+      expect(popover.placement).to.equal('bottom');
+      expect(popover.matches(':state(anchored-bottom)')).to.be.true;
+    });
+
+    it('should only set the custom state of the side it ended up on', async () => {
+      popover.showPopover({ source: button });
+      await afterToggle();
+
+      expect(popover.matches(':state(anchored-bottom)')).to.be.true;
+      expect(popover.matches(':state(anchored-top)')).to.be.false;
+      expect(popover.matches(':state(anchored-left)')).to.be.false;
+      expect(popover.matches(':state(anchored-right)')).to.be.false;
     });
 
     describe('the arrow', () => {
-      /** The distance between the anchor and the given rect, on the side the popover ended up on. */
-      const distance = (anchor: DOMRect, rect: DOMRect, placement: string): number => {
+      /** The gap between the anchor and the given rect, on the side the popover ended up on. */
+      const gap = (anchor: DOMRect, rect: DOMRect, placement: string): number => {
         switch (placement) {
           case 'top':
             return anchor.top - rect.bottom;
@@ -217,76 +228,82 @@ describe('sl-popover', () => {
         }
       };
 
-      (['top', 'right', 'bottom', 'left'] as PopoverPosition[]).forEach(position => {
-        it(`should not sit in the offset when the popover is positioned at the ${position}`, async () => {
-          // The anchor sits in the middle of the viewport, so the popover has room on every side.
-          el = await fixture(html`
-            <div>
-              <button id="anchor7" style="position: fixed; inset: 300px auto auto 400px">
-                Anchor
-              </button>
-              <sl-popover anchor="anchor7" position=${position}>Popover content</sl-popover>
-            </div>
-          `);
+      /** How far the arrow reaches past the edge of the popover facing the anchor. */
+      const overlap = (popoverRect: DOMRect, rect: DOMRect, placement: string): number => {
+        switch (placement) {
+          case 'top':
+            return popoverRect.bottom - rect.top;
+          case 'bottom':
+            return rect.bottom - popoverRect.top;
+          case 'left':
+            return popoverRect.right - rect.left;
+          default:
+            return rect.right - popoverRect.left;
+        }
+      };
 
-          popover = el.querySelector('sl-popover') as Popover;
-          popover.showPopover();
-          await afterToggle();
+      /** The center of the rect on the axis the arrow slides along. */
+      const center = (rect: DOMRect, placement: string): number =>
+        placement === 'top' || placement === 'bottom'
+          ? (rect.left + rect.right) / 2
+          : (rect.top + rect.bottom) / 2;
 
-          const placement = popover.getAttribute('actual-placement')!,
-            anchorRect = (el.querySelector('button') as HTMLElement).getBoundingClientRect(),
-            arrowRect = popover.renderRoot.querySelector('[part="arrow"]')!.getBoundingClientRect(),
-            offset = parseFloat(getComputedStyle(popover).getPropertyValue('--_offset')),
-            arrowSize =
-              placement === 'top' || placement === 'bottom' ? arrowRect.height : arrowRect.width;
+      (['top', 'right', 'bottom', 'left'] as PopoverPlacement[]).forEach(placement => {
+        describe(`anchored at the ${placement}`, () => {
+          let anchor: HTMLElement, anchorRect: DOMRect, arrowRect: DOMRect, popoverRect: DOMRect;
+          let borderWidth: number, offset: number;
 
-          expect(placement).to.equal(position);
+          beforeEach(async () => {
+            // The anchor sits in the middle of the viewport, so the popover has room on every side.
+            el = await fixture(html`
+              <div>
+                <button id="anchor7" style="position: fixed; inset: 300px auto auto 400px">
+                  Anchor
+                </button>
+                <sl-popover>Popover content</sl-popover>
+              </div>
+            `);
 
-          // The arrow sticks out of the popover, so the gap has to fit both the arrow and the offset.
-          expect(distance(anchorRect, popover.getBoundingClientRect(), placement)).to.equal(
-            offset + arrowSize
-          );
-          expect(distance(anchorRect, arrowRect, placement)).to.be.greaterThan(0);
+            anchor = el.querySelector('button') as HTMLElement;
+            popover = el.querySelector('sl-popover') as Popover;
+            popover.style.setProperty('position-area', `${placement} span-all`);
+
+            popover.showPopover({ source: anchor });
+            await afterToggle();
+
+            const style = getComputedStyle(popover);
+
+            borderWidth = parseFloat(style.getPropertyValue('--sl-size-borderWidth-default'));
+            offset = parseFloat(style.getPropertyValue('--_offset'));
+            anchorRect = anchor.getBoundingClientRect();
+            popoverRect = popover.getBoundingClientRect();
+            arrowRect = popover.renderRoot.querySelector('[part="arrow"]')!.getBoundingClientRect();
+          });
+
+          it('should end up on that side', () => {
+            expect(popover.placement).to.equal(placement);
+          });
+
+          it('should leave the offset between the anchor and the popover', () => {
+            expect(gap(anchorRect, popoverRect, placement)).to.equal(offset);
+          });
+
+          it('should overlap the border of the container so the two shapes join up', () => {
+            expect(overlap(popoverRect, arrowRect, placement)).to.equal(borderWidth);
+          });
+
+          it('should be centered on the anchor', () => {
+            expect(center(arrowRect, placement)).to.be.closeTo(center(anchorRect, placement), 0.5);
+          });
         });
-      });
-    });
-
-    describe('with a plain anchor', () => {
-      // sl-button forwards ARIA attributes to the button inside its shadow root, so a plain
-      // element is used here to assert on them directly.
-      let anchor: HTMLElement;
-
-      beforeEach(async () => {
-        el = await fixture(html`
-          <div>
-            <button id="anchor6">Toggle popover</button>
-            <sl-popover anchor="anchor6">Popover content</sl-popover>
-          </div>
-        `);
-
-        anchor = el.querySelector('button') as HTMLElement;
-        popover = el.querySelector('sl-popover') as Popover;
-      });
-
-      it('should link the anchor to the popover for screen readers', () => {
-        expect(anchor).to.have.attribute('aria-details', popover.id);
-      });
-
-      it('should reflect the open state on the anchor', async () => {
-        popover.showPopover();
-        await afterToggle();
-
-        expect(anchor).to.have.attribute('aria-expanded', 'true');
-
-        popover.hidePopover();
-        await afterToggle();
-
-        expect(anchor).to.have.attribute('aria-expanded', 'false');
       });
     });
   });
 
-  describe('Invoker source', () => {
+  describe('invoker source', () => {
+    // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
+    const afterToggle = () => new Promise(resolve => setTimeout(resolve));
+
     let otherButton: Button;
 
     beforeEach(async () => {
@@ -294,7 +311,7 @@ describe('sl-popover', () => {
         <div>
           <sl-button id="anchor3" variant="primary">Anchor</sl-button>
           <sl-button id="other">Other</sl-button>
-          <sl-popover anchor="anchor3">Popover content</sl-popover>
+          <sl-popover>Popover content</sl-popover>
         </div>
       `);
 
@@ -303,31 +320,48 @@ describe('sl-popover', () => {
       popover = el.querySelector('sl-popover') as Popover;
     });
 
-    // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
-    const afterToggle = () => new Promise(resolve => setTimeout(resolve));
-
-    it('should keep the anchor when there is no invoker source', async () => {
-      popover.showPopover();
-      await afterToggle();
-
-      expect(popover.anchorElement).to.equal(button);
-    });
-
     it('should position the popover against the invoker source', async () => {
       popover.showPopover({ source: otherButton });
       await afterToggle();
 
-      expect(popover.anchorElement).to.equal(otherButton);
+      const anchorRect = otherButton.getBoundingClientRect(),
+        popoverRect = popover.getBoundingClientRect();
+
+      expect(otherButton.style.anchorName).to.equal(`--popover-anchor-${popover.id}`);
+      expect(popoverRect.top).to.be.at.least(anchorRect.bottom);
     });
 
-    it('should not change the anchor when the popover is closed', async () => {
+    it('should re-anchor the popover when it is reopened from another source', async () => {
       popover.showPopover({ source: button });
       await afterToggle();
 
       popover.hidePopover();
       await afterToggle();
 
-      expect(popover.anchorElement).to.equal(button);
+      popover.showPopover({ source: otherButton });
+      await afterToggle();
+
+      expect(button.style.anchorName).to.equal('');
+      expect(otherButton.style.anchorName).to.equal(`--popover-anchor-${popover.id}`);
+    });
+
+    it('should re-anchor the popover to a source that comes before the previous one', async () => {
+      popover.showPopover({ source: otherButton });
+      await afterToggle();
+
+      popover.hidePopover();
+      await afterToggle();
+
+      popover.showPopover({ source: button });
+      await afterToggle();
+
+      // A duplicate `anchor-name` resolves to the last one in tree order, so leaving the name on
+      // `otherButton` would keep the popover anchored there instead of moving it to `button`.
+      const anchorRect = button.getBoundingClientRect(),
+        popoverRect = popover.getBoundingClientRect();
+
+      expect(otherButton.style.anchorName).to.equal('');
+      expect(popoverRect.top).to.be.at.least(anchorRect.bottom);
     });
   });
 
@@ -342,7 +376,7 @@ describe('sl-popover', () => {
           <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${hideOnClick}
             >Toggle popover</sl-button
           >
-          <sl-popover id="popover-2" anchor="anchor2"> Popover content </sl-popover>
+          <sl-popover id="popover-2"> Popover content </sl-popover>
         </div>
       `);
 

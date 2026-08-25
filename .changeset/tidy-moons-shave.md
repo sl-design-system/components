@@ -33,10 +33,10 @@ side when there is not enough room.
   readable from JavaScript as the `placement` property.
 - The `Popover.offset`, `Popover.arrowPadding` and `Popover.viewportMargin` statics have been
   removed. The gap between the anchor and the popover is now the `--_offset` custom property
-  (default `12px`); the space the arrow needs is reserved on top of it, on the side facing the
-  anchor, so the arrow no longer sits in that gap. The distance to the viewport is the `margin` of
-  the popover, and there is no arrow padding any more: the arrow is positioned off the center of
-  the anchor and stays pointing at it when the browser pushes the popover back into view.
+  (default `12px`), and the arrow sits in that gap, overlapping the border of the container so the
+  two shapes join up. The distance to the viewport is the `margin` of the popover, and there is no
+  arrow padding any more: the arrow is positioned off the center of the anchor and stays pointing
+  at it when the browser pushes the popover back into view.
 - The `--sl-popover-max-inline-size` custom property has been removed. Set `max-inline-size` on the
   popover directly; it no longer defaults to `80vw`.
 - A `wrapper` part has been added around the container and the arrow, and `container` now wraps

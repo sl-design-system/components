@@ -18,6 +18,13 @@ In practice, validation is shared between Angular and SLDS:
 
 So SLDS does not replace Angular validation; it integrates component validity with Angular form state and provides consistent validation UX.
 
+`touched` and `dirty` still matter with SLDS controls, but they are not the direct trigger for SLDS validation UI.
+
+- Angular marks `touched` on blur (through the Angular `ControlValueAccessor` bridge).
+- SLDS `validate-on-blur` also reacts to the same blur event and runs control validation.
+
+So in `validate-on-blur` mode they usually appear to move together, but they are conceptually separate: Angular state flags are form state, while SLDS controls handle validation rendering and reporting.
+
 By default, SLDS form validation is **not** on blur. Validation feedback is shown after validation is requested (for example via `reportValidity()` / submit). After that, feedback updates as values change.
 
 Use `validate-on-blur` on `<sl-form>` to opt into blur-driven validation behavior:
@@ -519,42 +526,197 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
 ]
 })
 export class AllFormControlsReactiveBlurComponent {
-
-  @ViewChild('form') form!: ElementRef<Form>;
-
-  formGroup = new FormGroup({
-    checkbox: new FormControl(false, Validators.requiredTrue),
-    checkboxGroup: new FormControl([], Validators.required),
-    comboboxSingle: new FormControl('', Validators.required),
-    comboboxMultiple: new FormControl('', Validators.required),
-    dateField: new FormControl('', Validators.required),
-    numberField: new FormControl(null, Validators.required),
-    radioGroup: new FormControl('', Validators.required),
-    select: new FormControl('', Validators.required),
-    switch: new FormControl(false),
-    textArea: new FormControl('', Validators.required),
-    textField: new FormControl('', Validators.required),
-    timeField: new FormControl('', Validators.required)
-  });
-
-  options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.options.set([
-        { label: 'Option 1', value: '1' },
-        { label: 'Option 2', value: '2' },
-        { label: 'Option 3', value: '3' }
-      ]);
-    }, 500);
-  }
-
-  onClick(): void {
-    this.form.nativeElement.reportValidity();
-  }
-
+  // Component logic here
 }
 ```
+
+## Validation Trigger With Report Validity
+
+
+```typescript
+import { ButtonComponent } from '@sl-design-system/angular/button';
+import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
+import { CheckboxComponent, CheckboxGroupComponent } from '@sl-design-system/angular/checkbox';
+import { ComboboxComponent } from '@sl-design-system/angular/combobox';
+import { DateFieldComponent } from '@sl-design-system/angular/date-field';
+import { FormComponent, FormFieldComponent } from '@sl-design-system/angular/form';
+import {
+  CheckboxDirective,
+  CheckboxGroupDirective,
+  ComboboxDirective,
+  NumberFieldDirective,
+  RadioGroupDirective,
+  SelectDirective,
+  SwitchDirective,
+  TextAreaDirective,
+  TextFieldDirective,
+  TimeFieldDirective
+} from '@sl-design-system/angular/forms';
+import { InlineMessageComponent } from '@sl-design-system/angular/inline-message';
+import { OptionComponent } from '@sl-design-system/angular/listbox';
+import { NumberFieldComponent } from '@sl-design-system/angular/number-field';
+import { RadioComponent, RadioGroupComponent } from '@sl-design-system/angular/radio-group';
+import { SelectComponent } from '@sl-design-system/angular/select';
+import { SwitchComponent } from '@sl-design-system/angular/switch';
+import { TextAreaComponent } from '@sl-design-system/angular/text-area';
+import { TextFieldComponent } from '@sl-design-system/angular/text-field';
+import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
+import { Form } from '@sl-design-system/form';
+import { DateFieldDirective } from '../src/forms/date-field.directive';
+
+@Component({
+  selector: 'sla-validation-trigger-scenario',
+  template: `<sl-form #form [formGroup]="formGroup">
+      <sl-form-field label="Required text field">
+        <sl-text-field formControlName="name" required (focusout)="onControlBlur()"></sl-text-field>
+      </sl-form-field>
+
+      <sl-button-bar>
+        <sl-button (click)="showErrors()" variant="primary">Call reportValidity()</sl-button>
+      </sl-button-bar>
+    </sl-form>
+
+    <pre>
+Angular state: touched={{ control.touched }} dirty={{ control.dirty }} valid={{ control.valid }}
+SLDS form state: showValidity={{ formRef?.nativeElement?.showValidity }}
+    </pre>`,
+  imports: [ReactiveFormsModule, ButtonComponent, ButtonBarComponent, FormFieldComponent, TextFieldDirective]
+})
+export class ValidationTriggerScenarioComponent {
+  // Component logic here
+}
+```
+
+## Angular Touched Dirty Gating
+
+
+```typescript
+import { ButtonComponent } from '@sl-design-system/angular/button';
+import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
+import { CheckboxComponent, CheckboxGroupComponent } from '@sl-design-system/angular/checkbox';
+import { ComboboxComponent } from '@sl-design-system/angular/combobox';
+import { DateFieldComponent } from '@sl-design-system/angular/date-field';
+import { FormComponent, FormFieldComponent } from '@sl-design-system/angular/form';
+import {
+  CheckboxDirective,
+  CheckboxGroupDirective,
+  ComboboxDirective,
+  NumberFieldDirective,
+  RadioGroupDirective,
+  SelectDirective,
+  SwitchDirective,
+  TextAreaDirective,
+  TextFieldDirective,
+  TimeFieldDirective
+} from '@sl-design-system/angular/forms';
+import { InlineMessageComponent } from '@sl-design-system/angular/inline-message';
+import { OptionComponent } from '@sl-design-system/angular/listbox';
+import { NumberFieldComponent } from '@sl-design-system/angular/number-field';
+import { RadioComponent, RadioGroupComponent } from '@sl-design-system/angular/radio-group';
+import { SelectComponent } from '@sl-design-system/angular/select';
+import { SwitchComponent } from '@sl-design-system/angular/switch';
+import { TextAreaComponent } from '@sl-design-system/angular/text-area';
+import { TextFieldComponent } from '@sl-design-system/angular/text-field';
+import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
+import { Form } from '@sl-design-system/form';
+import { DateFieldDirective } from '../src/forms/date-field.directive';
+
+@Component({
+  selector: 'sla-angular-state-gating-scenario',
+  template: `<sl-form [formGroup]="formGroup">
+      <sl-form-field label="Email">
+        <sl-text-field formControlName="email" required (focusout)="onControlBlur()"></sl-text-field>
+      </sl-form-field>
+    </sl-form>
+
+    <p>
+      Angular-gated helper:
+      {{
+        control.invalid && (control.touched || control.dirty)
+          ? 'show custom message now (touched/dirty)'
+          : 'hide custom message until touched/dirty'
+      }}
+    </p>
+
+    <pre>
+Angular state: touched={{ control.touched }} dirty={{ control.dirty }} valid={{ control.valid }}
+    </pre>`,
+  imports: [ReactiveFormsModule, FormFieldComponent, TextFieldDirective]
+})
+export class AngularStateGatingScenarioComponent {
+  // Component logic here
+}
+```
+
+## Default Vs Validate On Blur
+
+
+```typescript
+import { ButtonComponent } from '@sl-design-system/angular/button';
+import { ButtonBarComponent } from '@sl-design-system/angular/button-bar';
+import { CheckboxComponent, CheckboxGroupComponent } from '@sl-design-system/angular/checkbox';
+import { ComboboxComponent } from '@sl-design-system/angular/combobox';
+import { DateFieldComponent } from '@sl-design-system/angular/date-field';
+import { FormComponent, FormFieldComponent } from '@sl-design-system/angular/form';
+import {
+  CheckboxDirective,
+  CheckboxGroupDirective,
+  ComboboxDirective,
+  NumberFieldDirective,
+  RadioGroupDirective,
+  SelectDirective,
+  SwitchDirective,
+  TextAreaDirective,
+  TextFieldDirective,
+  TimeFieldDirective
+} from '@sl-design-system/angular/forms';
+import { InlineMessageComponent } from '@sl-design-system/angular/inline-message';
+import { OptionComponent } from '@sl-design-system/angular/listbox';
+import { NumberFieldComponent } from '@sl-design-system/angular/number-field';
+import { RadioComponent, RadioGroupComponent } from '@sl-design-system/angular/radio-group';
+import { SelectComponent } from '@sl-design-system/angular/select';
+import { SwitchComponent } from '@sl-design-system/angular/switch';
+import { TextAreaComponent } from '@sl-design-system/angular/text-area';
+import { TextFieldComponent } from '@sl-design-system/angular/text-field';
+import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
+import { Form } from '@sl-design-system/form';
+import { DateFieldDirective } from '../src/forms/date-field.directive';
+
+@Component({
+  selector: 'sla-default-vs-blur-scenario',
+  template: `<h4>Default behavior</h4>
+    <sl-form [formGroup]="defaultForm">
+      <sl-form-field label="Required field">
+        <sl-text-field formControlName="name" required (focusout)="onControlBlur()"></sl-text-field>
+      </sl-form-field>
+    </sl-form>
+
+    <h4>With validate-on-blur</h4>
+    <sl-form validate-on-blur [formGroup]="blurForm">
+      <sl-form-field label="Required field">
+        <sl-text-field formControlName="name" required (focusout)="onControlBlur()"></sl-text-field>
+      </sl-form-field>
+    </sl-form>
+
+    <pre>
+Default touched={{ defaultControl.touched }} dirty={{ defaultControl.dirty }} valid={{ defaultControl.valid }}
+Blur touched={{ blurControl.touched }} dirty={{ blurControl.dirty }} valid={{ blurControl.valid }}
+    </pre>`,
+  imports: [ReactiveFormsModule, FormComponent, FormFieldComponent, TextFieldDirective]
+})
+export class DefaultVsBlurScenarioComponent {
+  // Component logic here
+}
+```
+
+## Custom Validation Reactive
+
+### Template
+
+```html
+<sla-custom-validation-scenario></sla-custom-validation-scenario>
+```
+
 
 ## All Template
 
@@ -1074,7 +1236,7 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
 @Component({
   selector: 'sla-login-form',
   template: `<sl-form #form [formGroup]="formGroup">
-    @if (showValidity && formGroup.errors?.invalidCredentials) {
+    @if (showValidity && formGroup.errors?.['invalidCredentials']) {
       <sl-inline-message variant="danger"
         >Please enter admin/admin to gain access.</sl-inline-message
       >
@@ -1086,7 +1248,7 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
         placeholder="Enter your username or email address here"
         required
         [customValidity]="
-          showValidity && formGroup.controls.username.errors?.invalidUsername
+          showValidity && formGroup.controls.username.errors?.['invalidUsername']
             ? 'Invalid username, enter admin.'
             : ''
         "></sl-text-field>
@@ -1106,7 +1268,6 @@ import { DateFieldDirective } from '../src/forms/date-field.directive';
     </sl-button-bar>
   </sl-form>`,
   imports: [
-    JsonPipe,
     ReactiveFormsModule,
     ButtonComponent,
     ButtonBarComponent,

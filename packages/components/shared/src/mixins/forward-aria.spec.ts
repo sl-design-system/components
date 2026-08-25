@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { ForwardAriaMixin } from './forward-aria-mixin.js';
+import { ForwardAriaMixin } from './forward-aria.js';
 
 class TestElement extends ForwardAriaMixin(LitElement, [
   'aria-activedescendant',

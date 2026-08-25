@@ -6,12 +6,14 @@ import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Infotip } from '@sl-design-system/infotip';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import { getSlottedText } from '@sl-design-system/shared/slot.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
@@ -38,6 +40,10 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *
  * @customelement sl-switch
  *
+ * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
+ * @slot description - Additional information about the switch, displayed below the label.
+ * @slot infotip - The slot for the infotip element
+ *
  * @csspart container - The wrapper around all the other elements; it defines the layout.
  * @csspart description - The wrapper around the description, below the label.
  * @csspart label - The wrapper around the label text.
@@ -46,18 +52,13 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  * @csspart track - The track the handle moves in.
  * @csspart handle - The handle that moves from one side of the track to the other.
  *
- * @cssstate checked - Set when the switch is on.
  * @cssstate has-description - Set when there is text in the description slot.
  * @cssstate has-infotip - Set when there is an infotip in the infotip slot.
  * @cssstate no-label - Set when there is no text in the default slot.
- *
- * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
- * @slot description - Additional information about the switch, displayed below the label.
- * @slot infotip - The slot for the infotip element
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Switch<T = any> extends ForwardAriaMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement))
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement)))
 ) {
   /** @internal */
   static formAssociated = true;
@@ -85,9 +86,6 @@ export class Switch<T = any> extends ForwardAriaMixin(
   /** The initial state of the switch. */
   #initialState = false;
 
-  /** @internal Element internals. */
-  readonly internals = this.attachInternals();
-
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -102,7 +100,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
    *
    * @default false
    */
-  @property({ type: Boolean }) checked?: boolean;
+  @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /**
    * Whether the switch is disabled; when set no interaction is possible.
@@ -126,13 +124,13 @@ export class Switch<T = any> extends ForwardAriaMixin(
   @property({ attribute: 'icon-on' }) iconOn?: string;
 
   /** @internal Whether there is content in the description slot. */
-  @state() hasDescription = false;
+  @state() @cssState() hasDescription?: boolean;
 
   /** @internal Whether there is text in the default slot. */
-  @state() hasLabel = false;
+  @state() @cssState('no-label', { invert: true }) hasLabel?: boolean;
 
   /** @internal The infotip instance when one is slotted. */
-  infotip?: Infotip;
+  @state() @cssState('has-infotip') infotip?: Infotip;
 
   /** @internal The input element in the shadow DOM. */
   @query('input') input!: HTMLInputElement;
@@ -203,7 +201,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
     this.setProxyTarget(this.input);
 
-    this.internals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setFormValue(this.nativeFormValue);
     this.updateValidity();
   }
 
@@ -215,55 +213,27 @@ export class Switch<T = any> extends ForwardAriaMixin(
     this.hasDescription = !!this.querySelector('[slot="description"]');
     this.hasLabel = !!this.#labelText();
 
-    if (this.hasLabel) {
-      this.internals.states.delete('no-label');
-    } else {
-      this.internals.states.add('no-label');
-    }
-
-    if (this.hasDescription) {
-      this.internals.states.add('has-description');
-    } else {
-      this.internals.states.delete('has-description');
-    }
-
-    if (this.querySelector('[slot="infotip"]')) {
-      this.internals.states.add('has-infotip');
-    } else {
-      this.internals.states.delete('has-infotip');
-    }
-
-    if (changes.has('checked')) {
-      if (this.checked) {
-        this.internals.states.add('checked');
-      } else {
-        this.internals.states.delete('checked');
-      }
-    }
-
     if (this.hasUpdated && changes.has('disabled')) {
       this.updateValidity();
     }
 
     if (changes.has('checked') || changes.has('value')) {
-      this.internals.setFormValue(this.nativeFormValue);
+      this.elementInternals.setFormValue(this.nativeFormValue);
     }
   }
 
   override render(): TemplateResult {
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
       size = this.size === 'md' ? 'xs' : 'md',
-      hasDescription = this.hasDescription,
-      hasLabel = this.hasLabel,
       // The tooltip only labels the switch when nothing else does; when the switch already has a
       // name - a label, an `aria-label`, an `<sl-label>` - it describes it instead.
-      hasName = hasLabel || this.hasAccessibleName();
+      hasName = this.hasLabel || this.hasAccessibleName();
 
-    const describedBy = [hasDescription && 'description', this.tooltip && hasName && 'tooltip']
+    const describedBy = [this.hasDescription && 'description', this.tooltip && hasName && 'tooltip']
       .filter(Boolean)
       .join(' ');
 
-    const labelledBy = [hasLabel && 'label', this.tooltip && !hasName && 'tooltip']
+    const labelledBy = [this.hasLabel && 'label', this.tooltip && !hasName && 'tooltip']
       .filter(Boolean)
       .join(' ');
 
@@ -377,14 +347,9 @@ export class Switch<T = any> extends ForwardAriaMixin(
   };
 
   #onInfotipSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    // Trigger an update; willUpdate() derives the has-infotip state.
-    this.requestUpdate();
-
-    const assignedElements = event.target.assignedElements({ flatten: true }) || [];
-
-    this.infotip = assignedElements.find(
-      (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
-    );
+    this.infotip = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP');
 
     if (this.infotip && !this.infotip.describes) {
       const labelSlot = this.renderRoot.querySelector('slot:not([name])');

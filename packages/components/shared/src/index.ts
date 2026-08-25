@@ -13,7 +13,6 @@ export * from './decorators/event.js';
 export * from './decorators/observe.js';
 export * from './dom.js';
 export * from './directives/anchor.js';
-export * from './mixins.js';
 export * from './path.js';
 export * from './popover.js';
 export * from './string.js';

@@ -38,6 +38,17 @@ try {
   output = execSync(`git diff --name-only HEAD~1`, { encoding: 'utf-8' });
 }
 
+/**
+ * Pages tested when a change is not tied to a page of its own. They are picked to cover the
+ * templates a page is built from rather than their content: a component page with an example and a
+ * code block, one without, and a plain content page whose code block has no language.
+ */
+const siteWideUrls = [
+  '/categories/components/infotip/code/',
+  '/categories/components/infotip/usage/',
+  '/categories/getting-started/developers/'
+];
+
 const files = output.split('\n').filter(Boolean);
 const mdFiles = files.filter(file => file.startsWith('website/src/') && file.endsWith('.md'));
 
@@ -47,8 +58,17 @@ const urls = mdFiles.map(file => {
   return file.replace(/^website\/src\//, '').replace(/\.md$/, '/');
 });
 
-if (urls.length === 0) {
-  urls.push('/');
+// The Eleventy config, the templates, the styles and the scripts decide how every page is
+// rendered, so a change there belongs to no page in particular. Test the sample above, rather than
+// falling back to the home page: that one is scanned in full, including the header and the nav
+// that every page shares, so it reports violations that have nothing to do with the change.
+const changesEveryPage = files.some(
+  file =>
+    (file.startsWith('website/') || file === 'scripts/get-changed-urls.js') && !file.endsWith('.md')
+);
+
+if (changesEveryPage || urls.length === 0) {
+  urls.push(...siteWideUrls);
 }
 
-writeFileSync('changed-urls.json', JSON.stringify(urls, null, 2));
+writeFileSync('changed-urls.json', JSON.stringify([...new Set(urls)], null, 2));

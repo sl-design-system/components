@@ -10,8 +10,8 @@ import '@sl-design-system/toggle-button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Card, CardOrientation } from './card.js';
+import './register.js';
 
 type Props = Pick<Card, 'orientation'> & {
   media?: boolean;
@@ -143,46 +143,60 @@ const card = (
       ?media-margin=${card.mediaMargin}
       ?subgrid=${card.subgrid}
       ?image-backdrop=${card.imageBackdrop}>
-      ${card.media && card.imageUrl
-        ? html`<img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />`
-        : nothing}
-      ${card.link
-        ? html`<a href="javascript:console.log('link clicked');">${titles[contentId]}</a>`
-        : html`<h2>${titles[contentId]}</h2>`}
-      ${card.subheaderContent
-        ? html`
-            <span slot="header">
-              ${card.subheaderBadge
-                ? html`<sl-badge color="purple" size="lg">${card.subheaderBadge}</sl-badge>`
-                : nothing}
-              ${card.subheaderText}
-            </span>
-          `
-        : nothing}
-      ${card.menuButton
-        ? html`
-            <sl-menu-button slot="menu-button" aria-label="Card actions">
-              <sl-menu-item>
-                <sl-icon name="far-pen"></sl-icon>
-                Rename...
-              </sl-menu-item>
-              <sl-menu-item>
-                <sl-icon name="far-trash"></sl-icon>
-                Delete...
-              </sl-menu-item>
-            </sl-menu-button>
-          `
-        : nothing}
+      ${
+        card.media && card.imageUrl
+          ? html`
+              <img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />
+            `
+          : nothing
+      }
+      ${
+        card.link
+          ? html`<a href="javascript:console.log('link clicked');">${titles[contentId]}</a>`
+          : html`<h2>${titles[contentId]}</h2>`
+      }
+      ${
+        card.subheaderContent
+          ? html`
+              <span slot="header">
+                ${
+                  card.subheaderBadge
+                    ? html`<sl-badge color="purple" size="lg">${card.subheaderBadge}</sl-badge>`
+                    : nothing
+                }
+                ${card.subheaderText}
+              </span>
+            `
+          : nothing
+      }
+      ${
+        card.menuButton
+          ? html`
+              <sl-menu-button slot="menu-button" aria-label="Card actions">
+                <sl-menu-item>
+                  <sl-icon name="far-pen"></sl-icon>
+                  Rename...
+                </sl-menu-item>
+                <sl-menu-item>
+                  <sl-icon name="far-trash"></sl-icon>
+                  Delete...
+                </sl-menu-item>
+              </sl-menu-button>
+            `
+          : nothing
+      }
       ${card.bodyText ? html`<p slot="body">${bodyCopy[contentId]}</p>` : nothing}
-      ${card.actionButton
-        ? html`
-            <sl-button-bar slot="actions"
-              ><sl-button variant="primary" @click=${() => console.log('action button clicked')}>
-                <sl-icon name="far-download"></sl-icon> Download
-              </sl-button>
-            </sl-button-bar>
-          `
-        : nothing}
+      ${
+        card.actionButton
+          ? html`
+              <sl-button-bar slot="actions"
+                ><sl-button variant="primary" @click=${() => console.log('action button clicked')}>
+                  <sl-icon name="far-download"></sl-icon> Download
+                </sl-button>
+              </sl-button-bar>
+            `
+          : nothing
+      }
     </sl-card>
   `;
 };

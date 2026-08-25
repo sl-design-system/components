@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { TimeField } from './time-field.js';
 
 /**
@@ -61,6 +61,18 @@ describe('sl-time-field', () => {
 
     it('should have no value', () => {
       expect(el.value).to.be.undefined;
+    });
+
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
     });
 
     it('should have an hour step of 1', () => {
@@ -317,6 +329,44 @@ describe('sl-time-field', () => {
       el.renderRoot.querySelector<HTMLElement>('dialog li')?.click();
 
       expect(onChange).to.have.been.calledOnce;
+    });
+  });
+
+  describe('has-value state', () => {
+    it('should not have the state when there is no value', async () => {
+      const empty = await fixture<TimeField>(
+        html`<sl-time-field aria-label="Time"></sl-time-field>`
+      );
+
+      expect(empty).not.to.match(':state(has-value)');
+    });
+
+    it('should have the state when there is a value', async () => {
+      const withValue = await fixture<TimeField>(
+        html`<sl-time-field aria-label="Time" value="10:30"></sl-time-field>`
+      );
+
+      expect(withValue).to.match(':state(has-value)');
+    });
+
+    it('should remove the state when the value is cleared', async () => {
+      const withValue = await fixture<TimeField>(
+        html`<sl-time-field aria-label="Time" value="10:30"></sl-time-field>`
+      );
+
+      withValue.value = undefined;
+      await withValue.updateComplete;
+
+      expect(withValue).not.to.match(':state(has-value)');
+    });
+
+    it('should not have the state when the value is invalid', async () => {
+      const invalid = await fixture<TimeField>(
+        html`<sl-time-field aria-label="Time" value="not-a-time"></sl-time-field>`
+      );
+
+      expect(invalid.value).to.be.undefined;
+      expect(invalid).not.to.match(':state(has-value)');
     });
   });
 
@@ -2042,7 +2092,7 @@ describe('sl-time-field', () => {
       label.click();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
     });
 
     it('should work with multiple labels associated via htmlFor', async () => {

@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { type Tag } from './tag.js';
 
 describe('sl-tag', () => {
@@ -77,7 +77,9 @@ describe('sl-tag', () => {
         </sl-tag>
       `);
 
-      tag.focus({ focusVisible: true } as FocusOptions);
+      tag.focus({ focusVisible: true });
+      await tag.updateComplete;
+
       expect(document.activeElement).to.equal(tag);
       expect(tag.shadowRoot?.activeElement).to.equal(
         tag.renderRoot.querySelector('[part="label"]')

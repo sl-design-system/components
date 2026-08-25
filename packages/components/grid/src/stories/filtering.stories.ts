@@ -7,7 +7,7 @@ import { type SearchField } from '@sl-design-system/search-field';
 import '@sl-design-system/search-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../../register.js';
+import '.././register.js';
 import { type GridFilterOption } from '../filter-column.js';
 import { avatarRenderer } from './story-utils.js';
 

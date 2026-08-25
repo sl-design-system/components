@@ -5,17 +5,17 @@ import {
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Infotip } from '@sl-design-system/infotip';
-import {
-  type EventEmitter,
-  EventsController,
-  ObserveAttributesMixin,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
+import { getSlottedText } from '@sl-design-system/shared/slot.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
@@ -24,8 +24,8 @@ import {
   html,
   nothing
 } from 'lit';
-import { property, state } from 'lit/decorators.js';
-import styles from './switch.scss.js';
+import { property, query, state } from 'lit/decorators.js';
+import styles from './switch.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -35,23 +35,30 @@ declare global {
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
 
-let nextUniqueId = 0;
-
 /**
  * A toggle switch.
  *
- * ```html
- * <sl-switch>Foo</sl-switch>
- * ```
+ * @customelement sl-switch
  *
- * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
- * @slot input - The slot for the input element
+ * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
+ * @slot description - Additional information about the switch, displayed below the label.
  * @slot infotip - The slot for the infotip element
+ *
+ * @csspart container - The wrapper around all the other elements; it defines the layout.
+ * @csspart description - The wrapper around the description, below the label.
+ * @csspart label - The wrapper around the label text.
+ * @csspart toggle - The wrapper around the input and the track.
+ * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
+ * @csspart track - The track the handle moves in.
+ * @csspart handle - The handle that moves from one side of the track to the other.
+ *
+ * @cssstate has-description - Set when there is text in the description slot.
+ * @cssstate has-infotip - Set when there is an infotip in the infotip slot.
+ * @cssstate no-label - Set when there is no text in the default slot.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Switch<T = any> extends ObserveAttributesMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement)),
-  ['aria-disabled', 'aria-label', 'aria-labelledby']
+export class Switch<T = any> extends ForwardAriaMixin(
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement)))
 ) {
   /** @internal */
   static formAssociated = true;
@@ -59,7 +66,8 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -72,19 +80,11 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    focusin: this.#onFocusin,
-    focusout: this.#onFocusout,
-    keydown: this.#onKeydown
-  });
+  /** Controller for managing event listeners. */
+  #eventController = new AbortController();
 
   /** The initial state of the switch. */
   #initialState = false;
-
-  /** The label instance in the light DOM. */
-  #label?: HTMLLabelElement;
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -95,35 +95,65 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   /** @internal Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
-  /** Whether the switch is on or off. */
+  /**
+   * Whether the switch is on or off.
+   *
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
-  /** Whether the switch is disabled; when set no interaction is possible. */
+  /**
+   * Whether the switch is disabled; when set no interaction is possible.
+   *
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
-  /** Custom icon in "off" state. */
-  @property({ reflect: true, attribute: 'icon-off' }) iconOff?: string;
+  /**
+   * Icon in "off" state.
+   *
+   * @default 'xmark'
+   */
+  @property({ attribute: 'icon-off' }) iconOff?: string;
 
-  /** Custom icon in "on" state. */
-  @property({ reflect: true, attribute: 'icon-on' }) iconOn?: string;
+  /**
+   * Icon in "on" state.
+   *
+   * @default 'check'
+   */
+  @property({ attribute: 'icon-on' }) iconOn?: string;
 
-  /** Whether the toggle should be shown _after_ the text. */
+  /** @internal Whether there is content in the description slot. */
+  @state() @cssState() hasDescription?: boolean;
+
+  /** @internal Whether there is text in the default slot. */
+  @state() @cssState('no-label', { invert: true }) hasLabel?: boolean;
+
+  /** @internal The infotip instance when one is slotted. */
+  @state() @cssState('has-infotip') infotip?: Infotip;
+
+  /** @internal The input element in the shadow DOM. */
+  @query('input') input!: HTMLInputElement;
+
+  /**
+   * When set, the toggle is shown before the label.
+   *
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
-
-  @state() infotip?: Infotip;
 
   /**
    * The size of the switch.
    *
-   * @default md
+   * @default 'md'
    */
   @property({ reflect: true }) size?: SwitchSize;
 
+  /** The text that will be shown in a tooltip. */
+  @property() tooltip?: string;
+
   /** The value of the switch when the switch is checked. See the formValue property for easy access. */
   @property() override value?: T;
-
-  /** The input element in the light DOM. */
-  input!: HTMLInputElement;
 
   override get formValue(): T | null {
     return this.checked ? ((this.value ?? true) as T) : null;
@@ -136,40 +166,31 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.input) {
-      this.input =
-        this.querySelector<HTMLInputElement>('input[slot="input"]') ||
-        document.createElement('input');
-      this.input.slot = 'input';
-      this.input.type = 'checkbox';
-      this.input.role = 'switch';
-      this.#syncInput(this.input);
-
-      if (!this.input.parentElement) {
-        this.append(this.input);
-      }
-
-      // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
-      const style = document.createElement('style');
-      style.innerHTML = `
-        sl-switch:has(input:focus-visible)::part(track) {
-          outline-color: var(--sl-color-border-focused);
-          transition: 200ms ease-in-out;
-          transition-property: background, border-color, color, outline-color;
-        }
-      `;
-      this.append(style);
+    if (this.#eventController.signal.aborted) {
+      this.#eventController = new AbortController();
     }
 
-    this.setFormControlElement(this.input);
+    const { signal } = this.#eventController;
 
-    this.#onLabelSlotChange();
+    this.addEventListener('click', this.#onClick, { signal });
+    this.addEventListener('focusin', this.#onFocusin, { signal });
+    this.addEventListener('focusout', this.#onFocusout, { signal });
+
+    this.setFormControlElement(this);
   }
 
+  override disconnectedCallback(): void {
+    this.#eventController.abort();
+
+    super.disconnectedCallback();
+  }
+
+  /** @internal */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
+  /** @internal */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.formValue);
@@ -178,185 +199,219 @@ export class Switch<T = any> extends ObserveAttributesMixin(
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.#onInfotipSlotChange();
+    this.setProxyTarget(this.input);
+
+    this.elementInternals.setFormValue(this.nativeFormValue);
     this.updateValidity();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
-    const props: Array<keyof Switch> = ['checked', 'disabled'];
+    // The slots do not exist yet during the first render, so derive this from the light DOM;
+    // `slotchange` triggers another update when the content changes later on.
+    this.hasDescription = !!this.querySelector('[slot="description"]');
+    this.hasLabel = !!this.#labelText();
 
-    if (props.some(prop => changes.has(prop))) {
-      this.#syncInput(this.input);
-    }
-
-    if (changes.has('disabled')) {
+    if (this.hasUpdated && changes.has('disabled')) {
       this.updateValidity();
     }
 
-    if (changes.has('value') && this.value !== this.input.value) {
-      this.input.value = this.value?.toString() || '';
+    if (changes.has('checked') || changes.has('value')) {
+      this.elementInternals.setFormValue(this.nativeFormValue);
     }
   }
 
   override render(): TemplateResult {
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
-      size = this.size === 'md' ? 'xs' : 'md';
+      size = this.size === 'md' ? 'xs' : 'md',
+      // The tooltip only labels the switch when nothing else does; when the switch already has a
+      // name - a label, an `aria-label`, an `<sl-label>` - it describes it instead.
+      hasName = this.hasLabel || this.hasAccessibleName();
+
+    const describedBy = [this.hasDescription && 'description', this.tooltip && hasName && 'tooltip']
+      .filter(Boolean)
+      .join(' ');
+
+    const labelledBy = [this.hasLabel && 'label', this.tooltip && !hasName && 'tooltip']
+      .filter(Boolean)
+      .join(' ');
 
     return html`
-      <slot></slot>
-      <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
-      <slot name="infotip" @slotchange=${() => this.#onInfotipSlotChange()}></slot>
-      <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
-      <div part="toggle">
-        <div part="track">
-          <div part="handle">
-            ${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
+      <div part="container">
+        <div @click=${this.#onWrapperClick} id="wrapper" part="wrapper">
+          <div id="label" part="label">
+            <slot @slotchange=${this.#onLabelSlotChange}></slot>
+          </div>
+
+          <slot name="infotip" @slotchange=${this.#onInfotipSlotChange}></slot>
+
+          <div id="description" part="description">
+            <slot name="description" @slotchange=${this.#onDescriptionSlotChange}></slot>
           </div>
         </div>
+
+        <label id="toggle" part="toggle">
+          <input
+            aria-checked=${Boolean(this.checked).toString()}
+            aria-describedby=${describedBy || nothing}
+            aria-labelledby=${labelledBy || nothing}
+            .checked=${!!this.checked}
+            ?disabled=${this.disabled}
+            @click=${this.#onInputClick}
+            @input=${this.#onInput}
+            @keydown=${this.#onKeydown}
+            id="input"
+            role="switch"
+            type="checkbox" />
+          <div part="track">
+            <div part="handle">
+              ${
+                this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`
+              }
+            </div>
+          </div>
+        </label>
       </div>
+
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip
+                for="wrapper toggle"
+                id="tooltip"
+                part="tooltip"
+                type=${hasName ? 'description' : 'label'}>
+                ${this.tooltip}
+              </sl-tooltip>
+            `
+          : nothing
+      }
     `;
   }
 
-  override focus(): void {
-    this.input.focus();
-  }
+  /**
+   * Toggles the switch on or off. Pass `force` to set a specific state: `true` turns the switch on,
+   * `false` turns it off. Does nothing when the switch is disabled, or when it already is in the
+   * requested state.
+   *
+   * @param force - Optional boolean to force a specific state.
+   */
+  toggle(force?: boolean): void {
+    const ariaDisabled =
+      this.ariaDisabled === 'true' ||
+      this.getAttribute('aria-disabled') === 'true' ||
+      (this.hasUpdated && this.input.getAttribute('aria-disabled') === 'true');
 
-  override blur(): void {
-    this.input.blur();
-  }
-
-  #onClick(event: Event): void {
-    if (this.disabled || (this.infotip && event.composedPath().includes(this.infotip))) {
+    if (this.disabled || ariaDisabled) {
       return;
     }
 
-    if (event.target instanceof HTMLLabelElement) {
-      this.input.click();
+    const checked = force ?? !this.checked;
+
+    if (checked !== !!this.checked) {
+      this.#setChecked(checked);
     }
-
-    event.stopPropagation();
-
-    this.checked = !this.checked;
-    this.input.checked = this.checked;
-    this.changeEvent.emit(this.formValue);
-    this.updateState({ dirty: true });
-    this.updateValidity();
   }
 
-  #onFocusin(): void {
+  #onClick = (event: MouseEvent): void => {
+    // This handles the case where the user clicks on the <label> element
+    // that is part of the `<sl-label>` in `<sl-form-field>`.
+    if (event.composedPath().at(0) === this) {
+      this.toggle();
+    }
+  };
+
+  #onDescriptionSlotChange(): void {
+    // Trigger an update; willUpdate() derives the state and the aria-describedby attribute.
+    this.requestUpdate();
+  }
+
+  /** Returns the text of the child nodes that are assigned to the default slot. */
+  #labelText(): string {
+    return Array.from(this.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim() ?? '')
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  #onFocusin = (): void => {
     this.focusEvent.emit();
-  }
+  };
 
-  #onFocusout(): void {
+  #onFocusout = (): void => {
     this.blurEvent.emit();
     this.updateState({ touched: true });
-  }
+  };
 
-  #onKeydown(event: KeyboardEvent): void {
-    if (['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-      event.stopPropagation();
-      this.#onClick(event);
-    }
-  }
-
-  #onInputSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const elements = event.target.assignedElements({ flatten: true }),
-      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
-
-    // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    if (input) {
-      this.input = input;
-      this.#syncInput(this.input);
-
-      this.setFormControlElement(this.input);
-    }
-  }
-
-  #onLabelSlotChange(): void {
-    const nodes = Array.from(this.childNodes).filter(
-      node =>
-        node.nodeType === Node.TEXT_NODE ||
-        (node.nodeType === Node.ELEMENT_NODE &&
-          !(node as Element).hasAttribute('slot') &&
-          !(node instanceof HTMLStyleElement))
-    );
-
-    if (!nodes.length && this.#label) {
-      // Prevent an infinite loop
-      return;
-    }
-
-    const label = nodes
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent?.trim())
-      .join(' ')
-      .trim();
-    if (label.length > 0) {
-      this.#label ||= document.createElement('label');
-      this.#label.htmlFor = this.input.id;
-      this.#label.id ||= `sl-switch-label-${nextUniqueId++}`;
-      this.#label.setAttribute('aria-hidden', 'true');
-      this.#label.slot = '';
-      this.#label.append(...nodes);
-      this.append(this.#label);
-    }
-
-    requestAnimationFrame(() => {
-      if (this.input.labels?.length) {
-        this.input.setAttribute(
-          'aria-labelledby',
-          Array.from(this.input.labels)
-            .map(label => label.id)
-            .join(' ')
-        );
-      }
-
-      if (this.infotip && !this.infotip.describes) {
-        this.infotip.describes = nodes
-          .map(node => node.textContent?.trim() || '')
-          .join(' ')
-          .replace(/\s+/g, ' ')
-          .trim();
-      }
-    });
-  }
-
-  #onInfotipSlotChange(): void {
-    const slot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="infotip"]'),
-      assignedElements = slot?.assignedElements({ flatten: true }) || [];
-
-    this.infotip =
-      assignedElements.find(
-        (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
-      ) || undefined;
+  #onInfotipSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.infotip = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP');
 
     if (this.infotip) {
       this.infotip.setAttribute('size', 'sm');
 
       if (!this.infotip.describes) {
-        // Ensure label is synthesized before reading it
-        this.#onLabelSlotChange();
-        this.infotip.describes = this.#label?.textContent?.replace(/\s+/g, ' ').trim() || '';
+        const labelSlot = this.renderRoot.querySelector('slot:not([name])');
+
+        this.infotip.describes = (labelSlot && getSlottedText(labelSlot)) ?? '';
       }
     }
   }
 
-  #syncInput(input: HTMLInputElement): void {
-    input.autofocus = this.autofocus;
-    input.disabled = !!this.disabled;
-    input.id ||= `sl-switch-${nextUniqueId++}`;
-    /**
-     * Input type checkbox with role switch:
-     * https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/
-     */
-    input.role = 'switch';
+  #onInput(event: Event & { target: HTMLInputElement }): void {
+    this.#setChecked(event.target.checked);
+  }
 
-    input.checked = !!this.checked;
-    input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+  #onInputClick(event: Event & { target: HTMLInputElement }): void {
+    // An aria-disabled switch cannot be toggled, but stays focusable. The click has to be
+    // cancelled here, because the input event is not cancelable: by the time it fires the
+    // checkbox has already flipped, and since `checked` does not change, Lit will not re-commit
+    // the binding that would set it back.
+    if (event.target.hasAttribute('aria-disabled')) {
+      event.preventDefault();
+    }
+  }
 
-    this.setAttributesTarget(input);
+  #onKeydown(event: KeyboardEvent & { target: HTMLInputElement }): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      event.target.click();
+    }
+  }
+
+  #onLabelSlotChange(event: Event): void {
+    // Trigger an update; willUpdate() derives the state and the aria-labelledby attribute.
+    this.requestUpdate();
+
+    if (this.infotip && !this.infotip.describes) {
+      this.infotip.describes = getSlottedText(event.target);
+    }
+  }
+
+  #onWrapperClick = (event: MouseEvent): void => {
+    // Leave clicks inside the infotip alone: the bubble is slotted into the wrapper, so its
+    // content bubbles through here, and cancelling the event would break links and buttons in it.
+    if (this.infotip && event.composedPath().includes(this.infotip)) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.toggle();
+  };
+
+  /** Updates the checked state and notifies the outside world about the change. */
+  #setChecked(checked: boolean): void {
+    this.checked = checked;
+    this.changeEvent.emit(this.formValue);
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 }

@@ -10,10 +10,10 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Listbox, Option, OptionGroup } from '../index.js';
-import '../register.js';
+import './register.js';
 import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
+import { Listbox, Option, OptionGroup } from './index.js';
 
 describe('sl-select', () => {
   it('should export and register listbox option components', () => {
@@ -81,10 +81,24 @@ describe('sl-select', () => {
       expect(button).to.have.attribute('fill', 'ghost');
     });
 
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should pass shape="pill" to the button and reflect it as an attribute', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
+      expect(button.shape).to.equal('pill');
+      expect(button).to.have.attribute('shape', 'pill');
+    });
+
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;
-      expect(el.internals.ariaRequired).not.to.equal('true');
+      expect(el.elementInternals.ariaRequired).not.to.equal('true');
       expect(button).not.to.have.attribute('aria-required');
     });
 
@@ -93,7 +107,7 @@ describe('sl-select', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.have.attribute('required');
-      expect(el.internals.ariaRequired).to.equal('true');
+      expect(el.elementInternals.ariaRequired).to.equal('true');
       expect(button).to.have.attribute('aria-required', 'true');
     });
 
@@ -144,7 +158,7 @@ describe('sl-select', () => {
     it('should set ariaControlsElements on the button pointing to the listbox', async () => {
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
-      expect(el.button.internals.ariaControlsElements).to.deep.equal([el.listbox]);
+      expect(el.button.elementInternals.ariaControlsElements).to.deep.equal([el.listbox]);
     });
 
     it('should have set aria-selected to false on all options', () => {
@@ -700,7 +714,7 @@ describe('sl-select', () => {
     it('should set ariaLabelledByElements on the select button from associated labels', async () => {
       const select = el.renderRoot.querySelector('sl-select') as Select,
         button = select.querySelector('sl-select-button') as SelectButton,
-        labels = Array.from(select.internals.labels) as Element[];
+        labels = Array.from(select.elementInternals.labels) as Element[];
 
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
@@ -710,7 +724,7 @@ describe('sl-select', () => {
 
     it('should set ariaLabelledByElements on the listbox from associated labels', async () => {
       const select = el.renderRoot.querySelector('sl-select') as Select,
-        labels = Array.from(select.internals.labels) as Element[];
+        labels = Array.from(select.elementInternals.labels) as Element[];
 
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 
@@ -1149,11 +1163,11 @@ describe('sl-select', () => {
           }
         });
 
-        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+        window.requestAnimationFrame = (callback: FrameRequestCallback) => {
           frameCallbacks.push(callback);
 
           return frameCallbacks.length;
-        }) as typeof window.requestAnimationFrame;
+        };
 
         const option = el.querySelector('sl-option[value="1"]')!;
         option.textContent = 'Update 1';
@@ -1277,11 +1291,11 @@ describe('sl-select', () => {
           }
         });
 
-        window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+        window.requestAnimationFrame = (callback: FrameRequestCallback) => {
           frameCallbacks.push(callback);
 
           return frameCallbacks.length;
-        }) as typeof window.requestAnimationFrame;
+        };
 
         const option = el.querySelector('sl-option[value="apple"]')!;
         option.setAttribute('value', 'green-apple');
@@ -1837,7 +1851,7 @@ describe('sl-select', () => {
       `);
 
       const select = wrapper.querySelector('sl-select') as Select,
-        labels = Array.from(select.internals.labels) as Element[];
+        labels = Array.from(select.elementInternals.labels) as Element[];
 
       await new Promise(resolve => requestAnimationFrame(() => resolve(undefined)));
 

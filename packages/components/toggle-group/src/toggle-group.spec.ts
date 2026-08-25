@@ -4,7 +4,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { ToggleGroup } from './toggle-group.js';
 
 describe('sl-toggle-group', () => {
@@ -51,6 +51,28 @@ describe('sl-toggle-group', () => {
       expect(el.size).to.be.undefined;
     });
 
+    it('should have group semantics', () => {
+      expect(el).not.to.have.attribute('role');
+      expect(el.internals.role).to.equal('group');
+    });
+
+    it('should not override an explicit role', async () => {
+      el = await fixture(html`<sl-toggle-group role="toolbar"></sl-toggle-group>`);
+
+      expect(el).to.have.attribute('role', 'toolbar');
+      expect(el.internals.role).to.equal('group');
+    });
+
+    it('should restore the default semantics when an explicit role is removed', async () => {
+      el = await fixture(html`<sl-toggle-group role="toolbar"></sl-toggle-group>`);
+
+      el.removeAttribute('role');
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('role');
+      expect(el.internals.role).to.equal('group');
+    });
+
     it('should propagate disabled to the buttons', async () => {
       const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
 
@@ -82,16 +104,16 @@ describe('sl-toggle-group', () => {
       await userEvent.click(buttons[0]);
       await el.updateComplete;
 
-      expect(buttons[0]).to.match(':state(pressed)');
-      expect(buttons[1]).not.to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).to.have.attribute('pressed');
+      expect(buttons[1]).not.to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
 
       await userEvent.click(buttons[1]);
       await el.updateComplete;
 
-      expect(buttons[0]).not.to.match(':state(pressed)');
-      expect(buttons[1]).to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).not.to.have.attribute('pressed');
+      expect(buttons[1]).to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
     });
   });
 
@@ -125,16 +147,16 @@ describe('sl-toggle-group', () => {
       await userEvent.click(buttons[0]);
       await el.updateComplete;
 
-      expect(buttons[0]).to.match(':state(pressed)');
-      expect(buttons[1]).not.to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).to.have.attribute('pressed');
+      expect(buttons[1]).not.to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
 
       await userEvent.click(buttons[1]);
       await el.updateComplete;
 
-      expect(buttons[0]).to.match(':state(pressed)');
-      expect(buttons[1]).to.match(':state(pressed)');
-      expect(buttons[2]).not.to.match(':state(pressed)');
+      expect(buttons[0]).to.have.attribute('pressed');
+      expect(buttons[1]).to.have.attribute('pressed');
+      expect(buttons[2]).not.to.have.attribute('pressed');
     });
   });
 });

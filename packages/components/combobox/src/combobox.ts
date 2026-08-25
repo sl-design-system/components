@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 import { localized, msg } from '@lit/localize';
 import {
   type ScopedElementsMap,
@@ -20,7 +19,6 @@ import {
 import {
   EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
   type Path,
   type PathKeys,
   anchor,
@@ -30,11 +28,14 @@ import {
   isPopoverOpen,
   setValueByPath
 } from '@sl-design-system/shared';
+import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import { type SlRemoveEvent, Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import {
@@ -48,7 +49,7 @@ import {
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './combobox.scss.js';
+import styles from './combobox.css' with { type: 'css' };
 import { CreateCustomOption } from './create-custom-option.js';
 import { CustomOption } from './custom-option.js';
 import { GroupedOption } from './grouped-option.js';
@@ -77,6 +78,7 @@ export type ComboboxItem<T = any, U = T> = ListboxItem<T, U> & {
 };
 
 export type ComboboxSize = 'md' | 'lg';
+export type ComboboxShape = 'rect' | 'pill';
 
 let nextUniqueId = 0;
 
@@ -90,7 +92,7 @@ let nextUniqueId = 0;
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement)),
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement))),
   ['aria-label', 'aria-describedby', 'aria-labelledby']
 ) {
   /** @internal The default offset of the popover to the input. */
@@ -206,9 +208,6 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** When set will group all the selected options at the top of the listbox. */
   @property({ type: Boolean, attribute: 'group-selected' }) groupSelected?: boolean;
 
-  /** @internal. */
-  readonly internals = this.attachInternals();
-
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
@@ -276,6 +275,13 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
    * @default 'md'
    */
   @property({ reflect: true }) size?: ComboboxSize;
+
+  /**
+   * The shape of the combobox.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: ComboboxShape;
 
   /**
    * The value of the combobox. If `multiple` selection is enabled, then this will be an array of
@@ -401,7 +407,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         this.listbox = this.shadowRoot!.createElement('sl-listbox');
         this.listbox.items = this.items;
         this.listbox.renderer = (item, index: number) =>
-          this.#renderItem(item as ComboboxItem<T, U>, index) as unknown as TemplateResult;
+          this.#renderItem(item as ComboboxItem<T, U>, index);
         this.appendChild(this.listbox);
         this.#useVirtualList = true;
       } else if (changes.get('options')) {
@@ -448,7 +454,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     }
 
     if (changes.has('required')) {
-      this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
     }
   }
 
@@ -463,12 +469,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       const value = this.#ariaAutocomplete;
 
       // Warn developers about conflicting configuration
-      if (
-        import.meta.env?.DEV &&
-        this.selectOnly &&
-        this.autocomplete &&
-        this.autocomplete !== 'off'
-      ) {
+      if (isDevMode() && this.selectOnly && this.autocomplete && this.autocomplete !== 'off') {
         console.warn(
           `sl-combobox: The 'autocomplete="${this.autocomplete}"' property is ignored when 'selectOnly' is true. ` +
             'Select-only comboboxes have a read-only input field and therefore cannot have autocomplete. ' +
@@ -525,33 +526,37 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
           this.multiple && this.selectedItems.length ? undefined : this.placeholder
         )}
         show-validity=${ifDefined(this.showValidity)}
+        shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}>
-        ${this.multiple && this.selectedItems.length
-          ? html`
-              <sl-tag-list
-                ?disabled=${this.disabled}
-                aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
-                size=${ifDefined(this.size)}
-                slot="prefix"
-                stacked>
-                ${repeat(
-                  this.selectedItems,
-                  item => item,
-                  item => html`
-                    <sl-tag
-                      @sl-remove=${(event: SlRemoveEvent) => {
-                        event.stopPropagation();
-                        this.#onRemove(item, event);
-                      }}
-                      ?disabled=${this.disabled}
-                      ?removable=${!this.disabled}>
-                      ${item.label}
-                    </sl-tag>
-                  `
-                )}
-              </sl-tag-list>
-            `
-          : nothing}
+        ${
+          this.multiple && this.selectedItems.length
+            ? html`
+                <sl-tag-list
+                  ?disabled=${this.disabled}
+                  aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
+                  shape=${ifDefined(this.shape)}
+                  size=${ifDefined(this.size)}
+                  slot="prefix"
+                  stacked>
+                  ${repeat(
+                    this.selectedItems,
+                    item => item,
+                    item => html`
+                      <sl-tag
+                        @sl-remove=${(event: SlRemoveEvent) => {
+                          event.stopPropagation();
+                          this.#onRemove(item, event);
+                        }}
+                        ?disabled=${this.disabled}
+                        ?removable=${!this.disabled}>
+                        ${item.label}
+                      </sl-tag>
+                    `
+                  )}
+                </sl-tag-list>
+              `
+            : nothing
+        }
         <slot name="input" slot="input"></slot>
         <button
           @click=${this.#onButtonClick}
@@ -603,12 +608,12 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   override updateInternalValidity(): void {
     if (!this.validity.customError) {
       if (this.multiple) {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { valueMissing: this.required && this.selectedItems.length === 0 },
           msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
         );
       } else {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { valueMissing: this.required && !this.input.value },
           msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
         );
@@ -1770,7 +1775,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
       return;
     }
 
-    this.value = (this.multiple ? values : values[0]) as U | U[];
+    this.value = this.multiple ? values : values[0];
     this.#updateFormValue();
 
     if (emitEvent) {
@@ -1784,17 +1789,17 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   #updateFormValue(): void {
     if (this.multiple) {
       const values = this.selectedItems.map(i => i.value!);
-      this.internals.setFormValue(values.join(', ') || null);
+      this.elementInternals.setFormValue(values.join(', ') || null);
     } else {
       const item = this.selectedItems.at(0);
       if (item) {
-        this.internals.setFormValue(
+        this.elementInternals.setFormValue(
           this.#useVirtualList && item.index !== undefined
             ? item.index.toString()
             : item.value?.toString() || item.label
         );
       } else {
-        this.internals.setFormValue(null);
+        this.elementInternals.setFormValue(null);
       }
     }
   }

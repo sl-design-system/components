@@ -5,8 +5,8 @@ import { far } from '@fortawesome/pro-regular-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../register.js';
 import { Icon, type IconSize } from './icon.js';
+import './register.js';
 
 interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
   icons: string[];

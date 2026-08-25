@@ -7,6 +7,8 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -32,7 +34,7 @@ import {
   revealAllItems
 } from './overflow.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
-import styles from './tool-bar.scss.js';
+import styles from './tool-bar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -61,7 +63,7 @@ declare global {
  * @slot default - The tool bar items.
  */
 @localized()
-export class ToolBar extends ScopedElementsMixin(LitElement) {
+export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -78,9 +80,6 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Timeout for debouncing forceRecalculation calls. */
   #forceRecalculationTimeout?: ReturnType<typeof setTimeout>;
-
-  /** @internal */
-  #internals = this.attachInternals();
 
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.refresh());
@@ -152,6 +151,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    * @default false
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** @internal Whether the tool bar has no slotted elements. */
+  @state() @cssState() empty?: boolean;
 
   /**
    * The fill of buttons and menu buttons (also overflow menu button).
@@ -244,9 +246,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   override firstUpdated(): void {
     const slot = this.renderRoot.querySelector('slot')!;
 
-    if (slot.assignedElements({ flatten: true }).length === 0) {
-      this.#internals.states.add('empty');
-    }
+    this.empty = slot.assignedElements({ flatten: true }).length === 0;
 
     requestAnimationFrame(() => {
       this.#measureItems();
@@ -327,11 +327,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const elements =
       this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
 
-    if (elements.length === 0) {
-      this.#internals.states.add('empty');
-    } else {
-      this.#internals.states.delete('empty');
-    }
+    this.empty = elements.length === 0;
 
     for (const element of elements) {
       if (element instanceof HTMLElement) {
@@ -418,7 +414,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (this.#fitContent) {
       // Fit-content: use CSS containment to measure the external constraint
-      availableWidth = measureConstrainedWidth(this, this.#internals);
+      availableWidth = measureConstrainedWidth(this, this.elementInternals);
     } else {
       availableWidth = getContentBoxWidth(this);
     }

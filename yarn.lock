@@ -7656,9 +7656,6 @@ __metadata:
   resolution: "@sl-design-system/scripts@workspace:scripts"
   dependencies:
     "@custom-elements-manifest/analyzer": "npm:^0.11.0"
-    "@figma-export/cli": "npm:^6.2.3"
-    "@figma-export/output-components-as-svg": "npm:^6.2.3"
-    "@figma-export/transform-svg-with-svgo": "npm:^6.2.3"
     "@fortawesome/duotone-light-svg-icons": "npm:^7.2.0"
     "@fortawesome/duotone-regular-svg-icons": "npm:^7.2.0"
     "@fortawesome/fontawesome-svg-core": "npm:^7.2.0"

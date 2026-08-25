@@ -6,7 +6,9 @@ import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -15,8 +17,8 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './select-button.scss.js';
-import { type SelectFill, type SelectSize } from './select.js';
+import styles from './select-button.css' with { type: 'css' };
+import { type SelectFill, type SelectShape, type SelectSize } from './select.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -31,7 +33,7 @@ declare global {
  * @csspart placeholder - The placeholder text when no option is selected.
  * @csspart selected-option - The container for the selected option.
  */
-export class SelectButton extends ScopedElementsMixin(LitElement) {
+export class SelectButton extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -45,14 +47,11 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
-  /** @internal */
-  readonly internals = this.attachInternals();
-
   /** Will display a clear button when an option is selected. */
-  @property({ type: Boolean, reflect: true }) clearable?: boolean;
+  @property({ type: Boolean, reflect: true }) @cssState() clearable?: boolean;
 
   /** @internal Whether the clear button is focused. */
-  @property({ type: Boolean, attribute: false }) clearFocused?: boolean;
+  @property({ type: Boolean, attribute: false }) @cssState() clearFocused?: boolean;
 
   /** @internal Emits when the user clears the selection via Backspace or Delete. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
@@ -76,8 +75,11 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** Mirrors the same property on the sl-select parent. */
   @property({ type: Boolean }) required?: boolean;
 
+  /** Mirrors the same property on the sl-select parent. */
+  @property({ reflect: true }) shape?: SelectShape;
+
   /** The selected option. */
-  @property({ attribute: false }) selected?: Option | null;
+  @property({ attribute: false }) @cssState('has-selection') selected?: Option | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize;
@@ -98,30 +100,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('clearable')) {
-      if (this.clearable) {
-        this.internals.states.add('clearable');
-      } else {
-        this.internals.states.delete('clearable');
-      }
-    }
-
-    if (changes.has('clearFocused')) {
-      if (this.clearFocused) {
-        this.internals.states.add('clear-focused');
-      } else {
-        this.internals.states.delete('clear-focused');
-      }
-    }
-
-    if (changes.has('selected')) {
-      if (this.selected) {
-        this.internals.states.add('has-selection');
-      } else {
-        this.internals.states.delete('has-selection');
-      }
-    }
-
     if (changes.has('required')) {
       if (this.required) {
         this.setAttribute('aria-required', 'true');
@@ -141,9 +119,11 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         class="wrapper"
         part=${this.placeholder && !hasSelected ? 'placeholder' : 'selected-option'}
         style="inline-size: ${inlineSize}">
-        ${hasSelected
-          ? html`<span part="selected"><slot name="selected-content"></slot></span>`
-          : this.placeholder || '\u00a0'}
+        ${
+          hasSelected
+            ? html`<span part="selected"><slot name="selected-content"></slot></span>`
+            : this.placeholder || '\u00a0'
+        }
       </div>
       <span class="status" aria-hidden="true">
         <sl-icon name="chevron-down"></sl-icon>

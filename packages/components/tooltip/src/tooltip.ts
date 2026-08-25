@@ -1,6 +1,12 @@
-import { CSSResultGroup, LitElement, PropertyValues, TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './tooltip.scss.js';
+import styles from './tooltip.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

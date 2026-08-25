@@ -8,9 +8,9 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
 import { type GridGroupHeader } from './group-header.js';
+import './register.js';
 import { waitForGridToRenderData } from './utils.js';
 
 type Person = { firstName: string; lastName: string; email?: string; group?: string };

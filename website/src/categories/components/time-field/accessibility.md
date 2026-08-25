@@ -16,6 +16,7 @@ The time field supports keyboard navigation for both the input and the dropdown 
 |Command| Description                                                                                                                                                              |
 |-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |Tab| When focus is outside the time field, moves focus to the input. If focus is on the input, pressing Tab moves to the dropdown button, then to the next focusable element. |
+|Arrow Up/Down (on hour/minute segment)| Acts as a spinbutton, incrementing or decrementing the value of the currently focused hour or minute segment.                                                            |
 |Space/Enter (on button)| Toggles the time picker dropdown when the button has focus.                                                                                                              |
 |Escape| Closes the time picker dropdown.                                                                                                                                         |
 |Arrow Up/Down (in dropdown)| Navigates through the hour or minute options in the currently focused column.                                                                                            |

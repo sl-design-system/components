@@ -5,7 +5,7 @@ import { html } from 'lit';
 import { spy, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { type ToggleButton } from './toggle-button.js';
 
 describe('sl-toggle-button', () => {
@@ -148,6 +148,44 @@ describe('sl-toggle-button', () => {
 
       expect(onToggle).to.have.been.calledOnce;
       expect(onToggle.lastCall.args[0]).to.be.true;
+    });
+  });
+
+  describe('content states', () => {
+    it('should switch from icon-only to neither when text is added', async () => {
+      el = await fixture(html`
+        <sl-toggle-button>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+
+      expect(el).to.match(':state(icon-only)');
+
+      el.append(document.createTextNode('Settings'));
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el).not.to.match(':state(icon-only)');
+      expect(el).not.to.match(':state(text-only)');
+    });
+
+    it('should switch from text-only to icon-only when the text is removed', async () => {
+      el = await fixture(html`<sl-toggle-button>Settings</sl-toggle-button>`);
+
+      expect(el).to.match(':state(text-only)');
+
+      el.textContent = '';
+
+      const icon = document.createElement('sl-icon');
+      icon.setAttribute('name', 'far-gear');
+      icon.setAttribute('slot', 'default');
+      el.append(icon);
+      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
+
+      expect(el).not.to.match(':state(text-only)');
+      expect(el).to.match(':state(icon-only)');
     });
   });
 
@@ -376,6 +414,31 @@ describe('sl-toggle-button', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(errorStub).not.to.have.been.called;
+    });
+
+    it('should set the error state when the icons are invalid', async () => {
+      el = await fixture(html`<sl-toggle-button></sl-toggle-button>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      expect(el.hasError).to.be.true;
+      expect(el).to.match(':state(error)');
+    });
+
+    it('should not set the error state when the icons are valid', async () => {
+      el = await fixture(html`
+        <sl-toggle-button>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      expect(el.hasError).not.to.be.true;
+      expect(el).not.to.match(':state(error)');
     });
   });
 

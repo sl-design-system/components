@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../register.js';
+import './register.js';
 import { type Scrollbar } from './scrollbar';
 
 type Props = Pick<Scrollbar, 'vertical'> & { scrolled?: number };

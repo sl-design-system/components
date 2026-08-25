@@ -6,8 +6,8 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { RadioGroup } from './radio-group.js';
+import './register.js';
 
 describe('sl-radio-group', () => {
   let el: RadioGroup;
@@ -24,7 +24,7 @@ describe('sl-radio-group', () => {
     });
 
     it('should have a role of radiogroup', () => {
-      expect(el.internals.role).to.equal('radiogroup');
+      expect(el.elementInternals.role).to.equal('radiogroup');
     });
 
     it('should not be disabled', () => {

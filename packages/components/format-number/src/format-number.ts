@@ -1,4 +1,4 @@
-import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { format } from './format.js';

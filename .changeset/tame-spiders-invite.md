@@ -8,7 +8,6 @@
 
 - The switch no longer adds an `<input>`, a `<label>` and a `<style>` element to its light DOM, and the `input` slot has been removed. The `input` property now returns the input in the shadow DOM and is marked internal.
 - The `formControlElement` is now the switch itself, so a `<label for="...">` should point at the id of the `<sl-switch>` element.
-- The `checked` property is no longer reflected. Style the on state with the `checked` custom state (`sl-switch:state(checked)`) instead of the `[checked]` attribute selector; setting the attribute to give the switch its initial state still works.
 - Calling `click()` no longer toggles the switch. Use the new `toggle()` method instead.
 
 #### New features
@@ -17,4 +16,4 @@
 - The `tooltip` property shows a tooltip without having to add an `<sl-tooltip>` yourself, the same way `<sl-button>` does. It describes the switch, or labels it when the switch has no name of its own: no label, `aria-label`, `aria-labelledby` or `<sl-label>`.
 - The `description` slot shows additional information below the label, linked to the control with `aria-describedby`.
 - New CSS parts: `container`, `description`, `label`, `tooltip` and `wrapper`.
-- New CSS states: `checked`, `has-description`, `has-infotip` and `no-label`.
+- New CSS states: `has-description`, `has-infotip` and `no-label`.

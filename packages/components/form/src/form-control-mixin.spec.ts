@@ -2,7 +2,7 @@ import { fixture, oneEvent } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { type MockInstance, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   FormControlMixin,
   type FormControlShowValidity,
@@ -45,9 +45,49 @@ class RequiredNativeTestElement extends FormControlMixin(LitElement) {
   }
 }
 
+/** A FACE that exposes its element internals under the current `elementInternals` name. */
+class FaceTestElement extends FormControlMixin(LitElement) {
+  static formAssociated = true;
+
+  elementInternals = this.attachInternals();
+
+  override firstUpdated(): void {
+    super.firstUpdated({} as Map<PropertyKey, unknown>);
+
+    this.setFormControlElement(this);
+  }
+}
+
+/** A FACE that only exposes its element internals under the deprecated `internals` name. */
+class LegacyFaceTestElement extends FormControlMixin(LitElement) {
+  static formAssociated = true;
+
+  internals = this.attachInternals();
+
+  override firstUpdated(): void {
+    super.firstUpdated({} as Map<PropertyKey, unknown>);
+
+    this.setFormControlElement(this);
+  }
+}
+
+/** A FACE that exposes no element internals at all. */
+class NoInternalsFaceTestElement extends FormControlMixin(LitElement) {
+  static formAssociated = true;
+
+  override firstUpdated(): void {
+    super.firstUpdated({} as Map<PropertyKey, unknown>);
+
+    this.setFormControlElement(this);
+  }
+}
+
 try {
   customElements.define('fcm-native-test', NativeTestElement);
   customElements.define('fcm-required-native-test', RequiredNativeTestElement);
+  customElements.define('fcm-face-test', FaceTestElement);
+  customElements.define('fcm-legacy-face-test', LegacyFaceTestElement);
+  customElements.define('fcm-no-internals-face-test', NoInternalsFaceTestElement);
 } catch {
   // Elements may already be defined in watch / repeated test runs
 }
@@ -657,6 +697,56 @@ describe('FormControlMixin', () => {
       el.remove();
 
       expect(removeEventListenerSpy).to.have.been.calledWith('invalid');
+    });
+  });
+
+  describe('form associated custom elements', () => {
+    it('should read the internals from the elementInternals property', async () => {
+      const face = await fixture<FaceTestElement>(html`<fcm-face-test></fcm-face-test>`);
+
+      face.elementInternals.setValidity({ customError: true }, 'Boom');
+
+      expect(face.validity.customError).to.be.true;
+      expect(face.validationMessage).to.equal('Boom');
+    });
+
+    describe('deprecated internals property', () => {
+      let face: LegacyFaceTestElement, warn: MockInstance<typeof console.warn>;
+
+      beforeEach(async () => {
+        warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+        face = await fixture(html`<fcm-legacy-face-test></fcm-legacy-face-test>`);
+      });
+
+      afterEach(() => {
+        warn.mockRestore();
+      });
+
+      it('should fall back to the internals property', () => {
+        face.internals.setValidity({ customError: true }, 'Boom');
+
+        expect(face.validity.customError).to.be.true;
+        expect(face.validationMessage).to.equal('Boom');
+      });
+
+      it('should log a deprecation warning once per element in dev mode', () => {
+        expect(face.validity.valid).to.be.true;
+        expect(face.validationMessage).to.equal('');
+
+        expect(warn).toHaveBeenCalledOnce();
+        expect(warn).toHaveBeenCalledWith(
+          expect.stringContaining("Exposing the ElementInternals as 'internals' is deprecated")
+        );
+      });
+    });
+
+    it('should throw when the element has no internals at all', async () => {
+      const face = await fixture<NoInternalsFaceTestElement>(
+        html`<fcm-no-internals-face-test></fcm-no-internals-face-test>`
+      );
+
+      expect(() => face.validity).to.throw(/must expose its ElementInternals/);
     });
   });
 });

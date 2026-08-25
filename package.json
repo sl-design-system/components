@@ -73,10 +73,10 @@
       ]
     },
     "build:components:styles": {
-      "command": "node scripts/build-styles.js 'packages/components/**/*.scss'",
+      "command": "node scripts/themes/build-styles.js 'packages/components/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-styles.js",
+        "scripts/themes/build-styles.js",
         "packages/components/**/*.scss"
       ],
       "output": [

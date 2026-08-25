@@ -78,6 +78,8 @@ describe('sl-tag', () => {
       `);
 
       tag.focus({ focusVisible: true });
+      await tag.updateComplete;
+
       expect(document.activeElement).to.equal(tag);
       expect(tag.shadowRoot?.activeElement).to.equal(
         tag.renderRoot.querySelector('[part="label"]')

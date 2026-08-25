@@ -18,7 +18,7 @@
 
   --_border-color: var(--sl-color-border-disabled);
 
-  ::slotted(sl-toggle-button:state(pressed)) {
+  ::slotted(sl-toggle-button[pressed]) {
     --_bg-color: var(--sl-color-background-neutral-bold);
   }
 }

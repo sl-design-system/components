@@ -38,7 +38,7 @@
   --_track-inline-size: var(--sl-size-800);
 }
 
-:host(:state(checked)) {
+:host([checked]) {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
@@ -52,11 +52,11 @@
   }
 }
 
-:host(:state(checked):hover) {
+:host([checked]:hover) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
 
-:host(:state(checked):active) {
+:host([checked]:active) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 

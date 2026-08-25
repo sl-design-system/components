@@ -86,6 +86,10 @@
   svg circle {
     fill: var(--sl-color-foreground-disabled);
   }
+
+  [part='description'] {
+    color: var(--sl-color-foreground-disabled);
+  }
 }
 
 :host([size='lg']) {
@@ -99,6 +103,10 @@
 
   [part='label'] {
     margin-block-start: calc((var(--sl-size-400) - 1lh) / 2);
+  }
+
+  [part='description'] {
+    font: var(--sl-text-new-body-md, var(--sl-text-body-md-normal));
   }
 
   ::slotted(sl-infotip) {
@@ -132,12 +140,36 @@
   outline-offset: var(--sl-size-outlineOffset-default);
 }
 
+[part='content'] {
+  display: flex;
+  flex-direction: column;
+}
+
 [part='label'] {
   margin-block-start: calc((var(--sl-size-300) - 1lh) / 2);
 }
 
+[part='description'] {
+  color: var(--sl-color-foreground-subtlest);
+  font: var(--sl-text-new-body-sm, var(--sl-text-body-sm-normal));
+}
+
+:host(:not([has-description])) [part='description'] {
+  display: none;
+}
+
 ::slotted(sl-infotip) {
   margin-block-start: var(--sl-size-050);
+}
+
+slot[name='tooltip-description']::slotted(.visually-hidden) {
+  block-size: 1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
 }
 
 svg {

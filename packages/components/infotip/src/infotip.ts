@@ -55,7 +55,12 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   /** The unique ID assigned to the content copy for use with aria-describedby. */
   contentId?: string;
 
-  /** The name of the element that this infotip describes. */
+  /**
+   * The label of the element this infotip belongs to. It is used in the accessible name of the
+   * button ("More information about {describes}"), so it is clear which element the infotip
+   * provides information about when a page has several of them. Form controls such as `sl-checkbox`
+   * fill this with their own label text, unless it is already set.
+   */
   @property() describes?: string;
 
   override connectedCallback(): void {

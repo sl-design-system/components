@@ -4,9 +4,11 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
@@ -42,11 +44,12 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
  * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
  *
  * @cssstate error - Set when there is an error with the toggle button, for example when there are no icons in an icon-only toggle button.
- * @cssstate pressed - Set when the toggle button is in the pressed state.
  * @cssstate icon-only - Set when the toggle button has icons and no text.
  * @cssstate text-only - Set when the toggle button has text and no icons.
  */
-export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
+export class ToggleButton extends ForwardAriaMixin(
+  ScopedElementsMixin(ElementInternalsMixin(LitElement))
+) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -84,18 +87,30 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
    */
   @property({ reflect: true }) fill?: ToggleButtonFill;
 
+  /** @internal Whether the button is in an invalid state; only set in dev mode. */
+  @state() @cssState('error') hasError?: boolean;
+
   /** @internal True when the user has slotted text in the button. */
   @state() hasText?: boolean;
 
-  /** @internal */
-  readonly internals = this.attachInternals();
+  /** @internal Whether the button shows only an icon. */
+  @cssState()
+  get iconOnly(): boolean {
+    return !this.hasText && (!!this.defaultIcon || !!this.pressedIcon);
+  }
+
+  /** @internal Whether the button shows only text. */
+  @cssState()
+  get textOnly(): boolean {
+    return !!this.hasText && !this.defaultIcon && !this.pressedIcon;
+  }
 
   /**
    * The pressed state of the button.
    *
    * @default false
    */
-  @property({ type: Boolean }) pressed?: boolean;
+  @property({ type: Boolean, reflect: true }) pressed?: boolean;
 
   /** @internal The pressed icon. */
   @state() pressedIcon?: Icon;
@@ -128,22 +143,20 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
     if (isDevMode()) {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
-        this.internals.states.delete('error');
-
         if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && !this.hasText) {
           if (!this.defaultIcon) {
             console.error(
               'There needs to be an sl-icon in the "default" slot for the component to work'
             );
-            this.internals.states.add('error');
+            this.hasError = true;
           } else if (!this.pressedIcon) {
             console.error(
               'There needs to be an sl-icon in the "pressed" slot for the component to work'
             );
-            this.internals.states.add('error');
+            this.hasError = true;
           } else if (this.defaultIcon.name === this.pressedIcon.name) {
             console.error('Do not use the same icon for both states of the toggle button.');
-            this.internals.states.add('error');
+            this.hasError = true;
           }
         }
       });
@@ -153,48 +166,18 @@ export class ToggleButton extends ForwardAriaMixin(ScopedElementsMixin(LitElemen
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
-      const iconOnly = !this.hasText && (!!this.defaultIcon || !!this.pressedIcon),
-        textOnly = !!this.hasText && !this.defaultIcon && !this.pressedIcon,
-        hasIconOnly = this.internals.states.has('icon-only');
-
-      if (iconOnly) {
-        this.internals.states.add('icon-only');
-        this.internals.states.delete('text-only');
-      } else if (textOnly) {
-        this.internals.states.delete('icon-only');
-        this.internals.states.add('text-only');
-      } else {
-        this.internals.states.delete('icon-only');
-        this.internals.states.delete('text-only');
-      }
-
-      // Trigger an update when the icon-only state changes
-      if (hasIconOnly !== iconOnly) {
-        this.requestUpdate();
-      }
-    }
-
     if (changes.has('defaultIcon') || changes.has('pressedIcon')) {
       [this.defaultIcon, this.pressedIcon].filter(Boolean).forEach(icon => {
         // Map the button size to the appropriate icon size: xs for sm, otherwise md
         icon!.size = this.size === 'sm' ? 'xs' : 'md';
       });
     }
-
-    if (changes.has('pressed')) {
-      if (this.pressed) {
-        this.internals.states.add('pressed');
-      } else {
-        this.internals.states.delete('pressed');
-      }
-    }
   }
 
   override render(): TemplateResult {
     let ariaType: 'description' | 'label' | undefined;
     if (this.tooltip) {
-      ariaType = this.internals.states.has('icon-only') ? 'label' : 'description';
+      ariaType = this.iconOnly ? 'label' : 'description';
     }
 
     return html`

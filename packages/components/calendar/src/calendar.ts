@@ -5,7 +5,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
 import {
@@ -13,6 +13,7 @@ import {
   type SlSelectEvent,
   type SlToggleEvent
 } from '@sl-design-system/shared/events.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import {
   type CSSResultGroup,
   LitElement,

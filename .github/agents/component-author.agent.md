@@ -246,7 +246,7 @@ export class ComponentName extends LitElement {
 
 ```typescript
 import { FormControlMixin } from '@sl-design-system/form';
-import { ObserveAttributesMixin } from '@sl-design-system/shared';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 
 export class FormComponent<T = any> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
   'aria-disabled',
@@ -567,7 +567,12 @@ Formatting is done with `oxfmt` (not prettier), which runs on save in vscode and
 
 ### Available Mixins
 
+Each mixin in `@sl-design-system/shared` has its own entry point, for example
+`@sl-design-system/shared/mixins/locale.js`:
+
 - `FormControlMixin` - Form integration, validation, value management
+- `ElementInternalsMixin` - Attaches the `ElementInternals` and exposes them as `elementInternals`
+- `ForwardAriaMixin` - Forwards ARIA attributes to an element in the shadow DOM
 - `ObserveAttributesMixin` - Observe ARIA attribute changes
 - `ScopedElementsMixin` - Scoped custom element registry
 - `LocaleMixin` - Internationalization support

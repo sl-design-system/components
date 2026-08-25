@@ -177,15 +177,26 @@ export const NoLabel: Story = {
   }
 };
 
+export const Description: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group aria-label="Options with descriptions">
+        <sl-checkbox description="Description for option 1" value="1">Label</sl-checkbox>
+        <sl-checkbox value="2">Label</sl-checkbox>
+        <sl-checkbox value="3">Label</sl-checkbox>
+        <sl-checkbox value="4">Label</sl-checkbox>
+        <sl-checkbox value="5">Label</sl-checkbox>
+      </sl-checkbox-group>
+    `
+  }
+};
+
 export const Tooltips: Story = {
   args: {
     boxes: () => html`
-      <sl-checkbox id="1" value="1">Option 1</sl-checkbox>
-      <sl-tooltip for="1" type="description">Tooltip for option 1</sl-tooltip>
-      <sl-checkbox id="2" value="2">Option 2</sl-checkbox>
-      <sl-tooltip for="2" type="description">Tooltip for option 2</sl-tooltip>
-      <sl-checkbox id="3" value="3">Option 3</sl-checkbox>
-      <sl-tooltip for="3" type="description">Tooltip for option 3</sl-tooltip>
+      <sl-checkbox id="1" tooltip="Tooltip for option 1" value="1">Option 1</sl-checkbox>
+      <sl-checkbox id="2" tooltip="Tooltip for option 2" value="2">Option 2</sl-checkbox>
+      <sl-checkbox id="3" tooltip="Tooltip for option 3" value="3">Option 3</sl-checkbox>
     `
   }
 };

@@ -1,7 +1,7 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { configureLocalization } from '@lit/localize';
 import { sourceLocale, targetLocales } from '@sl-design-system/locales';
-import { Preview } from '@storybook/angular';
+import { Preview } from '@storybook/angular-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { Mode, themes, updateTheme } from '../../../.storybook/themes';
 

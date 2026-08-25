@@ -8,7 +8,6 @@ import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import {
   type EventEmitter,
-  ObserveAttributesMixin,
   event,
   getCharacterPluralSuffix,
   getPluralCategory
@@ -18,6 +17,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import {
   type CSSResultGroup,
   LitElement,

@@ -19,7 +19,7 @@ import {
 } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { isForwardedDisabled } from '@sl-design-system/shared/helpers/forward-aria.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import {
   type CSSResultGroup,
   LitElement,

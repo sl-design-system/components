@@ -8,16 +8,18 @@ import { Icon } from '@sl-design-system/icon';
 import {
   type EventEmitter,
   EventsController,
-  LocaleMixin,
   anchor,
   event,
   isPopoverOpen
 } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { FieldButton } from '@sl-design-system/text-field';
 import {
   type CSSResultGroup,
@@ -62,7 +64,9 @@ const timeSeparators = new Map<string, string>();
  * @cssState placeholder-shown - Set when the time field is empty and has a placeholder.
  */
 @localized()
-export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
+export class TimeField extends FormControlMixin(
+  LocaleMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement)))
+) {
   /** @internal */
   static formAssociated = true;
 
@@ -147,9 +151,6 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The step between each hour option. */
   @property({ type: Number, attribute: 'hour-step' }) hourStep = TimeField.hourStep;
 
-  /** @internal */
-  readonly internals = this.attachInternals();
-
   /**
    * The maximum time selectable in the field.
    *
@@ -174,8 +175,11 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   @property() placeholder?: string;
 
+  /** @internal Whether the time field has focus. */
+  @state() @cssState() hasFocus?: boolean;
+
   /** @internal Whether the placeholder is currently shown. */
-  @state() placeholderShown?: boolean;
+  @state() @cssState() placeholderShown?: boolean;
 
   /**
    * Whether the time field is readonly.
@@ -237,6 +241,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   }
 
   @property()
+  @cssState('has-value')
   override set value(value: string | undefined) {
     if (value) {
       const time = this.#parseTime(value);
@@ -260,7 +265,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'group';
+    this.elementInternals.role = 'group';
     this.setFormControlElement(this);
 
     this.addEventListener('focusin', this.#onFocusIn);
@@ -306,22 +311,8 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    if (changes.has('placeholderShown')) {
-      if (this.placeholderShown) {
-        this.internals.states.add('placeholder-shown');
-      } else {
-        this.internals.states.delete('placeholder-shown');
-      }
-    }
-
     if (changes.has('value')) {
-      if (this.value) {
-        this.internals.states.add('has-value');
-      } else {
-        this.internals.states.delete('has-value');
-      }
-
-      this.internals.setFormValue(this.value || null);
+      this.elementInternals.setFormValue(this.value || null);
     }
 
     if (
@@ -337,7 +328,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal */
   override focus(): void {
     this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
-    this.internals.states.add('has-focus');
+    this.hasFocus = true;
   }
 
   override render(): TemplateResult {
@@ -567,7 +558,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
       // If the parsed time parts are out of bounds, treat this as bad input instead of a range error
       if (completeHour < 0 || completeHour > 23 || completeMinute < 0 || completeMinute > 59) {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { badInput: true },
           msg('Please enter a valid time.', { id: 'sl.timeField.typeMismatch' })
         );
@@ -578,7 +569,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         maxTime = this.max ? this.#parseTime(this.max) : undefined;
 
       if (minTime && this.#compareTimes(completeParts, minTime) < 0) {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { rangeUnderflow: true },
           msg(str`Please select a time that is no earlier than ${this.min}.`, {
             id: 'sl.timeField.rangeUnderflow'
@@ -586,7 +577,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         );
         return;
       } else if (maxTime && this.#compareTimes(completeParts, maxTime) > 0) {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { rangeOverflow: true },
           msg(str`Please select a time that is no later than ${this.max}.`, {
             id: 'sl.timeField.rangeOverflow'
@@ -594,7 +585,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         );
         return;
       } else {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { badInput: true },
           msg('Please enter a valid time.', { id: 'sl.timeField.typeMismatch' })
         );
@@ -606,7 +597,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       !hasCompleteTime &&
       (this.timeParts.hour !== undefined || this.timeParts.minute !== undefined)
     ) {
-      this.internals.setValidity(
+      this.elementInternals.setValidity(
         { badInput: true },
         msg('Please enter a valid time.', { id: 'sl.timeField.typeMismatch' })
       );
@@ -615,7 +606,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     // Check for required field without value
     if (this.required && !this.value) {
-      this.internals.setValidity(
+      this.elementInternals.setValidity(
         { valueMissing: true },
         msg('Please enter a time.', { id: 'sl.timeField.valueMissing' })
       );
@@ -627,7 +618,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       const minTime = this.#parseTime(this.min);
 
       if (minTime && this.#compareTimes(this.#valueAsNumbers, minTime) < 0) {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { rangeUnderflow: true },
           msg(str`Please select a time that is no earlier than ${this.min}.`, {
             id: 'sl.timeField.rangeUnderflow'
@@ -642,7 +633,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       const maxTime = this.#parseTime(this.max);
 
       if (maxTime && this.#compareTimes(this.#valueAsNumbers, maxTime) > 0) {
-        this.internals.setValidity(
+        this.elementInternals.setValidity(
           { rangeOverflow: true },
           msg(str`Please select a time that is no later than ${this.max}.`, {
             id: 'sl.timeField.rangeOverflow'
@@ -653,7 +644,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     // All valid - clear any validity errors
-    this.internals.setValidity({});
+    this.elementInternals.setValidity({});
   }
 
   /** Returns the formatted time string for the select-all input. */
@@ -914,7 +905,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (!this.selectAll) {
-      this.internals.states.delete('has-focus');
+      this.hasFocus = false;
     }
   }
 
@@ -929,7 +920,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.#enteredDigits = 0;
-    this.internals.states.add('has-focus');
+    this.hasFocus = true;
 
     // Workaround for WebKit changing the selection on focus.
     this.#selectContentOnNextFrame(span);
@@ -955,7 +946,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       event.preventDefault();
 
       this.selectAll = true;
-      this.internals.states.add('has-focus');
+      this.hasFocus = true;
 
       requestAnimationFrame(() => {
         const selectAll = this.renderRoot.querySelector<HTMLElement>('.select-all')!;
@@ -1097,7 +1088,7 @@ export class TimeField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
   #exitSelectAll(refocus = false): void {
     this.selectAll = false;
-    this.internals.states.delete('has-focus');
+    this.hasFocus = false;
 
     if (refocus) {
       requestAnimationFrame(() => {

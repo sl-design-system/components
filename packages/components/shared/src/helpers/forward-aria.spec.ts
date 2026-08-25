@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import { ForwardAriaMixin } from '../mixins/forward-aria-mixin.js';
+import { ForwardAriaMixin } from '../mixins/forward-aria.js';
 import {
   getForwardedAccessibleName,
   getForwardedAriaAttribute,

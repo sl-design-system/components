@@ -7,14 +7,10 @@ import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { FormatDate, format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type EventEmitter,
-  LocaleMixin,
-  NewFocusGroupController,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, NewFocusGroupController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import {
   type CSSResultGroup,
   LitElement,

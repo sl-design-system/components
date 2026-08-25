@@ -5,6 +5,8 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -40,7 +42,7 @@ export type TagVariant = 'neutral' | 'info';
  * @csspart tooltip - The tooltip shown when the content is truncated.
  */
 @localized()
-export class Tag extends ScopedElementsMixin(LitElement) {
+export class Tag extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -57,9 +59,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true
   };
-
-  /** @internal */
-  #internals = this.attachInternals();
 
   /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
   #observer = new ResizeObserver(() => this.#onResize());
@@ -80,6 +79,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    * truncation.
    */
   @property() tooltip?: boolean | string;
+
+  /** @internal Whether the tag has visible focus. */
+  @state() @cssState() focusVisible?: boolean;
 
   /** @internal The label of the tag component. */
   @state() label = '';
@@ -235,13 +237,11 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onBlur(): void {
-    this.#internals.states.delete('focus-visible');
+    this.focusVisible = false;
   }
 
   #onFocus(event: FocusEvent): void {
-    if ((event.target as HTMLElement).matches(':focus-visible')) {
-      this.#internals.states.add('focus-visible');
-    }
+    this.focusVisible = (event.target as HTMLElement).matches(':focus-visible');
   }
 
   #onKeydown(event: KeyboardEvent): void {

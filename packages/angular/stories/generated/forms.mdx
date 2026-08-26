@@ -13,10 +13,10 @@ This page shows how SLDS validation integrates with Angular forms.
 
 In practice, validation is shared between Angular and SLDS:
 
-- **Angular forms** track form state (`valid`, `invalid`, `errors`, `touched`, `dirty`) and run Angular validators you configure.
-- **SLDS form controls** maintain component-level validity (for example `required` / value-missing), expose `valid`/`validity`, render the UI feedback, and emit events such as `sl-blur` and `sl-validate`.
+- **Angular forms** track form state (`touched`, `dirty` etc.) and run Angular validators you configure.
+- **SLDS form controls** maintain component level validity (for example `required` / value-missing), expose `valid`/`validity`, render the UI feedback, and emit events such as `sl-blur` and `sl-validate`.
 
-So SLDS does not replace Angular validation; it integrates component validity with Angular form state and provides consistent validation UX.
+So SLDS does not replace Angular validation, it integrates component validity with Angular form state and provides consistent validation UX.
 
 `touched` and `dirty` still matter with SLDS controls, but they are not the direct trigger for SLDS validation UI.
 
@@ -714,7 +714,7 @@ export class AllFormControlsTemplateComponent {
 
 ## All Template Driven On Blur
 
-Template-driven forms example with `validate-on-blur` on `<sl-form>`. Works with `[(ngModel)]` fields and shows validation feedback after blur, matching the reactive on-blur behavior.
+Template-driven forms example with `validate-on-blur` on `<sl-form>`. Works with `[(ngModel)]` fields and shows validation feedback after blur.
 
 
 ```typescript

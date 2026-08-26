@@ -310,7 +310,6 @@ describe('sl-form', () => {
         input = textField.formControlElement as HTMLInputElement,
         reportValiditySpy = spy(textField, 'reportValidity');
 
-      // User enters value
       input.value = 'something';
       input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
       textField.updateState({ dirty: true, touched: true });
@@ -320,7 +319,6 @@ describe('sl-form', () => {
       expect(textField.dirty).to.be.true;
       expect(textField.formValue).to.equal('something');
 
-      // User clears the value
       input.value = '';
       input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
       textField.updateValidity();
@@ -335,7 +333,6 @@ describe('sl-form', () => {
       await new Promise(resolve => requestAnimationFrame(resolve));
       await textField.updateComplete;
 
-      // Should validate on blur because the field was touched/dirty
       expect(reportValiditySpy).to.have.been.calledOnce;
       expect(textField.showValidity).to.equal('invalid');
     });

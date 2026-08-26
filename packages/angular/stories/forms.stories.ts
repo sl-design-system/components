@@ -952,7 +952,7 @@ export const AllTemplate: StoryFn = () => ({
 
 export const AllTemplateDrivenOnBlur: StoryFn = () => ({
   description:
-    'Template-driven forms example with `validate-on-blur` on `<sl-form>`. Works with `[(ngModel)]` fields and shows validation feedback after blur, matching the reactive on-blur behavior.',
+    'Template-driven forms example with `validate-on-blur` on `<sl-form>`. Works with `[(ngModel)]` fields and shows validation feedback after blur.',
   template:
     '<sla-all-form-controls-template-driven-on-blur></sla-all-form-controls-template-driven-on-blur>'
 });

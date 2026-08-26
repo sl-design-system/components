@@ -474,7 +474,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     }
 
     this.removeAttribute('data-pointer-focus');
-    this.blurEvent.emit();
+    this.blurEvent.emit(undefined, { bubbles: !this.closest('sl-checkbox-group') });
     this.updateState({ touched: true });
   }
 

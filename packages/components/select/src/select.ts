@@ -619,6 +619,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
         this.#popoverClosing = true;
       }
 
+      this.#removeOutsidePointerListener();
       this.#emitBlurAndTouch();
     }
   }

@@ -532,9 +532,9 @@ export const AllValidateOnBlur: Story = {
       args,
       html`
         <strong>Validate on blur for the full form.</strong> All visible fields are required except
-        <strong>Switch</strong>. Required fields stay quiet when only focused and blurred. After
-        typing and clearing, they show an error on blur. Untouched required fields validate on
-        submit.
+        <strong>Switch</strong>. Empty required fields show an error when blurred. Fields cleared
+        after editing also show the required error on blur. Required fields that are never visited
+        still validate on submit.
       `
     ),
   args: {

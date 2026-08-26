@@ -6,7 +6,8 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
-import '../register.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import './register.js';
 import { TextField } from './text-field.js';
 
 type Props = Pick<
@@ -18,6 +19,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'shape'
   | 'showValid'
   | 'size'
   | 'type'
@@ -45,6 +47,10 @@ export default {
   argTypes: {
     maxLength: { type: 'number' },
     minLength: { type: 'number' },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
+    },
     size: {
       control: 'inline-radio',
       options: ['md', 'lg']
@@ -65,6 +71,7 @@ export default {
     placeholder,
     readonly,
     required,
+    shape,
     showValid,
     size,
     slot,
@@ -78,23 +85,26 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${control?.() ??
-          html`
-            <sl-text-field
-              ?disabled=${disabled}
-              ?readonly=${readonly}
-              ?required=${required}
-              .maxLength=${maxLength}
-              .minLength=${minLength}
-              .pattern=${pattern}
-              .placeholder=${placeholder ?? ''}
-              .showValid=${showValid}
-              .size=${size ?? 'md'}
-              .type=${type ?? 'text'}
-              .value=${value}
-              >${slot?.() ?? nothing}</sl-text-field
-            >
-          `}
+          ${
+            control?.() ??
+            html`
+              <sl-text-field
+                ?disabled=${disabled}
+                ?readonly=${readonly}
+                ?required=${required}
+                .maxLength=${maxLength}
+                .minLength=${minLength}
+                .pattern=${pattern}
+                .placeholder=${placeholder ?? ''}
+                shape=${ifDefined(shape)}
+                .showValid=${showValid}
+                .size=${size ?? 'md'}
+                .type=${type ?? 'text'}
+                .value=${value}
+                >${slot?.() ?? nothing}</sl-text-field
+              >
+            `
+          }
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
@@ -134,6 +144,13 @@ export const PrefixSuffix: Story = {
       <sl-icon slot="prefix" name="face-smile"></sl-icon>
       <sl-icon slot="suffix" name="face-smile"></sl-icon>
     `
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    hint: 'This field uses the pill shape.',
+    shape: 'pill'
   }
 };
 
@@ -232,14 +249,12 @@ export const All: Story = {
         <sl-text-field
           aria-label="Text field"
           show-validity="invalid"
-          value="Invalid"
-        ></sl-text-field>
+          value="Invalid"></sl-text-field>
         <sl-text-field
           aria-label="Text field"
           show-validity="invalid"
           size="lg"
-          value="Invalid"
-        ></sl-text-field>
+          value="Invalid"></sl-text-field>
 
         <span>Valid</span>
         <sl-text-field aria-label="Text field" show-validity="valid" value="Valid"></sl-text-field>
@@ -247,8 +262,7 @@ export const All: Story = {
           aria-label="Text field"
           show-validity="valid"
           size="lg"
-          value="Valid"
-        ></sl-text-field>
+          value="Valid"></sl-text-field>
 
         <span>Prefix/suffix</span>
         <sl-text-field aria-label="Text field" placeholder="Placeholder">
@@ -279,6 +293,56 @@ export const All: Story = {
         <span>Disabled</span>
         <sl-text-field aria-label="Text field" disabled value="Value"></sl-text-field>
         <sl-text-field aria-label="Text field" disabled size="lg" value="Value"></sl-text-field>
+
+        <span>Empty (pill)</span>
+        <sl-text-field
+          aria-label="Text field"
+          placeholder="Placeholder"
+          shape="pill"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          placeholder="Placeholder"
+          shape="pill"
+          size="lg"></sl-text-field>
+
+        <span>Value (pill)</span>
+        <sl-text-field aria-label="Text field" shape="pill" value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" shape="pill" size="lg" value="Value"></sl-text-field>
+
+        <span>Valid (pill)</span>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="valid"
+          shape="pill"
+          value="Valid"></sl-text-field>
+        <sl-text-field
+          aria-label="Text field"
+          show-validity="valid"
+          shape="pill"
+          size="lg"
+          value="Valid"></sl-text-field>
+
+        <span>Prefix/suffix (pill)</span>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill" size="lg">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
+
+        <span>Field button (pill)</span>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill">
+          <sl-field-button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </sl-field-button>
+        </sl-text-field>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" shape="pill" size="lg">
+          <sl-field-button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </sl-field-button>
+        </sl-text-field>
       </div>
     `;
   }

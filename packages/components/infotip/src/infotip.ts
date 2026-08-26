@@ -1,13 +1,14 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
+import { Button, type ButtonSize } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './infotip.scss.js';
+import { property } from 'lit/decorators.js';
+import styles from './infotip.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -47,13 +48,19 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
       'sl-popover': Popover
     };
   }
+
+  /** The name of the element that this infotip describes. */
+  @property() describes?: string;
+
+  /** The size of the infotip button. */
+  @property({ reflect: true }) size: ButtonSize = 'md';
 
   /** Light DOM div that holds a copy of the content; manually assigned to the default slot. */
   #contentCopy?: HTMLElement;
@@ -98,11 +105,12 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     return html`
       <sl-button
         @click=${this.#onClick}
-        aria-label=${msg('More information', { id: 'sl.infotip.moreInformation' })}
+        @keydown=${this.#onKeydown}
+        aria-label=${this.#buttonLabel()}
         fill="ghost"
         id="trigger"
-        part="button"
-      >
+        size=${this.size}
+        part="button">
         <slot name="icon">
           <sl-icon name="info"></sl-icon>
         </slot>
@@ -113,8 +121,40 @@ export class Infotip extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onClick(): void {
+  override focus(options?: FocusOptions): void {
+    const trigger = this.renderRoot.querySelector<Button>('sl-button');
+
+    if (trigger) {
+      trigger.focus(options);
+      return;
+    }
+
+    super.focus(options);
+  }
+
+  toggleInfotip(): void {
     this.renderRoot.querySelector('sl-popover')?.togglePopover();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.stopPropagation();
+    }
+  }
+
+  #onClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.toggleInfotip();
+  }
+
+  #buttonLabel(): string {
+    const describes = this.describes?.trim();
+
+    if (!describes) {
+      return msg('More information', { id: 'sl.infotip.moreInformation' });
+    }
+    return msg(str`More information about ${describes}`, { id: 'sl.infotip.moreInformationAbout' });
   }
 
   #syncContent(): void {

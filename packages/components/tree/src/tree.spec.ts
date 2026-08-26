@@ -3,9 +3,9 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { FlatTreeDataSource } from './flat-tree-data-source.js';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
+import './register.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
 
@@ -504,8 +504,7 @@ describe('sl-tree', () => {
           .renderer=${(node: TreeDataSourceNode<FlatDataNode>) => html`
             <span>${node.label}</span>
             <button id="btn-${node.id}">Button</button>
-          `}
-        ></sl-tree>
+          `}></sl-tree>
       `);
       await el.updateComplete;
     });

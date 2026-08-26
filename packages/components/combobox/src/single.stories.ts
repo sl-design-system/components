@@ -6,9 +6,9 @@ import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
+import './register.js';
 
 type Props = Pick<
   Combobox,
@@ -18,11 +18,14 @@ type Props = Pick<
   | 'filterResults'
   | 'groupSelected'
   | 'placeholder'
+  | 'shape'
   | 'selectOnly'
   | 'value'
 > & {
+  label?: string;
   maxWidth?: string;
   options?: unknown[] | (() => TemplateResult);
+  optionDisabledPath?: string;
   optionGroupPath?: string;
   optionLabelPath?: string;
   optionValuePath?: string;
@@ -37,7 +40,9 @@ export default {
     autocomplete: 'both',
     disabled: false,
     filterResults: false,
-    placeholder: 'Choose a component',
+    label: 'Component',
+    maxWidth: '500px',
+    placeholder: '',
     selectOnly: false,
     virtualList: false
   },
@@ -45,6 +50,10 @@ export default {
     autocomplete: {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
     },
     options: {
       table: { disable: true }
@@ -56,42 +65,54 @@ export default {
     disabled,
     filterResults,
     groupSelected,
+    label,
     maxWidth,
+    optionDisabledPath,
     optionGroupPath,
     optionLabelPath,
     optionValuePath,
     options,
     placeholder,
+    shape,
     selectOnly,
     value,
     virtualList
   }) => {
     return html`
-      <sl-combobox
-        ?allow-custom-values=${allowCustomValues}
-        ?disabled=${disabled}
-        ?filter-results=${filterResults}
-        ?group-selected=${groupSelected}
-        ?select-only=${selectOnly}
-        .options=${virtualList ? options : undefined}
-        .value=${value}
-        autocomplete=${ifDefined(autocomplete)}
-        option-group-path=${ifDefined(optionGroupPath)}
-        option-label-path=${ifDefined(optionLabelPath)}
-        option-value-path=${ifDefined(optionValuePath)}
-        placeholder=${ifDefined(placeholder)}
-        style=${`max-width: ${maxWidth ?? 'none'}`}
-      >
-        ${virtualList
-          ? nothing
-          : html`
-              <sl-listbox>
-                ${Array.isArray(options)
-                  ? options.map(o => html`<sl-option>${o}</sl-option>`)
-                  : options?.()}
-              </sl-listbox>
-            `}
-      </sl-combobox>
+      <sl-form>
+        <sl-form-field label=${ifDefined(label)}>
+          <sl-combobox
+            ?allow-custom-values=${allowCustomValues}
+            ?disabled=${disabled}
+            ?filter-results=${filterResults}
+            ?group-selected=${groupSelected}
+            ?select-only=${selectOnly}
+            .options=${virtualList ? options : undefined}
+            .value=${value}
+            autocomplete=${ifDefined(autocomplete)}
+            option-disabled-path=${ifDefined(optionDisabledPath)}
+            option-group-path=${ifDefined(optionGroupPath)}
+            option-label-path=${ifDefined(optionLabelPath)}
+            option-value-path=${ifDefined(optionValuePath)}
+            placeholder=${ifDefined(placeholder)}
+            shape=${ifDefined(shape)}
+            style=${`max-width: ${maxWidth || '500px'}`}>
+            ${
+              virtualList
+                ? nothing
+                : html`
+                    <sl-listbox>
+                      ${
+                        Array.isArray(options)
+                          ? options.map(o => html`<sl-option>${o}</sl-option>`)
+                          : options?.()
+                      }
+                    </sl-listbox>
+                  `
+            }
+          </sl-combobox>
+        </sl-form-field>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;
@@ -113,6 +134,22 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true
+  }
+};
+
+export const DisabledOptions: Story = {
+  args: {
+    label: 'Subject',
+    options: [
+      { disabled: false, label: 'Mathematics', value: 'mathematics' },
+      { disabled: true, label: 'Physics', value: 'physics' },
+      { disabled: false, label: 'History', value: 'history' },
+      { disabled: true, label: 'Geography', value: 'geography' }
+    ],
+    optionDisabledPath: 'disabled',
+    optionLabelPath: 'label',
+    optionValuePath: 'value',
+    virtualList: true
   }
 };
 
@@ -149,6 +186,7 @@ export const Groups: Story = {
 
 export const RichContent: Story = {
   args: {
+    label: 'Chapter',
     options: () => html`
       <style>
         sl-option::part(wrapper) {
@@ -166,11 +204,11 @@ export const RichContent: Story = {
         >Chapter 2 <sl-badge size="lg" variant="info">Published</sl-badge></sl-option
       >
       <sl-option value="chapter-3">
-        Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla
-        eiusmod irure ut anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit
-        ullamco exercitation ipsum et eu nisi id minim ut. Labore id fugiat exercitation dolor
-        fugiat non dolore anim et enim ex consequat non Lorem. Lorem quis sint et et.
-        <sl-badge emphasis="bold" size="lg">Draft</sl-badge>
+        Chapter 3 - Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis.
+        Nisi eu nulla eiusmod irure ut anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor
+        in fugiat. Sit ullamco exercitation ipsum et eu nisi id minim ut. Labore id fugiat
+        exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem. Lorem quis sint et
+        et. <sl-badge emphasis="bold" size="lg">Draft</sl-badge>
       </sl-option>
     `
   }
@@ -178,6 +216,7 @@ export const RichContent: Story = {
 
 export const Selected: Story = {
   args: {
+    label: 'Your favorite nonsensical word',
     options: () => html`
       <sl-option>Lorem</sl-option>
       <sl-option>Ipsum</sl-option>
@@ -197,6 +236,25 @@ export const Value: Story = {
   args: {
     ...Basic.args,
     value: 'Tooltip'
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    ...Basic.args,
+    shape: 'pill'
+  }
+};
+
+export const NumericOptionValues: Story = {
+  args: {
+    label: 'Chapter',
+    options: () => html`
+      <sl-option .value=${1}>Chapter 1</sl-option>
+      <sl-option .value=${2}>Chapter 2</sl-option>
+      <sl-option .value=${3}>Chapter 3</sl-option>
+    `,
+    value: '1'
   }
 };
 

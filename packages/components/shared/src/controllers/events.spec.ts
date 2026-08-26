@@ -44,8 +44,7 @@ describe('EventsController', () => {
           click: () => {
             clicked = true;
           }
-        }}
-      ></shared-events-test>
+        }}></shared-events-test>
     `);
 
     el.click();
@@ -63,8 +62,7 @@ describe('EventsController', () => {
             },
             options: { capture: true }
           }
-        }}
-      >
+        }}>
         <button id="child">Child</button>
       </shared-events-test>
     `);
@@ -87,8 +85,7 @@ describe('EventsController', () => {
           click: () => {
             clickedCount++;
           }
-        }}
-      ></shared-events-test>
+        }}></shared-events-test>
     `);
 
     el.click();

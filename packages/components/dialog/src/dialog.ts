@@ -24,7 +24,7 @@ import {
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './dialog.scss.js';
+import styles from './dialog.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -57,7 +57,7 @@ export type SlCloseEvent = CustomEvent<void>;
 @localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
@@ -154,8 +154,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @close=${this.#onClose}
         aria-labelledby="title"
         role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
-        part="dialog"
-      >
+        part="dialog">
         <div part="header">${this.renderHeader()}</div>
         <div @scroll=${this.#onScroll} part="body">${this.renderBody()}</div>
         ${this.#media.mobile ? nothing : html`<div part="footer">${this.renderFooter()}</div>`}
@@ -182,27 +181,30 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           <slot name="title" id="title">
             <h1>${title}</h1>
           </slot>
-          ${this.#media.mobile
-            ? html`
-                <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
-                  ${this.renderPrimaryActions()}
-                </slot>
-              `
-            : nothing}
+          ${
+            this.#media.mobile
+              ? html`
+                  <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
+                    ${this.renderPrimaryActions()}
+                  </slot>
+                `
+              : nothing
+          }
         </div>
-        ${this.closeButton
-          ? html`
-              <sl-button
-                @click=${this.#onCloseClick}
-                aria-label=${msg('Close', { id: 'sl.common.close' })}
-                class="sl-close"
-                fill="ghost"
-                variant="default"
-              >
-                <sl-icon name="xmark"></sl-icon>
-              </sl-button>
-            `
-          : nothing}
+        ${
+          this.closeButton
+            ? html`
+                <sl-button
+                  @click=${this.#onCloseClick}
+                  aria-label=${msg('Close', { id: 'sl.common.close' })}
+                  class="sl-close"
+                  fill="ghost"
+                  variant="default">
+                  <sl-icon name="xmark"></sl-icon>
+                </sl-button>
+              `
+            : nothing
+        }
       </slot>
     `;
   }
@@ -216,13 +218,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   renderBody(): TemplateResult {
     return html`
       <slot></slot>
-      ${this.#media.mobile
-        ? html`
-            <sl-button-bar part="footer-bar">
-              <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
-            </sl-button-bar>
-          `
-        : nothing}
+      ${
+        this.#media.mobile
+          ? html`
+              <sl-button-bar part="footer-bar">
+                <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
+              </sl-button-bar>
+            `
+          : nothing
+      }
     `;
   }
 

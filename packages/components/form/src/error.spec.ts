@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { Error } from './error.js';
+import './register.js';
 
 describe('sl-error', () => {
   let el: Error;
@@ -19,6 +19,12 @@ describe('sl-error', () => {
     it('should have an error-text slot in the light DOM', () => {
       expect(el.firstElementChild).to.be.an.instanceof(HTMLSlotElement);
       expect(el.firstElementChild).to.have.attribute('name', 'error-text');
+    });
+
+    it('should render the triangle-exclamation-solid icon', () => {
+      const icon = el.renderRoot.querySelector('sl-icon');
+
+      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
     });
   });
 

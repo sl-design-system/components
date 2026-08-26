@@ -1,0 +1,91 @@
+:host {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  background: transparent;
+  border-end-end-radius: inherit;
+  border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
+  border-start-end-radius: inherit;
+  color: var(--sl-color-foreground-secondary-bold);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  padding: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
+}
+
+:host([slot='prefix']) {
+  border-end-end-radius: 0;
+  border-end-start-radius: inherit;
+  border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
+  border-inline-start: none;
+  border-start-end-radius: 0;
+  border-start-start-radius: inherit;
+}
+
+:host([disabled]) {
+  border-color: var(--sl-color-border-disabled);
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+:host([size='lg']) {
+  padding: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+}
+
+:host([shape='pill']) {
+  background: var(
+    --_field-button-bg,
+    color-mix(
+      in srgb,
+      var(--_field-button-bg-color, transparent),
+      var(--_field-button-bg-mix-color, transparent) calc(100% * var(--_field-button-bg-opacity, 0))
+    )
+  );
+  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
+  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default))
+    calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+}
+
+:host([shape='pill'][size='lg']) {
+  padding-block: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+  padding-inline: calc(var(--sl-size-200) + var(--sl-size-025) - var(--sl-size-borderWidth-default))
+    calc(var(--sl-size-250) - var(--sl-size-borderWidth-default));
+}
+
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  );
+
+  ::slotted(sl-icon) {
+    color: var(--sl-color-foreground-selected-bold);
+  }
+}
+
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+}
+
+:host(:focus-visible) {
+  outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+::slotted(sl-icon) {
+  border-radius: var(--sl-size-borderRadius-child);
+  outline: transparent solid var(--sl-size-borderWidth-focusRing);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 200ms ease-in-out;
+    transition-property: background, color, outline-color;
+  }
+}

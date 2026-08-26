@@ -1,744 +1,475 @@
 import {
-  AnchorController,
-  EventsController,
-  type PopoverPosition,
-  isPopoverOpen
-} from '@sl-design-system/shared';
-import {
   type CSSResultGroup,
   LitElement,
   type PropertyValues,
   type TemplateResult,
   html
 } from 'lit';
-import { property } from 'lit/decorators.js';
-import styles from './tooltip.scss.js';
+import { property, state } from 'lit/decorators.js';
+import styles from './tooltip.css' with { type: 'css' };
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-close': CustomEvent<void>;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-tooltip': Tooltip;
   }
-
-  interface ShadowRoot {
-    // Workaround for missing type in @open-wc/scoped-elements
-    createElement<K extends keyof HTMLElementTagNameMap>(
-      tagName: K,
-      options?: ElementCreationOptions
-    ): HTMLElementTagNameMap[K];
-  }
-}
-
-export interface TooltipOptions {
-  /**
-   * This determines the context that is used to create the `<sl-tooltip>` element. If not provided,
-   * the tooltip will be created on the target element if it has a `shadowRoot`, or the root node of
-   * the target element.
-   */
-  context?: Document | ShadowRoot;
-
-  /**
-   * This is the node where the tooltip will be added to. This can be useful when you don't want the
-   * tooltip to be added next to the anchor element. If not provided, it will be added next to the
-   * anchor element.
-   */
-  parentNode?: Node;
-
-  /**
-   * Which ARIA relationship attribute to add to the anchor (`aria-describedby` or
-   * `aria-labelledby`). Defaults to 'description' ('aria-describedby').
-   *
-   * A good example of when to use `aria-labelledby` is when the tooltip provides a label or title
-   * for the anchor element, such as an icon only button (so button with only an icon) and no
-   * visible text.
-   */
-  ariaRelation?: 'description' | 'label';
 }
 
 let nextUniqueId = 0;
 
 /**
- * Tooltip component.
+ * A tooltip component that can be used to display additional information about an element when the
+ * user hovers over it, focuses it, or clicks it. The tooltip is positioned relative to an anchor
+ * element, which can be specified using the `for` attribute. That attribute accepts multiple ids,
+ * separated by spaces, so a single tooltip can serve several elements.
  *
- * @slot default - The slot for the tooltip content.
+ * The tooltip will automatically determine the appropriate ARIA relation to use based on the `type`
+ * property. By default, it will use `ariaLabelledByElements`, but if `type` is set to
+ * `description`, it will use `ariaDescribedByElements` instead.
+ *
+ * @element sl-tooltip
+ *
+ * @slot - The content of the tooltip.
+ *
+ * @csspart hover-bridge - An invisible element used to extend the hover area of the tooltip.
  */
 export class Tooltip extends LitElement {
-  /** @internal The default padding of the arrow. */
-  static arrowPadding = 16;
+  /**
+   * The delay in milliseconds before showing the tooltip when the mouse hovers over the anchor
+   * element.
+   */
+  static hoverShowDelay: number = 150;
 
-  /** @internal The default offset of the tooltip to its anchor. */
-  static offset = 12;
+  /** The delay in milliseconds before hiding the tooltip when the mouse leaves the anchor element. */
+  static hoverHideDelay: number = 0;
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal The default margin between the tooltip and the viewport. */
-  static viewportMargin = 8;
+  /** Controller for managing event listeners. */
+  #eventController = new AbortController();
 
-  /** To attach the `sl-tooltip` to the DOM tree and anchor element */
-  static lazy(
-    target: Element,
-    callback: (target: Tooltip) => void,
-    options: TooltipOptions = {}
-  ): () => void {
-    const removeListeners = () => {
-      ['focusin', 'pointerover'].forEach(eventName =>
-        target.removeEventListener(eventName, createTooltip)
-      );
-    };
+  /** Timeout ID for the hover delay. */
+  #hoverTimeout?: ReturnType<typeof setTimeout>;
 
-    const createTooltip = (): void => {
-      let context = options.context;
-      if (!context && target.shadowRoot?.registry?.get('sl-tooltip')) {
-        context = target.shadowRoot;
-      } else if (!context) {
-        context = target.getRootNode() as Document;
-      }
-
-      const tooltip = context.createElement('sl-tooltip');
-
-      if (options.parentNode) {
-        options.parentNode.appendChild(tooltip);
-      } else {
-        target.parentNode!.insertBefore(tooltip, target.nextSibling);
-      }
-
-      // If the tooltip has no popover property, then the sl-tooltip custom element
-      // is not defined in either the `options.context` or the document.
-      if (tooltip.popover === null) {
-        console.warn(
-          `The sl-tooltip custom element is not defined in the ${context !== document ? `${(context as ShadowRoot).host.tagName} element` : 'document'}. Please make sure to register the sl-tooltip custom element in your application.`
-        );
-
-        tooltip.remove();
-        removeListeners();
-
-        return;
-      }
-
-      tooltip.id = `sl-tooltip-${nextUniqueId++}`;
-
-      const ariaRelation = options.ariaRelation ?? 'description',
-        ariaAttribute = ariaRelation === 'label' ? 'labelledby' : 'describedby';
-
-      target.setAttribute(`aria-${ariaAttribute}`, tooltip.id);
-
-      callback(tooltip);
-
-      tooltip.anchorElement = target as HTMLElement;
-
-      // We only need to create the tooltip once, so ignore all future events.
-      removeListeners();
-    };
-
-    const cleanup = () => {
-      removeListeners();
-    };
-
-    ['focusin', 'pointerover'].forEach(eventName =>
-      target.addEventListener(eventName, createTooltip)
-    );
-
-    return cleanup;
-  }
-
-  /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, {
-    arrowElement: '.arrow',
-    arrowPadding: Tooltip.arrowPadding,
-    offset: Tooltip.offset,
-    viewportMargin: Tooltip.viewportMargin
-  });
-
-  /** Events controller. */
-  #events = new EventsController(this);
-
-  /** Anchors observed for this tooltip, used to avoid full DOM scans on hide. */
-  #knownAnchors = new Set<HTMLElement>();
-
-  /** Whether the current open state was triggered by focus-based interaction. */
-  #openedByFocus = false;
-
-  /** Timer for showing/hiding the tooltip. */
-  #timer?: ReturnType<typeof setTimeout>;
+  /** @internal All elements this tooltip belongs to. */
+  @state() anchors: HTMLElement[] = [];
 
   /**
-   * The amount of time to wait before hiding the tooltip when the user moves the mouse/pointer out.
-   *
-   * @default 0
+   * @internal The anchor the tooltip is currently positioned against. When `for` references
+   *   multiple elements, this is the one that last triggered the tooltip.
    */
-  @property({ type: Number, attribute: 'hide-delay' }) hideDelay = 0;
-
-  /** The maximum width of the tooltip. */
-  @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
+  @state() anchor?: HTMLElement | null;
 
   /**
-   * The offset distance of the tooltip from its anchor.
+   * Stops the tooltip from being displayed.
    *
-   * @default Tooltip.offset (12px)
+   * @default false
    */
-  @property({ type: Number }) offset?: number;
+  @property({ type: Boolean }) disabled?: boolean;
 
   /**
-   * Position of the tooltip relative to its anchor.
-   *
-   * @type {'top'
-   *   | 'right'
-   *   | 'bottom'
-   *   | 'left'
-   *   | 'top-start'
-   *   | 'top-end'
-   *   | 'right-start'
-   *   | 'right-end'
-   *   | 'bottom-start'
-   *   | 'bottom-end'
-   *   | 'left-start'
-   *   | 'left-end'}
+   * The id of the element this tooltip is for. Multiple ids can be passed by separating them with a
+   * space; the tooltip then belongs to each of those elements.
    */
-  @property() position: PopoverPosition = 'top';
+  @property() for?: string;
 
   /**
-   * The amount of time to wait before showing the tooltip when the user moves the mouse/pointer in.
+   * Setting this will cause the tooltip to show/hide, regardless of trigger. Do not use this
+   * property to check if the tooltip is showing, use `matches(':popover-open')` instead.
    *
-   * @default 150
+   * @default false
    */
-  @property({ type: Number, attribute: 'show-delay' }) showDelay = 150;
+  @property({ type: Boolean }) open?: boolean;
 
-  override connectedCallback(): void {
+  /**
+   * Controls how the tooltip is activated. Possible options include `click`, `hover`, `focus`, and
+   * `manual`. Multiple options can be passed by separating them with a space. When manual is used,
+   * the tooltip must be activated programmatically.
+   *
+   * @default 'focus hover'
+   */
+  @property() trigger = 'focus hover';
+
+  /**
+   * The type of tooltip. Used to determine the ARIA relation that should be used.
+   *
+   * @default 'label'
+   */
+  @property() type?: 'description' | 'label';
+
+  override connectedCallback() {
     super.connectedCallback();
 
+    this.setAttribute('aria-hidden', 'true');
     this.setAttribute('popover', 'manual');
     this.setAttribute('role', 'tooltip');
-    this.setAttribute('aria-hidden', 'true'); // Prevent the tooltip from being read by screen readers multiple times
 
-    const root = this.getRootNode() as HTMLElement,
-      eventTargetForClose = this.ownerDocument ?? document;
+    if (!this.id) {
+      this.id = `sl-tooltip-${nextUniqueId++}`;
+    }
 
-    this.#events.listen(root, 'click', this.#onHide, { capture: true });
-    this.#events.listen(root, 'focusin', this.#onShow);
-    this.#events.listen(root, 'focusout', this.#onHide);
-    this.#events.listen(root, 'keydown', this.#onKeydown);
-    this.#events.listen(root, 'pointerover', this.#onShow);
-    this.#events.listen(root, 'pointerout', this.#onHide);
-    this.#events.listen(eventTargetForClose, 'sl-close', this.#onShow);
+    if (this.#eventController.signal.aborted) {
+      this.#eventController = new AbortController();
+    }
+
+    const { signal } = this.#eventController;
+
+    this.addEventListener('beforetoggle', this.#onBeforeToggle, { signal });
+    this.addEventListener('click', this.#onTooltipClick, { signal });
+    this.addEventListener('mouseout', this.#onMouseOut, { signal });
+    this.addEventListener('toggle', this.#onToggle, { signal });
+
+    // Re-establish the anchor relationship if the tooltip is moved to a different root
+    if (this.anchors.length && this.for) {
+      this.anchors = []; // triggers #updateAnchors()
+    } else if (this.for) {
+      this.#updateAnchors();
+    }
   }
 
-  override disconnectedCallback(): void {
-    clearTimeout(this.#timer);
-    this.#timer = undefined;
+  override disconnectedCallback() {
+    clearTimeout(this.#hoverTimeout);
+
+    this.#eventController.abort();
+
+    // Remove the event handler in case the tooltip is still open when disconnected
+    document.removeEventListener('keydown', this.#onKeydown, { capture: true });
+
+    this.anchors.forEach(anchor => this.#removeAriaRelation(anchor, this.type));
 
     super.disconnectedCallback();
-  }
-
-  override render(): TemplateResult {
-    return html`
-      <slot></slot>
-      <div class="arrow"></div>
-      <div class="safe-triangle"></div>
-    `;
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('maxWidth')) {
-      this.#anchor.maxWidth = this.maxWidth;
+    if (changes.has('anchors') || changes.has('for')) {
+      this.#updateAnchors();
     }
 
-    if (changes.has('offset')) {
-      this.#anchor.offset = this.offset ?? Tooltip.offset;
-    }
-
-    if (changes.has('position')) {
-      this.#anchor.position = this.position;
-    }
-  }
-
-  #onHide = (event: Event): void => {
-    // Only clear the timer for focusout when the tooltip was opened by focus; otherwise,
-    // an unrelated focusout could cancel a pending hover showDelay timer.
-    if (event.type !== 'focusout' || this.#openedByFocus) {
-      clearTimeout(this.#timer);
-      this.#timer = undefined;
-    }
-
-    if (event.type === 'click') {
-      this.#hideTooltip();
-      return;
-    }
-
-    if (event.type === 'pointerout' && !isPopoverOpen(this)) {
-      return;
-    }
-
-    // Ignore unrelated focusout events when the tooltip was not opened by focus.
-    // This avoids overriding a pending hover show timer with a no-op timeout.
-    if (event.type === 'focusout' && !this.#openedByFocus) {
-      return;
-    }
-
-    this.#timer = setTimeout(
-      () => {
-        const anchorHovered = !!this.anchorElement?.matches(':hover');
-        const tooltipHovered = this.matches(':hover');
-        const safeTriangleHovered = !!this.renderRoot.querySelector('.safe-triangle:hover');
-
-        if (event.type === 'focusout') {
-          if (!this.#openedByFocus) {
-            return;
-          }
-
-          // Keep the tooltip visible when pointer hover is still active.
-          // Without this guard, a focusout can close the tooltip even though the anchor
-          // remains hovered, and no new pointerover will fire to reopen it.
-          if (anchorHovered || tooltipHovered || safeTriangleHovered) {
-            return;
-          }
-
-          const anchorForEvent = this.#findAnchorInEvent(event),
-            focusedAnchor = this.#findFocusedAnchor();
-
-          const movedToAnotherSharedAnchor =
-            !!focusedAnchor &&
-            focusedAnchor !== this.anchorElement &&
-            this.#matchesAnchor(focusedAnchor);
-          if (movedToAnotherSharedAnchor) {
-            return;
-          }
-
-          const hasFocusWithinCurrentAnchor = !!this.anchorElement?.matches(':focus-within');
-
-          // If focus is still logically within this anchor (including descendants), keep the tooltip open.
-          if (hasFocusWithinCurrentAnchor) {
-            return;
-          }
-
-          // Ignore unrelated focusouts. Hide only when the current anchor actually lost focus.
-          const currentAnchorLostFocus = !!this.anchorElement && !hasFocusWithinCurrentAnchor;
-          if (
-            currentAnchorLostFocus &&
-            (!anchorForEvent || anchorForEvent === this.anchorElement)
-          ) {
-            this.#hideTooltip();
-          }
-          return;
-        }
-
-        const isFocusVisible = !!this.anchorElement?.matches(':focus-visible');
-
-        // Keep the tooltip open while the current anchor still has keyboard-visible focus.
-        // This prevents hover-out from hiding a focus-triggered tooltip.
-        if (anchorHovered || tooltipHovered || safeTriangleHovered || isFocusVisible) {
-          return;
-        }
-
-        // When hover leaves a shared anchor, restore the tooltip to the focused anchor
-        // if the tooltip was originally opened through keyboard focus.
-        const focusedAnchor = this.#findFocusedAnchor();
-        if (this.#openedByFocus && focusedAnchor && this.#matchesAnchor(focusedAnchor)) {
-          this.#showTooltip(focusedAnchor, true);
-          return;
-        }
-
-        // First check known anchors to avoid scanning the whole root on every hide attempt.
-        const knownAnchors = this.#getKnownAnchors();
-        const anyKnownAnchorHovered = knownAnchors.some(
-          el => el.matches(':hover') || el.matches(':focus-visible')
-        );
-
-        if (anyKnownAnchorHovered) {
-          return;
-        }
-
-        // Fallback for anchors not yet tracked in #knownAnchors.
-        const potentialAnchors = Array.from(new Set([...knownAnchors, ...this.#getAriaAnchors()]));
-        const anyAnchorHovered = potentialAnchors.some(
-          el => el.matches(':hover') || el.matches(':focus-visible')
-        );
-
-        if (!anyAnchorHovered) {
-          this.#hideTooltip();
-        }
-      },
-      event.type === 'focusout' ? 0 : this.hideDelay
-    );
-  };
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (isPopoverOpen(this) && event.key === 'Escape') {
-      this.#hideTooltip();
-    }
-  }
-
-  #onShow = (event: Event): void => {
-    // If the event is sl-close, the event path might not contain the anchor (as it comes from the dialog)
-    // So we use the activeElement (or shadowRoot.activeElement) as a candidate anchor.
-    const candidateAnchor =
-      event.type === 'focusin' || event.type === 'sl-close' ? this.#findFocusedAnchor() : null;
-
-    const anchorElement = candidateAnchor || this.#findAnchorInEvent(event);
-
-    if (!anchorElement) {
-      return;
-    }
-
-    // Don't show the tooltip if the event comes from inside an open popover
-    // (e.g. hovering over or focusing a menu item in an open menu that belongs to the anchor)
-    const isInsideOpenPopover = event
-      .composedPath()
-      .some(el => el instanceof HTMLElement && el !== this && isPopoverOpen(el));
-
-    if (isInsideOpenPopover) {
-      return;
-    }
-
-    // Track anchors as soon as they are detected, even when showing is delayed.
-    this.#knownAnchors.add(anchorElement);
-
-    // For hover events
-    if (event.type === 'pointerover') {
-      clearTimeout(this.#timer);
-      this.#timer = undefined;
-
-      // If already open, update anchor immediately to avoid "stickiness"
-      if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, this.#openedByFocus);
+    if (changes.has('open')) {
+      if (this.open) {
+        this.showPopover();
       } else {
-        this.#timer = setTimeout(() => this.#showTooltip(anchorElement, false), this.showDelay);
+        this.hidePopover();
       }
-      return;
     }
 
-    // For keyboard navigation (focus events or dialog/popover closing)
-    if (event.type === 'focusin' || event.type === 'sl-close') {
-      clearTimeout(this.#timer);
-      this.#timer = undefined;
+    // Skip this on the first update: `#updateAnchors()` above has already added the relation using
+    // the current type, so there is no relation for the previous type to clean up. Checking the
+    // previous type is not an alternative, since `undefined` is a valid one; it means `label`, and
+    // going from an untyped tooltip to `description` does need the labelling relation cleaned up.
+    if (changes.has('type') && this.hasUpdated) {
+      this.anchors.forEach(anchor => {
+        this.#removeAriaRelation(anchor, changes.get('type'));
+        if (!this.disabled) {
+          this.#addAriaRelation(anchor, this.type);
+        }
+      });
+    }
 
-      if (!(anchorElement instanceof HTMLElement) || !this.#matchesAnchor(anchorElement)) {
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.hidePopover();
+      }
+
+      this.anchors.forEach(anchor => {
+        if (this.disabled) {
+          this.#removeAriaRelation(anchor, this.type);
+        } else {
+          this.#addAriaRelation(anchor, this.type);
+        }
+      });
+    }
+  }
+
+  override render(): TemplateResult {
+    return html`
+      <slot></slot>
+      <div part="hover-bridge"></div>
+    `;
+  }
+
+  #onBeforeToggle = (event: ToggleEvent): void => {
+    if (event.newState === 'open') {
+      if (this.disabled) {
+        event.preventDefault();
         return;
       }
 
-      const path = event.composedPath();
-      const getHasFocusVisible = (): boolean =>
-        anchorElement.matches(':focus-visible') ||
-        path.some(el => el instanceof Element && el.matches(':focus-visible'));
+      document.addEventListener('keydown', this.#onKeydown, { capture: true });
+    } else {
+      document.removeEventListener('keydown', this.#onKeydown, { capture: true });
+    }
+  };
 
-      // If already open (e.g. tabbing between shared buttons), update anchor immediately
-      if (isPopoverOpen(this)) {
-        this.#showTooltip(anchorElement, getHasFocusVisible());
+  #onBlur = (): void => {
+    if (this.#hasTrigger('focus')) {
+      this.hidePopover();
+    }
+  };
+
+  #onClick = (event: Event): void => {
+    if (this.#hasTrigger('click')) {
+      if (this.matches(':popover-open') && event.currentTarget === this.anchor) {
+        this.hidePopover();
       } else {
-        requestAnimationFrame(() => {
-          const hasFocusVisible = getHasFocusVisible();
+        this.#setActiveAnchor(event.currentTarget as HTMLElement);
+        this.showPopover();
+      }
+    } else {
+      this.hidePopover();
+    }
+  };
 
-          if (hasFocusVisible) {
-            this.#showTooltip(anchorElement, true);
-          }
-        });
+  #onFocus = (event: FocusEvent): void => {
+    if (this.#hasTrigger('focus')) {
+      const anchor = event.currentTarget as HTMLElement;
+
+      this.#setActiveAnchor(anchor);
+
+      // Only show the tooltip if the focus event was triggered by keyboard navigation. This
+      // prevents the tooltip from showing when the element is focused programmatically, such as
+      // when closing a dialog. The check uses the innermost element of the composed path, not the
+      // anchor: when the anchor is a component that delegates focus to a control in its shadow
+      // DOM, such as `<sl-button>`, that control is the element matching `:focus-visible`.
+      const focused = event.composedPath().at(0) ?? anchor;
+
+      if (focused instanceof Element && focused.matches(':focus-visible')) {
+        this.showPopover();
       }
     }
   };
 
-  /**
-   * Calculate a "safe triangle" for the submenu to a user can safely move his cursor from the
-   * trigger to the submenu without the submenu closing. See
-   * https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
-   */
-  #calculateSafeTriangle(): void {
-    const actualPlacement = this.getAttribute('actual-placement');
+  #onKeydown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
 
-    if (!actualPlacement || !this.anchorElement) {
-      return;
+      this.hidePopover();
     }
+  };
 
-    const tooltipRect = this.getBoundingClientRect(),
-      anchorRect = this.anchorElement.getBoundingClientRect();
-    let insetBlockStart,
-      blockSize,
-      inlineSize,
-      polygon,
-      anchorInsetBlockStart = 0,
-      insetInlineStart,
-      anchorSideBlockStart = 0,
-      tootltipSideBlockStart = 0;
+  #onMouseOver = (event: MouseEvent): void => {
+    if (this.#hasTrigger('hover')) {
+      clearTimeout(this.#hoverTimeout);
 
-    if (actualPlacement.startsWith('top') || actualPlacement.startsWith('bottom')) {
-      anchorInsetBlockStart = Math.floor(anchorRect.left - tooltipRect.left);
-      inlineSize = Math.ceil(Math.max(tooltipRect.width, anchorRect.width));
-      insetInlineStart = Math.ceil(Math.min(tooltipRect.left, anchorRect.left));
+      const anchor = event.currentTarget as HTMLElement;
+
+      this.#hoverTimeout = setTimeout(() => {
+        this.#setActiveAnchor(anchor);
+        this.showPopover();
+      }, Tooltip.hoverShowDelay);
     }
+  };
 
-    if (actualPlacement.startsWith('top')) {
-      blockSize = Math.ceil(anchorRect.top - tooltipRect.bottom) + 2;
-      insetBlockStart = tooltipRect.bottom - 1;
-      polygon = `0% 0%, 100% 0, ${anchorInsetBlockStart + anchorRect.width}px 100%, ${anchorInsetBlockStart}px 100%`;
+  #onMouseOut = (event: MouseEvent): void => {
+    if (this.#hasTrigger('hover')) {
+      // Don't hide the popover if the pointer moved to one of the anchors or the popover itself
+      // (including the hover bridge). Uses relatedTarget instead of :hover, since :hover
+      // reflects the real pointer position, which is unreliable with synthetic events.
+      const relatedTarget = event.relatedTarget as Node | null;
+      if (
+        relatedTarget &&
+        (this.contains(relatedTarget) ||
+          this.anchors.some(anchor => anchor.contains(relatedTarget)))
+      ) {
+        return;
+      }
+
+      clearTimeout(this.#hoverTimeout);
+
+      this.#hoverTimeout = setTimeout(() => {
+        this.hidePopover();
+      }, Tooltip.hoverHideDelay);
     }
+  };
 
-    if (actualPlacement.startsWith('bottom')) {
-      blockSize = Math.ceil(tooltipRect.top - anchorRect.bottom) + 2;
-      insetBlockStart = anchorRect.bottom - 1;
-      polygon = `${anchorInsetBlockStart}px 0, ${anchorInsetBlockStart + anchorRect.width}px 0, 100% 100%, 0 100%`;
+  #onToggle = (event: ToggleEvent): void => {
+    if (event.newState === 'open' && this.anchor) {
+      this.#positionHoverBridge(this.anchor);
     }
+  };
 
-    if (actualPlacement.startsWith('left') || actualPlacement.startsWith('right')) {
-      blockSize = Math.ceil(Math.max(tooltipRect.height, anchorRect.height)) + 2;
-      insetBlockStart = Math.min(anchorRect.top, tooltipRect.top) - 1;
-      anchorInsetBlockStart = anchorRect.top;
-      anchorSideBlockStart = Math.max(anchorRect.top - tooltipRect.top, 0);
-      tootltipSideBlockStart = Math.max(tooltipRect.top - anchorRect.top, 0);
-    }
+  #onTooltipClick = (event: Event): void => {
+    // Tooltips are often rendered in the shadow root of the component they belong to, as a sibling
+    // of the anchor. A click on the tooltip would then be retargeted to the host, making it
+    // indistinguishable from a click on the component itself; that would trigger the menu of an
+    // sl-menu-button, for example. The tooltip is not interactive, so swallow the click.
+    event.stopPropagation();
+  };
 
-    if (actualPlacement.startsWith('right')) {
-      insetInlineStart = Math.ceil(Math.min(tooltipRect.left, anchorRect.right)) - 1;
-      inlineSize = Math.ceil(tooltipRect.left - anchorRect.right) + 2;
-      polygon = `0 ${anchorSideBlockStart}px , 100% ${tootltipSideBlockStart}px,
-                 100% ${tootltipSideBlockStart + tooltipRect.height + 2}px, 0 ${anchorSideBlockStart + anchorRect.height + 2}px`;
-    }
-
-    if (actualPlacement.startsWith('left')) {
-      insetInlineStart = Math.ceil(Math.min(tooltipRect.right, anchorRect.left)) - 1;
-      inlineSize = Math.ceil(anchorRect.left - tooltipRect.right) + 2;
-      polygon = `0 ${tootltipSideBlockStart}px , 100% ${anchorSideBlockStart}px,
-                 100% ${anchorSideBlockStart + anchorRect.height + 2}px, 0 ${tootltipSideBlockStart + tooltipRect.height + 2}px`;
-    }
-
-    const inset = `${insetBlockStart}px auto auto ${insetInlineStart}px`;
-    const safeTriangle = this.renderRoot.querySelector<HTMLElement>('.safe-triangle')!;
-    safeTriangle.style.blockSize = `${blockSize}px`;
-    safeTriangle.style.clipPath = `polygon(${polygon})`;
-    safeTriangle.style.inlineSize = `${inlineSize}px`;
-    safeTriangle.style.inset = inset;
+  #hasTrigger(trigger: string): boolean {
+    return this.trigger.split(' ').includes(trigger);
   }
 
-  #findAnchorFromElement = (element: Element | null): HTMLElement | undefined => {
-    if (!element) {
-      return undefined;
+  #getAriaPropertyFromType(
+    type?: 'description' | 'label'
+  ): 'ariaDescribedByElements' | 'ariaLabelledByElements' {
+    return type === 'description' ? 'ariaDescribedByElements' : 'ariaLabelledByElements';
+  }
+
+  #addAriaRelation(element: Element, type?: 'description' | 'label'): void {
+    const ariaProperty = this.#getAriaPropertyFromType(type);
+
+    const refs = element[ariaProperty] ?? [];
+    if (!refs.includes(this)) {
+      element[ariaProperty] = [...refs, this];
     }
+  }
 
-    let current: Element | null = element;
+  #removeAriaRelation(element: Element, type?: 'description' | 'label'): void {
+    const ariaProperty = this.#getAriaPropertyFromType(type);
 
-    while (current) {
-      if (current instanceof HTMLElement && this.#matchesAnchor(current)) {
-        return current;
-      }
-
-      if (current.parentElement) {
-        current = current.parentElement;
-        continue;
-      }
-
-      const rootNode = current.getRootNode();
-      current = rootNode instanceof ShadowRoot ? rootNode.host : null;
-    }
-
-    return undefined;
-  };
-
-  /**
-   * Find the anchor element for a given event. First checks the composed path directly, then
-   * searches inside shadow roots of elements in the path. This handles cases where the pointer is
-   * over a host element (e.g. `sl-menu-button`) but the actual anchor (e.g. `sl-button` with
-   * `ariaDescribedByElements`) is inside its shadow DOM.
-   */
-  #findAnchorInEvent = (event: Event): HTMLElement | undefined => {
-    const path = event.composedPath(),
-      escapedId = this.id ? CSS.escape(this.id) : undefined;
-
-    // First check elements directly in the composed path
-    const anchor = path.find(
-      (el): el is HTMLElement => el instanceof HTMLElement && this.#matchesAnchor(el)
-    );
-
-    if (anchor) {
-      return anchor;
-    }
-
-    for (const el of path) {
-      if (el instanceof Element && el.shadowRoot) {
-        const ariaMatch = escapedId
-          ? el.shadowRoot.querySelector(
-              `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`
-            )
-          : null;
-
-        if (
-          ariaMatch instanceof HTMLElement &&
-          (path.includes(ariaMatch) || el === event.target) &&
-          this.#matchesAnchor(ariaMatch)
-        ) {
-          return ariaMatch;
-        }
-
-        for (const child of el.shadowRoot.children) {
-          if (
-            child instanceof HTMLElement &&
-            (path.includes(child) || el === event.target) &&
-            this.#matchesAnchor(child)
-          ) {
-            return child;
-          }
-        }
-      }
-    }
-
-    return undefined;
-  };
-
-  #findFocusedAnchor = (): HTMLElement | undefined => {
-    const root = this.getRootNode() as Document | ShadowRoot;
-    let activeElement: Element | null = root.activeElement || document.activeElement;
-
-    while (activeElement instanceof HTMLElement && activeElement.shadowRoot?.activeElement) {
-      activeElement = activeElement.shadowRoot.activeElement;
-    }
-
-    return this.#findAnchorFromElement(activeElement);
-  };
-
-  #getAriaAnchors = (): HTMLElement[] => {
-    const escapedId = this.id ? CSS.escape(this.id) : undefined;
-    if (!escapedId) {
-      return [];
-    }
-
-    const root = this.getRootNode() as ParentNode;
-    const selector = `[aria-describedby~="${escapedId}"], [aria-labelledby~="${escapedId}"]`;
-
-    return Array.from(root.querySelectorAll<HTMLElement>(selector));
-  };
-
-  #getKnownAnchors = (): HTMLElement[] => {
-    const knownAnchors: HTMLElement[] = [];
-
-    for (const anchor of this.#knownAnchors) {
-      if (!anchor.isConnected || !this.#matchesAnchor(anchor)) {
-        this.#knownAnchors.delete(anchor);
-      } else {
-        knownAnchors.push(anchor);
-      }
-    }
-
-    return knownAnchors;
-  };
-
-  #hideTooltip = (): void => {
-    this.hidePopover();
-    this.#openedByFocus = false;
-  };
-
-  /**
-   * Checks whether an element is connected to this tooltip through any supported ARIA wiring
-   * (attributes, reflected ARIA element lists, forwarded proxy targets, or ElementInternals).
-   */
-  #matchesAnchor = (element: Element): boolean => {
-    if (!this.id || !element || element.nodeType !== Node.ELEMENT_NODE) {
-      return false;
-    }
-
-    const describedBy = element.getAttribute('aria-describedby'),
-      labelledBy = element.getAttribute('aria-labelledby');
-
-    // There can be multiple ids in aria-describedby and aria-labelledby, so we need to check if any of them matches the tooltip's id
-    const matchesAria = (value: string | null): boolean =>
-      typeof value === 'string' && value.split(/\s+/).includes(this.id);
-
-    if (matchesAria(describedBy) || matchesAria(labelledBy)) {
-      return true;
-    }
-
-    // Support components that forward ARIA to an internal proxy target (e.g. ForwardAriaMixin).
-    const proxyTarget = (
-      element as Element & { getProxyTarget?(): Element | null }
-    ).getProxyTarget?.();
-    if (proxyTarget instanceof Element && proxyTarget !== element) {
-      const proxyDescribedBy = proxyTarget.getAttribute('aria-describedby'),
-        proxyLabelledBy = proxyTarget.getAttribute('aria-labelledby');
-
-      if (matchesAria(proxyDescribedBy) || matchesAria(proxyLabelledBy)) {
-        return true;
-      }
-
-      if (
-        proxyTarget.ariaDescribedByElements?.includes(this) ||
-        proxyTarget.ariaLabelledByElements?.includes(this)
-      ) {
-        return true;
-      }
-    }
-
-    // Check Element.ariaDescribedByElements and Element.ariaLabelledByElements directly on the element
-    // This handles cases where the property is set directly on the element (e.g. `sl-button` inside `sl-menu-button`)
-    if (
-      element.ariaDescribedByElements?.includes(this) ||
-      element.ariaLabelledByElements?.includes(this)
-    ) {
-      return true;
-    }
-
-    // Check ElementInternals ariaDescribedByElements and ariaLabelledByElements
-    // This handles cases where elements use ElementInternals to connect to the tooltip across shadow DOM boundaries
-    const internals = (element as HTMLElement & { internals?: ElementInternals }).internals;
-
-    return (
-      internals?.ariaDescribedByElements?.includes(this) ||
-      internals?.ariaLabelledByElements?.includes(this) ||
-      false
-    );
-  };
-
-  /**
-   * Normalizes an internal proxy target back to the public host element when both represent the
-   * same anchor. This keeps `anchorElement` stable for consumers and tests.
-   */
-  #normalizeAnchorElement = (element: HTMLElement): HTMLElement => {
-    let normalized = element;
-
-    while (true) {
-      const rootNode = normalized.getRootNode();
-      if (!(rootNode instanceof ShadowRoot)) {
-        return normalized;
-      }
-
-      const host = rootNode.host;
-      const proxyTarget = (
-        host as HTMLElement & { getProxyTarget?(): Element | null }
-      ).getProxyTarget?.();
-
-      if (host instanceof HTMLElement && proxyTarget === normalized && this.#matchesAnchor(host)) {
-        normalized = host;
-        continue;
-      }
-
-      return normalized;
-    }
-  };
-
-  #showTooltip = (element: HTMLElement, openedByFocus = false): void => {
-    const normalizedElement = this.#normalizeAnchorElement(element);
-    const wasOpen = isPopoverOpen(this),
-      anchorChanged = this.anchorElement !== normalizedElement;
-
-    this.#openedByFocus = openedByFocus;
-    this.anchorElement = normalizedElement;
-    this.#knownAnchors.add(normalizedElement);
-
-    const anchorSlot = this.anchorElement?.getAttribute('slot');
-    if (typeof anchorSlot === 'string') {
-      this.setAttribute('slot', anchorSlot); // make sure the tooltip is slotted correctly, otherwise it might inherit styles from the wrong slot
-    }
-
-    if (!wasOpen) {
-      this.showPopover();
-    } else if (anchorChanged) {
-      this.#anchor.updatePosition();
-    } else {
+    const refs = element[ariaProperty] ?? [];
+    if (!refs.includes(this)) {
+      // Nothing of ours to remove. Bail out instead of assigning, because assigning an (empty)
+      // array reflects an empty attribute on the element, wiping out any `aria-labelledby` or
+      // `aria-describedby` the element manages itself.
       return;
     }
 
-    requestAnimationFrame(() => {
-      this.#calculateSafeTriangle();
+    element[ariaProperty] = refs.filter((ref: Element) => ref !== this);
+  }
+
+  #positionHoverBridge(anchor: Element): void {
+    const bridge = this.renderRoot.querySelector<HTMLElement>('[part="hover-bridge"]');
+    if (!bridge) {
+      return;
+    }
+
+    const a = anchor.getBoundingClientRect(),
+      t = this.getBoundingClientRect();
+
+    // Determine on which side of the anchor the tooltip ended up (after CSS anchor positioning
+    // and any position-try fallbacks). We then build a trapezoid whose parallel edges align with
+    // the touching edges of the anchor and the tooltip, so the user can move the pointer between
+    // the two without crossing an unhovered area.
+    let left: number, top: number, width: number, height: number, polygon: string;
+
+    if (t.bottom <= a.top) {
+      // Tooltip above anchor
+      left = Math.min(a.left, t.left);
+      top = t.bottom;
+      width = Math.max(a.right, t.right) - left;
+      height = Math.max(0, a.top - t.bottom);
+      polygon =
+        `polygon(${t.left - left}px 0, ${t.right - left}px 0, ` +
+        `${a.right - left}px ${height}px, ${a.left - left}px ${height}px)`;
+    } else if (t.top >= a.bottom) {
+      // Tooltip below anchor
+      left = Math.min(a.left, t.left);
+      top = a.bottom;
+      width = Math.max(a.right, t.right) - left;
+      height = Math.max(0, t.top - a.bottom);
+      polygon =
+        `polygon(${a.left - left}px 0, ${a.right - left}px 0, ` +
+        `${t.right - left}px ${height}px, ${t.left - left}px ${height}px)`;
+    } else if (t.right <= a.left) {
+      // Tooltip left of anchor
+      left = t.right;
+      top = Math.min(a.top, t.top);
+      width = Math.max(0, a.left - t.right);
+      height = Math.max(a.bottom, t.bottom) - top;
+      polygon =
+        `polygon(0 ${t.top - top}px, 0 ${t.bottom - top}px, ` +
+        `${width}px ${a.bottom - top}px, ${width}px ${a.top - top}px)`;
+    } else if (t.left >= a.right) {
+      // Tooltip right of anchor
+      left = a.right;
+      top = Math.min(a.top, t.top);
+      width = Math.max(0, t.left - a.right);
+      height = Math.max(a.bottom, t.bottom) - top;
+      polygon =
+        `polygon(0 ${a.top - top}px, 0 ${a.bottom - top}px, ` +
+        `${width}px ${t.bottom - top}px, ${width}px ${t.top - top}px)`;
+    } else {
+      // Tooltip and anchor overlap; no bridge needed.
+      bridge.style.display = 'none';
+      return;
+    }
+
+    bridge.style.left = `${left}px`;
+    bridge.style.top = `${top}px`;
+    bridge.style.width = `${width}px`;
+    bridge.style.height = `${height}px`;
+    bridge.style.clipPath = polygon;
+    bridge.style.display = '';
+  }
+
+  #cleanupAnchor(anchor: HTMLElement, type: 'description' | 'label' | undefined): void {
+    this.#removeAriaRelation(anchor, type);
+
+    anchor.removeEventListener('blur', this.#onBlur, { capture: true });
+    anchor.removeEventListener('click', this.#onClick);
+    anchor.removeEventListener('focus', this.#onFocus, { capture: true });
+    anchor.removeEventListener('mouseover', this.#onMouseOver);
+    anchor.removeEventListener('mouseout', this.#onMouseOut);
+  }
+
+  /**
+   * Positions the tooltip against the given anchor. Only the active anchor carries the anchor name,
+   * so it can move from one anchor to the next without the CSS becoming ambiguous.
+   */
+  #setActiveAnchor(anchor?: HTMLElement | null): void {
+    const oldAnchor = this.anchor;
+    if (oldAnchor === anchor) {
+      return;
+    }
+
+    // Only clear the anchorName if it was set by us.
+    if (oldAnchor?.style.anchorName === `--${this.id}`) {
+      oldAnchor.style.anchorName = '';
+    }
+
+    if (anchor) {
+      // Do not overwrite an existing anchor name, as it might be used for something else.
+      const anchorName = anchor.style.anchorName || `--${this.id}`;
+
+      anchor.style.anchorName = anchorName;
+      this.style.positionAnchor = anchorName;
+    } else {
+      this.style.positionAnchor = '';
+    }
+
+    this.anchor = anchor;
+  }
+
+  #updateAnchors(): void {
+    const rootNode = this.getRootNode() as Document | ShadowRoot | null,
+      ids = this.for?.split(/\s+/).filter(Boolean) ?? [];
+
+    const newAnchors = rootNode
+      ? Array.from(new Set(ids))
+          .map(id => rootNode.getElementById(id))
+          .filter((anchor): anchor is HTMLElement => !!anchor)
+      : [];
+
+    const oldAnchors = this.anchors;
+    if (
+      newAnchors.length === oldAnchors.length &&
+      newAnchors.every((anchor, index) => anchor === oldAnchors[index])
+    ) {
+      return;
+    }
+
+    oldAnchors.forEach(anchor => this.#cleanupAnchor(anchor, this.type));
+
+    const { signal } = this.#eventController;
+
+    newAnchors.forEach(anchor => {
+      this.#addAriaRelation(anchor, this.type);
+
+      anchor.addEventListener('blur', this.#onBlur, { capture: true, signal });
+      anchor.addEventListener('click', this.#onClick, { signal });
+      anchor.addEventListener('focus', this.#onFocus, { capture: true, signal });
+      anchor.addEventListener('mouseover', this.#onMouseOver, { signal });
+      anchor.addEventListener('mouseout', this.#onMouseOut, { signal });
     });
-  };
+
+    this.anchors = newAnchors;
+
+    // Until a trigger picks one, the tooltip is positioned against the first anchor.
+    this.#setActiveAnchor(newAnchors[0]);
+  }
 }

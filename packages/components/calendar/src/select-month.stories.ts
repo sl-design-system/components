@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { SelectMonth } from './select-month.js';
 
 type Props = Pick<SelectMonth, 'max' | 'min' | 'month' | 'selected' | 'showCurrent'>;
@@ -42,8 +42,7 @@ export default {
         max=${ifDefined(max?.toISOString())}
         min=${ifDefined(min?.toISOString())}
         month=${ifDefined(month?.toISOString())}
-        selected=${ifDefined(selected?.toISOString())}
-      ></sl-select-month>
+        selected=${ifDefined(selected?.toISOString())}></sl-select-month>
     `;
   }
 } satisfies Meta<Props>;
@@ -99,8 +98,7 @@ export const All: Story = {
         <sl-select-month
           max=${new Date(2025, 10, 1).toISOString()}
           min=${new Date(2025, 2, 1).toISOString()}
-          month=${new Date(2025, 7, 1).toISOString()}
-        ></sl-select-month>
+          month=${new Date(2025, 7, 1).toISOString()}></sl-select-month>
       </div>
       <div>
         <h3>With Selection</h3>

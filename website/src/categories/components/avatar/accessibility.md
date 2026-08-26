@@ -6,7 +6,66 @@ eleventyNavigation:
   key: AvatarAccessibility
 ---
 
-<section> 
+<section>
+
+## Avatar with badge
+
+There are two ways to improve the accessibility of `sl-badge` when used inside an avatar, depending on the scenario:
+
+### Dynamic content
+
+When the badge value updates automatically (e.g. an unread message count), screen readers need to be notified that something has changed. Place a visually-hidden `span` with `role="status"` as a sibling of the badge in the same slot. This keeps the badge's layout intact while providing a live region for screen reader announcements.
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge slot="badge">2</sl-badge>
+  <span class="screen-reader-only" role="status" slot="badge">
+    2 unread messages
+  </span>
+</sl-avatar>
+```
+
+When the count changes, update the visible text node inside the badge and clear then reset the live region text. Clearing first ensures every browser (including Firefox) announces the full text.
+
+Here you can find [an example of how to use dynamic badges with the avatar](https://storybook.sanomalearning.design/?path=/story/media-avatar--sizes).
+
+### Static content
+
+If the badge displays information that does not change while the user is interacting with the application, the badge should not have an `aria-label` or any role. Instead, place visually hidden text inside the badge so screen readers announce it when the user navigates to it.
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge slot="badge">
+    2
+    <span class="screen-reader-only">unread messages</span>
+  </sl-badge>
+</sl-avatar>
+```
+
+If the badge has no visible text (e.g. a small dot indicator), put the full descriptive text in the hidden span:
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge size="sm" slot="badge">
+    <span class="screen-reader-only">2 unread messages</span>
+  </sl-badge>
+</sl-avatar>
+```
+
+The same pattern works for icon-only badges:
+
+```html
+<sl-avatar display-name="Rose Nylund" picture-url="/images/avatar-1.jpg">
+  <sl-badge slot="badge">
+    <sl-icon name="far-star"></sl-icon>
+    <span class="screen-reader-only">admin</span>
+  </sl-badge>
+</sl-avatar>
+```
+
+</section>
+
+<section>
 
 ## WAI-ARIA
 
@@ -19,3 +78,4 @@ Several parts of the avatar component will influence what will be available for 
   - The badge text, in the optional (Badge component), will be read after the name.
 
 </section>
+

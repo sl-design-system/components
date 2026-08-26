@@ -1,0 +1,55 @@
+@import './../../breakpoints';
+
+.feedback-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $md-lg-breakpoint) {
+    align-items: flex-start;
+    flex-direction: row;
+    margin-block-end: 2rem;
+  }
+}
+
+.feedback-card__icon-panel {
+  align-items: center;
+  background: var(--sl-color-background-accent-grey-subtlest);
+  block-size: 18rem;
+  border: 1px solid var(--sl-color-border-neutral-subtle);
+  border-radius: var(--sl-size-borderRadius-md);
+  display: flex;
+  inline-size: 100%;
+  justify-content: center;
+
+  @media (min-width: $md-lg-breakpoint) {
+    block-size: 20rem;
+    inline-size: 20rem;
+    min-inline-size: 20rem;
+  }
+}
+
+.feedback-card__content {
+  flex: 1;
+  inline-size: 100%;
+  padding: 2rem 0 0;
+
+  @media (min-width: $md-lg-breakpoint) {
+    padding: 0 2rem;
+  }
+
+  ul {
+    margin: 0;
+    margin-block-start: 0.4rem;
+    padding-inline-start: 2rem;
+  }
+
+  p strong {
+    display: inline-block;
+    margin-block-start: 1rem;
+  }
+}
+
+.ds-subpage-section__wrapper .feedback-card__content h3 {
+  margin-block: 0 1.4rem;
+}

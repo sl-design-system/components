@@ -6,7 +6,7 @@ import { Button, type ButtonSize } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
-import styles from './drawer.scss.js';
+import styles from './drawer.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -26,7 +26,7 @@ export type DrawerAttachment = 'right' | 'left' | 'top' | 'bottom';
  */
 export class Drawer extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar
@@ -60,8 +60,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @close=${this.#onClose}
         aria-labelledby="title"
-        part="dialog"
-      >
+        part="dialog">
         <div>
           <sl-button-bar>
             <sl-button

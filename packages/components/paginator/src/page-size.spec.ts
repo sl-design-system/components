@@ -2,8 +2,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { PaginatorPageSize } from './page-size.js';
+import './register.js';
 
 describe('sl-paginator-page-size', () => {
   let el: PaginatorPageSize;
@@ -82,8 +82,7 @@ describe('sl-paginator-page-size', () => {
       el = await fixture(html`
         <sl-paginator-page-size
           .itemLabel=${'Students'}
-          page-sizes="[5,10,20]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,20]"></sl-paginator-page-size>
       `);
     });
 

@@ -1,33 +1,61 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { configureLocalization } from '@lit/localize';
-import * as locales from '@sl-design-system/locales';
-import { Preview } from '@storybook/angular';
+import { sourceLocale, targetLocales } from '@sl-design-system/locales';
+import { Preview } from '@storybook/angular-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { Mode, themes, updateTheme } from '../../../.storybook/themes';
 
+// Lazy-loading map for locale modules
+const locales = {
+  'es-ES': () => import('@sl-design-system/locales/es-ES.js'),
+  it: () => import('@sl-design-system/locales/it.js'),
+  nl: () => import('@sl-design-system/locales/nl.js'),
+  pl: () => import('@sl-design-system/locales/pl.js')
+} as const;
+
 const { setLocale } = configureLocalization({
-  sourceLocale: locales.sourceLocale,
-  targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve(locales[locale as (typeof locales.targetLocales)[number]])
+  sourceLocale,
+  targetLocales,
+  loadLocale: async locale => {
+    const localeKey = locale as keyof typeof locales,
+      loader = locales[localeKey];
+
+    if (!loader) {
+      console.warn(`Unsupported locale: ${locale}`);
+      return { templates: {} };
+    }
+    return await loader();
+  }
 });
+
+const nextFrame = async (): Promise<void> => {
+  await new Promise(resolve => requestAnimationFrame(resolve));
+};
 
 const preview: Preview = {
   decorators: [
-    (story, { globals: { locale = locales.sourceLocale } }: { globals: { locale?: string } }) => {
-      document.documentElement.lang = locale;
-      void setLocale(locale);
+    (story, { globals: { locale = sourceLocale } }) => {
+      document.documentElement.lang = locale as string;
+
+      // Try and set the @lit/localize locale; ignore failures since the locale
+      // can still be valid for components that use the Intl APIs. setLocale
+      // throws synchronously on an unknown locale, so catch that as well.
+      try {
+        void setLocale(locale as string).catch(() => {
+          // empty
+        });
+      } catch {
+        console.warn(`Could not set the @lit/localize locale to "${locale as string}"`);
+      }
 
       return story();
-    },
-    (
-      story,
-      {
-        globals: { mode = 'light', theme = 'sanoma-learning' }
-      }: { globals: { mode?: Mode; theme?: string } }
-    ) => {
-      void updateTheme(theme, mode);
-
-      return story();
+    }
+  ],
+  loaders: [
+    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      await updateTheme(theme, mode as Mode);
+      await nextFrame();
+      await nextFrame();
     }
   ],
   globalTypes: {
@@ -61,7 +89,10 @@ const preview: Preview = {
         icon: 'globe',
         items: [
           { value: 'en', right: '🇺🇸', title: 'English' },
-          { value: 'nl', right: '🇳🇱', title: 'Nederlands' }
+          { value: 'es-ES', right: '🇪🇸', title: 'Español' },
+          { value: 'it', right: '🇮🇹', title: 'Italiano' },
+          { value: 'nl', right: '🇳🇱', title: 'Nederlands' },
+          { value: 'pl', right: '🇵🇱', title: 'Polski' }
         ]
       }
     }

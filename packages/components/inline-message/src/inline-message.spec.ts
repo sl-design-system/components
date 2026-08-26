@@ -3,8 +3,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { InlineMessage } from './inline-message.js';
+import './register.js';
 
 describe('sl-inline-message', () => {
   let el: InlineMessage;
@@ -90,6 +90,46 @@ describe('sl-inline-message', () => {
       el.renderRoot.querySelector('sl-button')?.click();
 
       expect(onDismiss).to.have.been.calledOnce;
+    });
+  });
+
+  describe('icons', () => {
+    it('should render the info icon by default', async () => {
+      el = await fixture(html`<sl-inline-message>Inline message</sl-inline-message>`);
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'info');
+    });
+
+    it('should render the circle-check-solid icon for the success variant', async () => {
+      el = await fixture(
+        html`<sl-inline-message variant="success">Inline message</sl-inline-message>`
+      );
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'circle-check-solid');
+    });
+
+    it('should render the triangle-exclamation-solid icon for the warning variant', async () => {
+      el = await fixture(
+        html`<sl-inline-message variant="warning">Inline message</sl-inline-message>`
+      );
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+    });
+
+    it('should render the octagon-xmark-solid icon for the danger variant', async () => {
+      el = await fixture(
+        html`<sl-inline-message variant="danger">Inline message</sl-inline-message>`
+      );
+
+      const icon = el.renderRoot.querySelector('[part="icon"] sl-icon');
+
+      expect(icon).to.have.attribute('name', 'octagon-xmark-solid');
     });
   });
 

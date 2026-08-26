@@ -1,13 +1,11 @@
-import { announce } from '@sl-design-system/announcer';
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { type LitElement, html } from 'lit';
-import sinon, { spy } from 'sinon';
+import sinon, { type SinonSpy, spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { type MonthView } from './month-view.js';
 import { SelectDay } from './select-day.js';
-
-vi.mock('@sl-design-system/announcer', { spy: true });
 
 try {
   customElements.define('sl-select-day', SelectDay);
@@ -322,12 +320,19 @@ describe('sl-select-day', () => {
   });
 
   describe('navigation', () => {
+    let announce: SinonSpy;
+
     beforeEach(async () => {
+      announce = spy();
+      document.body.addEventListener('sl-announce', announce);
+
       el = await fixture(html`<sl-select-day></sl-select-day>`);
 
       // Wait for any initial scrolls to complete
       await new Promise(resolve => setTimeout(resolve, 50));
     });
+
+    afterEach(() => document.body.removeEventListener('sl-announce', announce));
 
     describe('back', () => {
       it('should show the previous month when using the keyboard', async () => {
@@ -372,7 +377,14 @@ describe('sl-select-day', () => {
         // Wait for the announcement to be made from a setTimeout
         await new Promise(resolve => setTimeout(resolve, 50));
 
-        expect(announce).toHaveBeenCalledWith('February 2023', 'polite');
+        expect(announce).to.have.been.calledOnce;
+
+        const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
+
+        expect(announcement.detail).to.deep.equal({
+          message: 'February 2023',
+          urgency: 'polite'
+        });
       });
     });
 
@@ -422,7 +434,14 @@ describe('sl-select-day', () => {
         // Wait for the announcement to be made from a setTimeout
         await new Promise(resolve => setTimeout(resolve, 50));
 
-        expect(announce).toHaveBeenCalledWith('April 2023', 'polite');
+        expect(announce).to.have.been.calledOnce;
+
+        const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
+
+        expect(announcement.detail).to.deep.equal({
+          message: 'April 2023',
+          urgency: 'polite'
+        });
       });
     });
   });

@@ -3,7 +3,7 @@ import { ArrayListDataSource, type ListDataSourceDataItem } from '@sl-design-sys
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
-import '../register.js';
+import './register.js';
 
 type Story = StoryObj;
 
@@ -46,13 +46,11 @@ export const Connected: Story = {
         <sl-paginator
           @sl-page-change=${onPageChange}
           page-size="10"
-          total-items="200"
-        ></sl-paginator>
+          total-items="200"></sl-paginator>
         <sl-paginator-page-size
           @sl-page-size-change=${onPageSizeChange}
           page-size="10"
-          page-sizes="[5,10,15]"
-        ></sl-paginator-page-size>
+          page-sizes="[5,10,15]"></sl-paginator-page-size>
       </section>
     `;
   }
@@ -87,14 +85,10 @@ export const DataSource: Story = {
           `;
 
           dataSource = new ArrayListDataSource(
-            Array.from(
-              { length: 80 },
-              (_, index) =>
-                ({
-                  nr: index + 1,
-                  title: `Title of card number ${index + 1}`
-                }) as ExampleCard
-            ),
+            Array.from({ length: 80 }, (_, index) => ({
+              nr: index + 1,
+              title: `Title of card number ${index + 1}`
+            })),
             { pagination: true }
           );
 
@@ -125,8 +119,7 @@ export const DataSource: Story = {
                 <sl-paginator-status .dataSource=${this.dataSource}></sl-paginator-status>
                 <sl-paginator-page-size
                   .dataSource=${this.dataSource}
-                  page-sizes="[5,10,15,20]"
-                ></sl-paginator-page-size>
+                  page-sizes="[5,10,15,20]"></sl-paginator-page-size>
               </div>
               <div class="cards-container">
                 ${this.dataSource?.items.map(

@@ -35,7 +35,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-select>
+  <sl-select aria-label="List of available subjects">
     <sl-option-group label="Languages">
       <sl-option>English</sl-option>
       <sl-option>German</sl-option>

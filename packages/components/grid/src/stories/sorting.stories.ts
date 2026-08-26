@@ -3,7 +3,7 @@ import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../../register.js';
+import '.././register.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -35,8 +35,7 @@ export const Basic: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;
@@ -63,8 +62,7 @@ export const DataSource: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;
@@ -99,8 +97,7 @@ export const CustomSorter: Story = {
           header="Student"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-          .sorter=${sorter}
-        ></sl-grid-sort-column>
+          .sorter=${sorter}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
       </sl-grid>
     `;
@@ -131,8 +128,7 @@ export const Grouped: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;

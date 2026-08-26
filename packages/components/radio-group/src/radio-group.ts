@@ -1,5 +1,6 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type EventEmitter,
   EventsController,
@@ -11,6 +12,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -19,7 +21,7 @@ import {
   html
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './radio-group.scss.js';
+import styles from './radio-group.css' with { type: 'css' };
 import { type Radio, type RadioButtonSize } from './radio.js';
 
 declare global {
@@ -49,7 +51,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
+export class RadioGroup<T = any> extends FormControlMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
 
@@ -83,22 +85,33 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   });
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<Radio<T>>(this, {
+  #rovingTabindexController = new RovingTabindexController<Radio<T> | Infotip>(this, {
     direction: () => (this.horizontal ? 'horizontal' : 'vertical'),
-    focusInIndex: (elements: Array<Radio<T>>) => {
+    focusInIndex: (elements: Array<Radio<T> | Infotip>) => {
       return elements.findIndex(el => {
-        return this.value ? !el.disabled && el.value === this.value : !el.disabled;
+        return this.#isRadioElement(el)
+          ? this.value
+            ? !el.disabled && el.value === this.value
+            : !el.disabled
+          : this.#isRadioElement(el.parentElement) &&
+              (this.value
+                ? !el.parentElement.disabled && el.parentElement.value === this.value
+                : !el.parentElement.disabled);
       });
     },
-    elementEnterAction: (el: Radio<T>) => {
-      this.value = el.value;
+    elementEnterAction: (el: Radio<T> | Infotip) => {
+      if (this.#isRadioElement(el)) {
+        this.value = el.value;
+      } else if (this.#isRadioElement(el.parentElement)) {
+        this.value = el.parentElement.value;
+      }
     },
-    elements: () => this.radios ?? [],
-    isFocusableElement: (el: Radio) => !el.disabled
+    elements: () => this.#focusableOptions(),
+    isFocusableElement: (el: Radio<T> | Infotip) =>
+      this.#isRadioElement(el)
+        ? !el.disabled
+        : this.#isRadioElement(el.parentElement) && !el.parentElement.disabled
   });
-
-  /** @internal Element internals. */
-  readonly internals = this.attachInternals();
 
   /** @internal The slotted radios. */
   @queryAssignedElements() radios?: Array<Radio<T>>;
@@ -140,7 +153,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'radiogroup';
+    this.elementInternals.role = 'radiogroup';
     this.setFormControlElement(this);
 
     // Listen for i18n updates and update the validation message
@@ -181,7 +194,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('required')) {
-      this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
     }
@@ -264,12 +277,30 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue);
-    this.internals.setValidity(
+    this.elementInternals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setValidity(
       { valueMissing: this.required && !this.radios?.some(radio => radio.checked) },
       msg('Please select an option.', { id: 'sl.radioGroup.validation.valueMissing' })
     );
 
     this.updateValidity();
+  }
+
+  #focusableOptions(): Array<Radio<T> | Infotip> {
+    const options: Array<Radio<T> | Infotip> = [];
+
+    this.radios?.forEach(radio => {
+      options.push(radio);
+
+      if (radio.infotip) {
+        options.push(radio.infotip);
+      }
+    });
+
+    return options;
+  }
+
+  #isRadioElement(element: unknown): element is Radio<T> {
+    return element instanceof HTMLElement && element.tagName === 'SL-RADIO';
   }
 }

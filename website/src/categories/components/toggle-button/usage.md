@@ -9,7 +9,7 @@ eleventyNavigation:
 <section>
 
 <div class="ds-example">
-  <sl-toggle-button fill="outline">
+  <sl-toggle-button fill="outline" aria-label="Show settings">
     <sl-icon name="far-gear" slot="default"></sl-icon>
     <sl-icon name="fas-gear" slot="pressed"></sl-icon>
   </sl-toggle-button>
@@ -18,7 +18,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-toggle-button fill="outline">
+    <sl-toggle-button fill="outline" aria-label="Show settings">
       <sl-icon name="far-gear" slot="default"></sl-icon>
       <sl-icon name="fas-gear" slot="pressed"></sl-icon>
     </sl-toggle-button>

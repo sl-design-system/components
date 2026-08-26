@@ -1,12 +1,13 @@
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/infotip/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { RadioGroup } from './radio-group.js';
+import './register.js';
 
 describe('sl-radio-group', () => {
   let el: RadioGroup;
@@ -14,7 +15,7 @@ describe('sl-radio-group', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-radio-group>
+        <sl-radio-group aria-label="Options">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -23,7 +24,7 @@ describe('sl-radio-group', () => {
     });
 
     it('should have a role of radiogroup', () => {
-      expect(el.internals.role).to.equal('radiogroup');
+      expect(el.elementInternals.role).to.equal('radiogroup');
     });
 
     it('should not be disabled', () => {
@@ -250,12 +251,65 @@ describe('sl-radio-group', () => {
       expect(radios.at(0)?.checked).to.be.false;
       expect(radios.at(1)?.checked).to.be.true;
     });
+
+    it('should navigate radio -> infotip -> next radio', async () => {
+      el = await fixture(html`
+        <sl-radio-group aria-label="Options">
+          <sl-radio value="1"
+            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-radio
+          >
+          <sl-radio value="2">Option 2</sl-radio>
+        </sl-radio-group>
+      `);
+
+      const firstRadio = el.querySelectorAll('sl-radio')[0],
+        firstInfotip = el.querySelectorAll('sl-infotip')[0],
+        secondRadio = el.querySelectorAll('sl-radio')[1];
+
+      el.focus();
+      expect(document.activeElement).to.equal(firstRadio);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(firstInfotip);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(secondRadio);
+    });
+
+    it('should skip infotips of disabled radios during roving navigation', async () => {
+      el = await fixture(html`
+        <sl-radio-group aria-label="Options">
+          <sl-radio value="1"
+            >Option 1<sl-infotip slot="infotip">More info option 1</sl-infotip></sl-radio
+          >
+          <sl-radio disabled value="2"
+            >Option 2<sl-infotip slot="infotip">More info option 2</sl-infotip></sl-radio
+          >
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+
+      const firstRadio = el.querySelectorAll('sl-radio')[0],
+        firstInfotip = el.querySelectorAll('sl-infotip')[0],
+        secondInfotip = el.querySelectorAll('sl-infotip')[1],
+        thirdRadio = el.querySelectorAll('sl-radio')[2];
+
+      el.focus();
+      expect(document.activeElement).to.equal(firstRadio);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(firstInfotip);
+
+      await userEvent.keyboard('{ArrowDown}');
+      expect(document.activeElement).to.equal(thirdRadio);
+      expect(document.activeElement).not.to.equal(secondInfotip);
+    });
   });
 
   describe('initial value', () => {
     it('should be valid when the initial value matches one of the options', async () => {
       el = await fixture(html`
-        <sl-radio-group value="2" required>
+        <sl-radio-group aria-label="Options" value="2" required>
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -270,7 +324,7 @@ describe('sl-radio-group', () => {
 
     it('should be invalid when the initial value does not match any of the options', async () => {
       el = await fixture(html`
-        <sl-radio-group value="dummy" required>
+        <sl-radio-group aria-label="Options" value="dummy" required>
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -287,7 +341,7 @@ describe('sl-radio-group', () => {
   describe('validation', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-radio-group>
+        <sl-radio-group aria-label="Options">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -382,7 +436,7 @@ describe('sl-radio-group', () => {
   describe('selected option', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-radio-group value="2">
+        <sl-radio-group aria-label="Options" value="2">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -430,7 +484,7 @@ describe('sl-radio-group', () => {
       document.body.addEventListener('sl-change', onChange);
 
       el = await fixture(html`
-        <sl-radio-group value="2">
+        <sl-radio-group aria-label="Options" value="2">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -448,7 +502,7 @@ describe('sl-radio-group', () => {
       document.body.addEventListener('sl-change', onChange);
 
       el = await fixture(html`
-        <sl-radio-group value="2">
+        <sl-radio-group aria-label="Options" value="2">
           <sl-radio value="1">Option 1</sl-radio>
           <sl-radio value="2">Option 2</sl-radio>
           <sl-radio value="3">Option 3</sl-radio>
@@ -475,7 +529,7 @@ describe('sl-radio-group', () => {
     beforeEach(async () => {
       form = await fixture(html`
         <form>
-          <sl-radio-group required>
+          <sl-radio-group aria-label="Options" required>
             <sl-radio value="1">Option 1</sl-radio>
             <sl-radio value="2">Option 2</sl-radio>
             <sl-radio value="3">Option 3</sl-radio>
@@ -527,7 +581,7 @@ describe('sl-radio-group', () => {
       override render(): TemplateResult {
         return html`
           <sl-form-field label="Label">
-            <sl-radio-group @sl-form-control=${this.onFormControl}>
+            <sl-radio-group aria-label="Options" @sl-form-control=${this.onFormControl}>
               <sl-radio>Option 1</sl-radio>
               <sl-radio>Option 2</sl-radio>
               <sl-radio>Option 3</sl-radio>

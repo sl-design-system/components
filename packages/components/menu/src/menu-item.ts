@@ -20,7 +20,7 @@ import {
   nothing
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import styles from './menu-item.scss.js';
+import styles from './menu-item.css' with { type: 'css' };
 import { Menu } from './menu.js';
 
 declare global {
@@ -42,7 +42,7 @@ export type MenuItemEmphasis = 'subtle' | 'bold';
  */
 export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -64,6 +64,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
+
+  // Tracks whether aria-disabled was added internally so explicit user-provided values survive.
+  #ariaDisabledFromDisabled = false;
 
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -92,6 +95,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** The variant of the menu item. */
   @property({ reflect: true }) variant?: MenuItemVariant;
 
+  get #disabled(): boolean {
+    return this.disabled || this.ariaDisabled === 'true';
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -104,6 +111,15 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('disabled')) {
       this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+      if (this.disabled) {
+        if (this.ariaDisabled !== 'true') {
+          this.setAttribute('aria-disabled', 'true');
+          this.#ariaDisabledFromDisabled = true;
+        }
+      } else if (this.#ariaDisabledFromDisabled) {
+        this.removeAttribute('aria-disabled');
+        this.#ariaDisabledFromDisabled = false;
+      }
     }
 
     if (changes.has('shortcut')) {
@@ -151,9 +167,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
         <div part="wrapper">
           ${this.selectable && this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
           <slot></slot>
-          ${this.shortcut
-            ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`
-            : nothing}
+          ${
+            this.shortcut
+              ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`
+              : nothing
+          }
           ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
         </div>
       </div>
@@ -162,7 +180,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.submenu && event.composedPath().includes(this.submenu)) {
+      return;
+    }
+
+    if (this.#disabled) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -191,7 +213,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (this.disabled) {
+    if (this.#disabled) {
       return;
     }
 
@@ -213,6 +235,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onPointerenter(): void {
+    if (this.#disabled) {
+      return;
+    }
+
     this.#showSubMenu();
   }
 
@@ -227,7 +253,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onShortcut(event: KeyboardEvent): void {
-    if (this.disabled) {
+    if (this.#disabled) {
       return;
     }
 

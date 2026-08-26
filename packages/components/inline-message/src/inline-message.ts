@@ -16,7 +16,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './inline-message.scss.js';
+import styles from './inline-message.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -44,7 +44,7 @@ export type SlDismissEvent = CustomEvent<void>;
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon
@@ -93,9 +93,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'octagon-exclamation-solid';
+        return 'triangle-exclamation-solid';
       case 'danger':
-        return 'diamond-exclamation-solid';
+        return 'octagon-xmark-solid';
       default:
         return 'info';
     }
@@ -186,19 +186,20 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       <div part="content">
         <slot @slotchange=${this.#onContentSlotChange}></slot>
       </div>
-      ${this.indismissible
-        ? nothing
-        : html`
-            <sl-button
-              @click=${this.#onClick}
-              .size=${this.size === 'sm' ? 'sm' : 'md'}
-              .variant=${this.variant ?? 'info'}
-              aria-label=${msg('Close', { id: 'sl.common.close' })}
-              fill="ghost"
-            >
-              <sl-icon name="xmark"></sl-icon>
-            </sl-button>
-          `}
+      ${
+        this.indismissible
+          ? nothing
+          : html`
+              <sl-button
+                @click=${this.#onClick}
+                .size=${this.size === 'sm' ? 'sm' : 'md'}
+                .variant=${this.variant ?? 'info'}
+                aria-label=${msg('Close', { id: 'sl.common.close' })}
+                fill="ghost">
+                <sl-icon name="xmark"></sl-icon>
+              </sl-button>
+            `
+      }
     `;
   }
 

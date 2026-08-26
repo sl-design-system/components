@@ -52,6 +52,14 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 
 <section>
 
+## Angular service
+
+Angular applications can use the `DialogService` to open and manage dialogs programmatically. See the [Dialog Service documentation in Storybook](https://storybook.sanomalearning.design/?path=/docs/angular_components-dialog-service--documentation) for Angular examples and API details.
+
+</section>
+
+<section>
+
 ## Responsive behavior
 
 The button-bar component in the footer will automatically stack the buttons vertically when the viewport is smaller than 600px. This behavior is enabled by default.

@@ -8,10 +8,13 @@ import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Button } from './button.js';
+import './register.js';
 
-interface Props extends Pick<Button, 'disabled' | 'fill' | 'shape' | 'size' | 'variant'> {
+interface Props extends Pick<
+  Button,
+  'disabled' | 'fill' | 'shape' | 'size' | 'tooltip' | 'variant'
+> {
   icon: string;
   text: string;
 }
@@ -49,7 +52,7 @@ export default {
     },
     shape: {
       control: 'inline-radio',
-      options: ['square', 'pill']
+      options: ['rect', 'pill']
     },
     size: {
       control: 'inline-radio',
@@ -60,9 +63,9 @@ export default {
       options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'inverted']
     }
   },
-  render: ({ disabled, fill, icon, shape, size, text, variant }) => {
-    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
-    const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
+  render: ({ disabled, fill, icon, shape, size, text, tooltip, variant }) => {
+    const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '',
+      endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
 
     return html`
       <sl-button
@@ -70,8 +73,8 @@ export default {
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        tooltip=${ifDefined(tooltip)}
+        variant=${ifDefined(variant)}>
         ${startIcon}${text}${endIcon}
       </sl-button>
     `;
@@ -129,8 +132,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled button
         </sl-button>
         <sl-button
@@ -138,8 +140,7 @@ export const Disabled: Story = {
           fill=${ifDefined(fill)}
           shape=${ifDefined(shape)}
           size=${ifDefined(size)}
-          variant=${ifDefined(variant)}
-        >
+          variant=${ifDefined(variant)}>
           Disabled (ARIA only) button
         </sl-button>
       </div>
@@ -147,26 +148,34 @@ export const Disabled: Story = {
   }
 };
 
+export const DoubleLabel: Story = {
+  render: () => html`
+    <p id="label">
+      This button has two labels: this text and the tooltip set via the
+      <code>tooltip</code> property.
+    </p>
+    <sl-button aria-labelledby="label" tooltip="Hello world">
+      <sl-icon name="far-plus"></sl-icon>
+    </sl-button>
+  `
+};
+
 export const IconOnly: Story = {
   render: ({ fill, shape, size, variant }) => {
     return html`
       <p>
         This example shows an icon-only button. When using an icon-only button, it's important to
-        provide an accessible name using the <code>aria-label</code> attribute so that assistive
+        provide an accessible name using the <code>tooltip</code> property so that assistive
         technologies can convey the purpose of the button to users.
       </p>
       <sl-button
-        aria-labelledby="tooltip"
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
-        variant=${ifDefined(variant)}
-      >
+        tooltip="Always have a tooltip for icon-only buttons to explain their purpose."
+        variant=${ifDefined(variant)}>
         <sl-icon name="far-plus"></sl-icon>
       </sl-button>
-      <sl-tooltip id="tooltip">
-        Always have a tooltip for icon-only buttons to explain their purpose.
-      </sl-tooltip>
     `;
   }
 };
@@ -220,38 +229,38 @@ export const All: Story = {
       </style>
       <section class="sizes">
         <span></span>
-        <span>Square text</span>
-        <span>Square icon</span>
+        <span>Rect text</span>
+        <span>Rect icon</span>
         <span>Pill text</span>
         <span>Pill icon</span>
 
         <span>Small</span>
         <sl-button fill="outline" size="sm">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" size="sm">
+        <sl-button tooltip="Add" fill="outline" size="sm">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill" size="sm">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" shape="pill" size="sm">
+        <sl-button tooltip="Add" fill="outline" shape="pill" size="sm">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
 
         <span>Medium</span>
         <sl-button fill="outline">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline">
+        <sl-button tooltip="Add" fill="outline">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" shape="pill">
+        <sl-button tooltip="Add" fill="outline" shape="pill">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
 
         <span>Large</span>
         <sl-button fill="outline" size="lg">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" size="lg">
+        <sl-button tooltip="Add" fill="outline" size="lg">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill" size="lg">Button</sl-button>
-        <sl-button aria-label="Add" fill="outline" shape="pill" size="lg">
+        <sl-button tooltip="Add" fill="outline" shape="pill" size="lg">
           <sl-icon name="far-plus"></sl-icon>
         </sl-button>
       </section>

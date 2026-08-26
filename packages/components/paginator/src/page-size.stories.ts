@@ -1,8 +1,8 @@
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../register.js';
 import { type PaginatorPageSize } from './page-size.js';
+import './register.js';
 
 type Props = Pick<PaginatorPageSize, 'itemLabel' | 'pageSize' | 'pageSizes'>;
 type Story = StoryObj<Props>;
@@ -18,8 +18,7 @@ export default {
       <sl-paginator-page-size
         .itemLabel=${itemLabel}
         .pageSize=${pageSize}
-        .pageSizes=${pageSizes}
-      ></sl-paginator-page-size>
+        .pageSizes=${pageSizes}></sl-paginator-page-size>
     `;
   }
 } satisfies Meta<Props>;
@@ -39,8 +38,7 @@ export const DataSource: Story = {
     return html`
       <sl-paginator-page-size
         .dataSource=${dataSource}
-        .pageSizes=${pageSizes}
-      ></sl-paginator-page-size>
+        .pageSizes=${pageSizes}></sl-paginator-page-size>
     `;
   }
 };

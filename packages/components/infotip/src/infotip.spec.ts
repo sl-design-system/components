@@ -8,8 +8,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { Infotip } from './infotip.js';
+import './register.js';
 
 describe('sl-infotip', () => {
   let el: Infotip, button: Button, popover: Popover;
@@ -54,8 +54,23 @@ describe('sl-infotip', () => {
       expect(popover).not.to.match(':popover-open');
     });
 
+    it('should focus the trigger button when focusing the host', async () => {
+      el.focus();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(button);
+    });
+
     it('should open the popover when clicking the trigger button', async () => {
       await userEvent.click(button);
+
+      expect(popover).to.match(':popover-open');
+    });
+
+    it('should open the popover when pressing Enter after focusing the host', async () => {
+      el.focus();
+      await new Promise(resolve => setTimeout(resolve));
+      await userEvent.keyboard('{Enter}');
 
       expect(popover).to.match(':popover-open');
     });

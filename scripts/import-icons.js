@@ -1,5 +1,6 @@
 import { findIconDefinition, library } from '@fortawesome/fontawesome-svg-core';
 import { fad } from '@fortawesome/pro-duotone-svg-icons';
+import { fadr } from '@fortawesome/duotone-regular-svg-icons';
 import { fal } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { fas } from '@fortawesome/pro-solid-svg-icons';
@@ -8,21 +9,23 @@ import { fasl } from '@fortawesome/sharp-light-svg-icons';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { exec } from 'child_process';
-import pkg from 'eslint';
+import { promisify } from 'util';
 import fg from 'fast-glob';
 import { existsSync, promises as fs } from 'fs';
 import { basename, join } from 'path';
 
-library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
+const execAsync = promisify(exec);
 
-const { ESLint } = pkg;
+library.add(fas, far, fal, fat, fad, fadr, fass, fasr, fasl);
 
-const cwd = new URL('.', import.meta.url).pathname,
-  eslint = new ESLint({ fix: true });
+const cwd = new URL('.', import.meta.url).pathname;
 
 const {
-  default: { icon: coreIcons }
+  default: { icon: coreIconTokens }
 } = await import('../packages/tokens/src/tokens/core.json', { with: { type: 'json' } });
+
+const coreIcons = coreIconTokens; // Keep the full icon object for getFormattedIcons
+const coreIconFontFamily = coreIconTokens.fontFamily;
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -37,8 +40,8 @@ const convertToIconDefinition = (iconName, style) => {
   return findIconDefinition({ prefix: getIconPrefixFromStyle(style), iconName });
 };
 
-const getColorToken = (pathCounter, style) => {
-  return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
+const getColorToken = (pathCounter, prefix) => {
+  return pathCounter === 0 && (prefix === 'fad' || prefix === 'fadr') ? 'accent' : 'default';
 };
 
 const getIconStyle = (iconName, text, style) => {
@@ -62,6 +65,8 @@ const getIconPrefixFromStyle = style => {
       return 'fat';
     case 'duotone':
       return 'fad';
+    case 'duotone-regular':
+      return 'fadr';
     case 'sharp-light':
       return 'fasl';
     case 'sharp-solid':
@@ -73,14 +78,50 @@ const getIconPrefixFromStyle = style => {
   }
 };
 
-const buildIcons = async theme => {
-  // 1. Get icon tokens from `base.json`
+const buildIconsFromBaseNew = async theme => {
+  // 1. Get icon tokens from `base-new.json` which uses routing prefixes
+  const baseNewModule = await import(`../packages/tokens/src/tokens/${theme}/base-new.json`, {
+    with: { type: 'json' }
+  });
+  const baseNewData = baseNewModule.default;
+
+  // Find the routing prefix that contains icon data (e.g., 'II-F', 'I-A', etc.)
+  const routingPrefix = Object.keys(baseNewData).find(key => baseNewData[key]?.icon);
+
+  if (!routingPrefix) {
+    console.warn(`No icon data found in base-new.json for ${theme}`);
+    return;
+  }
+
   const {
-    default: {
-      icon: { style, themeIcons },
-      text
+    icon: { typeset: iconTypeset }
+  } = baseNewData[routingPrefix];
+
+  const themeIconsPath = join(cwd, `../packages/themes/${theme}/theme-icons.json`);
+  let themeIcons;
+
+  if (existsSync(themeIconsPath)) {
+    const themeIconsModule = await import(themeIconsPath, { with: { type: 'json' } });
+    themeIcons = themeIconsModule.default;
+  }
+
+  // Create a style object compatible with the existing getIconStyle function
+  // In base-new.json, the structure is icon.typeset.fontWeight.{solid, regular}
+  const style = {
+    solid: iconTypeset?.fontWeight?.solid,
+    outline: iconTypeset?.fontWeight?.regular
+  };
+
+  // Create a text object compatible with getIconStyle - use core icon font family
+  const text = {
+    typeset: {
+      fontFamily: {
+        icon: {
+          value: coreIconFontFamily.classic.$value
+        }
+      }
     }
-  } = await import(`../packages/tokens/src/tokens/${theme}/base.json`, { with: { type: 'json' } });
+  };
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
@@ -91,6 +132,7 @@ const buildIcons = async theme => {
   Object.entries(icons).forEach(([iconName, value]) => {
     const tokenValue = value['$value'] || value.value;
     if (!tokenValue) {
+      delete icons[iconName];
       return;
     }
 
@@ -99,15 +141,18 @@ const buildIcons = async theme => {
       getIconStyle(iconName, text, style)
     );
     if (!faIcon) {
+      console.warn(`[${theme}] FontAwesome icon not found: ${tokenValue} (${iconName})`);
+      delete icons[iconName];
       return;
     }
 
     const {
+        prefix,
         icon: [width, height, , , path]
       } = faIcon,
       paths = Array.isArray(path) ? path : [path];
 
-    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, prefix)})"></path>`).join('')}</svg>`;
 
     icons[iconName] = {
       value: tokenValue,
@@ -146,28 +191,35 @@ const buildIcons = async theme => {
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(
-      Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort((a, b) =>
+      Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort((a, b) =>
         a[0].localeCompare(b[0])
       )
     ),
-    source = `
-      // This is a generated file, do not edit. Edit the core.json or base.json files instead.
-      export const icons = ${JSON.stringify(sortedIcons)};
-    `,
-    results = await eslint.lintText(source, { filePath });
+    source = `// This is a generated file, do not edit. Edit the core.json and theme-icons.json files instead.
+export const icons = ${JSON.stringify(sortedIcons, null, 2)};
+`;
 
-  await ESLint.outputFixes(results);
-  await fs.writeFile(filePath, results[0].output);
+  await fs.writeFile(filePath, source);
+  await execAsync(`npx oxfmt ${filePath}`, { cwd: join(cwd, '..') });
 };
 
 const buildAllIcons = async () => {
   const folders = await fg('../packages/themes/*', { cwd, onlyDirectories: true });
 
-  folders
+  const themes = folders
     .map(folder => basename(folder))
     .filter(theme => theme.indexOf('core') < 0)
-    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base.json`)))
-    .forEach(component => buildIcons(basename(component)));
+    .filter(theme => existsSync(join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)));
+
+  const buildPromises = themes.map(theme => {
+    const hasBaseNewJson = existsSync(
+      join(cwd, `../packages/tokens/src/tokens/${theme}/base-new.json`)
+    );
+
+    return buildIconsFromBaseNew(theme);
+  });
+
+  await Promise.all(buildPromises);
 };
 
 const exportCoreIcons = async () => {

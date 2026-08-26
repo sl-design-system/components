@@ -3,9 +3,9 @@ import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { type MenuItem } from './menu-item.js';
 import { type Menu } from './menu.js';
+import './register.js';
 
 describe('sl-menu', () => {
   let el: Menu;
@@ -201,6 +201,24 @@ describe('sl-menu', () => {
       const thirdItem = el.querySelectorAll('sl-menu-item')[2];
 
       expect(document.activeElement).to.equal(thirdItem);
+    });
+
+    it('should focus aria-disabled menu items', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const firstItem = el.querySelector('sl-menu-item');
+
+      expect(document.activeElement).to.equal(firstItem);
     });
   });
 
@@ -647,6 +665,23 @@ describe('sl-menu', () => {
         expect(nestedSubmenu).not.to.match(':popover-open');
 
         document.body.removeChild(outsideButton);
+      });
+
+      it('should allow clicks from nested submenu items to bubble', async () => {
+        const onClickItem = spy(),
+          onClickMenu = spy(),
+          nestedItem = nestedSubmenu.querySelector('sl-menu-item')!;
+
+        nestedSubmenu.showPopover();
+        await nestedSubmenu.updateComplete;
+
+        nestedItem.addEventListener('click', onClickItem);
+        el.addEventListener('click', onClickMenu);
+
+        await userEvent.click(nestedItem);
+
+        expect(onClickItem).to.have.been.calledOnce;
+        expect(onClickMenu).to.have.been.calledOnce;
       });
     });
   });

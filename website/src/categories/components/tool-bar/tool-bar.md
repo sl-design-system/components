@@ -10,7 +10,7 @@ storybookCategory: actions
 eleventyNavigation:
   parent: Components
   key: Tool bar
-  status: new
+  status: ready
 ---
 
 

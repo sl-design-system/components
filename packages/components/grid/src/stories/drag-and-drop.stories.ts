@@ -1,13 +1,36 @@
 import { Avatar } from '@sl-design-system/avatar';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, isListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type Person, getPeople, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../../register.js';
+import '.././register.js';
 import { type GridDropFilter, type SlDropEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
+
+const regroupDroppedPerson = (
+  dataSource: ArrayListDataSource<Person>,
+  event: SlDropEvent<Person>
+): void => {
+  const { item, relativeItem } = event.detail,
+    targetMembership = relativeItem?.membership;
+
+  if (
+    !isListDataSourceDataItem(item) ||
+    !targetMembership ||
+    item.data.membership === targetMembership
+  ) {
+    return;
+  }
+
+  const updatedPeople = dataSource.unfilteredItems.map(({ data }) =>
+    data === item.data ? { ...data, membership: targetMembership } : data
+  );
+
+  dataSource.setData(updatedPeople);
+  dataSource.update();
+};
 
 export default {
   title: 'Grid/Drag and drop',
@@ -37,8 +60,7 @@ export const Basic: Story = {
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;
@@ -59,8 +81,7 @@ export const OnTop: Story = {
         @sl-grid-drop=${onDrop}
         draggable-rows="on-top"
         .dropFilter=${dropFilter}
-        .items=${people}
-      >
+        .items=${people}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -95,11 +116,22 @@ export const Fixed: Story = {
 export const Grouping: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayListDataSource(people as Person[]);
-    dataSource.setGroupBy('membership');
+    const dataSource = new ArrayListDataSource(people as Person[], {
+      groupBy: 'membership'
+    });
+
+    const onDrop = (event: SlDropEvent<Person>): void => {
+      regroupDroppedPerson(dataSource, event);
+    };
 
     return html`
-      <sl-grid .dataSource=${dataSource}>
+      <p>
+        This example shows drag and drop behavior in combination with grouping. You can drag
+        individual rows or complete groups. Reordering within a group keeps the current membership.
+        Dropping a row onto a different group moves the person into that group by updating the
+        membership field.
+      </p>
+      <sl-grid @sl-grid-drop=${onDrop} .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>

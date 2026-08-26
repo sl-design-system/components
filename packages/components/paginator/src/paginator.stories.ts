@@ -2,8 +2,8 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Paginator } from './paginator.js';
+import './register.js';
 
 type Props = Pick<Paginator, 'emphasis' | 'page' | 'pageSize' | 'size' | 'totalItems' | 'width'>;
 type Story = StoryObj<Props>;
@@ -40,8 +40,7 @@ export default {
         .totalItems=${totalItems}
         emphasis=${ifDefined(emphasis)}
         size=${ifDefined(size)}
-        width=${ifDefined(width)}
-      ></sl-paginator>
+        width=${ifDefined(width)}></sl-paginator>
     `;
   }
 } satisfies Meta<Props>;
@@ -98,8 +97,7 @@ export const All: Story = {
               .pageSize=${pageSize}
               .totalItems=${totalItems}
               size=${size}
-              width="xs"
-            ></sl-paginator>
+              width="xs"></sl-paginator>
 
             <span>Ghost, width: sm</span>
             <sl-paginator
@@ -108,8 +106,7 @@ export const All: Story = {
               .pageSize=${pageSize}
               .totalItems=${totalItems}
               size=${size}
-              width="sm"
-            ></sl-paginator>
+              width="sm"></sl-paginator>
 
             <span>Ghost, width: md</span>
             <sl-paginator
@@ -118,8 +115,7 @@ export const All: Story = {
               .pageSize=${pageSize}
               .totalItems=${totalItems}
               size=${size}
-              width="md"
-            ></sl-paginator>
+              width="md"></sl-paginator>
 
             <span>Ghost, width: lg</span>
             <sl-paginator
@@ -128,8 +124,7 @@ export const All: Story = {
               .pageSize=${pageSize}
               .totalItems=${totalItems}
               size=${size}
-              width="lg"
-            ></sl-paginator>
+              width="lg"></sl-paginator>
           </section>
           <h3>Emphasis bold</h3>
           <section>
@@ -141,8 +136,7 @@ export const All: Story = {
               .totalItems=${totalItems}
               emphasis="bold"
               size=${size}
-              width="xs"
-            ></sl-paginator>
+              width="xs"></sl-paginator>
 
             <span>Ghost, width: sm</span>
             <sl-paginator
@@ -152,8 +146,7 @@ export const All: Story = {
               .totalItems=${totalItems}
               emphasis="bold"
               size=${size}
-              width="sm"
-            ></sl-paginator>
+              width="sm"></sl-paginator>
 
             <span>Ghost, width: md</span>
             <sl-paginator
@@ -163,8 +156,7 @@ export const All: Story = {
               .totalItems=${totalItems}
               emphasis="bold"
               size=${size}
-              width="md"
-            ></sl-paginator>
+              width="md"></sl-paginator>
 
             <span>Ghost, width: lg</span>
             <sl-paginator
@@ -174,8 +166,7 @@ export const All: Story = {
               .totalItems=${totalItems}
               emphasis="bold"
               size=${size}
-              width="lg"
-            ></sl-paginator>
+              width="lg"></sl-paginator>
           </section>
         `
       )}

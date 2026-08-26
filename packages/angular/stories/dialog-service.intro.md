@@ -111,9 +111,7 @@ Closes the dialog with an optional result value. The result will be emitted to a
 
 ```typescript
 // In the dialog component:
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class MyDialogComponent {
   constructor(public dialogRef: DialogRef<string>) {}
 

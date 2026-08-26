@@ -1,8 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type FormatDate } from './format-date.js';
+import './register.js';
 
 type Props = Pick<
   FormatDate,
@@ -128,8 +128,7 @@ export default {
       .timeZoneName=${timeZoneName}
       .timeZone=${timeZone}
       .hour12=${hour12}
-      locale=${ifDefined(locale)}
-    >
+      locale=${ifDefined(locale)}>
       ${fallback}
     </sl-format-date>
   `
@@ -201,8 +200,7 @@ export const Locales: Story = {
               .timeZoneName=${timeZoneName}
               .timeZone=${timeZone}
               .hour12=${hour12}
-              locale=${locale}
-            >
+              locale=${locale}>
               ${fallback}
             </sl-format-date>
           </dd>

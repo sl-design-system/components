@@ -4,19 +4,15 @@ import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import { type MenuButton } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
 import { closestElementComposed } from '@sl-design-system/shared';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
-import {
-  type ToolBarItem,
-  type ToolBarItemButton,
-  type ToolBarItemDivider,
-  type ToolBarItemMenu
-} from './mapping.js';
+import { type ToolBarItem } from './mapping.js';
+import './register.js';
 import { type ToolBar } from './tool-bar.js';
 
 Icon.register(faBell, faGear, faPen, faTrash, fasBell, fasGear);
@@ -73,6 +69,7 @@ describe('sl-tool-bar', () => {
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
     });
 
     it('should have a toolbar role', () => {
@@ -118,6 +115,29 @@ describe('sl-tool-bar', () => {
       expect(children.item(3)).to.have.attribute('data-toolbar-disabled');
     });
 
+    it('should clear aria-disabled from the overflow menu button when re-enabled', async () => {
+      const toolbar = await fixture<ToolBar>(html`
+        <sl-tool-bar disabled style="inline-size: 48px">
+          <sl-button>Button 1</sl-button>
+          <sl-button>Button 2</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 150));
+      await toolbar.updateComplete;
+
+      const menuButton = toolbar.shadowRoot?.querySelector<MenuButton>('sl-menu-button'),
+        internalButton = menuButton?.renderRoot.querySelector('sl-button'),
+        nativeButton = internalButton?.renderRoot.querySelector('button');
+
+      expect(nativeButton).to.have.attribute('aria-disabled', 'true');
+
+      toolbar.disabled = false;
+      await toolbar.updateComplete;
+      await internalButton?.updateComplete;
+
+      expect(nativeButton).not.to.have.attribute('aria-disabled');
+    });
+
     it('should have made all slotted elements visible', () => {
       // When all items fit, visibility is set to 'visible' by the resize observer
       // Check that no items are hidden
@@ -129,30 +149,31 @@ describe('sl-tool-bar', () => {
       expect(el.menuItems).to.have.length(0);
     });
 
-    it('should not have a menu button', () => {
+    it('should have a hidden menu button', () => {
       const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
 
-      expect(menuButton).not.to.exist;
+      expect(menuButton).to.exist;
+      expect(menuButton).to.have.attribute('hidden');
     });
 
     it('should map the slotted items', () => {
       expect(el.items).to.have.length(4);
 
-      let item: ToolBarItem = el.items[0] as ToolBarItemButton;
+      let item: ToolBarItem = el.items[0];
       expect(item.type).to.equal('button');
       expect(item.label).to.equal('Button');
       expect(item.icon).to.equal('far-gear');
       expect(item.visible).to.be.true;
 
-      item = el.items[1] as ToolBarItemDivider;
+      item = el.items[1];
       expect(item.type).to.equal('divider');
       expect(item.visible).to.be.true;
 
-      item = el.items[2] as ToolBarItemDivider;
+      item = el.items[2];
       expect(item.type).to.equal('divider');
       expect(item.visible).to.be.true;
 
-      item = el.items[3] as ToolBarItemMenu;
+      item = el.items[3];
       expect(item.type).to.equal('menu');
       expect(item.label).to.equal('Edit');
       expect(item.visible).to.be.true;
@@ -315,6 +336,53 @@ describe('sl-tool-bar', () => {
       await el.updateComplete;
 
       expect(document.activeElement).to.exist;
+    });
+
+    it('should keep aria-disabled overflow menu items reachable', async () => {
+      const toolbar = await fixture<ToolBar>(html`
+        <sl-tool-bar style="inline-size: 48px">
+          <sl-button>Cut</sl-button>
+          <sl-button aria-disabled="true">Copy</sl-button>
+          <sl-button>Paste</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 150));
+      await toolbar.updateComplete;
+
+      const menuButton = toolbar.shadowRoot?.querySelector<MenuButton>('sl-menu-button'),
+        items = Array.from(toolbar.shadowRoot?.querySelectorAll('sl-menu-item') ?? []),
+        copy = items.find(item => item.textContent?.trim() === 'Copy');
+
+      expect(copy).to.exist;
+      expect(copy).to.have.attribute('aria-disabled', 'true');
+      expect(copy).not.to.have.attribute('disabled');
+
+      menuButton?.menu.showPopover();
+      items[0].focus();
+      await toolbar.updateComplete;
+
+      await userEvent.keyboard('{ArrowDown}');
+      await toolbar.updateComplete;
+
+      expect(toolbar.shadowRoot?.activeElement).to.equal(copy);
+    });
+
+    it('should not activate aria-disabled overflow menu items', async () => {
+      let clicked = false;
+
+      const toolbar = await fixture<ToolBar>(html`
+        <sl-tool-bar style="inline-size: 48px">
+          <sl-button @click=${() => (clicked = true)} aria-disabled="true">Copy</sl-button>
+        </sl-tool-bar>
+      `);
+      await new Promise(resolve => setTimeout(resolve, 150));
+      await toolbar.updateComplete;
+
+      const copy = toolbar.shadowRoot?.querySelector('sl-menu-item');
+
+      copy?.click();
+
+      expect(clicked).to.be.false;
     });
 
     it('should wrap focus from last to first item', async () => {

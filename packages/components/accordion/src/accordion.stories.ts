@@ -4,8 +4,8 @@ import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, html } from 'lit';
-import '../register.js';
 import { type Accordion } from './accordion.js';
+import './register.js';
 
 export type Props = Pick<Accordion, 'iconType' | 'single'> & { items(): TemplateResult };
 export type Story = StoryObj<Props>;
@@ -142,7 +142,7 @@ export const Extras: Story = {
         Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
       </sl-accordion-item>
       <sl-accordion-item summary="Journey Through Ancient Civilizations">
-        <sl-icon name="octagon-exclamation-solid" slot="summary-extras"></sl-icon>
+        <sl-icon name="octagon-xmark-solid" slot="summary-extras"></sl-icon>
         Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond
         🌍🏛️🔍🏺
       </sl-accordion-item>
@@ -182,8 +182,7 @@ export const NoBottomBorder: Story = {
 sl-accordion-item:last-of-type::part(details) {
   border-block-end: none;
 }
-        </pre
-        >
+        </pre>
       </sl-accordion-item>
     `
   }
@@ -193,14 +192,11 @@ export const Overflow: Story = {
   args: {
     items: () => html`
       <sl-accordion-item
-        summary="Velit Lorem nostrud anim officia adipisicing dolore incididunt esse."
-      ></sl-accordion-item>
+        summary="Velit Lorem nostrud anim officia adipisicing dolore incididunt esse."></sl-accordion-item>
       <sl-accordion-item
-        summary="Id aliquip dolore laborum eiusmod amet minim occaecat ex consequat non."
-      ></sl-accordion-item>
+        summary="Id aliquip dolore laborum eiusmod amet minim occaecat ex consequat non."></sl-accordion-item>
       <sl-accordion-item
-        summary="Elit tempor Lorem laboris qui magna excepteur nostrud quis elit eu eiusmod do. Aute ex mollit duis ullamco ut do mollit. Minim irure pariatur anim minim irure id aute. Occaecat mollit nostrud ea ipsum veniam labore cupidatat cillum exercitation. Ut ullamco id officia voluptate incididunt et sint. Officia velit sit incididunt minim ut pariatur do."
-      ></sl-accordion-item>
+        summary="Elit tempor Lorem laboris qui magna excepteur nostrud quis elit eu eiusmod do. Aute ex mollit duis ullamco ut do mollit. Minim irure pariatur anim minim irure id aute. Occaecat mollit nostrud ea ipsum veniam labore cupidatat cillum exercitation. Ut ullamco id officia voluptate incididunt et sint. Officia velit sit incididunt minim ut pariatur do."></sl-accordion-item>
     `
   }
 };
@@ -346,8 +342,7 @@ export const ToggleExternally: Story = {
                 <sl-accordion-item
                   summary="🦖"
                   .open=${this.dino}
-                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'dino')}
-                >
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'dino')}>
                   Discovering Dinosaurs: A Prehistoric Adventure Embark on a thrilling journey back
                   in time to the age of dinosaurs! 🌎🦕🌿🦖
                 </sl-accordion-item>
@@ -358,8 +353,7 @@ export const ToggleExternally: Story = {
                 <sl-accordion-item
                   summary="👽"
                   .open=${this.alien}
-                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'alien')}
-                >
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'alien')}>
                   Space Odyssey: Exploring Planets and Stars Buckle up for a cosmic adventure!
                   🚀🪐👽
                 </sl-accordion-item>

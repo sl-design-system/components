@@ -5,6 +5,7 @@ import { ArrayListDataSource } from './array-list-data-source.js';
 import {
   LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
   type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
   isListDataSourceDataItem,
   isListDataSourceGroupItem
 } from './list-data-source.js';
@@ -1192,6 +1193,126 @@ describe('ArrayListDataSource', () => {
       expect(ds.isGroupCollapsed('Ophthalmologist')).to.be.true;
       expect(ds.isGroupCollapsed('Surgeon')).to.be.false;
       expect(ds.isGroupCollapsed('Dermatologist')).to.be.false;
+    });
+  });
+
+  describe('reordering', () => {
+    it('should persist reordered items', () => {
+      ds = new ArrayListDataSource(people);
+
+      const aria = ds.items.find(
+          (item): item is ListDataSourceDataItem<Person> =>
+            isListDataSourceDataItem(item) && item.data.firstName === 'Aria'
+        )!,
+        madeline = ds.items.find(
+          (item): item is ListDataSourceDataItem<Person> =>
+            isListDataSourceDataItem(item) && item.data.firstName === 'Madeline'
+        )!;
+
+      ds.reorder(madeline, aria, 'before');
+
+      const firstNames = ds.items
+        .filter((item): item is ListDataSourceDataItem<Person> => isListDataSourceDataItem(item))
+        .map(({ data }) => data.firstName);
+
+      expect(firstNames).to.deep.equal([
+        'Madeline',
+        'Aria',
+        'Aaliyah',
+        'Eleanor',
+        'Allison',
+        'Anna',
+        'Ashley',
+        'Cooper',
+        'Lauren',
+        'Abigail'
+      ]);
+    });
+
+    it('should persist reordered items within a group', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      const aaliyah = ds.items.find(
+          (item): item is ListDataSourceDataItem<Person> =>
+            isListDataSourceDataItem(item) && item.data.firstName === 'Aaliyah'
+        )!,
+        abigail = ds.items.find(
+          (item): item is ListDataSourceDataItem<Person> =>
+            isListDataSourceDataItem(item) && item.data.firstName === 'Abigail'
+        )!;
+
+      ds.reorder(abigail, aaliyah, 'before');
+
+      const nephrologistGroupMembers = ds.items
+        .filter(
+          (item): item is ListDataSourceDataItem<Person> =>
+            isListDataSourceDataItem(item) && item.data.profession === 'Nephrologist'
+        )
+        .map(({ data }) => data.firstName);
+
+      expect(nephrologistGroupMembers).to.deep.equal(['Abigail', 'Aaliyah']);
+
+      ds.update();
+
+      const persistedGroupMembers = ds.items
+        .filter(
+          (item): item is ListDataSourceDataItem<Person> =>
+            isListDataSourceDataItem(item) && item.data.profession === 'Nephrologist'
+        )
+        .map(({ data }) => data.firstName);
+
+      expect(persistedGroupMembers).to.deep.equal(['Abigail', 'Aaliyah']);
+    });
+
+    it('should reorder complete groups when dragging a group', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      const groups = ds.items.filter((item): item is ListDataSourceGroupItem<Person> =>
+          isListDataSourceGroupItem(item)
+        ),
+        endocrinologist = groups.find(group => group.label === 'Endocrinologist')!,
+        gastroenterologist = groups.find(group => group.label === 'Gastroenterologist')!;
+
+      ds.reorder(gastroenterologist, endocrinologist, 'before');
+
+      const groupLabels = ds.items
+        .filter((item): item is ListDataSourceGroupItem<Person> => isListDataSourceGroupItem(item))
+        .map(({ label }) => label);
+
+      // Once a group is dragged, the groups follow the (manual) order of the data
+      expect(groupLabels).to.deep.equal([
+        'Gastroenterologist',
+        'Endocrinologist',
+        'Nephrologist',
+        'Ophthalmologist',
+        'Allergist',
+        'Anesthesiologist',
+        'Urologist',
+        'Cardiologist',
+        'Pediatrician'
+      ]);
+    });
+
+    it('should keep items from filtered out groups when reordering visible groups', () => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+
+      ds.addFilter('visible-group-1', 'profession', 'Endocrinologist');
+      ds.addFilter('visible-group-2', 'profession', 'Gastroenterologist');
+      ds.update();
+
+      const visibleGroups = ds.items.filter((item): item is ListDataSourceGroupItem<Person> =>
+          isListDataSourceGroupItem(item)
+        ),
+        endocrinologist = visibleGroups.find(group => group.label === 'Endocrinologist')!,
+        gastroenterologist = visibleGroups.find(group => group.label === 'Gastroenterologist')!;
+
+      ds.reorder(gastroenterologist, endocrinologist, 'before');
+
+      const allEmails = people.map(({ email }) => email).sort(),
+        unfilteredEmails = ds.unfilteredItems.map(({ data }) => data.email).sort();
+
+      expect(ds.totalSize).to.equal(people.length);
+      expect(unfilteredEmails).to.deep.equal(allEmails);
     });
   });
 });

@@ -15,7 +15,7 @@ import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type GridColumn } from './column.js';
-import styles from './sorter.scss.js';
+import styles from './sorter.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -41,7 +41,7 @@ export type SlSorterRegisterEvent = CustomEvent<void>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon
@@ -80,15 +80,16 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
       <slot></slot>
       <sl-button
         @click=${this.#onClick}
-        aria-label=${this.direction === 'asc'
-          ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
-          : this.direction === 'desc'
-            ? msg('Remove sort', { id: 'sl.grid.removeSort' })
-            : msg('Sort ascending', { id: 'sl.grid.sortAscending' })}
+        aria-label=${
+          this.direction === 'asc'
+            ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
+            : this.direction === 'desc'
+              ? msg('Remove sort', { id: 'sl.grid.removeSort' })
+              : msg('Sort ascending', { id: 'sl.grid.sortAscending' })
+        }
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
-        variant=${ifDefined(this.direction ? 'primary' : undefined)}
-      >
+        variant=${ifDefined(this.direction ? 'primary' : undefined)}>
         ${choose(
           this.direction,
           [

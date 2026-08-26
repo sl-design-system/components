@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AccordionComponent } from '@sl-design-system/angular/accordion';
 import { ButtonComponent } from '@sl-design-system/angular/button';
-import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 @Component({
   selector: 'sla-accordion-external-actions',
@@ -15,8 +15,7 @@ import { type Meta, StoryObj, moduleMetadata } from '@storybook/angular';
     <sl-accordion>
       <sl-accordion-item
         summary="Discovering Dinosaurs: A Prehistoric Adventure"
-        [open]="dinoState"
-      >
+        [open]="dinoState">
         Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
       </sl-accordion-item>
       <sl-accordion-item summary="Journey Through Ancient Civilizations">

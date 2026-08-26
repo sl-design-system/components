@@ -10,7 +10,7 @@
       "prefix": "sl",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "project": "src/ng-package.json"
           },
@@ -25,31 +25,29 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "storybook": {
-          "builder": "@storybook/angular:start-storybook",
+          "builder": "@storybook/angular-vite:start-storybook",
           "options": {
-            "browserTarget": "angular:build-storybook",
             "ci": true,
             "compodoc": false,
-            "experimentalZoneless": true,
             "open": false,
-            "port": 6007
+            "port": 6007,
+            "zoneless": true
           }
         },
         "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
+          "builder": "@storybook/angular-vite:build-storybook",
           "options": {
-            "browserTarget": "angular:build-storybook",
             "compodoc": false,
-            "experimentalZoneless": true,
             "outputDir": "../../dist/angular",
-            "quiet": true
+            "quiet": true,
+            "zoneless": true
           }
         }
       },

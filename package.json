@@ -1,24 +1,27 @@
 {
   "name": "@sl-design-system/monorepo",
-  "packageManager": "yarn@4.13.0",
+  "packageManager": "yarn@4.17.0",
   "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git"
   },
+  "type": "module",
   "workspaces": [
     "chromatic",
+    "examples",
     "examples/lit",
     "packages/angular",
-    "packages/checklist",
     "packages/components/*",
     "packages/locales",
     "packages/themes/*",
     "packages/tokens",
     "scripts",
+    "scripts/connect-figma-components",
     "tools/eslint-config",
     "tools/eslint-plugin-slds",
     "tools/example-data",
+    "tools/rolldown-plugin-css-sheet",
     "tools/stylelint-config",
     "tools/theme-selector-plugin",
     "tools/vitest-browser-lit",
@@ -38,6 +41,7 @@
     "release": "wireit",
     "start": "wireit",
     "storybook": "wireit",
+    "studio-auth": "yarn workspace @sl-design-system/scripts studio-auth",
     "test": "wireit",
     "version": "wireit",
     "website": "wireit",
@@ -47,107 +51,29 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:checklist",
         "build:components",
         "build:examples",
         "build:locales",
-        "build:themes",
-        "build:types"
-      ]
-    },
-    "build:checklist": {
-      "command": "node scripts/build-packages.js checklist",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:checklist:styles"
-      ],
-      "files": [
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/**/*.js",
-        "packages/checklist/**/*.js.map"
-      ]
-    },
-    "build:checklist:styles": {
-      "command": "node scripts/build-styles.js 'packages/checklist/src/checklist.scss'",
-      "clean": "if-file-deleted",
-      "files": [
-        "packages/checklist/src/checklist.scss"
-      ],
-      "output": [
-        "packages/checklist/src/checklist.scss.ts"
+        "build:themes"
       ]
     },
     "build:components": {
-      "command": "node scripts/build-packages.js components",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:components:styles"
-      ],
-      "files": [
-        "packages/components/**/*.ts",
-        "!packages/components/**/*.d.ts"
-      ],
-      "output": [
-        "packages/components/**/*.js",
-        "packages/components/**/*.js.map"
-      ]
-    },
-    "build:components:styles": {
-      "command": "node scripts/build-styles.js 'packages/components/**/*.scss'",
-      "clean": "if-file-deleted",
-      "files": [
-        "scripts/build-styles.js",
-        "packages/components/**/*.scss"
-      ],
-      "output": [
-        "packages/components/**/*.scss.ts"
-      ]
+      "command": "tsdown --config packages/components/tsdown.config.mjs --concurrency=4"
     },
     "build:examples": {
-      "command": "node scripts/build-packages.js examples",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:examples:styles"
-      ],
-      "files": [
-        "examples/lit/**/*.ts",
-        "!examples/lit/**/*.d.ts"
-      ],
-      "output": [
-        "examples/lit/**/*.js",
-        "examples/lit/**/*.js.map"
-      ]
-    },
-    "build:examples:styles": {
-      "command": "node scripts/build-styles.js 'examples/lit/**/*.scss'",
-      "clean": "if-file-deleted",
-      "files": [
-        "scripts/build-styles.js",
-        "examples/lit/**/*.scss"
-      ],
-      "output": [
-        "examples/lit/**/*.scss.ts"
-      ]
+      "command": "tsdown --config examples/lit/tsdown.config.js --concurrency=4"
     },
     "build:locales": {
-      "command": "node scripts/build-packages.js locales && oxfmt packages/locales/src",
+      "command": "tsdown --config packages/locales/tsdown.config.js",
       "dependencies": [
         "build:locales:code"
       ],
       "files": [
-        "packages/locales/**/*.ts",
-        "!packages/locales/**/*.d.ts"
-      ],
-      "output": [
-        "packages/locales/**/*.js",
-        "packages/locales/**/*.js.map"
+        "packages/locales/src/*.ts"
       ]
     },
     "build:locales:code": {
-      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts' --ignore-pattern 'packages/locales/src/*.d.ts' && oxfmt packages/locales/src",
+      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts' && oxfmt packages/locales/src",
       "clean": false,
       "files": [
         "lit-localize.json",
@@ -197,42 +123,15 @@
         "!packages/themes/*/fonts.css"
       ]
     },
-    "build:types": {
-      "command": "tsc --build tsconfig.all.json --pretty",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:checklist:styles",
-        "build:components:styles",
-        "build:locales"
-      ],
-      "files": [
-        "tsconfig.all.json",
-        "examples/lit/**/*.ts",
-        "!examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/*.ts",
-        "!packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
-      ],
-      "output": [
-        "examples/lit/**/tsconfig.tsbuildinfo",
-        "examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
-        "packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**"
-      ]
-    },
     "dist": {
       "dependencies": [
         "build:components",
-        "build:examples",
         "build:locales",
         "build:themes:setup",
         "build:themes:code",
         "dist:angular",
-        "dist:checklist",
         "dist:components",
-        "dist:themes",
-        "dist:types"
+        "dist:themes"
       ]
     },
     "dist:angular": {
@@ -241,52 +140,9 @@
         "dist:components"
       ]
     },
-    "dist:checklist": {
-      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
-      "dependencies": [
-        "dist:checklist:code"
-      ],
-      "files": [
-        "packages/checklist/**/*.scss",
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/dist/index.js",
-        "packages/checklist/dist/index.js.map"
-      ]
-    },
-    "dist:checklist:code": {
-      "command": "node scripts/build-packages.js checklist",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "dist:checklist:styles"
-      ],
-      "files": [
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/**/*.js",
-        "packages/checklist/**/*.js.map"
-      ]
-    },
-    "dist:checklist:styles": {
-      "command": "node scripts/build-styles.js 'packages/checklist/**/*.scss'",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "dist:themes"
-      ],
-      "output": [
-        "packages/checklist/**/*.scss.ts"
-      ]
-    },
     "dist:components": {
       "command": "node scripts/build-metadata.js",
       "clean": "if-file-deleted",
-      "dependencies": [
-        "build:components:styles"
-      ],
       "files": [
         "packages/components/**/*.ts",
         "!packages/components/**/*.{d,spec,stories}.ts"
@@ -302,30 +158,6 @@
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css",
         "!packages/themes/*/global.css"
-      ]
-    },
-    "dist:types": {
-      "command": "tsc --build tsconfig.all.json --pretty",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:locales",
-        "dist:checklist",
-        "dist:components"
-      ],
-      "files": [
-        "tsconfig.all.json",
-        "examples/lit/**/*.ts",
-        "!examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/*.ts",
-        "!packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
-      ],
-      "output": [
-        "examples/lit/**/tsconfig.tsbuildinfo",
-        "examples/lit/**/*.d.ts",
-        "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
-        "packages/{checklist,components,themes}/**/*.d.ts",
-        "!packages/{checklist,components,themes}/*/node_modules/**"
       ]
     },
     "import-icons": {
@@ -380,27 +212,11 @@
       ],
       "dependencies": [
         {
-          "script": "build:checklist",
-          "cascade": false
-        },
-        {
-          "script": "build:components",
-          "cascade": false
-        },
-        {
-          "script": "build:examples",
-          "cascade": false
-        },
-        {
           "script": "build:locales",
           "cascade": false
         },
         {
           "script": "build:themes",
-          "cascade": false
-        },
-        {
-          "script": "build:types",
           "cascade": false
         }
       ]
@@ -432,16 +248,16 @@
     "test:components": {
       "command": "vitest --project=unit",
       "dependencies": [
-        "build:components",
         "test:setup"
       ],
       "files": [
         "web-test-runner.config.mjs",
+        "examples/lit/**/*.ts",
         "packages/components/**/*.spec.ts"
       ]
     },
     "test:setup": {
-      "command": "playwright install --with-deps"
+      "command": "playwright install --with-deps chromium"
     },
     "test:tools": {
       "command": "yarn workspace @sl-design-system/eslint-plugin-slds test"
@@ -469,49 +285,55 @@
   },
   "devDependencies": {
     "@af-utils/scrollend-polyfill": "^0.0.14",
-    "@axe-core/playwright": "^4.11.1",
-    "@changesets/cli": "^2.31.0",
+    "@axe-core/playwright": "^4.12.1",
+    "@changesets/cli": "^2.31.1",
     "@changesets/get-github-info": "^0.8.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",
-    "@faker-js/faker": "^10.3.0",
-    "@lit/localize-tools": "^0.8.1",
-    "@playwright/test": "^1.58.2",
-    "@storybook/addon-a11y": "^10.3.5",
-    "@storybook/addon-docs": "^10.3.5",
-    "@storybook/addon-vitest": "^10.3.5",
-    "@storybook/web-components": "^10.3.5",
-    "@storybook/web-components-vite": "^10.3.5",
+    "@faker-js/faker": "^10.5.0",
+    "@lit/localize-tools": "^0.8.2",
+    "@oddbird/css-anchor-positioning": "0.10.1",
+    "@playwright/test": "^1.62.1",
+    "@storybook/addon-a11y": "^10.5.10",
+    "@storybook/addon-docs": "^10.5.10",
+    "@storybook/addon-vitest": "^10.5.10",
+    "@storybook/web-components": "^10.5.10",
+    "@storybook/web-components-vite": "^10.5.10",
     "@types/chai-datetime": "^1.0.0",
     "@types/chai-dom": "^1.11.3",
-    "@types/sinon": "^21.0.0",
+    "@types/react": "^19.2.18",
+    "@types/sinon": "^22.0.0",
     "@types/sinon-chai": "^4.0.0",
-    "@vitest/browser-playwright": "~4.1.5",
-    "@vitest/coverage-v8": "~4.1.5",
-    "@vitest/ui": "~4.1.5",
+    "@typescript/native-preview": "7.0.0-dev.20260707.2",
+    "@vitest/browser-playwright": "~4.1.10",
+    "@vitest/coverage-v8": "~4.1.10",
+    "@vitest/ui": "~4.1.10",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
+    "axe-core": "^4.13.0",
     "axe-html-reporter": "^2.2.11",
     "chai": "^6.2.2",
     "chai-datetime": "^1.8.1",
     "chai-dom": "^1.12.1",
-    "chromatic": "^15.3.0",
+    "chromatic": "^18.1.0",
     "eslint": "^9.27.0",
     "husky": "^9.1.7",
     "invokers-polyfill": "^1.0.3",
-    "lint-staged": "^16.4.0",
-    "lit": "^3.3.2",
+    "lint-staged": "^17.3.0",
+    "lit": "^3.3.3",
     "mockdate": "^3.0.5",
-    "oxfmt": "^0.47.0",
+    "oxfmt": "^0.62.0",
     "oxlint": "^1.62.0",
     "oxlint-tsgolint": "^0.22.1",
-    "playwright": "^1.59.1",
-    "sinon": "^21.0.3",
+    "playwright": "^1.62.1",
+    "playwright-core": "^1.62.1",
+    "sinon": "^22.1.0",
     "sinon-chai": "^4.0.1",
-    "storybook": "^10.3.5",
+    "storybook": "^10.5.10",
     "storybook-addon-tag-badges": "^3.1.0",
     "stylelint": "^16.19.1",
+    "tsdown": "^0.22.14",
     "typescript": "^6.0.3",
-    "vite": "^8.0.10",
-    "vitest": "~4.1.5",
-    "wireit": "^0.14.12"
+    "vite": "^8.2.1",
+    "vitest": "~4.1.10",
+    "wireit": "^0.14.13"
   }
 }

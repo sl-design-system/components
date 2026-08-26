@@ -4,7 +4,7 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
-import { Button } from '@sl-design-system/button';
+import { Button, type ButtonFill, type ButtonVariant } from '@sl-design-system/button';
 import {
   LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
   type ListDataSource
@@ -13,7 +13,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select } from '@sl-design-system/select';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, event, getPluralCategory } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import {
   type CSSResultGroup,
@@ -27,7 +27,7 @@ import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './paginator.scss.js';
+import styles from './paginator.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -61,7 +61,7 @@ export type PaginatorEmphasis = 'subtle' | 'bold';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
@@ -217,8 +217,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         })}
         class="nav"
         fill="ghost"
-        size=${ifDefined(this.size)}
-      >
+        size=${ifDefined(this.size)}>
         <sl-icon name="caret-left-solid"></sl-icon>
       </sl-button>
 
@@ -226,83 +225,88 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${() => this.#onPageClick(0)}
         aria-current=${ifDefined(this.page === 0 ? 'page' : undefined)}
         class=${classMap({ current: this.page === 0, page: true })}
-        fill="ghost"
+        fill=${this.#getPageFill(0)}
         size=${ifDefined(this.size)}
-      >
+        variant=${ifDefined(this.#getPageVariant(0))}>
         1
       </sl-button>
 
-      ${this.windowStart > 0
-        ? html`
-            <sl-menu-button
-              aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
-              fill="ghost"
-              size=${ifDefined(this.size)}
-            >
-              <sl-icon name="ellipsis-down" slot="button"></sl-icon>
-              ${Array.from({ length: this.windowStart + 1 }).map(
-                (_, i) => html`
-                  <sl-menu-item @click=${() => this.#onPageClick(i + 1)}>${i + 2}</sl-menu-item>
-                `
-              )}
-            </sl-menu-button>
-          `
-        : nothing}
+      ${
+        this.windowStart > 0
+          ? html`
+              <sl-menu-button
+                aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
+                fill="ghost"
+                size=${ifDefined(this.size)}>
+                <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+                ${Array.from({ length: this.windowStart + 1 }).map(
+                  (_, i) => html`
+                    <sl-menu-item @click=${() => this.#onMenuPageClick(i + 1)}>
+                      ${i + 2}
+                    </sl-menu-item>
+                  `
+                )}
+              </sl-menu-button>
+            `
+          : nothing
+      }
       ${Array.from({ length: this.pageCount - 2 }).map(
         (_, index) => html`
           <sl-button
             @click=${() => this.#onPageClick(index + 1)}
             aria-current=${ifDefined(this.page === index + 1 ? 'page' : undefined)}
             class=${classMap({ current: this.page === index + 1, page: true })}
-            fill="ghost"
+            fill=${this.#getPageFill(index + 1)}
             size=${ifDefined(this.size)}
             style=${styleMap({
               display: index <= this.windowStart || index >= this.windowEnd ? 'none' : undefined
             })}
-          >
+            variant=${ifDefined(this.#getPageVariant(index + 1))}>
             ${index + 2}
           </sl-button>
         `
       )}
-      ${this.windowEnd < this.pageCount - 2
-        ? html`
-            <sl-menu-button
-              aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
-              fill="ghost"
-              size=${ifDefined(this.size)}
-            >
-              <sl-icon name="ellipsis-down" slot="button"></sl-icon>
-              ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
-                (_, i) => html`
-                  <sl-menu-item @click=${() => this.#onPageClick(i + this.windowEnd + 1)}>
-                    ${i + this.windowEnd + 2}
-                  </sl-menu-item>
-                `
-              )}
-            </sl-menu-button>
-          `
-        : nothing}
-      ${this.pageCount > 1
-        ? html`
-            <sl-button
-              @click=${() => this.#onPageClick(this.pageCount - 1)}
-              aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
-              class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
-              fill="ghost"
-              size=${ifDefined(this.size)}
-            >
-              ${this.pageCount}
-            </sl-button>
-          `
-        : nothing}
+      ${
+        this.windowEnd < this.pageCount - 2
+          ? html`
+              <sl-menu-button
+                aria-label=${msg('Select page number', { id: 'sl.paginator.selectPageNumber' })}
+                fill="ghost"
+                size=${ifDefined(this.size)}>
+                <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+                ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
+                  (_, i) => html`
+                    <sl-menu-item @click=${() => this.#onMenuPageClick(i + this.windowEnd + 1)}>
+                      ${i + this.windowEnd + 2}
+                    </sl-menu-item>
+                  `
+                )}
+              </sl-menu-button>
+            `
+          : nothing
+      }
+      ${
+        this.pageCount > 1
+          ? html`
+              <sl-button
+                @click=${() => this.#onPageClick(this.pageCount - 1)}
+                aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
+                class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
+                fill=${this.#getPageFill(this.pageCount - 1)}
+                size=${ifDefined(this.size)}
+                variant=${ifDefined(this.#getPageVariant(this.pageCount - 1))}>
+                ${this.pageCount}
+              </sl-button>
+            `
+          : nothing
+      }
 
       <div class="wrapper">
         <sl-select
           @sl-change=${this.#onChange}
           .value=${this.page}
           aria-label=${`${msg(str`${this.page}, page`, { id: 'sl.paginator.currentPage' })}`}
-          size=${this.size === 'lg' ? this.size : 'md'}
-        >
+          size=${this.size === 'lg' ? this.size : 'md'}>
           ${Array.from({ length: this.pageCount }).map(
             (_, index) => html`
               <sl-option
@@ -313,7 +317,11 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             `
           )}
         </sl-select>
-        <span>${msg(str`of ${this.pageCount} pages`, { id: 'sl.paginator.totalPages' })}</span>
+        <span
+          >${msg(str`of ${this.pageCount + ' ' + this.#getPagesLabel()}`, {
+            id: 'sl.paginator.totalPages'
+          })}</span
+        >
       </div>
 
       <sl-button
@@ -324,8 +332,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         })}
         class="nav"
         fill="ghost"
-        size=${ifDefined(this.size)}
-      >
+        size=${ifDefined(this.size)}>
         <sl-icon name="caret-right-solid"></sl-icon>
       </sl-button>
     `;
@@ -335,8 +342,36 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onPageClick(event.detail);
   }
 
+  #getPagesLabel(): string {
+    switch (getPluralCategory(this.pageCount)) {
+      case 'one':
+        return msg('page', { id: 'sl.paginator.pagesLabelOne' });
+      case 'few':
+        return msg('pages', { id: 'sl.paginator.pagesLabelFew' });
+      default:
+        return msg('pages', { id: 'sl.paginator.pagesLabelOther' });
+    }
+  }
+
+  #getPageFill(page: number): ButtonFill {
+    if (this.page === page) {
+      return this.emphasis === 'bold' ? 'solid' : 'outline';
+    }
+
+    return 'ghost';
+  }
+
+  #getPageVariant(page: number): ButtonVariant | undefined {
+    return this.page === page ? 'primary' : undefined;
+  }
+
   #onNext() {
     this.#onPageClick(Math.min(this.page + 1, this.pageCount - 1), true);
+  }
+
+  #onMenuPageClick(page: number): void {
+    this.#onPageClick(page);
+    void this.#focusPageButton(page);
   }
 
   #onPageClick(page: number, announcePage = false): void {
@@ -357,6 +392,24 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         })
       );
     }
+  }
+
+  async #focusPageButton(page: number): Promise<void> {
+    await this.updateComplete;
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+
+    const current = this.renderRoot.querySelector<Button>('sl-button.current');
+
+    if (current && current.style.display !== 'none') {
+      current.focus();
+      return;
+    }
+
+    Array.from(this.renderRoot.querySelectorAll<Button>('sl-button.page'))
+      .find(
+        button => button.textContent?.trim() === String(page + 1) && button.style.display !== 'none'
+      )
+      ?.focus();
   }
 
   #onPrevious() {

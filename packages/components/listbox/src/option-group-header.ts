@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './option-group-header.scss.js';
+import styles from './option-group-header.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,6 +18,14 @@ export class OptionGroupHeader extends LitElement {
 
   /** Will render a horizontal divider when set. */
   @property({ type: Boolean, reflect: true }) divider?: boolean;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Group headers are presentational and should be hidden from assistive technology
+    // to maintain a flat listbox structure for Safari/VoiceOver compatibility.
+    this.setAttribute('aria-hidden', 'true');
+  }
 
   override render(): TemplateResult {
     return html`

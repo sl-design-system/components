@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type Badge } from './badge.js';
+import './register.js';
 
 describe('sl-badge', () => {
   let el: Badge;
@@ -51,6 +51,12 @@ describe('sl-badge', () => {
 
       expect(el).to.have.attribute('variant', 'primary');
     });
+
+    it('should add the attribute `round` when the text changes to only have one character', async () => {
+      (el.firstChild as Text).data = '9';
+      await el.updateComplete;
+      expect(el).to.have.attribute('round');
+    });
   });
 
   describe('icon only', () => {
@@ -80,6 +86,13 @@ describe('sl-badge', () => {
 
     it('should have a round attribute', () => {
       expect(el).to.have.attribute('round');
+    });
+
+    it('should remove the `round` attribute when the text changes to more than 1 character', async () => {
+      el.textContent = '99+';
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('round');
     });
   });
 });

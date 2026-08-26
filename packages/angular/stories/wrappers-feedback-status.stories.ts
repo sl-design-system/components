@@ -3,7 +3,7 @@ import { InlineMessageComponent } from '@sl-design-system/angular/inline-message
 import { ProgressBarComponent } from '@sl-design-system/angular/progress-bar';
 import { SkeletonComponent } from '@sl-design-system/angular/skeleton';
 import { SpinnerComponent } from '@sl-design-system/angular/spinner';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 export default {
   title: 'Wrappers/Feedback & Status',

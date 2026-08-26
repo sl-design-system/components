@@ -5,7 +5,7 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './option.scss.js';
+import styles from './option.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -23,7 +23,7 @@ export type OptionEmphasis = 'subtle' | 'bold';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -36,7 +36,21 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   #value?: T;
 
   /** Whether this option is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  #disabled?: boolean;
+
+  /** Whether this option is disabled. */
+  @property({ type: Boolean, reflect: true })
+  get disabled(): boolean | undefined {
+    return this.#disabled;
+  }
+
+  set disabled(disabled: boolean | undefined) {
+    const oldDisabled = this.#disabled;
+
+    this.#disabled = disabled;
+    this.#syncAriaDisabled();
+    this.requestUpdate('disabled', oldDisabled);
+  }
 
   /**
    * The emphasis style when selected.
@@ -75,6 +89,7 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'option');
+    this.#syncAriaDisabled();
   }
 
   override render(): TemplateResult {
@@ -101,5 +116,13 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent)
       .join('');
+  }
+
+  #syncAriaDisabled(): void {
+    if (this.disabled) {
+      this.setAttribute('aria-disabled', 'true');
+    } else {
+      this.removeAttribute('aria-disabled');
+    }
   }
 }

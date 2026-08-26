@@ -1,7 +1,7 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import styles from './indent-guides.scss.js';
+import styles from './indent-guides.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -49,8 +49,7 @@ export class IndentGuides extends LitElement {
               first: index === 0,
               last: index === this.level - 1,
               visible: this.levelGuides?.includes(index) ?? false
-            })}
-          ></div>
+            })}></div>
         `
       )}
       ${this.selected ? html`<div class="selected"></div>` : nothing}

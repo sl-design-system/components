@@ -2,9 +2,9 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { SinonStub, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { Icon } from './icon.js';
 import { type IconDefinition } from './models.js';
+import './register.js';
 
 describe('sl-icon', () => {
   let el: Icon;
@@ -61,6 +61,34 @@ describe('sl-icon', () => {
       'e3c3',
       [
         'M112 318.1V254.7l25.8 9.9c14.7 5.6 31.1 4.9 45.1-2.2L259.8 224H288 432c44.2 0 80 35.8 80 80v13.2l-23.3 9.3-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7L112 318.1zm0 35.8l2.4 1.2c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l11.4-4.6v50.5l-24 12-17.7-8.8c-9-4.5-19.6-4.5-28.6 0l-16.5 8.3-16.3-10.8c-2.6-1.8-5.7-2.7-8.9-2.7H224c-3.2 0-6.2 .9-8.9 2.7l-16.3 10.8-16.5-8.3c-9-4.5-19.6-4.5-28.6 0L136 414.1l-24-12V353.9zm37.3-119.2L34.4 190.6C13.4 179.6 0 157.8 0 133.8V128C0 92.7 28.7 64 64 64H176V32c0-17.7 14.3-32 32-32s32 14.3 32 32V198.1l-71.4 35.7c-6 3-13.1 3.4-19.3 .9zM112 437.9l9.7 4.8c9 4.5 19.6 4.5 28.6 0l17.7-8.8 16.5 8.3c10.3 5.1 22.5 4.4 32.1-2l7.4-4.9V480c0 17.7-14.3 32-32 32H144c-17.7 0-32-14.3-32-32V437.9zm288-2.7l7.4 4.9c9.6 6.4 21.8 7.1 32.1 2l16.5-8.3 17.7 8.8c9 4.5 19.6 4.5 28.6 0l9.7-4.8V480c0 17.7-14.3 32-32 32H432c-17.7 0-32-14.3-32-32V435.2zM200 144a24 24 0 1 0 -48 0 24 24 0 1 0 48 0z'
+      ]
+    ]
+  };
+  const fadIcon: IconDefinition = {
+    prefix: 'fad',
+    iconName: 'heart',
+    icon: [
+      512,
+      512,
+      [],
+      'f004',
+      [
+        'M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z',
+        'M464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96l12 11.6c32 30.7 48 70.8 48 110.4s-16 79.7-48 110.4l-12 11.6 12 11.6L464.4 300.4z'
+      ]
+    ]
+  };
+  const fadrIcon: IconDefinition = {
+    prefix: 'fadr',
+    iconName: 'star',
+    icon: [
+      576,
+      512,
+      [],
+      'f005',
+      [
+        'M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329l-24.6 145.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z',
+        'M381.2 150.3 316.9 18c-5.3-11-16.5-18-28.8-18s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329l-24.6 145.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5V18.4c1.2-.3 2.5-.4 3.9-.4s2.7 .1 3.9 .4V431.4l128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3z'
       ]
     ]
   };
@@ -149,6 +177,42 @@ describe('sl-icon', () => {
       el.name = 'fal-pinata';
       await el.updateComplete;
       expect(el.shadowRoot?.firstElementChild).not.to.match('.icon-not-def');
+    });
+
+    it('should use accent fill for first path of fad (duotone) icons', () => {
+      Icon.register(fadIcon);
+      const registeredIcon = window.SLDS.icons['fad-heart'];
+
+      expect(registeredIcon).not.to.be.undefined;
+      expect(registeredIcon.svg).to.contain('var(--sl-icon-fill-accent)');
+      expect(registeredIcon.svg).to.contain('var(--sl-icon-fill-default)');
+      // First path should use accent, second path should use default
+      const paths = registeredIcon.svg.match(/<path[^>]*>/g);
+      expect(paths?.[0]).to.contain('var(--sl-icon-fill-accent)');
+      expect(paths?.[1]).to.contain('var(--sl-icon-fill-default)');
+    });
+
+    it('should use accent fill for first path of fadr (duotone-regular) icons', () => {
+      Icon.register(fadrIcon);
+      const registeredIcon = window.SLDS.icons['fadr-star'];
+
+      expect(registeredIcon).not.to.be.undefined;
+      expect(registeredIcon.svg).to.contain('var(--sl-icon-fill-accent)');
+      expect(registeredIcon.svg).to.contain('var(--sl-icon-fill-default)');
+      // First path should use accent, second path should use default
+      const paths = registeredIcon.svg.match(/<path[^>]*>/g);
+      expect(paths?.[0]).to.contain('var(--sl-icon-fill-accent)');
+      expect(paths?.[1]).to.contain('var(--sl-icon-fill-default)');
+    });
+
+    it('should use default fill for all paths of non-duotone icons', () => {
+      // faIcon1 is 'fat' (thin) prefix - should only use default fill
+      Icon.register(faIcon1);
+      const registeredIcon = window.SLDS.icons['fat-pinata'];
+
+      expect(registeredIcon).not.to.be.undefined;
+      expect(registeredIcon.svg).to.contain('var(--sl-icon-fill-default)');
+      expect(registeredIcon.svg).not.to.contain('var(--sl-icon-fill-accent)');
     });
   });
 });

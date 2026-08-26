@@ -7,7 +7,7 @@ import { Option, OptionGroup } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type ComboboxItem } from './combobox';
-import styles from './selected-group.scss.js';
+import styles from './selected-group.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -53,13 +53,15 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
         </sl-option-group-header>
         <slot></slot>
       </div>
-      ${this.hasGroups
-        ? nothing
-        : html`
-            <sl-option-group-header divider>
-              ${msg('All options', { id: 'sl.common.allOptions' })}
-            </sl-option-group-header>
-          `}
+      ${
+        this.hasGroups
+          ? nothing
+          : html`
+              <sl-option-group-header divider>
+                ${msg('All options', { id: 'sl.common.allOptions' })}
+              </sl-option-group-header>
+            `
+      }
     `;
   }
 }

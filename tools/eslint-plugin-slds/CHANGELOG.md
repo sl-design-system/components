@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-plugin-slds
 
+## 0.1.1
+
+### Patch Changes
+
+- [#3233](https://github.com/sl-design-system/components/pull/3233) [`79ea631`](https://github.com/sl-design-system/components/commit/79ea631dd5ac73bdaa3639a0a183866cc6670f0d) - Fixed a false positive in `slds/singleline-html-template-trimmed` where spaces between expressions in single-line `html` template literals were incorrectly reported as leading or trailing whitespace.
+
 ## 0.1.0
 
 ### Minor Changes

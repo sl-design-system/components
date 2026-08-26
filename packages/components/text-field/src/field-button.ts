@@ -1,7 +1,7 @@
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './field-button.scss.js';
+import styles from './field-button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -10,6 +10,8 @@ declare global {
 }
 
 export type FieldButtonSize = 'md' | 'lg';
+
+export type FieldButtonShape = 'rect' | 'pill';
 
 /**
  * A button that is part of a text field. Use this component if you want to have an inline action
@@ -37,6 +39,14 @@ export class FieldButton extends LitElement {
    * @default 'md'
    */
   @property({ reflect: true }) size?: FieldButtonSize;
+
+  /**
+   * The shape of the field button. The shape will automatically be set when the component is
+   * embedded/slotted inside a text field.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: FieldButtonShape;
 
   override connectedCallback(): void {
     super.connectedCallback();

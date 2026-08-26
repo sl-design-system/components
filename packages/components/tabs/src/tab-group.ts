@@ -20,7 +20,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './tab-group.scss.js';
+import styles from './tab-group.css' with { type: 'css' };
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 
@@ -84,7 +84,7 @@ let nextUniqueId = 0;
 @localized()
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-menu-button': MenuButton,
@@ -291,41 +291,39 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <div class="fade fade-end"></div>
             <div
               @scroll=${(event: Event) => this.#onScroll(event.target as HTMLElement)}
-              part="scroller"
-            >
+              part="scroller">
               <div
                 @click=${this.#onClick}
                 @focusin=${this.#onFocusin}
                 @keydown=${this.#onKeydown}
                 part="tablist"
-                role="tablist"
-              >
+                role="tablist">
                 <span class="indicator" role="presentation"></span>
                 <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
             </div>
           </div>
-          ${this.showMenu
-            ? html`
-                <sl-menu-button
-                  @keydown=${this.#onKeydown}
-                  aria-label=${msg('Show all', { id: 'sl.tabs.showAll' })}
-                  fill="ghost"
-                >
-                  <sl-icon name="ellipsis" slot="button"></sl-icon>
-                  ${this.menuItems?.map(
-                    menuItem => html`
-                      <sl-menu-item
-                        @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                        ?disabled=${menuItem.disabled}
-                      >
-                        ${menuItem.title}
-                      </sl-menu-item>
-                    `
-                  )}
-                </sl-menu-button>
-              `
-            : nothing}
+          ${
+            this.showMenu
+              ? html`
+                  <sl-menu-button
+                    @keydown=${this.#onKeydown}
+                    aria-label=${msg('Show all', { id: 'sl.tabs.showAll' })}
+                    fill="ghost">
+                    <sl-icon name="ellipsis" slot="button"></sl-icon>
+                    ${this.menuItems?.map(
+                      menuItem => html`
+                        <sl-menu-item
+                          @click=${() => this.#onMenuItemClick(menuItem.tab)}
+                          ?disabled=${menuItem.disabled}>
+                          ${menuItem.title}
+                        </sl-menu-item>
+                      `
+                    )}
+                  </sl-menu-button>
+                `
+              : nothing
+          }
         </div>
       </div>
       <div part="panels">

@@ -7,7 +7,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './popover.scss.js';
+import styles from './popover.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -94,8 +94,7 @@ export class Popover extends LitElement {
           xmlns="http://www.w3.org/2000/svg"
           xml:space="preserve"
           clip-rule="evenodd"
-          viewBox="0 0 20 11"
-        >
+          viewBox="0 0 20 11">
           <path d="M0 11 20 11 10 1 0 11" paint-order="stroke" />
         </svg>
       </div>

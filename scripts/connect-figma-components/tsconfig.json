@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["ES2022", "DOM"],
+    "noEmit": true,
+    "types": ["@figma/code-connect/figma-types"]
+  },
+  "include": ["**/*.figma.ts", "**/*.figma.batch.ts"]
+}

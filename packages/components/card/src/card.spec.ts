@@ -6,8 +6,8 @@ import '@sl-design-system/toggle-button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type Card } from './card.js';
+import './register.js';
 
 describe('<sl-card>', () => {
   let el: Card;
@@ -215,6 +215,54 @@ describe('<sl-card>', () => {
 
       el.click();
       expect(clicked).to.be.true;
+    });
+
+    it('should not propagate clicks from the menu button to the link', () => {
+      const link = el.querySelector('a')!;
+      const toggleButton = el.querySelector('sl-toggle-button')!;
+
+      let linkClicks = 0;
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        linkClicks += 1;
+      });
+
+      toggleButton.click();
+
+      expect(linkClicks).to.equal(0);
+    });
+
+    it('should only click the link once after the title slot changes', () => {
+      const titleSlot = el.shadowRoot!.querySelector('slot.title')!;
+      const link = el.querySelector('a')!;
+
+      let linkClicks = 0;
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        linkClicks += 1;
+      });
+
+      titleSlot.dispatchEvent(new Event('slotchange'));
+      titleSlot.dispatchEvent(new Event('slotchange'));
+      el.click();
+
+      expect(linkClicks).to.equal(1);
+    });
+
+    it('should only dispatch one link click after interacting with the toggle button', () => {
+      const link = el.querySelector('a')!;
+      const toggleButton = el.querySelector('sl-toggle-button')!;
+
+      let linkClicks = 0;
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        linkClicks += 1;
+      });
+
+      toggleButton.click();
+      link.click();
+
+      expect(linkClicks).to.equal(1);
     });
   });
 

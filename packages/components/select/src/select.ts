@@ -9,7 +9,6 @@ import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
   RovingTabindexController,
   anchor,
   event,
@@ -21,6 +20,8 @@ import {
   type SlClearEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -31,7 +32,7 @@ import {
 } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
-import styles from './select.scss.js';
+import styles from './select.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -47,13 +48,15 @@ declare global {
   }
 }
 
+export type SelectFill = 'ghost' | 'outline';
+export type SelectShape = 'rect' | 'pill';
 export type SelectSize = 'md' | 'lg';
 
 /**
  * A form control that allows users to select one option from a list of options.
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
- * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
+ * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate). Set `width` to override the default width (which matches the button width)
  * @csspart selected - The selected option element within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  * @csspart selected-option - The container for the selected option within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  * @csspart placeholder - The placeholder text when no option is selected within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
@@ -61,7 +64,7 @@ export type SelectSize = 'md' | 'lg';
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Select<T = any> extends ObserveAttributesMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement)),
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement))),
   ['aria-describedby', 'aria-label', 'aria-labelledby']
 ) {
   /** @internal */
@@ -71,7 +74,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   static offset = 6;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-listbox': Listbox,
@@ -84,6 +87,15 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
+
+  /** Keep listbox labeling synced when proxied ARIA attributes on the button change. */
+  #buttonAriaObserver = new MutationObserver(() => this.#syncListboxLabeling());
+
+  /** Shared observer config for proxied ARIA attributes on the button. */
+  #buttonAriaObserverOptions: MutationObserverInit = {
+    attributes: true,
+    attributeFilter: ['aria-label', 'aria-labelledby']
+  };
 
   /** Events controller. */
   #events = new EventsController(this, {
@@ -173,11 +185,15 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
+  /**
+   * The fill of the select.
+   *
+   * @default 'outline'
+   */
+  @property() fill?: SelectFill;
+
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** @internal The clear button element. */
   @query('button') clearButton?: HTMLButtonElement;
@@ -204,6 +220,13 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   /** Whether the select is a required field. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
+
+  /**
+   * The shape of the select.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: SelectShape;
 
   /** @internal The selected option in the listbox. */
   @state() selectedOption?: Option<T>;
@@ -239,8 +262,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.addEventListener('sl-clear', this.#onButtonClear);
       this.button.clearable = !!this.clearable;
       this.button.disabled = !!this.disabled;
+      this.button.fill = this.fill;
       this.button.placeholder = this.placeholder;
       this.button.required = !!this.required;
+      this.button.shape = this.shape;
       this.button.selected = this.selectedOption;
       this.button.showValid = !!this.showValid;
       this.button.showValidity = this.showValidity;
@@ -255,6 +280,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.setAttributesTarget(this.button);
 
     this.#observer.observe(this, { childList: true, subtree: true });
+    this.#buttonAriaObserver.observe(this.button, this.#buttonAriaObserverOptions);
     this.#observeSelectedOptionContent();
     this.#onSelectedOptionContentChange();
 
@@ -264,6 +290,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+    this.#buttonAriaObserver.disconnect();
     this.#selectedOptionObserver.disconnect();
     if (this.#widthCalculationFrame !== undefined) {
       cancelAnimationFrame(this.#widthCalculationFrame);
@@ -296,15 +323,23 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.#updateAriaKeyShortcuts();
     }
 
+    if (changes.has('fill')) {
+      this.button.fill = this.fill;
+    }
+
     if (changes.has('placeholder')) {
       this.button.placeholder = this.placeholder;
     }
 
     if (changes.has('required')) {
       this.button.required = this.required;
-      this.internals.ariaRequired = Boolean(this.required).toString();
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
+    }
+
+    if (changes.has('shape')) {
+      this.button.shape = this.shape;
     }
 
     if (changes.has('showValid')) {
@@ -332,16 +367,17 @@ export class Select<T = any> extends ObserveAttributesMixin(
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
-      if (this.internals.labels.length) {
-        // Set the aria-label of the button to the concatenated text content of all labels
-        // FIXME: This is a workaround because we do not yet have access to `referenceTarget`
-        this.button.setAttribute(
-          'aria-labelledby',
-          Array.from(this.internals.labels)
-            .map(label => (label as HTMLLabelElement).id)
-            .join(' ')
-        );
+      if (this.listbox) {
+        /**
+         * Use ElementInternals element references so the button can reference the listbox across
+         * the shadow DOM boundary. In the future, switch to `ariaControlsElements` property
+         * (https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaControlsElements) when
+         * browser support is sufficient.
+         */
+        this.button.elementInternals.ariaControlsElements = [this.listbox];
       }
+
+      this.#syncListboxLabeling();
     });
   }
 
@@ -350,19 +386,20 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     return html`
       <slot name="button"></slot>
-      ${showClearButton
-        ? html`
-            <button
-              @click=${this.#onClearButtonClick}
-              @focusin=${this.#onClearButtonFocusin}
-              @focusout=${this.#onClearButtonFocusout}
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}
-            >
-              <sl-icon name="circle-xmark"></sl-icon>
-              <sl-icon name="circle-xmark-solid"></sl-icon>
-            </button>
-          `
-        : nothing}
+      ${
+        showClearButton
+          ? html`
+              <button
+                @click=${this.#onClearButtonClick}
+                @focusin=${this.#onClearButtonFocusin}
+                @focusout=${this.#onClearButtonFocusout}
+                aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
+                <sl-icon name="circle-xmark"></sl-icon>
+                <sl-icon name="circle-xmark-solid"></sl-icon>
+              </button>
+            `
+          : nothing
+      }
       <sl-listbox
         ${anchor({
           element: this.button,
@@ -377,8 +414,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
         @mousedown=${this.#onListboxMousedown}
         @toggle=${this.#onToggle}
         part="listbox"
-        popover
-      >
+        popover>
         <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-listbox>
     `;
@@ -432,11 +468,18 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
       slotNodes.forEach(node => {
         const rootNode = node.getRootNode();
+        const scopedImportNode = (rootNode as Partial<Pick<Document, 'importNode'>>).importNode;
+        const ownerDocument = node.ownerDocument ?? document;
 
-        // Unlike node.cloneNode(), importNode() is implemented in the
-        // scoped custom element registry polyfill, so it will upgrade
-        // the cloned node if it's a custom element.
-        clones.push((rootNode as Document).importNode(node, true));
+        // Use a scoped importNode() implementation when available so cloned custom
+        // elements are upgraded; otherwise fall back to the owner document for
+        // non-document roots such as DocumentFragment.
+        const clone =
+          typeof scopedImportNode === 'function'
+            ? scopedImportNode.call(rootNode, node, true)
+            : ownerDocument.importNode(node, true);
+
+        clones.push(clone);
       });
 
       container.replaceChildren(...clones);
@@ -473,7 +516,14 @@ export class Select<T = any> extends ObserveAttributesMixin(
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
-      this.listbox!.style.width = `${this.button.getBoundingClientRect().width}px`;
+
+      // Expose the button width as a custom property instead of setting `width` inline directly.
+      // This way the width can still be overridden from outside via `sl-select::part(listbox)`,
+      // since an inline `width` would take precedence over the `::part()` rule.
+      this.listbox!.style.setProperty(
+        '--_select-listbox-width',
+        `${this.button.getBoundingClientRect().width}px`
+      );
 
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
@@ -634,7 +684,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   #onSlotchange(): void {
     this.#verifyRegisteredListboxElements();
 
-    this.options.forEach(option => option.setAttribute('aria-selected', 'false'));
+    this.listbox?.applyFlattenedOptionAccessibility(this.options);
 
     if (this.value !== undefined && this.value !== null) {
       this.#setSelectedOption(
@@ -718,6 +768,24 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.button.optionSize = maxWidth;
   }
 
+  #getExplicitLabelState(): {
+    ariaLabel: string;
+    explicitLabelledBy: string;
+    explicitLabelledByElements: Element[];
+    hasExplicitLabel: boolean;
+  } {
+    const hostAriaLabel = this.getAttribute('aria-label')?.trim() || '',
+      hostAriaLabelledBy = this.getAttribute('aria-labelledby')?.trim() || '',
+      buttonAriaLabel = this.button.getAttribute('aria-label')?.trim() || '',
+      buttonAriaLabelledBy = this.button.getAttribute('aria-labelledby')?.trim() || '',
+      ariaLabel = hostAriaLabel || buttonAriaLabel,
+      explicitLabelledBy = hostAriaLabelledBy || buttonAriaLabelledBy,
+      explicitLabelledByElements = this.#resolveLabelledByElements(explicitLabelledBy),
+      hasExplicitLabel = Boolean(ariaLabel) || Boolean(explicitLabelledBy);
+
+    return { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel };
+  }
+
   #setupMeasureElement(): HTMLElement {
     const measureElement = document.createElement('span');
     measureElement.style.visibility = 'hidden';
@@ -734,6 +802,55 @@ export class Select<T = any> extends ObserveAttributesMixin(
     measureElement.style.fontWeight = buttonComputedStyle.fontWeight;
 
     return measureElement;
+  }
+
+  #syncListboxLabeling(): void {
+    if (!this.listbox) {
+      return;
+    }
+
+    /**
+     * Disconnect first so this observer does not run twice. Setting these ARIA properties updates
+     * DOM attributes, which would trigger this observer again.
+     */
+    this.#buttonAriaObserver.disconnect();
+
+    try {
+      const labels = Array.from(this.elementInternals.labels) as Element[],
+        { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel } =
+          this.#getExplicitLabelState();
+
+      if (!hasExplicitLabel && labels.length) {
+        this.listbox.removeAttribute('aria-label');
+        this.button.ariaLabelledByElements = labels;
+        this.listbox.ariaLabelledByElements = labels;
+      } else if (explicitLabelledBy) {
+        // Use element references so labeling works across the shadow DOM boundary.
+        this.listbox.removeAttribute('aria-label');
+        this.button.ariaLabelledByElements = explicitLabelledByElements;
+        this.listbox.ariaLabelledByElements = explicitLabelledByElements;
+
+        // Keep explicit aria-labelledby text when ids do not resolve in this root.
+        if (!explicitLabelledByElements.length) {
+          this.button.setAttribute('aria-labelledby', explicitLabelledBy);
+          this.listbox.setAttribute('aria-labelledby', explicitLabelledBy);
+        }
+      } else if (ariaLabel) {
+        // Clear any old fallback references and mirror explicit aria-label to listbox.
+        this.button.ariaLabelledByElements = [];
+        this.listbox.ariaLabel = ariaLabel;
+        this.listbox.ariaLabelledByElements = [];
+      } else {
+        this.button.ariaLabelledByElements = [];
+        this.listbox.removeAttribute('aria-label');
+        this.listbox.ariaLabelledByElements = [];
+      }
+    } finally {
+      // Reconnect to observe future attribute changes on the button.
+      if (this.isConnected) {
+        this.#buttonAriaObserver.observe(this.button, this.#buttonAriaObserverOptions);
+      }
+    }
   }
 
   /** Returns a flattened array of all options (also the options in groups). */
@@ -792,6 +909,21 @@ export class Select<T = any> extends ObserveAttributesMixin(
     });
   }
 
+  #resolveLabelledByElements(ariaLabelledBy?: string): Element[] {
+    if (!ariaLabelledBy) {
+      return [];
+    }
+
+    const root = this.getRootNode() as Document | ShadowRoot;
+
+    return ariaLabelledBy
+      .split(/\s+/)
+      .map((id: string) => id.trim())
+      .filter(Boolean)
+      .map((id: string) => root.querySelector<Element>(`#${CSS.escape(id)}`))
+      .filter((element: Element | null): element is Element => element !== null);
+  }
+
   #scheduleLargestOptionWidthCalculation(): void {
     if (this.#widthCalculationFrame !== undefined) {
       return;
@@ -812,10 +944,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setFormValue(this.nativeFormValue);
 
     if (!this.validity.customError) {
-      this.internals.setValidity(
+      this.elementInternals.setValidity(
         { valueMissing: this.required && !this.selectedOption },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );

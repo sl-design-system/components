@@ -1,5 +1,6 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin, type SlFormControlEvent } from '@sl-design-system/form';
+import { type Infotip } from '@sl-design-system/infotip';
 import {
   type EventEmitter,
   EventsController,
@@ -11,6 +12,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -19,8 +21,8 @@ import {
   html
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './checkbox-group.scss.js';
-import { type Checkbox, type CheckboxSize } from './checkbox.js';
+import styles from './checkbox-group.css' with { type: 'css' };
+import { Checkbox, type CheckboxSize } from './checkbox.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -41,7 +43,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
+export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
 
@@ -64,18 +66,19 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   });
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
+  #rovingTabindexController = new RovingTabindexController<Checkbox | Infotip>(this, {
     direction: 'vertical',
-    focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
-    elements: () => this.boxes || [],
-    isFocusableElement: (el: Checkbox) => !el.disabled
+    focusInIndex: (elements: Array<Checkbox | Infotip>) =>
+      elements.findIndex(el => el instanceof Checkbox && !el.disabled),
+    elements: () => this.#focusableBoxes(),
+    isFocusableElement: (el: Checkbox | Infotip) =>
+      el instanceof Checkbox
+        ? !el.disabled
+        : el.parentElement instanceof Checkbox && !el.parentElement.disabled
   });
 
-  /** @internal */
-  readonly internals = this.attachInternals();
-
   /** @internal The slotted checkboxes. */
-  @queryAssignedElements() boxes?: Array<Checkbox<T>>;
+  @queryAssignedElements({ selector: 'sl-checkbox' }) boxes?: Array<Checkbox<T>>;
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -115,7 +118,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
 
-    this.internals.role = 'group';
+    this.elementInternals.role = 'group';
     this.setFormControlElement(this);
 
     // Listen for i18n updates and update the validation message
@@ -144,7 +147,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('required')) {
-      this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValidity();
     }
@@ -178,8 +181,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
         @sl-change=${this.#stopEvent}
         @sl-focus=${this.#stopEvent}
         @sl-form-control=${this.#onFormControl}
-        @sl-validate=${this.#stopEvent}
-      ></slot>
+        @sl-validate=${this.#stopEvent}></slot>
     `;
   }
 
@@ -213,6 +215,20 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     // sl-form, only this control should be considered, not the slotted sl-checkbox.
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  #focusableBoxes(): Array<Checkbox | Infotip> {
+    const focusableBoxes: Array<Checkbox | Infotip> = [];
+
+    this.boxes?.forEach(box => {
+      focusableBoxes.push(box);
+
+      if (box.infotip) {
+        focusableBoxes.push(box.infotip);
+      }
+    });
+
+    return focusableBoxes;
   }
 
   async #onSlotChange(): Promise<void> {
@@ -254,7 +270,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   }
 
   #updateValidity(): void {
-    this.internals.setValidity(
+    this.elementInternals.setValidity(
       { valueMissing: this.required && !this.boxes?.some(box => box.checked) },
       msg('Please check at least one option.', {
         id: 'sl.checkbox.validation.valueMissingMultiple'

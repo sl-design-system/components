@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html, type nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './spinner.scss.js';
+import styles from './spinner.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -45,14 +45,12 @@ export class Spinner extends LitElement {
                 class="track"
                 fill-rule="evenodd"
                 d="M24 6C14.059 6 6 14.059 6 24s8.059 18 18 18 18-8.059 18-18S33.941 6 24 6ZM0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24Z"
-                clip-rule="evenodd"
-              />
+                clip-rule="evenodd" />
               <path
                 class="fill"
                 fill-rule="evenodd"
                 d="M24 6C14.059 6 6 14.059 6 24a3 3 0 1 1-6 0C0 10.745 10.745 0 24 0s24 10.745 24 24a3 3 0 1 1-6 0c0-9.941-8.059-18-18-18Z"
-                clip-rule="evenodd"
-              />
+                clip-rule="evenodd" />
             </g>
           </g>
         </g>

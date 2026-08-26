@@ -1,10 +1,10 @@
 import { localized, msg, str } from '@lit/localize';
 import { format } from '@sl-design-system/format-number/format.js';
-import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './number-field.scss.js';
+import styles from './number-field.css' with { type: 'css' };
 import { NumberParser } from './number-parser.js';
 
 declare global {
@@ -34,6 +34,9 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /** The number value. */
   #valueAsNumber?: number;
+
+  /** Tracks whether the current custom error was set by internal number validation. */
+  #hasInternalCustomError = false;
 
   /**
    * Whether the number field is disabled; when set no interaction is possible.
@@ -192,8 +195,7 @@ export class NumberField extends LocaleMixin(TextField) {
             @click=${() => this.stepDown()}
             ?disabled=${this.#isButtonDisabled('down')}
             aria-label=${msg('Step down', { id: 'sl.numberField.stepDown' })}
-            class="minus"
-          >
+            class="minus">
             <sl-icon name="minus" size="md"></sl-icon>
           </sl-field-button>
         `
@@ -215,16 +217,14 @@ export class NumberField extends LocaleMixin(TextField) {
                 @click=${() => this.stepDown()}
                 ?disabled=${this.#isButtonDisabled('down')}
                 aria-label=${msg('Step down', { id: 'sl.numberField.stepDown' })}
-                class="minus"
-              >
+                class="minus">
                 <sl-icon name="minus" size="md"></sl-icon>
               </sl-field-button>
               <sl-field-button
                 @click=${() => this.stepUp()}
                 ?disabled=${this.#isButtonDisabled('up')}
                 aria-label=${msg('Step up', { id: 'sl.numberField.stepUp' })}
-                class="plus"
-              >
+                class="plus">
                 <sl-icon name="plus" size="md"></sl-icon>
               </sl-field-button>
             </div>
@@ -234,8 +234,7 @@ export class NumberField extends LocaleMixin(TextField) {
               @click=${() => this.stepUp()}
               ?disabled=${this.#isButtonDisabled('up')}
               aria-label=${msg('Step up', { id: 'sl.numberField.stepUp' })}
-              class="plus"
-            >
+              class="plus">
               <sl-icon name="plus" size="md"></sl-icon>
             </sl-field-button>
           `
@@ -300,17 +299,27 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  override setCustomValidity(message: string | Promise<string>): void {
+    this.#hasInternalCustomError = false;
+    super.setCustomValidity(message);
+  }
+
   /** @internal Implement custom number validity checks. */
   override updateInternalValidity(): void {
+    // Don't override custom validity set by consumers.
+    if (this.validity.customError && !this.#hasInternalCustomError) {
+      return;
+    }
+
     if (Number.isNaN(this.valueAsNumber)) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' })
       );
     } else if (
       typeof this.valueAsNumber === 'number' &&
       this.valueAsNumber > (this.max ?? Infinity)
     ) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg(str`The value must be less than or equal to ${this.max}.`, {
           id: 'sl.numberField.validation.exceedsMaximum'
         })
@@ -319,14 +328,19 @@ export class NumberField extends LocaleMixin(TextField) {
       typeof this.valueAsNumber === 'number' &&
       this.valueAsNumber < (this.min ?? -Infinity)
     ) {
-      this.setCustomValidity(
+      this.#setInternalCustomValidity(
         msg(str`The value must be greater than or equal to ${this.min}.`, {
           id: 'sl.numberField.validation.belowMinimum'
         })
       );
     } else {
-      this.setCustomValidity('');
+      this.#setInternalCustomValidity('');
     }
+  }
+
+  #setInternalCustomValidity(message: string): void {
+    this.#hasInternalCustomError = message !== '';
+    super.setCustomValidity(message);
   }
 
   #isButtonDisabled(button: string): boolean {

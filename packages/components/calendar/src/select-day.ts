@@ -7,7 +7,7 @@ import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { FormatDate, format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate, normalizeDateTime } from '@sl-design-system/shared/date.js';
 import {
@@ -15,6 +15,7 @@ import {
   type SlSelectEvent,
   SlToggleEvent
 } from '@sl-design-system/shared/events.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -26,7 +27,7 @@ import {
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { MonthView } from './month-view.js';
-import styles from './select-day.scss.js';
+import styles from './select-day.css' with { type: 'css' };
 import { Indicator, getWeekdayNames, indicatorConverter } from './utils.js';
 
 declare global {
@@ -45,7 +46,7 @@ const getRequiredColumnSize = (renderedWidth: number, scrollWidth: number): numb
 @localized()
 export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-format-date': FormatDate,
@@ -261,68 +262,66 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     return html`
       <header>
-        ${canSelectPreviousMonth || canSelectNextMonth
-          ? html`
-              <sl-button
-                @click=${this.#onToggleMonthSelect}
-                aria-label=${msg(
-                  str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
-                  {
-                    id: 'sl.calendar.changeMonth'
-                  }
-                )}
-                class="current-month"
-                fill="link"
-                variant="secondary"
-              >
-                <sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date>
-                <sl-icon name="caret-down-solid"></sl-icon>
-              </sl-button>
-            `
-          : html`
-              <span class="current-month">
-                <sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  month="long"
-                ></sl-format-date>
-              </span>
-            `}
-        ${canSelectPreviousYear || canSelectNextYear
-          ? html`
-              <sl-button
-                @click=${this.#onToggleYearSelect}
-                aria-label=${msg(
-                  str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
-                  {
-                    id: 'sl.calendar.changeYear'
-                  }
-                )}
-                class="current-year"
-                fill="link"
-                variant="secondary"
-              >
-                <sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
-                <sl-icon name="caret-down-solid"></sl-icon>
-              </sl-button>
-            `
-          : html`
-              <span class="current-year">
-                <sl-format-date
-                  .date=${this.displayMonth}
-                  locale=${ifDefined(this.locale)}
-                  year="numeric"
-                ></sl-format-date>
-              </span>
-            `}
+        ${
+          canSelectPreviousMonth || canSelectNextMonth
+            ? html`
+                <sl-button
+                  @click=${this.#onToggleMonthSelect}
+                  aria-label=${msg(
+                    str`${format(this.displayMonth!, this.locale, { month: 'long' })}, change month`,
+                    {
+                      id: 'sl.calendar.changeMonth'
+                    }
+                  )}
+                  class="current-month"
+                  fill="link"
+                  variant="secondary">
+                  <sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    month="long"></sl-format-date>
+                  <sl-icon name="caret-down-solid"></sl-icon>
+                </sl-button>
+              `
+            : html`
+                <span class="current-month">
+                  <sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    month="long"></sl-format-date>
+                </span>
+              `
+        }
+        ${
+          canSelectPreviousYear || canSelectNextYear
+            ? html`
+                <sl-button
+                  @click=${this.#onToggleYearSelect}
+                  aria-label=${msg(
+                    str`${format(this.displayMonth!, this.locale, { year: 'numeric' })}, change year`,
+                    {
+                      id: 'sl.calendar.changeYear'
+                    }
+                  )}
+                  class="current-year"
+                  fill="link"
+                  variant="secondary">
+                  <sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    year="numeric"></sl-format-date>
+                  <sl-icon name="caret-down-solid"></sl-icon>
+                </sl-button>
+              `
+            : html`
+                <span class="current-year">
+                  <sl-format-date
+                    .date=${this.displayMonth}
+                    locale=${ifDefined(this.locale)}
+                    year="numeric"></sl-format-date>
+                </span>
+              `
+        }
 
         <sl-button
           @click=${this.#onPrevious}
@@ -333,8 +332,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )}
           class="previous-month"
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
         <sl-button
@@ -346,24 +344,24 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           )}
           class="next-month"
           fill="ghost"
-          variant="secondary"
-        >
+          variant="secondary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </header>
 
       <div class="days-of-week" role="list">
-        ${this.showWeekNumbers
-          ? html`
-              <span
-                aria-label=${msg('Week', { id: 'sl.calendar.week' })}
-                class="week-number"
-                role="listitem"
-              >
-                ${this.localizedWeekOfYear}
-              </span>
-            `
-          : nothing}
+        ${
+          this.showWeekNumbers
+            ? html`
+                <span
+                  aria-label=${msg('Week', { id: 'sl.calendar.week' })}
+                  class="week-number"
+                  role="listitem">
+                  ${this.localizedWeekOfYear}
+                </span>
+              `
+            : nothing
+        }
         ${this.weekDays.map(
           day => html`
             <span aria-label=${day.long} class="day-of-week" role="listitem">${day.short}</span>
@@ -372,25 +370,26 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       </div>
 
       <div @scrollend=${this.#onScrollEnd} class="scroller" tabindex="-1">
-        ${canSelectPreviousMonth
-          ? html`
-              <sl-month-view
-                ?readonly=${this.readonly}
-                ?show-today=${this.showToday}
-                ?show-week-numbers=${this.showWeekNumbers}
-                .disabledDates=${this.disabledDates}
-                .indicatorDates=${this.indicatorDates}
-                aria-hidden="true"
-                first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-                inert
-                locale=${ifDefined(this.locale)}
-                max=${ifDefined(this.max?.toISOString())}
-                min=${ifDefined(this.min?.toISOString())}
-                month=${ifDefined(this.previousMonth?.toISOString())}
-                selected=${ifDefined(this.selected?.toISOString())}
-              ></sl-month-view>
-            `
-          : nothing}
+        ${
+          canSelectPreviousMonth
+            ? html`
+                <sl-month-view
+                  ?readonly=${this.readonly}
+                  ?show-today=${this.showToday}
+                  ?show-week-numbers=${this.showWeekNumbers}
+                  .disabledDates=${this.disabledDates}
+                  .indicatorDates=${this.indicatorDates}
+                  aria-hidden="true"
+                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                  inert
+                  locale=${ifDefined(this.locale)}
+                  max=${ifDefined(this.max?.toISOString())}
+                  min=${ifDefined(this.min?.toISOString())}
+                  month=${ifDefined(this.previousMonth?.toISOString())}
+                  selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
+              `
+            : nothing
+        }
         <sl-month-view
           @sl-change=${this.#onChange}
           @sl-select=${this.#onSelect}
@@ -405,27 +404,27 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           max=${ifDefined(this.max?.toISOString())}
           min=${ifDefined(this.min?.toISOString())}
           month=${ifDefined(this.month?.toISOString())}
-          selected=${ifDefined(this.selected?.toISOString())}
-        ></sl-month-view>
-        ${canSelectNextMonth
-          ? html`
-              <sl-month-view
-                ?readonly=${this.readonly}
-                ?show-today=${this.showToday}
-                ?show-week-numbers=${this.showWeekNumbers}
-                .disabledDates=${this.disabledDates}
-                .indicatorDates=${this.indicatorDates}
-                aria-hidden="true"
-                first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-                inert
-                locale=${ifDefined(this.locale)}
-                max=${ifDefined(this.max?.toISOString())}
-                min=${ifDefined(this.min?.toISOString())}
-                month=${ifDefined(this.nextMonth?.toISOString())}
-                selected=${ifDefined(this.selected?.toISOString())}
-              ></sl-month-view>
-            `
-          : nothing}
+          selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
+        ${
+          canSelectNextMonth
+            ? html`
+                <sl-month-view
+                  ?readonly=${this.readonly}
+                  ?show-today=${this.showToday}
+                  ?show-week-numbers=${this.showWeekNumbers}
+                  .disabledDates=${this.disabledDates}
+                  .indicatorDates=${this.indicatorDates}
+                  aria-hidden="true"
+                  first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                  inert
+                  locale=${ifDefined(this.locale)}
+                  max=${ifDefined(this.max?.toISOString())}
+                  min=${ifDefined(this.min?.toISOString())}
+                  month=${ifDefined(this.nextMonth?.toISOString())}
+                  selected=${ifDefined(this.selected?.toISOString())}></sl-month-view>
+              `
+            : nothing
+        }
       </div>
     `;
   }

@@ -151,3 +151,136 @@ export function underscore(str: string): string {
     .replace(STRING_UNDERSCORE_REGEXP_2, '_')
     .toLowerCase();
 }
+
+// Cache for Intl.PluralRules instances to avoid repeated allocations
+const pluralRulesCache = new Map<string, Intl.PluralRules>();
+
+// Track the active @lit/localize locale so that getCharacterPluralSuffix stays
+// in sync with the locale used by msg()/str`` without requiring consumers to
+// manually keep document.documentElement.lang up-to-date.
+let litLocalizeActiveLocale: string | undefined;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('lit-localize-status', ((
+    event: CustomEvent<{ status: string; readyLocale?: string }>
+  ) => {
+    if (event.detail?.status === 'ready') {
+      litLocalizeActiveLocale = event.detail.readyLocale;
+    }
+  }) as EventListener);
+}
+
+/**
+ * Returns the locale-specific pluralized form used for the "character" label. Uses Intl.PluralRules
+ * API to determine the correct plural form for the current locale.
+ *
+ * Note: despite the historical name, this helper does not always return a literal suffix. Some
+ * locales can require a full localized word or form rather than an English-style ending.
+ *
+ * ```javascript
+ * getCharacterPluralSuffix(1)  // '' in English ("character"), but may be a full singular form in other locales
+ * getCharacterPluralSuffix(2)  // 's' in English ("characters"), but may be a different localized plural form
+ * getCharacterPluralSuffix(5)  // 's' in English ("characters"), but may be a different localized plural form
+ *
+ * @function getCharacterPluralSuffix
+ * @param count The number of characters
+ * @param locale Optional locale override. If omitted, uses the active @lit/localize locale,
+ *   then falls back to document.documentElement.lang or navigator.language.
+ * @returns The plural suffix for the word "character" in the current locale
+ * ```
+ */
+export function getCharacterPluralSuffix(count: number, locale?: string): string {
+  locale ??=
+    litLocalizeActiveLocale ||
+    (typeof document !== 'undefined' && document.documentElement.lang) ||
+    (typeof navigator !== 'undefined' && navigator.language) ||
+    'en';
+  // For English (source locale), use simple pluralization
+  if (locale === 'en' || locale.startsWith('en-')) {
+    return count === 1 ? '' : 's';
+  }
+
+  // For other locales, use Intl.PluralRules
+  try {
+    // Get cached PluralRules instance or create a new one
+    let pr = pluralRulesCache.get(locale);
+    if (!pr) {
+      pr = new Intl.PluralRules(locale);
+      pluralRulesCache.set(locale, pr);
+    }
+    const rule = pr.select(count);
+
+    // Polish pluralization rules for "znak" (character):
+    // one (1) → "znak" (no suffix)
+    // few (2-4, 22-24, 32-34, etc.) → "znaki" (suffix: 'i')
+    // many (0, 5+, 11-14, etc.) → "znaków" (suffix: 'ów')
+    if (locale === 'pl' || locale.startsWith('pl-')) {
+      switch (rule) {
+        case 'one':
+          return '';
+        case 'few':
+          return 'i';
+        case 'many':
+          return 'ów';
+        default:
+          return 'ów';
+      }
+    }
+
+    // Spanish pluralization rules for "carácter":
+    // this branch returns the full localized form, not just a suffix
+    // one (1) → "carácter"
+    // other (0, 2+) → "caracteres"
+    if (locale.startsWith('es')) {
+      return rule === 'one' ? 'carácter' : 'caracteres';
+    }
+
+    // Italian pluralization rules for "carattere":
+    // one (1) → "carattere"
+    // other (0, 2+) → "caratteri"
+    if (locale === 'it' || locale.startsWith('it-')) {
+      return rule === 'one' ? 'e' : 'i';
+    }
+
+    // For other languages (Dutch, English, etc.), fall back to simple plural logic
+    return count === 1 ? '' : 's';
+  } catch {
+    // Fallback if Intl.PluralRules is not supported
+    return count === 1 ? '' : 's';
+  }
+}
+
+/**
+ * Returns the CLDR plural category for the given count and locale. Uses Intl.PluralRules to
+ * determine the category. Falls back to a simple 'one'/'other' distinction if Intl.PluralRules is
+ * not supported.
+ *
+ * ```javascript
+ * getPluralCategory(1); // 'one'
+ * getPluralCategory(2); // 'other' in English, 'few' in Polish
+ * getPluralCategory(5); // 'other' in English, 'many' in Polish
+ * ```
+ *
+ * @function getPluralCategory
+ * @param count The number to determine the plural category for.
+ * @returns The CLDR plural category: 'zero', 'one', 'two', 'few', 'many', or 'other'.
+ */
+export function getPluralCategory(count: number): Intl.LDMLPluralRule {
+  const locale =
+    litLocalizeActiveLocale ||
+    (typeof document !== 'undefined' && document.documentElement.lang) ||
+    (typeof navigator !== 'undefined' && navigator.language) ||
+    'en';
+
+  try {
+    let pr = pluralRulesCache.get(locale);
+
+    if (!pr) {
+      pr = new Intl.PluralRules(locale);
+      pluralRulesCache.set(locale, pr);
+    }
+    return pr.select(count);
+  } catch {
+    return count === 1 ? 'one' : 'other';
+  }
+}

@@ -9,7 +9,7 @@ import {
   html
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './card.scss.js';
+import styles from './card.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,6 +18,20 @@ declare global {
 }
 
 export type CardOrientation = 'horizontal' | 'vertical';
+
+const interactiveSelector = [
+  'a',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  '[role="button"]',
+  '[slot="actions"]',
+  '[slot="menu-button"]',
+  'sl-button',
+  'sl-menu-button',
+  'sl-toggle-button'
+].join(',');
 
 /**
  * Use cards to display media and text in a compact, appealing way.
@@ -46,6 +60,9 @@ export class Card extends ScopedElementsMixin(LitElement) {
     this.#setOrientation();
     this.#setLineClamp();
   });
+
+  /** @internal The link in the title slot that receives card clicks. */
+  #titleLink?: HTMLAnchorElement;
 
   /** @internal The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
@@ -80,10 +97,12 @@ export class Card extends ScopedElementsMixin(LitElement) {
     this.#setOrientation();
     this.#setGridSpan();
 
+    this.addEventListener('click', this.#onClick);
     this.#resizeObserver?.observe(this);
   }
 
   override disconnectedCallback(): void {
+    this.removeEventListener('click', this.#onClick);
     this.#resizeObserver?.disconnect();
 
     super.disconnectedCallback();
@@ -266,33 +285,12 @@ export class Card extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    const title = this.shadowRoot.querySelector<HTMLSlotElement>('slot.title');
+    const title: HTMLSlotElement | null = this.shadowRoot.querySelector('slot.title');
+    this.#titleLink = title
+      ?.assignedElements({ flatten: true })
+      .find((el): el is HTMLAnchorElement => el instanceof HTMLAnchorElement);
 
-    if (title && title.assignedNodes({ flatten: true }).length > 0) {
-      const link = title
-        .assignedNodes({ flatten: true })
-        .find(el => el instanceof HTMLAnchorElement);
-
-      const onClick = (event: Event): void => {
-        const shouldStopPropagation = event
-          .composedPath()
-          .find(
-            el => el instanceof Element && (el.matches('sl-button') || el.matches('slot.title'))
-          );
-
-        if (!shouldStopPropagation) {
-          link!.click();
-        }
-      };
-
-      if (!link) {
-        this.classList.remove('sl-has-link');
-        this.removeEventListener('click', onClick);
-      } else {
-        this.classList.add('sl-has-link');
-        this.addEventListener('click', onClick);
-      }
-    }
+    this.classList.toggle('sl-has-link', !!this.#titleLink);
   }
 
   #setMenuButton(): void {
@@ -316,5 +314,27 @@ export class Card extends ScopedElementsMixin(LitElement) {
         menuButton.size = 'md';
       }
     }
+  }
+
+  #onClick = (event: MouseEvent): void => {
+    if (!this.#titleLink || this.#shouldIgnoreClick(event)) {
+      return;
+    }
+
+    this.#titleLink.click();
+  };
+
+  #shouldIgnoreClick(event: MouseEvent): boolean {
+    return event.composedPath().some(el => {
+      if (el === this.#titleLink) {
+        return true;
+      }
+
+      if (el instanceof HTMLSlotElement) {
+        return ['actions', 'menu-button'].includes(el.name) || el.classList.contains('title');
+      }
+
+      return el instanceof Element && el.matches(interactiveSelector);
+    });
   }
 }

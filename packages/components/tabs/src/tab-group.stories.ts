@@ -6,7 +6,7 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { type SlTabChangeEvent, type TabGroup } from './tab-group.js';
 import { type TabPanel } from './tab-panel.js';
 
@@ -48,8 +48,7 @@ export default {
       <sl-tab-group
         activation=${ifDefined(activation)}
         align-tabs=${ifDefined(alignTabs)}
-        ?vertical=${vertical}
-      >
+        ?vertical=${vertical}>
         ${tabs?.()}${tabPanels?.()}
       </sl-tab-group>
     `;

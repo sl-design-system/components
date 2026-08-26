@@ -1,21 +1,17 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { Tooltip } from '@sl-design-system/tooltip';
-import {
-  type CSSResultGroup,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-  html,
-  nothing
-} from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './tag.scss.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import styles from './tag.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -40,11 +36,15 @@ export type TagVariant = 'neutral' | 'info';
  * ```
  *
  * @slot default - The tag label.
+ *
+ * @csspart label - The wrapper around the tag label.
+ * @csspart button - The remove button.
+ * @csspart tooltip - The tooltip shown when the content is truncated.
  */
 @localized()
-export class Tag extends ScopedElementsMixin(LitElement) {
+export class Tag extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
       'sl-tooltip': Tooltip
@@ -54,14 +54,17 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // oxlint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onKeydown });
+  /** @internal */
+  static override shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
   #observer = new ResizeObserver(() => this.#onResize());
 
-  /** Either an instanceof of Tooltip, or a cleanup function. */
-  #tooltip?: Tooltip | (() => void);
+  /** Observe label text changes that do not trigger a resize or slotchange. */
+  #mutationObserver = new MutationObserver(() => this.#updateLabel());
 
   /**
    * Whether the tag component is disabled, when set no interaction is possible.
@@ -70,15 +73,31 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
+  /**
+   * The text to be shown in the tooltip. If the tooltip property isn't set explicitly to a string,
+   * the component itself will automatically determine when to show a tooltip based on the content's
+   * truncation.
+   */
+  @property() tooltip?: boolean | string;
+
+  /** @internal Whether the tag has visible focus. */
+  @state() @cssState() focusVisible?: boolean;
+
   /** @internal The label of the tag component. */
   @state() label = '';
+
+  /** @internal Clarifies tag list keyboard navigation for assistive technologies. */
+  @state() navigationDescription?: string;
+
+  /** @internal Additional description for the tag label. */
+  @property({ attribute: false }) labelDescription?: string;
 
   /**
    * Whether the tag component is removable.
    *
    * @default false
    */
-  @property({ type: Boolean }) removable?: boolean;
+  @property({ type: Boolean, reflect: true }) removable?: boolean;
 
   /** @internal Emits when the tag is removed. */
   @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
@@ -97,72 +116,139 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) variant?: TagVariant;
 
+  /** @internal */
+  override get tabIndex(): number {
+    return super.tabIndex;
+  }
+
+  /** @internal */
+  override set tabIndex(tabIndex: number) {
+    super.tabIndex = tabIndex;
+    this.#syncButtonTabIndex();
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.#observer.observe(this);
+    this.#mutationObserver.observe(this, { characterData: true, childList: true, subtree: true });
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-
-    if (this.#tooltip instanceof Tooltip) {
-      this.#tooltip?.remove();
-    } else if (this.#tooltip) {
-      this.#tooltip();
-    }
-
-    this.#tooltip = undefined;
+    this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
   }
 
-  override updated(changes: PropertyValues<this>): void {
+  override focus(options?: FocusOptions): void {
+    const focusTarget = this.removable
+      ? this.renderRoot.querySelector<HTMLElement>('button')
+      : this.renderRoot.querySelector<HTMLElement>('[part="label"][tabindex]');
+
+    if (focusTarget) {
+      focusTarget.focus(options);
+    } else {
+      super.focus(options);
+    }
+  }
+
+  protected override updated(changes: Map<PropertyKey, unknown>): void {
     super.updated(changes);
-
-    if (changes.has('disabled') || changes.has('removable')) {
-      if (this.removable) {
-        this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-      } else if (this.disabled || changes.get('removable')) {
-        this.removeAttribute('tabindex');
-      }
-    }
-
-    if (changes.has('removable')) {
-      if (this.removable) {
-        this.setAttribute(
-          'aria-description',
-          msg('Press the delete or backspace key to remove this item', {
-            id: 'sl.tag.removalInstructions'
-          })
-        );
-      } else {
-        this.removeAttribute('aria-description');
-      }
-    }
+    this.#syncButtonTabIndex();
   }
 
   override render(): TemplateResult {
+    const labelTabIndex =
+        !this.disabled && !this.removable
+          ? this.hasAttribute('tabindex')
+            ? this.tabIndex.toString()
+            : this.tooltip
+              ? '0'
+              : undefined
+          : undefined,
+      buttonDescription = [
+        this.tooltip ? 'tooltip' : undefined,
+        this.navigationDescription ? 'navigation-description' : undefined
+      ]
+        .filter(Boolean)
+        .join(' '),
+      labelDescribedBy = [
+        this.tooltip ? 'tooltip' : undefined,
+        this.labelDescription ? 'label-description' : undefined
+      ]
+        .filter(Boolean)
+        .join(' ');
+
     return html`
-      <slot @slotchange=${this.#onSlotChange} part="label"></slot>
-      ${this.removable && !this.disabled
-        ? html`
-            <button
-              @click=${this.#onRemove}
-              ?disabled=${this.disabled}
-              aria-hidden="true"
-              part="button"
-              tabindex="-1"
-            >
-              <sl-icon name="xmark"></sl-icon>
-            </button>
-          `
-        : nothing}
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip for="label" part="tooltip">
+                ${typeof this.tooltip === 'string' ? this.tooltip : this.label}
+              </sl-tooltip>
+            `
+          : nothing
+      }
+      <div
+        @blur=${this.#onBlur}
+        @focus=${this.#onFocus}
+        aria-describedby=${ifDefined(labelDescribedBy || undefined)}
+        id="label"
+        part="label"
+        tabindex=${ifDefined(labelTabIndex)}>
+        <slot @slotchange=${this.#onSlotChange}></slot>
+      </div>
+      ${
+        this.labelDescription
+          ? html`
+              <span id="label-description" class="visually-hidden">${this.labelDescription}</span>
+            `
+          : nothing
+      }
+      ${
+        this.removable
+          ? html`
+              <button
+                @blur=${this.#onBlur}
+                @click=${this.#onRemove}
+                @focus=${this.#onFocus}
+                @keydown=${this.#onKeydown}
+                aria-describedby=${ifDefined(buttonDescription || undefined)}
+                aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+                aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
+                part="button"
+                type="button">
+                <sl-icon name="xmark"></sl-icon>
+              </button>
+              ${
+                this.navigationDescription
+                  ? html`
+                      <span id="navigation-description" class="visually-hidden" aria-hidden="true"
+                        >${this.navigationDescription}</span
+                      >
+                    `
+                  : nothing
+              }
+            `
+          : nothing
+      }
     `;
   }
 
+  #onBlur(): void {
+    this.focusVisible = false;
+  }
+
+  #onFocus(event: FocusEvent): void {
+    this.focusVisible = (event.target as HTMLElement).matches(':focus-visible');
+  }
+
   #onKeydown(event: KeyboardEvent): void {
-    if (this.removable && (event.key === 'Backspace' || event.key === 'Delete')) {
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      event.preventDefault();
+      event.stopPropagation();
+
       this.#onRemove(event);
     }
   }
@@ -180,40 +266,48 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     this.remove();
   }
 
-  #onResize(): void {
-    const slot = this.renderRoot.querySelector('slot');
+  #syncButtonTabIndex(): void {
+    const button = this.renderRoot.querySelector<HTMLButtonElement>('button');
 
-    if (slot && slot.clientWidth < slot.scrollWidth) {
-      this.#tooltip ||= Tooltip.lazy(
-        this,
-        tooltip => {
-          this.#tooltip = tooltip;
-          tooltip.textContent = this.label;
-        },
-        { context: this.shadowRoot! }
-      );
-    } else if (this.#tooltip instanceof Tooltip) {
-      this.#tooltip.remove();
-      this.#tooltip = undefined;
-    } else if (this.#tooltip) {
-      this.#tooltip();
-      this.#tooltip = undefined;
+    if (!button) {
+      return;
     }
 
-    // If the contents of the tag overflows, make sure it is keyboard focusable,
-    // so the user can tab to it.
-    if (!this.disabled && (this.removable || this.#tooltip)) {
-      this.setAttribute('tabindex', '0');
-    } else if (!this.hasAttribute('aria-labelledby')) {
-      this.removeAttribute('tabindex');
+    if (this.navigationDescription || this.hasAttribute('tabindex')) {
+      button.tabIndex = this.tabIndex;
+    } else {
+      button.removeAttribute('tabindex');
     }
   }
 
+  #onResize(): void {
+    // When the tooltip is set explicitly to a string, we always show it and never override it
+    // based on the truncation state of the label.
+    if (typeof this.tooltip === 'string' && this.tooltip !== '') {
+      return;
+    }
+
+    const label = this.renderRoot.querySelector('[part="label"]');
+
+    this.tooltip = !!(label && label.clientWidth < label.scrollWidth);
+  }
+
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.label = event.target
+    this.#updateLabel(event.target);
+  }
+
+  #updateLabel(slot = this.renderRoot.querySelector('slot')): void {
+    if (!slot) {
+      return;
+    }
+
+    this.label = slot
       .assignedNodes({ flatten: true })
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent?.trim())
-      .join('');
+      .map(node => node.textContent ?? '')
+      .join('')
+      .trim()
+      .replaceAll(/\s+/g, ' ');
+
+    void this.updateComplete.then(() => this.#onResize());
   }
 }

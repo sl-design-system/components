@@ -1,11 +1,17 @@
-import { type StorybookConfig } from '@storybook/web-components-vite';
 import { argv } from 'node:process';
+import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
+import { type StorybookConfig } from '@storybook/web-components-vite';
 import { injectComponentMetadata } from './helpers.ts';
 
 const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
-  stories: ['*.mdx', 'stories/*.stories.ts', '../packages/{checklist,components}/**/*.stories.ts'],
+  stories: [
+    '*.mdx',
+    'stories/*.stories.ts',
+    '../packages/components/**/*.stories.ts',
+    '../examples/**/*.stories.ts'
+  ],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-docs',
@@ -26,12 +32,13 @@ const config: StorybookConfig = {
   staticDirs: [
     { from: '../node_modules/emojibase-data', to: '/emoji' },
     { from: '../packages/themes', to: '/themes' },
-    { from: './images', to: '/images' }
+    { from: './images', to: '/images' },
+    { from: './public', to: '/storybook-static' }
   ],
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');
 
-    return mergeConfig(config, { logLevel: 'warn' });
+    return mergeConfig(config, { logLevel: 'warn', plugins: [importCssSheet()] });
   }
 };
 

@@ -9,7 +9,6 @@ export const avatarRenderer: GridColumnDataRenderer<Student> = (student: Student
     <sl-avatar
       .displayName=${[firstName, infix, lastName].filter(Boolean).join(' ')}
       .pictureUrl=${pictureUrl}
-      size="sm"
-    ></sl-avatar>
+      size="sm"></sl-avatar>
   `;
 };

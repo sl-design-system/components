@@ -10,8 +10,8 @@ import '@sl-design-system/toggle-button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Card, CardOrientation } from './card.js';
+import './register.js';
 
 type Props = Pick<Card, 'orientation'> & {
   media?: boolean;
@@ -142,48 +142,61 @@ const card = (
       ?fit-image=${card.fitImage}
       ?media-margin=${card.mediaMargin}
       ?subgrid=${card.subgrid}
-      ?image-backdrop=${card.imageBackdrop}
-    >
-      ${card.media && card.imageUrl
-        ? html`<img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />`
-        : nothing}
-      ${card.link
-        ? html`<a href="javascript:console.log('link clicked');">${titles[contentId]}</a>`
-        : html`<h2>${titles[contentId]}</h2>`}
-      ${card.subheaderContent
-        ? html`
-            <span slot="header">
-              ${card.subheaderBadge
-                ? html`<sl-badge color="purple" size="lg">${card.subheaderBadge}</sl-badge>`
-                : nothing}
-              ${card.subheaderText}
-            </span>
-          `
-        : nothing}
-      ${card.menuButton
-        ? html`
-            <sl-menu-button slot="menu-button" aria-label="Card actions">
-              <sl-menu-item>
-                <sl-icon name="far-pen"></sl-icon>
-                Rename...
-              </sl-menu-item>
-              <sl-menu-item>
-                <sl-icon name="far-trash"></sl-icon>
-                Delete...
-              </sl-menu-item>
-            </sl-menu-button>
-          `
-        : nothing}
+      ?image-backdrop=${card.imageBackdrop}>
+      ${
+        card.media && card.imageUrl
+          ? html`
+              <img slot="media" src=${images[contentId]} alt="Picture of ${titles[contentId]}" />
+            `
+          : nothing
+      }
+      ${
+        card.link
+          ? html`<a href="javascript:console.log('link clicked');">${titles[contentId]}</a>`
+          : html`<h2>${titles[contentId]}</h2>`
+      }
+      ${
+        card.subheaderContent
+          ? html`
+              <span slot="header">
+                ${
+                  card.subheaderBadge
+                    ? html`<sl-badge color="purple" size="lg">${card.subheaderBadge}</sl-badge>`
+                    : nothing
+                }
+                ${card.subheaderText}
+              </span>
+            `
+          : nothing
+      }
+      ${
+        card.menuButton
+          ? html`
+              <sl-menu-button slot="menu-button" aria-label="Card actions">
+                <sl-menu-item>
+                  <sl-icon name="far-pen"></sl-icon>
+                  Rename...
+                </sl-menu-item>
+                <sl-menu-item>
+                  <sl-icon name="far-trash"></sl-icon>
+                  Delete...
+                </sl-menu-item>
+              </sl-menu-button>
+            `
+          : nothing
+      }
       ${card.bodyText ? html`<p slot="body">${bodyCopy[contentId]}</p>` : nothing}
-      ${card.actionButton
-        ? html`
-            <sl-button-bar slot="actions"
-              ><sl-button variant="primary" @click=${() => console.log('action button clicked')}>
-                <sl-icon name="far-download"></sl-icon> Download
-              </sl-button>
-            </sl-button-bar>
-          `
-        : nothing}
+      ${
+        card.actionButton
+          ? html`
+              <sl-button-bar slot="actions"
+                ><sl-button variant="primary" @click=${() => console.log('action button clicked')}>
+                  <sl-icon name="far-download"></sl-icon> Download
+                </sl-button>
+              </sl-button-bar>
+            `
+          : nothing
+      }
     </sl-card>
   `;
 };
@@ -781,6 +794,82 @@ export const Actions: Story = {
   }
 };
 
+export const LinkWithToggleButton: Story = {
+  render: () => {
+    let linkClicks = 0,
+      toggleClicks = 0;
+
+    const updateCounters = (root: Element | null): void => {
+      root?.querySelector('[data-link-clicks]')?.replaceChildren(linkClicks.toString());
+      root?.querySelector('[data-toggle-clicks]')?.replaceChildren(toggleClicks.toString());
+    };
+
+    const onLinkClick = (event: Event): void => {
+      event.preventDefault();
+      linkClicks += 1;
+      updateCounters((event.currentTarget as Element).closest('.link-with-toggle'));
+    };
+
+    const onToggleClick = (event: Event): void => {
+      toggleClicks += 1;
+      updateCounters((event.currentTarget as Element).closest('.link-with-toggle'));
+    };
+
+    return html`
+      <style>
+        .link-with-toggle {
+          display: grid;
+          gap: 12px;
+          max-width: 320px;
+        }
+
+        .link-with-toggle__counts {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .link-with-toggle__favorite {
+          clip-path: circle(50%);
+        }
+
+        .link-with-toggle__favorite::part(wrapper) {
+          padding: var(--sl-size-075);
+        }
+      </style>
+      <div class="link-with-toggle">
+        <sl-card>
+          <a
+            href="https://example.com/book"
+            target="_blank"
+            rel="noopener noreferrer"
+            @click=${onLinkClick}>
+            Link text
+          </a>
+          <sl-toggle-button
+            class="link-with-toggle__favorite"
+            slot="menu-button"
+            aria-label="Favorite"
+            shape="pill"
+            @sl-toggle=${onToggleClick}>
+            <sl-icon name="far-heart" slot="default"></sl-icon>
+            <sl-icon name="fas-heart" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </sl-card>
+
+        <div class="link-with-toggle__counts">
+          <sl-badge color="green" size="lg"
+            >Book link clicks: <span data-link-clicks>0</span></sl-badge
+          >
+          <sl-badge color="blue" size="lg"
+            >Favorite clicks: <span data-toggle-clicks>0</span></sl-badge
+          >
+        </div>
+      </div>
+    `;
+  }
+};
+
 export const RealWorldExamples: Story = {
   render: () => {
     return html`
@@ -817,8 +906,7 @@ export const RealWorldExamples: Story = {
           <img
             slot="media"
             src="/images/card-max-1.png"
-            alt="Een baby oerang oetan die wordt vastgehouden door hun moeder"
-          />
+            alt="Een baby oerang oetan die wordt vastgehouden door hun moeder" />
           <a href="javascript:void(0);">Wat is biologie?</a>
           <span slot="header"
             ><sl-badge size="lg">Thema 1</sl-badge>
@@ -849,8 +937,7 @@ export const RealWorldExamples: Story = {
               variant="primary"
               fill="outline"
               @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1"
-            >
+              style="flex-grow: 1">
               <sl-icon name="ellipsis"></sl-icon> More options
             </sl-button>
           </sl-button-bar>
@@ -887,8 +974,7 @@ export const RealWorldExamples: Story = {
             ><sl-button
               variant="inverted"
               @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1"
-            >
+              style="flex-grow: 1">
               Open 12 volumes
             </sl-button>
           </sl-button-bar>
@@ -901,8 +987,7 @@ export const RealWorldExamples: Story = {
             ><sl-button
               variant="inverted"
               @click=${() => console.log('action button clicked')}
-              style="flex-grow: 1"
-            >
+              style="flex-grow: 1">
               Open 9 volumes
             </sl-button>
           </sl-button-bar>

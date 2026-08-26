@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as GridEditingStories from './wrappers-grid-editing.stories';
+
+<Meta of={GridEditingStories} />
+
+# Grid Editing
+
+This section shows inline editing in the Angular Grid wrapper.
+
+Use these examples to edit values with text and select columns.
+
+## Text field
+
+Edit a text value directly in a grid column using `sl-grid-text-field-column`.
+
+### Template
+
+```html
+<sl-grid [items]="people" [noSkipLinks]="true">
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-text-field-column
+    path="address.zip"
+    [formControlLabel]="personLabel"></sl-grid-text-field-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+const personLabel = ({ firstName, lastName }: Person): string => `${firstName} ${lastName}`;
+
+// props passed to template:
+const props = {
+  people: loaded['people'] as Person[],
+  personLabel
+};
+```
+
+## Select
+
+Use a select editor for controlled values like status.
+
+### Template
+
+```html
+<sl-grid [items]="people" [noSkipLinks]="true">
+  <sl-grid-column path="firstName"></sl-grid-column>
+  <sl-grid-column path="lastName"></sl-grid-column>
+  <sl-grid-select-column path="status" [options]="statuses"></sl-grid-select-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+// props passed to template:
+const props = {
+  people: loaded['people'] as Person[],
+  statuses: ['Available', 'Busy', 'Away']
+};
+```

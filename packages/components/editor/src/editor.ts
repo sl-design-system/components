@@ -1,5 +1,6 @@
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -15,7 +16,7 @@ import { Schema } from 'prosemirror-model';
 import { EditorState, type Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { setHTML } from './commands.js';
-import styles from './editor.scss.js';
+import styles from './editor.css' with { type: 'css' };
 import { buildKeymap, buildListKeymap } from './keymap.js';
 import { type EditorMarks, type EditorNodes, marks, nodes } from './schema.js';
 import { createContentNode, getHTML } from './utils.js';
@@ -26,7 +27,7 @@ declare global {
   }
 }
 
-export class Editor extends FormControlMixin(LitElement) {
+export class Editor extends FormControlMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
 
@@ -38,9 +39,6 @@ export class Editor extends FormControlMixin(LitElement) {
 
   /** The value of the content in the editor. */
   #value: string = '';
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** Additional plugins. */
   @property({ attribute: false }) plugins?: Plugin[];
@@ -64,8 +62,8 @@ export class Editor extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'textbox';
-    this.internals.ariaMultiLine = 'true';
+    this.elementInternals.role = 'textbox';
+    this.elementInternals.ariaMultiLine = 'true';
 
     this.setFormControlElement(this);
   }

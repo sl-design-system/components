@@ -1,10 +1,22 @@
 {
   "name": "@sl-design-system/locales",
-  "version": "0.2.0",
+  "version": "0.3.2",
   "description": "Locales for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/index.js",
+      "./es-ES.js": "./dist/es-ES.js",
+      "./it.js": "./dist/it.js",
+      "./nl.js": "./dist/nl.js",
+      "./pl.js": "./dist/pl.js",
+      "./package.json": "./package.json",
+      "./es-ES.xlf": "./src/es-ES.xlf",
+      "./it.xlf": "./src/it.xlf",
+      "./nl.xlf": "./src/nl.xlf",
+      "./pl.xlf": "./src/pl.xlf"
+    }
   },
   "repository": {
     "type": "git",
@@ -12,20 +24,17 @@
     "directory": "packages/locales"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "exports": {
-    ".": {
-      "import": "./index.js",
-      "types": "./index.d.ts"
-    },
-    "./nl.js": {
-      "import": "./src/nl.js",
-      "types": "./src/nl.d.ts"
-    },
+    ".": "./src/locale-codes.ts",
+    "./es-ES.js": "./src/es-ES.ts",
+    "./it.js": "./src/it.ts",
+    "./nl.js": "./src/nl.ts",
+    "./pl.js": "./src/pl.ts",
+    "./package.json": "./package.json",
+    "./es-ES.xlf": "./src/es-ES.xlf",
+    "./it.xlf": "./src/it.xlf",
     "./nl.xlf": "./src/nl.xlf",
-    "./package.json": "./package.json"
+    "./pl.xlf": "./src/pl.xlf"
   },
   "files": [
     "**/*.d.ts",

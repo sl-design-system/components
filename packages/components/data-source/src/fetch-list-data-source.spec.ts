@@ -1,8 +1,10 @@
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { spy } from 'sinon';
-import { beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, expectTypeOf, it } from 'vitest';
+import { type DataSourceFilter } from './data-source.js';
 import {
   FetchListDataSource,
+  type FetchListDataSourceCallback,
   type FetchListDataSourceCallbackOptions
 } from './fetch-list-data-source.js';
 import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
@@ -13,6 +15,19 @@ describe('FetchListDataSource', () => {
 
   beforeAll(async () => {
     ({ people } = await getPeople({ count: 5 }));
+  });
+
+  it('should provide typed filter options to the fetchPage callback', () => {
+    const fetchPage: FetchListDataSourceCallback<Person> = options => {
+      expectTypeOf(options.filters).toEqualTypeOf<Array<DataSourceFilter<Person>> | undefined>();
+      expectTypeOf(options.filters?.[0]?.by).toEqualTypeOf<
+        DataSourceFilter<Person>['by'] | undefined
+      >();
+
+      return Promise.resolve({ items: [] });
+    };
+
+    expectTypeOf(fetchPage).toEqualTypeOf<FetchListDataSourceCallback<Person>>();
   });
 
   describe('defaults', () => {

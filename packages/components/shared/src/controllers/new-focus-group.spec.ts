@@ -104,10 +104,11 @@ describe('NewFocusGroupController', () => {
         el.controller?.elements.at(0)?.focus();
       });
 
-      it('should set the tabindex to -1 on the focused element', () => {
-        el.controller!.elements.forEach(e => {
-          expect(e).to.have.attribute('tabindex', '-1');
-        });
+      it('should keep tabindex 0 on the focused element', () => {
+        expect(el.controller!.elements[0]).to.have.attribute('tabindex', '0');
+        expect(el.controller!.elements[1]).to.have.attribute('tabindex', '-1');
+        expect(el.controller!.elements[2]).to.have.attribute('tabindex', '-1');
+        expect(el.controller!.elements[3]).to.have.attribute('tabindex', '-1');
       });
 
       it('should focus the next element when pressing the ArrowRight key', async () => {
@@ -146,10 +147,11 @@ describe('NewFocusGroupController', () => {
         el.controller?.elements.at(-1)?.focus();
       });
 
-      it('should set the tabindex to -1 on the focused element', () => {
-        el.controller!.elements.forEach(e => {
-          expect(e).to.have.attribute('tabindex', '-1');
-        });
+      it('should keep tabindex 0 on the focused element', () => {
+        expect(el.controller!.elements[0]).to.have.attribute('tabindex', '-1');
+        expect(el.controller!.elements[1]).to.have.attribute('tabindex', '-1');
+        expect(el.controller!.elements[2]).to.have.attribute('tabindex', '-1');
+        expect(el.controller!.elements[3]).to.have.attribute('tabindex', '0');
       });
 
       it('should focus the first element when pressing the ArrowRight key (wrap enabled)', async () => {

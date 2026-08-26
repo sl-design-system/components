@@ -86,15 +86,13 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
         aria-sort=${ifDefined(this.ariaSorting)}
         part=${parts.join(' ')}
         role="columnheader"
-        scope="col"
-      >
+        scope="col">
         <sl-grid-sorter
           ${ref(this.#sorterRef)}
           .column=${this}
           .direction=${this.direction}
           .path=${this.path}
-          .sorter=${this.sorter}
-        >
+          .sorter=${this.sorter}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>
       </th>

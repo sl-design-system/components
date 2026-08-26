@@ -3,10 +3,17 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Form, FormControlMixin, FormController, FormField } from '@sl-design-system/form';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import {
+  type CSSResultGroup,
+  LitElement,
+  type PropertyValues,
+  type TemplateResult,
+  html
+} from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './child-form.scss.js';
+import styles from './child-form.css' with { type: 'css' };
 
 export type Address = {
   postalCode: string;
@@ -15,12 +22,14 @@ export type Address = {
   city: string;
 };
 
-export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement)) {
+export class ChildForm extends FormControlMixin(
+  ScopedElementsMixin(ElementInternalsMixin(LitElement))
+) {
   /** @internal */
   static formAssociated = true;
 
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-form': Form,
       'sl-form-field': FormField,
@@ -31,15 +40,14 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  #form = new FormController<Address>(this);
-
-  /** Needed since we don't have a native input element. */
-  internals = this.attachInternals();
+  #form = new FormController<Partial<Address>>(this);
+  #valueUpdatedFromInternal = false;
 
   /** Whether the address is a required field. */
   @property({ type: Boolean }) override required?: boolean;
 
   /** The form value. */
+  @property({ attribute: false })
   override value?: Partial<Address> = {};
 
   override connectedCallback(): void {
@@ -78,6 +86,26 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
     return this.#form.reportValidity();
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('value')) {
+      if (this.#valueUpdatedFromInternal) {
+        this.#valueUpdatedFromInternal = false;
+      } else {
+        const form = this.renderRoot.querySelector<Form>('sl-form');
+
+        if (form) {
+          form.value = this.value;
+
+          void form.updateComplete.then(() => {
+            this.setCustomValidity(form.invalid ? 'Please enter a valid address.' : '');
+          });
+        }
+      }
+    }
+  }
+
   #onChange(): void {
     const { postalCode, houseNumber, street, city } = this.#form.value ?? {};
 
@@ -91,6 +119,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
     event.preventDefault();
     event.stopPropagation();
 
+    this.#valueUpdatedFromInternal = true;
     this.value = this.#form.value;
     this.setCustomValidity(this.#form.invalid ? 'Please enter a valid address.' : '');
 

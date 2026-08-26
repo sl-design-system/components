@@ -2,8 +2,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { SinonSpy, spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type Drawer, type DrawerAttachment } from './drawer.js';
+import './register.js';
 
 describe('sl-drawer', () => {
   let el: Drawer;
@@ -94,7 +94,7 @@ describe('sl-drawer', () => {
 
       it('should close the drawer when the close button is clicked', () => {
         const closeButton = el.renderRoot.querySelector('sl-button[sl-dialog-close]');
-        stub(event, 'target').value(closeButton as HTMLElement);
+        stub(event, 'target').value(closeButton);
 
         dialog.dispatchEvent(event);
 

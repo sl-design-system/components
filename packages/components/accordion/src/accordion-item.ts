@@ -10,7 +10,7 @@ import {
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './accordion-item.scss.js';
+import styles from './accordion-item.css' with { type: 'css' };
 import { type AccordionIconType } from './accordion.js';
 
 declare global {
@@ -77,20 +77,21 @@ export class AccordionItem extends LitElement {
           aria-expanded=${this.open ? 'true' : 'false'}
           id="summary"
           part="summary"
-          tabindex=${this.disabled ? -1 : 0}
-        >
-          ${this.iconType === 'chevron'
-            ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
-            : html`
-                <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
-                  <g class="horizontal-line">
-                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
-                  </g>
-                  <g class="vertical-line">
-                    <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
-                  </g>
-                </svg>
-              `}
+          tabindex=${this.disabled ? -1 : 0}>
+          ${
+            this.iconType === 'chevron'
+              ? html`<sl-icon name="chevron-down" part="icon"></sl-icon>`
+              : html`
+                  <svg part="icon" viewBox="-8 -8 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <g class="horizontal-line">
+                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                    </g>
+                    <g class="vertical-line">
+                      <rect x="-1" y="-7" width="2" height="14" rx="0.82" fill="currentColor" />
+                    </g>
+                  </svg>
+                `
+          }
           <slot name="summary">${this.summary}</slot>
           <slot name="summary-extras"></slot>
         </summary>
@@ -185,17 +186,21 @@ export class AccordionItem extends LitElement {
       details?.setAttribute('open', '');
     }
 
-    details.addEventListener(
-      'animationend',
-      () => {
-        details.classList.remove(state);
+    const onAnimationEnd = (event: AnimationEvent): void => {
+      // Ignore bubbled animation events from nested content
+      if (event.target !== wrapper || event.animationName !== 'content-expand') {
+        return;
+      }
 
-        if (state === 'closing') {
-          details.removeAttribute('open');
-        }
-      },
-      { once: true }
-    );
+      details.removeEventListener('animationend', onAnimationEnd);
+      details.classList.remove(state);
+
+      if (state === 'closing') {
+        details.removeAttribute('open');
+      }
+    };
+
+    details.addEventListener('animationend', onAnimationEnd);
 
     requestAnimationFrame(() => details.classList.add(state));
   }

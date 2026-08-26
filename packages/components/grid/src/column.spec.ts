@@ -5,9 +5,9 @@ import { Person } from '@sl-design-system/example-data';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { GridColumnDataRenderer } from './column.js';
 import { type Grid } from './grid.js';
+import './register.js';
 
 describe('sl-column', () => {
   let el: Grid;
@@ -41,6 +41,17 @@ describe('sl-column', () => {
       );
 
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
+    });
+
+    it('should visually hide the header text when set', async () => {
+      el.querySelector('sl-grid-column')!.hideHeaderText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const span = el.renderRoot.querySelector('th span');
+
+      expect(span).to.have.trimmed.text('First name');
+      expect(span).to.have.class('visually-hidden');
     });
 
     it('should have the right justify-content value', () => {
@@ -89,6 +100,25 @@ describe('sl-column', () => {
         )
       ).to.deep.equal([true, false, false]);
     });
+
+    it('should keep cell padding when ellipsized text adds a tooltip', async () => {
+      el.querySelector('sl-grid-column')!.ellipsizeText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
+        'tbody tr:first-of-type td:first-of-type'
+      )!;
+
+      const { paddingBlockStart: beforeStart, paddingBlockEnd: beforeEnd } = getComputedStyle(cell);
+
+      cell.append(document.createElement('sl-tooltip'));
+
+      const { paddingBlockStart: afterStart, paddingBlockEnd: afterEnd } = getComputedStyle(cell);
+
+      expect(afterStart).to.equal(beforeStart);
+      expect(afterEnd).to.equal(beforeEnd);
+    });
   });
 
   describe('path', () => {
@@ -114,6 +144,46 @@ describe('sl-column', () => {
       );
 
       expect(cells).to.deep.equal(['Foo', '', 'No path set']);
+    });
+  });
+
+  describe('form control label', () => {
+    it('should fall back to the path label when the header is empty', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column header=" " path="address.zip"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Zip');
+    });
+
+    it('should use the form control column label when provided', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column
+            form-control-column-label="Postal code"
+            path="address.zip"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ address: { zip: '12345' } })).to.equal('Postal code');
+    });
+
+    it('should add trimmed row context when provided', async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="status" .formControlLabel=${() => ' John Doe '}></sl-grid-column>
+        </sl-grid>
+      `);
+
+      const column = el.querySelector('sl-grid-column')!;
+
+      expect(column.getFormControlLabel({ status: 'Available' })).to.equal('Status John Doe');
     });
   });
 
@@ -154,8 +224,7 @@ describe('sl-column', () => {
           <sl-grid-column
             header="Person"
             .renderer=${avatarRenderer}
-            .scopedElements=${{ 'sl-avatar': Avatar }}
-          ></sl-grid-column>
+            .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
           <sl-grid-column path="age" parts="number"></sl-grid-column>
         </sl-grid>
       `);

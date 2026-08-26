@@ -1,11 +1,16 @@
 {
   "name": "@sl-design-system/icon",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "status": "stable",
   "description": "Icon component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/index.js",
+      "./register.js": "./dist/register.js",
+      "./package.json": "./package.json"
+    }
   },
   "repository": {
     "type": "git",
@@ -17,14 +22,11 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./index.js",
-    "./package.json": "./package.json",
-    "./register.js": "./register.js"
+    ".": "./src/index.ts",
+    "./register.js": "./src/register.ts",
+    "./package.json": "./package.json"
   },
   "files": [
     "**/*.d.ts",
@@ -33,13 +35,17 @@
     "custom-elements.json"
   ],
   "sideEffects": [
-    "register.js"
+    "./src/register.ts",
+    "./dist/register.js"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
+  "dependencies": {
+    "@sl-design-system/shared": "^0.12.3"
+  },
   "devDependencies": {
-    "lit": "^3.3.2"
+    "lit": "^3.3.3"
   },
   "peerDependencies": {
     "lit": "^3.1.4"

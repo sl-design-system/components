@@ -1,3 +1,4 @@
+import { faNarwhal as fadrNarwhal } from '@fortawesome/duotone-regular-svg-icons';
 import { faNarwhal as fadNarwhal } from '@fortawesome/pro-duotone-svg-icons';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
@@ -5,8 +6,8 @@ import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../register.js';
 import { Icon, type IconSize } from './icon.js';
+import './register.js';
 
 interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
   icons: string[];
@@ -84,8 +85,7 @@ export default {
                   .size=${size}
                   .label=${i}
                   title=${i}
-                  @click=${async () => await copyIconName(i)}
-                ></sl-icon>
+                  @click=${async () => await copyIconName(i)}></sl-icon>
               `
             )}
           </section>
@@ -158,14 +158,12 @@ export const FlexContainer: Story = {
       <h2>Icons in a flex container</h2>
       <p>We need to make sure the icon keeps its size even when it's in a flex-container.</p>
       <div
-        style="display: flex; inline-size: 50px; flex-wrap: nowrap; gap: 8px; border: 1px solid black; margin-bottom: 16px;"
-      >
+        style="display: flex; inline-size: 50px; flex-wrap: nowrap; gap: 8px; border: 1px solid black; margin-bottom: 16px;">
         <sl-icon name="info"></sl-icon>
         <span style="white-space: nowrap">test 123</span>
       </div>
       <div
-        style="font-size:48px; display: flex; inline-size: 50px; flex-wrap: nowrap; gap: 8px; border: 1px solid black;"
-      >
+        style="font-size:48px; display: flex; inline-size: 50px; flex-wrap: nowrap; gap: 8px; border: 1px solid black;">
         <sl-icon name="info"></sl-icon>
         <span style="white-space: nowrap">test 123</span>
       </div>
@@ -229,8 +227,7 @@ export const AllIcons: Story = {
                 size="2xl"
                 .label=${i}
                 title=${i}
-                @click=${async () => await copyIconName(i)}
-              ></sl-icon>
+                @click=${async () => await copyIconName(i)}></sl-icon>
             `
           )}
       </section>
@@ -251,7 +248,7 @@ export const RegisterAdditionalIcons: Story = {
     Icon.register(fatPinata);
 
     // load multiple icons at once:
-    Icon.register(falPinata, fasPinata, fadNarwhal);
+    Icon.register(falPinata, fasPinata, fadNarwhal, fadrNarwhal);
 
     return html`
       <style>
@@ -268,6 +265,7 @@ export const RegisterAdditionalIcons: Story = {
         <sl-icon name="fat-pinata"></sl-icon>
         <sl-icon name="far-narwhal"></sl-icon>
         <sl-icon name="fad-narwhal"></sl-icon>
+        <sl-icon name="fadr-narwhal"></sl-icon>
       </section>
       <h2>Referring to a non-existing icon:</h2>
       <p>When the icon is not yet registered, or you are using a wrong name</p>

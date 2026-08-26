@@ -10,8 +10,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { type Panel } from './panel.js';
+import './register.js';
 
 describe('sl-panel', () => {
   let el: Panel;
@@ -33,6 +33,12 @@ describe('sl-panel', () => {
 
     it('should not have has-actions attribute', () => {
       expect(el).not.to.have.attribute('has-actions');
+    });
+
+    it('should not render an empty tool bar', () => {
+      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
+
+      expect(toolBar).not.to.exist;
     });
 
     it('should not render the wrapper as a button', () => {
@@ -110,6 +116,39 @@ describe('sl-panel', () => {
       const body = el.renderRoot.querySelector('[part="body"]');
 
       expect(body).to.have.attribute('aria-labelledby', 'heading');
+    });
+
+    it('should hide the body from assistive technology when collapsed', async () => {
+      const body = el.renderRoot.querySelector('[part="body"]');
+
+      expect(body).not.to.have.attribute('aria-hidden');
+      expect(body).not.to.have.attribute('inert');
+
+      el.toggle(true);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(body).to.have.attribute('aria-hidden', 'true');
+      expect(body).to.have.attribute('inert');
+
+      el.toggle(false);
+
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      expect(body).not.to.have.attribute('aria-hidden');
+      expect(body).not.to.have.attribute('inert');
+    });
+
+    it('should hide initially collapsed body from assistive technology', async () => {
+      const collapsedEl = await fixture<Panel>(
+        html`<sl-panel collapsible collapsed heading="Heading">Body content</sl-panel>`
+      );
+      const body = collapsedEl.renderRoot.querySelector('[part="body"]');
+
+      expect(body).to.have.attribute('aria-hidden', 'true');
+      expect(body).to.have.attribute('inert');
     });
 
     it('should emit an sl-toggle event when button is clicked', async () => {
@@ -284,6 +323,26 @@ describe('sl-panel', () => {
 
     it('should have has-actions attribute', () => {
       expect(el).to.have.attribute('has-actions');
+    });
+
+    it('should render a tool bar for actions', async () => {
+      // Slot distribution happens async; the toolbar is rendered on the subsequent update.
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
+      expect(toolBar).to.exist;
+    });
+
+    it('should remove the tool bar when actions are removed', async () => {
+      el.querySelector('[slot="actions"]')?.remove();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await el.updateComplete;
+
+      const toolBar = el.renderRoot.querySelector('sl-tool-bar');
+
+      expect(toolBar).not.to.exist;
+      expect(el).not.to.have.attribute('has-actions');
     });
 
     it('should slot the content into the default slot', () => {

@@ -32,7 +32,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './emoji-browser.scss.js';
+import styles from './emoji-browser.css' with { type: 'css' };
 import {
   type Emoji,
   type EmojiGroup,
@@ -74,7 +74,7 @@ const GROUP_ICONS: Record<number, string> = {
 @localized()
 export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
@@ -155,13 +155,15 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <sl-tab-group>
-        ${this.frequentlyUsedEmojis?.length
-          ? html`
-              <sl-tab @click=${this.#onTabClick} id="group-frequently-used">
-                <sl-icon name="far-clock" slot="icon"></sl-icon>
-              </sl-tab>
-            `
-          : nothing}
+        ${
+          this.frequentlyUsedEmojis?.length
+            ? html`
+                <sl-tab @click=${this.#onTabClick} id="group-frequently-used">
+                  <sl-icon name="far-clock" slot="icon"></sl-icon>
+                </sl-tab>
+              `
+            : nothing
+        }
         ${map(
           this.emojis?.keys(),
           group => html`
@@ -177,28 +179,31 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           @sl-change=${this.#onChange}
           @sl-clear=${this.#onClear}
           .placeholder=${msg('Search', { id: 'sl.emojiBrowser.search' })}
-          .value=${this.query}
-        ></sl-search-field>
+          .value=${this.query}></sl-search-field>
 
-        ${this.filteredEmojis.length
-          ? this.renderEmojis(this.filteredEmojis)
-          : html`
-              ${this.frequentlyUsedEmojis?.length
-                ? html`
-                    <div id="frequently-used" class="heading">
-                      ${msg('Frequently Used', { id: 'sl.emojiBrowser.frequentlyUsed' })}
-                    </div>
-                    ${this.renderEmojis(this.frequentlyUsedEmojis)}
+        ${
+          this.filteredEmojis.length
+            ? this.renderEmojis(this.filteredEmojis)
+            : html`
+                ${
+                  this.frequentlyUsedEmojis?.length
+                    ? html`
+                        <div id="frequently-used" class="heading">
+                          ${msg('Frequently Used', { id: 'sl.emojiBrowser.frequentlyUsed' })}
+                        </div>
+                        ${this.renderEmojis(this.frequentlyUsedEmojis)}
+                      `
+                    : nothing
+                }
+                ${map(
+                  this.emojis?.entries(),
+                  ([group, emojis]) => html`
+                    <div .id=${group.key} class="heading">${group.message}</div>
+                    ${this.renderEmojis(emojis)}
                   `
-                : nothing}
-              ${map(
-                this.emojis?.entries(),
-                ([group, emojis]) => html`
-                  <div .id=${group.key} class="heading">${group.message}</div>
-                  ${this.renderEmojis(emojis)}
-                `
-              )}
-            `}
+                )}
+              `
+        }
       </div>
     `;
   }
@@ -214,8 +219,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
               <sl-button
                 @click=${() => this.#onClick(emoji)}
                 aria-label=${emoji.label}
-                fill="ghost"
-              >
+                fill="ghost">
                 ${emoji.unicode}
               </sl-button>
             </li>

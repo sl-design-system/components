@@ -2,6 +2,6 @@
 eleventyNavigation:
   parent: Pages
   key: Design Tokens
-  order: 4
+  order: 5
 title: Design Tokens
 ---

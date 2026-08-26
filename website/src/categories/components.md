@@ -2,7 +2,7 @@
 eleventyNavigation:
   parent: Pages
   key: Components
-  order: 5
+  order: 6
 title: Components
 ---
 <link href="/css/categories/components.css" rel="stylesheet" type="text/css">

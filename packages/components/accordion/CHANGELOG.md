@@ -1,5 +1,32 @@
 # @sl-design-system/accordion
 
+## 1.2.7
+
+### Patch Changes
+
+- [#3538](https://github.com/sl-design-system/components/pull/3538) [`6964b4d`](https://github.com/sl-design-system/components/commit/6964b4d661728adb9ad5903d98b9ad2fba80889e) - Accordion item: fix animation handling to prevent nested component animations from interfering.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+
+## 1.2.6
+
+### Patch Changes
+
+- [#3448](https://github.com/sl-design-system/components/pull/3448) [`14ea88b`](https://github.com/sl-design-system/components/commit/14ea88b50c33027cc6b80ad93321b7911d3284f6) - Remove unused `@open-wc/scoped-elements` dependency.
+
+- Updated dependencies [[`b19dbe7`](https://github.com/sl-design-system/components/commit/b19dbe7d6bffbf3f7e1373f4bcc5693b4352c3ba)]:
+  - @sl-design-system/shared@0.12.2
+
+## 1.2.5
+
+### Patch Changes
+
+- [#3227](https://github.com/sl-design-system/components/pull/3227) [`9f34f04`](https://github.com/sl-design-system/components/commit/9f34f044dacab2fcf89744d8b13e8d825d6b7177) - Sync accessibility state on `sl-accordion-item` so disabled items are announced correctly by assistive technologies.
+
+  Disabled accordion items now expose `aria-disabled="true"` and keep `aria-expanded` in sync. This improves screen reader support in browsers where the disabled state was not announced consistently.
+
 ## 1.2.4
 
 ### Patch Changes

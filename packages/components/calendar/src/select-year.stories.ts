@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { SelectYear } from './select-year.js';
 
 type Props = Pick<SelectYear, 'max' | 'min' | 'selected' | 'showCurrent' | 'year'>;
@@ -42,8 +42,7 @@ export default {
         max=${ifDefined(max?.toISOString())}
         min=${ifDefined(min?.toISOString())}
         selected=${ifDefined(selected?.toISOString())}
-        year=${ifDefined(year?.toISOString())}
-      ></sl-select-year>
+        year=${ifDefined(year?.toISOString())}></sl-select-year>
     `;
   }
 } satisfies Meta<Props>;

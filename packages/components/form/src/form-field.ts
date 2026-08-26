@@ -13,7 +13,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
 import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
-import styles from './form-field.scss.js';
+import styles from './form-field.css' with { type: 'css' };
 import { Hint } from './hint.js';
 import { Label, type LabelMark } from './label.js';
 
@@ -52,7 +52,7 @@ let nextUniqueId = 0;
  */
 export class FormField extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-error': Error,
       'sl-hint': Hint,
@@ -213,8 +213,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         <slot
           @slotchange=${this.#onSlotchange}
           @sl-update-validity=${this.#onUpdateValidity}
-          part="controls"
-        ></slot>
+          part="controls"></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
       </div>
     `;

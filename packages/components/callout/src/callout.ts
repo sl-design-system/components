@@ -6,7 +6,7 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './callout.scss.js';
+import styles from './callout.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -32,7 +32,7 @@ export type CalloutVariant = 'info' | 'success' | 'warning' | 'danger';
 @localized()
 export class Callout extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -47,9 +47,9 @@ export class Callout extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'octagon-exclamation-solid';
+        return 'triangle-exclamation-solid';
       case 'danger':
-        return 'diamond-exclamation-solid';
+        return 'octagon-xmark-solid';
       default:
         return 'info';
     }

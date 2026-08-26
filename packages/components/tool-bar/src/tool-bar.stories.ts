@@ -1,4 +1,3 @@
-/* eslint-disable slds/button-has-label */
 import {
   faArrowDownToLine,
   faArrowDownWideShort,
@@ -35,13 +34,11 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import '@sl-design-system/toggle-group/register.js';
-import { tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
-
+import './register.js';
 import { type ToolBar } from './tool-bar.js';
 
 interface Props extends Pick<ToolBar, 'align' | 'contained' | 'disabled' | 'inverted' | 'fill'> {
@@ -159,7 +156,7 @@ export default {
         }
 
         .container sl-tool-bar {
-          flex: ${resizable && !width ? 1 : 0} 1 auto;
+          flex: ${resizable && !width ? '1 1 0' : '0 1 auto'};
           min-inline-size: 0;
         }
       </style>
@@ -168,13 +165,12 @@ export default {
           ${itemsOutsideContainer?.(args)}
           <sl-tool-bar
             ?contained=${contained}
+            ?disabled=${disabled}
             ?inverted=${inverted}
-            .disabled=${ifDefined(disabled)}
             align=${ifDefined(align)}
             fill=${ifDefined(fill)}
             style="inline-size: ${width ?? 'auto'}"
-            aria-label="Tool bar example"
-          >
+            aria-label="Tool bar example">
             ${items?.(args)}
           </sl-tool-bar>
         </div>
@@ -420,8 +416,7 @@ export const State: Story = {
         <sl-toggle-button
           aria-controls="action-1 action-2 action-3"
           @sl-toggle=${onClick}
-          fill="outline"
-        >
+          fill="outline">
           <sl-icon name="far-universal-access" slot="default"></sl-icon>
           <sl-icon name="fas-universal-access" slot="pressed"></sl-icon>
           Toggle disabled state
@@ -442,179 +437,19 @@ export const Tooltips: Story = {
   args: {
     description: 'This example shows a tool bar with different tooltip techniques on the buttons.',
     items: () => html`
-      <sl-button aria-labelledby="tooltip-bold" fill="outline">
+      <sl-button fill="outline" id="bold">
         <sl-icon name="far-bold"></sl-icon>
       </sl-button>
-      <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
+      <sl-tooltip for="bold">Bold</sl-tooltip>
 
-      <sl-button ${tooltip('Italic')} fill="outline">
+      <sl-button fill="outline" tooltip="Italic">
         <sl-icon name="far-italic"></sl-icon>
       </sl-button>
 
-      <sl-button aria-disabled="true" ${tooltip('Underline (disabled)')} fill="outline">
+      <sl-button aria-disabled="true" fill="outline" tooltip="Underline (disabled)">
         <sl-icon name="far-underline"></sl-icon>
       </sl-button>
     `
-  }
-};
-
-export const IconOnly: Story = {
-  parameters: {
-    a11y: {
-      config: {
-        rules: [
-          {
-            /**
-             * The rule is disabled for icon-only sl-menu-buttons because they use
-             * ariaLabelledByElements to set aria-labelledby across shadow DOM boundaries, which the
-             * a11y checker cannot detect.
-             */
-            id: 'aria-command-name',
-            enabled: false,
-            selector: 'sl-menu-button >> sl-button[icon-only]'
-          }
-        ]
-      }
-    }
-  },
-  render: ({ align, contained, disabled, inverted, resizable, fill, width }) => {
-    return html`
-      <style>
-        .container[resizable] {
-          overflow: auto;
-          resize: horizontal;
-        }
-
-        .container {
-          padding: 0.4rem; /* place for focus outline */
-        }
-
-        .container:has(sl-tool-bar[inverted]:not([contained])) {
-          background: var(--sl-color-background-primary-bold);
-          padding: 1.2rem;
-        }
-
-        .container sl-tool-bar {
-          flex: 0 1 auto;
-          min-inline-size: 0;
-        }
-      </style>
-      <p>This example shows a tool bar with icon only buttons / menu buttons with tooltips.</p>
-      <div class="container" ?resizable=${resizable}>
-        <sl-tool-bar
-          ?contained=${contained}
-          ?disabled=${disabled}
-          ?inverted=${inverted}
-          align=${ifDefined(align)}
-          fill=${ifDefined(fill)}
-          style="inline-size: ${width ?? 'auto'}"
-          aria-label="Icon only tool bar with tooltips"
-        >
-          <sl-button aria-labelledby="tooltip-bold" fill="outline">
-            <sl-icon name="far-bold"></sl-icon>
-          </sl-button>
-          <sl-tooltip id="tooltip-bold">Bold</sl-tooltip>
-
-          <sl-button aria-labelledby="tooltip-italic" fill="outline">
-            <sl-icon name="far-italic"></sl-icon>
-          </sl-button>
-          <sl-tooltip id="tooltip-italic">Italic</sl-tooltip>
-
-          <sl-button
-            aria-disabled="true"
-            aria-labelledby="tooltip-underline-disabled"
-            fill="outline"
-          >
-            <sl-icon name="far-underline"></sl-icon>
-          </sl-button>
-          <sl-tooltip id="tooltip-underline-disabled">Underline (disabled)</sl-tooltip>
-
-          <sl-button aria-labelledby="tooltip-underline" fill="outline">
-            <sl-icon name="far-underline"></sl-icon>
-          </sl-button>
-          <sl-tooltip id="tooltip-underline">Underline</sl-tooltip>
-
-          <sl-menu-button aria-labelledby="tooltip-settings" fill="outline">
-            <sl-icon name="far-gear" slot="button"></sl-icon>
-            <sl-menu-item>
-              <sl-icon name="far-pen"></sl-icon>
-              Rename...
-            </sl-menu-item>
-            <sl-menu-item>
-              <sl-icon name="far-trash"></sl-icon>
-              Delete...
-            </sl-menu-item>
-          </sl-menu-button>
-          <sl-tooltip id="tooltip-settings">Settings</sl-tooltip>
-
-          <sl-menu-button aria-labelledby="tooltip-edit" fill="outline">
-            <sl-icon name="far-pen" slot="button"></sl-icon>
-            <sl-menu-item>
-              <sl-icon name="far-pen"></sl-icon>
-              Rename...
-            </sl-menu-item>
-            <sl-menu-item>
-              <sl-icon name="far-trash"></sl-icon>
-              Delete...
-            </sl-menu-item>
-          </sl-menu-button>
-          <sl-tooltip id="tooltip-edit">Edit</sl-tooltip>
-        </sl-tool-bar>
-      </div>
-
-      <p>This example shows a tool bar with icon only buttons / menu buttons with aria-label.</p>
-      <div class="container" ?resizable=${resizable}>
-        <sl-tool-bar
-          ?contained=${contained}
-          ?disabled=${disabled}
-          ?inverted=${inverted}
-          align=${ifDefined(align)}
-          fill=${ifDefined(fill)}
-          style="inline-size: ${width ?? 'auto'}"
-          aria-label="Icon only tool bar with aria-labels"
-        >
-          <sl-button aria-label="Bold" fill="outline">
-            <sl-icon name="far-bold"></sl-icon>
-          </sl-button>
-
-          <sl-button aria-label="Italic" fill="outline">
-            <sl-icon name="far-italic"></sl-icon>
-          </sl-button>
-
-          <sl-button aria-disabled="true" aria-label="Underline (disabled)" fill="outline">
-            <sl-icon name="far-underline"></sl-icon>
-          </sl-button>
-
-          <sl-button aria-label="Underline" fill="outline">
-            <sl-icon name="far-underline"></sl-icon>
-          </sl-button>
-
-          <sl-menu-button aria-label="Settings" fill="outline">
-            <sl-icon name="far-gear" slot="button"></sl-icon>
-            <sl-menu-item>
-              <sl-icon name="far-pen"></sl-icon>
-              Rename...
-            </sl-menu-item>
-            <sl-menu-item>
-              <sl-icon name="far-trash"></sl-icon>
-              Delete...
-            </sl-menu-item>
-          </sl-menu-button>
-
-          <sl-menu-button aria-label="Edit" fill="outline">
-            <sl-icon name="far-pen" slot="button"></sl-icon>
-            <sl-menu-item>
-              <sl-icon name="far-pen"></sl-icon>
-              Rename...
-            </sl-menu-item>
-            <sl-menu-item>
-              <sl-icon name="far-trash"></sl-icon>
-              Delete...
-            </sl-menu-item>
-          </sl-menu-button>
-        </sl-tool-bar>
-      </div>
-    `;
   }
 };
 
@@ -661,74 +496,301 @@ export const Combination: Story = {
   `
 };
 
+export const MixedVariantsAndFills: Story = {
+  render: () => {
+    const makeMixedButtons = (inverted = false) =>
+      inverted
+        ? html`
+            <sl-button aria-label="Copy to clipboard" variant="inverted" fill="outline"
+              ><sl-icon name="far-copy"></sl-icon
+            ></sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-button variant="inverted" fill="solid">Save</sl-button>
+            <sl-button variant="inverted" fill="ghost">Approve</sl-button>
+            <sl-button variant="inverted" fill="link">Details</sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-button variant="inverted" fill="outline">Share</sl-button>
+            <sl-button variant="inverted" fill="outline">Delete</sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-menu-button aria-label="Settings" variant="inverted" fill="outline">
+              <sl-icon name="far-gear" slot="button"></sl-icon>
+              <span slot="button">Settings</span>
+              <sl-menu-item>
+                <sl-icon name="far-pen"></sl-icon>
+                Rename
+              </sl-menu-item>
+              <sl-menu-item>
+                <sl-icon name="far-box-archive"></sl-icon>
+                Archive
+              </sl-menu-item>
+            </sl-menu-button>
+            <sl-menu-button aria-label="More options" variant="inverted" fill="link">
+              <span slot="button">More</span>
+              <sl-menu-item>History</sl-menu-item>
+              <sl-menu-item>Activity</sl-menu-item>
+            </sl-menu-button>
+            <sl-button aria-label="Accessibility settings" variant="inverted" fill="outline"
+              ><sl-icon name="far-universal-access"></sl-icon
+            ></sl-button>
+          `
+        : html`
+            <sl-button aria-label="Copy to clipboard"
+              ><sl-icon name="far-copy"></sl-icon
+            ></sl-button>
+            <sl-button aria-label="Edit item"><sl-icon name="far-pen"></sl-icon></sl-button>
+            <sl-button aria-label="Paste from clipboard"
+              ><sl-icon name="far-paste"></sl-icon
+            ></sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-button fill="solid" variant="primary">Publish</sl-button>
+            <sl-button variant="secondary" fill="outline">Secondary</sl-button>
+            <sl-button variant="success" fill="ghost">Approve</sl-button>
+            <sl-button variant="warning" fill="solid">Review</sl-button>
+            <sl-button variant="info" fill="link">Info</sl-button>
+            <sl-button variant="danger" fill="solid">Delete</sl-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-button fill="ghost">Archive</sl-button>
+            <sl-menu-button aria-label="Settings" variant="secondary" fill="outline">
+              <sl-icon name="far-gear" slot="button"></sl-icon>
+              <span slot="button">Settings</span>
+              <sl-menu-item>
+                <sl-icon name="far-pen"></sl-icon>
+                Rename
+              </sl-menu-item>
+              <sl-menu-item>
+                <sl-icon name="far-box-archive"></sl-icon>
+                Archive
+              </sl-menu-item>
+            </sl-menu-button>
+            <sl-menu-button aria-label="Create options" variant="primary" fill="ghost">
+              <span slot="button">Create</span>
+              <sl-menu-item>New document</sl-menu-item>
+              <sl-menu-item>Duplicate</sl-menu-item>
+            </sl-menu-button>
+            <sl-tool-bar-divider></sl-tool-bar-divider>
+            <sl-button aria-label="Accessibility settings"
+              ><sl-icon name="far-universal-access"></sl-icon
+            ></sl-button>
+            <sl-button fill="outline">Share</sl-button>
+          `;
+    return html`
+      <style>
+        sl-tool-bar[inverted]:not([contained]) {
+          background: var(--sl-elevation-surface-raised-primary);
+        }
+        .mixed-grid {
+          display: grid;
+          gap: 1rem;
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .mixed-grid .item {
+          min-inline-size: 0;
+          overflow: auto;
+          resize: horizontal;
+          padding: 4px; /* room for focus outlines */
+        }
+        .mixed-grid .item.non-contained-space {
+          padding: 6px; /* extra room for non-contained focus outlines */
+        }
+        .mixed-grid .non-contained-surface {
+          padding: 6px;
+        }
+        .mixed-grid .inverted-surface {
+          background: var(--sl-elevation-surface-raised-primary);
+          padding: var(--sl-size-100);
+        }
+        .mixed-grid sl-tool-bar {
+          min-inline-size: 0;
+        }
+        .label {
+          font-weight: 600;
+          font-size: 0.875rem;
+          color: var(--sl-color-text-subtle);
+          margin: 0 0 0.5rem 0;
+        }
+      </style>
+      <div class="container">
+        <h2>Overview</h2>
+        <p>
+          This story demonstrates toolbars with mixed button variants and fill values. Buttons with
+          explicit <code>fill</code> or <code>variant</code> keep their own value regardless of what
+          the toolbar propagates. Drag the right edge of each toolbar to see overflow behavior.
+        </p>
+        <p>
+          <strong>Inverted accessibility note:</strong> The inverted example shows only buttons with
+          sufficient color contrast on dark backgrounds. It uses explicit
+          <code>inverted</code> controls in multiple fills (<code>outline</code>,
+          <code>solid</code>, <code>ghost</code>, <code>link</code>). Icon-only controls and menu
+          buttons include explicit accessible names.
+        </p>
+
+        <h3>Examples</h3>
+        <div class="mixed-grid">
+          <!-- With fill set on toolbar -->
+          <div class="item">
+            <div class="label">With fill="outline" (inherited)</div>
+            <sl-tool-bar aria-label="Mixed buttons with fill" contained fill="outline">
+              ${makeMixedButtons()}
+            </sl-tool-bar>
+          </div>
+
+          <!-- Without fill set on toolbar -->
+          <div class="item">
+            <div class="label">Without fill on toolbar (mixed explicit fills)</div>
+            <sl-tool-bar aria-label="Mixed buttons without toolbar fill" contained>
+              ${makeMixedButtons()}
+            </sl-tool-bar>
+          </div>
+
+          <!-- With ghost fill -->
+          <div class="item">
+            <div class="label">With fill="ghost" (inherited)</div>
+            <sl-tool-bar aria-label="Mixed buttons with ghost fill" contained fill="ghost">
+              ${makeMixedButtons()}
+            </sl-tool-bar>
+          </div>
+
+          <!-- Inverted with mixed fills -->
+          <div class="item">
+            <div class="label">Inverted with mixed fills (accessible names)</div>
+            <sl-tool-bar aria-label="Inverted mixed buttons" contained inverted fill="outline">
+              ${makeMixedButtons(true)}
+            </sl-tool-bar>
+          </div>
+
+          <!-- Non-contained without fill -->
+          <div class="item non-contained-space">
+            <div class="label">Non-contained without fill</div>
+            <div class="non-contained-surface">
+              <sl-tool-bar aria-label="Non-contained mixed buttons">
+                ${makeMixedButtons()}
+              </sl-tool-bar>
+            </div>
+          </div>
+
+          <!-- Non-contained inverted -->
+          <div class="item non-contained-space">
+            <div class="label">Non-contained inverted without fill</div>
+            <div class="inverted-surface">
+              <sl-tool-bar aria-label="Non-contained inverted mixed buttons" inverted>
+                ${makeMixedButtons(true)}
+              </sl-tool-bar>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          <strong>Note:</strong>
+        </p>
+        <ul>
+          <li>
+            This story mixes all supported button fills: <code>outline</code>, <code>solid</code>,
+            <code>ghost</code>, and <code>link</code>.
+          </li>
+          <li>
+            It mixes variants <code>primary</code>, <code>secondary</code>, <code>success</code>,
+            <code>warning</code>, <code>info</code>, and <code>danger</code> on both buttons and
+            menu buttons.
+          </li>
+          <li>
+            In the inverted examples, combinations are intentionally limited to maintain readable
+            contrast while still demonstrating different fill values (solid, ghost, outline, link).
+          </li>
+        </ul>
+      </div>
+    `;
+  }
+};
+
 export const Examples: Story = {
   render: () => {
     const pageOptions = html`
-        <sl-button aria-label="Accessibility">
+        <sl-button tooltip="Accessibility">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
 
         <sl-menu-button>
           <sl-icon name="far-arrow-down-to-line" slot="button"></sl-icon>
           <span slot="button">Insert</span>
-          <sl-menu-item> Image </sl-menu-item>
-          <sl-menu-item> Table </sl-menu-item>
-          <sl-menu-item> Link </sl-menu-item>
-          <sl-menu-item> Code snippet </sl-menu-item>
-          <sl-menu-item> Quote </sl-menu-item>
+          <sl-menu-item>Image</sl-menu-item>
+          <sl-menu-item>Table</sl-menu-item>
+          <sl-menu-item>Link</sl-menu-item>
+          <sl-menu-item>Code snippet</sl-menu-item>
+          <sl-menu-item>Quote</sl-menu-item>
         </sl-menu-button>
 
         <sl-menu-button>
           <sl-icon name="far-arrow-up-from-bracket" slot="button"></sl-icon>
           <span slot="button">Export</span>
-          <sl-menu-item> ... as PDF </sl-menu-item>
-          <sl-menu-item> ... as txt </sl-menu-item>
-          <sl-menu-item> ... as HTML </sl-menu-item>
+          <sl-menu-item>... as PDF</sl-menu-item>
+          <sl-menu-item>... as txt</sl-menu-item>
+          <sl-menu-item>... as HTML</sl-menu-item>
         </sl-menu-button>
 
-        <sl-button aria-label="Edit">
+        <sl-button tooltip="Edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
 
         <sl-tool-bar-divider></sl-tool-bar-divider>
 
-        <sl-button variant="danger">
+        <sl-button>
           <sl-icon name="xmark"></sl-icon>
           Cancel
         </sl-button>
       `,
       options = html`
-        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-        <sl-button aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+        <sl-button tooltip="Copy">
+          <sl-icon name="far-copy"></sl-icon>
+        </sl-button>
+        <sl-button tooltip="Edit">
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+
         <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-button aria-label="Archive"
-          ><sl-icon name="far-box-archive"></sl-icon>Archive</sl-button
-        >
-        <sl-button aria-label="Delete"> <sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+
+        <sl-button>
+          <sl-icon name="far-box-archive"></sl-icon>
+          Archive
+        </sl-button>
+        <sl-button>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
+
         <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-button aria-label="Send"><sl-icon name="far-paper-plane"></sl-icon>Send</sl-button>
+
+        <sl-button>
+          <sl-icon name="far-paper-plane"></sl-icon>
+          Send
+        </sl-button>
       `,
       filteringAndSorting = html`
-        <sl-button aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
-        <sl-button aria-label="Enter"
-          ><sl-icon name="far-arrow-turn-left-down"></sl-icon
-        ></sl-button>
+        <sl-button tooltip="Copy">
+          <sl-icon name="far-copy"></sl-icon>
+        </sl-button>
+        <sl-button tooltip="Enter">
+          <sl-icon name="far-arrow-turn-left-down"></sl-icon>
+        </sl-button>
+
         <sl-tool-bar-divider></sl-tool-bar-divider>
-        <sl-button aria-label="Filter"><sl-icon name="far-bars-filter"></sl-icon></sl-button>
-        <sl-button aria-label="Sort descending"
-          ><sl-icon name="far-arrow-down-wide-short"></sl-icon
-        ></sl-button>
+
+        <sl-button tooltip="Filter">
+          <sl-icon name="far-bars-filter"></sl-icon>
+        </sl-button>
+        <sl-button tooltip="Sort descending">
+          <sl-icon name="far-arrow-down-wide-short"></sl-icon>
+        </sl-button>
 
         <sl-tool-bar-divider></sl-tool-bar-divider>
 
         <sl-menu-button>
           <sl-icon name="far-arrow-down-to-line" slot="button"></sl-icon>
           <span slot="button">Insert</span>
-          <sl-menu-item> Image </sl-menu-item>
-          <sl-menu-item> Table </sl-menu-item>
-          <sl-menu-item> Link </sl-menu-item>
-          <sl-menu-item> Code snippet </sl-menu-item>
-          <sl-menu-item> Quote </sl-menu-item>
+          <sl-menu-item>Image</sl-menu-item>
+          <sl-menu-item>Table</sl-menu-item>
+          <sl-menu-item>Link</sl-menu-item>
+          <sl-menu-item>Code snippet</sl-menu-item>
+          <sl-menu-item>Quote</sl-menu-item>
         </sl-menu-button>
       `;
     return html`
@@ -753,8 +815,7 @@ export const Examples: Story = {
             aria-label="Page options"
             contained
             fill="outline"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${pageOptions}
           </sl-tool-bar>
           <sl-tool-bar
@@ -762,8 +823,7 @@ export const Examples: Story = {
             contained
             inverted
             fill="outline"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${pageOptions}
           </sl-tool-bar>
 
@@ -776,28 +836,37 @@ export const Examples: Story = {
             contained
             inverted
             fill="ghost"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${options}
           </sl-tool-bar>
 
           <sl-tool-bar
             aria-label="Filtering and sorting"
             fill="ghost"
-            style="inline-size: fit-content"
-          >
+            style="inline-size: fit-content">
             ${filteringAndSorting}
           </sl-tool-bar>
 
-          <sl-tool-bar
-            aria-label="Filtering and sorting"
-            inverted
-            fill="ghost"
-            style="inline-size: fit-content"
-          >
-            ${filteringAndSorting}
-          </sl-tool-bar>
+          <div
+            style="background: var(--sl-elevation-surface-raised-primary);  padding: var(--sl-size-100); inline-size: fit-content;">
+            <sl-tool-bar
+              aria-label="Filtering and sorting"
+              inverted
+              fill="ghost"
+              style="inline-size: fit-content;">
+              ${filteringAndSorting}
+            </sl-tool-bar>
+          </div>
         </div>
+        <p>
+          This last example has put in a div with extra padding for demonstration purposes. This
+          prevents the white focus outline that overflows the toolbar from being invisible on the
+          white background.
+        </p>
+        <p>
+          Make sure that a toolbar with the inverted variant is on a dark background, because
+          otherwise the focus outline will not be sufficiently visible against the background.
+        </p>
       </div>
     `;
   }
@@ -816,6 +885,10 @@ export const All: Story = {
 
         .container sl-tool-bar {
           flex: 0 1 auto;
+          min-inline-size: 0;
+        }
+
+        .wrapper > div {
           min-inline-size: 0;
         }
       </style>

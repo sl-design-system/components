@@ -5,7 +5,7 @@ import {
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './error.scss.js';
+import styles from './error.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -22,7 +22,7 @@ export type ErrorSize = 'sm' | 'md' | 'lg';
  */
 export class Error extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
@@ -57,7 +57,7 @@ export class Error extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-icon name="circle-exclamation-solid"></sl-icon>
+      <sl-icon name="triangle-exclamation-solid"></sl-icon>
       <slot></slot>
     `;
   }

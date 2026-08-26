@@ -17,9 +17,12 @@ node_modules/
 .yarn/install-state.gz
 
 # Build output
+.claude/implement-design
+.implement-design
 custom-elements.json
 dist
 storybook-static
+website/.cache
 website/build
 website/dist
 scripts/studio-export
@@ -46,23 +49,6 @@ __snapshots__
 .idea/
 
 # Package build output
-examples/**/*.d.ts
-examples/**/*.d.ts.map
-examples/**/*.js
-examples/**/*.js.map
-packages/checklist/**/*.d.ts
-packages/checklist/**/*.d.ts.map
-packages/checklist/**/*.js
-packages/checklist/**/*.js.map
-packages/components/**/*.d.ts
-packages/components/**/*.d.ts.map
-packages/components/**/*.js
-packages/components/**/*.js.map
-!packages/components/eslint.config.js
-packages/locales/**/*.d.ts
-packages/locales/**/*.d.ts.map
-packages/locales/**/*.js
-packages/locales/**/*.js.map
 packages/themes/**/*.css
 !packages/themes/**/fonts.css
 !packages/themes/core/*.css

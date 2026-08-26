@@ -1,3 +1,4 @@
+import { msg } from '@lit/localize';
 import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { getValueByPath } from '@sl-design-system/shared';
@@ -39,7 +40,11 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
   }
 
   override renderHeaderRow(): TemplateResult {
-    return html`<th part="header drag-handle" role="columnheader"></th>`;
+    return html`
+      <th part="header drag-handle" role="columnheader">
+        <span class="visually-hidden">${msg('Reorder', { id: 'sl.grid.reorder' })}</span>
+      </th>
+    `;
   }
 
   override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
@@ -57,8 +62,7 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
           this.#onStartDrag(event, item.data)}
         @touchstart=${(event: Event & { target: HTMLElement }) =>
           this.#onStartDrag(event, item.data)}
-        part="data drag-handle ${draggable ? '' : 'fixed'}"
-      >
+        part="data drag-handle ${draggable ? '' : 'fixed'}">
         ${draggable ? html`<sl-icon name="grip-lines"></sl-icon>` : nothing}
       </td>
     `;

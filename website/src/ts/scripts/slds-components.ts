@@ -51,6 +51,7 @@ import {
   faHeart as fasHeart,
   faItalic as fasItalic,
   faListUl as fasListUl,
+  faOctagonXmark as fasOctagonXmark,
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@lit-labs/virtualizer/virtualize.js';
@@ -60,11 +61,13 @@ import '@sl-design-system/badge/register.js';
 import '@sl-design-system/breadcrumbs/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/calendar/register.js';
 import '@sl-design-system/callout/register.js';
 import '@sl-design-system/card/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
 import { ArrayListDataSource, FetchListDataSource, FetchListDataSourceError } from '@sl-design-system/data-source';
+import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/editor/register.js';
@@ -156,7 +159,8 @@ Icon.register(
   fasHeart,
   fasItalic,
   fasListUl,
-  fasUnderline
+  fasUnderline,
+  fasOctagonXmark
 );
 
 declare global {

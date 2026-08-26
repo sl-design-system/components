@@ -6,10 +6,10 @@ import { LitElement, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { FormField } from './form-field.js';
 import { Form } from './form.js';
 import { type Label } from './label.js';
+import './register.js';
 
 describe('sl-form', () => {
   let el: Form;
@@ -342,7 +342,7 @@ describe('sl-form', () => {
 
   describe('custom components', () => {
     class customComponent extends ScopedElementsMixin(LitElement) {
-      static get scopedElements(): ScopedElementsMap {
+      static override get scopedElements(): ScopedElementsMap {
         return {
           'sl-form-field': FormField,
           'sl-text-field': TextField

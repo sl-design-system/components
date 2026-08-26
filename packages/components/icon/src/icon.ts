@@ -1,4 +1,4 @@
-/// <reference types="vite/client" />
+import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -8,7 +8,7 @@ import {
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import styles from './icon.scss.js';
+import styles from './icon.css' with { type: 'css' };
 import { type IconDefinition, type IconLibrary } from './models.js';
 
 declare global {
@@ -72,7 +72,7 @@ export class Icon extends LitElement {
   static register(icon: IconDefinition | IconLibrary, ...icons: IconDefinition[]): void {
     if (isIconDefinition(icon)) {
       [icon, ...icons].forEach(i => {
-        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && import.meta.env?.DEV) {
+        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && isDevMode()) {
           console.warn(`Icon ${i.prefix}-${i.iconName} is already in the registry`);
           return;
         }
@@ -100,8 +100,8 @@ export class Icon extends LitElement {
     }
   }
 
-  private static getColorToken(pathCounter: number, style: string): string {
-    return pathCounter === 0 && style === 'fad' ? 'accent' : 'default';
+  private static getColorToken(pathCounter: number, prefix: IconDefinition['prefix']): string {
+    return pathCounter === 0 && (prefix === 'fad' || prefix === 'fadr') ? 'accent' : 'default';
   }
 
   /**

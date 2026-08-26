@@ -3,7 +3,8 @@ import { type EventEmitter, EventsController, event } from '@sl-design-system/sh
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
-import styles from './search-field.scss.js';
+import { property } from 'lit/decorators.js';
+import styles from './search-field.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -16,6 +17,10 @@ declare global {
 }
 
 export type SlSearchEvent = CustomEvent<string>;
+
+export type SearchFieldShape = 'rect' | 'pill';
+
+export type SearchFieldSize = 'md' | 'lg';
 
 /**
  * Search field component.
@@ -37,6 +42,12 @@ export class SearchField extends TextField {
 
   /** @internal Emits when the user presses enter. */
   @event({ name: 'sl-search' }) searchEvent!: EventEmitter<SlSearchEvent>;
+
+  /** The shape of the search field. */
+  @property({ reflect: true }) override shape?: SearchFieldShape;
+
+  /** The size of the search field. */
+  @property({ reflect: true }) override size?: SearchFieldSize;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -71,8 +82,7 @@ export class SearchField extends TextField {
           <button
             @click=${this.#onClick}
             aria-label=${msg('Clear text', { id: 'sl.searchField.clearText' })}
-            tabindex="-1"
-          >
+            tabindex="-1">
             <sl-icon name="circle-xmark"></sl-icon>
             <sl-icon name="circle-xmark-solid"></sl-icon>
           </button>

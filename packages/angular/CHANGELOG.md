@@ -1,5 +1,16 @@
 # @sl-design-system/angular
 
+## 4.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`d80e747`](https://github.com/sl-design-system/components/commit/d80e74722b5229782b663d3b583beaeb1e48fb96), [`43a7273`](https://github.com/sl-design-system/components/commit/43a727325e6db87d8cbe71f5f4bc900b98996f56), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e), [`20a1178`](https://github.com/sl-design-system/components/commit/20a1178f0f1548bd083df7d337ecba443daf579f), [`fc60898`](https://github.com/sl-design-system/components/commit/fc60898ea3c7b5b234a13c6bf157e89528f3a11f), [`3463445`](https://github.com/sl-design-system/components/commit/3463445833fe1d6993017c5b357ede54c34be09b), [`40304dd`](https://github.com/sl-design-system/components/commit/40304ddcd4d74cf94a51ada5729a31ff05437f5e), [`5993ed3`](https://github.com/sl-design-system/components/commit/5993ed3c3826cae829b7e67917a0e77399da04eb)]:
+  - @sl-design-system/combobox@0.1.8
+  - @sl-design-system/number-field@0.1.9
+  - @sl-design-system/locales@0.3.0
+  - @sl-design-system/form@1.4.0
+  - @sl-design-system/select@2.1.4
+
 ## 4.1.0
 
 ### Minor Changes

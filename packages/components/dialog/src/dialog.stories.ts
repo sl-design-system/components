@@ -1,4 +1,4 @@
-import { faBurst } from '@fortawesome/pro-regular-svg-icons';
+import { faBurst, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/combobox/register.js';
@@ -16,8 +16,8 @@ import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { userEvent, within } from 'storybook/test';
-import '../register.js';
 import { type Dialog } from './dialog.js';
+import './register.js';
 
 type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
   body?(): string | TemplateResult;
@@ -31,7 +31,7 @@ type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faBurst);
+Icon.register(faBurst, faTrash);
 
 export default {
   title: 'Overlay/Dialog',
@@ -62,15 +62,17 @@ export default {
     };
 
     return html`
-      ${maxWidth
-        ? html`
-            <style>
-              sl-dialog::part(dialog) {
-                max-inline-size: ${maxWidth};
-              }
-            </style>
-          `
-        : nothing}
+      ${
+        maxWidth
+          ? html`
+              <style>
+                sl-dialog::part(dialog) {
+                  max-inline-size: ${maxWidth};
+                }
+              </style>
+            `
+          : nothing
+      }
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
         <h1 slot="title">${title}</h1>
@@ -213,8 +215,7 @@ export const MobileScrolling: Story = {
           <sl-text-field
             name="email"
             placeholder="Enter your email address"
-            type="email"
-          ></sl-text-field>
+            type="email"></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Address">
@@ -267,9 +268,9 @@ export const DialogWithOverlayComponents: Story = {
         <div class="container">
           This dialog should not close when any overlay component is closed using the Escape key.
           <sl-form>
-            <sl-date-field autofocus select-only placeholder="Choose a date" style="width: fit-content"> </sl-date-field>
+            <sl-date-field aria-label="Choose a date" autofocus select-only placeholder="Choose a date" style="width: fit-content"> </sl-date-field>
 
-            <sl-select placeholder="Select an option">
+            <sl-select aria-label="Select an option" placeholder="Select an option">
               <sl-option value="1">Option 1</sl-option>
               <sl-option value="2">Option 2</sl-option>
               <sl-option value="3">Option 3</sl-option>
@@ -277,7 +278,7 @@ export const DialogWithOverlayComponents: Story = {
               <sl-option value="3">Option 5</sl-option>
             </sl-select>
 
-            <sl-combobox multiple value='["0","2"]'>
+            <sl-combobox aria-label="Select subjects" multiple value='["0","2"]'>
               <sl-listbox>
                 <sl-option value="0">Mathematics</sl-option>
                 <sl-option value="1">Geography</sl-option>

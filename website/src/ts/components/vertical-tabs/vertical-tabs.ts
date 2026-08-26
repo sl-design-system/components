@@ -30,8 +30,6 @@ export class VerticalTabs extends LitElement {
   /** Used to render vertical links content - tagElement is a source of links text, H2 is the default */
   @property() tagElement = 'H2';
 
-  nextUniqueId = 0;
-
   observer = new IntersectionObserver(
     entries => {
       let updated = false;
@@ -140,22 +138,19 @@ export class VerticalTabs extends LitElement {
     return html`
       <div vertical class="ds-tabs">
         <div class="ds-tabs__container">
-          <div class="ds-tabs-wrapper" role="tablist" aria-orientation="vertical">
-            ${links.map(
-              (variant: Element | null) =>
-                html` <a
-                  href=${`#${variant?.id}`}
-                  class="ds-tab--vertical"
-                  role="tab"
-                  tabindex="0"
-                  id=${`ds-vertical-tab-${this.nextUniqueId++}`}
-                  aria-selected="false"
-                  aria-controls=${(variant as HTMLElement)?.id}
-                  @click=${this.#onClick}
-                  >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
-                >`
-            )}
-          </div>
+          <nav class="ds-tabs-wrapper" aria-label="Contents">
+            ${links.map((variant: Element | null, index) => {
+              const id = variant?.id ? `ds-vertical-tab-${variant.id}` : `ds-vertical-tab-${index}`;
+
+              return html` <a
+                href=${`#${variant?.id}`}
+                class="ds-tab--vertical"
+                id=${id}
+                @click=${this.#onClick}
+                >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
+              >`;
+            })}
+          </nav>
           <div class="ds-tabs__vertical-slider">
             <div class="ds-tabs__vertical-indicator"></div>
           </div>
@@ -187,11 +182,11 @@ export class VerticalTabs extends LitElement {
   }
 
   #setActiveTab(verticalTab: HTMLElement): void {
-    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]'),
+    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-current="page"]'),
       verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
 
-    currentVerticalTabLink?.setAttribute('aria-selected', 'false');
-    verticalTab.setAttribute('aria-selected', 'true');
+    currentVerticalTabLink?.removeAttribute('aria-current');
+    verticalTab.setAttribute('aria-current', 'page');
 
     verticalTabs.forEach(v => v.classList.remove('active'));
     verticalTab.classList.add('active');

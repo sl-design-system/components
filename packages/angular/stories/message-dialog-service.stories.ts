@@ -4,7 +4,7 @@ import { provideRouter, withHashLocation } from '@angular/router';
 import { MessageDialogService } from '@sl-design-system/angular';
 import { ButtonComponent } from '@sl-design-system/angular/button';
 import '@sl-design-system/button/register.js';
-import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
+import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular-vite';
 
 @Component({
   standalone: true,
@@ -252,8 +252,7 @@ export class MessageDialogCustomComponentExampleComponent {
           >Open multiple dialogs</sl-button
         >
         <p
-          style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);"
-        >
+          style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
           You can also programmatically close all dialogs using
           <code>closeAll()</code> in your code.
         </p>

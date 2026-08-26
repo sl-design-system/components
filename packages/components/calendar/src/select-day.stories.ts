@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
+import './register.js';
 import { SelectDay } from './select-day.js';
 
 type Props = Pick<
@@ -86,8 +86,7 @@ export default {
       max=${ifDefined(max?.toISOString())}
       min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month?.toISOString())}
-      selected=${ifDefined(selected?.toISOString())}
-    ></sl-select-day>
+      selected=${ifDefined(selected?.toISOString())}></sl-select-day>
   `
 } satisfies Meta<Props>;
 
@@ -227,8 +226,7 @@ export const All: Story = {
               label: 'Event'
             }
           ]}
-          show-today
-        ></sl-select-day>
+          show-today></sl-select-day>
       </div>
     </div>
   `

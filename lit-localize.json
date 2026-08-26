@@ -1,10 +1,11 @@
 {
-  "$schema": "https://raw.githubusercontent.com/lit/lit/main/packages/localize-tools/config.schema.json",
+  "$schema": "./node_modules/@lit/localize-tools/config.schema.json",
   "sourceLocale": "en",
-  "targetLocales": ["nl"],
-  "tsConfig": "tsconfig.all.json",
+  "targetLocales": ["es-ES", "it", "nl", "pl"],
+  "inputFiles": ["packages/components/**/*.ts"],
   "output": {
     "mode": "runtime",
+    "language": "ts",
     "outputDir": "packages/locales/src",
     "localeCodesModule": "packages/locales/src/locale-codes.ts"
   },

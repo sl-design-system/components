@@ -3,8 +3,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
+import './register.js';
 
 describe('sl-progress-bar', () => {
   let el: ProgressBar;
@@ -89,7 +89,7 @@ describe('sl-progress-bar', () => {
 
     expect(label).to.exist;
     expect(label).to.have.trimmed.text('Progress label');
-    expect(icon).to.have.attribute('name', 'octagon-exclamation-solid');
+    expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
   });
 
   it('should have the proper icon when the error variant is set', async () => {
@@ -102,7 +102,7 @@ describe('sl-progress-bar', () => {
 
     expect(label).to.exist;
     expect(label).to.have.trimmed.text('Progress label');
-    expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+    expect(icon).to.have.attribute('name', 'octagon-xmark-solid');
   });
 
   it('should have the icon in the helper text part when there is no label', async () => {

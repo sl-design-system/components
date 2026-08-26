@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type Option } from './option.js';
+import './register.js';
 
 describe('sl-option', () => {
   let el: Option;
@@ -30,6 +30,18 @@ describe('sl-option', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should remove aria-disabled when re-enabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.disabled = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.have.attribute('aria-disabled');
     });
 
     it('should not be selected by default', () => {

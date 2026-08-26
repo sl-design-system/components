@@ -538,7 +538,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
     } else {
       this.#popoverClosing = true;
       this.button.setAttribute('aria-expanded', 'false');
-      this.#removeOutsidePointerListener();
     }
   }
 

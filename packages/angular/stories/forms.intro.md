@@ -7,12 +7,9 @@ In practice, validation is shared between Angular and SLDS:
 
 So SLDS does not replace Angular validation, it integrates component validity with Angular form state and provides consistent validation UX.
 
-`touched` and `dirty` still matter with SLDS controls, but they are not the direct trigger for SLDS validation UI.
+`touched` and `dirty` are Angular form state flags, they are not the direct trigger for SLDS validation UI.
 
-- Angular marks `touched` on blur (through the Angular `ControlValueAccessor` bridge).
-- SLDS `validate-on-blur` also reacts to the same blur event and runs control validation.
-
-So in `validate-on-blur` mode they usually appear to move together, but they are conceptually separate: Angular state flags are form state, while SLDS controls handle validation rendering and reporting.
+Angular marks `touched` through the `ControlValueAccessor` bridge on both `sl-blur` and `sl-change`. This means for controls like checkbox, `touched` can become `true` on the first change, before blur. SLDS `validate-on-blur` runs only on `sl-blur`, so they are conceptually separate even though they often appear to align.
 
 By default, SLDS form validation is **not** on blur. Validation feedback is shown after validation is requested (for example via `reportValidity()` / submit). After that, feedback updates as values change.
 

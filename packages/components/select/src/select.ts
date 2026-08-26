@@ -593,6 +593,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #onFocusin(): void {
+    this.#listenForOutsidePointer();
     this.focusEvent.emit();
   }
 

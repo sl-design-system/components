@@ -205,7 +205,13 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
     this.focusEvent.emit();
   }
 
-  #onFocusout(): void {
+  #onFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (relatedTarget && this.contains(relatedTarget)) {
+      return;
+    }
+
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }

@@ -22,12 +22,14 @@ describe('sl-form', () => {
   interface SegmentedField extends HTMLElement {
     renderRoot: ShadowRoot;
     showValidity?: string;
+    updateComplete: Promise<boolean>;
   }
 
   interface SelectField extends HTMLElement {
     dirty?: boolean;
     renderRoot: ShadowRoot;
     showValidity?: string;
+    updateComplete: Promise<boolean>;
   }
 
   describe('defaults', () => {
@@ -349,9 +351,13 @@ describe('sl-form', () => {
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const checkbox = el.querySelector<HTMLElement & { checked?: boolean; showValidity?: string }>(
-          'sl-checkbox[name="checkbox"]'
-        )!,
+      const checkbox = el.querySelector<
+          HTMLElement & {
+            checked?: boolean;
+            showValidity?: string;
+            updateComplete: Promise<boolean>;
+          }
+        >('sl-checkbox[name="checkbox"]')!,
         label = checkbox.querySelector('label')!;
 
       await userEvent.click(label);
@@ -378,9 +384,9 @@ describe('sl-form', () => {
 
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const checkboxGroup = el.querySelector<HTMLElement & { showValidity?: string }>(
-          'sl-checkbox-group[name="checkboxGroup"]'
-        )!,
+      const checkboxGroup = el.querySelector<
+          HTMLElement & { showValidity?: string; updateComplete: Promise<boolean> }
+        >('sl-checkbox-group[name="checkboxGroup"]')!,
         checkbox = checkboxGroup.querySelector('sl-checkbox')!,
         label = checkbox.querySelector('label')!;
 

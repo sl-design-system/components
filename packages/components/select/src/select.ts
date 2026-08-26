@@ -638,15 +638,20 @@ export class Select<T = any> extends ObserveAttributesMixin(
     window.addEventListener(
       'pointerdown',
       (event: PointerEvent): void => {
-        const target = event.composedPath()[0] as EventTarget | undefined;
-
-        if (target instanceof Node && this.contains(target)) {
+        if (event.composedPath().includes(this)) {
           return;
         }
 
-        // Emit blur if clicking outside - either while popover is open or after clearing
-        this.#emitBlurAndTouch();
-        this.#removeOutsidePointerListener();
+        // Defer so focusout (triggered by clicking a focusable element) can run first
+        // and remove this listener. If it does, skip here to avoid a double sl-blur.
+        setTimeout(() => {
+          if (!this.#outsidePointer) {
+            return;
+          }
+
+          this.#emitBlurAndTouch();
+          this.#removeOutsidePointerListener();
+        });
       },
       { capture: true, signal: abortController.signal }
     );

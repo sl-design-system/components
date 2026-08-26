@@ -1110,10 +1110,6 @@ export class DateField extends LocaleMixin(
     const { day, month, year } = this.dateParts,
       hadValue = this.value !== undefined;
 
-    // Any typing/editing in the segmented input should mark the control dirty,
-    // including partial values that are not yet complete.
-    this.updateState({ dirty: true });
-
     if (day !== undefined && month !== undefined && year !== undefined) {
       const date = new Date(year, month - 1, day);
 
@@ -1124,12 +1120,14 @@ export class DateField extends LocaleMixin(
 
           if (hadValue) {
             this.changeEvent.emit(this.value);
+            this.updateState({ dirty: true });
           }
 
           this.updateValidity();
         } else {
           this.value = date;
           this.changeEvent.emit(this.value);
+          this.updateState({ dirty: true });
           this.updateValidity();
         }
       } else {
@@ -1138,6 +1136,7 @@ export class DateField extends LocaleMixin(
 
         if (hadValue) {
           this.changeEvent.emit(this.value);
+          this.updateState({ dirty: true });
         }
 
         this.updateValidity();
@@ -1148,6 +1147,7 @@ export class DateField extends LocaleMixin(
 
       if (hadValue) {
         this.changeEvent.emit(this.value);
+        this.updateState({ dirty: true });
       }
 
       this.updateValidity();

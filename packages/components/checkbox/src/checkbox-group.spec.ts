@@ -156,6 +156,27 @@ describe('sl-checkbox-group', () => {
       expect(onUpdateState).to.have.been.calledTwice;
     });
 
+    it('should not emit sl-blur or become touched when focus moves between checkboxes within the group', () => {
+      const checkboxes = el.querySelectorAll('sl-checkbox'),
+        input1 = checkboxes[0]?.querySelector('input'),
+        input2 = checkboxes[1]?.querySelector('input'),
+        onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+
+      input1?.focus();
+
+      input2?.focus();
+
+      expect(el.touched).not.to.be.true;
+      expect(onBlur).not.to.have.been.called;
+
+      input2?.blur();
+
+      expect(el.touched).to.be.true;
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
     it('should focus the first checkbox after calling focus()', () => {
       el.focus();
 

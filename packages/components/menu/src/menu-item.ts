@@ -65,12 +65,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
 
-  // Tracks whether aria-disabled was added internally so explicit user-provided values survive.
-  #ariaDisabledFromDisabled = false;
-
-  /** Whether this menu item is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
-
   /** @internal Emits the current selected state as a boolean when the user toggles the menu item. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent>;
 
@@ -96,7 +90,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) variant?: MenuItemVariant;
 
   get #disabled(): boolean {
-    return this.disabled || this.ariaDisabled === 'true';
+    return this.ariaDisabled === 'true';
   }
 
   override connectedCallback(): void {
@@ -108,19 +102,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    if (changes.has('disabled')) {
-      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-      if (this.disabled) {
-        if (this.ariaDisabled !== 'true') {
-          this.setAttribute('aria-disabled', 'true');
-          this.#ariaDisabledFromDisabled = true;
-        }
-      } else if (this.#ariaDisabledFromDisabled) {
-        this.removeAttribute('aria-disabled');
-        this.#ariaDisabledFromDisabled = false;
-      }
-    }
 
     if (changes.has('shortcut')) {
       if (this.shortcut) {

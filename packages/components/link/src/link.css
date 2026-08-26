@@ -69,7 +69,7 @@ sl-icon {
   }
 }
 
-:host(:where([no-icon])) ::slotted(a[href]) {
+:host(:where([no-icon][type='internal'], [no-icon]:not([type]))) ::slotted(a[href]) {
   padding-inline: var(--_inline-padding) var(--_inline-padding);
 }
 

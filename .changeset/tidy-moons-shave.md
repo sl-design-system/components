@@ -25,12 +25,14 @@ side when there is not enough room.
 
 - The `anchor` attribute and the `anchorElement` property have been removed with the
   `AnchorController` that backed them. Link the popover to its anchor with the
-  [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API), by
-  passing a `source` to `showPopover()` or `togglePopover()`, or from CSS.
+  [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API), or
+  by passing a `source` to `showPopover()` or `togglePopover()`. A popover opened without one has
+  no anchor: CSS can still position it, but it gets no arrow and no offset.
 - The `[actual-placement]` and `[anchored]` attributes have been replaced by the `anchored-top`,
   `anchored-right`, `anchored-bottom` and `anchored-left` custom states. Update any custom styles
   targeting these attributes to `sl-popover:state(anchored-bottom)` and friends. The side is also
-  readable from JavaScript as the `placement` property.
+  readable from JavaScript as the `placement` property, which is `undefined` while the popover has
+  no anchor.
 - The `Popover.offset`, `Popover.arrowPadding` and `Popover.viewportMargin` statics have been
   removed. The gap between the anchor and the popover is now the `--_offset` custom property
   (default `12px`), and the arrow sits in that gap, overlapping the border of the container so the
@@ -60,23 +62,9 @@ side when there is not enough room.
   popover.showPopover({ source: button });
   ```
 
-- You can set up the anchor entirely from CSS, which is useful when the anchor lives in the same
-  shadow root as the popover. An `anchor-name` that is already set is kept; the popover adds its
-  own name to the list rather than replacing it.
-
-  ```css
-  button {
-    anchor-name: --my-anchor;
-  }
-
-  sl-popover {
-    position-anchor: --my-anchor;
-  }
-  ```
-
 - The popover no longer slides along its anchor to stay in view; it flips instead.
-- A `PopoverPlacement` type is exported for the side the popover ended up on.
-- The invoker is related to the popover with `aria-details`, and with `aria-describedby` when the
-  content is plain text and `no-describedby` is not set, just as the anchor was before. Attributes
-  you set yourself are left alone, and only the ones the popover added are removed again when it
-  closes.
+- The invoker is described by the popover with `aria-describedby` when the content is plain text
+  and `no-describedby` is not set, just as the anchor was before. An `aria-describedby` you set
+  yourself is left alone, and the one the popover added is removed again when it closes. The
+  `aria-details` relationship is no longer set here: an invoker command gives the button that
+  implicitly, on its accessible node rather than as an attribute.

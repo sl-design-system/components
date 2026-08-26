@@ -258,21 +258,16 @@ export const All: Story = {
     layout: 'centered'
   },
   render: () => {
-    // There is no invoker here, so the popovers are anchored from CSS and opened programmatically
-    // to show every side at once.
+    // There is no invoker here, so every popover is opened against the button programmatically.
     setTimeout(() => {
-      document.querySelectorAll('sl-popover').forEach(popover => popover.showPopover());
+      const anchor = document.querySelector('sl-button') as HTMLElement;
+
+      document
+        .querySelectorAll('sl-popover')
+        .forEach(popover => popover.showPopover({ source: anchor }));
     });
 
     return html`
-      <style>
-        sl-button {
-          anchor-name: --anchor;
-        }
-        sl-popover {
-          position-anchor: --anchor;
-        }
-      </style>
       <sl-button>Anchor</sl-button>
       <sl-popover popover="manual" style="position-area: top">Top</sl-popover>
       <sl-popover popover="manual" style="position-area: right">Right</sl-popover>

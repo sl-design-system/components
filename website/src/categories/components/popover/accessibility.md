@@ -33,7 +33,7 @@ When the popover contains plain text content (with no HTML markup), the element 
 
 If you have a large piece of text in the popover, you can set the `no-describedby` attribute, and the connection won’t be made automatically. This way, the user can navigate to and from the description themselves.
 
-Some screen readers have a functionality that lets the user “jump” to the element referred to by `aria-details` (which is set on all triggers and popovers automatically). Unfortunately, not all readers support this feature. Therefore, it’s crucial to always place the popover immediately after the element that triggers it. This ensures that it comes next in the page flow, allowing users to find it promptly.
+Some screen readers have a functionality that lets the user “jump” to the element referred to by `aria-details`. A trigger that opens the popover with the `command` and `commandfor` attributes gets that relationship from the browser, on its accessible node rather than as an attribute you can see in the DOM; a popover opened from JavaScript with `showPopover({ source })` does not, so set `aria-details` on the trigger yourself there. Unfortunately, not all readers support this feature. Therefore, it’s crucial to always place the popover immediately after the element that triggers it. This ensures that it comes next in the page flow, allowing users to find it promptly.
 
 </section>
 <section>

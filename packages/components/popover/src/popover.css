@@ -85,11 +85,14 @@
   }
 }
 
+/* The two rules below also bring the arrow back; see the `display: none` on it. */
 :host(:is(:state(anchored-bottom), :state(anchored-top))) [part='arrow'] {
+  display: grid;
   inset-inline-start: calc(anchor(center) - var(--_arrow-size) / 2);
 }
 
 :host(:is(:state(anchored-left), :state(anchored-right))) [part='arrow'] {
+  display: grid;
   inset-block-start: calc(anchor(center) - var(--_arrow-size) / 2);
 }
 
@@ -112,7 +115,7 @@
 
 [part='arrow'] {
   block-size: var(--_arrow-size);
-  display: grid;
+  display: none;
   fill: var(--sl-elevation-surface-raised-default);
   inline-size: var(--_arrow-size);
   position: fixed;

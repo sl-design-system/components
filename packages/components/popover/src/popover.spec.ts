@@ -4,7 +4,7 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Popover, type PopoverPlacement } from './popover.js';
+import { Popover } from './popover.js';
 import './register.js';
 
 describe('sl-popover', () => {
@@ -251,7 +251,7 @@ describe('sl-popover', () => {
           ? (rect.left + rect.right) / 2
           : (rect.top + rect.bottom) / 2;
 
-      (['top', 'right', 'bottom', 'left'] as PopoverPlacement[]).forEach(placement => {
+      (['top', 'right', 'bottom', 'left'] as const).forEach(placement => {
         describe(`anchored at the ${placement}`, () => {
           let anchor: HTMLElement, anchorRect: DOMRect, arrowRect: DOMRect, popoverRect: DOMRect;
           let borderWidth: number, offset: number;
@@ -303,6 +303,36 @@ describe('sl-popover', () => {
     });
   });
 
+  describe('reconnecting', () => {
+    // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
+    const afterToggle = () => new Promise(resolve => setTimeout(resolve));
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div>
+          <sl-button id="anchor5" variant="primary">Toggle popover</sl-button>
+          <sl-popover>Popover content</sl-popover>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+      popover = el.querySelector('sl-popover') as Popover;
+    });
+
+    it('should still anchor the popover after it was moved in the DOM', async () => {
+      // The stylesheet that anchors the arrow is a child of the popover, so it travels with it.
+      popover.remove();
+      el.append(popover);
+
+      popover.showPopover({ source: button });
+      await afterToggle();
+
+      expect(popover.querySelectorAll('style')).to.have.length(1);
+      expect(popover.placement).to.equal('bottom');
+      expect(popover.matches(':state(anchored-bottom)')).to.be.true;
+    });
+  });
+
   describe('CSS anchoring', () => {
     // The `toggle` event is queued as a task, so it fires after `updateComplete` has resolved.
     const afterToggle = () => new Promise(resolve => setTimeout(resolve));
@@ -333,25 +363,17 @@ describe('sl-popover', () => {
       document.adoptedStyleSheets = document.adoptedStyleSheets.filter(s => s !== sheet);
     });
 
-    it('should set the placement when the anchor comes from CSS alone', async () => {
+    it('should not place the popover when it is opened without an invoker', async () => {
       popover.showPopover();
       await afterToggle();
 
-      expect(popover.placement).to.equal('bottom');
-      expect(popover.matches(':state(anchored-bottom)')).to.be.true;
-    });
+      // CSS still positions the popover, but the component has no anchor to measure against, so
+      // there is no placement and the arrow stays hidden rather than rendering in flow.
+      expect(popover.placement).to.be.undefined;
 
-    it('should point the arrow at the anchor that comes from CSS alone', async () => {
-      popover.showPopover();
-      await afterToggle();
+      const arrow = popover.renderRoot.querySelector('[part="arrow"]')!;
 
-      const anchorRect = anchor.getBoundingClientRect(),
-        arrowRect = popover.renderRoot.querySelector('[part="arrow"]')!.getBoundingClientRect();
-
-      expect((arrowRect.left + arrowRect.right) / 2).to.be.closeTo(
-        (anchorRect.left + anchorRect.right) / 2,
-        0.5
-      );
+      expect(getComputedStyle(arrow).display).to.equal('none');
     });
 
     it('should keep the position anchor the consumer set', async () => {
@@ -364,6 +386,27 @@ describe('sl-popover', () => {
       await afterToggle();
 
       expect(popover.style.positionAnchor).to.equal('--css-anchor');
+    });
+
+    it('should keep the name of another popover on the same anchor', async () => {
+      const other = document.createElement('sl-popover');
+      other.setAttribute('popover', 'manual');
+      other.textContent = 'Other popover';
+      el.append(other);
+
+      popover.setAttribute('popover', 'manual');
+
+      popover.showPopover({ source: anchor });
+      await afterToggle();
+      other.showPopover({ source: anchor });
+      await afterToggle();
+
+      popover.hidePopover();
+      await afterToggle();
+
+      // Closing one popover must not take the other one's name off the shared anchor.
+      expect(other.style.positionAnchor).to.not.equal('');
+      expect(getComputedStyle(anchor).anchorName).to.contain(other.style.positionAnchor);
     });
 
     it('should not leave a name that came from a stylesheet behind inline', async () => {
@@ -396,7 +439,7 @@ describe('sl-popover', () => {
       await afterToggle();
     };
 
-    it('should relate the invoker to the popover', async () => {
+    it('should describe the invoker with the popover', async () => {
       await setup(html`
         <div>
           <button>Toggle</button>
@@ -404,8 +447,20 @@ describe('sl-popover', () => {
         </div>
       `);
 
-      expect(anchor).to.have.attribute('aria-details', popover.id);
       expect(anchor).to.have.attribute('aria-describedby', popover.id);
+    });
+
+    it('should leave the details relationship to the browser', async () => {
+      await setup(html`
+        <div>
+          <button>Toggle</button>
+          <sl-popover>Popover content</sl-popover>
+        </div>
+      `);
+
+      // An invoker command gives the button an implicit `aria-details` pointing at the popover,
+      // which lives on the accessible node rather than on an attribute.
+      expect(anchor).not.to.have.attribute('aria-details');
     });
 
     it('should not describe the invoker when no-describedby is set', async () => {
@@ -416,7 +471,6 @@ describe('sl-popover', () => {
         </div>
       `);
 
-      expect(anchor).to.have.attribute('aria-details', popover.id);
       expect(anchor).not.to.have.attribute('aria-describedby');
     });
 
@@ -431,7 +485,6 @@ describe('sl-popover', () => {
         </div>
       `);
 
-      expect(anchor).to.have.attribute('aria-details', popover.id);
       expect(anchor).not.to.have.attribute('aria-describedby');
     });
 

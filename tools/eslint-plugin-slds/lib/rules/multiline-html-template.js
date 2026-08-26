@@ -30,7 +30,7 @@ export const multilineHtmlTemplate = {
 
           // Check if template spans multiple lines
           if (templateContent.includes('\n')) {
-            const sourceCode = context.getSourceCode();
+            const sourceCode = context.sourceCode;
             const templateText = sourceCode.getText(quasi);
 
             // Check if there's a newline after the opening backtick

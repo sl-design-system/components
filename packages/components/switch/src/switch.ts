@@ -38,7 +38,7 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
 /**
  * A toggle switch.
  *
- * @customelement sl-switch
+ * @element sl-switch
  *
  * @slot - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot description - Additional information about the switch, displayed below the label.

@@ -2015,12 +2015,8 @@ describe('sl-combobox', () => {
         await waitForNextFrame();
 
         // The current item should be set and aria-activedescendant should point to it
-        if (el.currentItem) {
-          expect(input).to.have.attribute('aria-activedescendant', el.currentItem.id);
-        } else {
-          // If currentItem is not set, that's also acceptable for initial state
-          expect(el.currentItem).to.be.undefined;
-        }
+        expect(el.currentItem).to.exist;
+        expect(input).to.have.attribute('aria-activedescendant', el.currentItem!.id);
       });
     });
 

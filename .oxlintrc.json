@@ -25,6 +25,7 @@
         "csspart": "csspart",
         "cssprop": "cssprop",
         "cssstate": "cssstate",
+        "element": "element",
         "slot": "slot"
       }
     }

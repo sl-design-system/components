@@ -35,9 +35,9 @@ export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 /**
  * A button that lets the user toggle between two states.
  *
- * @customElement sl-toggle-button
+ * @element sl-toggle-button
  *
- * @slot default - The icon shown in the default state of the button
+ * @slot - The icon shown in the default state of the button
  * @slot pressed - The icon shown in the pressed state of the button
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.

@@ -1,6 +1,4 @@
 import { importCssSheet } from '@sl-design-system/rolldown-plugin-css-sheet';
-import { readFileSync } from 'node:fs';
-import { URL } from 'node:url';
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({

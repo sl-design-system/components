@@ -216,15 +216,6 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
       return;
     }
 
-    const { validity } = control,
-      hasFormatError = !control.valid && !validity.valueMissing,
-      hasMissingRequiredValue = control.required && validity.valueMissing;
-
-    // On blur, required fields should validate even when no value was entered yet.
-    if (!hasFormatError && !hasMissingRequiredValue) {
-      return;
-    }
-
     control.reportValidity();
   }
 

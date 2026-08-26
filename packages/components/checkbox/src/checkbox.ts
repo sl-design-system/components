@@ -447,7 +447,9 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     event.stopPropagation();
 
-    this.input.focus();
+    if (!(event instanceof MouseEvent) || event.detail > 0) {
+      this.input.focus();
+    }
 
     this.checked = !this.checked;
     this.input.checked = this.checked;

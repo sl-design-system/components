@@ -22,37 +22,10 @@ Do not use a Standalone Link when the primary purpose is to perform an action ra
 
 </section>
 
-<section>
-
-## Link Types
-
-### Internal link
-Use for destinations within the same product or ecosystem.
-
-* Open in the same tab when the destination is part of the user's primary journey.
-* Open in a new tab when users need to preserve their current context, such as during a workflow where supporting information is required.
-
-### External link
-Use for destinations outside the product or organization domain.
-
-* Always opens in a new tab.
-* Always displays an external link icon.
-  
-### Email link
-Used for `mailto:` links.
-
-* Always opens in a new tab (opens the user's mail client).
-* Always displays an envelope icon.
-
-### Telephone link
-Used for `tel:` links.
-
-* Always opens in a new tab (triggers the device's phone/calling app).
-* Always displays a mobile icon.
-
-</section>
-
 <section class="ds-cards">
+
+## Link types
+  
   <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" id="interactive-example-1" size="sm"></sl-icon>
@@ -62,29 +35,103 @@ Used for `tel:` links.
     </div>
     <figcaption>
 
-### Internal link
-Use for destinations within the same product or ecosystem.
-* Open in the same tab when the destination is part of the user's primary journey.
-* Open in a new tab when users need to preserve their current context, such as during a workflow where supporting information is required.
+### Default internal link
+The default internal link contains no icons and is used for navigating to destinations within the same product or ecosystem. This link always opens in the same tab.
 
     </figcaption>
   </figure>
+  
   <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" id="interactive-example-2" size="sm"></sl-icon>
-          <sl-link no-icon="">
-      <a href="/dashboard">Internal link</a></sl-link>
+            <sl-link>
+      <a href="/dashboard">Internal link</a>
+    </sl-link>
     </div>
     <figcaption>
-
-### External link
-Use for destinations outside the product or organization domain.
-
-* Always opens in a new tab.
-* Always displays an external link icon.
+      
+### Internal link with arrow on the right
+Used similarly to the default internal link, but includes a right arrow icon to add emphasis or indicate moving forward in a process. This link always opens in the same tab.
 
     </figcaption>
   </figure>
+
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-3" size="sm"></sl-icon>
+    <sl-link icon-position="start">
+      <a href="/dashboard">Internal link</a>
+    </sl-link>
+    </div>
+    <figcaption>
+      
+### Internal link with arrow on the left
+Used similarly to the default internal link, but includes a left arrow icon to indicate moving back in a process. This link always opens in the same tab.
+
+    </figcaption>
+  </figure>
+
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-4" size="sm"></sl-icon>
+    <sl-link icon-position="start">
+      <a href="/dashboard" target="blank">Internal link</a>
+    </sl-link>
+    </div>
+    <figcaption>
+      
+### Internal link that opens in a new tab.
+Open in a new tab when users need to preserve their current context, such as during a workflow where supporting information is required.
+
+    </figcaption>
+  </figure>
+
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-5" size="sm"></sl-icon>
+    <sl-link>
+      <a href="https://sanomalearning.com" target="blank">External link</a>
+    </sl-link>
+    </div>
+    <figcaption>
+      
+### External link
+Use for destinations outside the product or organization domain. Always displays an external link icon and opens in a new tab.
+
+    </figcaption>
+  </figure>
+
+  
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-6" size="sm"></sl-icon>
+    <sl-link>
+      <a href="mailto:team@sanomalearning.design">Email link</a>
+    </sl-link>
+    </div>
+    <figcaption>
+      
+### Email link
+Used for `mailto:` links. Always displays an envelope icon and triggers the user's default mail client.
+
+    </figcaption>
+  </figure>
+
+    <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-6" size="sm"></sl-icon>
+    <sl-link>
+      <a href="tel:+123456789012">Telephone link</a>
+    </sl-link>
+    </div>
+    <figcaption>
+      
+### Telephone link
+Used for `tel:` links. Always displays a phone icon and triggers the device's calling application.
+
+    </figcaption>
+  </figure>
+  
 </section>
 
 <section>
@@ -100,6 +147,8 @@ Each variant carries a specific semantic meaning, which in turn determines the c
 * Danger — used for negative links, for example within a negative inline message.
   
 </section>
+
+<section>
 
 ## Fill
 Available fill types: Solid, Outline, and Ghost.
@@ -170,8 +219,6 @@ This component is available in three sizes to accommodate different layouts, hie
 </div>
 
 </section>
-
-<section>
 
 <section>
 

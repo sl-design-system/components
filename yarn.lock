@@ -7776,6 +7776,7 @@ __metadata:
     "@sl-design-system/button": "npm:^2.1.2"
     "@sl-design-system/icon": "npm:^1.4.3"
     "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/switch": "npm:^1.2.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
@@ -8113,7 +8114,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/switch@npm:^1.1.7, @sl-design-system/switch@workspace:packages/components/switch":
+"@sl-design-system/switch@npm:^1.1.7, @sl-design-system/switch@npm:^1.2.0, @sl-design-system/switch@workspace:packages/components/switch":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"
   dependencies:

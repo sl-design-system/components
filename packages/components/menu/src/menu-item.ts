@@ -147,8 +147,12 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       this.role = this.selectable ? selectMode : 'menuitem';
     }
 
-    if (changes.has('selectable') || changes.has('selected')) {
-      if (this.selectable) {
+    if (changes.has('switch')) {
+      this.role = this.switch ? 'menuitemcheckbox' : 'menuitem';
+    }
+
+    if (changes.has('selectable') || changes.has('switch') || changes.has('selected')) {
+      if (this.selectable || this.switch) {
         this.setAttribute('aria-checked', (this.selected || false).toString());
       } else {
         this.removeAttribute('aria-checked');

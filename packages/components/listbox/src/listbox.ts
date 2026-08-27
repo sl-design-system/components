@@ -12,7 +12,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './listbox.scss.js';
+import styles from './listbox.css' with { type: 'css' };
 import { OptionGroupHeader } from './option-group-header.js';
 import { OptionGroup } from './option-group.js';
 import { Option, type OptionEmphasis } from './option.js';
@@ -256,6 +256,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
         this.#virtualizer ||= this.shadowRoot!.createElement('sl-virtual-list');
         this.#virtualizer.setAttribute('data-virtual-list', '');
+        this.#virtualizer.renderInLightDom = true;
         this.#virtualizer.items = this.items ?? [];
         this.#virtualizer.scrollMargin = 0;
         const gapValue = parseFloat(getComputedStyle(this).gap);

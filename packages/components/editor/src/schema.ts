@@ -145,7 +145,7 @@ export const marks: Record<EditorMarks, MarkSpec> = {
         tag: 'span',
         preserveWhitespace: true,
         getAttrs: domNode => {
-          const dom = domNode as HTMLSpanElement;
+          const dom = domNode;
 
           if (dom.style.whiteSpace === 'pre') {
             return {};

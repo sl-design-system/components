@@ -5,9 +5,9 @@ import { Person } from '@sl-design-system/example-data';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { GridColumnDataRenderer } from './column.js';
 import { type Grid } from './grid.js';
+import './register.js';
 
 describe('sl-column', () => {
   let el: Grid;
@@ -99,6 +99,25 @@ describe('sl-column', () => {
           cell => cell.firstElementChild?.tagName === 'SL-ELLIPSIZE-TEXT'
         )
       ).to.deep.equal([true, false, false]);
+    });
+
+    it('should keep cell padding when ellipsized text adds a tooltip', async () => {
+      el.querySelector('sl-grid-column')!.ellipsizeText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      const cell = el.renderRoot.querySelector<HTMLTableCellElement>(
+        'tbody tr:first-of-type td:first-of-type'
+      )!;
+
+      const { paddingBlockStart: beforeStart, paddingBlockEnd: beforeEnd } = getComputedStyle(cell);
+
+      cell.append(document.createElement('sl-tooltip'));
+
+      const { paddingBlockStart: afterStart, paddingBlockEnd: afterEnd } = getComputedStyle(cell);
+
+      expect(afterStart).to.equal(beforeStart);
+      expect(afterEnd).to.equal(beforeEnd);
     });
   });
 

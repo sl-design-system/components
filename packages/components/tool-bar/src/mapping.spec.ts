@@ -2,11 +2,9 @@ import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { type MenuButton, type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
-
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import '../register.js';
 import {
   type ToolBarItemButton,
   mapButtonToItem,
@@ -14,6 +12,7 @@ import {
   mapMenuButtonToItem,
   mapMenuItemToItem
 } from './mapping.js';
+import './register.js';
 import { type ToolBar } from './tool-bar.js';
 
 describe('mapButtonToItem', () => {

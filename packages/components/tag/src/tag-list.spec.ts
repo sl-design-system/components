@@ -2,8 +2,9 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { type TagList } from './tag-list.js';
+import { type Tag } from './tag.js';
 
 describe('sl-tag-list', () => {
   let el: TagList;
@@ -329,28 +330,26 @@ describe('sl-tag-list', () => {
     });
 
     it('should have a tooltip for the stack', () => {
-      const tag = el.renderRoot.querySelector('sl-tag'),
-        tooltip = el.renderRoot.querySelector('sl-tooltip'),
-        label = tag?.renderRoot.querySelector('[part="label"]'),
-        description = tag?.renderRoot.querySelector('#label-description');
+      const tag = el.renderRoot.querySelector<Tag>('sl-tag.stack'),
+        tooltip = tag?.renderRoot.querySelector('sl-tooltip'),
+        label = tag?.renderRoot.querySelector<HTMLElement>('[part="label"]');
 
       expect(tooltip).to.exist;
       expect(tag).not.to.have.attribute('aria-labelledby');
-      expect(tag).to.have.attribute('aria-describedby', 'tooltip');
-      expect(label).to.have.attribute('aria-describedby', 'label-description');
-      expect(description).to.have.class('visually-hidden');
+      expect(tag).not.to.have.attribute('aria-describedby');
+      expect(label).to.have.attribute('aria-describedby', 'tooltip');
+      expect(tooltip).to.have.attribute('for', 'label');
+      expect(label?.ariaLabelledByElements).to.include(tooltip);
 
-      const tagContent = tooltip?.textContent?.trim(),
-        descriptionContent = description?.textContent?.trim();
+      const tooltipContent = tooltip?.textContent?.trim();
 
-      expect(tagContent).to.exist;
-      expect(tagContent?.includes('List of hidden elements:')).to.be.true;
+      expect(tooltipContent).to.exist;
+      expect(tooltipContent?.includes('List of hidden elements:')).to.be.true;
       expect(
-        tagContent?.includes(
+        tooltipContent?.includes(
           'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
         )
       ).to.be.true;
-      expect(descriptionContent).to.equal(tagContent);
     });
 
     it('should have a stack with a tag, which contains the stack size', () => {
@@ -668,6 +667,61 @@ describe('sl-tag-list', () => {
 
       expect(visibility).to.deep.equal(['none', 'none', '']);
       expect(el.stackSize).to.equal(2);
+    });
+
+    it('should constrain the last visible tag when it does not fit next to the stack', async () => {
+      el = await fixture(html`
+        <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+          <sl-tag removable>Tag 1</sl-tag>
+          <sl-tag removable>Tag 2</sl-tag>
+          <sl-tag removable>Very long selected tag that should overflow</sl-tag>
+        </sl-tag-list>
+      `);
+
+      // Container is 140px, stack 40px, gap 10px => remaining width is 90px.
+      // The last tag is 180px, but it should remain visible and truncate inside that space.
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 140, 20);
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach((tag, index) => {
+        tag.getBoundingClientRect = () => new DOMRect(0, 0, index === 2 ? 180 : 100, 20);
+      });
+
+      await triggerVisibilityUpdate();
+
+      const tags = Array.from(el.querySelectorAll('sl-tag'));
+
+      expect(tags.map(t => t.style.display)).to.deep.equal(['none', 'none', '']);
+      expect(tags[2].style.maxInlineSize).to.equal('90px');
+      expect(el.stackSize).to.equal(2);
+    });
+
+    it('should restore a constrained tag max-inline-size before measuring again', async () => {
+      el = await fixture(html`
+        <sl-tag-list stacked style="gap: 10px; padding: 0; margin: 0; border: none;">
+          <sl-tag removable>Tag 1</sl-tag>
+          <sl-tag removable>Very long selected tag that should overflow</sl-tag>
+        </sl-tag-list>
+      `);
+
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 140, 20);
+      el.stack!.getBoundingClientRect = () => new DOMRect(0, 0, 40, 20);
+
+      Array.from(el.querySelectorAll('sl-tag')).forEach((tag, index) => {
+        tag.getBoundingClientRect = () => new DOMRect(0, 0, index === 1 ? 180 : 100, 20);
+      });
+
+      await triggerVisibilityUpdate();
+
+      const longTag = el.querySelectorAll('sl-tag')[1] as HTMLElement;
+
+      expect(longTag.style.maxInlineSize).to.equal('90px');
+
+      el.getBoundingClientRect = () => new DOMRect(0, 0, 300, 20);
+      await triggerVisibilityUpdate();
+
+      expect(longTag.style.maxInlineSize).to.equal('');
+      expect(el.stackSize).to.equal(0);
     });
 
     it('should not overwrite cached stack width when the stack measurement is 0', async () => {

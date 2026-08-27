@@ -2,9 +2,9 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import '../register.js';
 import { Calendar } from './calendar.js';
 import { type MonthView } from './month-view.js';
+import './register.js';
 import { type SelectDay } from './select-day.js';
 import { type SelectMonth } from './select-month.js';
 import { type SelectYear } from './select-year.js';
@@ -836,19 +836,17 @@ describe('sl-calendar', () => {
           .querySelector<SelectDay>('sl-select-day')
           ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])'),
         dayButton = monthView?.renderRoot.querySelector<HTMLButtonElement>('button[tabindex="0"]'),
-        indicatorId = dayButton?.getAttribute('aria-describedby'),
-        indicatorTooltip = indicatorId
-          ? (monthView?.renderRoot as ShadowRoot)?.getElementById(indicatorId)
-          : null;
-
-      dayButton?.focus();
-
-      const helperText = el.renderRoot.querySelector('.helper-text');
+        indicatorTooltip = dayButton?.nextElementSibling,
+        helperText = el.renderRoot.querySelector('.helper-text');
 
       expect(dayButton).to.exist;
       expect(indicatorTooltip).to.exist;
-      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
+      expect(indicatorTooltip).to.have.trimmed.text('Event');
+
+      dayButton?.focus();
+
       expect(dayButton?.ariaDescribedByElements).to.include(indicatorTooltip);
+      expect(dayButton?.ariaDescribedByElements).to.include(helperText);
     });
   });
 });

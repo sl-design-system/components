@@ -13,11 +13,9 @@ import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
-import { tooltip } from '@sl-design-system/tooltip';
-import '@sl-design-system/tooltip/register.js';
 import { type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import '../../register.js';
+import '.././register.js';
 import { type SlActiveRowChangeEvent, type SlSelectionChangeEvent } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
@@ -127,10 +125,10 @@ export const Multiple: Story = {
           Action 1
         </sl-button>
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
+          tooltip="I am a tooltip"
           variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2
@@ -206,8 +204,7 @@ sl-dialog::part(body) {
 sl-grid::part(bulk-actions) {
   inset-block-start: calc(anchor(bottom) - var(--sl-size-300));
   position-anchor: --grid-dialog;
-}</pre
-      >
+}</pre>
 
       <p>
         There is a known issue where the bulk actions bar gets placed under the dialog overlay when
@@ -251,10 +248,10 @@ sl-grid::part(bulk-actions) {
               Action 1
             </sl-button>
             <sl-button
-              ${tooltip('I am a tooltip')}
               aria-disabled="true"
               fill="outline"
               slot="bulk-actions"
+              tooltip="I am a tooltip"
               variant="inverted">
               <sl-icon name="far-right-to-line"></sl-icon>
               Action 2
@@ -323,10 +320,10 @@ export const MultipleWithMenuButton: Story = {
           Action 1
         </sl-button>
         <sl-button
-          ${tooltip('I am a tooltip')}
           aria-disabled="true"
           fill="outline"
           slot="bulk-actions"
+          tooltip="I am a tooltip"
           variant="inverted">
           <sl-icon name="far-right-to-line"></sl-icon>
           Action 2

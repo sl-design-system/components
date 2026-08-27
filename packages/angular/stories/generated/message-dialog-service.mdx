@@ -20,6 +20,7 @@ The **MessageDialogService** provides an API for displaying and managing message
 Opens a message dialog with a custom Angular component or a text message.
 
 **Configuration:**
+
 - For message dialogs with a custom Angular component:
   - `component` (required) - The component to show
   - `data` (optional) - Data to pass to the component
@@ -36,6 +37,7 @@ Opens a message dialog with a custom Angular component or a text message.
 **Returns:** a `MessageDialogRef` to control the dialog.
 
 **Example with component:**
+
 ```typescript
 // Define your dialog component
 @Component({
@@ -86,6 +88,7 @@ const dialogRef = this.messageDialogService.showModal({
 Shows an alert message with an `OK` button.
 
 **Example:**
+
 ```typescript
 await this.messageDialogService.alert('Operation completed!', 'Success');
 ```
@@ -97,6 +100,7 @@ await this.messageDialogService.alert('Operation completed!', 'Success');
 Shows a confirmation dialog with `OK` and `Cancel` buttons. Returns `true` if `OK` is clicked, `false` if `Cancel` is clicked, or `undefined` if closed without clicking a button.
 
 **Example:**
+
 ```typescript
 const confirmed = await this.messageDialogService.confirm(
   'Are you sure you want to delete this item?',
@@ -116,6 +120,7 @@ Shows a message dialog with custom configuration using the static MessageDialog 
 This method uses the static MessageDialog API and does not return a `MessageDialogRef`.
 
 **Example:**
+
 ```typescript
 const result = await this.messageDialogService.show({
   title: 'Choose an option',
@@ -139,9 +144,11 @@ if (result === 'publish') {
 Closes all open message dialogs at once.
 
 **Parameters:**
+
 - `result` (optional) - Value to pass to all dialogs. All `afterClosed()` subscribers will receive this value.
 
 **Example:**
+
 ```typescript
 // Close all dialogs
 this.messageDialogService.closeAll();
@@ -153,10 +160,11 @@ this.messageDialogService.closeAll('cancelled');
 ---
 
 ## MessageDialogRef API
-  
+
 The `MessageDialogRef` is a handle for controlling an open message dialog.
 
 It lets you:
+
 - Close the dialog with `close()`
 - Get notified when the dialog closes with `afterClosed()`
 - Pass a value when closing
@@ -168,6 +176,7 @@ It lets you:
 Returns an Observable that emits when the dialog closes. It emits the value passed to `close()`, or `undefined` if the dialog was closed without a value.
 
 **Example:**
+
 ```typescript
 dialogRef.afterClosed().subscribe(result => {
   if (result) {
@@ -185,6 +194,7 @@ dialogRef.afterClosed().subscribe(result => {
 Closes the dialog. You can optionally pass a value that will be sent to `afterClosed()` subscribers.
 
 **Example:**
+
 ```typescript
 // Close with a value
 dialogRef.close('save');
@@ -238,16 +248,16 @@ You must provide **either** a `component` **or** a `message` (not both).
 {
   /** The component to show */
   component: Type<T>;
-  
+
   /** Data to pass to the component (use @Inject('MESSAGE_DIALOG_DATA') to access) */
   data?: unknown;
-  
+
   /** The dialog title */
   title?: string;
-  
+
   /** Buttons to show */
   buttons?: Array<MessageDialogButton>;
-  
+
   /** Set to true to prevent closing with Escape or clicking outside */
   disableCancel?: boolean;
 }
@@ -259,17 +269,18 @@ You must provide **either** a `component` **or** a `message` (not both).
 {
   /** The text or HTML to show */
   message: string | TemplateResult;
-  
+
   /** The dialog title */
   title?: string;
-  
+
   /** Buttons to show */
   buttons?: Array<MessageDialogButton>;
-  
+
   /** Set to true to prevent closing with Escape or clicking outside */
   disableCancel?: boolean;
 }
 ```
+
 ---
 
 ## Static Methods
@@ -320,7 +331,9 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
     <div>
       <h4>show() with HTML Content</h4>
       <p>You can use <code>show()</code> method to render HTML content in the message.</p>
-      <sl-button (click)="showCustomMessage()" variant="primary">Show custom HTML message</sl-button>
+      <sl-button (click)="showCustomMessage()" variant="primary">
+        Show custom HTML message
+      </sl-button>
     </div>
   </div>`,
   imports: [ButtonComponent, CommonModule]
@@ -340,7 +353,8 @@ export class MessageDialogStaticMethodsComponent {
   async showAlertNonCancellable(): Promise<void> {
     await this.messageDialogService.show({
       title: 'Important Notice',
-      message: 'This is a critical alert that cannot be cancelled. You must acknowledge it by clicking OK.',
+      message:
+        'This is a critical alert that cannot be cancelled. You must acknowledge it by clicking OK.',
       buttons: [{ text: 'OK', variant: 'primary', autofocus: true }],
       disableCancel: true
     });
@@ -428,17 +442,21 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
     <div>
       <h4>showModal() with custom Angular component</h4>
       <p>
-        Use <code>showModal()</code> to render a custom Angular component as the message content. Pass data via the
-        <code>data</code> property and access it with <code>&#64;Inject('MESSAGE_DIALOG_DATA')</code>.
+        Use <code>showModal()</code> to render a custom Angular component as the message content.
+        Pass data via the <code>data</code> property and access it with
+        <code>&#64;Inject('MESSAGE_DIALOG_DATA')</code>.
       </p>
-      <sl-button (click)="showWithComponent()" variant="primary">Show with custom component</sl-button>
+      <sl-button (click)="showWithComponent()" variant="primary"
+        >Show with custom component</sl-button
+      >
     </div>
 
     <div>
       <h4>Non-cancellable dialog with Angular component</h4>
       <p>
-        Use <code>disableCancel: true</code> to prevent users from dismissing critical dialogs. When enabled, the
-        dialog cannot be closed by pressing Escape or clicking the backdrop, ensuring users must explicitly respond.
+        Use <code>disableCancel: true</code> to prevent users from dismissing critical dialogs.
+        When enabled, the dialog cannot be closed by pressing Escape or clicking the backdrop,
+        ensuring users must explicitly respond.
       </p>
       <sl-button (click)="showCriticalAction()" variant="danger">Critical action</sl-button>
     </div>
@@ -477,7 +495,9 @@ export class MessageDialogCustomComponentExampleComponent {
       component: CustomMessageComponent,
       data: 'You are about to perform a critical action that requires confirmation.',
       title: 'Critical Action Required',
-      buttons: [{ text: 'I Understand, Proceed', variant: 'danger', autofocus: true, value: 'proceed' }],
+      buttons: [
+        { text: 'I Understand, Proceed', variant: 'danger', autofocus: true, value: 'proceed' }
+      ],
       disableCancel: true
     });
 
@@ -536,8 +556,11 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
     <div>
       <h4>Multiple dialogs</h4>
       <p>Open multiple dialogs simultaneously and manage them independently.</p>
-      <sl-button (click)="openMultipleDialogs()" variant="primary">Open multiple dialogs</sl-button>
-      <p style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
+      <sl-button (click)="openMultipleDialogs()" variant="primary"
+        >Open multiple dialogs</sl-button
+      >
+      <p
+        style="margin-block-start: 0.5rem; font-size: 0.85rem; color: var(--sl-color-foreground-subtlest);">
         You can also programmatically close all dialogs using
         <code>closeAll()</code> in your code.
       </p>
@@ -546,7 +569,9 @@ import { ButtonComponent } from '@sl-design-system/angular/button';
     <div>
       <h4>Sequential dialogs</h4>
       <p>Show dialogs one after another based on what the user chooses.</p>
-      <sl-button (click)="showSequentialDialogs()" variant="info">Show sequential dialogs</sl-button>
+      <sl-button (click)="showSequentialDialogs()" variant="info"
+        >Show sequential dialogs</sl-button
+      >
     </div>
   </div>`,
   imports: [ButtonComponent]

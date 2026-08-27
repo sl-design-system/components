@@ -1,0 +1,48 @@
+:host {
+  display: flex;
+  gap: var(--sl-size-050);
+}
+
+:host([stacked]:not([data-visibility-resolved])) {
+  visibility: hidden;
+}
+
+:host([stacked]) {
+  flex-wrap: nowrap;
+
+  .list {
+    align-content: flex-end;
+    flex-wrap: nowrap;
+  }
+}
+
+:host([variant='info']) {
+  --_border-color: var(--sl-color-background-info-subtle);
+}
+
+:host([shape='pill']) sl-tag.stack {
+  border-end-end-radius: var(--sl-size-borderRadius-default);
+  border-end-start-radius: var(--sl-size-borderRadius-full);
+  border-start-end-radius: var(--sl-size-borderRadius-default);
+  border-start-start-radius: var(--sl-size-borderRadius-full);
+}
+
+::slotted(*) {
+  flex-shrink: 0;
+}
+
+sl-tag {
+  &.stack {
+    flex-shrink: 0;
+  }
+
+  &::part(tooltip) {
+    max-inline-size: calc(5 * var(--sl-size-800));
+  }
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sl-size-050);
+}

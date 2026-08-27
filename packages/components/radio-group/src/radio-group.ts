@@ -12,6 +12,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -20,7 +21,7 @@ import {
   html
 } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './radio-group.scss.js';
+import styles from './radio-group.css' with { type: 'css' };
 import { type Radio, type RadioButtonSize } from './radio.js';
 
 declare global {
@@ -50,7 +51,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  */
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
+export class RadioGroup<T = any> extends FormControlMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
 
@@ -112,9 +113,6 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
         : this.#isRadioElement(el.parentElement) && !el.parentElement.disabled
   });
 
-  /** @internal Element internals. */
-  readonly internals = this.attachInternals();
-
   /** @internal The slotted radios. */
   @queryAssignedElements() radios?: Array<Radio<T>>;
 
@@ -155,7 +153,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'radiogroup';
+    this.elementInternals.role = 'radiogroup';
     this.setFormControlElement(this);
 
     // Listen for i18n updates and update the validation message
@@ -196,7 +194,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('required')) {
-      this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
     }
@@ -279,8 +277,8 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue);
-    this.internals.setValidity(
+    this.elementInternals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setValidity(
       { valueMissing: this.required && !this.radios?.some(radio => radio.checked) },
       msg('Please select an option.', { id: 'sl.radioGroup.validation.valueMissing' })
     );

@@ -4,6 +4,7 @@
 import { str } from '@lit/localize';
 
 export const templates = {
+  'link.opens-in-new-tab': 'opent in een nieuw tabblad',
   'sl.breadcrumbs.breadcrumbTrail': 'Kruimelpad',
   'sl.breadcrumbs.home': 'Home',
   'sl.breadcrumbs.moreBreadcrumbs': 'Meer links',
@@ -61,6 +62,8 @@ export const templates = {
   'sl.grid.rowActivated': str`Rij ${0} geactiveerd`,
   'sl.grid.rowDeactivated': str`Rij ${0} gedeactiveerd`,
   'sl.grid.selectAllRows': 'Selecteer alle rijen',
+  'sl.grid.selectGroup': 'Groep',
+  'sl.grid.selectGroupWithName': str`${0} groep`,
   'sl.grid.selectionStatusMessage': str`${0} van ${1} geselecteerd`,
   'sl.grid.selectRow': 'Selecteer rij',
   'sl.grid.skipToEndOfTable': 'Naar het einde van de tabel',
@@ -87,6 +90,7 @@ export const templates = {
   'sl.paginator.defaultItemLabelOne': 'item',
   'sl.paginator.defaultItemLabelOther': 'items',
   'sl.paginator.itemsPerPage': str`${0} per pagina:`,
+  'sl.paginator.itemsPerPageAriaLabel': str`${0} per pagina`,
   'sl.paginator.itemsPerPageOption': str`${0} per pagina`,
   'sl.paginator.itemsRange': str`${0} - ${1} van ${2}`,
   'sl.paginator.nextPage': str`Ga naar de volgende pagina (${0})`,
@@ -115,6 +119,15 @@ export const templates = {
   'sl.tag.remove': str`Verwijder tag '${0}'`,
   'sl.tagList.navigationInstructions':
     'Gebruik de pijltjestoetsen om tussen verwijderbare tags te navigeren.',
+  'sl.textArea.charCountRemaining_few': str`${0} tekens resterend`,
+  'sl.textArea.charCountRemaining_one': str`${0} teken resterend`,
+  'sl.textArea.charCountRemaining_other': str`${0} tekens resterend`,
+  'sl.textArea.charCountTooMany_few': str`${0} tekens te veel`,
+  'sl.textArea.charCountTooMany_one': str`${0} teken te veel`,
+  'sl.textArea.charCountTooMany_other': str`${0} tekens te veel`,
+  'sl.textArea.validation.tooLong_few': str`Verwijder minstens ${0} tekens.`,
+  'sl.textArea.validation.tooLong_one': str`Verwijder minstens ${0} teken.`,
+  'sl.textArea.validation.tooLong_other': str`Verwijder minstens ${0} tekens.`,
   'sl.timeField.empty': 'Leeg',
   'sl.timeField.rangeOverflow': str`Voer een tijd in die niet later is dan ${0}.`,
   'sl.timeField.rangeUnderflow': str`Voer een tijd in die niet eerder is dan ${0}.`,

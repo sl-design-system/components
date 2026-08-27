@@ -6,6 +6,7 @@ import {
   type ListDataSourceGroupItem,
   type ListDataSourceItem,
   type ListDataSourceOptions,
+  isListDataSourceDataItem,
   isListDataSourceGroupItem
 } from './list-data-source.js';
 
@@ -27,6 +28,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
   /** The options for the data source. */
   #options: ListDataSourceOptions<T>;
+
+  /** Optional manual group order, set when groups are explicitly reordered. */
+  #reorderedGroupIds?: unknown[];
 
   /** The items, including any group items. This is used for rendering the list. */
   #viewItems: Array<ListDataSourceItem<T>> = [];
@@ -61,16 +65,73 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     relativeItem: ListDataSourceItem<T>,
     position: 'before' | 'after'
   ): void {
-    const items = this.items,
-      from = items.indexOf(item),
-      to = items.indexOf(relativeItem) + (position === 'before' ? 0 : 1);
+    if (isListDataSourceDataItem(item) && isListDataSourceDataItem(relativeItem)) {
+      const from = this.#mappedItems.findIndex(mappedItem => mappedItem.id === item.id),
+        to = this.#mappedItems.findIndex(mappedItem => mappedItem.id === relativeItem.id);
+
+      if (from === -1 || to === -1 || from === to) {
+        return;
+      }
+
+      const [mappedItem] = this.#mappedItems.splice(from, 1);
+
+      this.#mappedItems.splice(
+        to + (position === 'before' ? 0 : 1) + (from < to ? -1 : 0),
+        0,
+        mappedItem
+      );
+      this.update(false);
+      return;
+    }
+
+    if (!isListDataSourceGroupItem(item)) {
+      return;
+    }
+
+    const targetGroupId = isListDataSourceGroupItem(relativeItem)
+      ? relativeItem.id
+      : relativeItem.groupId;
+
+    if (targetGroupId === undefined || targetGroupId === item.id) {
+      return;
+    }
+
+    const groupIds = Array.from(new Set(this.#mappedItems.map(({ groupId }) => groupId))),
+      from = groupIds.indexOf(item.id),
+      to = groupIds.indexOf(targetGroupId);
 
     if (from === -1 || to === -1 || from === to) {
       return;
     }
 
-    items.splice(from, 1);
-    items.splice(to + (from < to ? -1 : 0), 0, item);
+    const orderedGroupIds = [...groupIds],
+      [draggedGroupId] = orderedGroupIds.splice(from, 1);
+
+    orderedGroupIds.splice(
+      to + (position === 'before' ? 0 : 1) + (from < to ? -1 : 0),
+      0,
+      draggedGroupId
+    );
+
+    this.#reorderedGroupIds = orderedGroupIds;
+
+    const itemsByGroup = this.#mappedItems.reduce<Map<unknown, Array<ListDataSourceDataItem<T>>>>(
+      (acc, mappedItem) => {
+        const key = mappedItem.groupId;
+
+        if (!acc.has(key)) {
+          acc.set(key, []);
+        }
+
+        acc.get(key)!.push(mappedItem);
+
+        return acc;
+      },
+      new Map()
+    );
+
+    this.#mappedItems = orderedGroupIds.flatMap(groupId => itemsByGroup.get(groupId) ?? []);
+    this.update(false);
   }
 
   /** Returns the selected data objects (raw {@link T} items). */
@@ -92,6 +153,20 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       data: item,
       selected: options.isSelected?.(item)
     }));
+
+    if (this.#reorderedGroupIds?.length) {
+      const availableGroupIds = Array.from(new Set(this.#mappedItems.map(item => item.groupId)));
+
+      this.#reorderedGroupIds = this.#reorderedGroupIds.filter(groupId =>
+        availableGroupIds.includes(groupId)
+      );
+
+      availableGroupIds.forEach(groupId => {
+        if (!this.#reorderedGroupIds!.includes(groupId)) {
+          this.#reorderedGroupIds!.push(groupId);
+        }
+      });
+    }
 
     // Remove any selected ids that no longer exist in the new dataset
     const validIds = new Set(this.#mappedItems.map(item => item.id));
@@ -209,13 +284,29 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
       this.#groups ??= this.#determineGroups();
 
-      // Sort by group label
-      groupedItems.sort((a, b) => {
-        const labelA = this.#groups?.get(a.groupId)?.label ?? '',
-          labelB = this.#groups?.get(b.groupId)?.label ?? '';
+      if (this.#reorderedGroupIds?.length) {
+        groupedItems.sort((a, b) => {
+          const idxA = this.#reorderedGroupIds!.indexOf(a.groupId),
+            idxB = this.#reorderedGroupIds!.indexOf(b.groupId);
 
-        return labelA.localeCompare(labelB);
-      });
+          if (idxA !== -1 && idxB !== -1 && idxA !== idxB) {
+            return idxA - idxB;
+          }
+
+          const labelA = this.#groups?.get(a.groupId)?.label ?? '',
+            labelB = this.#groups?.get(b.groupId)?.label ?? '';
+
+          return labelA.localeCompare(labelB);
+        });
+      } else {
+        // Sort by group label by default.
+        groupedItems.sort((a, b) => {
+          const labelA = this.#groups?.get(a.groupId)?.label ?? '',
+            labelB = this.#groups?.get(b.groupId)?.label ?? '';
+
+          return labelA.localeCompare(labelB);
+        });
+      }
 
       // Insert group items into the viewItems array
       const grouped: Array<ListDataSourceItem<T>> = [];

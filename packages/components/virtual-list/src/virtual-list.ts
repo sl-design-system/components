@@ -3,12 +3,13 @@ import {
   LitElement,
   type PropertyValues,
   type TemplateResult,
-  html
+  html,
+  nothing
 } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type RefOrCallback, ref } from 'lit/directives/ref.js';
 import { repeat } from 'lit/directives/repeat.js';
-import styles from './virtual-list.scss.js';
+import styles from './virtual-list.css' with { type: 'css' };
 import { VirtualizerController } from './virtualizer-controller.js';
 
 declare global {
@@ -41,6 +42,7 @@ export class VirtualList<T = any> extends LitElement {
     estimateSize: () => this.estimateSize ?? 32,
     gap: 0,
     overscan: 3,
+    useScrollendEvent: true,
     useCachedMeasurements: true
   });
 
@@ -79,6 +81,24 @@ export class VirtualList<T = any> extends LitElement {
   /** Function to render each item. */
   @property({ attribute: false }) renderItem?: VirtualListItemRenderer<T>;
 
+  /**
+   * @internal Renders virtualized items in light DOM for assistive technology workarounds.
+   * Must be set before the component is connected; changing it afterwards has no effect.
+   */
+  @property({ attribute: false }) renderInLightDom = false;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (typeof getComputedStyle === 'function' && getComputedStyle(this).display === 'inline') {
+      this.style.display = 'block';
+    }
+  }
+
+  override createRenderRoot(): HTMLElement | DocumentFragment {
+    return this.renderInLightDom ? this : super.createRenderRoot();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -95,6 +115,7 @@ export class VirtualList<T = any> extends LitElement {
         gap: this.gap ?? 0,
         overscan: this.overscan ?? 3,
         scrollMargin: this.scrollMargin,
+        useScrollendEvent: true,
         useCachedMeasurements: true
       });
     }
@@ -102,14 +123,18 @@ export class VirtualList<T = any> extends LitElement {
 
   override render(): TemplateResult {
     const virtualizer = this.#virtualizer.instance,
-      virtualItems = virtualizer.getVirtualItems();
+      virtualItems = virtualizer.getVirtualItems(),
+      containerLayoutStyles = this.renderInLightDom
+        ? 'display: flex; flex-direction: column; '
+        : '';
 
     return html`
       <div part="wrapper" style="block-size: ${virtualizer.getTotalSize()}px;">
         <div
           part="container"
-          style="gap: ${this.gap ?? 0}px; translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px">
+          style="${containerLayoutStyles}gap: ${this.gap ?? 0}px; translate: 0px ${
+            (virtualItems[0]?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)
+          }px">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,
@@ -120,6 +145,9 @@ export class VirtualList<T = any> extends LitElement {
                 <div
                   part="item"
                   data-index=${virtualItem.index}
+                  style=${
+                    this.renderInLightDom ? 'box-sizing: border-box; inline-size: 100%;' : nothing
+                  }
                   ${ref(virtualizer.measureElement as RefOrCallback<Element>)}>
                   ${this.renderItem ? this.renderItem(item, virtualItem.index) : item}
                 </div>

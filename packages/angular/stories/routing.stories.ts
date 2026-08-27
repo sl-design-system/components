@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet, provideRouter, withHashLocation } from '@angular/router';
 import { MenuComponent } from '@sl-design-system/angular/menu';
 import { TabComponent, TabGroupComponent } from '@sl-design-system/angular/tabs';
-import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
+import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular-vite';
 
 @Component({
   selector: 'sla-dashboard',

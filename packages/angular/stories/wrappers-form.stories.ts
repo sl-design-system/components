@@ -10,7 +10,7 @@ import { SwitchComponent } from '@sl-design-system/angular/switch';
 import { TextAreaComponent } from '@sl-design-system/angular/text-area';
 import { TextFieldComponent } from '@sl-design-system/angular/text-field';
 import { TimeFieldComponent } from '@sl-design-system/angular/time-field';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 export default {
   title: 'Wrappers/Form',
@@ -61,7 +61,10 @@ export const Combobox: StoryObj = {
       action: (event: Event) => console.log('Combobox changed, current value:', event)
     },
     template: `
-      <sl-combobox placeholder="Select an option" (sl-change)="action($event)">
+      <sl-combobox
+        placeholder="Select an option"
+        style="max-width: 500px"
+        (sl-change)="action($event)">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>

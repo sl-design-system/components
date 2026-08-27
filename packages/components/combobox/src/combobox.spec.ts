@@ -6,12 +6,12 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Listbox, Option, OptionGroup } from '../index.js';
-import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type GroupedOption } from './grouped-option.js';
+import './register.js';
 import { type SelectedGroup } from './selected-group.js';
+import { Listbox, Option, OptionGroup } from './index.js';
 
 describe('sl-combobox', () => {
   it('should export and register listbox option components', () => {
@@ -201,6 +201,19 @@ describe('sl-combobox', () => {
 
       expect(el).to.have.attribute('size', 'lg');
       expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('size', 'lg');
+    });
+
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
+    });
+
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('shape', 'pill');
+      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('shape', 'pill');
     });
 
     it('should not have a placeholder', () => {
@@ -642,6 +655,23 @@ describe('sl-combobox', () => {
         await el.updateComplete;
 
         expect(el.value).to.equal('Ipsum');
+      });
+
+      it('should ignore disabled selected slotted options', async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option disabled selected>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        const disabledOption = el.querySelector('sl-option')!;
+
+        expect(el.value).to.be.undefined;
+        expect(el.selectedItems).to.be.empty;
+        expect(disabledOption.selected).to.be.false;
+        expect(disabledOption).to.have.attribute('aria-selected', 'false');
       });
 
       it('should reset the input value if no option is selected and focus leaves the component', async () => {
@@ -1270,7 +1300,7 @@ describe('sl-combobox', () => {
         await waitForNextFrame();
 
         const tagList = el.renderRoot.querySelector('sl-tag-list')!,
-          stackTag = tagList.renderRoot.querySelector('.stack sl-tag'),
+          stackTag = tagList.renderRoot.querySelector('sl-tag.stack'),
           selectedTags = Array.from(el.renderRoot.querySelectorAll('sl-tag')),
           visibleSelectedTags = selectedTags.filter(
             tag => getComputedStyle(tag).display !== 'none'
@@ -1281,6 +1311,13 @@ describe('sl-combobox', () => {
           `+${selectedTags.length - visibleSelectedTags.length}`
         );
         expect(visibleSelectedTags.length).to.be.greaterThan(0);
+
+        const inputRect = input.getBoundingClientRect(),
+          lastVisibleTagRect = visibleSelectedTags.at(-1)!.getBoundingClientRect(),
+          gap = inputRect.left - lastVisibleTagRect.right;
+
+        expect(gap).to.be.at.least(0);
+        expect(gap).to.be.lessThan(16);
       });
 
       it('should not flicker when selecting many items in a limited space', async () => {
@@ -2077,6 +2114,17 @@ describe('sl-combobox', () => {
         expect(el.valid).to.be.false;
       });
 
+      it('should pass invalid show-validity to the text field when reported', async () => {
+        el.reportValidity();
+        await el.updateComplete;
+
+        expect(el).to.have.attribute('show-validity', 'invalid');
+        expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute(
+          'show-validity',
+          'invalid'
+        );
+      });
+
       it('should be invalid when it has a placeholder', async () => {
         el.placeholder = 'Placeholder';
         await el.updateComplete;
@@ -2218,7 +2266,7 @@ describe('sl-combobox', () => {
             child.tagName.toLowerCase().includes('virtual-list')
         );
 
-      return Array.from(virtualList?.shadowRoot?.querySelectorAll('sl-option') ?? []);
+      return Array.from(virtualList?.querySelectorAll('sl-option') ?? []);
     };
 
     it('should submit index 0 for the first item in a virtual list', async () => {
@@ -2278,6 +2326,243 @@ describe('sl-combobox', () => {
 
       expect(input).to.have.attribute('aria-expanded', 'true');
       expect(combobox.querySelector('sl-listbox')).to.exist;
+    });
+
+    it('should render disabled options from option-disabled-path', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: false, label: 'Option 1', value: 'option-1' },
+            { disabled: true, label: 'Option 2', value: 'option-2' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      const options = getRenderedVirtualOptions(combobox);
+      expect(options[0]).not.to.have.attribute('disabled');
+      expect(options[0]).not.to.have.attribute('aria-disabled');
+      expect(options[1]).to.have.attribute('disabled');
+      expect(options[1]).to.have.attribute('aria-disabled', 'true');
+    });
+
+    it('should update selected options when option-selected-path changes', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          multiple
+          .options=${[
+            { initiallySelected: true, label: 'Option 1', nextSelected: false, value: 'option-1' },
+            { initiallySelected: true, label: 'Option 2', nextSelected: false, value: 'option-2' },
+            { initiallySelected: false, label: 'Option 3', nextSelected: true, value: 'option-3' }
+          ]}
+          option-label-path="label"
+          option-selected-path="initiallySelected"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+
+      expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.true;
+      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.true;
+      expect(combobox.items.find(item => item.value === 'option-3')?.selected).to.be.false;
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal([
+        'option-1',
+        'option-2'
+      ]);
+
+      combobox.optionSelectedPath = 'nextSelected';
+      await combobox.updateComplete;
+
+      expect(combobox.items.find(item => item.value === 'option-1')?.selected).to.be.false;
+      expect(combobox.items.find(item => item.value === 'option-2')?.selected).to.be.false;
+      expect(combobox.items.find(item => item.value === 'option-3')?.selected).to.be.true;
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-3']);
+    });
+
+    it('should clear selected options when options become empty', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[{ label: 'Option 1', value: 'option-1' }]}
+          .value=${'option-1'}
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      expect(combobox.selectedItems.map(item => String(item.value))).to.deep.equal(['option-1']);
+      expect(input.value).to.equal('Option 1');
+
+      combobox.options = [];
+      await combobox.updateComplete;
+
+      expect(combobox.items).to.be.empty;
+      expect(combobox.selectedItems).to.be.empty;
+      expect(combobox.value).to.be.undefined;
+      expect(input.value).to.equal('');
+    });
+
+    it('should not select an option disabled via option-disabled-path on click', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: true, label: 'Option 1', value: 'option-1' },
+            { disabled: false, label: 'Option 2', value: 'option-2' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.click();
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      getRenderedVirtualOptions(combobox)[0].dispatchEvent(
+        new MouseEvent('click', { bubbles: true, composed: true })
+      );
+      await combobox.updateComplete;
+
+      expect(combobox.value).to.be.undefined;
+    });
+
+    it('should skip options disabled via option-disabled-path during keyboard selection', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: true, label: 'Option 1', value: 'option-1' },
+            { disabled: false, label: 'Option 2', value: 'option-2' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard('{Enter}');
+      await combobox.updateComplete;
+
+      expect(combobox.value).to.equal('option-2');
+      expect(input.value).to.equal('Option 2');
+    });
+
+    it('should not inline autocomplete to an option disabled via option-disabled-path', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          autocomplete="inline"
+          .options=${[
+            { disabled: true, label: 'Physics', value: 'physics' },
+            { disabled: false, label: 'Philosophy', value: 'philosophy' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await userEvent.keyboard('P');
+      await combobox.updateComplete;
+
+      expect(input.value).to.equal('Philosophy');
+      expect(combobox.currentItem?.value).to.equal('philosophy');
+    });
+
+    it('should allow custom values that match an option disabled via option-disabled-path', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          allow-custom-values
+          autocomplete="off"
+          .options=${[{ disabled: true, label: 'Physics', value: 'physics' }]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await userEvent.keyboard('physics');
+      await combobox.updateComplete;
+
+      expect(combobox.createCustomOption).to.exist;
+      expect(combobox.createCustomOption?.value).to.equal('physics');
+      expect(combobox.currentItem).to.equal(combobox.createCustomOption);
+    });
+
+    it('should navigate to the last enabled option on ArrowUp when current item is disabled', async () => {
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox
+          .options=${[
+            { disabled: true, label: 'Option 1', value: 'option-1' },
+            { disabled: false, label: 'Option 2', value: 'option-2' },
+            { disabled: false, label: 'Option 3', value: 'option-3' }
+          ]}
+          option-disabled-path="disabled"
+          option-label-path="label"
+          option-value-path="value">
+        </sl-combobox>
+      `);
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      combobox.currentItem = combobox.items[0];
+      input.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await userEvent.keyboard('{ArrowUp}');
+      await combobox.updateComplete;
+
+      expect(combobox.currentItem?.value).to.equal('option-3');
+    });
+
+    it('should expose the active virtual option to aria-activedescendant', async () => {
+      const options = Array.from({ length: 1000 }, (_, i) => ({
+        label: `Option ${i + 1}`,
+        value: i
+      }));
+
+      const combobox = await fixture<Combobox>(html`
+        <sl-combobox .options=${options} option-label-path="label" option-value-path="value">
+        </sl-combobox>
+      `);
+
+      const input = combobox.querySelector<HTMLInputElement>('input[slot="input"]')!;
+
+      input.focus();
+      await combobox.updateComplete;
+
+      await userEvent.keyboard('{ArrowDown}');
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      expect(input).to.have.attribute('aria-expanded', 'true');
+
+      await userEvent.keyboard('{ArrowDown}');
+      await combobox.updateComplete;
+      await waitForVirtualList();
+
+      await waitForCondition(
+        () =>
+          !!combobox.currentItem &&
+          input.getAttribute('aria-activedescendant') === combobox.currentItem.id
+      );
+
+      const activeDescendant = input.getAttribute('aria-activedescendant');
+
+      expect(activeDescendant).to.equal(combobox.currentItem?.id);
+      expect(document.getElementById(activeDescendant!)).to.equal(combobox.currentItem?.element);
     });
 
     it('should not select a group header when typing a group name', async () => {

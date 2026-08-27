@@ -1,8 +1,8 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type EllipsizeText } from './ellipsize-text.js';
+import './register.js';
 
 describe('sl-ellipsize-text', () => {
   let el: EllipsizeText;
@@ -26,32 +26,20 @@ describe('sl-ellipsize-text', () => {
   });
 
   it('should not have a tooltip by default', () => {
-    expect(el).not.to.have.attribute('aria-describedby');
+    expect(el.renderRoot.querySelector('sl-tooltip')).not.to.exist;
   });
 
-  describe('tooltip', () => {
-    beforeEach(async () => {
-      el.style.width = '100px';
+  it('should have a tooltip when there is not enough space', async () => {
+    el.style.width = '100px';
 
-      // Wait for the resize observer to trigger
-      await new Promise(resolve => setTimeout(resolve, 100));
+    // Wait for the resize observer to trigger
+    await new Promise(resolve => setTimeout(resolve, 50));
 
-      // Trigger a focus event to create the tooltip
-      el.dispatchEvent(new Event('focusin'));
-    });
+    const slot = el.renderRoot.querySelector('slot'),
+      tooltip = el.renderRoot.querySelector('sl-tooltip');
 
-    it('should have a tooltip when there is not enough space', () => {
-      const tooltip = el.nextElementSibling;
-
-      expect(tooltip).to.exist;
-      expect(tooltip).to.match('sl-tooltip');
-      expect(el).to.have.attribute('aria-describedby', tooltip?.id);
-    });
-
-    it('should remove the tooltip when the element is removed from the DOM', () => {
-      el.remove();
-
-      expect(document.querySelector('sl-tooltip')).not.to.exist;
-    });
+    expect(tooltip).to.exist;
+    expect(tooltip).to.have.trimmed.text('This is a long text that should be truncated');
+    expect(slot?.ariaDescribedByElements).to.include(tooltip);
   });
 });

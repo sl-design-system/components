@@ -27,7 +27,7 @@ import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { IndentGuides } from './indent-guides.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
-import styles from './tree-node.scss.js';
+import styles from './tree-node.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -130,6 +130,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ attribute: false }) node?: TreeDataSourceNode<T>;
 
   /**
+   * Whether the node can be selected. When false, the node does not render a checkbox and cannot be
+   * selected by the user.
+   *
+   * @default false
+   */
+  @property({ type: Boolean }) selectable?: boolean;
+
+  /**
    * Determines whether the node is selected or not.
    *
    * @default false
@@ -159,7 +167,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
      */
     this.setAttribute('role', 'row');
 
-    this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    if (this.selectable) {
+      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    }
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
@@ -177,11 +187,16 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    if (changes.has('indeterminate') || changes.has('selected')) {
-      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    if (changes.has('indeterminate') || changes.has('selectable') || changes.has('selected')) {
+      if (this.selectable) {
+        this.setAttribute('aria-selected', Boolean(this.selected).toString());
+      } else {
+        this.removeAttribute('aria-selected');
+      }
     }
   }
 
+  /* eslint-disable slds/checkbox-has-label -- internal sl-checkbox uses slotted input + label to provide its accessible name */
   override render(): TemplateResult {
     return html`
       <sl-indent-guides
@@ -190,15 +205,17 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         .levelGuides=${this.levelGuides}
         ?selected=${!this.multiple && this.selected}></sl-indent-guides>
       <div aria-colindex="1" role="gridcell">
-        ${this.expandable
-          ? html`
-              <div class="expander">
-                <div class="expander-inner">
-                  <sl-icon name="chevron-right" size="xs"></sl-icon>
+        ${
+          this.expandable
+            ? html`
+                <div class="expander">
+                  <div class="expander-inner">
+                    <sl-icon name="chevron-right" size="xs"></sl-icon>
+                  </div>
                 </div>
-              </div>
-            `
-          : nothing}
+              `
+            : nothing
+        }
         <div part="wrapper">
           ${choose(
             this.type,
@@ -217,7 +234,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
               ]
             ],
             () =>
-              this.multiple
+              this.multiple && this.selectable
                 ? html`
                     <sl-checkbox
                       @sl-change=${this.#onChange}
@@ -254,6 +271,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       </div>
     `;
   }
+  /* eslint-enable slds/checkbox-has-label */
 
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;
@@ -281,7 +299,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
-    if (insideWrapper) {
+    if (insideWrapper && this.selectable) {
       event.preventDefault();
 
       this.selected = !this.selected;
@@ -301,6 +319,10 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
+
+      if (!this.selectable) {
+        return;
+      }
 
       this.selected = !this.selected;
       this.indeterminate = false;

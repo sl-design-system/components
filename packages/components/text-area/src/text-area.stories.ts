@@ -1,7 +1,7 @@
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
-import '../register.js';
+import './register.js';
 import { type TextArea } from './text-area.js';
 
 type Props = Pick<
@@ -13,6 +13,7 @@ type Props = Pick<
   | 'readonly'
   | 'required'
   | 'rows'
+  | 'showCount'
   | 'showValid'
   | 'size'
   | 'resize'
@@ -64,6 +65,7 @@ export default {
     minLength,
     placeholder,
     required,
+    showCount,
     showValid,
     size,
     resize,
@@ -80,22 +82,25 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-text-area
-              ?disabled=${disabled}
-              ?readonly=${readonly}
-              ?required=${required}
-              .maxLength=${maxLength}
-              .minLength=${minLength}
-              .placeholder=${placeholder ?? ''}
-              .resize=${resize}
-              .rows=${rows}
-              .showValid=${showValid}
-              .size=${size}
-              .value=${value}
-              .wrap=${wrap}></sl-text-area>
-          `}
+          ${
+            slot?.() ??
+            html`
+              <sl-text-area
+                ?disabled=${disabled}
+                ?readonly=${readonly}
+                ?required=${required}
+                .maxLength=${maxLength}
+                .minLength=${minLength}
+                .placeholder=${placeholder ?? ''}
+                .resize=${resize}
+                .rows=${rows}
+                .showCount=${showCount}
+                .showValid=${showValid}
+                .size=${size}
+                .value=${value}
+                .wrap=${wrap}></sl-text-area>
+            `
+          }
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
@@ -153,6 +158,14 @@ export const Valid: Story = {
   args: {
     hint: 'After clicking the button, this field will show it is valid.',
     showValid: true
+  }
+};
+
+export const ShowCount: Story = {
+  args: {
+    hint: 'A character counter is shown below the textarea. It turns orange when 90% of the limit is reached and red when you have exceeded the limit. Exceeding the limit does not block input — you can type or paste more and then edit it down.',
+    showCount: 50,
+    required: true
   }
 };
 

@@ -15,7 +15,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './page-size.scss.js';
+import styles from './page-size.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -126,6 +126,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
       </sl-label>
       <sl-select
         @sl-change=${this.#onChange}
+        aria-label=${msg(str`${itemLabel} per page`, { id: 'sl.paginator.itemsPerPageAriaLabel' })}
         ?disabled=${!this.pageSizes}
         id="sizes"
         value=${ifDefined(this.pageSize)}>

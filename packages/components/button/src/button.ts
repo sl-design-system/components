@@ -1,15 +1,20 @@
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { closestElementComposed } from '@sl-design-system/shared';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import {
   type CSSResultGroup,
   LitElement,
   type PropertyValues,
   type TemplateResult,
-  html
+  html,
+  nothing
 } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './button.scss.js';
+import styles from './button.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -19,7 +24,7 @@ declare global {
 
 export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
 
-export type ButtonShape = 'square' | 'pill';
+export type ButtonShape = 'rect' | 'pill';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
@@ -37,17 +42,27 @@ export type ButtonVariant =
 /**
  * A single, simple button, with optionally an icon.
  *
- * ```html
- * <sl-button>Foo</sl-button>
- * ```
+ * @element sl-button
  *
- * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
+ * @slot - Text label of the button. Optionally an <code>sl-icon</code> can be added
  *
  * @csspart button - The internal <code>&lt;button&gt;</code> element.
+ * @csspart tooltip - The tooltip element that is shown when the <code>tooltip</code> attribute is set.
+ *
+ * @cssstate icon-only - Set when the button contains nothing but an icon.
  */
-export class Button extends ForwardAriaMixin(LitElement) {
+export class Button extends ForwardAriaMixin(
+  ScopedElementsMixin(ElementInternalsMixin(LitElement))
+) {
   /** @internal */
   static formAssociated = true;
+
+  /** @internal */
+  static override get scopedElements() {
+    return {
+      'sl-tooltip': Tooltip
+    };
+  }
 
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = {
@@ -63,9 +78,6 @@ export class Button extends ForwardAriaMixin(LitElement) {
 
   /** Stores tabIndex set before the button is rendered. */
   #tabIndex = 0;
-
-  /** @internal. */
-  readonly internals = this.attachInternals();
 
   /** @internal The button element. */
   @query('button') button!: HTMLButtonElement;
@@ -99,14 +111,17 @@ export class Button extends ForwardAriaMixin(LitElement) {
   /**
    * The fill of the button.
    *
-   * @default solid
+   * @default 'solid'
    */
   @property({ reflect: true }) fill?: ButtonFill;
+
+  /** @internal Whether the button contains nothing but an icon. */
+  @state() @cssState() iconOnly?: boolean;
 
   /**
    * The shape of the button.
    *
-   * @default square
+   * @default 'rect'
    */
   @property({ reflect: true }) shape?: ButtonShape;
 
@@ -129,18 +144,21 @@ export class Button extends ForwardAriaMixin(LitElement) {
     }
   }
 
+  /** The text that will be shown in a tooltip. */
+  @property() tooltip?: string;
+
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in
    * native HTML buttons.
    *
-   * @default button
+   * @default 'button'
    */
   @property() type?: ButtonType;
 
   /**
    * The variant of the button.
    *
-   * @default secondary
+   * @default 'secondary'
    */
   @property({ reflect: true }) variant?: ButtonVariant;
 
@@ -165,8 +183,8 @@ export class Button extends ForwardAriaMixin(LitElement) {
       this.tabIndex = parseInt(this.getAttribute('tabindex') ?? '0');
     }
 
-    // Initial update
-    this.#onUpdate();
+    // Wrap in rAF so we don't trigger a lifecycle loop
+    requestAnimationFrame(() => this.#onUpdate());
   }
 
   override render(): TemplateResult {
@@ -177,16 +195,32 @@ export class Button extends ForwardAriaMixin(LitElement) {
         (this.getRootNode() as Document | ShadowRoot).getElementById?.(this.commandFor) ?? null;
     }
 
+    // If the button is icon only, the tooltip functions as the label, otherwise it functions as the description.
+    let ariaType: 'description' | 'label' | undefined;
+    if (this.tooltip) {
+      ariaType = this.iconOnly ? 'label' : 'description';
+    }
+
     return html`
       <button
         @click=${this.#onClick}
         command=${ifDefined(this.command)}
         .commandForElement=${target}
         ?disabled=${this.disabled}
+        id="button"
         part="button"
         type="button">
         <slot></slot>
       </button>
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip for="button" part="tooltip" type=${ifDefined(ariaType)}>
+                ${this.tooltip}
+              </sl-tooltip>
+            `
+          : nothing
+      }
     `;
   }
 
@@ -195,15 +229,15 @@ export class Button extends ForwardAriaMixin(LitElement) {
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (this.type === 'reset') {
-      if (this.internals.form) {
-        this.internals.form.reset();
+      if (this.elementInternals.form) {
+        this.elementInternals.form.reset();
       } else {
         // Workaround for not wanting a dependency on the `@sl-design-system/form` package
         (closestElementComposed(this, 'sl-form') as unknown as { reset(): void })?.reset();
       }
     } else if (this.type === 'submit') {
-      if (this.internals.form) {
-        this.internals.form.requestSubmit();
+      if (this.elementInternals.form) {
+        this.elementInternals.form.requestSubmit();
       } else {
         // Workaround for not wanting a dependency on the `@sl-design-system/form` package
         (
@@ -234,10 +268,6 @@ export class Button extends ForwardAriaMixin(LitElement) {
           el.children[0].nodeName === 'SL-ICON');
     }
 
-    if (iconOnly) {
-      this.internals.states.add('icon-only');
-    } else {
-      this.internals.states.delete('icon-only');
-    }
+    this.iconOnly = iconOnly;
   }
 }

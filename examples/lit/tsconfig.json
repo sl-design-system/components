@@ -4,5 +4,5 @@
     "composite": true,
     "rootDir": "./"
   },
-  "include": ["index.ts", "src/**/*.ts"]
+  "include": ["../../vite-env.d.ts", "index.ts", "src/**/*.ts"]
 }

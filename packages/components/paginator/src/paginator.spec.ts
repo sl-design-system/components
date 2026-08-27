@@ -12,8 +12,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { Paginator } from './paginator.js';
+import './register.js';
 
 describe('sl-paginator', () => {
   let el: Paginator;
@@ -206,6 +206,56 @@ describe('sl-paginator', () => {
       const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
       expect(getForwardedAccessibleName(currentPage!)).to.equal('10');
       expect(getForwardedAriaAttribute(currentPage!, 'aria-current')).to.equal('page');
+    });
+
+    it('should move focus to the selected page when a menu item is clicked', async () => {
+      const menuButtons = Array.from(el.renderRoot.querySelectorAll<HTMLElement>('sl-menu-button')),
+        menuButton = menuButtons.find(button =>
+          Array.from(button.querySelectorAll('sl-menu-item')).some(
+            item => item.textContent?.trim() === '12'
+          )
+        ),
+        trigger = menuButton?.shadowRoot?.querySelector<Button>('sl-button');
+
+      expect(menuButton).to.exist;
+      expect(trigger).to.exist;
+
+      const opened = new Promise<CustomEvent<boolean>>(resolve =>
+        menuButton!.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+          once: true
+        })
+      );
+
+      trigger!.click();
+
+      expect((await opened).detail).to.be.true;
+
+      const menuItem = Array.from(menuButton!.querySelectorAll('sl-menu-item')).find(
+        item => item.textContent?.trim() === '12'
+      );
+
+      expect(menuItem).to.exist;
+
+      menuItem!.focus();
+
+      const closed = new Promise<CustomEvent<boolean>>(resolve =>
+        menuButton!.addEventListener('sl-toggle', event => resolve(event as CustomEvent<boolean>), {
+          once: true
+        })
+      );
+
+      menuItem!.click();
+
+      expect((await closed).detail).to.be.false;
+
+      await el.updateComplete;
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve(undefined)));
+
+      const currentPage = el.renderRoot.querySelector<Button>('sl-button.current');
+
+      expect(el.page).to.equal(11);
+      expect(currentPage?.textContent?.trim()).to.equal('12');
+      expect((el.renderRoot as ShadowRoot).activeElement).to.equal(currentPage);
     });
 
     it('should update the current page when the page property is changed', async () => {

@@ -1,9 +1,9 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type Listbox, type ListboxItem } from './listbox.js';
 import { type Option } from './option.js';
+import './register.js';
 
 const waitForNextFrame = (): Promise<void> =>
   new Promise(resolve => requestAnimationFrame(() => resolve()));
@@ -49,7 +49,7 @@ describe('sl-listbox', () => {
     const queryVirtualized = <T extends Element = Element>(selector: string): T[] => {
       const virtualList = getVirtualizer(el);
 
-      return Array.from(virtualList?.shadowRoot?.querySelectorAll<T>(selector) ?? []);
+      return Array.from(virtualList?.querySelectorAll<T>(selector) ?? []);
     };
 
     beforeEach(async () => {

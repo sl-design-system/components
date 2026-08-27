@@ -23,7 +23,7 @@
                   Properties
                 </a>
               </h3>
-              <div class="ds-table-wrapper"><table class="ds-table">
+              <div class="ds-table-wrapper" tabindex="0" role="region" aria-label="{{ tagName.selector | escape }} properties table"><table class="ds-table">
                   <thead>
                   <tr>
                     <th>Name</th>
@@ -67,7 +67,7 @@
                   Methods
                 </a>
               </h3>
-              <div class="ds-table-wrapper">
+              <div class="ds-table-wrapper" tabindex="0" role="region" aria-label="{{ tagName.selector | escape }} methods table">
                 <table class="ds-table">
                   <thead>
                   <tr>
@@ -106,7 +106,7 @@
                   Events
                 </a>
               </h3>
-              <div class="ds-table-wrapper">
+              <div class="ds-table-wrapper" tabindex="0" role="region" aria-label="{{ tagName.selector | escape }} events table">
                 <table class="ds-table">
                   <thead>
                   <tr>
@@ -139,7 +139,7 @@
                   Slots
                 </a>
               </h3>
-              <div class="ds-table-wrapper">
+              <div class="ds-table-wrapper" tabindex="0" role="region" aria-label="{{ tagName.selector | escape }} slots table">
                 <table class="ds-table">
                   <thead>
                   <tr>
@@ -150,7 +150,7 @@
                   <tbody>
                   {%- for slot in declaration.slots -%}
                     <tr>
-                      <td><code>{{slot.name}}</code></td>
+                      <td>{% if slot.name and slot.name != "" %}<code>{{slot.name}}</code>{% else %}(default){% endif %}</td>
                       <td>{% if slot.description %}{{slot.description | escape | markdownLinks | normalizeBreaks}}{% endif %}</td>
                     </tr>
                   {%- endfor -%}
@@ -164,7 +164,7 @@
                   CSS Properties
                 </a>
               </h3>
-              <div class="ds-table-wrapper">
+              <div class="ds-table-wrapper" tabindex="0" role="region" aria-label="{{ tagName.selector | escape }} CSS Properties table">
                 <table class="ds-table">
                   <thead>
                     <tr>
@@ -189,7 +189,7 @@
                   CSS Parts
                 </a>
               </h3>
-              <div class="ds-table-wrapper">
+              <div class="ds-table-wrapper" tabindex="0" role="region" aria-label="{{ tagName.selector | escape }} CSS Parts table">
                 <table class="ds-table">
                   <thead>
                     <tr>

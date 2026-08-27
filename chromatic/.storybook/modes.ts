@@ -42,6 +42,9 @@ export const allModes = {
   'sanoma-utbildning': {
     theme: 'sanoma-utbildning'
   },
+  'teacher-assistant': {
+    theme: 'teacher-assistant'
+  },
   teas: {
     theme: 'teas'
   },

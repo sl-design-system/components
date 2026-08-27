@@ -1,5 +1,23 @@
 # @sl-design-system/checkbox
 
+## 2.2.0
+
+### Minor Changes
+
+- [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Add infotip support to checkbox, radio, and switch components
+
+  Form controls now support an optional infotip slot that displays contextual help using the infotip component. The infotip automatically:
+  - Sizes itself appropriately (sm) for form controls
+  - Inherits the form control's label as its `describes` attribute if not explicitly set
+  - Positions itself alongside the form control without interfering with clicks or keyboard interactions
+
+### Patch Changes
+
+- [#3499](https://github.com/sl-design-system/components/pull/3499) [`8e583d9`](https://github.com/sl-design-system/components/commit/8e583d9894ad680f4a7141a9c9b03bd999993d3b) - Set a minimum border radius of `--sl-size-borderRadius-md` on the small checkbox, to prevent it becoming too round when a theme has a large border radius.
+  The checkbox needs to be visibly square to avoid confusion with a radio button.
+- Updated dependencies [[`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1)]:
+  - @sl-design-system/shared@0.12.3
+
 ## 2.1.10
 
 ### Patch Changes

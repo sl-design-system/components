@@ -4,6 +4,7 @@
 import { str } from '@lit/localize';
 
 export const templates = {
+  'link.opens-in-new-tab': 'otwiera się w nowej karcie',
   'sl.breadcrumbs.breadcrumbTrail': 'Ścieżka nawigacji',
   'sl.breadcrumbs.home': 'Strona główna',
   'sl.breadcrumbs.moreBreadcrumbs': 'Więcej linków',
@@ -61,6 +62,8 @@ export const templates = {
   'sl.grid.rowActivated': str`Wiersz ${0} aktywowany`,
   'sl.grid.rowDeactivated': str`Wiersz ${0} dezaktywowany`,
   'sl.grid.selectAllRows': 'Zaznacz wszystkie wiersze',
+  'sl.grid.selectGroup': 'Grupa',
+  'sl.grid.selectGroupWithName': str`${0} grupa`,
   'sl.grid.selectionStatusMessage': str`${0} z ${1} wybranych`,
   'sl.grid.selectRow': 'Zaznacz wiersz',
   'sl.grid.skipToEndOfTable': 'Przejdź do końca tabeli',
@@ -87,6 +90,7 @@ export const templates = {
   'sl.paginator.defaultItemLabelOne': 'elementu',
   'sl.paginator.defaultItemLabelOther': 'elementów',
   'sl.paginator.itemsPerPage': str`${0} na stronę:`,
+  'sl.paginator.itemsPerPageAriaLabel': str`${0} na stronę`,
   'sl.paginator.itemsPerPageOption': str`${0} na stronę`,
   'sl.paginator.itemsRange': str`${0} - ${1} z ${2}`,
   'sl.paginator.nextPage': str`Przejdź do następnej strony (${0})`,
@@ -115,6 +119,15 @@ export const templates = {
   'sl.tag.remove': str`Usuń etykietę '${0}'`,
   'sl.tagList.navigationInstructions':
     'Użyj klawiszy strzałek, aby przechodzić między usuwalnymi tagami.',
+  'sl.textArea.charCountRemaining_few': str`Pozostały ${0} znaki`,
+  'sl.textArea.charCountRemaining_one': str`Pozostał ${0} znak`,
+  'sl.textArea.charCountRemaining_other': str`Pozostało ${0} znaków`,
+  'sl.textArea.charCountTooMany_few': str`${0} znaki za dużo`,
+  'sl.textArea.charCountTooMany_one': str`${0} znak za dużo`,
+  'sl.textArea.charCountTooMany_other': str`${0} znaków za dużo`,
+  'sl.textArea.validation.tooLong_few': str`Usuń co najmniej ${0} znaki.`,
+  'sl.textArea.validation.tooLong_one': str`Usuń co najmniej ${0} znak.`,
+  'sl.textArea.validation.tooLong_other': str`Usuń co najmniej ${0} znaków.`,
   'sl.timeField.empty': 'Puste',
   'sl.timeField.rangeOverflow': str`Wybierz godzinę nie późniejszą niż ${0}.`,
   'sl.timeField.rangeUnderflow': str`Wybierz godzinę nie wcześniejszą niż ${0}.`,

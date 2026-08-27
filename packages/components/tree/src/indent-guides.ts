@@ -1,7 +1,7 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import styles from './indent-guides.scss.js';
+import styles from './indent-guides.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

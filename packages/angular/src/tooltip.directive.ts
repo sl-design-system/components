@@ -1,45 +1,110 @@
-import {
-  type AfterViewInit,
-  Directive,
-  ElementRef,
-  Input,
-  type OnChanges,
-  type OnDestroy
-} from '@angular/core';
-import { Tooltip } from '@sl-design-system/tooltip';
+import { type AfterViewInit, Directive, ElementRef, Input, type OnDestroy } from '@angular/core';
+import { type Tooltip } from '@sl-design-system/tooltip';
 import '@sl-design-system/tooltip/register.js';
+
+type TooltipInput = string | { text: string; type?: Tooltip['type'] };
+
+let nextUniqueId = 0;
 
 @Directive({
   selector: '[slTooltip]',
   standalone: true
 })
-export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
-  private tooltip?: Tooltip | (() => void);
+export class TooltipDirective implements AfterViewInit, OnDestroy {
+  /** Whether the view has been initialized; changes before that are ignored. */
+  private initialized = false;
 
-  @Input() slTooltip = '';
+  private tooltip?: Tooltip;
+
+  private _slTooltip: TooltipInput = '';
+
+  @Input()
+  set slTooltip(value: TooltipInput) {
+    this._slTooltip = value ?? '';
+
+    if (this.initialized) {
+      this.update();
+    }
+  }
+
+  get slTooltip(): TooltipInput {
+    return this._slTooltip;
+  }
 
   constructor(private elRef: ElementRef<HTMLElement>) {}
 
-  ngOnChanges(): void {
-    if (this.tooltip instanceof Tooltip) {
-      this.tooltip.textContent = this.slTooltip;
-    }
-  }
-
   ngAfterViewInit(): void {
-    this.tooltip = Tooltip.lazy(this.elRef.nativeElement, tooltip => {
-      this.tooltip = tooltip;
-      tooltip.textContent = this.slTooltip;
-    });
+    this.initialized = true;
+    this.update();
   }
 
   ngOnDestroy(): void {
-    if (this.tooltip instanceof Tooltip) {
-      this.tooltip?.remove();
-      this.tooltip = undefined;
-    } else if (this.tooltip) {
-      this.tooltip();
-      this.tooltip = undefined;
+    this.removeTooltip();
+  }
+
+  /**
+   * Creates the tooltip when there is text to show, updates it when it already exists and removes
+   * it when the text becomes empty. An empty tooltip would otherwise give the anchor element an
+   * empty accessible name or description.
+   */
+  private update(): void {
+    const { text, type } = this.getTooltipData();
+
+    if (!text) {
+      this.removeTooltip();
+      return;
     }
+
+    const tooltip = this.tooltip ?? this.createTooltip(type);
+    tooltip.textContent = text;
+    tooltip.type = type;
+  }
+
+  private createTooltip(type?: Tooltip['type']): Tooltip {
+    const tooltip = document.createElement('sl-tooltip');
+
+    tooltip.for = this.getOrCreateAnchorId();
+    tooltip.type = type;
+    this.elRef.nativeElement.after(tooltip);
+
+    this.tooltip = tooltip;
+    return tooltip;
+  }
+
+  private removeTooltip(): void {
+    this.tooltip?.remove();
+    this.tooltip = undefined;
+  }
+
+  private getOrCreateAnchorId(): string {
+    const element = this.elRef.nativeElement;
+    const root = element.getRootNode() as Document | ShadowRoot;
+    const getElementById = (id: string): Element | null => root.getElementById(id);
+
+    // Reuse an existing id only when it uniquely points to this exact element in the same root.
+    if (element.id && getElementById(element.id) === element) {
+      return element.id;
+    }
+
+    let id = `sl-tooltip-${nextUniqueId++}`;
+    while (getElementById(id)) {
+      id = `sl-tooltip-${nextUniqueId++}`;
+    }
+
+    element.id = id;
+    return id;
+  }
+
+  private getTooltipData(): { text?: string; type?: Tooltip['type'] } {
+    if (typeof this._slTooltip === 'string') {
+      return {
+        text: this._slTooltip.trim()
+      };
+    }
+
+    return {
+      text: this._slTooltip.text?.trim(),
+      type: this._slTooltip.type
+    };
   }
 }

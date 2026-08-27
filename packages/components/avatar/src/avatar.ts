@@ -15,7 +15,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './avatar.scss.js';
+import styles from './avatar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -46,15 +46,16 @@ export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
  *   picture-url="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
+ * @slot - The subheading of the avatar.
+ * @slot badge - The badge to display on the avatar.
+ * @slot fallback - The fallback content to display when no picture is set.
+ *
  * @csspart avatar - The container for positioning the badge.
  * @csspart initials - The initials to display when no picture is set.
  * @csspart name - The display name, either a `<span>` or `<a>` if `href` is set.
  * @csspart picture - The element containing the image, initials or fallback content.
+ * @csspart tooltip - The tooltip that is shown when the display name overflows.
  * @csspart wrapper - The wrapper element around the image and name.
- *
- * @slot badge - The badge to display on the avatar.
- * @slot default - The subheading of the avatar.
- * @slot fallback - The fallback content to display when no picture is set.
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -117,6 +118,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** The size of the avatar. */
   @property({ reflect: true }) size: AvatarSize = 'md';
 
+  /** @internal Whether the tooltip is visible. */
+  @state() tooltip?: boolean;
+
   /** If true, will display the name below the image. */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
@@ -147,9 +151,11 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    const avatar = this.renderAvatar();
+
     return this.href
-      ? html`<a href=${this.href} part="wrapper">${this.renderAvatar()}</a>`
-      : html`<div part="wrapper">${this.renderAvatar()}</div>`;
+      ? html`<a href=${this.href} part="wrapper">${avatar}</a>`
+      : html`<div part="wrapper">${avatar}</div>`;
   }
 
   renderAvatar(): TemplateResult {
@@ -157,28 +163,36 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       <div part="avatar">
         <slot @slotchange=${this.#onSlotChange} name="badge"></slot>
         <div part="picture" style=${styleMap({ clipPath: this.clipPath })}>
-          ${this.pictureUrl
-            ? html`
-                <img
-                  @error=${this.#onError}
-                  part="image"
-                  src=${this.pictureUrl}
-                  alt=${ifDefined(this.imageOnly ? this.displayName : '')} />
-              `
-            : html`
-                <slot name="fallback">
-                  <span part="initials">${this.initials}</span>
-                </slot>
-              `}
+          ${
+            this.pictureUrl
+              ? html`
+                  <img
+                    @error=${this.#onError}
+                    part="image"
+                    src=${this.pictureUrl}
+                    alt=${ifDefined(this.imageOnly ? this.displayName : '')} />
+                `
+              : html`
+                  <slot name="fallback">
+                    <span part="initials">${this.initials}</span>
+                  </slot>
+                `
+          }
         </div>
       </div>
-      ${this.imageOnly
-        ? nothing
-        : html`
-            <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
-            <span part="name">${this.displayName}</span>
-            <slot></slot>
-          `}
+      ${
+        this.imageOnly
+          ? nothing
+          : html`
+              ${
+                this.tooltip
+                  ? html`<sl-tooltip for="name" part="tooltip">${this.displayName}</sl-tooltip>`
+                  : nothing
+              }
+              <span id="name" part="name">${this.displayName}</span>
+              <slot></slot>
+            `
+      }
     `;
   }
 
@@ -216,16 +230,11 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       this.clipPath = undefined;
     }
 
-    // Check if the name overflows and if so, enable the tooltip
     const name = this.renderRoot.querySelector<HTMLElement>('[part="name"]');
-    if (
-      name &&
-      (name?.offsetWidth < name.scrollWidth || name.offsetHeight + 4 < name.scrollHeight)
-    ) {
-      name.setAttribute('aria-describedby', 'avatar-tooltip');
-    } else {
-      name?.removeAttribute('aria-describedby');
-    }
+
+    // Check if the name overflows and if so, enable the tooltip
+    this.tooltip =
+      !!name && (name.offsetWidth < name.scrollWidth || name.offsetHeight + 4 < name.scrollHeight);
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {

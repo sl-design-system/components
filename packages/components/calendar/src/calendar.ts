@@ -5,7 +5,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, LocaleMixin, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { dateConverter, dateListConverter } from '@sl-design-system/shared/converters.js';
 import { isSameDate } from '@sl-design-system/shared/date.js';
 import {
@@ -13,6 +13,7 @@ import {
   type SlSelectEvent,
   type SlToggleEvent
 } from '@sl-design-system/shared/events.js';
+import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -24,7 +25,7 @@ import {
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './calendar.scss.js';
+import styles from './calendar.css' with { type: 'css' };
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
@@ -184,52 +185,64 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           `
         ]
       ])}
-      ${this.min && this.max
-        ? html`
-            <div class="helper-text">
-              <sl-icon name="info"></sl-icon>
-              ${msg(
-                str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
-                { id: 'sl.calendar.rangeBetween' }
-              )}
-            </div>
-          `
-        : this.min
+      ${
+        this.min && this.max
           ? html`
               <div class="helper-text">
                 <sl-icon name="info"></sl-icon>
                 ${msg(
-                  str`No earlier than ${format(this.min, this.locale, this.#helperTextFormatOptions)}`,
-                  {
-                    id: 'sl.calendar.rangeNoEarlierThan'
-                  }
+                  str`Between ${format(this.min, this.locale, this.#helperTextFormatOptions)} and ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
+                  { id: 'sl.calendar.rangeBetween' }
                 )}
               </div>
             `
-          : this.max
+          : this.min
             ? html`
                 <div class="helper-text">
                   <sl-icon name="info"></sl-icon>
                   ${msg(
-                    str`No later than ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
+                    str`No earlier than ${format(this.min, this.locale, this.#helperTextFormatOptions)}`,
                     {
-                      id: 'sl.calendar.rangeNoLaterThan'
+                      id: 'sl.calendar.rangeNoEarlierThan'
                     }
                   )}
                 </div>
               `
-            : nothing}
+            : this.max
+              ? html`
+                  <div class="helper-text">
+                    <sl-icon name="info"></sl-icon>
+                    ${msg(
+                      str`No later than ${format(this.max, this.locale, this.#helperTextFormatOptions)}`,
+                      {
+                        id: 'sl.calendar.rangeNoLaterThan'
+                      }
+                    )}
+                  </div>
+                `
+              : nothing
+      }
     `;
   }
 
-  /** Sets `ariaDescribedByElements` on the button that receives focus inside the calendar grid. */
+  /**
+   * Adds the helper-text to `ariaDescribedByElements` on the first button that receives focus
+   * inside the calendar grid.
+   *
+   * This is an accessibility hack necessary because of
+   * https://github.com/nvaccess/nvda/issues/13392. NVDA automatically switches to browse mode when
+   * detecting interactive elements inside grid cells. Because of that focus is not moved to another
+   * day and the ARIA descriptions aren't read. As a workaround, we're adding the helper text to the
+   * first button that receives focus, so NVDA will at least read the helper text once. Once this
+   * NVDA issue is resolved, we can remove this workaround and add the helper text to the min/max
+   * day as expected.
+   */
   #onFocusIn(event: FocusEvent): void {
     if (!this.min && !this.max) {
       return;
     }
 
     const helperText = this.renderRoot.querySelector('.helper-text');
-
     if (!helperText) {
       return;
     }

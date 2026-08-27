@@ -9,7 +9,6 @@ import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
   RovingTabindexController,
   anchor,
   event,
@@ -21,6 +20,8 @@ import {
   type SlClearEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -31,7 +32,7 @@ import {
 } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
-import styles from './select.scss.js';
+import styles from './select.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -47,13 +48,15 @@ declare global {
   }
 }
 
+export type SelectFill = 'ghost' | 'outline';
+export type SelectShape = 'rect' | 'pill';
 export type SelectSize = 'md' | 'lg';
 
 /**
  * A form control that allows users to select one option from a list of options.
  *
  * @slot default - Place for `sl-option` and `sl-option-group` elements
- * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
+ * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate). Set `width` to override the default width (which matches the button width)
  * @csspart selected - The selected option element within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  * @csspart selected-option - The container for the selected option within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
  * @csspart placeholder - The placeholder text when no option is selected within the select's internal `sl-select-button`, exposed for styling via `<sl-select>`
@@ -61,7 +64,7 @@ export type SelectSize = 'md' | 'lg';
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Select<T = any> extends ObserveAttributesMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement)),
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement))),
   ['aria-describedby', 'aria-label', 'aria-labelledby']
 ) {
   /** @internal */
@@ -182,11 +185,15 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
+  /**
+   * The fill of the select.
+   *
+   * @default 'outline'
+   */
+  @property() fill?: SelectFill;
+
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** @internal The clear button element. */
   @query('button') clearButton?: HTMLButtonElement;
@@ -213,6 +220,13 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   /** Whether the select is a required field. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
+
+  /**
+   * The shape of the select.
+   *
+   * @default 'rect'
+   */
+  @property({ reflect: true }) shape?: SelectShape;
 
   /** @internal The selected option in the listbox. */
   @state() selectedOption?: Option<T>;
@@ -248,8 +262,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.button.addEventListener('sl-clear', this.#onButtonClear);
       this.button.clearable = !!this.clearable;
       this.button.disabled = !!this.disabled;
+      this.button.fill = this.fill;
       this.button.placeholder = this.placeholder;
       this.button.required = !!this.required;
+      this.button.shape = this.shape;
       this.button.selected = this.selectedOption;
       this.button.showValid = !!this.showValid;
       this.button.showValidity = this.showValidity;
@@ -307,15 +323,23 @@ export class Select<T = any> extends ObserveAttributesMixin(
       this.#updateAriaKeyShortcuts();
     }
 
+    if (changes.has('fill')) {
+      this.button.fill = this.fill;
+    }
+
     if (changes.has('placeholder')) {
       this.button.placeholder = this.placeholder;
     }
 
     if (changes.has('required')) {
       this.button.required = this.required;
-      this.internals.ariaRequired = Boolean(this.required).toString();
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
+    }
+
+    if (changes.has('shape')) {
+      this.button.shape = this.shape;
     }
 
     if (changes.has('showValid')) {
@@ -350,7 +374,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
          * (https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaControlsElements) when
          * browser support is sufficient.
          */
-        this.button.internals.ariaControlsElements = [this.listbox];
+        this.button.elementInternals.ariaControlsElements = [this.listbox];
       }
 
       this.#syncListboxLabeling();
@@ -362,18 +386,20 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     return html`
       <slot name="button"></slot>
-      ${showClearButton
-        ? html`
-            <button
-              @click=${this.#onClearButtonClick}
-              @focusin=${this.#onClearButtonFocusin}
-              @focusout=${this.#onClearButtonFocusout}
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
-              <sl-icon name="circle-xmark"></sl-icon>
-              <sl-icon name="circle-xmark-solid"></sl-icon>
-            </button>
-          `
-        : nothing}
+      ${
+        showClearButton
+          ? html`
+              <button
+                @click=${this.#onClearButtonClick}
+                @focusin=${this.#onClearButtonFocusin}
+                @focusout=${this.#onClearButtonFocusout}
+                aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
+                <sl-icon name="circle-xmark"></sl-icon>
+                <sl-icon name="circle-xmark-solid"></sl-icon>
+              </button>
+            `
+          : nothing
+      }
       <sl-listbox
         ${anchor({
           element: this.button,
@@ -490,7 +516,14 @@ export class Select<T = any> extends ObserveAttributesMixin(
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
-      this.listbox!.style.width = `${this.button.getBoundingClientRect().width}px`;
+
+      // Expose the button width as a custom property instead of setting `width` inline directly.
+      // This way the width can still be overridden from outside via `sl-select::part(listbox)`,
+      // since an inline `width` would take precedence over the `::part()` rule.
+      this.listbox!.style.setProperty(
+        '--_select-listbox-width',
+        `${this.button.getBoundingClientRect().width}px`
+      );
 
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
@@ -783,7 +816,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.#buttonAriaObserver.disconnect();
 
     try {
-      const labels = Array.from(this.internals.labels) as Element[],
+      const labels = Array.from(this.elementInternals.labels) as Element[],
         { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel } =
           this.#getExplicitLabelState();
 
@@ -911,10 +944,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setFormValue(this.nativeFormValue);
 
     if (!this.validity.customError) {
-      this.internals.setValidity(
+      this.elementInternals.setValidity(
         { valueMissing: this.required && !this.selectedOption },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );

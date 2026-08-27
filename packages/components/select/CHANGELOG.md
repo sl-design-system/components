@@ -1,5 +1,28 @@
 # @sl-design-system/select
 
+## 2.2.0
+
+### Minor Changes
+
+- [#3549](https://github.com/sl-design-system/components/pull/3549) [`0a4f62e`](https://github.com/sl-design-system/components/commit/0a4f62e454ad02ea56889f73e0a5f35cda488dbc) - Add ability to change the width of the dropdown
+
+- [#3548](https://github.com/sl-design-system/components/pull/3548) [`9ca0bc2`](https://github.com/sl-design-system/components/commit/9ca0bc28d6596c061f33205f3422169960c8c180) - Add a fill property and values "outline" (default) and "ghost"
+
+### Patch Changes
+
+- [#3487](https://github.com/sl-design-system/components/pull/3487) [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987) - Export listbox components from the combobox and select packages and automatically register the listbox, option, and option group elements when importing `register.js` to simplify using options.
+
+- [#3483](https://github.com/sl-design-system/components/pull/3483) [`de31def`](https://github.com/sl-design-system/components/commit/de31defb47c51816aabf8dfa5d53666378f2d07c) - Accessibility improvements: fix `aria-controls` and `aria-labelledby` relationships in sl-select.
+  - Add `ariaControlsElements` element reference via `ElementInternals` on the select button to correctly associate with the listbox across shadow DOM boundary.
+  - Set `ariaLabelledByElements` on the listbox to propagate the associated form label across the shadow DOM boundary.
+
+- [#3530](https://github.com/sl-design-system/components/pull/3530) [`5ac49c3`](https://github.com/sl-design-system/components/commit/5ac49c306cc25d5ae7a334e87fc26736dcade9a7) - Fix `sl-select` selected content rendering when projected option content temporarily has a non-document root, such as during Angular light DOM updates. The component now preserves scoped custom element importing when available and falls back to the node owner document otherwise.
+
+- Updated dependencies [[`ab43bd7`](https://github.com/sl-design-system/components/commit/ab43bd715bfb51b1a007bf2acb87e7061ae8ad19), [`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1), [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340), [`289ea43`](https://github.com/sl-design-system/components/commit/289ea4305ee138d52fe9007a6836df013402120e)]:
+  - @sl-design-system/icon@1.4.3
+  - @sl-design-system/shared@0.12.3
+  - @sl-design-system/listbox@0.2.1
+
 ## 2.1.5
 
 ### Patch Changes

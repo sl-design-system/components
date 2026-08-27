@@ -16,6 +16,7 @@ type Props = Pick<
   | 'filterResults'
   | 'groupSelected'
   | 'placeholder'
+  | 'shape'
   | 'selectOnly'
   | 'value'
 > & {
@@ -39,6 +40,7 @@ export default {
     filterResults: false,
     label: 'Component',
     hint: '',
+    maxWidth: '500px',
     placeholder: '',
     selectOnly: false,
     virtualList: false
@@ -47,6 +49,10 @@ export default {
     autocomplete: {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
     },
     options: {
       table: { disable: true }
@@ -66,6 +72,7 @@ export default {
     optionValuePath,
     options,
     placeholder,
+    shape,
     selectOnly,
     value,
     virtualList
@@ -87,7 +94,8 @@ export default {
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
             placeholder=${ifDefined(placeholder)}
-            style=${`max-width: ${maxWidth ?? 'none'}`}>
+            shape=${ifDefined(shape)}
+            style=${`max-width: ${maxWidth || '500px'}`}>
             ${virtualList
               ? nothing
               : html`
@@ -223,7 +231,6 @@ export const Selected: Story = {
 export const Stacked: Story = {
   args: {
     ...Basic.args,
-    maxWidth: '700px',
     value: [
       'Switch',
       'Card',
@@ -240,6 +247,14 @@ export const Stacked: Story = {
 export const Value: Story = {
   args: {
     ...Basic.args,
+    value: ['Button bar', 'Checkbox']
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    ...Basic.args,
+    shape: 'pill',
     value: ['Button bar', 'Checkbox']
   }
 };

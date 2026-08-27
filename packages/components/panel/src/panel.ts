@@ -15,9 +15,9 @@ import {
   type TemplateResult,
   html
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './panel.scss.js';
+import styles from './panel.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -124,6 +124,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   #addedNoTransitionInternally = false;
 
+  /** @internal Whether the actions slot has slotted elements. */
+  @state() private hasActions = false;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -172,28 +175,38 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div part="header" @slotchange=${this.#onHeaderSlotChange}>
-        ${this.collapsible
-          ? html`
-              <sl-button
-                @click=${() => this.toggle()}
-                aria-label=${this.collapsed
-                  ? msg('Expand panel', { id: 'sl.panel.expand' })
-                  : msg('Collapse panel', { id: 'sl.panel.collapse' })}
-                aria-controls="body"
-                aria-expanded=${this.collapsed ? 'false' : 'true'}
-                class="toggle"
-                fill="ghost">
-                <sl-icon
-                  class=${!this.collapsed ? 'upside-down' : ''}
-                  name="chevron-down"></sl-icon>
-              </sl-button>
-              <div part="wrapper">${this.#renderHeading()}</div>
-            `
-          : html`<div part="wrapper">${this.#renderHeading()}</div>`}
+        ${
+          this.collapsible
+            ? html`
+                <sl-button
+                  @click=${() => this.toggle()}
+                  aria-label=${
+                    this.collapsed
+                      ? msg('Expand panel', { id: 'sl.panel.expand' })
+                      : msg('Collapse panel', { id: 'sl.panel.collapse' })
+                  }
+                  aria-controls="body"
+                  aria-expanded=${this.collapsed ? 'false' : 'true'}
+                  class="toggle"
+                  fill="ghost">
+                  <sl-icon
+                    class=${!this.collapsed ? 'upside-down' : ''}
+                    name="chevron-down"></sl-icon>
+                </sl-button>
+                <div part="wrapper">${this.#renderHeading()}</div>
+              `
+            : html`<div part="wrapper">${this.#renderHeading()}</div>`
+        }
         <slot name="aside">
-          <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
-            <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
-          </sl-tool-bar>
+          ${
+            this.hasActions
+              ? html`
+                  <sl-tool-bar align="end" fill=${ifDefined(this.fill)}>
+                    <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
+                  </sl-tool-bar>
+                `
+              : html`<slot @slotchange=${this.#onActionsSlotChange} hidden name="actions"></slot>`
+          }
         </slot>
       </div>
       <div
@@ -298,6 +311,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.toggleAttribute('has-actions', elements.length > 0);
+    this.hasActions = elements.length > 0;
+    this.toggleAttribute('has-actions', this.hasActions);
   }
 }

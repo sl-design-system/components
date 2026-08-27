@@ -49,19 +49,6 @@ __snapshots__
 .idea/
 
 # Package build output
-examples/**/*.d.ts
-examples/**/*.d.ts.map
-examples/**/*.js
-examples/**/*.js.map
-packages/components/**/*.d.ts
-packages/components/**/*.d.ts.map
-packages/components/**/*.js
-packages/components/**/*.js.map
-!packages/components/eslint.config.js
-packages/locales/**/*.d.ts
-packages/locales/**/*.d.ts.map
-packages/locales/**/*.js
-packages/locales/**/*.js.map
 packages/themes/**/*.css
 !packages/themes/**/fonts.css
 !packages/themes/core/*.css

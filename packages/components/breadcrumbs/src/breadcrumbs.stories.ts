@@ -4,8 +4,8 @@ import '@sl-design-system/popover/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
-import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
+import './register.js';
 
 type Props = Pick<Breadcrumbs, 'hideHomeLabel' | 'inverted' | 'homeUrl' | 'noHome'> & {
   breadcrumbs(): TemplateResult;
@@ -130,13 +130,16 @@ export const CustomHome: Story = {
 export const Overflow: Story = {
   args: {
     breadcrumbs: () => html`
+      <a href="javascript:void(0)">
+        Commodo nisi ut mollit adipisicing esse fugiat Lorem irure do.
+      </a>
       <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate.</a>
-      <a href="javascript:void(0)"
-        >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.</a
-      >
-      <a href="javascript:void(0)"
-        >Lorem adipisicing do duis sunt laboris magna officia irure fugiat.</a
-      >
+      <a href="javascript:void(0)">
+        Nostrud ad fugiat amet officia anim qui sit tempor veniam magna.
+      </a>
+      <a href="javascript:void(0)">
+        Lorem adipisicing do duis sunt laboris magna officia irure fugiat.
+      </a>
     `
   }
 };

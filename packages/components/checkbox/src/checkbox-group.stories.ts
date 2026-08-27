@@ -2,10 +2,11 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/infotip/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
-import '../register.js';
 import { type CheckboxGroup } from './checkbox-group.js';
+import './register.js';
 
 type Props = Pick<CheckboxGroup, 'disabled' | 'required' | 'size' | 'value'> & {
   hint?: string;
@@ -55,28 +56,38 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
-          html`
-            <sl-checkbox-group
-              ?disabled=${disabled}
-              ?required=${required}
-              .label=${label}
-              .size=${size}
-              .value=${value}>
-              ${boxes?.() ??
-              html`
-                <sl-checkbox value="0">Option 1</sl-checkbox>
-                <sl-checkbox value="1">Option 2</sl-checkbox>
-                <sl-checkbox value="2">Option 3</sl-checkbox>
-                <sl-checkbox disabled value="3">Option 4</sl-checkbox>
-              `}
-            </sl-checkbox-group>
-          `}
+          ${
+            slot?.() ??
+            html`
+              <sl-checkbox-group
+                aria-label=${label || 'Label'}
+                ?disabled=${disabled}
+                ?required=${required}
+                .label=${label}
+                .size=${size}
+                .value=${value}>
+                ${
+                  boxes?.() ??
+                  html`
+                    <sl-checkbox value="0">Option 1</sl-checkbox>
+                    <sl-checkbox value="1">Option 2</sl-checkbox>
+                    <sl-checkbox value="2">Option 3</sl-checkbox>
+                    <sl-checkbox disabled value="3">Option 4</sl-checkbox>
+                  `
+                }
+              </sl-checkbox-group>
+            `
+          }
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
       </sl-form>
+      <style>
+        sl-tooltip {
+          position-area: right;
+        }
+      </style>
     `;
   }
 } satisfies Meta<Props>;
@@ -109,7 +120,7 @@ export const Value: Story = {
 export const ImplicitValue: Story = {
   args: {
     slot: () => html`
-      <sl-checkbox-group>
+      <sl-checkbox-group aria-label="Implicit value options">
         <sl-checkbox checked value="0">Option 1</sl-checkbox>
         <sl-checkbox checked value="1">Option 2</sl-checkbox>
         <sl-checkbox value="2">Option 3</sl-checkbox>
@@ -121,7 +132,7 @@ export const ImplicitValue: Story = {
 export const Infotip: Story = {
   args: {
     slot: () => html`
-      <sl-checkbox-group>
+      <sl-checkbox-group aria-label="Options with infotips">
         <sl-checkbox checked value="0"
           >Option 1 with infotip and a very long label that should wrap to the next line. This label
           is way too long to be used in the label for the "more info" button, so we have provided a
@@ -166,6 +177,30 @@ export const NoLabel: Story = {
   }
 };
 
+export const Description: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group aria-label="Options with descriptions">
+        <sl-checkbox description="Description for option 1" value="1">Label</sl-checkbox>
+        <sl-checkbox value="2">Label</sl-checkbox>
+        <sl-checkbox value="3">Label</sl-checkbox>
+        <sl-checkbox value="4">Label</sl-checkbox>
+        <sl-checkbox value="5">Label</sl-checkbox>
+      </sl-checkbox-group>
+    `
+  }
+};
+
+export const Tooltips: Story = {
+  args: {
+    boxes: () => html`
+      <sl-checkbox id="1" tooltip="Tooltip for option 1" value="1">Option 1</sl-checkbox>
+      <sl-checkbox id="2" tooltip="Tooltip for option 2" value="2">Option 2</sl-checkbox>
+      <sl-checkbox id="3" tooltip="Tooltip for option 3" value="3">Option 3</sl-checkbox>
+    `
+  }
+};
+
 export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
@@ -177,7 +212,7 @@ export const CustomValidity: Story = {
       };
 
       return html`
-        <sl-checkbox-group @sl-validate=${onValidate} required>
+        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Your favorite number" required>
           <sl-checkbox value="1">One</sl-checkbox>
           <sl-checkbox value="2">Two</sl-checkbox>
           <sl-checkbox value="3">Three</sl-checkbox>
@@ -207,7 +242,7 @@ export const CustomAsyncValidity: Story = {
       };
 
       return html`
-        <sl-checkbox-group @sl-validate=${onValidate} required>
+        <sl-checkbox-group @sl-validate=${onValidate} aria-label="Your favorite number" required>
           <sl-checkbox value="1">One</sl-checkbox>
           <sl-checkbox value="2">Two</sl-checkbox>
           <sl-checkbox value="3">Three</sl-checkbox>

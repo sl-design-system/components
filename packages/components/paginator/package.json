@@ -1,11 +1,16 @@
 {
   "name": "@sl-design-system/paginator",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "status": "draft",
   "description": "Paginator components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com",
+    "exports": {
+      ".": "./dist/index.js",
+      "./register.js": "./dist/register.js",
+      "./package.json": "./package.json"
+    }
   },
   "repository": {
     "type": "git",
@@ -17,14 +22,11 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./index.js",
-    "./package.json": "./package.json",
-    "./register.js": "./register.js"
+    ".": "./src/index.ts",
+    "./register.js": "./src/register.ts",
+    "./package.json": "./package.json"
   },
   "files": [
     "**/*.d.ts",
@@ -33,26 +35,31 @@
     "custom-elements.json"
   ],
   "sideEffects": [
-    "register.js"
+    "./src/register.ts",
+    "./dist/register.js"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
     "@sl-design-system/announcer": "^0.1.0",
-    "@sl-design-system/button": "^2.1.1",
+    "@sl-design-system/button": "^2.1.2",
+    "@sl-design-system/data-source": "^0.4.1",
     "@sl-design-system/form": "^1.4.2",
-    "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/menu": "^0.3.4",
-    "@sl-design-system/select": "^2.1.5",
-    "@sl-design-system/shared": "^0.12.2"
+    "@sl-design-system/icon": "^1.4.3",
+    "@sl-design-system/listbox": "^0.2.1",
+    "@sl-design-system/menu": "^0.4.0",
+    "@sl-design-system/select": "^2.2.0",
+    "@sl-design-system/shared": "^0.12.3"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.10"
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.3.3"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.10"
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.1.4"
   }
 }

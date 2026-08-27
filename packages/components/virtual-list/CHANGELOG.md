@@ -1,5 +1,22 @@
 # @sl-design-system/virtual-list
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3543](https://github.com/sl-design-system/components/pull/3543) [`c399b00`](https://github.com/sl-design-system/components/commit/c399b0041473ee71943619133dbe05e640924186) - Improve VoiceOver support for virtualized combobox options by rendering listbox-managed virtual options in the light DOM and stabilizing `aria-activedescendant` updates during virtual scrolling.
+
+### Patch Changes
+
+- [#3464](https://github.com/sl-design-system/components/pull/3464) [`31092f3`](https://github.com/sl-design-system/components/commit/31092f3f6405344998dac94b5dbd70dc917c45da) - Improved virtual list scrolling and grouped option behavior.
+  - Fixed `scrollMargin` handling so automatic window-scroll offsets are not overwritten by an implicit `0`, and clearing `scrollMargin` restores automatic behavior.
+  - Kept cached virtual-list measurements enabled internally for more stable rendering
+  - Prevented grouped combobox headers from being matched and selected as regular options
+  - Updated virtual-list and listbox stories to use deterministic `auto` scrolling and rerender selected item state correctly near the end of long lists
+
+- Updated dependencies [[`b40a00a`](https://github.com/sl-design-system/components/commit/b40a00a7d2987aebe11982476f5dd6f158eab3b1)]:
+  - @sl-design-system/shared@0.12.3
+
 ## 0.1.0
 
 ### Minor Changes

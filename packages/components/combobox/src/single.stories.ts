@@ -6,9 +6,9 @@ import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
+import './register.js';
 
 type Props = Pick<
   Combobox,
@@ -18,12 +18,14 @@ type Props = Pick<
   | 'filterResults'
   | 'groupSelected'
   | 'placeholder'
+  | 'shape'
   | 'selectOnly'
   | 'value'
 > & {
   label?: string;
   maxWidth?: string;
   options?: unknown[] | (() => TemplateResult);
+  optionDisabledPath?: string;
   optionGroupPath?: string;
   optionLabelPath?: string;
   optionValuePath?: string;
@@ -39,6 +41,7 @@ export default {
     disabled: false,
     filterResults: false,
     label: 'Component',
+    maxWidth: '500px',
     placeholder: '',
     selectOnly: false,
     virtualList: false
@@ -47,6 +50,10 @@ export default {
     autocomplete: {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['rect', 'pill']
     },
     options: {
       table: { disable: true }
@@ -60,11 +67,13 @@ export default {
     groupSelected,
     label,
     maxWidth,
+    optionDisabledPath,
     optionGroupPath,
     optionLabelPath,
     optionValuePath,
     options,
     placeholder,
+    shape,
     selectOnly,
     value,
     virtualList
@@ -81,20 +90,26 @@ export default {
             .options=${virtualList ? options : undefined}
             .value=${value}
             autocomplete=${ifDefined(autocomplete)}
+            option-disabled-path=${ifDefined(optionDisabledPath)}
             option-group-path=${ifDefined(optionGroupPath)}
             option-label-path=${ifDefined(optionLabelPath)}
             option-value-path=${ifDefined(optionValuePath)}
             placeholder=${ifDefined(placeholder)}
-            style=${`max-width: ${maxWidth ?? 'none'}`}>
-            ${virtualList
-              ? nothing
-              : html`
-                  <sl-listbox>
-                    ${Array.isArray(options)
-                      ? options.map(o => html`<sl-option>${o}</sl-option>`)
-                      : options?.()}
-                  </sl-listbox>
-                `}
+            shape=${ifDefined(shape)}
+            style=${`max-width: ${maxWidth || '500px'}`}>
+            ${
+              virtualList
+                ? nothing
+                : html`
+                    <sl-listbox>
+                      ${
+                        Array.isArray(options)
+                          ? options.map(o => html`<sl-option>${o}</sl-option>`)
+                          : options?.()
+                      }
+                    </sl-listbox>
+                  `
+            }
           </sl-combobox>
         </sl-form-field>
       </sl-form>
@@ -119,6 +134,22 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true
+  }
+};
+
+export const DisabledOptions: Story = {
+  args: {
+    label: 'Subject',
+    options: [
+      { disabled: false, label: 'Mathematics', value: 'mathematics' },
+      { disabled: true, label: 'Physics', value: 'physics' },
+      { disabled: false, label: 'History', value: 'history' },
+      { disabled: true, label: 'Geography', value: 'geography' }
+    ],
+    optionDisabledPath: 'disabled',
+    optionLabelPath: 'label',
+    optionValuePath: 'value',
+    virtualList: true
   }
 };
 
@@ -205,6 +236,13 @@ export const Value: Story = {
   args: {
     ...Basic.args,
     value: 'Tooltip'
+  }
+};
+
+export const Pill: Story = {
+  args: {
+    ...Basic.args,
+    shape: 'pill'
   }
 };
 

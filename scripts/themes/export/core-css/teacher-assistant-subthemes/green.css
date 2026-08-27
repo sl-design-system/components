@@ -1,0 +1,42 @@
+[data-teacher-assistant-subthemes='green'] {
+  --sl-subtheme-light-color-background-primary-bold: var(
+    --sl-brand-light-color-background-accent-green-bold
+  );
+  --sl-subtheme-light-color-background-primary-interactive-bold: var(
+    --sl-brand-light-color-background-accent-green-interactive-bold
+  );
+  --sl-subtheme-light-color-background-primary-interactive-plain: var(
+    --sl-brand-light-color-background-accent-green-interactive-plain
+  );
+  --sl-subtheme-light-color-background-primary-subtle: var(
+    --sl-brand-light-color-background-accent-green-subtle
+  );
+  --sl-subtheme-light-color-background-primary-subtlest: var(
+    --sl-brand-light-color-background-accent-green-subtlest
+  );
+  --sl-subtheme-light-color-background-selected-subtlest: var(
+    --sl-brand-light-color-background-accent-green-subtlest
+  );
+  --sl-subtheme-light-color-border-primary-bold: var(
+    --sl-brand-light-color-border-accent-green-plain
+  );
+  --sl-subtheme-light-color-border-primary-plain: var(
+    --sl-brand-light-color-border-accent-green-plain
+  );
+  --sl-subtheme-light-color-foreground-brand: var(
+    --sl-brand-light-color-foreground-accent-green-plain
+  );
+  --sl-subtheme-light-color-foreground-primary-bold: var(
+    --sl-brand-light-color-foreground-accent-green-plain
+  );
+  --sl-subtheme-light-color-foreground-primary-onBold: var(
+    --sl-brand-light-color-foreground-accent-green-onBold
+  );
+  --sl-subtheme-light-color-foreground-subtheme: var(
+    --sl-brand-light-color-foreground-accent-green-bold
+  );
+  --sl-subtheme-light-elevation-surface-base-default: var(--sl-brand-light-color-palette-grey-050);
+  --sl-subtheme-light-elevation-surface-raised-primary: var(
+    --sl-subtheme-light-color-background-primary-bold
+  );
+}

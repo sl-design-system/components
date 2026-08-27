@@ -1,7 +1,4 @@
 [data-brand='kampus'] {
-  --sl-brand-dark-color-background-accent-red-subtle: var(
-    --sl-computed-kampus-brand-dark-color-background-accent-red-subtle
-  );
   --sl-brand-icon-typeset-fontWeight-regular: var(--sl-icon-typeset-fontWeight-icon-regular);
   --sl-brand-icon-typeset-fontWeight-solid: var(--sl-icon-typeset-fontWeight-icon-solid);
   --sl-brand-light-color-background-accent-blue-bold: var(--sl-brand-light-color-palette-blue-600);
@@ -372,7 +369,7 @@
     --sl-brand-light-color-palette-yellow-600
   );
   --sl-brand-light-color-foreground-bold: var(--sl-brand-light-color-foreground-accent-grey-bold);
-  --sl-brand-light-color-foreground-brand-light: var(
+  --sl-brand-light-color-foreground-brand: var(
     --sl-brand-light-color-foreground-accent-purple-plain
   );
   --sl-brand-light-color-foreground-caution-bold: var(

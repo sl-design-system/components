@@ -1,7 +1,4 @@
 [data-brand='my-digital-book'] {
-  --sl-brand-dark-color-background-accent-red-subtle: var(
-    --sl-computed-my-digital-book-brand-dark-color-background-accent-red-subtle
-  );
   --sl-brand-icon-typeset-fontWeight-regular: var(--sl-icon-typeset-fontWeight-icon-regular);
   --sl-brand-icon-typeset-fontWeight-solid: var(--sl-icon-typeset-fontWeight-icon-solid);
   --sl-brand-light-color-background-accent-blue-bold: var(--sl-brand-light-color-palette-blue-500);
@@ -208,7 +205,7 @@
     --sl-brand-light-color-background-accent-blue-subtlest
   );
   --sl-brand-light-color-background-selected-bold: var(
-    --sl-brand-light-color-background-primary-bold
+    --sl-brand-light-color-background-accent-blue-bold
   );
   --sl-brand-light-color-background-selected-interactive-bold: var(
     --sl-brand-light-color-background-accent-blue-interactive-bold
@@ -306,7 +303,7 @@
   --sl-brand-light-color-border-secondary-plain: var(
     --sl-brand-light-color-border-accent-grey-plain
   );
-  --sl-brand-light-color-border-selected: var(--sl-brand-light-color-border-primary-bold);
+  --sl-brand-light-color-border-selected: var(--sl-subtheme-light-color-border-primary-bold);
   --sl-brand-light-color-foreground-accent-blue-bold: var(--sl-brand-light-color-palette-blue-600);
   --sl-brand-light-color-foreground-accent-blue-onBold: var(
     --sl-brand-light-color-foreground-inverted-plain

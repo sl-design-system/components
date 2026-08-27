@@ -55,9 +55,7 @@
   --sl-brand-dark-color-background-accent-red-interactive-plain: var(
     --sl-brand-dark-color-palette-red-300
   );
-  --sl-brand-dark-color-background-accent-red-subtle: var(
-    --sl-computed-neon-brand-dark-color-background-accent-red-subtle
-  );
+  --sl-brand-dark-color-background-accent-red-subtle: #ac243e59;
   --sl-brand-dark-color-background-accent-red-subtlest: #ac243e40;
   --sl-brand-dark-color-background-accent-teal-bold: var(--sl-brand-dark-color-palette-teal-200);
   --sl-brand-dark-color-background-accent-teal-interactive-bold: var(

@@ -5,6 +5,27 @@ eleventyNavigation:
   parent: Standalone link
   key: StandaloneLinkUsage
 ---
+<section class="no-heading">
+
+<div class="ds-example">
+
+    <sl-link>
+      <a href="/dashboard">Standalone link</a>
+    </sl-link>
+
+</div>
+
+<div class="ds-code">
+  
+  ```html
+    <sl-link>
+      <a href="/dashboard">Standalone link</a>
+    </sl-link>
+  ```
+
+</div>
+
+</section>
 
 <section>
 
@@ -18,13 +39,15 @@ eleventyNavigation:
 <section>
 
 ## When not to use
-Do not use a Standalone Link when the primary purpose is to perform an action rather than navigate. Standalone Links are intended for navigation to another page, view, or resource. If the interaction initiates an action, use a standard [Button](/categories/components/button/usage) instead.
+* Do not use a Standalone Link when the primary purpose is to perform an action rather than navigate. Standalone Links are intended for navigation to another page, view, or resource. If the interaction initiates an action, use a standard [Button](/categories/components/button/usage) instead.
+* Do not use a Standalone Link for inline links within running text or paragraphs; use global text link styling instead.
 
 </section>
 
-<section class="ds-cards">
 
-## Link types
+<section class="ds-cards">
+  
+  ## Link Types
   
   <figure>
     <div class="ds-example">

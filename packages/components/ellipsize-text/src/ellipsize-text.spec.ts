@@ -51,7 +51,6 @@ describe('sl-ellipsize-text', () => {
       `),
       ellipsizeText = container.querySelector<EllipsizeText>('sl-ellipsize-text')!;
 
-    // Wait for the resize observer to trigger
     await new Promise(resolve => setTimeout(resolve, 50));
 
     const slot = ellipsizeText.renderRoot.querySelector('slot'),

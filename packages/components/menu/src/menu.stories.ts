@@ -109,7 +109,7 @@ export const Disabled: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item>Rename...</sl-menu-item>
-      <sl-menu-item disabled>Delete...</sl-menu-item>
+      <sl-menu-item aria-disabled="true">Delete...</sl-menu-item>
     `
   }
 };
@@ -373,7 +373,7 @@ export const Combination: Story = {
           </sl-menu>
         </sl-menu-item>
         <hr />
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-pen"></sl-icon>
           Rename...
         </sl-menu-item>
@@ -414,7 +414,7 @@ export const All: Story = {
 
       <sl-menu>
         <sl-menu-item shortcut="$mod+Digit1">Default</sl-menu-item>
-        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <sl-menu-item aria-disabled="true" shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
         <hr />
         <sl-menu-item>
           Submenu

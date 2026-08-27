@@ -301,7 +301,7 @@ describe('sl-tab-group', () => {
 
     it('should disable the menu items for disabled tabs', () => {
       const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(
-        menuItem => !!menuItem.disabled
+        menuItem => menuItem.getAttribute('aria-disabled') === 'true'
       );
 
       expect(menuItems).to.eql([false, false, true]);

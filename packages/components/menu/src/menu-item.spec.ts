@@ -23,11 +23,11 @@ describe('sl-menu-item', () => {
       expect(el).to.have.attribute('tabindex', '0');
     });
 
-    it('should have a tabindex of -1 when disabled', async () => {
-      el.disabled = true;
+    it('should keep a tabindex of 0 when aria-disabled', async () => {
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('tabindex', '-1');
+      expect(el).to.have.attribute('tabindex', '0');
     });
 
     it('should not be disabled', () => {
@@ -36,32 +36,30 @@ describe('sl-menu-item', () => {
       expect(el.disabled).not.to.be.true;
     });
 
-    it('should be disabled when set', async () => {
-      el.disabled = true;
+    it('should be aria-disabled when set explicitly', async () => {
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('disabled');
       expect(el).to.have.attribute('aria-disabled', 'true');
-      expect(el.disabled).to.be.true;
+      expect(el).not.to.have.attribute('disabled');
     });
 
-    it('should remove aria-disabled when re-enabled', async () => {
-      el.disabled = true;
+    it('should remove aria-disabled when set back to false', async () => {
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
-      el.disabled = false;
+      el.setAttribute('aria-disabled', 'false');
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('aria-disabled');
+      expect(el).to.have.attribute('aria-disabled', 'false');
       expect(el).to.have.attribute('tabindex', '0');
     });
 
-    it('should preserve aria-disabled when re-enabled if it was set explicitly', async () => {
+    it('should preserve explicit aria-disabled state when toggled', async () => {
       el.setAttribute('aria-disabled', 'true');
-      el.disabled = true;
       await el.updateComplete;
 
-      el.disabled = false;
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-disabled', 'true');
@@ -271,7 +269,7 @@ describe('sl-menu-item', () => {
       const onClick = spy();
 
       el.addEventListener('click', onClick);
-      el.disabled = true;
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
       await userEvent.keyboard('{Meta>}1{/Meta}');
@@ -373,6 +371,16 @@ describe('sl-menu-item', () => {
       await userEvent.keyboard('{Space}');
 
       expect(menu).to.match(':popover-open');
+    });
+
+    it('should not show the submenu when aria-disabled and pressing enter', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      el.focus();
+
+      await userEvent.keyboard('{Enter}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(menu).not.to.match(':popover-open');
     });
 
     it('should toggle the submenu when pressing arrow right/left', async () => {

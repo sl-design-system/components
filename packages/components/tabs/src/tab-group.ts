@@ -315,7 +315,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                       menuItem => html`
                         <sl-menu-item
                           @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                          ?disabled=${menuItem.disabled}>
+                          aria-disabled=${menuItem.disabled ? 'true' : 'false'}>
                           ${menuItem.title}
                         </sl-menu-item>
                       `
@@ -354,13 +354,26 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (['Enter', ' '].includes(event.key)) {
-      this.#updateSelectedTab(<Tab>event.target);
-      this.#scrollToTabPanelStart();
+    if (!['Enter', ' '].includes(event.key)) {
+      return;
     }
+
+    const tab = event.target.closest('sl-tab');
+
+    // Ignore Enter/Space from non-tab elements like overflow menu items.
+    if (!(tab instanceof Tab)) {
+      return;
+    }
+
+    this.#updateSelectedTab(tab);
+    this.#scrollToTabPanelStart();
   }
 
   #onMenuItemClick(tab: Tab): void {
+    if (tab.disabled) {
+      return;
+    }
+
     if (tab.href) {
       tab.renderRoot.querySelector('a')?.click();
     }

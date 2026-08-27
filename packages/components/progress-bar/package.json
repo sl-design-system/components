@@ -42,7 +42,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/icon": "^1.4.1"
+    "@sl-design-system/icon": "^1.4.1",
+    "@sl-design-system/shared": "^0.12.3"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

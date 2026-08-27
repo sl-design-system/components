@@ -16,6 +16,7 @@ import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/switch/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { type Menu } from './menu.js';
@@ -383,6 +384,18 @@ export const Combination: Story = {
         </sl-menu-item>
       `;
     }
+  }
+};
+
+export const Switches: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item switch selected>Settings</sl-menu-item>
+      <sl-menu-item switch>People</sl-menu-item>
+      <sl-menu-item>Without switch</sl-menu-item>
+      <sl-menu-item><sl-icon name="far-rocket"></sl-icon>With Icon</sl-menu-item>
+      <sl-menu-item selectable>Selectable</sl-menu-item>
+    `
   }
 };
 

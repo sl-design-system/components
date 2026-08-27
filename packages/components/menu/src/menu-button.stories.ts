@@ -354,6 +354,25 @@ export const Avatar: Story = {
   }
 };
 
+export const Switches: Story = {
+  args: {
+    body: () => html`
+      <sl-icon name="far-gear" slot="button"></sl-icon>
+      <span slot="button">Display options</span>
+    `,
+    menuItems: () => html`
+      <sl-menu-item switch>Show only PTA</sl-menu-item>
+      <sl-menu-item switch>Show unconnected items</sl-menu-item>
+      <sl-menu-item>Menu item without a switch</sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-rocket"></sl-icon>
+        Menu item with an icon
+      </sl-menu-item>
+      <sl-menu-item selectable>Selectable</sl-menu-item>
+    `
+  }
+};
+
 export const All: Story = {
   render: () => html`
     <style>

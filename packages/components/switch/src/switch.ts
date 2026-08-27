@@ -329,12 +329,19 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
   /** Returns the text of the child nodes that are assigned to the default slot. */
   #labelText(): string {
-    return Array.from(this.childNodes)
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent?.trim() ?? '')
-      .join(' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+    return (
+      Array.from(this.childNodes)
+        // Resolve forwarded `<slot>` elements (e.g. when this element is used inside another
+        // component's shadow DOM) to the text nodes they re-project.
+        .flatMap(node =>
+          node instanceof HTMLSlotElement ? node.assignedNodes({ flatten: true }) : [node]
+        )
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .map(node => node.textContent?.trim() ?? '')
+        .join(' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+    );
   }
 
   #onFocusin = (): void => {

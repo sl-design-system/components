@@ -6,12 +6,6 @@ eleventyNavigation:
   key: StandaloneLinkUsage
 ---
 
-<section class="no-heading">
-
-Example
-
-</section>
-
 <section>
 
 ## When to use
@@ -56,6 +50,41 @@ Used for `tel:` links.
 * Always opens in a new tab (triggers the device's phone/calling app).
 * Always displays a mobile icon.
 
+</section>
+
+<section class="ds-cards">
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-1" size="sm"></sl-icon>
+          <sl-link no-icon="">
+      <a href="/dashboard">Internal link</a>
+    </sl-link>
+    </div>
+    <figcaption>
+
+### Internal link
+Use for destinations within the same product or ecosystem.
+* Open in the same tab when the destination is part of the user's primary journey.
+* Open in a new tab when users need to preserve their current context, such as during a workflow where supporting information is required.
+
+    </figcaption>
+  </figure>
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-2" size="sm"></sl-icon>
+          <sl-link no-icon="">
+      <a href="/dashboard">Internal link</a></sl-link>
+    </div>
+    <figcaption>
+
+### External link
+Use for destinations outside the product or organization domain.
+
+* Always opens in a new tab.
+* Always displays an external link icon.
+
+    </figcaption>
+  </figure>
 </section>
 
 <section>

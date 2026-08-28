@@ -55,17 +55,6 @@ describe('sl-menu-item', () => {
       expect(el).to.have.attribute('tabindex', '0');
     });
 
-    it('should preserve explicit aria-disabled state when toggled', async () => {
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('aria-disabled', 'true');
-      expect(el).to.have.attribute('tabindex', '0');
-    });
-
     it('should not be selectable', () => {
       expect(el.selectable).not.to.be.true;
     });

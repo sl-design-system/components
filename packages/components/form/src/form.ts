@@ -216,6 +216,13 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
       return;
     }
 
+    // Skip showing a required error when the user only tabs through an untouched field.
+    // Note: some controls (e.g. date-field, time-field) use setCustomValidity() to signal
+    // required-empty instead of the native valueMissing flag, so we rely on dirty alone.
+    if (control.required && !control.dirty) {
+      return;
+    }
+
     control.reportValidity();
   }
 

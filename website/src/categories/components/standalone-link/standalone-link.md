@@ -6,7 +6,7 @@ shortDescription: A standalone link is used to navigate users to internal or ext
 layout: "categories/components/components.njk"
 tags: component
 packageName: link
-storybookCategory: form
+storybookCategory: navigation
 eleventyNavigation:
   parent: Components
   key: Standalone link

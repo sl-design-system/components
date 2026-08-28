@@ -1,27 +1,45 @@
 ---
 title: Standalone link code
 tags: code
-APIdescription: {
-  sl-link-button: "-"
-}
+APIdescription: Component has a range of properties to define the experience in different use cases.
 eleventyNavigation:
   parent: Standalone link
-  key: StandaloneLinkCode
+  key: StandalonelinkCode
 ---
-<section class="no-heading">
+<section>
 
 <div class="ds-example">
--
+  <sl-link fill=${fill} variant="primary">
+    <a href="/courses">Course overview</a>
+  </sl-link>
+
+  <sl-link fill=${fill} variant="secondary" shape="pill">
+    <a href="/study-plan">Study plan</a>
+  </sl-link>
+
+  <sl-link fill=${fill} variant="success">
+    <a href="/calendar">Calendar</a>
+  </sl-link>
 </div>
 
 <div class="ds-code">
--
+
+  ```html
+  <sl-link fill=${fill} variant="primary">
+    <a href="/courses">Course overview</a>
+  </sl-link>
+
+  <sl-link fill=${fill} variant="secondary" shape="pill">
+    <a href="/study-plan">Study plan</a>
+  </sl-link>
+
+  <sl-link fill=${fill} variant="success">
+    <a href="/calendar">Calendar</a>
+  </sl-link>
+  ```
+
 </div>
 
 </section>
-
-<section>
-
-## Localization
-
-
+<ds-install-info link-in-navigation package="link"></ds-install-info>
+{% include "../component-table.njk" %}

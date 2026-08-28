@@ -79,6 +79,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/infotip/register.js';
 import '@sl-design-system/inline-message/register.js';
+import '@sl-design-system/link/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/menu/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';

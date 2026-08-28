@@ -5,7 +5,7 @@
   "componentTagName": [
     {
       "name": "Standalone link",
-      "selector": "sl-link-button"
+      "selector": "sl-link"
     }
   ]
 }

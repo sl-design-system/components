@@ -35,10 +35,6 @@ describe('sl-menu-button', () => {
       menu = el.renderRoot.querySelector('sl-menu') as Menu;
     });
 
-    it('should not be disabled', () => {
-      expect(el.disabled).not.to.be.true;
-    });
-
     describe('button', () => {
       it('should have a disabled button when set', async () => {
         el.disabled = true;

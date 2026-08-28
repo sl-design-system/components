@@ -23,9 +23,9 @@ closeButton.onclick = () => {
 };
 
 linksWithSubmenu?.forEach(link => {
-  link.onclick = (event: MouseEvent) => {
+  link.addEventListener('click', (event: MouseEvent) => {
     showSubmenu(event);
-  };
+  });
 });
 
 document.onclick = (event: MouseEvent) => {
@@ -122,11 +122,16 @@ function showSubmenu(event: Event): void {
   event.preventDefault();
   closeSubmenus();
 
-  const menuItem = event.target as Element,
-    arrowElement = (event.target as Element)?.children[0],
-    submenu = (event.target as Element)?.parentElement?.nextElementSibling;
+  const menuItem = (event.currentTarget ?? event.target) as HTMLElement | null;
 
-  if (!submenu || !menuItem || !arrowElement) {
+  if (!(menuItem instanceof Element) || !menuItem.classList.contains('ds-sidebar-nav__link--has-submenu')) {
+    return;
+  }
+
+  const arrowElement = menuItem.querySelector('.ds-sidebar-nav__arrow');
+  const submenu = menuItem.parentElement?.nextElementSibling;
+
+  if (!submenu || !arrowElement) {
     return;
   }
 
@@ -221,8 +226,8 @@ const headingObserver = new IntersectionObserver(handler, {
 if (componentStatus) {
   headingObserver.observe(componentStatus);
 } else if (heading && !componentStatus) {
-  headingObserver?.disconnect;
+  headingObserver.disconnect();
   headingObserver.observe(heading);
 } else {
-  headingObserver?.disconnect;
+  headingObserver.disconnect();
 }

@@ -32,7 +32,7 @@ eleventyNavigation:
     </sl-menu>
   </sl-menu-item>
   <hr />
-  <sl-menu-item disabled>Edit</sl-menu-item>
+  <sl-menu-item aria-disabled="true">Edit</sl-menu-item>
   <sl-menu-item>Remove</sl-menu-item>
 </sl-menu-button>
 
@@ -57,7 +57,7 @@ eleventyNavigation:
         </sl-menu>
       </sl-menu-item>
       <hr />
-      <sl-menu-item disabled>Edit</sl-menu-item>
+      <sl-menu-item aria-disabled="true">Edit</sl-menu-item>
       <sl-menu-item>Remove</sl-menu-item>
     </sl-menu-button>
   ```

@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   publish:
-    if: github.repository == 'sl-design-system/components'
+    if: github.repository == 'sl-design-system/components' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:

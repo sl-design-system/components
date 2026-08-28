@@ -39,11 +39,13 @@
     "lint": "wireit",
     "postinstall": "husky || true",
     "release": "wireit",
+    "release:canary": "wireit",
     "start": "wireit",
     "storybook": "wireit",
     "studio-auth": "yarn workspace @sl-design-system/scripts studio-auth",
     "test": "wireit",
     "version": "wireit",
+    "version:canary": "yarn changeset version --snapshot canary",
     "website": "wireit",
     "website:a11y:test": "wireit",
     "website:a11y:test:urls": "node scripts/run-website-a11y-test.js"
@@ -187,6 +189,13 @@
     },
     "release": {
       "command": "yarn changeset publish",
+      "dependencies": [
+        "dist",
+        "./packages/angular:release"
+      ]
+    },
+    "release:canary": {
+      "command": "yarn changeset publish --tag canary --no-git-tag",
       "dependencies": [
         "dist",
         "./packages/angular:release"

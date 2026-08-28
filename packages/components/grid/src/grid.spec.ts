@@ -1,6 +1,6 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, type ListDataSourceGroupItem } from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
 import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
@@ -9,10 +9,11 @@ import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { type Grid, type SlActiveRowChangeEvent } from './grid.js';
+import { type GridGroupHeader } from './group-header.js';
 import './register.js';
 import { waitForGridToRenderData } from './utils.js';
 
-type Person = { firstName: string; lastName: string; email?: string };
+type Person = { firstName: string; lastName: string; email?: string; group?: string };
 type Student = Person & { school: { id: number; name: string } };
 
 describe('sl-grid', () => {
@@ -1261,6 +1262,246 @@ describe('sl-grid', () => {
 
       expect(tooltip).to.exist;
       expect(tooltip).to.have.trimmed.text('Cancel selection');
+    });
+  });
+
+  describe('group headers with sticky columns', () => {
+    it('should make the group header follow the sticky start columns', async () => {
+      const dataSource = new ArrayListDataSource(
+          [
+            { firstName: 'John', lastName: 'Doe', group: 'Netherlands' },
+            { firstName: 'Jane', lastName: 'Smith', group: 'Netherlands' }
+          ],
+          { groupBy: 'group' }
+        ),
+        groupHeaderRenderer = (item: ListDataSourceGroupItem<Person>) => {
+          return html`
+            <span slot="group-heading">${item.label} (${item.count})</span>
+            <button type="button">Add student</button>
+          `;
+        };
+
+      el = await fixture(html`
+        <sl-grid
+          style="inline-size: 250px;"
+          .dataSource=${dataSource}
+          .groupHeaderRenderer=${groupHeaderRenderer}>
+          <sl-grid-column path="firstName" sticky width="120"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="220"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const actionButton = el.renderRoot.querySelector<HTMLButtonElement>(
+          'tbody tr[part~="group"] sl-grid-group-header button'
+        ),
+        groupCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr[part~="group"] td[part~="group-header"]'
+        ),
+        groupHeader = el.renderRoot.querySelector<GridGroupHeader>(
+          'tbody tr[part~="group"] sl-grid-group-header'
+        ),
+        actions = groupHeader?.renderRoot.querySelector<HTMLElement>('[part="actions"]'),
+        headingWrapper = groupHeader?.renderRoot.querySelector<HTMLElement>(
+          '[part="group-heading-wrapper"]'
+        ),
+        stickyCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr:not([part~="group"]) td.sticky-start-first'
+        ),
+        tbody = el.renderRoot.querySelector<HTMLTableSectionElement>('tbody')!;
+
+      expect(actionButton).to.exist;
+      expect(groupHeader).to.exist;
+      expect(groupCell).to.exist;
+      expect(headingWrapper).to.exist;
+      expect(actions).to.exist;
+      expect(stickyCell).to.exist;
+      expect(groupHeader).to.have.class('group-sticky-start-last');
+      expect(
+        groupHeader?.style.getPropertyValue('--sl-grid-group-header-sticky-inline-size')
+      ).to.equal('340px');
+      expect(getComputedStyle(headingWrapper!).position).to.equal('sticky');
+      expect(getComputedStyle(headingWrapper!, '::after').content).to.equal('none');
+      expect(getComputedStyle(actions!).position).to.equal('sticky');
+
+      tbody.scrollLeft = 150;
+      tbody.dispatchEvent(new Event('scroll'));
+
+      expect(getComputedStyle(headingWrapper!, '::after').content).to.equal('""');
+      expect(Math.round(groupCell!.getBoundingClientRect().width)).to.equal(640);
+      expect(Math.round(groupHeader!.getBoundingClientRect().left)).to.equal(
+        Math.round(groupCell!.getBoundingClientRect().left)
+      );
+      expect(Math.round(headingWrapper!.getBoundingClientRect().left)).to.equal(
+        Math.round(stickyCell!.getBoundingClientRect().left)
+      );
+      expect(Math.round(actionButton!.getBoundingClientRect().right)).to.be.closeTo(
+        Math.round(tbody.getBoundingClientRect().right - 12),
+        1
+      );
+    });
+
+    it('should use the sticky order from the last visible sticky start column', async () => {
+      const dataSource = new ArrayListDataSource(
+        [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
+          <sl-grid-column .hidden=${true} path="firstName" sticky width="120"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="220"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupHeader = el.renderRoot.querySelector<GridGroupHeader>(
+          'tbody tr[part~="group"] sl-grid-group-header'
+        ),
+        stickyCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr:not([part~="group"]) td.sticky-start-last'
+        );
+
+      expect(stickyCell).to.exist;
+      expect(groupHeader).to.have.class('group-sticky-start-last');
+      expect(groupHeader).not.to.have.class('sticky-start-last');
+    });
+
+    it('should use the same width fallback for group headers and sticky offsets', async () => {
+      const dataSource = new ArrayListDataSource(
+        [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" sticky width="0"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="0"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupHeader = el.renderRoot.querySelector<GridGroupHeader>(
+          'tbody tr[part~="group"] sl-grid-group-header'
+        ),
+        stickyCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr:not([part~="group"]) td.sticky-start-first'
+        ),
+        stickyBoundaryCell = el.renderRoot.querySelector<HTMLTableCellElement>(
+          'tbody tr:not([part~="group"]) td.sticky-start-last'
+        );
+
+      expect(stickyCell).to.exist;
+      expect(stickyBoundaryCell).to.exist;
+      expect(
+        groupHeader?.style.getPropertyValue('--sl-grid-group-header-sticky-inline-size')
+      ).to.equal('200px');
+      expect(Math.round(stickyCell!.getBoundingClientRect().width)).to.equal(100);
+      expect(getComputedStyle(stickyBoundaryCell!).insetInlineStart).to.equal('100px');
+    });
+
+    it('should use group-specific sticky classes for group headers', async () => {
+      const dataSource = new ArrayListDataSource(
+        [{ firstName: 'John', lastName: 'Doe', group: 'Netherlands' }],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" sticky width="120"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="220"></sl-grid-column>
+          <sl-grid-column .hidden=${true} path="email" sticky width="180"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupHeader = el.renderRoot.querySelector<GridGroupHeader>(
+        'tbody tr[part~="group"] sl-grid-group-header'
+      );
+
+      expect(groupHeader).to.have.class('group-sticky-start-last');
+      expect(groupHeader).not.to.have.class('sticky-start-last');
+    });
+
+    it('should keep the last collapsed group row the same height as the other group rows', async () => {
+      const dataSource = new ArrayListDataSource(
+        [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'B' }
+        ],
+        { groupBy: 'group' }
+      );
+
+      dataSource.collapseGroup('A');
+      dataSource.collapseGroup('B');
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" sticky width="100"></sl-grid-column>
+          <sl-grid-column path="lastName" sticky width="100"></sl-grid-column>
+          <sl-grid-column path="email" width="300"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const groupRows = Array.from(
+        el.renderRoot.querySelectorAll<HTMLTableRowElement>('tbody tr[part~="group"]')
+      );
+
+      expect(groupRows).to.have.lengthOf(2);
+      expect(
+        getComputedStyle(groupRows[1].querySelector('td')!).getPropertyValue(
+          'border-block-end-color'
+        )
+      ).to.equal('rgba(0, 0, 0, 0)');
+      expect(groupRows.map(row => row.getBoundingClientRect().height)).to.deep.equal([
+        groupRows[0].getBoundingClientRect().height,
+        groupRows[0].getBoundingClientRect().height
+      ]);
+    });
+
+    it('should keep the sticky horizontal scrollbar below the last row', async () => {
+      const dataSource = new ArrayListDataSource(
+        [{ firstName: 'John', lastName: 'Doe', group: 'A' }],
+        { groupBy: 'group' }
+      );
+      dataSource.collapseGroup('A');
+
+      el = await fixture(html`
+        <sl-grid style="inline-size: 250px;" .dataSource=${dataSource}>
+          <sl-grid-column path="firstName" width="200"></sl-grid-column>
+          <sl-grid-column path="lastName" width="200"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+      await el.updateComplete;
+
+      const tfoot = el.renderRoot.querySelector<HTMLTableSectionElement>('tfoot'),
+        row = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr[part~="group"]');
+
+      expect(tfoot).to.exist;
+      expect(row).to.exist;
+      expect(
+        getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
+      ).not.to.equal('rgba(0, 0, 0, 0)');
+      expect(Math.ceil(tfoot!.getBoundingClientRect().top)).to.be.at.least(
+        Math.floor(row!.getBoundingClientRect().bottom)
+      );
     });
   });
 });

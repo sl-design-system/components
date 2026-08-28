@@ -41,7 +41,9 @@ const createDataSource = () =>
   });
 
 const renderStory = async (dataSource: NestedTreeDataSource<TestNode>) => {
-  const render = meta.render as (args: { dataSource: NestedTreeDataSource<TestNode> }) => unknown;
+  const render = meta.render as (args: {
+    dataSource: NestedTreeDataSource<TestNode>;
+  }) => Parameters<typeof fixture>[0];
 
   return await fixture(render({ dataSource }));
 };

@@ -360,7 +360,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     const tab = event.target.closest('sl-tab');
 
-    // Ignore Enter/Space from non-tab elements like overflow menu items.
     if (!(tab instanceof Tab)) {
       return;
     }

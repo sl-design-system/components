@@ -14,7 +14,9 @@ export class CodeSnippet extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <pre class="language-${this.language}"><code class="language-${this.language}"><slot></slot></code></pre>
+      <!-- The pre scrolls horizontally when a line does not fit, so it has to be focusable to be
+      scrollable with the keyboard (axe: scrollable-region-focusable). -->
+      <pre class="language-${this.language}" tabindex="0"><code class="language-${this.language}"><slot></slot></code></pre>
       <sl-button size="md" fill="outline" icon-only @click=${this.#copyCode} aria-label="Copy the code">
         <sl-icon name="far-copy"></sl-icon>
       </sl-button>

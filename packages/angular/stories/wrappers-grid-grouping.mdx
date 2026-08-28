@@ -134,3 +134,47 @@ Customize the group heading content by providing a group header renderer.
   groupHeaderScopedElements: { 'sl-button': Button };
 }
 ```
+
+## Sticky Columns With Custom Group Header
+
+Combine grouped rows, a custom group header and sticky columns while scrolling horizontally.
+
+### Template
+
+```html
+<sl-grid
+  [dataSource]="dataSource"
+  [groupHeaderRenderer]="groupHeaderRenderer"
+  [scopedElements]="groupHeaderScopedElements"
+  [noSkipLinks]="true">
+  <sl-grid-column
+    [grow]="0"
+    header="Nr."
+    path="studentNumber"
+    [sticky]="true"
+    [width]="120"></sl-grid-column>
+  <sl-grid-column [grow]="0" path="group.name" [sticky]="true" [width]="220"></sl-grid-column>
+  <sl-grid-column [grow]="3" header="Student" path="fullName" [width]="260"></sl-grid-column>
+  <sl-grid-column path="email" [width]="260"></sl-grid-column>
+  <sl-grid-column path="school.name" header="School" [width]="260"></sl-grid-column>
+  <sl-grid-column path="school.address" [width]="240"></sl-grid-column>
+  <sl-grid-column path="school.city" [width]="160"></sl-grid-column>
+  <sl-grid-column path="school.country" [width]="160"></sl-grid-column>
+</sl-grid>
+```
+
+### Props
+
+```typescript
+{
+  dataSource: new ArrayListDataSource(students, {
+    groupBy: 'school.id',
+    groupLabelPath: 'school.name'
+  });
+  groupHeaderRenderer: (item: { label?: string; count: number }) => html`
+    <span slot="group-heading">${item.label} (${item.count})</span>
+    <sl-button size="sm">Add student</sl-button>
+  `;
+  groupHeaderScopedElements: { 'sl-button': Button };
+}
+```

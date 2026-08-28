@@ -7,7 +7,17 @@ eleventyNavigation:
 ---
 <section>
 
-## Keyboard interactions                                                                                   
+## Keyboard interactions
+
+<div class="ds-table-wrapper">
+
+| Command     | Description |
+|-------------|-------------|
+| Tab         | ...         |
+| Space/Enter | ...         |
+| ...         | ...         |
+| ...         | ...         |
+| ...         | ...         |
 
 {.ds-table .ds-table-align-top}
 
@@ -23,6 +33,13 @@ eleventyNavigation:
 
 <div class="ds-table-wrapper">
 
-</div>
+| Attribute |Value| Description |
+|-----------|-|-------------|
+| `...`     |string| ...         |
+| `...`     |string| ...         |
 
+{.ds-table .ds-table-align-top}
+
+</div>
 </section>
+

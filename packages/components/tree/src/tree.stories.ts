@@ -40,6 +40,7 @@ import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import './register.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
+import { getTopLevelSelectedNodes } from './tree.stories-utils.js';
 
 type Props = Pick<Tree, 'dataSource' | 'hideGuides' | 'renderer' | 'scopedElements'> & {
   maxWidth?: string;
@@ -323,9 +324,10 @@ export default {
     styles: { table: { disable: true } }
   },
   render: ({ dataSource, hideGuides, maxWidth, renderer, scopedElements, styles }) => {
-    const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
+    const getSelectedNodes = () => getTopLevelSelectedNodes(dataSource?.selection ?? []),
+      onToggle = () => getSelectedNodes().forEach(node => dataSource?.toggle(node)),
       onToggleDescendants = () =>
-        dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
+        getSelectedNodes().forEach(node => dataSource?.toggleDescendants(node, !node.expanded)),
       onExpandAll = () => dataSource?.expandAll(),
       onCollapseAll = () => dataSource?.collapseAll();
 
@@ -341,7 +343,9 @@ export default {
       }
       <sl-button-bar style="margin-block-end: 1rem">
         <sl-button @click=${onToggle}>Toggle selected</sl-button>
-        <sl-button @click=${onToggleDescendants}>Toggle descendants</sl-button>
+        <sl-button @click=${onToggleDescendants} aria-label="Toggle descendants of selected item">
+          Toggle descendants
+        </sl-button>
         <sl-button @click=${onExpandAll}>Expand all</sl-button>
         <sl-button @click=${onCollapseAll}>Collapse all</sl-button>
       </sl-button-bar>

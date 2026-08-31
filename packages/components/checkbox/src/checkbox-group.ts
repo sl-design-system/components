@@ -53,9 +53,13 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
   /** Events controller. */
   #events = new EventsController(this, {
     click: this.#onClick,
+    pointerdown: this.#onPointerDown,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout
   });
+
+  /** Whether the last interaction started with a mouse pointer down. */
+  #mouseInteraction = false;
 
   /** Observe changes to the checkboxes. */
   #observer = new MutationObserver(() => {
@@ -201,6 +205,10 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
     }
   }
 
+  #onPointerDown(event: PointerEvent): void {
+    this.#mouseInteraction = event.pointerType === 'mouse';
+  }
+
   #onFocusin(): void {
     this.focusEvent.emit();
   }
@@ -276,12 +284,24 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
   }
 
   #updateValidity(): void {
+    const isEmptyRequired = this.required && !this.boxes?.some(box => box.checked);
+
     this.elementInternals.setValidity(
-      { valueMissing: this.required && !this.boxes?.some(box => box.checked) },
+      { valueMissing: isEmptyRequired },
       msg('Please check at least one option.', {
         id: 'sl.checkbox.validation.valueMissingMultiple'
       })
     );
+
+    if (this.#mouseInteraction && isEmptyRequired) {
+      const form = this.closest('sl-form');
+
+      if (form?.validateOnBlur) {
+        this.reportValidity();
+      }
+    }
+
+    this.#mouseInteraction = false;
 
     this.updateValidity();
   }

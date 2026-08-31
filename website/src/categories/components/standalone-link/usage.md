@@ -113,8 +113,8 @@ indicate moving back in a process. This link always opens in the same tab.
   <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" id="interactive-example-4" size="sm"></sl-icon>
-      <sl-link icon-position="start">
-        <a href="/dashboard" target="blank">Internal link</a>
+      <sl-link>
+        <a href="/dashboard" target="_blank">Internal link</a>
       </sl-link>
     </div>
     <figcaption>

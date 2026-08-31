@@ -527,6 +527,25 @@ describe('sl-combobox', () => {
       expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
     });
 
+    it('should remove the create-custom-option element when clearing a selected option', async () => {
+      el.querySelector('sl-option')?.click();
+      await el.updateComplete;
+
+      input.focus();
+      input.select();
+      await userEvent.keyboard('Custom');
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+      input.select();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(el.createCustomOption).to.be.undefined;
+      expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
+    });
+
     it('should create a custom option after pressing Enter', async () => {
       input.focus();
       await userEvent.keyboard('Custom value');
@@ -719,6 +738,31 @@ describe('sl-combobox', () => {
         await userEvent.keyboard('{Tab}');
 
         expect(input.value).to.equal('');
+      });
+
+      it('should keep the option available after clearing when group-selected is set', async () => {
+        el.groupSelected = true;
+        await el.updateComplete;
+
+        const option = el.querySelector('sl-option')!;
+
+        option.click();
+        await el.updateComplete;
+
+        input.focus();
+        input.select();
+        await userEvent.keyboard('{Backspace}');
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+        expect(el.items.filter(item => item.type === 'option')).to.have.lengthOf(3);
+        expect(option).to.equal(el.querySelector('sl-option'));
+        expect(option).to.have.attribute('aria-selected', 'false');
+
+        option.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Lorem');
       });
 
       it('should remain invalid after clearing a required combobox and leaving the component', async () => {

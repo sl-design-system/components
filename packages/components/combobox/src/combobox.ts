@@ -682,6 +682,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
 
     if (!this.multiple && !value && this.selectedItems.length) {
       this.#removeSelectedOption(this.selectedItems[0]);
+      this.#updateCreateCustomOption();
       this.#updateCurrent();
       this.#updateFilteredOptions(value);
       this.#updateValue();
@@ -1301,7 +1302,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #removeSelectedOption(item: ComboboxItem<T, U>): void {
-    if (this.groupSelected) {
+    if (this.multiple && this.groupSelected) {
       this.#removeGroupedOption(item);
     } else {
       item.selected = false;

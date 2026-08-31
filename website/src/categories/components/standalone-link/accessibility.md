@@ -15,8 +15,8 @@ Exploring essential accessibility considerations for links: ensuring an inclusiv
 ## Content
 Having an accessible application is not only achieved by writing good code, but also (maybe even MORE so) by writing good copy. To make sure links and their targets are clear for all users make sure to keep these points in mind:
 
-### Avoid duplicate names
-There should be no two or more links with the exactly same text on the page. There should always be enough distinguishing text to differentiate two similar links on the same page.
+### Avoid ambiguous names
+Links with the same text should lead to the same destination. When similar links lead to different destinations, use enough distinguishing text to make each destination clear.
 
 ### Concise Clarity
 Link text should be brief, ideally 1 or 2 words, and at most 4 words with fewer than 20 characters, spaces included. Avoid punctuation like periods or exclamation points.
@@ -38,9 +38,9 @@ Links serve a functional purpose, so emojis and exclamation points should be lef
 <section>
 
 ## Difference between link and button
-It's important for accessibility to use links and buttons in right scenarios so assistive technologies users know what to expect from each item. 
+It's important for accessibility to use links and buttons in the right scenarios so assistive technology users know what to expect from each item.
 Use a link for navigation to another page, route, or resource.
-Use a button for actions performed on the current page, even when it require opening a modal dialog.
+Use a button for actions performed on the current page, even when it requires opening a modal dialog.
 Do not use a standalone link as a button-like action if it does not navigate.
 
 </section>
@@ -52,8 +52,9 @@ Internal linksa opening in a new tab and external links opening in a new tab hav
 
 </section>
 
-## Keyboard interactions
+<section>
 
+## Keyboard interactions
 <div class="ds-table-wrapper">
 
 | Command     | Description |
@@ -75,3 +76,4 @@ Internal linksa opening in a new tab and external links opening in a new tab hav
 {{ 'aria-attributes' | recurringText }}
 
 For this component we can't think of any common scenarios that require you to add specific attributes, but keep in mind that if you use images or icons that (partially) replace text you need to provide an alternative for assistive technology, by adding an alttext or aria-label as you normally would.
+</section>

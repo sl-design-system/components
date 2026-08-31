@@ -698,6 +698,52 @@ describe('sl-combobox', () => {
         expect(input.value).to.equal('Lorem');
       });
 
+      it('should clear the selected option when the input is cleared', async () => {
+        const onChange = spy();
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+        el.addEventListener('sl-change', onChange);
+
+        input.focus();
+        input.select();
+        await userEvent.keyboard('{Backspace}');
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+        expect(el.selectedItems).to.be.empty;
+        expect(input.value).to.equal('');
+        expect(onChange).to.have.been.calledOnce;
+        expect((onChange.lastCall.args[0] as SlChangeEvent).detail).to.be.null;
+
+        await userEvent.keyboard('{Tab}');
+
+        expect(input.value).to.equal('');
+      });
+
+      it('should remain invalid after clearing a required combobox and leaving the component', async () => {
+        el.required = true;
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        expect(el.valid).to.be.true;
+
+        input.focus();
+        input.select();
+        await userEvent.keyboard('{Backspace}');
+        await el.updateComplete;
+
+        expect(el.validity.valueMissing).to.be.true;
+        expect(el.valid).to.be.false;
+
+        await userEvent.keyboard('{Tab}');
+        await el.updateComplete;
+
+        expect(input.value).to.equal('');
+        expect(el.validity.valueMissing).to.be.true;
+        expect(el.valid).to.be.false;
+      });
+
       it('should emit an sl-change event with the value after selecting an option', async () => {
         const onChange = spy();
 

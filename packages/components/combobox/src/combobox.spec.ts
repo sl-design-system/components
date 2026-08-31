@@ -1852,6 +1852,20 @@ describe('sl-combobox', () => {
         expect(el.groupSelected).to.be.true;
       });
 
+      it('should restore grouped options when switching to single select', async () => {
+        el.multiple = false;
+        el.value = 'Option 1';
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options).to.have.lengthOf(6);
+        options.forEach(option => expect(option.style.display).not.to.equal('none'));
+        expect(el.querySelectorAll('sl-combobox-grouped-option')).to.be.empty;
+        expect(el.selectedItems.map(item => item.label)).to.deep.equal(['Option 1']);
+        expect(el.value).to.equal('Option 1');
+      });
+
       it('should prepend the selected group as the first child in the listbox', () => {
         const listbox = el.querySelector('sl-listbox');
 

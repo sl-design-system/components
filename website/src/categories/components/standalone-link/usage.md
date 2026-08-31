@@ -163,7 +163,7 @@ user's default mail client.
 
   <figure>
     <div class="ds-example">
-      <sl-icon name="fas-hand-back-point-up" id="interactive-example-6" size="sm"></sl-icon>
+      <sl-icon name="fas-hand-back-point-up" id="interactive-example-7" size="sm"></sl-icon>
       <sl-link>
         <a href="tel:+123456789012">Telephone link</a>
       </sl-link>

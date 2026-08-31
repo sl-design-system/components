@@ -1866,6 +1866,29 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('Option 1');
       });
 
+      it('should remove grouped options after filtering reveals their source options', async () => {
+        el.filterResults = true;
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('Option 1');
+        await el.updateComplete;
+
+        const sourceOption = Array.from(el.querySelectorAll('sl-option')).find(
+          option => option.textContent?.trim() === 'Option 1'
+        )!;
+
+        expect(sourceOption.style.display).not.to.equal('none');
+
+        el.value = [];
+        await el.updateComplete;
+
+        expect(el.selectedItems).to.be.empty;
+        expect(sourceOption).to.have.attribute('aria-selected', 'false');
+        expect(el.querySelectorAll('sl-combobox-grouped-option')).to.be.empty;
+        expect(el.querySelector('sl-combobox-selected-group')).not.to.exist;
+      });
+
       it('should prepend the selected group as the first child in the listbox', () => {
         const listbox = el.querySelector('sl-listbox');
 

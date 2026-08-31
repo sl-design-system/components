@@ -1178,7 +1178,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #removeGroupedOption(item: ComboboxItem<T, U>): void {
-    const originalItem = this.items.find(i => i.id === item.id && !i.visible);
+    const originalItem = this.items.find(i => i !== item && i.id === item.id);
     if (originalItem) {
       originalItem.selected = false;
       originalItem.visible = true;
@@ -1304,9 +1304,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   #removeSelectedOption(item: ComboboxItem<T, U>): void {
     const isGroupedOption =
       this.groupSelected &&
-      this.items.some(
-        candidate => candidate !== item && candidate.id === item.id && !candidate.visible
-      );
+      this.items.some(candidate => candidate !== item && candidate.id === item.id);
 
     if (isGroupedOption) {
       this.#removeGroupedOption(item);

@@ -394,7 +394,6 @@ export const Switches: Story = {
       <sl-menu-item switch>People</sl-menu-item>
       <sl-menu-item>Without switch</sl-menu-item>
       <sl-menu-item><sl-icon name="far-rocket"></sl-icon>With Icon</sl-menu-item>
-      <sl-menu-item selectable>Selectable</sl-menu-item>
     `
   }
 };

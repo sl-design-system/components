@@ -185,6 +185,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
                     @sl-change=${this.#onSwitchChange}
                     reverse
                     size="sm"
+                    tabindex="-1"
                     ><slot></slot
                   ></sl-switch>
                 `

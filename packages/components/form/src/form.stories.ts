@@ -413,9 +413,11 @@ export const ValidateOnBlur: Story = {
     renderFormStory(
       args,
       html`
-        <strong>Validate on blur.</strong> Format and pattern errors show on blur after editing.
-        Required fields show an error on blur after typing and clearing. Untouched required fields
-        still validate on submit.
+        <strong>Validate on blur.</strong> Format and pattern errors show on blur. For required
+        fields, validation is designed with accessibility in mind: just tabbing through shows no
+        error (so keyboard and screen reader users can explore the form without error noise). If you
+        type and clear, the error shows on blur. Mouse actions like unchecking show error
+        immediately. Untouched fields still validate on submit.
       `
     ),
   args: {
@@ -532,9 +534,10 @@ export const AllValidateOnBlur: Story = {
       args,
       html`
         <strong>Validate on blur for the full form.</strong> All visible fields are required except
-        <strong>Switch</strong>. Empty required fields show an error when blurred. Fields cleared
-        after editing also show the required error on blur. Required fields that are never visited
-        still validate on submit.
+        <strong>Switch</strong>. For required fields, validation is designed with accessibility in
+        mind: just tabbing through shows no error (so keyboard and screen reader users can explore
+        the form without hearing error announcements). If you type and clear, or use your mouse to
+        uncheck/deselect, the error shows right away. Untouched fields still validate on submit.
       `
     ),
   args: {

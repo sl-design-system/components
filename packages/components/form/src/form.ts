@@ -80,8 +80,12 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   @property({ type: Boolean }) disabled?: boolean;
 
   /**
-   * Validates controls on blur: shows errors for format/value mistakes and for empty required
-   * fields.
+   * Validates controls on blur. Format and value errors are shown when the user leaves a field. For
+   * required fields, errors are only shown when the user has actually interacted with the field
+   * (typed something, cleared it, or used the mouse to change the value). Simply tabbing through a
+   * required field without changing it shows no error, so keyboard and screen reader users can
+   * explore the form without being interrupted by error announcements. Fields never interacted with
+   * are still validated when `reportValidity()` is called.
    */
   @property({ attribute: 'validate-on-blur', type: Boolean }) validateOnBlur = false;
 

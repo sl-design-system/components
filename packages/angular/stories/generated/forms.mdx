@@ -34,6 +34,17 @@ Use `validate-on-blur` on `<sl-form>` to opt into blur-driven validation behavio
 
 With this opt-in enabled, the form validates a control when that control emits `sl-blur` (focus leaves the field), which is often less intrusive than immediate feedback.
 
+For **required fields** specifically, `validate-on-blur` has smart behavior for keyboard and screen reader accessibility:
+
+Keyboard and screen reader users typically tab through all form fields to understand what needs to be filled. If we show required errors on every blur—even for untouched fields—users would hear error messages for empty fields they haven't interacted with yet. This interrupts their workflow and makes it harder to understand the form.
+
+So instead:
+- Just **tabbing through** a field shows **no error** (field info is heard without noise)
+- If you **type, clear, and then blur**, the error **shows** (user intended to interact with the field)
+- **Mouse actions** like unchecking show error **immediately** (clear user intent to change the value)
+
+This way, keyboard/screen reader users can freely tab through a form to learn its structure, and only receive error feedback when they've actually modified a field. Untouched required fields still validate on form submit.
+
 This works for both:
 
 - **Reactive forms** (`formControlName` / `FormGroup`)

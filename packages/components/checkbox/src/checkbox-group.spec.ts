@@ -430,13 +430,13 @@ describe('sl-checkbox-group', () => {
       await userEvent.click(checkbox);
       await standaloneGroup.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
-      expect(standaloneGroup.validity.valid).to.be.true;
+      expect(standaloneGroup.valid).to.be.true;
 
       await userEvent.click(checkbox);
       await standaloneGroup.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(standaloneGroup.validity.valid).to.be.false;
+      expect(standaloneGroup.valid).to.be.false;
       expect(standaloneGroup).not.to.have.attribute('show-validity');
     });
 

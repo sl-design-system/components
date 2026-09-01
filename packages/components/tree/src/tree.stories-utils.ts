@@ -1,4 +1,4 @@
-import { type TreeDataSourceNode } from './tree-data-source.js';
+import { type TreeDataSource, type TreeDataSourceNode } from './tree-data-source.js';
 
 export const getTopLevelSelectedNodes = <T>(
   selection: Iterable<TreeDataSourceNode<T>>
@@ -19,4 +19,14 @@ export const getTopLevelSelectedNodes = <T>(
 
     return true;
   });
+};
+
+export const toggleSelectedNodes = <T>(dataSource?: TreeDataSource<T>): void => {
+  getTopLevelSelectedNodes(dataSource?.selection ?? []).forEach(node => dataSource?.toggle(node));
+};
+
+export const toggleSelectedDescendants = <T>(dataSource?: TreeDataSource<T>): void => {
+  getTopLevelSelectedNodes(dataSource?.selection ?? []).forEach(node =>
+    dataSource?.toggleDescendants(node, !node.expanded)
+  );
 };

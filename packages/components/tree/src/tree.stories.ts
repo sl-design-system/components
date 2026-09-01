@@ -40,7 +40,7 @@ import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import './register.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import { type Tree } from './tree.js';
-import { getTopLevelSelectedNodes } from './tree.stories-utils.js';
+import { toggleSelectedDescendants, toggleSelectedNodes } from './tree.stories-utils.js';
 
 type Props = Pick<Tree, 'dataSource' | 'hideGuides' | 'renderer' | 'scopedElements'> & {
   maxWidth?: string;
@@ -324,10 +324,8 @@ export default {
     styles: { table: { disable: true } }
   },
   render: ({ dataSource, hideGuides, maxWidth, renderer, scopedElements, styles }) => {
-    const getSelectedNodes = () => getTopLevelSelectedNodes(dataSource?.selection ?? []),
-      onToggle = () => getSelectedNodes().forEach(node => dataSource?.toggle(node)),
-      onToggleDescendants = () =>
-        getSelectedNodes().forEach(node => dataSource?.toggleDescendants(node, !node.expanded)),
+    const onToggle = () => toggleSelectedNodes(dataSource),
+      onToggleDescendants = () => toggleSelectedDescendants(dataSource),
       onExpandAll = () => dataSource?.expandAll(),
       onCollapseAll = () => dataSource?.collapseAll();
 

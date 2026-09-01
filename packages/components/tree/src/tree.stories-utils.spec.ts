@@ -1,9 +1,11 @@
-import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { describe, expect, it } from 'vitest';
 import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
-import { getTopLevelSelectedNodes } from './tree.stories-utils.js';
-import meta from './tree.stories.js';
+import {
+  getTopLevelSelectedNodes,
+  toggleSelectedDescendants,
+  toggleSelectedNodes
+} from './tree.stories-utils.js';
 
 interface TestNode {
   id: number;
@@ -40,25 +42,12 @@ const createDataSource = () =>
     multiple: true
   });
 
-const renderStory = async (dataSource: NestedTreeDataSource<TestNode>) => {
-  const render = meta.render as (args: {
-    dataSource: NestedTreeDataSource<TestNode>;
-  }) => Parameters<typeof fixture>[0];
-
-  return await fixture(render({ dataSource }));
-};
-
-const getButton = (el: Element, label: string): HTMLElement =>
-  Array.from(el.querySelectorAll<HTMLElement>('sl-button')).find(
-    button => button.textContent?.trim() === label
-  )!;
-
 const getExpandableStates = (node: TreeDataSourceNode<TestNode>): boolean[] => [
   node.expanded,
   ...(node.children ?? []).flatMap(getExpandableStates)
 ];
 
-describe('tree stories', () => {
+describe('tree story utils', () => {
   it('should only return selected nodes without a selected ancestor', () => {
     const dataSource = createDataSource(),
       parent = dataSource.nodes[0],
@@ -72,32 +61,28 @@ describe('tree stories', () => {
     expect(getTopLevelSelectedNodes(dataSource.selection)).to.deep.equal([parent]);
   });
 
-  it('should toggle only the top-level selected node', async () => {
+  it('should toggle only the top-level selected node', () => {
     const dataSource = createDataSource(),
       parent = dataSource.nodes[0],
-      child = parent.children![0],
-      el = await renderStory(dataSource);
+      child = parent.children![0];
 
     dataSource.select(parent);
 
-    getButton(el, 'Toggle selected').click();
-    await new Promise(resolve => setTimeout(resolve, 50));
+    toggleSelectedNodes(dataSource);
 
     expect(parent.expanded).to.be.false;
     expect(child.expanded).to.be.true;
   });
 
-  it('should force toggle descendants to the selected node state', async () => {
+  it('should force toggle descendants to the selected node state', () => {
     const dataSource = createDataSource(),
       parent = dataSource.nodes[0],
-      child = parent.children![0],
-      el = await renderStory(dataSource);
+      child = parent.children![0];
 
     dataSource.collapse(child);
     dataSource.select(parent);
 
-    getButton(el, 'Toggle descendants').click();
-    await new Promise(resolve => setTimeout(resolve, 50));
+    toggleSelectedDescendants(dataSource);
 
     expect(getExpandableStates(parent).every(expanded => !expanded)).to.be.true;
   });

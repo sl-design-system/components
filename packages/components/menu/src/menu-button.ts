@@ -251,7 +251,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   #onMenuClick(event: Event): void {
     const menuItem = event.composedPath().find(el => el instanceof MenuItem);
 
-    // Selectable and switch menu items toggle their own state instead of triggering an action,
+    // Selectable menu items toggle their own state instead of triggering an action,
     // so clicking them should not close the menu.
     if (menuItem && !menuItem.selectable) {
       const focusVisible = menuItem.matches(':focus-visible');

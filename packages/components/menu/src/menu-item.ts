@@ -179,6 +179,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
                   <sl-switch
                     ?checked=${this.selected}
                     @sl-change=${this.#onSwitchChange}
+                    ?disabled=${this.#disabled}
                     reverse
                     size="sm"
                     tabindex="-1"

@@ -88,6 +88,10 @@ sl-icon[name='chevron-right'] {
   --sl-icon-size: var(--sl-size-new-icon-xs);
 }
 
+sl-switch {
+  color: inherit;
+}
+
 sl-switch::part(toggle) {
   padding-inline-start: 0;
 }

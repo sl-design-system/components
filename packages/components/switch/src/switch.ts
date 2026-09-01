@@ -340,11 +340,17 @@ export class Switch<T = any> extends ForwardAriaMixin(
     return (
       Array.from(this.childNodes)
         // Resolve forwarded `<slot>` elements (e.g. when this element is used inside another
-        // component's shadow DOM) to the text nodes they re-project.
-        .flatMap(node =>
-          node instanceof HTMLSlotElement ? node.assignedNodes({ flatten: true }) : [node]
-        )
-        .filter(node => node.nodeType === Node.TEXT_NODE)
+        // component's shadow DOM) to the nodes they re-project (text and elements), while
+        // excluding direct element children that are not part of the label.
+        .flatMap(node => {
+          if (node instanceof HTMLSlotElement) {
+            return node.assignedNodes({ flatten: true });
+          } else if (node.nodeType === Node.TEXT_NODE) {
+            return [node];
+          } else {
+            return [];
+          }
+        })
         .map(node => node.textContent?.trim() ?? '')
         .join(' ')
         .replace(/\s+/g, ' ')

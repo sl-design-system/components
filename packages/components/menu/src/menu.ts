@@ -7,7 +7,6 @@ import {
   event
 } from '@sl-design-system/shared';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { Switch } from '@sl-design-system/switch';
 import {
   type CSSResultGroup,
   LitElement,
@@ -307,9 +306,7 @@ export class Menu extends LitElement {
     // Don't close if focus stays within this menu or when focus moves to a menu item that belongs to this menu
     if (
       (relatedTarget && this.contains(relatedTarget)) ||
-      (relatedTarget instanceof MenuItem && this.#menuItems.includes(relatedTarget)) ||
-      relatedTarget instanceof Switch ||
-      (relatedTarget instanceof HTMLElement && relatedTarget.closest('sl-switch') instanceof Switch)
+      (relatedTarget instanceof MenuItem && this.#menuItems.includes(relatedTarget))
     ) {
       return true;
     }

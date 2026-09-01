@@ -1,3 +1,4 @@
+import '@sl-design-system/switch/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -222,6 +223,169 @@ describe('sl-menu-item', () => {
       await el.updateComplete;
 
       expect(el.selected).to.be.true;
+    });
+  });
+
+  describe('switch', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-menu-item switch>Settings</sl-menu-item>`);
+    });
+
+    it('should render a switch component', () => {
+      const switchEl = el.renderRoot.querySelector('sl-switch');
+
+      expect(switchEl).to.exist;
+    });
+
+    it('should have menuitemcheckbox role', () => {
+      expect(el).to.have.attribute('role', 'menuitemcheckbox');
+    });
+
+    it('should have aria-checked false when not selected', () => {
+      expect(el).to.have.attribute('aria-checked', 'false');
+    });
+
+    it('should have aria-checked true when selected', async () => {
+      el.selected = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-checked', 'true');
+    });
+
+    it('should pass checked state to the switch', async () => {
+      const switchEl = el.renderRoot.querySelector('sl-switch');
+
+      expect(switchEl).not.to.have.attribute('checked');
+
+      el.selected = true;
+      await el.updateComplete;
+
+      expect(switchEl).to.have.attribute('checked');
+    });
+
+    it('should toggle selected when the switch is clicked', async () => {
+      const switchEl = el.renderRoot.querySelector('sl-switch')!;
+
+      expect(el.selected).not.to.be.true;
+
+      await userEvent.click(switchEl);
+      await el.updateComplete;
+
+      expect(el.selected).to.be.true;
+    });
+
+    it('should toggle selected when the menu item wrapper is clicked', async () => {
+      expect(el.selected).not.to.be.true;
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.selected).to.be.true;
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+    });
+
+    it('should toggle selected when focused and pressing enter', async () => {
+      el.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.selected).to.be.true;
+
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+    });
+
+    it('should toggle selected when focused and pressing space', async () => {
+      el.focus();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+
+      expect(el.selected).to.be.true;
+
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+    });
+
+    it('should emit an sl-select event when the switch changes', async () => {
+      const onSelect = spy();
+
+      el.addEventListener('sl-select', onSelect);
+
+      const switchEl = el.renderRoot.querySelector('sl-switch')!;
+      await userEvent.click(switchEl);
+      await el.updateComplete;
+
+      expect(onSelect).to.have.been.calledOnce;
+      expect(onSelect.firstCall.args[0]).to.be.instanceOf(CustomEvent);
+      expect((onSelect.firstCall.args[0] as CustomEvent).detail).to.be.true;
+    });
+
+    it('should emit an sl-select event when clicked', () => {
+      const onSelect = spy();
+
+      el.addEventListener('sl-select', onSelect);
+      el.click();
+
+      expect(onSelect).to.have.been.calledOnce;
+    });
+
+    it('should not toggle when disabled and clicked', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+    });
+
+    it('should not toggle when disabled and pressing enter', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+    });
+
+    it('should not toggle when aria-disabled and clicked', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.selected).not.to.be.true;
+    });
+
+    it('should remove aria-checked when switch property is removed', async () => {
+      el.switch = false;
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('aria-checked');
+    });
+
+    it('should change role back to menuitem when switch property is removed', async () => {
+      el.switch = false;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('role', 'menuitem');
+    });
+
+    it('should have a tabindex of -1 on the switch to avoid double focus', () => {
+      const switchEl = el.renderRoot.querySelector('sl-switch');
+
+      expect(switchEl).to.have.attribute('tabindex', '-1');
     });
   });
 

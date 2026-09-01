@@ -301,6 +301,14 @@ export const Submenu: Story = {
           <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Show profile
+        <sl-menu slot="submenu">
+          <sl-menu-item switch selected>Avatar</sl-menu-item>
+          <sl-menu-item switch>Last name</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
     `
   }
 };

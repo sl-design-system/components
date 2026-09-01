@@ -89,7 +89,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   @state() submenu?: Menu;
 
   /** @internal Whether this menu-item should be rendered as a switch. */
-  @property({ type: Boolean }) switch?: boolean;
+  @property({ type: Boolean, reflect: true }) switch?: boolean;
 
   /** @internal The emphasis, inherited from the menu. */
   @property({ reflect: true }) emphasis?: MenuItemEmphasis;
@@ -140,15 +140,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    if (changes.has('selectable')) {
+    if (changes.has('selectable') || changes.has('switch')) {
       const selectMode = this.parentElement?.matches('[selects="single"]')
         ? 'menuitemradio'
         : 'menuitemcheckbox';
-      this.role = this.selectable ? selectMode : 'menuitem';
-    }
-
-    if (changes.has('switch')) {
-      this.role = this.switch ? 'menuitemcheckbox' : 'menuitem';
+      this.role = this.switch ? 'menuitemcheckbox' : this.selectable ? selectMode : 'menuitem';
     }
 
     if (changes.has('selectable') || changes.has('switch') || changes.has('selected')) {

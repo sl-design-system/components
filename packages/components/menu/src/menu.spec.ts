@@ -1,3 +1,4 @@
+import '@sl-design-system/switch/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
@@ -252,6 +253,25 @@ describe('sl-menu', () => {
         expect(el).not.to.match(':popover-open');
 
         document.body.removeChild(outsideButton);
+      });
+
+      it('should close the menu when focus moves outside to an sl-switch component', async () => {
+        const outsideSwitch = document.createElement('sl-switch');
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        document.body.appendChild(outsideSwitch);
+        await outsideSwitch.updateComplete; // Wait for the switch to be ready
+
+        expect(el).to.match(':popover-open');
+
+        outsideSwitch.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el).not.to.match(':popover-open');
+
+        document.body.removeChild(outsideSwitch);
       });
 
       it('should not close the menu when focus moves between menu items', async () => {

@@ -65,7 +65,8 @@ export class Menu extends LitElement {
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<MenuItem>(this, {
     direction: 'vertical',
-    elements: () => this.#menuItems || []
+    elements: () => this.#menuItems || [],
+    isFocusableElement: () => true
   });
 
   /**

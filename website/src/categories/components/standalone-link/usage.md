@@ -277,11 +277,11 @@ hierarchy, and context:
 
 <div class="ds-table-wrapper">
 
-| Item | Name | Description | Optional |
-| --- | --- | --- | --- |
-| 1 | Container | Defines the clickable area of the link button. | no |
-| 2 | Text label | Communicates the link's destination or purpose. | no |
-| 3 | Icon end | Indicates the link's behavior or destination type. | yes |
+| Item | Name | Description                                                                                                 | Optional |
+| --- | --- |-------------------------------------------------------------------------------------------------------------| --- |
+| 1 | Container | Defines the clickable area of the standalone link.                                                          | no |
+| 2 | Text label | Communicates the link's destination or purpose.                                                             | no |
+| 3 | Icon end | Indicates the link's behavior or destination type.                                                          | yes |
 | 4 | Arrow-left | Indicates if the user is going back a step in a process (only used for internal navigation in the same tab) | yes |
 
 {.ds-table .ds-table-align-top}

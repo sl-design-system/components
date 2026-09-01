@@ -9,15 +9,15 @@ eleventyNavigation:
 <section>
 
 <div class="ds-example">
-  <sl-link fill=${fill} variant="primary">
+  <sl-link fill="outline" variant="primary">
     <a href="/courses">Course overview</a>
   </sl-link>
 
-  <sl-link fill=${fill} variant="secondary" shape="pill">
+  <sl-link variant="secondary" shape="pill">
     <a href="/study-plan">Study plan</a>
   </sl-link>
 
-  <sl-link fill=${fill} variant="success">
+  <sl-link variant="success">
     <a href="/calendar">Calendar</a>
   </sl-link>
 </div>
@@ -25,15 +25,15 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-link fill=${fill} variant="primary">
+  <sl-link fill="outline" variant="primary">
     <a href="/courses">Course overview</a>
   </sl-link>
 
-  <sl-link fill=${fill} variant="secondary" shape="pill">
+  <sl-link variant="secondary" shape="pill">
     <a href="/study-plan">Study plan</a>
   </sl-link>
 
-  <sl-link fill=${fill} variant="success">
+  <sl-link variant="success">
     <a href="/calendar">Calendar</a>
   </sl-link>
   ```

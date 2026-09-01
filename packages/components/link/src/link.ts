@@ -100,7 +100,7 @@ export class Link extends ScopedElementsMixin(ElementInternalsMixin(LitElement))
   /**
    * The size of the link button.
    *
-   * @default 'medium'
+   * @default 'md'
    */
   @property({ reflect: true }) size?: 'sm' | 'md' | 'lg';
 

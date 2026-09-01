@@ -218,6 +218,8 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
       attributes: true,
       attributeFilter: ['aria-disabled', 'disabled']
     });
+
+    this.#observeItems();
   }
 
   override disconnectedCallback(): void {

@@ -16,7 +16,10 @@ const hasMeaningfulContent = (node, analyzer, sourceCode) => {
 
   // A bare default `<slot>` re-projects the host's light DOM content, which is assumed
   // to provide an accessible name, so treat it as meaningful even though it has no children.
-  if (node.name === 'slot' && analyzer.getAttributeValue(node, 'name', sourceCode) === null) {
+  if (
+    node.name === 'slot' &&
+    ['', null].includes(analyzer.getAttributeValue(node, 'name', sourceCode))
+  ) {
     return true;
   }
 

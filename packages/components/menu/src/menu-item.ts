@@ -88,7 +88,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
 
-  /** @internal Whether this menu-item should be rendered as a switch. */
+  /** Whether this menu-item should be rendered as a switch. */
   @property({ type: Boolean, reflect: true }) switch?: boolean;
 
   /** @internal The emphasis, inherited from the menu. */

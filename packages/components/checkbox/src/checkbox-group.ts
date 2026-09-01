@@ -53,6 +53,7 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
   /** Events controller. */
   #events = new EventsController(this, {
     click: this.#onClick,
+    keydown: this.#onKeydown,
     pointerdown: this.#onPointerDown,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout
@@ -205,8 +206,18 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
     }
   }
 
+  #onKeydown(): void {
+    // Prevent stale mouse modality from affecting later keyboard-triggered value changes.
+    this.#mouseInteraction = false;
+  }
+
   #onPointerDown(event: PointerEvent): void {
-    this.#mouseInteraction = event.pointerType === 'mouse';
+    const targetCheckbox = event
+      .composedPath()
+      .find((el): el is Checkbox => el instanceof Checkbox && !el.disabled);
+
+    // Set mouse modality only when the interaction starts on an enabled checkbox.
+    this.#mouseInteraction = event.pointerType === 'mouse' && !!targetCheckbox;
   }
 
   #onFocusin(): void {

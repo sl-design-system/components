@@ -440,6 +440,38 @@ describe('sl-checkbox-group', () => {
       expect(standaloneGroup).not.to.have.attribute('show-validity');
     });
 
+    it('should keep keyboard uncheck behavior after pointerdown with no change', async () => {
+      const form = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-checkbox-group required>
+            <sl-checkbox value="0">Option 1</sl-checkbox>
+            <sl-checkbox value="1">Option 2</sl-checkbox>
+          </sl-checkbox-group>
+        </sl-form>
+      `);
+
+      const group = form.querySelector<CheckboxGroup>('sl-checkbox-group')!;
+
+      group.dispatchEvent(
+        new PointerEvent('pointerdown', { bubbles: true, composed: true, pointerType: 'mouse' })
+      );
+
+      group.boxes?.[0].focus();
+      await userEvent.keyboard('{Space}');
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(group.validity.valid).to.be.true;
+      expect(group).not.to.have.attribute('show-validity');
+
+      await userEvent.keyboard('{Space}');
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(group.validity.valid).to.be.false;
+      expect(group).not.to.have.attribute('show-validity');
+    });
+
     it('should be invalid when the initial value does not match any of the options', async () => {
       el = await fixture(html`
         <sl-checkbox-group required value="[3]">

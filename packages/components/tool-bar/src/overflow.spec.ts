@@ -528,61 +528,26 @@ describe('width measurement', () => {
     expect(toolbar.menuItems.length).to.equal(1);
   });
 
-  it('should remeasure when cached item widths still overflow the wrapper', async () => {
+  it('should remeasure when a slotted item changes size without a host resize', async () => {
     const toolbar = await fixture<ToolBar>(html`
-      <sl-tool-bar>
-        <sl-button>Button 1</sl-button>
-        <sl-button>Button 2</sl-button>
-        <sl-button>Button 3</sl-button>
+      <sl-tool-bar style="inline-size: 400px">
+        <sl-button>A</sl-button>
+        <sl-button>B</sl-button>
+        <sl-button>C</sl-button>
       </sl-tool-bar>
     `);
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise(resolve => setTimeout(resolve, 100));
     await toolbar.updateComplete;
 
-    const buttons = Array.from(toolbar.querySelectorAll('sl-button')),
-      wrapper = toolbar.wrapper!,
-      widths = [
-        [60, 60, 60],
-        [100, 100, 100]
-      ];
-    let measurementPass = -1;
+    expect(toolbar.menuItems.length).to.equal(0);
 
-    Object.defineProperty(toolbar, 'getBoundingClientRect', {
-      configurable: true,
-      value: () => ({ width: 230, height: 40 })
-    });
-    Object.defineProperty(wrapper, 'getBoundingClientRect', {
-      configurable: true,
-      value: () => ({ width: 230, height: 40 })
-    });
-    Object.defineProperty(wrapper, 'clientWidth', {
-      configurable: true,
-      get: () => 230
-    });
-    Object.defineProperty(wrapper, 'scrollWidth', {
-      configurable: true,
-      get: () => (measurementPass === 0 ? 240 : 230)
-    });
+    toolbar.querySelector('sl-button')!.style.inlineSize = '340px';
 
-    buttons.forEach((button, index) => {
-      Object.defineProperty(button, 'getBoundingClientRect', {
-        configurable: true,
-        value: () => {
-          if (index === 0) {
-            measurementPass++;
-          }
-
-          return { width: widths[Math.min(measurementPass, widths.length - 1)][index], height: 40 };
-        }
-      });
-    });
-
-    toolbar.refresh();
+    await new Promise(resolve => setTimeout(resolve, 100));
     await toolbar.updateComplete;
 
-    expect(measurementPass).to.equal(1);
-    expect(toolbar.menuItems.length).to.equal(2);
+    expect(toolbar.menuItems.length).to.be.greaterThan(0);
   });
 
   it('should not leave the measuring state set', async () => {

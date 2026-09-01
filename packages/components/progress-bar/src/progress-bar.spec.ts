@@ -49,6 +49,34 @@ describe('sl-progress-bar', () => {
     expect(progressBar).to.have.attribute('role', 'progressbar');
   });
 
+  it('should forward an aria-label to the element with the progressbar role', async () => {
+    const labelled = await fixture<ProgressBar>(
+      html`<sl-progress-bar aria-label="File upload"></sl-progress-bar>`
+    );
+    const labelledProgressBar = labelled.renderRoot.querySelector('[role="progressbar"]');
+
+    expect(labelled).not.to.have.attribute('aria-label');
+    expect(labelledProgressBar).to.have.attribute('aria-label', 'File upload');
+  });
+
+  it('should update and remove a forwarded aria-label', async () => {
+    el.setAttribute('aria-label', 'File upload');
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(el).not.to.have.attribute('aria-label');
+    expect(progressBar).to.have.attribute('aria-label', 'File upload');
+
+    el.setAttribute('aria-label', 'Preparing download');
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(el).not.to.have.attribute('aria-label');
+    expect(progressBar).to.have.attribute('aria-label', 'Preparing download');
+
+    el.removeAttribute('aria-label');
+
+    expect(progressBar).not.to.have.attribute('aria-label');
+  });
+
   it('should have the correct attributes', () => {
     expect(progressBar).to.have.attribute('aria-describedby', 'helper');
     expect(progressBar).to.have.attribute('aria-valuemin', '0');

@@ -93,6 +93,9 @@ export class DateField extends LocaleMixin(
   /** Formatter for displaying the value and validation messages. */
   #formatter?: Intl.DateTimeFormat;
 
+  /** The selected date value. */
+  #value?: Date;
+
   /** Watches light DOM changes so action controls can be rendered only when needed. */
   #slotObserver = new MutationObserver(() => this.#updateHasActionSlotContent());
 
@@ -173,7 +176,7 @@ export class DateField extends LocaleMixin(
     return `${y}-${m}-${d}`;
   }
 
-  override set formValue(value: Date | string | null) {
+  override set formValue(value: Date | string | null | undefined) {
     if (value instanceof Date) {
       this.value = value;
     } else if (typeof value === 'string') {
@@ -262,8 +265,28 @@ export class DateField extends LocaleMixin(
    */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
+  override get value(): Date | undefined {
+    return this.#value;
+  }
+
   /** The selected date in the calendar. */
-  @property({ converter: dateConverter }) @cssState('has-value') override value?: Date;
+  @property({ converter: dateConverter })
+  @cssState('has-value')
+  override set value(value: Date | undefined) {
+    const oldValue = this.#value;
+
+    this.#value = value;
+
+    if (value === undefined && oldValue === undefined && this.#hasPartialDate()) {
+      if (this.#preserveDateParts) {
+        this.#preserveDateParts = false;
+      } else {
+        this.dateParts = {};
+        this.#enteredDigits = 0;
+        this.updateValidity();
+      }
+    }
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();

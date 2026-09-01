@@ -13,7 +13,7 @@ Exploring essential accessibility considerations for links: ensuring an inclusiv
 <section>
 
 ## Content
-Having an accessible application is not only achieved by writing good code, but also (maybe even MORE so) by writing good copy. To make sure links and their targets are clear for all users make sure to keep these points in mind:
+Accessible applications depend not only on good code, but also on good copy. To keep links and their destinations clear for all users, follow these guidelines:
 
 ### Avoid ambiguous names
 Links with the same text should lead to the same destination. When similar links lead to different destinations, use enough distinguishing text to make each destination clear.
@@ -25,7 +25,7 @@ Link text should be brief, ideally 1 or 2 words, and at most 4 words with fewer 
 Links should express their target, using verbs in their labels and a bare infinitive conjunction. This approach enhances clarity and user orientation.
 
 ### Clear Outcomes
-The link's label should unmistakably convey the target page to which link brings the user. Ideally the link text should match the page title.
+The link's label should unmistakably convey its destination. Ideally, the link text should match the destination page title.
 
 ### Sentence Case
 Always use sentence case for link text; capitalization should not be used for emphasis.
@@ -48,7 +48,7 @@ Do not use a standalone link as a button-like action if it does not navigate.
 <section>
 
 ## Links opening in new tab
-Internal linksa opening in a new tab and external links opening in a new tab have am additional icon at the end of link. That icon shows sighted user this behavior. For screen reader users for this kind of links there is automatically added invisible, announced by screen reader text '(opens in a new tab)'.
+Internal links that open in a new tab and external links have an additional icon at the end. This icon communicates the behavior to sighted users. For screen reader users, the component automatically adds visually hidden text that announces '(opens in a new tab)'.
 
 </section>
 

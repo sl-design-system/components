@@ -99,6 +99,9 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
   /** Flag indicating whether item width measurements are required before recalculating layout. */
   #needsMeasurement = true;
 
+  /** Whether the current resize pass is retrying with fresh item measurements. */
+  #remeasuringAfterOverflow = false;
+
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(entries => {
     if (!this.wrapper) {
@@ -439,6 +442,15 @@ export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElemen
 
     applyVisibility(this.items);
     this.menuItems = hiddenItems;
+
+    if (hasWrapperOverflow(this.wrapper) && !this.#remeasuringAfterOverflow) {
+      this.#remeasuringAfterOverflow = true;
+      this.#needsMeasurement = true;
+      this.#onResize();
+      return;
+    }
+
+    this.#remeasuringAfterOverflow = false;
 
     if (this.menuItems.length > 0 && this.parentElement) {
       this.#resizeObserver.observe(this.parentElement);

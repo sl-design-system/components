@@ -83,6 +83,12 @@ export class Switch<T = any> extends ForwardAriaMixin(
   /** Controller for managing event listeners. */
   #eventController = new AbortController();
 
+  /** Controller for managing forwarded slot listeners. */
+  #forwardedSlotController = new AbortController();
+
+  /** Cached set of forwarded slots we're currently listening to. */
+  #forwardedSlots = new Set<HTMLSlotElement>();
+
   /** The initial state of the switch. */
   #initialState = false;
 
@@ -181,6 +187,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
   override disconnectedCallback(): void {
     this.#eventController.abort();
+    this.#forwardedSlotController.abort();
 
     super.disconnectedCallback();
   }
@@ -412,6 +419,33 @@ export class Switch<T = any> extends ForwardAriaMixin(
 
     if (this.infotip && !this.infotip.describes) {
       this.infotip.describes = getSlottedText(event.target);
+    }
+
+    // If the light DOM contains forwarded slots (e.g., this switch is used inside another
+    // component's shadow DOM), listen to slotchange on those forwarded slots so we can track
+    // dynamic content changes that would otherwise not bubble to our shadow slot.
+    const currentForwardedSlots = Array.from(this.childNodes).filter(
+      (node): node is HTMLSlotElement => node instanceof HTMLSlotElement
+    );
+
+    // Only update listeners if the set of forwarded slots has actually changed
+    const currentSet = new Set(currentForwardedSlots);
+    const slotsChanged =
+      currentSet.size !== this.#forwardedSlots.size ||
+      currentForwardedSlots.some(slot => !this.#forwardedSlots.has(slot));
+
+    if (slotsChanged) {
+      this.#forwardedSlotController.abort();
+      this.#forwardedSlotController = new AbortController();
+      this.#forwardedSlots = currentSet;
+
+      if (currentForwardedSlots.length > 0) {
+        const { signal } = this.#forwardedSlotController;
+
+        currentForwardedSlots.forEach(slot => {
+          slot.addEventListener('slotchange', () => this.requestUpdate(), { signal });
+        });
+      }
     }
   }
 

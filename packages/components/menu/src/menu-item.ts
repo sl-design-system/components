@@ -177,6 +177,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
             this.switch
               ? html`
                   <sl-switch
+                    aria-hidden="true"
                     ?checked=${this.selected}
                     @sl-change=${this.#onSwitchChange}
                     ?disabled=${this.#disabled}

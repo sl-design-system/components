@@ -305,7 +305,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         <sl-select
           @sl-change=${this.#onChange}
           .value=${this.page}
-          aria-label=${msg('Page', { id: 'sl.paginator.currentPage' })}
+          aria-label=${msg('Page', { id: 'sl.paginator.page' })}
           size=${this.size === 'lg' ? this.size : 'md'}>
           ${Array.from({ length: this.pageCount }).map(
             (_, index) => html`

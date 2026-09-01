@@ -254,7 +254,7 @@
   <source>Select page number</source>
   <target>Wybierz numer strony</target>
 </trans-unit>
-<trans-unit id="sl.paginator.currentPage">
+<trans-unit id="sl.paginator.page">
   <source>Page</source>
   <target>Strona</target>
 </trans-unit>

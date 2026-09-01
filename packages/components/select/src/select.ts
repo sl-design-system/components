@@ -135,6 +135,9 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
+  /** Prevent duplicate blur emits within the same focus session. */
+  #blurEmitted = false;
+
   /**
    * Tracks pointer events outside to emit blur. This is necessary because: - When the button has
    * focus and you click non-focusable content, focus doesn't move - So focusout never fires and
@@ -593,6 +596,8 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #onFocusin(): void {
+    // A new focus-in starts a fresh focus session for blur tracking.
+    this.#blurEmitted = false;
     this.#listenForOutsidePointer();
     this.focusEvent.emit();
   }
@@ -625,6 +630,11 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #emitBlurAndTouch(): void {
+    if (this.#blurEmitted) {
+      return;
+    }
+
+    this.#blurEmitted = true;
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }

@@ -9,11 +9,11 @@ So SLDS does not replace Angular validation, it integrates component validity wi
 
 `touched` and `dirty` are Angular form state flags, they are not the direct trigger for SLDS validation UI.
 
-Angular marks `touched` through the `ControlValueAccessor` bridge on both `sl-blur` and `sl-change`. This means for controls like checkbox, `touched` can become `true` on the first change, before blur. SLDS `validate-on-blur` runs only on `sl-blur`, so they are conceptually separate even though they often appear to align.
+Angular marks `touched` through the `ControlValueAccessor` bridge on both `sl-blur` and `sl-change`. SLDS `validate-on-blur` is normally triggered on `sl-blur`, but there are explicit immediate feedback exceptions for user actions with clear intent (for example unchecking a required checkbox or removing the last required selection in checkbox group / combobox). In those cases, controls can call `reportValidity()` right away.
 
 By default, SLDS form validation is **not** on blur. Validation feedback is shown after validation is requested (for example via `reportValidity()` / submit). After that, feedback updates as values change.
 
-Use `validate-on-blur` on `<sl-form>` to opt into blur-driven validation behavior:
+Use `validate-on-blur` on `<sl-form>` to opt into validation on blur:
 
 ```html
 <sl-form validate-on-blur>
@@ -21,7 +21,7 @@ Use `validate-on-blur` on `<sl-form>` to opt into blur-driven validation behavio
 </sl-form>
 ```
 
-With this opt-in enabled, the form validates a control when that control emits `sl-blur` (focus leaves the field), which is often less intrusive than immediate feedback.
+With this opt-in enabled, the form usually validates a control when that control emits `sl-blur` (focus leaves the field), which is often less intrusive than immediate feedback. For a few clear interaction cases (checkbox, checkbox group, and combobox value removal), controls can report validity immediately.
 
 For **required fields** specifically, `validate-on-blur` has smart behavior for keyboard and screen reader accessibility:
 

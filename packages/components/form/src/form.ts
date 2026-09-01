@@ -215,15 +215,18 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return element instanceof HTMLElement && 'formControlElement' in element;
   }
 
+  #isEmptyValue(value: unknown): boolean {
+    return value == null || value === '' || (Array.isArray(value) && value.length === 0);
+  }
+
   #validateControlOnBlur(control: HTMLElement & FormControl): void {
     if (!this.validateOnBlur) {
       return;
     }
 
-    // Skip showing a required error when the user only tabs through an untouched field.
-    // Note: some controls (e.g. date-field, time-field) use setCustomValidity() to signal
-    // required-empty instead of the native valueMissing flag, so we rely on dirty alone.
-    if (control.required && !control.dirty) {
+    // Skip only untouched *empty* required controls so keyboard/screen reader users can tab
+    // through a form without premature required errors.
+    if (control.required && !control.dirty && this.#isEmptyValue(control.formValue)) {
       return;
     }
 

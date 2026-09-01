@@ -281,6 +281,31 @@ describe('sl-select', () => {
       otherButton.remove();
     });
 
+    it('should not emit sl-blur twice when outside pointer happens before later focusout', async () => {
+      const onBlur = spy(),
+        outside = document.createElement('div'),
+        otherButton = document.createElement('button');
+
+      el.after(outside, otherButton);
+      el.addEventListener('sl-blur', onBlur);
+
+      // Focus starts the focus session and installs the outside pointer listener.
+      el.focus();
+
+      // Click-like pointer interaction on non-focusable outside content triggers the outside
+      // pointer path without moving focus away from the select button.
+      outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+      await new Promise(resolve => setTimeout(resolve));
+
+      // Later, an actual focus transition out should not emit a second blur.
+      otherButton.focus();
+
+      expect(onBlur).to.have.been.calledOnce;
+
+      outside.remove();
+      otherButton.remove();
+    });
+
     it('should emit an sl-validate event when calling reportValidity', () => {
       const onValidate = spy();
 

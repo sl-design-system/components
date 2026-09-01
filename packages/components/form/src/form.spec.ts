@@ -269,6 +269,35 @@ describe('sl-form', () => {
       expect(textField.showValidity).to.equal('invalid');
     });
 
+    it('should validate pristine required non-empty invalid values on blur', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Email">
+            <sl-text-field name="email" required type="email" value="abc"></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const textField = el.querySelector<TextField>('sl-text-field[name="email"]')!,
+        input = textField.formControlElement as HTMLInputElement,
+        reportValiditySpy = spy(textField, 'reportValidity');
+
+      expect(textField.dirty).to.be.false;
+      expect(textField.formValue).to.equal('abc');
+      expect(textField.valid).to.be.false;
+
+      input.focus();
+      input.blur();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField.updateComplete;
+
+      expect(reportValiditySpy).to.have.been.calledOnce;
+      expect(textField.showValidity).to.equal('invalid');
+    });
+
     it('should not validate empty required values on blur when only tabbing through', async () => {
       el = await fixture(html`
         <sl-form validate-on-blur>

@@ -537,6 +537,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       );
 
       this.currentOption = this.selectedOption ?? this.options[0];
+      this.#blurEmitted = false;
       this.#listenForOutsidePointer();
     } else {
       this.#popoverClosing = true;

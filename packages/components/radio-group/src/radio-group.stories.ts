@@ -200,8 +200,8 @@ export const ValidateOnBlur: StoryObj = {
 
     return html`
       <p>
-        This form uses <code>validate-on-blur</code>. Focus the group without selecting an option,
-        then leave the field to see the required validation on blur.
+        This form uses <code>validate-on-blur</code>. Simply focus and leave the empty group to see
+        that no required error is shown; click <strong>Report validity</strong> to validate it.
       </p>
       <sl-form validate-on-blur>
         <sl-form-field hint="Required field" label="Radio group">

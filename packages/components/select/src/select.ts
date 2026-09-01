@@ -597,7 +597,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #onFocusin(): void {
-    // A new focus-in starts a fresh focus session for blur tracking.
     this.#blurEmitted = false;
     this.#listenForOutsidePointer();
     this.focusEvent.emit();

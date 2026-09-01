@@ -281,6 +281,22 @@ describe('sl-select', () => {
       otherButton.remove();
     });
 
+    it('should emit sl-blur when outside pointerdown happens on non-focusable content', async () => {
+      const onBlur = spy(),
+        outside = document.createElement('div');
+
+      el.after(outside);
+      el.addEventListener('sl-blur', onBlur);
+      el.focus();
+
+      outside.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onBlur).to.have.been.calledOnce;
+
+      outside.remove();
+    });
+
     it('should not emit sl-blur twice when outside pointer happens before later focusout', async () => {
       const onBlur = spy(),
         outside = document.createElement('div'),

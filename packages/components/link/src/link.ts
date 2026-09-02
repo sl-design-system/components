@@ -50,6 +50,7 @@ export type LinkVariant =
  * @slot default - Place a single <code>&lt;a&gt;</code> element inside the component.
  * @csspart icon - The new-tab indicator icon.
  * @cssstate reversed - The link has an internal indicator icon on the left side.
+ * @cssstate hide-icon - The link has no icon and is an internal link.
  */
 @localized()
 export class Link extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
@@ -124,6 +125,12 @@ export class Link extends ScopedElementsMixin(ElementInternalsMixin(LitElement))
   @cssState()
   get reversed(): boolean {
     return !this.noIcon && this.#indicatorIcon === 'arrow-left';
+  }
+
+  /** @internal Helper state whether to show the padding or not (to make place for the icon). */
+  @cssState()
+  get hideIcon(): boolean {
+    return !!(this.noIcon && this.linkType === 'internal');
   }
 
   get #indicatorIcon(): string {

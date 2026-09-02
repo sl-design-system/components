@@ -44,7 +44,7 @@ describe('sl-menu-item', () => {
       expect(el).not.to.have.attribute('disabled');
     });
 
-    it('should remove aria-disabled when set back to false', async () => {
+    it('should set aria-disabled to false when set back to false', async () => {
       el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
@@ -300,18 +300,6 @@ describe('sl-menu-item', () => {
       );
 
       expect(onClick).to.have.been.calledOnce;
-    });
-
-    it('should not trigger the menu item when the shortcut is pressed and the menu item is disabled', async () => {
-      const onClick = spy();
-
-      el.addEventListener('click', onClick);
-      el.setAttribute('aria-disabled', 'true');
-      await el.updateComplete;
-
-      await userEvent.keyboard('{Meta>}1{/Meta}');
-
-      expect(onClick).not.to.have.been.called;
     });
 
     it('should not trigger the menu item when the shortcut is pressed and the menu item is aria-disabled', async () => {

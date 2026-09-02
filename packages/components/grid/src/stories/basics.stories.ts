@@ -97,12 +97,12 @@ export const EllipsizeText: Story = {
       ellipsize-text
       column-divider
       no-skip-links>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-column path="school.name"></sl-grid-column>
-      <sl-grid-column path="school.address"></sl-grid-column>
-      <sl-grid-column path="school.city"></sl-grid-column>
-      <sl-grid-column path="school.country"></sl-grid-column>
+      <sl-grid-column path="firstName" width="80"></sl-grid-column>
+      <sl-grid-column path="lastName" width="80"></sl-grid-column>
+      <sl-grid-column path="school.name" width="100"></sl-grid-column>
+      <sl-grid-column path="school.address" width="100"></sl-grid-column>
+      <sl-grid-column path="school.city" width="65"></sl-grid-column>
+      <sl-grid-column path="school.country" width="75"></sl-grid-column>
     </sl-grid>
   `
 };

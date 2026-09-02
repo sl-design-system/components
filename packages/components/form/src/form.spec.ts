@@ -1,4 +1,5 @@
 import { ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import { TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -101,6 +102,35 @@ describe('sl-form', () => {
       expect(el.reportValidity()).to.be.false;
       expect(controls[0].reportValidity).to.have.been.calledOnce;
       expect(controls[1].reportValidity).to.have.been.calledOnce;
+    });
+
+    it('should announce all invalid required fields with context on reportValidity', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>(),
+        form = await fixture<Form>(html`
+          <sl-form>
+            <sl-form-field label="First name">
+              <sl-text-field name="firstName" required></sl-text-field>
+            </sl-form-field>
+            <sl-form-field label="Last name">
+              <sl-text-field name="lastName" required></sl-text-field>
+            </sl-form-field>
+          </sl-form>
+        `);
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      form.reportValidity();
+      await form.updateComplete;
+
+      const messages = announceSpy
+        .getCalls()
+        .map(call => (call.args[0] as SlAnnounceEvent).detail.message);
+
+      expect(messages).to.eql([
+        'First name: Please fill in this field.',
+        'Last name: Please fill in this field.'
+      ]);
     });
 
     it('should have a value for the form', async () => {

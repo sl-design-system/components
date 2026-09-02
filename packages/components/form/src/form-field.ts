@@ -2,6 +2,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import {
   type CSSResultGroup,
@@ -359,11 +360,35 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    const previousError = this.errors[event.target.id],
+      nextError =
+        event.detail.showValidity === 'invalid' ? event.detail.validationMessage : undefined;
+
+    if (nextError && nextError !== previousError) {
+      announce(this.#getValidationAnnouncement(event.target, nextError), 'polite', true);
+    }
+
     // Since we can have multiple form controls slotted, we need to
     // separate the validation messages for each.
     this.errors = {
       ...this.errors,
-      [event.target.id]: event.detail.showValidity ? event.detail.validationMessage : undefined
+      [event.target.id]: nextError
     };
+  }
+
+  #getValidationAnnouncement(control: HTMLElement & FormControl, message: string): string {
+    const fieldLabel = this.#normalizeText(this.label),
+      associatedLabel = this.#normalizeText(control.labels?.[0]?.textContent),
+      ariaLabel = this.#normalizeText(control.formControlElement.getAttribute('aria-label')),
+      name = this.#normalizeText(control.name),
+      context = fieldLabel || associatedLabel || ariaLabel || name;
+
+    return context ? `${context}: ${message}` : message;
+  }
+
+  #normalizeText(value: string | null | undefined): string | undefined {
+    const normalized = value?.replace(/\s+/g, ' ').trim();
+
+    return normalized ? normalized : undefined;
   }
 }

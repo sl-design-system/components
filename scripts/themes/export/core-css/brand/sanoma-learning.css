@@ -55,9 +55,7 @@
   --sl-brand-dark-color-background-accent-red-interactive-plain: var(
     --sl-brand-dark-color-palette-red-200
   );
-  --sl-brand-dark-color-background-accent-red-subtle: var(
-    --sl-computed-sanoma-learning-brand-dark-color-background-accent-red-subtle
-  );
+  --sl-brand-dark-color-background-accent-red-subtle: #48070959;
   --sl-brand-dark-color-background-accent-red-subtlest: #a0141840;
   --sl-brand-dark-color-background-accent-teal-bold: var(--sl-brand-dark-color-palette-teal-150);
   --sl-brand-dark-color-background-accent-teal-interactive-bold: var(

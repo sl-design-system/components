@@ -23,5 +23,4 @@
 @import 'homepage/contact-block';
 @import 'categories/components';
 @import 'basic';
-@import 'slds-sanoma-learning/light.css' screen;
-@import 'slds-sanoma-learning/dark.css' screen and (prefers-color-scheme: dark);
+@import 'slds-sanoma-learning/theme.css' screen;

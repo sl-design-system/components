@@ -210,6 +210,54 @@ describe('sl-menu-item', () => {
 
       expect(el.selected).to.be.true;
     });
+
+    it('should not call click handlers on an aria-disabled item', async () => {
+      const onClick = spy();
+
+      el = await fixture(html`<sl-menu-item aria-disabled="true">Item 1</sl-menu-item>`);
+      el.addEventListener('click', onClick);
+
+      el.click();
+
+      expect(onClick).not.to.have.been.called;
+    });
+
+    it('should not call keydown handlers on an aria-disabled item for enter and space', async () => {
+      const onKeydown = spy(),
+        enterEvent = new KeyboardEvent('keydown', {
+          bubbles: true,
+          cancelable: true,
+          key: 'Enter'
+        }),
+        spaceEvent = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: ' ' });
+
+      el = await fixture(html`<sl-menu-item aria-disabled="true">Item 1</sl-menu-item>`);
+      el.addEventListener('keydown', onKeydown);
+
+      el.dispatchEvent(enterEvent);
+      el.dispatchEvent(spaceEvent);
+
+      expect(onKeydown).not.to.have.been.called;
+      expect(enterEvent.defaultPrevented).to.be.true;
+      expect(spaceEvent.defaultPrevented).to.be.true;
+    });
+
+    it('should still let arrow keydown events continue on an aria-disabled item', async () => {
+      const onKeydown = spy(),
+        arrowEvent = new KeyboardEvent('keydown', {
+          bubbles: true,
+          cancelable: true,
+          key: 'ArrowDown'
+        });
+
+      el = await fixture(html`<sl-menu-item aria-disabled="true">Item 1</sl-menu-item>`);
+      el.addEventListener('keydown', onKeydown);
+
+      el.dispatchEvent(arrowEvent);
+
+      expect(onKeydown).to.have.been.calledOnce;
+      expect(arrowEvent.defaultPrevented).to.be.false;
+    });
   });
 
   describe('shortcut', () => {

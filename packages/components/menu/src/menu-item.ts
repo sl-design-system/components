@@ -56,8 +56,14 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown,
+    click: {
+      handler: this.#onClick,
+      options: { capture: true }
+    },
+    keydown: {
+      handler: this.#onKeydown,
+      options: { capture: true }
+    },
     pointerenter: this.#onPointerenter,
     pointerleave: this.#onPointerleave
   });
@@ -167,7 +173,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (this.#disabled) {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
 
       return;
     }
@@ -197,7 +203,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     if (this.#disabled) {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        event.stopPropagation();
+        event.stopImmediatePropagation();
       }
 
       return;

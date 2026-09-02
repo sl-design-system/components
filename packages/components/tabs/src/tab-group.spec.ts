@@ -316,6 +316,20 @@ describe('sl-tab-group', () => {
       expect(selectedTab).to.have.text('Tab 2');
       expect(selectedPanel).to.have.text('Panel 2');
     });
+
+    it('should not change the selected tab or panel when clicking a disabled menu item', () => {
+      const secondItem = el.renderRoot.querySelector<HTMLElement>('sl-menu-item:nth-of-type(2)'),
+        disabledItem = el.renderRoot.querySelector<HTMLElement>('sl-menu-item:nth-of-type(3)');
+
+      secondItem?.click();
+      disabledItem?.click();
+
+      const selectedTab = el.querySelector('sl-tab[selected]') as HTMLElement,
+        selectedPanel = el.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
+
+      expect(selectedTab).to.have.text('Tab 2');
+      expect(selectedPanel).to.have.text('Panel 2');
+    });
   });
 
   describe('vertical overflow', () => {

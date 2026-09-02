@@ -200,6 +200,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.submenu && event.composedPath().includes(this.submenu)) {
+      return;
+    }
+
     if (this.#disabled) {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();

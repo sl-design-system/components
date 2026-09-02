@@ -47,6 +47,7 @@
       },
       "dependencies": [
         "analyze",
+        "..:build:themes:setup",
         "..:build:themes:styles"
       ],
       "files": [
@@ -54,7 +55,8 @@
         "build/**/*.js",
         "src/*.md",
         "src/{_data,_includes,assets,categories,scripts,site}/**/*",
-        "../scripts/export/core-css/**/*.css"
+        "../scripts/export/core-css/**/*.css",
+        "../packages/themes/sanoma-learning/**/*"
       ],
       "output": [
         "dist/**/*.{html,js,json}"
@@ -152,6 +154,9 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.3.0",
+    "@fortawesome/pro-regular-svg-icons": "^7.2.0",
+    "@fortawesome/pro-solid-svg-icons": "^7.2.0",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
     "@types/markdown-it": "^14.1.2",
     "@web/dev-server": "^0.4.6",

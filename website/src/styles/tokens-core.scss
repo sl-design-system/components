@@ -1,5 +1,6 @@
-:root {
+body {
   /* colors */
+  /* stylelint-disable color-no-hex */
   --900-accent: #000d33;
   --colors-200-warnng: #fde376;
   --colors-600-danger: #992224;
@@ -68,6 +69,7 @@
   --colors-warning-800-warning: #34270c;
   --colors-warning-900-warning: #261d0b;
   --colors-warning-base-warning: #ffcf0d;
+
   /* numbers */
   --scale-none-scale: 0rem;
   --scale-50-scale: 0.4rem;

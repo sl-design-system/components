@@ -5,5 +5,11 @@
   "pinata": {
     "fa-icon": "pinata",
     "style": "solid"
+  },
+  "github": {
+    "fa-icon": "github"
+  },
+  "storybook": {
+    "fa-icon": "storybook"
   }
 }

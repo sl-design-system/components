@@ -3,7 +3,7 @@ function isLight() {
 }
 
 function toggleLightClass() {
-  document.querySelector(':root').classList.toggle('light');
+  document.querySelector('body').classList.toggle('light');
 }
 
 function toggleLocalStorageItem() {

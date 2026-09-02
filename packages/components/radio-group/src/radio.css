@@ -108,6 +108,10 @@
   [part='description'] {
     font: var(--sl-text-new-body-md, var(--sl-text-body-md-normal));
   }
+
+  ::slotted(sl-infotip) {
+    margin-block-start: var(--sl-size-100);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

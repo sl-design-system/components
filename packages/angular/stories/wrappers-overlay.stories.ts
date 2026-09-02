@@ -47,15 +47,10 @@ export const Dialog: StoryObj = {
 export const Popover: StoryObj = {
   render: () => ({
     description:
-      'You can show a popover by associating it with an element using the anchor attribute and referring to the id of the element you need to trigger the popover.',
-    props: {
-      onClick: (event: Event & { target: HTMLElement }) => {
-        (event.target.nextElementSibling as HTMLElement).showPopover();
-      }
-    },
+      'You can show a popover by pointing a button at it with the `command` and `commandfor` attributes; the popover anchors itself to the button that invoked it.',
     template: `
-        <sl-button (click)="onClick($event)" id="button">Open popover</sl-button>
-        <sl-popover anchor="button" style="width: 300px">
+        <sl-button command="toggle-popover" commandfor="popover">Open popover</sl-button>
+        <sl-popover id="popover" style="width: 300px">
           Consectetur qui ut occaecat excepteur id. Eu reprehenderit mollit aliquip ullamco ex fugiat mollit. Dolore adipisicing laboris et nostrud enim irure nisi ea.
         </sl-popover>
       `

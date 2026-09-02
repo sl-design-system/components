@@ -8,27 +8,16 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-<sl-button id="popover-button" fill="outline" variant="primary">Toggle popover</sl-button>
-<sl-popover id="popover-example" anchor="popover-button" position="bottom">I'm a popover</sl-popover>
+<sl-button command="toggle-popover" commandfor="popover-example" fill="outline" variant="primary">Toggle popover</sl-button>
+<sl-popover id="popover-example">I'm a popover</sl-popover>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-<sl-button id="popover-button" fill="outline" variant="primary">Toggle popover</sl-button>
-<sl-popover id="popover-example" anchor="popover-button" position="bottom">I'm a popover</sl-popover>
-
-<script>
-    const popoverBtn = document.querySelector("#popover-button");
-    const popoverExample = document.querySelector("#popover-example");
-
-    popoverBtn.addEventListener("click", () => {
-      if (popoverExample) {
-        popoverExample.togglePopover();
-      }
-    })
-</script>
+<sl-button command="toggle-popover" commandfor="popover-example" fill="outline" variant="primary">Toggle popover</sl-button>
+<sl-popover id="popover-example">I'm a popover</sl-popover>
   ```
 
 </div>
@@ -101,16 +90,3 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 </section>
-
-<script>
-const editor = document.querySelector("#editor-example");
-
-const popoverBtn = document.querySelector("#popover-button");
-const popoverExample = document.querySelector("#popover-example");
-
-popoverBtn.addEventListener("click", () => {
-    if (popoverExample) {
-      popoverExample.togglePopover();
-    }
-  })
-</script>

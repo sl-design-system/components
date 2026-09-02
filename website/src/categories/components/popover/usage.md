@@ -26,11 +26,11 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-button id="anchor" popovertarget="popover-1" variant="primary">Show more information</sl-button>
-  <sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
+  <sl-button command="toggle-popover" commandfor="popover-1" variant="primary">Show more information</sl-button>
+  <sl-popover id="popover-1" aria-label="More information about John">
   <header class="ds-heading-3">
   Project Overview
-  <sl-button id="close-btn" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
+  <sl-button command="hide-popover" commandfor="popover-1" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
   <sl-icon name="xmark"></sl-icon>
   </sl-button>
   </header>
@@ -46,10 +46,13 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-<sl-button id="anchor" popovertarget="popover-1">Show more information</sl-button>
+<sl-button command="toggle-popover" commandfor="popover-1">Show more information</sl-button>
 
-<sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
-    <header>Project Overview <sl-button autofocus>...</sl-button></header>
+<sl-popover id="popover-1" aria-label="More information about John">
+    <header>
+      Project Overview
+      <sl-button command="hide-popover" commandfor="popover-1" autofocus>...</sl-button>
+    </header>
     <hr>
     <section>
       Assigned to...
@@ -119,23 +122,3 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 </div>
 
 </section>
-
-<script>
-const popoverBtn = document.querySelector("#anchor");
-const popoverExample = document.querySelector("#popover-1");
-const closeBtn = document.querySelector("#close-btn");
-
-requestAnimationFrame(() => {
-popoverBtn.addEventListener("click", () => {
-    if (popoverExample) {
-      popoverExample.togglePopover();
-    }
-  });
-
-closeBtn.addEventListener("click", () => {
-    if (popoverExample) {
-      popoverExample.hidePopover();
-    }
-  });
-})
-</script>

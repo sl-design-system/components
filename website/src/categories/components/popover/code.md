@@ -23,11 +23,11 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-button id="my-btn" popovertarget="popover-2" fill="outline" variant="primary">More details about the student</sl-button>
-  <sl-popover id="popover-2" anchor="my-btn" position="bottom-start" aria-label="Information about the student - John Smith">
+  <sl-button command="toggle-popover" commandfor="popover-2" fill="outline" variant="primary">More details about the student</sl-button>
+  <sl-popover id="popover-2" style="position-area: bottom span-right" aria-label="Information about the student - John Smith">
   <header class="ds-heading-3" style="align-items: start;">
   <sl-avatar display-name="John Smith" size="2xl">Primary school</sl-avatar>
-  <sl-button id="close-popover-btn" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
+  <sl-button command="hide-popover" commandfor="popover-2" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
   <sl-icon name="xmark"></sl-icon>
   </sl-button>
   </header>
@@ -43,12 +43,12 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-<sl-button id="my-btn" popovertarget="popover-2">More details...</sl-button>
+<sl-button command="toggle-popover" commandfor="popover-2">More details...</sl-button>
 
-<sl-popover id="popover-2" anchor="my-btn" position="bottom-start" aria-label="Information about the student...">
+<sl-popover id="popover-2" style="position-area: bottom span-right" aria-label="Information about the student...">
     <header>
       <sl-avatar display-name="John Smith">Primary school</sl-avatar>
-      <sl-button aria-label="Close the popover" autofocus>
+      <sl-button command="hide-popover" commandfor="popover-2" aria-label="Close the popover" autofocus>
         <sl-icon name="xmark"></sl-icon>
       </sl-button>
     </header>
@@ -67,7 +67,19 @@ eleventyNavigation:
 
 ## Opening / closing
 
-The `sl-popover` component uses `'popover'` attribute and can be shown/hidden using native Popover API methods like:
+The `sl-popover` component uses the `popover` attribute, so a button can open and close it with the [Invoker Commands API](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API). Point the button at the popover with `commandfor` and pick what it does with `command`. The popover anchors itself to the button that invoked it, so this is the way to open one:
+
+  ```html
+<sl-button command="toggle-popover" commandfor="my-popover">More details...</sl-button>
+
+<sl-popover id="my-popover">...</sl-popover>
+  ```
+
+It can also be shown and hidden with the native Popover API methods. Pass the element the popover should anchor to as the `source`, which is what an invoker does for you:
+
+  ```js
+popover.showPopover({ source: button });
+  ```
 
 <div class="ds-table-wrapper">
 
@@ -86,23 +98,3 @@ More information you can find [on the MDN page about the Popover API](https://de
 </section>
 
 {% include "../component-table.njk" %}
-
-<script>
-const myPopoverBtn = document.querySelector("#my-btn");
-const popoverCodeExample = document.querySelector("#popover-2");
-const closePopoverBtn = document.querySelector("#close-popover-btn");
-
-requestAnimationFrame(() => {
-myPopoverBtn?.addEventListener("click", () => {
-    if (popoverCodeExample) {
-      popoverCodeExample.togglePopover();
-    }
-  });
-
-closePopoverBtn.addEventListener("click", () => {
-    if (popoverCodeExample) {
-      popoverCodeExample.hidePopover();
-    }
-  });
-})
-</script>

@@ -520,12 +520,8 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
         (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
       ) || undefined;
 
-    if (this.infotip) {
-      this.infotip.setAttribute('size', 'sm');
-
-      if (!this.infotip.describes) {
-        this.infotip.describes = this.#labelText();
-      }
+    if (this.infotip && !this.infotip.describes) {
+      this.infotip.describes = this.#labelText();
     }
   }
 }

@@ -45,7 +45,6 @@ describe('sl-switch', () => {
 
     await el.updateComplete;
 
-    expect(el.infotip?.size).to.equal('sm');
     expect(el.infotip?.describes).to.equal('Label');
     expect(el).to.match(':state(has-infotip)');
   });

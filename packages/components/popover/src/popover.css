@@ -1,87 +1,124 @@
 :host {
-  --_arrow-block-size: var(--sl-size-125);
-  --_arrow-inline-size: var(--sl-size-250);
+  --_arrow-size: var(
+    --sl-size-250
+  ); /* The square the arrow is drawn in, so it rotates onto itself. */
 
-  background: var(--sl-elevation-surface-raised-default);
-  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
-  border-radius: var(--sl-size-borderRadius-default);
-  box-shadow: var(--sl-elevation-shadow-overlay);
-  color: var(--sl-color-foreground-plain);
-  margin: 0;
-  max-inline-size: var(--sl-popover-max-inline-size, 80vw);
+  --_offset: var(--sl-size-150); /* The distance between the popover and its anchor. */
+
+  background: transparent;
+  border: 0;
+  inset: auto;
+  margin: var(--sl-size-100);
   opacity: 0;
   overflow: visible;
   padding: 0;
+  position-area: bottom span-all;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}
 
+:host(:popover-open) {
+  opacity: 1;
+
+  /* Enter animation only */
   @media (prefers-reduced-motion: no-preference) {
-    transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+    transition-behavior: allow-discrete;
+    transition-duration: 200ms;
+    transition-property: display, opacity;
+    transition-timing-function: cubic-bezier(0.25, 0, 0.3, 1);
   }
 
-  /**
-   * Because of :host and the fact that the element is often not inside a shadow root,
-   * the popover-polyfill can have a higher specificity. We need to use !important
-   * to overwrite the polyfill styling.
-   *
-   * This is only necessary for Firefox < 125 and older browsers that don't support popover
-   */
-  @supports not selector(:popover-open) {
-    background: var(--sl-elevation-surface-raised-default) !important;
-    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain) !important;
-    color: var(--sl-color-foreground-plain) !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    padding: var(--sl-size-100) var(--sl-size-150) !important;
-    position: fixed;
-  }
-}
-
-.container {
-  box-sizing: border-box;
-  max-block-size: inherit;
-  overflow: auto;
-  padding: var(--sl-size-300);
-}
-
-/* stylelint-disable-next-line selector-class-pattern */
-:host(:where(:popover-open, .\\:popover-open)) {
-  /* stylelint-disable-next-line scss/at-rule-no-unknown */
   @starting-style {
     display: block;
     opacity: 0;
   }
-
-  opacity: 1;
 }
 
-:host([actual-placement^='bottom']) [part='arrow'] {
-  inset-block-start: calc(var(--_arrow-block-size) * -1);
+/**
+ * The arrow is positioned off the anchor alone: the same distance that separates the popover from
+ * its anchor puts the arrow in that gap, and the border width lets it overlap the border of the
+ * container, so the two shapes join up. `anchor(center)` below centers it on the other axis.
+ */
+:host(:state(anchored-bottom)) {
+  margin-block-start: var(--_offset);
+
+  [part='arrow'] {
+    inset-block-end: calc(anchor(end) - var(--_offset) - var(--sl-size-borderWidth-default));
+  }
 }
 
-:host([actual-placement^='left']) [part='arrow'] {
-  inset-inline-end: calc(var(--_arrow-inline-size) * -1);
-  rotate: 90deg;
-  transform-origin: left;
-  translate: calc(var(--_arrow-block-size) / 2) calc(var(--_arrow-inline-size) / -2);
+:host(:state(anchored-top)) {
+  margin-block-end: var(--_offset);
+
+  [part='arrow'] {
+    inset-block-start: calc(anchor(start) - var(--_offset) - var(--sl-size-borderWidth-default));
+  }
+
+  svg {
+    rotate: 180deg;
+  }
 }
 
-:host([actual-placement^='right']) [part='arrow'] {
-  inset-inline-start: calc(var(--_arrow-inline-size) * -1);
-  rotate: -90deg;
-  transform-origin: right;
-  translate: calc(var(--_arrow-block-size) / -2) calc(var(--_arrow-inline-size) / -2);
+:host(:state(anchored-right)) {
+  margin-inline-start: var(--_offset);
+
+  [part='arrow'] {
+    inset-inline-end: calc(anchor(end) - var(--_offset) - var(--sl-size-borderWidth-default));
+  }
+
+  svg {
+    rotate: 270deg;
+  }
 }
 
-:host([actual-placement^='top']) [part='arrow'] {
-  inset-block-end: calc(var(--_arrow-block-size) * -1);
-  scale: 1 -1;
+:host(:state(anchored-left)) {
+  margin-inline-end: var(--_offset);
+
+  [part='arrow'] {
+    inset-inline-start: calc(anchor(start) - var(--_offset) - var(--sl-size-borderWidth-default));
+  }
+
+  svg {
+    rotate: 90deg;
+  }
+}
+
+/* The two rules below also bring the arrow back; see the `display: none` on it. */
+:host(:is(:state(anchored-bottom), :state(anchored-top))) [part='arrow'] {
+  display: grid;
+  inset-inline-start: calc(anchor(center) - var(--_arrow-size) / 2);
+}
+
+:host(:is(:state(anchored-left), :state(anchored-right))) [part='arrow'] {
+  display: grid;
+  inset-block-start: calc(anchor(center) - var(--_arrow-size) / 2);
+}
+
+/* The maximum set on the popover has to reach the container for its `overflow` to kick in. */
+[part='wrapper'] {
+  max-block-size: inherit;
+}
+
+[part='container'] {
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  max-block-size: inherit;
+  overflow: auto;
+  padding: var(--sl-size-200);
 }
 
 [part='arrow'] {
-  block-size: var(--_arrow-block-size);
-  display: inline-flex;
+  block-size: var(--_arrow-size);
+  display: none;
   fill: var(--sl-elevation-surface-raised-default);
-  inline-size: var(--_arrow-inline-size);
-  position: absolute;
+  inline-size: var(--_arrow-size);
+  position: fixed;
   stroke: var(--sl-color-border-plain);
   stroke-width: calc(var(--sl-size-borderWidth-default) * 2);
 }

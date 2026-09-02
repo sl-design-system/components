@@ -865,9 +865,6 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       assignedElements.find(
         (el): el is Infotip => el instanceof HTMLElement && el.tagName === 'SL-INFOTIP'
       ) || undefined;
-    if (this.infotip) {
-      this.infotip.setAttribute('size', 'sm');
-    }
     if (this.infotip && !this.infotip.describes) {
       // Ensure label is synthesized before reading it
       this.#onLabelSlotChange();

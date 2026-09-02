@@ -118,6 +118,10 @@
   [part='description'] {
     font-size: var(--sl-text-size-body-xs, 10px);
   }
+
+  ::slotted(sl-infotip) {
+    margin-block-start: calc(-1 * var(--sl-size-025));
+  }
 }
 
 :host([size='lg']) {
@@ -135,6 +139,10 @@
 
   [part='description'] {
     font: var(--sl-text-new-body-md, var(--sl-text-body-md-normal));
+  }
+
+  ::slotted(sl-infotip) {
+    margin-block-start: var(--sl-size-100);
   }
 }
 

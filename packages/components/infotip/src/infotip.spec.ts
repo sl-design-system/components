@@ -1,7 +1,5 @@
-import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/form/register.js';
 import { type Popover } from '@sl-design-system/popover';
-import { getForwardedAccessibleName } from '@sl-design-system/shared/helpers/forward-aria.js';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
@@ -12,26 +10,27 @@ import { Infotip } from './infotip.js';
 import './register.js';
 
 describe('sl-infotip', () => {
-  let el: Infotip, button: Button, popover: Popover;
+  let el: Infotip, button: HTMLButtonElement, popover: Popover;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-infotip>More info about this field.</sl-infotip>`);
 
-      button = el.renderRoot.querySelector('sl-button')!;
+      button = el.renderRoot.querySelector('button')!;
       popover = el.renderRoot.querySelector('sl-popover')!;
     });
 
     it('should render a trigger button', () => {
-      expect(el.renderRoot.querySelector('sl-button')).to.exist;
+      expect(button).to.exist;
     });
 
     it('should have an accessible label on the button', () => {
-      expect(getForwardedAccessibleName(button)).to.have.equal('More information');
+      expect(button).to.have.attribute('aria-label', 'More information');
     });
 
-    it('should have a ghost fill on the button', () => {
-      expect(button).to.have.attribute('fill', 'ghost');
+    it('should toggle the popover using an invoker command', () => {
+      expect(button).to.have.attribute('command', 'toggle-popover');
+      expect(button.commandForElement).to.equal(popover);
     });
 
     it('should have a default icon of info', () => {
@@ -80,6 +79,14 @@ describe('sl-infotip', () => {
       await userEvent.click(button);
 
       expect(popover).not.to.match(':popover-open');
+    });
+
+    it('should anchor the popover to the trigger button when open', async () => {
+      await userEvent.click(button);
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(getComputedStyle(button).anchorName).to.not.equal('none');
+      expect(popover).to.match(':state(anchored-bottom)');
     });
 
     it('should close the popover when pressing Escape', async () => {

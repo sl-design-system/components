@@ -33,7 +33,7 @@ describe('sl-menu-item', () => {
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el).not.to.have.attribute('aria-disabled');
-      expect(el.disabled).not.to.be.true;
+      expect(el.getAttribute('aria-disabled')).not.to.equal('true');
     });
 
     it('should be aria-disabled when set explicitly', async () => {
@@ -367,6 +367,16 @@ describe('sl-menu-item', () => {
       el.focus();
 
       await userEvent.keyboard('{Enter}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(menu).not.to.match(':popover-open');
+    });
+
+    it('should not show the submenu when aria-disabled and pressing space', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      el.focus();
+
+      await userEvent.keyboard('{Space}');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(menu).not.to.match(':popover-open');

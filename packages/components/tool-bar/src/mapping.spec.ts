@@ -186,14 +186,18 @@ describe('mapMenuItemToItem', () => {
     expect(item.type).to.equal('button');
     expect(item.label).to.equal('Rename...');
     expect(item.disabled).to.equal(false);
+    expect(item.ariaDisabled).to.equal(false);
     expect(item.visible).to.equal(true);
   });
 
-  it('should map a disabled menu item', async () => {
-    const el = await fixture<MenuItem>(html`<sl-menu-item disabled>Rename...</sl-menu-item>`),
+  it('should map an aria-disabled menu item', async () => {
+    const el = await fixture<MenuItem>(
+        html`<sl-menu-item aria-disabled="true">Rename...</sl-menu-item>`
+      ),
       item = mapMenuItemToItem(el);
 
-    expect(item.disabled).to.equal(true);
+    expect(item.disabled).to.equal(false);
+    expect(item.ariaDisabled).to.equal(true);
   });
 
   it('should detect an icon in a menu item', async () => {

@@ -195,6 +195,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (this.#disabled) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
       return;
     }
 

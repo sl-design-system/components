@@ -244,18 +244,10 @@ export class Switch<T = any> extends ForwardAriaMixin(
       .filter(Boolean)
       .join(' ');
 
-    // When the default slot's content is itself a forwarded `<slot>` (e.g. this switch is used
-    // inside another component's shadow DOM, such as a menu item), that outer component's own
-    // accessible name is already derived from the same text. Hide the label here so it isn't
-    // announced twice; `aria-labelledby` on the input still resolves it for the switch itself.
-    const isLabelForwarded = Array.from(this.childNodes).some(
-      node => node instanceof HTMLSlotElement
-    );
-
     return html`
       <div part="container">
         <div @click=${this.#onWrapperClick} id="wrapper" part="wrapper">
-          <div aria-hidden=${isLabelForwarded || nothing} id="label" part="label">
+          <div id="label" part="label">
             <slot @slotchange=${this.#onLabelSlotChange}></slot>
           </div>
 

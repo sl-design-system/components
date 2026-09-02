@@ -368,8 +368,6 @@ describe('sl-switch', () => {
       expect(switchEl).not.to.match(':state(no-label)');
       // The input should be labeled by the switch's label element
       expect(switchInput).to.have.attribute('aria-labelledby', 'label');
-      // The label div should be aria-hidden to prevent double announcement
-      expect(switchEl.renderRoot.querySelector('#label')).to.have.attribute('aria-hidden', 'true');
     });
 
     it('should update label state when forwarded slot content changes dynamically', async () => {

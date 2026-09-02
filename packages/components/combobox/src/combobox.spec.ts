@@ -392,6 +392,17 @@ describe('sl-combobox', () => {
       expect(onBlur).to.have.been.calledOnce;
     });
 
+    it('should keep the popover open when focus moves to an option', () => {
+      const option = el.querySelector('sl-option')!;
+
+      input.click();
+      input.dispatchEvent(
+        new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: option })
+      );
+
+      expect(el.wrapper).to.match(':popover-open');
+    });
+
     it('should emit an sl-change event when selecting an option', async () => {
       const onChange = spy();
 

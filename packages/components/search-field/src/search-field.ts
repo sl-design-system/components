@@ -81,8 +81,8 @@ export class SearchField extends TextField {
       ? html`
           <button
             @click=${this.#onClick}
-            aria-label=${msg('Clear text', { id: 'sl.searchField.clearText' })}
-            tabindex="-1">
+            @keydown=${this.#onClearButtonKeydown}
+            aria-label=${msg('Clear text', { id: 'sl.searchField.clearText' })}>
             <sl-icon name="circle-xmark"></sl-icon>
             <sl-icon name="circle-xmark-solid"></sl-icon>
           </button>
@@ -99,6 +99,18 @@ export class SearchField extends TextField {
   }
 
   #onClick(): void {
+    this.clear();
+    this.input.focus();
+  }
+
+  #onClearButtonKeydown(event: KeyboardEvent): void {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
     this.clear();
     this.input.focus();
   }

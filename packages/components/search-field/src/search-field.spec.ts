@@ -60,6 +60,13 @@ describe('sl-search-field', () => {
       expect(button).to.contain('sl-icon[name="circle-xmark"]');
     });
 
+    it('should have a focusable clear button', () => {
+      const button = el.renderRoot.querySelector('button');
+
+      expect(button).to.exist;
+      expect(button).not.to.have.attribute('tabindex', '-1');
+    });
+
     it('should not have a clear button when disabled', async () => {
       el.disabled = true;
       await el.updateComplete;
@@ -72,6 +79,14 @@ describe('sl-search-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('');
+    });
+
+    it('should receive focus on the clear button', () => {
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button');
+
+      button?.focus();
+
+      expect(el.renderRoot.activeElement).to.equal(button);
     });
 
     it('should clear the input when the escape key is pressed', async () => {
@@ -134,6 +149,26 @@ describe('sl-search-field', () => {
 
       expect(onSearch).to.be.calledOnce;
       expect(onSearch).to.be.calledWith('Foo');
+    });
+
+    it('should clear the input when Enter is pressed on the clear button', async () => {
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button');
+
+      button?.focus();
+      await userEvent.keyboard('{Enter}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('');
+    });
+
+    it('should clear the input when Space is pressed on the clear button', async () => {
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button');
+
+      button?.focus();
+      await userEvent.keyboard('{Space}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('');
     });
   });
 

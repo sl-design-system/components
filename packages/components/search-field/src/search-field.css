@@ -1,3 +1,7 @@
+:host {
+  overflow: visible;
+}
+
 :host([shape='pill']) {
   border-radius: var(--sl-size-borderRadius-full);
 }
@@ -17,13 +21,18 @@ button {
   background: transparent;
   block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: inline-grid;
   font: inherit;
   justify-content: center;
   margin-inline-start: var(--sl-size-050);
-  outline: 0;
   padding: 0;
+
+  &:focus-visible {
+    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
+    outline-offset: var(--sl-size-outlineOffset-default);
+  }
 
   &:hover {
     sl-icon[name='circle-xmark'] {
@@ -58,4 +67,8 @@ button {
       transition: opacity 0.2s ease-in-out;
     }
   }
+}
+
+:host([shape='pill']) button {
+  border-radius: 0 var(--sl-size-borderRadius-full) var(--sl-size-borderRadius-full) 0;
 }

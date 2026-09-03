@@ -547,7 +547,7 @@ describe('width measurement', () => {
     await new Promise(resolve => setTimeout(resolve, 100));
     await toolbar.updateComplete;
 
-    expect(toolbar.menuItems.length).to.be.greaterThan(0);
+    expect(toolbar.menuItems.length).to.equal(2);
   });
 
   it('should continue observing slotted item sizes after reconnecting', async () => {
@@ -578,7 +578,7 @@ describe('width measurement', () => {
     await new Promise(resolve => setTimeout(resolve, 100));
     await toolbar.updateComplete;
 
-    expect(toolbar.menuItems.length).to.be.greaterThan(0);
+    expect(toolbar.menuItems.length).to.equal(2);
   });
 
   it('should not leave the measuring state set', async () => {

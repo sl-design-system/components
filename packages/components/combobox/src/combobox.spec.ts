@@ -776,7 +776,7 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('Lorem');
       });
 
-      it('should remain invalid after clearing a required combobox and leaving the component', async () => {
+      it('should be invalid after clearing a required combobox and leaving the component', async () => {
         el.required = true;
         el.querySelector('sl-option')?.click();
         await el.updateComplete;

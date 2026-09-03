@@ -48,9 +48,10 @@ export default {
 export const Basic: Story = {};
 
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'mobileSmall'
+      value: 'mobile',
+      isRotated: false
     }
   }
 };

@@ -113,7 +113,8 @@
         "scripts/themes/export/core-css/**/*.css"
       ],
       "output": [
-        "packages/themes/*/theme.css"
+        "packages/themes/*/theme.css",
+        "packages/themes/*/global.css"
       ]
     },
     "build:themes:styles": {

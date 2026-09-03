@@ -158,7 +158,12 @@ const preview: Preview = {
       toolbar: {
         dynamicTitle: true,
         icon: 'users',
-        items: ['early', 'developing', 'advanced', 'superuser']
+        items: [
+          { value: 'early', title: 'Early (Draft)' },
+          { value: 'developing', title: 'Developing (Draft)' },
+          { value: 'advanced', title: 'Advanced (Draft)' },
+          { value: 'superuser', title: 'Superuser' }
+        ]
       }
     },
     mode: {

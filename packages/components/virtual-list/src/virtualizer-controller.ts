@@ -127,8 +127,7 @@ export class VirtualizerController<
         instance: Virtualizer<Element, TItemElement> | Virtualizer<Window, TItemElement>,
         sync: boolean
       ) => {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        this.#host.updateComplete.then(() => this.#host.requestUpdate());
+        void this.#host.updateComplete.then(() => this.#host.requestUpdate());
         this.#options.onChange?.(
           instance as unknown as Virtualizer<TScrollElement, TItemElement>,
           sync

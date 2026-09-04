@@ -11,7 +11,7 @@ packageJson.version = version;
 
 Object.keys(packageJson.peerDependencies)
   .filter(name => name.startsWith('@sl-design-system/'))
-  .map(async name => {
+  .map(name => {
     const componentName = name.split('@sl-design-system/')[1],
       path = `../components/${componentName}/package.json`;
 

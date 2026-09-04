@@ -1,4 +1,6 @@
 import { kebabCase } from 'change-case';
+import fs from 'fs';
+import path from 'path';
 
 var __awaiter =
   (this && this.__awaiter) ||
@@ -26,13 +28,12 @@ var __awaiter =
         }
       }
       function step(result) {
-        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        return result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
       }
       step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
   };
-import fs from 'fs';
-import path from 'path';
+
 export default ({
   output,
   getDirname = options => `${options.pageName}${path.sep}${options.dirname}`,
@@ -40,7 +41,7 @@ export default ({
     `${options.pathToComponent.length ? `${kebabCase(options.pathToComponent[0].name)}-` : ''}${options.basename}.svg`
 }) => {
   return pages =>
-    __awaiter(void 0, void 0, void 0, function* () {
+    __awaiter(void 0, void 0, void 0, function () {
       pages.forEach(({ name: pageName, components }) => {
         const outputFolder = `${output}/${pageName}/icons`;
         components.forEach(({ name: componentName, svg, figmaExport }) => {
@@ -52,4 +53,3 @@ export default ({
       });
     });
 };
-//# sourceMappingURL=index.js.map

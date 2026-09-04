@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
+    "rootDir": "../../..",
     "types": ["node"]
   },
   "exclude": ["../src/**/*.spec.ts"],

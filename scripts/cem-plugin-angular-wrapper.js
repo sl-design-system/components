@@ -4,7 +4,7 @@ import { camelize, dasherize } from './utils.js';
 
 function getComponentEvents(component, eventMap) {
   return component.events?.map(event => {
-    const matches = event.type.text.match(/(\w+)(\<(.+)\>)?/),
+    const matches = event.type.text.match(/(\w+)(<(.+)>)?/),
       type = matches[1],
       angularName = camelize(event.name),
       code = `  @Output() ${angularName} = new EventEmitter<${type ?? 'void'}>();`,
@@ -116,7 +116,7 @@ const generateComponents = async (modules, exclude, outDir) => {
       ...events.map(event => `import { ${event.type} } from '${event.path}';`)
     ];
 
-    const componentSrc = await generateComponent(imports, component, events);
+    const componentSrc = generateComponent(imports, component, events);
 
     const packageName = ce.package.split('/').pop(),
       folder = join(outDir, packageName),

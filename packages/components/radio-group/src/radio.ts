@@ -99,7 +99,7 @@ export class Radio<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onDescriptionSlotChange();
   });
 
-  // eslint-disable-next-line no-unused-private-class-members
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown

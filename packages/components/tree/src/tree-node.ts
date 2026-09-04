@@ -63,7 +63,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  // eslint-disable-next-line no-unused-private-class-members
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown

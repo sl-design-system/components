@@ -96,7 +96,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** Frequently used emojis, separated by spaces. */
   @property({ attribute: 'frequently-used' }) frequentlyUsed?: string;
 
-  /** @internals The frequently used emojis. */
+  /** @internal The frequently used emojis. */
   @state() frequentlyUsedEmojis: Emoji[] = [];
 
   /** @internal The emojis, grouped by group. */

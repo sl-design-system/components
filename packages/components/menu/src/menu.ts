@@ -53,7 +53,7 @@ export class Menu extends LitElement {
     viewportMargin: Menu.viewportMargin
   });
 
-  // eslint-disable-next-line no-unused-private-class-members
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     keydown: this.#onKeydown,
     focusout: this.#onFocusout

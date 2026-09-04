@@ -96,15 +96,19 @@ export default {
             placeholder=${ifDefined(placeholder)}
             shape=${ifDefined(shape)}
             style=${`max-width: ${maxWidth || '500px'}`}>
-            ${virtualList
-              ? nothing
-              : html`
-                  <sl-listbox>
-                    ${Array.isArray(options)
-                      ? options.map(o => html`<sl-option>${o}</sl-option>`)
-                      : options?.()}
-                  </sl-listbox>
-                `}
+            ${
+              virtualList
+                ? nothing
+                : html`
+                    <sl-listbox>
+                      ${
+                        Array.isArray(options)
+                          ? options.map(o => html`<sl-option>${o}</sl-option>`)
+                          : options?.()
+                      }
+                    </sl-listbox>
+                  `
+            }
           </sl-combobox>
         </sl-form-field>
       </sl-form>

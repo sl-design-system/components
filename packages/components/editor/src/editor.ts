@@ -34,7 +34,7 @@ export class Editor extends FormControlMixin(ElementInternalsMixin(LitElement)) 
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { focusout: this.#onFocusout });
 
   /** The value of the content in the editor. */

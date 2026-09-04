@@ -62,7 +62,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
+  // oxlint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: {
       handler: this.#onHostClick,

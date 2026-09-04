@@ -49,27 +49,27 @@ describe('sl-message-dialog', () => {
     });
 
     it('should resolve the promise with undefined when the dialog is cancelled', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       await userEvent.keyboard('{Escape}');
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(callback).to.have.been.calledWith(undefined);
+      expect(onResolve).to.have.been.calledWith(undefined);
     });
 
     it('should resolve the promise when the OK button is clicked', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       dialog.querySelector<HTMLElement>('sl-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(callback).to.have.been.calledWith(undefined);
+      expect(onResolve).to.have.been.calledWith(undefined);
     });
   });
 
@@ -123,38 +123,38 @@ describe('sl-message-dialog', () => {
     });
 
     it('should resolve the promise with undefined when the dialog is cancelled', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       await userEvent.keyboard('{Escape}');
 
       // Wait for component to stabilize
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(callback).to.have.been.calledWith(undefined);
+      expect(onResolve).to.have.been.calledWith(undefined);
     });
 
     it('should resolve the promise with false when the Cancel button is clicked', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       dialog.querySelector<HTMLElement>('sl-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(callback).to.have.been.calledWith(false);
+      expect(onResolve).to.have.been.calledWith(false);
     });
 
     it('should resolve the promise with true when the OK button is clicked', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       dialog.querySelector<HTMLElement>('sl-button:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(callback).to.have.been.calledWith(true);
+      expect(onResolve).to.have.been.calledWith(true);
     });
   });
 
@@ -218,38 +218,38 @@ describe('sl-message-dialog', () => {
     });
 
     it('should not resolve the promise when trying to cancel the dialog', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       await userEvent.keyboard('{Escape}');
 
       // Wait for component to stabilize
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(callback).not.to.have.been.called;
+      expect(onResolve).not.to.have.been.called;
     });
 
     it('should resolve the promise with "NO" when the first button is clicked', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       dialog.querySelector<HTMLElement>('sl-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(callback).to.have.been.calledWith('NO');
+      expect(onResolve).to.have.been.calledWith('NO');
     });
 
     it('should resolve the promise with "YES" when the danger button is clicked', async () => {
-      const callback = spy();
+      const onResolve = spy();
 
-      promise.then(callback);
+      void promise.then(onResolve);
 
       dialog.querySelector<HTMLElement>('sl-button[variant="danger"]')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      expect(callback).to.have.been.calledWith('YES');
+      expect(onResolve).to.have.been.calledWith('YES');
     });
   });
 });

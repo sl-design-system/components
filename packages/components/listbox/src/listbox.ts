@@ -305,16 +305,15 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   /**
    * Scrolls to the item at the specified index.
    *
-   * @remarks
-   *   **Indexing semantics differ between rendering modes:**
+   * What the index counts depends on how the listbox renders its items:
    *
-   *   - **Virtualized (via `options` or `items` properties):** Index refers to the `items` array,
-   *     which may include both options and option-group headers. Only `block` and `behavior`
-   *     options are supported; `inline` is ignored.
-   *   - **Slotted (declarative `<sl-option>` elements):** Index refers only to visible `<sl-option>`
-   *     elements, excluding group headers and hidden options.
+   * - **Virtualized** (via the `options` or `items` properties): the index refers to the `items`
+   *   array, which may include both options and option-group headers. Only the `block` and
+   *   `behavior` scroll options are supported; `inline` is ignored.
+   * - **Slotted** (declarative `<sl-option>` elements): the index refers only to visible
+   *   `<sl-option>` elements, excluding group headers and hidden options.
    *
-   * @param index - The zero-based index into the items/options array (see remarks for details)
+   * @param index - The zero-based index into the items/options array
    * @param options - Scroll options
    */
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
@@ -413,7 +412,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     this.#flattenedPositionCacheVersion = this.#itemsVersion;
 
     const items = this.items ?? [];
-    this.#flattenedIndexCache = new Array(items.length).fill(-1);
+    this.#flattenedIndexCache = Array.from<number>({ length: items.length }).fill(-1);
 
     let position = 0;
     items.forEach((i, index) => {

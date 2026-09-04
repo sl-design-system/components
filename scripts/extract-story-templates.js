@@ -76,7 +76,7 @@ class StoryTemplateExtractor {
             description: storyObject.description || null
           });
         }
-      } catch (error) {
+      } catch {
         // Try regex fallback for this story
         const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent);
 
@@ -107,7 +107,7 @@ class StoryTemplateExtractor {
           props: storyObject.props || null,
           description: storyObject.description || null
         });
-      } catch (error) {
+      } catch {
         // Try regex fallback for this story
         const regexResult = this.extractStoryWithRegex(storyName, storyObjectContent);
 
@@ -343,7 +343,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
     }
 
     // Add stories documentation
-    stories.forEach((story, index) => {
+    stories.forEach(story => {
       const component = components.find(c => story.template && story.template.includes(c.selector));
 
       mdx += `## ${story.name.replace(/([A-Z])/g, ' $1').trim()}

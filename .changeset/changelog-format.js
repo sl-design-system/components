@@ -7,8 +7,13 @@ async function getReleaseLine(changeset, type, options) {
     );
   }
 
+  /** @type {string} */
   let prFromSummary;
+
+  /** @type {string} */
   let commitFromSummary;
+
+  /** @type {string[]} */
   let usersFromSummary = [];
 
   const replacedChangelog = changeset.summary
@@ -57,12 +62,6 @@ async function getReleaseLine(changeset, type, options) {
       user: null
     };
   })();
-
-  const users = usersFromSummary.length
-    ? usersFromSummary
-        .map(userFromSummary => `[@${userFromSummary}](https://github.com/${userFromSummary})`)
-        .join(', ')
-    : links.user;
 
   const prefix = [
     links.pull === null ? '' : ` ${links.pull}`,

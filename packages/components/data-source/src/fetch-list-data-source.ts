@@ -259,7 +259,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   #createProxy(items: Array<ListDataSourceItem<T>>): Array<ListDataSourceItem<T>> {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    // oxlint-disable-next-line typescript/no-this-alias
     const that = this;
 
     return new Proxy(items, {

@@ -118,7 +118,7 @@ function getCachedWeekdayNames(locale: string): WeekDayNames {
 export function getWeekdayNames({
   locale,
   style = 'long',
-  firstDayOfWeek = 0
+  firstDayOfWeek
 }: {
   locale: Intl.LocalesArgument;
   style?: WeekDayNamesStyle;

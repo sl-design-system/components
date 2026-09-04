@@ -30,8 +30,9 @@ class TestHost extends LitElement {
     return html`
       <div style="block-size: ${virtualizer.getTotalSize()}px;">
         <div
-          style="translate: 0px ${(virtualItems[0]?.start ?? 0) -
-          (virtualizer.options.scrollMargin ?? 0)}px;">
+          style="translate: 0px ${
+            (virtualItems[0]?.start ?? 0) - (virtualizer.options.scrollMargin ?? 0)
+          }px;">
           ${repeat(
             virtualItems,
             virtualItem => virtualItem.key,

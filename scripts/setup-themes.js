@@ -18,4 +18,4 @@ const setupAllThemes = async () => {
   themes.forEach(theme => setupTheme(theme));
 };
 
-setupAllThemes();
+await setupAllThemes();

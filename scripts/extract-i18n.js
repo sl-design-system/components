@@ -45,4 +45,4 @@ const extractAll = async () => {
   components.forEach(component => extract(basename(component)));
 };
 
-extractAll();
+await extractAll();

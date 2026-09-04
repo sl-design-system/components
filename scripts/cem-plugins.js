@@ -1,7 +1,7 @@
 export function methodAndFieldPlugin(type) {
   return {
     name: 'method-plugin',
-    packageLinkPhase({ customElementsManifest, context }) {
+    packageLinkPhase({ customElementsManifest }) {
       customElementsManifest.modules.forEach(mod => {
         let elements = [];
         mod.declarations.forEach(declaration => {
@@ -24,7 +24,7 @@ export function methodAndFieldPlugin(type) {
 export function noPrivateFieldsPlugin() {
   return {
     name: 'no-private-fields-plugin',
-    packageLinkPhase({ customElementsManifest, context }) {
+    packageLinkPhase({ customElementsManifest }) {
       customElementsManifest.modules.forEach(mod => {
         mod.declarations.forEach(declaration => {
           declaration.attributes = declaration.attributes?.filter(attr => {

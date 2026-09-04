@@ -11,7 +11,7 @@ import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fg from 'fast-glob';
-import { promises as fs, existsSync } from 'fs';
+import { existsSync, promises as fs } from 'fs';
 import { basename, join } from 'path';
 
 const execAsync = promisify(exec);
@@ -191,7 +191,9 @@ const buildIconsFromBaseNew = async theme => {
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(
-      Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort()
+      Object.entries({ ...coreCustomIcons, ...icons, ...iconsCustom }).sort((a, b) =>
+        a[0].localeCompare(b[0])
+      )
     ),
     source = `// This is a generated file, do not edit. Edit the core.json and theme-icons.json files instead.
 export const icons = ${JSON.stringify(sortedIcons, null, 2)};
@@ -251,7 +253,7 @@ const exportCoreIcons = async () => {
   // We only need the `<path>` data for `<sl-icon>`
 
   const customIconFiles = await fs.readdir(iconsFolderPath);
-  const iconsCustom = [];
+  const iconsCustom = {};
 
   const filesToRead = customIconFiles.map(fileName => {
     const iconName = fileName.replace('icon=', '').replace('.svg', '');
@@ -268,4 +270,4 @@ const exportCoreIcons = async () => {
 };
 
 const coreCustomIcons = await exportCoreIcons();
-buildAllIcons();
+await buildAllIcons();

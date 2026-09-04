@@ -18,7 +18,6 @@ const STRING_DASHERIZE_REGEXP = /[ _]/g,
  * camelize('My Favorite Items'); // 'myFavoriteItems'
  * ```
  *
- * @function camelize
  * @param str The string to camelize.
  * @returns The camelized string.
  */
@@ -40,7 +39,6 @@ export function camelize(str) {
  * capitalize('my favorite items'); // 'My favorite items'
  * ```
  *
- * @function capitalize
  * @param str The string to capitalize.
  * @returns The capitalized string.
  */
@@ -58,7 +56,6 @@ export function capitalize(str) {
  * classify('my favorite items'); // 'MyFavoriteItems'
  * ```
  *
- * @function classify
  * @param str The string to classify
  * @returns The classified string
  */
@@ -79,7 +76,6 @@ export function classify(str) {
  * dasherize('my favorite items'); // 'my-favorite-items'
  * ```
  *
- * @function dasherize
  * @param str The string to dasherize.
  * @returns The dasherized string.
  */
@@ -97,7 +93,6 @@ export function dasherize(str) {
  * decamelize('my favorite items'); // 'my favorite items'
  * ```
  *
- * @function decamelize
  * @param str The string to decamelize.
  * @returns The decamelized string.
  */
@@ -115,7 +110,6 @@ export function decamelize(str) {
  * humanize('my favorite items'); // 'My favorite items'
  * ```
  *
- * @function humanize
  * @param str The string to humanize.
  * @returns The humanized string.
  */
@@ -141,7 +135,6 @@ export function humanize(str) {
  * underscore('my favorite items'); // 'my_favorite_items'
  * ```
  *
- * @function underscore
  * @param str The string to underscore.
  * @returns The underscored string.
  */

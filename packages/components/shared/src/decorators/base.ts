@@ -43,8 +43,8 @@ export const decorateProperty =
     protoOrDescriptor: ReactiveElement | ClassElement,
     name?: PropertyKey
     // Note TypeScript requires the return type to be `void|any`
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-redundant-type-constituents
-  ): void | any => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): any => {
     // TypeScript / Babel legacy mode
     if (name !== undefined) {
       const ctor = (protoOrDescriptor as ReactiveElement).constructor;

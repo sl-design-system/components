@@ -1,5 +1,6 @@
+import { type Person, getPeople } from '@sl-design-system/example-data';
 import { spy } from 'sinon';
-import { beforeEach, describe, expect, expectTypeOf, it } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, expectTypeOf, it } from 'vitest';
 import { type DataSourceFilter } from './data-source.js';
 import {
   FetchListDataSource,
@@ -7,10 +8,14 @@ import {
   type FetchListDataSourceCallbackOptions
 } from './fetch-list-data-source.js';
 import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
-import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
+  let people: Person[];
   let ds: FetchListDataSource<Person>;
+
+  beforeAll(async () => {
+    ({ people } = await getPeople({ count: 5 }));
+  });
 
   it('should provide typed filter options to the fetchPage callback', () => {
     const fetchPage: FetchListDataSourceCallback<Person> = options => {

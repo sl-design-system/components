@@ -5,8 +5,8 @@ import { basename, join, resolve } from 'path';
 import {
   methodAndFieldPlugin,
   noPrivateFieldsPlugin,
-  sortMembersPlugin,
-  omitPlugin
+  omitPlugin,
+  sortMembersPlugin
 } from './cem-plugins.js';
 import { eventDecoratorPlugin } from './cem-plugin-event-decorator.js';
 
@@ -50,4 +50,4 @@ const buildAllManifests = async () => {
   components.forEach(component => buildManifest(basename(component)));
 };
 
-buildAllManifests();
+await buildAllManifests();

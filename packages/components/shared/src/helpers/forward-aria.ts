@@ -1,5 +1,5 @@
 import { type LitElement } from 'lit';
-import { type ForwardAriaMixinInterface } from '../mixins/forward-aria-mixin.js';
+import { type ForwardAriaMixinInterface } from '../mixins/forward-aria.js';
 
 /**
  * Follows the forwarding target chain to the deepest element. When the target itself also uses

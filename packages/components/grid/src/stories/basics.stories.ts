@@ -13,7 +13,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
-import '../../register.js';
+import '.././register.js';
 import { type GridColumnDataRenderer } from '../column.js';
 import { avatarRenderer } from './story-utils.js';
 
@@ -97,12 +97,12 @@ export const EllipsizeText: Story = {
       ellipsize-text
       column-divider
       no-skip-links>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-column path="school.name"></sl-grid-column>
-      <sl-grid-column path="school.address"></sl-grid-column>
-      <sl-grid-column path="school.city"></sl-grid-column>
-      <sl-grid-column path="school.country"></sl-grid-column>
+      <sl-grid-column path="firstName" width="80"></sl-grid-column>
+      <sl-grid-column path="lastName" width="80"></sl-grid-column>
+      <sl-grid-column path="school.name" width="100"></sl-grid-column>
+      <sl-grid-column path="school.address" width="100"></sl-grid-column>
+      <sl-grid-column path="school.city" width="65"></sl-grid-column>
+      <sl-grid-column path="school.country" width="75"></sl-grid-column>
     </sl-grid>
   `
 };

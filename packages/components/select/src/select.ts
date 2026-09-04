@@ -9,7 +9,6 @@ import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
   EventsController,
-  ObserveAttributesMixin,
   RovingTabindexController,
   anchor,
   event,
@@ -21,6 +20,8 @@ import {
   type SlClearEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -31,7 +32,7 @@ import {
 } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectButton } from './select-button.js';
-import styles from './select.scss.js';
+import styles from './select.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -63,7 +64,7 @@ export type SelectSize = 'md' | 'lg';
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Select<T = any> extends ObserveAttributesMixin(
-  FormControlMixin(ScopedElementsMixin(LitElement)),
+  FormControlMixin(ScopedElementsMixin(ElementInternalsMixin(LitElement))),
   ['aria-describedby', 'aria-label', 'aria-labelledby']
 ) {
   /** @internal */
@@ -193,9 +194,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
-
-  /** @internal */
-  readonly internals = this.attachInternals();
 
   /** @internal The clear button element. */
   @query('button') clearButton?: HTMLButtonElement;
@@ -335,7 +333,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     if (changes.has('required')) {
       this.button.required = this.required;
-      this.internals.ariaRequired = Boolean(this.required).toString();
+      this.elementInternals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
     }
@@ -376,7 +374,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
          * (https://developer.mozilla.org/en-US/docs/Web/API/Element/ariaControlsElements) when
          * browser support is sufficient.
          */
-        this.button.internals.ariaControlsElements = [this.listbox];
+        this.button.elementInternals.ariaControlsElements = [this.listbox];
       }
 
       this.#syncListboxLabeling();
@@ -388,18 +386,20 @@ export class Select<T = any> extends ObserveAttributesMixin(
 
     return html`
       <slot name="button"></slot>
-      ${showClearButton
-        ? html`
-            <button
-              @click=${this.#onClearButtonClick}
-              @focusin=${this.#onClearButtonFocusin}
-              @focusout=${this.#onClearButtonFocusout}
-              aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
-              <sl-icon name="circle-xmark"></sl-icon>
-              <sl-icon name="circle-xmark-solid"></sl-icon>
-            </button>
-          `
-        : nothing}
+      ${
+        showClearButton
+          ? html`
+              <button
+                @click=${this.#onClearButtonClick}
+                @focusin=${this.#onClearButtonFocusin}
+                @focusout=${this.#onClearButtonFocusout}
+                aria-label=${msg('Clear selection', { id: 'sl.select.clearSelection' })}>
+                <sl-icon name="circle-xmark"></sl-icon>
+                <sl-icon name="circle-xmark-solid"></sl-icon>
+              </button>
+            `
+          : nothing
+      }
       <sl-listbox
         ${anchor({
           element: this.button,
@@ -816,7 +816,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.#buttonAriaObserver.disconnect();
 
     try {
-      const labels = Array.from(this.internals.labels) as Element[],
+      const labels = Array.from(this.elementInternals.labels) as Element[],
         { ariaLabel, explicitLabelledBy, explicitLabelledByElements, hasExplicitLabel } =
           this.#getExplicitLabelState();
 
@@ -944,10 +944,10 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue);
+    this.elementInternals.setFormValue(this.nativeFormValue);
 
     if (!this.validity.customError) {
-      this.internals.setValidity(
+      this.elementInternals.setValidity(
         { valueMissing: this.required && !this.selectedOption },
         msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
       );

@@ -6,8 +6,8 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type DateField } from './date-field.js';
+import './register.js';
 
 type Props = Pick<
   DateField,
@@ -125,13 +125,15 @@ export default {
             ${slot?.()}
           </sl-date-field>
         </sl-form-field>
-        ${reportValidity
-          ? html`
-              <sl-button-bar>
-                <sl-button @click=${onClick}>Report validity</sl-button>
-              </sl-button-bar>
-            `
-          : nothing}
+        ${
+          reportValidity
+            ? html`
+                <sl-button-bar>
+                  <sl-button @click=${onClick}>Report validity</sl-button>
+                </sl-button-bar>
+              `
+            : nothing
+        }
       </sl-form>
     `;
   }
@@ -245,6 +247,63 @@ export const ShowWeekNumbers: Story = {
 export const Value: Story = {
   args: {
     value: new Date(2024, 8, 12)
+  }
+};
+
+export const ExternalUndefinedValue: Story = {
+  render: () => {
+    const formatValue = (dateField: DateField): string => {
+      return dateField.value ? dateField.value.toLocaleDateString('en-US') : 'undefined';
+    };
+
+    const updateStatus = (root: HTMLElement): void => {
+      const dateField = root.querySelector<DateField>('sl-date-field')!,
+        output = root.querySelector<HTMLOutputElement>('output')!;
+
+      output.value = `Current value: ${formatValue(dateField)}`;
+    };
+
+    const onClear = (event: Event & { target: HTMLElement }): void => {
+      const root = event.target.closest('.external-undefined-value') as HTMLElement,
+        dateField = root.querySelector<DateField>('sl-date-field')!;
+
+      dateField.value = undefined;
+      void dateField.updateComplete.then(() => updateStatus(root));
+    };
+
+    const onReset = (event: Event & { target: HTMLElement }): void => {
+      const root = event.target.closest('.external-undefined-value') as HTMLElement,
+        dateField = root.querySelector<DateField>('sl-date-field')!;
+
+      dateField.value = new Date(2023, 2, 31);
+      void dateField.updateComplete.then(() => updateStatus(root));
+    };
+
+    const onChange = (event: Event & { target: DateField }): void => {
+      const root = event.target.closest('.external-undefined-value') as HTMLElement;
+
+      updateStatus(root);
+    };
+
+    return html`
+      <div class="external-undefined-value">
+        <sl-form>
+          <sl-form-field
+            hint="Use ArrowUp on the month part to create 04/31/2023, then set the external value to undefined."
+            label="Date">
+            <sl-date-field
+              @sl-change=${onChange}
+              .value=${new Date(2023, 2, 31)}
+              style="width: fit-content"></sl-date-field>
+          </sl-form-field>
+          <sl-button-bar>
+            <sl-button @click=${onClear}>Set value to undefined</sl-button>
+            <sl-button @click=${onReset}>Reset value</sl-button>
+          </sl-button-bar>
+        </sl-form>
+        <output>Current value: 3/31/2023</output>
+      </div>
+    `;
   }
 };
 

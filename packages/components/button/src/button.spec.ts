@@ -11,8 +11,8 @@ import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { Button, type ButtonType } from './button.js';
+import './register.js';
 
 describe('sl-button', () => {
   let el: Button, button: HTMLButtonElement;
@@ -149,6 +149,10 @@ describe('sl-button', () => {
 
       it('should not have the icon-only state when text is added', async () => {
         el.appendChild(document.createTextNode('Favorite'));
+
+        // Let the MutationObserver deliver the mutation, which schedules the update that
+        // removes the state.
+        await new Promise(resolve => setTimeout(resolve));
         await el.updateComplete;
 
         expect(el).not.to.match(':state(icon-only)');
@@ -415,7 +419,7 @@ describe('sl-button', () => {
       });
 
       it('should be associated with the form', () => {
-        expect(el.internals.form).to.equal(form);
+        expect(el.elementInternals.form).to.equal(form);
       });
     });
 
@@ -620,9 +624,7 @@ describe('sl-button', () => {
       it('should set ariaLabelledByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-labelledby="nonexistent">Click me</sl-button>`);
 
-        expect(
-          getForwardedAriaProperty(el, 'ariaLabelledByElements' as keyof HTMLElement)
-        ).to.deep.equal([]);
+        expect(getForwardedAriaProperty(el, 'ariaLabelledByElements')).to.deep.equal([]);
       });
     });
 
@@ -649,9 +651,7 @@ describe('sl-button', () => {
       it('should set ariaDescribedByElements to an empty array when the referenced element does not exist', async () => {
         el = await fixture(html`<sl-button aria-describedby="nonexistent">Click me</sl-button>`);
 
-        expect(
-          getForwardedAriaProperty(el, 'ariaDescribedByElements' as keyof HTMLElement)
-        ).to.deep.equal([]);
+        expect(getForwardedAriaProperty(el, 'ariaDescribedByElements')).to.deep.equal([]);
       });
     });
   });

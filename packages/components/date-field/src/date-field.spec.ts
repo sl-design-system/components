@@ -1,12 +1,13 @@
-import { type Calendar, type MonthView } from '@sl-design-system/calendar';
 import '@sl-design-system/calendar/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { DateField } from './date-field.js';
+import './register.js';
+
+type RenderRootElement = HTMLElement & { renderRoot: ShadowRoot };
 
 describe('sl-date-field', () => {
   let el: DateField;
@@ -232,23 +233,23 @@ describe('sl-date-field', () => {
       el.placeholder = 'Pick a date';
       await el.updateComplete;
 
-      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.true;
     });
 
     it('should not have placeholder-shown state when there is no placeholder', () => {
-      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.false;
     });
 
     it('should remove placeholder-shown state when a value is set', async () => {
       el.placeholder = 'Pick a date';
       await el.updateComplete;
 
-      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.true;
 
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.false;
     });
 
     it('should have aria-hidden on the placeholder when the placeholder is not shown', async () => {
@@ -266,49 +267,49 @@ describe('sl-date-field', () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.false;
 
       el.value = undefined;
       await el.updateComplete;
 
-      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.true;
     });
 
     it('should remove placeholder-shown state when a partial date is entered', async () => {
       el.placeholder = 'Pick a date';
       await el.updateComplete;
 
-      expect(el.internals.states.has('placeholder-shown')).to.be.true;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.true;
 
       const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
       spans[0].focus();
       await userEvent.keyboard('5');
       await el.updateComplete;
 
-      expect(el.internals.states.has('placeholder-shown')).to.be.false;
+      expect(el.elementInternals.states.has('placeholder-shown')).to.be.false;
     });
 
     it('should not have has-value state when there is no value', () => {
-      expect(el.internals.states.has('has-value')).to.be.false;
+      expect(el.elementInternals.states.has('has-value')).to.be.false;
     });
 
     it('should have has-value state when a value is set', async () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-value')).to.be.true;
+      expect(el.elementInternals.states.has('has-value')).to.be.true;
     });
 
     it('should remove has-value state when the value is cleared', async () => {
       el.value = new Date(2026, 2, 14);
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-value')).to.be.true;
+      expect(el.elementInternals.states.has('has-value')).to.be.true;
 
       el.value = undefined;
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-value')).to.be.false;
+      expect(el.elementInternals.states.has('has-value')).to.be.false;
     });
 
     it('should have aria-hidden on the placeholder when a value is set', async () => {
@@ -443,7 +444,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -559,9 +560,9 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar'),
-        selectDay = calendar?.shadowRoot?.querySelector('sl-select-day'),
-        monthView = selectDay?.shadowRoot?.querySelector('sl-month-view[autofocus]');
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar'),
+        selectDay = calendar?.shadowRoot?.querySelector<HTMLElement>('sl-select-day'),
+        monthView = selectDay?.shadowRoot?.querySelector<HTMLElement>('sl-month-view[autofocus]');
 
       expect(monthView?.shadowRoot?.activeElement).to.exist;
       expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');
@@ -575,7 +576,7 @@ describe('sl-date-field', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const testDate = new Date(2023, 5, 15);
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: testDate,
@@ -594,7 +595,7 @@ describe('sl-date-field', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const testDate = new Date(2023, 5, 15);
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: testDate,
@@ -610,7 +611,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15, 12, 30, 45),
@@ -628,7 +629,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -802,14 +803,14 @@ describe('sl-date-field', () => {
       `);
       el = form.querySelector('sl-date-field')!;
 
-      expect(el.internals).to.exist;
-      expect(el.internals.form).to.equal(form);
+      expect(el.elementInternals).to.exist;
+      expect(el.elementInternals.form).to.equal(form);
     });
 
     it('should have role="group" on internals', async () => {
       el = await fixture(html`<sl-date-field aria-label="Date"></sl-date-field>`);
 
-      expect(el.internals.role).to.equal('group');
+      expect(el.elementInternals.role).to.equal('group');
     });
 
     it('should update validity when value changes', async () => {
@@ -836,6 +837,30 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.formValue).to.equal('2026-03-14');
+    });
+
+    it('should clear inputs when formValue is set to undefined externally', async () => {
+      el = await fixture(
+        html`<sl-date-field aria-label="Date" .value=${new Date(2023, 2, 31)}></sl-date-field>`
+      );
+      await el.updateComplete;
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4, day: 31, year: 2023 });
+
+      el.formValue = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
     });
   });
 
@@ -1035,12 +1060,12 @@ describe('sl-date-field', () => {
     it('should set has-focus state when a spinbutton is focused', async () => {
       const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
 
-      expect(el.internals.states.has('has-focus')).to.be.false;
+      expect(el.elementInternals.states.has('has-focus')).to.be.false;
 
       spans[0].focus();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
     });
 
     it('should maintain has-focus state when moving between spinbuttons', async () => {
@@ -1049,12 +1074,12 @@ describe('sl-date-field', () => {
       spans[0].focus();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
 
       spans[1].focus();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
     });
 
     it('should remove has-focus state when focus leaves all spinbuttons', async () => {
@@ -1063,12 +1088,12 @@ describe('sl-date-field', () => {
       spans[0].focus();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
 
       spans[0].blur();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.false;
+      expect(el.elementInternals.states.has('has-focus')).to.be.false;
     });
   });
 
@@ -1284,6 +1309,47 @@ describe('sl-date-field', () => {
       expect(spans[0]).to.have.trimmed.text('04');
       expect(spans[1]).to.have.trimmed.text('31');
       expect(spans[2]).to.have.trimmed.text('2023');
+    });
+
+    it('should clear preserved parts when value is set to undefined externally', async () => {
+      el.value = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4, day: 31, year: 2023 });
+      expect(el.valid).to.be.false;
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(el.valid).to.be.true;
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
+    });
+
+    it('should clear partial parts from an empty field when value is set to undefined externally', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('4');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4 });
+      expect(el.valid).to.be.true;
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(el.valid).to.be.true;
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
     });
 
     it('should wrap day from 31 to 1 on ArrowUp', async () => {
@@ -1638,13 +1704,13 @@ describe('sl-date-field', () => {
       spans[0].focus();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
 
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('.select-all')).to.exist;
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
     });
 
     it('should maintain has-focus state when exiting select-all mode via keypress', async () => {
@@ -1652,7 +1718,7 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('{Control>}a{/Control}');
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
 
       await userEvent.keyboard('1');
       await el.updateComplete;
@@ -1660,7 +1726,7 @@ describe('sl-date-field', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el.renderRoot.querySelector('.select-all')).to.not.exist;
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
     });
 
     it('should exit select-all mode on Tab', async () => {
@@ -1854,7 +1920,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -1871,7 +1937,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -2032,7 +2098,7 @@ describe('sl-date-field', () => {
   });
 
   describe('custom calendar', () => {
-    let calendar: Calendar;
+    let calendar: RenderRootElement;
 
     beforeEach(async () => {
       el = await fixture(html`
@@ -2040,7 +2106,7 @@ describe('sl-date-field', () => {
           <sl-calendar slot="calendar" show-today></sl-calendar>
         </sl-date-field>
       `);
-      calendar = el.querySelector('sl-calendar[slot="calendar"]')!;
+      calendar = el.querySelector<RenderRootElement>('sl-calendar[slot="calendar"]')!;
     });
 
     it('should work with a slotted calendar for date selection', async () => {
@@ -2092,7 +2158,7 @@ describe('sl-date-field', () => {
 
         calendar.renderRoot
           .querySelector('sl-select-day')
-          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])')
           ?.renderRoot.querySelector<HTMLElement>('button[part~="today"]')
           ?.click();
 
@@ -2137,7 +2203,7 @@ describe('sl-date-field', () => {
 
         calendar.renderRoot
           .querySelector('sl-select-day')
-          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])')
           ?.renderRoot.querySelector<HTMLElement>('button[part~="today"]')
           ?.click();
 
@@ -2206,7 +2272,7 @@ describe('sl-date-field', () => {
       label.click();
       await el.updateComplete;
 
-      expect(el.internals.states.has('has-focus')).to.be.true;
+      expect(el.elementInternals.states.has('has-focus')).to.be.true;
     });
 
     it('should allow dialog to open normally after label click', async () => {

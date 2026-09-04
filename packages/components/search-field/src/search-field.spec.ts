@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
+import './register.js';
 import { type SearchField, type SlSearchEvent } from './search-field.js';
 
 describe('sl-search-field', () => {

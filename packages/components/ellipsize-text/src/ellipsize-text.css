@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  min-inline-size: 0;
+}
+
+slot {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

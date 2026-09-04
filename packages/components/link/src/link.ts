@@ -4,6 +4,8 @@ import {
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -13,7 +15,7 @@ import {
   nothing
 } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import styles from './link.scss.js';
+import styles from './link.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -48,9 +50,10 @@ export type LinkVariant =
  * @slot default - Place a single <code>&lt;a&gt;</code> element inside the component.
  * @csspart icon - The new-tab indicator icon.
  * @cssstate reversed - The link has an internal indicator icon on the left side.
+ * @cssstate hide-icon - The link has no icon and is an internal link.
  */
 @localized()
-export class Link extends ScopedElementsMixin(LitElement) {
+export class Link extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -60,9 +63,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** Internal state management for CSS custom states. */
-  #internals = this.attachInternals();
 
   /** Target value captured before this component injected _blank. */
   #managedTarget?: { anchor: HTMLAnchorElement; originalTarget: string | null };
@@ -121,6 +121,18 @@ export class Link extends ScopedElementsMixin(LitElement) {
   /** No icon will be shown on internal links when this attribute is set. */
   @property({ type: Boolean, reflect: true, attribute: 'no-icon' }) noIcon?: boolean;
 
+  /** @internal Whether the indicator icon is rendered before the link text. */
+  @cssState()
+  get reversed(): boolean {
+    return !this.noIcon && this.#indicatorIcon === 'arrow-left';
+  }
+
+  /** @internal Helper state whether to show the padding or not (to make place for the icon). */
+  @cssState()
+  get hideIcon(): boolean {
+    return !!(this.noIcon && this.linkType === 'internal');
+  }
+
   get #indicatorIcon(): string {
     switch (this.linkType) {
       case 'internal-new-tab':
@@ -150,23 +162,21 @@ export class Link extends ScopedElementsMixin(LitElement) {
     if (changes.has('type')) {
       this.#syncAnchor();
     }
-
-    if (changes.has('iconPosition') || changes.has('noIcon')) {
-      this.#syncReversedState();
-    }
   }
 
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange}></slot>
-      ${!(this.noIcon && this.linkType === 'internal')
-        ? html`
-            <sl-icon
-              .name=${this.#indicatorIcon}
-              part="icon"
-              .size=${this.size === 'sm' ? 'sm' : undefined}></sl-icon>
-          `
-        : nothing}
+      ${
+        !(this.noIcon && this.linkType === 'internal')
+          ? html`
+              <sl-icon
+                .name=${this.#indicatorIcon}
+                part="icon"
+                .size=${this.size === 'sm' ? 'sm' : undefined}></sl-icon>
+            `
+          : nothing
+      }
     `;
   }
 
@@ -299,22 +309,11 @@ export class Link extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #syncReversedState(): void {
-    const hasInternalStartIndicator = !this.noIcon && this.#indicatorIcon === 'arrow-left';
-
-    if (hasInternalStartIndicator) {
-      this.#internals.states.add('reversed');
-    } else {
-      this.#internals.states.delete('reversed');
-    }
-  }
-
   #syncAnchor(): void {
     const anchor = this.#getAnchor();
 
     if (!anchor) {
       this.#restoreManagedTarget();
-      this.#syncReversedState();
 
       return;
     }
@@ -351,7 +350,6 @@ export class Link extends ScopedElementsMixin(LitElement) {
       srOnly.textContent = `(${msg('opens in a new tab', { id: 'link.opens-in-new-tab' })})`;
       anchor.appendChild(srOnly);
     }
-    this.#syncReversedState();
 
     // Re-observe after making all changes
     this.#observeAnchor(anchor);

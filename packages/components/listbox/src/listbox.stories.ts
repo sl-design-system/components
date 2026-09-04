@@ -11,8 +11,8 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Listbox, type ListboxItem } from './listbox.js';
+import './register.js';
 
 Icon.register(faArrowDown, faArrowDownToLine, faArrowUp, faArrowUpToLine);
 
@@ -106,28 +106,34 @@ export default {
           max-block-size: calc(100dvh - 7rem);
         }
       </style>
-      ${options
-        ? html`
-            <sl-button-bar>
-              Scroll:
-              <sl-button @click=${() => scrollTo(0)} aria-label="Scroll to top"
-                ><sl-icon name="far-arrow-up-to-line"></sl-icon
-              ></sl-button>
-              <sl-button @click=${() => scrollTo(scrollToPosition - 1)} aria-label="Scroll up one"
-                ><sl-icon name="far-arrow-up"></sl-icon
-              ></sl-button>
-              <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
-                >Scroll to ${Math.floor(options.length / 2)}</sl-button
-              >
-              <sl-button @click=${() => scrollTo(scrollToPosition + 1)} aria-label="Scroll down one"
-                ><sl-icon name="far-arrow-down"></sl-icon
-              ></sl-button>
-              <sl-button @click=${() => scrollTo(options.length - 1)} aria-label="Scroll to bottom"
-                ><sl-icon name="far-arrow-down-to-line"></sl-icon
-              ></sl-button>
-            </sl-button-bar>
-          `
-        : nothing}
+      ${
+        options
+          ? html`
+              <sl-button-bar>
+                Scroll:
+                <sl-button @click=${() => scrollTo(0)} aria-label="Scroll to top"
+                  ><sl-icon name="far-arrow-up-to-line"></sl-icon
+                ></sl-button>
+                <sl-button @click=${() => scrollTo(scrollToPosition - 1)} aria-label="Scroll up one"
+                  ><sl-icon name="far-arrow-up"></sl-icon
+                ></sl-button>
+                <sl-button @click=${() => scrollTo(Math.floor(options.length / 2) - 1)}
+                  >Scroll to ${Math.floor(options.length / 2)}</sl-button
+                >
+                <sl-button
+                  @click=${() => scrollTo(scrollToPosition + 1)}
+                  aria-label="Scroll down one"
+                  ><sl-icon name="far-arrow-down"></sl-icon
+                ></sl-button>
+                <sl-button
+                  @click=${() => scrollTo(options.length - 1)}
+                  aria-label="Scroll to bottom"
+                  ><sl-icon name="far-arrow-down-to-line"></sl-icon
+                ></sl-button>
+              </sl-button-bar>
+            `
+          : nothing
+      }
       <sl-listbox
         .options=${options}
         .optionGroupPath=${optionGroupPath}

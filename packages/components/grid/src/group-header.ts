@@ -14,7 +14,7 @@ import {
 } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './group-header.scss.js';
+import styles from './group-header.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -63,38 +63,46 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
       : msg('Group', { id: 'sl.grid.selectGroup' });
 
     return html`
-      ${this.dragHandle
-        ? html`
-            <div draggable="true" part="drag-handle">
-              <sl-icon name="grip-lines"></sl-icon>
-            </div>
-          `
-        : nothing}
-      ${this.selectable
-        ? html`
-            <div part="checkbox">
-              <sl-checkbox
-                @sl-change=${this.#onChange}
-                aria-label=${selectGroupLabel}
-                .checked=${this.selected === 'all'}
-                .indeterminate=${this.selected === 'some'}
-                size="sm"></sl-checkbox>
-            </div>
-          `
-        : nothing}
-      <sl-button
-        @click=${this.#onClick}
-        aria-expanded=${this.collapsed ? 'false' : 'true'}
-        aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
-        fill="ghost"
-        size="sm">
-        <sl-icon name="chevron-down"></sl-icon>
-      </sl-button>
       <div part="wrapper">
-        <div part="group-heading">
-          <slot name="group-heading"></slot>
+        <div part="group-heading-wrapper">
+          ${
+            this.dragHandle
+              ? html`
+                  <div draggable="true" part="drag-handle">
+                    <sl-icon name="grip-lines"></sl-icon>
+                  </div>
+                `
+              : nothing
+          }
+          ${
+            this.selectable
+              ? html`
+                  <div part="checkbox">
+                    <sl-checkbox
+                      @sl-change=${this.#onChange}
+                      aria-label=${selectGroupLabel}
+                      .checked=${this.selected === 'all'}
+                      .indeterminate=${this.selected === 'some'}
+                      size="sm"></sl-checkbox>
+                  </div>
+                `
+              : nothing
+          }
+          <sl-button
+            @click=${this.#onClick}
+            aria-expanded=${this.collapsed ? 'false' : 'true'}
+            aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+            fill="ghost"
+            size="sm">
+            <sl-icon name="chevron-down"></sl-icon>
+          </sl-button>
+          <div part="group-heading">
+            <slot name="group-heading"></slot>
+          </div>
         </div>
-        <slot></slot>
+        <div part="actions">
+          <slot></slot>
+        </div>
       </div>
     `;
   }

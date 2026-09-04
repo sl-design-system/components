@@ -1,5 +1,27 @@
 # @sl-design-system/locales
 
+## 0.4.0
+
+### Minor Changes
+
+- [#3526](https://github.com/sl-design-system/components/pull/3526) [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92) - New translations for `sl-text-area`:
+
+  - `sl.textArea.charCountTooMany_one`,
+  - `sl.textArea.charCountTooMany_few`,
+  - `sl.textArea.charCountTooMany_other`,
+  - `sl.textArea.charCountRemaining_one`,
+  - `sl.textArea.charCountRemaining_few`,
+  - `sl.textArea.charCountRemaining_other`,
+  - `sl.textArea.validation.tooLong_one`,
+  - `sl.textArea.validation.tooLong_few`,
+  - `sl.textArea.validation.tooLong_other`
+
+  in Dutch, Italian, Spanish and Polish.
+
+- [#3544](https://github.com/sl-design-system/components/pull/3544) [`ac75744`](https://github.com/sl-design-system/components/commit/ac75744df5693d272123778b53bba368992dad2c) - New translations for `sl.paginator.itemsPerPageAriaLabel` and `sl.grid.selectGroup` in Dutch, Italian, Spanish and Polish.
+
+- [#3560](https://github.com/sl-design-system/components/pull/3560) [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612) - Add translations for `sl.grid.selectGroupWithName` in Dutch, Italian, Polish and Spanish.
+
 ## 0.3.2
 
 ### Patch Changes

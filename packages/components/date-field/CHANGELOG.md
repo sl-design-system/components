@@ -1,5 +1,25 @@
 # @sl-design-system/date-field
 
+## 0.2.0
+
+### Minor Changes
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - A new `shape` property that defaults to `rect` but also accepts `pill` for rounded corners.
+  A new `size` property that defaults to `md` but also accepts `lg`.
+  New styling of the field button.
+
+### Patch Changes
+
+- [#3582](https://github.com/sl-design-system/components/pull/3582) [`f28ec84`](https://github.com/sl-design-system/components/commit/f28ec84fceec18eb920d5e76a59304f564577f92) - Fixes incorrect text color in year select dialog
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/text-field@1.7.0
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/button-bar@1.5.1
+  - @sl-design-system/calendar@0.1.0
+  - @sl-design-system/form@1.4.3
+
 ## 0.1.5
 
 ### Patch Changes

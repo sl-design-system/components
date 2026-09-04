@@ -1,5 +1,25 @@
 # @sl-design-system/checkbox
 
+## 2.3.0
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - `sl-checkbox` now uses `ForwardAriaMixin` instead of `ObserveAttributesMixin` to forward ARIA to the
+  `<input>` element. Reference attributes (`aria-labelledby` and `aria-describedby`) are resolved to
+  elements and forwarded via `ariaLabelledByElements`/`ariaDescribedByElements`, so relationships that
+  are set as element references — such as an `sl-tooltip` labelling or describing the checkbox — now
+  reach the `<input>`. Previously only the attribute value was copied, which meant a tooltip anchored
+  to an `sl-checkbox` did not label the actual control.
+
+  All `aria-*` attributes set on the host are now forwarded, rather than a fixed list. This means
+  `aria-describedby` reaches the `<input>` as well; it used to stay on the host.
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/form@1.4.3
+
 ## 2.2.0
 
 ### Minor Changes
@@ -7,6 +27,7 @@
 - [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Add infotip support to checkbox, radio, and switch components
 
   Form controls now support an optional infotip slot that displays contextual help using the infotip component. The infotip automatically:
+
   - Sizes itself appropriately (sm) for form controls
   - Inherits the form control's label as its `describes` attribute if not explicitly set
   - Positions itself alongside the form control without interfering with clicks or keyboard interactions
@@ -125,6 +146,7 @@
 ### Patch Changes
 
 - [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Various fixes:
+
   - Fix bug where clicking a checkbox in a tree-node will not check it
   - Fix `sl-change` event firing multiple times for a single click
 
@@ -182,6 +204,7 @@
 ### Patch Changes
 
 - [#1369](https://github.com/sl-design-system/components/pull/1369) [`25d1de0`](https://github.com/sl-design-system/components/commit/25d1de0d8b6e032aa13463d18db201cf88d5ddd6) - Fix behavior to match native checkbox:
+
   - If a checkbox has no value, the form value should be `"on"` when checked
   - The value of the checkbox group should be an array of the form value of _all_ checkboxes
   - The form value will filter out any `null` values (so this change is not breaking)

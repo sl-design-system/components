@@ -1,5 +1,20 @@
 # @sl-design-system/breadcrumbs
 
+## 1.3.0
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Use the new tooltip implementation
+
+  The breadcrumbs component has been updated to use the simplified tooltip implementation. Tooltips for truncated breadcrumb links are now managed using the new `<sl-tooltip>` `for` attribute approach, removing the need for manual cleanup functions and reducing internal complexity.
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/tooltip@3.0.0
+  - @sl-design-system/popover@1.2.8
+
 ## 1.2.4
 
 ### Patch Changes

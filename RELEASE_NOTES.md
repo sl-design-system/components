@@ -4,6 +4,57 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# September 4, 2026
+
+## Breaking changes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) now renders a native `<button>` element inside the shadow DOM, changing the internal DOM structure. The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) undergoes a major refactor to use an internal `<button>` element:
+  - The `[pressed]`, `[icon-only]`, `[text-only]`, and `[error]` attributes are replaced by CSS custom states (`:state(pressed)`, `:state(icon-only)`, `:state(text-only)`, `:state(error)`)
+  - The `pressed` property is no longer reflected as an attribute; use `:state(pressed)` for styling
+  - The `label` property has been removed; use the new `tooltip` property instead
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) undergoes a major rewrite using native browser `popover` and CSS Anchor Positioning APIs:
+  - The `TooltipOptions` interface and `Tooltip.lazy()` static method have been removed; use the `for` attribute to link tooltips to anchors instead
+  - The `position`, `offset`, `maxWidth`, `arrowPadding`, and `viewportMargin` properties have been removed
+  - `hoverShowDelay` changed from `500ms` to `150ms` and `hoverHideDelay` from `200ms` to `0ms`
+  - New API: `for` (links tooltip to anchors by id), `type` (controls ARIA relationship), `trigger` (space-separated list of triggers), `disabled` and `open` properties
+  - It now uses the web standard CSS Anchor Positioning (note: you may need the [CSS Anchor Positioning polyfill](https://github.com/oddbird/css-anchor-positioning) for [full browser support](https://caniuse.com/css-anchor-positioning)). You can read more about this on our [Getting Started page](https://sanomalearning.design/categories/getting-started/developers/#css-anchor-positioning).
+- [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) receives a minor version update to accommodate the toggle button refactor; upgrade both toggle-button and toggle-group together
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md), [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) and [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) rename the `shape="square"` value to `shape="rect"` to align with what is used in Figma.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) removes the `disabled` property on `sl-menu-item`; use `aria-disabled="true"` instead. Menu items with `aria-disabled="true"` now remain focusable and navigable with the keyboard, allowing users to read the content of disabled items (recommended by the W3C ARIA Authoring Practices Guide).
+
+## New features
+
+- A new `shape` property (defaulting to `rect`, also accepts `pill`) is added to the following components: [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md),[`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md),[`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md),[`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md),[`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md),[`text-field`](https://github.com/sl-design-system/components/blob/main/packages/components/text-field/CHANGELOG.md),
+  [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md)
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) adds a `tooltip` property for declaratively adding tooltips, with automatic accessibility wiring for icon-only and text buttons. It also exposes a `button` CSS part on the inner `<button>` element.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) adds an `option-disabled-path` to map disabled option state when rendering from the options property. It automatically exports listbox components when importing `register.js`.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) improves drag-and-drop for grouped grids: support dragging complete group rows and dropping them to reorder groups, and dropping rows on a group header to move rows into that group. It also adds a `group-label` to `sl-grid-group-header` and improves drag feedback timing.
+- [`link`](https://github.com/sl-design-system/components/blob/main/packages/components/link/CHANGELOG.md) adds a new component that styles an `<a href>` link like a button.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) integrates virtual-list component for efficient rendering of large option lists, providing better performance and smoother scrolling with CSS max-height support. It automatically exports when combobox imports `register.js`.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) adds an `sl-toggle` event to `<sl-menu-button>` that emits `true` when the menu opens and `false` when it closes, and adds a `tooltip` property to menu buttons.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) adds a `tooltip` property for declarative tooltips with automatic accessibility wiring.
+- [`text-area`](https://github.com/sl-design-system/components/blob/main/packages/components/text-area/CHANGELOG.md) adds a `showCount` property to display remaining character count, with the default row count now explicitly set to 3.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) adds a `tooltip` property and CSS parts `button` and `tooltip` for styling internal elements. Focus is now delegated to the internal button.
+
+## Bug fixes
+
+- [`badge`](https://github.com/sl-design-system/components/blob/main/packages/components/badge/CHANGELOG.md) now updates the `round` attribute based on text content changes.
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes icon-only size regression, a WebKit bug where the aspect-ratio was ignored, and an issue where the inner button wouldn't grow with the host element.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) fixes multiple issues: selection matching when option values and combobox values use different primitive types, select-only mode keyboard behavior (Space now selects/deselects), scroll-to-item behavior, virtual list scrollMargin handling, and Safari-specific animations. It also improves VoiceOver support by rendering virtual options in the light DOM.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) adds accessible names to form controls in editable cells, fixes sticky columns becoming transparent with row activation, adds `aria-selected` to active/selected rows, announces row activation to screen readers, and fixes horizontal scroll synchronization with keyboard navigation.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) prevents unstable scrolling in virtualized lists by disabling scroll anchoring and containing overscroll, fixing touchpad and wheel scrolling behavior.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes nested submenu item clicks being intercepted by parent menu items, and fixes double-click menu reopening.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) gives the remove button a proper accessible label ("Remove tag 'X'"), uses `aria-disabled` instead of `disabled` to keep it keyboard-reachable, and fixes stacked tag lists to show at least one removable tag. Improves keyboard navigation in comboboxes.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) now exposes `aria-disabled="true"` on disabled buttons, and fixes icon color in certain theme contexts.
+- [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) now uses `role="group"` as the default semantic role instead of `role="region"`.
+
+## Component promotions
+
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) and [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) have been promoted from `draft` to `preview`.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md), [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md), [`progress-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/progress-bar/CHANGELOG.md), [`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md), and [`callout`](https://github.com/sl-design-system/components/blob/main/packages/components/callout/CHANGELOG.md) have been promoted from `preview` to `stable`.
+
 # July 30, 2026
 
 ## Breaking changes

@@ -1,16 +1,11 @@
 {
   "name": "@sl-design-system/tree",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "status": "preview",
   "description": "Tree component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "exports": {
-      ".": "./dist/index.js",
-      "./register.js": "./dist/register.js",
-      "./package.json": "./package.json"
-    }
+    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
@@ -24,9 +19,9 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./register.js": "./src/register.ts",
-    "./package.json": "./package.json"
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./register.js": "./register.js"
   },
   "files": [
     "**/*.d.ts",
@@ -35,22 +30,21 @@
     "custom-elements.json"
   ],
   "sideEffects": [
-    "./src/register.ts",
-    "./dist/register.js"
+    "register.js"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button-bar": "^1.5.0",
-    "@sl-design-system/checkbox": "^2.2.0",
-    "@sl-design-system/data-source": "^0.4.1",
+    "@sl-design-system/button-bar": "^1.5.1",
+    "@sl-design-system/checkbox": "^2.3.0",
+    "@sl-design-system/data-source": "^0.4.2",
     "@sl-design-system/icon": "^1.4.3",
-    "@sl-design-system/menu": "^0.4.0",
-    "@sl-design-system/shared": "^0.12.3",
-    "@sl-design-system/skeleton": "^1.1.0",
+    "@sl-design-system/menu": "^0.5.0",
+    "@sl-design-system/shared": "^0.13.0",
+    "@sl-design-system/skeleton": "^1.0.1",
     "@sl-design-system/spinner": "^2.0.1",
-    "@sl-design-system/virtual-list": "^0.2.0"
+    "@sl-design-system/virtual-list": "^0.2.1"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

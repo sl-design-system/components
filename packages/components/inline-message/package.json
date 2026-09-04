@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/inline-message",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "status": "stable",
   "description": "Inline-message component for the SL Design System",
   "license": "Apache-2.0",
@@ -42,10 +42,10 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/announcer": "^0.1.0",
-    "@sl-design-system/button": "^2.1.1",
+    "@sl-design-system/announcer": "^0.1.1",
+    "@sl-design-system/button": "^2.2.0",
     "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/shared": "^0.12.2"
+    "@sl-design-system/shared": "^0.13.0"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

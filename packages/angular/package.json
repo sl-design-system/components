@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/angular",
   "description": "Angular support for the SL Design System",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "publishConfig": {
     "directory": "dist",
     "registry": "https://npm.pkg.github.com"
@@ -85,19 +85,19 @@
     }
   },
   "dependencies": {
-    "@sl-design-system/checkbox": "^2.1.9",
-    "@sl-design-system/combobox": "^0.1.8",
-    "@sl-design-system/form": "^1.4.0",
+    "@sl-design-system/checkbox": "^2.3.0",
+    "@sl-design-system/combobox": "^0.2.0",
+    "@sl-design-system/form": "^1.4.3",
     "@sl-design-system/icon": "^1.4.2",
     "@sl-design-system/link": "*",
-    "@sl-design-system/locales": "^0.3.0",
-    "@sl-design-system/number-field": "^0.1.9",
-    "@sl-design-system/radio-group": "^1.1.8",
-    "@sl-design-system/select": "^2.1.4",
-    "@sl-design-system/switch": "^1.1.7",
-    "@sl-design-system/text-area": "^1.1.7",
-    "@sl-design-system/text-field": "^1.6.8",
-    "@sl-design-system/time-field": "^0.1.0"
+    "@sl-design-system/locales": "^0.4.0",
+    "@sl-design-system/number-field": "^0.2.0",
+    "@sl-design-system/radio-group": "^1.2.1",
+    "@sl-design-system/select": "^2.3.0",
+    "@sl-design-system/switch": "^1.2.1",
+    "@sl-design-system/text-area": "^1.2.0",
+    "@sl-design-system/text-field": "^1.7.0",
+    "@sl-design-system/time-field": "^0.2.0"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^2.7.0",

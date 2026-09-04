@@ -1,0 +1,480 @@
+import { register, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { kebabCase } from 'change-case';
+import cssnano from 'cssnano';
+import { access, readdir, readFile, writeFile } from 'fs/promises';
+import { argv } from 'node:process';
+import { join } from 'path';
+import postcss from 'postcss';
+import StyleDictionary from 'style-dictionary';
+
+// Match math expressions that are not wrapped in a `calc`, `rgb` or `hsl` function.
+const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
+
+register(StyleDictionary);
+
+const isObject = item => {
+  return item && typeof item === 'object' && !Array.isArray(item);
+};
+
+const mergeDeep = (target, source) => {
+  let output = Object.assign({}, target);
+
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach(key => {
+      if (isObject(source[key])) {
+        if (!(key in target)) Object.assign(output, { [key]: source[key] });
+        else output[key] = mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(output, { [key]: source[key] });
+      }
+    });
+  }
+
+  return output;
+};
+
+const stripPrefix = (dictionary, prefix) => {
+  Object.values(dictionary).forEach(token => {
+    // Return early if the token is not a contextual token
+    if (token?.isSource && !token?.filePath?.endsWith('-new.json')) {
+      return;
+    }
+
+    if (token?.isSource) {
+      // Strip the prefix from any token values that are strings or objects
+      if (typeof token.$value === 'string') {
+        token.$value = token.$value.replaceAll(`${prefix}.`, '');
+      } else {
+        Object.entries(token.$value).forEach(([key, value]) => {
+          token.$value[key] = value.replaceAll(`${prefix}.`, '');
+        });
+      }
+    } else if (token && typeof token === 'object') {
+      // If the token does not have the `isSource` property, assume it has
+      // child tokens and recursively strip the prefix from them
+      stripPrefix(token, prefix);
+    }
+  });
+};
+
+StyleDictionary.registerPreprocessor({
+  name: 'strip-routing-prefix',
+  preprocessor: (dictionary, { theme }) => {
+    ['I', 'II', 'I-A', 'I-B', 'I-C', 'II-E', 'II-F', 'II-G', theme].forEach(prefix => {
+      // Return early if the prefix is not present
+      if (!dictionary[prefix]) {
+        return;
+      }
+
+      // Get the prefix dictionary, since we will be modifying the original dictionary
+      const prefixDictionary = dictionary[prefix];
+
+      // Merge the prefix dictionary with the top-level dictionary
+      dictionary = mergeDeep(Object.assign(dictionary, { [prefix]: undefined }), prefixDictionary);
+
+      // Strip the prefix from the dictionary
+      stripPrefix(dictionary, prefix);
+    });
+
+    return dictionary;
+  }
+});
+
+const convertSetAlphaToColorMix = dictionary => {
+  Object.values(dictionary).forEach(token => {
+    if (token?.isSource && token.$type === 'color' && typeof token.$value === 'string') {
+      // Convert set_alpha() to color-mix()
+      if (token.$value.includes('set_alpha(')) {
+        const regex = /set_alpha\s*\(/g;
+        let value = token.$value;
+        let match;
+
+        while ((match = regex.exec(value)) !== null) {
+          const start = match.index + match[0].length;
+          let depth = 1;
+          let end = start;
+
+          // Find matching closing paren
+          while (depth > 0 && end < value.length) {
+            if (value[end] === '(') depth++;
+            if (value[end] === ')') depth--;
+            end++;
+          }
+
+          if (depth === 0) {
+            const content = value.substring(start, end - 1);
+            const commaIndex = content.lastIndexOf(',');
+
+            if (commaIndex !== -1) {
+              const color = content.substring(0, commaIndex).trim();
+              const opacity = content.substring(commaIndex + 1).trim();
+
+              // Build replacement
+              let replacement;
+              if (opacity.endsWith('%')) {
+                replacement = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
+              } else {
+                replacement = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
+              }
+
+              // Replace set_alpha(...) with color-mix(...)
+              value = value.substring(0, match.index) + replacement + value.substring(end);
+
+              // Reset regex to continue from after the replacement
+              regex.lastIndex = match.index + replacement.length;
+            }
+          }
+        }
+
+        // Remove .to.hex() suffix
+        value = value.replace(/\.to\.hex\(\)/g, '');
+        token.$value = value;
+      }
+
+      // Convert rgba() to color-mix()
+      if (token.$value.includes('rgba(')) {
+        token.$value = token.$value.replace(
+          /rgba\(\s*([^,]+?)\s*,\s*([^)]+?)\)/g,
+          (match, color, opacity) => {
+            const trimmedColor = color.trim();
+            const trimmedOpacity = opacity.trim();
+
+            if (trimmedOpacity.endsWith('%')) {
+              return `color-mix(in srgb, ${trimmedColor} ${trimmedOpacity}, transparent)`;
+            } else {
+              return `color-mix(in srgb, ${trimmedColor} calc(${trimmedOpacity} * 100%), transparent)`;
+            }
+          }
+        );
+      }
+    } else if (token && typeof token === 'object' && !token.isSource) {
+      // Recursively process nested tokens
+      convertSetAlphaToColorMix(token);
+    }
+  });
+};
+
+StyleDictionary.registerPreprocessor({
+  name: 'convert-set-alpha-to-color-mix',
+  preprocessor: dictionary => {
+    convertSetAlphaToColorMix(dictionary);
+    return dictionary;
+  }
+});
+
+StyleDictionary.registerTransform({
+  name: 'name/kebabWithCamel',
+  type: 'name',
+  transform: function (token, config) {
+    const { filePath, path } = token;
+
+    // If the token is a new contextual token, do not kebab-case it
+    if (
+      filePath &&
+      (filePath.includes('primitives.json') ||
+        filePath.includes('system.json') ||
+        filePath.endsWith('-new.json'))
+    ) {
+      return [config.prefix].concat(path).join('-');
+    } else {
+      return kebabCase([config.prefix].concat(path).join(' '));
+    }
+  }
+});
+
+StyleDictionary.registerFileHeader({
+  name: 'sl/legal',
+  fileHeader: () => {
+    return [
+      `Copyright ${new Date().getFullYear()} Sanoma Learning`,
+      'SPDX-License-Identifier: Apache-2.0'
+    ];
+  }
+});
+
+// Convert `rgba` functions into `color-mix` so it works with hex colors
+StyleDictionary.registerTransform({
+  name: 'sl/color/transparentColorMix',
+  type: 'value',
+  transitive: true,
+  filter: token =>
+    token.$type === 'color' &&
+    (token.original?.$value?.startsWith('rgba') || token.original?.$value?.startsWith('set_alpha')),
+  transform: token => {
+    const originalValue = token.original?.$value;
+    const [_, color, opacity] = originalValue.startsWith('rgba')
+      ? (originalValue.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
+      : originalValue.startsWith('set_alpha')
+        ? (originalValue.match(/set_alpha\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [])
+        : [];
+
+    if (color && opacity) {
+      if (opacity.endsWith('%')) {
+        token.original.$value = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
+      } else {
+        token.original.$value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
+      }
+    }
+
+    return token.$value;
+  }
+});
+
+// Transform font families to kebab-case
+StyleDictionary.registerTransform({
+  name: 'sl/name/css/fontFamilies',
+  type: 'value',
+  filter: token => token.$type === 'fontFamily',
+  transform: token => token.$value.replace(/\s+/g, '-').replaceAll("'", '').toLowerCase()
+});
+
+// Transform line heights to px if they are not percentages
+StyleDictionary.registerTransform({
+  name: 'sl/size/css/lineHeight',
+  type: 'value',
+  transitive: true,
+  filter: token => token.$type === 'lineHeight',
+  transform: token => {
+    const value = token.$value;
+
+    return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
+  }
+});
+
+// Transform paragraph spacings to px
+StyleDictionary.registerTransform({
+  name: 'sl/size/css/paragraphSpacing',
+  type: 'value',
+  filter: token => token.$type === 'paragraphSpacing',
+  transform: token => {
+    const value = token.$value;
+
+    return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
+  }
+});
+
+// Transform sizes to px if they don't have a unit
+StyleDictionary.registerTransform({
+  name: 'sl/size/css/size',
+  type: 'value',
+  transitive: true,
+  filter: token => token.$type === 'size' || token.$type === 'space',
+  transform: token => {
+    const value = token.$value;
+
+    if (typeof value === 'string') {
+      // Check if the value already has a unit, is a function call, or a reference
+      const hasUnit = /[a-z%]$/i.test(value) || value.includes('(') || value.includes('{');
+      // Don't add px to 0 values as they are unitless in CSS
+      const isZero = value === '0';
+
+      return hasUnit || isZero ? value : `${value}px`;
+    }
+
+    return value;
+  }
+});
+
+// Wrap math expressions in a `calc` function
+StyleDictionary.registerTransform({
+  name: 'sl/wrapMathInCalc',
+  type: 'value',
+  transitive: true,
+  filter: token =>
+    typeof token.original?.$value === 'string' && mathPresent.test(token.original.$value),
+  transform: token => {
+    token.original.$value = `calc(${token.original.$value})`;
+
+    return token.$value;
+  }
+});
+
+// Returns an array of themes and their variants
+// e.g. [['sanoma-learning', 'light'], ['sanoma-learning', 'dark']]
+const getThemes = async folder => {
+  const folders = (await readdir(folder)).filter(
+    f =>
+      !f.endsWith('.json') &&
+      !f.endsWith('_onhold') &&
+      !f.endsWith('.tsgraph') &&
+      !f.endsWith('.DS_Store') &&
+      !['I', 'II', 'device', 'placeholder', 'tokens', 'target-group'].includes(f)
+  );
+
+  const themes = [];
+
+  await Promise.all(
+    folders.map(async f => {
+      const files = await readdir(join(folder, f));
+
+      if (files.some(file => file.startsWith('light'))) {
+        themes.push([f, 'light']);
+      }
+
+      if (files.some(file => file.startsWith('dark'))) {
+        themes.push([f, 'dark']);
+      }
+    })
+  );
+
+  return themes;
+};
+
+const build = async (production = false, tokensPath) => {
+  const cwd = new URL('.', import.meta.url).pathname,
+    themeBase = join(cwd, '../../packages/themes'),
+    themes = await getThemes(join(cwd, tokensPath));
+
+  // Filter out themes that don't have base.json
+  const themesWithBase = [];
+  for (const [theme, variant] of themes) {
+    const baseFilePath = join(cwd, tokensPath, theme, 'base.json');
+    try {
+      await access(baseFilePath);
+      themesWithBase.push([theme, variant]);
+    } catch (error) {
+      if (error && error.code === 'ENOENT') {
+        console.log(`Skipping ${theme}/${variant}: no base.json found`);
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  // Filter out files that are not in the `files` array
+  const filterFiles = files => async token => {
+    const filePath = token.filePath ?? token.attributes.filePath;
+
+    return files.some(file => filePath.endsWith(file));
+  };
+
+  /**
+   * Filter out the `space.<number>` tokens since they are just aliases for `size.<number>`. We
+   * don't want to generate CSS variables for them.
+   *
+   * Commented out for now, until there are no more references to `space.<number>`.
+   */
+  const excludeSpaceTokens = token => {
+    if (token.type !== 'dimension') {
+      return true;
+    } else {
+      const [name, number] = token.path;
+
+      return !(name === 'space' && !Number.isNaN(Number(number)));
+    }
+  };
+
+  const createConfigForThemeVariant = (theme, variant) => {
+    {
+      const tokensets = ['core', `${theme}/base`, `${theme}/${variant}`];
+      const files = createFileConfig(themeBase, theme, variant);
+
+      return {
+        log: {
+          verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
+          warnings: 'disabled'
+        },
+        source: tokensets.map(tokenset => join(cwd, tokensPath, `${tokenset}.json`)),
+        preprocessors: ['strip-routing-prefix', 'convert-set-alpha-to-color-mix', 'tokens-studio'],
+        platforms: {
+          css: {
+            transformGroup: 'tokens-studio',
+            transforms: [
+              'name/kebabWithCamel',
+              'sl/name/css/fontFamilies',
+              'sl/size/css/lineHeight',
+              'sl/size/css/size',
+              'sl/size/css/paragraphSpacing',
+              'sl/wrapMathInCalc'
+            ].filter(Boolean),
+            prefix: 'sl',
+            files
+          }
+        },
+        theme,
+        variant
+      };
+    }
+  };
+
+  const createFileConfig = (themeBase, theme, variant) => {
+    const files = [
+      {
+        destination: `${themeBase}/${theme}/${variant}-deprecated.css`,
+        format: 'css/variables',
+        options: {
+          fileHeader: 'sl/legal',
+          outputReferences: !production
+        }
+      }
+    ];
+
+    if (production) {
+      files.push(
+        {
+          destination: `${themeBase}/${theme}/css/base-deprecated.css`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
+          },
+          filter: filterFiles(['core.json', 'base.json'])
+        },
+        {
+          destination: `${themeBase}/${theme}/scss/base-deprecated.scss`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: '@mixin sl-theme-base'
+          },
+          filter: filterFiles(['core.json', 'base.json'])
+        },
+        {
+          destination: `${themeBase}/${theme}/css/${variant}-deprecated.css`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
+          },
+          filter: filterFiles([`${variant}.json`])
+        },
+        {
+          destination: `${themeBase}/${theme}/scss/${variant}-deprecated.scss`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: `@mixin sl-theme-${variant}`
+          },
+          filter: filterFiles([`${variant}.json`])
+        }
+      );
+    }
+    return files;
+  };
+
+  const configs = themesWithBase.map(([theme, variant]) =>
+    createConfigForThemeVariant(theme, variant)
+  );
+
+  for (const cfg of configs) {
+    console.log(`Building ${cfg.theme}/${cfg.variant} theme...`);
+    const sd = new StyleDictionary(cfg);
+
+    await sd.buildAllPlatforms();
+
+    if (production) {
+      const from = join(themeBase, cfg.theme, cfg.variant + '-deprecated.css'),
+        to = join(themeBase, cfg.theme, cfg.variant + '-deprecated.min.css'),
+        css = await readFile(from, 'utf8');
+
+      const result = await postcss([cssnano({ preset: 'default' })]).process(css, { from, to });
+      await writeFile(to, result.css, 'utf8');
+    }
+  }
+
+  // put a copy of the exported typography tokens in the theme folder for easier consumption by consumers of the theme package
+};
+
+build(argv.includes('--production'), './export/slds-legacy');

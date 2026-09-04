@@ -1,0 +1,127 @@
+body {
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-base-fontSize);
+  line-height: var(--sl-text-md-lineHeight);
+  font-weight: var(--sl-fontWeight-regular);
+  background-color: var(--sl-color-background-default);
+}
+
+.display {
+  font-size: var(--sl-display-md-fontSize);
+  font-weight: var(--sl-typography-display-md-fontWeight);
+  line-height: var(--sl-display-md-lineHeight);
+  letter-spacing: var(--sl-display-md-letterSpacing);
+
+  &.lg {
+    font-size: var(--sl-display-lg-fontSize);
+    font-weight: var(--sl-typography-display-lg-fontWeight);
+    line-height: var(--sl-display-lg-lineHeight);
+    letter-spacing: var(--sl-display-lg-letterSpacing);
+  }
+
+  &.sm {
+    font-size: var(--sl-display-sm-fontSize);
+    font-weight: var(--sl-typography-display-sm-fontWeight);
+    line-height: var(--sl-display-sm-lineHeight);
+    letter-spacing: var(--sl-display-sm-letterSpacing);
+  }
+}
+
+.heading {
+  font-size: var(--sl-heading-md-fontSize);
+  font-weight: var(--sl-typography-heading-md-fontWeight);
+  line-height: var(--sl-heading-md-lineHeight);
+  letter-spacing: var(--sl-heading-md-letterSpacing);
+
+  &.lg {
+    font-size: var(--sl-heading-lg-fontSize);
+    font-weight: var(--sl-typography-heading-lg-fontWeight);
+    line-height: var(--sl-heading-lg-lineHeight);
+    letter-spacing: var(--sl-heading-lg-letterSpacing);
+  }
+
+  &.sm {
+    font-size: var(--sl-heading-sm-fontSize);
+    font-weight: var(--sl-typography-heading-sm-fontWeight);
+    line-height: var(--sl-heading-sm-lineHeight);
+    letter-spacing: var(--sl-heading-sm-letterSpacing);
+  }
+}
+
+.title {
+  font-size: var(--sl-title-md-fontSize);
+  font-weight: var(--sl-typography-title-md-fontWeight);
+  line-height: var(--sl-title-md-lineHeight);
+  letter-spacing: var(--sl-title-md-letterSpacing);
+
+  &.lg {
+    font-size: var(--sl-title-lg-fontSize);
+    font-weight: var(--sl-typography-title-lg-fontWeight);
+    line-height: var(--sl-title-lg-lineHeight);
+    letter-spacing: var(--sl-title-lg-letterSpacing);
+  }
+
+  &.sm {
+    font-size: var(--sl-title-sm-fontSize);
+    font-weight: var(--sl-typography-title-sm-fontWeight);
+    line-height: var(--sl-title-sm-lineHeight);
+    letter-spacing: var(--sl-title-sm-letterSpacing);
+  }
+}
+
+.label {
+  font-size: var(--sl-label-md-fontSize);
+  font-weight: var(--sl-typography-label-md-fontWeight);
+  line-height: var(--sl-label-md-lineHeight);
+  letter-spacing: var(--sl-label-md-letterSpacing);
+
+  &.lg {
+    font-size: var(--sl-label-lg-fontSize);
+    font-weight: var(--sl-typography-label-lg-fontWeight);
+    line-height: var(--sl-label-lg-lineHeight);
+    letter-spacing: var(--sl-label-lg-letterSpacing);
+  }
+
+  &.sm {
+    font-size: var(--sl-label-sm-fontSize);
+    font-weight: var(--sl-typography-label-sm-fontWeight);
+    line-height: var(--sl-label-sm-lineHeight);
+    letter-spacing: var(--sl-label-sm-letterSpacing);
+  }
+}
+
+.text {
+  --sl-font-feature-settings-textRisers: on;
+  font-size: var(--sl-text-md-fontSize);
+  font-weight: var(--sl-typography-text-md-fontWeight);
+  line-height: var(--sl-text-md-lineHeight);
+  letter-spacing: var(--sl-text-md-letterSpacing);
+
+  &.lg {
+    font-size: var(--sl-text-lg-fontSize);
+    font-weight: var(--sl-typography-text-lg-fontWeight);
+    line-height: var(--sl-text-lg-lineHeight);
+    letter-spacing: var(--sl-text-lg-letterSpacing);
+  }
+
+  &.sm {
+    font-size: var(--sl-text-sm-fontSize);
+    font-weight: var(--sl-typography-text-sm-fontWeight);
+    line-height: var(--sl-text-sm-lineHeight);
+    letter-spacing: var(--sl-text-sm-letterSpacing);
+  }
+}
+
+.caption {
+  font-size: var(--sl-caption-md-fontSize);
+  font-weight: var(--sl-typography-caption-md-fontWeight);
+  line-height: var(--sl-caption-md-lineHeight);
+  letter-spacing: var(--sl-caption-md-letterSpacing);
+
+  &.lg {
+    font-size: var(--sl-caption-lg-fontSize);
+    font-weight: var(--sl-typography-caption-lg-fontWeight);
+    line-height: var(--sl-caption-lg-lineHeight);
+    letter-spacing: var(--sl-caption-lg-letterSpacing);
+  }
+}

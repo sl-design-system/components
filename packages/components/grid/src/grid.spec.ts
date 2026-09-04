@@ -1176,7 +1176,7 @@ describe('sl-grid', () => {
             <sl-menu-item>Archive selected</sl-menu-item>
           </sl-menu-button>
           <sl-button fill="outline" slot="bulk-actions" variant="inverted"
-            >Assign to learning pathway</sl-button
+            >Assign to teacher</sl-button
           >
           <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
         </sl-grid>

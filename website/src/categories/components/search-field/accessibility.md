@@ -9,6 +9,14 @@ eleventyNavigation:
 
 <section>
 
+## Focusable clear button
+
+The clear button is keyboard accessible when the search field contains a value. It gives keyboard and assistive-technology users a visible alternative to pressing the `Escape` key to clear the search term.
+
+</section>
+
+<section>
+
 ## Keyboard interactions
 
 Here's an overview of the common keyboard interactions associated with a search field:
@@ -17,8 +25,9 @@ Here's an overview of the common keyboard interactions associated with a search 
 
 |Command|Description|
 |-|-|
-|Tab|When focus is outside the search field, moves focus to the input container. If focus is on the input container, moves focus to the end enhancer (if provided, and interactive).|
+|Tab|When focus is outside the search field, moves focus to the input container. If focus is on the empty input container, moves focus to the end enhancer (if provided, and interactive). If the input contains a value, moves focus to the clear button.|
 |Esc|Clear search value, when is an input.|
+|Enter/Space|When the clear button has focus, clears the search field and moves focus back to the input.|
 
 {.ds-table .ds-table-align-top}
 

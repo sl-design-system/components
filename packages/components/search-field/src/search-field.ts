@@ -99,16 +99,29 @@ export class SearchField extends TextField {
   }
 
   #onClick(): void {
-    this.clear();
-    this.input.focus();
+    this.#clearAndFocusInput();
   }
 
   #onClearButtonKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.#clearAndFocusInput();
+
+      return;
+    }
+
     if (event.key !== 'Enter') {
       return;
     }
 
     event.stopPropagation();
+  }
+
+  #clearAndFocusInput(): void {
+    this.clear();
+    this.input.focus();
   }
 
   #onInput(): void {

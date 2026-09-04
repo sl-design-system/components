@@ -180,6 +180,17 @@ describe('sl-search-field', () => {
       expect(onSearch).to.have.been.calledOnceWith('');
     });
 
+    it('should focus the input when Escape is pressed on the clear button', async () => {
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button');
+
+      button?.focus();
+      await userEvent.keyboard('{Escape}');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('');
+      expect(document.activeElement).to.equal(el.querySelector('input'));
+    });
+
     it('should clear the input when Space is pressed on the clear button', async () => {
       const button = el.renderRoot.querySelector<HTMLButtonElement>('button');
 

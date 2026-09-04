@@ -9,13 +9,16 @@
   flex-direction: column;
   gap: var(--sl-size-050);
   margin: 6px;
-  max-block-size: calc(100dvh - 16px);
-  max-inline-size: calc(100dvw - 16px);
+  max-block-size: var(--_menu-max-block-size, none);
+  max-inline-size: var(--_menu-max-inline-size, none);
   opacity: 0;
   overflow: auto;
   padding: var(--sl-size-100) 0;
   position-area: right span-bottom;
-  position-try-fallbacks: flip-inline, flip-block;
+  position-try-fallbacks:
+    flip-inline,
+    flip-block,
+    flip-inline flip-block;
   scrollbar-width: thin;
 
   @media (prefers-reduced-motion: no-preference) {
@@ -46,7 +49,10 @@
 }
 
 :host([position^='top']) {
-  position-try-fallbacks: flip-block, flip-inline;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
 }
 
 :host([position^='top']:popover-open) {
@@ -92,7 +98,10 @@
 }
 
 :host([position^='bottom']) {
-  position-try-fallbacks: flip-block, flip-inline;
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
 }
 
 :host([position^='bottom']:popover-open) {
@@ -120,6 +129,26 @@
   @starting-style {
     translate: var(--sl-size-100);
   }
+}
+
+:host(:dir(rtl)[position='top-start']) {
+  position-area: top span-left;
+  transform-origin: right bottom;
+}
+
+:host(:dir(rtl)[position='top-end']) {
+  position-area: top span-right;
+  transform-origin: left bottom;
+}
+
+:host(:dir(rtl)[position='bottom-start']) {
+  position-area: bottom span-left;
+  transform-origin: right top;
+}
+
+:host(:dir(rtl)[position='bottom-end']) {
+  position-area: bottom span-right;
+  transform-origin: left top;
 }
 
 ::slotted(sl-menu-item) {

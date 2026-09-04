@@ -28,6 +28,9 @@ export type MenuEmphasis = 'subtle' | 'bold';
 
 type MenuSide = 'top' | 'right' | 'bottom' | 'left';
 
+const minMenuSize = 25,
+  viewportMargin = 8;
+
 let nextUniqueId = 0;
 
 /**
@@ -49,6 +52,12 @@ export class Menu extends LitElement {
 
   /** The generated CSS anchor name, when the anchor did not already have one. */
   #generatedAnchorName?: string;
+
+  /** Event listeners and observers that only run while the menu is open. */
+  #openController?: AbortController;
+
+  /** Watches the anchor for size changes that affect the available viewport space. */
+  #resizeObserver?: ResizeObserver;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
@@ -103,11 +112,14 @@ export class Menu extends LitElement {
     }
 
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
+    this.addEventListener('toggle', this.#onToggle);
     this.#linkAnchor();
   }
 
   override disconnectedCallback(): void {
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
+    this.removeEventListener('toggle', this.#onToggle);
+    this.#stopSizing();
     this.#unlinkAnchor();
 
     super.disconnectedCallback();
@@ -118,6 +130,11 @@ export class Menu extends LitElement {
 
     if (changes.has('offset')) {
       this.style.margin = this.offset === undefined ? '' : `${this.offset}px`;
+      this.#updateMaxSize();
+    }
+
+    if (changes.has('position')) {
+      this.#updateMaxSize();
     }
 
     if (changes.has('emphasis')) {
@@ -211,7 +228,9 @@ export class Menu extends LitElement {
       anchor.style.anchorName = this.#generatedAnchorName;
     }
 
-    this.style.positionAnchor = anchor.style.anchorName || computedAnchorName;
+    this.style.positionAnchor = (anchor.style.anchorName || computedAnchorName)
+      .split(',')[0]
+      .trim();
 
     if (!this.hasAttribute('aria-details')) {
       anchor.setAttribute('aria-details', this.id);
@@ -228,10 +247,69 @@ export class Menu extends LitElement {
     this.#linkAnchor(event.newState === 'open');
   };
 
+  #onToggle = (event: ToggleEvent): void => {
+    this.#stopSizing();
+
+    if (event.newState !== 'open') {
+      return;
+    }
+
+    this.#openController = new AbortController();
+
+    const { signal } = this.#openController;
+
+    document.addEventListener('scroll', this.#updateMaxSize, {
+      capture: true,
+      passive: true,
+      signal
+    });
+    window.addEventListener('resize', this.#updateMaxSize, { passive: true, signal });
+
+    const anchor = this.#getAnchorElement();
+    if (anchor) {
+      this.#resizeObserver = new ResizeObserver(this.#updateMaxSize);
+      this.#resizeObserver.observe(anchor);
+    }
+
+    this.#updateMaxSize();
+  };
+
   #onAnchorKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') {
       event.stopPropagation();
     }
+  };
+
+  #stopSizing(): void {
+    this.#openController?.abort();
+    this.#openController = undefined;
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = undefined;
+  }
+
+  #updateMaxSize = (): void => {
+    const anchor = this.#getAnchorElement();
+    if (!anchor || !this.matches(':popover-open')) {
+      return;
+    }
+
+    const anchorRect = anchor.getBoundingClientRect(),
+      offset = this.offset ?? 6,
+      requestedSide = (this.position ?? 'right-start').split('-')[0] as MenuSide;
+
+    let maxBlockSize = window.innerHeight - viewportMargin * 2,
+      maxInlineSize = window.innerWidth - viewportMargin * 2;
+
+    if (requestedSide === 'top' || requestedSide === 'bottom') {
+      maxBlockSize =
+        Math.max(anchorRect.top, window.innerHeight - anchorRect.bottom) - offset - viewportMargin;
+    } else {
+      maxInlineSize =
+        Math.max(anchorRect.left, window.innerWidth - anchorRect.right) - offset - viewportMargin;
+    }
+
+    this.style.setProperty('--_menu-max-block-size', `${Math.max(minMenuSize, maxBlockSize)}px`);
+    this.style.setProperty('--_menu-max-inline-size', `${Math.max(minMenuSize, maxInlineSize)}px`);
   };
 
   #unlinkAnchor(): void {

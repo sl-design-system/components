@@ -79,16 +79,25 @@ describe('sl-menu', () => {
       expect(getComputedStyle(el).positionArea.split(' ').sort()).to.deep.equal(
         ['right', 'span-bottom'].sort()
       );
-      expect(getComputedStyle(el).positionTryFallbacks).to.equal('flip-inline, flip-block');
+      expect(getComputedStyle(el).positionTryFallbacks).to.contain('flip-inline flip-block');
     });
 
     it('should preserve an existing CSS anchor name', () => {
-      anchor.style.anchorName = '--existing-anchor';
+      const style = document.createElement('style');
 
-      el.showPopover();
+      style.textContent =
+        '.menu-test-anchor { anchor-name: --existing-anchor, --secondary-anchor }';
+      document.head.append(style);
+      anchor.classList.add('menu-test-anchor');
 
-      expect(anchor.style.anchorName).to.equal('--existing-anchor');
-      expect(el.style.positionAnchor).to.equal('--existing-anchor');
+      try {
+        el.showPopover();
+
+        expect(anchor.style.anchorName).to.equal('');
+        expect(el.style.positionAnchor).to.equal('--existing-anchor');
+      } finally {
+        style.remove();
+      }
     });
 
     it('should map position and offset properties to CSS', async () => {
@@ -100,8 +109,70 @@ describe('sl-menu', () => {
       expect(getComputedStyle(el).positionArea.split(' ').sort()).to.deep.equal(
         ['bottom', 'span-left'].sort()
       );
-      expect(getComputedStyle(el).positionTryFallbacks).to.equal('flip-block, flip-inline');
+      expect(getComputedStyle(el).positionTryFallbacks).to.contain('flip-block flip-inline');
       expect(el.style.margin).to.equal('12px');
+    });
+
+    it('should scroll within the space available around the anchor', async () => {
+      anchor.style.cssText = 'position: fixed; inset: 50% auto auto 50%';
+      el = await fixture(html`
+        <sl-menu position="bottom" style="inline-size: 200px">
+          ${Array.from(
+            { length: 40 },
+            (_, index) => html`<sl-menu-item>Item ${index + 1}</sl-menu-item>`
+          )}
+        </sl-menu>
+      `);
+      el.anchorElement = anchor;
+      el.showPopover();
+
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      const rect = el.getBoundingClientRect();
+
+      expect(rect.top).to.be.at.least(0);
+      expect(rect.bottom).to.be.at.most(window.innerHeight);
+      expect(el.scrollHeight).to.be.greaterThan(el.clientHeight);
+    });
+
+    it('should combine block and inline fallbacks near a viewport corner', async () => {
+      anchor.style.cssText = 'position: fixed; inset: auto 8px 8px auto';
+      el.position = 'right-start';
+      el.style.inlineSize = '160px';
+      el.anchorElement = anchor;
+      el.showPopover();
+
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      const anchorRect = anchor.getBoundingClientRect(),
+        menuRect = el.getBoundingClientRect();
+
+      expect(menuRect.right).to.be.at.most(anchorRect.left);
+      expect(menuRect.bottom).to.be.at.most(anchorRect.bottom);
+    });
+
+    it('should align start positions to the inline start edge in RTL', async () => {
+      const previousDirection = document.documentElement.dir;
+
+      try {
+        document.documentElement.dir = 'rtl';
+        anchor.style.cssText = 'position: fixed; inset: 50% auto auto 50%';
+        el.position = 'bottom-start';
+        el.style.inlineSize = '160px';
+        el.anchorElement = anchor;
+        el.showPopover();
+
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const anchorRect = anchor.getBoundingClientRect(),
+          menuRect = el.getBoundingClientRect(),
+          transformOriginX = parseFloat(getComputedStyle(el).transformOrigin);
+
+        expect(Math.abs(anchorRect.right - menuRect.right)).to.be.lessThan(10);
+        expect(transformOriginX).to.be.greaterThan(el.clientWidth / 2);
+      } finally {
+        document.documentElement.dir = previousDirection;
+      }
     });
 
     it('should keep the anchor ARIA state in sync with the popover', () => {

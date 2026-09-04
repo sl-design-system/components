@@ -279,7 +279,7 @@ export const Header: Story = {
       <sl-grid-column
         .header=${() => html`
           <span>School</span>
-          <sl-menu-button fill="ghost" size="sm">
+          <sl-menu-button aria-label="School options" fill="ghost" size="sm">
             <sl-icon slot="button" name="ellipsis"></sl-icon>
             <sl-menu-item>Option 1</sl-menu-item>
             <sl-menu-item>Option 2</sl-menu-item>
@@ -318,7 +318,7 @@ export const MenuButton: Story = {
   render: (_, { loaded: { students } }) => {
     const menuButtonRenderer: GridColumnDataRenderer<Student> = () => {
       return html`
-        <sl-menu-button fill="ghost" size="sm">
+        <sl-menu-button aria-label="Student actions" fill="ghost" size="sm">
           <sl-icon slot="button" name="ellipsis"></sl-icon>
           <sl-menu-item>Do something with this student</sl-menu-item>
           <sl-menu-item>Something else</sl-menu-item>

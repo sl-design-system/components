@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/progress-bar",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "status": "stable",
   "description": "Progress-bar component for the SL Design System",
   "license": "Apache-2.0",

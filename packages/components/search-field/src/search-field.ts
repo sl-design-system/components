@@ -77,7 +77,7 @@ export class SearchField extends TextField {
   }
 
   override renderSuffix(): TemplateResult | typeof nothing {
-    return this.value && !this.disabled
+    return this.value && !this.disabled && !this.readonly
       ? html`
           <button
             @click=${this.#onClick}

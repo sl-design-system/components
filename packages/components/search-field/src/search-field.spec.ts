@@ -74,6 +74,13 @@ describe('sl-search-field', () => {
       expect(el.renderRoot.querySelector('button')).to.not.exist;
     });
 
+    it('should not have a clear button when readonly', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('button')).to.not.exist;
+    });
+
     it('should clear the input when the clear button is clicked', async () => {
       el.renderRoot.querySelector('button')?.click();
       await el.updateComplete;

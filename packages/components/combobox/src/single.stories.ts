@@ -6,9 +6,9 @@ import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
+import './register.js';
 
 type Props = Pick<
   Combobox,
@@ -97,15 +97,19 @@ export default {
             placeholder=${ifDefined(placeholder)}
             shape=${ifDefined(shape)}
             style=${`max-width: ${maxWidth || '500px'}`}>
-            ${virtualList
-              ? nothing
-              : html`
-                  <sl-listbox>
-                    ${Array.isArray(options)
-                      ? options.map(o => html`<sl-option>${o}</sl-option>`)
-                      : options?.()}
-                  </sl-listbox>
-                `}
+            ${
+              virtualList
+                ? nothing
+                : html`
+                    <sl-listbox>
+                      ${
+                        Array.isArray(options)
+                          ? options.map(o => html`<sl-option>${o}</sl-option>`)
+                          : options?.()
+                      }
+                    </sl-listbox>
+                  `
+            }
           </sl-combobox>
         </sl-form-field>
       </sl-form>

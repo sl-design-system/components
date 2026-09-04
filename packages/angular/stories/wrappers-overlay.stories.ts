@@ -5,7 +5,7 @@ import { PopoverComponent } from '@sl-design-system/angular/popover';
 import { TooltipComponent } from '@sl-design-system/angular/tooltip';
 import { Dialog as DialogElement } from '@sl-design-system/dialog';
 import { MessageDialog as MessageDialogElement } from '@sl-design-system/message-dialog';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 export default {
   title: 'Wrappers/Overlay',

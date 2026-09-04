@@ -6,12 +6,12 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import { Listbox, Option, OptionGroup } from '../index.js';
-import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type GroupedOption } from './grouped-option.js';
+import './register.js';
 import { type SelectedGroup } from './selected-group.js';
+import { Listbox, Option, OptionGroup } from './index.js';
 
 describe('sl-combobox', () => {
   it('should export and register listbox option components', () => {
@@ -392,6 +392,17 @@ describe('sl-combobox', () => {
       expect(onBlur).to.have.been.calledOnce;
     });
 
+    it('should keep the popover open when focus moves to an option', () => {
+      const option = el.querySelector('sl-option')!;
+
+      input.click();
+      input.dispatchEvent(
+        new FocusEvent('focusout', { bubbles: true, composed: true, relatedTarget: option })
+      );
+
+      expect(el.wrapper).to.match(':popover-open');
+    });
+
     it('should emit an sl-change event when selecting an option', async () => {
       const onChange = spy();
 
@@ -524,6 +535,25 @@ describe('sl-combobox', () => {
       await userEvent.keyboard('{Backspace}');
       await el.updateComplete;
 
+      expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
+    });
+
+    it('should remove the create-custom-option element when clearing a selected option', async () => {
+      el.querySelector('sl-option')?.click();
+      await el.updateComplete;
+
+      input.focus();
+      input.select();
+      await userEvent.keyboard('Custom');
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+      input.select();
+      await userEvent.keyboard('{Backspace}');
+      await el.updateComplete;
+
+      expect(el.createCustomOption).to.be.undefined;
       expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
     });
 
@@ -696,6 +726,77 @@ describe('sl-combobox', () => {
         await userEvent.keyboard('{Tab}');
 
         expect(input.value).to.equal('Lorem');
+      });
+
+      it('should clear the selected option when the input is cleared', async () => {
+        const onChange = spy();
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+        el.addEventListener('sl-change', onChange);
+
+        input.focus();
+        input.select();
+        await userEvent.keyboard('{Backspace}');
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+        expect(el.selectedItems).to.be.empty;
+        expect(input.value).to.equal('');
+        expect(onChange).to.have.been.calledOnce;
+        expect((onChange.lastCall.args[0] as SlChangeEvent).detail).to.be.null;
+
+        await userEvent.keyboard('{Tab}');
+
+        expect(input.value).to.equal('');
+      });
+
+      it('should keep the option available after clearing when group-selected is set', async () => {
+        el.groupSelected = true;
+        await el.updateComplete;
+
+        const option = el.querySelector('sl-option')!;
+
+        option.click();
+        await el.updateComplete;
+
+        input.focus();
+        input.select();
+        await userEvent.keyboard('{Backspace}');
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+        expect(el.items.filter(item => item.type === 'option')).to.have.lengthOf(3);
+        expect(option).to.equal(el.querySelector('sl-option'));
+        expect(option).to.have.attribute('aria-selected', 'false');
+
+        option.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Lorem');
+      });
+
+      it('should be invalid after clearing a required combobox and leaving the component', async () => {
+        el.required = true;
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        expect(el.valid).to.be.true;
+
+        input.focus();
+        input.select();
+        await userEvent.keyboard('{Backspace}');
+        await el.updateComplete;
+
+        expect(el.validity.valueMissing).to.be.true;
+        expect(el.valid).to.be.false;
+
+        await userEvent.keyboard('{Tab}');
+        await el.updateComplete;
+
+        expect(input.value).to.equal('');
+        expect(el.validity.valueMissing).to.be.true;
+        expect(el.valid).to.be.false;
       });
 
       it('should emit an sl-change event with the value after selecting an option', async () => {
@@ -1760,6 +1861,43 @@ describe('sl-combobox', () => {
 
       it('should have the group selected property set', () => {
         expect(el.groupSelected).to.be.true;
+      });
+
+      it('should restore grouped options when switching to single select', async () => {
+        el.multiple = false;
+        el.value = 'Option 1';
+        await el.updateComplete;
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options).to.have.lengthOf(6);
+        options.forEach(option => expect(option.style.display).not.to.equal('none'));
+        expect(el.querySelectorAll('sl-combobox-grouped-option')).to.be.empty;
+        expect(el.selectedItems.map(item => item.label)).to.deep.equal(['Option 1']);
+        expect(el.value).to.equal('Option 1');
+      });
+
+      it('should remove grouped options after filtering reveals their source options', async () => {
+        el.filterResults = true;
+        await el.updateComplete;
+
+        input.focus();
+        await userEvent.keyboard('Option 1');
+        await el.updateComplete;
+
+        const sourceOption = Array.from(el.querySelectorAll('sl-option')).find(
+          option => option.textContent?.trim() === 'Option 1'
+        )!;
+
+        expect(sourceOption.style.display).not.to.equal('none');
+
+        el.value = [];
+        await el.updateComplete;
+
+        expect(el.selectedItems).to.be.empty;
+        expect(sourceOption).to.have.attribute('aria-selected', 'false');
+        expect(el.querySelectorAll('sl-combobox-grouped-option')).to.be.empty;
+        expect(el.querySelector('sl-combobox-selected-group')).not.to.exist;
       });
 
       it('should prepend the selected group as the first child in the listbox', () => {

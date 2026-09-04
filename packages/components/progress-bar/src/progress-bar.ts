@@ -5,6 +5,7 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Icon } from '@sl-design-system/icon';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -13,10 +14,10 @@ import {
   html,
   nothing
 } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import styles from './progress-bar.scss.js';
+import styles from './progress-bar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -39,7 +40,7 @@ export type ProgressColor = 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'te
  * @slot default - A place for helper text like e.g. `20% of 100%`.
  */
 @localized()
-export class ProgressBar extends ScopedElementsMixin(LitElement) {
+export class ProgressBar extends ForwardAriaMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -65,6 +66,9 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;
 
+  /** The element that exposes the progress bar semantics to assistive technologies. */
+  @query('.container') private container!: HTMLDivElement;
+
   private shouldAnnounce = true;
 
   /** @internal The name of the icon, depending on the variant. */
@@ -79,6 +83,12 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       default:
         return 'circle-check-solid';
     }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.setProxyTarget(this.container);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -101,27 +111,35 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div>
-        ${this.label
-          ? html`
-              <div id="label" class="label">
-                ${this.label}
-                ${this.variant
-                  ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
-                  : nothing}
-              </div>
-            `
-          : nothing}
+        ${
+          this.label
+            ? html`
+                <div id="label" class="label">
+                  ${this.label}
+                  ${
+                    this.variant
+                      ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
+                      : nothing
+                  }
+                </div>
+              `
+            : nothing
+        }
         <div id="helper" class="helper">
           <slot></slot>
           <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
             ${msg('state', { id: 'sl.progressBar.state' })}:
-            ${this.variant
-              ? html`${this.#getLocalizedVariant()}`
-              : html`${msg('active', { id: 'sl.progressBar.active' })}`}
+            ${
+              this.variant
+                ? html`${this.#getLocalizedVariant()}`
+                : html`${msg('active', { id: 'sl.progressBar.active' })}`
+            }
           </span>
-          ${this.variant && !this.label
-            ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
-            : nothing}
+          ${
+            this.variant && !this.label
+              ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>`
+              : nothing
+          }
         </div>
       </div>
       <div

@@ -3,9 +3,9 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { type MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
+import './register.js';
 
 describe('sl-menu-item', () => {
   let el: MenuItem;
@@ -23,48 +23,35 @@ describe('sl-menu-item', () => {
       expect(el).to.have.attribute('tabindex', '0');
     });
 
-    it('should have a tabindex of -1 when disabled', async () => {
-      el.disabled = true;
+    it('should keep a tabindex of 0 when aria-disabled', async () => {
+      el.setAttribute('aria-disabled', 'true');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('tabindex', '-1');
+      expect(el).to.have.attribute('tabindex', '0');
     });
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el).not.to.have.attribute('aria-disabled');
-      expect(el.disabled).not.to.be.true;
+      expect(el.getAttribute('aria-disabled')).not.to.equal('true');
     });
 
-    it('should be disabled when set', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('disabled');
-      expect(el).to.have.attribute('aria-disabled', 'true');
-      expect(el.disabled).to.be.true;
-    });
-
-    it('should remove aria-disabled when re-enabled', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      el.disabled = false;
-      await el.updateComplete;
-
-      expect(el).not.to.have.attribute('aria-disabled');
-      expect(el).to.have.attribute('tabindex', '0');
-    });
-
-    it('should preserve aria-disabled when re-enabled if it was set explicitly', async () => {
+    it('should be aria-disabled when set explicitly', async () => {
       el.setAttribute('aria-disabled', 'true');
-      el.disabled = true;
-      await el.updateComplete;
-
-      el.disabled = false;
       await el.updateComplete;
 
       expect(el).to.have.attribute('aria-disabled', 'true');
+      expect(el).not.to.have.attribute('disabled');
+    });
+
+    it('should set aria-disabled to false when set back to false', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      await el.updateComplete;
+
+      el.setAttribute('aria-disabled', 'false');
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-disabled', 'false');
       expect(el).to.have.attribute('tabindex', '0');
     });
 
@@ -223,6 +210,54 @@ describe('sl-menu-item', () => {
 
       expect(el.selected).to.be.true;
     });
+
+    it('should not call click handlers on an aria-disabled item', async () => {
+      const onClick = spy();
+
+      el = await fixture(html`<sl-menu-item aria-disabled="true">Item 1</sl-menu-item>`);
+      el.addEventListener('click', onClick);
+
+      el.click();
+
+      expect(onClick).not.to.have.been.called;
+    });
+
+    it('should not call keydown handlers on an aria-disabled item for enter and space', async () => {
+      const onKeydown = spy(),
+        enterEvent = new KeyboardEvent('keydown', {
+          bubbles: true,
+          cancelable: true,
+          key: 'Enter'
+        }),
+        spaceEvent = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: ' ' });
+
+      el = await fixture(html`<sl-menu-item aria-disabled="true">Item 1</sl-menu-item>`);
+      el.addEventListener('keydown', onKeydown);
+
+      el.dispatchEvent(enterEvent);
+      el.dispatchEvent(spaceEvent);
+
+      expect(onKeydown).not.to.have.been.called;
+      expect(enterEvent.defaultPrevented).to.be.true;
+      expect(spaceEvent.defaultPrevented).to.be.true;
+    });
+
+    it('should still let arrow keydown events continue on an aria-disabled item', async () => {
+      const onKeydown = spy(),
+        arrowEvent = new KeyboardEvent('keydown', {
+          bubbles: true,
+          cancelable: true,
+          key: 'ArrowDown'
+        });
+
+      el = await fixture(html`<sl-menu-item aria-disabled="true">Item 1</sl-menu-item>`);
+      el.addEventListener('keydown', onKeydown);
+
+      el.dispatchEvent(arrowEvent);
+
+      expect(onKeydown).to.have.been.calledOnce;
+      expect(arrowEvent.defaultPrevented).to.be.false;
+    });
   });
 
   describe('shortcut', () => {
@@ -265,18 +300,6 @@ describe('sl-menu-item', () => {
       );
 
       expect(onClick).to.have.been.calledOnce;
-    });
-
-    it('should not trigger the menu item when the shortcut is pressed and the menu item is disabled', async () => {
-      const onClick = spy();
-
-      el.addEventListener('click', onClick);
-      el.disabled = true;
-      await el.updateComplete;
-
-      await userEvent.keyboard('{Meta>}1{/Meta}');
-
-      expect(onClick).not.to.have.been.called;
     });
 
     it('should not trigger the menu item when the shortcut is pressed and the menu item is aria-disabled', async () => {
@@ -373,6 +396,26 @@ describe('sl-menu-item', () => {
       await userEvent.keyboard('{Space}');
 
       expect(menu).to.match(':popover-open');
+    });
+
+    it('should not show the submenu when aria-disabled and pressing enter', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      el.focus();
+
+      await userEvent.keyboard('{Enter}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(menu).not.to.match(':popover-open');
+    });
+
+    it('should not show the submenu when aria-disabled and pressing space', async () => {
+      el.setAttribute('aria-disabled', 'true');
+      el.focus();
+
+      await userEvent.keyboard('{Space}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(menu).not.to.match(':popover-open');
     });
 
     it('should toggle the submenu when pressing arrow right/left', async () => {

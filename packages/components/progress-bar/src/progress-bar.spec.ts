@@ -3,8 +3,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
+import './register.js';
 
 describe('sl-progress-bar', () => {
   let el: ProgressBar;
@@ -47,6 +47,34 @@ describe('sl-progress-bar', () => {
 
   it('should have a progressbar role', () => {
     expect(progressBar).to.have.attribute('role', 'progressbar');
+  });
+
+  it('should forward an aria-label to the element with the progressbar role', async () => {
+    const labelled = await fixture<ProgressBar>(
+      html`<sl-progress-bar aria-label="File upload"></sl-progress-bar>`
+    );
+    const labelledProgressBar = labelled.renderRoot.querySelector('[role="progressbar"]');
+
+    expect(labelled).not.to.have.attribute('aria-label');
+    expect(labelledProgressBar).to.have.attribute('aria-label', 'File upload');
+  });
+
+  it('should update and remove a forwarded aria-label', async () => {
+    el.setAttribute('aria-label', 'File upload');
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(el).not.to.have.attribute('aria-label');
+    expect(progressBar).to.have.attribute('aria-label', 'File upload');
+
+    el.setAttribute('aria-label', 'Preparing download');
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(el).not.to.have.attribute('aria-label');
+    expect(progressBar).to.have.attribute('aria-label', 'Preparing download');
+
+    el.removeAttribute('aria-label');
+
+    expect(progressBar).not.to.have.attribute('aria-label');
   });
 
   it('should have the correct attributes', () => {

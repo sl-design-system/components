@@ -2,6 +2,7 @@ import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
 import { type Option } from '@sl-design-system/listbox';
+import { type Select } from '@sl-design-system/select';
 import '@sl-design-system/select/register.js';
 import {
   getForwardedAccessibleName,
@@ -12,8 +13,8 @@ import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
-import '../register.js';
 import { Paginator } from './paginator.js';
+import './register.js';
 
 describe('sl-paginator', () => {
   let el: Paginator;
@@ -129,6 +130,18 @@ describe('sl-paginator', () => {
       expect(select).to.exist;
       expect(options).to.have.lengthOf(20);
       expect(options).to.deep.equal(Array.from({ length: 20 }).map((_, i) => i));
+    });
+
+    it('should label the mobile page select without duplicating the selected page number', async () => {
+      el.page = 1;
+      await el.updateComplete;
+
+      const select = el.renderRoot.querySelector<Select>('sl-select');
+
+      expect(select).to.exist;
+      await select!.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 50));
+      expect(select!.button).to.have.attribute('aria-label', 'Page');
     });
 
     it('should have a menu button with hidden pages before the last page if the current page is near the start', () => {

@@ -7,7 +7,7 @@ import {
   html
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './popover.scss.js';
+import styles from './popover.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {

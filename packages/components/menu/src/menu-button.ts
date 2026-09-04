@@ -19,7 +19,7 @@ import {
 } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { isForwardedDisabled } from '@sl-design-system/shared/helpers/forward-aria.js';
-import { ForwardAriaMixin } from '@sl-design-system/shared/mixins.js';
+import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -30,7 +30,7 @@ import {
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './menu-button.scss.js';
+import styles from './menu-button.css' with { type: 'css' };
 import { MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
 
@@ -86,6 +86,7 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
 
   /** @internal Emits when the menu opens or closes. The event detail is `true` when open and `false` when closed. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+
   /**
    * Whether the button is disabled; when set no interaction is possible.
    *

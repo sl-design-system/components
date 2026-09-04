@@ -17,9 +17,6 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
@@ -42,6 +39,7 @@
     "@sl-design-system/form": "^1.4.3",
     "@sl-design-system/icon": "^1.4.3",
     "@sl-design-system/listbox": "^0.2.1",
+    "@sl-design-system/shared": "^0.13.0",
     "@sl-design-system/tag": "^0.2.0",
     "@sl-design-system/text-field": "^1.7.0"
   },

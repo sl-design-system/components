@@ -8,7 +8,6 @@ import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import {
   type EventEmitter,
-  ObserveAttributesMixin,
   event,
   getCharacterPluralSuffix,
   getPluralCategory
@@ -18,6 +17,7 @@ import {
   type SlChangeEvent,
   type SlFocusEvent
 } from '@sl-design-system/shared/events.js';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -27,7 +27,7 @@ import {
   nothing
 } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './text-area.scss.js';
+import styles from './text-area.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -312,18 +312,22 @@ export class TextArea extends ObserveAttributesMixin(
       <div class="field">
         <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
         <slot name="suffix">
-          ${this.showValidity === 'valid'
-            ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
-            : nothing}
+          ${
+            this.showValidity === 'valid'
+              ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>`
+              : nothing
+          }
         </slot>
       </div>
-      ${this.#isCountVisible()
-        ? html`
-            <span class="count" count-state=${this.#getCountState()} id=${this.#countId}>
-              ${this.#getCountText()}
-            </span>
-          `
-        : nothing}
+      ${
+        this.#isCountVisible()
+          ? html`
+              <span class="count" count-state=${this.#getCountState()} id=${this.#countId}>
+                ${this.#getCountText()}
+              </span>
+            `
+          : nothing
+      }
       <slot name="count-description"></slot>
     `;
   }

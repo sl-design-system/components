@@ -5,11 +5,13 @@ import {
 } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, event } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import styles from './tag.scss.js';
+import styles from './tag.css' with { type: 'css' };
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -40,7 +42,7 @@ export type TagVariant = 'neutral' | 'info';
  * @csspart tooltip - The tooltip shown when the content is truncated.
  */
 @localized()
-export class Tag extends ScopedElementsMixin(LitElement) {
+export class Tag extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -57,9 +59,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     ...LitElement.shadowRootOptions,
     delegatesFocus: true
   };
-
-  /** @internal */
-  #internals = this.attachInternals();
 
   /** Observe changes in size, so we can check whether we need to show tooltips for truncated links. */
   #observer = new ResizeObserver(() => this.#onResize());
@@ -80,6 +79,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    * truncation.
    */
   @property() tooltip?: boolean | string;
+
+  /** @internal Whether the tag has visible focus. */
+  @state() @cssState() focusVisible?: boolean;
 
   /** @internal The label of the tag component. */
   @state() label = '';
@@ -179,13 +181,15 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         .join(' ');
 
     return html`
-      ${this.tooltip
-        ? html`
-            <sl-tooltip for="label" part="tooltip">
-              ${typeof this.tooltip === 'string' ? this.tooltip : this.label}
-            </sl-tooltip>
-          `
-        : nothing}
+      ${
+        this.tooltip
+          ? html`
+              <sl-tooltip for="label" part="tooltip">
+                ${typeof this.tooltip === 'string' ? this.tooltip : this.label}
+              </sl-tooltip>
+            `
+          : nothing
+      }
       <div
         @blur=${this.#onBlur}
         @focus=${this.#onFocus}
@@ -195,43 +199,49 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         tabindex=${ifDefined(labelTabIndex)}>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
-      ${this.labelDescription
-        ? html`<span id="label-description" class="visually-hidden">${this.labelDescription}</span>`
-        : nothing}
-      ${this.removable
-        ? html`
-            <button
-              @blur=${this.#onBlur}
-              @click=${this.#onRemove}
-              @focus=${this.#onFocus}
-              @keydown=${this.#onKeydown}
-              aria-describedby=${ifDefined(buttonDescription || undefined)}
-              aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
-              aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
-              part="button"
-              type="button">
-              <sl-icon name="xmark"></sl-icon>
-            </button>
-            ${this.navigationDescription
-              ? html`
-                  <span id="navigation-description" class="visually-hidden" aria-hidden="true"
-                    >${this.navigationDescription}</span
-                  >
-                `
-              : nothing}
-          `
-        : nothing}
+      ${
+        this.labelDescription
+          ? html`
+              <span id="label-description" class="visually-hidden">${this.labelDescription}</span>
+            `
+          : nothing
+      }
+      ${
+        this.removable
+          ? html`
+              <button
+                @blur=${this.#onBlur}
+                @click=${this.#onRemove}
+                @focus=${this.#onFocus}
+                @keydown=${this.#onKeydown}
+                aria-describedby=${ifDefined(buttonDescription || undefined)}
+                aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+                aria-label=${msg(str`Remove tag '${this.label}'`, { id: 'sl.tag.remove' })}
+                part="button"
+                type="button">
+                <sl-icon name="xmark"></sl-icon>
+              </button>
+              ${
+                this.navigationDescription
+                  ? html`
+                      <span id="navigation-description" class="visually-hidden" aria-hidden="true"
+                        >${this.navigationDescription}</span
+                      >
+                    `
+                  : nothing
+              }
+            `
+          : nothing
+      }
     `;
   }
 
   #onBlur(): void {
-    this.#internals.states.delete('focus-visible');
+    this.focusVisible = false;
   }
 
   #onFocus(event: FocusEvent): void {
-    if ((event.target as HTMLElement).matches(':focus-visible')) {
-      this.#internals.states.add('focus-visible');
-    }
+    this.focusVisible = (event.target as HTMLElement).matches(':focus-visible');
   }
 
   #onKeydown(event: KeyboardEvent): void {

@@ -7,6 +7,8 @@ import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { RovingTabindexController } from '@sl-design-system/shared';
+import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
 import {
   type CSSResultGroup,
   LitElement,
@@ -32,7 +34,7 @@ import {
   revealAllItems
 } from './overflow.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
-import styles from './tool-bar.scss.js';
+import styles from './tool-bar.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -61,7 +63,7 @@ declare global {
  * @slot default - The tool bar items.
  */
 @localized()
-export class ToolBar extends ScopedElementsMixin(LitElement) {
+export class ToolBar extends ScopedElementsMixin(ElementInternalsMixin(LitElement)) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -79,11 +81,29 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** Timeout for debouncing forceRecalculation calls. */
   #forceRecalculationTimeout?: ReturnType<typeof setTimeout>;
 
-  /** @internal */
-  #internals = this.attachInternals();
+  /** Animation frame for batching item resize recalculations. */
+  #itemResizeFrame?: ReturnType<typeof requestAnimationFrame>;
 
   /** Observe changes to the child elements. */
   #mutationObserver = new MutationObserver(() => this.refresh());
+
+  /** Observe size changes of slotted items, such as font or theme changes. */
+  #itemResizeObserver = new ResizeObserver(() => {
+    if (this.#itemResizeFrame) {
+      return;
+    }
+
+    this.#itemResizeFrame = requestAnimationFrame(() => {
+      this.#itemResizeFrame = undefined;
+
+      if (!this.wrapper || !this.isConnected) {
+        return;
+      }
+
+      this.#needsMeasurement = true;
+      this.#onResize();
+    });
+  });
 
   /**
    * Whether the toolbar is wider than its parent and needs CSS containment to measure available
@@ -99,6 +119,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   /** Flag indicating whether item width measurements are required before recalculating layout. */
   #needsMeasurement = true;
+
+  /** Whether the current resize pass is retrying with fresh item measurements. */
+  #remeasuringAfterOverflow = false;
 
   /** Observe changes to the size of the host element. */
   #resizeObserver = new ResizeObserver(entries => {
@@ -153,6 +176,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
+  /** @internal Whether the tool bar has no slotted elements. */
+  @state() @cssState() empty?: boolean;
+
   /**
    * The fill of buttons and menu buttons (also overflow menu button).
    *
@@ -192,15 +218,23 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       attributes: true,
       attributeFilter: ['aria-disabled', 'disabled']
     });
+
+    this.#observeItems();
   }
 
   override disconnectedCallback(): void {
     this.#mutationObserver.disconnect();
+    this.#itemResizeObserver.disconnect();
     this.#resizeObserver.disconnect();
 
     if (this.#forceRecalculationTimeout) {
       clearTimeout(this.#forceRecalculationTimeout);
       this.#forceRecalculationTimeout = undefined;
+    }
+
+    if (this.#itemResizeFrame) {
+      cancelAnimationFrame(this.#itemResizeFrame);
+      this.#itemResizeFrame = undefined;
     }
 
     // Reset measurements to ensure clean state on reconnect
@@ -244,9 +278,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   override firstUpdated(): void {
     const slot = this.renderRoot.querySelector('slot')!;
 
-    if (slot.assignedElements({ flatten: true }).length === 0) {
-      this.#internals.states.add('empty');
-    }
+    this.empty = slot.assignedElements({ flatten: true }).length === 0;
 
     requestAnimationFrame(() => {
       this.#measureItems();
@@ -327,11 +359,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     const elements =
       this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
 
-    if (elements.length === 0) {
-      this.#internals.states.add('empty');
-    } else {
-      this.#internals.states.delete('empty');
-    }
+    this.empty = elements.length === 0;
 
     for (const element of elements) {
       if (element instanceof HTMLElement) {
@@ -341,6 +369,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
 
     this.items = mapElementsToItems(elements);
+    this.#observeItems();
     this.#needsMeasurement = true;
     this.#fitContent = false;
     this.#lastHostWidth = 0;
@@ -418,7 +447,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     if (this.#fitContent) {
       // Fit-content: use CSS containment to measure the external constraint
-      availableWidth = measureConstrainedWidth(this, this.#internals);
+      availableWidth = measureConstrainedWidth(this, this.elementInternals);
     } else {
       availableWidth = getContentBoxWidth(this);
     }
@@ -443,6 +472,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     applyVisibility(this.items);
     this.menuItems = hiddenItems;
+
+    if (hasWrapperOverflow(this.wrapper) && !this.#remeasuringAfterOverflow) {
+      this.#remeasuringAfterOverflow = true;
+      this.#needsMeasurement = true;
+      this.#onResize();
+      return;
+    }
+
+    this.#remeasuringAfterOverflow = false;
 
     if (this.menuItems.length > 0 && this.parentElement) {
       this.#resizeObserver.observe(this.parentElement);
@@ -566,5 +604,11 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     // If measurements failed, we need to try again later when the items are visible
     this.#needsMeasurement = !widths;
+  }
+
+  #observeItems(): void {
+    this.#itemResizeObserver.disconnect();
+
+    this.items.forEach(item => this.#itemResizeObserver.observe(item.element));
   }
 }

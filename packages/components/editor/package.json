@@ -17,9 +17,6 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
@@ -43,6 +40,7 @@
     "@sl-design-system/shared": "^0.13.0"
   },
   "devDependencies": {
+    "@open-wc/scoped-elements": "3.0.10",
     "prosemirror-commands": "^1.5.2",
     "prosemirror-history": "^1.4.0",
     "prosemirror-inputrules": "^1.4.0",
@@ -53,6 +51,7 @@
     "prosemirror-view": "^1.33.8"
   },
   "peerDependencies": {
+    "@open-wc/scoped-elements": "3.0.10",
     "prosemirror-commands": "^1.5.2",
     "prosemirror-history": "^1.4.0",
     "prosemirror-inputrules": "^1.4.0",

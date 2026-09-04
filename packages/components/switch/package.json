@@ -17,9 +17,6 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
@@ -41,7 +38,8 @@
   "dependencies": {
     "@sl-design-system/form": "^1.4.3",
     "@sl-design-system/icon": "^1.4.3",
-    "@sl-design-system/shared": "^0.13.0"
+    "@sl-design-system/shared": "^0.13.0",
+    "@sl-design-system/tooltip": "^3.0.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10"

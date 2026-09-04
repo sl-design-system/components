@@ -5,7 +5,7 @@ import {
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { OptionGroupHeader } from './option-group-header.js';
-import styles from './option-group.scss.js';
+import styles from './option-group.css' with { type: 'css' };
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -86,9 +86,11 @@ export class OptionGroup extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        ${this.label
-          ? html`<sl-option-group-header>${this.label}</sl-option-group-header>`
-          : nothing}
+        ${
+          this.label
+            ? html`<sl-option-group-header>${this.label}</sl-option-group-header>`
+            : nothing
+        }
         <slot></slot>
       </div>
     `;

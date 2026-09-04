@@ -2,8 +2,8 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import '../register.js';
 import { type Link } from './link.js';
+import './register.js';
 
 interface Props extends Pick<
   Link,

@@ -3,9 +3,9 @@ import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
-import '../register.js';
 import { type MenuItem } from './menu-item.js';
 import { type Menu } from './menu.js';
+import './register.js';
 
 describe('sl-menu', () => {
   let el: Menu;
@@ -15,7 +15,7 @@ describe('sl-menu', () => {
       el = await fixture(html`
         <sl-menu>
           <sl-menu-item>Item 1</sl-menu-item>
-          <sl-menu-item disabled>Item 2</sl-menu-item>
+          <sl-menu-item aria-disabled="true">Item 2</sl-menu-item>
           <sl-menu-item>
             Item 3
             <sl-menu slot="submenu">
@@ -164,50 +164,32 @@ describe('sl-menu', () => {
       expect(document.activeElement).to.equal(firstItem);
     });
 
-    it('should skip disabled menu items when focusing initially', async () => {
-      el = await fixture(html`
-        <sl-menu>
-          <sl-menu-item disabled>Item 1</sl-menu-item>
-          <sl-menu-item>Item 2</sl-menu-item>
-          <sl-menu-item>Item 3</sl-menu-item>
-        </sl-menu>
-      `);
-
-      el.showPopover();
-      await el.updateComplete;
-
-      el.focus();
-
-      const secondItem = el.querySelectorAll('sl-menu-item')[1];
-
-      expect(document.activeElement).to.equal(secondItem);
-    });
-
-    it('should focus the first not disabled menu item in a menu with multiple disabled items', async () => {
-      el = await fixture(html`
-        <sl-menu>
-          <sl-menu-item disabled>Item 1</sl-menu-item>
-          <sl-menu-item disabled>Item 2</sl-menu-item>
-          <sl-menu-item>Item 3</sl-menu-item>
-          <sl-menu-item>Item 4</sl-menu-item>
-        </sl-menu>
-      `);
-
-      el.showPopover();
-      await el.updateComplete;
-
-      el.focus();
-
-      const thirdItem = el.querySelectorAll('sl-menu-item')[2];
-
-      expect(document.activeElement).to.equal(thirdItem);
-    });
-
-    it('should focus aria-disabled menu items', async () => {
+    it('should not skip aria-disabled menu items when focusing initially', async () => {
       el = await fixture(html`
         <sl-menu>
           <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
           <sl-menu-item>Item 2</sl-menu-item>
+          <sl-menu-item>Item 3</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const firstItem = el.querySelector('sl-menu-item');
+
+      expect(document.activeElement).to.equal(firstItem);
+    });
+
+    it('should keep focus on the first item when leading items are aria-disabled', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
+          <sl-menu-item aria-disabled="true">Item 2</sl-menu-item>
+          <sl-menu-item>Item 3</sl-menu-item>
+          <sl-menu-item>Item 4</sl-menu-item>
         </sl-menu>
       `);
 
@@ -858,6 +840,46 @@ describe('sl-menu', () => {
 
         expect(onKeydown).not.to.have.been.called;
       });
+    });
+  });
+
+  describe('aria-disabled interactions', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-menu selects="multiple">
+          <sl-menu-item aria-disabled="true" selectable selected>Item 1</sl-menu-item>
+          <sl-menu-item selectable>Item 2</sl-menu-item>
+        </sl-menu>
+      `);
+    });
+
+    it('should not toggle selected state when an aria-disabled item is clicked', () => {
+      const disabledItem = el.querySelector<MenuItem>('sl-menu-item:nth-of-type(1)')!;
+
+      disabledItem.click();
+
+      expect(disabledItem.selected).to.be.true;
+    });
+
+    it('should not open submenu for aria-disabled items', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item aria-disabled="true">
+            Item 1
+            <sl-menu slot="submenu">
+              <sl-menu-item>Subitem 1</sl-menu-item>
+            </sl-menu>
+          </sl-menu-item>
+        </sl-menu>
+      `);
+
+      const parentItem = el.querySelector<MenuItem>('sl-menu-item')!,
+        submenu = parentItem.querySelector<Menu>('sl-menu')!;
+
+      parentItem.click();
+      await new Promise(resolve => setTimeout(resolve, 120));
+
+      expect(submenu).not.to.match(':popover-open');
     });
   });
 });

@@ -11,7 +11,7 @@ import {
 } from '@sl-design-system/angular/paginator';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 export default {
   title: 'Wrappers/Grid/Pagination',

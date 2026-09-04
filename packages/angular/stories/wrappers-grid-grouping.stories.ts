@@ -7,7 +7,7 @@ import {
 import { Button } from '@sl-design-system/button';
 import { ArrayListDataSource, isListDataSourceGroupItem } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
-import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular-vite';
 import { html } from 'lit';
 
 export default {
@@ -168,6 +168,60 @@ export const CustomGroupHeader: StoryObj = {
           <sl-grid-sort-column direction="asc" path="fullName" header="Student"></sl-grid-sort-column>
           <sl-grid-column path="email"></sl-grid-column>
           <sl-grid-column path="school.name" header="School"></sl-grid-column>
+        </sl-grid>
+      `
+    };
+  }
+};
+
+export const StickyColumnsWithCustomGroupHeader: StoryObj = {
+  loaders: [
+    async () => {
+      const { students } = await getStudents({ count: 50 });
+
+      return { students };
+    }
+  ],
+  render: (_, { loaded }) => {
+    const students = loaded['students'] as Student[];
+
+    const dataSource = new ArrayListDataSource(students, {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+
+    const groupHeaderRenderer = (item: { label?: string; count: number }) => html`
+      <span slot="group-heading">${item.label} (${item.count})</span>
+      <sl-button size="sm">Add student</sl-button>
+    `;
+
+    return {
+      description:
+        'Combine grouped rows, a custom group header and sticky columns while scrolling horizontally.',
+      props: {
+        dataSource,
+        groupHeaderRenderer,
+        groupHeaderScopedElements: { 'sl-button': Button }
+      },
+      template: `
+        <sl-grid
+          [dataSource]="dataSource"
+          [groupHeaderRenderer]="groupHeaderRenderer"
+          [scopedElements]="groupHeaderScopedElements"
+          [noSkipLinks]="true">
+          <sl-grid-column
+            [grow]="0"
+            header="Nr."
+            path="studentNumber"
+            [sticky]="true"
+            [width]="120"></sl-grid-column>
+          <sl-grid-column [grow]="0" path="group.name" [sticky]="true" [width]="220"></sl-grid-column>
+          <sl-grid-column [grow]="3" header="Student" path="fullName" [width]="260"></sl-grid-column>
+          <sl-grid-column path="email" [width]="260"></sl-grid-column>
+          <sl-grid-column path="school.name" header="School" [width]="260"></sl-grid-column>
+          <sl-grid-column path="school.address" [width]="240"></sl-grid-column>
+          <sl-grid-column path="school.city" [width]="160"></sl-grid-column>
+          <sl-grid-column path="school.country" [width]="160"></sl-grid-column>
         </sl-grid>
       `
     };

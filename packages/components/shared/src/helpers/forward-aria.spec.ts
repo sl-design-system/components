@@ -1,7 +1,7 @@
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { LitElement, html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import { ForwardAriaMixin } from '../mixins/forward-aria-mixin.js';
+import { ForwardAriaMixin } from '../mixins/forward-aria.js';
 import {
   getForwardedAccessibleName,
   getForwardedAriaAttribute,
@@ -192,7 +192,7 @@ describe('forward-aria helpers', () => {
 
         el = div.querySelector('proxy-helper-single')!;
 
-        const elements = getForwardedAriaProperty(el, 'ariaControlsElements' as keyof HTMLElement);
+        const elements = getForwardedAriaProperty(el, 'ariaControlsElements');
         expect(elements).to.deep.equal([div.querySelector('#ctrl-target')]);
       });
     });

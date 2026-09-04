@@ -2,11 +2,9 @@ import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { type MenuButton, type MenuItem } from '@sl-design-system/menu';
 import '@sl-design-system/menu/register.js';
-
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { describe, expect, it } from 'vitest';
-import '../register.js';
 import {
   type ToolBarItemButton,
   mapButtonToItem,
@@ -14,6 +12,7 @@ import {
   mapMenuButtonToItem,
   mapMenuItemToItem
 } from './mapping.js';
+import './register.js';
 import { type ToolBar } from './tool-bar.js';
 
 describe('mapButtonToItem', () => {
@@ -187,14 +186,18 @@ describe('mapMenuItemToItem', () => {
     expect(item.type).to.equal('button');
     expect(item.label).to.equal('Rename...');
     expect(item.disabled).to.equal(false);
+    expect(item.ariaDisabled).to.equal(false);
     expect(item.visible).to.equal(true);
   });
 
-  it('should map a disabled menu item', async () => {
-    const el = await fixture<MenuItem>(html`<sl-menu-item disabled>Rename...</sl-menu-item>`),
+  it('should map an aria-disabled menu item', async () => {
+    const el = await fixture<MenuItem>(
+        html`<sl-menu-item aria-disabled="true">Rename...</sl-menu-item>`
+      ),
       item = mapMenuItemToItem(el);
 
-    expect(item.disabled).to.equal(true);
+    expect(item.disabled).to.equal(false);
+    expect(item.ariaDisabled).to.equal(true);
   });
 
   it('should detect an icon in a menu item', async () => {

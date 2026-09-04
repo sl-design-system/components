@@ -56,20 +56,20 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown,
+    click: {
+      handler: this.#onClick,
+      options: { capture: true }
+    },
+    keydown: {
+      handler: this.#onKeydown,
+      options: { capture: true }
+    },
     pointerenter: this.#onPointerenter,
     pointerleave: this.#onPointerleave
   });
 
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
-
-  // Tracks whether aria-disabled was added internally so explicit user-provided values survive.
-  #ariaDisabledFromDisabled = false;
-
-  /** Whether this menu item is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** @internal Emits the current selected state as a boolean when the user toggles the menu item. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent>;
@@ -96,7 +96,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) variant?: MenuItemVariant;
 
   get #disabled(): boolean {
-    return this.disabled || this.ariaDisabled === 'true';
+    return this.ariaDisabled === 'true';
   }
 
   override connectedCallback(): void {
@@ -108,19 +108,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    if (changes.has('disabled')) {
-      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-      if (this.disabled) {
-        if (this.ariaDisabled !== 'true') {
-          this.setAttribute('aria-disabled', 'true');
-          this.#ariaDisabledFromDisabled = true;
-        }
-      } else if (this.#ariaDisabledFromDisabled) {
-        this.removeAttribute('aria-disabled');
-        this.#ariaDisabledFromDisabled = false;
-      }
-    }
 
     if (changes.has('shortcut')) {
       if (this.shortcut) {
@@ -186,7 +173,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (this.#disabled) {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
 
       return;
     }
@@ -213,7 +200,16 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.submenu && event.composedPath().includes(this.submenu)) {
+      return;
+    }
+
     if (this.#disabled) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+
       return;
     }
 

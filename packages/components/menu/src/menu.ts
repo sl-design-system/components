@@ -66,8 +66,7 @@ export class Menu extends LitElement {
   #rovingTabindexController = new RovingTabindexController<MenuItem>(this, {
     direction: 'vertical',
     elements: () => this.#menuItems || [],
-    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),
-    isFocusableElement: (el: MenuItem) => !el.disabled
+    isFocusableElement: () => true
   });
 
   /**

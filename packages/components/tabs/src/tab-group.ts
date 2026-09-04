@@ -20,6 +20,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tab-group.css' with { type: 'css' };
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
@@ -315,7 +316,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                       menuItem => html`
                         <sl-menu-item
                           @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                          aria-disabled=${menuItem.disabled ? 'true' : 'false'}>
+                          aria-disabled=${ifDefined(menuItem.disabled ? 'true' : undefined)}>
                           ${menuItem.title}
                         </sl-menu-item>
                       `

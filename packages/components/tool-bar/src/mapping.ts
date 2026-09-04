@@ -138,10 +138,13 @@ export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
 }
 
 export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton {
+  const ariaDisabled = menuItem.getAttribute('aria-disabled') === 'true';
+
   return {
     element: menuItem,
     type: 'button',
-    disabled: menuItem.hasAttribute('disabled'),
+    ariaDisabled,
+    disabled: false,
     icon: menuItem.querySelector('sl-icon')?.getAttribute('name'),
     label: menuItem.textContent?.trim() || undefined,
     visible: true,

@@ -217,7 +217,7 @@ export const Basic: Story = {
           <sl-icon name="far-copy"></sl-icon>
           Duplicate
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-trash"></sl-icon>
           Remove (disabled)
         </sl-menu-item>

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/search-field",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "status": "stable",
   "description": "Search field component for the SL Design System",
   "license": "Apache-2.0",

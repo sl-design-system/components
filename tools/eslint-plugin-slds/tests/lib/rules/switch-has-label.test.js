@@ -24,6 +24,11 @@ ruleTester.run('switch-has-label', switchHasLabel, {
     {
       code: 'html`<sl-switch>Enable feature<sl-infotip slot="infotip">Info</sl-infotip></sl-switch>`;'
     },
+    {
+      code: 'html`<sl-switch><slot></slot></sl-switch>`;',
+      name: 'bare default slot forwards host light DOM content'
+    },
+    { code: 'html`<sl-switch aria-hidden="true"></sl-switch>`;' },
     { code: 'const template = `<sl-switch></sl-switch>`;' }
   ],
   invalid: [
@@ -38,6 +43,11 @@ ruleTester.run('switch-has-label', switchHasLabel, {
     {
       code: 'html`<sl-switch><span></span></sl-switch>`;',
       errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'html`<sl-switch><slot name="label"></slot></sl-switch>`;',
+      errors: [{ messageId: 'missingLabel' }],
+      name: 'named slot does not provide accessible name'
     },
     {
       code: 'html`<sl-switch><sl-infotip slot="infotip">Info</sl-infotip></sl-switch>`;',

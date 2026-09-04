@@ -40,6 +40,10 @@
   color: var(--sl-color-foreground-selected-bold);
 }
 
+:host([switch]) {
+  --sl-menu-item-indent: 0;
+}
+
 :host([emphasis='bold'][selected]) {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
@@ -82,6 +86,14 @@
 ::slotted(sl-icon),
 sl-icon[name='chevron-right'] {
   --sl-icon-size: var(--sl-size-new-icon-xs);
+}
+
+sl-switch {
+  color: inherit;
+}
+
+sl-switch::part(toggle) {
+  padding-inline-start: 0;
 }
 
 .container:hover .safe-triangle {

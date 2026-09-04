@@ -1,5 +1,4 @@
 import {
-  AnchorController,
   type EventEmitter,
   EventsController,
   type PopoverPosition,
@@ -27,6 +26,10 @@ declare global {
 
 export type MenuEmphasis = 'subtle' | 'bold';
 
+type MenuSide = 'top' | 'right' | 'bottom' | 'left';
+
+let nextUniqueId = 0;
+
 /**
  * A menu that can be used as a context menu or as a dropdown menu.
  *
@@ -35,23 +38,17 @@ export type MenuEmphasis = 'subtle' | 'bold';
  * @slot default - The menu's content: menu items or menu item groups.
  */
 export class Menu extends LitElement {
-  /** @internal The default offset of the menu to its anchor. */
-  static offset = 6;
-
   /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal The default margin between the menu and the viewport. */
-  static viewportMargin = 8;
+  /** The anchor currently linked to this menu. */
+  #activeAnchor?: HTMLElement;
 
-  /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, {
-    offset: Menu.offset,
-    viewportMargin: Menu.viewportMargin
-  });
+  /** The generated CSS anchor name, when the anchor did not already have one. */
+  #generatedAnchorName?: string;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
@@ -77,7 +74,7 @@ export class Menu extends LitElement {
   @property({ type: Number }) offset?: number;
 
   /** The position of the menu relative to its anchor. */
-  @property() position?: PopoverPosition = 'right-start';
+  @property({ reflect: true }) position?: PopoverPosition = 'right-start';
 
   /** @internal Emits when the menu item selection changes. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
@@ -99,21 +96,28 @@ export class Menu extends LitElement {
     super.connectedCallback();
 
     this.role = 'menu';
+    this.id ||= `sl-menu-${nextUniqueId++}`;
 
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
+
+    this.addEventListener('beforetoggle', this.#onBeforeToggle);
+    this.#linkAnchor();
+  }
+
+  override disconnectedCallback(): void {
+    this.removeEventListener('beforetoggle', this.#onBeforeToggle);
+    this.#unlinkAnchor();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('offset')) {
-      this.#anchor.offset = this.offset;
-    }
-
-    if (changes.has('position')) {
-      this.#anchor.position = this.position;
+      this.style.margin = this.offset === undefined ? '' : `${this.offset}px`;
     }
 
     if (changes.has('emphasis')) {
@@ -143,6 +147,112 @@ export class Menu extends LitElement {
   /** @internal */
   focusLastItem(): void {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
+  }
+
+  /** @internal The side on which the menu was placed after CSS position fallbacks. */
+  getPositionSide(): MenuSide {
+    // Keep honoring the legacy attribute when explicitly supplied. This also makes it possible to
+    // force a side in tests without relying on viewport geometry.
+    const legacyPlacement = this.getAttribute('actual-placement')?.split('-')[0];
+    if (this.#isMenuSide(legacyPlacement)) {
+      return legacyPlacement;
+    }
+
+    const anchor = this.#getAnchorElement();
+    if (anchor) {
+      const anchorRect = anchor.getBoundingClientRect(),
+        menuRect = this.getBoundingClientRect();
+
+      if (menuRect.bottom <= anchorRect.top) {
+        return 'top';
+      } else if (menuRect.left >= anchorRect.right) {
+        return 'right';
+      } else if (menuRect.top >= anchorRect.bottom) {
+        return 'bottom';
+      } else if (menuRect.right <= anchorRect.left) {
+        return 'left';
+      }
+    }
+
+    return (this.position ?? 'right-start').split('-')[0] as MenuSide;
+  }
+
+  #getAnchorElement(): HTMLElement | null {
+    if (this.anchorElement instanceof HTMLElement) {
+      return this.anchorElement;
+    }
+
+    const anchorId = this.getAttribute('anchor');
+    return anchorId ? (this.getRootNode() as Document | ShadowRoot).getElementById(anchorId) : null;
+  }
+
+  #isMenuSide(value?: string): value is MenuSide {
+    return value === 'top' || value === 'right' || value === 'bottom' || value === 'left';
+  }
+
+  #linkAnchor(expanded = false): void {
+    const anchor = this.#getAnchorElement();
+
+    if (this.#activeAnchor && this.#activeAnchor !== anchor) {
+      this.#unlinkAnchor();
+    }
+
+    if (!anchor) {
+      return;
+    }
+
+    this.#activeAnchor = anchor;
+    anchor.addEventListener('keydown', this.#onAnchorKeydown);
+
+    const computedAnchorName = getComputedStyle(anchor).anchorName;
+
+    if (!computedAnchorName || computedAnchorName === 'none') {
+      this.#generatedAnchorName ||= `--sl-menu-anchor-${nextUniqueId++}`;
+      anchor.style.anchorName = this.#generatedAnchorName;
+    }
+
+    this.style.positionAnchor = anchor.style.anchorName || computedAnchorName;
+
+    if (!this.hasAttribute('aria-details')) {
+      anchor.setAttribute('aria-details', this.id);
+    }
+
+    anchor.setAttribute('aria-expanded', expanded.toString());
+
+    if (anchor.tagName === 'SL-BUTTON') {
+      anchor.toggleAttribute('popover-opened', expanded);
+    }
+  }
+
+  #onBeforeToggle = (event: ToggleEvent): void => {
+    this.#linkAnchor(event.newState === 'open');
+  };
+
+  #onAnchorKeydown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') {
+      event.stopPropagation();
+    }
+  };
+
+  #unlinkAnchor(): void {
+    if (!this.#activeAnchor) {
+      return;
+    }
+
+    if (this.#activeAnchor.style.anchorName === this.#generatedAnchorName) {
+      this.#activeAnchor.style.anchorName = '';
+    }
+
+    this.#activeAnchor.removeEventListener('keydown', this.#onAnchorKeydown);
+
+    if (this.#activeAnchor.getAttribute('aria-details') === this.id) {
+      this.#activeAnchor.removeAttribute('aria-details');
+    }
+
+    this.#activeAnchor.removeAttribute('aria-expanded');
+    this.#activeAnchor.removeAttribute('popover-opened');
+    this.style.positionAnchor = '';
+    this.#activeAnchor = undefined;
   }
 
   #onFocusout(event: FocusEvent): void {
@@ -183,11 +293,11 @@ export class Menu extends LitElement {
       return;
     }
 
-    const placement = this.getAttribute('actual-placement');
+    const side = this.getPositionSide();
 
     if (
-      (placement?.startsWith('right') && event.key === 'ArrowLeft') ||
-      (placement?.startsWith('left') && event.key === 'ArrowRight')
+      (side === 'right' && event.key === 'ArrowLeft') ||
+      (side === 'left' && event.key === 'ArrowRight')
     ) {
       this.hidePopover();
       this.anchorElement.focus();

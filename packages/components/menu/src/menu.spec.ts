@@ -54,6 +54,68 @@ describe('sl-menu', () => {
     });
   });
 
+  describe('anchor positioning', () => {
+    let anchor: HTMLButtonElement;
+
+    beforeEach(async () => {
+      anchor = document.createElement('button');
+      document.body.append(anchor);
+
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item>Item 1</sl-menu-item>
+        </sl-menu>
+      `);
+      el.anchorElement = anchor;
+    });
+
+    afterEach(() => anchor.remove());
+
+    it('should position itself using a generated CSS anchor name', () => {
+      el.showPopover();
+
+      expect(anchor.style.anchorName).to.match(/^--sl-menu-anchor-/);
+      expect(el.style.positionAnchor).to.equal(anchor.style.anchorName);
+      expect(getComputedStyle(el).positionArea.split(' ').sort()).to.deep.equal(
+        ['right', 'span-bottom'].sort()
+      );
+      expect(getComputedStyle(el).positionTryFallbacks).to.equal('flip-inline, flip-block');
+    });
+
+    it('should preserve an existing CSS anchor name', () => {
+      anchor.style.anchorName = '--existing-anchor';
+
+      el.showPopover();
+
+      expect(anchor.style.anchorName).to.equal('--existing-anchor');
+      expect(el.style.positionAnchor).to.equal('--existing-anchor');
+    });
+
+    it('should map position and offset properties to CSS', async () => {
+      el.position = 'bottom-end';
+      el.offset = 12;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('position', 'bottom-end');
+      expect(getComputedStyle(el).positionArea.split(' ').sort()).to.deep.equal(
+        ['bottom', 'span-left'].sort()
+      );
+      expect(getComputedStyle(el).positionTryFallbacks).to.equal('flip-block, flip-inline');
+      expect(el.style.margin).to.equal('12px');
+    });
+
+    it('should keep the anchor ARIA state in sync with the popover', () => {
+      el.showPopover();
+
+      expect(anchor).to.have.attribute('aria-details', el.id);
+      expect(anchor).to.have.attribute('aria-expanded', 'true');
+
+      el.hidePopover();
+
+      expect(anchor).to.have.attribute('aria-expanded', 'false');
+    });
+  });
+
   describe('single select', () => {
     beforeEach(async () => {
       el = await fixture(html`

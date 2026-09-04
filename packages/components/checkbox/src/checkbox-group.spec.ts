@@ -156,6 +156,27 @@ describe('sl-checkbox-group', () => {
       expect(onUpdateState).to.have.been.calledTwice;
     });
 
+    it('should not emit sl-blur or become touched when focus moves between checkboxes within the group', () => {
+      const checkboxes = el.querySelectorAll('sl-checkbox'),
+        input1 = checkboxes[0]?.querySelector('input'),
+        input2 = checkboxes[1]?.querySelector('input'),
+        onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+
+      input1?.focus();
+
+      input2?.focus();
+
+      expect(el.touched).not.to.be.true;
+      expect(onBlur).not.to.have.been.called;
+
+      input2?.blur();
+
+      expect(el.touched).to.be.true;
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
     it('should focus the first checkbox after calling focus()', () => {
       el.focus();
 
@@ -367,6 +388,88 @@ describe('sl-checkbox-group', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.valid).to.be.true;
+    });
+
+    it('should show invalid immediately after mouse unchecking the last checkbox in a validate-on-blur form', async () => {
+      const form = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-checkbox-group required>
+            <sl-checkbox value="0">Option 1</sl-checkbox>
+            <sl-checkbox value="1">Option 2</sl-checkbox>
+          </sl-checkbox-group>
+        </sl-form>
+      `);
+
+      const group = form.querySelector<CheckboxGroup>('sl-checkbox-group')!,
+        checkbox = group.querySelector('sl-checkbox')!;
+
+      await userEvent.click(checkbox);
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      expect(group.validity.valid).to.be.true;
+      expect(group).not.to.have.attribute('show-validity');
+
+      await userEvent.click(checkbox);
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(group.validity.valid).to.be.false;
+      expect(group).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should not force invalid state immediately outside a validate-on-blur form', async () => {
+      const standaloneGroup = await fixture<CheckboxGroup>(html`
+        <sl-checkbox-group required>
+          <sl-checkbox value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+
+      const checkbox = standaloneGroup.querySelector('sl-checkbox')!;
+
+      await userEvent.click(checkbox);
+      await standaloneGroup.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      expect(standaloneGroup.valid).to.be.true;
+
+      await userEvent.click(checkbox);
+      await standaloneGroup.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(standaloneGroup.valid).to.be.false;
+      expect(standaloneGroup).not.to.have.attribute('show-validity');
+    });
+
+    it('should keep keyboard uncheck behavior after pointerdown with no change', async () => {
+      const form = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-checkbox-group required>
+            <sl-checkbox value="0">Option 1</sl-checkbox>
+            <sl-checkbox value="1">Option 2</sl-checkbox>
+          </sl-checkbox-group>
+        </sl-form>
+      `);
+
+      const group = form.querySelector<CheckboxGroup>('sl-checkbox-group')!;
+
+      group.dispatchEvent(
+        new PointerEvent('pointerdown', { bubbles: true, composed: true, pointerType: 'mouse' })
+      );
+
+      group.boxes?.[0].focus();
+      await userEvent.keyboard('{Space}');
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(group.validity.valid).to.be.true;
+      expect(group).not.to.have.attribute('show-validity');
+
+      await userEvent.keyboard('{Space}');
+      await group.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(group.validity.valid).to.be.false;
+      expect(group).not.to.have.attribute('show-validity');
     });
 
     it('should be invalid when the initial value does not match any of the options', async () => {

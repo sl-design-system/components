@@ -1025,6 +1025,44 @@ describe('sl-checkbox', () => {
 
       expect(el.validationMessage).to.equal('Custom validation message');
     });
+
+    it('should show invalid immediately after mouse unchecking a required checkbox in a validate-on-blur form', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-checkbox required>Hello world</sl-checkbox>
+        </sl-form>
+      `);
+
+      const checkbox = el.querySelector<Checkbox>('sl-checkbox')!;
+
+      await userEvent.click(checkbox);
+      await checkbox.updateComplete;
+
+      expect(checkbox.checked).to.be.true;
+      expect(checkbox.showValidity).to.be.undefined;
+
+      await userEvent.click(checkbox);
+      await checkbox.updateComplete;
+
+      expect(checkbox.checked).to.be.false;
+      expect(checkbox.showValidity).to.equal('invalid');
+    });
+
+    it('should not force immediate invalid state outside a validate-on-blur form', async () => {
+      el = await fixture(html`<sl-checkbox required>Hello world</sl-checkbox>`);
+
+      await userEvent.click(el);
+      await el.updateComplete;
+
+      expect(el.checked).to.be.true;
+      expect(el.showValidity).to.be.undefined;
+
+      await userEvent.click(el);
+      await el.updateComplete;
+
+      expect(el.checked).to.be.false;
+      expect(el.showValidity).to.be.undefined;
+    });
   });
 
   describe('form integration', () => {

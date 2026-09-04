@@ -19,7 +19,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Form } from './form.js';
 import './register.js';
 
-type Props = Pick<Form, 'disabled' | 'value'> & {
+type Props = Pick<Form, 'disabled' | 'validateOnBlur' | 'value'> & {
   buttons?(): TemplateResult;
   fields(args: Props): TemplateResult;
   reset: boolean;
@@ -229,71 +229,83 @@ const createAllArgs = (options: AllStoryOptions = {}): Pick<Props, 'fields'> => 
   fields: args => renderAllFields(args, options)
 });
 
+const renderFormStory = (args: Props, description?: TemplateResult): TemplateResult => {
+  const { buttons, disabled, fields, reportValidity, reset, validateOnBlur, value } = args;
+
+  const onToggle = (): void => {
+    const form = document.querySelector('sl-form')!;
+
+    form.disabled = !form.disabled;
+  };
+
+  const onReport = (): void => {
+    const form = document.querySelector('sl-form');
+
+    console.log(form?.reportValidity(), form?.value);
+  };
+
+  const onReset = (): void => {
+    document.querySelector('sl-form')?.reset();
+  };
+
+  const onUpdate = (): void => {
+    const form = document.querySelector('sl-form')!,
+      pre = form.nextElementSibling as HTMLPreElement;
+
+    pre.textContent = JSON.stringify(form.value, null, 2);
+  };
+
+  if (reportValidity) {
+    setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
+  }
+
+  return html`
+    <style>
+      sl-button[variant='primary'] {
+        margin-inline-start: auto;
+      }
+    </style>
+    ${description ? html`<p>${description}</p>` : nothing}
+    <sl-form
+      @sl-update-state=${onUpdate}
+      @sl-update-validity=${onUpdate}
+      ?disabled=${disabled}
+      ?validate-on-blur=${validateOnBlur}
+      .value=${value}>
+      ${fields(args)}
+      <sl-button-bar>
+        ${
+          buttons?.() ??
+          html`
+            <sl-button @click=${onToggle}>Toggle</sl-button>
+            ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
+            <sl-button @click=${onReport} variant="primary">Report</sl-button>
+          `
+        }
+      </sl-button-bar>
+    </sl-form>
+    <pre>${JSON.stringify(value, null, 2)}</pre>
+  `;
+};
+
 export default {
   title: 'Form/Form',
   args: {
     disabled: false,
-    reportValidity: false
+    reportValidity: false,
+    validateOnBlur: false
   },
-  render: args => {
-    const { buttons, disabled, fields, reportValidity, reset, value } = args;
-
-    const onToggle = (): void => {
-      const form = document.querySelector('sl-form')!;
-
-      form.disabled = !form.disabled;
-    };
-
-    const onReport = (): void => {
-      const form = document.querySelector('sl-form');
-
-      console.log(form?.reportValidity(), form?.value);
-    };
-
-    const onReset = (): void => {
-      document.querySelector('sl-form')?.reset();
-    };
-
-    const onUpdate = (): void => {
-      const form = document.querySelector('sl-form')!,
-        pre = form.nextElementSibling as HTMLPreElement;
-
-      pre.textContent = JSON.stringify(form.value, null, 2);
-    };
-
-    if (reportValidity) {
-      setTimeout(() => document.querySelector('sl-form')?.reportValidity(), 100);
-    }
-
-    return html`
-      <style>
-        sl-button[variant='primary'] {
-          margin-inline-start: auto;
-        }
-      </style>
-      <sl-form
-        @sl-update-state=${onUpdate}
-        @sl-update-validity=${onUpdate}
-        ?disabled=${disabled}
-        .value=${value}>
-        ${fields(args)}
-        <sl-button-bar>
-          ${
-            buttons?.() ??
-            html`
-              <sl-button @click=${onToggle}>Toggle</sl-button>
-              ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
-              <sl-button @click=${onReport} variant="primary">Report</sl-button>
-            `
-          }
-        </sl-button-bar>
-      </sl-form>
-      <pre>${JSON.stringify(value, null, 2)}</pre>
-    `;
-  }
+  render: args => renderFormStory(args)
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Simple required text field.</strong> Use this story to test basic form behavior.
+      `
+    ),
   args: {
     fields: () => html`
       <sl-form-field label="Text field">
@@ -320,6 +332,14 @@ export const Autofocus: Story = {
 };
 
 export const Reset: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Reset with start values.</strong> The first field starts filled. The second required
+        field starts empty. Click <strong>Reset</strong> to restore these values.
+      `
+    ),
   args: {
     reset: true,
     reportValidity: true,
@@ -388,6 +408,36 @@ export const Value: Story = {
   }
 };
 
+export const ValidateOnBlur: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Validate on blur.</strong> Format and pattern errors show on blur. For required
+        fields, validation is designed with accessibility in mind: just tabbing through shows no
+        error (so keyboard and screen reader users can explore the form without error noise). If you
+        type and clear, the error shows on blur. Mouse actions like unchecking show error
+        immediately. Untouched fields still validate on submit.
+      `
+    ),
+  args: {
+    fields: () => html`
+      <sl-form-field hint="Invalid email format is shown on blur" label="Email">
+        <sl-text-field name="email" type="email"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Must match pattern AB-123 (shown on blur)" label="Code">
+        <sl-text-field name="code" pattern="[A-Z]{2}-[0-9]{3}" placeholder="AB-123"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field hint="Shown on blur when touched and cleared" label="Required text field">
+        <sl-text-field name="requiredField" required></sl-text-field>
+      </sl-form-field>
+    `,
+    validateOnBlur: true
+  }
+};
+
 export const CustomComponent: Story = {
   args: {
     reportValidity: false,
@@ -405,12 +455,29 @@ export const CustomComponent: Story = {
 };
 
 export const All: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types in default state.</strong> This story shows all controls from the
+        default form. All visible fields are required except <strong>Switch</strong>. Click
+        <strong>Report</strong> to validate everything.
+      `
+    ),
   args: {
     ...createAllArgs()
   }
 };
 
 export const AllDisabled: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types, disabled.</strong> This is the same set as <strong>All</strong>,
+        but disabled. All visible fields are required except <strong>Switch</strong>.
+      `
+    ),
   args: {
     ...All.args,
     disabled: true
@@ -418,6 +485,14 @@ export const AllDisabled: Story = {
 };
 
 export const AllInvalid: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types after validation.</strong> Every visible required field starts
+        invalid until it has a value. <strong>Switch</strong> is optional.
+      `
+    ),
   args: {
     ...All.args,
     reportValidity: true
@@ -425,6 +500,14 @@ export const AllInvalid: Story = {
 };
 
 export const AllValid: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types with valid values.</strong> Every visible required field is filled.
+        <strong>Switch</strong> stays optional. This story shows a form ready to submit.
+      `
+    ),
   args: {
     ...All.args,
     reportValidity: true,
@@ -445,19 +528,66 @@ export const AllValid: Story = {
   }
 };
 
+export const AllValidateOnBlur: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Validate on blur for the full form.</strong> All visible fields are required except
+        <strong>Switch</strong>. For required fields, validation is designed with accessibility in
+        mind: just tabbing through shows no error (so keyboard and screen reader users can explore
+        the form without hearing error announcements). If you type and clear, or use your mouse to
+        uncheck/deselect, the error shows right away. Untouched fields still validate on submit.
+      `
+    ),
+  args: {
+    reportValidity: false,
+    validateOnBlur: true,
+    ...createAllArgs()
+  }
+};
+
 export const AllLarge: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>All field types in large size.</strong> Same fields as <strong>All</strong>, but
+        larger. All visible fields are required except <strong>Switch</strong>.
+      `
+    ),
   args: {
     ...createAllArgs({ size: 'lg' })
   }
 };
 
 export const AllPill: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Pill shaped form controls.</strong> This story shows only controls that support pill
+        shape in this demo. Every visible field is required. Text area, checkbox, checkbox group,
+        radio group, and switch are not shown because they do not support the
+        <strong>shape</strong> property.
+      `
+    ),
   args: {
     ...createAllArgs({ shape: 'pill' })
   }
 };
 
 export const AllPillLarge: Story = {
+  render: args =>
+    renderFormStory(
+      args,
+      html`
+        <strong>Pill-shaped controls in large size.</strong> This is the large version of
+        <strong>All Pill</strong>. It shows the same pill shaped form controls, and every visible
+        field is required. Other controls are not shown because they do not support the
+        <strong>shape</strong> property.
+      `
+    ),
   args: {
     ...createAllArgs({ shape: 'pill', size: 'lg' })
   }

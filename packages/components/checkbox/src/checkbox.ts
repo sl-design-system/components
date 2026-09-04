@@ -78,7 +78,8 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     click: this.#onClick,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout,
-    keydown: this.#onKeydown
+    keydown: this.#onKeydown,
+    pointerdown: this.#onPointerDown
   });
 
   /** The description instances in the light DOM. */
@@ -259,7 +260,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
       const style = document.createElement('style');
       style.innerHTML = `
-        sl-checkbox:has(input:focus-visible)::part(inner) {
+        sl-checkbox:has(input:focus-visible):not([data-pointer-focus])::part(inner) {
           outline-color: var(--sl-color-border-focused);
           transition: 200ms ease-in-out;
           transition-property: background, border-color, color, outline-color;
@@ -434,6 +435,7 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       .composedPath()
       .find((el): el is HTMLLabelElement => el instanceof HTMLLabelElement);
     if (label?.parentElement === this) {
+      this.input.focus();
       this.input.click();
 
       event.preventDefault();
@@ -445,19 +447,40 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
 
     event.stopPropagation();
 
+    if (!(event instanceof MouseEvent) || event.detail > 0) {
+      this.input.focus();
+    }
+
     this.checked = !this.checked;
     this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
     this.updateValidity();
+
+    const form = this.closest('sl-form');
+
+    if (event instanceof MouseEvent && form?.validateOnBlur && this.required && !this.checked) {
+      this.reportValidity();
+    }
   }
 
-  #onFocusin(): void {
-    this.focusEvent.emit();
+  #onFocusin(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (!relatedTarget || !this.contains(relatedTarget)) {
+      this.focusEvent.emit();
+    }
   }
 
-  #onFocusout(): void {
-    this.blurEvent.emit();
+  #onFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (relatedTarget && this.contains(relatedTarget)) {
+      return;
+    }
+
+    this.removeAttribute('data-pointer-focus');
+    this.blurEvent.emit(undefined, { bubbles: !this.closest('sl-checkbox-group') });
     this.updateState({ touched: true });
   }
 
@@ -466,6 +489,12 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
       event.preventDefault();
       event.stopPropagation();
       this.#onClick(event);
+    }
+  }
+
+  #onPointerDown(): void {
+    if (!this.disabled) {
+      this.setAttribute('data-pointer-focus', '');
     }
   }
 

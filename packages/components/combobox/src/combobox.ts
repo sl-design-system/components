@@ -776,6 +776,15 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
         if (!this.multiple) {
           this.wrapper?.hidePopover();
         }
+
+        // When user removes the last selection with keyboard, show the invalid state right away ('validate-on-blur' variant only).
+        if (this.required && this.selectedItems.length === 0) {
+          const form = this.closest('sl-form');
+
+          if (form?.validateOnBlur) {
+            void this.updateComplete.then(() => this.reportValidity());
+          }
+        }
       }
     } else if (
       !this.wrapper?.matches(':popover-open') &&

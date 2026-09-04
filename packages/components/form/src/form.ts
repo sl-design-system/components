@@ -49,6 +49,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     'sl-form-field': this.#onFormField
   });
 
+  /** Stores blur listeners for cleanup when controls unregister. */
+  #controlBlurListeners = new WeakMap<HTMLElement & FormControl, EventListener>();
+
   /** Indicates whether to show validity state. */
   #showValidity = false;
 
@@ -75,6 +78,16 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
 
   /** Will disable the entire form when true. */
   @property({ type: Boolean }) disabled?: boolean;
+
+  /**
+   * Validates controls on blur. Format and value errors are shown when the user leaves a field. For
+   * required fields, errors are only shown when the user has actually interacted with the field
+   * (typed something, cleared it, or used the mouse to change the value). Simply tabbing through a
+   * required field without changing it shows no error, so keyboard and screen reader users can
+   * explore the form without being interrupted by error announcements. Fields never interacted with
+   * are still validated when `reportValidity()` is called.
+   */
+  @property({ attribute: 'validate-on-blur', type: Boolean }) validateOnBlur = false;
 
   /** Whether the form is invalid. */
   get invalid(): boolean {
@@ -202,6 +215,24 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return element instanceof HTMLElement && 'formControlElement' in element;
   }
 
+  #isEmptyValue(value: unknown): boolean {
+    return value == null || value === '' || (Array.isArray(value) && value.length === 0);
+  }
+
+  #validateControlOnBlur(control: HTMLElement & FormControl): void {
+    if (!this.validateOnBlur) {
+      return;
+    }
+
+    // Skip only untouched *empty* required controls so keyboard/screen reader users can tab
+    // through a form without premature required errors.
+    if (control.required && !control.dirty && this.#isEmptyValue(control.formValue)) {
+      return;
+    }
+
+    control.reportValidity();
+  }
+
   #onFormControl(event: SlFormControlEvent): void {
     if (
       !(event.composedPath()[0] instanceof EventTarget) ||
@@ -215,10 +246,22 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     event.preventDefault();
     event.stopPropagation();
 
+    const onControlBlur: EventListener = () => this.#validateControlOnBlur(control);
+
+    control.addEventListener('sl-blur', onControlBlur);
+    this.#controlBlurListeners.set(control, onControlBlur);
+
     // Allow the control to unregister itself; this is necessary because by the
     // time `disconnectedCallback` is called, the control has already
     // been removed from the DOM; so any events emitted will never reach the form.
     event.detail.unregister = () => {
+      const onControlBlur = this.#controlBlurListeners.get(control);
+
+      if (onControlBlur) {
+        control.removeEventListener('sl-blur', onControlBlur);
+        this.#controlBlurListeners.delete(control);
+      }
+
       this.controls = this.controls.filter(c => c !== control);
     };
 

@@ -53,9 +53,14 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
   /** Events controller. */
   #events = new EventsController(this, {
     click: this.#onClick,
+    keydown: this.#onKeydown,
+    pointerdown: this.#onPointerDown,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout
   });
+
+  /** Whether the last interaction started with a mouse pointer down. */
+  #mouseInteraction = false;
 
   /** Observe changes to the checkboxes. */
   #observer = new MutationObserver(() => {
@@ -201,11 +206,31 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
     }
   }
 
+  #onKeydown(): void {
+    // Prevent stale mouse modality from affecting later keyboard-triggered value changes.
+    this.#mouseInteraction = false;
+  }
+
+  #onPointerDown(event: PointerEvent): void {
+    const targetCheckbox = event
+      .composedPath()
+      .find((el): el is Checkbox => el instanceof Checkbox && !el.disabled);
+
+    // Set mouse modality only when the interaction starts on an enabled checkbox.
+    this.#mouseInteraction = event.pointerType === 'mouse' && !!targetCheckbox;
+  }
+
   #onFocusin(): void {
     this.focusEvent.emit();
   }
 
-  #onFocusout(): void {
+  #onFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (relatedTarget && this.contains(relatedTarget)) {
+      return;
+    }
+
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }
@@ -270,12 +295,24 @@ export class CheckboxGroup<T = any> extends FormControlMixin(ElementInternalsMix
   }
 
   #updateValidity(): void {
+    const isEmptyRequired = this.required && !this.boxes?.some(box => box.checked);
+
     this.elementInternals.setValidity(
-      { valueMissing: this.required && !this.boxes?.some(box => box.checked) },
+      { valueMissing: isEmptyRequired },
       msg('Please check at least one option.', {
         id: 'sl.checkbox.validation.valueMissingMultiple'
       })
     );
+
+    if (this.#mouseInteraction && isEmptyRequired) {
+      const form = this.closest('sl-form');
+
+      if (form?.validateOnBlur) {
+        this.reportValidity();
+      }
+    }
+
+    this.#mouseInteraction = false;
 
     this.updateValidity();
   }

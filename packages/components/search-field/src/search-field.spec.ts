@@ -86,7 +86,7 @@ describe('sl-search-field', () => {
 
       button?.focus();
 
-      expect(el.renderRoot.activeElement).to.equal(button);
+      expect(el.shadowRoot?.activeElement).to.equal(button);
     });
 
     it('should clear the input when the escape key is pressed', async () => {
@@ -159,6 +159,18 @@ describe('sl-search-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('');
+    });
+
+    it('should not emit a search event with the old value when Enter is pressed on the clear button', async () => {
+      const onSearch: (value: string) => void = spy(),
+        button = el.renderRoot.querySelector<HTMLButtonElement>('button');
+
+      el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
+
+      button?.focus();
+      await userEvent.keyboard('{Enter}');
+
+      expect(onSearch).to.have.been.calledOnceWith('');
     });
 
     it('should clear the input when Space is pressed on the clear button', async () => {

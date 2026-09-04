@@ -104,15 +104,11 @@ export class SearchField extends TextField {
   }
 
   #onClearButtonKeydown(event: KeyboardEvent): void {
-    if (event.key !== 'Enter' && event.key !== ' ') {
+    if (event.key !== 'Enter') {
       return;
     }
 
-    event.preventDefault();
     event.stopPropagation();
-
-    this.clear();
-    this.input.focus();
   }
 
   #onInput(): void {

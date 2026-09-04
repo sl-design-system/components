@@ -528,6 +528,59 @@ describe('width measurement', () => {
     expect(toolbar.menuItems.length).to.equal(1);
   });
 
+  it('should remeasure when a slotted item changes size without a host resize', async () => {
+    const toolbar = await fixture<ToolBar>(html`
+      <sl-tool-bar style="inline-size: 400px">
+        <sl-button>A</sl-button>
+        <sl-button>B</sl-button>
+        <sl-button>C</sl-button>
+      </sl-tool-bar>
+    `);
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await toolbar.updateComplete;
+
+    expect(toolbar.menuItems.length).to.equal(0);
+
+    toolbar.querySelector('sl-button')!.style.inlineSize = '340px';
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await toolbar.updateComplete;
+
+    expect(toolbar.menuItems.length).to.equal(2);
+  });
+
+  it('should continue observing slotted item sizes after reconnecting', async () => {
+    const container = await fixture<HTMLDivElement>(html`
+        <div>
+          <sl-tool-bar style="inline-size: 400px">
+            <sl-button>A</sl-button>
+            <sl-button>B</sl-button>
+            <sl-button>C</sl-button>
+          </sl-tool-bar>
+        </div>
+      `),
+      toolbar = container.querySelector('sl-tool-bar') as ToolBar;
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await toolbar.updateComplete;
+
+    expect(toolbar.menuItems.length).to.equal(0);
+
+    toolbar.remove();
+    container.append(toolbar);
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await toolbar.updateComplete;
+
+    toolbar.querySelector('sl-button')!.style.inlineSize = '340px';
+
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await toolbar.updateComplete;
+
+    expect(toolbar.menuItems.length).to.equal(2);
+  });
+
   it('should not leave the measuring state set', async () => {
     el.style.inlineSize = '150px';
     await new Promise(resolve => setTimeout(resolve, 100));

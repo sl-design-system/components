@@ -1,4 +1,6 @@
 :host {
+  --_menu-offset: 6px;
+
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
@@ -9,6 +11,8 @@
   flex-direction: column;
   gap: var(--sl-size-050);
   margin: 0;
+  max-block-size: var(--_menu-max-block-size, none);
+  max-inline-size: var(--_menu-max-inline-size, none);
   opacity: 0;
   overflow: auto;
   padding: var(--sl-size-100) 0;
@@ -26,77 +30,145 @@
   opacity: 1;
 }
 
-:host([actual-placement='top']) {
+/* Physical margins match the physical top/right/bottom/left placement API in both LTR and RTL. */
+/* stylelint-disable csstools/use-logical */
+:host(:not([data-js-positioning])) {
+  margin-left: var(--_menu-offset);
+  position-area: right span-bottom;
+  position-try-fallbacks:
+    flip-inline,
+    flip-block,
+    flip-inline flip-block;
+}
+
+:host([position='top']:not([data-js-positioning])) {
+  position-area: top;
   transform-origin: center bottom;
 }
 
-:host([actual-placement='top-start']) {
+:host([position='top-start']:not([data-js-positioning])) {
+  position-area: top span-right;
   transform-origin: left bottom;
 }
 
-:host([actual-placement='top-end']) {
+:host([position='top-end']:not([data-js-positioning])) {
+  position-area: top span-left;
   transform-origin: right bottom;
 }
 
-:host([actual-placement^='top']:popover-open) {
+:host([position^='top']:not([data-js-positioning])) {
+  margin-bottom: var(--_menu-offset);
+  margin-left: 0;
+}
+
+:host([position^='top']:popover-open:not([data-js-positioning])) {
   @starting-style {
     translate: var(--sl-size-100);
   }
 }
 
-:host([actual-placement='right']) {
+:host([position='right']:not([data-js-positioning])) {
+  position-area: right;
   transform-origin: center left;
 }
 
-:host([actual-placement='right-start']) {
+:host([position='right-start']:not([data-js-positioning])) {
+  position-area: right span-bottom;
   transform-origin: top left;
 }
 
-:host([actual-placement='right-end']) {
+:host([position='right-end']:not([data-js-positioning])) {
+  position-area: right span-top;
   transform-origin: bottom left;
 }
 
-:host([actual-placement^='right']:popover-open) {
+:host([position^='right']:popover-open:not([data-js-positioning])) {
   @starting-style {
     translate: calc(var(--sl-size-100) * -1);
   }
 }
 
-:host([actual-placement='bottom']) {
+:host([position='bottom']:not([data-js-positioning])) {
+  position-area: bottom;
   transform-origin: center top;
 }
 
-:host([actual-placement='bottom-start']) {
+:host([position='bottom-start']:not([data-js-positioning])) {
+  position-area: bottom span-right;
   transform-origin: left top;
 }
 
-:host([actual-placement='bottom-end']) {
+:host([position='bottom-end']:not([data-js-positioning])) {
+  position-area: bottom span-left;
   transform-origin: right top;
 }
 
-:host([actual-placement^='bottom']:popover-open) {
+:host([position^='bottom']:not([data-js-positioning])) {
+  margin-left: 0;
+  margin-top: var(--_menu-offset);
+}
+
+:host([position^='bottom']:popover-open:not([data-js-positioning])) {
   @starting-style {
     translate: 0 calc(var(--sl-size-100) - 1);
   }
 }
 
-:host([actual-placement='left']) {
+:host([position='left']:not([data-js-positioning])) {
+  position-area: left;
   transform-origin: center right;
 }
 
-:host([actual-placement='left-start']) {
+:host([position='left-start']:not([data-js-positioning])) {
+  position-area: left span-bottom;
   transform-origin: top right;
 }
 
-:host([actual-placement='left-end']) {
+:host([position='left-end']:not([data-js-positioning])) {
+  position-area: left span-top;
   transform-origin: bottom right;
 }
 
-:host([actual-placement^='left']:popover-open) {
+:host([position^='left']:not([data-js-positioning])) {
+  margin-left: 0;
+  margin-right: var(--_menu-offset);
+}
+
+:host([position^='left']:popover-open:not([data-js-positioning])) {
   @starting-style {
     translate: var(--sl-size-100);
   }
 }
+
+:host(:dir(rtl)[position='top-start']:not([data-js-positioning])) {
+  position-area: top span-left;
+  transform-origin: right bottom;
+}
+
+:host(:dir(rtl)[position='top-end']:not([data-js-positioning])) {
+  position-area: top span-right;
+  transform-origin: left bottom;
+}
+
+:host(:dir(rtl)[position='bottom-start']:not([data-js-positioning])) {
+  position-area: bottom span-left;
+  transform-origin: right top;
+}
+
+:host(:dir(rtl)[position='bottom-end']:not([data-js-positioning])) {
+  position-area: bottom span-right;
+  transform-origin: left top;
+}
+
+:host([position^='top']:not([data-js-positioning])),
+:host([position^='bottom']:not([data-js-positioning])) {
+  position-try-fallbacks:
+    flip-block,
+    flip-inline,
+    flip-block flip-inline;
+}
+
+/* stylelint-enable csstools/use-logical */
 
 ::slotted(sl-menu-item) {
   margin-inline: var(--sl-size-100);

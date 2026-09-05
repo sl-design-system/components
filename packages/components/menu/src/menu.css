@@ -1,4 +1,6 @@
 :host {
+  --_menu-offset: 6px;
+
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
@@ -8,7 +10,8 @@
   display: none;
   flex-direction: column;
   gap: var(--sl-size-050);
-  margin: 6px;
+  margin: 0;
+  margin-inline-start: var(--_menu-offset);
   max-block-size: var(--_menu-max-block-size, none);
   max-inline-size: var(--_menu-max-inline-size, none);
   opacity: 0;
@@ -49,6 +52,8 @@
 }
 
 :host([position^='top']) {
+  margin-block-end: var(--_menu-offset);
+  margin-inline-start: 0;
   position-try-fallbacks:
     flip-block,
     flip-inline,
@@ -76,6 +81,10 @@
   transform-origin: bottom left;
 }
 
+:host([position^='right']) {
+  margin-inline: var(--_menu-offset) 0;
+}
+
 :host([position^='right']:popover-open) {
   @starting-style {
     translate: calc(var(--sl-size-100) * -1);
@@ -98,6 +107,8 @@
 }
 
 :host([position^='bottom']) {
+  margin-block-start: var(--_menu-offset);
+  margin-inline-start: 0;
   position-try-fallbacks:
     flip-block,
     flip-inline,
@@ -125,6 +136,10 @@
   transform-origin: bottom right;
 }
 
+:host([position^='left']) {
+  margin-inline: 0 var(--_menu-offset);
+}
+
 :host([position^='left']:popover-open) {
   @starting-style {
     translate: var(--sl-size-100);
@@ -149,6 +164,15 @@
 :host(:dir(rtl)[position='bottom-end']) {
   position-area: bottom span-right;
   transform-origin: left top;
+}
+
+:host(:dir(rtl):not([position])),
+:host(:dir(rtl)[position^='right']) {
+  margin-inline: 0 var(--_menu-offset);
+}
+
+:host(:dir(rtl)[position^='left']) {
+  margin-inline: var(--_menu-offset) 0;
 }
 
 ::slotted(sl-menu-item) {

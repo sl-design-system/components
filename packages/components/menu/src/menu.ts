@@ -27,6 +27,7 @@ declare global {
 export type MenuEmphasis = 'subtle' | 'bold';
 
 type MenuSide = 'top' | 'right' | 'bottom' | 'left';
+type CSSAnchorElement = Element & ElementCSSInlineStyle;
 
 const minMenuSize = 25,
   viewportMargin = 8;
@@ -48,10 +49,13 @@ export class Menu extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** The anchor currently linked to this menu. */
-  #activeAnchor?: HTMLElement;
+  #activeAnchor?: CSSAnchorElement;
 
   /** The generated CSS anchor name, when the anchor did not already have one. */
   #generatedAnchorName?: string;
+
+  /** The inline anchor name declaration replaced by a generated name. */
+  #previousInlineAnchorName?: { value: string; priority: string };
 
   /** Event listeners and observers that only run while the menu is open. */
   #openController?: AbortController;
@@ -129,7 +133,11 @@ export class Menu extends LitElement {
     super.updated(changes);
 
     if (changes.has('offset')) {
-      this.style.margin = this.offset === undefined ? '' : `${this.offset}px`;
+      if (this.offset === undefined) {
+        this.style.removeProperty('--_menu-offset');
+      } else {
+        this.style.setProperty('--_menu-offset', `${this.offset}px`);
+      }
       this.#updateMaxSize();
     }
 
@@ -194,13 +202,13 @@ export class Menu extends LitElement {
     return (this.position ?? 'right-start').split('-')[0] as MenuSide;
   }
 
-  #getAnchorElement(): HTMLElement | null {
-    if (this.anchorElement instanceof HTMLElement) {
-      return this.anchorElement;
-    }
+  #getAnchorElement(): CSSAnchorElement | null {
+    const anchorId = this.getAttribute('anchor'),
+      anchor =
+        this.anchorElement ??
+        (anchorId ? (this.getRootNode() as Document | ShadowRoot).getElementById(anchorId) : null);
 
-    const anchorId = this.getAttribute('anchor');
-    return anchorId ? (this.getRootNode() as Document | ShadowRoot).getElementById(anchorId) : null;
+    return anchor && 'style' in anchor ? (anchor as CSSAnchorElement) : null;
   }
 
   #isMenuSide(value?: string): value is MenuSide {
@@ -225,6 +233,10 @@ export class Menu extends LitElement {
 
     if (!computedAnchorName || computedAnchorName === 'none') {
       this.#generatedAnchorName ||= `--sl-menu-anchor-${nextUniqueId++}`;
+      this.#previousInlineAnchorName = {
+        value: anchor.style.getPropertyValue('anchor-name'),
+        priority: anchor.style.getPropertyPriority('anchor-name')
+      };
       anchor.style.anchorName = this.#generatedAnchorName;
     }
 
@@ -295,10 +307,35 @@ export class Menu extends LitElement {
 
     const anchorRect = anchor.getBoundingClientRect(),
       offset = this.offset ?? 6,
-      requestedSide = (this.position ?? 'right-start').split('-')[0] as MenuSide;
+      [requestedSide, alignment] = (this.position ?? 'right-start').split('-') as [
+        MenuSide,
+        'start' | 'end' | undefined
+      ],
+      anchorCenterX = (anchorRect.left + anchorRect.right) / 2,
+      anchorCenterY = (anchorRect.top + anchorRect.bottom) / 2,
+      alignedBlockSize = Math.max(
+        anchorRect.bottom - viewportMargin,
+        window.innerHeight - anchorRect.top - viewportMargin
+      ),
+      alignedInlineSize = Math.max(
+        anchorRect.right - viewportMargin,
+        window.innerWidth - anchorRect.left - viewportMargin
+      ),
+      centeredBlockSize =
+        2 *
+        Math.min(
+          anchorCenterY - viewportMargin,
+          window.innerHeight - viewportMargin - anchorCenterY
+        ),
+      centeredInlineSize =
+        2 *
+        Math.min(
+          anchorCenterX - viewportMargin,
+          window.innerWidth - viewportMargin - anchorCenterX
+        );
 
-    let maxBlockSize = window.innerHeight - viewportMargin * 2,
-      maxInlineSize = window.innerWidth - viewportMargin * 2;
+    let maxBlockSize = alignment ? alignedBlockSize : centeredBlockSize,
+      maxInlineSize = alignment ? alignedInlineSize : centeredInlineSize;
 
     if (requestedSide === 'top' || requestedSide === 'bottom') {
       maxBlockSize =
@@ -318,8 +355,16 @@ export class Menu extends LitElement {
     }
 
     if (this.#activeAnchor.style.anchorName === this.#generatedAnchorName) {
-      this.#activeAnchor.style.anchorName = '';
+      const previous = this.#previousInlineAnchorName;
+
+      if (previous?.value) {
+        this.#activeAnchor.style.setProperty('anchor-name', previous.value, previous.priority);
+      } else {
+        this.#activeAnchor.style.removeProperty('anchor-name');
+      }
     }
+
+    this.#previousInlineAnchorName = undefined;
 
     this.#activeAnchor.removeEventListener('keydown', this.#onAnchorKeydown);
 

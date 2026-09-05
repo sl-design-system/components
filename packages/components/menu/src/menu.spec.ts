@@ -100,6 +100,36 @@ describe('sl-menu', () => {
       }
     });
 
+    it('should restore the previous inline anchor name declaration', () => {
+      anchor.style.setProperty('anchor-name', 'none', 'important');
+      el.showPopover();
+
+      expect(anchor.style.anchorName).to.match(/^--sl-menu-anchor-/);
+
+      el.remove();
+
+      expect(anchor.style.getPropertyValue('anchor-name')).to.equal('none');
+      expect(anchor.style.getPropertyPriority('anchor-name')).to.equal('important');
+    });
+
+    it('should support an SVG element as the anchor', () => {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+        rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+
+      svg.append(rect);
+      document.body.append(svg);
+
+      try {
+        el.anchorElement = rect;
+        el.showPopover();
+
+        expect(rect.style.anchorName).to.match(/^--sl-menu-anchor-/);
+        expect(el.style.positionAnchor).to.equal(rect.style.anchorName);
+      } finally {
+        svg.remove();
+      }
+    });
+
     it('should map position and offset properties to CSS', async () => {
       el.position = 'bottom-end';
       el.offset = 12;
@@ -110,7 +140,9 @@ describe('sl-menu', () => {
         ['bottom', 'span-left'].sort()
       );
       expect(getComputedStyle(el).positionTryFallbacks).to.contain('flip-block flip-inline');
-      expect(el.style.margin).to.equal('12px');
+      expect(el.style.getPropertyValue('--_menu-offset')).to.equal('12px');
+      expect(getComputedStyle(el).marginBlockStart).to.equal('12px');
+      expect(getComputedStyle(el).marginInlineStart).to.equal('0px');
     });
 
     it('should scroll within the space available around the anchor', async () => {
@@ -149,6 +181,46 @@ describe('sl-menu', () => {
 
       expect(menuRect.right).to.be.at.most(anchorRect.left);
       expect(menuRect.bottom).to.be.at.most(anchorRect.bottom);
+      expect(anchorRect.left - menuRect.right).to.be.closeTo(6, 1);
+    });
+
+    it('should apply the offset on the flipped placement axis', async () => {
+      anchor.style.cssText = 'position: fixed; inset: auto auto 0 50%';
+      el.position = 'bottom';
+      el.offset = 12;
+      el.anchorElement = anchor;
+      await el.updateComplete;
+      el.showPopover();
+
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      const anchorRect = anchor.getBoundingClientRect(),
+        menuRect = el.getBoundingClientRect();
+
+      expect(menuRect.bottom).to.be.at.most(anchorRect.top);
+      expect(anchorRect.top - menuRect.bottom).to.be.closeTo(12, 1);
+    });
+
+    it('should constrain and scroll on the cross axis', async () => {
+      anchor.style.cssText = 'position: fixed; inset: 50% auto auto 50%';
+      el = await fixture(html`
+        <sl-menu position="right-start" style="inline-size: 200px">
+          ${Array.from(
+            { length: 40 },
+            (_, index) => html`<sl-menu-item>Item ${index + 1}</sl-menu-item>`
+          )}
+        </sl-menu>
+      `);
+      el.anchorElement = anchor;
+      el.showPopover();
+
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      const rect = el.getBoundingClientRect();
+
+      expect(rect.top).to.be.at.least(0);
+      expect(rect.bottom).to.be.at.most(window.innerHeight);
+      expect(el.scrollHeight).to.be.greaterThan(el.clientHeight);
     });
 
     it('should align start positions to the inline start edge in RTL', async () => {

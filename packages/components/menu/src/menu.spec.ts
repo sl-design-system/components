@@ -130,6 +130,114 @@ describe('sl-menu', () => {
       }
     });
 
+    it('should use JavaScript positioning for an anchor in a different shadow root', async () => {
+      const host = document.createElement('div'),
+        shadowRoot = host.attachShadow({ mode: 'open' }),
+        shadowAnchor = document.createElement('button');
+
+      shadowAnchor.style.cssText = 'position: fixed; inset: 50% auto auto 50%';
+      shadowRoot.append(shadowAnchor);
+      document.body.append(host);
+
+      try {
+        el.anchorElement = shadowAnchor;
+        el.showPopover();
+
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const anchorRect = shadowAnchor.getBoundingClientRect(),
+          menuRect = el.getBoundingClientRect();
+
+        expect(el).to.have.attribute('data-js-positioning');
+        expect(menuRect.left).to.be.at.least(anchorRect.right);
+        expect(el.getPositionSide()).to.equal('right');
+
+        el.hidePopover();
+        expect(el).not.to.have.attribute('data-js-positioning');
+      } finally {
+        host.remove();
+      }
+    });
+
+    it('should disable CSS positioning for every JavaScript fallback placement', async () => {
+      const host = document.createElement('div'),
+        shadowRoot = host.attachShadow({ mode: 'open' }),
+        shadowAnchor = document.createElement('button');
+
+      shadowRoot.append(shadowAnchor);
+      document.body.append(host);
+      el.anchorElement = shadowAnchor;
+
+      try {
+        for (const direction of ['ltr', 'rtl']) {
+          el.dir = direction;
+          for (const position of ['top-start', 'right-start', 'bottom-end', 'left-end'] as const) {
+            el.position = position;
+            await el.updateComplete;
+            el.showPopover();
+
+            const style = getComputedStyle(el);
+            expect(style.positionArea).to.equal('none');
+            expect(style.positionTryFallbacks).to.equal('none');
+            expect(style.margin).to.equal('0px');
+
+            await new Promise(resolve =>
+              requestAnimationFrame(() => requestAnimationFrame(resolve))
+            );
+            el.hidePopover();
+          }
+        }
+      } finally {
+        host.remove();
+      }
+    });
+
+    it('should restore styles and placement after JavaScript positioning', async () => {
+      const host = document.createElement('div'),
+        shadowRoot = host.attachShadow({ mode: 'open' }),
+        shadowAnchor = document.createElement('button');
+
+      shadowRoot.append(shadowAnchor);
+      document.body.append(host);
+      el.anchorElement = shadowAnchor;
+      el.style.setProperty('max-block-size', '300px', 'important');
+      el.setAttribute('actual-placement', 'left-end');
+
+      try {
+        el.showPopover();
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        el.hidePopover();
+
+        expect(el.style.getPropertyValue('max-block-size')).to.equal('300px');
+        expect(el.style.getPropertyPriority('max-block-size')).to.equal('important');
+        expect(el.style.getPropertyValue('inset-inline-start')).to.equal('');
+        expect(el).to.have.attribute('actual-placement', 'left-end');
+      } finally {
+        host.remove();
+      }
+    });
+
+    it('should restore the old anchor when linking another anchor', () => {
+      const nextAnchor = document.createElement('button');
+      document.body.append(nextAnchor);
+      anchor.style.setProperty('anchor-name', 'none', 'important');
+
+      try {
+        el.showPopover();
+        el.hidePopover();
+        el.anchorElement = nextAnchor;
+        el.showPopover();
+
+        expect(anchor.style.getPropertyValue('anchor-name')).to.equal('none');
+        expect(anchor.style.getPropertyPriority('anchor-name')).to.equal('important');
+        expect(anchor).not.to.have.attribute('aria-expanded');
+        expect(nextAnchor).to.have.attribute('aria-expanded', 'true');
+        expect(el.style.positionAnchor).to.equal(nextAnchor.style.anchorName);
+      } finally {
+        nextAnchor.remove();
+      }
+    });
+
     it('should map position and offset properties to CSS', async () => {
       el.position = 'bottom-end';
       el.offset = 12;
@@ -182,6 +290,7 @@ describe('sl-menu', () => {
       expect(menuRect.right).to.be.at.most(anchorRect.left);
       expect(menuRect.bottom).to.be.at.most(anchorRect.bottom);
       expect(anchorRect.left - menuRect.right).to.be.closeTo(6, 1);
+      expect(el.getPositionSide()).to.equal('left');
     });
 
     it('should apply the offset on the flipped placement axis', async () => {
@@ -244,6 +353,31 @@ describe('sl-menu', () => {
         expect(transformOriginX).to.be.greaterThan(el.clientWidth / 2);
       } finally {
         document.documentElement.dir = previousDirection;
+      }
+    });
+
+    it('should keep horizontal offsets on the placement side in LTR and RTL', async () => {
+      anchor.style.cssText = 'position: fixed; inset: 50% auto auto 50%';
+      el.offset = 12;
+
+      for (const direction of ['ltr', 'rtl']) {
+        el.dir = direction;
+        for (const position of ['left-start', 'right-start'] as const) {
+          el.position = position;
+          await el.updateComplete;
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          const anchorRect = anchor.getBoundingClientRect(),
+            menuRect = el.getBoundingClientRect(),
+            gap =
+              position === 'left-start'
+                ? anchorRect.left - menuRect.right
+                : menuRect.left - anchorRect.right;
+
+          expect(gap).to.be.closeTo(12, 1);
+          el.hidePopover();
+        }
       }
     });
 

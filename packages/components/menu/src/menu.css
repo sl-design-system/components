@@ -11,17 +11,11 @@
   flex-direction: column;
   gap: var(--sl-size-050);
   margin: 0;
-  margin-inline-start: var(--_menu-offset);
   max-block-size: var(--_menu-max-block-size, none);
   max-inline-size: var(--_menu-max-inline-size, none);
   opacity: 0;
   overflow: auto;
   padding: var(--sl-size-100) 0;
-  position-area: right span-bottom;
-  position-try-fallbacks:
-    flip-inline,
-    flip-block,
-    flip-inline flip-block;
   scrollbar-width: thin;
 
   @media (prefers-reduced-motion: no-preference) {
@@ -36,144 +30,145 @@
   opacity: 1;
 }
 
-:host([position='top']) {
+/* Physical margins match the physical top/right/bottom/left placement API in both LTR and RTL. */
+/* stylelint-disable csstools/use-logical */
+:host(:not([data-js-positioning])) {
+  margin-left: var(--_menu-offset);
+  position-area: right span-bottom;
+  position-try-fallbacks:
+    flip-inline,
+    flip-block,
+    flip-inline flip-block;
+}
+
+:host([position='top']:not([data-js-positioning])) {
   position-area: top;
   transform-origin: center bottom;
 }
 
-:host([position='top-start']) {
+:host([position='top-start']:not([data-js-positioning])) {
   position-area: top span-right;
   transform-origin: left bottom;
 }
 
-:host([position='top-end']) {
+:host([position='top-end']:not([data-js-positioning])) {
   position-area: top span-left;
   transform-origin: right bottom;
 }
 
-:host([position^='top']) {
-  margin-block-end: var(--_menu-offset);
-  margin-inline-start: 0;
-  position-try-fallbacks:
-    flip-block,
-    flip-inline,
-    flip-block flip-inline;
+:host([position^='top']:not([data-js-positioning])) {
+  margin-bottom: var(--_menu-offset);
+  margin-left: 0;
 }
 
-:host([position^='top']:popover-open) {
+:host([position^='top']:popover-open:not([data-js-positioning])) {
   @starting-style {
     translate: var(--sl-size-100);
   }
 }
 
-:host([position='right']) {
+:host([position='right']:not([data-js-positioning])) {
   position-area: right;
   transform-origin: center left;
 }
 
-:host([position='right-start']) {
+:host([position='right-start']:not([data-js-positioning])) {
   position-area: right span-bottom;
   transform-origin: top left;
 }
 
-:host([position='right-end']) {
+:host([position='right-end']:not([data-js-positioning])) {
   position-area: right span-top;
   transform-origin: bottom left;
 }
 
-:host([position^='right']) {
-  margin-inline: var(--_menu-offset) 0;
-}
-
-:host([position^='right']:popover-open) {
+:host([position^='right']:popover-open:not([data-js-positioning])) {
   @starting-style {
     translate: calc(var(--sl-size-100) * -1);
   }
 }
 
-:host([position='bottom']) {
+:host([position='bottom']:not([data-js-positioning])) {
   position-area: bottom;
   transform-origin: center top;
 }
 
-:host([position='bottom-start']) {
+:host([position='bottom-start']:not([data-js-positioning])) {
   position-area: bottom span-right;
   transform-origin: left top;
 }
 
-:host([position='bottom-end']) {
+:host([position='bottom-end']:not([data-js-positioning])) {
   position-area: bottom span-left;
   transform-origin: right top;
 }
 
-:host([position^='bottom']) {
-  margin-block-start: var(--_menu-offset);
-  margin-inline-start: 0;
+:host([position^='bottom']:not([data-js-positioning])) {
+  margin-left: 0;
+  margin-top: var(--_menu-offset);
+}
+
+:host([position^='bottom']:popover-open:not([data-js-positioning])) {
+  @starting-style {
+    translate: 0 calc(var(--sl-size-100) - 1);
+  }
+}
+
+:host([position='left']:not([data-js-positioning])) {
+  position-area: left;
+  transform-origin: center right;
+}
+
+:host([position='left-start']:not([data-js-positioning])) {
+  position-area: left span-bottom;
+  transform-origin: top right;
+}
+
+:host([position='left-end']:not([data-js-positioning])) {
+  position-area: left span-top;
+  transform-origin: bottom right;
+}
+
+:host([position^='left']:not([data-js-positioning])) {
+  margin-left: 0;
+  margin-right: var(--_menu-offset);
+}
+
+:host([position^='left']:popover-open:not([data-js-positioning])) {
+  @starting-style {
+    translate: var(--sl-size-100);
+  }
+}
+
+:host(:dir(rtl)[position='top-start']:not([data-js-positioning])) {
+  position-area: top span-left;
+  transform-origin: right bottom;
+}
+
+:host(:dir(rtl)[position='top-end']:not([data-js-positioning])) {
+  position-area: top span-right;
+  transform-origin: left bottom;
+}
+
+:host(:dir(rtl)[position='bottom-start']:not([data-js-positioning])) {
+  position-area: bottom span-left;
+  transform-origin: right top;
+}
+
+:host(:dir(rtl)[position='bottom-end']:not([data-js-positioning])) {
+  position-area: bottom span-right;
+  transform-origin: left top;
+}
+
+:host([position^='top']:not([data-js-positioning])),
+:host([position^='bottom']:not([data-js-positioning])) {
   position-try-fallbacks:
     flip-block,
     flip-inline,
     flip-block flip-inline;
 }
 
-:host([position^='bottom']:popover-open) {
-  @starting-style {
-    translate: 0 calc(var(--sl-size-100) - 1);
-  }
-}
-
-:host([position='left']) {
-  position-area: left;
-  transform-origin: center right;
-}
-
-:host([position='left-start']) {
-  position-area: left span-bottom;
-  transform-origin: top right;
-}
-
-:host([position='left-end']) {
-  position-area: left span-top;
-  transform-origin: bottom right;
-}
-
-:host([position^='left']) {
-  margin-inline: 0 var(--_menu-offset);
-}
-
-:host([position^='left']:popover-open) {
-  @starting-style {
-    translate: var(--sl-size-100);
-  }
-}
-
-:host(:dir(rtl)[position='top-start']) {
-  position-area: top span-left;
-  transform-origin: right bottom;
-}
-
-:host(:dir(rtl)[position='top-end']) {
-  position-area: top span-right;
-  transform-origin: left bottom;
-}
-
-:host(:dir(rtl)[position='bottom-start']) {
-  position-area: bottom span-left;
-  transform-origin: right top;
-}
-
-:host(:dir(rtl)[position='bottom-end']) {
-  position-area: bottom span-right;
-  transform-origin: left top;
-}
-
-:host(:dir(rtl):not([position])),
-:host(:dir(rtl)[position^='right']) {
-  margin-inline: 0 var(--_menu-offset);
-}
-
-:host(:dir(rtl)[position^='left']) {
-  margin-inline: var(--_menu-offset) 0;
-}
+/* stylelint-enable csstools/use-logical */
 
 ::slotted(sl-menu-item) {
   margin-inline: var(--sl-size-100);

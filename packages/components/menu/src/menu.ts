@@ -3,7 +3,8 @@ import {
   EventsController,
   type PopoverPosition,
   RovingTabindexController,
-  event
+  event,
+  positionPopover
 } from '@sl-design-system/shared';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import {
@@ -30,7 +31,14 @@ type MenuSide = 'top' | 'right' | 'bottom' | 'left';
 type CSSAnchorElement = Element & ElementCSSInlineStyle;
 
 const minMenuSize = 25,
-  viewportMargin = 8;
+  viewportMargin = 8,
+  javascriptPositionProperties = [
+    'inset-block-start',
+    'inset-inline-start',
+    'max-block-size',
+    'max-inline-size',
+    'min-block-size'
+  ] as const;
 
 let nextUniqueId = 0;
 
@@ -59,6 +67,9 @@ export class Menu extends LitElement {
 
   /** Event listeners and observers that only run while the menu is open. */
   #openController?: AbortController;
+
+  /** Cleanup for the JavaScript fallback used by anchors in a different tree scope. */
+  #positionCleanup?: () => void;
 
   /** Watches the anchor for size changes that affect the available viewport space. */
   #resizeObserver?: ResizeObserver;
@@ -118,11 +129,13 @@ export class Menu extends LitElement {
     this.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.addEventListener('toggle', this.#onToggle);
     this.#linkAnchor();
+    this.#updateAnchorState(false);
   }
 
   override disconnectedCallback(): void {
     this.removeEventListener('beforetoggle', this.#onBeforeToggle);
     this.removeEventListener('toggle', this.#onToggle);
+    this.#stopJavaScriptPositioning();
     this.#stopSizing();
     this.#unlinkAnchor();
 
@@ -138,11 +151,16 @@ export class Menu extends LitElement {
       } else {
         this.style.setProperty('--_menu-offset', `${this.offset}px`);
       }
-      this.#updateMaxSize();
     }
 
-    if (changes.has('position')) {
-      this.#updateMaxSize();
+    if (changes.has('offset') || changes.has('position')) {
+      const anchor = this.#getAnchorElement();
+
+      if (anchor && this.matches(':popover-open') && this.#requiresJavaScriptPositioning(anchor)) {
+        this.#startJavaScriptPositioning(anchor);
+      } else {
+        this.#updateMaxSize();
+      }
     }
 
     if (changes.has('emphasis')) {
@@ -215,12 +233,14 @@ export class Menu extends LitElement {
     return value === 'top' || value === 'right' || value === 'bottom' || value === 'left';
   }
 
-  #linkAnchor(expanded = false): void {
+  #linkAnchor(): void {
     const anchor = this.#getAnchorElement();
 
-    if (this.#activeAnchor && this.#activeAnchor !== anchor) {
-      this.#unlinkAnchor();
+    if (this.#activeAnchor === anchor) {
+      return;
     }
+
+    this.#unlinkAnchor();
 
     if (!anchor) {
       return;
@@ -247,6 +267,13 @@ export class Menu extends LitElement {
     if (!this.hasAttribute('aria-details')) {
       anchor.setAttribute('aria-details', this.id);
     }
+  }
+
+  #updateAnchorState(expanded: boolean): void {
+    const anchor = this.#activeAnchor;
+    if (!anchor) {
+      return;
+    }
 
     anchor.setAttribute('aria-expanded', expanded.toString());
 
@@ -256,13 +283,29 @@ export class Menu extends LitElement {
   }
 
   #onBeforeToggle = (event: ToggleEvent): void => {
-    this.#linkAnchor(event.newState === 'open');
+    const isOpening = event.newState === 'open';
+
+    if (isOpening) {
+      this.#linkAnchor();
+    }
+    this.#updateAnchorState(isOpening);
+
+    const anchor = this.#activeAnchor;
+    if (isOpening && anchor && this.#requiresJavaScriptPositioning(anchor)) {
+      this.#startJavaScriptPositioning(anchor);
+    } else {
+      this.#stopJavaScriptPositioning();
+    }
   };
 
   #onToggle = (event: ToggleEvent): void => {
     this.#stopSizing();
 
     if (event.newState !== 'open') {
+      return;
+    }
+
+    if (this.hasAttribute('data-js-positioning')) {
       return;
     }
 
@@ -286,11 +329,67 @@ export class Menu extends LitElement {
     this.#updateMaxSize();
   };
 
-  #onAnchorKeydown = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') {
+  #onAnchorKeydown: EventListener = event => {
+    if ((event as KeyboardEvent).key === 'Escape') {
       event.stopPropagation();
     }
   };
+
+  #requiresJavaScriptPositioning(anchor: Element): boolean {
+    const anchorRoot = anchor.getRootNode();
+    let menuRoot = this.getRootNode();
+
+    while (menuRoot !== anchorRoot) {
+      if (!(menuRoot instanceof ShadowRoot)) {
+        return true;
+      }
+
+      menuRoot = menuRoot.host.getRootNode();
+    }
+
+    return false;
+  }
+
+  #startJavaScriptPositioning(anchor: Element): void {
+    this.#stopJavaScriptPositioning();
+    this.#stopSizing();
+    this.toggleAttribute('data-js-positioning', true);
+    const previousActualPlacement = this.getAttribute('actual-placement'),
+      previousStyles = javascriptPositionProperties.map(property => ({
+        property,
+        value: this.style.getPropertyValue(property),
+        priority: this.style.getPropertyPriority(property)
+      })),
+      cleanup = positionPopover(this, anchor, {
+        offset: this.offset ?? 6,
+        position: this.position,
+        viewportMargin
+      });
+
+    this.#positionCleanup = () => {
+      cleanup();
+      this.toggleAttribute('data-js-positioning', false);
+
+      if (previousActualPlacement === null) {
+        this.removeAttribute('actual-placement');
+      } else {
+        this.setAttribute('actual-placement', previousActualPlacement);
+      }
+
+      for (const { property, value, priority } of previousStyles) {
+        if (value) {
+          this.style.setProperty(property, value, priority);
+        } else {
+          this.style.removeProperty(property);
+        }
+      }
+    };
+  }
+
+  #stopJavaScriptPositioning(): void {
+    this.#positionCleanup?.();
+    this.#positionCleanup = undefined;
+  }
 
   #stopSizing(): void {
     this.#openController?.abort();

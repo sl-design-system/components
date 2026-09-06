@@ -59,6 +59,9 @@ export class Menu extends LitElement {
   /** The anchor currently linked to this menu. */
   #activeAnchor?: CSSAnchorElement;
 
+  /** The aria-details token added by this menu, if it was not already present. */
+  #addedDetailsId?: string;
+
   /** The generated CSS anchor name, when the anchor did not already have one. */
   #generatedAnchorName?: string;
 
@@ -264,8 +267,10 @@ export class Menu extends LitElement {
       .split(',')[0]
       .trim();
 
-    if (!this.hasAttribute('aria-details')) {
-      anchor.setAttribute('aria-details', this.id);
+    const details = anchor.getAttribute('aria-details')?.match(/\S+/g) ?? [];
+    if (!details.includes(this.id)) {
+      this.#addedDetailsId = this.id;
+      anchor.setAttribute('aria-details', [...details, this.id].join(' '));
     }
   }
 
@@ -467,8 +472,16 @@ export class Menu extends LitElement {
 
     this.#activeAnchor.removeEventListener('keydown', this.#onAnchorKeydown);
 
-    if (this.#activeAnchor.getAttribute('aria-details') === this.id) {
-      this.#activeAnchor.removeAttribute('aria-details');
+    if (this.#addedDetailsId) {
+      const details = (this.#activeAnchor.getAttribute('aria-details')?.match(/\S+/g) ?? []).filter(
+        id => id !== this.#addedDetailsId
+      );
+      if (details.length) {
+        this.#activeAnchor.setAttribute('aria-details', details.join(' '));
+      } else {
+        this.#activeAnchor.removeAttribute('aria-details');
+      }
+      this.#addedDetailsId = undefined;
     }
 
     this.#activeAnchor.removeAttribute('aria-expanded');

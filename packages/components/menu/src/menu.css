@@ -11,8 +11,12 @@
   flex-direction: column;
   gap: var(--sl-size-050);
   margin: 0;
-  max-block-size: var(--_menu-max-block-size, none);
-  max-inline-size: var(--_menu-max-inline-size, none);
+  max-block-size: min(var(--sl-popover-max-block-size, 100vh), var(--_menu-max-block-size, 100vh));
+  max-inline-size: min(
+    var(--sl-popover-max-inline-size, 100vw),
+    var(--_menu-max-inline-size, 100vw)
+  );
+  min-block-size: max(var(--sl-popover-min-block-size, 25px), 25px);
   opacity: 0;
   overflow: auto;
   padding: var(--sl-size-100) 0;

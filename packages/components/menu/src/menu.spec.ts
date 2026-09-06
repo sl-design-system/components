@@ -381,6 +381,113 @@ describe('sl-menu', () => {
       }
     });
 
+    for (const positioning of ['native', 'javascript']) {
+      describe(`${positioning} sizing customization`, () => {
+        let host: HTMLDivElement;
+
+        beforeEach(async () => {
+          host = document.createElement('div');
+          document.body.append(host);
+          if (positioning === 'javascript') {
+            host.attachShadow({ mode: 'open' }).append(anchor);
+          }
+          anchor.style.cssText = 'position: fixed; inset: 50% auto auto 50%';
+          el.position = 'bottom-start';
+          await el.updateComplete;
+        });
+
+        afterEach(() => host.remove());
+
+        it('should honor configured maximum sizes when content is larger', async () => {
+          el.style.cssText = `
+            block-size: 1000px;
+            inline-size: 1000px;
+            --sl-popover-max-block-size: 120px;
+            --sl-popover-max-inline-size: 160px;
+          `;
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          expect(el.hasAttribute('data-js-positioning')).to.equal(positioning === 'javascript');
+          const rect = el.getBoundingClientRect();
+          expect(rect.height).to.be.closeTo(120, 1);
+          expect(rect.width).to.be.closeTo(160, 1);
+        });
+
+        it('should constrain configured maxima to the available viewport space', async () => {
+          el.style.cssText = `
+            block-size: 2000px;
+            inline-size: 2000px;
+            --sl-popover-max-block-size: 2000px;
+            --sl-popover-max-inline-size: 2000px;
+          `;
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          const rect = el.getBoundingClientRect();
+          expect(rect.top).to.be.at.least(0);
+          expect(rect.left).to.be.at.least(0);
+          expect(rect.bottom).to.be.at.most(window.innerHeight);
+          expect(rect.right).to.be.at.most(window.innerWidth);
+        });
+
+        it('should honor the configured minimum block size for short content', async () => {
+          el.style.setProperty('--sl-popover-min-block-size', '180px');
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          expect(el.getBoundingClientRect().height).to.be.closeTo(180, 1);
+        });
+      });
+    }
+
+    it('should preserve existing and subsequently added anchor details on disconnect', () => {
+      anchor.setAttribute('aria-details', 'help description');
+      el.showPopover();
+      expect(anchor).to.have.attribute('aria-details', `help description ${el.id}`);
+
+      anchor.setAttribute('aria-details', `${anchor.getAttribute('aria-details')} extra`);
+      el.remove();
+      expect(anchor).to.have.attribute('aria-details', 'help description extra');
+    });
+
+    it('should preserve a pre-existing reference to this menu', () => {
+      anchor.setAttribute('aria-details', `help ${el.id}`);
+      el.showPopover();
+      expect(anchor).to.have.attribute('aria-details', `help ${el.id}`);
+
+      el.remove();
+      expect(anchor).to.have.attribute('aria-details', `help ${el.id}`);
+    });
+
+    it('should remove only its own details reference when changing anchors', () => {
+      const nextAnchor = document.createElement('button');
+      document.body.append(nextAnchor);
+      anchor.setAttribute('aria-details', 'help');
+      nextAnchor.setAttribute('aria-details', 'next-help');
+
+      try {
+        el.showPopover();
+        el.hidePopover();
+        el.anchorElement = nextAnchor;
+        el.showPopover();
+
+        expect(anchor).to.have.attribute('aria-details', 'help');
+        expect(nextAnchor).to.have.attribute('aria-details', `next-help ${el.id}`);
+
+        el.remove();
+        expect(nextAnchor).to.have.attribute('aria-details', 'next-help');
+      } finally {
+        nextAnchor.remove();
+      }
+    });
+
+    it('should remove aria-details when its own reference was the only one', () => {
+      el.showPopover();
+      el.remove();
+      expect(anchor).not.to.have.attribute('aria-details');
+    });
+
     it('should keep the anchor ARIA state in sync with the popover', () => {
       el.showPopover();
 

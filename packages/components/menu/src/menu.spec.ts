@@ -275,6 +275,73 @@ describe('sl-menu', () => {
       expect(el.scrollHeight).to.be.greaterThan(el.clientHeight);
     });
 
+    for (const scrollTarget of ['inner', 'outer', 'slotted']) {
+      it(`should update available space after scrolling a ${scrollTarget} shadow container`, async () => {
+        const host = document.createElement('div'),
+          outerRoot = host.attachShadow({ mode: 'open' }),
+          outerScroller = document.createElement('div'),
+          innerHost = document.createElement('div'),
+          innerRoot = innerHost.attachShadow({ mode: 'open' }),
+          innerScroller = document.createElement('div'),
+          content = document.createElement('div');
+
+        host.style.cssText = 'position: fixed; top: 100px; left: 100px';
+        outerScroller.style.cssText = 'height: 500px; width: 400px; overflow: auto';
+        innerHost.style.cssText = 'display: block; margin-top: 200px; padding-bottom: 600px';
+        innerScroller.style.cssText = 'height: 350px; overflow: auto';
+        content.style.height = '900px';
+        anchor.style.cssText = 'display: block; margin-top: 150px';
+        outerRoot.append(outerScroller);
+        outerScroller.append(innerHost);
+        innerRoot.append(innerScroller);
+        innerScroller.append(content);
+
+        if (scrollTarget === 'slotted') {
+          content.append(document.createElement('slot'));
+          innerHost.append(anchor);
+        } else {
+          content.append(anchor);
+        }
+
+        document.body.append(host);
+        innerRoot.append(el);
+        el.position = 'bottom-start';
+        el.style.blockSize = '1000px';
+        el.style.inlineSize = '180px';
+
+        try {
+          await el.updateComplete;
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+          expect(el).not.to.have.attribute('data-js-positioning');
+
+          const previousLimit = el.style.getPropertyValue('--_menu-max-block-size'),
+            previousTop = anchor.getBoundingClientRect().top,
+            scroller = scrollTarget === 'outer' ? outerScroller : innerScroller;
+
+          scroller.scrollTop = 60;
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          const anchorRect = anchor.getBoundingClientRect(),
+            menuRect = el.getBoundingClientRect(),
+            expectedLimit =
+              Math.max(anchorRect.top, window.innerHeight - anchorRect.bottom) - 6 - 8;
+
+          expect(anchorRect.top).to.be.closeTo(previousTop - 60, 1);
+          expect(el.style.getPropertyValue('--_menu-max-block-size')).not.to.equal(previousLimit);
+          expect(parseFloat(el.style.getPropertyValue('--_menu-max-block-size'))).to.be.closeTo(
+            expectedLimit,
+            1
+          );
+          expect(menuRect.top).to.be.at.least(0);
+          expect(menuRect.bottom).to.be.at.most(window.innerHeight);
+        } finally {
+          el.remove();
+          host.remove();
+        }
+      });
+    }
+
     it('should combine block and inline fallbacks near a viewport corner', async () => {
       anchor.style.cssText = 'position: fixed; inset: auto 8px 8px auto';
       el.position = 'right-start';

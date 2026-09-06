@@ -318,14 +318,30 @@ export class Menu extends LitElement {
 
     const { signal } = this.#openController;
 
-    document.addEventListener('scroll', this.#updateMaxSize, {
-      capture: true,
-      passive: true,
-      signal
-    });
+    const anchor = this.#getAnchorElement(),
+      scrollRoots = new Set<Document | ShadowRoot>([this.ownerDocument]);
+
+    // Scroll events do not cross shadow boundaries. Follow slots as well as hosts so
+    // scrolling a shadow container around a slotted anchor also updates the limits.
+    let node: Node | null = anchor;
+    while (node) {
+      if (node instanceof ShadowRoot) {
+        scrollRoots.add(node);
+        node = node.host;
+      } else {
+        node = (node instanceof Element ? node.assignedSlot : null) ?? node.parentNode;
+      }
+    }
+
+    for (const root of scrollRoots) {
+      root.addEventListener('scroll', this.#updateMaxSize, {
+        capture: true,
+        passive: true,
+        signal
+      });
+    }
     window.addEventListener('resize', this.#updateMaxSize, { passive: true, signal });
 
-    const anchor = this.#getAnchorElement();
     if (anchor) {
       this.#resizeObserver = new ResizeObserver(this.#updateMaxSize);
       this.#resizeObserver.observe(anchor);

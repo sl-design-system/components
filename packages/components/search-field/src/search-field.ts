@@ -119,11 +119,6 @@ export class SearchField extends TextField {
     event.stopPropagation();
   }
 
-  #clearAndFocusInput(): void {
-    this.clear();
-    this.input.focus();
-  }
-
   #onInput(): void {
     this.#startDebounceTimer();
   }
@@ -144,6 +139,11 @@ export class SearchField extends TextField {
 
       this.clear();
     }
+  }
+
+  #clearAndFocusInput(): void {
+    this.clear();
+    this.input.focus();
   }
 
   #startDebounceTimer(): void {

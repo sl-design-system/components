@@ -6,7 +6,6 @@ eleventyNavigation:
   key: SearchFieldAccessibility
 ---
 
-
 <section>
 
 ## Focusable clear button
@@ -35,8 +34,6 @@ Here's an overview of the common keyboard interactions associated with a search 
 
 </section>
 
-
-
 <section>
 
 ## WAI-ARIA
@@ -64,6 +61,5 @@ Here's an overview of the common keyboard interactions associated with a search 
 - `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenarios where you don't want to take the search field out of the navigation flow.
 
 When `disabled` is added to a search field there is no need to also add `aria-disabled`. Everything `aria-disabled` does, `disabled` does as well. You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
-
 
 </section>

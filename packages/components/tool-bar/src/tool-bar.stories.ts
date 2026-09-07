@@ -217,7 +217,7 @@ export const Basic: Story = {
           <sl-icon name="far-copy"></sl-icon>
           Duplicate
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-trash"></sl-icon>
           Remove (disabled)
         </sl-menu-item>
@@ -330,13 +330,13 @@ export const InvertedContained: Story = {
       <sl-button fill="outline">Action 5</sl-button>
       <sl-button fill="outline">Action 6</sl-button>
     `,
-    width: '400px'
+    width: '414px'
   }
 };
 
 export const ClickEvents: Story = {
   args: {
-    width: '240px',
+    width: '250px',
     enableLogging: true,
     description:
       'This example shows a tool bar with buttons that log click events to the console to show how to handle click events on buttons and menu items.',

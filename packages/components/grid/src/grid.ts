@@ -208,7 +208,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const grid = event.composedPath().find(el => el instanceof Grid);
 
     if (!grid || grid !== this) {
-      this.dataSource?.reorder(this.#dragItem!, this.#itemBeforeDragItem!, 'after');
+      this.#restoreDraggedItemPosition();
       this.requestUpdate();
     }
   };
@@ -850,12 +850,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   };
 
   #onDragStart(event: DragEvent, item: ListDataSourceItem<T>): void {
+    const row = event.currentTarget as HTMLTableRowElement;
+
+    // Native draggable elements inside a cell, such as images, also emit drag events. Only start
+    // dragging a grid row after the drag handle has explicitly made the row draggable.
+    if (!row.draggable) {
+      return;
+    }
+
     event.stopPropagation();
 
     window.addEventListener('dragover', this.#onWindowDragOver);
 
-    const row = event.currentTarget as HTMLTableRowElement,
-      rowRect = row.getBoundingClientRect();
+    const rowRect = row.getBoundingClientRect();
 
     if (isSafari) {
       // Safari doesn't position drag images from transformed elements properly so we need to
@@ -882,9 +889,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     );
 
     this.#dragItem = item;
-    const dragItemIndex = this.dataSource?.items.indexOf(item) ?? -1;
-    this.#itemBeforeDragItem = this.dataSource?.items.at(dragItemIndex - 1);
-    this.#itemAfterDragItem = this.dataSource?.items.at(dragItemIndex + 1);
+    const items = this.dataSource?.items ?? [],
+      dragItemIndex = items.indexOf(item);
+    this.#itemBeforeDragItem = items[dragItemIndex - 1];
+    this.#itemAfterDragItem = items[dragItemIndex + 1];
 
     // Update styles in the next frame, after the drag image has been created
     requestAnimationFrame(() => {
@@ -905,6 +913,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragOver(event: DragEvent, item: ListDataSourceDataItem<T>): void {
+    if (!this.#dragItem) {
+      return;
+    }
+
     event.preventDefault();
 
     const { draggableRows, dropFilter } = this;
@@ -932,7 +944,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
         // If the cursor is in the top half of the row, make this row the drop target
         this.dataSource?.reorder(
-          this.#dragItem!,
+          this.#dragItem,
           item,
           event.clientY < top + height / 2 ? 'before' : 'after'
         );
@@ -951,6 +963,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupDragOver(event: DragEvent, item: ListDataSourceGroupItem<T>): void {
     if (
+      !this.#dragItem ||
       !(
         this.draggableRows === 'between' ||
         (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
@@ -977,6 +990,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragEnd(event: DragEvent, item: ListDataSourceItem<T>): void {
+    if (!this.#dragItem) {
+      return;
+    }
+
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
     event
@@ -1002,15 +1019,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDrop(event: DragEvent, item: ListDataSourceDataItem<T>): void {
+    if (!this.#dragItem) {
+      return;
+    }
+
     if (this.draggableRows === 'on-grid') {
-      this.dropEvent.emit({ grid: this, item: this.#dragItem!, position: 'on-grid' });
+      this.dropEvent.emit({ grid: this, item: this.#dragItem, position: 'on-grid' });
     } else if (
       this.draggableRows === 'on-top' ||
       (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
     ) {
       this.dropEvent.emit({
         grid: this,
-        item: this.#dragItem!,
+        item: this.#dragItem,
         relativeItem: item.data,
         position: 'on-top'
       });
@@ -1026,7 +1047,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       const proceeded = this.dropEvent.emit({
         grid: this,
-        item: this.#dragItem!,
+        item: this.#dragItem,
         relativeItem: item.data,
         position
       });
@@ -1043,6 +1064,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupDrop(event: DragEvent, item: ListDataSourceGroupItem<T>): void {
     if (
+      !this.#dragItem ||
       !(
         this.draggableRows === 'between' ||
         (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
@@ -1071,12 +1093,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (
       this.dropEvent.emit({
         grid: this,
-        item: this.#dragItem!,
+        item: this.#dragItem,
         relativeItem: relativeItem.data,
         position
       })
     ) {
-      this.dataSource?.reorder(this.#dragItem!, relativeItem, position);
+      this.dataSource?.reorder(this.#dragItem, relativeItem, position);
     }
     this.requestUpdate();
   }

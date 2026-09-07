@@ -5,9 +5,8 @@
   "license": "Apache-2.0",
   "private": true,
   "type": "module",
-  "types": "./index.d.ts",
   "exports": {
-    ".": "./index.js",
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
   "files": [

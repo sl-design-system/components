@@ -86,18 +86,80 @@ describe('sl-menu', () => {
       const style = document.createElement('style');
 
       style.textContent =
-        '.menu-test-anchor { anchor-name: --existing-anchor, --secondary-anchor }';
+        '.menu-test-anchor { anchor-name: --existing-anchor, --secondary-anchor !important }';
       document.head.append(style);
       anchor.classList.add('menu-test-anchor');
 
       try {
         el.showPopover();
 
+        expect(anchor.style.anchorName).to.equal(
+          `--existing-anchor, --secondary-anchor, ${el.style.positionAnchor}`
+        );
+        expect(el.style.positionAnchor).to.match(/^--sl-menu-anchor-/);
+        expect(getComputedStyle(anchor).anchorName).to.contain(el.style.positionAnchor);
+        el.remove();
         expect(anchor.style.anchorName).to.equal('');
-        expect(el.style.positionAnchor).to.equal('--existing-anchor');
       } finally {
         style.remove();
       }
+    });
+
+    it('should target the specified anchor when another element has the same CSS name', async () => {
+      const duplicate = document.createElement('button');
+      anchor.style.cssText = 'position: fixed; top: 200px; left: 100px; anchor-name: --shared';
+      duplicate.style.cssText = 'position: fixed; top: 400px; left: 600px; anchor-name: --shared';
+      anchor.after(duplicate);
+      el.position = 'right-start';
+      try {
+        el.showPopover();
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        expect(el.getBoundingClientRect().left).to.be.closeTo(
+          anchor.getBoundingClientRect().right + 6,
+          1
+        );
+        expect(duplicate.style.anchorName).to.equal('--shared');
+      } finally {
+        duplicate.remove();
+      }
+    });
+
+    for (const firstToRemove of ['first', 'second']) {
+      it(`should preserve a shared anchor when removing the ${firstToRemove} menu first`, async () => {
+        anchor.style.setProperty('anchor-name', 'none', 'important');
+        const second = await fixture<Menu>(
+          html`<sl-menu popover="manual"><sl-menu-item>Second</sl-menu-item></sl-menu>`
+        );
+        el.popover = 'manual';
+        second.anchorElement = anchor;
+        try {
+          el.showPopover();
+          second.showPopover();
+          const firstName = el.style.positionAnchor,
+            secondName = second.style.positionAnchor,
+            removed = firstToRemove === 'first' ? el : second,
+            remaining = firstToRemove === 'first' ? second : el;
+          expect(firstName).not.to.equal(secondName);
+          expect(anchor.style.anchorName).to.equal(`${firstName}, ${secondName}`);
+          removed.remove();
+          expect(anchor.style.anchorName).to.equal(remaining.style.positionAnchor);
+          expect(anchor.style.getPropertyPriority('anchor-name')).to.equal('important');
+          remaining.remove();
+          expect(anchor.style.anchorName).to.equal('none');
+          expect(anchor.style.getPropertyPriority('anchor-name')).to.equal('important');
+        } finally {
+          el.remove();
+          second.remove();
+        }
+      });
+    }
+
+    it('should preserve anchor names added externally while linked', () => {
+      anchor.style.anchorName = '--existing';
+      el.showPopover();
+      anchor.style.anchorName += ', --external';
+      el.remove();
+      expect(anchor.style.anchorName).to.equal('--existing, --external');
     });
 
     it('should restore the previous inline anchor name declaration', () => {

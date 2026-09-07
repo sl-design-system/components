@@ -41,6 +41,17 @@ const minMenuSize = 25,
     'min-block-size'
   ] as const;
 
+// Keep the original declaration until the last menu releases a shared anchor.
+const anchorDeclarations = new WeakMap<
+  CSSAnchorElement,
+  {
+    value: string;
+    priority: string;
+    names: string[];
+    menus: Set<string>;
+  }
+>();
+
 let nextUniqueId = 0;
 
 /**
@@ -63,11 +74,8 @@ export class Menu extends LitElement {
   /** The aria-details token added by this menu, if it was not already present. */
   #addedDetailsId?: string;
 
-  /** The generated CSS anchor name, when the anchor did not already have one. */
+  /** The CSS anchor name owned exclusively by this menu. */
   #generatedAnchorName?: string;
-
-  /** The inline anchor name declaration replaced by a generated name. */
-  #previousInlineAnchorName?: { value: string; priority: string };
 
   /** Stops tracking anchor movement and size changes while the menu is closed. */
   #sizingCleanup?: () => void;
@@ -250,20 +258,30 @@ export class Menu extends LitElement {
     this.#activeAnchor = anchor;
     anchor.addEventListener('keydown', this.#onAnchorKeydown);
 
-    const computedAnchorName = getComputedStyle(anchor).anchorName;
-
-    if (!computedAnchorName || computedAnchorName === 'none') {
-      this.#generatedAnchorName ||= `--sl-menu-anchor-${nextUniqueId++}`;
-      this.#previousInlineAnchorName = {
+    const names = (getComputedStyle(anchor).anchorName || 'none')
+      .split(',')
+      .map(name => name.trim())
+      .filter(name => name !== 'none');
+    let declaration = anchorDeclarations.get(anchor);
+    if (!declaration) {
+      declaration = {
         value: anchor.style.getPropertyValue('anchor-name'),
-        priority: anchor.style.getPropertyPriority('anchor-name')
+        priority: anchor.style.getPropertyPriority('anchor-name'),
+        names,
+        menus: new Set()
       };
-      anchor.style.anchorName = this.#generatedAnchorName;
+      anchorDeclarations.set(anchor, declaration);
     }
 
-    this.style.positionAnchor = (anchor.style.anchorName || computedAnchorName)
-      .split(',')[0]
-      .trim();
+    this.#generatedAnchorName ||= `--sl-menu-anchor-${nextUniqueId++}`;
+    declaration.menus.add(this.#generatedAnchorName);
+    // The owned name must also take effect over an existing !important stylesheet rule.
+    anchor.style.setProperty(
+      'anchor-name',
+      [...names, this.#generatedAnchorName].join(', '),
+      'important'
+    );
+    this.style.positionAnchor = this.#generatedAnchorName;
 
     const details: string[] = anchor.getAttribute('aria-details')?.match(/\S+/g) ?? [];
     if (!details.includes(this.id)) {
@@ -457,17 +475,34 @@ export class Menu extends LitElement {
       return;
     }
 
-    if (this.#activeAnchor.style.anchorName === this.#generatedAnchorName) {
-      const previous = this.#previousInlineAnchorName;
-
-      if (previous?.value) {
-        this.#activeAnchor.style.setProperty('anchor-name', previous.value, previous.priority);
-      } else {
-        this.#activeAnchor.style.removeProperty('anchor-name');
+    const declaration = anchorDeclarations.get(this.#activeAnchor);
+    if (declaration && this.#generatedAnchorName) {
+      declaration.menus.delete(this.#generatedAnchorName);
+      const names = this.#activeAnchor.style.anchorName.split(',').map(name => name.trim());
+      if (names.includes(this.#generatedAnchorName)) {
+        const remaining = names.filter(name => name !== this.#generatedAnchorName);
+        if (!declaration.menus.size && remaining.join(', ') === declaration.names.join(', ')) {
+          if (declaration.value) {
+            this.#activeAnchor.style.setProperty(
+              'anchor-name',
+              declaration.value,
+              declaration.priority
+            );
+          } else {
+            this.#activeAnchor.style.removeProperty('anchor-name');
+          }
+        } else {
+          this.#activeAnchor.style.setProperty(
+            'anchor-name',
+            remaining.join(', '),
+            this.#activeAnchor.style.getPropertyPriority('anchor-name')
+          );
+        }
+      }
+      if (!declaration.menus.size) {
+        anchorDeclarations.delete(this.#activeAnchor);
       }
     }
-
-    this.#previousInlineAnchorName = undefined;
 
     this.#activeAnchor.removeEventListener('keydown', this.#onAnchorKeydown);
 

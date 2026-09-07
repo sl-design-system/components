@@ -1026,7 +1026,7 @@ describe('sl-checkbox', () => {
       expect(el.validationMessage).to.equal('Custom validation message');
     });
 
-    it('should show invalid immediately after mouse unchecking a required checkbox in a validate-on-blur form', async () => {
+    it('should show invalid on blur after mouse unchecking a required checkbox in a validate-on-blur form', async () => {
       el = await fixture(html`
         <sl-form validate-on-blur>
           <sl-checkbox required>Hello world</sl-checkbox>
@@ -1045,6 +1045,12 @@ describe('sl-checkbox', () => {
       await checkbox.updateComplete;
 
       expect(checkbox.checked).to.be.false;
+      expect(checkbox.showValidity).to.be.undefined;
+
+      await userEvent.click(document.body);
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await checkbox.updateComplete;
+
       expect(checkbox.showValidity).to.equal('invalid');
     });
 

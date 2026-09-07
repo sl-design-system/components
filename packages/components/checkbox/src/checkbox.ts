@@ -456,12 +456,6 @@ export class Checkbox<T = any> extends ForwardAriaMixin(
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
     this.updateValidity();
-
-    const form = this.closest('sl-form');
-
-    if (event instanceof MouseEvent && form?.validateOnBlur && this.required && !this.checked) {
-      this.reportValidity();
-    }
   }
 
   #onFocusin(event: FocusEvent): void {

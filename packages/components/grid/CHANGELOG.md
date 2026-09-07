@@ -1,5 +1,35 @@
 # @sl-design-system/grid
 
+## 0.8.1
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3592](https://github.com/sl-design-system/components/pull/3592) [`f822368`](https://github.com/sl-design-system/components/commit/f8223686ea9c82e1546c9e90feb0bcd0b6301484) - Fix group headers so custom group headers follow sticky start columns during horizontal scrolling.
+
+- Updated dependencies [[`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a), [`8ac4830`](https://github.com/sl-design-system/components/commit/8ac48302219897f50b0dbae07690c588a8380e69), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`064ad56`](https://github.com/sl-design-system/components/commit/064ad561281faab7e431e6316d32759420ac0042), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`f5207d1`](https://github.com/sl-design-system/components/commit/f5207d132805c4a4e6f7253057babb8cc70705c4), [`108c0c7`](https://github.com/sl-design-system/components/commit/108c0c735a95df8659be1417fb463b02ac651fe8), [`67be16c`](https://github.com/sl-design-system/components/commit/67be16cdeb8469ab3d1f492be2c2ea3d9e45eee8)]:
+  - @sl-design-system/tool-bar@0.4.0
+  - @sl-design-system/announcer@0.1.2
+  - @sl-design-system/button@2.3.0
+  - @sl-design-system/checkbox@2.4.0
+  - @sl-design-system/data-source@0.4.3
+  - @sl-design-system/ellipsize-text@0.1.1
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/listbox@0.2.2
+  - @sl-design-system/scrollbar@0.1.3
+  - @sl-design-system/search-field@1.0.0
+  - @sl-design-system/select@2.4.0
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/skeleton@1.1.1
+  - @sl-design-system/text-field@1.7.1
+  - @sl-design-system/toggle-group@1.0.0
+  - @sl-design-system/tooltip@3.0.1
+
 ## 0.8.0
 
 ### Minor Changes

@@ -1,5 +1,96 @@
 # @sl-design-system/shared
 
+## 0.14.0
+
+### Minor Changes
+
+- [#3604](https://github.com/sl-design-system/components/pull/3604) [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd) - Add a new `slot.js` export with a `getSlottedText()` utility. It returns the text assigned to a
+  slot, with whitespace collapsed and trimmed, or an empty string when the given target is not a slot. This
+  makes it easy to get the slotted text in a `slotchange` handler:
+
+  ```ts
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const text = getSlottedText(event.target);
+  }
+  ```
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - Every mixin now has its own entry point, the same way `ElementInternalsMixin` has one, and the
+  `-mixin` suffix was dropped from their file names. The `@sl-design-system/shared/mixins.js` entry
+  point has been removed, and the mixins are no longer exported from `@sl-design-system/shared`
+  either; import them from their own entry point instead:
+
+  ```ts
+  import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
+  import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
+  import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
+  ```
+
+  The `Locale`, `ForwardAriaMixinInterface` and `ObserveAttributesMixinInterface` types moved along
+  with the mixin they belong to.
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - Add an `ElementInternalsMixin` and a `@cssState` decorator:
+
+  - `ElementInternalsMixin` attaches the `ElementInternals` and exposes them as `elementInternals`,
+    so the component, its subclasses, other mixins and its tests all have one standardized way of
+    getting to them.
+  - `@cssState` keeps a custom CSS state in sync with a boolean property or getter. The state name
+    defaults to the dasherized property name, and `{ invert: true }` sets the state while the
+    property is falsy. It works with both the legacy (`experimentalDecorators`) and the standard
+    TC39 decorators.
+
+  ```ts
+  import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
+  import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+
+  class MyElement extends ElementInternalsMixin(LitElement) {
+    // Sets the `checked` state; style it with `my-element:state(checked)`
+    @property({ type: Boolean }) @cssState() checked?: boolean;
+
+    // Sets the `no-label` state while `hasLabel` is falsy
+    @state() @cssState('no-label', { invert: true }) hasLabel = false;
+
+    // A getter works as well, for a state derived from other properties
+    @cssState('has-name')
+    get hasName(): boolean {
+      return this.hasLabel || this.hasAccessibleName();
+    }
+  }
+  ```
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Add `isDevMode()`, available from `@sl-design-system/shared/dev-mode.js`
+
+  Returns whether the code is running in a development build. Bundlers such as Vite replace `import.meta.env.DEV` at build time; in any other environment it is simply `undefined`, so the helper is safe to call anywhere.
+
+  ```ts
+  import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
+
+  if (isDevMode()) {
+    console.warn('This warning is stripped from production builds');
+  }
+  ```
+
+  It replaces the inline `import.meta.env?.DEV` checks that guard developer warnings in `@sl-design-system/combobox` (conflicting `autocomplete` and `select-only` configuration), `@sl-design-system/icon` (registering an icon that is already in the registry) and `@sl-design-system/toggle-button` (missing `sl-icon` in the default slot). The behaviour of those warnings is unchanged.
+
+  Previously each of those files reached for the typing via `/// <reference types="vite/client" />`. That is not a private detail: it also declares `*.css` as an _empty_ ambient module in every TypeScript program that compiles these sources, which broke `import styles from './x.css'` for downstream consumers that do not use Vite. Typing `import.meta.env` locally in one place keeps that out of the published sources.
+
+  Note that `@sl-design-system/icon` now depends on `@sl-design-system/shared`; previously it had no dependencies of its own.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3604](https://github.com/sl-design-system/components/pull/3604) [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd) - `ForwardAriaMixin` now has a `hasAccessibleName()` method, which returns whether the element is
+  named from the outside: by an `aria-label`, an `aria-labelledby`, or the `<label>` of an
+  `<sl-label>`. Only the references the mixin itself forwarded count, so an `<sl-tooltip>` that
+  registered itself as the label of the target is not mistaken for a name.
+
+  The mixin also requests an update when a forward changes what the target exposes, so a component
+  that renders based on those attributes stays in sync with them.
+
 ## 0.13.0
 
 ### Minor Changes

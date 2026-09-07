@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/emoji",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "status": "draft",
   "description": "Emoji components for the SL Design System",
   "license": "Apache-2.0",
@@ -36,11 +36,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^2.2.0",
-    "@sl-design-system/icon": "^1.4.2",
-    "@sl-design-system/search-field": "^0.3.0",
-    "@sl-design-system/shared": "^0.13.0",
-    "@sl-design-system/tabs": "^1.2.7"
+    "@sl-design-system/button": "^2.3.0",
+    "@sl-design-system/icon": "^1.4.4",
+    "@sl-design-system/search-field": "^1.0.0",
+    "@sl-design-system/shared": "^0.14.0",
+    "@sl-design-system/tabs": "^1.2.11"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

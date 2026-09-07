@@ -1,5 +1,36 @@
 # @sl-design-system/tool-bar
 
+## 0.4.0
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3672](https://github.com/sl-design-system/components/pull/3672) [`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a) - Map `aria-disabled="true"` menu items to disabled overflow items in `sl-tool-bar`.
+
+  This updates toolbar menu-item mapping to use `aria-disabled` state instead of the removed `disabled` API on `sl-menu-item`.
+
+- [#3681](https://github.com/sl-design-system/components/pull/3681) [`8ac4830`](https://github.com/sl-design-system/components/commit/8ac48302219897f50b0dbae07690c588a8380e69) - Fix toolbar overflow behavior when cached item widths become stale after theme, font, or layout changes.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`67be16c`](https://github.com/sl-design-system/components/commit/67be16cdeb8469ab3d1f492be2c2ea3d9e45eee8)]:
+  - @sl-design-system/button@2.3.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/menu@1.0.0
+  - @sl-design-system/toggle-button@2.0.0
+  - @sl-design-system/toggle-group@1.0.0
+
 ## 0.3.1
 
 ### Patch Changes

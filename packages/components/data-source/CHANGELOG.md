@@ -1,5 +1,18 @@
 # @sl-design-system/data-source
 
+## 0.4.3
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/shared@0.14.0
+
 ## 0.4.2
 
 ### Patch Changes
@@ -90,7 +103,6 @@
 - [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements to the `data-source` package:
 
   #### DataSource
-
   - Now a fully `abstract` class without any implementation details
   - Removed the `id` parameter for `setSort()`
   - Changed the `DataSourceSort` interface to be simpler:
@@ -118,13 +130,11 @@
   - Changed `reorder()` to be an abstract method
 
   #### ArrayListDataSource
-
   - Refactored to use the new view model types from `ListDataSource`
   - Implemented group sorting
   - Implemented selection logic for groups (selected, unselected, indeterminate)
 
   #### FetchListDataSource
-
   - Refactored to use the new view model types from `ListDataSource`
   - Added `groups` constructor option when you want to use groups, but lazy load the data
   - Added ability to lazy load group items (per page)

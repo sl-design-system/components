@@ -1,5 +1,18 @@
 # @sl-design-system/tooltip
 
+## 3.0.1
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/shared@0.14.0
+
 ## 3.0.0
 
 ### Major Changes
@@ -12,13 +25,11 @@
   > CSS Anchor Positioning is not yet supported in all browsers. You may need to include the [CSS Anchor Positioning polyfill](https://anchor-positioning.oddbird.net/) in your application.
 
   #### Breaking changes
-
   - The `TooltipOptions` interface and `Tooltip.lazy()` static method have been removed. Use the `for` attribute to link a tooltip to its anchor instead.
   - The `position`, `offset`, `maxWidth`, `arrowPadding`, and `viewportMargin` properties/statics have been removed.
   - `hoverShowDelay` changed from `500ms` to `150ms` and `hoverHideDelay` changed from `200ms` to `0ms`.
 
   #### New API
-
   - `for` — links the tooltip to one or more anchor elements by id; pass a space-separated list of ids to share a single tooltip between multiple elements
   - `type` — controls the ARIA relationship: `'label'` (`ariaLabelledByElements`, default) or `'description'` (`ariaDescribedByElements`)
   - `trigger` — space-separated list of triggers: `'focus'`, `'hover'`, and/or `'click'` (default: `'focus hover'`)
@@ -28,9 +39,7 @@
   ```html
   <button id="copy">Copy</button>
   <button id="cut">Cut</button>
-  <sl-tooltip for="copy cut" type="description"
-    >Works on the current selection</sl-tooltip
-  >
+  <sl-tooltip for="copy cut" type="description">Works on the current selection</sl-tooltip>
   ```
 
   Every element listed in `for` gets the ARIA relation and the triggers. The tooltip is positioned against the anchor that triggered it, and against the first anchor until then.
@@ -76,7 +85,6 @@
 - [#3108](https://github.com/sl-design-system/components/pull/3108) [`b68dbc8`](https://github.com/sl-design-system/components/commit/b68dbc853697b015be8ab99a89c936dd627a9de4) - Reworked the tooltip interaction model for hover and keyboard focus, especially for shared anchors and shadow DOM scenarios.
 
   ### What changed
-
   - Improved anchor detection across composed paths, shadow roots, `Element.aria*ByElements`, and `ElementInternals`.
   - Added `show-delay` and `hide-delay` support to make opening/closing timing explicit and configurable. The default hover behavior now waits `showDelay` (150ms) before opening; to restore the previous immediate behavior, set `show-delay="0"` on the tooltip.
   - Refactored hide/show flow to handle rapid pointer transitions more reliably and prevent sticky/open-state race conditions.

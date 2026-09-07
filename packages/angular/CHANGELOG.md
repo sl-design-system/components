@@ -1,5 +1,30 @@
 # @sl-design-system/angular
 
+## 5.0.0
+
+### Major Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Upgrade to Angular 22
+
+  The package is now built with Angular 22, and `^22.0.0` has been added to the supported `@angular/core` and `@angular/forms` peer dependency ranges alongside 19, 20 and 21. No component APIs changed.
+
+### Patch Changes
+
+- Updated dependencies [[`064ad56`](https://github.com/sl-design-system/components/commit/064ad561281faab7e431e6316d32759420ac0042), [`9d4d49b`](https://github.com/sl-design-system/components/commit/9d4d49be891a01f1c36895fe816ae451689dfc33), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`064ad56`](https://github.com/sl-design-system/components/commit/064ad561281faab7e431e6316d32759420ac0042), [`0dfa9a8`](https://github.com/sl-design-system/components/commit/0dfa9a84b1fa83d9b38d0b0145fa0e4f7731101d), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`f5207d1`](https://github.com/sl-design-system/components/commit/f5207d132805c4a4e6f7253057babb8cc70705c4), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`a05ffb3`](https://github.com/sl-design-system/components/commit/a05ffb3038b7846331fcc898843c26fbab1a2eff)]:
+  - @sl-design-system/combobox@0.3.0
+  - @sl-design-system/locales@0.4.1
+  - @sl-design-system/checkbox@2.4.0
+  - @sl-design-system/form@1.5.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/number-field@0.2.1
+  - @sl-design-system/radio-group@1.3.0
+  - @sl-design-system/select@2.4.0
+  - @sl-design-system/switch@2.0.0
+  - @sl-design-system/text-area@1.2.1
+  - @sl-design-system/text-field@1.7.1
+  - @sl-design-system/time-field@0.3.0
+  - @sl-design-system/link@0.0.2
+
 ## 4.2.0
 
 ### Minor Changes

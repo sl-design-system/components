@@ -265,7 +265,7 @@ export class Menu extends LitElement {
       .split(',')[0]
       .trim();
 
-    const details = anchor.getAttribute('aria-details')?.match(/\S+/g) ?? [];
+    const details: string[] = anchor.getAttribute('aria-details')?.match(/\S+/g) ?? [];
     if (!details.includes(this.id)) {
       this.#addedDetailsId = this.id;
       anchor.setAttribute('aria-details', [...details, this.id].join(' '));

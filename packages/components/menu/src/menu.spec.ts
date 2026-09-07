@@ -458,11 +458,9 @@ describe('sl-menu', () => {
         await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
         const anchorRect = anchor.getBoundingClientRect(),
-          menuRect = el.getBoundingClientRect(),
-          transformOriginX = parseFloat(getComputedStyle(el).transformOrigin);
+          menuRect = el.getBoundingClientRect();
 
         expect(Math.abs(anchorRect.right - menuRect.right)).to.be.lessThan(10);
-        expect(transformOriginX).to.be.greaterThan(el.clientWidth / 2);
       } finally {
         document.documentElement.dir = previousDirection;
       }

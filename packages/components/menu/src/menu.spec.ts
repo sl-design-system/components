@@ -159,6 +159,64 @@ describe('sl-menu', () => {
       }
     });
 
+    for (const crossRoot of [false, true]) {
+      it(`should clean up a canceled opening with ${crossRoot ? 'JavaScript' : 'CSS'} positioning`, async () => {
+        const host = document.createElement('div'),
+          trigger = document.createElement('sl-button');
+        (crossRoot ? host.attachShadow({ mode: 'open' }) : host).append(trigger);
+        document.body.append(host);
+        el.anchorElement = trigger;
+        el.style.setProperty('max-block-size', '200px', 'important');
+        el.setAttribute('actual-placement', 'left-end');
+        el.addEventListener('beforetoggle', event => event.preventDefault(), { once: true });
+
+        try {
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          expect(el).not.to.match(':popover-open');
+          expect(trigger).to.have.attribute('aria-expanded', 'false');
+          expect(trigger).not.to.have.attribute('popover-opened');
+          expect(el).not.to.have.attribute('data-js-positioning');
+          expect(el).to.have.attribute('actual-placement', 'left-end');
+          expect(el.style.getPropertyValue('max-block-size')).to.equal('200px');
+          expect(el.style.getPropertyPriority('max-block-size')).to.equal('important');
+          expect(el.style.getPropertyValue('inset-block-start')).to.equal('');
+          expect(el.style.getPropertyValue('inset-inline-start')).to.equal('');
+          expect(el.style.getPropertyValue('--_menu-max-block-size')).to.equal('');
+          expect(el.style.getPropertyValue('--_menu-max-inline-size')).to.equal('');
+
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+          expect(el).to.match(':popover-open');
+          expect(trigger).to.have.attribute('aria-expanded', 'true');
+          expect(trigger).to.have.attribute('popover-opened');
+          expect(el.hasAttribute('data-js-positioning')).to.equal(crossRoot);
+        } finally {
+          el.remove();
+          host.remove();
+        }
+      });
+    }
+
+    it('should clear previous viewport limits when reopened without an anchor', async () => {
+      anchor.style.cssText = 'position: fixed; top: 50%; left: 50%';
+      el.showPopover();
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      expect(el.style.getPropertyValue('--_menu-max-block-size')).not.to.equal('');
+      expect(el.style.getPropertyValue('--_menu-max-inline-size')).not.to.equal('');
+
+      el.hidePopover();
+      el.anchorElement = undefined;
+      el.showPopover();
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+      expect(el.style.getPropertyValue('--_menu-max-block-size')).to.equal('');
+      expect(el.style.getPropertyValue('--_menu-max-inline-size')).to.equal('');
+      expect(el.style.positionAnchor).to.equal('');
+      expect(anchor).not.to.have.attribute('aria-expanded');
+    });
+
     it('should disable CSS positioning for every JavaScript fallback placement', async () => {
       const host = document.createElement('div'),
         shadowRoot = host.attachShadow({ mode: 'open' }),
@@ -175,6 +233,7 @@ describe('sl-menu', () => {
             el.position = position;
             await el.updateComplete;
             el.showPopover();
+            await Promise.resolve();
 
             const style = getComputedStyle(el);
             expect(style.positionArea).to.equal('none');

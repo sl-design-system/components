@@ -293,12 +293,29 @@ export class Menu extends LitElement {
     }
     this.#updateAnchorState(isOpening);
 
-    const anchor = this.#activeAnchor;
-    if (isOpening && anchor && this.#requiresJavaScriptPositioning(anchor)) {
-      this.#startJavaScriptPositioning(anchor);
-    } else {
+    if (!isOpening) {
       this.#stopJavaScriptPositioning();
+      return;
     }
+
+    const anchor = this.#activeAnchor;
+    // Later listeners can cancel opening. Wait until dispatch finishes before starting JS work.
+    queueMicrotask(() => {
+      if (!this.isConnected || this.#activeAnchor !== anchor) {
+        return;
+      }
+
+      const isOpen = this.matches(':popover-open');
+      this.#updateAnchorState(isOpen);
+      if (
+        !event.defaultPrevented &&
+        isOpen &&
+        anchor &&
+        this.#requiresJavaScriptPositioning(anchor)
+      ) {
+        this.#startJavaScriptPositioning(anchor);
+      }
+    });
   };
 
   #onToggle = (event: ToggleEvent): void => {
@@ -433,6 +450,9 @@ export class Menu extends LitElement {
   };
 
   #unlinkAnchor(): void {
+    this.style.removeProperty('--_menu-max-block-size');
+    this.style.removeProperty('--_menu-max-inline-size');
+
     if (!this.#activeAnchor) {
       return;
     }

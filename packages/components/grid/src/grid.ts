@@ -160,6 +160,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The clone of the row; used for the drag image. */
   #dragClone?: HTMLTableRowElement;
 
+  /** The row whose drag handle started the current pointer gesture. */
+  #dragArmedRow?: HTMLTableRowElement;
+
   /** The item being dragged. */
   #dragItem?: ListDataSourceItem<T>;
 
@@ -392,6 +395,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#bulkActionsObserver.disconnect();
     this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
+    this.#clearDragArm();
+    window.removeEventListener('dragover', this.#onWindowDragOver);
 
     if (this.#filterDebounceTimer) {
       clearTimeout(this.#filterDebounceTimer);
@@ -631,6 +636,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return html`
       <tr
         @click=${() => this.#onClickRow(item, index + 1)}
+        @mousedown=${this.#onDragHandleStart}
+        @touchstart=${this.#onDragHandleStart}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragenter=${(event: DragEvent) => this.#onDragEnter(event, item)}
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
@@ -662,6 +669,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     return html`
       <tr
+        @mousedown=${this.#onDragHandleStart}
+        @touchstart=${this.#onDragHandleStart}
         @dragover=${(event: DragEvent) => this.#onGroupDragOver(event, item)}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
@@ -849,14 +858,57 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate();
   };
 
+  #onDragHandleStart = (event: MouseEvent | TouchEvent): void => {
+    const row = event.currentTarget as HTMLTableRowElement,
+      handle = event
+        .composedPath()
+        .find(
+          (element): element is HTMLElement =>
+            element instanceof HTMLElement && element.part.contains('drag-handle')
+        );
+
+    if (!row.draggable || !handle || handle.part.contains('fixed')) {
+      return;
+    }
+
+    this.#clearDragArm();
+    this.#dragArmedRow = row;
+    window.addEventListener('mouseup', this.#onDragHandleRelease, { once: true });
+    window.addEventListener('touchend', this.#onDragHandleRelease, { once: true });
+    window.addEventListener('touchcancel', this.#onDragHandleRelease, { once: true });
+    window.addEventListener('blur', this.#onDragHandleRelease, { once: true });
+  };
+
+  #onDragHandleRelease = (): void => {
+    const row = this.#dragArmedRow;
+
+    this.#clearDragArm();
+
+    // Group rows contain their own native draggable handle. Data rows need the draggable
+    // attribute removed when a handle press ends without starting a drag.
+    if (row && !row.part.contains('group')) {
+      row.removeAttribute('draggable');
+    }
+  };
+
+  #clearDragArm(): void {
+    this.#dragArmedRow = undefined;
+    window.removeEventListener('mouseup', this.#onDragHandleRelease);
+    window.removeEventListener('touchend', this.#onDragHandleRelease);
+    window.removeEventListener('touchcancel', this.#onDragHandleRelease);
+    window.removeEventListener('blur', this.#onDragHandleRelease);
+  }
+
   #onDragStart(event: DragEvent, item: ListDataSourceItem<T>): void {
     const row = event.currentTarget as HTMLTableRowElement;
 
     // Native draggable elements inside a cell, such as images, also emit drag events. Only start
-    // dragging a grid row after the drag handle has explicitly made the row draggable.
-    if (!row.draggable) {
+    // dragging a grid row when its handle armed this specific pointer gesture.
+    if (this.#dragArmedRow !== row) {
       return;
     }
+
+    this.#clearDragArm();
 
     event.stopPropagation();
 

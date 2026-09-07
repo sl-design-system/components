@@ -275,6 +275,51 @@ describe('sl-menu', () => {
       expect(el.scrollHeight).to.be.greaterThan(el.clientHeight);
     });
 
+    it('should update available space when surrounding content moves the anchor', async () => {
+      const container = document.createElement('div'),
+        spacer = document.createElement('div');
+      container.style.cssText = 'position: fixed; top: 50px; left: 100px';
+      container.append(spacer, anchor);
+      document.body.append(container);
+      el.position = 'bottom-start';
+      el.style.blockSize = '1000px';
+      el.style.inlineSize = '180px';
+
+      try {
+        await el.updateComplete;
+        el.showPopover();
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        // Let the initial ResizeObserver delivery settle before moving the anchor.
+        for (let frame = 0; frame < 4; frame++) {
+          await new Promise(resolve => requestAnimationFrame(resolve));
+        }
+        const previousRect = anchor.getBoundingClientRect(),
+          previousLimit = el.style.getPropertyValue('--_menu-max-block-size');
+
+        spacer.style.height = '300px';
+        await expect
+          .poll(() => el.style.getPropertyValue('--_menu-max-block-size'))
+          .not.to.equal(previousLimit);
+
+        const anchorRect = anchor.getBoundingClientRect(),
+          menuRect = el.getBoundingClientRect(),
+          expectedLimit = Math.max(anchorRect.top, window.innerHeight - anchorRect.bottom) - 6 - 8;
+        expect(anchorRect.top).to.be.closeTo(previousRect.top + 300, 1);
+        expect(anchorRect.width).to.equal(previousRect.width);
+        expect(anchorRect.height).to.equal(previousRect.height);
+        expect(el).not.to.have.attribute('data-js-positioning');
+        expect(parseFloat(el.style.getPropertyValue('--_menu-max-block-size'))).to.be.closeTo(
+          expectedLimit,
+          1
+        );
+        expect(menuRect.top).to.be.at.least(0);
+        expect(menuRect.bottom).to.be.at.most(window.innerHeight);
+      } finally {
+        el.remove();
+        container.remove();
+      }
+    });
+
     for (const scrollTarget of ['inner', 'outer', 'slotted']) {
       it(`should update available space after scrolling a ${scrollTarget} shadow container`, async () => {
         const host = document.createElement('div'),

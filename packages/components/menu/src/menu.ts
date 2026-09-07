@@ -1,3 +1,4 @@
+import { autoUpdate } from '@floating-ui/dom';
 import {
   type EventEmitter,
   EventsController,
@@ -68,14 +69,11 @@ export class Menu extends LitElement {
   /** The inline anchor name declaration replaced by a generated name. */
   #previousInlineAnchorName?: { value: string; priority: string };
 
-  /** Event listeners and observers that only run while the menu is open. */
-  #openController?: AbortController;
+  /** Stops tracking anchor movement and size changes while the menu is closed. */
+  #sizingCleanup?: () => void;
 
   /** Cleanup for the JavaScript fallback used by anchors in a different tree scope. */
   #positionCleanup?: () => void;
-
-  /** Watches the anchor for size changes that affect the available viewport space. */
-  #resizeObserver?: ResizeObserver;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
@@ -306,48 +304,15 @@ export class Menu extends LitElement {
   #onToggle = (event: ToggleEvent): void => {
     this.#stopSizing();
 
-    if (event.newState !== 'open') {
+    if (event.newState !== 'open' || this.hasAttribute('data-js-positioning')) {
       return;
     }
 
-    if (this.hasAttribute('data-js-positioning')) {
-      return;
-    }
-
-    this.#openController = new AbortController();
-
-    const { signal } = this.#openController;
-
-    const anchor = this.#getAnchorElement(),
-      scrollRoots = new Set<Document | ShadowRoot>([this.ownerDocument]);
-
-    // Scroll events do not cross shadow boundaries. Follow slots as well as hosts so
-    // scrolling a shadow container around a slotted anchor also updates the limits.
-    let node: Node | null = anchor;
-    while (node) {
-      if (node instanceof ShadowRoot) {
-        scrollRoots.add(node);
-        node = node.host;
-      } else {
-        node = (node instanceof Element ? node.assignedSlot : null) ?? node.parentNode;
-      }
-    }
-
-    for (const root of scrollRoots) {
-      root.addEventListener('scroll', this.#updateMaxSize, {
-        capture: true,
-        passive: true,
-        signal
-      });
-    }
-    window.addEventListener('resize', this.#updateMaxSize, { passive: true, signal });
-
+    const anchor = this.#getAnchorElement();
     if (anchor) {
-      this.#resizeObserver = new ResizeObserver(this.#updateMaxSize);
-      this.#resizeObserver.observe(anchor);
+      // Only observe the anchor: changing menu limits must not trigger another resize update.
+      this.#sizingCleanup = autoUpdate(anchor, null, this.#updateMaxSize);
     }
-
-    this.#updateMaxSize();
   };
 
   #onAnchorKeydown: EventListener = event => {
@@ -413,10 +378,8 @@ export class Menu extends LitElement {
   }
 
   #stopSizing(): void {
-    this.#openController?.abort();
-    this.#openController = undefined;
-    this.#resizeObserver?.disconnect();
-    this.#resizeObserver = undefined;
+    this.#sizingCleanup?.();
+    this.#sizingCleanup = undefined;
   }
 
   #updateMaxSize = (): void => {

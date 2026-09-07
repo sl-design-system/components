@@ -7771,6 +7771,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/menu@workspace:packages/components/menu"
   dependencies:
+    "@floating-ui/dom": "npm:^1.7.6"
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/button": "npm:^2.1.2"

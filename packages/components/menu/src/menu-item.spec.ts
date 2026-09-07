@@ -426,15 +426,34 @@ describe('sl-menu-item', () => {
       expect(menu).to.match(':popover-open');
       expect(menu.querySelector('sl-menu-item')).to.equal(document.activeElement);
 
-      // Overwrite the actual-placement attribute to test the left arrow; the value
-      // is unexpected because we're running in a headless browser.
-      menu.setAttribute('actual-placement', 'right-start');
+      el.getBoundingClientRect = () => DOMRect.fromRect({ x: 100, y: 100, width: 100, height: 40 });
+      menu.getBoundingClientRect = () =>
+        DOMRect.fromRect({ x: 220, y: 100, width: 100, height: 100 });
 
       await userEvent.keyboard('{ArrowLeft}');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(menu).not.to.match(':popover-open');
       expect(el).to.equal(document.activeElement);
+    });
+
+    it('should calculate the safe triangle using the resolved side', async () => {
+      el.dispatchEvent(new PointerEvent('pointerenter'));
+      await menu.updateComplete;
+
+      el.getBoundingClientRect = () => DOMRect.fromRect({ x: 100, y: 100, width: 100, height: 40 });
+      menu.getBoundingClientRect = () =>
+        DOMRect.fromRect({ x: 220, y: 100, width: 100, height: 100 });
+
+      const container = el.renderRoot.querySelector<HTMLElement>('.container')!,
+        safeTriangle = el.renderRoot.querySelector<HTMLElement>('.safe-triangle')!;
+
+      container.dispatchEvent(
+        new PointerEvent('pointermove', { bubbles: true, clientX: 150, clientY: 120 })
+      );
+
+      expect(safeTriangle.style.inlineSize).to.equal('120px');
+      expect(safeTriangle.style.clipPath).to.contain('100% 0');
     });
   });
 });

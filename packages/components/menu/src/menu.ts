@@ -1,10 +1,11 @@
+import { autoUpdate } from '@floating-ui/dom';
 import {
-  AnchorController,
   type EventEmitter,
   EventsController,
   type PopoverPosition,
   RovingTabindexController,
-  event
+  event,
+  positionPopover
 } from '@sl-design-system/shared';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import {
@@ -27,6 +28,32 @@ declare global {
 
 export type MenuEmphasis = 'subtle' | 'bold';
 
+type MenuSide = 'top' | 'right' | 'bottom' | 'left';
+type CSSAnchorElement = Element & ElementCSSInlineStyle;
+
+const minMenuSize = 25,
+  viewportMargin = 8,
+  javascriptPositionProperties = [
+    'inset-block-start',
+    'inset-inline-start',
+    'max-block-size',
+    'max-inline-size',
+    'min-block-size'
+  ] as const;
+
+// Keep the original declaration until the last menu releases a shared anchor.
+const anchorDeclarations = new WeakMap<
+  CSSAnchorElement,
+  {
+    value: string;
+    priority: string;
+    names: string[];
+    menus: Set<string>;
+  }
+>();
+
+let nextUniqueId = 0;
+
 /**
  * A menu that can be used as a context menu or as a dropdown menu.
  *
@@ -35,23 +62,26 @@ export type MenuEmphasis = 'subtle' | 'bold';
  * @slot default - The menu's content: menu items or menu item groups.
  */
 export class Menu extends LitElement {
-  /** @internal The default offset of the menu to its anchor. */
-  static offset = 6;
-
   /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal The default margin between the menu and the viewport. */
-  static viewportMargin = 8;
+  /** The anchor currently linked to this menu. */
+  #activeAnchor?: CSSAnchorElement;
 
-  /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, {
-    offset: Menu.offset,
-    viewportMargin: Menu.viewportMargin
-  });
+  /** The aria-details token added by this menu, if it was not already present. */
+  #addedDetailsId?: string;
+
+  /** The CSS anchor name owned exclusively by this menu. */
+  #generatedAnchorName?: string;
+
+  /** Stops tracking anchor movement and size changes while the menu is closed. */
+  #sizingCleanup?: () => void;
+
+  /** Cleanup for the JavaScript fallback used by anchors in a different tree scope. */
+  #positionCleanup?: () => void;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
@@ -77,7 +107,7 @@ export class Menu extends LitElement {
   @property({ type: Number }) offset?: number;
 
   /** The position of the menu relative to its anchor. */
-  @property() position?: PopoverPosition = 'right-start';
+  @property({ reflect: true }) position?: PopoverPosition = 'right-start';
 
   /** @internal Emits when the menu item selection changes. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
@@ -99,21 +129,47 @@ export class Menu extends LitElement {
     super.connectedCallback();
 
     this.role = 'menu';
+    this.id ||= `sl-menu-${nextUniqueId++}`;
 
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
+
+    this.addEventListener('beforetoggle', this.#onBeforeToggle);
+    this.addEventListener('toggle', this.#onToggle);
+    this.#linkAnchor();
+    this.#updateAnchorState(false);
+  }
+
+  override disconnectedCallback(): void {
+    this.removeEventListener('beforetoggle', this.#onBeforeToggle);
+    this.removeEventListener('toggle', this.#onToggle);
+    this.#stopJavaScriptPositioning();
+    this.#stopSizing();
+    this.#unlinkAnchor();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('offset')) {
-      this.#anchor.offset = this.offset;
+      if (this.offset === undefined) {
+        this.style.removeProperty('--_menu-offset');
+      } else {
+        this.style.setProperty('--_menu-offset', `${this.offset}px`);
+      }
     }
 
-    if (changes.has('position')) {
-      this.#anchor.position = this.position;
+    if (changes.has('offset') || changes.has('position')) {
+      const anchor = this.#getAnchorElement();
+
+      if (anchor && this.matches(':popover-open') && this.#requiresJavaScriptPositioning(anchor)) {
+        this.#startJavaScriptPositioning(anchor);
+      } else {
+        this.#updateMaxSize();
+      }
     }
 
     if (changes.has('emphasis')) {
@@ -143,6 +199,329 @@ export class Menu extends LitElement {
   /** @internal */
   focusLastItem(): void {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
+  }
+
+  /** @internal The side on which the menu was placed after CSS position fallbacks. */
+  getPositionSide(): MenuSide {
+    // Keep honoring the legacy attribute when explicitly supplied. This also makes it possible to
+    // force a side in tests without relying on viewport geometry.
+    const legacyPlacement = this.getAttribute('actual-placement')?.split('-')[0];
+    if (this.#isMenuSide(legacyPlacement)) {
+      return legacyPlacement;
+    }
+
+    const anchor = this.#getAnchorElement();
+    if (anchor) {
+      const anchorRect = anchor.getBoundingClientRect(),
+        menuRect = this.getBoundingClientRect();
+
+      if (menuRect.bottom <= anchorRect.top) {
+        return 'top';
+      } else if (menuRect.left >= anchorRect.right) {
+        return 'right';
+      } else if (menuRect.top >= anchorRect.bottom) {
+        return 'bottom';
+      } else if (menuRect.right <= anchorRect.left) {
+        return 'left';
+      }
+    }
+
+    return (this.position ?? 'right-start').split('-')[0] as MenuSide;
+  }
+
+  #getAnchorElement(): CSSAnchorElement | null {
+    const anchorId = this.getAttribute('anchor'),
+      anchor =
+        this.anchorElement ??
+        (anchorId ? (this.getRootNode() as Document | ShadowRoot).getElementById(anchorId) : null);
+
+    return anchor && 'style' in anchor ? (anchor as CSSAnchorElement) : null;
+  }
+
+  #isMenuSide(value?: string): value is MenuSide {
+    return value === 'top' || value === 'right' || value === 'bottom' || value === 'left';
+  }
+
+  #linkAnchor(): void {
+    const anchor = this.#getAnchorElement();
+
+    if (this.#activeAnchor === anchor) {
+      return;
+    }
+
+    this.#unlinkAnchor();
+
+    if (!anchor) {
+      return;
+    }
+
+    this.#activeAnchor = anchor;
+    anchor.addEventListener('keydown', this.#onAnchorKeydown);
+
+    const names = (getComputedStyle(anchor).anchorName || 'none')
+      .split(',')
+      .map(name => name.trim())
+      .filter(name => name !== 'none');
+    let declaration = anchorDeclarations.get(anchor);
+    if (!declaration) {
+      declaration = {
+        value: anchor.style.getPropertyValue('anchor-name'),
+        priority: anchor.style.getPropertyPriority('anchor-name'),
+        names,
+        menus: new Set()
+      };
+      anchorDeclarations.set(anchor, declaration);
+    }
+
+    this.#generatedAnchorName ||= `--sl-menu-anchor-${nextUniqueId++}`;
+    declaration.menus.add(this.#generatedAnchorName);
+    // The owned name must also take effect over an existing !important stylesheet rule.
+    anchor.style.setProperty(
+      'anchor-name',
+      [...names, this.#generatedAnchorName].join(', '),
+      'important'
+    );
+    this.style.positionAnchor = this.#generatedAnchorName;
+
+    const details: string[] = anchor.getAttribute('aria-details')?.match(/\S+/g) ?? [];
+    if (!details.includes(this.id)) {
+      this.#addedDetailsId = this.id;
+      anchor.setAttribute('aria-details', [...details, this.id].join(' '));
+    }
+  }
+
+  #updateAnchorState(expanded: boolean): void {
+    const anchor = this.#activeAnchor;
+    if (!anchor) {
+      return;
+    }
+
+    anchor.setAttribute('aria-expanded', expanded.toString());
+
+    if (anchor.tagName === 'SL-BUTTON') {
+      anchor.toggleAttribute('popover-opened', expanded);
+    }
+  }
+
+  #onBeforeToggle = (event: ToggleEvent): void => {
+    const isOpening = event.newState === 'open';
+
+    if (isOpening) {
+      this.#linkAnchor();
+    }
+    this.#updateAnchorState(isOpening);
+
+    if (!isOpening) {
+      this.#stopJavaScriptPositioning();
+      return;
+    }
+
+    const anchor = this.#activeAnchor;
+    // Later listeners can cancel opening. Wait until dispatch finishes before starting JS work.
+    queueMicrotask(() => {
+      if (!this.isConnected || this.#activeAnchor !== anchor) {
+        return;
+      }
+
+      const isOpen = this.matches(':popover-open');
+      this.#updateAnchorState(isOpen);
+      if (
+        !event.defaultPrevented &&
+        isOpen &&
+        anchor &&
+        this.#requiresJavaScriptPositioning(anchor)
+      ) {
+        this.#startJavaScriptPositioning(anchor);
+      }
+    });
+  };
+
+  #onToggle = (event: ToggleEvent): void => {
+    this.#stopSizing();
+
+    if (event.newState !== 'open' || this.hasAttribute('data-js-positioning')) {
+      return;
+    }
+
+    const anchor = this.#getAnchorElement();
+    if (anchor) {
+      // Only observe the anchor: changing menu limits must not trigger another resize update.
+      this.#sizingCleanup = autoUpdate(anchor, null, this.#updateMaxSize);
+    }
+  };
+
+  #onAnchorKeydown: EventListener = event => {
+    if ((event as KeyboardEvent).key === 'Escape') {
+      event.stopPropagation();
+    }
+  };
+
+  #requiresJavaScriptPositioning(anchor: Element): boolean {
+    const anchorRoot = anchor.getRootNode();
+    let menuRoot = this.getRootNode();
+
+    while (menuRoot !== anchorRoot) {
+      if (!(menuRoot instanceof ShadowRoot)) {
+        return true;
+      }
+
+      menuRoot = menuRoot.host.getRootNode();
+    }
+
+    return false;
+  }
+
+  #startJavaScriptPositioning(anchor: Element): void {
+    this.#stopJavaScriptPositioning();
+    this.#stopSizing();
+    this.toggleAttribute('data-js-positioning', true);
+    const previousActualPlacement = this.getAttribute('actual-placement'),
+      previousStyles = javascriptPositionProperties.map(property => ({
+        property,
+        value: this.style.getPropertyValue(property),
+        priority: this.style.getPropertyPriority(property)
+      })),
+      cleanup = positionPopover(this, anchor, {
+        offset: this.offset ?? 6,
+        position: this.position,
+        viewportMargin
+      });
+
+    this.#positionCleanup = () => {
+      cleanup();
+      this.toggleAttribute('data-js-positioning', false);
+
+      if (previousActualPlacement === null) {
+        this.removeAttribute('actual-placement');
+      } else {
+        this.setAttribute('actual-placement', previousActualPlacement);
+      }
+
+      for (const { property, value, priority } of previousStyles) {
+        if (value) {
+          this.style.setProperty(property, value, priority);
+        } else {
+          this.style.removeProperty(property);
+        }
+      }
+    };
+  }
+
+  #stopJavaScriptPositioning(): void {
+    this.#positionCleanup?.();
+    this.#positionCleanup = undefined;
+  }
+
+  #stopSizing(): void {
+    this.#sizingCleanup?.();
+    this.#sizingCleanup = undefined;
+  }
+
+  #updateMaxSize = (): void => {
+    const anchor = this.#getAnchorElement();
+    if (!anchor || !this.matches(':popover-open')) {
+      return;
+    }
+
+    const anchorRect = anchor.getBoundingClientRect(),
+      offset = this.offset ?? 6,
+      [requestedSide, alignment] = (this.position ?? 'right-start').split('-') as [
+        MenuSide,
+        'start' | 'end' | undefined
+      ],
+      anchorCenterX = (anchorRect.left + anchorRect.right) / 2,
+      anchorCenterY = (anchorRect.top + anchorRect.bottom) / 2,
+      alignedBlockSize = Math.max(
+        anchorRect.bottom - viewportMargin,
+        window.innerHeight - anchorRect.top - viewportMargin
+      ),
+      alignedInlineSize = Math.max(
+        anchorRect.right - viewportMargin,
+        window.innerWidth - anchorRect.left - viewportMargin
+      ),
+      centeredBlockSize =
+        2 *
+        Math.min(
+          anchorCenterY - viewportMargin,
+          window.innerHeight - viewportMargin - anchorCenterY
+        ),
+      centeredInlineSize =
+        2 *
+        Math.min(
+          anchorCenterX - viewportMargin,
+          window.innerWidth - viewportMargin - anchorCenterX
+        );
+
+    let maxBlockSize = alignment ? alignedBlockSize : centeredBlockSize,
+      maxInlineSize = alignment ? alignedInlineSize : centeredInlineSize;
+
+    if (requestedSide === 'top' || requestedSide === 'bottom') {
+      maxBlockSize =
+        Math.max(anchorRect.top, window.innerHeight - anchorRect.bottom) - offset - viewportMargin;
+    } else {
+      maxInlineSize =
+        Math.max(anchorRect.left, window.innerWidth - anchorRect.right) - offset - viewportMargin;
+    }
+
+    this.style.setProperty('--_menu-max-block-size', `${Math.max(minMenuSize, maxBlockSize)}px`);
+    this.style.setProperty('--_menu-max-inline-size', `${Math.max(minMenuSize, maxInlineSize)}px`);
+  };
+
+  #unlinkAnchor(): void {
+    this.style.removeProperty('--_menu-max-block-size');
+    this.style.removeProperty('--_menu-max-inline-size');
+
+    if (!this.#activeAnchor) {
+      return;
+    }
+
+    const declaration = anchorDeclarations.get(this.#activeAnchor);
+    if (declaration && this.#generatedAnchorName) {
+      declaration.menus.delete(this.#generatedAnchorName);
+      const names = this.#activeAnchor.style.anchorName.split(',').map(name => name.trim());
+      if (names.includes(this.#generatedAnchorName)) {
+        const remaining = names.filter(name => name !== this.#generatedAnchorName);
+        if (!declaration.menus.size && remaining.join(', ') === declaration.names.join(', ')) {
+          if (declaration.value) {
+            this.#activeAnchor.style.setProperty(
+              'anchor-name',
+              declaration.value,
+              declaration.priority
+            );
+          } else {
+            this.#activeAnchor.style.removeProperty('anchor-name');
+          }
+        } else {
+          this.#activeAnchor.style.setProperty(
+            'anchor-name',
+            remaining.join(', '),
+            this.#activeAnchor.style.getPropertyPriority('anchor-name')
+          );
+        }
+      }
+      if (!declaration.menus.size) {
+        anchorDeclarations.delete(this.#activeAnchor);
+      }
+    }
+
+    this.#activeAnchor.removeEventListener('keydown', this.#onAnchorKeydown);
+
+    if (this.#addedDetailsId) {
+      const details = (this.#activeAnchor.getAttribute('aria-details')?.match(/\S+/g) ?? []).filter(
+        id => id !== this.#addedDetailsId
+      );
+      if (details.length) {
+        this.#activeAnchor.setAttribute('aria-details', details.join(' '));
+      } else {
+        this.#activeAnchor.removeAttribute('aria-details');
+      }
+      this.#addedDetailsId = undefined;
+    }
+
+    this.#activeAnchor.removeAttribute('aria-expanded');
+    this.#activeAnchor.removeAttribute('popover-opened');
+    this.style.positionAnchor = '';
+    this.#activeAnchor = undefined;
   }
 
   #onFocusout(event: FocusEvent): void {
@@ -183,11 +562,11 @@ export class Menu extends LitElement {
       return;
     }
 
-    const placement = this.getAttribute('actual-placement');
+    const side = this.getPositionSide();
 
     if (
-      (placement?.startsWith('right') && event.key === 'ArrowLeft') ||
-      (placement?.startsWith('left') && event.key === 'ArrowRight')
+      (side === 'right' && event.key === 'ArrowLeft') ||
+      (side === 'left' && event.key === 'ArrowRight')
     ) {
       this.hidePopover();
       this.anchorElement.focus();

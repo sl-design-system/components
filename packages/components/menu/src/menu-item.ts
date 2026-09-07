@@ -299,9 +299,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
    * https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
    */
   #calculateSafeTriangle(event: PointerEvent): void {
-    const actualPlacement = this.submenu?.getAttribute('actual-placement');
+    const side = this.submenu?.getPositionSide();
 
-    if (!actualPlacement || !this.submenu) {
+    if (!side || !this.submenu) {
       return;
     }
 
@@ -313,20 +313,20 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     let inlineSize = 0,
       inset = '',
       polygon = '';
-    if (actualPlacement.startsWith('right')) {
+    if (side === 'right') {
       const insetInlineStart = Math.floor(rect.left);
 
       inlineSize = Math.floor(submenuRect.left - rect.left);
       inset = `${insetBlockStart}px auto auto ${insetInlineStart}px`;
       polygon = `${event.clientX - insetInlineStart}px ${event.clientY - insetBlockStart}px, 100% 0, 100% 100%`;
-    } else if (actualPlacement.startsWith('left')) {
+    } else if (side === 'left') {
       const insetInlineStart = Math.floor(submenuRect.right);
 
       inlineSize = Math.floor(rect.right - submenuRect.right);
       inset = `${insetBlockStart}px auto auto ${insetInlineStart}px`;
       polygon = `${event.clientX - insetInlineStart}px ${event.clientY - insetBlockStart}px, 0 100%, 0 0`;
     } else {
-      console.warn('Unsupported submenu placement: ', actualPlacement);
+      console.warn('Unsupported submenu placement: ', side);
       return;
     }
 

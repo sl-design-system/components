@@ -7941,6 +7941,7 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/icon": "npm:^1.4.1"
+    "@sl-design-system/shared": "npm:^0.12.3"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1

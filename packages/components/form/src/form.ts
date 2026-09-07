@@ -230,6 +230,13 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
       return;
     }
 
+    // In validate-on-blur mode, only show errors on blur.
+    // If we call reportValidity() while the control is still valid,
+    // later typing errors can appear immediately instead of on blur.
+    if (control.valid) {
+      return;
+    }
+
     control.reportValidity();
   }
 

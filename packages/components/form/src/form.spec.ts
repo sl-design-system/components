@@ -230,6 +230,41 @@ describe('sl-form', () => {
   });
 
   describe('validate on blur', () => {
+    it('should show format errors on blur, not while typing, after a previous valid blur', async () => {
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Email">
+            <sl-text-field name="email" type="email"></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const textField = el.querySelector<TextField>('sl-text-field[name="email"]')!,
+        input = textField.formControlElement as HTMLInputElement;
+
+      input.focus();
+      input.blur();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField.updateComplete;
+
+      expect(textField.showValidity).to.be.undefined;
+
+      input.focus();
+      await userEvent.keyboard('abc');
+      await textField.updateComplete;
+
+      expect(textField.valid).to.be.false;
+      expect(textField.showValidity).to.be.undefined;
+
+      input.blur();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField.updateComplete;
+
+      expect(textField.showValidity).to.equal('invalid');
+    });
+
     it('should validate invalid non-empty values on blur when opt-in is enabled', async () => {
       el = await fixture(html`
         <sl-form validate-on-blur>

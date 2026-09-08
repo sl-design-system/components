@@ -7669,7 +7669,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.14.0"
     lit: "npm:^3.3.3"
   peerDependencies:
-    "@lit/localize": ^0.12.2
+    "@lit/localize": ^0.12.1
     "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
@@ -8181,7 +8181,7 @@ __metadata:
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
-    "@lit/localize": ^0.12.2
+    "@lit/localize": ^0.12.1
     "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
@@ -8283,7 +8283,7 @@ __metadata:
     "@sl-design-system/toggle-group": "npm:^1.0.1"
     lit: "npm:^3.3.3"
   peerDependencies:
-    "@lit/localize": ^0.12.2
+    "@lit/localize": ^0.12.1
     "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
@@ -8317,7 +8317,7 @@ __metadata:
     "@sl-design-system/virtual-list": "npm:^0.2.3"
     lit: "npm:^3.3.3"
   peerDependencies:
-    "@lit/localize": ^0.12.2
+    "@lit/localize": ^0.12.1
     "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4

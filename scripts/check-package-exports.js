@@ -24,13 +24,22 @@ let packages = 0;
 
 try {
   for (const relative of globSync(
-    ['packages/components/*/package.json', 'packages/locales/package.json'],
+    [
+      'packages/components/*/package.json',
+      'packages/locales/package.json',
+      'packages/themes/*/package.json'
+    ],
     { cwd: root }
   )) {
     const manifestPath = join(root, relative);
     const original = readFileSync(manifestPath, 'utf8');
     const manifest = JSON.parse(original);
     const directory = join(root, relative, '..');
+    if (
+      manifest.private ||
+      (relative.startsWith('packages/themes/') && !existsSync(join(directory, 'index.ts')))
+    )
+      continue;
     const [pack] = JSON.parse(
       execFileSync(
         'npm',
@@ -52,8 +61,42 @@ try {
     ]);
     const packed = JSON.parse(readFileSync(join(destination, 'package.json'), 'utf8'));
     assert.deepEqual(packed.exports, manifest.exports, 'npm must not need to rewrite exports');
+    // Check imports in the shipped JavaScript AND declarations. A dependency
+    // available only through another workspace must not hide a broken package.
+    for (const file of pack.files.filter(file => /\.(?:js|d\.ts)$/.test(file.path))) {
+      const contents = readFileSync(join(destination, file.path), 'utf8');
+      for (const imported of ts.preProcessFile(contents, true, true).importedFiles) {
+        const specifier = imported.fileName;
+        if (specifier.startsWith('.') || specifier.startsWith('node:')) continue;
+        const dependency = specifier.startsWith('@')
+          ? specifier.split('/').slice(0, 2).join('/')
+          : specifier.split('/')[0];
+        assert.ok(
+          dependency === packed.name ||
+            packed.dependencies?.[dependency] ||
+            packed.peerDependencies?.[dependency],
+          `${packed.name}/${file.path}: undeclared dependency ${dependency}`
+        );
+      }
+    }
+    if (packed.types)
+      assert.ok(
+        existsSync(join(destination, packed.types)),
+        `${packed.name}: missing ${packed.types}`
+      );
     for (const [key, entry] of Object.entries(packed.exports)) {
       const target = typeof entry === 'string' ? entry : entry.default;
+      // Minified theme CSS is generated only by the production release build.
+      // This check covers theme JavaScript and declarations after yarn build.
+      if (relative.startsWith('packages/themes/') && key !== '.' && !target.endsWith('.js'))
+        continue;
+      if (typeof target === 'string' && target.includes('*')) {
+        assert.ok(
+          globSync(target, { cwd: destination }).length,
+          `${packed.name}: empty export pattern ${target}`
+        );
+        continue;
+      }
       assert.equal(typeof target, 'string', `${manifest.name}${key}: missing default export`);
       assert.ok(
         existsSync(join(destination, target)),

@@ -28,9 +28,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map"
+    "dist",
+    "custom-elements.json"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"

@@ -42,6 +42,7 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "1.4.5"
+    "@sl-design-system/icon": "1.4.5",
+    "@sl-design-system/shared": "^0.14.0"
   }
 }

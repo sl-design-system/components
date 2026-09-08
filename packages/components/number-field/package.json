@@ -35,9 +35,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map",
+    "dist",
     "custom-elements.json"
   ],
   "sideEffects": [
@@ -51,5 +49,10 @@
     "@sl-design-system/format-number": "^0.0.11",
     "@sl-design-system/shared": "^0.14.1",
     "@sl-design-system/text-field": "^1.7.2"
+  },
+  "peerDependencies": {
+    "@lit/localize": "^0.12.1",
+    "@open-wc/dedupe-mixin": "^2.0.1",
+    "lit": "^3.1.4"
   }
 }

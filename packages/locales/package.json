@@ -52,10 +52,8 @@
     "./pl.xlf": "./src/pl.xlf"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map",
-    "**/*.xlf"
+    "dist",
+    "src/*.xlf"
   ],
   "devDependencies": {
     "@lit/localize": "^0.12.2"

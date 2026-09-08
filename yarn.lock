@@ -7017,6 +7017,9 @@ __metadata:
   dependencies:
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/shared": "npm:^0.14.1"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7076,7 +7079,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/announcer@npm:^0.1.3, @sl-design-system/announcer@workspace:packages/components/announcer":
+"@sl-design-system/announcer@npm:^0.1.2, @sl-design-system/announcer@npm:^0.1.3, @sl-design-system/announcer@workspace:packages/components/announcer":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/announcer@workspace:packages/components/announcer"
   dependencies:
@@ -7102,7 +7105,9 @@ __metadata:
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7144,18 +7149,22 @@ __metadata:
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button-bar@npm:^1.6.1, @sl-design-system/button-bar@workspace:packages/components/button-bar":
+"@sl-design-system/button-bar@npm:^1.6.0, @sl-design-system/button-bar@npm:^1.6.1, @sl-design-system/button-bar@workspace:packages/components/button-bar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button-bar@workspace:packages/components/button-bar"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/shared": "npm:^0.14.0"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
@@ -7169,6 +7178,7 @@ __metadata:
     "@sl-design-system/tooltip": "npm:^3.0.2"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7180,6 +7190,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
+    "@sl-design-system/announcer": "npm:^0.1.2"
     "@sl-design-system/button": "npm:^2.3.1"
     "@sl-design-system/format-date": "npm:^0.1.9"
     "@sl-design-system/icon": "npm:^1.4.5"
@@ -7188,6 +7199,7 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7203,7 +7215,9 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7216,6 +7230,7 @@ __metadata:
     "@sl-design-system/toggle-button": "npm:^2.0.1"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7228,11 +7243,14 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/infotip": "npm:^0.1.1"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7276,6 +7294,8 @@ __metadata:
     "@sl-design-system/text-field": "npm:^1.7.2"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7312,6 +7332,8 @@ __metadata:
     "@sl-design-system/text-field": "npm:^1.7.2"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7330,6 +7352,7 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7344,6 +7367,7 @@ __metadata:
     "@sl-design-system/button-bar": "npm:^1.6.1"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7363,9 +7387,12 @@ __metadata:
     prosemirror-model: "npm:^1.21.1"
     prosemirror-schema-list: "npm:^1.4.0"
     prosemirror-state: "npm:^1.4.3"
+    prosemirror-transform: "npm:^1.8.0"
     prosemirror-view: "npm:^1.33.8"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": 3.0.10
+    lit: ^3.1.4
     prosemirror-commands: ^1.5.2
     prosemirror-history: ^1.4.0
     prosemirror-inputrules: ^1.4.0
@@ -7382,6 +7409,7 @@ __metadata:
   resolution: "@sl-design-system/editorial-suite@workspace:packages/themes/editorial-suite"
   dependencies:
     "@sl-design-system/icon": "npm:1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.0"
   languageName: unknown
   linkType: soft
 
@@ -7392,7 +7420,9 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7400,6 +7430,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/emoji@workspace:packages/components/emoji"
   dependencies:
+    "@fortawesome/pro-regular-svg-icons": "npm:^7.2.0"
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/button": "npm:^2.3.1"
@@ -7411,7 +7442,9 @@ __metadata:
     emojibase-data: "npm:^17.0.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7501,7 +7534,9 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7510,6 +7545,9 @@ __metadata:
   resolution: "@sl-design-system/format-date@workspace:packages/components/format-date"
   dependencies:
     "@sl-design-system/shared": "npm:^0.14.1"
+  peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7518,6 +7556,9 @@ __metadata:
   resolution: "@sl-design-system/format-number@workspace:packages/components/format-number"
   dependencies:
     "@sl-design-system/shared": "npm:^0.14.1"
+  peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7549,6 +7590,7 @@ __metadata:
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.13
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7565,7 +7607,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/infotip@workspace:packages/components/infotip":
+"@sl-design-system/infotip@npm:^0.1.1, @sl-design-system/infotip@workspace:packages/components/infotip":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/infotip@workspace:packages/components/infotip"
   dependencies:
@@ -7577,6 +7619,7 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7594,7 +7637,9 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7621,11 +7666,13 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.0"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.2
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
-    lit: ^3.3.3
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7639,6 +7686,7 @@ __metadata:
     "@sl-design-system/virtual-list": "npm:^0.2.3"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7690,7 +7738,9 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7701,11 +7751,14 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/button-bar": "npm:^1.6.0"
     "@sl-design-system/dialog": "npm:^2.1.4"
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7796,6 +7849,10 @@ __metadata:
     "@sl-design-system/format-number": "npm:^0.0.11"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/text-field": "npm:^1.7.2"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7817,6 +7874,7 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7834,7 +7892,9 @@ __metadata:
     "@sl-design-system/tool-bar": "npm:^0.4.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7843,6 +7903,8 @@ __metadata:
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"
   dependencies:
     "@sl-design-system/shared": "npm:^0.14.1"
+  peerDependencies:
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7852,11 +7914,13 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
+    "@sl-design-system/announcer": "npm:^0.1.2"
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/shared": "npm:^0.14.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -7869,11 +7933,14 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/infotip": "npm:^0.1.1"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7890,6 +7957,7 @@ __metadata:
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
   dependencies:
     "@sl-design-system/icon": "npm:1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.0"
   languageName: unknown
   linkType: soft
 
@@ -7956,6 +8024,9 @@ __metadata:
   dependencies:
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/text-field": "npm:^1.7.2"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -7972,17 +8043,22 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/shared@npm:^0.14.1, @sl-design-system/shared@workspace:packages/components/shared":
+"@sl-design-system/shared@npm:^0.14.0, @sl-design-system/shared@npm:^0.14.1, @sl-design-system/shared@workspace:packages/components/shared":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
+    "@floating-ui/core": "npm:^1.7.5"
     "@floating-ui/dom": "npm:^1.7.6"
+    "@lit-labs/virtualizer": "npm:^2.1.1"
     "@open-wc/dedupe-mixin": "npm:^2.0.1"
     lit: "npm:^3.3.3"
+    lit-html: "npm:^3.3.0"
   peerDependencies:
     "@floating-ui/dom": ^1.6.5
     "@open-wc/dedupe-mixin": ^2.0.1
@@ -8033,10 +8109,13 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/form": "npm:^1.5.1"
     "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/infotip": "npm:^0.1.1"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -8051,7 +8130,9 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -8067,6 +8148,7 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -8100,7 +8182,9 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.2
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -8113,7 +8197,10 @@ __metadata:
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -8139,6 +8226,7 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -8155,6 +8243,7 @@ __metadata:
     "@sl-design-system/tooltip": "npm:^3.0.2"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -8189,11 +8278,15 @@ __metadata:
     "@sl-design-system/button": "npm:^2.3.1"
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/menu": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.14.0"
     "@sl-design-system/toggle-button": "npm:^2.0.1"
     "@sl-design-system/toggle-group": "npm:^1.0.1"
     lit: "npm:^3.3.3"
   peerDependencies:
+    "@lit/localize": ^0.12.2
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -8202,6 +8295,8 @@ __metadata:
   resolution: "@sl-design-system/tooltip@workspace:packages/components/tooltip"
   dependencies:
     "@sl-design-system/shared": "npm:^0.14.1"
+  peerDependencies:
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -8223,6 +8318,7 @@ __metadata:
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.2
+    "@open-wc/dedupe-mixin": ^2.0.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
   languageName: unknown
@@ -22580,6 +22676,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prosemirror-model@npm:^1.21.0":
+  version: 1.25.11
+  resolution: "prosemirror-model@npm:1.25.11"
+  dependencies:
+    orderedmap: "npm:^2.0.0"
+  checksum: 10c0/e41faa477414160a602289b778189163b39a4563799defea1862183087f9ec77f02c292e3e79dd32fcc1a8878aedbdcea50f0f752ee03fe64c24ce6780b82205
+  languageName: node
+  linkType: hard
+
 "prosemirror-schema-list@npm:^1.4.0":
   version: 1.4.0
   resolution: "prosemirror-schema-list@npm:1.4.0"
@@ -22608,6 +22713,15 @@ __metadata:
   dependencies:
     prosemirror-model: "npm:^1.0.0"
   checksum: 10c0/20861fcb304cc68718e49be6c41f22505689e969507f1e9754bbdfedf98fc4059254a79e1659b930c13ca52c547d3449f1814263a7601aeea1c1c4dfedc80ac1
+  languageName: node
+  linkType: hard
+
+"prosemirror-transform@npm:^1.8.0":
+  version: 1.12.1
+  resolution: "prosemirror-transform@npm:1.12.1"
+  dependencies:
+    prosemirror-model: "npm:^1.21.0"
+  checksum: 10c0/054373306017df90325c90c7edd86c312a4c5d436d05f330e5a2fb4d4a227929693c4464762cd238dc6615e5e6037253bdae0673f3292e2e4fd83dc112c138c7
   languageName: node
   linkType: hard
 

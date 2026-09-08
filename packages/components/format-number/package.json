@@ -25,9 +25,18 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./format.js": "./src/format.ts",
-    "./register.js": "./src/register.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./format.js": {
+      "@sl-design-system/source": "./src/format.ts",
+      "default": "./dist/format.js"
+    },
+    "./register.js": {
+      "@sl-design-system/source": "./src/register.ts",
+      "default": "./dist/register.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

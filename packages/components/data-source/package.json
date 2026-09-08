@@ -21,7 +21,10 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

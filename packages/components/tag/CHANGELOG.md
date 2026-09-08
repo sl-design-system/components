@@ -1,10 +1,73 @@
 # @sl-design-system/tag
 
+## 1.0.0
+
+### Major Changes
+
+- [#3687](https://github.com/sl-design-system/components/pull/3687) [`67be16c`](https://github.com/sl-design-system/components/commit/67be16cdeb8469ab3d1f492be2c2ea3d9e45eee8) - First stable release
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - Use the `@cssState` decorator for the remaining custom CSS states
+
+  The `has-value` state on `sl-time-field` was documented and styled, but never actually set, so a
+  time field with a value rendered it in the muted placeholder color instead of
+  `--sl-color-foreground-plain`. It is now set from the `value` accessor, matching `sl-date-field`.
+
+  The `has-focus` (time field) and `focus-visible` (tag) states are now declared with `@cssState`
+  instead of being added and removed by hand. These states are applied when the component updates
+  rather than synchronously, which is still before the browser paints.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/tooltip@3.0.1
+
+## 0.2.0
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Add `tooltip` property
+
+  Previously, adding a tooltip to any kind of component required adding a sibling `<sl-tooltip>` element manually and wiring up the correct `aria-describedby` or `aria-labelledby` relationship by hand. This was especially cumbersome for icon-only buttons, where the tooltip doubles as the accessible label.
+
+  The new `tooltip` property improves the Developer Experience by letting you set a tooltip directly on the component.
+
+  For buttons, it handles all the accessibility wiring automatically:
+
+  - For **icon-only buttons** the tooltip text acts as the accessible label (`aria-labelledby`).
+  - For **text buttons** the tooltip text acts as an accessible description (`aria-describedby`).
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - New styling for `pill` shape combobox.
+
+### Patch Changes
+
+- [#3581](https://github.com/sl-design-system/components/pull/3581) [`318505d`](https://github.com/sl-design-system/components/commit/318505dbab6aae74f5638d2d6378a0f34c694030) - Fixed stacked tag lists and multi-select comboboxes so at least one selected tag remains visible and removable when selected values overflow. Long visible tags are now constrained and truncated instead of being hidden entirely behind the stack counter, and comboboxes no longer create a large gap between the visible tags and the input caret when stacking is active.
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/tooltip@3.0.0
+
 ## 0.1.14
 
 ### Patch Changes
 
 - [#3214](https://github.com/sl-design-system/components/pull/3214) [`29fbc5e`](https://github.com/sl-design-system/components/commit/29fbc5e9e8f4620c2f22a050ec0b8fa85341163b) - Accessibility improvements to `<sl-tag>` and `<sl-tag-list>`:
+
   - The remove button now has a proper accessible label ("Remove tag 'X'") instead of being `aria-hidden`
   - The remove button uses `aria-disabled` instead of `disabled`, keeping it keyboard-reachable when the tag is disabled
   - Focus is delegated to the remove button via the component's `focus()` implementation; `:state(focus-visible)` tracks focus for styling
@@ -153,6 +216,7 @@
 ### Minor Changes
 
 - [#1813](https://github.com/sl-design-system/components/pull/1813) [`7b2fdc6`](https://github.com/sl-design-system/components/commit/7b2fdc6ee42af1b096b6f019b0f9e9daba5ed950) - Various improvements:
+
   - Add missing `disabled` property to `<sl-tag-list>` so the stack tag can be disabled
   - Change design from a visual stack to a regular tag with a `<number>+` text
   - Use the same size (`24px` for `md`, `36px` for `lg`) that is used elsewhere in the design system
@@ -178,10 +242,12 @@
 - [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Various a11y related fixes
 
   `<sl-tag-list>`:
+
   - Use `aria-labelledby` for the tooltip instead of `aria-describedby`
   - Do not set an `aria-label` on the host element; `role="list"` provides enough information
 
   `<sl-tag>`:
+
   - Add ability to use Delete or Backspace keys to remove the tag
   - Use `aria-description` to describe how to remove the tag using the keyboard
   - Make the delete button have `aria-hidden="true"`

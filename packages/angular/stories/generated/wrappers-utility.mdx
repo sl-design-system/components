@@ -29,7 +29,15 @@ The format-date component formats a date according to the specified format.
 ### Template
 
 ```html
-<sl-format-date [date]="new Date()" format="medium"></sl-format-date>
+<sl-format-date [date]="date" dateStyle="medium"></sl-format-date>
+```
+
+### Props
+
+```typescript
+
+  date: new Date()
+
 ```
 
 
@@ -40,7 +48,7 @@ The format-number component formats a number according to the specified format.
 ### Template
 
 ```html
-<sl-format-number [value]="1234.56" format="currency" currency="USD"></sl-format-number>
+<sl-format-number [number]="1234.56" numberStyle="currency" currency="USD"></sl-format-number>
 ```
 
 

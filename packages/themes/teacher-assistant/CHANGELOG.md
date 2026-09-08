@@ -1,5 +1,12 @@
 # @sl-design-system/teacher-assistant
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/icon@1.4.4
+
 ## 0.0.2
 
 ### Patch Changes

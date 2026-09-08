@@ -1,5 +1,36 @@
 # @sl-design-system/icon
 
+## 1.4.4
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Add `isDevMode()`, available from `@sl-design-system/shared/dev-mode.js`
+
+  Returns whether the code is running in a development build. Bundlers such as Vite replace `import.meta.env.DEV` at build time; in any other environment it is simply `undefined`, so the helper is safe to call anywhere.
+
+  ```ts
+  import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
+
+  if (isDevMode()) {
+    console.warn('This warning is stripped from production builds');
+  }
+  ```
+
+  It replaces the inline `import.meta.env?.DEV` checks that guard developer warnings in `@sl-design-system/combobox` (conflicting `autocomplete` and `select-only` configuration), `@sl-design-system/icon` (registering an icon that is already in the registry) and `@sl-design-system/toggle-button` (missing `sl-icon` in the default slot). The behaviour of those warnings is unchanged.
+
+  Previously each of those files reached for the typing via `/// <reference types="vite/client" />`. That is not a private detail: it also declares `*.css` as an _empty_ ambient module in every TypeScript program that compiles these sources, which broke `import styles from './x.css'` for downstream consumers that do not use Vite. Typing `import.meta.env` locally in one place keeps that out of the published sources.
+
+  Note that `@sl-design-system/icon` now depends on `@sl-design-system/shared`; previously it had no dependencies of its own.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/shared@0.14.0
+
 ## 1.4.3
 
 ### Patch Changes
@@ -71,9 +102,11 @@
 - [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
 
   The following icons have changed:
+
   - `circle` has been renamed to `circle-solid`
 
   The following icons have been added:
+
   - `badge-available`
   - `badge-away`
   - `badge-donotdisturb`
@@ -82,6 +115,7 @@
   - `info`
 
   The following items have been removed (mainly in cleaning up, they were never meant to be there)
+
   - `svg-sort`
   - `svg-sort-down`
   - `svg-sort-up`

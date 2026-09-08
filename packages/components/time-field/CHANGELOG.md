@@ -1,5 +1,76 @@
 # @sl-design-system/time-field
 
+## 0.3.0
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - Use the `@cssState` decorator for the remaining custom CSS states
+
+  The `has-value` state on `sl-time-field` was documented and styled, but never actually set, so a
+  time field with a value rendered it in the muted placeholder color instead of
+  `--sl-color-foreground-plain`. It is now set from the `value` accessor, matching `sl-date-field`.
+
+  The `has-focus` (time field) and `focus-visible` (tag) states are now declared with `@cssState`
+  instead of being added and removed by hand. These states are applied when the component updates
+  rather than synchronously, which is still before the browser paints.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Declare dependencies that were previously missing from `package.json`
+
+  These packages imported modules they never declared, relying on those packages happening to be present in the monorepo's hoisted `node_modules`. That works inside this repository, but it leaves consumers to install the transitive dependencies themselves, and it breaks under strict installers such as pnpm or Yarn PnP.
+
+  Newly declared runtime dependencies:
+
+  - `calendar`, `combobox`, `listbox`, `message-dialog`, `time-field` → `@sl-design-system/shared`
+  - `card` → `@sl-design-system/menu`, `@sl-design-system/toggle-button`
+  - `emoji` → `@sl-design-system/search-field`, `@sl-design-system/tabs`
+  - `form` → `@sl-design-system/icon`
+  - `paginator` → `@sl-design-system/data-source`, `@sl-design-system/listbox`
+  - `panel`, `toggle-button` → `@sl-design-system/button`
+  - `tree` → `@sl-design-system/menu`
+
+  Newly declared peer dependencies:
+
+  - `card`, `checkbox`, `editor`, `radio-group`, `toggle-group` → `@open-wc/scoped-elements`
+  - `text-area`, `time-field`, `tree` → `@lit/localize`
+  - `paginator` → `lit`
+
+  Existing dependency ranges were also brought up to date: `editor` on `@sl-design-system/form` and `@sl-design-system/shared`, `emoji` and `form` on `@sl-design-system/shared`, and `tree` on `@sl-design-system/skeleton`.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/form@1.5.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/listbox@0.2.2
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/text-field@1.7.1
+
+## 0.2.0
+
+### Minor Changes
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - A new `shape` property that defaults to `rect` but also accepts `pill` for rounded corners.
+  A new `size` property that defaults to `md` but also accepts `lg`.
+  New styling of the field button.
+
+### Patch Changes
+
+- Updated dependencies [[`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60)]:
+  - @sl-design-system/text-field@1.7.0
+  - @sl-design-system/form@1.4.3
+
 ## 0.1.3
 
 ### Patch Changes
@@ -61,6 +132,7 @@
 ### Patch Changes
 
 - [#2824](https://github.com/sl-design-system/components/pull/2824) [`ff5b844`](https://github.com/sl-design-system/components/commit/ff5b8447d854505f9d8619f2d7489d909dd757d0) - Multiple fixes:
+
   - For `required` time-field, native validation message is now used. The custom message "Please enter a time." appears only when the entered value is not a valid time.
   - Fixed an issue where the dialog time picker value did not update when the user typed a new value.
 

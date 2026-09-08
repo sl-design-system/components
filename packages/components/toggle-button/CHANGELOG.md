@@ -1,5 +1,112 @@
 # @sl-design-system/toggle-button
 
+## 2.0.0
+
+### Major Changes
+
+- [#3687](https://github.com/sl-design-system/components/pull/3687) [`67be16c`](https://github.com/sl-design-system/components/commit/67be16cdeb8469ab3d1f492be2c2ea3d9e45eee8) - First stable release
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Declare dependencies that were previously missing from `package.json`
+
+  These packages imported modules they never declared, relying on those packages happening to be present in the monorepo's hoisted `node_modules`. That works inside this repository, but it leaves consumers to install the transitive dependencies themselves, and it breaks under strict installers such as pnpm or Yarn PnP.
+
+  Newly declared runtime dependencies:
+
+  - `calendar`, `combobox`, `listbox`, `message-dialog`, `time-field` → `@sl-design-system/shared`
+  - `card` → `@sl-design-system/menu`, `@sl-design-system/toggle-button`
+  - `emoji` → `@sl-design-system/search-field`, `@sl-design-system/tabs`
+  - `form` → `@sl-design-system/icon`
+  - `paginator` → `@sl-design-system/data-source`, `@sl-design-system/listbox`
+  - `panel`, `toggle-button` → `@sl-design-system/button`
+  - `tree` → `@sl-design-system/menu`
+
+  Newly declared peer dependencies:
+
+  - `card`, `checkbox`, `editor`, `radio-group`, `toggle-group` → `@open-wc/scoped-elements`
+  - `text-area`, `time-field`, `tree` → `@lit/localize`
+  - `paginator` → `lit`
+
+  Existing dependency ranges were also brought up to date: `editor` on `@sl-design-system/form` and `@sl-design-system/shared`, `emoji` and `form` on `@sl-design-system/shared`, and `tree` on `@sl-design-system/skeleton`.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Add `isDevMode()`, available from `@sl-design-system/shared/dev-mode.js`
+
+  Returns whether the code is running in a development build. Bundlers such as Vite replace `import.meta.env.DEV` at build time; in any other environment it is simply `undefined`, so the helper is safe to call anywhere.
+
+  ```ts
+  import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
+
+  if (isDevMode()) {
+    console.warn('This warning is stripped from production builds');
+  }
+  ```
+
+  It replaces the inline `import.meta.env?.DEV` checks that guard developer warnings in `@sl-design-system/combobox` (conflicting `autocomplete` and `select-only` configuration), `@sl-design-system/icon` (registering an icon that is already in the registry) and `@sl-design-system/toggle-button` (missing `sl-icon` in the default slot). The behaviour of those warnings is unchanged.
+
+  Previously each of those files reached for the typing via `/// <reference types="vite/client" />`. That is not a private detail: it also declares `*.css` as an _empty_ ambient module in every TypeScript program that compiles these sources, which broke `import styles from './x.css'` for downstream consumers that do not use Vite. Typing `import.meta.env` locally in one place keeps that out of the published sources.
+
+  Note that `@sl-design-system/icon` now depends on `@sl-design-system/shared`; previously it had no dependencies of its own.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/button@2.3.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/tooltip@3.0.1
+
+## 1.0.0
+
+### Major Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Refactor toggle button to use an internal `<button>` element. This improves accessibility and removes the need for manual keyboard and ARIA handling.
+
+  **Breaking changes**
+
+  - The `[pressed]`, `[icon-only]`, `[text-only]`, and `[error]` attributes have been replaced by CSS custom states (`:state(pressed)`, `:state(icon-only)`, `:state(text-only)`, `:state(error)`). Update any custom styles targeting these attributes.
+  - The `shape` property type has changed from `ButtonShape` to `ToggleButtonShape` (`'rect' | 'pill'`).
+  - The `pressed` property is no longer reflected as an attribute. Use `:state(pressed)` for styling.
+  - The `label` property (previously reflected as `aria-label`) has been removed. Use the new `tooltip` property instead.
+
+  **New features**
+
+  - Added a `tooltip` property for declaratively adding a tooltip. For icon-only buttons the tooltip acts as the accessible label; for other buttons it acts as an accessible description.
+  - Added CSS parts `button` and `tooltip` for styling the internal elements.
+  - Focus is now delegated to the internal `<button>` via `delegatesFocus: true`.
+  - ARIA attributes set on the host are now forwarded to the internal `<button>` via `ForwardAriaMixin`.
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Add `tooltip` property
+
+  Previously, adding a tooltip to any kind of component required adding a sibling `<sl-tooltip>` element manually and wiring up the correct `aria-describedby` or `aria-labelledby` relationship by hand. This was especially cumbersome for icon-only buttons, where the tooltip doubles as the accessible label.
+
+  The new `tooltip` property improves the Developer Experience by letting you set a tooltip directly on the component.
+
+  For buttons, it handles all the accessibility wiring automatically:
+
+  - For **icon-only buttons** the tooltip text acts as the accessible label (`aria-labelledby`).
+  - For **text buttons** the tooltip text acts as an accessible description (`aria-describedby`).
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/tooltip@3.0.0
+
 ## 0.0.17
 
 ### Patch Changes
@@ -124,6 +231,7 @@
 - [#1602](https://github.com/sl-design-system/components/pull/1602) [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b) - Fixed toggling `text-only` attribute.
 
 - [#1807](https://github.com/sl-design-system/components/pull/1807) [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768) - Incorporate the new contextual tokens and add new options:
+
   - add size `sm`
   - add shape `pill` | `square`
   - changed fill `ghost` `to solid`

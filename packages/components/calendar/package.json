@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/calendar",
-  "version": "0.0.10",
+  "version": "0.1.1",
   "status": "draft",
   "description": "Calendar components for the SL Design System",
   "license": "Apache-2.0",
@@ -42,11 +42,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^2.1.2",
-    "@sl-design-system/format-date": "^0.1.6",
-    "@sl-design-system/icon": "^1.4.3",
-    "@sl-design-system/shared": "^0.12.3",
-    "@sl-design-system/tooltip": "^2.0.1"
+    "@sl-design-system/button": "^2.3.0",
+    "@sl-design-system/format-date": "^0.1.8",
+    "@sl-design-system/icon": "^1.4.4",
+    "@sl-design-system/shared": "^0.14.0",
+    "@sl-design-system/tooltip": "^3.0.1"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

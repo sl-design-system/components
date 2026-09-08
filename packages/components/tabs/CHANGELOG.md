@@ -1,5 +1,31 @@
 # @sl-design-system/tabs
 
+## 1.2.11
+
+### Patch Changes
+
+- [#3672](https://github.com/sl-design-system/components/pull/3672) [`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a) - The overflow menu items for disabled tabs now correctly use `aria-disabled="true"` instead of the removed `disabled` property on `sl-menu-item`.
+  Selecting a disabled tab's overflow menu item no longer accidentally selects it.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`67be16c`](https://github.com/sl-design-system/components/commit/67be16cdeb8469ab3d1f492be2c2ea3d9e45eee8)]:
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/menu@1.0.0
+  - @sl-design-system/shared@0.14.0
+
+## 1.2.10
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/menu@0.5.0
+  - @sl-design-system/shared@0.13.0
+
 ## 1.2.9
 
 ### Patch Changes
@@ -133,11 +159,13 @@
 - [#1798](https://github.com/sl-design-system/components/pull/1798) [`99a9ad9`](https://github.com/sl-design-system/components/commit/99a9ad9503a6dcf1b92838e46aafd2f1c5d3dc58) - Tabs improvements
 
   Features:
+
   - Refactor styling to use new contextual tokens
   - Add activation property for auto or manual activation (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
   - Simplify `<sl-tab>` styling using grid layout; makes the tab more flexible
 
   Fixes:
+
   - Scroll to the focused tab when using the keyboard
   - Make sure the selected tab is fully visible on initial render and doesn't smooth scroll
   - Fix bug where the RovingTabIndexController on `<sl-tab-group>` caused the inability to focus anything other than a tab
@@ -187,6 +215,7 @@
 ### Patch Changes
 
 - [#1354](https://github.com/sl-design-system/components/pull/1354) [`07d4437`](https://github.com/sl-design-system/components/commit/07d443778cf46b80c0f89fb2e7fdc8d11b5c335a) - Various improvements:
+
   - Fix tab group to not always select a tab by default
   - Fix tab group component to allow for removing the selected attribute from a tab
   - Fade in the selected tab indicator on first selected tab
@@ -207,6 +236,7 @@
 ### Patch Changes
 
 - [#1208](https://github.com/sl-design-system/components/pull/1208) [`b48b108`](https://github.com/sl-design-system/components/commit/b48b108c4873b6bbbea7636988a663f92c0ee242) - Improvements and bug fixes:
+
   - Add possibility of changing tab with URL by keyboard
   - Add missing background for `container` part: `--_tablist-background: var(--sl-color-tab-tabbar-background)`
   - Fix scrolling - only horizontally

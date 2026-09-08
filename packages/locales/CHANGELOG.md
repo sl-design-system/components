@@ -1,5 +1,39 @@
 # @sl-design-system/locales
 
+## 0.4.1
+
+### Patch Changes
+
+- [#3650](https://github.com/sl-design-system/components/pull/3650) [`9d4d49b`](https://github.com/sl-design-system/components/commit/9d4d49be891a01f1c36895fe816ae451689dfc33) - Fixed the mobile paginator select accessible label so it no longer includes the zero-based internal page index.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+## 0.4.0
+
+### Minor Changes
+
+- [#3526](https://github.com/sl-design-system/components/pull/3526) [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92) - New translations for `sl-text-area`:
+
+  - `sl.textArea.charCountTooMany_one`,
+  - `sl.textArea.charCountTooMany_few`,
+  - `sl.textArea.charCountTooMany_other`,
+  - `sl.textArea.charCountRemaining_one`,
+  - `sl.textArea.charCountRemaining_few`,
+  - `sl.textArea.charCountRemaining_other`,
+  - `sl.textArea.validation.tooLong_one`,
+  - `sl.textArea.validation.tooLong_few`,
+  - `sl.textArea.validation.tooLong_other`
+
+  in Dutch, Italian, Spanish and Polish.
+
+- [#3544](https://github.com/sl-design-system/components/pull/3544) [`ac75744`](https://github.com/sl-design-system/components/commit/ac75744df5693d272123778b53bba368992dad2c) - New translations for `sl.paginator.itemsPerPageAriaLabel` and `sl.grid.selectGroup` in Dutch, Italian, Spanish and Polish.
+
+- [#3560](https://github.com/sl-design-system/components/pull/3560) [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612) - Add translations for `sl.grid.selectGroupWithName` in Dutch, Italian, Polish and Spanish.
+
 ## 0.3.2
 
 ### Patch Changes

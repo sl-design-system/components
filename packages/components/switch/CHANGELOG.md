@@ -1,5 +1,53 @@
 # @sl-design-system/switch
 
+## 2.0.0
+
+### Major Changes
+
+- [#3604](https://github.com/sl-design-system/components/pull/3604) [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd) - `<sl-switch>` is now the form associated element itself. It uses `ElementInternals` for the form value and validity, and renders an `<input type="checkbox" role="switch">` in its shadow DOM as the control for the keyboard and assistive technology, following the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/). ARIA attributes are forwarded to that input by `ForwardAriaMixin`, so `aria-disabled` now works: the switch looks disabled and cannot be toggled, but stays focusable, so a tooltip can explain why.
+
+  #### Breaking changes
+  - The switch no longer adds an `<input>`, a `<label>` and a `<style>` element to its light DOM, and the `input` slot has been removed. The `input` property now returns the input in the shadow DOM and is marked internal.
+  - The `formControlElement` is now the switch itself, so a `<label for="...">` should point at the id of the `<sl-switch>` element.
+  - Calling `click()` no longer toggles the switch. Use the new `toggle()` method instead.
+
+  #### New features
+  - `toggle(force?)` toggles the switch from JavaScript the same way a user would: it emits an `sl-change` event and marks the switch as dirty. Pass `true` or `false` to set a specific state.
+  - The `tooltip` property shows a tooltip without having to add an `<sl-tooltip>` yourself, the same way `<sl-button>` does. It describes the switch, or labels it when the switch has no name of its own: no label, `aria-label`, `aria-labelledby` or `<sl-label>`.
+  - The `description` slot shows additional information below the label, linked to the control with `aria-describedby`.
+  - New CSS parts: `container`, `description`, `label`, `tooltip` and `wrapper`.
+  - New CSS states: `has-description`, `has-infotip` and `no-label`.
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/form@1.5.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/tooltip@3.0.1
+
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/form@1.4.3
+
 ## 1.2.0
 
 ### Minor Changes
@@ -7,6 +55,7 @@
 - [#3461](https://github.com/sl-design-system/components/pull/3461) [`c7efbd2`](https://github.com/sl-design-system/components/commit/c7efbd275e4638d5e94daa5d1a46fba73711f340) - Add infotip support to checkbox, radio, and switch components
 
   Form controls now support an optional infotip slot that displays contextual help using the infotip component. The infotip automatically:
+
   - Sizes itself appropriately (sm) for form controls
   - Inherits the form control's label as its `describes` attribute if not explicitly set
   - Positions itself alongside the form control without interfering with clicks or keyboard interactions
@@ -294,6 +343,7 @@
 - [#835](https://github.com/sl-design-system/components/pull/835) [`3cb1452`](https://github.com/sl-design-system/components/commit/3cb1452546a717f475c628077301ce218165cb9e) - Linked to the correct custom icons page in Figma so some new/changed icons are available.
 
 - [#834](https://github.com/sl-design-system/components/pull/834) [`5e1aa71`](https://github.com/sl-design-system/components/commit/5e1aa7142d3d5e48e4f21b05224e7ee95a4dad60) - Refactor `<sl-switch>` to
+
   - use new `FormControlMixin` from the form package
   - simplify the component by removing the `hint` and `orientation` properties
 

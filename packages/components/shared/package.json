@@ -29,19 +29,58 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./controllers/new-focus-group.js": "./src/controllers/new-focus-group.ts",
-    "./converters.js": "./src/converters.ts",
-    "./date.js": "./src/date.ts",
-    "./decorators/css-state.js": "./src/decorators/css-state.ts",
-    "./dev-mode.js": "./src/dev-mode.ts",
-    "./events.js": "./src/events.ts",
-    "./helpers/forward-aria.js": "./src/helpers/forward-aria.ts",
-    "./mixins/element-internals.js": "./src/mixins/element-internals.ts",
-    "./mixins/forward-aria.js": "./src/mixins/forward-aria.ts",
-    "./mixins/locale.js": "./src/mixins/locale.ts",
-    "./mixins/observe-attributes.js": "./src/mixins/observe-attributes.ts",
-    "./slot.js": "./src/slot.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./controllers/new-focus-group.js": {
+      "@sl-design-system/source": "./src/controllers/new-focus-group.ts",
+      "default": "./dist/controllers/new-focus-group.js"
+    },
+    "./converters.js": {
+      "@sl-design-system/source": "./src/converters.ts",
+      "default": "./dist/converters.js"
+    },
+    "./date.js": {
+      "@sl-design-system/source": "./src/date.ts",
+      "default": "./dist/date.js"
+    },
+    "./decorators/css-state.js": {
+      "@sl-design-system/source": "./src/decorators/css-state.ts",
+      "default": "./dist/decorators/css-state.js"
+    },
+    "./dev-mode.js": {
+      "@sl-design-system/source": "./src/dev-mode.ts",
+      "default": "./dist/dev-mode.js"
+    },
+    "./events.js": {
+      "@sl-design-system/source": "./src/events.ts",
+      "default": "./dist/events.js"
+    },
+    "./helpers/forward-aria.js": {
+      "@sl-design-system/source": "./src/helpers/forward-aria.ts",
+      "default": "./dist/helpers/forward-aria.js"
+    },
+    "./mixins/element-internals.js": {
+      "@sl-design-system/source": "./src/mixins/element-internals.ts",
+      "default": "./dist/mixins/element-internals.js"
+    },
+    "./mixins/forward-aria.js": {
+      "@sl-design-system/source": "./src/mixins/forward-aria.ts",
+      "default": "./dist/mixins/forward-aria.js"
+    },
+    "./mixins/locale.js": {
+      "@sl-design-system/source": "./src/mixins/locale.ts",
+      "default": "./dist/mixins/locale.js"
+    },
+    "./mixins/observe-attributes.js": {
+      "@sl-design-system/source": "./src/mixins/observe-attributes.ts",
+      "default": "./dist/mixins/observe-attributes.js"
+    },
+    "./slot.js": {
+      "@sl-design-system/source": "./src/slot.ts",
+      "default": "./dist/slot.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

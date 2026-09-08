@@ -16,7 +16,7 @@ export default defineConfig({
     tsgo: true
   },
   exports: {
-    devExports: true,
+    devExports: '@sl-design-system/source',
     extensions: true
   },
   hash: false,

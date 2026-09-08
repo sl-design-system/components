@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/icon",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "status": "stable",
   "description": "Icon component for the SL Design System",
   "license": "Apache-2.0",
@@ -48,7 +48,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.14.0"
+    "@sl-design-system/shared": "^0.14.1"
   },
   "devDependencies": {
     "lit": "^3.3.3"

@@ -1,5 +1,22 @@
 # @sl-design-system/tree
 
+## 0.3.3
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/button-bar@1.6.1
+  - @sl-design-system/checkbox@2.4.1
+  - @sl-design-system/data-source@0.4.4
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/menu@1.0.1
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/skeleton@1.1.2
+  - @sl-design-system/spinner@2.0.3
+  - @sl-design-system/virtual-list@0.2.3
+
 ## 0.3.2
 
 ### Patch Changes

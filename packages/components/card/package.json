@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/card",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "status": "stable",
   "description": "Card component for the SL Design System",
   "license": "Apache-2.0",
@@ -48,8 +48,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/menu": "^1.0.0",
-    "@sl-design-system/toggle-button": "^2.0.0"
+    "@sl-design-system/menu": "^1.0.1",
+    "@sl-design-system/toggle-button": "^2.0.1"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10",

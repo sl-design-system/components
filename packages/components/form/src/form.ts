@@ -50,7 +50,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
   });
 
   /** Stores blur listeners for cleanup when controls unregister. */
-  #controlBlurListeners = new WeakMap<HTMLElement & FormControl, EventListener>();
+  #controlBlurListeners = new Map<HTMLElement & FormControl, EventListener>();
 
   /** Indicates whether to show validity state. */
   #showValidity = false;
@@ -164,6 +164,12 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     this.#initialValue = this.#value;
   }
 
+  override disconnectedCallback(): void {
+    this.#controlBlurListeners.forEach((_, control) => this.#removeControlBlurListener(control));
+
+    super.disconnectedCallback();
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -219,6 +225,15 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return value == null || value === '' || (Array.isArray(value) && value.length === 0);
   }
 
+  #removeControlBlurListener(control: HTMLElement & FormControl): void {
+    const onControlBlur = this.#controlBlurListeners.get(control);
+
+    if (onControlBlur) {
+      control.removeEventListener('sl-blur', onControlBlur);
+      this.#controlBlurListeners.delete(control);
+    }
+  }
+
   #validateControlOnBlur(control: HTMLElement & FormControl): void {
     if (!this.validateOnBlur) {
       return;
@@ -253,6 +268,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     event.preventDefault();
     event.stopPropagation();
 
+    // Re-registration can happen for the same control. Keep exactly one blur listener.
+    this.#removeControlBlurListener(control);
+
     const onControlBlur: EventListener = () => this.#validateControlOnBlur(control);
 
     control.addEventListener('sl-blur', onControlBlur);
@@ -262,12 +280,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     // time `disconnectedCallback` is called, the control has already
     // been removed from the DOM; so any events emitted will never reach the form.
     event.detail.unregister = () => {
-      const onControlBlur = this.#controlBlurListeners.get(control);
-
-      if (onControlBlur) {
-        control.removeEventListener('sl-blur', onControlBlur);
-        this.#controlBlurListeners.delete(control);
-      }
+      this.#removeControlBlurListener(control);
 
       this.controls = this.controls.filter(c => c !== control);
     };
@@ -282,7 +295,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
         control.disabled = this.disabled;
       }
 
-      this.controls = [...this.controls, control];
+      this.controls = [...this.controls.filter(c => c !== control), control];
       this.controls.find(c => c.autofocus)?.focus();
     });
   }

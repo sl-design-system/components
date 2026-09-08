@@ -1,5 +1,16 @@
 # @sl-design-system/form
 
+## 1.5.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/inline-message@2.1.4
+  - @sl-design-system/shared@0.14.1
+
 ## 1.5.0
 
 ### Minor Changes
@@ -10,7 +21,7 @@
   that name:
 
   ```ts
-  import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+  import { ElementInternalsMixin } from "@sl-design-system/shared/mixins/element-internals.js";
 
   class MyControl extends FormControlMixin(ElementInternalsMixin(LitElement)) {
     // no more `internals = this.attachInternals()`

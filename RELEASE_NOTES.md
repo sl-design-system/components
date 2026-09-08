@@ -4,6 +4,12 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# September 8, 2026
+
+## Bug fixes
+
+- All packages fix their `exports` field so that importing a published package resolves to the built JavaScript and type declarations in `dist/` again. The previous release relied on `publishConfig.exports`, which is ignored by npm, causing bundlers to fail with errors such as `Could not resolve "@sl-design-system/text-area"`. Source files remain available to this monorepo through a custom `@sl-design-system/source` export condition. If you are on the previous release, upgrade to this one.
+
 # September 7, 2026
 
 ## Breaking changes

@@ -1,5 +1,17 @@
 # @sl-design-system/toggle-button
 
+## 2.0.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/button@2.3.1
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/tooltip@3.0.2
+
 ## 2.0.0
 
 ### Major Changes
@@ -49,10 +61,10 @@
   Returns whether the code is running in a development build. Bundlers such as Vite replace `import.meta.env.DEV` at build time; in any other environment it is simply `undefined`, so the helper is safe to call anywhere.
 
   ```ts
-  import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
+  import { isDevMode } from "@sl-design-system/shared/dev-mode.js";
 
   if (isDevMode()) {
-    console.warn('This warning is stripped from production builds');
+    console.warn("This warning is stripped from production builds");
   }
   ```
 

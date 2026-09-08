@@ -1,5 +1,12 @@
 # @sl-design-system/myvanin
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/icon@1.4.5
+
 ## 1.0.6
 
 ### Patch Changes

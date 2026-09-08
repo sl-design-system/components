@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/virtual-list",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "status": "draft",
   "description": "Virtual list component for the SL Design System",
   "license": "Apache-2.0",
@@ -48,7 +48,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.14.0"
+    "@sl-design-system/shared": "^0.14.1"
   },
   "devDependencies": {
     "@tanstack/virtual-core": "3.17.1",

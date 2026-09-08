@@ -1,5 +1,14 @@
 # @sl-design-system/data-source
 
+## 0.4.4
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/shared@0.14.1
+
 ## 0.4.3
 
 ### Patch Changes
@@ -103,6 +112,7 @@
 - [#2034](https://github.com/sl-design-system/components/pull/2034) [`1072075`](https://github.com/sl-design-system/components/commit/1072075e3f1b5f0bf8b07dc1f89fd39b9f7103d0) - Big improvements to the `data-source` package:
 
   #### DataSource
+
   - Now a fully `abstract` class without any implementation details
   - Removed the `id` parameter for `setSort()`
   - Changed the `DataSourceSort` interface to be simpler:
@@ -130,11 +140,13 @@
   - Changed `reorder()` to be an abstract method
 
   #### ArrayListDataSource
+
   - Refactored to use the new view model types from `ListDataSource`
   - Implemented group sorting
   - Implemented selection logic for groups (selected, unselected, indeterminate)
 
   #### FetchListDataSource
+
   - Refactored to use the new view model types from `ListDataSource`
   - Added `groups` constructor option when you want to use groups, but lazy load the data
   - Added ability to lazy load group items (per page)

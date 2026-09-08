@@ -1,5 +1,17 @@
 # @sl-design-system/switch
 
+## 2.0.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/form@1.5.1
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/tooltip@3.0.2
+
 ## 2.0.0
 
 ### Major Changes
@@ -7,11 +19,13 @@
 - [#3604](https://github.com/sl-design-system/components/pull/3604) [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd) - `<sl-switch>` is now the form associated element itself. It uses `ElementInternals` for the form value and validity, and renders an `<input type="checkbox" role="switch">` in its shadow DOM as the control for the keyboard and assistive technology, following the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/). ARIA attributes are forwarded to that input by `ForwardAriaMixin`, so `aria-disabled` now works: the switch looks disabled and cannot be toggled, but stays focusable, so a tooltip can explain why.
 
   #### Breaking changes
+
   - The switch no longer adds an `<input>`, a `<label>` and a `<style>` element to its light DOM, and the `input` slot has been removed. The `input` property now returns the input in the shadow DOM and is marked internal.
   - The `formControlElement` is now the switch itself, so a `<label for="...">` should point at the id of the `<sl-switch>` element.
   - Calling `click()` no longer toggles the switch. Use the new `toggle()` method instead.
 
   #### New features
+
   - `toggle(force?)` toggles the switch from JavaScript the same way a user would: it emits an `sl-change` event and marks the switch as dirty. Pass `true` or `false` to set a specific state.
   - The `tooltip` property shows a tooltip without having to add an `<sl-tooltip>` yourself, the same way `<sl-button>` does. It describes the switch, or labels it when the switch has no name of its own: no label, `aria-label`, `aria-labelledby` or `<sl-label>`.
   - The `description` slot shows additional information below the label, linked to the control with `aria-describedby`.

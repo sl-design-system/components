@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/combobox",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "status": "preview",
   "description": "Combobox component for the SL Design System",
   "license": "Apache-2.0",
@@ -48,12 +48,12 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "^1.5.0",
-    "@sl-design-system/icon": "^1.4.4",
-    "@sl-design-system/listbox": "^0.2.2",
-    "@sl-design-system/shared": "^0.14.0",
-    "@sl-design-system/tag": "^1.0.0",
-    "@sl-design-system/text-field": "^1.7.1"
+    "@sl-design-system/form": "^1.5.1",
+    "@sl-design-system/icon": "^1.4.5",
+    "@sl-design-system/listbox": "^0.2.3",
+    "@sl-design-system/shared": "^0.14.1",
+    "@sl-design-system/tag": "^1.0.1",
+    "@sl-design-system/text-field": "^1.7.2"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10",

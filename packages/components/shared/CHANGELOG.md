@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.14.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
 ## 0.14.0
 
 ### Minor Changes
@@ -20,9 +26,9 @@
   either; import them from their own entry point instead:
 
   ```ts
-  import { ForwardAriaMixin } from '@sl-design-system/shared/mixins/forward-aria.js';
-  import { LocaleMixin } from '@sl-design-system/shared/mixins/locale.js';
-  import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins/observe-attributes.js';
+  import { ForwardAriaMixin } from "@sl-design-system/shared/mixins/forward-aria.js";
+  import { LocaleMixin } from "@sl-design-system/shared/mixins/locale.js";
+  import { ObserveAttributesMixin } from "@sl-design-system/shared/mixins/observe-attributes.js";
   ```
 
   The `Locale`, `ForwardAriaMixinInterface` and `ObserveAttributesMixinInterface` types moved along
@@ -39,18 +45,18 @@
     TC39 decorators.
 
   ```ts
-  import { cssState } from '@sl-design-system/shared/decorators/css-state.js';
-  import { ElementInternalsMixin } from '@sl-design-system/shared/mixins/element-internals.js';
+  import { cssState } from "@sl-design-system/shared/decorators/css-state.js";
+  import { ElementInternalsMixin } from "@sl-design-system/shared/mixins/element-internals.js";
 
   class MyElement extends ElementInternalsMixin(LitElement) {
     // Sets the `checked` state; style it with `my-element:state(checked)`
     @property({ type: Boolean }) @cssState() checked?: boolean;
 
     // Sets the `no-label` state while `hasLabel` is falsy
-    @state() @cssState('no-label', { invert: true }) hasLabel = false;
+    @state() @cssState("no-label", { invert: true }) hasLabel = false;
 
     // A getter works as well, for a state derived from other properties
-    @cssState('has-name')
+    @cssState("has-name")
     get hasName(): boolean {
       return this.hasLabel || this.hasAccessibleName();
     }
@@ -62,10 +68,10 @@
   Returns whether the code is running in a development build. Bundlers such as Vite replace `import.meta.env.DEV` at build time; in any other environment it is simply `undefined`, so the helper is safe to call anywhere.
 
   ```ts
-  import { isDevMode } from '@sl-design-system/shared/dev-mode.js';
+  import { isDevMode } from "@sl-design-system/shared/dev-mode.js";
 
   if (isDevMode()) {
-    console.warn('This warning is stripped from production builds');
+    console.warn("This warning is stripped from production builds");
   }
   ```
 

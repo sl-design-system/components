@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/data-source",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Data source classes for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -41,6 +41,6 @@
     ]
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.14.0"
+    "@sl-design-system/shared": "^0.14.1"
   }
 }

@@ -1,5 +1,29 @@
 # @sl-design-system/grid
 
+## 0.8.2
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/announcer@0.1.3
+  - @sl-design-system/button@2.3.1
+  - @sl-design-system/checkbox@2.4.1
+  - @sl-design-system/data-source@0.4.4
+  - @sl-design-system/ellipsize-text@0.1.2
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/listbox@0.2.3
+  - @sl-design-system/scrollbar@0.1.4
+  - @sl-design-system/search-field@1.0.1
+  - @sl-design-system/select@2.4.1
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/skeleton@1.1.2
+  - @sl-design-system/text-field@1.7.2
+  - @sl-design-system/toggle-group@1.0.1
+  - @sl-design-system/tool-bar@0.4.1
+  - @sl-design-system/tooltip@3.0.2
+
 ## 0.8.1
 
 ### Patch Changes

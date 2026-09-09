@@ -169,6 +169,7 @@
         "!packages/themes/*/fonts.css",
         "!packages/themes/*/global.css",
         "!packages/themes/*/icons.json",
+        "!packages/themes/*/theme.css",
         "!packages/themes/*/typography.css"
       ]
     },
@@ -177,8 +178,8 @@
       "clean": false,
       "files": [
         "scripts/build-icons.js",
-        "scripts/themes/slds-legacy/core.json",
-        "scripts/themes/slds-legacy/*/base.json"
+        "scripts/themes/export/slds-legacy/core.json",
+        "scripts/themes/export/slds-legacy/*/base.json"
       ],
       "output": [
         "packages/themes/*/icons.ts",

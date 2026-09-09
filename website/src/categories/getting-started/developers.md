@@ -86,7 +86,7 @@ Or if you use `yarn`:
 
 To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning.
 
-Please note that the (web)fonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. If is up to you to load the (web)fonts in your application.
+Please note that the (web)fonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. It is up to you to load the (web)fonts in your application.
 
 You can install a theme as by installing the NPM package, in this example we use the `sanoma-learning` theme.
 

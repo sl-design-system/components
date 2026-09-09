@@ -70,8 +70,6 @@ export const checkboxHasLabel = {
           return;
         }
 
-        const tooltipLabelledIds = collectTooltipLabelledIds(TemplateAnalyzer.create(node));
-
         checkTemplateForLabel({
           context,
           node,

@@ -158,7 +158,7 @@ const parseCells = (el: Element | undefined) => {
     });
   });
 };
-const variant = document.documentElement.getAttribute('data-user-group') ?? 'advanced';
+const variant = document.querySelector('body')?.getAttribute('data-user-group') ?? 'advanced';
 
 export const TypographyStyles: Story = {
   args: {

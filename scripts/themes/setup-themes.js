@@ -47,6 +47,7 @@ const setupTheme = async theme => {
     console.log(`🎨 ✅ ✍️ ${theme}`);
   } catch (err) {
     console.error(`🎨 ⚠️ ${theme}:`, err);
+    throw err;
   }
 };
 

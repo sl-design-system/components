@@ -47,9 +47,10 @@ export const Confirm: Story = {
 };
 
 export const Mobile: Story = {
-  parameters: {
+  globals: {
     viewport: {
-      defaultViewport: 'mobile'
+      value: 'mobile',
+      isRotated: false
     }
   },
   args: {

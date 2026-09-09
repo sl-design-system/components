@@ -52,7 +52,8 @@ const preview: Preview = {
     }
   ],
   loaders: [
-    async ({ globals: { theme = 'sanoma-learning' } }) => {
+    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      document.documentElement.style.setProperty('--color-scheme', mode);
       await updateTheme(theme);
       await nextFrame();
       await nextFrame();

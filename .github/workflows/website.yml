@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - 'scripts/themes/export/**'
     types: [opened, synchronize, reopened, closed]
 
   push:

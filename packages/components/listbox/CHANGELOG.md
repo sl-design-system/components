@@ -1,5 +1,53 @@
 # @sl-design-system/listbox
 
+## 0.2.3
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/virtual-list@0.2.3
+
+## 0.2.2
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Declare dependencies that were previously missing from `package.json`
+
+  These packages imported modules they never declared, relying on those packages happening to be present in the monorepo's hoisted `node_modules`. That works inside this repository, but it leaves consumers to install the transitive dependencies themselves, and it breaks under strict installers such as pnpm or Yarn PnP.
+
+  Newly declared runtime dependencies:
+
+  - `calendar`, `combobox`, `listbox`, `message-dialog`, `time-field` → `@sl-design-system/shared`
+  - `card` → `@sl-design-system/menu`, `@sl-design-system/toggle-button`
+  - `emoji` → `@sl-design-system/search-field`, `@sl-design-system/tabs`
+  - `form` → `@sl-design-system/icon`
+  - `paginator` → `@sl-design-system/data-source`, `@sl-design-system/listbox`
+  - `panel`, `toggle-button` → `@sl-design-system/button`
+  - `tree` → `@sl-design-system/menu`
+
+  Newly declared peer dependencies:
+
+  - `card`, `checkbox`, `editor`, `radio-group`, `toggle-group` → `@open-wc/scoped-elements`
+  - `text-area`, `time-field`, `tree` → `@lit/localize`
+  - `paginator` → `lit`
+
+  Existing dependency ranges were also brought up to date: `editor` on `@sl-design-system/form` and `@sl-design-system/shared`, `emoji` and `form` on `@sl-design-system/shared`, and `tree` on `@sl-design-system/skeleton`.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/virtual-list@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes
@@ -17,6 +65,7 @@
 - [#3409](https://github.com/sl-design-system/components/pull/3409) [`7d96c3a`](https://github.com/sl-design-system/components/commit/7d96c3aebdc8922f0b031f2ea84aa04c12db2c59) - Add virtual list support for improved performance with large option lists
 
   The listbox component now uses the virtual-list component for efficient rendering of large lists. This provides better performance and smoother scrolling when dealing with many options.
+
   - Integrated virtual-list component for virtualization
   - Improved scrolling behavior and item visibility
   - Added support for CSS max-height constraints with virtual lists
@@ -28,6 +77,7 @@
   This update fixes the export of the typings, which causes errors due to missing `override` keywords in the components. This is a patch update, as it only contains a fix for the export of the typings and does not introduce any breaking changes.
 
 - [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for listbox screen reader support
+
   - Always set `aria-selected` on options, including grouped options in the selected group
   - Set correct `aria-posinset` and `aria-setsize` on virtualized options, excluding group headers from the count
   - Add group label context to the accessible name of grouped options for Safari/VoiceOver compatibility
@@ -97,6 +147,7 @@
 ### Patch Changes
 
 - [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Add ability to render grouped items using lit-virtualizer:
+
   - New `optionGroupPath` property to specify the path to the group name in the option object
   - New `<sl-option-group-header>` component to render the group header
   - Add `items` property for advanced customization of how options are rendered (used in combobox)

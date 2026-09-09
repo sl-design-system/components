@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/data-source",
-  "version": "0.4.1",
+  "version": "0.4.4",
   "description": "Data source classes for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -21,7 +21,10 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -38,6 +41,6 @@
     ]
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.12.3"
+    "@sl-design-system/shared": "^0.14.1"
   }
 }

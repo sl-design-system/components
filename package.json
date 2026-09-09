@@ -29,6 +29,7 @@
   ],
   "scripts": {
     "build": "wireit",
+    "check-package-exports": "node scripts/check-package-exports.js",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "wireit",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",

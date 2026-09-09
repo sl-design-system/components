@@ -25,7 +25,7 @@ Here's an overview of the common keyboard interactions associated with a search 
 |Command|Description|
 |-|-|
 |Tab|When focus is outside the search field, moves focus to the input container. If focus is on the empty input container, moves focus to the end enhancer (if provided, and interactive). If the input contains a value, moves focus to the clear button.|
-|Esc|Clear search value, when is an input.|
+|Esc|Clears the search value when focus is in the input or on the clear button, and returns focus to the input.|
 |Enter/Space|When the clear button has focus, clears the search field and moves focus back to the input.|
 
 {.ds-table .ds-table-align-top}

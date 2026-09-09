@@ -67,6 +67,16 @@ describe('sl-search-field', () => {
       expect(button).not.to.have.attribute('tabindex', '-1');
     });
 
+    it('should move focus from input to clear button when pressing Tab', async () => {
+      const button = el.renderRoot.querySelector<HTMLButtonElement>('button'),
+        input = el.querySelector<HTMLInputElement>('input');
+
+      input?.focus();
+      await userEvent.tab();
+
+      expect(el.shadowRoot?.activeElement).to.equal(button);
+    });
+
     it('should not have a clear button when disabled', async () => {
       el.disabled = true;
       await el.updateComplete;
@@ -166,6 +176,7 @@ describe('sl-search-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('');
+      expect(document.activeElement).to.equal(el.querySelector('input'));
     });
 
     it('should not emit a search event with the old value when Enter is pressed on the clear button', async () => {
@@ -199,6 +210,7 @@ describe('sl-search-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('');
+      expect(document.activeElement).to.equal(el.querySelector('input'));
     });
   });
 

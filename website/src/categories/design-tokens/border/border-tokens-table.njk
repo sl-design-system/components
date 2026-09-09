@@ -22,4 +22,27 @@
 {% endfor -%}
 </tbody>
 </table>
+
+<h3 class="ds-tokens__heading">Border width</h3>
+<table class="ds-table"><thead>
+<tr>
+  <th>Example</th>
+  <th>Token title</th>
+  <th>Token</th>
+</tr></thead>
+<tbody>
+{% for border in tokens.border.width -%}
+<tr>
+  <td>
+    <div class="ds-tokens__border-example">
+      <div class="ds-tokens__border" style="border-width: {{ border.value }}; border-style: solid"></div>
+      <code>{{ border.value }}</code>
+    </div>
+  </td>
+  <td class="ds-tokens__description">{{ border.label }}</td>
+  <td><code>{{ border.token }}</code></td>
+</tr>
+{% endfor -%}
+</tbody>
+</table>
 </section>

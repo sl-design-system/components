@@ -55,7 +55,7 @@
         "build/**/*.js",
         "src/*.md",
         "src/{_data,_includes,assets,categories,scripts,site}/**/*",
-        "../scripts/theme/export/**/*.css",
+        "../scripts/themes/export/**/*.css",
         "../packages/themes/sanoma-learning/**/*"
       ],
       "output": [

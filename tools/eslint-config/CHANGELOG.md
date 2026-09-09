@@ -1,5 +1,12 @@
 # @sl-design-system/eslint-config
 
+## 0.6.1
+
+### Patch Changes
+
+- Updated dependencies [[`ac75744`](https://github.com/sl-design-system/components/commit/ac75744df5693d272123778b53bba368992dad2c), [`8a24328`](https://github.com/sl-design-system/components/commit/8a2432811c51b1b23cc33caa2aeebf68273f6512), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/eslint-plugin-slds@0.2.0
+
 ## 0.6.0
 
 ### Minor Changes

@@ -1,5 +1,53 @@
 # @sl-design-system/select
 
+## 2.4.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/form@1.5.1
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/listbox@0.2.3
+  - @sl-design-system/shared@0.14.1
+
+## 2.4.0
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/form@1.5.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/listbox@0.2.2
+  - @sl-design-system/shared@0.14.0
+
+## 2.3.0
+
+### Minor Changes
+
+- [#3594](https://github.com/sl-design-system/components/pull/3594) [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60) - A new `shape` property that defaults to `rect` but also accepts `pill` for rounded corners.
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/form@1.4.3
+
 ## 2.2.0
 
 ### Minor Changes
@@ -13,6 +61,7 @@
 - [#3487](https://github.com/sl-design-system/components/pull/3487) [`b061815`](https://github.com/sl-design-system/components/commit/b061815e01985d973dcf93fbde20c9c595095987) - Export listbox components from the combobox and select packages and automatically register the listbox, option, and option group elements when importing `register.js` to simplify using options.
 
 - [#3483](https://github.com/sl-design-system/components/pull/3483) [`de31def`](https://github.com/sl-design-system/components/commit/de31defb47c51816aabf8dfa5d53666378f2d07c) - Accessibility improvements: fix `aria-controls` and `aria-labelledby` relationships in sl-select.
+
   - Add `ariaControlsElements` element reference via `ElementInternals` on the select button to correctly associate with the listbox across shadow DOM boundary.
   - Set `ariaLabelledByElements` on the listbox to propagate the associated form label across the shadow DOM boundary.
 
@@ -28,6 +77,7 @@
 ### Patch Changes
 
 - [#3432](https://github.com/sl-design-system/components/pull/3432) [`d968f3e`](https://github.com/sl-design-system/components/commit/d968f3ed2c3601aaed68352feb1147f2ead35499) - Accessibility improvements for select screen reader support
+
   - Set `aria-activedescendant` when the popover opens so screen readers announce the current option immediately
   - Set `aria-activedescendant` on mouse-open so AT context is maintained without applying a visual highlight
   - Remove `aria-owns` from the select trigger/input because it is not needed for this implementation
@@ -58,6 +108,7 @@
 ### Patch Changes
 
 - [#3109](https://github.com/sl-design-system/components/pull/3109) [`01c7740`](https://github.com/sl-design-system/components/commit/01c7740ba9f15a3cbee3065a798424d783b2c452) - Accessibility improvements:
+
   - Moved the clear button from `sl-select-button` to `sl-select`, the clear button is now focusable on its own,
   - Added `aria-keyshortcuts` attribute to announce Backspace/Delete shortcuts to assistive technology,
   - Added `sl-clear` event to `sl-select` with consistent event ordering across click and keyboard interactions.
@@ -127,6 +178,7 @@
 ### Patch Changes
 
 - [#2086](https://github.com/sl-design-system/components/pull/2086) [`0b48907`](https://github.com/sl-design-system/components/commit/0b48907b54289cbfd37266d870a42baba071ba1a) - Various fixes:
+
   - Fix built-in validation bug when there already is a custom error
   - Fix disabled select getting keyboard focus
   - Fix missing label in `<sl-form-validation-errors>`
@@ -200,6 +252,7 @@
   Make sure you have those custom elements loaded. If not, you can import them from the `@sl-design-system/listbox` package.
 
   Various improvements:
+
   - Add `clearable` property for clearing the selection
   - Hide the listbox popover when focus leaves the `<sl-select>` component
   - Show the listbox popover immediately; only animate it when closing
@@ -432,6 +485,7 @@
   This add a new `sl-validate` event that is fired when the validity of the form control is updated. It fires _after_ any builtin validation has been performed, so it can be used to override the validity of the control.
 
 - [#828](https://github.com/sl-design-system/components/pull/828) [`974e2a3`](https://github.com/sl-design-system/components/commit/974e2a305431be631be3b72a685dcf72199ea031) - Refactor `<sl-select>` to
+
   - use new `FormControlMixin` from the form package
   - use `aria-activedescendant` to indicate the currently focused option
 

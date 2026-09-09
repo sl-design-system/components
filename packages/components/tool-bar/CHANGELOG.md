@@ -1,10 +1,65 @@
 # @sl-design-system/tool-bar
 
+## 0.4.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/button@2.3.1
+  - @sl-design-system/icon@1.4.5
+  - @sl-design-system/menu@1.0.1
+  - @sl-design-system/toggle-button@2.0.1
+  - @sl-design-system/toggle-group@1.0.1
+
+## 0.4.0
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3672](https://github.com/sl-design-system/components/pull/3672) [`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a) - Map `aria-disabled="true"` menu items to disabled overflow items in `sl-tool-bar`.
+
+  This updates toolbar menu-item mapping to use `aria-disabled` state instead of the removed `disabled` API on `sl-menu-item`.
+
+- [#3681](https://github.com/sl-design-system/components/pull/3681) [`8ac4830`](https://github.com/sl-design-system/components/commit/8ac48302219897f50b0dbae07690c588a8380e69) - Fix toolbar overflow behavior when cached item widths become stale after theme, font, or layout changes.
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`9686464`](https://github.com/sl-design-system/components/commit/968646423dd9442259d35b025be1d5384204804a), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`67be16c`](https://github.com/sl-design-system/components/commit/67be16cdeb8469ab3d1f492be2c2ea3d9e45eee8)]:
+  - @sl-design-system/button@2.3.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/menu@1.0.0
+  - @sl-design-system/toggle-button@2.0.0
+  - @sl-design-system/toggle-group@1.0.0
+
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`eb6b814`](https://github.com/sl-design-system/components/commit/eb6b814cc0b4b8dc93c4e0338194761e86bfd713), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/button@2.2.0
+  - @sl-design-system/menu@0.5.0
+  - @sl-design-system/toggle-button@1.0.0
+  - @sl-design-system/toggle-group@0.1.0
+
 ## 0.3.0
 
 ### Minor Changes
 
 - [#3477](https://github.com/sl-design-system/components/pull/3477) [`0dfc899`](https://github.com/sl-design-system/components/commit/0dfc899ea8a7596850cec225ff5c73362e7314ee) - Toolbar improvements:
+
   - Child buttons and menu-buttons inherit `fill`, and get `variant="inverted"` when the toolbar is `inverted`.
   - Buttons and menu-buttons inside the toolbar can now have different variants and fills mixed together.
 
@@ -46,6 +101,7 @@
   The overflow mapping now falls back from forwarded ARIA name/description to host `aria-labelledby` / `aria-label`, and finally to `slot="button"` text content, ensuring labels remain visible
 
 - [#3241](https://github.com/sl-design-system/components/pull/3241) [`af5594c`](https://github.com/sl-design-system/components/commit/af5594c2bece0792652e17a7f5088532aacc9411) - Fix overflow behavior:
+
   - Refactor overflow logic to more accurately calculate visible items, reserve space for the menu button, and handle the menu button margin correctly when all items are hidden.
   - Update `tool-bar.ts` to use the new measurement utilities (`measureMenuButtonWidth` and `measureConstrainedWidth`) for more reliable overflow calculations.
   - Update toolbar styles to prevent layout shifts during measurement and ensure correct sizing in flexible containers.
@@ -102,15 +158,18 @@
 ### Minor Changes
 
 - [#2867](https://github.com/sl-design-system/components/pull/2867) [`198b92f`](https://github.com/sl-design-system/components/commit/198b92f8ef43283e9809b80e348e03ed45103fe9) - **Breaking Changes:**
+
   - Removed `fill` property - use `type` property instead. If you were using `fill="outline"`, change it to `type="outline"`. If you were using `fill="ghost"`, change it to `type="ghost"`.
   - Removed `no-border` property - border now only shows in `contained` variant (except when `inverted`).
 
   **New Features:**
+
   - Added `contained` property to enable contained mode
   - Added keyboard navigation support for arrow keys when toolbar is focused
   - Added `inverted` property to the divider component
 
   **Improvements:**
+
   - Improved overall styling and fixed overflow behavior issues
 
 ### Patch Changes
@@ -189,6 +248,7 @@
 ### Patch Changes
 
 - [#2081](https://github.com/sl-design-system/components/pull/2081) [`604dc17`](https://github.com/sl-design-system/components/commit/604dc17be38f77fa099ffc890fcbe8f3768755a6) - Various improvements:
+
   - Add `ellipsis-vertical` icon to the icon set
   - Add `inverted` boolean property so the menu button can be inverted
   - Fix overflow calculation so we never have an unnecessary menu button

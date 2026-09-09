@@ -127,7 +127,6 @@ Icon.register(
   faFont,
   faGear,
   faGithub,
-  faGithub,
   faHandBackPointUp,
   faHeart,
   faMessagesQuestion,

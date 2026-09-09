@@ -1,4 +1,3 @@
-import { TemplateAnalyzer } from 'eslint-plugin-lit/lib/template-analyzer.js';
 import {
   checkTemplateForLabel,
   hasAttribute,

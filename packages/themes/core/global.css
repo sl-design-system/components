@@ -1,5 +1,5 @@
 @media (prefers-color-scheme: dark) {
-  :root {
+  body {
     --color-scheme: dark;
     color-scheme: dark;
   }
@@ -17,7 +17,7 @@ html {
       animation: sl-dialog-leave 0.2s ease-out forwards;
     }
 
-    @media (width <=600px) {
+    @media (width <= 600px) {
       &.sl-dialog-enter body {
         animation: sl-dialog-enter 0.2s ease-in forwards;
       }

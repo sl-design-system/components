@@ -24,7 +24,6 @@
   gap: var(--sl-size-075);
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-borderWidth-focusRing);
-  outline-offset: var(--sl-size-outlineOffset-default);
   position: relative;
   vertical-align: middle;
 }
@@ -32,6 +31,7 @@
 ::slotted(a[href]) {
   align-items: center;
   appearance: none;
+  border-radius: var(--sl-size-borderRadius-default);
   color: var(--_fg-color) !important;
   display: inline-flex;
   font: inherit;
@@ -44,10 +44,16 @@
 
 ::slotted(a[href]:focus-visible) {
   outline-color: var(--sl-color-border-focused);
+  outline-offset: calc(
+    var(--sl-size-outlineOffset-default) + (var(--sl-size-borderWidth-action) * 2)
+  );
 }
 
 :host(:where([variant='inverted']) ::slotted(a[href]:focus-visible)) {
   outline-color: var(--sl-color-border-inverted);
+  outline-offset: calc(
+    var(--sl-size-outlineOffset-default) + (var(--sl-size-borderWidth-action) * 2)
+  );
 }
 
 sl-icon {
@@ -74,6 +80,10 @@ sl-icon {
 }
 
 :host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
+:host([shape='pill']) ::slotted(a[href]) {
   border-radius: var(--sl-size-borderRadius-full);
 }
 

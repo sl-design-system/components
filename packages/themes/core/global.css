@@ -1,5 +1,5 @@
 @media (prefers-color-scheme: dark) {
-  body {
+  :root {
     --color-scheme: dark;
     color-scheme: dark;
   }

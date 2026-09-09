@@ -10,6 +10,11 @@ const setupTheme = async theme => {
   await copyFile(sourceGlobal, destinationGlobal);
   console.log(`🌍 ✅ ✍️ ${theme}`);
 
+  const sourceTypography = join(cwd, '../../packages/themes/core/typography.css');
+  const destinationTypography = join(cwd, `${theme}/typography.css`);
+  await copyFile(sourceTypography, destinationTypography);
+  console.log(`🔠 ✅ ✍️ ${theme}`);
+
   const themeName = theme.split('/').pop();
   const sourceThemeFiles = [
     `./export/core-css/device/desktop.css`,
@@ -22,8 +27,7 @@ const setupTheme = async theme => {
     `./export/core-css/color/light.css`,
     `./export/core-css/color/dark.css`,
     `./export/core-css/system/default.css`,
-    `./export/core-css/brand/${themeName}.css`,
-    `../../packages/themes/core/typography.css`
+    `./export/core-css/brand/${themeName}.css`
   ];
 
   try {

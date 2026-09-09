@@ -176,6 +176,10 @@
   border-radius: var(--sl-size-borderRadius-full);
 }
 
+:host(:where(:not([fill]), [fill])) button:is(:disabled, [aria-disabled]) {
+  color: var(--sl-color-foreground-disabled);
+}
+
 :host(:where(:not([fill]), [fill='solid'])) button:is(:disabled, [aria-disabled]) {
   background: var(--sl-color-background-disabled);
 }
@@ -194,7 +198,6 @@
 }
 
 :host([variant='inverted']) button:is(:disabled, [aria-disabled]) {
-  color: var(--sl-color-foreground-inverted-bold);
   opacity: var(--sl-opacity-disabled);
 }
 
@@ -206,20 +209,18 @@
     var(--sl-color-background-inverted-interactive-bold)
       calc(100% * var(--sl-opacity-interactive-bold-idle))
   );
-  color: var(--sl-color-foreground-inverted-onBold);
 }
 
-:host([variant='inverted']:where([fill='ghost'])) button:is(:disabled, [aria-disabled]) {
+:host([variant='inverted']:where([fill='ghost'], [fill='link']))
+  button:is(:disabled, [aria-disabled]) {
   background: transparent;
-}
-
-:host([variant='inverted']:where([fill='link'])) button:is(:disabled, [aria-disabled]) {
-  background: transparent;
+  color: var(--sl-color-foreground-inverted-bold);
 }
 
 :host([variant='inverted']:where([fill='outline'])) button:is(:disabled, [aria-disabled]) {
   background: transparent;
   border-color: var(--sl-color-border-inverted);
+  color: var(--sl-color-foreground-inverted-bold);
 }
 
 ::slotted(*) {

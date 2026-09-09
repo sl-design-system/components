@@ -195,6 +195,7 @@ const renderAllFields = (
     <sl-form-field hint="Hint text" label="Select">
       <sl-select
         ?disabled=${disabled}
+        clearable
         name="select"
         placeholder="Placeholder"
         required

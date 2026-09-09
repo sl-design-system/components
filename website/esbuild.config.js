@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve as resolvePath } from 'node:path';
 import tinyGlob from 'tiny-glob';
 
-const DEV = process.env.NODE_ENV !== 'PROD';
+const DEV = process.env.NODE_ENV !== 'production';
 const jsFolder = 'build';
 
 /**

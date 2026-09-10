@@ -266,12 +266,12 @@ Please make sure you have added the `setup()` method as described in the [Setup 
 ### How do I use the dark mode of the theme?
 
 This only applies to themes that support dark mode.
-The `theme.css` file includes both light and dark mode tokens. To use the user's system preference, also include `global.css`; it sets `--color-scheme: dark` when `prefers-color-scheme: dark` matches. Light mode is used by default.
+The `theme.css` file includes both light and dark mode tokens.
 
 To control the mode yourself, set `--color-scheme` to `light` or `dark` on the body element of your application. For example, to force dark mode:
 
 ```html
-<body style="--color-scheme: dark;">
+<html style="--color-scheme: dark;">
 ```
 
 ### How do I setup my Bitbucket pipeline to work with the SLDS packages?

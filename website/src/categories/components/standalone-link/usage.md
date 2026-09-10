@@ -31,7 +31,7 @@ eleventyNavigation:
 
 ## When to use
 
-* Navigate to content within the product.
+* Navigate to content within the application or website.
 * Link to supporting information such as documentation, FAQs, help articles,
   or policy pages.
 * Direct users to external websites or third-party resources.
@@ -61,7 +61,7 @@ eleventyNavigation:
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" id="interactive-example-1" size="sm"></sl-icon>
       <sl-link no-icon="">
-        <a href="/dashboard">Internal link</a>
+        <a href="/categories/getting-started/designers">Internal link</a>
       </sl-link>
     </div>
     <figcaption>
@@ -79,7 +79,7 @@ The default internal link contains no icons and is used for navigating to
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" id="interactive-example-2" size="sm"></sl-icon>
       <sl-link>
-        <a href="/dashboard">Internal link</a>
+        <a href="/categories/getting-started/designers">Internal link</a>
       </sl-link>
     </div>
     <figcaption>
@@ -97,7 +97,7 @@ the same tab.
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" id="interactive-example-3" size="sm"></sl-icon>
       <sl-link icon-position="start">
-        <a href="/dashboard">Internal link</a>
+        <a href="/categories/getting-started/designers">Internal link</a>
       </sl-link>
     </div>
     <figcaption>
@@ -114,7 +114,7 @@ indicate moving back in a process. This link always opens in the same tab.
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" id="interactive-example-4" size="sm"></sl-icon>
       <sl-link>
-        <a href="/dashboard" target="_blank">Internal link</a>
+        <a href="/categories/getting-started/designers" target="_blank">Internal link</a>
       </sl-link>
     </div>
     <figcaption>

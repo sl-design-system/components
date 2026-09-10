@@ -7,7 +7,7 @@ eleventyNavigation:
 ---
 
 <section>
-Exploring essential accessibility considerations for links: ensuring an inclusive user experience.
+Combine the looks of the button with the functionality of a link, while making sure your navigation stays accessible for everyone.
 </section>
 
 <section>

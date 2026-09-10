@@ -1085,10 +1085,15 @@ export class DateField extends LocaleMixin(
       return;
     }
 
-    const firstDay =
-      selectableDays.find(candidate => candidate.date.getDate() === 1) ?? selectableDays[0];
+    const selected = calendar.selected,
+      selectedDay = selected
+        ? selectableDays.find(candidate => isSameDate(candidate.date, selected))
+        : undefined,
+      firstDay =
+        selectableDays.find(candidate => candidate.date.getDate() === 1) ?? selectableDays[0],
+      focusTarget = selectedDay ?? firstDay;
 
-    firstDay.button.focus();
+    focusTarget.button.focus();
   }
 
   #getCalendarMode(): 'day' | 'month' | 'year' {
@@ -1209,7 +1214,9 @@ export class DateField extends LocaleMixin(
       return;
     }
 
-    this.#focusFirstSelectableDayOfDisplayedMonth();
+    requestAnimationFrame(() => {
+      this.#focusFirstSelectableDayOfDisplayedMonth();
+    });
   }
 
   /** Tries to set the value if all date parts are defined, or clears it. */

@@ -1197,6 +1197,8 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value for invalid date (e.g. Feb 31)', async () => {
+      expect(el.dirty).to.be.false;
+
       // Enter month = 02
       spans[0].focus();
       await userEvent.keyboard('0');
@@ -1211,6 +1213,7 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('3');
 
       expect(el.value).to.be.undefined;
+      expect(el.dirty).to.be.true;
     });
 
     it('should move focus to next input on ArrowRight', async () => {
@@ -2047,6 +2050,8 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value when typing a date before min', async () => {
+      expect(el.dirty).to.be.false;
+
       el.min = new Date(2026, 2, 15);
       await el.updateComplete;
 
@@ -2065,6 +2070,7 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.be.undefined;
+      expect(el.dirty).to.be.true;
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal(
         'Please select a date that is no earlier than 03/15/2026.'
@@ -2072,6 +2078,8 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value when typing a date after max', async () => {
+      expect(el.dirty).to.be.false;
+
       el.max = new Date(2026, 2, 15);
       await el.updateComplete;
 
@@ -2090,6 +2098,7 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.be.undefined;
+      expect(el.dirty).to.be.true;
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal(
         'Please select a date that is no later than 03/15/2026.'

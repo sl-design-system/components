@@ -96,15 +96,19 @@ export default {
             placeholder=${ifDefined(placeholder)}
             shape=${ifDefined(shape)}
             style=${`max-width: ${maxWidth || '500px'}`}>
-            ${virtualList
-              ? nothing
-              : html`
-                  <sl-listbox>
-                    ${Array.isArray(options)
-                      ? options.map(o => html`<sl-option>${o}</sl-option>`)
-                      : options?.()}
-                  </sl-listbox>
-                `}
+            ${
+              virtualList
+                ? nothing
+                : html`
+                    <sl-listbox>
+                      ${
+                        Array.isArray(options)
+                          ? options.map(o => html`<sl-option>${o}</sl-option>`)
+                          : options?.()
+                      }
+                    </sl-listbox>
+                  `
+            }
           </sl-combobox>
         </sl-form-field>
       </sl-form>
@@ -130,6 +134,33 @@ export const Disabled: Story = {
     ...Basic.args,
     disabled: true,
     value: ['Button bar', 'Checkbox']
+  }
+};
+
+export const ValidateOnBlur: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This form uses <code>validate-on-blur</code>. Select values and remove them, then leave the
+        field to see the required validation on blur.
+      </p>
+      <sl-form validate-on-blur>
+        <sl-form-field label="Components" hint="Required field">
+          <sl-combobox multiple required>
+            <sl-listbox>
+              ${components.map(component => html`<sl-option>${component}</sl-option>`)}
+            </sl-listbox>
+          </sl-combobox>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 };
 

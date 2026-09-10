@@ -1143,8 +1143,11 @@ export class DateField extends LocaleMixin(
 
           if (hadValue) {
             this.changeEvent.emit(this.value);
-            this.updateState({ dirty: true });
           }
+
+          // The user entered a complete date value, so this is an interaction that should
+          // mark the field dirty even when no previous valid value existed.
+          this.updateState({ dirty: true });
 
           this.updateValidity();
         } else {
@@ -1159,8 +1162,11 @@ export class DateField extends LocaleMixin(
 
         if (hadValue) {
           this.changeEvent.emit(this.value);
-          this.updateState({ dirty: true });
         }
+
+        // The user completed all date parts, but the resulting date is impossible.
+        // Treat this as user interaction and mark the field dirty.
+        this.updateState({ dirty: true });
 
         this.updateValidity();
       }
@@ -1170,6 +1176,12 @@ export class DateField extends LocaleMixin(
 
       if (hadValue) {
         this.changeEvent.emit(this.value);
+      }
+
+      // Mark dirty when the user has entered any partial date data, not only when a complete
+      // value existed before; this ensures validate-on-blur skips the error only when the user
+      // has truly not interacted with the field at all.
+      if (hadValue || day !== undefined || month !== undefined || year !== undefined) {
         this.updateState({ dirty: true });
       }
 

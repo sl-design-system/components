@@ -607,17 +607,10 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   /** @internal */
   override updateInternalValidity(): void {
     if (!this.validity.customError) {
-      if (this.multiple) {
-        this.elementInternals.setValidity(
-          { valueMissing: this.required && this.selectedItems.length === 0 },
-          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-        );
-      } else {
-        this.elementInternals.setValidity(
-          { valueMissing: this.required && !this.input.value },
-          msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
-        );
-      }
+      this.elementInternals.setValidity(
+        { valueMissing: this.required && this.selectedItems.length === 0 },
+        msg('Please choose an option from the list.', { id: 'sl.select.validation.valueMissing' })
+      );
     }
   }
 
@@ -688,6 +681,15 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
     const value = this.input.value;
 
     this.wrapper?.showPopover();
+
+    if (!this.multiple && !value && this.selectedItems.length) {
+      this.#removeSelectedOption(this.selectedItems[0]);
+      this.#updateCreateCustomOption();
+      this.#updateCurrent();
+      this.#updateFilteredOptions(value);
+      this.#updateValue();
+      return;
+    }
 
     let item: ComboboxItem<T, U> | undefined = undefined;
 
@@ -1178,7 +1180,7 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #removeGroupedOption(item: ComboboxItem<T, U>): void {
-    const originalItem = this.items.find(i => i.id === item.id && !i.visible);
+    const originalItem = this.items.find(i => i !== item && i.id === item.id);
     if (originalItem) {
       originalItem.selected = false;
       originalItem.visible = true;
@@ -1302,7 +1304,11 @@ export class Combobox<T = any, U = T> extends ObserveAttributesMixin(
   }
 
   #removeSelectedOption(item: ComboboxItem<T, U>): void {
-    if (this.groupSelected) {
+    const isGroupedOption =
+      this.groupSelected &&
+      this.items.some(candidate => candidate !== item && candidate.id === item.id);
+
+    if (isGroupedOption) {
       this.#removeGroupedOption(item);
     } else {
       item.selected = false;

@@ -7103,8 +7103,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/accordion@workspace:packages/components/accordion"
   dependencies:
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
@@ -7128,19 +7128,19 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:^22.1.1"
     "@angular/router": "npm:^22.1.1"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/checkbox": "npm:^2.1.9"
-    "@sl-design-system/combobox": "npm:^0.1.8"
-    "@sl-design-system/form": "npm:^1.4.0"
-    "@sl-design-system/icon": "npm:^1.4.2"
+    "@sl-design-system/checkbox": "npm:^2.4.0"
+    "@sl-design-system/combobox": "npm:^0.3.0"
+    "@sl-design-system/form": "npm:^1.5.0"
+    "@sl-design-system/icon": "npm:^1.4.4"
     "@sl-design-system/link": "npm:*"
-    "@sl-design-system/locales": "npm:^0.3.0"
-    "@sl-design-system/number-field": "npm:^0.1.9"
-    "@sl-design-system/radio-group": "npm:^1.1.8"
-    "@sl-design-system/select": "npm:^2.1.4"
-    "@sl-design-system/switch": "npm:^1.1.7"
-    "@sl-design-system/text-area": "npm:^1.1.7"
-    "@sl-design-system/text-field": "npm:^1.6.8"
-    "@sl-design-system/time-field": "npm:^0.1.0"
+    "@sl-design-system/locales": "npm:^0.4.1"
+    "@sl-design-system/number-field": "npm:^0.2.1"
+    "@sl-design-system/radio-group": "npm:^1.3.0"
+    "@sl-design-system/select": "npm:^2.4.0"
+    "@sl-design-system/switch": "npm:^2.0.0"
+    "@sl-design-system/text-area": "npm:^1.2.1"
+    "@sl-design-system/text-field": "npm:^1.7.1"
+    "@sl-design-system/time-field": "npm:^0.3.0"
     "@standard-schema/spec": "npm:^1.1.0"
     "@storybook/addon-docs": "npm:^10.5.10"
     "@storybook/angular-vite": "npm:^10.5.10"
@@ -7164,13 +7164,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/announcer@npm:^0.1.0, @sl-design-system/announcer@workspace:packages/components/announcer":
+"@sl-design-system/announcer@npm:^0.1.3, @sl-design-system/announcer@workspace:packages/components/announcer":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/announcer@workspace:packages/components/announcer"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/shared": "npm:^0.14.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -7185,16 +7185,16 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/badge": "npm:^1.1.3"
-    "@sl-design-system/shared": "npm:^0.12.2"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/badge": "npm:^1.1.6"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/badge@npm:^1.1.3, @sl-design-system/badge@workspace:packages/components/badge":
+"@sl-design-system/badge@npm:^1.1.6, @sl-design-system/badge@workspace:packages/components/badge":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/badge@workspace:packages/components/badge"
   dependencies:
@@ -7208,7 +7208,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7216,7 +7216,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-int@workspace:packages/themes/bingel-int"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7226,35 +7226,35 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.1"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/popover": "npm:^1.2.7"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/popover": "npm:^1.2.10"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button-bar@npm:^1.5.0, @sl-design-system/button-bar@workspace:packages/components/button-bar":
+"@sl-design-system/button-bar@npm:^1.6.1, @sl-design-system/button-bar@workspace:packages/components/button-bar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button-bar@workspace:packages/components/button-bar"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.0.0"
+    "@sl-design-system/button": "npm:^2.3.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button@npm:^2.0.0, @sl-design-system/button@npm:^2.1.1, @sl-design-system/button@npm:^2.1.2, @sl-design-system/button@workspace:packages/components/button":
+"@sl-design-system/button@npm:^2.3.1, @sl-design-system/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7262,17 +7262,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/calendar@npm:^0.0.10, @sl-design-system/calendar@workspace:packages/components/calendar":
+"@sl-design-system/calendar@npm:^0.1.2, @sl-design-system/calendar@workspace:packages/components/calendar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/calendar@workspace:packages/components/calendar"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/format-date": "npm:^0.1.6"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/format-date": "npm:^0.1.9"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -7287,8 +7287,8 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
@@ -7300,8 +7300,8 @@ __metadata:
   resolution: "@sl-design-system/card@workspace:packages/components/card"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/menu": "npm:^0.4.0"
-    "@sl-design-system/toggle-button": "npm:^0.0.17"
+    "@sl-design-system/menu": "npm:^1.0.1"
+    "@sl-design-system/toggle-button": "npm:^2.0.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7309,15 +7309,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@npm:^2.1.9, @sl-design-system/checkbox@npm:^2.2.0, @sl-design-system/checkbox@workspace:packages/components/checkbox":
+"@sl-design-system/checkbox@npm:^2.4.0, @sl-design-system/checkbox@npm:^2.4.1, @sl-design-system/checkbox@workspace:packages/components/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.3.6"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
@@ -7347,21 +7347,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/clickedu@workspace:packages/themes/clickedu"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/combobox@npm:^0.1.8, @sl-design-system/combobox@workspace:packages/components/combobox":
+"@sl-design-system/combobox@npm:^0.3.0, @sl-design-system/combobox@workspace:packages/components/combobox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/combobox@workspace:packages/components/combobox"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/listbox": "npm:^0.2.1"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tag": "npm:^0.1.14"
-    "@sl-design-system/text-field": "npm:^1.6.11"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/listbox": "npm:^0.2.3"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tag": "npm:^1.0.1"
+    "@sl-design-system/text-field": "npm:^1.7.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7378,11 +7378,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/data-source@npm:^0.4.1, @sl-design-system/data-source@workspace:packages/components/data-source":
+"@sl-design-system/data-source@npm:^0.4.4, @sl-design-system/data-source@workspace:packages/components/data-source":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/data-source@workspace:packages/components/data-source"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/shared": "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
@@ -7391,13 +7391,13 @@ __metadata:
   resolution: "@sl-design-system/date-field@workspace:packages/components/date-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/button-bar": "npm:^1.5.0"
-    "@sl-design-system/calendar": "npm:^0.0.10"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/text-field": "npm:^1.6.11"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/button-bar": "npm:^1.6.1"
+    "@sl-design-system/calendar": "npm:^0.1.2"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/text-field": "npm:^1.7.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7405,16 +7405,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/dialog@npm:^2.1.1, @sl-design-system/dialog@workspace:packages/components/dialog":
+"@sl-design-system/dialog@npm:^2.1.4, @sl-design-system/dialog@workspace:packages/components/dialog":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/dialog@workspace:packages/components/dialog"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.1"
-    "@sl-design-system/button-bar": "npm:^1.5.0"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/button-bar": "npm:^1.6.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -7428,8 +7428,8 @@ __metadata:
   resolution: "@sl-design-system/drawer@workspace:packages/components/drawer"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.0.0"
-    "@sl-design-system/button-bar": "npm:^1.5.0"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/button-bar": "npm:^1.6.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7442,8 +7442,8 @@ __metadata:
   resolution: "@sl-design-system/editor@workspace:packages/components/editor"
   dependencies:
     "@open-wc/scoped-elements": "npm:3.0.10"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
     prosemirror-commands: "npm:^1.5.2"
     prosemirror-history: "npm:^1.4.0"
     prosemirror-inputrules: "npm:^1.4.0"
@@ -7469,16 +7469,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/editorial-suite@workspace:packages/themes/editorial-suite"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/ellipsize-text@npm:^0.0.4, @sl-design-system/ellipsize-text@workspace:packages/components/ellipsize-text":
+"@sl-design-system/ellipsize-text@npm:^0.1.2, @sl-design-system/ellipsize-text@workspace:packages/components/ellipsize-text":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/ellipsize-text@workspace:packages/components/ellipsize-text"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
@@ -7490,11 +7490,11 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.1"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/search-field": "npm:^0.2.5"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tabs": "npm:^1.2.7"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/search-field": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tabs": "npm:^1.2.12"
     emojibase: "npm:^17.0.0"
     emojibase-data: "npm:^17.0.0"
   peerDependencies:
@@ -7507,7 +7507,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/eslint-config@workspace:tools/eslint-config"
   dependencies:
-    "@sl-design-system/eslint-plugin-slds": "npm:^0.1.1"
+    "@sl-design-system/eslint-plugin-slds": "npm:^0.2.0"
     "@stylistic/eslint-plugin": "npm:^4.4.1"
     eslint: "npm:^9.27.0"
     eslint-plugin-chai-expect: "npm:^3.1.0"
@@ -7532,7 +7532,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/eslint-plugin-slds@npm:^0.1.1, @sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds":
+"@sl-design-system/eslint-plugin-slds@npm:^0.2.0, @sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds"
   dependencies:
@@ -7578,34 +7578,34 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/form@npm:^1.3.6, @sl-design-system/form@npm:^1.4.0, @sl-design-system/form@npm:^1.4.2, @sl-design-system/form@workspace:packages/components/form":
+"@sl-design-system/form@npm:^1.5.0, @sl-design-system/form@npm:^1.5.1, @sl-design-system/form@workspace:packages/components/form":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/inline-message": "npm:^2.1.1"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/inline-message": "npm:^2.1.4"
+    "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/format-date@npm:^0.1.6, @sl-design-system/format-date@workspace:packages/components/format-date":
+"@sl-design-system/format-date@npm:^0.1.9, @sl-design-system/format-date@workspace:packages/components/format-date":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/format-date@workspace:packages/components/format-date"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.0"
+    "@sl-design-system/shared": "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/format-number@npm:^0.0.8, @sl-design-system/format-number@workspace:packages/components/format-number":
+"@sl-design-system/format-number@npm:^0.0.11, @sl-design-system/format-number@workspace:packages/components/format-number":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/format-number@workspace:packages/components/format-number"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.0"
+    "@sl-design-system/shared": "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
@@ -7616,23 +7616,23 @@ __metadata:
     "@lit-labs/virtualizer": "npm:^2.1.1"
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/announcer": "npm:^0.1.0"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/checkbox": "npm:^2.2.0"
-    "@sl-design-system/data-source": "npm:^0.4.1"
-    "@sl-design-system/ellipsize-text": "npm:^0.0.4"
+    "@sl-design-system/announcer": "npm:^0.1.3"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/checkbox": "npm:^2.4.1"
+    "@sl-design-system/data-source": "npm:^0.4.4"
+    "@sl-design-system/ellipsize-text": "npm:^0.1.2"
     "@sl-design-system/example-data": "npm:^1.0.0"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/listbox": "npm:^0.2.1"
-    "@sl-design-system/scrollbar": "npm:^0.1.2"
-    "@sl-design-system/search-field": "npm:^0.2.6"
-    "@sl-design-system/select": "npm:^2.2.0"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/skeleton": "npm:^1.0.1"
-    "@sl-design-system/text-field": "npm:^1.6.11"
-    "@sl-design-system/toggle-group": "npm:^0.0.17"
-    "@sl-design-system/tool-bar": "npm:^0.3.0"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/listbox": "npm:^0.2.3"
+    "@sl-design-system/scrollbar": "npm:^0.1.4"
+    "@sl-design-system/search-field": "npm:^1.0.1"
+    "@sl-design-system/select": "npm:^2.4.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/skeleton": "npm:^1.1.2"
+    "@sl-design-system/text-field": "npm:^1.7.2"
+    "@sl-design-system/toggle-group": "npm:^1.0.1"
+    "@sl-design-system/tool-bar": "npm:^0.4.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.13
@@ -7642,11 +7642,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/icon@npm:1.4.3, @sl-design-system/icon@npm:^1.4.1, @sl-design-system/icon@npm:^1.4.2, @sl-design-system/icon@npm:^1.4.3, @sl-design-system/icon@workspace:packages/components/icon":
+"@sl-design-system/icon@npm:1.4.5, @sl-design-system/icon@npm:^1.4.4, @sl-design-system/icon@npm:^1.4.5, @sl-design-system/icon@workspace:packages/components/icon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/shared": "npm:^0.14.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     lit: ^3.1.4
@@ -7659,9 +7659,9 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/popover": "npm:^1.2.7"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/popover": "npm:^1.2.10"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -7670,16 +7670,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/inline-message@npm:^2.1.1, @sl-design-system/inline-message@workspace:packages/components/inline-message":
+"@sl-design-system/inline-message@npm:^2.1.4, @sl-design-system/inline-message@workspace:packages/components/inline-message":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/inline-message@workspace:packages/components/inline-message"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/announcer": "npm:^0.1.0"
-    "@sl-design-system/button": "npm:^2.1.1"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/announcer": "npm:^0.1.3"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
@@ -7690,7 +7690,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/itslearning@workspace:packages/themes/itslearning"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7698,7 +7698,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/kampus@workspace:packages/themes/kampus"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7708,7 +7708,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/icon": "npm:^1.4.2"
+    "@sl-design-system/icon": "npm:^1.4.5"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.2
@@ -7717,14 +7717,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/listbox@npm:^0.2.1, @sl-design-system/listbox@workspace:packages/components/listbox":
+"@sl-design-system/listbox@npm:^0.2.3, @sl-design-system/listbox@workspace:packages/components/listbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/listbox@workspace:packages/components/listbox"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/virtual-list": "npm:^0.2.0"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/virtual-list": "npm:^0.2.3"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -7737,11 +7737,11 @@ __metadata:
   resolution: "@sl-design-system/lit-examples@workspace:examples/lit"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/shared": "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/locales@npm:^0.3.0, @sl-design-system/locales@workspace:packages/locales":
+"@sl-design-system/locales@npm:^0.4.1, @sl-design-system/locales@workspace:packages/locales":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/locales@workspace:packages/locales"
   dependencies:
@@ -7755,7 +7755,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/magister@workspace:packages/themes/magister"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7763,20 +7763,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/max@workspace:packages/themes/max"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/menu@npm:^0.4.0, @sl-design-system/menu@workspace:packages/components/menu":
+"@sl-design-system/menu@npm:^1.0.1, @sl-design-system/menu@workspace:packages/components/menu":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/menu@workspace:packages/components/menu"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/switch": "npm:^1.2.0"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/switch": "npm:^2.0.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
@@ -7789,9 +7789,9 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.1"
-    "@sl-design-system/dialog": "npm:^2.1.1"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/dialog": "npm:^2.1.4"
+    "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
@@ -7858,7 +7858,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/my-digital-book@workspace:packages/themes/my-digital-book"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7866,7 +7866,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin_onhold"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7874,17 +7874,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/number-field@npm:^0.1.9, @sl-design-system/number-field@workspace:packages/components/number-field":
+"@sl-design-system/number-field@npm:^0.2.1, @sl-design-system/number-field@workspace:packages/components/number-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/number-field@workspace:packages/components/number-field"
   dependencies:
-    "@sl-design-system/format-number": "npm:^0.0.8"
-    "@sl-design-system/shared": "npm:^0.12.2"
-    "@sl-design-system/text-field": "npm:^1.6.11"
+    "@sl-design-system/format-number": "npm:^0.0.11"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/text-field": "npm:^1.7.2"
   languageName: unknown
   linkType: soft
 
@@ -7894,15 +7894,15 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/announcer": "npm:^0.1.0"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/data-source": "npm:^0.4.1"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/listbox": "npm:^0.2.1"
-    "@sl-design-system/menu": "npm:^0.4.0"
-    "@sl-design-system/select": "npm:^2.2.0"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/announcer": "npm:^0.1.3"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/data-source": "npm:^0.4.4"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/listbox": "npm:^0.2.3"
+    "@sl-design-system/menu": "npm:^1.0.1"
+    "@sl-design-system/select": "npm:^2.4.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -7917,21 +7917,21 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tool-bar": "npm:^0.3.0"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tool-bar": "npm:^0.4.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/popover@npm:^1.2.7, @sl-design-system/popover@workspace:packages/components/popover":
+"@sl-design-system/popover@npm:^1.2.10, @sl-design-system/popover@workspace:packages/components/popover":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.0"
+    "@sl-design-system/shared": "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
@@ -7941,8 +7941,8 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/icon": "npm:^1.4.1"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -7951,15 +7951,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/radio-group@npm:^1.1.8, @sl-design-system/radio-group@workspace:packages/components/radio-group":
+"@sl-design-system/radio-group@npm:^1.3.0, @sl-design-system/radio-group@workspace:packages/components/radio-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.3.6"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
@@ -7978,7 +7978,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7986,7 +7986,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-pro@workspace:packages/themes/sanoma-pro"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -7994,7 +7994,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -8029,7 +8029,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/scrollbar@npm:^0.1.2, @sl-design-system/scrollbar@workspace:packages/components/scrollbar":
+"@sl-design-system/scrollbar@npm:^0.1.4, @sl-design-system/scrollbar@workspace:packages/components/scrollbar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/scrollbar@workspace:packages/components/scrollbar"
   dependencies:
@@ -8039,25 +8039,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/search-field@npm:^0.2.5, @sl-design-system/search-field@npm:^0.2.6, @sl-design-system/search-field@workspace:packages/components/search-field":
+"@sl-design-system/search-field@npm:^1.0.1, @sl-design-system/search-field@workspace:packages/components/search-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/search-field@workspace:packages/components/search-field"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.2"
-    "@sl-design-system/text-field": "npm:^1.6.11"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/text-field": "npm:^1.7.2"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/select@npm:^2.1.4, @sl-design-system/select@npm:^2.2.0, @sl-design-system/select@workspace:packages/components/select":
+"@sl-design-system/select@npm:^2.4.0, @sl-design-system/select@npm:^2.4.1, @sl-design-system/select@workspace:packages/components/select":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/listbox": "npm:^0.2.1"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/listbox": "npm:^0.2.3"
+    "@sl-design-system/shared": "npm:^0.14.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -8065,7 +8065,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/shared@npm:^0.12.0, @sl-design-system/shared@npm:^0.12.2, @sl-design-system/shared@npm:^0.12.3, @sl-design-system/shared@workspace:packages/components/shared":
+"@sl-design-system/shared@npm:^0.14.1, @sl-design-system/shared@workspace:packages/components/shared":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
@@ -8079,7 +8079,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/skeleton@npm:^1.0.1, @sl-design-system/skeleton@npm:^1.1.0, @sl-design-system/skeleton@workspace:packages/components/skeleton":
+"@sl-design-system/skeleton@npm:^1.1.2, @sl-design-system/skeleton@workspace:packages/components/skeleton":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/skeleton@workspace:packages/components/skeleton"
   dependencies:
@@ -8089,7 +8089,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/spinner@npm:^2.0.1, @sl-design-system/spinner@workspace:packages/components/spinner":
+"@sl-design-system/spinner@npm:^2.0.3, @sl-design-system/spinner@workspace:packages/components/spinner":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/spinner@workspace:packages/components/spinner"
   dependencies:
@@ -8115,44 +8115,44 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/switch@npm:^1.1.7, @sl-design-system/switch@npm:^1.2.0, @sl-design-system/switch@workspace:packages/components/switch":
+"@sl-design-system/switch@npm:^2.0.0, @sl-design-system/switch@npm:^2.0.1, @sl-design-system/switch@workspace:packages/components/switch":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tabs@npm:^1.2.7, @sl-design-system/tabs@workspace:packages/components/tabs":
+"@sl-design-system/tabs@npm:^1.2.12, @sl-design-system/tabs@workspace:packages/components/tabs":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tabs@workspace:packages/components/tabs"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/menu": "npm:^0.4.0"
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/menu": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tag@npm:^0.1.14, @sl-design-system/tag@workspace:packages/components/tag":
+"@sl-design-system/tag@npm:^1.0.1, @sl-design-system/tag@workspace:packages/components/tag":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tag@workspace:packages/components/tag"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -8165,7 +8165,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teacher-assistant@workspace:packages/themes/teacher-assistant"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
@@ -8173,34 +8173,34 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-area@npm:^1.1.7, @sl-design-system/text-area@workspace:packages/components/text-area":
+"@sl-design-system/text-area@npm:^1.2.1, @sl-design-system/text-area@workspace:packages/components/text-area":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-area@workspace:packages/components/text-area"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/announcer": "npm:^0.1.0"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/announcer": "npm:^0.1.3"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@lit/localize": ^0.12.2
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:^1.6.11, @sl-design-system/text-field@npm:^1.6.8, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:^1.7.1, @sl-design-system/text-field@npm:^1.7.2, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.2"
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
@@ -8210,21 +8210,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tig@workspace:packages/themes/tig"
   dependencies:
-    "@sl-design-system/icon": "npm:1.4.3"
+    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/time-field@npm:^0.1.0, @sl-design-system/time-field@workspace:packages/components/time-field":
+"@sl-design-system/time-field@npm:^0.3.0, @sl-design-system/time-field@workspace:packages/components/time-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/time-field@workspace:packages/components/time-field"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.4.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/listbox": "npm:^0.2.1"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/text-field": "npm:^1.6.11"
+    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/listbox": "npm:^0.2.3"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/text-field": "npm:^1.7.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -8233,15 +8233,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/toggle-button@npm:^0.0.17, @sl-design-system/toggle-button@workspace:packages/components/toggle-button":
+"@sl-design-system/toggle-button@npm:^2.0.1, @sl-design-system/toggle-button@workspace:packages/components/toggle-button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/tooltip": "npm:^2.0.1"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/tooltip": "npm:^3.0.2"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -8249,13 +8249,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/toggle-group@npm:^0.0.17, @sl-design-system/toggle-group@workspace:packages/components/toggle-group":
+"@sl-design-system/toggle-group@npm:^1.0.1, @sl-design-system/toggle-group@workspace:packages/components/toggle-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-group@workspace:packages/components/toggle-group"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/toggle-button": "npm:^0.0.17"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/toggle-button": "npm:^2.0.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
@@ -8269,28 +8269,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tool-bar@npm:^0.3.0, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
+"@sl-design-system/tool-bar@npm:^0.4.1, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tool-bar@workspace:packages/components/tool-bar"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button": "npm:^2.1.2"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/menu": "npm:^0.4.0"
-    "@sl-design-system/toggle-button": "npm:^0.0.17"
-    "@sl-design-system/toggle-group": "npm:^0.0.17"
+    "@sl-design-system/button": "npm:^2.3.1"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/menu": "npm:^1.0.1"
+    "@sl-design-system/toggle-button": "npm:^2.0.1"
+    "@sl-design-system/toggle-group": "npm:^1.0.1"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.10
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tooltip@npm:^2.0.1, @sl-design-system/tooltip@workspace:packages/components/tooltip":
+"@sl-design-system/tooltip@npm:^3.0.2, @sl-design-system/tooltip@workspace:packages/components/tooltip":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tooltip@workspace:packages/components/tooltip"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.2"
+    "@sl-design-system/shared": "npm:^0.14.1"
   languageName: unknown
   linkType: soft
 
@@ -8300,15 +8300,15 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/button-bar": "npm:^1.5.0"
-    "@sl-design-system/checkbox": "npm:^2.2.0"
-    "@sl-design-system/data-source": "npm:^0.4.1"
-    "@sl-design-system/icon": "npm:^1.4.3"
-    "@sl-design-system/menu": "npm:^0.4.0"
-    "@sl-design-system/shared": "npm:^0.12.3"
-    "@sl-design-system/skeleton": "npm:^1.1.0"
-    "@sl-design-system/spinner": "npm:^2.0.1"
-    "@sl-design-system/virtual-list": "npm:^0.2.0"
+    "@sl-design-system/button-bar": "npm:^1.6.1"
+    "@sl-design-system/checkbox": "npm:^2.4.1"
+    "@sl-design-system/data-source": "npm:^0.4.4"
+    "@sl-design-system/icon": "npm:^1.4.5"
+    "@sl-design-system/menu": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.14.1"
+    "@sl-design-system/skeleton": "npm:^1.1.2"
+    "@sl-design-system/spinner": "npm:^2.0.3"
+    "@sl-design-system/virtual-list": "npm:^0.2.3"
     lit: "npm:^3.3.3"
   peerDependencies:
     "@lit/localize": ^0.12.2
@@ -8317,11 +8317,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/virtual-list@npm:^0.2.0, @sl-design-system/virtual-list@workspace:packages/components/virtual-list":
+"@sl-design-system/virtual-list@npm:^0.2.3, @sl-design-system/virtual-list@workspace:packages/components/virtual-list":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/virtual-list@workspace:packages/components/virtual-list"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.12.3"
+    "@sl-design-system/shared": "npm:^0.14.1"
     "@tanstack/virtual-core": "npm:3.17.1"
     lit: "npm:^3.3.3"
   peerDependencies:
@@ -8961,15 +8961,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-serve-static-core@npm:*":
-  version: 5.1.3
-  resolution: "@types/express-serve-static-core@npm:5.1.3"
+"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.33":
+  version: 4.19.8
+  resolution: "@types/express-serve-static-core@npm:4.19.8"
   dependencies:
     "@types/node": "npm:*"
     "@types/qs": "npm:*"
     "@types/range-parser": "npm:*"
     "@types/send": "npm:*"
-  checksum: 10c0/2312bf52f2c299fdaf3b0c60c6058dd102f7bb6ed721b6de94e334feead4a4e4b606717058400436aa841cd9499e6960a4e3d92dd2b00220a6c1435ea5fdb5e1
+  checksum: 10c0/6fb58a85b209e0e421b29c52e0a51dbf7c039b711c604cf45d46470937a5c7c16b30aa5ce9bf7da0bd8a2e9361c95b5055599c0500a96bf4414d26c81f02d7fe
   languageName: node
   linkType: hard
 
@@ -8982,18 +8982,6 @@ __metadata:
     "@types/range-parser": "npm:*"
     "@types/send": "npm:*"
   checksum: 10c0/31d7afe63c4f0090159a869e4199aae38cbc222948bf9be5d7c257bfdc8e14c9dec46e9f50c08e0004565565acb7ecd95d5c0dbde6d9fdd45a5d0adfabbf00fe
-  languageName: node
-  linkType: hard
-
-"@types/express-serve-static-core@npm:^4.17.33":
-  version: 4.19.8
-  resolution: "@types/express-serve-static-core@npm:4.19.8"
-  dependencies:
-    "@types/node": "npm:*"
-    "@types/qs": "npm:*"
-    "@types/range-parser": "npm:*"
-    "@types/send": "npm:*"
-  checksum: 10c0/6fb58a85b209e0e421b29c52e0a51dbf7c039b711c604cf45d46470937a5c7c16b30aa5ce9bf7da0bd8a2e9361c95b5055599c0500a96bf4414d26c81f02d7fe
   languageName: node
   linkType: hard
 
@@ -11125,7 +11113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"asn1js@npm:^3.0.10, asn1js@npm:^3.0.6":
+"asn1js@npm:^3.0.10":
   version: 3.0.10
   resolution: "asn1js@npm:3.0.10"
   dependencies:
@@ -11133,6 +11121,17 @@ __metadata:
     pvutils: "npm:^1.1.5"
     tslib: "npm:^2.8.1"
   checksum: 10c0/04056106522e4d0db4eb992299bb76d73438bfd59ffd975ac9c1f15d14e7326161dad383c54a5ccfa203b73ae7b7bf4668f42c2fed01e1f4bf79a58de71e4dc6
+  languageName: node
+  linkType: hard
+
+"asn1js@npm:^3.0.6":
+  version: 3.0.7
+  resolution: "asn1js@npm:3.0.7"
+  dependencies:
+    pvtsutils: "npm:^1.3.6"
+    pvutils: "npm:^1.1.3"
+    tslib: "npm:^2.8.1"
+  checksum: 10c0/7e79795edf1bcc86532c4084aa7c8c0ebc57f7dd6f964ad6de956abf617329722f6964b7af3a5d1c4554dd61b4b148ae1580e63e3ec2e70e7fba34f6df072b29
   languageName: node
   linkType: hard
 
@@ -22441,7 +22440,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.14, postcss@npm:^8.5.17, postcss@npm:^8.5.26":
+"postcss@npm:^8.2.14, postcss@npm:^8.5.26":
   version: 8.5.26
   resolution: "postcss@npm:8.5.26"
   dependencies:
@@ -22463,7 +22462,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.5.3":
+"postcss@npm:^8.5.17, postcss@npm:^8.5.3":
   version: 8.5.22
   resolution: "postcss@npm:8.5.22"
   dependencies:
@@ -24321,7 +24320,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.8.5, semver@npm:^7.6.2":
+"semver@npm:7.8.5":
   version: 7.8.5
   resolution: "semver@npm:7.8.5"
   bin:
@@ -24348,7 +24347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.0.0, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.3":
+"semver@npm:^7.0.0, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.2, semver@npm:^7.6.3, semver@npm:^7.7.1, semver@npm:^7.7.3":
   version: 7.8.2
   resolution: "semver@npm:7.8.2"
   bin:

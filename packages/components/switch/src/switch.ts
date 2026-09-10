@@ -269,6 +269,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
             @input=${this.#onInput}
             @keydown=${this.#onKeydown}
             id="input"
+            part="input"
             role="switch"
             type="checkbox" />
           <div part="track">

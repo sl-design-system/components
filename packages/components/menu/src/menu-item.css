@@ -96,6 +96,10 @@ sl-switch::part(toggle) {
   padding-inline-start: 0;
 }
 
+sl-switch::part(input) {
+  visibility: hidden;
+}
+
 .container:hover .safe-triangle {
   display: block;
 }

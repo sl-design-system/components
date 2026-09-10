@@ -222,7 +222,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     } else if (this.switch) {
       // The switch already toggles itself when clicked directly, so only toggle it here
       // when the click landed elsewhere on the menu item.
-      if (!event.composedPath().includes(this.switchElement as EventTarget)) {
+      if (!event.composedPath().some(el => (el as Element).matches?.('label#toggle,div#label'))) {
         this.switchElement?.toggle();
       }
     } else if (this.selectable) {

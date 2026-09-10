@@ -373,7 +373,7 @@ describe('sl-menu-item', () => {
     });
 
     it('should not toggle when disabled and clicked', async () => {
-      el.disabled = true;
+      el.ariaDisabled = 'true';
       await el.updateComplete;
 
       el.click();
@@ -383,7 +383,7 @@ describe('sl-menu-item', () => {
     });
 
     it('should not toggle when disabled and pressing enter', async () => {
-      el.disabled = true;
+      el.ariaDisabled = 'true';
       await el.updateComplete;
 
       el.focus();

@@ -586,7 +586,7 @@ describe('sl-date-field', () => {
         .querySelector<RenderRootElement>('sl-select-month')
         ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
 
-      monthButtons?.[5]?.click(); // June
+      monthButtons?.[5]?.click();
       await calendar.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
 
@@ -622,7 +622,7 @@ describe('sl-date-field', () => {
         .querySelector<RenderRootElement>('sl-select-month')
         ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
 
-      monthButtons?.[0]?.click(); // June becomes first selectable month with min=2026-06-03
+      monthButtons?.[0]?.click();
       await calendar.updateComplete;
       await new Promise(resolve => requestAnimationFrame(resolve));
 

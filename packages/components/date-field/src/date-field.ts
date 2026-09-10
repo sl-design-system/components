@@ -87,6 +87,9 @@ export class DateField extends LocaleMixin(
     click: this.#onClick
   });
 
+  /** Tracks calendar mode transitions while the dialog is open. */
+  #calendarMode: 'day' | 'month' | 'year' = 'day';
+
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
 
@@ -113,9 +116,6 @@ export class DateField extends LocaleMixin(
 
   /** Used to cancel a pending #openDialog() before showModal() runs. */
   #openDialogCancelled = false;
-
-  /** Tracks calendar mode transitions while the dialog is open. */
-  #calendarMode: 'day' | 'month' | 'year' = 'day';
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -983,77 +983,6 @@ export class DateField extends LocaleMixin(
     }
   }
 
-  async #syncCalendarFocusAfterModeSwitch(): Promise<void> {
-    if (!this.dialog?.open || !this.calendar) {
-      return;
-    }
-
-    await this.calendar.updateComplete;
-
-    if (!this.dialog?.open) {
-      return;
-    }
-
-    const mode = this.#getCalendarMode(),
-      shouldRestoreDayFocus = this.#calendarMode !== 'day' && mode === 'day';
-
-    this.#calendarMode = mode;
-
-    if (!shouldRestoreDayFocus) {
-      return;
-    }
-
-    this.#focusFirstSelectableDayOfDisplayedMonth();
-  }
-
-  #getCalendarMode(): 'day' | 'month' | 'year' {
-    const mode = (this.calendar as Calendar | undefined)?.mode;
-
-    return mode === 'month' || mode === 'year' ? mode : 'day';
-  }
-
-  #focusFirstSelectableDayOfDisplayedMonth(): void {
-    type RenderRootElement = HTMLElement & { renderRoot: ShadowRoot };
-
-    const calendar = this.calendar,
-      selectDay = calendar?.renderRoot.querySelector<RenderRootElement>('sl-select-day'),
-      monthView = selectDay?.renderRoot.querySelector<RenderRootElement>(
-        'sl-month-view:not([inert])'
-      );
-
-    if (!calendar?.month || !monthView?.shadowRoot) {
-      return;
-    }
-
-    const displayMonth = calendar.month,
-      buttons = Array.from(
-        monthView.shadowRoot.querySelectorAll<HTMLButtonElement>('td[data-date] button')
-      ),
-      selectableDays = buttons
-        .filter(button => !button.disabled)
-        .map(button => {
-          const cell = button.closest<HTMLElement>('td[data-date]'),
-            date = cell?.dataset.date ? new Date(cell.dataset.date) : undefined;
-
-          return { button, date };
-        })
-        .filter(
-          (candidate): candidate is { button: HTMLButtonElement; date: Date } =>
-            !!candidate.date &&
-            candidate.date.getMonth() === displayMonth.getMonth() &&
-            candidate.date.getFullYear() === displayMonth.getFullYear()
-        );
-
-    if (selectableDays.length === 0) {
-      return;
-    }
-
-    const firstDay =
-      selectableDays.find(candidate => candidate.date.getDate() === 1) ?? selectableDays[0];
-
-    firstDay.button.focus();
-  }
-
   /**
    * Adjusts a date part by the given delta, with wrapping.
    *
@@ -1118,6 +1047,54 @@ export class DateField extends LocaleMixin(
         this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
       });
     }
+  }
+
+  #focusFirstSelectableDayOfDisplayedMonth(): void {
+    type RenderRootElement = HTMLElement & { renderRoot: ShadowRoot };
+
+    const calendar = this.calendar,
+      selectDay = calendar?.renderRoot.querySelector<RenderRootElement>('sl-select-day'),
+      monthView = selectDay?.renderRoot.querySelector<RenderRootElement>(
+        'sl-month-view:not([inert])'
+      );
+
+    if (!calendar?.month || !monthView?.shadowRoot) {
+      return;
+    }
+
+    const displayMonth = calendar.month,
+      buttons = Array.from(
+        monthView.shadowRoot.querySelectorAll<HTMLButtonElement>('td[data-date] button')
+      ),
+      selectableDays = buttons
+        .filter(button => !button.disabled)
+        .map(button => {
+          const cell = button.closest<HTMLElement>('td[data-date]'),
+            date = cell?.dataset.date ? new Date(cell.dataset.date) : undefined;
+
+          return { button, date };
+        })
+        .filter(
+          (candidate): candidate is { button: HTMLButtonElement; date: Date } =>
+            !!candidate.date &&
+            candidate.date.getMonth() === displayMonth.getMonth() &&
+            candidate.date.getFullYear() === displayMonth.getFullYear()
+        );
+
+    if (selectableDays.length === 0) {
+      return;
+    }
+
+    const firstDay =
+      selectableDays.find(candidate => candidate.date.getDate() === 1) ?? selectableDays[0];
+
+    firstDay.button.focus();
+  }
+
+  #getCalendarMode(): 'day' | 'month' | 'year' {
+    const mode = (this.calendar as Calendar | undefined)?.mode;
+
+    return mode === 'month' || mode === 'year' ? mode : 'day';
   }
 
   /** Returns the formatted date string for the select-all input. */
@@ -1210,6 +1187,29 @@ export class DateField extends LocaleMixin(
       const firstSpan = this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]');
       firstSpan?.focus();
     });
+  }
+
+  async #syncCalendarFocusAfterModeSwitch(): Promise<void> {
+    if (!this.dialog?.open || !this.calendar) {
+      return;
+    }
+
+    await this.calendar.updateComplete;
+
+    if (!this.dialog?.open) {
+      return;
+    }
+
+    const mode = this.#getCalendarMode(),
+      shouldRestoreDayFocus = this.#calendarMode !== 'day' && mode === 'day';
+
+    this.#calendarMode = mode;
+
+    if (!shouldRestoreDayFocus) {
+      return;
+    }
+
+    this.#focusFirstSelectableDayOfDisplayedMonth();
   }
 
   /** Tries to set the value if all date parts are defined, or clears it. */

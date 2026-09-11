@@ -35,9 +35,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map",
+    "dist",
     "custom-elements.json"
   ],
   "sideEffects": [
@@ -56,6 +54,9 @@
     "@open-wc/scoped-elements": "^3.0.10"
   },
   "peerDependencies": {
-    "@open-wc/scoped-elements": "^3.0.10"
+    "@lit/localize": "^0.12.1",
+    "@open-wc/dedupe-mixin": "^2.0.1",
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.1.4"
   }
 }

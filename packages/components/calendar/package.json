@@ -35,9 +35,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map",
+    "dist",
     "custom-elements.json"
   ],
   "sideEffects": [
@@ -48,6 +46,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@sl-design-system/announcer": "^0.1.2",
     "@sl-design-system/button": "^2.3.1",
     "@sl-design-system/format-date": "^0.1.9",
     "@sl-design-system/icon": "^1.4.5",
@@ -61,6 +60,7 @@
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",
+    "@open-wc/dedupe-mixin": "^2.0.1",
     "@open-wc/scoped-elements": "^3.0.10",
     "lit": "^3.1.4"
   }

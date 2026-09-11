@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "customConditions": [],
+    "composite": false,
+    "types": []
+  },
+  "include": ["*/index.ts", "*/icons.ts"]
+}

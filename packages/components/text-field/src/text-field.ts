@@ -70,7 +70,10 @@ export class TextField
   }
 
   /** @internal */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  static override shadowRootOptions: typeof LitElement.shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true
+  };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;

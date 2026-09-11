@@ -35,9 +35,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map",
+    "dist",
     "custom-elements.json"
   ],
   "sideEffects": [
@@ -49,5 +47,8 @@
   },
   "dependencies": {
     "@sl-design-system/shared": "^0.14.1"
+  },
+  "peerDependencies": {
+    "lit": "^3.1.4"
   }
 }

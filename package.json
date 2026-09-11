@@ -88,7 +88,8 @@
       "dependencies": [
         "build:themes:setup",
         "build:themes:code",
-        "build:themes:styles"
+        "build:themes:styles",
+        "build:themes:types"
       ]
     },
     "build:themes:code": {
@@ -132,7 +133,8 @@
         "build:themes:code",
         "dist:angular",
         "dist:components",
-        "dist:themes"
+        "dist:themes",
+        "build:themes:types"
       ]
     },
     "dist:angular": {
@@ -275,6 +277,21 @@
       "command": "node scripts/get-changed-urls.js && yarn exec playwright test --project=website",
       "dependencies": [
         "test:setup"
+      ]
+    },
+    "build:themes:types": {
+      "command": "tsc --project packages/themes/tsconfig.build.json",
+      "dependencies": [
+        "build:components"
+      ],
+      "files": [
+        "tsconfig.base.json",
+        "packages/themes/tsconfig*.json",
+        "packages/themes/*/*.ts",
+        "!packages/themes/*/*.d.ts"
+      ],
+      "output": [
+        "packages/themes/*/*.d.ts"
       ]
     }
   },

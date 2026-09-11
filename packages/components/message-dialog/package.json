@@ -35,9 +35,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "**/*.d.ts",
-    "**/*.js",
-    "**/*.js.map",
+    "dist",
     "custom-elements.json"
   ],
   "sideEffects": [
@@ -49,6 +47,7 @@
   },
   "dependencies": {
     "@sl-design-system/button": "^2.3.1",
+    "@sl-design-system/button-bar": "^1.6.0",
     "@sl-design-system/dialog": "^2.1.4",
     "@sl-design-system/shared": "^0.14.1"
   },
@@ -58,6 +57,8 @@
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.10"
+    "@open-wc/dedupe-mixin": "^2.0.1",
+    "@open-wc/scoped-elements": "^3.0.10",
+    "lit": "^3.1.4"
   }
 }

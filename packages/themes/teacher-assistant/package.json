@@ -19,9 +19,9 @@
     ".": "./index.js",
     "./global.css": "./global.css",
     "./fonts.css": "./fonts.css",
-    "./light.css": "./light.css",
-    "./light.min.css": "./light.min.css",
+    "./theme.css": "./theme.css",
     "./package.json": "./package.json",
+    "./typography.css": "./typography.css",
     "./css/*.css": "./css/*.css"
   },
   "files": [

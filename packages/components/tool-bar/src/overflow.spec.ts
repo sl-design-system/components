@@ -450,14 +450,14 @@ describe('width measurement', () => {
   });
 
   it('should hide items when the toolbar gets narrower', async () => {
-    el.style.inlineSize = '150px';
+    el.style.inlineSize = '165px';
     await new Promise(resolve => setTimeout(resolve, 100));
 
     expect(el.menuItems.length).to.equal(2);
   });
 
   it('should show items again when the toolbar gets wider', async () => {
-    el.style.inlineSize = '150px';
+    el.style.inlineSize = '165px';
     await new Promise(resolve => setTimeout(resolve, 100));
 
     expect(el.menuItems.length).to.equal(2);

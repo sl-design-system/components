@@ -74,12 +74,16 @@ test.describe('Limited to <main> test on other pages', () => {
     .filter(url => url !== homePageUrl)
     .forEach(url => {
       test(`A11y test on ${url}`, async ({ page }) => {
-        await page.goto(url, { waitUntil: 'load' });
+        const response = await page.goto(url, { waitUntil: 'load' });
+
+        expect(response, `Route not reachable: ${url}`).not.toBeNull();
+        expect(response?.ok(), `Route returned an error for ${url}`).toBeTruthy();
+
         results = await axe
           .include('main')
-          // Exclude known Axe violation(s) in DS tab group tabs; keep this scoped and remove when fixed.
           .exclude('sl-tab-group.ds-tab-group > sl-tab')
           .analyze();
+
         expect(results.violations.length, 'Accessibility violations found, see details above').toBe(0);
       });
     });

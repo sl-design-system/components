@@ -130,7 +130,7 @@ export class Card extends ScopedElementsMixin(LitElement) {
       <figure><slot name="media" @slotchange=${this.#setMedia}></slot></figure>
       <div class="content">
         <div class="header">
-          <slot class="title" @slotchange=${this.#setTitle}></slot>
+          <slot class="title md" @slotchange=${this.#setTitle}></slot>
           <slot name="header"></slot>
         </div>
         <slot name="menu-button" @slotchange=${this.#setMenuButton}></slot>

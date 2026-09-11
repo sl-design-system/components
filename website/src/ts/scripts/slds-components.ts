@@ -1,4 +1,4 @@
-import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faSlack, faStorybook  } from '@fortawesome/free-brands-svg-icons';
 // eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
@@ -140,27 +140,28 @@ Icon.register(
   faScreenUsers,
   faSlack,
   faSparkles,
+  faStorybook,
   faTrash,
   faTruckFast,
   faXmark,
   farBadgeCheck,
   farBellExclamation,
   farBold,
-  farGrid,
   farGear,
+  farGrid,
   farItalic,
   farListUl,
   farUnderline,
   fasBadgeCheck,
   fasBellExclamation,
   fasBold,
-  fasGrid,
   fasGear,
+  fasGrid,
   fasHeart,
   fasItalic,
   fasListUl,
+  fasOctagonXmark,
   fasUnderline,
-  fasOctagonXmark
 );
 
 declare global {

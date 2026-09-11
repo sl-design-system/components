@@ -1,3 +1,10 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-scheme: dark;
+    color-scheme: dark;
+  }
+}
+
 html {
   /* Body scale/translate for the mobile dialog animation. */
   --sl-dialog-scale: 0.92;

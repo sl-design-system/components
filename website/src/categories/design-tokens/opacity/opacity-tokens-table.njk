@@ -3,24 +3,24 @@
 <table class="ds-table"><thead>
 <tr>
   <th>Value</th>
-  <th>Token title</th>
+  <th>Step</th>
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for property in tokens.core.opacity -%}{% if property[1]['$value'] %}
+{% for property in tokens.opacity -%}
 <tr>
   <td>
     <div class="ds-tokens__opacity-example">
       <div class="ds-tokens__opacity-triangles">
-        <div class="ds-tokens__triangle" style="opacity: {{ property[1]['$value'] }};{% if property[1]['$value'] == 0 %}display: none;{% endif %}"></div>
+        <div class="ds-tokens__triangle" style="opacity: {{ property.value }};{% if property.value == '0' %}display: none;{% endif %}"></div>
       </div>
-      <code>{{ property[1]['$value'] }}</code>
+      <code>{{ property.value }}</code>
     </div>
   </td>
-  <td class="ds-tokens__description">{{ property[1]['$description'] | tokenDescription }}</td>
-  <td><code>{{ property[1]['$description'] | tokenName }}</code></td>
+  <td class="ds-tokens__description">{{ property.step }}</td>
+  <td><code>{{ property.token }}</code></td>
 </tr>
-{% endif %}{% endfor -%}
+{% endfor -%}
 </tbody>
 </table>
 </section>

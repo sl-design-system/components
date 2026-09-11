@@ -151,6 +151,29 @@ describe('sl-form', () => {
       ]);
     });
 
+    it('should not announce field validation messages when announce-errors is false on the form', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>(),
+        form = await fixture<Form>(html`
+          <sl-form announce-errors="false">
+            <sl-form-field label="First name">
+              <sl-text-field name="firstName" required></sl-text-field>
+            </sl-form-field>
+            <sl-form-field label="Last name">
+              <sl-text-field name="lastName" required></sl-text-field>
+            </sl-form-field>
+          </sl-form>
+        `);
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      form.reportValidity();
+      await form.updateComplete;
+
+      expect(announceSpy).not.to.have.been.called;
+      expect(form.querySelectorAll('sl-error')).to.have.length(2);
+    });
+
     it('should have a value for the form', async () => {
       expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
 

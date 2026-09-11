@@ -106,6 +106,10 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The text for the label. You can also slot an `<sl-label>` element. */
   @property() label?: string;
 
+  /** @internal Whether validation messages are announced via the live-region announcer. */
+  @property({ attribute: false })
+  announceErrors = true;
+
   /** How to mark this field depending if it is required or not. */
   @property() mark?: LabelMark;
 
@@ -364,7 +368,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       nextError =
         event.detail.showValidity === 'invalid' ? event.detail.validationMessage : undefined;
 
-    if (nextError && nextError !== previousError) {
+    if (this.announceErrors && nextError && nextError !== previousError) {
       announce(this.#getValidationAnnouncement(event.target, nextError), 'polite', true);
     }
 

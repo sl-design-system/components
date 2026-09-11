@@ -63,6 +63,13 @@ export function importCssSheet() {
       const resolved = await this.resolve(source, importer, { skipSelf: true });
       if (!resolved) return null;
 
+      // When this plugin is registered more than once (e.g. once in the base Vite/Vitest config
+      // and once via Storybook's `viteFinal`), `skipSelf` only skips the calling instance, so
+      // resolution can fall through to another instance of this same plugin, which already
+      // returns one of its own virtual ids. Pass it through as-is instead of wrapping it again,
+      // which would corrupt our map with a virtual id posing as a real file path.
+      if (resolved.id.startsWith('\0virtual:')) return resolved.id;
+
       return getVirtualId(resolved.id, source);
     },
 

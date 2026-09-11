@@ -80,4 +80,26 @@ You can query the state of the entire form by simply getting the `valid` propert
 
 </section>
 
+<section>
+
+## Validate on blur
+
+By default, validation feedback is only shown after `reportValidity()` is called (for example on form submit). You can opt in to validation on blur by adding the `validate-on-blur` attribute to `<sl-form>`:
+
+```html
+<sl-form validate-on-blur>
+  <!-- form fields -->
+</sl-form>
+```
+
+With this enabled, each field is validated when the user leaves it. For required fields, this behavior is designed with accessibility in mind:
+
+- **Just tabbing through** a field shows no error. This allows keyboard and screen reader users to explore the form and hear all field labels and hints without being interrupted by error announcements on empty fields they haven't interacted with yet.
+- **Typing and clearing** a field, then leaving it, shows the required error on blur. The user has interacted with the field and is expected to see feedback.
+- **Mouse actions** such as unchecking a checkbox or removing the last selection in a combobox show the error immediately, since the intent to change the value is clear.
+
+Fields that were never interacted with are still validated when `reportValidity()` is called, for example on submit.
+
+</section>
+
 {% include "../component-table.njk" %}

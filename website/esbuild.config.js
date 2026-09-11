@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve as resolvePath } from 'node:path';
 import tinyGlob from 'tiny-glob';
 
-const DEV = process.env.NODE_ENV !== 'PROD';
+const DEV = process.env.NODE_ENV !== 'production';
 const jsFolder = 'build';
 
 /**
@@ -51,6 +51,7 @@ const entryPoints = (await Promise.all(filesPromises)).flat();
 
 let config = {
   bundle: true,
+  conditions: ['module', '@sl-design-system/source'],
   outdir: jsFolder,
   minify: false,
   format: 'esm',
@@ -73,6 +74,7 @@ if (DEV) {
 } else {
   config = {
     bundle: true,
+    conditions: ['module', '@sl-design-system/source'],
     outdir: jsFolder,
     minify: true,
     format: 'esm',

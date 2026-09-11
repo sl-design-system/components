@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/checkbox",
-  "version": "2.2.0",
+  "version": "2.4.1",
   "status": "stable",
   "description": "Checkbox component for the SL Design System",
   "license": "Apache-2.0",
@@ -24,8 +24,14 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./register.js": "./src/register.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./register.js": {
+      "@sl-design-system/source": "./src/register.ts",
+      "default": "./dist/register.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -42,9 +48,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "^1.3.6",
-    "@sl-design-system/shared": "^0.12.3",
-    "@sl-design-system/tooltip": "^2.0.1"
+    "@sl-design-system/form": "^1.5.1",
+    "@sl-design-system/shared": "^0.14.1",
+    "@sl-design-system/tooltip": "^3.0.2"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

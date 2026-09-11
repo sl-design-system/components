@@ -313,6 +313,19 @@ class StoryTemplateExtractor {
     const { title, components, stories, fileName, fileImports } = storyData;
 
     const normalizeDescription = description => description?.replace(/\\`/g, '`') ?? description;
+    const findComponentForStoryTemplate = storyTemplate =>
+      components.find(component => {
+        if (!storyTemplate || !component.selector) {
+          return false;
+        }
+
+        const selectorPattern = new RegExp(
+          `<${component.selector}(?:\\s|>|/)|<${component.selector}>(?:\\s|<|$)`,
+          'm'
+        );
+
+        return selectorPattern.test(storyTemplate);
+      });
 
     // Check for custom introduction file
     const introFile = path.join(this.angularStoriesPath, `${fileName}.intro.md`);
@@ -344,7 +357,7 @@ To add custom introduction content, create ${fileName}.intro.md */}
 
     // Add stories documentation
     stories.forEach((story, index) => {
-      const component = components.find(c => story.template && story.template.includes(c.selector));
+      const component = findComponentForStoryTemplate(story.template);
 
       mdx += `## ${story.name.replace(/([A-Z])/g, ' $1').trim()}
 

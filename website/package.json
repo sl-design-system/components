@@ -14,7 +14,8 @@
   "scripts": {
     "build": "wireit",
     "lint": "wireit",
-    "start": "wireit"
+    "start": "wireit",
+    "check-build": "wireit"
   },
   "wireit": {
     "analyze": {
@@ -34,7 +35,8 @@
       "dependencies": [
         "build:eleventy",
         "build:styles",
-        "build:ts"
+        "build:ts",
+        "check-build"
       ]
     },
     "build:eleventy": {
@@ -48,7 +50,8 @@
       "dependencies": [
         "analyze",
         "copy-tokens",
-        "..:build:themes:styles"
+        "..:build:themes:styles",
+        "build:ts"
       ],
       "files": [
         ".eleventy.cjs",
@@ -76,14 +79,18 @@
         "..:build:components"
       ],
       "files": [
-        "esbuild.config.mjs",
+        "esbuild.config.js",
         "tsconfig.json",
         "src/ts/**/*.ts"
       ],
       "output": [
-        "build/**/*.js",
-        "build/**/*.js.map"
-      ]
+        "build/**/*"
+      ],
+      "env": {
+        "NODE_ENV": {
+          "external": true
+        }
+      }
     },
     "build:type-check": {
       "command": "tsc --build tsconfig.json --pretty",
@@ -165,6 +172,12 @@
           "script": "build:type-check",
           "cascade": false
         }
+      ]
+    },
+    "check-build": {
+      "command": "node scripts/check-build.js",
+      "dependencies": [
+        "build:eleventy"
       ]
     }
   },

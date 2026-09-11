@@ -1,6 +1,10 @@
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { ArrayListDataSource, type ListDataSourceGroupItem } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  type ListDataSourceGroupItem,
+  isListDataSourceDataItem
+} from '@sl-design-system/data-source';
 import '@sl-design-system/menu/register.js';
 import { type ToolBar } from '@sl-design-system/tool-bar';
 import '@sl-design-system/tooltip/register.js';
@@ -181,6 +185,200 @@ describe('sl-grid', () => {
       await el.updateComplete;
 
       expect(el.dataSource?.selects).to.equal('multiple');
+    });
+  });
+
+  describe('drag and drop', () => {
+    it('should ignore drag events from native draggable content when row dragging is disabled', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}>
+          <sl-grid-column
+            header="Avatar"
+            .renderer=${({ firstName }: Person) =>
+              html`<img alt="" src="data:,${firstName}" />`}></sl-grid-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const dataSource = el.dataSource!,
+        reorderSpy = spy(dataSource, 'reorder'),
+        dragStartSpy = spy(),
+        firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!,
+        image = firstRow.querySelector<HTMLImageElement>('img')!;
+
+      el.addEventListener('sl-grid-dragstart', dragStartSpy);
+
+      image.dispatchEvent(
+        new DragEvent('dragstart', {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+      document.body.dispatchEvent(
+        new DragEvent('dragover', {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+      image.dispatchEvent(
+        new DragEvent('dragend', {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+
+      expect(el.draggableRows).to.be.undefined;
+      expect(firstRow).not.to.have.attribute('draggable');
+      expect(dragStartSpy).not.to.have.been.called;
+      expect(reorderSpy).not.to.have.been.called;
+      expect(
+        dataSource.items.filter(isListDataSourceDataItem<Person>).map(item => item.data.firstName)
+      ).to.deep.equal(['John', 'Jane']);
+    });
+
+    it('should disarm a data row when a drag handle press does not start a drag', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' }
+          ]}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column
+            header="Avatar"
+            .renderer=${({ firstName }: Person) =>
+              html`<img alt="" src="data:,${firstName}" />`}></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const dragStartSpy = spy(),
+        firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!,
+        dragHandleCell = firstRow.querySelector<HTMLTableCellElement>('td[part*="drag-handle"]')!,
+        image = firstRow.querySelector<HTMLImageElement>('img')!;
+
+      el.addEventListener('sl-grid-dragstart', dragStartSpy);
+
+      dragHandleCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+      window.dispatchEvent(new MouseEvent('mouseup'));
+      image.dispatchEvent(
+        new DragEvent('dragstart', {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+
+      expect(firstRow).not.to.have.attribute('draggable');
+      expect(dragStartSpy).not.to.have.been.called;
+    });
+
+    it('should only start dragging a group row from its drag handle', async () => {
+      const dataSource = new ArrayListDataSource<Person>(
+        [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'B' }
+        ],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${dataSource}
+          .groupHeaderRenderer=${() => html`<img alt="" src="data:,group" />`}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const dragStartSpy = spy(),
+        groupRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr[part~="group"]')!,
+        groupHeader = groupRow.querySelector<GridGroupHeader>('sl-grid-group-header')!,
+        dragHandle = groupHeader.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]')!,
+        image = groupRow.querySelector<HTMLImageElement>('img')!;
+
+      el.addEventListener('sl-grid-dragstart', dragStartSpy);
+
+      dragHandle.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true })
+      );
+      window.dispatchEvent(new MouseEvent('mouseup'));
+      image.dispatchEvent(
+        new DragEvent('dragstart', {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+
+      expect(groupRow).to.have.attribute('draggable', 'true');
+      expect(dragStartSpy).not.to.have.been.called;
+    });
+
+    it('should restore the dragged row to its original position when it is dragged outside the grid', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            { firstName: 'John', lastName: 'Doe' },
+            { firstName: 'Jane', lastName: 'Smith' },
+            { firstName: 'Alice', lastName: 'Johnson' }
+          ]}>
+          <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const draggedRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!,
+        dragHandleCell = draggedRow.querySelector<HTMLTableCellElement>('td[part*="drag-handle"]')!;
+
+      dragHandleCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+      draggedRow.dispatchEvent(
+        new DragEvent('dragstart', {
+          bubbles: true,
+          cancelable: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+      document.body.dispatchEvent(
+        new DragEvent('dragover', {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+      draggedRow.dispatchEvent(
+        new DragEvent('dragend', {
+          bubbles: true,
+          cancelable: true,
+          dataTransfer: new DataTransfer()
+        })
+      );
+
+      expect(
+        el.dataSource?.items
+          .filter(isListDataSourceDataItem<Person>)
+          .map(item => item.data.firstName)
+      ).to.deep.equal(['John', 'Jane', 'Alice']);
     });
   });
 
@@ -436,15 +634,22 @@ describe('sl-grid', () => {
         ),
         sourceGroupRow = groupRows[0],
         targetGroupRow = groupRows[1],
+        sourceGroupHeader = sourceGroupRow.querySelector<GridGroupHeader>('sl-grid-group-header')!,
+        dragHandle =
+          sourceGroupHeader.renderRoot.querySelector<HTMLElement>('[part="drag-handle"]')!,
         dragStartEvent = new DragEvent('dragstart', {
           bubbles: true,
           cancelable: true,
+          composed: true,
           dataTransfer: new DataTransfer()
         });
 
       expect(sourceGroupRow).to.have.attribute('draggable');
 
-      sourceGroupRow.dispatchEvent(dragStartEvent);
+      dragHandle.dispatchEvent(
+        new MouseEvent('mousedown', { bubbles: true, cancelable: true, composed: true })
+      );
+      dragHandle.dispatchEvent(dragStartEvent);
       targetGroupRow.dispatchEvent(
         new DragEvent('dragover', {
           bubbles: true,

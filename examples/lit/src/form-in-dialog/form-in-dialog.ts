@@ -73,7 +73,7 @@ export class FormInDialog extends Dialog {
 
   override renderBody(): TemplateResult {
     return html`
-      <sl-form @sl-update-state=${this.#onUpdateState}>
+      <sl-form @sl-update-state=${this.#onUpdateState} announce-errors="false">
         <sl-form-field label="Type">
           <sl-text-field autofocus name="type" required></sl-text-field>
         </sl-form-field>

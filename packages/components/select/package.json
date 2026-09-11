@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/select",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "status": "stable",
   "description": "Select component for the SL Design System",
   "license": "Apache-2.0",
@@ -48,7 +48,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "^1.5.1",
+    "@sl-design-system/form": "^1.6.0",
     "@sl-design-system/icon": "^1.4.5",
     "@sl-design-system/listbox": "^0.2.3",
     "@sl-design-system/shared": "^0.14.1"

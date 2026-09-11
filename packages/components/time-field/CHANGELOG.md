@@ -1,5 +1,16 @@
 # @sl-design-system/time-field
 
+## 0.3.2
+
+### Patch Changes
+
+- [#3660](https://github.com/sl-design-system/components/pull/3660) [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706) - Fix `sl-time-field` behavior when `validate-on-blur` is enabled on the parent `sl-form`:
+
+  - The field is now correctly marked as dirty when the user enters any time part (hour or minute), even if no complete time has been formed yet. Previously, only completing a full time value would mark the field dirty, which caused the required error to be suppressed even after the user had started typing.
+
+- Updated dependencies [[`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706)]:
+  - @sl-design-system/form@1.6.0
+
 ## 0.3.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @sl-design-system/radio-group
 
+## 1.3.2
+
+### Patch Changes
+
+- [#3660](https://github.com/sl-design-system/components/pull/3660) [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706) - Fix `sl-radio-group` blur behavior:
+
+  - Emit `sl-blur` only when focus leaves the radio group.
+  - Keep focus behavior stable when moving focus inside the group (for example with arrow keys).
+
+- Updated dependencies [[`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706)]:
+  - @sl-design-system/form@1.6.0
+
 ## 1.3.1
 
 ### Patch Changes

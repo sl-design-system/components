@@ -1,5 +1,16 @@
 # @sl-design-system/grid
 
+## 0.8.3
+
+### Patch Changes
+
+- [#3693](https://github.com/sl-design-system/components/pull/3693) [`c808f17`](https://github.com/sl-design-system/components/commit/c808f176e9ca3c91d113de02639c9d19b6fc073d) - Prevent native draggable content inside grid cells from starting row drag and drop unless the current pointer gesture originated from a drag handle.
+
+- Updated dependencies [[`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706), [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706), [`f01a4ed`](https://github.com/sl-design-system/components/commit/f01a4ed4cafd0534748a6932a02fee275cb57343)]:
+  - @sl-design-system/select@2.4.2
+  - @sl-design-system/checkbox@2.4.2
+  - @sl-design-system/search-field@1.0.2
+
 ## 0.8.2
 
 ### Patch Changes

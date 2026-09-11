@@ -1,5 +1,11 @@
 # @sl-design-system/link
 
+## 0.0.4
+
+### Patch Changes
+
+- [#3540](https://github.com/sl-design-system/components/pull/3540) [`b10771c`](https://github.com/sl-design-system/components/commit/b10771c5b7518d295788dd46b0ca60fb07e06a22) - Align link focus ring offset and border radius with button styling for more consistent focus visuals.
+
 ## 0.0.3
 
 ### Patch Changes

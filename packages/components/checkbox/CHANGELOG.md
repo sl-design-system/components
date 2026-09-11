@@ -1,5 +1,17 @@
 # @sl-design-system/checkbox
 
+## 2.4.2
+
+### Patch Changes
+
+- [#3660](https://github.com/sl-design-system/components/pull/3660) [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706) - Fix `sl-checkbox` and `sl-checkbox-group` blur and validation behavior:
+
+  - Emit `sl-blur` only when focus truly leaves the component, not when moving between elements inside it (for example between checkboxes in a group).
+  - When `validate-on-blur` is enabled on the parent `sl-form`: unchecking a required checkbox or removing the last selection in a required checkbox group with the mouse now shows the invalid state immediately, without needing to click elsewhere first.
+
+- Updated dependencies [[`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706)]:
+  - @sl-design-system/form@1.6.0
+
 ## 2.4.1
 
 ### Patch Changes

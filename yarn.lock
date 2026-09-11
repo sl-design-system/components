@@ -7221,13 +7221,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@npm:^2.4.0, @sl-design-system/checkbox@npm:^2.4.1, @sl-design-system/checkbox@workspace:packages/components/checkbox":
+"@sl-design-system/checkbox@npm:^2.4.0, @sl-design-system/checkbox@npm:^2.4.1, @sl-design-system/checkbox@npm:^2.4.2, @sl-design-system/checkbox@workspace:packages/components/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/form": "npm:^1.6.0"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
@@ -7268,7 +7268,7 @@ __metadata:
   resolution: "@sl-design-system/combobox@workspace:packages/components/combobox"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/form": "npm:^1.6.0"
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/listbox": "npm:^0.2.3"
     "@sl-design-system/shared": "npm:^0.14.1"
@@ -7306,7 +7306,7 @@ __metadata:
     "@sl-design-system/button": "npm:^2.3.1"
     "@sl-design-system/button-bar": "npm:^1.6.1"
     "@sl-design-system/calendar": "npm:^0.1.2"
-    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/form": "npm:^1.6.0"
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/text-field": "npm:^1.7.2"
@@ -7490,7 +7490,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/form@npm:^1.5.0, @sl-design-system/form@npm:^1.5.1, @sl-design-system/form@workspace:packages/components/form":
+"@sl-design-system/form@npm:^1.5.0, @sl-design-system/form@npm:^1.5.1, @sl-design-system/form@npm:^1.6.0, @sl-design-system/form@workspace:packages/components/form":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"
   dependencies:
@@ -7530,15 +7530,15 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.10"
     "@sl-design-system/announcer": "npm:^0.1.3"
     "@sl-design-system/button": "npm:^2.3.1"
-    "@sl-design-system/checkbox": "npm:^2.4.1"
+    "@sl-design-system/checkbox": "npm:^2.4.2"
     "@sl-design-system/data-source": "npm:^0.4.4"
     "@sl-design-system/ellipsize-text": "npm:^0.1.2"
     "@sl-design-system/example-data": "npm:^1.0.0"
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/listbox": "npm:^0.2.3"
     "@sl-design-system/scrollbar": "npm:^0.1.4"
-    "@sl-design-system/search-field": "npm:^1.0.1"
-    "@sl-design-system/select": "npm:^2.4.1"
+    "@sl-design-system/search-field": "npm:^1.0.2"
+    "@sl-design-system/select": "npm:^2.4.2"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/skeleton": "npm:^1.1.2"
     "@sl-design-system/text-field": "npm:^1.7.2"
@@ -7868,7 +7868,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/form": "npm:^1.6.0"
     "@sl-design-system/shared": "npm:^0.14.1"
     "@sl-design-system/tooltip": "npm:^3.0.2"
   peerDependencies:
@@ -7950,7 +7950,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/search-field@npm:^1.0.1, @sl-design-system/search-field@workspace:packages/components/search-field":
+"@sl-design-system/search-field@npm:^1.0.1, @sl-design-system/search-field@npm:^1.0.2, @sl-design-system/search-field@workspace:packages/components/search-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/search-field@workspace:packages/components/search-field"
   dependencies:
@@ -7959,13 +7959,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/select@npm:^2.4.0, @sl-design-system/select@npm:^2.4.1, @sl-design-system/select@workspace:packages/components/select":
+"@sl-design-system/select@npm:^2.4.0, @sl-design-system/select@npm:^2.4.1, @sl-design-system/select@npm:^2.4.2, @sl-design-system/select@workspace:packages/components/select":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/form": "npm:^1.6.0"
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/listbox": "npm:^0.2.3"
     "@sl-design-system/shared": "npm:^0.14.1"
@@ -8131,7 +8131,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.10"
-    "@sl-design-system/form": "npm:^1.5.1"
+    "@sl-design-system/form": "npm:^1.6.0"
     "@sl-design-system/icon": "npm:^1.4.5"
     "@sl-design-system/listbox": "npm:^0.2.3"
     "@sl-design-system/shared": "npm:^0.14.1"

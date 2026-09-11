@@ -1,5 +1,13 @@
 # @sl-design-system/search-field
 
+## 1.0.2
+
+### Patch Changes
+
+- [#3684](https://github.com/sl-design-system/components/pull/3684) [`f01a4ed`](https://github.com/sl-design-system/components/commit/f01a4ed4cafd0534748a6932a02fee275cb57343) - Improve clear-button accessibility in `sl-search-field`.
+
+  Make the clear button focusable, allow clearing with Enter/Space/Escape when focused.
+
 ## 1.0.1
 
 ### Patch Changes

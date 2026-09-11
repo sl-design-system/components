@@ -1,5 +1,16 @@
 # @sl-design-system/combobox
 
+## 0.3.2
+
+### Patch Changes
+
+- [#3660](https://github.com/sl-design-system/components/pull/3660) [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706) - Fix `sl-combobox` validation behavior when `validate-on-blur` is enabled on the parent `sl-form`:
+
+  - Keyboard deselecting the last selected option in a required single or multiple combobox now shows the invalid state immediately, without needing to move focus elsewhere first.
+
+- Updated dependencies [[`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706)]:
+  - @sl-design-system/form@1.6.0
+
 ## 0.3.1
 
 ### Patch Changes

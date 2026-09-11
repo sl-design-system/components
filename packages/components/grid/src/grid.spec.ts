@@ -332,7 +332,7 @@ describe('sl-grid', () => {
       expect(dragStartSpy).not.to.have.been.called;
     });
 
-    it('should restore the first row when it is dragged outside the grid', async () => {
+    it('should restore the dragged row to its original position when it is dragged outside the grid', async () => {
       el = await fixture(html`
         <sl-grid
           .items=${[
@@ -347,11 +347,11 @@ describe('sl-grid', () => {
 
       await waitForGridToRenderData(el);
 
-      const firstRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!,
-        dragHandleCell = firstRow.querySelector<HTMLTableCellElement>('td[part*="drag-handle"]')!;
+      const draggedRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr')!,
+        dragHandleCell = draggedRow.querySelector<HTMLTableCellElement>('td[part*="drag-handle"]')!;
 
       dragHandleCell.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-      firstRow.dispatchEvent(
+      draggedRow.dispatchEvent(
         new DragEvent('dragstart', {
           bubbles: true,
           cancelable: true,
@@ -366,7 +366,7 @@ describe('sl-grid', () => {
           dataTransfer: new DataTransfer()
         })
       );
-      firstRow.dispatchEvent(
+      draggedRow.dispatchEvent(
         new DragEvent('dragend', {
           bubbles: true,
           cancelable: true,

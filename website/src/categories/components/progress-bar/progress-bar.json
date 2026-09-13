@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "progress-bar",
-  "componentStatus": "preview",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Progress bar",

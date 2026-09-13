@@ -135,6 +135,16 @@ export class Select<T = any> extends ObserveAttributesMixin(
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
+  /** Prevent duplicate blur emits within the same focus session. */
+  #blurEmitted = false;
+
+  /**
+   * Tracks pointer events outside to emit blur. This is necessary because: - When the button has
+   * focus and you click non-focusable content, focus doesn't move - So focusout never fires and
+   * blur is never emitted
+   */
+  #outsidePointer?: AbortController;
+
   /** Manage keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Option>(this, {
     direction: 'vertical',
@@ -296,6 +306,7 @@ export class Select<T = any> extends ObserveAttributesMixin(
       cancelAnimationFrame(this.#widthCalculationFrame);
       this.#widthCalculationFrame = undefined;
     }
+    this.#removeOutsidePointerListener();
 
     super.disconnectedCallback();
   }
@@ -526,6 +537,8 @@ export class Select<T = any> extends ObserveAttributesMixin(
       );
 
       this.currentOption = this.selectedOption ?? this.options[0];
+      this.#blurEmitted = false;
+      this.#listenForOutsidePointer();
     } else {
       this.#popoverClosing = true;
       this.button.setAttribute('aria-expanded', 'false');
@@ -554,7 +567,6 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #onClearButtonClick(event: Event): void {
-    event.preventDefault();
     event.stopPropagation();
 
     if (this.listbox && isPopoverOpen(this.listbox)) {
@@ -565,6 +577,9 @@ export class Select<T = any> extends ObserveAttributesMixin(
     this.#onClear();
     this.clearEvent.emit();
     this.button.focus();
+
+    // Listen for outside clicks to emit blur after clearing, even if popover is closed
+    this.#listenForOutsidePointer();
   }
 
   #onClearButtonFocusin(): void {
@@ -582,6 +597,8 @@ export class Select<T = any> extends ObserveAttributesMixin(
   }
 
   #onFocusin(): void {
+    this.#blurEmitted = false;
+    this.#listenForOutsidePointer();
     this.focusEvent.emit();
   }
 
@@ -607,9 +624,56 @@ export class Select<T = any> extends ObserveAttributesMixin(
         this.#popoverClosing = true;
       }
 
-      this.blurEvent.emit();
-      this.updateState({ touched: true });
+      this.#removeOutsidePointerListener();
+      this.#emitBlurAndTouch();
     }
+  }
+
+  #emitBlurAndTouch(): void {
+    if (this.#blurEmitted) {
+      return;
+    }
+
+    this.#blurEmitted = true;
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
+  #listenForOutsidePointer(): void {
+    this.#removeOutsidePointerListener();
+
+    const abortController = new AbortController();
+    this.#outsidePointer = abortController;
+
+    window.addEventListener(
+      'pointerdown',
+      (event: PointerEvent): void => {
+        if (event.composedPath().includes(this)) {
+          return;
+        }
+
+        // Defer so focusout (triggered by clicking a focusable element) can run first
+        // and remove this listener. If it does, skip here to avoid a double sl-blur.
+        setTimeout(() => {
+          if (!this.#outsidePointer) {
+            return;
+          }
+
+          this.#emitBlurAndTouch();
+          this.#removeOutsidePointerListener();
+        });
+      },
+      { capture: true, signal: abortController.signal }
+    );
+  }
+
+  #removeOutsidePointerListener(): void {
+    if (!this.#outsidePointer) {
+      return;
+    }
+
+    this.#outsidePointer.abort();
+    this.#outsidePointer = undefined;
   }
 
   #onKeydown(event: KeyboardEvent): void {

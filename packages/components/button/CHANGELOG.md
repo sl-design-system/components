@@ -1,5 +1,58 @@
 # @sl-design-system/button
 
+## 2.3.1
+
+### Patch Changes
+
+- [#3694](https://github.com/sl-design-system/components/pull/3694) [`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3) - Fix published imports to resolve built JavaScript and type declarations by default, while preserving local source imports through a custom export condition.
+
+- Updated dependencies [[`9417d4a`](https://github.com/sl-design-system/components/commit/9417d4ab0e2f0a2df800db4be713bc4cb7c299c3)]:
+  - @sl-design-system/shared@0.14.1
+  - @sl-design-system/tooltip@3.0.2
+
+## 2.3.0
+
+### Minor Changes
+
+- [#3612](https://github.com/sl-design-system/components/pull/3612) [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707) - These components use the new `ElementInternalsMixin` for their `ElementInternals`. The `internals`
+  property has been renamed to `elementInternals`. The old `internals` property is still available as
+  a deprecated alias, so this is not a breaking change, but you should update your code, for example
+  in tests, to use `elementInternals` instead. Reading `internals` logs a deprecation warning to the
+  console in development builds.
+
+### Patch Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Build the package with tsdown
+
+  The build has moved from esbuild to [tsdown](https://tsdown.dev). The public API is unchanged, but the published layout is different: compiled output now lives in `dist/` instead of the package root, and the package is resolved entirely through `exports`. The `main`, `module` and `types` fields have been dropped, since `exports` already points at both the JavaScript and, alongside it, the type declarations.
+
+  Bundlers and TypeScript setups that understand `exports` (`moduleResolution: bundler`, `node16` or `nodenext`) need no changes.
+
+- Updated dependencies [[`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652)]:
+  - @sl-design-system/shared@0.14.0
+  - @sl-design-system/tooltip@3.0.1
+
+## 2.2.0
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Add `tooltip` property
+
+  Previously, adding a tooltip to any kind of component required adding a sibling `<sl-tooltip>` element manually and wiring up the correct `aria-describedby` or `aria-labelledby` relationship by hand. This was especially cumbersome for icon-only buttons, where the tooltip doubles as the accessible label.
+
+  The new `tooltip` property improves the Developer Experience by letting you set a tooltip directly on the component.
+
+  For buttons, it handles all the accessibility wiring automatically:
+
+  - For **icon-only buttons** the tooltip text acts as the accessible label (`aria-labelledby`).
+  - For **text buttons** the tooltip text acts as an accessible description (`aria-describedby`).
+
+### Patch Changes
+
+- Updated dependencies [[`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03)]:
+  - @sl-design-system/shared@0.13.0
+  - @sl-design-system/tooltip@3.0.0
+
 ## 2.1.2
 
 ### Patch Changes
@@ -29,10 +82,12 @@
 ### Patch Changes
 
 - [#3299](https://github.com/sl-design-system/components/pull/3299) [`78e7333`](https://github.com/sl-design-system/components/commit/78e733338fd67ef59797b3e02b22907fe0f5c638) - Minor style fixes:
+
   - fix icon-only size regression by using `box-sizing: content-box`
   - fix `<button>` growing larger than the host `<sl-button>`
 
 - [#3360](https://github.com/sl-design-system/components/pull/3360) [`7163d4e`](https://github.com/sl-design-system/components/commit/7163d4ee4cb47e4db591aceba2e3978f8f31b2c7) - Styling fixes:
+
   - Fix WebKit bug where the aspect-ratio of the inner button is ignored
   - Fix bug where the inner button doesn't grow with the host element
 
@@ -52,6 +107,7 @@
 ### Major Changes
 
 - [#3139](https://github.com/sl-design-system/components/pull/3139) [`50590de`](https://github.com/sl-design-system/components/commit/50590de476ff108cc28b865dbc96e3ca48399538) - Breaking changes:
+
   - The component now renders a native `<button>` inside the shadow DOM, changing the DOM structure
   - The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state
 
@@ -106,6 +162,7 @@
 ### Minor Changes
 
 - [#2646](https://github.com/sl-design-system/components/pull/2646) [`f025c0f`](https://github.com/sl-design-system/components/commit/f025c0f3cbb83b72c80563e9d989402608add193) - Various improvements:
+
   - Fix missing inverted + disabled styling
   - Add support for `aria-disabled="true"`
 
@@ -162,6 +219,7 @@
 ### Minor Changes
 
 - [#1675](https://github.com/sl-design-system/components/pull/1675) [`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0) - Button improvements:
+
   - Added a new `shape` property that defaults to `square` but also accepts `pill` for rounded corners
   - Added a new `inverted` variant, to be used on dark/light background (depending on light/dark mode)
   - Removed default values of `fill`, `size`, `type` and `variant` properties

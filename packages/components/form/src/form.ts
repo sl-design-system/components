@@ -49,6 +49,9 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     'sl-form-field': this.#onFormField
   });
 
+  /** Stores blur listeners for cleanup when controls unregister. */
+  #controlBlurListeners = new Map<HTMLElement & FormControl, EventListener>();
+
   /** Indicates whether to show validity state. */
   #showValidity = false;
 
@@ -75,6 +78,16 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
 
   /** Will disable the entire form when true. */
   @property({ type: Boolean }) disabled?: boolean;
+
+  /**
+   * Validates controls on blur. Format and value errors are shown when the user leaves a field. For
+   * required fields, errors are only shown when the user has actually interacted with the field
+   * (typed something, cleared it, or used the mouse to change the value). Simply tabbing through a
+   * required field without changing it shows no error, so keyboard and screen reader users can
+   * explore the form without being interrupted by error announcements. Fields never interacted with
+   * are still validated when `reportValidity()` is called.
+   */
+  @property({ attribute: 'validate-on-blur', type: Boolean }) validateOnBlur = false;
 
   /** Whether the form is invalid. */
   get invalid(): boolean {
@@ -151,6 +164,12 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     this.#initialValue = this.#value;
   }
 
+  override disconnectedCallback(): void {
+    this.#controlBlurListeners.forEach((_, control) => this.#removeControlBlurListener(control));
+
+    super.disconnectedCallback();
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -202,6 +221,40 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     return element instanceof HTMLElement && 'formControlElement' in element;
   }
 
+  #isEmptyValue(value: unknown): boolean {
+    return value == null || value === '' || (Array.isArray(value) && value.length === 0);
+  }
+
+  #removeControlBlurListener(control: HTMLElement & FormControl): void {
+    const onControlBlur = this.#controlBlurListeners.get(control);
+
+    if (onControlBlur) {
+      control.removeEventListener('sl-blur', onControlBlur);
+      this.#controlBlurListeners.delete(control);
+    }
+  }
+
+  #validateControlOnBlur(control: HTMLElement & FormControl): void {
+    if (!this.validateOnBlur) {
+      return;
+    }
+
+    // Skip only untouched *empty* required controls so keyboard/screen reader users can tab
+    // through a form without premature required errors.
+    if (control.required && !control.dirty && this.#isEmptyValue(control.formValue)) {
+      return;
+    }
+
+    // In validate-on-blur mode, only show errors on blur.
+    // If we call reportValidity() while the control is still valid,
+    // later typing errors can appear immediately instead of on blur.
+    if (control.valid) {
+      return;
+    }
+
+    control.reportValidity();
+  }
+
   #onFormControl(event: SlFormControlEvent): void {
     if (
       !(event.composedPath()[0] instanceof EventTarget) ||
@@ -215,10 +268,20 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     event.preventDefault();
     event.stopPropagation();
 
+    // Re-registration can happen for the same control. Keep exactly one blur listener.
+    this.#removeControlBlurListener(control);
+
+    const onControlBlur: EventListener = () => this.#validateControlOnBlur(control);
+
+    control.addEventListener('sl-blur', onControlBlur);
+    this.#controlBlurListeners.set(control, onControlBlur);
+
     // Allow the control to unregister itself; this is necessary because by the
     // time `disconnectedCallback` is called, the control has already
     // been removed from the DOM; so any events emitted will never reach the form.
     event.detail.unregister = () => {
+      this.#removeControlBlurListener(control);
+
       this.controls = this.controls.filter(c => c !== control);
     };
 
@@ -232,7 +295,7 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
         control.disabled = this.disabled;
       }
 
-      this.controls = [...this.controls, control];
+      this.controls = [...this.controls.filter(c => c !== control), control];
       this.controls.find(c => c.autofocus)?.focus();
     });
   }

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/scrollbar",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "status": "draft",
   "description": "Scrollbar component for the SL Design System",
   "license": "Apache-2.0",
@@ -24,8 +24,14 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./register.js": "./src/register.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./register.js": {
+      "@sl-design-system/source": "./src/register.ts",
+      "default": "./dist/register.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

@@ -6,6 +6,13 @@ eleventyNavigation:
   key: SearchFieldAccessibility
 ---
 
+<section>
+
+## Focusable clear button
+
+The clear button is keyboard accessible when the search field contains a value. It gives keyboard and assistive-technology users a visible alternative to pressing the `Escape` key to clear the search term.
+
+</section>
 
 <section>
 
@@ -17,16 +24,15 @@ Here's an overview of the common keyboard interactions associated with a search 
 
 |Command|Description|
 |-|-|
-|Tab|When focus is outside the search field, moves focus to the input container. If focus is on the input container, moves focus to the end enhancer (if provided, and interactive).|
-|Esc|Clear search value, when is an input.|
+|Tab|When focus is outside the search field, moves focus to the input container. If focus is on the empty input container, moves focus to the end enhancer (if provided, and interactive). If the input contains a value, moves focus to the clear button.|
+|Esc|Clears the search value when focus is in the input or on the clear button, and returns focus to the input.|
+|Enter/Space|When the clear button has focus, clears the search field and moves focus back to the input.|
 
 {.ds-table .ds-table-align-top}
 
 </div>
 
 </section>
-
-
 
 <section>
 
@@ -55,6 +61,5 @@ Here's an overview of the common keyboard interactions associated with a search 
 - `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenarios where you don't want to take the search field out of the navigation flow.
 
 When `disabled` is added to a search field there is no need to also add `aria-disabled`. Everything `aria-disabled` does, `disabled` does as well. You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
-
 
 </section>

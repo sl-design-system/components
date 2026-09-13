@@ -303,6 +303,29 @@ export const Required: Story = {
   }
 };
 
+export const ValidateOnBlur: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This form uses <code>validate-on-blur</code>. The required checkbox shows an error on blur
+        after you change it (check, then uncheck).
+      </p>
+      <sl-form validate-on-blur>
+        <sl-form-field label="Validate on blur">
+          <sl-checkbox required>Toggle me</sl-checkbox>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
 export const Valid: Story = {
   args: {
     checked: true,

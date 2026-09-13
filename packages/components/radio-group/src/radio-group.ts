@@ -235,7 +235,13 @@ export class RadioGroup<T = any> extends FormControlMixin(ElementInternalsMixin(
     this.focusEvent.emit();
   }
 
-  #onFocusout(): void {
+  #onFocusout(event: FocusEvent): void {
+    const relatedTarget = event.relatedTarget as Node | null;
+
+    if (relatedTarget && this.contains(relatedTarget)) {
+      return;
+    }
+
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }

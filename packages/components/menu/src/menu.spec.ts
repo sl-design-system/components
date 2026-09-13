@@ -760,6 +760,25 @@ describe('sl-menu', () => {
           expect(rect.right).to.be.at.most(window.innerWidth);
         });
 
+        it('should retain viewport limits when configured maxima are none', async () => {
+          el.style.cssText = `
+            block-size: 2000px;
+            inline-size: 2000px;
+            --sl-popover-max-block-size: none;
+            --sl-popover-max-inline-size: none;
+          `;
+          el.showPopover();
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+          const rect = el.getBoundingClientRect();
+          expect(getComputedStyle(el).maxBlockSize).not.to.equal('none');
+          expect(getComputedStyle(el).maxInlineSize).not.to.equal('none');
+          expect(rect.top).to.be.at.least(0);
+          expect(rect.left).to.be.at.least(0);
+          expect(rect.bottom).to.be.at.most(window.innerHeight);
+          expect(rect.right).to.be.at.most(window.innerWidth);
+        });
+
         it('should honor the configured minimum block size for short content', async () => {
           el.style.setProperty('--sl-popover-min-block-size', '180px');
           el.showPopover();

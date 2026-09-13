@@ -43,7 +43,12 @@ export const positionPopover = (
   // See https://floating-ui.com/docs/computePosition#initial-layout
   element.style.insetBlockStart = element.style.insetInlineStart = '0px';
 
+  let disposed = false,
+    generation = 0;
+
   const cleanup = autoUpdate(anchor, element, () => {
+    const currentGeneration = ++generation;
+
     // Offset should come first, according to floating-ui docs
     // Flip should come before shift, otherwise it won't flip properly
     const middleware = [
@@ -54,6 +59,10 @@ export const positionPopover = (
         // With popover, we no longer need to
         padding: options.viewportMargin,
         apply: ({ availableWidth, availableHeight, elements }) => {
+          if (disposed || currentGeneration !== generation) {
+            return;
+          }
+
           // Make sure that the overlay is contained by the visible page.
           const style = getComputedStyle(element),
             maxBlock = style.getPropertyValue('--sl-popover-max-block-size'),
@@ -104,6 +113,10 @@ export const positionPopover = (
       placement: options.position ?? 'top',
       middleware
     }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
+      if (disposed || currentGeneration !== generation) {
+        return;
+      }
+
       Object.assign(element.style, {
         insetInlineStart: `${roundByDPR(x)}px`,
         insetBlockStart: `${roundByDPR(y)}px`
@@ -119,5 +132,9 @@ export const positionPopover = (
     });
   });
 
-  return () => cleanup();
+  return () => {
+    disposed = true;
+    generation++;
+    cleanup();
+  };
 };

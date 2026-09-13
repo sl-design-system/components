@@ -384,6 +384,7 @@ export class Menu extends LitElement {
   #startJavaScriptPositioning(anchor: Element): void {
     this.#stopJavaScriptPositioning();
     this.#stopSizing();
+    this.#updatePublicMaxSize();
     this.toggleAttribute('data-js-positioning', true);
     const previousActualPlacement = this.getAttribute('actual-placement'),
       previousStyles = javascriptPositionProperties.map(property => ({
@@ -433,6 +434,8 @@ export class Menu extends LitElement {
       return;
     }
 
+    this.#updatePublicMaxSize();
+
     const anchorRect = anchor.getBoundingClientRect(),
       offset = this.offset ?? 6,
       [requestedSide, alignment] = (this.position ?? 'right-start').split('-') as [
@@ -476,6 +479,20 @@ export class Menu extends LitElement {
     this.style.setProperty('--_menu-max-block-size', `${Math.max(minMenuSize, maxBlockSize)}px`);
     this.style.setProperty('--_menu-max-inline-size', `${Math.max(minMenuSize, maxInlineSize)}px`);
   };
+
+  #updatePublicMaxSize(): void {
+    const style = getComputedStyle(this);
+
+    for (const [publicName, normalizedName, sizeProperty, viewportLimit] of [
+      ['--sl-popover-max-block-size', '--_menu-public-max-block-size', 'max-block-size', '100vh'],
+      ['--sl-popover-max-inline-size', '--_menu-public-max-inline-size', 'max-inline-size', '100vw']
+    ] as const) {
+      const value = style.getPropertyValue(publicName).trim(),
+        usable = value && CSS.supports(sizeProperty, `min(${value}, ${viewportLimit})`);
+
+      this.style.setProperty(normalizedName, usable ? value : viewportLimit);
+    }
+  }
 
   #unlinkAnchor(): void {
     this.style.removeProperty('--_menu-max-block-size');

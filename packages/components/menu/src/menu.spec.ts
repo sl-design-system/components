@@ -154,6 +154,104 @@ describe('sl-menu', () => {
       });
     }
 
+    for (const firstToClose of ['first', 'second']) {
+      it(`should keep a shared trigger expanded when the ${firstToClose} menu closes first`, async () => {
+        const trigger = document.createElement('sl-button'),
+          second = await fixture<Menu>(
+            html`<sl-menu popover="manual"><sl-menu-item>Second</sl-menu-item></sl-menu>`
+          );
+
+        document.body.append(trigger);
+        el.popover = 'manual';
+        el.anchorElement = trigger;
+        second.anchorElement = trigger;
+
+        try {
+          el.showPopover();
+          second.showPopover();
+          expect(trigger).to.have.attribute('aria-expanded', 'true');
+          expect(trigger).to.have.attribute('popover-opened');
+
+          const first = firstToClose === 'first' ? el : second,
+            remaining = firstToClose === 'first' ? second : el;
+
+          first.hidePopover();
+          expect(remaining).to.match(':popover-open');
+          expect(trigger).to.have.attribute('aria-expanded', 'true');
+          expect(trigger).to.have.attribute('popover-opened');
+
+          remaining.hidePopover();
+          expect(trigger).to.have.attribute('aria-expanded', 'false');
+          expect(trigger).not.to.have.attribute('popover-opened');
+        } finally {
+          el.remove();
+          second.remove();
+          trigger.remove();
+        }
+      });
+
+      it(`should keep a shared trigger expanded when the ${firstToClose} menu is removed first`, async () => {
+        const trigger = document.createElement('sl-button'),
+          second = await fixture<Menu>(
+            html`<sl-menu popover="manual"><sl-menu-item>Second</sl-menu-item></sl-menu>`
+          );
+
+        document.body.append(trigger);
+        el.popover = 'manual';
+        el.anchorElement = trigger;
+        second.anchorElement = trigger;
+
+        try {
+          el.showPopover();
+          second.showPopover();
+
+          const first = firstToClose === 'first' ? el : second,
+            remaining = firstToClose === 'first' ? second : el;
+
+          first.remove();
+          expect(remaining).to.match(':popover-open');
+          expect(trigger).to.have.attribute('aria-expanded', 'true');
+          expect(trigger).to.have.attribute('popover-opened');
+
+          remaining.remove();
+          expect(trigger).not.to.have.attribute('aria-expanded');
+          expect(trigger).not.to.have.attribute('popover-opened');
+        } finally {
+          el.remove();
+          second.remove();
+          trigger.remove();
+        }
+      });
+    }
+
+    it('should keep a shared trigger expanded when another menu opening is canceled', async () => {
+      const trigger = document.createElement('sl-button'),
+        second = await fixture<Menu>(
+          html`<sl-menu popover="manual"><sl-menu-item>Second</sl-menu-item></sl-menu>`
+        );
+
+      document.body.append(trigger);
+      el.popover = 'manual';
+      el.anchorElement = trigger;
+      second.anchorElement = trigger;
+      second.addEventListener('beforetoggle', event => event.preventDefault(), { once: true });
+
+      try {
+        el.showPopover();
+        second.showPopover();
+        await new Promise(resolve => requestAnimationFrame(resolve));
+
+        expect(el).to.match(':popover-open');
+        expect(second).not.to.match(':popover-open');
+        expect(trigger).to.have.attribute('aria-expanded', 'true');
+        expect(trigger).to.have.attribute('popover-opened');
+      } finally {
+        el.remove();
+        second.remove();
+        trigger.remove();
+      }
+    });
+
     it('should preserve anchor names added externally while linked', () => {
       anchor.style.anchorName = '--existing';
       el.showPopover();

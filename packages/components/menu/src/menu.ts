@@ -49,6 +49,7 @@ const anchorDeclarations = new WeakMap<
     priority: string;
     names: string[];
     menus: Set<string>;
+    openMenus: Set<Menu>;
   }
 >();
 
@@ -268,7 +269,8 @@ export class Menu extends LitElement {
         value: anchor.style.getPropertyValue('anchor-name'),
         priority: anchor.style.getPropertyPriority('anchor-name'),
         names,
-        menus: new Set()
+        menus: new Set(),
+        openMenus: new Set()
       };
       anchorDeclarations.set(anchor, declaration);
     }
@@ -292,14 +294,22 @@ export class Menu extends LitElement {
 
   #updateAnchorState(expanded: boolean): void {
     const anchor = this.#activeAnchor;
-    if (!anchor) {
+    const declaration = anchor && anchorDeclarations.get(anchor);
+    if (!anchor || !declaration) {
       return;
     }
 
-    anchor.setAttribute('aria-expanded', expanded.toString());
+    if (expanded) {
+      declaration.openMenus.add(this);
+    } else {
+      declaration.openMenus.delete(this);
+    }
+
+    const anyOpen = declaration.openMenus.size > 0;
+    anchor.setAttribute('aria-expanded', anyOpen.toString());
 
     if (anchor.tagName === 'SL-BUTTON') {
-      anchor.toggleAttribute('popover-opened', expanded);
+      anchor.toggleAttribute('popover-opened', anyOpen);
     }
   }
 
@@ -477,6 +487,7 @@ export class Menu extends LitElement {
 
     const declaration = anchorDeclarations.get(this.#activeAnchor);
     if (declaration && this.#generatedAnchorName) {
+      this.#updateAnchorState(false);
       declaration.menus.delete(this.#generatedAnchorName);
       const names = this.#activeAnchor.style.anchorName.split(',').map(name => name.trim());
       if (names.includes(this.#generatedAnchorName)) {
@@ -501,6 +512,8 @@ export class Menu extends LitElement {
       }
       if (!declaration.menus.size) {
         anchorDeclarations.delete(this.#activeAnchor);
+        this.#activeAnchor.removeAttribute('aria-expanded');
+        this.#activeAnchor.removeAttribute('popover-opened');
       }
     }
 
@@ -518,8 +531,6 @@ export class Menu extends LitElement {
       this.#addedDetailsId = undefined;
     }
 
-    this.#activeAnchor.removeAttribute('aria-expanded');
-    this.#activeAnchor.removeAttribute('popover-opened');
     this.style.positionAnchor = '';
     this.#activeAnchor = undefined;
   }

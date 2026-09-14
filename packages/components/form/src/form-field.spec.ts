@@ -1,7 +1,9 @@
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/text-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { FormField } from './form-field.js';
@@ -100,6 +102,50 @@ describe('sl-form-field', () => {
       await el.updateComplete;
 
       expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+    });
+
+    it('should announce the validation message when invalid state is shown', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>();
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      expect(announceSpy).to.have.been.calledOnce;
+      expect(announceSpy).to.have.been.calledWithMatch({
+        detail: { message: 'Please fill in this field.', force: true }
+      });
+    });
+
+    it('should include the field label in announced validation messages', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>(),
+        labelledField = await fixture<FormField>(html`
+          <sl-form-field label="First name">
+            <sl-text-field required></sl-text-field>
+          </sl-form-field>
+        `);
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      labelledField.querySelector('sl-text-field')?.reportValidity();
+      await labelledField.updateComplete;
+
+      expect(announceSpy).to.have.been.calledWithMatch({
+        detail: { message: 'First name: Please fill in this field.', force: true }
+      });
+    });
+
+    it('should not announce the same validation message twice in a row', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>(),
+        textField = el.querySelector('sl-text-field');
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      textField?.reportValidity();
+      await el.updateComplete;
+
+      textField?.reportValidity();
+      await el.updateComplete;
+
+      expect(announceSpy).to.have.been.calledOnce;
     });
 
     it('should not show validation after calling setCustomValidity', async () => {

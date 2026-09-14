@@ -283,6 +283,38 @@ describe('sl-form', () => {
   });
 
   describe('validate on blur', () => {
+    it('should announce validation errors on blur when validate-on-blur is enabled', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>();
+
+      el = await fixture(html`
+        <sl-form validate-on-blur>
+          <sl-form-field label="Code">
+            <sl-text-field name="code" required></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const textField = el.querySelector<TextField>('sl-text-field[name="code"]')!,
+        input = textField.formControlElement as HTMLInputElement;
+
+      input.focus();
+      await userEvent.keyboard('x');
+      await userEvent.keyboard('{Backspace}');
+
+      input.blur();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await textField.updateComplete;
+
+      const messages = announceSpy
+        .getCalls()
+        .map(call => (call.args[0] as SlAnnounceEvent).detail.message);
+
+      expect(messages).to.eql(['Code: Please fill in this field.']);
+    });
+
     it('should show format errors on blur, not while typing, after a previous valid blur', async () => {
       el = await fixture(html`
         <sl-form validate-on-blur>

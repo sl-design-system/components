@@ -107,8 +107,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   @property() label?: string;
 
   /** @internal Whether validation messages are announced via the live-region announcer. */
-  @property({ attribute: false })
-  announceErrors = true;
+  @property({ attribute: false }) announceErrors = true;
 
   /** How to mark this field depending if it is required or not. */
   @property() mark?: LabelMark;

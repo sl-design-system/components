@@ -180,6 +180,33 @@ export const Disabled: Story = {
   }
 };
 
+export const ValidateOnBlur: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This form uses <code>validate-on-blur</code>. Select an option and clear it, then leave the
+        field to see the required validation on blur.
+      </p>
+      <sl-form validate-on-blur>
+        <sl-form-field hint="Required field" label="Select">
+          <sl-select clearable placeholder="Select an option" required>
+            <sl-option value="1">Option 1</sl-option>
+            <sl-option value="2">Option 2</sl-option>
+            <sl-option value="3">Option 3</sl-option>
+          </sl-select>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
 export const EmbeddedComponents: Story = {
   args: {
     label: 'Student',

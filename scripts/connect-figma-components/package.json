@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "connect:publish": "figma connect publish",
-    "connect:unpublish": "figma connect unpublish"
+    "connect:unpublish": "figma connect unpublish",
+    "connect:test": "figma connect preview"
   },
   "devDependencies": {
     "@figma/code-connect": "^1.4.8",

@@ -7623,6 +7623,7 @@ __metadata:
     "@sl-design-system/ellipsize-text": "npm:^0.0.4"
     "@sl-design-system/example-data": "npm:^1.0.0"
     "@sl-design-system/icon": "npm:^1.4.3"
+    "@sl-design-system/infotip": "npm:^0.1.0"
     "@sl-design-system/listbox": "npm:^0.2.1"
     "@sl-design-system/scrollbar": "npm:^0.1.2"
     "@sl-design-system/search-field": "npm:^0.2.6"
@@ -7653,7 +7654,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/infotip@workspace:packages/components/infotip":
+"@sl-design-system/infotip@npm:^0.1.0, @sl-design-system/infotip@workspace:packages/components/infotip":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/infotip@workspace:packages/components/infotip"
   dependencies:

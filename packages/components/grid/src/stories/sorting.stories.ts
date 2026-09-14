@@ -1,8 +1,7 @@
 import { Avatar } from '@sl-design-system/avatar';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
-import { Icon } from '@sl-design-system/icon';
-import { Tooltip } from '@sl-design-system/tooltip';
+import { Infotip } from '@sl-design-system/infotip';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '.././register.js';
@@ -57,10 +56,11 @@ export const CustomHeader: Story = {
         path="firstName"
         .header=${() => html`
           <span>First name</span>
-          <sl-icon id="first-name-info" name="info"></sl-icon>
-          <sl-tooltip for="first-name-info">Sort students by their first name</sl-tooltip>
+          <sl-infotip describes="First name" size="sm">
+            Sort students by their first name
+          </sl-infotip>
         `}
-        .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}>
+        .scopedElements=${{ 'sl-infotip': Infotip }}>
       </sl-grid-sort-column>
       <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
       <sl-grid-column path="email"></sl-grid-column>

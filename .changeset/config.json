@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@changesets/config/schema.json",
-  "changelog": ["./changelog-format.js", { "repo": "sl-design-system/components" }],
+  "changelog": ["./changelog-format.cjs", { "repo": "sl-design-system/components" }],
   "commit": false,
   "fixed": [],
   "linked": [],

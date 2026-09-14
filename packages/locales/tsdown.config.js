@@ -21,7 +21,7 @@ export default defineConfig({
       './nl.xlf': './src/nl.xlf',
       './pl.xlf': './src/pl.xlf'
     },
-    devExports: true,
+    devExports: '@sl-design-system/source',
     extensions: true
   },
   hash: false,

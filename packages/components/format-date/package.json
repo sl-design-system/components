@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/format-date",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "status": "preview",
   "description": "Format-date component for the SL Design System",
   "license": "Apache-2.0",
@@ -25,9 +25,18 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./format.js": "./src/format.ts",
-    "./register.js": "./src/register.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./format.js": {
+      "@sl-design-system/source": "./src/format.ts",
+      "default": "./dist/format.js"
+    },
+    "./register.js": {
+      "@sl-design-system/source": "./src/register.ts",
+      "default": "./dist/register.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -51,6 +60,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.12.0"
+    "@sl-design-system/shared": "^0.14.1"
   }
 }

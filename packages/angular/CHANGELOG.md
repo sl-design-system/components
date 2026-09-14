@@ -1,5 +1,59 @@
 # @sl-design-system/angular
 
+## 5.0.0
+
+### Major Changes
+
+- [#3571](https://github.com/sl-design-system/components/pull/3571) [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652) - Upgrade to Angular 22
+
+  The package is now built with Angular 22, and `^22.0.0` has been added to the supported `@angular/core` and `@angular/forms` peer dependency ranges alongside 19, 20 and 21. No component APIs changed.
+
+### Patch Changes
+
+- Updated dependencies [[`064ad56`](https://github.com/sl-design-system/components/commit/064ad561281faab7e431e6316d32759420ac0042), [`9d4d49b`](https://github.com/sl-design-system/components/commit/9d4d49be891a01f1c36895fe816ae451689dfc33), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`1f40a9f`](https://github.com/sl-design-system/components/commit/1f40a9f5df96aa267ad2a9e4b84560baafda9707), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`064ad56`](https://github.com/sl-design-system/components/commit/064ad561281faab7e431e6316d32759420ac0042), [`0dfa9a8`](https://github.com/sl-design-system/components/commit/0dfa9a84b1fa83d9b38d0b0145fa0e4f7731101d), [`07bc4e5`](https://github.com/sl-design-system/components/commit/07bc4e59839582242bda1dddbea1dda5cd404652), [`f5207d1`](https://github.com/sl-design-system/components/commit/f5207d132805c4a4e6f7253057babb8cc70705c4), [`4059835`](https://github.com/sl-design-system/components/commit/405983528dd1437f08ef23ffe095d2da740ba3dd), [`a05ffb3`](https://github.com/sl-design-system/components/commit/a05ffb3038b7846331fcc898843c26fbab1a2eff)]:
+  - @sl-design-system/combobox@0.3.0
+  - @sl-design-system/locales@0.4.1
+  - @sl-design-system/checkbox@2.4.0
+  - @sl-design-system/form@1.5.0
+  - @sl-design-system/icon@1.4.4
+  - @sl-design-system/number-field@0.2.1
+  - @sl-design-system/radio-group@1.3.0
+  - @sl-design-system/select@2.4.0
+  - @sl-design-system/switch@2.0.0
+  - @sl-design-system/text-area@1.2.1
+  - @sl-design-system/text-field@1.7.1
+  - @sl-design-system/time-field@0.3.0
+  - @sl-design-system/link@0.0.2
+
+## 4.2.0
+
+### Minor Changes
+
+- [#3368](https://github.com/sl-design-system/components/pull/3368) [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03) - Use the new tooltip implementation
+
+  The tooltip directive has been updated to use the new tooltip implementation. This means that the tooltip is now created as a separate element and positioned using the `for` attribute. The old implementation, which used a lazy loader, has been removed. The API of the tooltip directive remains the same, but the DOM structure may have changed.
+
+  The directive also no longer creates an `<sl-tooltip>` element when the tooltip text is empty. Previously an empty tooltip was always inserted, which gave the anchor element an empty accessible name or description. The tooltip is now created as soon as the text becomes non-empty and removed again when it becomes empty.
+
+- [#3608](https://github.com/sl-design-system/components/pull/3608) [`7636569`](https://github.com/sl-design-system/components/commit/7636569f9a8bec91542f2bb5c42c0665fe12c303) - Add support for setting tooltip `type` through the `slTooltip` directive input.
+  The directive now accepts an object value (`{ text, type }`) in addition to a string, so tooltips can use `label` or `description` semantics.
+
+### Patch Changes
+
+- Updated dependencies [[`6fcae28`](https://github.com/sl-design-system/components/commit/6fcae285fa32e17026b3267c8075c78c6e009af5), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92), [`ac75744`](https://github.com/sl-design-system/components/commit/ac75744df5693d272123778b53bba368992dad2c), [`df49009`](https://github.com/sl-design-system/components/commit/df490090ace75a4463a3f9f3e877b4b8d7e8957f), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`dd4b09b`](https://github.com/sl-design-system/components/commit/dd4b09bc9f93c61280ffb681e00288630c655f03), [`101ff8e`](https://github.com/sl-design-system/components/commit/101ff8ed072142b2fc8259ffec961e50b7a34612), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`318505d`](https://github.com/sl-design-system/components/commit/318505dbab6aae74f5638d2d6378a0f34c694030), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`249b261`](https://github.com/sl-design-system/components/commit/249b261b85d36ace190d8eb80e0ec460377a8ac4), [`05b9cfb`](https://github.com/sl-design-system/components/commit/05b9cfbf3e7149b6258a8f11519425fabeb60c60), [`945f701`](https://github.com/sl-design-system/components/commit/945f7019fee11d3be53374c2516dcfe4e3600f92)]:
+  - @sl-design-system/combobox@0.2.0
+  - @sl-design-system/text-field@1.7.0
+  - @sl-design-system/locales@0.4.0
+  - @sl-design-system/link@0.0.1
+  - @sl-design-system/select@2.3.0
+  - @sl-design-system/checkbox@2.3.0
+  - @sl-design-system/number-field@0.2.0
+  - @sl-design-system/time-field@0.2.0
+  - @sl-design-system/text-area@1.2.0
+  - @sl-design-system/form@1.4.3
+  - @sl-design-system/radio-group@1.2.1
+  - @sl-design-system/switch@1.2.1
+
 ## 4.1.1
 
 ### Patch Changes
@@ -86,6 +140,7 @@
 - [#2615](https://github.com/sl-design-system/components/pull/2615) [`e5fa66b`](https://github.com/sl-design-system/components/commit/e5fa66b00e9b89445a724890e28e6ba12dc19b92) - Add `ComboboxDirective` to forms
 
 - [#2512](https://github.com/sl-design-system/components/pull/2512) [`fcc7864`](https://github.com/sl-design-system/components/commit/fcc786484858d74bd8c93a40a6bb10b5f2d7664d) - - Add explicit `markForChanges()` to all `ControlValueAccessor` directives
+
   - Add support for the `<sl-number-field>` component:
     - Added `NumberFieldComponent` for exposing the web component API within Angular
     - Added `NumberFieldDirective` for Angular form integration
@@ -193,15 +248,18 @@
 ### Minor Changes
 
 - [#1210](https://github.com/sl-design-system/components/pull/1210) [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5) - Various improvements:
+
   - Remove the `FormsModule` and make all form directives standalone
 
   This is a breaking change and the reason for the minor version bump. If you are using the `FormsModule` in
   your Angular app, you will need to remove it and import the form directives you are using individually.
+
   - Generate Angular wrappers for all public web components
 
   This will make it easier to use the components in Angular apps. You only need to import a specific component
   to be able to get Angular bindings and type safety. This also removes the need for specifying the `CUSTOM_ELEMENTS_SCHEMA`
   everywhere.
+
   - Add `slTooltip` directive for ease-of-use in Angular
 
   This is syntactic sugar for the `sl-tooltip` web component. It allows you to use the `slTooltip` directive on any

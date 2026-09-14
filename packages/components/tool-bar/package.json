@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tool-bar",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "status": "draft",
   "description": "Tool bar component for the SL Design System",
   "license": "Apache-2.0",
@@ -24,8 +24,14 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./register.js": "./src/register.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./register.js": {
+      "@sl-design-system/source": "./src/register.ts",
+      "default": "./dist/register.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -42,11 +48,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^2.1.2",
-    "@sl-design-system/icon": "^1.4.3",
-    "@sl-design-system/menu": "^0.4.0",
-    "@sl-design-system/toggle-button": "^0.0.17",
-    "@sl-design-system/toggle-group": "^0.0.17"
+    "@sl-design-system/button": "^2.3.1",
+    "@sl-design-system/icon": "^1.4.5",
+    "@sl-design-system/menu": "^1.0.1",
+    "@sl-design-system/toggle-button": "^2.0.1",
+    "@sl-design-system/toggle-group": "^1.0.1"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

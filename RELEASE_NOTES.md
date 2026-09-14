@@ -4,6 +4,79 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# September 8, 2026
+
+## Bug fixes
+
+- All packages fix their `exports` field so that importing a published package resolves to the built JavaScript and type declarations in `dist/` again. The previous release relied on `publishConfig.exports`, which is ignored by npm, causing bundlers to fail with errors such as `Could not resolve "@sl-design-system/text-area"`. Source files remain available to this monorepo through a custom `@sl-design-system/source` export condition. If you are on the previous release, upgrade to this one.
+
+# September 7, 2026
+
+## Breaking changes
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) now renders a native `<button>` element inside the shadow DOM, changing the internal DOM structure. The `icon-only` attribute and `iconOnly` property have been removed in favor of the `:state(icon-only)` CSS custom state.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) undergoes a major refactor to use an internal `<button>` element:
+  - The `[pressed]`, `[icon-only]`, `[text-only]`, and `[error]` attributes are replaced by CSS custom states (`:state(pressed)`, `:state(icon-only)`, `:state(text-only)`, `:state(error)`)
+  - The `pressed` property is no longer reflected as an attribute; use `:state(pressed)` for styling
+  - The `label` property has been removed; use the new `tooltip` property instead
+- [`tooltip`](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md) undergoes a major rewrite using native browser `popover` and CSS Anchor Positioning APIs:
+  - The `TooltipOptions` interface and `Tooltip.lazy()` static method have been removed; use the `for` attribute to link tooltips to anchors instead
+  - The `position`, `offset`, `maxWidth`, `arrowPadding`, and `viewportMargin` properties have been removed
+  - `hoverShowDelay` changed from `500ms` to `150ms` and `hoverHideDelay` from `200ms` to `0ms`
+  - New API: `for` (links tooltip to anchors by id), `type` (controls ARIA relationship), `trigger` (space-separated list of triggers), `disabled` and `open` properties
+  - It now uses the web standard CSS Anchor Positioning (note: you may need the [CSS Anchor Positioning polyfill](https://github.com/oddbird/css-anchor-positioning) for [full browser support](https://caniuse.com/css-anchor-positioning)). You can read more about this on our [Getting Started page](https://sanomalearning.design/categories/getting-started/developers/#css-anchor-positioning).
+- [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) receives a minor version update to accommodate the toggle button refactor; upgrade both toggle-button and toggle-group together
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md), [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) and [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) rename the `shape="square"` value to `shape="rect"` to align with what is used in Figma.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) removes the `disabled` property on `sl-menu-item`; use `aria-disabled="true"` instead. Menu items with `aria-disabled="true"` now remain focusable and navigable with the keyboard, allowing users to read the content of disabled items (recommended by the W3C ARIA Authoring Practices Guide).
+- [`switch`](https://github.com/sl-design-system/components/blob/main/packages/components/switch/CHANGELOG.md) is now the form-associated element itself and renders its internal `<input type="checkbox" role="switch">` in shadow DOM. The `input` slot has been removed, `formControlElement` now points to the `<sl-switch>` host, external `<label for="...">` elements should reference the switch id, and calling `click()` no longer toggles the switch; use `toggle()` instead.
+- [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md) removes the `@sl-design-system/shared/mixins.js` entry point and no longer exports mixins from the package root. Import mixins from their dedicated entry points, such as `@sl-design-system/shared/mixins/forward-aria.js`.
+
+## New features
+
+- A new `shape` property (defaulting to `rect`, also accepts `pill`) is added to the following components: [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md), [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md), [`number-field`](https://github.com/sl-design-system/components/blob/main/packages/components/number-field/CHANGELOG.md), [`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md), [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md), [`text-field`](https://github.com/sl-design-system/components/blob/main/packages/components/text-field/CHANGELOG.md),
+  [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md)
+
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) adds a `tooltip` property for declaratively adding tooltips, with automatic accessibility wiring for icon-only and text buttons. It also exposes a `button` CSS part on the inner `<button>` element.
+- [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md) and [`radio-group`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md) add `description` and `tooltip` support, including description slots/properties, accessible `aria-describedby` wiring, a `content` CSS part, and description typography aligned with the design.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) adds an `option-disabled-path` to map disabled option state when rendering from the options property. It automatically exports listbox components when importing `register.js`.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) improves drag-and-drop for grouped grids: support dragging complete group rows and dropping them to reorder groups, and dropping rows on a group header to move rows into that group. It also adds a `group-label` to `sl-grid-group-header` and improves drag feedback timing.
+- [`link`](https://github.com/sl-design-system/components/blob/main/packages/components/link/CHANGELOG.md) adds a new component that styles an `<a href>` link like a button.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) integrates virtual-list component for efficient rendering of large option lists, providing better performance and smoother scrolling with CSS max-height support. It automatically exports when combobox imports `register.js`.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) adds an `sl-toggle` event to `<sl-menu-button>` that emits `true` when the menu opens and `false` when it closes, and adds a `tooltip` property to menu buttons.
+- [`shared`](https://github.com/sl-design-system/components/blob/main/packages/components/shared/CHANGELOG.md) adds `ElementInternalsMixin`, a `@cssState` decorator, a `getSlottedText()` helper, `ForwardAriaMixin.hasAccessibleName()`, and an `isDevMode()` helper for development-only warnings.
+- [`switch`](https://github.com/sl-design-system/components/blob/main/packages/components/switch/CHANGELOG.md) adds a `toggle(force?)` method, a `tooltip` property, a description slot, new CSS parts (`container`, `description`, `label`, `tooltip`, `wrapper`), and new CSS states (`has-description`, `has-infotip`, `no-label`).
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) adds a `tooltip` property for declarative tooltips with automatic accessibility wiring.
+- [`text-area`](https://github.com/sl-design-system/components/blob/main/packages/components/text-area/CHANGELOG.md) adds a `showCount` property to display remaining character count, with the default row count now explicitly set to 3.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) adds a `tooltip` property and CSS parts `button` and `tooltip` for styling internal elements. Focus is now delegated to the internal button.
+
+## Bug fixes
+
+- [`badge`](https://github.com/sl-design-system/components/blob/main/packages/components/badge/CHANGELOG.md) now updates the `round` attribute based on text content changes.
+- [`button`](https://github.com/sl-design-system/components/blob/main/packages/components/button/CHANGELOG.md) fixes icon-only size regression, a WebKit bug where the aspect-ratio was ignored, and an issue where the inner button wouldn't grow with the host element.
+- [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) fixes multiple issues: selection matching when option values and combobox values use different primitive types, select-only mode keyboard behavior (Space now selects/deselects), scroll-to-item behavior, virtual list scrollMargin handling, and Safari-specific animations. It also improves VoiceOver support by rendering virtual options in the light DOM.
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) fixes preserved date parts not being cleared when the value is externally set to `undefined`, and fixes incorrect text color in the year select dialog.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) adds accessible names to form controls in editable cells, fixes sticky columns becoming transparent with row activation, adds `aria-selected` to active/selected rows, announces row activation to screen readers, and fixes horizontal scroll synchronization with keyboard navigation.
+- [`ellipsize-text`](https://github.com/sl-design-system/components/blob/main/packages/components/ellipsize-text/CHANGELOG.md) now shrinks correctly inside flex containers so the tooltip appears when text overflows.
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) prevents unstable scrolling in virtualized lists by disabling scroll anchoring and containing overscroll, fixing touchpad and wheel scrolling behavior.
+- [`menu`](https://github.com/sl-design-system/components/blob/main/packages/components/menu/CHANGELOG.md) fixes nested submenu item clicks being intercepted by parent menu items, and fixes double-click menu reopening.
+- [`paginator`](https://github.com/sl-design-system/components/blob/main/packages/components/paginator/CHANGELOG.md) fixes accessible labels for page-size controls and the mobile paginator select, including the removal of zero-based internal page indexes from labels.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md) gives the remove button a proper accessible label ("Remove tag 'X'"), uses `aria-disabled` instead of `disabled` to keep it keyboard-reachable, and fixes stacked tag lists to show at least one removable tag. Improves keyboard navigation in comboboxes.
+- [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md) now exposes `aria-disabled="true"` on disabled buttons, and fixes icon color in certain theme contexts.
+- [`toggle-group`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-group/CHANGELOG.md) now uses `role="group"` as the default semantic role instead of `role="region"`.
+- [`tool-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/tool-bar/CHANGELOG.md) fixes overflow behavior when cached item widths become stale after theme, font, or layout changes, and maps `aria-disabled="true"` menu items to disabled overflow items.
+
+## Component promotions
+
+- [`listbox`](https://github.com/sl-design-system/components/blob/main/packages/components/listbox/CHANGELOG.md) and [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md) have been promoted from `draft` to `preview`.
+- [`tag`](https://github.com/sl-design-system/components/blob/main/packages/components/tag/CHANGELOG.md), [`toggle-button`](https://github.com/sl-design-system/components/blob/main/packages/components/toggle-button/CHANGELOG.md), [`progress-bar`](https://github.com/sl-design-system/components/blob/main/packages/components/progress-bar/CHANGELOG.md), [`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md), and [`callout`](https://github.com/sl-design-system/components/blob/main/packages/components/callout/CHANGELOG.md) have been promoted from `preview` to `stable`.
+
+## Tooling and packaging
+
+- [`angular`](https://github.com/sl-design-system/components/blob/main/packages/angular/CHANGELOG.md) is built with Angular 22 and adds `^22.0.0` to the supported `@angular/core` and `@angular/forms` peer dependency ranges, alongside Angular 19, 20 and 21. No component APIs changed.
+- Published packages are now built with [`tsdown`](https://tsdown.dev). Compiled output lives in `dist/`, packages resolve through `exports`, and the `main`, `module` and `types` fields have been removed where `exports` already provides JavaScript and type declarations.
+- Several packages now declare runtime and peer dependencies that were previously implicit through monorepo hoisting, improving compatibility with strict installers such as pnpm and Yarn PnP.
+- [`eslint-plugin-slds`](https://github.com/sl-design-system/components/blob/main/tools/eslint-plugin-slds/CHANGELOG.md) adds accessibility rules that require labels for SLDS form controls, and updates `button-has-label` to understand the rewritten tooltip API.
+
 # July 30, 2026
 
 ## Breaking changes

@@ -352,17 +352,25 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       }
 
       if (item.type === 'group') {
-        this.#groupSelection.add(item.id);
+        if (!update) {
+          this.#groupSelection.add(item.id);
+        }
       } else {
         this.#selection.add(item.id);
       }
     }
 
     if (update) {
-      if (isListDataSourceGroupItem(item)) {
+      if (isListDataSourceGroupItem<T>(item)) {
         item.members?.forEach(member => this.select(member, false));
+
+        if (this.areAllGroupMembersSelected(item)) {
+          this.#groupSelection.add(item.id);
+        } else {
+          this.#groupSelection.delete(item.id);
+        }
       } else if (
-        isListDataSourceDataItem(item) &&
+        isListDataSourceDataItem<T>(item) &&
         !!item.group &&
         this.areAllGroupMembersSelected(item.group)
       ) {
@@ -401,10 +409,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     }
 
     if (update) {
-      if (isListDataSourceGroupItem(item)) {
+      if (isListDataSourceGroupItem<T>(item)) {
         item.members?.forEach(member => this.deselect(member, false));
       } else if (
-        isListDataSourceDataItem(item) &&
+        isListDataSourceDataItem<T>(item) &&
         item.group?.members?.some(member => !this.isSelected(member))
       ) {
         this.deselect(item.group, false);
@@ -429,7 +437,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       this.deselect(item, update);
     }
 
-    if (isListDataSourceGroupItem(item)) {
+    if (isListDataSourceGroupItem<T>(item)) {
       item.members?.forEach(member => this.toggle(member, force, false));
     }
 

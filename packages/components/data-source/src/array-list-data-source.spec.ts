@@ -655,6 +655,38 @@ describe('ArrayListDataSource', () => {
         expect(ds.isSelected(ann)).to.be.false;
       });
 
+      it('should not keep a full group marker when selecting a filtered group header', () => {
+        const groupId = 'Gastroenterologist';
+
+        ds.addFilter('member', 'firstName', 'Bob');
+        ds.update();
+
+        const filteredGroup = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .find(({ id }) => id === groupId)!;
+
+        expect(filteredGroup.members).to.have.length(1);
+
+        ds.select(filteredGroup);
+        ds.update();
+
+        ds.removeFilter('member');
+        ds.update();
+
+        const fullGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          bob = fullGroup.members!.find(member => member.data.firstName === 'Bob')!,
+          ann = fullGroup.members!.find(member => member.data.firstName === 'Ann')!;
+
+        expect(ds.isSelected(fullGroup)).to.be.false;
+        expect(fullGroup.selected).to.equal('some');
+        expect(ds.isSelected(bob)).to.be.true;
+        expect(ds.isSelected(ann)).to.be.false;
+        expect(bob.selected).to.be.true;
+        expect(ann.selected).to.be.false;
+      });
+
       it('should restore selected group state when all unfiltered members are selected again', () => {
         const groupId = 'Gastroenterologist',
           fullGroup = ds.items

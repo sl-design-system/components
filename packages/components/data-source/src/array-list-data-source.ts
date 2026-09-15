@@ -394,6 +394,12 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     }
   }
 
+  protected override areAllGroupMembersSelected(group: ListDataSourceGroupItem<T>): boolean {
+    const members = this.unfilteredItems.filter(item => item.groupId === group.id);
+
+    return !!members.length && members.every(member => this.isSelected(member));
+  }
+
   #determineGroups(): Map<unknown, ListDataSourceGroupItem> {
     const groups = new Map<unknown, ListDataSourceGroupItem>(),
       groupLabels = new Map<unknown, string>();

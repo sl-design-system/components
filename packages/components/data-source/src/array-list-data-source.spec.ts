@@ -654,6 +654,47 @@ describe('ArrayListDataSource', () => {
         expect(ds.isSelected(bob)).to.be.true;
         expect(ds.isSelected(ann)).to.be.false;
       });
+
+      it('should restore selected group state when all unfiltered members are selected again', () => {
+        const groupId = 'Gastroenterologist',
+          fullGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!;
+
+        ds.select(fullGroup);
+        expect(ds.isSelected(fullGroup)).to.be.true;
+
+        ds.addFilter('member', 'firstName', 'Bob');
+        ds.update();
+
+        const filteredGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          filteredMember = filteredGroup.members!.at(0)!;
+
+        expect(filteredGroup.members).to.have.length(1);
+
+        ds.deselect(filteredMember);
+        ds.select(filteredMember);
+
+        ds.removeFilter('member');
+        ds.update();
+
+        const restoredGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          [firstMember, secondMember] = restoredGroup.members!;
+
+        expect(ds.isSelected(restoredGroup)).to.be.true;
+        expect(ds.isSelected(firstMember)).to.be.true;
+        expect(ds.isSelected(secondMember)).to.be.true;
+
+        ds.toggle(restoredGroup);
+
+        expect(ds.isSelected(restoredGroup)).to.be.false;
+        expect(ds.isSelected(firstMember)).to.be.false;
+        expect(ds.isSelected(secondMember)).to.be.false;
+      });
     });
 
     describe('getSelectedItems', () => {

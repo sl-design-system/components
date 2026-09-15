@@ -365,9 +365,9 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
         item.members?.forEach(member => this.select(member, false));
 
         if (this.areAllGroupMembersSelected(item)) {
-          this.#groupSelection.add(item.id);
+          this.select(item, false);
         } else {
-          this.#groupSelection.delete(item.id);
+          this.deselect(item, false);
         }
       } else if (
         isListDataSourceDataItem<T>(item) &&

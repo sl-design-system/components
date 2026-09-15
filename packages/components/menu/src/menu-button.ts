@@ -231,11 +231,11 @@ export class MenuButton extends ForwardAriaMixin(ScopedElementsMixin(LitElement)
       this.menu.showPopover();
       this.menu.focus();
     } else {
-      const actualPlacement = this.menu.getAttribute('actual-placement');
+      const side = this.menu.getPositionSide();
 
-      if (actualPlacement?.startsWith('top') && event.key === 'ArrowUp') {
+      if (side === 'top' && event.key === 'ArrowUp') {
         this.menu.focusLastItem();
-      } else if (actualPlacement?.startsWith('bottom') && event.key === 'ArrowDown') {
+      } else if (side === 'bottom' && event.key === 'ArrowDown') {
         this.menu.focus();
       }
     }

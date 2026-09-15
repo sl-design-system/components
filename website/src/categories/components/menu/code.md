@@ -65,5 +65,16 @@ eleventyNavigation:
 </div>
 
 </section>
+
+<section>
+
+## Positioning
+
+The menu uses [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) to stay attached to its trigger. When you use `sl-menu-button`, the trigger and menu are linked automatically. The menu also flips to another side and becomes scrollable when there is not enough space in the viewport.
+
+Browsers without native CSS Anchor Positioning support need the polyfill described in the [getting started guide](/categories/getting-started/developers/#add-polyfills).
+
+</section>
+
 <ds-install-info link-in-navigation package="menu"></ds-install-info>
 {% include "../component-table.njk" %}

@@ -188,7 +188,7 @@ Another option is to include them in your HTML:
 
 ### CSS Anchor Positioning
 
-Components such as the tooltip position themselves using [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning). Browsers without support for it need the [CSS Anchor Positioning polyfill](https://anchor-positioning.oddbird.net/), otherwise those components end up in the wrong place on the screen.
+Components such as the menu and tooltip position themselves using [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning). Browsers without support for it need the [CSS Anchor Positioning polyfill](https://anchor-positioning.oddbird.net/), otherwise those components end up in the wrong place on the screen.
 
 This polyfill needs a little more setup than the other two. Our components style their shadow DOM with constructed stylesheets, which the polyfill only picks up after `patchAndPolyfillConstructedStylesheets()` has patched `CSSStyleSheet` and `ShadowRoot`. So instead of importing the package directly, import its `/fn` entrypoint and apply it yourself:
 

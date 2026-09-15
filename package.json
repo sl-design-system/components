@@ -115,7 +115,8 @@
       ],
       "output": [
         "packages/themes/*/theme.css",
-        "packages/themes/*/global.css"
+        "packages/themes/*/global.css",
+        "packages/themes/*/typography.css"
       ]
     },
     "build:themes:styles": {
@@ -169,8 +170,7 @@
         "!packages/themes/*/fonts.css",
         "!packages/themes/*/global.css",
         "!packages/themes/*/icons.json",
-        "!packages/themes/*/theme.css",
-        "!packages/themes/*/typography.css"
+        "!packages/themes/*/theme.css"
       ]
     },
     "import-icons": {

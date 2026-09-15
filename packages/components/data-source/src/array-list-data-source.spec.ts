@@ -624,6 +624,36 @@ describe('ArrayListDataSource', () => {
         expect(ds.isSelected(group.members?.at(0))).to.be.true;
         expect(ds.isSelected(group.members?.at(1))).to.be.true;
       });
+
+      it('should not select the full group when selecting a single filtered member', () => {
+        const groupId = 'Gastroenterologist';
+
+        ds.addFilter('member', 'firstName', 'Bob');
+        ds.update();
+
+        const filteredGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          filteredMember = filteredGroup.members!.at(0)!;
+
+        expect(filteredGroup.members).to.have.length(1);
+
+        ds.select(filteredMember);
+        ds.update();
+
+        ds.removeFilter('member');
+        ds.update();
+
+        const fullGroup = ds.items
+            .filter(item => isListDataSourceGroupItem(item))
+            .find(({ id }) => id === groupId)!,
+          bob = fullGroup.members!.find(member => member.data.firstName === 'Bob')!,
+          ann = fullGroup.members!.find(member => member.data.firstName === 'Ann')!;
+
+        expect(ds.isSelected(fullGroup)).to.be.false;
+        expect(ds.isSelected(bob)).to.be.true;
+        expect(ds.isSelected(ann)).to.be.false;
+      });
     });
 
     describe('getSelectedItems', () => {

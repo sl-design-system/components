@@ -354,6 +354,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
         item.members?.forEach(member => this.select(member, false));
       } else if (
         isListDataSourceDataItem(item) &&
+        item.group?.members?.length === item.group?.size &&
         item.group?.members?.every(member => this.isSelected(member))
       ) {
         this.select(item.group, false);

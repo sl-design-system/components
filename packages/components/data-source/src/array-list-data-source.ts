@@ -413,8 +413,15 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
         groups.set(group, {
           id: group,
           label,
+          size: 0,
           type: 'group'
         });
+      }
+
+      const groupItem = groups.get(group);
+
+      if (groupItem) {
+        groupItem.size = (groupItem.size ?? 0) + 1;
       }
     });
 

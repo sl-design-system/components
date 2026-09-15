@@ -6,7 +6,7 @@ function getExample() {
   const slot = instance.getString('slot');
 
   const buttonVariants = instance.findInstance('Button-Variants');
-  if (buttonVariants.type === 'ERROR') return null;
+  if (buttonVariants.type === 'ERROR') throw new Error('Missing Figma instance: Button-Variants');
 
   const disabled = buttonVariants.getString('State') === 'Disabled';
 
@@ -30,7 +30,7 @@ function getExample() {
     }) || 'secondary';
 
   const buttonBase = buttonVariants.findInstance('Button-Base');
-  if (buttonBase.type === 'ERROR') return null;
+  if (buttonBase.type === 'ERROR') throw new Error('Missing Figma instance: Button-Base');
 
   const iconOnly = buttonBase.getBoolean('Icon only'),
     iconStart = buttonBase.getBoolean('Icon Start'),

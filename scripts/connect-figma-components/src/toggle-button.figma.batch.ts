@@ -13,7 +13,7 @@ function getExample() {
     }) || 'solid';
 
   const icon = instance.findInstance('Base/Icon', { traverseInstances: true });
-  if (icon.type === 'ERROR') return null;
+  if (icon.type === 'ERROR') throw new Error('Missing Figma instance: Base/Icon');
 
   const name = icon.getString('𝐓 - FontAwesome'),
     variant = icon.getEnum('Variant', { Outline: 'far', Solid: 'fas' });

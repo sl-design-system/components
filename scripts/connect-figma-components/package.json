@@ -7,10 +7,10 @@
   "scripts": {
     "connect:publish": "figma connect publish",
     "connect:unpublish": "figma connect unpublish",
-    "connect:test": "figma connect preview"
+    "connect:test": "node preview-errors.mjs"
   },
   "devDependencies": {
-    "@figma/code-connect": "^1.4.8",
+    "@figma/code-connect": "^2.0.1",
     "typescript": "^6.0.3"
   }
 }

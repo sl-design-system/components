@@ -33,14 +33,18 @@ function getExample() {
   const header = collapsible
     ? instance.findInstance('sl-panel-header-collapsable')
     : instance.findInstance('sl-panel-header-default');
-  if (header.type === 'ERROR') return null;
+  if (header.type === 'ERROR') {
+    throw new Error(
+      `Missing Figma instance: ${collapsible ? 'sl-panel-header-collapsable' : 'sl-panel-header-default'}`
+    );
+  }
 
   const hasActions = collapsible ? false : header.getBoolean('Actions'),
     hasPrefix = header.getBoolean('Prefix'),
     hasSuffix = header.getBoolean('Suffix');
 
   const heading = header.findText('title');
-  if (heading.type === 'ERROR') return null;
+  if (heading.type === 'ERROR') throw new Error('Missing Figma text layer: title');
 
   let actions;
   if (hasActions) {
@@ -60,7 +64,9 @@ function getExample() {
   let prefix;
   if (hasPrefix) {
     const prefixInstance = header.getInstanceSwap('Prefix instance');
-    if (!prefixInstance || prefixInstance.type === 'ERROR') return null;
+    if (!prefixInstance || prefixInstance.type === 'ERROR') {
+      throw new Error('Missing Figma instance swap: Prefix instance');
+    }
 
     // Set the slot property to ensure the slot attribute is rendered
     prefixInstance.properties.slot = { value: 'prefix' };
@@ -71,7 +77,9 @@ function getExample() {
   let suffix;
   if (hasSuffix) {
     const suffixInstance = header.getInstanceSwap('Suffix instance');
-    if (!suffixInstance || suffixInstance.type === 'ERROR') return null;
+    if (!suffixInstance || suffixInstance.type === 'ERROR') {
+      throw new Error('Missing Figma instance swap: Suffix instance');
+    }
 
     // Set the slot property to ensure the slot attribute is rendered
     suffixInstance.properties.slot = { value: 'suffix' };

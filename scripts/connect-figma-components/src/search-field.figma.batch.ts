@@ -12,7 +12,7 @@ function getExample() {
     required = false;
   if (hasLabel) {
     const labelBase = instance.findInstance('sl-base-label');
-    if (labelBase.type === 'ERROR') return null;
+    if (labelBase.type === 'ERROR') throw new Error('Missing Figma instance: sl-base-label');
 
     label = labelBase.getString('Label');
     required = labelBase.getBoolean('Required');

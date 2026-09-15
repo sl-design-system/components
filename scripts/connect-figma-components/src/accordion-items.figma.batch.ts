@@ -6,10 +6,10 @@ function getExample() {
   const open = instance.getBoolean('Open');
 
   const header = instance.findInstance('Accordion Header/Plus');
-  if (header.type === 'ERROR') return null;
+  if (header.type === 'ERROR') throw new Error('Missing Figma instance: Accordion Header/Plus');
 
   const title = header.findInstance('accordion-title', { traverseInstances: true });
-  if (title.type === 'ERROR') return null;
+  if (title.type === 'ERROR') throw new Error('Missing Figma instance: accordion-title');
 
   const summary = title.getString('Title');
 

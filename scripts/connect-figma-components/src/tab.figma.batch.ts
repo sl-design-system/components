@@ -6,12 +6,12 @@ function getExample() {
   const selected = instance.getString('State') === 'selected';
 
   const tabBase = instance.findInstance('tab-base', { traverseInstances: true });
-  if (tabBase.type === 'ERROR') return null;
+  if (tabBase.type === 'ERROR') throw new Error('Missing Figma instance: tab-base');
 
   const title = tabBase.getString('𝑻 - Title');
 
   const tabConfig = instance.findInstance('tab-config', { traverseInstances: true });
-  if (tabConfig.type === 'ERROR') return null;
+  if (tabConfig.type === 'ERROR') throw new Error('Missing Figma instance: tab-config');
 
   const hasBadge = tabConfig.getBoolean('badge'),
     hasIcon = tabConfig.getBoolean('icon'),
@@ -20,7 +20,7 @@ function getExample() {
   let badge;
   if (hasBadge) {
     badge = tabConfig.findInstance('sl-badge', { traverseInstances: true });
-    if (badge.type === 'ERROR') return null;
+    if (badge.type === 'ERROR') throw new Error('Missing Figma instance: sl-badge');
 
     badge.properties.slot = { value: 'badge' };
   }
@@ -28,7 +28,7 @@ function getExample() {
   let icon;
   if (hasIcon) {
     icon = tabConfig.findInstance('Base/Icon', { traverseInstances: true });
-    if (icon.type === 'ERROR') return null;
+    if (icon.type === 'ERROR') throw new Error('Missing Figma instance: Base/Icon');
 
     icon.properties.slot = { value: 'icon' };
   }

@@ -5,7 +5,7 @@ const instance = figma.selectedInstance;
 
 function getExample() {
   const variants = instance.findInstance('sl-date_field-variants', { traverseInstances: true });
-  if (variants.type === 'ERROR') return null;
+  if (variants.type === 'ERROR') throw new Error('Missing Figma instance: sl-date_field-variants');
 
   const disabled = variants.getString('Variant') === 'Disabled',
     hasLabel = variants.getBoolean('Label'),
@@ -15,8 +15,8 @@ function getExample() {
   let label = undefined,
     required = false;
   if (hasLabel) {
-    const labelBase = instance.findInstance('sl-base-label');
-    if (labelBase.type === 'ERROR') return null;
+    const labelBase = variants.findInstance('sl-base-label');
+    if (labelBase.type === 'ERROR') throw new Error('Missing Figma instance: sl-base-label');
 
     label = labelBase.getString('Label');
     required = labelBase.getBoolean('Required');

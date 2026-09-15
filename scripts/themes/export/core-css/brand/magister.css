@@ -1204,14 +1204,14 @@
   --sl-brand-text-new-input-md-fontSize: 14px;
   --sl-brand-text-new-input-md-lineHeight: 24px;
   --sl-brand-text-new-typeset-fontFamily-body: 'Open Sans';
-  --sl-brand-text-new-typeset-fontFamily-heading: 'Open Sans';
+  --sl-brand-text-new-typeset-fontFamily-heading: 'New Message';
   --sl-brand-text-new-typeset-fontFamily-icon: 'Font Awesome 7 Pro';
   --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
   --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-600);
   --sl-caption-fontFamily: 'Open Sans';
-  --sl-display-fontFamily: 'Open Sans';
-  --sl-heading-fontFamily: 'Open Sans';
+  --sl-display-fontFamily: 'New Message';
+  --sl-heading-fontFamily: 'New Message';
   --sl-label-fontFamily: 'Open Sans';
   --sl-text-fontFamily: 'Open Sans';
-  --sl-title-fontFamily: 'Open Sans';
+  --sl-title-fontFamily: 'New Message';
 }

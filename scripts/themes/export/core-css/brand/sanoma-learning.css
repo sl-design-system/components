@@ -1174,10 +1174,10 @@
   --sl-brand-text-new-typeset-fontFamily-icon: 'Font Awesome 7 Pro';
   --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
   --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-500);
-  --sl-caption-fontFamily: 'The Message Beta03';
-  --sl-display-fontFamily: 'The Message Beta03';
-  --sl-heading-fontFamily: 'The Message Beta03';
-  --sl-label-fontFamily: 'The Message Beta03';
-  --sl-text-fontFamily: 'The Message Text Beta03 Condensed';
-  --sl-title-fontFamily: 'The Message Beta03';
+  --sl-caption-fontFamily: 'New Message';
+  --sl-display-fontFamily: 'New Message';
+  --sl-heading-fontFamily: 'New Message';
+  --sl-label-fontFamily: 'New Message';
+  --sl-text-fontFamily: 'New Message Text Condensed';
+  --sl-title-fontFamily: 'New Message';
 }

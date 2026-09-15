@@ -11,8 +11,7 @@
 
     display: grid;
     grid-template:
-      'media' var(--_media-size)
-      'header' max-content
+      'media' var(--_media-size) 'header' max-content
       'article' 1fr
       'actions' max-content;
   }
@@ -126,7 +125,8 @@
   :host([fit-image][image-backdrop]) {
     slot[name='media'] {
       background: transparent;
-      z-index: 1; /* Ensure backdrop is below the image */
+      z-index: 1;
+      /* Ensure backdrop is below the image */
     }
 
     figure .backdrop {
@@ -195,14 +195,15 @@
   }
 
   slot.title::slotted(*) {
-    font: var(--sl-text-new-typeset-fontWeight-semiBold) var(--sl-size-text-new-heading-md)
-      var(--sl-text-new-typeset-fontFamily-heading);
+    font-size: var(--sl-title-md-fontSize);
+    font-weight: var(--sl-typography-title-md-fontWeight);
+    line-height: var(--sl-title-md-lineHeight);
+    letter-spacing: var(--sl-title-md-letterSpacing);
   }
 
   slot.title::slotted(a[href]) {
-    color: var(
-      --sl-color-foreground-plain
-    ) !important; /* There is no way to do this with a selector that has more weight than what is set in the global styles */
+    color: var(--sl-color-foreground-plain) !important;
+    /* There is no way to do this with a selector that has more weight than what is set in the global styles */
 
     text-decoration: none;
   }

@@ -48,7 +48,7 @@ It is the authoritative guide for _how_ to scaffold, structure, style, register,
 - **Structural/presentation config lives in the component, not the model.** Define fixed column sets (order, abbreviations, icons), tab lists, and option sets as local constants in the component that renders them — don't accept them as model inputs.
 - Implement only the API in the spec; note (don't silently add) anything the design needs that the spec omitted.
 - Never hand-write generated files. Write the component + its **basic story**; leave **tests and docs** to Stage 5 (and only where the output location warrants them).
-- Quote token names verbatim from the manifest; if a needed token is missing, grep `packages/tokens` and report — never hardcode a fallback value.
+- Quote token names verbatim from the manifest; if a needed token is missing, grep `packages/themes` and report — never hardcode a fallback value.
 
 ## Output
 

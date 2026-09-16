@@ -356,6 +356,18 @@ describe('sl-menu', () => {
         edge: (rect: DOMRect) => window.innerHeight - rect.bottom
       },
       {
+        position: 'right',
+        anchorStyle: 'inset: 0 auto auto 50%',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => rect.top
+      },
+      {
+        position: 'right',
+        anchorStyle: 'inset: auto auto 0 50%',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => window.innerHeight - rect.bottom
+      },
+      {
         position: 'bottom-start',
         anchorStyle: 'inset: 50% auto auto 0',
         direction: 'ltr',
@@ -363,6 +375,18 @@ describe('sl-menu', () => {
       },
       {
         position: 'bottom-end',
+        anchorStyle: 'inset: 50% 0 auto auto',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => window.innerWidth - rect.right
+      },
+      {
+        position: 'bottom',
+        anchorStyle: 'inset: 50% auto auto 0',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => rect.left
+      },
+      {
+        position: 'bottom',
         anchorStyle: 'inset: 50% 0 auto auto',
         direction: 'ltr',
         edge: (rect: DOMRect) => window.innerWidth - rect.right

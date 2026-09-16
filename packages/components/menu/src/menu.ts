@@ -369,7 +369,7 @@ export class Menu extends LitElement {
   };
 
   #requiresJavaScriptPositioning(anchor: Element): boolean {
-    if (this.#hasTransform(anchor) || this.#hasAlignedEdgeWithinViewportMargin(anchor)) {
+    if (this.#hasTransform(anchor) || this.#requiresViewportShift(anchor)) {
       return true;
     }
 
@@ -387,21 +387,35 @@ export class Menu extends LitElement {
     return false;
   }
 
-  #hasAlignedEdgeWithinViewportMargin(anchor: Element): boolean {
+  #requiresViewportShift(anchor: Element): boolean {
     const [side, alignment] = (this.position ?? 'right-start').split('-') as [
-      MenuSide,
-      'start' | 'end' | undefined
-    ];
+        MenuSide,
+        'start' | 'end' | undefined
+      ],
+      rect = anchor.getBoundingClientRect();
 
-    if (!alignment) {
-      return false;
-    }
-
-    const rect = anchor.getBoundingClientRect();
     if (side === 'left' || side === 'right') {
+      if (!alignment) {
+        const center = (rect.top + rect.bottom) / 2;
+
+        return (
+          center - minMenuSize / 2 < viewportMargin ||
+          center + minMenuSize / 2 > window.innerHeight - viewportMargin
+        );
+      }
+
       return alignment === 'start'
         ? rect.top < viewportMargin
         : rect.bottom > window.innerHeight - viewportMargin;
+    }
+
+    if (!alignment) {
+      const center = (rect.left + rect.right) / 2;
+
+      return (
+        center - minMenuSize / 2 < viewportMargin ||
+        center + minMenuSize / 2 > window.innerWidth - viewportMargin
+      );
     }
 
     const isRtl = getComputedStyle(this).direction === 'rtl',
@@ -485,7 +499,7 @@ export class Menu extends LitElement {
       return;
     }
 
-    if (this.#hasAlignedEdgeWithinViewportMargin(anchor)) {
+    if (this.#requiresViewportShift(anchor)) {
       this.#startJavaScriptPositioning(anchor);
       return;
     }

@@ -419,16 +419,16 @@ describe('sl-menu-item', () => {
     });
 
     it('should toggle the submenu when pressing arrow right/left', async () => {
+      el.getBoundingClientRect = () => DOMRect.fromRect({ x: 100, y: 100, width: 100, height: 40 });
+      menu.getBoundingClientRect = () =>
+        DOMRect.fromRect({ x: 220, y: 100, width: 100, height: 100 });
+
       el.focus();
       await userEvent.keyboard('{ArrowRight}');
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(menu).to.match(':popover-open');
       expect(menu.querySelector('sl-menu-item')).to.equal(document.activeElement);
-
-      el.getBoundingClientRect = () => DOMRect.fromRect({ x: 100, y: 100, width: 100, height: 40 });
-      menu.getBoundingClientRect = () =>
-        DOMRect.fromRect({ x: 220, y: 100, width: 100, height: 100 });
 
       await userEvent.keyboard('{ArrowLeft}');
       await new Promise(resolve => setTimeout(resolve, 50));

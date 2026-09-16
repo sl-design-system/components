@@ -319,6 +319,29 @@ describe('sl-menu', () => {
       }
     });
 
+    it('should use JavaScript positioning for an anchor inside a transformed ancestor', async () => {
+      const container = document.createElement('div');
+
+      container.style.transform = 'translateX(100px)';
+      container.append(anchor, el);
+      document.body.append(container);
+      anchor.style.cssText = 'position: fixed; inset: 50% auto auto 50%';
+
+      try {
+        el.showPopover();
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const anchorRect = anchor.getBoundingClientRect(),
+          menuRect = el.getBoundingClientRect();
+
+        expect(el).to.have.attribute('data-js-positioning');
+        expect(menuRect.left).to.be.at.least(anchorRect.right);
+        expect(el.getPositionSide()).to.equal('right');
+      } finally {
+        container.remove();
+      }
+    });
+
     for (const crossRoot of [false, true]) {
       it(`should clean up a canceled opening with ${crossRoot ? 'JavaScript' : 'CSS'} positioning`, async () => {
         const host = document.createElement('div'),

@@ -367,6 +367,10 @@ export class Menu extends LitElement {
   };
 
   #requiresJavaScriptPositioning(anchor: Element): boolean {
+    if (this.#hasTransform(anchor)) {
+      return true;
+    }
+
     const anchorRoot = anchor.getRootNode();
     let menuRoot = this.getRootNode();
 
@@ -376,6 +380,27 @@ export class Menu extends LitElement {
       }
 
       menuRoot = menuRoot.host.getRootNode();
+    }
+
+    return false;
+  }
+
+  #hasTransform(element: Element): boolean {
+    let current: Element | null = element;
+
+    while (current) {
+      const style = getComputedStyle(current);
+      if (
+        style.transform !== 'none' ||
+        style.translate !== 'none' ||
+        style.rotate !== 'none' ||
+        style.scale !== 'none'
+      ) {
+        return true;
+      }
+
+      const root = current.getRootNode();
+      current = current.parentElement ?? (root instanceof ShadowRoot ? root.host : null);
     }
 
     return false;

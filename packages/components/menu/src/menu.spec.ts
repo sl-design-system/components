@@ -342,6 +342,57 @@ describe('sl-menu', () => {
       }
     });
 
+    for (const { position, anchorStyle, direction, edge } of [
+      {
+        position: 'right-start',
+        anchorStyle: 'inset: 0 auto auto 50%',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => rect.top
+      },
+      {
+        position: 'right-end',
+        anchorStyle: 'inset: auto auto 0 50%',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => window.innerHeight - rect.bottom
+      },
+      {
+        position: 'bottom-start',
+        anchorStyle: 'inset: 50% auto auto 0',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => rect.left
+      },
+      {
+        position: 'bottom-end',
+        anchorStyle: 'inset: 50% 0 auto auto',
+        direction: 'ltr',
+        edge: (rect: DOMRect) => window.innerWidth - rect.right
+      },
+      {
+        position: 'bottom-start',
+        anchorStyle: 'inset: 50% 0 auto auto',
+        direction: 'rtl',
+        edge: (rect: DOMRect) => window.innerWidth - rect.right
+      },
+      {
+        position: 'bottom-end',
+        anchorStyle: 'inset: 50% auto auto 0',
+        direction: 'rtl',
+        edge: (rect: DOMRect) => rect.left
+      }
+    ] as const) {
+      it(`should keep ${direction} ${position} inside the viewport margin`, async () => {
+        anchor.style.cssText = `position: fixed; ${anchorStyle}`;
+        el.dir = direction;
+        el.position = position;
+        await el.updateComplete;
+        el.showPopover();
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        expect(el).to.have.attribute('data-js-positioning');
+        expect(edge(el.getBoundingClientRect())).to.be.closeTo(8, 1);
+      });
+    }
+
     for (const crossRoot of [false, true]) {
       it(`should clean up a canceled opening with ${crossRoot ? 'JavaScript' : 'CSS'} positioning`, async () => {
         const host = document.createElement('div'),

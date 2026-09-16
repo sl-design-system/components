@@ -29,4 +29,28 @@ describe('positionPopover', () => {
     expect(popover.style.maxInlineSize).to.equal('');
     expect(popover.style.minBlockSize).to.equal('');
   });
+
+  it('should convert the physical x coordinate to a logical inset in RTL', async () => {
+    const anchor = document.createElement('button'),
+      popover = document.createElement('div');
+
+    anchor.style.cssText = 'position: fixed; top: 100px; right: 8px';
+    popover.dir = 'rtl';
+    popover.style.cssText = 'position: fixed; width: 100px; height: 100px';
+    document.body.append(anchor, popover);
+    elements.push(anchor, popover);
+
+    const cleanup = positionPopover(popover, anchor, {
+      position: 'bottom-start',
+      viewportMargin: 8
+    });
+
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+    expect(
+      document.documentElement.clientWidth - popover.getBoundingClientRect().right
+    ).to.be.closeTo(8, 1);
+
+    cleanup();
+  });
 });

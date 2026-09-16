@@ -35,7 +35,9 @@ const minMenuSize = 25,
   viewportMargin = 8,
   javascriptPositionProperties = [
     'inset-block-start',
+    'inset-block-end',
     'inset-inline-start',
+    'inset-inline-end',
     'max-block-size',
     'max-inline-size',
     'min-block-size'
@@ -367,7 +369,7 @@ export class Menu extends LitElement {
   };
 
   #requiresJavaScriptPositioning(anchor: Element): boolean {
-    if (this.#hasTransform(anchor)) {
+    if (this.#hasTransform(anchor) || this.#hasAlignedEdgeWithinViewportMargin(anchor)) {
       return true;
     }
 
@@ -383,6 +385,30 @@ export class Menu extends LitElement {
     }
 
     return false;
+  }
+
+  #hasAlignedEdgeWithinViewportMargin(anchor: Element): boolean {
+    const [side, alignment] = (this.position ?? 'right-start').split('-') as [
+      MenuSide,
+      'start' | 'end' | undefined
+    ];
+
+    if (!alignment) {
+      return false;
+    }
+
+    const rect = anchor.getBoundingClientRect();
+    if (side === 'left' || side === 'right') {
+      return alignment === 'start'
+        ? rect.top < viewportMargin
+        : rect.bottom > window.innerHeight - viewportMargin;
+    }
+
+    const isRtl = getComputedStyle(this).direction === 'rtl',
+      alignsLeft = alignment === 'start' ? !isRtl : isRtl;
+    return alignsLeft
+      ? rect.left < viewportMargin
+      : rect.right > window.innerWidth - viewportMargin;
   }
 
   #hasTransform(element: Element): boolean {
@@ -456,6 +482,11 @@ export class Menu extends LitElement {
   #updateMaxSize = (): void => {
     const anchor = this.#getAnchorElement();
     if (!anchor || !this.matches(':popover-open')) {
+      return;
+    }
+
+    if (this.#hasAlignedEdgeWithinViewportMargin(anchor)) {
+      this.#startJavaScriptPositioning(anchor);
       return;
     }
 

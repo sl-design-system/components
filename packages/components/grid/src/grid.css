@@ -345,7 +345,7 @@ tr {
     z-index: 1; /* Ensure row is above other rows for focus outline */
   }
 
-  &[draggable] {
+  &[draggable='true'] {
     cursor: grabbing;
   }
 

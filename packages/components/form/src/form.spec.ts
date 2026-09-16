@@ -17,6 +17,8 @@ import { Form } from './form.js';
 import { type Label } from './label.js';
 import './register.js';
 
+const waitForAnnouncement = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 250));
+
 describe('sl-form', () => {
   let el: Form;
 
@@ -112,7 +114,7 @@ describe('sl-form', () => {
       expect(el.valid).to.be.true;
     });
 
-    it('should report validity of all form controls', () => {
+    it('should report validity of all form controls', async () => {
       const controls = el.querySelectorAll('sl-text-field');
 
       controls.forEach(c => spy(c, 'reportValidity'));
@@ -120,6 +122,7 @@ describe('sl-form', () => {
       expect(el.reportValidity()).to.be.false;
       expect(controls[0].reportValidity).to.have.been.calledOnce;
       expect(controls[1].reportValidity).to.have.been.calledOnce;
+      await waitForAnnouncement();
     });
 
     it('should announce all invalid required fields with context on reportValidity', async () => {
@@ -140,6 +143,7 @@ describe('sl-form', () => {
 
       form.reportValidity();
       await form.updateComplete;
+      await waitForAnnouncement();
 
       const messages = announceSpy
         .getCalls()
@@ -149,6 +153,8 @@ describe('sl-form', () => {
         'First name: Please fill in this field.',
         'Last name: Please fill in this field.'
       ]);
+
+      document.body.removeEventListener('sl-announce', announceSpy);
     });
 
     it('should not announce field validation messages when announce-errors is false on the form', async () => {
@@ -169,9 +175,40 @@ describe('sl-form', () => {
 
       form.reportValidity();
       await form.updateComplete;
+      await waitForAnnouncement();
 
       expect(announceSpy).not.to.have.been.called;
       expect(form.querySelectorAll('sl-error')).to.have.length(2);
+
+      document.body.removeEventListener('sl-announce', announceSpy);
+    });
+
+    it('should restore field validation announcements when announce-errors is removed', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>(),
+        form = await fixture<Form>(html`
+          <sl-form announce-errors="false">
+            <sl-form-field label="First name">
+              <sl-text-field name="firstName" required></sl-text-field>
+            </sl-form-field>
+          </sl-form>
+        `);
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      form.removeAttribute('announce-errors');
+      await form.updateComplete;
+
+      form.reportValidity();
+      await form.updateComplete;
+      await waitForAnnouncement();
+
+      expect(form.announceErrors).to.be.true;
+      expect(announceSpy).to.have.been.calledWithMatch({
+        detail: { message: 'First name: Please fill in this field.', force: true }
+      });
+
+      document.body.removeEventListener('sl-announce', announceSpy);
     });
 
     it('should have a value for the form', async () => {
@@ -256,6 +293,7 @@ describe('sl-form', () => {
 
       el.addEventListener('sl-submit', onSubmit);
       el.requestSubmit();
+      await waitForAnnouncement();
 
       expect(onSubmit).to.not.have.been.calledOnce;
 
@@ -307,12 +345,15 @@ describe('sl-form', () => {
       input.blur();
       await new Promise(resolve => requestAnimationFrame(resolve));
       await textField.updateComplete;
+      await waitForAnnouncement();
 
       const messages = announceSpy
         .getCalls()
         .map(call => (call.args[0] as SlAnnounceEvent).detail.message);
 
       expect(messages).to.eql(['Code: Please fill in this field.']);
+
+      document.body.removeEventListener('sl-announce', announceSpy);
     });
 
     it('should show format errors on blur, not while typing, after a previous valid blur', async () => {

@@ -11,6 +11,12 @@
 }
 
 @font-face {
+  font-family: 'New Message';
+  font-weight: 700;
+  src: url('./fonts/NewMessage-Bold.woff2') format('woff2');
+}
+
+@font-face {
   font-family: 'New Message Text Condensed';
   font-weight: 400;
   src: url('./fonts/NewMessage-Text-Condensed-Regular.woff2') format('woff2');

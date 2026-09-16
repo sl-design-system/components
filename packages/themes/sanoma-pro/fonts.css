@@ -24,6 +24,12 @@
 
 @font-face {
   font-family: 'New Message';
-  font-weight: 600;
+  font-weight: 500;
   src: url('./fonts/NewMessage-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'New Message';
+  font-weight: 700;
+  src: url('./fonts/NewMessage-Bold.woff2') format('woff2');
 }

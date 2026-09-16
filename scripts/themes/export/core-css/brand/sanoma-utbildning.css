@@ -655,7 +655,7 @@
   --sl-brand-text-new-typeset-fontFamily-heading: 'New Message';
   --sl-brand-text-new-typeset-fontFamily-icon: 'Font Awesome 7 Pro';
   --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
-  --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-500);
+  --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-600);
   --sl-caption-fontFamily: Roboto;
   --sl-display-fontFamily: 'New Message';
   --sl-heading-fontFamily: 'New Message';

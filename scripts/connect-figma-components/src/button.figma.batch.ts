@@ -1,14 +1,18 @@
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const slot = instance.getString('slot');
 
-  const buttonVariants = instance.findInstance('Button-Variants');
-  if (buttonVariants.type === 'ERROR') throw new Error('Missing Figma instance: Button-Variants');
+  const buttonVariants = checkInstance(instance.findInstance('Button-Variants'), 'Button-Variants');
 
-  const disabled = buttonVariants.getString('State') === 'Disabled';
+  const disabled = checkStringProperty(buttonVariants.getString('State'), 'State') === 'Disabled';
 
   // The default fill is "solid".
   const fill =
@@ -29,13 +33,12 @@ function getExample() {
       Inverted: 'inverted'
     }) || 'secondary';
 
-  const buttonBase = buttonVariants.findInstance('Button-Base');
-  if (buttonBase.type === 'ERROR') throw new Error('Missing Figma instance: Button-Base');
+  const buttonBase = checkInstance(buttonVariants.findInstance('Button-Base'), 'Button-Base');
 
-  const iconOnly = buttonBase.getBoolean('Icon only'),
-    iconStart = buttonBase.getBoolean('Icon Start'),
-    iconEnd = buttonBase.getBoolean('Icon End'),
-    label = buttonBase.getString('𝐓 - Label');
+  const iconOnly = checkBooleanProperty(buttonBase.getBoolean('Icon only'), 'Icon only'),
+    iconStart = checkBooleanProperty(buttonBase.getBoolean('Icon Start'), 'Icon Start'),
+    iconEnd = checkBooleanProperty(buttonBase.getBoolean('Icon End'), 'Icon End'),
+    label = checkStringProperty(buttonBase.getString('𝐓 - Label'), '𝐓 - Label');
 
   // The default size is "md".
   const size =

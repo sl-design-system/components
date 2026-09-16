@@ -1,22 +1,25 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6013-90927
 import figma from 'figma';
+import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const cardContent = instance.findInstance('Card Content', { traverseInstances: true });
-  if (cardContent.type === 'ERROR') return null;
+  const cardContent = checkInstance(
+    instance.findInstance('Card Content', { traverseInstances: true }),
+    'Card Content'
+  );
 
-  const showMoreButton = cardContent.getBoolean('Show more button');
+  checkBooleanProperty(cardContent.getBoolean('Show more button'), 'Show more button');
 
-  const cardHeader = cardContent.findInstance('card-header', { traverseInstances: true });
-  if (cardHeader.type === 'ERROR') return null;
+  const cardHeader = checkInstance(
+    cardContent.findInstance('card-header', { traverseInstances: true }),
+    'card-header'
+  );
 
-  const cardTitle = cardHeader.findInstance('card-title');
-  if (cardTitle.type === 'ERROR') return null;
+  const cardTitle = checkInstance(cardHeader.findInstance('card-title'), 'card-title');
 
-  const title = cardTitle.findText('Title');
-  if (title.type === 'ERROR') return null;
+  const title = checkInstance(cardTitle.findText('Title'), 'Title');
 
   const cardSlotHeader = cardHeader.findInstance('card-slot-header');
 

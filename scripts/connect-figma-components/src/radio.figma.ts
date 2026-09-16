@@ -1,16 +1,23 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=935-17454
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = instance.getBoolean('Checked'),
-    disabled = instance.getString('State') === 'Disabled';
+  const checked = checkBooleanProperty(instance.getBoolean('Checked'), 'Checked'),
+    disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
 
-  const radiobuttonBase = instance.findInstance('radiobutton-base');
-  if (radiobuttonBase.type === 'ERROR') return null;
+  const radiobuttonBase = checkInstance(
+    instance.findInstance('radiobutton-base'),
+    'radiobutton-base'
+  );
 
-  const label = radiobuttonBase.getString('label text');
+  const label = checkStringProperty(radiobuttonBase.getString('Label text'), 'Label text');
 
   // The default size is "md".
   const size =

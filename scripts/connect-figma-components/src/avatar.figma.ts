@@ -1,5 +1,10 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7401-934
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -8,8 +13,9 @@ function getExample() {
     { color = 'grey', emphasis = 'subtle' } =
       colorInstance?.executeTemplate().metadata?.props ?? {};
 
-  const initials = instance.getString('Initals'),
-    vertical = instance.getString('Header position') === 'Under';
+  const initials = checkStringProperty(instance.getString('Initals'), 'Initals'),
+    headerPosition = checkStringProperty(instance.getString('Header position'), 'Header position'),
+    vertical = headerPosition === 'Under';
 
   const shape = instance.getEnum('Shape', { Circle: 'circle', Square: 'square' }) ?? 'circle';
 
@@ -24,13 +30,12 @@ function getExample() {
       '4XL': '4xl'
     }) ?? 'md';
 
-  const header = instance.findInstance('avatar-header');
-  if (header.type === 'ERROR') return null;
+  const header = checkInstance(instance.findInstance('avatar-header'), 'avatar-header');
 
-  const heading = header.getString('Header'),
-    subheading = header.getString('Subheader');
+  const heading = checkStringProperty(header.getString('Header'), 'Header'),
+    subheading = checkStringProperty(header.getString('Subheader'), 'Subheader');
 
-  const hasBadge = instance.getBoolean('Badge');
+  const hasBadge = checkBooleanProperty(instance.getBoolean('Badge'), 'Badge');
 
   let badgeColor, badgeEmphasis, badgeText;
   if (hasBadge) {
@@ -38,7 +43,7 @@ function getExample() {
 
     badgeColor = (badgeMetadata?.props?.color as string) ?? 'grey';
     badgeEmphasis = (badgeMetadata?.props?.emphasis as string) ?? 'subtle';
-    badgeText = instance.getString('Badge Label');
+    badgeText = checkStringProperty(instance.getString('Badge Label'), 'Badge Label');
   }
 
   return figma.code`

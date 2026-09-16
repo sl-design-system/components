@@ -1,13 +1,14 @@
 import figma from 'figma';
+import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
   const collapsible = figma.batch.collapsible,
-    border = instance.getBoolean('Border'),
-    divider = instance.getBoolean('Divider'),
+    border = checkBooleanProperty(instance.getBoolean('Border'), 'Border'),
+    divider = checkBooleanProperty(instance.getBoolean('Divider'), 'Divider'),
     elevationRaw = instance.getString('Elevation') || 'none',
-    shadow = instance.getBoolean('Shadow');
+    shadow = checkBooleanProperty(instance.getBoolean('Shadow'), 'Shadow');
 
   const density =
     instance.getEnum('Density', {
@@ -30,21 +31,20 @@ function getExample() {
     elevation = 'none';
   }
 
-  const header = collapsible
-    ? instance.findInstance('sl-panel-header-collapsable')
-    : instance.findInstance('sl-panel-header-default');
-  if (header.type === 'ERROR') {
-    throw new Error(
-      `Missing Figma instance: ${collapsible ? 'sl-panel-header-collapsable' : 'sl-panel-header-default'}`
-    );
-  }
+  const header = checkInstance(
+    collapsible
+      ? instance.findInstance('sl-panel-header-collapsable')
+      : instance.findInstance('sl-panel-header-default'),
+    collapsible ? 'sl-panel-header-collapsable' : 'sl-panel-header-default'
+  );
 
-  const hasActions = collapsible ? false : header.getBoolean('Actions'),
-    hasPrefix = header.getBoolean('Prefix'),
-    hasSuffix = header.getBoolean('Suffix');
+  const hasActions = collapsible
+      ? false
+      : checkBooleanProperty(header.getBoolean('Actions'), 'Actions'),
+    hasPrefix = checkBooleanProperty(header.getBoolean('Prefix'), 'Prefix'),
+    hasSuffix = checkBooleanProperty(header.getBoolean('Suffix'), 'Suffix');
 
-  const heading = header.findText('title');
-  if (heading.type === 'ERROR') throw new Error('Missing Figma text layer: title');
+  const heading = checkInstance(header.findText('title'), 'title');
 
   let actions;
   if (hasActions) {

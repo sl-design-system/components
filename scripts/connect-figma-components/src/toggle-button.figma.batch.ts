@@ -1,9 +1,14 @@
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const disabled = instance.getString('State') === 'Disabled';
+  const disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
 
   const fill =
     instance.getEnum('Type', {
@@ -12,13 +17,15 @@ function getExample() {
       Link: 'link'
     }) || 'solid';
 
-  const icon = instance.findInstance('Base/Icon', { traverseInstances: true });
-  if (icon.type === 'ERROR') throw new Error('Missing Figma instance: Base/Icon');
+  const icon = checkInstance(
+    instance.findInstance('Base/Icon', { traverseInstances: true }),
+    'Base/Icon'
+  );
 
-  const name = icon.getString('𝐓 - FontAwesome'),
+  const name = checkStringProperty(icon.getString('𝐓 - FontAwesome'), '𝐓 - FontAwesome'),
     variant = icon.getEnum('Variant', { Outline: 'far', Solid: 'fas' });
 
-  const selected = instance.getBoolean('Selected');
+  const selected = checkBooleanProperty(instance.getBoolean('Selected'), 'Selected');
 
   const size = instance.getEnum('↕️ - Size', { SM: 'sm', LG: 'lg' }) || 'md';
 

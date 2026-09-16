@@ -1,16 +1,20 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=892-255678
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const checked = instance.getBoolean('Checked'),
-    disabled = instance.getString('State') === 'Disabled',
-    indeterminate = instance.getBoolean('Intermediate'),
-    hasLabel = instance.getBoolean('Label');
+  const checked = checkBooleanProperty(instance.getBoolean('Checked'), 'Checked'),
+    disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled',
+    indeterminate = checkBooleanProperty(instance.getBoolean('Intermediate'), 'Intermediate'),
+    hasLabel = checkBooleanProperty(instance.getBoolean('Label'), 'Label');
 
-  const checkboxBase = instance.findInstance('checkbox-base');
-  if (checkboxBase.type === 'ERROR') return null;
+  const checkboxBase = checkInstance(instance.findInstance('checkbox-base'), 'checkbox-base');
 
   // The default size is "md".
   const size =
@@ -21,7 +25,7 @@ function getExample() {
 
   let label;
   if (hasLabel) {
-    label = checkboxBase.getString('label text');
+    label = checkStringProperty(checkboxBase.getString('Label text'), 'Label text');
   }
 
   return figma.code`

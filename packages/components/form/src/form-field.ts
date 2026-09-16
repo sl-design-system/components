@@ -155,9 +155,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       Object.entries(this.#errors)
         .filter(([id]) => !errors.find(([errorId]) => errorId === id))
         .forEach(([id, error]) => {
-          const control = this.querySelector<HTMLElement & FormControl>(`#${id}`);
-          this.#updateAriaDescribedBy({ remove: error.id, control });
-
           error.remove();
           delete this.#errors[id];
         });
@@ -167,6 +164,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         const error = (this.#errors[id] ??= this.shadowRoot!.createElement('sl-error'));
         error.for = id;
         error.innerText = message;
+        // Hide from screen readers since the error message is announced via live region
+        error.setAttribute('aria-hidden', 'true');
 
         if (!error.parentElement) {
           this.prepend(error);
@@ -182,11 +181,24 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         if (!this.#hint.parentElement) {
           this.prepend(this.#hint);
         }
+        // Add to aria-describedby for programmatic hints
+        this.#updateAriaDescribedBy({ add: this.#hint?.id });
       } else {
         this.#updateAriaDescribedBy({ remove: this.#hint?.id });
 
         this.#hint?.remove();
         this.#hint = undefined;
+      }
+    }
+
+    if (changes.has('errors') && this.#hint) {
+      const hasErrors = Object.values(this.errors).some(Boolean);
+      // Sync hint visibility based on error state
+      // (This ensures consistency if errors change from other sources)
+      if (hasErrors) {
+        this.#updateAriaDescribedBy({ remove: this.#hint?.id });
+      } else {
+        this.#updateAriaDescribedBy({ add: this.#hint?.id });
       }
     }
 
@@ -231,13 +243,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     errors.forEach(error => {
       // Make sure every error has a unique ID
       error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-
-      const control = error.for
-        ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`)
-        : this.control;
-      if (control) {
-        this.#updateAriaDescribedBy({ add: error.id, control });
-      }
+      // Hide from screen readers since the error message is announced via live region
+      error.setAttribute('aria-hidden', 'true');
+      // Don't add error to aria-describedby - only the announcer should announce it
     });
 
     // Trigger a re-render now that we've potentially added or removed the error message.
@@ -305,8 +313,12 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.error = this.control.getLocalizedValidationMessage();
       }
 
+      // Always add hint to aria-describedby so it's read when focusing the field
       this.#updateAriaDescribedBy({ add: this.#hint?.id });
       this.#updateAriaDescribedBy({ add: this.#infotip?.contentId });
+
+      // Add focus listener to restore hint when focusing an invalid field
+      this.control.formControlElement.addEventListener('focus', () => this.#onControlFocus());
 
       if (this.#label) {
         this.#label.for = this.control.id;
@@ -318,6 +330,24 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       if (this.#label) {
         this.#label.for = this.#label.mark = undefined;
       }
+    }
+  }
+
+  #onControlFocus(): void {
+    // When the field is focused, restore the hint and error to aria-describedby
+    // This ensures the complete context is read when navigating to the field, even if there are errors
+    if (this.#hint) {
+      this.#updateAriaDescribedBy({ add: this.#hint.id });
+    }
+
+    // Add error to aria-describedby when focusing so it's read along with the hint and label
+    const hasErrors = Object.values(this.errors).some(Boolean);
+    if (hasErrors) {
+      Object.values(this.#errors).forEach(error => {
+        if (error.id) {
+          this.#updateAriaDescribedBy({ add: error.id });
+        }
+      });
     }
   }
 
@@ -367,8 +397,32 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       nextError =
         event.detail.showValidity === 'invalid' ? event.detail.validationMessage : undefined;
 
+    // Manage hint and error visibility based on validation state
+    if (this.#hint) {
+      if (nextError && nextError !== previousError) {
+        // Error occurred: remove hint from aria-describedby to prevent screen reader from reading it during blur
+        this.#updateAriaDescribedBy({ remove: this.#hint.id });
+      } else if (!nextError && previousError) {
+        // Error cleared: add hint back to aria-describedby
+        this.#updateAriaDescribedBy({ add: this.#hint.id });
+      }
+    }
+
+    // Remove error from aria-describedby when error is cleared
+    if (!nextError && previousError) {
+      Object.values(this.#errors).forEach(error => {
+        if (error.id) {
+          this.#updateAriaDescribedBy({ remove: error.id });
+        }
+      });
+    }
+
     if (this.announceErrors && nextError && nextError !== previousError) {
-      announce(this.#getValidationAnnouncement(event.target, nextError), 'polite', true);
+      // Add a 250ms delay before announcing to ensure focus has moved away from the invalid field
+      // This improves compatibility with screen readers like VoiceOver and NVDA
+      setTimeout(() => {
+        announce(this.#getValidationAnnouncement(event.target, nextError), 'polite', true);
+      }, 250);
     }
 
     // Since we can have multiple form controls slotted, we need to

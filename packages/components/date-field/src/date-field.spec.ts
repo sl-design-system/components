@@ -676,6 +676,43 @@ describe('sl-date-field', () => {
       expect(activeDate?.getDate()).to.equal(14);
     });
 
+    it('should focus the first day of the selected month after choosing the current year with a first-day selection', async () => {
+      el.value = new Date(2026, 2, 1);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const calendar = el.renderRoot.querySelector<RenderRootElement>('sl-calendar')!,
+        selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day');
+
+      selectDay?.renderRoot.querySelector<HTMLElement>('.current-year')?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const yearButtons = calendar.renderRoot
+        .querySelector<RenderRootElement>('sl-select-year')
+        ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
+
+      yearButtons?.[7]?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthView = calendar.renderRoot
+          .querySelector<RenderRootElement>('sl-select-day')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])'),
+        activeButton = monthView?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeDateCell = activeButton?.closest<HTMLElement>('td[data-date]'),
+        activeDate = activeDateCell?.dataset.date
+          ? new Date(activeDateCell.dataset.date)
+          : undefined;
+
+      expect(activeDate).to.exist;
+      expect(activeDate?.getFullYear()).to.equal(2028);
+      expect(activeDate?.getMonth()).to.equal(2);
+      expect(activeDate?.getDate()).to.equal(1);
+    });
+
     it('should focus the first selectable day when the first day is disabled', async () => {
       el.min = new Date(2026, 5, 3);
       await el.updateComplete;

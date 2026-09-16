@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { spawn } from 'node:child_process';
+import { validateSnippet } from './validate-snippet.mjs';
 
 const inputArgs = process.argv.slice(2),
   showAll = inputArgs.includes('--all'),
@@ -57,6 +58,11 @@ function previewWarnings(result) {
     .filter(Boolean);
 }
 
+// Only successful mappings produce a snippet to check against the real component API.
+function codeIssues(result) {
+  return result.success ? validateSnippet(result.snippet ?? '') : [];
+}
+
 if (!args.includes('--output')) {
   args.push('--output', 'json');
 }
@@ -79,21 +85,31 @@ child.on('close', code => {
     process.exit(code ?? 1);
   }
 
-  const failures = results.filter(result => !result.success),
+  const annotated = results.map(result => ({
+      result,
+      warnings: previewWarnings(result),
+      invalidCode: codeIssues(result)
+    })),
+    failures = annotated.filter(
+      ({ result, invalidCode }) => !result.success || invalidCode.length > 0
+    ),
     displayedResults = showAll
-      ? results
-      : results.filter(result => !result.success || previewWarnings(result).length > 0);
+      ? annotated
+      : annotated.filter(
+          ({ result, warnings, invalidCode }) =>
+            !result.success || warnings.length > 0 || invalidCode.length > 0
+        );
 
   if (displayedResults.length === 0) {
     console.log('No mapping issues found.');
   }
 
-  for (const result of displayedResults) {
+  for (const { result, warnings, invalidCode } of displayedResults) {
     const batchCase = getBatchCase(result),
       name = hyperlink(componentName(result, batchCase), result.url),
-      template = batchCase?.templateFile,
-      warnings = previewWarnings(result);
-    const status = result.success ? '\x1b[32m✓\x1b[0m' : '\x1b[31m✕\x1b[0m',
+      template = batchCase?.templateFile;
+    const status =
+        result.success && invalidCode.length === 0 ? '\x1b[32m✓\x1b[0m' : '\x1b[31m✕\x1b[0m',
       details = template ? `\n  template: ${template}` : '';
 
     console.log(`\n${status} ${name}`);
@@ -104,6 +120,10 @@ child.on('close', code => {
       if (warnings.length > 0) {
         console.log(`  \x1b[33mWarning(s): ${warnings.length}\x1b[0m`);
         for (const warning of warnings) console.log(`    ${warning.trim()}`);
+      }
+      if (invalidCode.length > 0) {
+        console.log(`  \x1b[31mInvalid design system code (${invalidCode.length}):\x1b[0m`);
+        for (const issue of invalidCode) console.log(`    ${issue}`);
       }
     } else {
       const error =

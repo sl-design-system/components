@@ -1,5 +1,19 @@
 # @sl-design-system/date-field
 
+## 0.3.2
+
+### Patch Changes
+
+- [#3709](https://github.com/sl-design-system/components/pull/3709) [`9cb15fb`](https://github.com/sl-design-system/components/commit/9cb15fb00aa1b447b0ea2910f65126457fc494b1) - Accessibility improvement: in the date-field calendar dialog, when returning from month/year selection, focus now moves to the selected day when it is enabled; otherwise it moves to the first day of the displayed month if enabled, or the first selectable day in that month.
+
+- [#3660](https://github.com/sl-design-system/components/pull/3660) [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706) - Fix `sl-date-field` behavior when `validate-on-blur` is enabled on the parent `sl-form`:
+
+  - The field is now correctly marked as dirty after user interaction, including partial date input and complete but invalid or out-of-range date input. This prevents required validation from being incorrectly suppressed on blur after the user has interacted with the field.
+
+- Updated dependencies [[`2f66df5`](https://github.com/sl-design-system/components/commit/2f66df5d450242a8182477939a849a848f5e4beb), [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706)]:
+  - @sl-design-system/calendar@0.1.3
+  - @sl-design-system/form@1.6.0
+
 ## 0.3.1
 
 ### Patch Changes

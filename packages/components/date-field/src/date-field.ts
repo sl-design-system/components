@@ -650,11 +650,11 @@ export class DateField extends LocaleMixin(
     }
   }
 
-  #onChange(event: SlChangeEvent<Date>): void {
+  #onChange(event: SlChangeEvent<Date | Date[]>): void {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.requireConfirmation) {
+    if (this.requireConfirmation || Array.isArray(event.detail)) {
       return;
     }
 
@@ -670,6 +670,10 @@ export class DateField extends LocaleMixin(
   }
 
   #onConfirm(): void {
+    if (this.calendar?.mode === 'range') {
+      return;
+    }
+
     const selected = this.calendar?.selected;
 
     if (this.value !== selected && !isSameDate(this.value, selected)) {

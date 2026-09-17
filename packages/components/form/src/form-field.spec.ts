@@ -178,6 +178,24 @@ describe('sl-form-field', () => {
       await waitForAnnouncement();
     });
 
+    it('should keep a slotted custom error linked to the form control', async () => {
+      el = await fixture(html`
+        <sl-form-field label="Name">
+          <sl-error slot="error">Custom error</sl-error>
+          <sl-text-field id="name"></sl-text-field>
+        </sl-form-field>
+      `);
+
+      await el.updateComplete;
+
+      const input = el.querySelector('input'),
+        error = el.querySelector('sl-error');
+
+      expect(error).to.exist;
+      expect(error).to.have.attribute('id');
+      expect(input?.getAttribute('aria-describedby')).to.equal(error?.id);
+    });
+
     it('should show the builtin validation after resetting the custom validity', async () => {
       const textField = el.querySelector('sl-text-field');
 
@@ -194,7 +212,7 @@ describe('sl-form-field', () => {
       expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
     });
 
-    it('should not link the error to the form control until the field is focused again', async () => {
+    it('should link the error to the form control', async () => {
       const input = el.querySelector('input');
 
       el.querySelector('sl-text-field')?.reportValidity();
@@ -205,7 +223,7 @@ describe('sl-form-field', () => {
 
       expect(error).to.exist;
       expect(error).to.have.attribute('id');
-      expect(input).not.to.have.attribute('aria-describedby');
+      expect(error?.id).to.equal(input?.getAttribute('aria-describedby'));
     });
 
     it('should link the error to the form control when the invalid field is focused again', async () => {
@@ -325,7 +343,7 @@ describe('sl-form-field', () => {
       await waitForAnnouncement();
     });
 
-    it('should keep errors out of aria-describedby until the field is focused again', async () => {
+    it('should link the error to the correct form control', async () => {
       el.querySelector('sl-radio-group')?.reportValidity();
       el.querySelector('sl-text-field')?.reportValidity();
       await el.updateComplete;
@@ -335,8 +353,12 @@ describe('sl-form-field', () => {
       expect(errors).to.have.lengthOf(2);
       expect(errors[1]).to.have.attribute('id');
       expect(errors[0]).to.have.attribute('id');
-      expect(el.querySelector('sl-radio-group')).not.to.have.attribute('aria-describedby');
-      expect(el.querySelector('sl-text-field input')).not.to.have.attribute('aria-describedby');
+      expect(errors[1].id).to.equal(
+        el.querySelector('sl-radio-group')?.getAttribute('aria-describedby')
+      );
+      expect(errors[0].id).to.equal(
+        el.querySelector('sl-text-field input')?.getAttribute('aria-describedby')
+      );
     });
 
     it('should remove the error once the control is valid', async () => {

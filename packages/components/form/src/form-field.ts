@@ -245,7 +245,13 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       error.id ||= `sl-form-field-error-${nextUniqueId++}`;
       // Hide from screen readers since the error message is announced via live region
       error.setAttribute('aria-hidden', 'true');
-      // Don't add error to aria-describedby - only the announcer should announce it
+
+      const control = error.for
+        ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`)
+        : this.control;
+      if (control) {
+        this.#updateAriaDescribedBy({ add: error.id, control });
+      }
     });
 
     // Trigger a re-render now that we've potentially added or removed the error message.

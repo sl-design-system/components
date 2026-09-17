@@ -345,6 +345,73 @@ describe('sl-switch', () => {
       expect(input).to.have.attribute('aria-labelledby', 'label');
     });
 
+    it('should label the input when the switch re-projects content via a forwarded slot', async () => {
+      // Create a wrapper component that forwards its default slot to the switch
+      class WrapperElement extends LitElement {
+        override render(): TemplateResult {
+          return html`<sl-switch><slot></slot></sl-switch>`;
+        }
+      }
+      customElements.define('test-switch-wrapper', WrapperElement);
+
+      const wrapper = await fixture<WrapperElement>(
+        html`<test-switch-wrapper>Forwarded Label</test-switch-wrapper>`
+      );
+      await wrapper.updateComplete;
+
+      const switchEl = wrapper.renderRoot.querySelector('sl-switch') as Switch;
+      await switchEl.updateComplete;
+
+      const switchInput = switchEl.renderRoot.querySelector('input')!;
+
+      // The switch should detect the forwarded slot and set hasLabel to true
+      expect(switchEl).not.to.match(':state(no-label)');
+      // The input should be labeled by the switch's label element
+      expect(switchInput).to.have.attribute('aria-labelledby', 'label');
+    });
+
+    it('should update label state when forwarded slot content changes dynamically', async () => {
+      // Create a wrapper component that forwards its default slot to the switch
+      class DynamicWrapperElement extends LitElement {
+        override render(): TemplateResult {
+          return html`<sl-switch><slot></slot></sl-switch>`;
+        }
+      }
+      customElements.define('test-switch-dynamic-wrapper', DynamicWrapperElement);
+
+      const wrapper = await fixture<DynamicWrapperElement>(
+        html`<test-switch-dynamic-wrapper></test-switch-dynamic-wrapper>`
+      );
+      await wrapper.updateComplete;
+
+      const switchEl = wrapper.renderRoot.querySelector('sl-switch') as Switch;
+      await switchEl.updateComplete;
+
+      const switchInput = switchEl.renderRoot.querySelector('input')!;
+
+      // Initially no content, should have no-label state
+      expect(switchEl).to.match(':state(no-label)');
+      expect(switchInput).not.to.have.attribute('aria-labelledby');
+
+      // Add content dynamically
+      wrapper.append(document.createTextNode('Dynamic Label'));
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await switchEl.updateComplete;
+
+      // The switch should detect the content change and update
+      expect(switchEl).not.to.match(':state(no-label)');
+      expect(switchInput).to.have.attribute('aria-labelledby', 'label');
+
+      // Remove content
+      wrapper.textContent = '';
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      await switchEl.updateComplete;
+
+      // The switch should revert to no-label state
+      expect(switchEl).to.match(':state(no-label)');
+      expect(switchInput).not.to.have.attribute('aria-labelledby');
+    });
+
     it('should forward the aria-disabled attribute to the input element', async () => {
       el.setAttribute('aria-disabled', 'true');
       await new Promise(resolve => setTimeout(resolve, 50));

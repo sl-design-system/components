@@ -3,7 +3,6 @@ import { globSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const repoRoot = resolve(import.meta.dirname, '..', '..'),
-  manifestPath = resolve(repoRoot, 'custom-elements.json'),
   // Attributes every element may have, regardless of the component's own API.
   globalAttributes = new Set([
     'slot',
@@ -18,32 +17,72 @@ const repoRoot = resolve(import.meta.dirname, '..', '..'),
   isGlobalAttribute = name =>
     globalAttributes.has(name) || name.startsWith('aria-') || name.startsWith('data-');
 
-let tagAttributes = null,
+let declarations = null,
+  tagAttributes = null,
   typeAliasValues = null;
+
+function getAttributeMap(declaration) {
+  const attributes = new Map();
+  for (const member of declaration.members ?? []) {
+    if (member.attribute) attributes.set(member.attribute, member.type?.text);
+  }
+
+  return attributes;
+}
+
+function loadDeclarations() {
+  if (declarations) return declarations;
+
+  declarations = new Map();
+
+  const manifests = globSync(resolve(repoRoot, 'packages/components/*/custom-elements.json'));
+
+  for (const manifestPath of manifests) {
+    let manifest;
+    try {
+      manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    } catch {
+      continue;
+    }
+
+    for (const module of manifest.modules ?? []) {
+      for (const declaration of module.declarations ?? []) {
+        if (declaration.name) declarations.set(declaration.name, declaration);
+      }
+    }
+  }
+
+  return declarations;
+}
+
+function getInheritedAttributeMap(declaration, visited = new Set()) {
+  const attributes = new Map();
+
+  if (declaration.superclass?.name && !visited.has(declaration.superclass.name)) {
+    const superclass = loadDeclarations().get(declaration.superclass.name);
+    if (superclass) {
+      visited.add(declaration.superclass.name);
+      for (const [name, type] of getInheritedAttributeMap(superclass, visited)) {
+        attributes.set(name, type);
+      }
+    }
+  }
+
+  for (const [name, type] of getAttributeMap(declaration)) {
+    attributes.set(name, type);
+  }
+
+  return attributes;
+}
 
 function loadTagAttributes() {
   if (tagAttributes) return tagAttributes;
 
   tagAttributes = new Map();
 
-  let manifest;
-  try {
-    manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
-  } catch {
-    return tagAttributes;
-  }
-
-  for (const module of manifest.modules ?? []) {
-    for (const declaration of module.declarations ?? []) {
-      if (!declaration.tagName) continue;
-
-      const attributes = new Map();
-      for (const member of declaration.members ?? []) {
-        if (member.attribute) attributes.set(member.attribute, member.type?.text);
-      }
-
-      tagAttributes.set(declaration.tagName, attributes);
-    }
+  for (const declaration of loadDeclarations().values()) {
+    if (declaration.tagName)
+      tagAttributes.set(declaration.tagName, getInheritedAttributeMap(declaration));
   }
 
   return tagAttributes;
@@ -121,7 +160,7 @@ export function validateSnippet(html) {
 
     const knownAttributes = attributesByTag.get(tag);
     if (!knownAttributes) {
-      issues.push(`Unknown component <${tag}>: not found in custom-elements.json`);
+      issues.push(`Unknown component <${tag}>: not found in package custom-elements.json files`);
       continue;
     }
 

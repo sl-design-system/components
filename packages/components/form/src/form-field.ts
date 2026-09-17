@@ -67,6 +67,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** Whether a custom error has been slotted. */
   #customError?: boolean;
 
+  /** Focus listeners per form control, used to restore descriptions when controls are focused. */
+  #controlFocusListeners = new Map<HTMLElement & FormControl, EventListener>();
+
   /** The error element. */
   #error?: Error;
 
@@ -129,6 +132,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#unregister?.();
     this.#unregister = undefined;
+    this.#removeControlFocusListeners();
 
     super.disconnectedCallback();
   }
@@ -188,17 +192,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
         this.#hint?.remove();
         this.#hint = undefined;
-      }
-    }
-
-    if (changes.has('errors') && this.#hint) {
-      const hasErrors = Object.values(this.errors).some(Boolean);
-      // Sync hint visibility based on error state
-      // (This ensures consistency if errors change from other sources)
-      if (hasErrors) {
-        this.#updateAriaDescribedBy({ remove: this.#hint?.id });
-      } else {
-        this.#updateAriaDescribedBy({ add: this.#hint?.id });
       }
     }
 
@@ -298,15 +291,19 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const assignedElements = event.target.assignedElements({ flatten: true }),
-      formControls = assignedElements.filter(el => 'extendsFormControlMixin' in el.constructor);
+      formControls = assignedElements.filter(
+        (el): el is HTMLElement & FormControl => 'extendsFormControlMixin' in el.constructor
+      );
 
     formControls.forEach(control => {
       control.id ||= `sl-form-field-control-${nextUniqueId++}`;
     });
 
+    this.#syncControlFocusListeners(formControls);
+
     if (formControls.length) {
       // The first form control is considered the "primary" control
-      this.control = formControls[0] as HTMLElement & FormControl;
+      this.control = formControls[0];
 
       // Set the form control name as attribute for styling purposes
       if (this.control.name) {
@@ -323,9 +320,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       this.#updateAriaDescribedBy({ add: this.#hint?.id });
       this.#updateAriaDescribedBy({ add: this.#infotip?.contentId });
 
-      // Add focus listener to restore hint when focusing an invalid field
-      this.control.formControlElement.addEventListener('focus', () => this.#onControlFocus());
-
       if (this.#label) {
         this.#label.for = this.control.id;
         this.#label.mark ??= this.mark;
@@ -339,22 +333,123 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onControlFocus(): void {
-    // When the field is focused, restore the hint and error to aria-describedby
-    // This ensures the complete context is read when navigating to the field, even if there are errors
+  #addControlFocusListener(control: HTMLElement & FormControl): void {
+    this.#removeControlFocusListener(control);
+
+    const onControlFocus: EventListener = () => this.#onControlFocus(control);
+
+    control.formControlElement.addEventListener('focus', onControlFocus);
+    this.#controlFocusListeners.set(control, onControlFocus);
+  }
+
+  #getGeneratedError(control: HTMLElement & FormControl): Error | undefined {
+    return control.id ? this.#errors[control.id] : undefined;
+  }
+
+  #onControlFocus(control: HTMLElement & FormControl): void {
+    // When a control is focused, restore the shared descriptions and only the generated error
+    // that belongs to that control.
     if (this.#hint) {
-      this.#updateAriaDescribedBy({ add: this.#hint.id });
+      this.#updateAriaDescribedBy({ add: this.#hint.id, control });
     }
 
-    // Add error to aria-describedby when focusing so it's read along with the hint and label
-    const hasErrors = Object.values(this.errors).some(Boolean);
-    if (hasErrors) {
-      Object.values(this.#errors).forEach(error => {
-        if (error.id) {
-          this.#updateAriaDescribedBy({ add: error.id });
-        }
-      });
+    this.#updateAriaDescribedBy({ add: this.#infotip?.contentId, control });
+
+    Object.entries(this.#errors).forEach(([id, error]) => {
+      if (!error.id) {
+        return;
+      }
+
+      if (id === control.id) {
+        this.#updateAriaDescribedBy({ add: error.id, control });
+      } else {
+        this.#updateAriaDescribedBy({ remove: error.id, control });
+      }
+    });
+  }
+
+  #removeControlFocusListener(control: HTMLElement & FormControl): void {
+    const onControlFocus = this.#controlFocusListeners.get(control);
+
+    if (onControlFocus) {
+      control.formControlElement.removeEventListener('focus', onControlFocus);
+      this.#controlFocusListeners.delete(control);
     }
+  }
+
+  #removeControlFocusListeners(controls = [...this.#controlFocusListeners.keys()]): void {
+    controls.forEach(control => this.#removeControlFocusListener(control));
+  }
+
+  #syncControlFocusListeners(controls: Array<HTMLElement & FormControl>): void {
+    const nextControls = new Set(controls);
+
+    this.#controlFocusListeners.forEach((_, control) => {
+      if (!nextControls.has(control)) {
+        this.#removeControlFocusListener(control);
+      }
+    });
+
+    controls.forEach(control => this.#addControlFocusListener(control));
+  }
+
+  #syncHintDescription(control: HTMLElement & FormControl, error?: string): void {
+    if (!this.#hint?.id) {
+      return;
+    }
+
+    if (error) {
+      this.#updateAriaDescribedBy({ remove: this.#hint.id, control });
+    } else {
+      this.#updateAriaDescribedBy({ add: this.#hint.id, control });
+    }
+  }
+
+  #syncGeneratedErrorDescription(control: HTMLElement & FormControl, error?: string): void {
+    const generatedError = this.#getGeneratedError(control);
+
+    if (generatedError?.id && !error) {
+      this.#updateAriaDescribedBy({ remove: generatedError.id, control });
+    }
+  }
+
+  #updateDescriptionsAfterValidityChange(
+    control: HTMLElement & FormControl,
+    nextError?: string
+  ): void {
+    this.#syncHintDescription(control, nextError);
+    this.#syncGeneratedErrorDescription(control, nextError);
+  }
+
+  #onUpdateValidity(event: SlUpdateValidityEvent): void {
+    if (!event.target.id || (this.#error && !this.error)) {
+      // Do nothing without a DOM id, or if there is a custom error message slotted
+      return;
+    }
+
+    const control = event.target,
+      previousError = this.errors[control.id],
+      nextError =
+        event.detail.showValidity === 'invalid' ? event.detail.validationMessage : undefined;
+
+    if (nextError !== previousError) {
+      this.#updateDescriptionsAfterValidityChange(control, nextError);
+    }
+
+    if (this.announceErrors && nextError && nextError !== previousError) {
+      // Add a 250ms delay before announcing to ensure focus has moved away from the invalid field
+      // This improves compatibility with screen readers like VoiceOver and NVDA
+      setTimeout(() => {
+        announce(this.#getValidationAnnouncement(control, nextError), 'polite', true);
+      }, 250);
+    }
+
+    // Since we can have multiple form controls slotted, we need to
+    // separate the validation messages for each.
+    this.errors = {
+      ...this.errors,
+      [control.id]: nextError
+    };
   }
 
   #updateAriaDescribedBy({
@@ -391,52 +486,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     } else {
       element.removeAttribute('aria-describedby');
     }
-  }
-
-  #onUpdateValidity(event: SlUpdateValidityEvent): void {
-    if (!event.target.id || (this.#error && !this.error)) {
-      // Do nothing without a DOM id, or if there is a custom error message slotted
-      return;
-    }
-
-    const previousError = this.errors[event.target.id],
-      nextError =
-        event.detail.showValidity === 'invalid' ? event.detail.validationMessage : undefined;
-
-    // Manage hint and error visibility based on validation state
-    if (this.#hint) {
-      if (nextError && nextError !== previousError) {
-        // Error occurred: remove hint from aria-describedby to prevent screen reader from reading it during blur
-        this.#updateAriaDescribedBy({ remove: this.#hint.id });
-      } else if (!nextError && previousError) {
-        // Error cleared: add hint back to aria-describedby
-        this.#updateAriaDescribedBy({ add: this.#hint.id });
-      }
-    }
-
-    // Remove error from aria-describedby when error is cleared
-    if (!nextError && previousError) {
-      Object.values(this.#errors).forEach(error => {
-        if (error.id) {
-          this.#updateAriaDescribedBy({ remove: error.id });
-        }
-      });
-    }
-
-    if (this.announceErrors && nextError && nextError !== previousError) {
-      // Add a 250ms delay before announcing to ensure focus has moved away from the invalid field
-      // This improves compatibility with screen readers like VoiceOver and NVDA
-      setTimeout(() => {
-        announce(this.#getValidationAnnouncement(event.target, nextError), 'polite', true);
-      }, 250);
-    }
-
-    // Since we can have multiple form controls slotted, we need to
-    // separate the validation messages for each.
-    this.errors = {
-      ...this.errors,
-      [event.target.id]: nextError
-    };
   }
 
   #getValidationAnnouncement(control: HTMLElement & FormControl, message: string): string {

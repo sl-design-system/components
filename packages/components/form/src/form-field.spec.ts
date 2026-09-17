@@ -343,22 +343,32 @@ describe('sl-form-field', () => {
       await waitForAnnouncement();
     });
 
-    it('should link the error to the correct form control', async () => {
-      el.querySelector('sl-radio-group')?.reportValidity();
-      el.querySelector('sl-text-field')?.reportValidity();
+    it('should restore only the matching generated error when a control in a composite field is focused', async () => {
+      const radioGroup = el.querySelector('sl-radio-group'),
+        textField = el.querySelector('sl-text-field');
+
+      radioGroup?.reportValidity();
+      textField?.reportValidity();
       await el.updateComplete;
       await waitForAnnouncement();
 
-      const errors = el.querySelectorAll('sl-error');
-      expect(errors).to.have.lengthOf(2);
-      expect(errors[1]).to.have.attribute('id');
-      expect(errors[0]).to.have.attribute('id');
-      expect(errors[1].id).to.equal(
-        el.querySelector('sl-radio-group')?.getAttribute('aria-describedby')
-      );
-      expect(errors[0].id).to.equal(
-        el.querySelector('sl-text-field input')?.getAttribute('aria-describedby')
-      );
+      const errors = el.querySelectorAll('sl-error'),
+        textFieldInput = el.querySelector('sl-text-field input');
+
+      textField?.focus();
+      await el.updateComplete;
+
+      expect(textFieldInput?.getAttribute('aria-describedby')).to.include(errors[0].id);
+      expect(textFieldInput?.getAttribute('aria-describedby')).not.to.include(errors[1].id);
+      expect(radioGroup?.getAttribute('aria-describedby') ?? '').not.to.include(errors[0].id);
+
+      radioGroup?.focus();
+      await el.updateComplete;
+
+      expect(radioGroup?.getAttribute('aria-describedby')).to.include(errors[1].id);
+      expect(radioGroup?.getAttribute('aria-describedby')).not.to.include(errors[0].id);
+      expect(textFieldInput?.getAttribute('aria-describedby')).to.include(errors[0].id);
+      expect(textFieldInput?.getAttribute('aria-describedby')).not.to.include(errors[1].id);
     });
 
     it('should remove the error once the control is valid', async () => {

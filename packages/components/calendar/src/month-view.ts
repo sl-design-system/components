@@ -56,6 +56,10 @@ const DAYS_IN_WEEK = 7;
  * @csspart next-month - The day button for a day in the next month.
  * @csspart out-of-range - The day button for a date outside the min/max range.
  * @csspart previous-month - The day button for a day in the previous month.
+ * @csspart range-end - The last day in a selected range.
+ * @csspart range-preview - A day shown while previewing an unfinished range.
+ * @csspart range-start - The first day in a selected range.
+ * @csspart in-range - A day between the start and end of a selected range.
  * @csspart selected - The day button for the selected date.
  * @csspart today - The day button for today's date.
  * @csspart week-day - The week day header cell.
@@ -88,6 +92,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** The current month. */
   #month = new Date();
+
+  /** The date currently previewed while composing a range. */
+  @state() hoveredDate?: Date;
 
   /** Manage focus group for day buttons. */
   #focusGroupController = new NewFocusGroupController<HTMLButtonElement>(this, {
@@ -202,6 +209,15 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
+  /** The selected date range. */
+  @property({ attribute: false }) range?: Date[];
+
+  /** Whether selecting a range is enabled. */
+  @property({ attribute: false }) rangeSelection?: boolean;
+
+  /** The first date selected while composing a range. */
+  @property({ attribute: false }) rangeStart?: Date;
+
   /** You can customize how a day is rendered by providing a custom renderer callback. */
   @property({ attribute: false }) renderer?: MonthViewRenderer;
 
@@ -293,6 +309,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const ariaHidden = this.getAttribute('aria-hidden') === 'true' ? 'true' : undefined;
 
     return html`
+      <span class="visually-hidden" id="range-start-description">
+        ${msg('Start of range', { id: 'sl.calendar.rangeStart' })}
+      </span>
+      <span class="visually-hidden" id="range-end-description">
+        ${msg('End of range', { id: 'sl.calendar.rangeEnd' })}
+      </span>
       <table
         aria-hidden=${ifDefined(ariaHidden)}
         aria-label=${msg(
@@ -359,7 +381,13 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     const parts = this.getDayParts(day),
-      selected = parts.includes('selected');
+      selected =
+        parts.includes('selected') ||
+        (this.rangeStart
+          ? isSameDate(day.date, this.rangeStart)
+          : parts.includes('range-start') ||
+            parts.includes('range-end') ||
+            parts.includes('in-range'));
 
     // If the custom renderer returned `undefined`, we fall back to the default rendering
     if (!template) {
@@ -368,16 +396,27 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       template =
         this.readonly || day.disabled || day.outOfRange
           ? html`
-              <button aria-label=${this.getDayLabel(day)} disabled part=${parts.join(' ')}>
+              <button
+                aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
+                aria-describedby=${ifDefined(this.#getRangeDescription(parts))}
+                aria-label=${this.getDayLabel(day)}
+                aria-pressed=${selected.toString()}
+                disabled
+                part=${parts.join(' ')}>
                 <span>${day.date.getDate()}</span>
               </button>
             `
           : html`
               <button
+                @blur=${this.#clearRangePreview}
                 @click=${(event: Event & { target: HTMLElement }) => this.#onClick(event, day)}
+                @focus=${() => this.#previewRange(day)}
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
+                @pointerenter=${() => this.#previewRange(day)}
+                @pointerleave=${this.#clearRangePreview}
                 ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
+                aria-describedby=${ifDefined(this.#getRangeDescription(parts))}
                 aria-label=${this.getDayLabel(day)}
                 aria-pressed=${selected.toString()}
                 id=${day.date.toISOString()}
@@ -415,9 +454,76 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       day.outOfRange ? 'out-of-range' : '',
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
-      this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
+      this.selected && isSameDate(day.date, this.selected) ? 'selected' : '',
+      ...this.#getRangeParts(day.date)
     ].filter(part => part !== '');
   };
+
+  #getRangeParts(date: Date): string[] {
+    if (!this.rangeSelection) {
+      return [];
+    }
+
+    const activeRange =
+      this.rangeStart && this.hoveredDate
+        ? [this.rangeStart, this.hoveredDate]
+        : this.rangeStart
+          ? [this.rangeStart, this.rangeStart]
+          : this.range && this.range.length >= 2
+            ? this.range
+            : undefined;
+
+    if (!activeRange?.[0]) {
+      return [];
+    }
+
+    const first = activeRange[0],
+      second = activeRange[1] ?? first,
+      [start, end] = first.getTime() <= second.getTime() ? [first, second] : [second, first],
+      parts: string[] = [];
+
+    if (isSameDate(date, start)) {
+      parts.push('range-start');
+    }
+    if (isSameDate(date, end)) {
+      parts.push('range-end');
+    }
+    if (date > start && date < end) {
+      parts.push('in-range');
+    }
+    if (this.rangeStart && parts.length) {
+      parts.push('range-preview');
+    }
+
+    return parts;
+  }
+
+  #getRangeDescription(parts: string[]): string | undefined {
+    const descriptions = [];
+
+    if (!this.rangeStart && parts.includes('range-start')) {
+      descriptions.push('range-start-description');
+    }
+    if (!this.rangeStart && parts.includes('range-end')) {
+      descriptions.push('range-end-description');
+    }
+
+    return descriptions.length ? descriptions.join(' ') : undefined;
+  }
+
+  #previewRange(day: Day): void {
+    if (this.rangeStart && !this.readonly) {
+      this.hoveredDate = day.date;
+    }
+  }
+
+  #clearRangePreview(event: Event): void {
+    if (event.type === 'pointerleave' && this.renderRoot.activeElement === event.currentTarget) {
+      return;
+    }
+
+    this.hoveredDate = undefined;
+  }
 
   /** @internal */
   override focus(options?: FocusOptions): void;
@@ -443,9 +549,11 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (!button?.disabled) {
       const isAlreadySelected = this.selected && isSameDate(day.date, this.selected);
 
-      if (!isAlreadySelected) {
+      if (!isAlreadySelected || this.rangeSelection) {
         this.selectEvent.emit(day.date);
-        this.selected = day.date;
+        if (!this.rangeSelection) {
+          this.selected = day.date;
+        }
       }
     }
 
@@ -510,7 +618,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       event.stopPropagation();
 
       this.selectEvent.emit(day.date);
-      this.selected = day.date;
+      if (!this.rangeSelection) {
+        this.selected = day.date;
+      }
     }
   }
 

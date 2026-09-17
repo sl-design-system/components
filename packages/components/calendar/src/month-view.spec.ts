@@ -479,6 +479,72 @@ describe('sl-month-view', () => {
     });
   });
 
+  describe('date range', () => {
+    const getDayButton = (date: Date): HTMLButtonElement | null =>
+      el.renderRoot.querySelector(`td[data-date="${date.toISOString()}"] button`);
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
+      el.rangeSelection = true;
+      await el.updateComplete;
+    });
+
+    it('should render a range in chronological order', async () => {
+      el.range = [new Date(2023, 2, 22), new Date(2023, 2, 17)];
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.contains('range-start');
+      expect(getDayButton(new Date(2023, 2, 18)))
+        .to.have.attribute('part')
+        .that.contains('in-range');
+      expect(getDayButton(new Date(2023, 2, 22)))
+        .to.have.attribute('part')
+        .that.contains('range-end');
+    });
+
+    it('should preview the range when another date is hovered', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const end = getDayButton(new Date(2023, 2, 22))!;
+      await userEvent.hover(end);
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.contains('range-start');
+      expect(getDayButton(new Date(2023, 2, 17))).to.have.attribute('aria-pressed', 'true');
+      expect(getDayButton(new Date(2023, 2, 18)))
+        .to.have.attribute('part')
+        .that.contains('in-range');
+      expect(end).to.have.attribute('part').that.contains('range-end');
+      expect(end).to.have.attribute('part').that.contains('range-preview');
+      expect(end).to.have.attribute('aria-pressed', 'false');
+      expect(el.renderRoot.querySelectorAll('button[part~="range-preview"]')).to.have.lengthOf(6);
+    });
+
+    it('should add descriptions only to the completed range boundaries', async () => {
+      el.range = [new Date(2023, 2, 17), new Date(2023, 2, 22)];
+      await el.updateComplete;
+
+      const start = getDayButton(new Date(2023, 2, 17)),
+        middle = getDayButton(new Date(2023, 2, 18)),
+        end = getDayButton(new Date(2023, 2, 22));
+
+      expect(start).to.have.attribute('aria-describedby', 'range-start-description');
+      expect(middle).not.to.have.attribute('aria-describedby');
+      expect(end).to.have.attribute('aria-describedby', 'range-end-description');
+      expect(el.renderRoot.querySelector('#range-start-description')).to.have.trimmed.text(
+        'Start of range'
+      );
+      expect(el.renderRoot.querySelector('#range-end-description')).to.have.trimmed.text(
+        'End of range'
+      );
+    });
+  });
+
   describe('indicator dates', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-month-view></sl-month-view>`);

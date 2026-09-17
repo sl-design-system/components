@@ -137,5 +137,9 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Voer een geldige tijd in.',
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden'
+  'sl.tree.loadingMessage': 'Laden',
+  'sl.calendar.rangeStart': 'Start of range',
+  'sl.calendar.rangeEnd': 'End of range',
+  'sl.calendar.rangeStartSelected': str`${0} selected. Select second date.`,
+  'sl.calendar.rangeSelected': str`You selected range from ${0} to ${1}.`
 };

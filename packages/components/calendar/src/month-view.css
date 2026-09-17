@@ -23,6 +23,16 @@ table {
   border-collapse: collapse;
 }
 
+.visually-hidden {
+  block-size: 1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  inline-size: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+}
+
 td,
 th {
   padding: var(--sl-size-010);
@@ -81,6 +91,13 @@ button {
   font: inherit;
   outline: none;
   padding: var(--sl-size-050);
+  position: relative;
+
+  &::before {
+    content: '';
+    inset-block: var(--sl-size-050);
+    position: absolute;
+  }
 
   &:disabled {
     cursor: default;
@@ -112,6 +129,8 @@ button {
     outline: transparent solid var(--sl-size-borderWidth-focusRing);
     outline-offset: var(--sl-size-outlineOffset-default);
     place-items: center;
+    position: relative;
+    z-index: 1;
 
     @media (prefers-reduced-motion: no-preference) {
       transition: 0.2s ease-in-out;
@@ -130,6 +149,36 @@ button {
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
 
   color: var(--sl-color-foreground-selected-onBold);
+}
+
+[part~='range-start'],
+[part~='range-end'] {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+
+  color: var(--sl-color-foreground-selected-onBold);
+}
+
+[part~='range-start']::before,
+[part~='range-end']::before,
+[part~='in-range']::before {
+  background: var(--sl-color-background-selected-subtle);
+}
+
+[part~='range-start']::before {
+  inset-inline: 50% calc(-1 * var(--sl-size-010));
+}
+
+[part~='range-end']::before {
+  inset-inline: calc(-1 * var(--sl-size-010)) 50%;
+}
+
+[part~='in-range']::before {
+  inset-inline: calc(-1 * var(--sl-size-010));
+}
+
+[part~='range-start'][part~='range-end']::before {
+  content: none;
 }
 
 [part~='disabled'],

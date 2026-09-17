@@ -1,5 +1,20 @@
 # @sl-design-system/select
 
+## 2.4.2
+
+### Patch Changes
+
+- [#3660](https://github.com/sl-design-system/components/pull/3660) [`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706) - Fix `sl-select` blur behavior:
+
+  - Emit `sl-blur` when clicking outside, including non-focusable content.
+  - Prevent duplicate `sl-blur` events in the same focus session.
+  - Keep clear-button blur behavior consistent when focus leaves the field.
+
+  Also update select focus-ring behavior to use keyboard-visible focus (`:focus-visible`).
+
+- Updated dependencies [[`b6c9da6`](https://github.com/sl-design-system/components/commit/b6c9da6d9e940ffcb0757ba272671640a29a2706)]:
+  - @sl-design-system/form@1.6.0
+
 ## 2.4.1
 
 ### Patch Changes

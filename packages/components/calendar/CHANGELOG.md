@@ -1,5 +1,11 @@
 # @sl-design-system/calendar
 
+## 0.1.3
+
+### Patch Changes
+
+- [#3718](https://github.com/sl-design-system/components/pull/3718) [`2f66df5`](https://github.com/sl-design-system/components/commit/2f66df5d450242a8182477939a849a848f5e4beb) - Improved calendar accessibility: when `<sl-month-view>` has `aria-hidden="true"`, its internal `<table>` now also gets `aria-hidden="true"`.
+
 ## 0.1.2
 
 ### Patch Changes

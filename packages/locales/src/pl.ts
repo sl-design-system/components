@@ -21,8 +21,12 @@ export const templates = {
   'sl.calendar.previousYear': str`Poprzedni rok, ${0}`,
   'sl.calendar.previousYears': 'Poprzednie 12 lat',
   'sl.calendar.rangeBetween': str`Między ${0} a ${1}`,
+  'sl.calendar.rangeEnd': 'Koniec zakresu',
   'sl.calendar.rangeNoEarlierThan': str`Nie wcześniej niż ${0}`,
   'sl.calendar.rangeNoLaterThan': str`Nie później niż ${0}`,
+  'sl.calendar.rangeSelected': str`Wybrano zakres od ${0} do ${1}.`,
+  'sl.calendar.rangeStart': 'Początek zakresu',
+  'sl.calendar.rangeStartSelected': str`Wybrano ${0}. Wybierz drugą datę.`,
   'sl.calendar.week': 'Tydzień',
   'sl.calendar.yearsLabel': str`Lata od ${0} do ${1}`,
   'sl.checkbox.validation.valueMissing': 'Zaznacz to pole.',
@@ -137,9 +141,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Wprowadź prawidłową godzinę.',
   'sl.timeField.valueMissing': 'Wprowadź godzinę.',
   'sl.toolBar.showMore': 'Pokaż więcej',
-  'sl.tree.loadingMessage': 'Ładowanie',
-  'sl.calendar.rangeStart': 'Start of range',
-  'sl.calendar.rangeEnd': 'End of range',
-  'sl.calendar.rangeStartSelected': str`${0} selected. Select second date.`,
-  'sl.calendar.rangeSelected': str`You selected range from ${0} to ${1}.`
+  'sl.tree.loadingMessage': 'Ładowanie'
 };

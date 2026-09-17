@@ -21,8 +21,12 @@ export const templates = {
   'sl.calendar.previousYear': str`Vorig jaar, ${0}`,
   'sl.calendar.previousYears': 'Ga 12 jaar terug',
   'sl.calendar.rangeBetween': str`Tussen ${0} en ${1}`,
+  'sl.calendar.rangeEnd': 'Einde van bereik',
   'sl.calendar.rangeNoEarlierThan': str`Niet eerder dan ${0}`,
   'sl.calendar.rangeNoLaterThan': str`Uiterlijk ${0}`,
+  'sl.calendar.rangeSelected': str`Je hebt een bereik geselecteerd van ${0} tot ${1}.`,
+  'sl.calendar.rangeStart': 'Begin van bereik',
+  'sl.calendar.rangeStartSelected': str`${0} geselecteerd. Selecteer een tweede datum.`,
   'sl.calendar.week': 'Week',
   'sl.calendar.yearsLabel': str`Jaren van ${0} tot ${1}`,
   'sl.checkbox.validation.valueMissing': 'Vink dit vakje aan.',
@@ -137,9 +141,5 @@ export const templates = {
   'sl.timeField.typeMismatch': 'Voer een geldige tijd in.',
   'sl.timeField.valueMissing': 'Voer een tijd in.',
   'sl.toolBar.showMore': 'Meer tonen',
-  'sl.tree.loadingMessage': 'Laden',
-  'sl.calendar.rangeStart': 'Start of range',
-  'sl.calendar.rangeEnd': 'End of range',
-  'sl.calendar.rangeStartSelected': str`${0} selected. Select second date.`,
-  'sl.calendar.rangeSelected': str`You selected range from ${0} to ${1}.`
+  'sl.tree.loadingMessage': 'Laden'
 };

@@ -245,6 +245,13 @@ describe('sl-calendar', () => {
       expect(el.range).to.be.undefined;
     });
 
+    it('should show the start month when the range is updated', async () => {
+      el.range = [new Date(2024, 5, 22), new Date(2024, 5, 17)];
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2024, 5, 17));
+    });
+
     it('should wait for a second date before changing the range', async () => {
       let callCount = 0;
       el.addEventListener('sl-change', () => callCount++);

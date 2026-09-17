@@ -87,8 +87,8 @@ export class DateField extends LocaleMixin(
     click: this.#onClick
   });
 
-  /** Tracks calendar mode transitions while the dialog is open. */
-  #calendarMode: 'day' | 'month' | 'year' = 'day';
+  /** Tracks calendar view transitions while the dialog is open. */
+  #calendarView: 'day' | 'month' | 'year' = 'day';
 
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
@@ -630,7 +630,7 @@ export class DateField extends LocaleMixin(
         this.requestUpdate();
       }
 
-      this.#calendarMode = this.#getCalendarMode();
+      this.#calendarView = this.#getCalendarView();
 
       requestAnimationFrame(() => {
         if (this.dialog?.open) {
@@ -947,7 +947,7 @@ export class DateField extends LocaleMixin(
   }
 
   #onClose(): void {
-    this.#calendarMode = 'day';
+    this.#calendarView = 'day';
 
     // Wait until all dialog animations have resolved before hiding the calendar
     // to prevent it being removed from the DOM too early.
@@ -1096,10 +1096,10 @@ export class DateField extends LocaleMixin(
     focusTarget.button.focus();
   }
 
-  #getCalendarMode(): 'day' | 'month' | 'year' {
-    const mode = (this.calendar as Calendar | undefined)?.mode;
+  #getCalendarView(): 'day' | 'month' | 'year' {
+    const view = (this.calendar as Calendar | undefined)?.view;
 
-    return mode === 'month' || mode === 'year' ? mode : 'day';
+    return view === 'month' || view === 'year' ? view : 'day';
   }
 
   /** Returns the formatted date string for the select-all input. */
@@ -1205,10 +1205,10 @@ export class DateField extends LocaleMixin(
       return;
     }
 
-    const mode = this.#getCalendarMode(),
-      shouldRestoreDayFocus = this.#calendarMode !== 'day' && mode === 'day';
+    const view = this.#getCalendarView(),
+      shouldRestoreDayFocus = this.#calendarView !== 'day' && view === 'day';
 
-    this.#calendarMode = mode;
+    this.#calendarView = view;
 
     if (!shouldRestoreDayFocus) {
       return;

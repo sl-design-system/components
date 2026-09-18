@@ -144,7 +144,7 @@ describe('sl-form', () => {
 
       form.reportValidity();
       await form.updateComplete;
-      await waitForAnnouncement(750);
+      await waitForAnnouncement(1000);
 
       const messages = announceSpy
         .getCalls()

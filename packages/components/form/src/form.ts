@@ -29,7 +29,7 @@ export type SlResetEvent = CustomEvent<void> & { target: Form };
 export type SlSubmitEvent = CustomEvent<void> & { target: Form };
 
 const announceErrorsConverter = {
-  fromAttribute: (value: string | null): boolean => value !== 'false'
+  fromAttribute: (value: string | null): boolean => value !== null && value !== 'false'
 };
 
 /**

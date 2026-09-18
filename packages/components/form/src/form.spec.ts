@@ -17,7 +17,8 @@ import { Form } from './form.js';
 import { type Label } from './label.js';
 import './register.js';
 
-const waitForAnnouncement = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 250));
+const waitForAnnouncement = (delay = 250): Promise<void> =>
+  new Promise(resolve => setTimeout(resolve, delay));
 
 describe('sl-form', () => {
   let el: Form;
@@ -143,7 +144,7 @@ describe('sl-form', () => {
 
       form.reportValidity();
       await form.updateComplete;
-      await waitForAnnouncement();
+      await waitForAnnouncement(750);
 
       const messages = announceSpy
         .getCalls()

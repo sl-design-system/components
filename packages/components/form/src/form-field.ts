@@ -64,6 +64,16 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Queued delayed validation announcements shared across all fields. */
+  static #announcementQueue: Array<{
+    control: HTMLElement & FormControl;
+    error: string;
+    field: FormField;
+  }> = [];
+
+  /** Whether the shared announcement queue is currently being processed. */
+  static #announcementQueueRunning = false;
+
   /** Whether a custom error has been slotted. */
   #customError?: boolean;
 
@@ -362,6 +372,11 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     controls.forEach(control => this.#clearAnnouncementTimeout(control));
   }
 
+  #enqueueAnnouncement(control: HTMLElement & FormControl, error: string): void {
+    FormField.#announcementQueue.push({ field: this, control, error });
+    void FormField.#processAnnouncementQueue();
+  }
+
   #getGeneratedError(control: HTMLElement & FormControl): Error | undefined {
     return control.id ? this.#errors[control.id] : undefined;
   }
@@ -465,7 +480,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.#controlAnnouncementTimeouts.delete(control);
 
         if (this.isConnected && this.announceErrors && this.errors[control.id] === nextError) {
-          announce(this.#getValidationAnnouncement(control, nextError), 'polite', true);
+          this.#enqueueAnnouncement(control, nextError);
         }
       }, 250);
 
@@ -530,5 +545,29 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     const normalized = value?.replace(/\s+/g, ' ').trim();
 
     return normalized ? normalized : undefined;
+  }
+
+  static async #processAnnouncementQueue(): Promise<void> {
+    if (this.#announcementQueueRunning) {
+      return;
+    }
+
+    this.#announcementQueueRunning = true;
+
+    let hasAnnounced = false;
+    while (this.#announcementQueue.length) {
+      const { control, error, field } = this.#announcementQueue.shift()!;
+
+      if (hasAnnounced) {
+        await new Promise(resolve => setTimeout(resolve, 250));
+      }
+
+      if (field.isConnected && field.announceErrors && field.errors[control.id] === error) {
+        announce(field.#getValidationAnnouncement(control, error), 'polite', true);
+        hasAnnounced = true;
+      }
+    }
+
+    this.#announcementQueueRunning = false;
   }
 }

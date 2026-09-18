@@ -123,6 +123,15 @@ describe('sl-form-field', () => {
       await waitForAnnouncement();
     });
 
+    it('should keep generated errors accessible when announceErrors is false', async () => {
+      el.announceErrors = false;
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+      expect(el.querySelector('sl-error')).not.to.have.attribute('aria-hidden');
+    });
+
     it('should announce the validation message when invalid state is shown', async () => {
       const announceSpy = listenForAnnouncements();
 

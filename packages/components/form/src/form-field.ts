@@ -164,8 +164,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         const error = (this.#errors[id] ??= this.shadowRoot!.createElement('sl-error'));
         error.for = id;
         error.innerText = message;
-        // Hide from screen readers since the error message is announced via live region
-        error.setAttribute('aria-hidden', 'true');
 
         if (!error.parentElement) {
           this.prepend(error);
@@ -243,9 +241,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     errors.forEach(error => {
       // Make sure every error has a unique ID
       error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-      // Hide from screen readers since the error message is announced via live region
-      error.setAttribute('aria-hidden', 'true');
-      // Don't add error to aria-describedby - only the announcer should announce it
     });
 
     // Trigger a re-render now that we've potentially added or removed the error message.

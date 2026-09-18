@@ -93,7 +93,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The current month. */
   #month = new Date();
 
-  /** The date currently previewed while composing a range. */
+  /** The focused date currently previewed while composing a range. */
+  @state() focusedDate?: Date;
+
+  /** The hovered date currently previewed while composing a range. */
   @state() hoveredDate?: Date;
 
   /** Manage focus group for day buttons. */
@@ -408,12 +411,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             `
           : html`
               <button
-                @blur=${this.#clearRangePreview}
+                @blur=${this.#clearFocusedRangePreview}
                 @click=${(event: Event & { target: HTMLElement }) => this.#onClick(event, day)}
-                @focus=${() => this.#previewRange(day)}
+                @focus=${() => this.#setFocusedRangePreview(day)}
                 @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
-                @pointerenter=${() => this.#previewRange(day)}
-                @pointerleave=${this.#clearRangePreview}
+                @pointerenter=${() => this.#setHoveredRangePreview(day)}
+                @pointerleave=${this.#clearHoveredRangePreview}
                 ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
                 aria-describedby=${ifDefined(this.#getRangeDescription(parts))}
@@ -464,14 +467,15 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       return [];
     }
 
-    const activeRange =
-      this.rangeStart && this.hoveredDate
-        ? [this.rangeStart, this.hoveredDate]
-        : this.rangeStart
-          ? [this.rangeStart, this.rangeStart]
-          : this.range && this.range.length >= 2
-            ? this.range
-            : undefined;
+    const previewDate = this.hoveredDate ?? this.focusedDate,
+      activeRange =
+        this.rangeStart && previewDate
+          ? [this.rangeStart, previewDate]
+          : this.rangeStart
+            ? [this.rangeStart, this.rangeStart]
+            : this.range && this.range.length >= 2
+              ? this.range
+              : undefined;
 
     if (!activeRange?.[0]) {
       return [];
@@ -488,7 +492,7 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (isSameDate(date, end)) {
       parts.push('range-end');
     }
-    if (date > start && date < end) {
+    if (!isSameDate(date, start) && !isSameDate(date, end) && date > start && date < end) {
       parts.push('in-range');
     }
     if (this.rangeStart && parts.length) {
@@ -511,17 +515,23 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return descriptions.length ? descriptions.join(' ') : undefined;
   }
 
-  #previewRange(day: Day): void {
+  #setFocusedRangePreview(day: Day): void {
+    if (this.rangeStart && !this.readonly) {
+      this.focusedDate = day.date;
+    }
+  }
+
+  #setHoveredRangePreview(day: Day): void {
     if (this.rangeStart && !this.readonly) {
       this.hoveredDate = day.date;
     }
   }
 
-  #clearRangePreview(event: Event): void {
-    if (event.type === 'pointerleave' && this.renderRoot.activeElement === event.currentTarget) {
-      return;
-    }
+  #clearFocusedRangePreview(): void {
+    this.focusedDate = undefined;
+  }
 
+  #clearHoveredRangePreview(): void {
     this.hoveredDate = undefined;
   }
 

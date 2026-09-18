@@ -73,6 +73,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   #previousView: 'day' | 'month' | 'year' = 'day';
 
+  /** Whether the current range update was caused by the user completing a selection. */
+  #rangeChangedInternally = false;
+
   /** The first date selected while composing a range. */
   @state() rangeStart?: Date;
 
@@ -145,12 +148,19 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       // If only the `selected` property is set, make sure the `month` property is set
       // to the same date, so the selected day is visible in the calendar.
       this.month = this.selected;
-    } else if (changes.has('range') && this.range?.length && this.mode === 'range') {
+    } else if (
+      changes.has('range') &&
+      this.range?.length &&
+      this.mode === 'range' &&
+      !this.#rangeChangedInternally
+    ) {
       this.month = this.#normalizeRange(this.range)[0];
     } else {
       // Otherwise default to the current month.
       this.month ??= new Date();
     }
+
+    this.#rangeChangedInternally = false;
   }
 
   override render(): TemplateResult {
@@ -424,7 +434,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
 
     const range = this.#normalizeRange([this.rangeStart, date]);
+    this.#rangeChangedInternally = true;
     this.range = range;
+    this.month = new Date(date);
     this.rangeStart = undefined;
     this.changeEvent.emit(range);
     announce(

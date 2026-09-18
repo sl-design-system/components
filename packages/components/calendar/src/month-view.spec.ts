@@ -504,6 +504,20 @@ describe('sl-month-view', () => {
         .that.contains('range-end');
     });
 
+    it('should not mark range boundaries with a time component as in-range', async () => {
+      const start = new Date(2023, 2, 17, 12),
+        end = new Date(2023, 2, 22, 12);
+      el.range = [start, end];
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.does.not.contain('in-range');
+      expect(getDayButton(new Date(2023, 2, 22)))
+        .to.have.attribute('part')
+        .that.does.not.contain('in-range');
+    });
+
     it('should preview the range when another date is hovered', async () => {
       el.rangeStart = new Date(2023, 2, 17);
       await el.updateComplete;
@@ -523,6 +537,28 @@ describe('sl-month-view', () => {
       expect(end).to.have.attribute('part').that.contains('range-preview');
       expect(end).to.have.attribute('aria-pressed', 'false');
       expect(el.renderRoot.querySelectorAll('button[part~="range-preview"]')).to.have.lengthOf(6);
+    });
+
+    it('should restore the focused preview after a pointer preview ends', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const focusedEnd = getDayButton(new Date(2023, 2, 20))!,
+        hoveredEnd = getDayButton(new Date(2023, 2, 22))!;
+
+      focusedEnd.focus();
+      await el.updateComplete;
+      await userEvent.hover(hoveredEnd);
+      await el.updateComplete;
+
+      expect(hoveredEnd).to.have.attribute('part').that.contains('range-end');
+
+      await userEvent.unhover(hoveredEnd);
+      await el.updateComplete;
+
+      expect(focusedEnd).to.have.attribute('part').that.contains('range-end');
+      expect(focusedEnd).to.have.attribute('part').that.contains('range-preview');
+      expect(hoveredEnd).to.have.attribute('part').that.does.not.contain('range-preview');
     });
 
     it('should add descriptions only to the completed range boundaries', async () => {

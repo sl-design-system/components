@@ -283,6 +283,29 @@ describe('sl-calendar', () => {
       expect(el.rangeStart).to.be.undefined;
     });
 
+    it('should remain on the month containing the second selected date', async () => {
+      const start = new Date(2023, 2, 31),
+        end = new Date(2023, 3, 2);
+
+      getDayButton(start)?.click();
+      await el.updateComplete;
+      getDayButton(end)?.click();
+      await el.updateComplete;
+      await selectDay.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      expect(el.month).to.equalDate(end);
+      expect(selectDay.month.getFullYear()).to.equal(end.getFullYear());
+      expect(selectDay.month.getMonth()).to.equal(end.getMonth());
+
+      const activeButton = selectDay.renderRoot.querySelector<MonthView>(
+          'sl-month-view:not([inert])'
+        )?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeCell = activeButton?.closest<HTMLElement>('td[data-date]');
+
+      expect(activeCell?.dataset.date).to.equal(end.toISOString());
+    });
+
     it('should announce both steps of the range selection', async () => {
       const messages: string[] = [],
         onAnnounce = (event: Event) =>

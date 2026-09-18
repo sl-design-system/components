@@ -155,6 +155,49 @@ describe('sl-form-field', () => {
       expect(announceSpy).to.have.been.calledOnce;
     });
 
+    it('should not announce a validation message that is resolved before the delay expires', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>(),
+        textField = el.querySelector('sl-text-field');
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      textField?.reportValidity();
+      await el.updateComplete;
+
+      textField?.focus();
+      await userEvent.keyboard('Valid input');
+      await el.updateComplete;
+      await waitForAnnouncement();
+
+      expect(announceSpy).not.to.have.been.called;
+    });
+
+    it('should not announce a validation message when announcements are disabled before the delay expires', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>();
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      el.announceErrors = false;
+      await el.updateComplete;
+      await waitForAnnouncement();
+
+      expect(announceSpy).not.to.have.been.called;
+    });
+
+    it('should not announce a validation message after the field disconnects before the delay expires', async () => {
+      const announceSpy = spy<(event: SlAnnounceEvent) => void>();
+
+      document.body.addEventListener('sl-announce', announceSpy);
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      el.remove();
+      await waitForAnnouncement();
+
+      expect(announceSpy).not.to.have.been.called;
+    });
+
     it('should not show validation after calling setCustomValidity', async () => {
       el.querySelector('sl-text-field')?.setCustomValidity('Custom error');
       await el.updateComplete;

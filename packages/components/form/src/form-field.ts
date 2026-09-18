@@ -67,6 +67,12 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** Whether a custom error has been slotted. */
   #customError?: boolean;
 
+  /** Pending delayed validation announcements per control. */
+  #controlAnnouncementTimeouts = new Map<
+    HTMLElement & FormControl,
+    ReturnType<typeof setTimeout>
+  >();
+
   /** Focus listeners per form control, used to restore descriptions when controls are focused. */
   #controlFocusListeners = new Map<HTMLElement & FormControl, EventListener>();
 
@@ -132,6 +138,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#unregister?.();
     this.#unregister = undefined;
+    this.#clearAnnouncementTimeouts();
     this.#removeControlFocusListeners();
 
     super.disconnectedCallback();
@@ -342,6 +349,19 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     this.#controlFocusListeners.set(control, onControlFocus);
   }
 
+  #clearAnnouncementTimeout(control: HTMLElement & FormControl): void {
+    const timeout = this.#controlAnnouncementTimeouts.get(control);
+
+    if (timeout !== undefined) {
+      clearTimeout(timeout);
+      this.#controlAnnouncementTimeouts.delete(control);
+    }
+  }
+
+  #clearAnnouncementTimeouts(controls = [...this.#controlAnnouncementTimeouts.keys()]): void {
+    controls.forEach(control => this.#clearAnnouncementTimeout(control));
+  }
+
   #getGeneratedError(control: HTMLElement & FormControl): Error | undefined {
     return control.id ? this.#errors[control.id] : undefined;
   }
@@ -386,6 +406,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
     this.#controlFocusListeners.forEach((_, control) => {
       if (!nextControls.has(control)) {
+        this.#clearAnnouncementTimeout(control);
         this.#removeControlFocusListener(control);
       }
     });
@@ -433,15 +454,22 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         event.detail.showValidity === 'invalid' ? event.detail.validationMessage : undefined;
 
     if (nextError !== previousError) {
+      this.#clearAnnouncementTimeout(control);
       this.#updateDescriptionsAfterValidityChange(control, nextError);
     }
 
     if (this.announceErrors && nextError && nextError !== previousError) {
       // Add a 250ms delay before announcing to ensure focus has moved away from the invalid field
       // This improves compatibility with screen readers like VoiceOver and NVDA
-      setTimeout(() => {
-        announce(this.#getValidationAnnouncement(control, nextError), 'polite', true);
+      const timeout = setTimeout(() => {
+        this.#controlAnnouncementTimeouts.delete(control);
+
+        if (this.isConnected && this.announceErrors && this.errors[control.id] === nextError) {
+          announce(this.#getValidationAnnouncement(control, nextError), 'polite', true);
+        }
       }, 250);
+
+      this.#controlAnnouncementTimeouts.set(control, timeout);
     }
 
     // Since we can have multiple form controls slotted, we need to

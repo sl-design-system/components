@@ -1,0 +1,37 @@
+name: Figma Code Connect
+
+on:
+  pull_request:
+    branches: ['main']
+    types: [opened, synchronize, reopened]
+
+  workflow_dispatch:
+
+env:
+  FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+  HUSKY: 0
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'yarn'
+
+      - run: yarn install --immutable
+
+      - name: Run Code Connect preview
+        working-directory: scripts/connect-figma-components
+        run: yarn connect:test:report
+
+      - name: Upload Code Connect report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: figma-code-connect-report
+          path: scripts/connect-figma-components/figma-connect-report.md
+          if-no-files-found: warn

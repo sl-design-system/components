@@ -1,13 +1,40 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { spawn } from 'node:child_process';
+import { validateMappingNames } from './validate-mapping-names.mjs';
 import { validateSnippet } from './validate-snippet.mjs';
 
 const inputArgs = process.argv.slice(2),
   showAll = inputArgs.includes('--all'),
-  args = inputArgs.filter(argument => argument !== '--all'),
+  reportPath = getReportPath(inputArgs),
+  args = stripWrapperArgs(inputArgs),
   hyperlink = (label, url) => `\x1b]8;;${url}\x07${label}\x1b]8;;\x07`,
   batchCases = new Map();
+
+function getReportPath(args) {
+  const reportArg = args.find(argument => argument.startsWith('--report='));
+  if (reportArg) return reportArg.slice('--report='.length);
+
+  const reportIndex = args.indexOf('--report');
+  return reportIndex === -1 ? undefined : args[reportIndex + 1];
+}
+
+function stripWrapperArgs(args) {
+  const stripped = [];
+
+  for (let index = 0; index < args.length; index += 1) {
+    const argument = args[index];
+    if (argument === '--all' || argument.startsWith('--report=')) continue;
+    if (argument === '--report') {
+      index += 1;
+      continue;
+    }
+
+    stripped.push(argument);
+  }
+
+  return stripped;
+}
 
 function loadBatchManifest(filePath) {
   try {
@@ -58,9 +85,75 @@ function previewWarnings(result) {
     .filter(Boolean);
 }
 
+function mappingNameWarnings(result, batchCase) {
+  const filePath = batchCase?.templateFile
+    ? join(dirname(result.filePath), batchCase.templateFile)
+    : result.filePath;
+
+  return validateMappingNames(filePath);
+}
+
 // Only successful mappings produce a snippet to check against the real component API.
 function codeIssues(result) {
   return result.success ? validateSnippet(result.snippet ?? '') : [];
+}
+
+function markdownEscape(text) {
+  return String(text).replaceAll('|', '\\|').replaceAll('\n', '<br>');
+}
+
+function markdownList(label, items) {
+  if (!items || items.length === 0) return [];
+
+  return items
+    .filter(item => (item || '').trim() !== '')
+    .map(item => `${label} ${markdownEscape(item)}`);
+}
+
+function writeReport(filePath, annotated, displayedResults, failures) {
+  const warnings = annotated.filter(({ warnings }) => warnings.length > 0),
+    invalidCode = annotated.filter(({ invalidCode }) => invalidCode.length > 0),
+    rows = displayedResults.map(({ batchCase, result, warnings, invalidCode }) => {
+      const name = componentName(result, batchCase),
+        status = result.success && invalidCode.length === 0 ? 'PASS' : 'FAIL',
+        template = batchCase?.templateFile,
+        errors = result.success
+          ? []
+          : [
+              result.error === 'Failed to render snippet' && batchCase
+                ? 'Figma failed to render this batch case'
+                : result.error
+            ],
+        notices = [
+          ...markdownList('⛔️', errors),
+          ...markdownList('⚠️', warnings),
+          ...markdownList('🖥️', invalidCode)
+        ].join('<br>');
+
+      return `| ${status === 'PASS' ? '🟢' : '🔴'} | [${markdownEscape(name)}](${result.url}) | ${template ? markdownEscape(template) : markdownEscape(result.filePath)} | ${notices} |`;
+    });
+
+  const report = [
+    '# Figma Code Connect Preview Report',
+    '',
+    `Generated: ${new Date().toISOString()}`,
+    '',
+    '## Summary',
+    '',
+    `- Mappings checked: ${annotated.length}`,
+    `- Issues: ${failures.length}`,
+    `- Mappings with warnings: ${warnings.length}`,
+    `- Mappings with invalid design system code: ${invalidCode.length}`,
+    '',
+    '## Results',
+    '',
+    '| | Component | File | Notice |',
+    '| --- | --- | --- | --- |',
+    ...(rows.length > 0 ? rows : ['| PASS | No mapping issues found |  |  |']),
+    ''
+  ].join('\n');
+
+  writeFileSync(resolve(process.cwd(), filePath), report);
 }
 
 if (!args.includes('--output')) {
@@ -85,11 +178,16 @@ child.on('close', code => {
     process.exit(code ?? 1);
   }
 
-  const annotated = results.map(result => ({
-      result,
-      warnings: previewWarnings(result),
-      invalidCode: codeIssues(result)
-    })),
+  const annotated = results.map(result => {
+      const batchCase = getBatchCase(result);
+
+      return {
+        batchCase,
+        result,
+        warnings: [...previewWarnings(result), ...mappingNameWarnings(result, batchCase)],
+        invalidCode: codeIssues(result)
+      };
+    }),
     failures = annotated.filter(
       ({ result, invalidCode }) => !result.success || invalidCode.length > 0
     ),
@@ -104,9 +202,13 @@ child.on('close', code => {
     console.log('No mapping issues found.');
   }
 
-  for (const { result, warnings, invalidCode } of displayedResults) {
-    const batchCase = getBatchCase(result),
-      name = hyperlink(componentName(result, batchCase), result.url),
+  if (reportPath) {
+    writeReport(reportPath, annotated, displayedResults, failures);
+    console.log(`Markdown report written to ${reportPath}`);
+  }
+
+  for (const { batchCase, result, warnings, invalidCode } of displayedResults) {
+    const name = hyperlink(componentName(result, batchCase), result.url),
       template = batchCase?.templateFile;
     const status =
         result.success && invalidCode.length === 0 ? '\x1b[32m✓\x1b[0m' : '\x1b[31m✕\x1b[0m',
@@ -140,5 +242,5 @@ child.on('close', code => {
   }
 
   console.log(`\n${failures.length} issue(s) found out of ${results.length} mapping(s).`);
-  process.exit(code ?? (failures.length > 0 ? 1 : 0));
+  process.exit(failures.length > 0 ? 1 : (code ?? 0));
 });

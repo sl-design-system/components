@@ -554,20 +554,20 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
     this.#announcementQueueRunning = true;
 
-    let hasAnnounced = false;
-    while (this.#announcementQueue.length) {
-      const { control, error, field } = this.#announcementQueue.shift()!;
+    try {
+      while (this.#announcementQueue.length) {
+        const { control, error, field } = this.#announcementQueue.shift()!;
 
-      if (hasAnnounced) {
-        await new Promise(resolve => setTimeout(resolve, 250));
-      }
+        if (field.isConnected && field.announceErrors && field.errors[control.id] === error) {
+          announce(field.#getValidationAnnouncement(control, error), 'polite', true);
 
-      if (field.isConnected && field.announceErrors && field.errors[control.id] === error) {
-        announce(field.#getValidationAnnouncement(control, error), 'polite', true);
-        hasAnnounced = true;
+          // Keep the processor alive for a cooldown so fields that become invalid together
+          // are announced sequentially instead of back-to-back.
+          await new Promise(resolve => setTimeout(resolve, 250));
+        }
       }
+    } finally {
+      this.#announcementQueueRunning = false;
     }
-
-    this.#announcementQueueRunning = false;
   }
 }

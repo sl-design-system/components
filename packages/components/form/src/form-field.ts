@@ -2,6 +2,7 @@ import {
   type ScopedElementsMap,
   ScopedElementsMixin
 } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import {
   type CSSResultGroup,
@@ -105,6 +106,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The text for the label. You can also slot an `<sl-label>` element. */
   @property() label?: string;
 
+  /** @internal Whether validation messages are announced via the live-region announcer. */
+  @property({ attribute: false }) announceErrors = true;
+
   /** How to mark this field depending if it is required or not. */
   @property() mark?: LabelMark;
 
@@ -151,9 +155,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       Object.entries(this.#errors)
         .filter(([id]) => !errors.find(([errorId]) => errorId === id))
         .forEach(([id, error]) => {
-          const control = this.querySelector<HTMLElement & FormControl>(`#${id}`);
-          this.#updateAriaDescribedBy({ remove: error.id, control });
-
           error.remove();
           delete this.#errors[id];
         });
@@ -178,11 +179,24 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         if (!this.#hint.parentElement) {
           this.prepend(this.#hint);
         }
+        // Add to aria-describedby for programmatic hints
+        this.#updateAriaDescribedBy({ add: this.#hint?.id });
       } else {
         this.#updateAriaDescribedBy({ remove: this.#hint?.id });
 
         this.#hint?.remove();
         this.#hint = undefined;
+      }
+    }
+
+    if (changes.has('errors') && this.#hint) {
+      const hasErrors = Object.values(this.errors).some(Boolean);
+      // Sync hint visibility based on error state
+      // (This ensures consistency if errors change from other sources)
+      if (hasErrors) {
+        this.#updateAriaDescribedBy({ remove: this.#hint?.id });
+      } else {
+        this.#updateAriaDescribedBy({ add: this.#hint?.id });
       }
     }
 
@@ -227,13 +241,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     errors.forEach(error => {
       // Make sure every error has a unique ID
       error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-
-      const control = error.for
-        ? this.querySelector<HTMLElement & FormControl>(`#${error.for}`)
-        : this.control;
-      if (control) {
-        this.#updateAriaDescribedBy({ add: error.id, control });
-      }
     });
 
     // Trigger a re-render now that we've potentially added or removed the error message.
@@ -301,8 +308,12 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.error = this.control.getLocalizedValidationMessage();
       }
 
+      // Always add hint to aria-describedby so it's read when focusing the field
       this.#updateAriaDescribedBy({ add: this.#hint?.id });
       this.#updateAriaDescribedBy({ add: this.#infotip?.contentId });
+
+      // Add focus listener to restore hint when focusing an invalid field
+      this.control.formControlElement.addEventListener('focus', () => this.#onControlFocus());
 
       if (this.#label) {
         this.#label.for = this.control.id;
@@ -314,6 +325,24 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       if (this.#label) {
         this.#label.for = this.#label.mark = undefined;
       }
+    }
+  }
+
+  #onControlFocus(): void {
+    // When the field is focused, restore the hint and error to aria-describedby
+    // This ensures the complete context is read when navigating to the field, even if there are errors
+    if (this.#hint) {
+      this.#updateAriaDescribedBy({ add: this.#hint.id });
+    }
+
+    // Add error to aria-describedby when focusing so it's read along with the hint and label
+    const hasErrors = Object.values(this.errors).some(Boolean);
+    if (hasErrors) {
+      Object.values(this.#errors).forEach(error => {
+        if (error.id) {
+          this.#updateAriaDescribedBy({ add: error.id });
+        }
+      });
     }
   }
 
@@ -359,11 +388,59 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    const previousError = this.errors[event.target.id],
+      nextError =
+        event.detail.showValidity === 'invalid' ? event.detail.validationMessage : undefined;
+
+    // Manage hint and error visibility based on validation state
+    if (this.#hint) {
+      if (nextError && nextError !== previousError) {
+        // Error occurred: remove hint from aria-describedby to prevent screen reader from reading it during blur
+        this.#updateAriaDescribedBy({ remove: this.#hint.id });
+      } else if (!nextError && previousError) {
+        // Error cleared: add hint back to aria-describedby
+        this.#updateAriaDescribedBy({ add: this.#hint.id });
+      }
+    }
+
+    // Remove error from aria-describedby when error is cleared
+    if (!nextError && previousError) {
+      Object.values(this.#errors).forEach(error => {
+        if (error.id) {
+          this.#updateAriaDescribedBy({ remove: error.id });
+        }
+      });
+    }
+
+    if (this.announceErrors && nextError && nextError !== previousError) {
+      // Add a 250ms delay before announcing to ensure focus has moved away from the invalid field
+      // This improves compatibility with screen readers like VoiceOver and NVDA
+      setTimeout(() => {
+        announce(this.#getValidationAnnouncement(event.target, nextError), 'polite', true);
+      }, 250);
+    }
+
     // Since we can have multiple form controls slotted, we need to
     // separate the validation messages for each.
     this.errors = {
       ...this.errors,
-      [event.target.id]: event.detail.showValidity ? event.detail.validationMessage : undefined
+      [event.target.id]: nextError
     };
+  }
+
+  #getValidationAnnouncement(control: HTMLElement & FormControl, message: string): string {
+    const fieldLabel = this.#normalizeText(this.label),
+      associatedLabel = this.#normalizeText(control.labels?.[0]?.textContent),
+      ariaLabel = this.#normalizeText(control.formControlElement.getAttribute('aria-label')),
+      name = this.#normalizeText(control.name),
+      context = fieldLabel || associatedLabel || ariaLabel || name;
+
+    return context ? `${context}: ${message}` : message;
+  }
+
+  #normalizeText(value: string | null | undefined): string | undefined {
+    const normalized = value?.replace(/\s+/g, ' ').trim();
+
+    return normalized ? normalized : undefined;
   }
 }

@@ -252,6 +252,21 @@ describe('sl-calendar', () => {
       expect(el.month).to.equalDate(new Date(2024, 5, 17));
     });
 
+    it('should show the start month when switching to range mode', async () => {
+      el.mode = 'single';
+      await el.updateComplete;
+
+      el.range = [new Date(2024, 5, 22), new Date(2024, 5, 17)];
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2023, 2, 14));
+
+      el.mode = 'range';
+      await el.updateComplete;
+
+      expect(el.month).to.equalDate(new Date(2024, 5, 17));
+    });
+
     it('should wait for a second date before changing the range', async () => {
       let callCount = 0;
       el.addEventListener('sl-change', () => callCount++);
@@ -363,11 +378,13 @@ describe('sl-calendar', () => {
 
       const start = getDayButton(new Date(2023, 2, 17)),
         middle = getDayButton(new Date(2023, 2, 18)),
-        end = getDayButton(new Date(2023, 2, 22));
+        end = getDayButton(new Date(2023, 2, 22)),
+        startDescription = monthView.renderRoot.querySelector('#range-start-description'),
+        endDescription = monthView.renderRoot.querySelector('#range-end-description');
 
-      expect(start).to.have.attribute('aria-describedby', 'range-start-description');
-      expect(middle).not.to.have.attribute('aria-describedby');
-      expect(end).to.have.attribute('aria-describedby', 'range-end-description');
+      expect(start?.ariaDescribedByElements).to.include(startDescription);
+      expect(middle?.ariaDescribedByElements ?? []).to.be.empty;
+      expect(end?.ariaDescribedByElements).to.include(endDescription);
     });
   });
 

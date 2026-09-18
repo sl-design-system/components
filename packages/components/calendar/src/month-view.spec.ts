@@ -567,17 +567,15 @@ describe('sl-month-view', () => {
 
       const start = getDayButton(new Date(2023, 2, 17)),
         middle = getDayButton(new Date(2023, 2, 18)),
-        end = getDayButton(new Date(2023, 2, 22));
+        end = getDayButton(new Date(2023, 2, 22)),
+        startDescription = el.renderRoot.querySelector('#range-start-description'),
+        endDescription = el.renderRoot.querySelector('#range-end-description');
 
-      expect(start).to.have.attribute('aria-describedby', 'range-start-description');
-      expect(middle).not.to.have.attribute('aria-describedby');
-      expect(end).to.have.attribute('aria-describedby', 'range-end-description');
-      expect(el.renderRoot.querySelector('#range-start-description')).to.have.trimmed.text(
-        'Start of range'
-      );
-      expect(el.renderRoot.querySelector('#range-end-description')).to.have.trimmed.text(
-        'End of range'
-      );
+      expect(start?.ariaDescribedByElements).to.include(startDescription);
+      expect(middle?.ariaDescribedByElements ?? []).to.be.empty;
+      expect(end?.ariaDescribedByElements).to.include(endDescription);
+      expect(startDescription).to.have.trimmed.text('Start of range');
+      expect(endDescription).to.have.trimmed.text('End of range');
     });
   });
 
@@ -607,6 +605,27 @@ describe('sl-month-view', () => {
 
       expect(tooltip).to.match('sl-tooltip');
       expect(tooltip).to.have.trimmed.text('Special day');
+    });
+
+    it('should preserve the indicator description when the date becomes a range boundary', async () => {
+      const start = new Date(2023, 2, 13);
+
+      el.indicatorDates = [{ date: start, label: 'Special day' }];
+      await el.updateComplete;
+
+      el.rangeSelection = true;
+      el.range = [start, new Date(2023, 2, 17)];
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector<HTMLElement>(
+          `td[data-date="${start.toISOString()}"] button`
+        ),
+        tooltip = el.renderRoot.querySelector(`sl-tooltip[for="${start.toISOString()}"]`),
+        rangeDescription = el.renderRoot.querySelector('#range-start-description');
+
+      expect(tooltip).to.match('sl-tooltip');
+      expect(button?.ariaDescribedByElements).to.include(tooltip);
+      expect(button?.ariaDescribedByElements).to.include(rangeDescription);
     });
 
     it('should only show one tooltip at a time and maintain ARIA stability', async () => {

@@ -308,6 +308,12 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    this.#updateRangeDescriptions();
+  }
+
   override render(): TemplateResult {
     const ariaHidden = this.getAttribute('aria-hidden') === 'true' ? 'true' : undefined;
 
@@ -401,7 +407,6 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ? html`
               <button
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
-                aria-describedby=${ifDefined(this.#getRangeDescription(parts))}
                 aria-label=${this.getDayLabel(day)}
                 aria-pressed=${selected.toString()}
                 disabled
@@ -419,7 +424,6 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 @pointerleave=${this.#clearHoveredRangePreview}
                 ?autofocus=${autofocus}
                 aria-current=${ifDefined(parts.includes('today') ? 'date' : undefined)}
-                aria-describedby=${ifDefined(this.#getRangeDescription(parts))}
                 aria-label=${this.getDayLabel(day)}
                 aria-pressed=${selected.toString()}
                 id=${day.date.toISOString()}
@@ -502,17 +506,34 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return parts;
   }
 
-  #getRangeDescription(parts: string[]): string | undefined {
-    const descriptions = [];
+  #updateRangeDescriptions(): void {
+    const startDescription = this.renderRoot.querySelector('#range-start-description'),
+      endDescription = this.renderRoot.querySelector('#range-end-description');
 
-    if (!this.rangeStart && parts.includes('range-start')) {
-      descriptions.push('range-start-description');
-    }
-    if (!this.rangeStart && parts.includes('range-end')) {
-      descriptions.push('range-end-description');
+    if (!startDescription || !endDescription) {
+      return;
     }
 
-    return descriptions.length ? descriptions.join(' ') : undefined;
+    this.renderRoot.querySelectorAll<HTMLButtonElement>('td[data-date] button').forEach(button => {
+      const current = button.ariaDescribedByElements ?? [],
+        descriptions = current.filter(
+          description => description !== startDescription && description !== endDescription
+        );
+
+      if (!this.rangeStart && button.part.contains('range-start')) {
+        descriptions.push(startDescription);
+      }
+      if (!this.rangeStart && button.part.contains('range-end')) {
+        descriptions.push(endDescription);
+      }
+
+      if (
+        descriptions.length !== current.length ||
+        descriptions.some((description, index) => description !== current[index])
+      ) {
+        button.ariaDescribedByElements = descriptions;
+      }
+    });
   }
 
   #setFocusedRangePreview(day: Day): void {

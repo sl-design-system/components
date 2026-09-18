@@ -149,7 +149,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       // to the same date, so the selected day is visible in the calendar.
       this.month = this.selected;
     } else if (
-      changes.has('range') &&
+      (changes.has('range') || (changes.has('mode') && this.mode === 'range')) &&
       this.range?.length &&
       this.mode === 'range' &&
       !this.#rangeChangedInternally

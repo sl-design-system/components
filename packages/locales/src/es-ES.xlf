@@ -534,6 +534,22 @@
   <source>opens in a new tab</source>
   <target>se abre en una nueva pestaña</target>
 </trans-unit>
+<trans-unit id="sl.calendar.rangeStartSelected">
+  <source><x id="0" equiv-text="${format(date, this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> selected. Select second date.</source>
+  <target><x id="0" equiv-text="${format(date, this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> seleccionada. Selecciona una segunda fecha.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeSelected">
+  <source>You selected range from <x id="0" equiv-text="${format(range[0], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> to <x id="1" equiv-text="${format(range[1], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/>.</source>
+  <target>Has seleccionado un intervalo desde <x id="0" equiv-text="${format(range[0], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> hasta <x id="1" equiv-text="${format(range[1], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeStart">
+  <source>Start of range</source>
+  <target>Inicio del intervalo</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeEnd">
+  <source>End of range</source>
+  <target>Fin del intervalo</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

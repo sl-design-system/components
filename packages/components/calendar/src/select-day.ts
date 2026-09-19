@@ -155,6 +155,15 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Will disable selecting a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
 
+  /** The selected date range. */
+  @property({ attribute: false }) range?: Date[];
+
+  /** Whether selecting a range is enabled. */
+  @property({ attribute: false }) rangeSelection?: boolean;
+
+  /** The first date selected while composing a range. */
+  @property({ attribute: false }) rangeStart?: Date;
+
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
 
@@ -379,6 +388,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   ?show-week-numbers=${this.showWeekNumbers}
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
+                  .range=${this.range}
+                  .rangeSelection=${this.rangeSelection}
+                  .rangeStart=${this.rangeStart}
                   aria-hidden="true"
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                   inert
@@ -398,6 +410,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .disabledDates=${this.disabledDates}
           .indicatorDates=${this.indicatorDates}
+          .range=${this.range}
+          .rangeSelection=${this.rangeSelection}
+          .rangeStart=${this.rangeStart}
           autofocus
           first-day-of-week=${ifDefined(this.firstDayOfWeek)}
           locale=${ifDefined(this.locale)}
@@ -414,6 +429,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                   ?show-week-numbers=${this.showWeekNumbers}
                   .disabledDates=${this.disabledDates}
                   .indicatorDates=${this.indicatorDates}
+                  .range=${this.range}
+                  .rangeSelection=${this.rangeSelection}
+                  .rangeStart=${this.rangeStart}
                   aria-hidden="true"
                   first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                   inert

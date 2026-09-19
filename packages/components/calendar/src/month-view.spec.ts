@@ -479,6 +479,106 @@ describe('sl-month-view', () => {
     });
   });
 
+  describe('date range', () => {
+    const getDayButton = (date: Date): HTMLButtonElement | null =>
+      el.renderRoot.querySelector(`td[data-date="${date.toISOString()}"] button`);
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-month-view></sl-month-view>`);
+      el.rangeSelection = true;
+      await el.updateComplete;
+    });
+
+    it('should render a range in chronological order', async () => {
+      el.range = [new Date(2023, 2, 22), new Date(2023, 2, 17)];
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.contains('range-start');
+      expect(getDayButton(new Date(2023, 2, 18)))
+        .to.have.attribute('part')
+        .that.contains('in-range');
+      expect(getDayButton(new Date(2023, 2, 22)))
+        .to.have.attribute('part')
+        .that.contains('range-end');
+    });
+
+    it('should not mark range boundaries with a time component as in-range', async () => {
+      const start = new Date(2023, 2, 17, 12),
+        end = new Date(2023, 2, 22, 12);
+      el.range = [start, end];
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.does.not.contain('in-range');
+      expect(getDayButton(new Date(2023, 2, 22)))
+        .to.have.attribute('part')
+        .that.does.not.contain('in-range');
+    });
+
+    it('should preview the range when another date is hovered', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const end = getDayButton(new Date(2023, 2, 22))!;
+      await userEvent.hover(end);
+      await el.updateComplete;
+
+      expect(getDayButton(new Date(2023, 2, 17)))
+        .to.have.attribute('part')
+        .that.contains('range-start');
+      expect(getDayButton(new Date(2023, 2, 17))).to.have.attribute('aria-pressed', 'true');
+      expect(getDayButton(new Date(2023, 2, 18)))
+        .to.have.attribute('part')
+        .that.contains('in-range');
+      expect(end).to.have.attribute('part').that.contains('range-end');
+      expect(end).to.have.attribute('part').that.contains('range-preview');
+      expect(end).to.have.attribute('aria-pressed', 'false');
+      expect(el.renderRoot.querySelectorAll('button[part~="range-preview"]')).to.have.lengthOf(6);
+    });
+
+    it('should restore the focused preview after a pointer preview ends', async () => {
+      el.rangeStart = new Date(2023, 2, 17);
+      await el.updateComplete;
+
+      const focusedEnd = getDayButton(new Date(2023, 2, 20))!,
+        hoveredEnd = getDayButton(new Date(2023, 2, 22))!;
+
+      focusedEnd.focus();
+      await el.updateComplete;
+      await userEvent.hover(hoveredEnd);
+      await el.updateComplete;
+
+      expect(hoveredEnd).to.have.attribute('part').that.contains('range-end');
+
+      await userEvent.unhover(hoveredEnd);
+      await el.updateComplete;
+
+      expect(focusedEnd).to.have.attribute('part').that.contains('range-end');
+      expect(focusedEnd).to.have.attribute('part').that.contains('range-preview');
+      expect(hoveredEnd).to.have.attribute('part').that.does.not.contain('range-preview');
+    });
+
+    it('should add descriptions only to the completed range boundaries', async () => {
+      el.range = [new Date(2023, 2, 17), new Date(2023, 2, 22)];
+      await el.updateComplete;
+
+      const start = getDayButton(new Date(2023, 2, 17)),
+        middle = getDayButton(new Date(2023, 2, 18)),
+        end = getDayButton(new Date(2023, 2, 22)),
+        startDescription = el.renderRoot.querySelector('#range-start-description'),
+        endDescription = el.renderRoot.querySelector('#range-end-description');
+
+      expect(start?.ariaDescribedByElements).to.include(startDescription);
+      expect(middle?.ariaDescribedByElements ?? []).to.be.empty;
+      expect(end?.ariaDescribedByElements).to.include(endDescription);
+      expect(startDescription).to.have.trimmed.text('Start of range');
+      expect(endDescription).to.have.trimmed.text('End of range');
+    });
+  });
+
   describe('indicator dates', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-month-view></sl-month-view>`);
@@ -505,6 +605,27 @@ describe('sl-month-view', () => {
 
       expect(tooltip).to.match('sl-tooltip');
       expect(tooltip).to.have.trimmed.text('Special day');
+    });
+
+    it('should preserve the indicator description when the date becomes a range boundary', async () => {
+      const start = new Date(2023, 2, 13);
+
+      el.indicatorDates = [{ date: start, label: 'Special day' }];
+      await el.updateComplete;
+
+      el.rangeSelection = true;
+      el.range = [start, new Date(2023, 2, 17)];
+      await el.updateComplete;
+
+      const button = el.renderRoot.querySelector<HTMLElement>(
+          `td[data-date="${start.toISOString()}"] button`
+        ),
+        tooltip = el.renderRoot.querySelector(`sl-tooltip[for="${start.toISOString()}"]`),
+        rangeDescription = el.renderRoot.querySelector('#range-start-description');
+
+      expect(tooltip).to.match('sl-tooltip');
+      expect(button?.ariaDescribedByElements).to.include(tooltip);
+      expect(button?.ariaDescribedByElements).to.include(rangeDescription);
     });
 
     it('should only show one tooltip at a time and maintain ARIA stability', async () => {

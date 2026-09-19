@@ -21,6 +21,7 @@ import {
 } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { repeat } from 'lit/directives/repeat.js';
 import styles from './month-view.css' with { type: 'css' };
 import {
   type Calendar,
@@ -333,7 +334,9 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         role="grid">
         ${this.renderHeader()}
         <tbody>
-          ${this.calendar?.weeks.map(
+          ${repeat(
+            this.calendar?.weeks ?? [],
+            week => week.days[0].date.toISOString(),
             week => html`
               <tr class="days" role="row">
                 ${
@@ -348,7 +351,11 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                       `
                     : nothing
                 }
-                ${week.days.map(day => this.renderDay(day))}
+                ${repeat(
+                  week.days,
+                  day => day.date.toISOString(),
+                  day => this.renderDay(day)
+                )}
               </tr>
             `
           )}

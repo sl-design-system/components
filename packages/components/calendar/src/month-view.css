@@ -157,6 +157,10 @@ button {
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
 
   color: var(--sl-color-foreground-selected-onBold);
+
+  span {
+    transition: none;
+  }
 }
 
 [part~='range-start']::before,

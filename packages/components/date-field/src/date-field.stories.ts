@@ -189,6 +189,23 @@ export const ExtraControls: Story = {
   }
 };
 
+export const HidePicker: Story = {
+  args: {
+    requireConfirmation: false,
+    slot: () => {
+      const onToday = (event: Event & { target: HTMLElement }): void => {
+        const dateField = event.target.closest<DateField>('sl-date-field');
+
+        if (dateField) {
+          dateField.value = new Date();
+        }
+      };
+
+      return html`<sl-button @click=${onToday} fill="link" hide-picker>Today</sl-button>`;
+    }
+  }
+};
+
 export const MinMax: Story = {
   args: {
     hint: 'This story has a minimum date of January 10, 2025 and a maximum date of January 20, 2025. The calendar will open to January 2025 by default.',
@@ -249,14 +266,13 @@ export const SelectOnly: Story = {
   args: {
     selectOnly: true,
     slot: () => {
-      const onClear = (): void => {
-        const dateField = document.querySelector('sl-date-field')!;
+      const onClear = (event: Event & { target: HTMLElement }): void => {
+        const dateField = event.target.closest<DateField>('sl-date-field')!;
 
         dateField.value = undefined;
-        dateField.hidePicker();
       };
 
-      return html`<sl-button @click=${onClear} fill="link">Clear date</sl-button>`;
+      return html`<sl-button @click=${onClear} fill="link" hide-picker>Clear date</sl-button>`;
     }
   }
 };

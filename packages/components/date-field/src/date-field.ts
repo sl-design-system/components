@@ -56,6 +56,9 @@ type DatePartType = 'day' | 'month' | 'year';
  * A form component that allows the user to pick a date from a calendar. Uses individual spinbutton
  * inputs per date part for improved accessibility.
  *
+ * @slot - Optional action controls rendered below the calendar. Add `hide-picker` to a control to
+ *   close the picker automatically after it is clicked.
+ * @slot calendar - Optional custom calendar content.
  * @cssState has-focus - Set when the date field has focus.
  * @cssState has-value - Set when the date field has a value.
  * @cssState placeholder-shown - Set when the date field is empty and has a placeholder.
@@ -455,7 +458,7 @@ export class DateField extends LocaleMixin(
                 ${
                   hasExtraControls
                     ? html`
-                        <sl-button-bar>
+                        <sl-button-bar @click=${this.#onActionClick}>
                           <slot></slot>
                           ${
                             this.requireConfirmation
@@ -666,6 +669,22 @@ export class DateField extends LocaleMixin(
     // because that doesn't work when the input is actually a contenteditable span
     if (!this.disabled && event.composedPath()[0] === this) {
       this.focus();
+    }
+  }
+
+  #onActionClick(event: Event): void {
+    const action = event
+      .composedPath()
+      .find(
+        (target): target is HTMLElement =>
+          target instanceof HTMLElement &&
+          this.contains(target) &&
+          target.slot !== 'calendar' &&
+          target.hasAttribute('hide-picker')
+      );
+
+    if (action) {
+      this.hidePicker();
     }
   }
 

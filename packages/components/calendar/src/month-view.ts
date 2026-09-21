@@ -65,8 +65,8 @@ const DAYS_IN_WEEK = 7;
 export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override get observedAttributes(): string[] {
-    // Observe the `inert` attribute to update the roving tabindex
-    return [...(super.observedAttributes ?? []), 'inert'];
+    // Observe attributes that affect keyboard focus behavior and a11y attributes in render output.
+    return [...(super.observedAttributes ?? []), 'aria-hidden', 'inert'];
   }
 
   /** @internal */
@@ -242,6 +242,10 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (name === 'inert') {
       this.#focusGroupController.clearElementCache();
     }
+
+    if (name === 'aria-hidden' && oldValue !== newValue) {
+      this.requestUpdate();
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -286,8 +290,11 @@ export class MonthView extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override render(): TemplateResult {
+    const ariaHidden = this.getAttribute('aria-hidden') === 'true' ? 'true' : undefined;
+
     return html`
       <table
+        aria-hidden=${ifDefined(ariaHidden)}
         aria-label=${msg(
           str`Days of ${format(this.month ?? new Date(), this.locale, { month: 'long', year: 'numeric' })}`,
           { id: 'sl.calendar.daysLabel' }

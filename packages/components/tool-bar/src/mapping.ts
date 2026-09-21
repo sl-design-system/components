@@ -121,7 +121,7 @@ export function mapButtonToItem(button: Button): ToolBarItemButton {
 export function mapMenuButtonToItem(menuButton: MenuButton): ToolBarItemMenu {
   const label = getMenuButtonLabel(menuButton),
     // Only look at direct children so items nested inside a submenu aren't flattened into this menu.
-    menuItems = Array.from(menuButton.querySelectorAll(':scope > sl-menu-item')).map(el =>
+    menuItems = Array.from(menuButton.querySelectorAll<MenuItem>(':scope > sl-menu-item')).map(el =>
       mapMenuItemToItem(el)
     ),
     disabled = isForwardedDisabled(menuButton);
@@ -151,7 +151,7 @@ export function mapMenuItemToItem(menuItem: MenuItem): ToolBarItemButton | ToolB
       disabled: false,
       icon,
       label: getMenuItemLabel(menuItem),
-      menuItems: Array.from(submenu.querySelectorAll(':scope > sl-menu-item')).map(el =>
+      menuItems: Array.from(submenu.querySelectorAll<MenuItem>(':scope > sl-menu-item')).map(el =>
         mapMenuItemToItem(el)
       ),
       visible: true

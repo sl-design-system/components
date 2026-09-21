@@ -343,7 +343,7 @@ export class Switch<T = any> extends ForwardAriaMixin(
         // component's shadow DOM) to the nodes they re-project (text and elements), while
         // excluding direct element children that are not part of the label.
         .flatMap(node => {
-          if (node instanceof HTMLSlotElement) {
+          if (node instanceof HTMLSlotElement && (!node.name || node.name === '')) {
             return node.assignedNodes({ flatten: true });
           } else if (node.nodeType === Node.TEXT_NODE) {
             return [node];

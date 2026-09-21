@@ -225,6 +225,15 @@ export const Basic: Story = {
           <sl-icon name="far-paste"></sl-icon>
           Paste special...
         </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-paste"></sl-icon>
+          Add holidays
+          <sl-menu slot="submenu">
+            <sl-menu-item>North</sl-menu-item>
+            <sl-menu-item>Middle</sl-menu-item>
+            <sl-menu-item>South</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
       </sl-menu-button>
     `
   }

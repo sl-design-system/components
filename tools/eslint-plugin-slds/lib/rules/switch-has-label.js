@@ -1,6 +1,7 @@
 import {
   checkTemplateForLabel,
   hasAttribute,
+  hasAttributeValue,
   hasMeaningfulContent,
   isNestedHtmlTemplate
 } from '../label-rule-helpers.js';
@@ -39,6 +40,7 @@ export const switchHasLabel = {
           elementName: 'sl-switch',
           hasLabel(element, analyzer, sourceCode) {
             return (
+              hasAttributeValue(element, analyzer, sourceCode, 'aria-hidden', 'true') ||
               hasSwitchLabel(element, analyzer, sourceCode) ||
               hasAttribute(element, analyzer, sourceCode, 'aria-label', 'aria-labelledby')
             );

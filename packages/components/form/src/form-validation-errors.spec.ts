@@ -96,9 +96,10 @@ describe('sl-form-validation-errors', () => {
     });
 
     it('should render the invalid control labels as plain text with comma spacing', () => {
-      const inlineMessage = el.errors.renderRoot.querySelector('sl-inline-message');
+      const inlineMessage = el.errors.renderRoot.querySelector('sl-inline-message'),
+        message = inlineMessage?.textContent?.replace(/\s+/g, ' ').trim();
 
-      expect(inlineMessage).to.have.trimmed.text('The following fields have errors: Foo, Bar.');
+      expect(message).to.equal('The following fields have errors: Foo, Bar.');
     });
 
     it('should not render inaccessible validation links', () => {

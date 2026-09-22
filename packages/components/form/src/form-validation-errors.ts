@@ -102,29 +102,19 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    const labels = Object.keys(this.invalidControls).join(', ');
+
     return html`
       <sl-inline-message .variant=${this.variant}>
         ${
           this.variant === 'danger'
             ? html`
-                ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
-                <ul>
-                  ${Object.entries(this.invalidControls).map(
-                    ([label, control]) =>
-                      html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
-                  )}
-                </ul>
+                ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })} ${labels}
                 .
               `
             : msg('All fields are valid.', { id: 'sl.form.allFieldsValid' })
         }
       </sl-inline-message>
     `;
-  }
-
-  #onClick(event: Event & { target: HTMLAnchorElement }): void {
-    event.preventDefault();
-
-    (this.getRootNode() as HTMLElement).querySelector<HTMLElement>(event.target.hash)?.focus();
   }
 }

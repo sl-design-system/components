@@ -26,6 +26,7 @@ type Props = Pick<
   | 'size'
   | 'value'
 > & {
+  description?: string | TemplateResult;
   hint?: string | TemplateResult;
   label?: string;
   reportValidity?: boolean;
@@ -48,6 +49,9 @@ export default {
     width: 'fit-content'
   },
   argTypes: {
+    description: {
+      table: { disable: true }
+    },
     hint: {
       table: { disable: true }
     },
@@ -79,6 +83,7 @@ export default {
     }
   },
   render: ({
+    description,
     disabled,
     hint,
     label,
@@ -104,6 +109,7 @@ export default {
     };
 
     return html`
+      ${description ? html`<p>${description}</p>` : nothing}
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-date-field
@@ -191,6 +197,10 @@ export const ExtraControls: Story = {
 
 export const HidePicker: Story = {
   args: {
+    description: html`
+      This example shows how a custom action can use the <code>hide-picker</code> attribute to run
+      its click handler and then automatically close the calendar popup.
+    `,
     requireConfirmation: false,
     slot: () => {
       const onToday = (event: Event & { target: HTMLElement }): void => {

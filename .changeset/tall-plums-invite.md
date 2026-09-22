@@ -17,6 +17,6 @@
 '@sl-design-system/tig': major
 ---
 
-The main css file has changed name; the new file that needs to be included is `theme.css`. This is done because both light and dark variants (for themes that have a dark mode) are available in this same `theme.css` file.
+The main css file has changed name, which means this release will be a BREAKING CHANGE; the new file that needs to be included is `theme.css`. This is done because both light and dark variants (for themes that have a dark mode) are available in this same `theme.css` file.
 The `light-deprecated.css` and `dark-deprecated.css` files remain unchanged.
 Additionally a new `typography.css` has been added, that contains styles for body text, headers, label, captions etc. It is optional to use this for the time being.

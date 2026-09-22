@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
-import { html, nothing } from 'lit';
+import { html, render } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ref } from 'lit/directives/ref.js';
 import '@sl-design-system/button/register.js';
@@ -9,7 +9,6 @@ import '@sl-design-system/badge/register.js';
 import '@sl-design-system/popover/register.js';
 import { Icon } from '../../packages/components/icon/src/icon';
 import { faPlanetRinged } from '@fortawesome/pro-regular-svg-icons';
-import { Popover } from '@sl-design-system/popover';
 
 type Props = {
   doubleStory: boolean;
@@ -154,11 +153,52 @@ const parseCells = (el: Element | undefined) => {
         cellSpecs.classList.add('text', 'sm');
         specsContainer?.appendChild(cellSpecs);
       }
-      console.log('specsContainer', specsContainer);
     });
   });
 };
-const variant = document.querySelector('body')?.getAttribute('data-user-group') ?? 'advanced';
+const getVariant = () =>
+  document.querySelector('body')?.getAttribute('data-user-group') ?? 'advanced';
+
+const renderTypographyContent = (variant: string) => html`
+  <div class="typography">
+    <span>Typography</span>
+    <div><h1 class="display lg">Display LG</h1></div>
+    <div><h1 class="display md">Display MD</h1></div>
+    <div class=${variant !== 'advanced' && variant !== 'superuser' ? 'fallback' : ''}>
+      <h1 class="display sm">Display SM</h1>
+    </div>
+
+    <div><h2 class="heading lg">Heading LG</h2></div>
+    <div><h2 class="heading md">Heading MD</h2></div>
+    <div class=${variant !== 'advanced' && variant !== 'superuser' ? 'fallback' : ''}>
+      <h2 class="heading sm">Heading SM</h2>
+    </div>
+
+    <div><h2 class="title lg">Title LG</h2></div>
+    <div class=${variant !== 'advanced' && variant !== 'superuser' ? 'fallback' : ''}>
+      <h2 class="title md">Title MD</h2>
+    </div>
+    <div class="fallback">
+      <h2 class="title sm">Title SM</h2>
+    </div>
+
+    <div><p class="text lg">Text LG</p></div>
+    <div><p class="text md">Text MD</p></div>
+    <div><p class="text sm">Text SM</p></div>
+
+    <div><p class="label lg">Label LG</p></div>
+    <div><p class="label md">Label MD</p></div>
+    <div class=${variant === 'early' ? 'fallback' : ''}><p class="label sm">Label SM</p></div>
+
+    <div><p class="caption lg">Caption LG</p></div>
+    <div class=${variant === 'early' ? 'fallback' : ''}>
+      <p class="caption md">Caption MD</p>
+    </div>
+  </div>
+  <div class="specs">
+    <span>Specs</span>
+  </div>
+`;
 
 export const TypographyStyles: Story = {
   args: {
@@ -232,44 +272,24 @@ export const TypographyStyles: Story = {
       }
     </style>
     <div
-      ${ref(e => parseCells(e))}
+      ${ref(el => {
+        if (!el) return;
+
+        const update = () => {
+          render(renderTypographyContent(getVariant()), el as HTMLElement);
+          parseCells(el);
+        };
+
+        update();
+
+        // re-render whenever the user group (and therefore the variant) changes on the body
+        new MutationObserver(update).observe(document.body, {
+          attributes: true,
+          attributeFilter: ['data-user-group']
+        });
+      })}
       class="typography-grid ${ifDefined(textBox !== 'none' ? textBox : '')} ${ifDefined(
         showComputed ? 'show-computed' : ''
-      )}">
-      <div class="typography">
-        <span>Typography</span>
-        <div><h1 class="display lg">Display LG</h1></div>
-        <div><h1 class="display md">Display MD</h1></div>
-        <div class=${variant !== 'advanced' ? 'fallback' : ''}>
-          <h1 class="display sm">Display SM</h1>
-        </div>
-
-        <div><h2 class="heading lg">Heading LG</h2></div>
-        <div><h2 class="heading md">Heading MD</h2></div>
-        <div class=${variant === 'early' ? 'fallback' : ''}>
-          <h2 class="heading sm">Heading SM</h2>
-        </div>
-
-        <div><h2 class="title lg">Title LG</h2></div>
-        <div class=${variant !== 'advanced' ? 'fallback' : ''}>
-          <h2 class="title md">Title MD</h2>
-        </div>
-        <div class=${variant === 'early' ? 'fallback' : ''}><h2 class="title sm">Title SM</h2></div>
-
-        <div><p class="text lg">Text LG</p></div>
-        <div><p class="text md">Text MD</p></div>
-        <div><p class="text sm">Text SM</p></div>
-
-        <div><p class="label lg">Label LG</p></div>
-        <div><p class="label md">Label MD</p></div>
-        <div>${variant !== 'early' ? html`<p class="label sm">Label SM</p>` : nothing}</div>
-
-        <div><p class="caption lg">Caption LG</p></div>
-        <div>${variant === 'advanced' ? html`<p class="caption md">Caption MD</p>` : nothing}</div>
-      </div>
-      <div class="specs">
-        <span>Specs</span>
-      </div>
-    </div>
+      )}"></div>
   `
 };

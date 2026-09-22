@@ -109,8 +109,8 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
         ${
           this.variant === 'danger'
             ? html`
-                ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })} ${labels}
-                .
+                ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
+                ${`${labels}.`}
               `
             : msg('All fields are valid.', { id: 'sl.form.allFieldsValid' })
         }

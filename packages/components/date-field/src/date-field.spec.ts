@@ -2429,7 +2429,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      el.querySelector<HTMLButtonElement>('button')?.click();
+      el.querySelector<HTMLElement>('sl-button')?.click();
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('dialog')?.open).to.be.true;

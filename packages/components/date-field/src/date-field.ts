@@ -228,7 +228,9 @@ export class DateField extends LocaleMixin(
 
   /**
    * When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to
-   * confirm their date selection.
+   * confirm their date selection before it is applied. Custom action controls can still close the
+   * picker with `hide-picker`. If such an action should also commit a value without using
+   * "Confirm", its click handler needs to set the value itself.
    */
   @property({ type: Boolean, attribute: 'require-confirmation' }) requireConfirmation?: boolean;
 

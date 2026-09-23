@@ -2411,7 +2411,7 @@ describe('sl-date-field', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-date-field aria-label="Date">
-          <button type="button">Clear</button>
+          <sl-button>Clear</sl-button>
         </sl-date-field>
       `);
     });

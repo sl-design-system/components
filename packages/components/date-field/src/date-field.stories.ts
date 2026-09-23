@@ -169,6 +169,12 @@ export const ExplicitWidth: Story = {
 
 export const ExtraControls: Story = {
   args: {
+    description: html`
+      This example shows extra controls rendered below the calendar when
+      <code>require-confirmation</code> is enabled. The <code>Today</code> button selects today in
+      the calendar, the <code>Clear</code> button clears the selection, and the separate Confirm
+      button applies the chosen date to the field.
+    `,
     requireConfirmation: true,
     slot: () => {
       const onClear = (): void => {
@@ -199,7 +205,10 @@ export const HidePicker: Story = {
   args: {
     description: html`
       This example shows how a custom action can use the <code>hide-picker</code> attribute to run
-      its click handler and then automatically close the calendar popup.
+      its click handler and then automatically close the calendar popup. The
+      <code>hide-picker</code> attribute only closes the popup, it does not set a value by itself.
+      In this example, the click handler sets the date field value to today before the picker is
+      closed.
     `,
     requireConfirmation: false,
     slot: () => {

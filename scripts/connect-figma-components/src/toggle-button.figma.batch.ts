@@ -1,6 +1,7 @@
 import figma from 'figma';
 import {
   checkBooleanProperty,
+  checkEnum,
   checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
@@ -10,12 +11,13 @@ const instance = figma.selectedInstance;
 function getExample() {
   const disabled = checkStringProperty(instance.getString('State'), 'State') === 'Disabled';
 
-  const fill =
+  const fill = checkEnum(
     instance.getEnum('Type', {
       Outline: 'outline',
       Ghost: 'ghost',
       Link: 'link'
-    }) || 'solid';
+    }) || 'solid'
+  );
 
   const icon = checkInstance(
     instance.findInstance('Base/Icon', { traverseInstances: true }),
@@ -27,7 +29,7 @@ function getExample() {
 
   const selected = checkBooleanProperty(instance.getBoolean('Selected'), 'Selected');
 
-  const size = instance.getEnum('↕️ - Size', { SM: 'sm', LG: 'lg' }) || 'md';
+  const size = checkEnum(instance.getEnum('↕️ - Size', { SM: 'sm', LG: 'lg' }) || 'md');
 
   return figma.code`
     <sl-toggle-button

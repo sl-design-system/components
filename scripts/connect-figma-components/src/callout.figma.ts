@@ -1,14 +1,16 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=10995-110181
 import figma from 'figma';
+import { checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const density =
+  const density = checkEnum(
     instance.getEnum('Density', {
       Default: 'default',
       Relaxed: 'relaxed'
-    }) ?? 'default';
+    }) ?? 'default'
+  );
 
   const description = instance.getString('Description'),
     title = instance.getString('Title'),

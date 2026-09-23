@@ -2,6 +2,7 @@
 import figma from 'figma';
 import {
   checkBooleanProperty,
+  checkEnum,
   checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
@@ -17,11 +18,12 @@ function getExample() {
   const checkboxBase = checkInstance(instance.findInstance('checkbox-base'), 'checkbox-base');
 
   // The default size is "md".
-  const size =
+  const size = checkEnum(
     checkboxBase.getEnum('↕️ - Size', {
       SM: 'sm',
       LG: 'lg'
-    }) || 'md';
+    }) || 'md'
+  );
 
   let label;
   if (hasLabel) {

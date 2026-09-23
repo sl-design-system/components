@@ -1,6 +1,10 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=2050-275668
 import figma from 'figma';
-import { checkBooleanProperty, checkStringProperty } from './_shared/figma-assertions.js';
+import {
+  checkBooleanProperty,
+  checkEnum,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -9,13 +13,14 @@ function getExample() {
     showTitle = checkBooleanProperty(instance.getBoolean('Show Title'), 'Show Title'),
     indismissible = !checkBooleanProperty(instance.getBoolean('Show close'), 'Show close'),
     title = checkStringProperty(instance.getString('Text'), 'Text'),
-    variant =
+    variant = checkEnum(
       instance.getEnum('variant', {
         info: 'info',
         positive: 'success',
         caution: 'warning',
         negative: 'danger'
-      }) ?? 'info';
+      }) ?? 'info'
+    );
 
   return figma.code`
     <sl-inline-message

@@ -110,10 +110,19 @@ function markdownList(label, items) {
     .map(item => `${label} ${markdownEscape(item)}`);
 }
 
-function writeReport(filePath, annotated, displayedResults, failures) {
+function writeReport(filePath, annotated, failures) {
   const warnings = annotated.filter(({ warnings }) => warnings.length > 0),
     invalidCode = annotated.filter(({ invalidCode }) => invalidCode.length > 0),
-    rows = displayedResults.map(({ batchCase, result, warnings, invalidCode }) => {
+    sorted = [...annotated].sort((a, b) =>
+      componentName(a.result, a.batchCase).localeCompare(
+        componentName(b.result, b.batchCase),
+        undefined,
+        {
+          sensitivity: 'base'
+        }
+      )
+    ),
+    rows = sorted.map(({ batchCase, result, warnings, invalidCode }) => {
       const name = componentName(result, batchCase),
         status = result.success && invalidCode.length === 0 ? 'PASS' : 'FAIL',
         template = batchCase?.templateFile,
@@ -130,7 +139,7 @@ function writeReport(filePath, annotated, displayedResults, failures) {
           ...markdownList('🖥️', invalidCode)
         ].join('<br>');
 
-      return `| ${status === 'PASS' ? '🟢' : '🔴'} | [${markdownEscape(name)}](${result.url}) | ${template ? markdownEscape(template) : markdownEscape(result.filePath)} | ${notices} |`;
+      return `| ${status === 'PASS' ? (warnings.length > 0 ? '🟡' : '🟢') : '🔴'} | [${markdownEscape(name)}](${result.url}) | ${template ? markdownEscape(template) : markdownEscape(result.filePath)} | ${notices} |`;
     });
 
   const report = [
@@ -203,7 +212,7 @@ child.on('close', code => {
   }
 
   if (reportPath) {
-    writeReport(reportPath, annotated, displayedResults, failures);
+    writeReport(reportPath, annotated, failures);
     console.log(`Markdown report written to ${reportPath}`);
   }
 

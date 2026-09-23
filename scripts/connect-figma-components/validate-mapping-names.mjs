@@ -7,9 +7,8 @@ const allowedNameMappings = ['𝐓 - Label -> aria-label'];
 function normalizeName(name) {
   return name
     .replace(/#[^\s]+/g, '')
-    .replace(/^[^a-zA-Z0-9]+ - /, '')
-    .replace(/[^a-zA-Z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
     .toLowerCase();
 }
 
@@ -46,10 +45,14 @@ function getIdentifierName(node) {
 }
 
 function getLookupName(node) {
+  if (ts.isBinaryExpression(node)) {
+    return getLookupName(node.left) ?? getLookupName(node.right);
+  }
+
   if (
     ts.isCallExpression(node) &&
     ts.isIdentifier(node.expression) &&
-    /^check(?:String|Boolean)Property$/.test(node.expression.text)
+    /^(?:check(?:String|Boolean)Property|checkEnum)$/.test(node.expression.text)
   ) {
     const checkedName = node.arguments[1] ? getStringLiteralValue(node.arguments[1]) : undefined;
     return checkedName ?? getLookupName(node.arguments[0]);
@@ -58,7 +61,7 @@ function getLookupName(node) {
   if (
     ts.isCallExpression(node) &&
     ts.isPropertyAccessExpression(node.expression) &&
-    /^get(?:String|Boolean)$/.test(node.expression.name.text)
+    /^get(?:String|Boolean|Enum)$/.test(node.expression.name.text)
   ) {
     return node.arguments[0] ? getStringLiteralValue(node.arguments[0]) : undefined;
   }

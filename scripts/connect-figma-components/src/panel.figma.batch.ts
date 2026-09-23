@@ -1,5 +1,5 @@
 import figma from 'figma';
-import { checkBooleanProperty, checkInstance } from './_shared/figma-assertions.js';
+import { checkBooleanProperty, checkEnum, checkInstance } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
@@ -10,14 +10,15 @@ function getExample() {
     elevationRaw = instance.getString('Elevation') || 'none',
     shadow = checkBooleanProperty(instance.getBoolean('Shadow'), 'Shadow');
 
-  const density =
+  const density = checkEnum(
     instance.getEnum('Density', {
       Default: 'default',
       Relaxed: 'relaxed'
-    }) ?? 'default';
+    }) ?? 'default'
+  );
 
   const togglePlacement = collapsible
-    ? (instance.getEnum('Toggle Position', { Start: 'start', End: 'end' }) ?? 'start')
+    ? checkEnum(instance.getEnum('Toggle Position', { Start: 'start', End: 'end' }) ?? 'start')
     : undefined;
 
   const collapsed = collapsible ? instance.getString('State') === 'Collapsed' : false;

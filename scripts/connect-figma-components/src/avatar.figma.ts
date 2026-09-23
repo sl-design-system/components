@@ -2,6 +2,7 @@
 import figma from 'figma';
 import {
   checkBooleanProperty,
+  checkEnum,
   checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
@@ -17,9 +18,11 @@ function getExample() {
     headerPosition = checkStringProperty(instance.getString('Header position'), 'Header position'),
     vertical = headerPosition === 'Under';
 
-  const shape = instance.getEnum('Shape', { Circle: 'circle', Square: 'square' }) ?? 'circle';
+  const shape = checkEnum(
+    instance.getEnum('Shape', { Circle: 'circle', Square: 'square' }) ?? 'circle'
+  );
 
-  const size =
+  const size = checkEnum(
     instance.getEnum('Size', {
       SM: 'sm',
       MD: 'md',
@@ -28,7 +31,8 @@ function getExample() {
       '2XL': '2xl',
       '3XL': '3xl',
       '4XL': '4xl'
-    }) ?? 'md';
+    }) ?? 'md'
+  );
 
   const header = checkInstance(instance.findInstance('avatar-header'), 'avatar-header');
 

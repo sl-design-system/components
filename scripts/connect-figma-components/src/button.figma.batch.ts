@@ -1,6 +1,7 @@
 import figma from 'figma';
 import {
   checkBooleanProperty,
+  checkEnum,
   checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
@@ -15,15 +16,16 @@ function getExample() {
   const disabled = checkStringProperty(buttonVariants.getString('State'), 'State') === 'Disabled';
 
   // The default fill is "solid".
-  const fill =
+  const fill = checkEnum(
     buttonVariants.getEnum('Type', {
       Outline: 'outline',
       Ghost: 'ghost',
       Link: 'link'
-    }) || 'solid';
+    }) || 'solid'
+  );
 
   // The default variant is "secondary".
-  const variant =
+  const variant = checkEnum(
     buttonVariants.getEnum('Variant', {
       Primary: 'primary',
       Positive: 'success',
@@ -31,7 +33,8 @@ function getExample() {
       Caution: 'warning',
       Negative: 'danger',
       Inverted: 'inverted'
-    }) || 'secondary';
+    }) || 'secondary'
+  );
 
   const buttonBase = checkInstance(buttonVariants.findInstance('Button-Base'), 'Button-Base');
 
@@ -41,11 +44,12 @@ function getExample() {
     label = checkStringProperty(buttonBase.getString('𝐓 - Label'), '𝐓 - Label');
 
   // The default size is "md".
-  const size =
+  const size = checkEnum(
     buttonBase.getEnum('↕️ - Size', {
       SM: 'sm',
       LG: 'lg'
-    }) || 'md';
+    }) || 'md'
+  );
 
   let icon;
   if (iconStart || iconEnd) {

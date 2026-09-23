@@ -2,6 +2,7 @@
 import figma from 'figma';
 import {
   checkBooleanProperty,
+  checkEnum,
   checkInstance,
   checkStringProperty
 } from './_shared/figma-assertions.js';
@@ -20,11 +21,12 @@ function getExample() {
   const label = checkStringProperty(radiobuttonBase.getString('Label text'), 'Label text');
 
   // The default size is "md".
-  const size =
+  const size = checkEnum(
     radiobuttonBase.getEnum('↕️ - Size', {
       SM: 'sm',
       LG: 'lg'
-    }) || 'md';
+    }) || 'md'
+  );
 
   return figma.code`
     <sl-radio

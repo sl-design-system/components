@@ -162,6 +162,20 @@
     ]
   },
   {
+    "templateFile": "./combobox.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=6745-531516",
+        "id": "combobox"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=19711-75651",
+        "id": "combobox",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
     "templateFile": "./panel.figma.batch.ts",
     "components": [
       {

@@ -1,9 +1,12 @@
 import figma from 'figma';
+import { checkEnum } from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const alignTabs = instance.getEnum('Alignement', { Filled: 'stretch', Left: 'start' }) ?? 'start';
+  const alignTabs = checkEnum(
+    instance.getEnum('Alignement', { Filled: 'stretch', Left: 'start' }) ?? 'start'
+  );
 
   const tabs = instance
     .findConnectedInstances(node => node.codeConnectId() === 'tab')

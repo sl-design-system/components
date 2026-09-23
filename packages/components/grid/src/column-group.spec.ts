@@ -52,6 +52,13 @@ describe('sl-column-group', () => {
       ]);
     });
 
+    it('should mark grouped headers as column groups', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      expect(headers[0]).to.have.attribute('scope', 'colgroup');
+      expect(headers[1]).to.have.attribute('scope', 'colgroup');
+    });
+
     it('should have the correct width', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal(

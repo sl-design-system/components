@@ -30,6 +30,8 @@ const componentsDir = join(root, 'packages/components');
 
 const requestedComponent = process.argv[2];
 const figmaToken = process.env.FIGMA_TOKEN;
+// Once true, stop retrying the Variables API for the rest of the run (same token, same outcome).
+let variablesApiUnavailable = false;
 
 if (!figmaToken) {
   console.error('Missing FIGMA_TOKEN environment variable (Figma personal access token).');
@@ -101,10 +103,20 @@ function extractCodeTokens(stylesheetPath) {
   return [...new Set([...matches].map(([, token]) => token))];
 }
 
+/** Thrown for 401/403 responses, which indicate a bad/scoped token rather than a per-node problem. */
+class FigmaAuthError extends Error {}
+
 async function figmaGet(path) {
   const response = await fetch(`https://api.figma.com/v1${path}`, {
     headers: { 'X-Figma-Token': figmaToken }
   });
+
+  if (response.status === 401 || response.status === 403) {
+    throw new FigmaAuthError(
+      `Figma API ${path} responded with ${response.status} ${response.statusText}. ` +
+        'Check that FIGMA_TOKEN is set, has "File content: Read" scope, and its owner has access to this file.'
+    );
+  }
 
   if (!response.ok) {
     throw new Error(`Figma API ${path} responded with ${response.status} ${response.statusText}`);
@@ -130,7 +142,11 @@ function collectBoundVariableIds(node, ids = new Set()) {
   return ids;
 }
 
-/** Fetch the Figma variable names bound anywhere in the given node's subtree. */
+/**
+ * Fetch the Figma variable names bound anywhere in the given node's subtree. Falls back to raw
+ * `unresolved:<id>` entries if the Variables API isn't accessible (e.g. a non-Enterprise plan),
+ * instead of failing the whole run.
+ */
 async function fetchFigmaTokens(fileKey, nodeId) {
   const { nodes } = await figmaGet(`/files/${fileKey}/nodes?ids=${encodeURIComponent(nodeId)}`);
   const node = nodes[nodeId]?.document;
@@ -143,8 +159,22 @@ async function fetchFigmaTokens(fileKey, nodeId) {
     return [];
   }
 
-  const { meta } = await figmaGet(`/files/${fileKey}/variables/local`);
-  return [...variableIds].map(id => meta.variables[id]?.name).filter(Boolean);
+  if (variablesApiUnavailable) {
+    return [...variableIds].map(id => `unresolved:${id}`);
+  }
+
+  try {
+    const { meta } = await figmaGet(`/files/${fileKey}/variables/local`);
+    return [...variableIds].map(id => meta.variables[id]?.name ?? `unresolved:${id}`);
+  } catch (error) {
+    if (!(error instanceof FigmaAuthError)) throw error;
+    variablesApiUnavailable = true;
+    console.error(
+      'Warning: Variables API is not accessible (requires Enterprise plan + "Variables: Read" scope). ' +
+        'Falling back to reporting unresolved variable IDs — matching against code tokens will not be possible.\n'
+    );
+    return [...variableIds].map(id => `unresolved:${id}`);
+  }
 }
 
 /**
@@ -262,6 +292,10 @@ async function main() {
       printReport(result);
       results.push(result);
     } catch (error) {
+      if (error instanceof FigmaAuthError) {
+        // Same token for every component, so this will fail identically for all of them — stop early.
+        throw error;
+      }
       console.error(`Skipping "${name}": ${error.message}\n`);
       failures.push({ name, error: error.message });
     }

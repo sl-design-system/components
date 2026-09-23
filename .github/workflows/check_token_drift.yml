@@ -14,7 +14,7 @@ on:
   # - cron: '0 6 * * 1'
 
 env:
-  FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FIGMA_TOKEN: ${{ secrets.FIGMA_TOKENS }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   HUSKY: 0
 

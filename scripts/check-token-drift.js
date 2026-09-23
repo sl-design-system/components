@@ -2,10 +2,11 @@
 // against the `--sl-*` custom properties used in that component's stylesheet.
 //
 // Usage:
-//   FIGMA_TOKEN=<figma-personal-access-token> node scripts/check-token-drift.js <component>
+//   FIGMA_TOKEN=<figma-personal-access-token> node scripts/check-token-drift.js [component]
 //
-// Example:
-//   FIGMA_TOKEN=figd_xxx node scripts/check-token-drift.js badge
+// Examples:
+//   FIGMA_TOKEN=figd_xxx node scripts/check-token-drift.js badge   # single component
+//   FIGMA_TOKEN=figd_xxx node scripts/check-token-drift.js         # every mapped component
 //
 // Notes / limitations (this is a proof of concept, not a CI gate):
 // - Requires a Figma personal access token with read access to the design file
@@ -16,8 +17,10 @@
 //   are produced by two independent processes (Token Studio sync vs. style-dictionary),
 //   so this script does a normalized "bag of words" comparison rather than an exact
 //   string match. Treat "no match" results as leads to investigate, not proven bugs.
+// - Runs informationally: it never exits non-zero, since a mismatch here isn't
+//   proof of a bug given the fuzzy matching above.
 
-import { readFileSync, readdirSync } from 'node:fs';
+import { appendFileSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -25,17 +28,23 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const figmaConnectDir = join(root, 'scripts/connect-figma-components/src');
 const componentsDir = join(root, 'packages/components');
 
-const componentName = process.argv[2];
+const requestedComponent = process.argv[2];
 const figmaToken = process.env.FIGMA_TOKEN;
-
-if (!componentName) {
-  console.error('Usage: node scripts/check-token-drift.js <component>');
-  process.exit(1);
-}
 
 if (!figmaToken) {
   console.error('Missing FIGMA_TOKEN environment variable (Figma personal access token).');
   process.exit(1);
+}
+
+/**
+ * Every component with a single-instance Code Connect mapping (`*.figma.ts`, not
+ * `.figma.batch.ts`).
+ */
+function discoverComponents() {
+  return readdirSync(figmaConnectDir)
+    .filter(file => file.endsWith('.figma.ts') && !file.endsWith('.figma.batch.ts'))
+    .map(file => file.replace(/\.figma\.ts$/, ''))
+    .sort();
 }
 
 /** Find the `// url=...` Figma node URL for a component's Code Connect file. */
@@ -179,21 +188,24 @@ function diffTokens(figmaTokens, codeTokens) {
   return { matched, figmaOnly, codeOnly };
 }
 
-async function main() {
-  const figmaUrl = findFigmaNodeUrl(componentName);
+/** Run the drift check for a single component. Returns null (and logs why) if it can't be checked. */
+async function checkComponent(name) {
+  const figmaUrl = findFigmaNodeUrl(name);
   const { fileKey, nodeId } = parseFigmaUrl(figmaUrl);
-  const stylesheetPath = findStylesheet(componentName);
-
-  console.log(`Component:  ${componentName}`);
-  console.log(`Figma node: ${figmaUrl}`);
-  console.log(`Stylesheet: ${stylesheetPath}\n`);
+  const stylesheetPath = findStylesheet(name);
 
   const [figmaTokens, codeTokens] = await Promise.all([
     fetchFigmaTokens(fileKey, nodeId),
     Promise.resolve(extractCodeTokens(stylesheetPath))
   ]);
 
-  const { matched, figmaOnly, codeOnly } = diffTokens(figmaTokens, codeTokens);
+  return { name, figmaUrl, stylesheetPath, ...diffTokens(figmaTokens, codeTokens) };
+}
+
+function printReport({ name, figmaUrl, stylesheetPath, matched, figmaOnly, codeOnly }) {
+  console.log(`## ${name}`);
+  console.log(`Figma node: ${figmaUrl}`);
+  console.log(`Stylesheet: ${stylesheetPath}\n`);
 
   console.log(`Matched (${matched.length}):`);
   for (const [figmaToken, codeToken] of matched) {
@@ -209,6 +221,53 @@ async function main() {
   for (const token of codeOnly) {
     console.log(`  ${token}`);
   }
+  console.log('');
+}
+
+/** Append a GitHub Actions step summary when running in CI (no-op locally). */
+function writeStepSummary(results, failures) {
+  const summaryPath = process.env.GITHUB_STEP_SUMMARY;
+  if (!summaryPath) return;
+
+  const rows = results.map(
+    ({ name, matched, figmaOnly, codeOnly }) =>
+      `| ${name} | ${matched.length} | ${figmaOnly.length} | ${codeOnly.length} |`
+  );
+  const failureRows = failures.map(({ name, error }) => `| ${name} | ${error} |`);
+
+  appendFileSync(
+    summaryPath,
+    [
+      '# Token drift report',
+      '',
+      '| Component | Matched | Figma only | Code only |',
+      '| --- | --- | --- | --- |',
+      ...rows,
+      '',
+      ...(failureRows.length
+        ? ['## Skipped', '', '| Component | Reason |', '| --- | --- |', ...failureRows]
+        : [])
+    ].join('\n') + '\n'
+  );
+}
+
+async function main() {
+  const componentNames = requestedComponent ? [requestedComponent] : discoverComponents();
+  const results = [];
+  const failures = [];
+
+  for (const name of componentNames) {
+    try {
+      const result = await checkComponent(name);
+      printReport(result);
+      results.push(result);
+    } catch (error) {
+      console.error(`Skipping "${name}": ${error.message}\n`);
+      failures.push({ name, error: error.message });
+    }
+  }
+
+  writeStepSummary(results, failures);
 }
 
 main().catch(error => {

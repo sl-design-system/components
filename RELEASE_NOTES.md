@@ -4,6 +4,21 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# September 17, 2026
+
+## New features
+
+- [`form`](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md) adds a `validate-on-blur` property. When enabled, fields validate when users leave them, but untouched empty required fields are skipped on blur so keyboard and screen reader users can explore a form without premature error announcements. Calling `reportValidity()` still validates all fields. The default validation behavior does not change unless you enable `validate-on-blur`.
+
+## Bug fixes
+
+- [`checkbox`](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md), [`combobox`](https://github.com/sl-design-system/components/blob/main/packages/components/combobox/CHANGELOG.md), [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md), [`radio-group`](https://github.com/sl-design-system/components/blob/main/packages/components/radio-group/CHANGELOG.md), [`select`](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md), and [`time-field`](https://github.com/sl-design-system/components/blob/main/packages/components/time-field/CHANGELOG.md) improve `validate-on-blur` and blur handling so required errors appear at the right time after real user interaction, internal focus moves no longer emit spurious `sl-blur` events, and `sl-select` also emits blur when clicking outside, avoids duplicate blur events, and now uses `:focus-visible` for its focus ring.
+- [`date-field`](https://github.com/sl-design-system/components/blob/main/packages/components/date-field/CHANGELOG.md) also improves accessibility in the calendar dialog: when returning from month or year selection, focus now moves to the selected day when possible, or otherwise to the first selectable day in the displayed month.
+- [`calendar`](https://github.com/sl-design-system/components/blob/main/packages/components/calendar/CHANGELOG.md) improves accessibility by propagating `aria-hidden="true"` from hidden `<sl-month-view>` elements to their internal `<table>`.
+- [`grid`](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md) fixes custom header renderers in sortable columns, prevents native draggable content inside cells from accidentally starting row drag-and-drop, and restores the default cursor for non-draggable group-header rows.
+- [`search-field`](https://github.com/sl-design-system/components/blob/main/packages/components/search-field/CHANGELOG.md) makes the clear button focusable and allows clearing with Enter, Space, and Escape when it is focused.
+- [`link`](https://github.com/sl-design-system/components/blob/main/packages/components/link/CHANGELOG.md) aligns focus ring offset and border radius with button styling for more consistent focus visuals.
+
 # September 8, 2026
 
 ## Bug fixes

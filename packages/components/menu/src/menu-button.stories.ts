@@ -301,6 +301,14 @@ export const Submenu: Story = {
           <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Show profile
+        <sl-menu slot="submenu">
+          <sl-menu-item switch selected>Avatar</sl-menu-item>
+          <sl-menu-item switch>Last name</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
     `
   }
 };
@@ -350,6 +358,25 @@ export const Avatar: Story = {
       <sl-menu-item>Settings...</sl-menu-item>
       <hr />
       <sl-menu-item>Log out</sl-menu-item>
+    `
+  }
+};
+
+export const Switches: Story = {
+  args: {
+    body: () => html`
+      <sl-icon name="far-gear" slot="button"></sl-icon>
+      <span slot="button">Display options</span>
+    `,
+    menuItems: () => html`
+      <sl-menu-item switch>Show only PTA</sl-menu-item>
+      <sl-menu-item switch>Show unconnected items</sl-menu-item>
+      <sl-menu-item>Menu item without a switch</sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-rocket"></sl-icon>
+        Menu item with an icon
+      </sl-menu-item>
+      <sl-menu-item selectable>Selectable</sl-menu-item>
     `
   }
 };

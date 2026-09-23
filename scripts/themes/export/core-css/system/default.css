@@ -1,4 +1,10 @@
 body {
+  --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
+  --sl-animation-duration-fast: 90ms;
+  --sl-animation-duration-normal: 200ms;
+  --sl-animation-duration-slow: 500ms;
+  --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-color-black: #000000;
   --sl-color-transparent: #00000000;
   --sl-color-white: #ffffff;

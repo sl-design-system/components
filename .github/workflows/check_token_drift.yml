@@ -15,6 +15,7 @@ on:
 
 env:
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
   HUSKY: 0
 
 jobs:

@@ -49,7 +49,6 @@
       },
       "dependencies": [
         "analyze",
-        "copy-tokens",
         "..:build:themes:styles",
         "build:ts"
       ],

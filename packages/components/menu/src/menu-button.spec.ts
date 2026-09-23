@@ -391,4 +391,61 @@ describe('sl-menu-button', () => {
       expect(menu).not.to.match(':popover-open');
     });
   });
+
+  describe('deeply nested submenus', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-menu-button>
+          <span slot="button">Button</span>
+
+          <sl-menu-item>
+            Tree
+            <sl-menu slot="submenu">
+              <sl-menu-item>
+                Coniferous
+                <sl-menu slot="submenu">
+                  <sl-menu-item>Scots pine</sl-menu-item>
+                  <sl-menu-item>Norway spruce</sl-menu-item>
+                </sl-menu>
+              </sl-menu-item>
+              <sl-menu-item>
+                Deciduous
+                <sl-menu slot="submenu">
+                  <sl-menu-item>Oak</sl-menu-item>
+                  <sl-menu-item>Maple</sl-menu-item>
+                </sl-menu>
+              </sl-menu-item>
+            </sl-menu>
+          </sl-menu-item>
+        </sl-menu-button>
+      `);
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+      menu = el.renderRoot.querySelector('sl-menu') as Menu;
+    });
+
+    it('should focus the deepest submenu item and keep every level open when navigating in with ArrowRight', async () => {
+      const treeItem = el.querySelector('sl-menu-item')!,
+        level2Menu = treeItem.querySelector('sl-menu')!,
+        coniferousItem = level2Menu.querySelector('sl-menu-item')!,
+        level3Menu = coniferousItem.querySelector('sl-menu')!;
+
+      button.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      await userEvent.keyboard('{ArrowRight}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(level2Menu).to.match(':popover-open');
+      expect(document.activeElement).to.equal(coniferousItem);
+
+      await userEvent.keyboard('{ArrowRight}');
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(menu).to.match(':popover-open');
+      expect(level2Menu).to.match(':popover-open');
+      expect(level3Menu).to.match(':popover-open');
+      expect(document.activeElement).to.equal(level3Menu.querySelector('sl-menu-item'));
+    });
+  });
 });

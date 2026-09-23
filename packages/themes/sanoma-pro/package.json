@@ -19,8 +19,8 @@
     ".": "./index.js",
     "./package.json": "./package.json",
     "./global.css": "./global.css",
-    "./light.css": "./light.css",
-    "./light.min.css": "./light.min.css",
+    "./theme.css": "./theme.css",
+    "./typography.css": "./typography.css",
     "./css/*.css": "./css/*.css"
   },
   "files": [

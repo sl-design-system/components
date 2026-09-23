@@ -2778,6 +2778,31 @@
 | `js` | `*`  | *           | packages/components/shared/src/popover.js                     |         |
 | `js` | `*`  | *           | packages/components/shared/src/string.js                      |         |
 
+# `../packages/components/shared/src/mixins/forward-aria.ts`:
+
+## mixin: `ForwardAriaMixin`
+
+### Parameters
+
+| Name                 | Type       | Default | Description |
+| -------------------- | ---------- | ------- | ----------- |
+| `constructor`        | `T`        |         |             |
+| `observedAttributes` | `string[]` |         |             |
+
+### Methods
+
+| Name              | Privacy | Description | Parameters     | Return | Inherited From |
+| ----------------- | ------- | ----------- | -------------- | ------ | -------------- |
+| `removeAttribute` |         |             | `name: string` | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                                   | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------- | ------- |
+| `js` | `ForwardAriaMixin` | ForwardAriaMixin | ../packages/components/shared/src/mixins/forward-aria.ts |         |
+
 # `../packages/components/shared/src/mixins/locale.ts`:
 
 ## mixin: `LocaleMixin`
@@ -5815,12 +5840,13 @@
 
 ### Fields
 
-| Name         | Privacy | Type                           | Default | Description                                      | Inherited From |
-| ------------ | ------- | ------------------------------ | ------- | ------------------------------------------------ | -------------- |
-| `selectable` |         | `boolean \| undefined`         |         | Whether this menu item can be selected.          |                |
-| `selected`   |         | `boolean \| undefined`         |         | Whether this menu item has been selected.        |                |
-| `shortcut`   |         | `string \| undefined`          |         | Keyboard shortcut for activating this menu item. |                |
-| `variant`    |         | `MenuItemVariant \| undefined` |         | The variant of the menu item.                    |                |
+| Name         | Privacy | Type                           | Default | Description                                            | Inherited From |
+| ------------ | ------- | ------------------------------ | ------- | ------------------------------------------------------ | -------------- |
+| `selectable` |         | `boolean \| undefined`         |         | Whether this menu item can be selected.                |                |
+| `selected`   |         | `boolean \| undefined`         |         | Whether this menu item has been selected.              |                |
+| `shortcut`   |         | `string \| undefined`          |         | Keyboard shortcut for activating this menu item.       |                |
+| `switch`     |         | `boolean \| undefined`         |         | Whether this menu-item should be rendered as a switch. |                |
+| `variant`    |         | `MenuItemVariant \| undefined` |         | The variant of the menu item.                          |                |
 
 ### Events
 
@@ -5835,6 +5861,7 @@
 | `selected`   | selected   |                |
 | `selectable` | selectable |                |
 | `shortcut`   | shortcut   |                |
+| `switch`     | switch     |                |
 | `variant`    | variant    |                |
 
 ### CSS Parts
@@ -7447,31 +7474,6 @@
 | ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
 | `js` | `ElementInternalsMixin` | ElementInternalsMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/element-internals.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts`:
-
-## mixin: `ForwardAriaMixin`
-
-### Parameters
-
-| Name                 | Type       | Default | Description |
-| -------------------- | ---------- | ------- | ----------- |
-| `constructor`        | `T`        |         |             |
-| `observedAttributes` | `string[]` |         |             |
-
-### Methods
-
-| Name              | Privacy | Description | Parameters     | Return | Inherited From |
-| ----------------- | ------- | ----------- | -------------- | ------ | -------------- |
-| `removeAttribute` |         |             | `name: string` | `void` |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                                                                             | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ForwardAriaMixin` | ForwardAriaMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts |         |
-
 # `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts`:
 
 ## Functions
@@ -8491,12 +8493,12 @@
 
 ## Functions
 
-| Name                  | Description | Parameters               | Return              |
-| --------------------- | ----------- | ------------------------ | ------------------- |
-| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton` |
-| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`     |
-| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`   |
-| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton` |
+| Name                  | Description | Parameters               | Return                                 |
+| --------------------- | ----------- | ------------------------ | -------------------------------------- |
+| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton`                    |
+| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`                        |
+| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`                      |
+| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton \| ToolBarItemMenu` |
 
 <hr/>
 

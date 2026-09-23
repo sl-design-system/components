@@ -151,7 +151,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
       return super.renderHeaderRow(index);
     } else if (index === 1) {
       return html`
-        <th part=${parts.join(' ')} role="columnheader" scope="col">
+        <th part=${parts.join(' ')} scope="col">
           <sl-grid-filter
             ${ref(this.#filterRef)}
             .column=${this}

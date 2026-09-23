@@ -52,10 +52,15 @@ export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefin
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
+let nextHeaderCellId = 0;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
   /** The parent grid. */
   #grid?: Grid<T>;
+
+  /** Stable id for the rendered header cell. */
+  #headerCellId = `sl-grid-column-header-${nextHeaderCellId++}`;
 
   /** The state changed event callback. */
   #onStateChanged = () => this.stateChanged();
@@ -137,6 +142,9 @@ export class GridColumn<T = any> extends LitElement {
   /** The number of header rows for this column. */
   headerRowCount = 1;
 
+  /** @internal Ids of ancestor group headers that apply to this column. */
+  groupHeaderIds: string[] = [];
+
   /** The path to the value for this column. */
   @property() path?: PathKeys<T>;
 
@@ -213,6 +221,16 @@ export class GridColumn<T = any> extends LitElement {
    */
   stateChanged(): void {}
 
+  /** @internal */
+  get headerCellId(): string {
+    return this.#headerCellId;
+  }
+
+  /** @internal */
+  get headerIds(): string {
+    return [...this.groupHeaderIds, this.headerCellId].join(' ');
+  }
+
   /**
    * This method renders the `<th>` element and all the related attributes, classes and content.
    * Override this method if you want to customize how a header is rendered. Do not override this if
@@ -230,8 +248,10 @@ export class GridColumn<T = any> extends LitElement {
     return html`
       <th
         class=${ifDefined(classes.join(' ') || undefined)}
+        headers=${ifDefined(this.groupHeaderIds.join(' ') || undefined)}
+        id=${this.headerCellId}
         part=${parts.join(' ')}
-        role="columnheader">
+        scope="col">
         ${this.renderHeaderLabel()}
       </th>
     `;
@@ -269,13 +289,19 @@ export class GridColumn<T = any> extends LitElement {
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
-        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">
+        <td
+          class=${ifDefined(classes.join(' ') || undefined)}
+          headers=${this.headerIds}
+          part=${parts.join(' ')}>
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
     } else {
       return html`
-        <td class=${ifDefined(classes.join(' ') || undefined)} part=${parts.join(' ')} role="cell">
+        <td
+          class=${ifDefined(classes.join(' ') || undefined)}
+          headers=${this.headerIds}
+          part=${parts.join(' ')}>
           ${data}
         </td>
       `;

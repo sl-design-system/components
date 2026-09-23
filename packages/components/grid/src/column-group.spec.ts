@@ -57,6 +57,19 @@ describe('sl-column-group', () => {
 
       expect(headers[0]).to.have.attribute('scope', 'colgroup');
       expect(headers[1]).to.have.attribute('scope', 'colgroup');
+
+      headers.slice(2).forEach(header => {
+        expect(header).to.have.attribute('scope', 'col');
+      });
+
+      const nameGroupId = headers[0].id,
+        gradesGroupId = headers[1].id;
+
+      expect(headers[2]).to.have.attribute('headers', nameGroupId);
+      expect(headers[3]).to.have.attribute('headers', nameGroupId);
+      headers.slice(4).forEach(header => {
+        expect(header).to.have.attribute('headers', gradesGroupId);
+      });
     });
 
     it('should have the correct width', () => {

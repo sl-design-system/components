@@ -107,6 +107,64 @@ describe('sl-grid', () => {
     });
   });
 
+  describe('column groups', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid
+          .items=${[
+            {
+              firstName: 'John',
+              lastName: 'Doe',
+              school: { name: 'Example School', city: 'Example City', country: 'Example Country' }
+            }
+          ]}>
+          <sl-grid-column-group header="Name">
+            <sl-grid-column path="firstName"></sl-grid-column>
+            <sl-grid-column path="lastName"></sl-grid-column>
+          </sl-grid-column-group>
+          <sl-grid-column-group header="School">
+            <sl-grid-column path="school.name"></sl-grid-column>
+            <sl-grid-column path="school.city"></sl-grid-column>
+            <sl-grid-column path="school.country"></sl-grid-column>
+          </sl-grid-column-group>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+    });
+
+    it('should scope group headers and leaf headers correctly', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      expect(headers[0]).to.have.attribute('scope', 'colgroup');
+      expect(headers[1]).to.have.attribute('scope', 'colgroup');
+      headers.slice(2).forEach(header => {
+        expect(header).to.have.attribute('scope', 'col');
+      });
+
+      const nameGroupId = headers[0].id,
+        schoolGroupId = headers[1].id,
+        firstNameHeaderId = headers[2].id,
+        lastNameHeaderId = headers[3].id,
+        schoolNameHeaderId = headers[4].id,
+        cityHeaderId = headers[5].id,
+        countryHeaderId = headers[6].id,
+        cells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
+
+      expect(headers[2]).to.have.attribute('headers', nameGroupId);
+      expect(headers[3]).to.have.attribute('headers', nameGroupId);
+      expect(headers[4]).to.have.attribute('headers', schoolGroupId);
+      expect(headers[5]).to.have.attribute('headers', schoolGroupId);
+      expect(headers[6]).to.have.attribute('headers', schoolGroupId);
+
+      expect(cells[0]).to.have.attribute('headers', `${nameGroupId} ${firstNameHeaderId}`);
+      expect(cells[1]).to.have.attribute('headers', `${nameGroupId} ${lastNameHeaderId}`);
+      expect(cells[2]).to.have.attribute('headers', `${schoolGroupId} ${schoolNameHeaderId}`);
+      expect(cells[3]).to.have.attribute('headers', `${schoolGroupId} ${cityHeaderId}`);
+      expect(cells[4]).to.have.attribute('headers', `${schoolGroupId} ${countryHeaderId}`);
+    });
+  });
+
   describe('multiple select', () => {
     beforeEach(async () => {
       await mountMultipleSelectGrid();

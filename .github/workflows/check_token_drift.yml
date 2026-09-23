@@ -7,6 +7,8 @@ on:
       component:
         description: 'Component to check (leave empty to check all mapped components)'
         required: false
+  # TEMPORARY, for testing this workflow on a draft PR — remove before merging
+  pull_request:
   # schedule:
   # Weekly, since drift is caused by independent Figma/code changes, not a specific commit
   # - cron: '0 6 * * 1'

@@ -45,7 +45,6 @@ The following packages are **excluded** from changesets (configured in `.changes
 - `@sl-design-system/example-data`
 - `@sl-design-system/lit-examples`
 - `@sl-design-system/scripts`
-- `@sl-design-system/tokens`
 - `@sl-design-system/website`
 
 Also exclude changes to files outside of packages (e.g. root config files, scripts, tools).

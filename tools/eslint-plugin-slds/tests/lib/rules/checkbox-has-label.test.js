@@ -33,6 +33,10 @@ ruleTester.run('checkbox-has-label', checkboxHasLabel, {
     {
       code: 'html`<sl-checkbox>Accept terms<sl-infotip slot="infotip">Info</sl-infotip></sl-checkbox>`;'
     },
+    {
+      code: 'html`<sl-checkbox><slot></slot></sl-checkbox>`;',
+      name: 'bare default slot forwards host light DOM content'
+    },
     { code: 'const template = `<sl-checkbox></sl-checkbox>`;' }
   ],
   invalid: [
@@ -52,6 +56,11 @@ ruleTester.run('checkbox-has-label', checkboxHasLabel, {
     {
       code: 'html`<sl-checkbox><span></span></sl-checkbox>`;',
       errors: [{ messageId: 'missingLabel' }]
+    },
+    {
+      code: 'html`<sl-checkbox><slot name="label"></slot></sl-checkbox>`;',
+      errors: [{ messageId: 'missingLabel' }],
+      name: 'named slot does not provide accessible name'
     },
     {
       code: 'html`<sl-checkbox><sl-infotip slot="infotip">Info</sl-infotip></sl-checkbox>`;',

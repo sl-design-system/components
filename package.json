@@ -170,6 +170,7 @@
         "!packages/themes/*/fonts.css",
         "!packages/themes/*/global.css",
         "!packages/themes/*/icons.json",
+        "!packages/themes/*/typography.css",
         "!packages/themes/*/theme.css"
       ]
     },

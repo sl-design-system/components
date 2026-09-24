@@ -156,15 +156,30 @@ describe('sl-grid', () => {
         cells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
 
       expect(headers[2]).to.not.have.attribute('headers');
-      expect(headers[2]).to.have.attribute('aria-label', 'Name First name');
+      expect(headers[2]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id} ${headers[2].id}-label`
+      );
       expect(headers[3]).to.not.have.attribute('headers');
-      expect(headers[3]).to.have.attribute('aria-label', 'Name Last name');
+      expect(headers[3]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id} ${headers[3].id}-label`
+      );
       expect(headers[4]).to.not.have.attribute('headers');
-      expect(headers[4]).to.have.attribute('aria-label', 'School Name');
+      expect(headers[4]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[4].id}-label`
+      );
       expect(headers[5]).to.not.have.attribute('headers');
-      expect(headers[5]).to.have.attribute('aria-label', 'School City');
+      expect(headers[5]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[5].id}-label`
+      );
       expect(headers[6]).to.not.have.attribute('headers');
-      expect(headers[6]).to.have.attribute('aria-label', 'School Country');
+      expect(headers[6]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[6].id}-label`
+      );
 
       expect(cells[0]).to.have.attribute('headers', firstNameHeaderId);
       expect(cells[1]).to.have.attribute('headers', lastNameHeaderId);

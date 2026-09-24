@@ -76,24 +76,42 @@ describe('sl-column-group', () => {
       });
 
       expect(headers[2]).to.not.have.attribute('headers');
-      expect(headers[2]).to.have.attribute('aria-label', 'Name First name');
-      expect(headers[2].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[2]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id} ${headers[2].id}-label`
+      );
+      expect(headers[2].querySelector('span')?.id).to.equal(`${headers[2].id}-label`);
       expect(headers[2]).to.have.attribute('aria-colindex', '1');
       expect(headers[3]).to.not.have.attribute('headers');
-      expect(headers[3]).to.have.attribute('aria-label', 'Name Last name');
-      expect(headers[3].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[3]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id} ${headers[3].id}-label`
+      );
+      expect(headers[3].querySelector('span')?.id).to.equal(`${headers[3].id}-label`);
       expect(headers[3]).to.have.attribute('aria-colindex', '2');
-      expect(headers[4]).to.have.attribute('aria-label', 'Grades Biology');
-      expect(headers[4].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[4]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[4].id}-label`
+      );
+      expect(headers[4].querySelector('span')?.id).to.equal(`${headers[4].id}-label`);
       expect(headers[4]).to.have.attribute('aria-colindex', '3');
-      expect(headers[5]).to.have.attribute('aria-label', 'Grades Maths');
-      expect(headers[5].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[5]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[5].id}-label`
+      );
+      expect(headers[5].querySelector('span')?.id).to.equal(`${headers[5].id}-label`);
       expect(headers[5]).to.have.attribute('aria-colindex', '4');
-      expect(headers[6]).to.have.attribute('aria-label', 'Grades English');
-      expect(headers[6].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[6]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[6].id}-label`
+      );
+      expect(headers[6].querySelector('span')?.id).to.equal(`${headers[6].id}-label`);
       expect(headers[6]).to.have.attribute('aria-colindex', '5');
-      expect(headers[7]).to.have.attribute('aria-label', 'Grades Age');
-      expect(headers[7].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[7]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id} ${headers[7].id}-label`
+      );
+      expect(headers[7].querySelector('span')?.id).to.equal(`${headers[7].id}-label`);
       expect(headers[7]).to.have.attribute('aria-colindex', '6');
 
       expect(dataCells[0]).to.have.attribute('headers', headers[2].id);

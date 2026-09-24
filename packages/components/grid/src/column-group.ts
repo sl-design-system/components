@@ -60,6 +60,7 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
 
     columns.forEach(col => {
       col.grid = this.grid;
+      col.groupHeaderIds = [...this.groupHeaderIds, this.headerCellId];
       col.groupHeaderLabels = [...this.groupHeaderLabels, groupHeaderLabel].filter(Boolean);
     });
 

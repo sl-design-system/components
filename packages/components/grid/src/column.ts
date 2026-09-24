@@ -152,6 +152,9 @@ export class GridColumn<T = any> extends LitElement {
   /** The number of header rows for this column. */
   headerRowCount = 1;
 
+  /** @internal IDs of ancestor group headers that apply to this column header. */
+  groupHeaderIds: string[] = [];
+
   /** @internal Labels of ancestor group headers that apply to this column. */
   groupHeaderLabels: string[] = [];
 
@@ -248,6 +251,20 @@ export class GridColumn<T = any> extends LitElement {
       : undefined;
   }
 
+  /** @internal */
+  get headerLabelId(): string | undefined {
+    return typeof this.header === 'string' || !!this.path
+      ? `${this.headerCellId}-label`
+      : undefined;
+  }
+
+  /** @internal */
+  get headerAriaLabelledBy(): string | undefined {
+    return this.groupHeaderIds.length && this.headerLabelId
+      ? [...this.groupHeaderIds, this.headerLabelId].join(' ')
+      : undefined;
+  }
+
   /** @internal Text label used for header announcements and form-control labels. */
   get headerLabelText(): string {
     const formControlColumnLabel = this.formControlColumnLabel?.trim(),
@@ -273,7 +290,8 @@ export class GridColumn<T = any> extends LitElement {
     return html`
       <th
         aria-colindex=${String(this.columnIndex)}
-        aria-label=${ifDefined(this.headerAriaLabel)}
+        aria-label=${ifDefined(this.headerAriaLabelledBy ? undefined : this.headerAriaLabel)}
+        aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
@@ -290,23 +308,16 @@ export class GridColumn<T = any> extends LitElement {
    * override this if you only want to change the classes, contents or parts of the header.
    */
   renderHeaderLabel(): string | undefined | TemplateResult {
-    const className = this.hideHeaderText ? 'visually-hidden' : undefined;
+    const className = this.hideHeaderText ? 'visually-hidden' : undefined,
+      labelId = this.headerLabelId;
 
     if (this.header) {
       return typeof this.header === 'string'
-        ? html`
-            <span
-              aria-hidden=${ifDefined(this.headerAriaLabel ? 'true' : undefined)}
-              class=${ifDefined(className)}
-              >${this.header}</span
-            >
-          `
+        ? html`<span class=${ifDefined(className)} id=${ifDefined(labelId)}>${this.header}</span>`
         : this.header(this);
     } else if (this.path) {
       return html`
-        <span
-          aria-hidden=${ifDefined(this.headerAriaLabel ? 'true' : undefined)}
-          class=${ifDefined(className)}
+        <span class=${ifDefined(className)} id=${ifDefined(labelId)}
           >${getNameByPath(this.path)}</span
         >
       `;

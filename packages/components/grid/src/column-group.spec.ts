@@ -37,7 +37,7 @@ describe('sl-column-group', () => {
 
     it('should render column headers', () => {
       const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col =>
-        col.textContent?.trim()
+        col.innerText.trim()
       );
 
       expect(columns).to.deep.equal([
@@ -52,24 +52,78 @@ describe('sl-column-group', () => {
       ]);
     });
 
-    it('should mark grouped headers as column groups', () => {
-      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+    it('should expose the total column count on the table', () => {
+      expect(el.renderRoot.querySelector('table')).to.have.attribute('aria-colcount', '6');
+    });
 
+    it('should mark grouped headers as column groups', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th')),
+        dataCells = Array.from(el.renderRoot.querySelectorAll('tbody tr td'));
+
+      expect(headers[0]).to.have.attribute('aria-colindex', '1');
+      expect(headers[0]).to.have.attribute('aria-colspan', '2');
+      expect(headers[0]).to.have.attribute('colspan', '2');
+      expect(headers[0]).to.have.attribute('role', 'columnheader');
       expect(headers[0]).to.have.attribute('scope', 'colgroup');
+      expect(headers[1]).to.have.attribute('aria-colindex', '3');
+      expect(headers[1]).to.have.attribute('aria-colspan', '4');
+      expect(headers[1]).to.have.attribute('colspan', '4');
+      expect(headers[1]).to.have.attribute('role', 'columnheader');
       expect(headers[1]).to.have.attribute('scope', 'colgroup');
 
       headers.slice(2).forEach(header => {
         expect(header).to.have.attribute('scope', 'col');
       });
 
-      const nameGroupId = headers[0].id,
-        gradesGroupId = headers[1].id;
+      expect(headers[2]).to.not.have.attribute('headers');
+      expect(headers[2]).to.have.attribute('aria-label', 'Name First name');
+      expect(headers[2].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[2]).to.have.attribute('aria-colindex', '1');
+      expect(headers[3]).to.not.have.attribute('headers');
+      expect(headers[3]).to.have.attribute('aria-label', 'Name Last name');
+      expect(headers[3].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[3]).to.have.attribute('aria-colindex', '2');
+      expect(headers[4]).to.have.attribute('aria-label', 'Grades Biology');
+      expect(headers[4].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[4]).to.have.attribute('aria-colindex', '3');
+      expect(headers[5]).to.have.attribute('aria-label', 'Grades Maths');
+      expect(headers[5].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[5]).to.have.attribute('aria-colindex', '4');
+      expect(headers[6]).to.have.attribute('aria-label', 'Grades English');
+      expect(headers[6].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[6]).to.have.attribute('aria-colindex', '5');
+      expect(headers[7]).to.have.attribute('aria-label', 'Grades Age');
+      expect(headers[7].querySelector('span')?.getAttribute('aria-hidden')).to.equal('true');
+      expect(headers[7]).to.have.attribute('aria-colindex', '6');
 
-      expect(headers[2]).to.have.attribute('headers', nameGroupId);
-      expect(headers[3]).to.have.attribute('headers', nameGroupId);
-      headers.slice(4).forEach(header => {
-        expect(header).to.have.attribute('headers', gradesGroupId);
-      });
+      expect(dataCells[0]).to.have.attribute('headers', headers[2].id);
+      expect(dataCells[1]).to.have.attribute('headers', headers[3].id);
+      expect(dataCells[2]).to.have.attribute('headers', headers[4].id);
+      expect(dataCells[3]).to.have.attribute('headers', headers[5].id);
+      expect(dataCells[4]).to.have.attribute('headers', headers[6].id);
+      expect(dataCells[5]).to.have.attribute('headers', headers[7].id);
+
+      expect(dataCells[0]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[2].id} ${dataCells[0].id}`
+      );
+      expect(dataCells[1]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[3].id} ${dataCells[1].id}`
+      );
+      expect(dataCells[2]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[4].id} ${dataCells[2].id}`
+      );
+      expect(dataCells[3]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[5].id} ${dataCells[3].id}`
+      );
+      expect(dataCells[4]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[6].id} ${dataCells[4].id}`
+      );
+      expect(dataCells[5].getAttribute('aria-labelledby')).to.equal(null);
     });
 
     it('should have the correct width', () => {

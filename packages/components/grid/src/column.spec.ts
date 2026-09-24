@@ -74,6 +74,18 @@ describe('sl-column', () => {
       ]);
     });
 
+    it('should reference rendered plain cell values with aria-labelledby', () => {
+      const labels = cells.map(cell => cell.getAttribute('aria-labelledby'));
+
+      expect(labels.every(Boolean)).to.be.true;
+      labels.forEach((label, index) => {
+        expect(label).to.equal(
+          `${el.renderRoot.querySelectorAll('th')[index].id} ${cells[index].id}`
+        );
+        expect(cells[index].textContent?.trim()).to.equal(['John', 'Doe', '20'][index]);
+      });
+    });
+
     it('should not ellipsize the text in the cells', () => {
       expect(el.renderRoot.querySelector('sl-ellipsize-text')).not.to.exist;
     });
@@ -208,6 +220,15 @@ describe('sl-column', () => {
       );
 
       expect(data).to.deep.equal(['Bar', '']);
+    });
+
+    it('should omit aria-labelledby for empty string values', () => {
+      const dataCells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
+
+      expect(dataCells[0].getAttribute('aria-labelledby')).to.be.a('string');
+      expect(dataCells[0].id).to.not.equal('');
+      expect(dataCells[1].getAttribute('aria-labelledby')).to.equal(null);
+      expect(dataCells[1].id).to.equal('');
     });
   });
 

@@ -136,32 +136,47 @@ describe('sl-grid', () => {
     it('should scope group headers and leaf headers correctly', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th'));
 
+      expect(headers[0]).to.have.attribute('role', 'columnheader');
       expect(headers[0]).to.have.attribute('scope', 'colgroup');
+      expect(headers[0]).to.have.attribute('aria-colindex', '1');
+      expect(headers[0]).to.have.attribute('aria-colspan', '2');
+      expect(headers[1]).to.have.attribute('role', 'columnheader');
       expect(headers[1]).to.have.attribute('scope', 'colgroup');
+      expect(headers[1]).to.have.attribute('aria-colindex', '3');
+      expect(headers[1]).to.have.attribute('aria-colspan', '3');
       headers.slice(2).forEach(header => {
         expect(header).to.have.attribute('scope', 'col');
       });
 
-      const nameGroupId = headers[0].id,
-        schoolGroupId = headers[1].id,
-        firstNameHeaderId = headers[2].id,
+      const firstNameHeaderId = headers[2].id,
         lastNameHeaderId = headers[3].id,
         schoolNameHeaderId = headers[4].id,
         cityHeaderId = headers[5].id,
         countryHeaderId = headers[6].id,
         cells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
 
-      expect(headers[2]).to.have.attribute('headers', nameGroupId);
-      expect(headers[3]).to.have.attribute('headers', nameGroupId);
-      expect(headers[4]).to.have.attribute('headers', schoolGroupId);
-      expect(headers[5]).to.have.attribute('headers', schoolGroupId);
-      expect(headers[6]).to.have.attribute('headers', schoolGroupId);
+      expect(headers[2]).to.not.have.attribute('headers');
+      expect(headers[2]).to.have.attribute('aria-label', 'Name First name');
+      expect(headers[3]).to.not.have.attribute('headers');
+      expect(headers[3]).to.have.attribute('aria-label', 'Name Last name');
+      expect(headers[4]).to.not.have.attribute('headers');
+      expect(headers[4]).to.have.attribute('aria-label', 'School Name');
+      expect(headers[5]).to.not.have.attribute('headers');
+      expect(headers[5]).to.have.attribute('aria-label', 'School City');
+      expect(headers[6]).to.not.have.attribute('headers');
+      expect(headers[6]).to.have.attribute('aria-label', 'School Country');
 
-      expect(cells[0]).to.have.attribute('headers', `${nameGroupId} ${firstNameHeaderId}`);
-      expect(cells[1]).to.have.attribute('headers', `${nameGroupId} ${lastNameHeaderId}`);
-      expect(cells[2]).to.have.attribute('headers', `${schoolGroupId} ${schoolNameHeaderId}`);
-      expect(cells[3]).to.have.attribute('headers', `${schoolGroupId} ${cityHeaderId}`);
-      expect(cells[4]).to.have.attribute('headers', `${schoolGroupId} ${countryHeaderId}`);
+      expect(cells[0]).to.have.attribute('headers', firstNameHeaderId);
+      expect(cells[1]).to.have.attribute('headers', lastNameHeaderId);
+      expect(cells[2]).to.have.attribute('headers', schoolNameHeaderId);
+      expect(cells[3]).to.have.attribute('headers', cityHeaderId);
+      expect(cells[4]).to.have.attribute('headers', countryHeaderId);
+
+      expect(cells[0]).to.have.attribute('aria-labelledby', `${firstNameHeaderId} ${cells[0].id}`);
+      expect(cells[1]).to.have.attribute('aria-labelledby', `${lastNameHeaderId} ${cells[1].id}`);
+      expect(cells[2]).to.have.attribute('aria-labelledby', `${schoolNameHeaderId} ${cells[2].id}`);
+      expect(cells[3]).to.have.attribute('aria-labelledby', `${cityHeaderId} ${cells[3].id}`);
+      expect(cells[4]).to.have.attribute('aria-labelledby', `${countryHeaderId} ${cells[4].id}`);
     });
   });
 
@@ -1775,6 +1790,7 @@ describe('sl-grid', () => {
       `);
 
       await waitForGridToRenderData(el);
+      await el.recalculateColumnWidths();
       await el.updateComplete;
 
       const tfoot = el.renderRoot.querySelector<HTMLTableSectionElement>('tfoot'),
@@ -1785,7 +1801,7 @@ describe('sl-grid', () => {
       expect(
         getComputedStyle(row!.querySelector('td')!).getPropertyValue('border-block-end-color')
       ).not.to.equal('rgba(0, 0, 0, 0)');
-      expect(Math.ceil(tfoot!.getBoundingClientRect().top)).to.be.at.least(
+      expect(Math.ceil(tfoot!.getBoundingClientRect().bottom)).to.be.at.least(
         Math.floor(row!.getBoundingClientRect().bottom)
       );
     });

@@ -53,6 +53,7 @@ export type GridColumnFormControlLabel<T = any> = (model: T) => string | undefin
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
 let nextHeaderCellId = 0;
+let nextCellId = 0;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
@@ -65,6 +66,9 @@ export class GridColumn<T = any> extends LitElement {
   /** The state changed event callback. */
   #onStateChanged = () => this.stateChanged();
 
+  /** Stable ids for rendered text-like cells. */
+  #cellIds = new WeakMap<ListDataSourceDataItem<T>, string>();
+
   /** The scoped elements set on this column. */
   #scopedElements: Record<string, typeof HTMLElement>;
 
@@ -73,6 +77,12 @@ export class GridColumn<T = any> extends LitElement {
 
   /** The alignment of the content within the column. */
   @property() align?: GridColumnAlignment;
+
+  /** @internal The 1-based column index used for accessibility metadata. */
+  columnIndex = 1;
+
+  /** @internal The number of leaf columns represented by this column. */
+  columnSpan = 1;
 
   /**
    * Automatically sets the width of the column based on the column contents when this is set to
@@ -142,8 +152,8 @@ export class GridColumn<T = any> extends LitElement {
   /** The number of header rows for this column. */
   headerRowCount = 1;
 
-  /** @internal Ids of ancestor group headers that apply to this column. */
-  groupHeaderIds: string[] = [];
+  /** @internal Labels of ancestor group headers that apply to this column. */
+  groupHeaderLabels: string[] = [];
 
   /** The path to the value for this column. */
   @property() path?: PathKeys<T>;
@@ -228,7 +238,22 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerIds(): string {
-    return [...this.groupHeaderIds, this.headerCellId].join(' ');
+    return this.headerCellId;
+  }
+
+  /** @internal */
+  get headerAriaLabel(): string | undefined {
+    return this.groupHeaderLabels.length && (typeof this.header === 'string' || !!this.path)
+      ? [...this.groupHeaderLabels, this.headerLabelText].filter(Boolean).join(' ')
+      : undefined;
+  }
+
+  /** @internal Text label used for header announcements and form-control labels. */
+  get headerLabelText(): string {
+    const formControlColumnLabel = this.formControlColumnLabel?.trim(),
+      headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
+
+    return formControlColumnLabel || headerLabel || (this.path ? getNameByPath(this.path) : '');
   }
 
   /**
@@ -247,10 +272,12 @@ export class GridColumn<T = any> extends LitElement {
 
     return html`
       <th
+        aria-colindex=${String(this.columnIndex)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         class=${ifDefined(classes.join(' ') || undefined)}
-        headers=${ifDefined(this.groupHeaderIds.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
+        role="columnheader"
         scope="col">
         ${this.renderHeaderLabel()}
       </th>
@@ -267,10 +294,22 @@ export class GridColumn<T = any> extends LitElement {
 
     if (this.header) {
       return typeof this.header === 'string'
-        ? html`<span class=${ifDefined(className)}>${this.header}</span>`
+        ? html`
+            <span
+              aria-hidden=${ifDefined(this.headerAriaLabel ? 'true' : undefined)}
+              class=${ifDefined(className)}
+              >${this.header}</span
+            >
+          `
         : this.header(this);
     } else if (this.path) {
-      return html`<span class=${ifDefined(className)}>${getNameByPath(this.path)}</span>`;
+      return html`
+        <span
+          aria-hidden=${ifDefined(this.headerAriaLabel ? 'true' : undefined)}
+          class=${ifDefined(className)}
+          >${getNameByPath(this.path)}</span
+        >
+      `;
     }
 
     return undefined;
@@ -285,23 +324,34 @@ export class GridColumn<T = any> extends LitElement {
   renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     const classes = this.getClasses(item.data),
       data = this.getDisplayValue(item.data),
-      parts = ['data', ...this.getParts(item.data)];
+      parts = ['data', ...this.getParts(item.data)],
+      cellLabel = this.getCellAriaLabel(data),
+      cellId = cellLabel ? this.getCellId(item) : undefined,
+      labelledBy = cellId ? `${this.headerCellId} ${cellId}` : undefined;
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
         <td
+          aria-labelledby=${ifDefined(labelledBy)}
+          aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
-          part=${parts.join(' ')}>
+          id=${ifDefined(cellId)}
+          part=${parts.join(' ')}
+          role="cell">
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
     } else {
       return html`
         <td
+          aria-labelledby=${ifDefined(labelledBy)}
+          aria-colindex=${String(this.columnIndex)}
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
-          part=${parts.join(' ')}>
+          id=${ifDefined(cellId)}
+          part=${parts.join(' ')}
+          role="cell">
           ${data}
         </td>
       `;
@@ -351,9 +401,36 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
+  /** Returns an accessible label for plain text-like cell values. */
+  getCellAriaLabel(value: unknown): string | undefined {
+    if (typeof value === 'string') {
+      const label = value.trim();
+
+      return label || undefined;
+    }
+
+    if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
+      return String(value);
+    }
+
+    return undefined;
+  }
+
+  /** Returns a stable id for the rendered text-like cell. */
+  getCellId(item: ListDataSourceDataItem<T>): string {
+    let id = this.#cellIds.get(item);
+
+    if (!id) {
+      id = `${this.headerCellId}-cell-${nextCellId++}`;
+      this.#cellIds.set(item, id);
+    }
+
+    return id;
+  }
+
   /** Returns a label for form controls rendered inside this column. */
   getFormControlLabel(item: T): string {
-    const columnLabel = this.#getHeaderLabel(),
+    const columnLabel = this.headerLabelText,
       rowLabel = this.formControlLabel?.(item)?.trim();
 
     return [columnLabel, rowLabel].filter(Boolean).join(' ');
@@ -382,12 +459,5 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
-  }
-
-  #getHeaderLabel(): string {
-    const formControlColumnLabel = this.formControlColumnLabel?.trim(),
-      headerLabel = typeof this.header === 'string' ? this.header.trim() : '';
-
-    return formControlColumnLabel || headerLabel || (this.path ? getNameByPath(this.path) : '');
   }
 }

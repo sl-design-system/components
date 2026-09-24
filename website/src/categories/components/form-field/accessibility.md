@@ -1,9 +1,9 @@
 ---
-title: Form accessibility
+title: Form field accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Form
-  key: FormAccessibility
+  parent: Form field
+  key: FormFieldAccessibility
 ---
 
 <section>

@@ -678,7 +678,7 @@ export class AllFormControlsEmptyTemplateComponent {
 @Component({
   selector: 'sla-login-form',
   template: `
-    <sl-form #form [formGroup]="formGroup">
+    <sl-form #form announce-errors="false" [formGroup]="formGroup">
       @if (showValidity && formGroup.errors?.['invalidCredentials']) {
         <sl-inline-message variant="danger"
           >Please enter admin/admin to gain access.</sl-inline-message

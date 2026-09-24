@@ -96,7 +96,7 @@ With this enabled, each field is validated when the user leaves it. For required
 
 - **Just tabbing through** a field shows no error. This allows keyboard and screen reader users to explore the form and hear all field labels and hints without being interrupted by error announcements on empty fields they haven't interacted with yet.
 - **Typing and clearing** a field, then leaving it, shows the required error on blur. The user has interacted with the field and is expected to see feedback.
-- **Mouse actions** such as unchecking a checkbox or removing the last selection in a combobox show the error immediately, since the intent to change the value is clear.
+- **Mouse actions** such as unchecking a checkbox or removing the last selection in a combobox do not show the error immediately; the error is shown when the control loses focus (for example by clicking outside the field).
 
 Fields that were never interacted with are still validated when `reportValidity()` is called, for example on submit.
 

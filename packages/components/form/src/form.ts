@@ -28,6 +28,10 @@ declare global {
 export type SlResetEvent = CustomEvent<void> & { target: Form };
 export type SlSubmitEvent = CustomEvent<void> & { target: Form };
 
+const announceErrorsConverter = {
+  fromAttribute: (value: string | null): boolean => value !== null && value !== 'false'
+};
+
 /**
  * This component is a wrapper for the form controls.
  *
@@ -78,6 +82,15 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
 
   /** Will disable the entire form when true. */
   @property({ type: Boolean }) disabled?: boolean;
+
+  /**
+   * Whether field-level validation messages are announced via the live-region announcer.
+   *
+   * Enabled by default. When you use aggregated validation messaging (with `<sl-inline-message>`),
+   * set `announce-errors="false"` to avoid duplicate screen reader announcements.
+   */
+  @property({ attribute: 'announce-errors', converter: announceErrorsConverter })
+  announceErrors = true;
 
   /**
    * Validates controls on blur. Format and value errors are shown when the user leaves a field. For
@@ -175,6 +188,10 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
 
     if (changes.has('disabled')) {
       this.controls.forEach(control => (control.disabled = this.disabled));
+    }
+
+    if (changes.has('announceErrors')) {
+      this.fields.forEach(field => (field.announceErrors = this.announceErrors));
     }
   }
 
@@ -315,6 +332,8 @@ export class Form<T extends Record<string, any> = Record<string, any>> extends L
     };
 
     this.fields = [...this.fields, field];
+
+    field.announceErrors = this.announceErrors;
 
     // Give the form field time to set the control
     await field.updateComplete;

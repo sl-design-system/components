@@ -6,10 +6,13 @@
   "type": "module",
   "scripts": {
     "connect:publish": "figma connect publish",
-    "connect:unpublish": "figma connect unpublish"
+    "connect:unpublish": "figma connect unpublish",
+    "connect:test": "node preview-errors.mjs",
+    "connect:test:report": "node preview-errors.mjs --report figma-connect-report.md",
+    "connect:lint-names": "node lint-mapping-names.mjs"
   },
   "devDependencies": {
-    "@figma/code-connect": "^1.4.8",
+    "@figma/code-connect": "^2.0.1",
     "typescript": "^6.0.3"
   }
 }

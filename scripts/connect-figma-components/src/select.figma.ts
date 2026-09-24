@@ -1,26 +1,32 @@
 // url=https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=1514-156507
 import figma from 'figma';
+import {
+  checkBooleanProperty,
+  checkInstance,
+  checkStringProperty
+} from './_shared/figma-assertions.js';
 
 const instance = figma.selectedInstance;
 
 function getExample() {
-  const hasLabel = instance.getBoolean('Label');
+  const hasLabel = checkBooleanProperty(instance.getBoolean('Label'), 'Label');
 
   let label = undefined,
     required = false;
   if (hasLabel) {
-    const labelBase = instance.findInstance('sl-base-label');
-    if (labelBase.type === 'ERROR') return null;
+    const labelBase = checkInstance(instance.findInstance('sl-base-label'), 'sl-base-label');
 
-    label = labelBase.getString('Label');
-    required = labelBase.getBoolean('Required');
+    label = checkStringProperty(labelBase.getString('Label'), 'Label');
+    required = checkBooleanProperty(labelBase.getBoolean('Required'), 'Required');
   }
 
-  const selectVariants = instance.findInstance('Select variations', { traverseInstances: true });
-  if (selectVariants.type === 'ERROR') return null;
+  const selectVariants = checkInstance(
+    instance.findInstance('Select variations', { traverseInstances: true }),
+    'Select variations'
+  );
 
-  const clearable = selectVariants.getBoolean('Clear button'),
-    disabled = selectVariants.getString('Variant') === 'Disabled',
+  const clearable = checkBooleanProperty(selectVariants.getBoolean('Clear button'), 'Clear button'),
+    disabled = checkStringProperty(selectVariants.getString('Variant'), 'Variant') === 'Disabled',
     placeholder = selectVariants.getString('Placeholder text'),
     value = selectVariants.getString('Input value');
 

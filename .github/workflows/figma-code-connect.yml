@@ -1,0 +1,89 @@
+name: Figma Code Connect
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Figma Code Connect (PR validation)']
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+env:
+  HUSKY: 0
+
+jobs:
+  preview:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_repository.full_name == github.repository
+      )
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the trusted workflow SHA
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow.run.head_sha }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'yarn'
+
+      - name: Install dependencies
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+        run: yarn install --immutable
+
+      - name: Run Code Connect preview
+        working-directory: scripts/connect-figma-components
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+        run: yarn connect:test:report
+
+      - name: Publish report to job summary
+        if: always()
+        run: |
+          if [ -f scripts/connect-figma-components/figma-connect-report.md ]; then
+            cat scripts/connect-figma-components/figma-connect-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Comment report on PR
+        if: always() && github.event_name != 'workflow_dispatch'
+        uses: actions/github-script@v7
+        env:
+          REPORT_PATH: scripts/connect-figma-components/figma-connect-report.md
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = process.env.REPORT_PATH;
+            const prNumber = context.payload.workflow_run?.pull_requests?.[0]?.number;
+            if (!fs.existsSync(path) || !prNumber) return;
+
+            let body = fs.readFileSync(path, 'utf8');
+
+            if (body.length > 65000) {
+              body = body.slice(0, 65000) + '\n\n...truncated...';
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              body: `## Figma Code Connect report\n\n${body}`
+            });
+
+      - name: Upload Code Connect report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: figma-code-connect-report
+          path: scripts/connect-figma-components/figma-connect-report.md
+          if-no-files-found: warn

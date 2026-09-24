@@ -22,8 +22,6 @@ jobs:
           node-version: 24
           cache: 'yarn'
 
-      - run: yarn install --immutable
-
       - name: Lint Code Connect mapping naming
         working-directory: scripts/connect-figma-components
-        run: yarn connect:lint-names
+        run: node lint-mapping-names.mjs

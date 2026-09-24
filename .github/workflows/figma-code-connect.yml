@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+      FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
     steps:
       - name: Checkout the trusted workflow SHA
         uses: actions/checkout@v6

@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: 24
 
+      - name: Install dependencies
+        env:
+          FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+        run: yarn install --immutable
+
       - name: Lint Code Connect mapping naming
         working-directory: scripts/connect-figma-components
         run: node lint-mapping-names.mjs

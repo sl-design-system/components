@@ -22,9 +22,6 @@ jobs:
         github.event.workflow_run.head_repository.full_name == github.repository
       )
     runs-on: ubuntu-latest
-    env:
-      FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
-      FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
     steps:
       - name: Checkout the trusted workflow SHA
         uses: actions/checkout@v6
@@ -37,10 +34,16 @@ jobs:
           node-version: 24
           cache: 'yarn'
 
-      - run: yarn install --immutable
+      - name: Install dependencies
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+        run: yarn install --immutable
 
       - name: Run Code Connect preview
         working-directory: scripts/connect-figma-components
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
         run: yarn connect:test:report
 
       - name: Upload Code Connect report

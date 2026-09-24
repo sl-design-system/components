@@ -2424,6 +2424,38 @@ describe('sl-date-field', () => {
 
       expect(buttonBar).to.exist;
     });
+
+    it('should keep the picker open when a slotted action without hide-picker is clicked', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.querySelector<HTMLElement>('sl-button')?.click();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('dialog')?.open).to.be.true;
+    });
+
+    it('should call the slotted action handler and then close the picker when hide-picker is set', async () => {
+      let dialogOpenDuringClick = false;
+      const onAction = (): void => {
+        dialogOpenDuringClick = el.renderRoot.querySelector('dialog')?.open ?? false;
+      };
+
+      el = await fixture(html`
+        <sl-date-field aria-label="Date">
+          <button @click=${onAction} hide-picker type="button">Today</button>
+        </sl-date-field>
+      `);
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.querySelector<HTMLButtonElement>('button')?.click();
+      await el.updateComplete;
+
+      expect(dialogOpenDuringClick).to.be.true;
+      expect(el.renderRoot.querySelector('dialog')?.open).to.be.false;
+    });
   });
 
   describe('label association', () => {

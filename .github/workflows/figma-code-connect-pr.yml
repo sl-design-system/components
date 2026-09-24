@@ -20,7 +20,6 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: 'yarn'
 
       - name: Lint Code Connect mapping naming
         working-directory: scripts/connect-figma-components

@@ -534,6 +534,22 @@
   <source>opens in a new tab</source>
   <target>otwiera się w nowej karcie</target>
 </trans-unit>
+<trans-unit id="sl.calendar.rangeStartSelected">
+  <source><x id="0" equiv-text="${format(date, this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> selected. Select second date.</source>
+  <target>Wybrano <x id="0" equiv-text="${format(date, this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/>. Wybierz drugą datę.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeSelected">
+  <source>You selected range from <x id="0" equiv-text="${format(range[0], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> to <x id="1" equiv-text="${format(range[1], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/>.</source>
+  <target>Wybrano zakres od <x id="0" equiv-text="${format(range[0], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/> do <x id="1" equiv-text="${format(range[1], this.locale, { day: 'numeric', month: 'long', year: 'numeric' })}"/>.</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeStart">
+  <source>Start of range</source>
+  <target>Początek zakresu</target>
+</trans-unit>
+<trans-unit id="sl.calendar.rangeEnd">
+  <source>End of range</source>
+  <target>Koniec zakresu</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

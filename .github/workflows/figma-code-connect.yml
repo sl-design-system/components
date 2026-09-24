@@ -1,21 +1,35 @@
 name: Figma Code Connect
 
 on:
-  pull_request:
-    branches: ['main']
-    types: [opened, synchronize, reopened]
-
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Figma Code Connect (PR validation)']
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
 
 env:
-  FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
   HUSKY: 0
 
 jobs:
   preview:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_repository.full_name == github.repository
+      )
     runs-on: ubuntu-latest
+    env:
+      FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout the trusted workflow SHA
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
+          persist-credentials: false
 
       - uses: actions/setup-node@v6
         with:

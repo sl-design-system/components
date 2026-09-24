@@ -1,0 +1,29 @@
+name: Figma Code Connect (PR validation)
+
+on:
+  pull_request:
+    branches: ['main']
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+env:
+  HUSKY: 0
+
+jobs:
+  lint-mapping-names:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'yarn'
+
+      - run: yarn install --immutable
+
+      - name: Lint Code Connect mapping naming
+        working-directory: scripts/connect-figma-components
+        run: yarn connect:lint-names

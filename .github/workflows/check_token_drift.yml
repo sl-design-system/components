@@ -1,0 +1,38 @@
+name: Check Token Drift
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      component:
+        description: 'Component to check (leave empty to check all mapped components)'
+        required: false
+  # TEMPORARY, for testing this workflow on a draft PR — remove before merging
+  pull_request:
+  # schedule:
+  # Weekly, since drift is caused by independent Figma/code changes, not a specific commit
+  # - cron: '0 6 * * 1'
+
+env:
+  FIGMA_TOKEN: ${{ secrets.FIGMA_TOKENS }}
+  FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+  HUSKY: 0
+
+jobs:
+  check-token-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run check token drift
+        run: yarn check-token-drift ${{ github.event.inputs.component }}

@@ -85,6 +85,13 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Keyboard shortcut for activating this menu item. */
   @property() shortcut?: string;
 
+  /**
+   * @internal The menu that directly contains this menu item, set by the parent menu. Used to
+   * find the containing menu even when it's hosted in another component's shadow root (e.g.
+   * `sl-menu-button`), where `closest('sl-menu')` cannot cross the shadow boundary.
+   */
+  menu?: Menu;
+
   /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
 

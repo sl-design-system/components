@@ -9,7 +9,8 @@ import {
   faRocket,
   faTableCells,
   faTableRows,
-  faTrash
+  faTrash,
+  faTree
 } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/avatar/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -43,7 +44,8 @@ Icon.register(
   faRocket,
   faTableCells,
   faTableRows,
-  faTrash
+  faTrash,
+  faTree
 );
 
 export default {
@@ -299,6 +301,28 @@ export const Submenu: Story = {
           <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
           <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
           <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-tree"></sl-icon>
+        Tree
+        <sl-menu slot="submenu">
+          <sl-menu-item
+            >Coniferous
+            <sl-menu slot="submenu">
+              <sl-menu-item>Scots pine</sl-menu-item>
+              <sl-menu-item>Norway spruce</sl-menu-item>
+              <sl-menu-item>Douglas fir</sl-menu-item>
+            </sl-menu>
+          </sl-menu-item>
+          <sl-menu-item
+            >Deciduous
+            <sl-menu slot="submenu">
+              <sl-menu-item>Oak</sl-menu-item>
+              <sl-menu-item>Maple</sl-menu-item>
+              <sl-menu-item>Birch</sl-menu-item>
+            </sl-menu>
+          </sl-menu-item>
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item>

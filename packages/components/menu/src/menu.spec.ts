@@ -791,6 +791,55 @@ describe('sl-menu', () => {
       });
     });
 
+    describe('arrow right through multiple submenu levels', () => {
+      let level1Item: MenuItem, level2Menu: Menu, level2Item: MenuItem, level3Menu: Menu;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>
+              Level 1
+              <sl-menu slot="submenu">
+                <sl-menu-item>
+                  Level 2
+                  <sl-menu slot="submenu">
+                    <sl-menu-item>Level 3 item 1</sl-menu-item>
+                    <sl-menu-item>Level 3 item 2</sl-menu-item>
+                  </sl-menu>
+                </sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        level1Item = el.querySelector('sl-menu-item')!;
+        level2Menu = level1Item.querySelector('sl-menu')!;
+        level2Item = level2Menu.querySelector('sl-menu-item')!;
+        level3Menu = level2Item.querySelector('sl-menu')!;
+
+        level1Item.focus();
+      });
+
+      it('should focus the deepest submenu item and keep every level open', async () => {
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(level2Menu).to.match(':popover-open');
+        expect(document.activeElement).to.equal(level2Item);
+
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el).to.match(':popover-open');
+        expect(level2Menu).to.match(':popover-open');
+        expect(level3Menu).to.match(':popover-open');
+        expect(document.activeElement).to.equal(level3Menu.querySelector('sl-menu-item'));
+      });
+    });
+
     describe('escape key in submenu', () => {
       let parentMenuItem: MenuItem, submenu: Menu, submenuItem: MenuItem, onKeydown: SinonSpy;
 

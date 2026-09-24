@@ -1,5 +1,11 @@
 # @sl-design-system/button
 
+## 2.3.2
+
+### Patch Changes
+
+- [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - Improved background color for disabled button across variants
+
 ## 2.3.1
 
 ### Patch Changes

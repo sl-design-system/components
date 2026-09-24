@@ -1,5 +1,20 @@
 # @sanomalearning/slds-magister
 
+## 2.0.0
+
+### Major Changes
+
+- [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - The main css file has changed name, which means this release will be a BREAKING CHANGE; the new file that needs to be included is `theme.css`. This is done because both light and dark variants (for themes that have a dark mode) are available in this same `theme.css` file.
+  The `light-deprecated.css` and `dark-deprecated.css` files remain unchanged.
+  Additionally a new `typography.css` has been added, that contains styles for body text, headers, label, captions etc. It is optional to use this for the time being.
+
+### Patch Changes
+
+- [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - Added new font for headings and titles in the new typography setup called The Message. Include the new `fonts.css` file for the type-face declarations.
+  This is new font is not yet used in components, but is already available in the new [Typography setup](https://storybook.sanomalearning.design?path=/story/utilities-typography--typography-styles&globals=theme:magister)
+- Updated dependencies [[`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/icon@1.4.6
+
 ## 1.1.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 1.4.6
+
+### Patch Changes
+
+- [#3661](https://github.com/sl-design-system/components/pull/3661) [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957) - Icon that is shown when no icon can be loaded now inherits font color. It always being black made it hard to see on a dark background for example
+
 ## 1.4.5
 
 ### Patch Changes

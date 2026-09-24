@@ -1,5 +1,19 @@
 # @sl-design-system/date-field
 
+## 0.4.0
+
+### Minor Changes
+
+- [#3740](https://github.com/sl-design-system/components/pull/3740) [`57cd33d`](https://github.com/sl-design-system/components/commit/57cd33dbe1afb6a8cf5294a1528a21b83c9b1504) - Add a `hide-picker` attribute for custom action controls slotted into `<sl-date-field>` so they can close the calendar popup after handling their own click.
+
+  This makes it easy to build actions like 'Today' or 'Clear' that update the field and then dismiss the picker automatically.
+
+### Patch Changes
+
+- Updated dependencies [[`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957), [`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/icon@1.4.6
+  - @sl-design-system/button@2.3.2
+
 ## 0.3.2
 
 ### Patch Changes

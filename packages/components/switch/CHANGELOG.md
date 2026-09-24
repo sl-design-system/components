@@ -1,5 +1,16 @@
 # @sl-design-system/switch
 
+## 2.1.0
+
+### Minor Changes
+
+- [#3670](https://github.com/sl-design-system/components/pull/3670) [`839e31f`](https://github.com/sl-design-system/components/commit/839e31febabf9f351617fc4287673016f0a3742b) - Make it possible to show a selectable/ toggleable menu option with a switch.
+
+### Patch Changes
+
+- Updated dependencies [[`fb75897`](https://github.com/sl-design-system/components/commit/fb758975c074fd008bd275f95348e525970bb957)]:
+  - @sl-design-system/icon@1.4.6
+
 ## 2.0.1
 
 ### Patch Changes

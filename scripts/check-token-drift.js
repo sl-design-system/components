@@ -8,6 +8,11 @@
 //   FIGMA_TOKEN=figd_xxx node scripts/check-token-drift.js badge   # single component
 //   FIGMA_TOKEN=figd_xxx node scripts/check-token-drift.js         # every mapped component
 //
+// If the Variables API isn't available (e.g. no Enterprise plan), pass --paste with a single
+// component and pipe in variable names copied from Figma Dev Mode's Inspect panel instead —
+// no FIGMA_TOKEN or network call needed, one name per line or comma-separated:
+//   pbpaste | node scripts/check-token-drift.js badge --paste
+//
 // Notes / limitations (this is a proof of concept, not a CI gate):
 // - Requires a Figma personal access token with read access to the design file
 //   (https://www.figma.com/developers/api#access-tokens). The repo already has
@@ -29,13 +34,29 @@ const figmaConnectDir = join(root, 'scripts/connect-figma-components/src');
 const componentsDir = join(root, 'packages/components');
 
 const requestedComponent = process.argv[2];
+const pasteMode = process.argv.includes('--paste');
 const figmaToken = process.env.FIGMA_TOKEN;
 // Once true, stop retrying the Variables API for the rest of the run (same token, same outcome).
 let variablesApiUnavailable = false;
 
-if (!figmaToken) {
+if (pasteMode && !requestedComponent) {
+  console.error(
+    '--paste requires a single component: node scripts/check-token-drift.js <component> --paste'
+  );
+  process.exit(1);
+}
+
+if (!pasteMode && !figmaToken) {
   console.error('Missing FIGMA_TOKEN environment variable (Figma personal access token).');
   process.exit(1);
+}
+
+/** Read Figma variable names pasted via stdin, one per line or comma-separated. */
+function readPastedTokens() {
+  return readFileSync(0, 'utf8')
+    .split(/[\n,]/)
+    .map(token => token.trim())
+    .filter(Boolean);
 }
 
 /**
@@ -221,13 +242,12 @@ function diffTokens(figmaTokens, codeTokens) {
 /** Run the drift check for a single component. Returns null (and logs why) if it can't be checked. */
 async function checkComponent(name) {
   const figmaUrl = findFigmaNodeUrl(name);
-  const { fileKey, nodeId } = parseFigmaUrl(figmaUrl);
   const stylesheetPath = findStylesheet(name);
+  const codeTokens = extractCodeTokens(stylesheetPath);
 
-  const [figmaTokens, codeTokens] = await Promise.all([
-    fetchFigmaTokens(fileKey, nodeId),
-    Promise.resolve(extractCodeTokens(stylesheetPath))
-  ]);
+  const figmaTokens = pasteMode
+    ? readPastedTokens()
+    : await fetchFigmaTokens(...Object.values(parseFigmaUrl(figmaUrl)));
 
   return { name, figmaUrl, stylesheetPath, ...diffTokens(figmaTokens, codeTokens) };
 }

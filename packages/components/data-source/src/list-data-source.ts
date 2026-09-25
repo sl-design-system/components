@@ -328,7 +328,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Subclasses can override this to evaluate unfiltered group membership.
    */
   protected areAllGroupMembersSelected(group: ListDataSourceGroupItem<T>): boolean {
-    return !!group.members?.length && group.members.every(member => this.isSelected(member));
+    return !group.members?.length || group.members.every(member => this.isSelected(member));
   }
 
   /**

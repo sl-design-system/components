@@ -222,7 +222,6 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addShortcode('inlinejs', (path) => {
-    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
     if (process.env.NODE_ENV === 'production') {
       const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
 

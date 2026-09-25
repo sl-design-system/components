@@ -49,6 +49,7 @@
       },
       "dependencies": [
         "analyze",
+        "..:build:themes:setup",
         "..:build:themes:styles",
         "build:ts"
       ],
@@ -70,8 +71,7 @@
         "src/styles/**/*.scss"
       ],
       "output": [
-        "dist/styles/**/*.{css,css.map}",
-        "!dist/styles/slds-sanoma-learning/**/*"
+        "dist/styles/**/*.{css,css.map}"
       ]
     },
     "build:ts": {

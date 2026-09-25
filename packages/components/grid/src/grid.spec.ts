@@ -189,6 +189,29 @@ describe('sl-grid', () => {
   });
 
   describe('drag and drop', () => {
+    it('should use the default cursor for a non-draggable group row', async () => {
+      const dataSource = new ArrayListDataSource<Person>(
+        [
+          { firstName: 'John', lastName: 'Doe', group: 'A' },
+          { firstName: 'Jane', lastName: 'Smith', group: 'B' }
+        ],
+        { groupBy: 'group' }
+      );
+
+      el = await fixture(html`
+        <sl-grid .dataSource=${dataSource}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const groupRow = el.renderRoot.querySelector<HTMLTableRowElement>('tbody tr[part~="group"]')!;
+
+      expect(groupRow).to.have.attribute('draggable', 'false');
+      expect(getComputedStyle(groupRow).cursor).to.equal('auto');
+    });
+
     it('should ignore drag events from native draggable content when row dragging is disabled', async () => {
       el = await fixture(html`
         <sl-grid
@@ -1437,7 +1460,7 @@ describe('sl-grid', () => {
             <sl-menu-item>Archive selected</sl-menu-item>
           </sl-menu-button>
           <sl-button fill="outline" slot="bulk-actions" variant="inverted"
-            >Assign to learning pathway</sl-button
+            >Assign to teacher</sl-button
           >
           <sl-button fill="outline" slot="bulk-actions" variant="inverted">Delete</sl-button>
         </sl-grid>

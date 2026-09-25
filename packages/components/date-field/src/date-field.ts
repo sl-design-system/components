@@ -56,6 +56,9 @@ type DatePartType = 'day' | 'month' | 'year';
  * A form component that allows the user to pick a date from a calendar. Uses individual spinbutton
  * inputs per date part for improved accessibility.
  *
+ * @slot - Optional action controls rendered below the calendar. Add `hide-picker` to a control to
+ *   close the picker automatically after it is clicked.
+ * @slot calendar - Optional custom calendar content.
  * @cssState has-focus - Set when the date field has focus.
  * @cssState has-value - Set when the date field has a value.
  * @cssState placeholder-shown - Set when the date field is empty and has a placeholder.
@@ -86,6 +89,9 @@ export class DateField extends LocaleMixin(
   #events = new EventsController(this, {
     click: this.#onClick
   });
+
+  /** Tracks calendar mode transitions while the dialog is open. */
+  #calendarMode: 'day' | 'month' | 'year' = 'day';
 
   /** Tracks how many digits have been entered for the current part. */
   #enteredDigits = 0;
@@ -222,7 +228,9 @@ export class DateField extends LocaleMixin(
 
   /**
    * When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to
-   * confirm their date selection.
+   * confirm their date selection before it is applied. Custom action controls can still close the
+   * picker with `hide-picker`. If such an action should also commit a value without using
+   * "Confirm", its click handler needs to set the value itself.
    */
   @property({ type: Boolean, attribute: 'require-confirmation' }) requireConfirmation?: boolean;
 
@@ -452,7 +460,7 @@ export class DateField extends LocaleMixin(
                 ${
                   hasExtraControls
                     ? html`
-                        <sl-button-bar>
+                        <sl-button-bar @click=${this.#onActionClick}>
                           <slot></slot>
                           ${
                             this.requireConfirmation
@@ -627,6 +635,8 @@ export class DateField extends LocaleMixin(
         this.requestUpdate();
       }
 
+      this.#calendarMode = this.#getCalendarMode();
+
       requestAnimationFrame(() => {
         if (this.dialog?.open) {
           this.calendar?.focus();
@@ -661,6 +671,22 @@ export class DateField extends LocaleMixin(
     // because that doesn't work when the input is actually a contenteditable span
     if (!this.disabled && event.composedPath()[0] === this) {
       this.focus();
+    }
+  }
+
+  #onActionClick(event: Event): void {
+    const action = event
+      .composedPath()
+      .find(
+        (target): target is HTMLElement =>
+          target instanceof HTMLElement &&
+          this.contains(target) &&
+          target.slot !== 'calendar' &&
+          target.hasAttribute('hide-picker')
+      );
+
+    if (action) {
+      this.hidePicker();
     }
   }
 
@@ -942,6 +968,8 @@ export class DateField extends LocaleMixin(
   }
 
   #onClose(): void {
+    this.#calendarMode = 'day';
+
     // Wait until all dialog animations have resolved before hiding the calendar
     // to prevent it being removed from the DOM too early.
     void Promise.allSettled(this.dialog?.getAnimations().map(a => a.finished) ?? []).then(() => {
@@ -953,7 +981,13 @@ export class DateField extends LocaleMixin(
 
   /** Handles clicks on the dialog backdrop to implement light dismiss. */
   #onDialogClick(event: MouseEvent): void {
-    if (!this.dialog || event.target !== this.dialog) {
+    if (!this.dialog) {
+      return;
+    }
+
+    void this.#syncCalendarFocusAfterModeSwitch();
+
+    if (event.target !== this.dialog) {
       return;
     }
 
@@ -1034,6 +1068,59 @@ export class DateField extends LocaleMixin(
         this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]')?.focus();
       });
     }
+  }
+
+  #focusFirstSelectableDayOfDisplayedMonth(): void {
+    type RenderRootElement = HTMLElement & { renderRoot: ShadowRoot };
+
+    const calendar = this.calendar,
+      selectDay = calendar?.renderRoot.querySelector<RenderRootElement>('sl-select-day'),
+      monthView = selectDay?.renderRoot.querySelector<RenderRootElement>(
+        'sl-month-view:not([inert])'
+      );
+
+    if (!calendar?.month || !monthView?.shadowRoot) {
+      return;
+    }
+
+    const displayMonth = calendar.month,
+      buttons = Array.from(
+        monthView.shadowRoot.querySelectorAll<HTMLButtonElement>('td[data-date] button')
+      ),
+      selectableDays = buttons
+        .filter(button => !button.disabled)
+        .map(button => {
+          const cell = button.closest<HTMLElement>('td[data-date]'),
+            date = cell?.dataset.date ? new Date(cell.dataset.date) : undefined;
+
+          return { button, date };
+        })
+        .filter(
+          (candidate): candidate is { button: HTMLButtonElement; date: Date } =>
+            !!candidate.date &&
+            candidate.date.getMonth() === displayMonth.getMonth() &&
+            candidate.date.getFullYear() === displayMonth.getFullYear()
+        );
+
+    if (selectableDays.length === 0) {
+      return;
+    }
+
+    const selected = calendar.selected,
+      selectedDay = selected
+        ? selectableDays.find(candidate => isSameDate(candidate.date, selected))
+        : undefined,
+      firstDay =
+        selectableDays.find(candidate => candidate.date.getDate() === 1) ?? selectableDays[0],
+      focusTarget = selectedDay ?? firstDay;
+
+    focusTarget.button.focus();
+  }
+
+  #getCalendarMode(): 'day' | 'month' | 'year' {
+    const mode = (this.calendar as Calendar | undefined)?.mode;
+
+    return mode === 'month' || mode === 'year' ? mode : 'day';
   }
 
   /** Returns the formatted date string for the select-all input. */
@@ -1125,6 +1212,31 @@ export class DateField extends LocaleMixin(
     requestAnimationFrame(() => {
       const firstSpan = this.renderRoot.querySelector<HTMLElement>('span[role="spinbutton"]');
       firstSpan?.focus();
+    });
+  }
+
+  async #syncCalendarFocusAfterModeSwitch(): Promise<void> {
+    if (!this.dialog?.open || !this.calendar) {
+      return;
+    }
+
+    await this.calendar.updateComplete;
+
+    if (!this.dialog?.open) {
+      return;
+    }
+
+    const mode = this.#getCalendarMode(),
+      shouldRestoreDayFocus = this.#calendarMode !== 'day' && mode === 'day';
+
+    this.#calendarMode = mode;
+
+    if (!shouldRestoreDayFocus) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      this.#focusFirstSelectableDayOfDisplayedMonth();
     });
   }
 

@@ -480,6 +480,67 @@ describe('sl-grid', () => {
       expect(input).to.have.attribute('aria-label', 'School A group');
     });
 
+    it('should deselect the displayed rows when a partially selected group checkbox is unchecked', async () => {
+      el = await fixture(html`
+        <sl-grid
+          .dataSource=${new ArrayListDataSource<Student>(
+            [
+              {
+                firstName: 'John',
+                lastName: 'Doe',
+                school: { id: 1, name: 'School A' }
+              },
+              {
+                firstName: 'Jane',
+                lastName: 'Smith',
+                school: { id: 1, name: 'School A' }
+              },
+              {
+                firstName: 'Alex',
+                lastName: 'Miller',
+                school: { id: 2, name: 'School B' }
+              }
+            ],
+            {
+              groupBy: 'school.id',
+              groupLabelPath: 'school.name'
+            }
+          )}>
+          <sl-grid-selection-column></sl-grid-selection-column>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const groupHeader = el.renderRoot.querySelector('sl-grid-group-header');
+
+      const selectedItem = el.dataSource?.items.find(
+        item => item.type === 'data' && item.data.firstName === 'John'
+      );
+
+      expect(selectedItem).to.exist;
+      el.dataSource?.select(selectedItem!);
+      el.dataSource?.update();
+      await waitForGridToRenderData(el);
+
+      expect(el.dataSource?.isSelected(selectedItem)).to.be.true;
+
+      groupHeader?.dispatchEvent(
+        new CustomEvent('sl-select', { detail: false, bubbles: true, composed: true })
+      );
+      await waitForGridToRenderData(el);
+
+      const selectedRows = Array.from(
+        el.renderRoot.querySelectorAll<HTMLTableRowElement>("tbody tr:not([part~='group'])")
+      ).filter(row => row.part.contains('selected'));
+
+      expect(selectedRows).to.have.length(0);
+      expect(el.dataSource?.selected).to.equal(0);
+      expect(el.dataSource?.isSelected(selectedItem)).to.be.false;
+    });
+
     it('should keep only the selected filtered row selected after clearing the filter', async () => {
       const students = [
         { firstName: 'Taylor', lastName: 'Brown', school: { id: 1, name: 'School A' } },

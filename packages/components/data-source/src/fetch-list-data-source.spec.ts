@@ -6,7 +6,11 @@ import {
   type FetchListDataSourceCallback,
   type FetchListDataSourceCallbackOptions
 } from './fetch-list-data-source.js';
-import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
+import {
+  type ListDataSourceDataItem,
+  ListDataSourcePlaceholder,
+  isListDataSourceGroupItem
+} from './list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
@@ -290,6 +294,43 @@ describe('FetchListDataSource', () => {
         expect(ds.fetchPage).to.have.been.calledOnce;
         expect(ds.fetchPage).to.have.been.calledWithMatch({ page: 1, pageSize: 2 });
       });
+    });
+  });
+
+  describe('group selection', () => {
+    beforeEach(() => {
+      ds = new FetchListDataSource<Person>({
+        fetchPage: () => Promise.resolve({ items: [] }),
+        groups: [{ id: 'Premium', label: 'Premium', size: 2 }],
+        pageSize: 2,
+        selects: 'multiple'
+      });
+    });
+
+    it('should keep the group selected when members are not materialized', () => {
+      const group = ds.items.at(0);
+
+      expect(isListDataSourceGroupItem(group)).to.be.true;
+      if (!isListDataSourceGroupItem(group)) {
+        throw new Error('Expected the first item to be a group');
+      }
+
+      expect(group.members).to.be.undefined;
+
+      ds.select(group);
+      expect(ds.isSelected(group)).to.be.true;
+
+      ds.update();
+
+      const updatedGroup = ds.items.at(0);
+
+      expect(isListDataSourceGroupItem(updatedGroup)).to.be.true;
+      if (!isListDataSourceGroupItem(updatedGroup)) {
+        throw new Error('Expected the first item to remain a group after update');
+      }
+
+      expect(updatedGroup.members).to.be.undefined;
+      expect(ds.isSelected(updatedGroup)).to.be.true;
     });
   });
 });

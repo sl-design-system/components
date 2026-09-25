@@ -1484,7 +1484,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #setColumnAccessibility(columns: Array<GridColumn<T>>, startIndex = 1): number {
+  #setColumnAccessibility(
+    columns: Array<GridColumn<T>>,
+    startIndex = 1,
+    parentGroup?: GridColumnGroup<T>
+  ): number {
     let currentIndex = startIndex;
 
     columns.forEach(col => {
@@ -1492,12 +1496,25 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         return;
       }
 
+      const parentHeaderIds = parentGroup
+        ? [...parentGroup.groupHeaderIds, parentGroup.headerLabelId].filter(
+            (value): value is string => !!value
+          )
+        : [];
+      const parentHeaderLabels = parentGroup
+        ? [...parentGroup.groupHeaderLabels, parentGroup.headerLabelText].filter(
+            (value): value is string => !!value
+          )
+        : [];
+
+      col.groupHeaderIds = parentHeaderIds;
+      col.groupHeaderLabels = parentHeaderLabels;
       col.columnIndex = currentIndex;
 
       if (col instanceof GridColumnGroup) {
         const childColumns = col.columns as Array<GridColumn<T>>;
 
-        currentIndex = this.#setColumnAccessibility(childColumns, currentIndex);
+        currentIndex = this.#setColumnAccessibility(childColumns, currentIndex, col);
         col.columnSpan = Math.max(currentIndex - col.columnIndex, 1);
       } else {
         col.columnSpan = 1;

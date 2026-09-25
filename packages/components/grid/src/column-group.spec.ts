@@ -75,41 +75,44 @@ describe('sl-column-group', () => {
         expect(header).to.have.attribute('scope', 'col');
       });
 
+      expect(headers[0]).to.have.attribute('aria-labelledby', `${headers[0].id}-label`);
+      expect(headers[1]).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
+
       expect(headers[2]).to.not.have.attribute('headers');
       expect(headers[2]).to.have.attribute(
         'aria-labelledby',
-        `${headers[0].id} ${headers[2].id}-label`
+        `${headers[0].id}-label ${headers[2].id}-label`
       );
       expect(headers[2].querySelector('span')?.id).to.equal(`${headers[2].id}-label`);
       expect(headers[2]).to.have.attribute('aria-colindex', '1');
       expect(headers[3]).to.not.have.attribute('headers');
       expect(headers[3]).to.have.attribute(
         'aria-labelledby',
-        `${headers[0].id} ${headers[3].id}-label`
+        `${headers[0].id}-label ${headers[3].id}-label`
       );
       expect(headers[3].querySelector('span')?.id).to.equal(`${headers[3].id}-label`);
       expect(headers[3]).to.have.attribute('aria-colindex', '2');
       expect(headers[4]).to.have.attribute(
         'aria-labelledby',
-        `${headers[1].id} ${headers[4].id}-label`
+        `${headers[1].id}-label ${headers[4].id}-label`
       );
       expect(headers[4].querySelector('span')?.id).to.equal(`${headers[4].id}-label`);
       expect(headers[4]).to.have.attribute('aria-colindex', '3');
       expect(headers[5]).to.have.attribute(
         'aria-labelledby',
-        `${headers[1].id} ${headers[5].id}-label`
+        `${headers[1].id}-label ${headers[5].id}-label`
       );
       expect(headers[5].querySelector('span')?.id).to.equal(`${headers[5].id}-label`);
       expect(headers[5]).to.have.attribute('aria-colindex', '4');
       expect(headers[6]).to.have.attribute(
         'aria-labelledby',
-        `${headers[1].id} ${headers[6].id}-label`
+        `${headers[1].id}-label ${headers[6].id}-label`
       );
       expect(headers[6].querySelector('span')?.id).to.equal(`${headers[6].id}-label`);
       expect(headers[6]).to.have.attribute('aria-colindex', '5');
       expect(headers[7]).to.have.attribute(
         'aria-labelledby',
-        `${headers[1].id} ${headers[7].id}-label`
+        `${headers[1].id}-label ${headers[7].id}-label`
       );
       expect(headers[7].querySelector('span')?.id).to.equal(`${headers[7].id}-label`);
       expect(headers[7]).to.have.attribute('aria-colindex', '6');
@@ -142,6 +145,41 @@ describe('sl-column-group', () => {
         `${headers[6].id} ${dataCells[4].id}`
       );
       expect(dataCells[5].getAttribute('aria-labelledby')).to.equal(null);
+    });
+
+    it('should compose grouped header accessible names without duplicating labels', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      expect(headers[0]).to.have.attribute('aria-labelledby', `${headers[0].id}-label`);
+      expect(headers[1]).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
+      expect(headers[2]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id}-label ${headers[2].id}-label`
+      );
+      expect(headers[3]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[0].id}-label ${headers[3].id}-label`
+      );
+      expect(headers[4]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id}-label ${headers[4].id}-label`
+      );
+      expect(headers[5]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id}-label ${headers[5].id}-label`
+      );
+      expect(headers[6]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id}-label ${headers[6].id}-label`
+      );
+      expect(headers[7]).to.have.attribute(
+        'aria-labelledby',
+        `${headers[1].id}-label ${headers[7].id}-label`
+      );
+
+      expect(headers[2]).not.to.have.attribute('aria-label');
+      expect(headers[3]).not.to.have.attribute('aria-label');
+      expect(headers[4]).not.to.have.attribute('aria-label');
     });
 
     it('should have the correct width', () => {

@@ -1,5 +1,6 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -43,6 +44,7 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
       <th
         aria-colindex=${String(this.columnIndex)}
         aria-colspan=${String(Math.max(this.columnSpan, 1))}
+        aria-labelledby=${ifDefined(this.headerLabelId)}
         colspan=${Math.max(this.columnSpan, 1)}
         id=${this.headerCellId}
         role="columnheader"
@@ -56,18 +58,13 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    const groupHeaderLabel = this.headerLabelText;
-
     columns.forEach(col => {
       col.grid = this.grid;
-      col.groupHeaderIds = [...this.groupHeaderIds, this.headerCellId];
-      col.groupHeaderLabels = [...this.groupHeaderLabels, groupHeaderLabel].filter(Boolean);
+      col.groupHeaderIds = [];
+      col.groupHeaderLabels = [];
     });
 
     this.columns = columns;
-    this.scopedElements = columns.reduce((acc, cur) => {
-      return { ...acc, ...cur.scopedElements };
-    }, {});
 
     // Notify the grid that the column definition has changed
     this.columnUpdateEvent.emit({ grid: this.grid!, column: this });

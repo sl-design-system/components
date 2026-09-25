@@ -246,8 +246,11 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerAriaLabel(): string | undefined {
-    return this.groupHeaderLabels.length && (typeof this.header === 'string' || !!this.path)
-      ? [...this.groupHeaderLabels, this.headerLabelText].filter(Boolean).join(' ')
+    const labels = [...this.groupHeaderLabels, this.headerLabelText].filter(Boolean);
+
+    return labels.length &&
+      (typeof this.header === 'string' || !!this.path || !!this.formControlColumnLabel)
+      ? labels.join(' ')
       : undefined;
   }
 
@@ -260,9 +263,9 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerAriaLabelledBy(): string | undefined {
-    return this.groupHeaderIds.length && this.headerLabelId
-      ? [...this.groupHeaderIds, this.headerLabelId].join(' ')
-      : undefined;
+    const ids = [...this.groupHeaderIds, this.headerLabelId].filter(Boolean);
+
+    return ids.length ? ids.join(' ') : undefined;
   }
 
   /** @internal Text label used for header announcements and form-control labels. */

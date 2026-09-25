@@ -71,7 +71,8 @@
         "src/styles/**/*.scss"
       ],
       "output": [
-        "dist/styles/**/*.{css,css.map}"
+        "dist/styles/**/*.{css,css.map}",
+        "!dist/styles/slds-sanoma-learning/**/*"
       ]
     },
     "build:ts": {

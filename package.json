@@ -130,8 +130,7 @@
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/global.css",
         "!packages/themes/*/typography.css",
-        "!packages/themes/*/fonts.css",
-        "!packages/themes/*/theme.css"
+        "!packages/themes/*/fonts.css"
       ]
     },
     "dist": {
@@ -170,8 +169,7 @@
         "!packages/themes/*/fonts.css",
         "!packages/themes/*/global.css",
         "!packages/themes/*/icons.json",
-        "!packages/themes/*/typography.css",
-        "!packages/themes/*/theme.css"
+        "!packages/themes/*/typography.css"
       ]
     },
     "import-icons": {

@@ -61,6 +61,12 @@ jobs:
             cat scripts/connect-figma-components/figma-connect-summary-report.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
+          if [ -f scripts/connect-figma-components/figma-connect-full-report.md ]; then
+            printf '\n<details>\n<summary>View full report</summary>\n\n' >> "$GITHUB_STEP_SUMMARY"
+            cat scripts/connect-figma-components/figma-connect-full-report.md >> "$GITHUB_STEP_SUMMARY"
+            printf '\n\n</details>\n' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - if: always() && github.event_name == 'pull_request'
         uses: peter-evans/find-comment@v3
         id: fc

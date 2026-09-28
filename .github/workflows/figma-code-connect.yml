@@ -49,7 +49,7 @@ jobs:
       - name: Run Code Connect preview
         working-directory: scripts/connect-figma-components
         env:
-          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_TOKENS }}
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
           FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
         run: yarn connect:test:report
 

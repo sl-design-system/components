@@ -51,6 +51,7 @@ jobs:
         working-directory: scripts/connect-figma-components
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
+          FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
         run: yarn connect:test:report
 
       - name: Publish report to job summary

@@ -24,16 +24,15 @@ const setupTheme = async (theme, globalCss, typographyCss) => {
     `./export/core-css/color/light.css`,
     `./export/core-css/color/dark.css`,
     `./export/core-css/system/default.css`,
-    `./export/core-css/brand/${themeName}.css`,
-    `../../packages/themes/core/typography.css`
+    `./export/core-css/brand/${themeName}.css`
   ];
 
   // If the theme has its own override folder in export/core-css, add its files (in alphabetical
   // order) right after the brand css file, so the theme can override the core-css files.
   const subthemesFolder = `./export/core-css/${themeName}-subthemes`;
   console.log(
-    `Checking for subthemes folder: ${subthemesFolder}`,
-    existsSync(join(cwd, subthemesFolder)) ? 'found' : 'not found'
+    `🖍️ 🔎 ${subthemesFolder}`,
+    existsSync(join(cwd, subthemesFolder)) ? '🟢 found' : '⚪️ not found'
   );
   if (existsSync(join(cwd, subthemesFolder))) {
     const themeOverrideFiles = (await fg('*.css', { cwd: join(cwd, subthemesFolder) })).sort();

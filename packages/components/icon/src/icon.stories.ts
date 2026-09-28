@@ -269,7 +269,6 @@ export const RegisterAdditionalIcons: Story = {
         <sl-icon name="fas-pinata"></sl-icon>
         <sl-icon name="far-pinata"></sl-icon>
         <sl-icon name="fal-pinata"></sl-icon>
-        <sl-icon name="fat-pinata"></sl-icon>
         <sl-icon name="far-narwhal"></sl-icon>
         <sl-icon name="fad-narwhal"></sl-icon>
         <sl-icon name="fadr-narwhal"></sl-icon>

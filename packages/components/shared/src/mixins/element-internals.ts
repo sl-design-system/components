@@ -31,21 +31,21 @@ export function ElementInternalsMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<ElementInternalsMixinInterface> {
   class ElementInternalsImpl extends constructor implements ElementInternalsMixinInterface {
-    /** The element internals of this element. */
+    /** @internal The element internals of this element. */
     #internals = this.attachInternals();
 
     /** Whether the deprecation warning for `internals` has already been logged. */
     #warnedAboutInternals = false;
 
-    /** The element internals of this element. */
+    /** @internal The element internals of this element. */
     get elementInternals(): ElementInternals {
       return this.#internals;
     }
 
     /**
-     * The element internals of this element.
-     *
      * @deprecated Use `elementInternals` instead.
+     * @internal
+     * The element internals of this element.
      */
     get internals(): ElementInternals {
       if (isDevMode() && !this.#warnedAboutInternals) {

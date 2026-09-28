@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/card",
-  "version": "2.0.3",
+  "version": "2.0.5",
   "status": "stable",
   "description": "Card component for the SL Design System",
   "license": "Apache-2.0",
@@ -24,8 +24,14 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./register.js": "./src/register.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./register.js": {
+      "@sl-design-system/source": "./src/register.ts",
+      "default": "./dist/register.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -42,8 +48,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/menu": "^0.4.0",
-    "@sl-design-system/toggle-button": "^0.0.17"
+    "@sl-design-system/menu": "^1.0.1",
+    "@sl-design-system/toggle-button": "^2.0.1"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10",

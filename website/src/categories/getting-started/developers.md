@@ -86,7 +86,7 @@ Or if you use `yarn`:
 
 To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning.
 
-Please note that the (web)fonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. If is up to you to load the (web)fonts in your application.
+Please note that the (web)fonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. It is up to you to load the (web)fonts in your application.
 
 You can install a theme as by installing the NPM package, in this example we use the `sanoma-learning` theme.
 
@@ -266,9 +266,13 @@ Please make sure you have added the `setup()` method as described in the [Setup 
 ### How do I use the dark mode of the theme?
 
 This only applies to themes that support dark mode.
-When you include the `all.css` file both light and dark mode are included and triggered by the system or browser preference (using `@media (prefers-color-scheme: dark)`). If you want to control the use of the light and dark mode you can load the `light.css` and `dark.css` based on the condition you want. Don't forget to also include `base.css` in addition to the light and dark file. You won't need `all.css` when using the separate files.
+The `theme.css` file includes both light and dark mode tokens.
 
-Another option is not to directly include the css files, but use the SCSS mixins we provide: `@mixin sl-theme-base`, `@mixin sl-theme-light` and `@mixin sl-theme-dark` in their respective `.scss` files in the theme. Those mixins print the list of tokens so you can wrap the tokens with whatever selector you want to achieve the theme switching.
+To control the mode yourself, set `--color-scheme` to `light` or `dark` on the body element of your application. For example, to force dark mode:
+
+```html
+<html style="--color-scheme: dark;">
+```
 
 ### How do I setup my Bitbucket pipeline to work with the SLDS packages?
 

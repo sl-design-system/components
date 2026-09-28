@@ -673,6 +673,15 @@ describe('sl-month-view', () => {
       expect(selected).to.exist;
       expect(selected).to.have.attribute('aria-pressed', 'true');
     });
+
+    it('should set aria-hidden="true" on the table when the host is aria-hidden', async () => {
+      el.setAttribute('aria-hidden', 'true');
+      await el.updateComplete;
+
+      const table = el.renderRoot.querySelector('table');
+
+      expect(table).to.have.attribute('aria-hidden', 'true');
+    });
   });
 
   describe('selection', () => {

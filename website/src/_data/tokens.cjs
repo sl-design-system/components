@@ -68,7 +68,7 @@ const sortByTokenSuffix = arr => sortBySuffix(arr, item => item.token.split('-')
 /** Recursively resolve a single var(--name) reference; stops after 10 hops. */
 const resolveVar = (value, props, depth = 0) => {
   if (depth > 10) return value;
-  const m = value.match(/^var\(--(sl-[a-z0-9-]+)\)$/);
+  const m = value.match(/^var\(--(sl-[A-Za-z0-9-]+)\)$/);
   if (m && props.has(m[1])) {
     return resolveVar(props.get(m[1]), props, depth + 1);
   }
@@ -136,6 +136,15 @@ module.exports = async function () {
   }
   const borderRadius = sortByTokenSuffix(borderRadiusRaw);
 
+  // --- Border width: --sl-size-borderWidth-* tokens ---
+  const borderWidthRaw = [];
+  for (const [name, value] of systemProps) {
+    if (/^sl-size-borderWidth-/.test(name)) {
+      borderWidthRaw.push({ token: `--${name}`, label: name.replace('sl-size-borderWidth-', ''), value: resolveVar(value, allProps) });
+    }
+  }
+  const borderWidth = sortByTokenSuffix(borderWidthRaw);
+
   // --- Typography typesets: --sl-typography-<typeset>-<property>
   // Group by typeset name; each entry gets font-size, font-weight, line-height, etc.
   const typographyPropMap = {
@@ -177,7 +186,7 @@ module.exports = async function () {
     size,
     space,
     opacity,
-    border: { radius: borderRadius },
+    border: { radius: borderRadius, width: borderWidth },
     typography,
   };
 };

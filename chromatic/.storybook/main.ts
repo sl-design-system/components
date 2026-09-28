@@ -25,9 +25,18 @@ const config: StorybookConfig = {
     { from: '../../.storybook/images', to: '/images' }
   ],
   viteFinal: async config => {
-    const { mergeConfig } = await import('vite');
+    const { defaultClientConditions, mergeConfig } = await import('vite');
 
-    return mergeConfig(config, { logLevel: 'warn', plugins: [importCssSheet()] });
+    return mergeConfig(config, {
+      logLevel: 'warn',
+      plugins: [importCssSheet()],
+      resolve: {
+        conditions: [
+          ...(config.resolve?.conditions ?? defaultClientConditions),
+          '@sl-design-system/source'
+        ]
+      }
+    });
   }
 };
 

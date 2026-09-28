@@ -20,7 +20,12 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addWatchTarget(`./${jsFolder}/**/*.js`);
 
-  eleventyConfig.addPlugin(syntaxHighlight);
+  // Code blocks scroll horizontally when a line does not fit, which makes them a scrollable
+  // region. Those have to be reachable with the keyboard, otherwise the content that is scrolled
+  // out of view cannot be read without a mouse (axe: scrollable-region-focusable).
+  eleventyConfig.addPlugin(syntaxHighlight, {
+    preAttributes: { tabindex: 0 }
+  });
 
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
@@ -161,6 +166,18 @@ module.exports = function(eleventyConfig) {
       level: [1, 2, 3, 4],
     })
     .use(markdownItAttrs);
+
+  // A fenced block without a language is not picked up by the syntax highlighter, so it misses the
+  // `tabindex` that plugin adds and stays unreachable with the keyboard. Add it here as well.
+  const defaultFence =
+    mdIt.renderer.rules.fence ||
+    ((tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options));
+
+  mdIt.renderer.rules.fence = (tokens, idx, options, env, self) => {
+    const rendered = defaultFence(tokens, idx, options, env, self);
+
+    return rendered.startsWith('<pre>') ? rendered.replace('<pre>', '<pre tabindex="0">') : rendered;
+  };
 
   eleventyConfig.setBrowserSyncConfig({
     notify: true,

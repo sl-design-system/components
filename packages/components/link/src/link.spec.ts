@@ -765,4 +765,101 @@ describe('sl-link', () => {
       expect(icon).to.exist;
     });
   });
+
+  describe('hideIcon state', () => {
+    it('should not have hideIcon state by default', async () => {
+      el = await fixture(html`<sl-link><a href="/dashboard">Dashboard</a></sl-link>`);
+
+      expect(el.hideIcon).to.be.false;
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+
+    it('should have hideIcon state when noIcon is true for internal links', async () => {
+      el = await fixture(html`<sl-link no-icon><a href="/dashboard">Dashboard</a></sl-link>`);
+
+      expect(el.hideIcon).to.be.true;
+      expect(el).to.match(':state(hide-icon)');
+    });
+
+    it('should not have hideIcon state when noIcon is true for external links', async () => {
+      el = await fixture(html`
+        <sl-link no-icon><a href="https://example.com">External</a></sl-link>
+      `);
+
+      expect(el.hideIcon).to.be.false;
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+
+    it('should not have hideIcon state when noIcon is true for internal-new-tab links', async () => {
+      el = await fixture(html`
+        <sl-link no-icon><a href="/page" target="_blank">New tab</a></sl-link>
+      `);
+
+      expect(el.hideIcon).to.be.false;
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+
+    it('should not have hideIcon state when noIcon is true for email links', async () => {
+      el = await fixture(html`
+        <sl-link no-icon><a href="mailto:test@example.com">Email</a></sl-link>
+      `);
+
+      expect(el.hideIcon).to.be.false;
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+
+    it('should not have hideIcon state when noIcon is true for tel links', async () => {
+      el = await fixture(html` <sl-link no-icon><a href="tel:+1234567890">Phone</a></sl-link> `);
+
+      expect(el.hideIcon).to.be.false;
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+
+    it('should update state when noIcon changes', async () => {
+      el = await fixture(html`<sl-link><a href="/dashboard">Dashboard</a></sl-link>`);
+
+      expect(el).not.to.match(':state(hide-icon)');
+
+      el.noIcon = true;
+      await el.updateComplete;
+
+      expect(el).to.match(':state(hide-icon)');
+
+      el.noIcon = false;
+      await el.updateComplete;
+
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+
+    it('should update state when type changes from internal to external', async () => {
+      el = await fixture(html`<sl-link no-icon><a href="/page">Internal</a></sl-link>`);
+
+      expect(el).to.match(':state(hide-icon)');
+
+      el.type = 'external';
+      await el.updateComplete;
+
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+
+    it('should update state when type changes from external to internal', async () => {
+      el = await fixture(html`
+        <sl-link no-icon type="external"><a href="/page">Override</a></sl-link>
+      `);
+
+      expect(el).not.to.match(':state(hide-icon)');
+
+      el.type = 'internal';
+      await el.updateComplete;
+
+      expect(el).to.match(':state(hide-icon)');
+    });
+
+    it('should not have hideIcon state when noIcon is false even for internal links', async () => {
+      el = await fixture(html`<sl-link><a href="/dashboard">Dashboard</a></sl-link>`);
+
+      expect(el.hideIcon).to.be.false;
+      expect(el).not.to.match(':state(hide-icon)');
+    });
+  });
 });

@@ -1,4 +1,3 @@
-import { type Calendar, type MonthView } from '@sl-design-system/calendar';
 import '@sl-design-system/calendar/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -7,6 +6,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { DateField } from './date-field.js';
 import './register.js';
+
+type RenderRootElement = HTMLElement & {
+  renderRoot: ShadowRoot;
+  updateComplete: Promise<unknown>;
+};
 
 describe('sl-date-field', () => {
   let el: DateField;
@@ -443,7 +447,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -559,12 +563,190 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve, 50));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar'),
-        selectDay = calendar?.shadowRoot?.querySelector('sl-select-day'),
-        monthView = selectDay?.shadowRoot?.querySelector('sl-month-view[autofocus]');
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar'),
+        selectDay = calendar?.shadowRoot?.querySelector<HTMLElement>('sl-select-day'),
+        monthView = selectDay?.shadowRoot?.querySelector<HTMLElement>('sl-month-view[autofocus]');
 
       expect(monthView?.shadowRoot?.activeElement).to.exist;
       expect(monthView?.shadowRoot?.activeElement).to.have.attribute('aria-current', 'date');
+    });
+
+    it('should focus the first day of the selected month after choosing a month', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const calendar = el.renderRoot.querySelector<RenderRootElement>('sl-calendar')!,
+        selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day');
+
+      selectDay?.renderRoot.querySelector<HTMLElement>('.current-month')?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthButtons = calendar.renderRoot
+        .querySelector<RenderRootElement>('sl-select-month')
+        ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
+
+      monthButtons?.[5]?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthView = calendar.renderRoot
+          .querySelector<RenderRootElement>('sl-select-day')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])'),
+        activeButton = monthView?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeDateCell = activeButton?.closest<HTMLElement>('td[data-date]'),
+        activeDate = activeDateCell?.dataset.date
+          ? new Date(activeDateCell.dataset.date)
+          : undefined;
+
+      expect(activeDate).to.exist;
+      expect(activeDate?.getMonth()).to.equal(5);
+      expect(activeDate?.getDate()).to.equal(1);
+    });
+
+    it('should focus the selected day after choosing the current month with an existing selection', async () => {
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const calendar = el.renderRoot.querySelector<RenderRootElement>('sl-calendar')!,
+        selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day');
+
+      selectDay?.renderRoot.querySelector<HTMLElement>('.current-month')?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthButtons = calendar.renderRoot
+        .querySelector<RenderRootElement>('sl-select-month')
+        ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
+
+      monthButtons?.[2]?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthView = calendar.renderRoot
+          .querySelector<RenderRootElement>('sl-select-day')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])'),
+        activeButton = monthView?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeDateCell = activeButton?.closest<HTMLElement>('td[data-date]'),
+        activeDate = activeDateCell?.dataset.date
+          ? new Date(activeDateCell.dataset.date)
+          : undefined;
+
+      expect(activeDate).to.exist;
+      expect(activeDate?.getMonth()).to.equal(2);
+      expect(activeDate?.getDate()).to.equal(14);
+    });
+
+    it('should focus the selected day after choosing the current year with an existing selection', async () => {
+      el.value = new Date(2026, 2, 14);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const calendar = el.renderRoot.querySelector<RenderRootElement>('sl-calendar')!,
+        selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day');
+
+      selectDay?.renderRoot.querySelector<HTMLElement>('.current-year')?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const yearButtons = calendar.renderRoot
+        .querySelector<RenderRootElement>('sl-select-year')
+        ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
+
+      yearButtons?.[5]?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthView = calendar.renderRoot
+          .querySelector<RenderRootElement>('sl-select-day')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])'),
+        activeButton = monthView?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeDateCell = activeButton?.closest<HTMLElement>('td[data-date]'),
+        activeDate = activeDateCell?.dataset.date
+          ? new Date(activeDateCell.dataset.date)
+          : undefined;
+
+      expect(activeDate).to.exist;
+      expect(activeDate?.getMonth()).to.equal(2);
+      expect(activeDate?.getDate()).to.equal(14);
+    });
+
+    it('should focus the first day of the selected month after choosing the current year with a first-day selection', async () => {
+      el.value = new Date(2026, 2, 1);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const calendar = el.renderRoot.querySelector<RenderRootElement>('sl-calendar')!,
+        selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day');
+
+      selectDay?.renderRoot.querySelector<HTMLElement>('.current-year')?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const yearButtons = calendar.renderRoot
+        .querySelector<RenderRootElement>('sl-select-year')
+        ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
+
+      yearButtons?.[7]?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthView = calendar.renderRoot
+          .querySelector<RenderRootElement>('sl-select-day')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])'),
+        activeButton = monthView?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeDateCell = activeButton?.closest<HTMLElement>('td[data-date]'),
+        activeDate = activeDateCell?.dataset.date
+          ? new Date(activeDateCell.dataset.date)
+          : undefined;
+
+      expect(activeDate).to.exist;
+      expect(activeDate?.getFullYear()).to.equal(2028);
+      expect(activeDate?.getMonth()).to.equal(2);
+      expect(activeDate?.getDate()).to.equal(1);
+    });
+
+    it('should focus the first selectable day when the first day is disabled', async () => {
+      el.min = new Date(2026, 5, 3);
+      await el.updateComplete;
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const calendar = el.renderRoot.querySelector<RenderRootElement>('sl-calendar')!,
+        selectDay = calendar.renderRoot.querySelector<RenderRootElement>('sl-select-day');
+
+      selectDay?.renderRoot.querySelector<HTMLElement>('.current-month')?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthButtons = calendar.renderRoot
+        .querySelector<RenderRootElement>('sl-select-month')
+        ?.renderRoot.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
+
+      monthButtons?.[0]?.click();
+      await calendar.updateComplete;
+      await new Promise(resolve => requestAnimationFrame(resolve));
+
+      const monthView = calendar.renderRoot
+          .querySelector<RenderRootElement>('sl-select-day')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])'),
+        activeButton = monthView?.renderRoot.activeElement as HTMLButtonElement | null,
+        activeDateCell = activeButton?.closest<HTMLElement>('td[data-date]'),
+        activeDate = activeDateCell?.dataset.date
+          ? new Date(activeDateCell.dataset.date)
+          : undefined;
+
+      expect(activeDate).to.exist;
+      expect(activeDate?.getMonth()).to.equal(5);
+      expect(activeDate?.getDate()).to.equal(3);
     });
 
     it('should emit sl-change when calendar date is selected', async () => {
@@ -575,7 +757,7 @@ describe('sl-date-field', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const testDate = new Date(2023, 5, 15);
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: testDate,
@@ -594,7 +776,7 @@ describe('sl-date-field', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       const testDate = new Date(2023, 5, 15);
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: testDate,
@@ -610,7 +792,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15, 12, 30, 45),
@@ -628,7 +810,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -836,6 +1018,30 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.formValue).to.equal('2026-03-14');
+    });
+
+    it('should clear inputs when formValue is set to undefined externally', async () => {
+      el = await fixture(
+        html`<sl-date-field aria-label="Date" .value=${new Date(2023, 2, 31)}></sl-date-field>`
+      );
+      await el.updateComplete;
+
+      const spans = el.renderRoot.querySelectorAll<HTMLElement>('span[role="spinbutton"]');
+
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4, day: 31, year: 2023 });
+
+      el.formValue = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
     });
   });
 
@@ -1172,6 +1378,8 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value for invalid date (e.g. Feb 31)', async () => {
+      expect(el.dirty).to.be.false;
+
       // Enter month = 02
       spans[0].focus();
       await userEvent.keyboard('0');
@@ -1186,6 +1394,7 @@ describe('sl-date-field', () => {
       await userEvent.keyboard('3');
 
       expect(el.value).to.be.undefined;
+      expect(el.dirty).to.be.true;
     });
 
     it('should move focus to next input on ArrowRight', async () => {
@@ -1284,6 +1493,47 @@ describe('sl-date-field', () => {
       expect(spans[0]).to.have.trimmed.text('04');
       expect(spans[1]).to.have.trimmed.text('31');
       expect(spans[2]).to.have.trimmed.text('2023');
+    });
+
+    it('should clear preserved parts when value is set to undefined externally', async () => {
+      el.value = new Date(2023, 2, 31);
+      await el.updateComplete;
+
+      spans[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4, day: 31, year: 2023 });
+      expect(el.valid).to.be.false;
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(el.valid).to.be.true;
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
+    });
+
+    it('should clear partial parts from an empty field when value is set to undefined externally', async () => {
+      spans[0].focus();
+      await userEvent.keyboard('4');
+      await el.updateComplete;
+
+      expect(el.value).to.be.undefined;
+      expect(el.dateParts).to.deep.equal({ month: 4 });
+      expect(el.valid).to.be.true;
+
+      el.value = undefined;
+      await el.updateComplete;
+
+      expect(el.dateParts).to.deep.equal({});
+      expect(el.valid).to.be.true;
+      expect(spans[0]).to.have.trimmed.text('MM');
+      expect(spans[1]).to.have.trimmed.text('DD');
+      expect(spans[2]).to.have.trimmed.text('YYYY');
     });
 
     it('should wrap day from 31 to 1 on ArrowUp', async () => {
@@ -1854,7 +2104,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -1871,7 +2121,7 @@ describe('sl-date-field', () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      const calendar = el.renderRoot.querySelector('sl-calendar')!;
+      const calendar = el.renderRoot.querySelector<HTMLElement>('sl-calendar')!;
       calendar.dispatchEvent(
         new CustomEvent('sl-change', {
           detail: new Date(2023, 5, 15),
@@ -1981,6 +2231,8 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value when typing a date before min', async () => {
+      expect(el.dirty).to.be.false;
+
       el.min = new Date(2026, 2, 15);
       await el.updateComplete;
 
@@ -1999,6 +2251,7 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.be.undefined;
+      expect(el.dirty).to.be.true;
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal(
         'Please select a date that is no earlier than 03/15/2026.'
@@ -2006,6 +2259,8 @@ describe('sl-date-field', () => {
     });
 
     it('should not set value when typing a date after max', async () => {
+      expect(el.dirty).to.be.false;
+
       el.max = new Date(2026, 2, 15);
       await el.updateComplete;
 
@@ -2024,6 +2279,7 @@ describe('sl-date-field', () => {
       await el.updateComplete;
 
       expect(el.value).to.be.undefined;
+      expect(el.dirty).to.be.true;
       expect(el.valid).to.be.false;
       expect(el.validationMessage).to.equal(
         'Please select a date that is no later than 03/15/2026.'
@@ -2032,7 +2288,7 @@ describe('sl-date-field', () => {
   });
 
   describe('custom calendar', () => {
-    let calendar: Calendar;
+    let calendar: RenderRootElement;
 
     beforeEach(async () => {
       el = await fixture(html`
@@ -2040,7 +2296,7 @@ describe('sl-date-field', () => {
           <sl-calendar slot="calendar" show-today></sl-calendar>
         </sl-date-field>
       `);
-      calendar = el.querySelector('sl-calendar[slot="calendar"]')!;
+      calendar = el.querySelector<RenderRootElement>('sl-calendar[slot="calendar"]')!;
     });
 
     it('should work with a slotted calendar for date selection', async () => {
@@ -2092,7 +2348,7 @@ describe('sl-date-field', () => {
 
         calendar.renderRoot
           .querySelector('sl-select-day')
-          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])')
           ?.renderRoot.querySelector<HTMLElement>('button[part~="today"]')
           ?.click();
 
@@ -2137,7 +2393,7 @@ describe('sl-date-field', () => {
 
         calendar.renderRoot
           .querySelector('sl-select-day')
-          ?.renderRoot.querySelector<MonthView>('sl-month-view:not([inert])')
+          ?.renderRoot.querySelector<RenderRootElement>('sl-month-view:not([inert])')
           ?.renderRoot.querySelector<HTMLElement>('button[part~="today"]')
           ?.click();
 
@@ -2167,6 +2423,38 @@ describe('sl-date-field', () => {
       const buttonBar = el.renderRoot.querySelector<HTMLElement>('sl-button-bar');
 
       expect(buttonBar).to.exist;
+    });
+
+    it('should keep the picker open when a slotted action without hide-picker is clicked', async () => {
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.querySelector<HTMLElement>('sl-button')?.click();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('dialog')?.open).to.be.true;
+    });
+
+    it('should call the slotted action handler and then close the picker when hide-picker is set', async () => {
+      let dialogOpenDuringClick = false;
+      const onAction = (): void => {
+        dialogOpenDuringClick = el.renderRoot.querySelector('dialog')?.open ?? false;
+      };
+
+      el = await fixture(html`
+        <sl-date-field aria-label="Date">
+          <button @click=${onAction} hide-picker type="button">Today</button>
+        </sl-date-field>
+      `);
+
+      el.renderRoot.querySelector('sl-field-button')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.querySelector<HTMLButtonElement>('button')?.click();
+      await el.updateComplete;
+
+      expect(dialogOpenDuringClick).to.be.true;
+      expect(el.renderRoot.querySelector('dialog')?.open).to.be.false;
     });
   });
 

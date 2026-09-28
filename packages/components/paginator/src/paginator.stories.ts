@@ -50,7 +50,8 @@ export const Basic: Story = {};
 export const Mobile: Story = {
   parameters: {
     viewport: {
-      defaultViewport: 'mobileSmall'
+      value: 'mobile',
+      isRotated: false
     }
   }
 };

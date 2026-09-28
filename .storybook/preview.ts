@@ -5,7 +5,7 @@ import '@sl-design-system/announcer/register.js';
 import { sourceLocale, targetLocales } from '@sl-design-system/locales';
 import { type Preview } from '@storybook/web-components-vite';
 import MockDate from 'mockdate';
-import { type Mode, themes, updateTheme } from './themes.js';
+import { themes, updateTheme } from './themes.js';
 
 // Load the CSS Anchor Positioning polyfill if needed
 if (!('anchorName' in document.documentElement.style)) {
@@ -158,7 +158,12 @@ const preview: Preview = {
       toolbar: {
         dynamicTitle: true,
         icon: 'users',
-        items: ['early', 'developing', 'advanced', 'superuser']
+        items: [
+          { value: 'early', title: 'Early (Draft)' },
+          { value: 'developing', title: 'Developing (Draft)' },
+          { value: 'advanced', title: 'Advanced (Draft)' },
+          { value: 'superuser', title: 'Superuser' }
+        ]
       }
     },
     mode: {

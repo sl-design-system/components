@@ -1,4 +1,4 @@
-import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faSlack, faStorybook  } from '@fortawesome/free-brands-svg-icons';
 // eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
@@ -79,6 +79,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/infotip/register.js';
 import '@sl-design-system/inline-message/register.js';
+import '@sl-design-system/link/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/menu/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
@@ -140,27 +141,28 @@ Icon.register(
   faScreenUsers,
   faSlack,
   faSparkles,
+  faStorybook,
   faTrash,
   faTruckFast,
   faXmark,
   farBadgeCheck,
   farBellExclamation,
   farBold,
-  farGrid,
   farGear,
+  farGrid,
   farItalic,
   farListUl,
   farUnderline,
   fasBadgeCheck,
   fasBellExclamation,
   fasBold,
-  fasGrid,
   fasGear,
+  fasGrid,
   fasHeart,
   fasItalic,
   fasListUl,
+  fasOctagonXmark,
   fasUnderline,
-  fasOctagonXmark
 );
 
 declare global {

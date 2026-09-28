@@ -66,8 +66,7 @@ export class Menu extends LitElement {
   #rovingTabindexController = new RovingTabindexController<MenuItem>(this, {
     direction: 'vertical',
     elements: () => this.#menuItems || [],
-    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),
-    isFocusableElement: (el: MenuItem) => !el.disabled
+    isFocusableElement: () => true
   });
 
   /**
@@ -240,6 +239,10 @@ export class Menu extends LitElement {
 
     this.#menuItems = menuItems;
 
+    menuItems.forEach(item => {
+      item.menu = this;
+    });
+
     this.selectableChildren = menuItems.some(element => {
       return (
         (element instanceof MenuItem && element.selectable) ||
@@ -270,7 +273,9 @@ export class Menu extends LitElement {
         return false;
       }
 
-      currentMenu = currentMenu.anchorElement.closest('sl-menu');
+      // Use the back-reference instead of `closest('sl-menu')`, which cannot cross the shadow
+      // boundary when the menu is hosted inside another component (e.g. `sl-menu-button`).
+      currentMenu = currentMenu.anchorElement.menu ?? null;
     }
 
     return false;
@@ -313,7 +318,8 @@ export class Menu extends LitElement {
 
     // Don't close if focus moves to a submenu
     if (relatedTarget instanceof HTMLElement) {
-      const targetMenu = relatedTarget.closest('sl-menu');
+      const targetMenu =
+        relatedTarget instanceof MenuItem ? relatedTarget.menu : relatedTarget.closest('sl-menu');
 
       if (
         targetMenu &&

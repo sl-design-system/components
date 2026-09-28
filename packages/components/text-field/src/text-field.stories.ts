@@ -168,6 +168,29 @@ export const Required: Story = {
   }
 };
 
+export const ValidateOnBlur: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This form uses <code>validate-on-blur</code>. Type something and delete it, then leave the
+        field to see the required validation on blur.
+      </p>
+      <sl-form validate-on-blur>
+        <sl-form-field hint="Required field" label="Text">
+          <sl-text-field required></sl-text-field>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
 export const Valid: Story = {
   args: {
     hint: 'After clicking the button, this field will show it is valid.',

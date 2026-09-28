@@ -166,4 +166,24 @@ describe('sl-sort-column', () => {
       expect(column.scopedElements).to.have.property('sl-other-element');
     });
   });
+
+  describe('custom header renderer', () => {
+    it('should render the result of the header renderer', async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-sort-column
+            path="firstName"
+            .header=${(column: GridSortColumn) => html`
+              <span data-testid="custom-header">${column.path}</span>
+            `}></sl-grid-sort-column>
+        </sl-grid>
+      `);
+
+      await waitForGridToRenderData(el);
+
+      const sorter = el.renderRoot.querySelector<GridSorter>('sl-grid-sorter');
+
+      expect(sorter?.querySelector('[data-testid="custom-header"]')).to.have.text('firstName');
+    });
+  });
 });

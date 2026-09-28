@@ -193,6 +193,26 @@ describe('sl-radio-group', () => {
       expect(onBlur).to.have.been.calledOnce;
     });
 
+    it('should not emit sl-blur or mark touched when focus moves between radios in the group', () => {
+      const onBlur = spy(),
+        onUpdateState = spy(),
+        radios = Array.from(el.querySelectorAll('sl-radio'));
+
+      el.addEventListener('sl-blur', onBlur);
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      radios[0].focus();
+      radios[1].focus();
+
+      expect(onBlur).not.to.have.been.called;
+      expect(el.touched).not.to.be.true;
+
+      radios[1].blur();
+
+      expect(onBlur).to.have.been.calledOnce;
+      expect(el.touched).to.be.true;
+    });
+
     it('should emit an sl-validate event when calling reportValidity', () => {
       const onValidate = spy();
 

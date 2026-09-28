@@ -1,3 +1,30 @@
+## Verify the production website before release
+
+Use a fresh checkout with dependencies installed (`yarn install --immutable`) and the same
+environment variables as the Website workflow. From the repository root, run:
+
+```sh
+NODE_ENV=production WIREIT_CACHE=none yarn website
+node website/scripts/check-build.js
+```
+
+The website build waits for JavaScript generation before Eleventy copies it into `dist/js`.
+It also runs the artifact check automatically, so both preview and production deployment
+stop if a local script referenced by the generated HTML, or one of its imports, is missing.
+The explicit check command above validates existing output without rebuilding it.
+
+Serve the generated files without starting a development build:
+
+```sh
+python3 -m http.server 8080 --directory website/dist
+```
+
+Open the home page and a component page, exercise navigation and search, and check the browser
+console and Network panel with cache disabled. Verify that both `/js/components/main.js` and
+`/js/scripts/main.js`, and their chunks, return JavaScript successfully. Repeat this smoke test
+on the PR preview and the production URL after deployment. Artifact validation catches missing
+files; the deployed smoke test also checks hosting paths, caching and browser runtime behavior.
+
 # How to add component documentation
 
 ## Create a new branch
@@ -463,4 +490,3 @@ eleventyNavigation:
   order: 28
   status: planned
 ```
-

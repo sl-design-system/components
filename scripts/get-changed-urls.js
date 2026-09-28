@@ -39,7 +39,10 @@ try {
 }
 
 const files = output.split('\n').filter(Boolean);
-const mdFiles = files.filter(file => file.startsWith('website/src/') && file.endsWith('.md'));
+const mdFiles = files.filter(
+  file =>
+    file.startsWith('website/src/') && file.endsWith('.md') && !file.includes('custom-elements')
+);
 
 const urls = mdFiles.map(file => {
   if (file === 'website/src/index.md') return '/';

@@ -7,6 +7,7 @@ body {
 }
 
 .display {
+  font-family: var(--sl-display-fontFamily);
   font-size: var(--sl-display-md-fontSize);
   font-weight: var(--sl-typography-display-md-fontWeight);
   line-height: var(--sl-display-md-lineHeight);
@@ -28,6 +29,7 @@ body {
 }
 
 .heading {
+  font-family: var(--sl-heading-fontFamily);
   font-size: var(--sl-heading-md-fontSize);
   font-weight: var(--sl-typography-heading-md-fontWeight);
   line-height: var(--sl-heading-md-lineHeight);
@@ -49,6 +51,7 @@ body {
 }
 
 .title {
+  font-family: var(--sl-title-fontFamily);
   font-size: var(--sl-title-md-fontSize);
   font-weight: var(--sl-typography-title-md-fontWeight);
   line-height: var(--sl-title-md-lineHeight);
@@ -70,6 +73,7 @@ body {
 }
 
 .label {
+  font-family: var(--sl-label-fontFamily);
   font-size: var(--sl-label-md-fontSize);
   font-weight: var(--sl-typography-label-md-fontWeight);
   line-height: var(--sl-label-md-lineHeight);
@@ -113,6 +117,7 @@ body {
 }
 
 .caption {
+  font-family: var(--sl-caption-fontFamily);
   font-size: var(--sl-caption-md-fontSize);
   font-weight: var(--sl-typography-caption-md-fontWeight);
   line-height: var(--sl-caption-md-lineHeight);

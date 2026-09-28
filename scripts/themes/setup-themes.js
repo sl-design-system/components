@@ -1,15 +1,16 @@
 import fg from 'fast-glob';
-import { copyFile, readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
 
 const cwd = new URL('.', import.meta.url).pathname;
 
-const setupTheme = async theme => {
-  const sourceGlobal = join(cwd, '../../packages/themes/core/global.css');
-  const destinationGlobal = join(cwd, `${theme}/global.css`);
-  await copyFile(sourceGlobal, destinationGlobal);
+const setupTheme = async (theme, globalCss, typographyCss) => {
+  await writeFile(join(cwd, `${theme}/global.css`), globalCss);
   console.log(`🌍 ✅ ✍️ ${theme}`);
+
+  await writeFile(join(cwd, `${theme}/typography.css`), typographyCss);
+  console.log(`🔠 ✅ ✍️ ${theme}`);
 
   const themeName = theme.split('/').pop();
   const sourceThemeFiles = [
@@ -66,6 +67,7 @@ const setupTheme = async theme => {
     console.log(`🎨 ✅ ✍️ ${theme}`);
   } catch (err) {
     console.error(`🎨 ⚠️ ${theme}:`, err);
+    throw err;
   }
 };
 
@@ -75,7 +77,15 @@ const setupAllThemes = async () => {
   );
 
   console.log(`Setting up ${themes.length} themes...`);
-  await Promise.all(themes.map(theme => setupTheme(theme)));
+
+  // Read the shared core files once, instead of once per theme concurrently.
+  const globalCss = await readFile(join(cwd, '../../packages/themes/core/global.css'), 'utf8');
+  const typographyCss = await readFile(
+    join(cwd, '../../packages/themes/core/typography.css'),
+    'utf8'
+  );
+
+  await Promise.all(themes.map(theme => setupTheme(theme, globalCss, typographyCss)));
   console.log('✅ All themes setup complete!');
 };
 

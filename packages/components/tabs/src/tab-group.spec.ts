@@ -301,7 +301,7 @@ describe('sl-tab-group', () => {
 
     it('should disable the menu items for disabled tabs', () => {
       const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(
-        menuItem => !!menuItem.disabled
+        menuItem => menuItem.getAttribute('aria-disabled') === 'true'
       );
 
       expect(menuItems).to.eql([false, false, true]);
@@ -309,6 +309,20 @@ describe('sl-tab-group', () => {
 
     it('should select the tab when clicking a menu item', () => {
       el.renderRoot.querySelector<HTMLElement>('sl-menu-item:nth-of-type(2)')?.click();
+
+      const selectedTab = el.querySelector('sl-tab[selected]') as HTMLElement,
+        selectedPanel = el.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
+
+      expect(selectedTab).to.have.text('Tab 2');
+      expect(selectedPanel).to.have.text('Panel 2');
+    });
+
+    it('should not change the selected tab or panel when clicking a disabled menu item', () => {
+      const secondItem = el.renderRoot.querySelector<HTMLElement>('sl-menu-item:nth-of-type(2)'),
+        disabledItem = el.renderRoot.querySelector<HTMLElement>('sl-menu-item:nth-of-type(3)');
+
+      secondItem?.click();
+      disabledItem?.click();
 
       const selectedTab = el.querySelector('sl-tab[selected]') as HTMLElement,
         selectedPanel = el.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;

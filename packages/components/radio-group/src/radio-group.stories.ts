@@ -192,6 +192,33 @@ export const Required: Story = {
   }
 };
 
+export const ValidateOnBlur: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <p>
+        This form uses <code>validate-on-blur</code>. Simply focus and leave the empty group to see
+        that no required error is shown; click <strong>Report validity</strong> to validate it.
+      </p>
+      <sl-form validate-on-blur>
+        <sl-form-field hint="Required field" label="Radio group">
+          <sl-radio-group required>
+            <sl-radio value="1">One</sl-radio>
+            <sl-radio value="2">Two</sl-radio>
+            <sl-radio value="3">Three</sl-radio>
+          </sl-radio-group>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
 export const Valid: Story = {
   args: {
     hint: 'After clicking the button, this field will show it is valid.',

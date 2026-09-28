@@ -80,7 +80,7 @@
   }
 }
 
-:host(:focus) {
+:host(:focus-visible) {
   outline-color: var(--sl-color-border-focused);
 }
 

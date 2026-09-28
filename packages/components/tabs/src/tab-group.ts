@@ -20,6 +20,7 @@ import {
   nothing
 } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tab-group.css' with { type: 'css' };
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
@@ -315,7 +316,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                       menuItem => html`
                         <sl-menu-item
                           @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                          ?disabled=${menuItem.disabled}>
+                          aria-disabled=${ifDefined(menuItem.disabled ? 'true' : undefined)}>
                           ${menuItem.title}
                         </sl-menu-item>
                       `
@@ -354,13 +355,25 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (['Enter', ' '].includes(event.key)) {
-      this.#updateSelectedTab(<Tab>event.target);
-      this.#scrollToTabPanelStart();
+    if (!['Enter', ' '].includes(event.key)) {
+      return;
     }
+
+    const tab = event.target.closest('sl-tab');
+
+    if (!(tab instanceof Tab)) {
+      return;
+    }
+
+    this.#updateSelectedTab(tab);
+    this.#scrollToTabPanelStart();
   }
 
   #onMenuItemClick(tab: Tab): void {
+    if (tab.disabled) {
+      return;
+    }
+
     if (tab.href) {
       tab.renderRoot.querySelector('a')?.click();
     }

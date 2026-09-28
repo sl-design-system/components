@@ -1,3 +1,4 @@
+import '@sl-design-system/switch/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
@@ -15,7 +16,7 @@ describe('sl-menu', () => {
       el = await fixture(html`
         <sl-menu>
           <sl-menu-item>Item 1</sl-menu-item>
-          <sl-menu-item disabled>Item 2</sl-menu-item>
+          <sl-menu-item aria-disabled="true">Item 2</sl-menu-item>
           <sl-menu-item>
             Item 3
             <sl-menu slot="submenu">
@@ -164,50 +165,32 @@ describe('sl-menu', () => {
       expect(document.activeElement).to.equal(firstItem);
     });
 
-    it('should skip disabled menu items when focusing initially', async () => {
-      el = await fixture(html`
-        <sl-menu>
-          <sl-menu-item disabled>Item 1</sl-menu-item>
-          <sl-menu-item>Item 2</sl-menu-item>
-          <sl-menu-item>Item 3</sl-menu-item>
-        </sl-menu>
-      `);
-
-      el.showPopover();
-      await el.updateComplete;
-
-      el.focus();
-
-      const secondItem = el.querySelectorAll('sl-menu-item')[1];
-
-      expect(document.activeElement).to.equal(secondItem);
-    });
-
-    it('should focus the first not disabled menu item in a menu with multiple disabled items', async () => {
-      el = await fixture(html`
-        <sl-menu>
-          <sl-menu-item disabled>Item 1</sl-menu-item>
-          <sl-menu-item disabled>Item 2</sl-menu-item>
-          <sl-menu-item>Item 3</sl-menu-item>
-          <sl-menu-item>Item 4</sl-menu-item>
-        </sl-menu>
-      `);
-
-      el.showPopover();
-      await el.updateComplete;
-
-      el.focus();
-
-      const thirdItem = el.querySelectorAll('sl-menu-item')[2];
-
-      expect(document.activeElement).to.equal(thirdItem);
-    });
-
-    it('should focus aria-disabled menu items', async () => {
+    it('should not skip aria-disabled menu items when focusing initially', async () => {
       el = await fixture(html`
         <sl-menu>
           <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
           <sl-menu-item>Item 2</sl-menu-item>
+          <sl-menu-item>Item 3</sl-menu-item>
+        </sl-menu>
+      `);
+
+      el.showPopover();
+      await el.updateComplete;
+
+      el.focus();
+
+      const firstItem = el.querySelector('sl-menu-item');
+
+      expect(document.activeElement).to.equal(firstItem);
+    });
+
+    it('should keep focus on the first item when leading items are aria-disabled', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item aria-disabled="true">Item 1</sl-menu-item>
+          <sl-menu-item aria-disabled="true">Item 2</sl-menu-item>
+          <sl-menu-item>Item 3</sl-menu-item>
+          <sl-menu-item>Item 4</sl-menu-item>
         </sl-menu>
       `);
 
@@ -252,6 +235,25 @@ describe('sl-menu', () => {
         expect(el).not.to.match(':popover-open');
 
         document.body.removeChild(outsideButton);
+      });
+
+      it('should close the menu when focus moves outside to an sl-switch component', async () => {
+        const outsideSwitch = document.createElement('sl-switch');
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        document.body.appendChild(outsideSwitch);
+        await outsideSwitch.updateComplete; // Wait for the switch to be ready
+
+        expect(el).to.match(':popover-open');
+
+        outsideSwitch.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el).not.to.match(':popover-open');
+
+        document.body.removeChild(outsideSwitch);
       });
 
       it('should not close the menu when focus moves between menu items', async () => {
@@ -789,6 +791,55 @@ describe('sl-menu', () => {
       });
     });
 
+    describe('arrow right through multiple submenu levels', () => {
+      let level1Item: MenuItem, level2Menu: Menu, level2Item: MenuItem, level3Menu: Menu;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>
+              Level 1
+              <sl-menu slot="submenu">
+                <sl-menu-item>
+                  Level 2
+                  <sl-menu slot="submenu">
+                    <sl-menu-item>Level 3 item 1</sl-menu-item>
+                    <sl-menu-item>Level 3 item 2</sl-menu-item>
+                  </sl-menu>
+                </sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        level1Item = el.querySelector('sl-menu-item')!;
+        level2Menu = level1Item.querySelector('sl-menu')!;
+        level2Item = level2Menu.querySelector('sl-menu-item')!;
+        level3Menu = level2Item.querySelector('sl-menu')!;
+
+        level1Item.focus();
+      });
+
+      it('should focus the deepest submenu item and keep every level open', async () => {
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(level2Menu).to.match(':popover-open');
+        expect(document.activeElement).to.equal(level2Item);
+
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el).to.match(':popover-open');
+        expect(level2Menu).to.match(':popover-open');
+        expect(level3Menu).to.match(':popover-open');
+        expect(document.activeElement).to.equal(level3Menu.querySelector('sl-menu-item'));
+      });
+    });
+
     describe('escape key in submenu', () => {
       let parentMenuItem: MenuItem, submenu: Menu, submenuItem: MenuItem, onKeydown: SinonSpy;
 
@@ -858,6 +909,46 @@ describe('sl-menu', () => {
 
         expect(onKeydown).not.to.have.been.called;
       });
+    });
+  });
+
+  describe('aria-disabled interactions', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-menu selects="multiple">
+          <sl-menu-item aria-disabled="true" selectable selected>Item 1</sl-menu-item>
+          <sl-menu-item selectable>Item 2</sl-menu-item>
+        </sl-menu>
+      `);
+    });
+
+    it('should not toggle selected state when an aria-disabled item is clicked', () => {
+      const disabledItem = el.querySelector<MenuItem>('sl-menu-item:nth-of-type(1)')!;
+
+      disabledItem.click();
+
+      expect(disabledItem.selected).to.be.true;
+    });
+
+    it('should not open submenu for aria-disabled items', async () => {
+      el = await fixture(html`
+        <sl-menu>
+          <sl-menu-item aria-disabled="true">
+            Item 1
+            <sl-menu slot="submenu">
+              <sl-menu-item>Subitem 1</sl-menu-item>
+            </sl-menu>
+          </sl-menu-item>
+        </sl-menu>
+      `);
+
+      const parentItem = el.querySelector<MenuItem>('sl-menu-item')!,
+        submenu = parentItem.querySelector<Menu>('sl-menu')!;
+
+      parentItem.click();
+      await new Promise(resolve => setTimeout(resolve, 120));
+
+      expect(submenu).not.to.match(':popover-open');
     });
   });
 });

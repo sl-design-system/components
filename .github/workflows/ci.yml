@@ -31,4 +31,6 @@ jobs:
 
       - run: yarn build
 
+      - run: yarn check-package-exports
+
       - run: yarn test

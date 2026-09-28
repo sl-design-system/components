@@ -96,7 +96,8 @@ export const Mobile: Story = {
   ...Basic,
   parameters: {
     viewport: {
-      defaultViewport: 'mobile'
+      value: 'mobile',
+      isRotated: false
     }
   }
 };

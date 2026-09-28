@@ -7,8 +7,8 @@ import {
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
+import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
-import { Tooltip } from '@sl-design-system/tooltip';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
@@ -97,12 +97,12 @@ export const EllipsizeText: Story = {
       ellipsize-text
       column-divider
       no-skip-links>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-column path="school.name"></sl-grid-column>
-      <sl-grid-column path="school.address"></sl-grid-column>
-      <sl-grid-column path="school.city"></sl-grid-column>
-      <sl-grid-column path="school.country"></sl-grid-column>
+      <sl-grid-column path="firstName" width="80"></sl-grid-column>
+      <sl-grid-column path="lastName" width="80"></sl-grid-column>
+      <sl-grid-column path="school.name" width="100"></sl-grid-column>
+      <sl-grid-column path="school.address" width="100"></sl-grid-column>
+      <sl-grid-column path="school.city" width="65"></sl-grid-column>
+      <sl-grid-column path="school.country" width="75"></sl-grid-column>
     </sl-grid>
   `
 };
@@ -261,10 +261,11 @@ export const Header: Story = {
         path="firstName"
         .header=${() => html`
           <span>First name</span>
-          <sl-icon id="info-icon" name="info"></sl-icon>
-          <sl-tooltip for="info-icon">Some information about the first name</sl-tooltip>
+          <sl-infotip describes="First name" size="md">
+            Some information about the first name
+          </sl-infotip>
         `}
-        .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}>
+        .scopedElements=${{ 'sl-icon': Icon, 'sl-infotip': Infotip }}>
       </sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
@@ -279,7 +280,7 @@ export const Header: Story = {
       <sl-grid-column
         .header=${() => html`
           <span>School</span>
-          <sl-menu-button fill="ghost" size="sm">
+          <sl-menu-button aria-label="School options" fill="ghost" size="sm">
             <sl-icon slot="button" name="ellipsis"></sl-icon>
             <sl-menu-item>Option 1</sl-menu-item>
             <sl-menu-item>Option 2</sl-menu-item>
@@ -316,9 +317,15 @@ export const KeyboardHeaderScroll: Story = {
 
 export const MenuButton: Story = {
   render: (_, { loaded: { students } }) => {
-    const menuButtonRenderer: GridColumnDataRenderer<Student> = () => {
+    const menuButtonRenderer: GridColumnDataRenderer<Student> = ({
+      firstName,
+      infix,
+      lastName
+    }) => {
+      const fullName = [firstName, infix, lastName].filter(Boolean).join(' ');
+
       return html`
-        <sl-menu-button fill="ghost" size="sm">
+        <sl-menu-button aria-label=${`Options for ${fullName}`} fill="ghost" size="sm">
           <sl-icon slot="button" name="ellipsis"></sl-icon>
           <sl-menu-item>Do something with this student</sl-menu-item>
           <sl-menu-item>Something else</sl-menu-item>

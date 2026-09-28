@@ -16,6 +16,7 @@ import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/switch/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { type TemplateResult, html } from 'lit';
 import { type Menu } from './menu.js';
@@ -109,7 +110,7 @@ export const Disabled: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item>Rename...</sl-menu-item>
-      <sl-menu-item disabled>Delete...</sl-menu-item>
+      <sl-menu-item aria-disabled="true">Delete...</sl-menu-item>
     `
   }
 };
@@ -373,7 +374,7 @@ export const Combination: Story = {
           </sl-menu>
         </sl-menu-item>
         <hr />
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-pen"></sl-icon>
           Rename...
         </sl-menu-item>
@@ -383,6 +384,19 @@ export const Combination: Story = {
         </sl-menu-item>
       `;
     }
+  }
+};
+
+export const Switches: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item switch selected>Settings</sl-menu-item>
+      <sl-menu-item switch>People</sl-menu-item>
+      <sl-menu-item switch aria-disabled="true">Disabled</sl-menu-item>
+      <sl-menu-item aria-disabled="true">Disabled</sl-menu-item>
+      <sl-menu-item>Without switch</sl-menu-item>
+      <sl-menu-item><sl-icon name="far-rocket"></sl-icon>With Icon</sl-menu-item>
+    `
   }
 };
 
@@ -414,7 +428,7 @@ export const All: Story = {
 
       <sl-menu>
         <sl-menu-item shortcut="$mod+Digit1">Default</sl-menu-item>
-        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <sl-menu-item aria-disabled="true" shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
         <hr />
         <sl-menu-item>
           Submenu
@@ -423,7 +437,7 @@ export const All: Story = {
             <sl-menu-item selectable>Other</sl-menu-item>
           </sl-menu>
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           Submenu, disabled
           <sl-menu selects="single" slot="submenu">
             <sl-menu-item selectable selected>Something</sl-menu-item>
@@ -432,13 +446,13 @@ export const All: Story = {
         </sl-menu-item>
         <sl-menu-item-group heading="Group heading">
           <sl-menu-item variant="danger">Danger</sl-menu-item>
-          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
+          <sl-menu-item aria-disabled="true" variant="danger">Danger, disabled</sl-menu-item>
         </sl-menu-item-group>
       </sl-menu>
 
       <sl-menu>
         <sl-menu-item selectable selected shortcut="$mod+Digit1">Default, selected</sl-menu-item>
-        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <sl-menu-item aria-disabled="true" shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
         <hr />
         <sl-menu-item>
           Submenu
@@ -447,7 +461,7 @@ export const All: Story = {
             <sl-menu-item selectable>Other</sl-menu-item>
           </sl-menu>
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           Submenu, disabled
           <sl-menu selects="single" slot="submenu">
             <sl-menu-item selectable selected>Something</sl-menu-item>
@@ -456,7 +470,7 @@ export const All: Story = {
         </sl-menu-item>
         <sl-menu-item-group heading="Group heading">
           <sl-menu-item variant="danger">Danger</sl-menu-item>
-          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
+          <sl-menu-item aria-disabled="true" variant="danger">Danger, disabled</sl-menu-item>
         </sl-menu-item-group>
       </sl-menu>
 
@@ -465,7 +479,7 @@ export const All: Story = {
           <sl-icon name="far-rocket"></sl-icon>
           Default
         </sl-menu-item>
-        <sl-menu-item disabled shortcut="$mod+Digit2">
+        <sl-menu-item aria-disabled="true" shortcut="$mod+Digit2">
           <sl-icon name="far-rocket"></sl-icon>
           Default, disabled
         </sl-menu-item>
@@ -478,7 +492,7 @@ export const All: Story = {
             <sl-menu-item selectable>Other</sl-menu-item>
           </sl-menu>
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-gear"></sl-icon>
           Submenu, disabled
           <sl-menu selects="single" slot="submenu">
@@ -491,7 +505,7 @@ export const All: Story = {
             <sl-icon name="far-trash"></sl-icon>
             Danger
           </sl-menu-item>
-          <sl-menu-item disabled variant="danger">
+          <sl-menu-item aria-disabled="true" variant="danger">
             <sl-icon name="far-trash"></sl-icon>
             Danger, disabled
           </sl-menu-item>
@@ -503,7 +517,7 @@ export const All: Story = {
           <sl-icon name="far-rocket"></sl-icon>
           Default
         </sl-menu-item>
-        <sl-menu-item disabled shortcut="$mod+Digit2">
+        <sl-menu-item aria-disabled="true" shortcut="$mod+Digit2">
           <sl-icon name="far-rocket"></sl-icon>
           Default, disabled
         </sl-menu-item>
@@ -516,7 +530,7 @@ export const All: Story = {
             <sl-menu-item selectable>Other</sl-menu-item>
           </sl-menu>
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           <sl-icon name="far-gear"></sl-icon>
           Submenu, disabled
           <sl-menu selects="single" slot="submenu">
@@ -533,7 +547,7 @@ export const All: Story = {
             <sl-icon name="far-trash"></sl-icon>
             Danger, selected
           </sl-menu-item>
-          <sl-menu-item disabled variant="danger">
+          <sl-menu-item aria-disabled="true" variant="danger">
             <sl-icon name="far-trash"></sl-icon>
             Danger, disabled
           </sl-menu-item>
@@ -542,7 +556,7 @@ export const All: Story = {
 
       <sl-menu emphasis="bold">
         <sl-menu-item selectable selected shortcut="$mod+Digit1">Default, selected</sl-menu-item>
-        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <sl-menu-item aria-disabled="true" shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
         <hr />
         <sl-menu-item>
           Submenu
@@ -551,7 +565,7 @@ export const All: Story = {
             <sl-menu-item selectable>Other</sl-menu-item>
           </sl-menu>
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item aria-disabled="true">
           Submenu, disabled
           <sl-menu selects="single" slot="submenu">
             <sl-menu-item selectable selected>Something</sl-menu-item>
@@ -561,7 +575,7 @@ export const All: Story = {
         <sl-menu-item-group heading="Group heading">
           <sl-menu-item variant="danger">Danger</sl-menu-item>
           <sl-menu-item variant="danger" selected>Danger, selected</sl-menu-item>
-          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
+          <sl-menu-item aria-disabled="true" variant="danger">Danger, disabled</sl-menu-item>
         </sl-menu-item-group>
       </sl-menu>
     </div>

@@ -42,4 +42,23 @@ describe('sl-ellipsize-text', () => {
     expect(tooltip).to.have.trimmed.text('This is a long text that should be truncated');
     expect(slot?.ariaDescribedByElements).to.include(tooltip);
   });
+
+  it('should have a tooltip when it shrinks as a flex item', async () => {
+    const container = await fixture(html`
+        <div style="display: flex; inline-size: 100px">
+          <sl-ellipsize-text> This is a long text that should be truncated </sl-ellipsize-text>
+        </div>
+      `),
+      ellipsizeText = container.querySelector<EllipsizeText>('sl-ellipsize-text')!;
+
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    const slot = ellipsizeText.renderRoot.querySelector('slot'),
+      tooltip = ellipsizeText.renderRoot.querySelector('sl-tooltip');
+
+    expect(ellipsizeText.offsetWidth).to.equal(100);
+    expect(slot!.offsetWidth).to.be.lessThan(slot!.scrollWidth);
+    expect(tooltip).to.exist;
+    expect(tooltip).to.have.trimmed.text('This is a long text that should be truncated');
+  });
 });

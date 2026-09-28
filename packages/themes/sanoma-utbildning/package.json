@@ -2,7 +2,7 @@
   "name": "@sl-design-system/sanoma-utbildning",
   "description": "Sanoma Utbildning theme for the SL Design System",
   "private": true,
-  "version": "1.1.4",
+  "version": "1.1.6",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -22,6 +22,7 @@
     "./global.css": "./global.css",
     "./light.css": "./light.css",
     "./light.min.css": "./light.min.css",
+    "./theme.css": "./theme.css",
     "./typography.css": "./typography.css",
     "./css/*.css": "./css/*.css"
   },
@@ -37,6 +38,6 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "1.4.3"
+    "@sl-design-system/icon": "1.4.5"
   }
 }

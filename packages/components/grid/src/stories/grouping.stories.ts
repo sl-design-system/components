@@ -239,16 +239,15 @@ export const CustomGroupHeader: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[], {
-      groupBy: 'school.id',
-      groupLabelPath: 'school.name'
-    });
-
-    const groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
-      return html`
-        <span slot="group-heading">${item.label} (${item.count})</span>
-        <sl-button size="sm">Add student</sl-button>
-      `;
-    };
+        groupBy: 'school.id',
+        groupLabelPath: 'school.name'
+      }),
+      groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
+        return html`
+          <span slot="group-heading">${item.label} (${item.count})</span>
+          <sl-button size="sm">Add student</sl-button>
+        `;
+      };
 
     return html`
       <p>
@@ -269,6 +268,58 @@ export const CustomGroupHeader: Story = {
           .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const StickyColumnsWithCustomGroupHeader: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+        groupBy: 'school.id',
+        groupLabelPath: 'school.name'
+      }),
+      groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
+        return html`
+          <span slot="group-heading">${item.label} (${item.count})</span>
+          <sl-button size="sm">Add student</sl-button>
+        `;
+      };
+
+    return html`
+      <style>
+        html {
+          display: block;
+        }
+      </style>
+      <p>
+        This example shows grouped rows with a custom group header and sticky columns while
+        scrolling horizontally.
+      </p>
+      <sl-grid
+        .dataSource=${dataSource}
+        .groupHeaderRenderer=${groupHeaderRenderer}
+        .scopedElements=${{ 'sl-button': Button }}>
+        <sl-grid-column
+          grow="0"
+          header="Nr."
+          path="studentNumber"
+          sticky
+          width="120"></sl-grid-column>
+        <sl-grid-column grow="0" path="group.name" sticky width="220"></sl-grid-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          path="fullName"
+          width="260"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}></sl-grid-column>
+        <sl-grid-column path="email" width="260"></sl-grid-column>
+        <sl-grid-column path="school.name" width="260"></sl-grid-column>
+        <sl-grid-column path="school.address" width="240"></sl-grid-column>
+        <sl-grid-column path="school.city" width="160"></sl-grid-column>
+        <sl-grid-column path="school.country" width="160"></sl-grid-column>
       </sl-grid>
     `;
   }

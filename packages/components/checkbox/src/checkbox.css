@@ -114,10 +114,6 @@
   [part='label'] {
     margin-block-start: 0;
   }
-
-  [part='description'] {
-    font-size: var(--sl-text-size-body-xs, 10px);
-  }
 }
 
 :host([size='lg']) {
@@ -131,10 +127,6 @@
 
   [part='label'] {
     margin-block-start: calc((var(--sl-size-500) - 1lh) / 2);
-  }
-
-  [part='description'] {
-    font: var(--sl-text-new-body-md, var(--sl-text-body-md-normal));
   }
 }
 
@@ -208,7 +200,7 @@ slot[name='tooltip-description']::slotted(.visually-hidden) {
 
 [part='description'] {
   color: var(--sl-color-foreground-subtlest);
-  font: var(--sl-text-new-body-sm, var(--sl-text-body-sm-normal));
+  font: var(--sl-text-new-body-md, var(--sl-text-body-md-normal));
 }
 
 :host(:not([has-description])) [part='description'] {

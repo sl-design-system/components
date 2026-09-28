@@ -50,7 +50,7 @@ A markdown report:
 - **Verdict**: `MATCH` (no significant discrepancies) or `NEEDS_WORK`.
 - **Measured comparison table (REQUIRED — you cannot return `MATCH` without it).** Don't eyeball a verdict. Enumerate **every distinct element/region** — each panel/card, button, badge, heading, list, input, icon group, the appointment/header blocks — and for each give the **measured built value vs. the design/manifest value** with a per-row verdict. A gestalt "looks right" is exactly how finish defects slip through. Cover at minimum, per element:
   | Element | Property | Built (measured) | Expected (design/manifest) | ✓/✗ |
-  |---|---|---|---|---|
+  | ------- | -------- | ---------------- | -------------------------- | --- |
   - **headings/labels** → `font-weight` (catch a `--sl-text-new-*` shorthand that reset weight to normal) and size
   - **buttons** → rendered width **vs. its container's content width** (full-width vs. content-width), plus `variant`/`fill`
   - **composed `sl-*`** → the `size`/`variant`/`emphasis` actually applied vs. the design (e.g. a badge that should be `size="lg"`)

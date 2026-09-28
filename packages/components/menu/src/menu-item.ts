@@ -11,6 +11,7 @@ import {
   isPopoverOpen
 } from '@sl-design-system/shared';
 import { SlSelectEvent } from '@sl-design-system/shared/events.js';
+import { Switch } from '@sl-design-system/switch';
 import {
   type CSSResultGroup,
   LitElement,
@@ -44,7 +45,8 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-switch': Switch
     };
   }
 
@@ -56,20 +58,20 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown,
+    click: {
+      handler: this.#onClick,
+      options: { capture: true }
+    },
+    keydown: {
+      handler: this.#onKeydown,
+      options: { capture: true }
+    },
     pointerenter: this.#onPointerenter,
     pointerleave: this.#onPointerleave
   });
 
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
-
-  // Tracks whether aria-disabled was added internally so explicit user-provided values survive.
-  #ariaDisabledFromDisabled = false;
-
-  /** Whether this menu item is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** @internal Emits the current selected state as a boolean when the user toggles the menu item. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent>;
@@ -83,8 +85,18 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Keyboard shortcut for activating this menu item. */
   @property() shortcut?: string;
 
+  /**
+   * @internal The menu that directly contains this menu item, set by the parent menu. Used to
+   * find the containing menu even when it's hosted in another component's shadow root (e.g.
+   * `sl-menu-button`), where `closest('sl-menu')` cannot cross the shadow boundary.
+   */
+  menu?: Menu;
+
   /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
+
+  /** Whether this menu-item should be rendered as a switch. */
+  @property({ type: Boolean, reflect: true }) switch?: boolean;
 
   /** @internal The emphasis, inherited from the menu. */
   @property({ reflect: true }) emphasis?: MenuItemEmphasis;
@@ -92,11 +104,14 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @internal The sub menu, if present. */
   @query('[part="wrapper"]') wrapper?: HTMLElement;
 
+  /** @internal The switch, if this menu-item is rendered as one. */
+  @query('sl-switch') switchElement?: Switch;
+
   /** The variant of the menu item. */
   @property({ reflect: true }) variant?: MenuItemVariant;
 
   get #disabled(): boolean {
-    return this.disabled || this.ariaDisabled === 'true';
+    return this.ariaDisabled === 'true';
   }
 
   override connectedCallback(): void {
@@ -109,19 +124,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled')) {
-      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-      if (this.disabled) {
-        if (this.ariaDisabled !== 'true') {
-          this.setAttribute('aria-disabled', 'true');
-          this.#ariaDisabledFromDisabled = true;
-        }
-      } else if (this.#ariaDisabledFromDisabled) {
-        this.removeAttribute('aria-disabled');
-        this.#ariaDisabledFromDisabled = false;
-      }
-    }
-
     if (changes.has('shortcut')) {
       if (this.shortcut) {
         this.setAttribute('aria-keyshortcuts', this.#shortcut.renderAsText(this.shortcut));
@@ -132,15 +134,15 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    if (changes.has('selectable')) {
+    if (changes.has('selectable') || changes.has('switch')) {
       const selectMode = this.parentElement?.matches('[selects="single"]')
         ? 'menuitemradio'
         : 'menuitemcheckbox';
-      this.role = this.selectable ? selectMode : 'menuitem';
+      this.role = this.switch ? 'menuitemcheckbox' : this.selectable ? selectMode : 'menuitem';
     }
 
-    if (changes.has('selectable') || changes.has('selected')) {
-      if (this.selectable) {
+    if (changes.has('selectable') || changes.has('switch') || changes.has('selected')) {
+      if (this.selectable || this.switch) {
         this.setAttribute('aria-checked', (this.selected || false).toString());
       } else {
         this.removeAttribute('aria-checked');
@@ -165,14 +167,35 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       <div @pointermove=${this.#onPointermove} class="container">
         <div aria-hidden="true" class="safe-triangle"></div>
         <div part="wrapper">
-          ${this.selectable && this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
-          <slot></slot>
           ${
-            this.shortcut
-              ? html`<kbd aria-hidden="true">${this.#shortcut.renderAsLabel(this.shortcut)}</kbd>`
-              : nothing
+            this.switch
+              ? html`
+                  <sl-switch
+                    aria-hidden="true"
+                    ?checked=${this.selected}
+                    @sl-change=${this.#onSwitchChange}
+                    ?disabled=${this.#disabled}
+                    reverse
+                    size="sm"
+                    tabindex="-1"
+                    ><slot></slot
+                  ></sl-switch>
+                `
+              : html`
+                  ${this.selectable && this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
+                  <slot></slot>
+                  ${
+                    this.shortcut
+                      ? html`
+                          <kbd aria-hidden="true"
+                            >${this.#shortcut.renderAsLabel(this.shortcut)}</kbd
+                          >
+                        `
+                      : nothing
+                  }
+                  ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
+                `
           }
-          ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
         </div>
       </div>
       <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
@@ -186,7 +209,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (this.#disabled) {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
 
       return;
     }
@@ -203,6 +226,13 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
        * We need to delay the submenu opening because it may also be closing at this time.
        */
       setTimeout(() => this.#showSubMenu(), 100);
+    } else if (this.switch) {
+      // The switch already toggles itself when clicked directly, so only toggle it here
+      // when the click landed elsewhere on the menu item.
+      if (!event.composedPath().some(el => (el as Element).matches?.('label#toggle,div#label'))) {
+        event.stopPropagation();
+        this.switchElement?.toggle();
+      }
     } else if (this.selectable) {
       const selectModeSingle = this.parentElement?.matches('[selects="single"]');
       if (!selectModeSingle || (selectModeSingle && !this.selected)) {
@@ -213,7 +243,16 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.submenu && event.composedPath().includes(this.submenu)) {
+      return;
+    }
+
     if (this.#disabled) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+
       return;
     }
 
@@ -261,6 +300,13 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.click();
+  }
+
+  #onSwitchChange(event: Event & { target: Switch }): void {
+    event.stopPropagation();
+
+    this.selected = event.target.checked;
+    this.selectEvent.emit(this.selected);
   }
 
   #onSubmenuChange(event: Event & { target: HTMLSlotElement }): void {

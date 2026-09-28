@@ -5,7 +5,6 @@
   "license": "Apache-2.0",
   "private": true,
   "type": "module",
-  "types": "./index.d.ts",
   "exports": {
     ".": "./src/index.ts",
     "./package.json": "./package.json"
@@ -20,7 +19,7 @@
   },
   "dependencies": {
     "@open-wc/scoped-elements": "^3.0.10",
-    "@sl-design-system/shared": "^0.12.3"
+    "@sl-design-system/shared": "^0.14.1"
   },
   "publishConfig": {
     "exports": {

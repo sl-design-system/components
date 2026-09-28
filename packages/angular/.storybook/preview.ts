@@ -3,7 +3,7 @@ import { configureLocalization } from '@lit/localize';
 import { sourceLocale, targetLocales } from '@sl-design-system/locales';
 import { Preview } from '@storybook/angular-vite';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
-import { Mode, themes, updateTheme } from '../../../.storybook/themes';
+import { themes, updateTheme } from '../../../.storybook/themes';
 
 // Lazy-loading map for locale modules
 const locales = {
@@ -52,7 +52,8 @@ const preview: Preview = {
     }
   ],
   loaders: [
-    async ({ globals: { theme = 'sanoma-learning' } }) => {
+    async ({ globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
+      document.documentElement.style.setProperty('--color-scheme', mode);
       await updateTheme(theme);
       await nextFrame();
       await nextFrame();

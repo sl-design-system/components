@@ -160,6 +160,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The clone of the row; used for the drag image. */
   #dragClone?: HTMLTableRowElement;
 
+  /** The row whose drag handle started the current pointer gesture. */
+  #dragArmedRow?: HTMLTableRowElement;
+
   /** The item being dragged. */
   #dragItem?: ListDataSourceItem<T>;
 
@@ -208,7 +211,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const grid = event.composedPath().find(el => el instanceof Grid);
 
     if (!grid || grid !== this) {
-      this.dataSource?.reorder(this.#dragItem!, this.#itemBeforeDragItem!, 'after');
+      this.#restoreDraggedItemPosition();
       this.requestUpdate();
     }
   };
@@ -392,6 +395,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#bulkActionsObserver.disconnect();
     this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
+    this.#clearDragArm();
+    window.removeEventListener('dragover', this.#onWindowDragOver);
 
     if (this.#filterDebounceTimer) {
       clearTimeout(this.#filterDebounceTimer);
@@ -566,7 +571,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(tbody td, thead tr th):nth-child(${index + 1}) {
+          :where(tbody tr:not([part~='group']) td, thead tr th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
             justify-content: ${col.align ?? 'start'};
@@ -631,6 +636,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return html`
       <tr
         @click=${() => this.#onClickRow(item, index + 1)}
+        @mousedown=${this.#onDragHandleStart}
+        @touchstart=${this.#onDragHandleStart}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragenter=${(event: DragEvent) => this.#onDragEnter(event, item)}
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
@@ -654,12 +661,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         draggable &&
         !!item.members?.length &&
         (this.draggableRows === 'between' || this.draggableRows === 'between-or-on-top'),
+      groupHeaderClasses = this.#getGroupHeaderClasses(),
+      groupHeaderStyles = this.#getGroupHeaderStyles(),
       selectable = !!this.#columnDefinitions.find(
         col => !col.hidden && col instanceof GridSelectionColumn
       );
 
     return html`
       <tr
+        @mousedown=${this.#onDragHandleStart}
+        @touchstart=${this.#onDragHandleStart}
         @dragover=${(event: DragEvent) => this.#onGroupDragOver(event, item)}
         @dragstart=${(event: DragEvent) => this.#onDragStart(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
@@ -672,11 +683,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
+            class=${ifDefined(groupHeaderClasses.join(' ') || undefined)}
             ?collapsed=${collapsed}
             ?drag-handle=${draggable}
             group-label=${ifDefined(item.label)}
             ?selectable=${selectable}
-            .selected=${item.selected ?? 'none'}>
+            .selected=${item.selected ?? 'none'}
+            style=${ifDefined(groupHeaderStyles)}>
             ${
               this.groupHeaderRenderer?.(item) ??
               html`
@@ -845,13 +858,63 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate();
   };
 
+  #onDragHandleStart = (event: MouseEvent | TouchEvent): void => {
+    const row = event.currentTarget as HTMLTableRowElement,
+      handle = event
+        .composedPath()
+        .find(
+          (element): element is HTMLElement =>
+            element instanceof HTMLElement && element.part.contains('drag-handle')
+        );
+
+    if (!row.draggable || !handle || handle.part.contains('fixed')) {
+      return;
+    }
+
+    this.#clearDragArm();
+    this.#dragArmedRow = row;
+    window.addEventListener('mouseup', this.#onDragHandleRelease, { once: true });
+    window.addEventListener('touchend', this.#onDragHandleRelease, { once: true });
+    window.addEventListener('touchcancel', this.#onDragHandleRelease, { once: true });
+    window.addEventListener('blur', this.#onDragHandleRelease, { once: true });
+  };
+
+  #onDragHandleRelease = (): void => {
+    const row = this.#dragArmedRow;
+
+    this.#clearDragArm();
+
+    // Group rows contain their own native draggable handle. Data rows need the draggable
+    // attribute removed when a handle press ends without starting a drag.
+    if (row && !row.part.contains('group')) {
+      row.removeAttribute('draggable');
+    }
+  };
+
+  #clearDragArm(): void {
+    this.#dragArmedRow = undefined;
+    window.removeEventListener('mouseup', this.#onDragHandleRelease);
+    window.removeEventListener('touchend', this.#onDragHandleRelease);
+    window.removeEventListener('touchcancel', this.#onDragHandleRelease);
+    window.removeEventListener('blur', this.#onDragHandleRelease);
+  }
+
   #onDragStart(event: DragEvent, item: ListDataSourceItem<T>): void {
+    const row = event.currentTarget as HTMLTableRowElement;
+
+    // Native draggable elements inside a cell, such as images, also emit drag events. Only start
+    // dragging a grid row when its handle armed this specific pointer gesture.
+    if (this.#dragArmedRow !== row) {
+      return;
+    }
+
+    this.#clearDragArm();
+
     event.stopPropagation();
 
     window.addEventListener('dragover', this.#onWindowDragOver);
 
-    const row = event.currentTarget as HTMLTableRowElement,
-      rowRect = row.getBoundingClientRect();
+    const rowRect = row.getBoundingClientRect();
 
     if (isSafari) {
       // Safari doesn't position drag images from transformed elements properly so we need to
@@ -878,9 +941,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     );
 
     this.#dragItem = item;
-    const dragItemIndex = this.dataSource?.items.indexOf(item) ?? -1;
-    this.#itemBeforeDragItem = this.dataSource?.items.at(dragItemIndex - 1);
-    this.#itemAfterDragItem = this.dataSource?.items.at(dragItemIndex + 1);
+    const items = this.dataSource?.items ?? [],
+      dragItemIndex = items.indexOf(item);
+    this.#itemBeforeDragItem = items[dragItemIndex - 1];
+    this.#itemAfterDragItem = items[dragItemIndex + 1];
 
     // Update styles in the next frame, after the drag image has been created
     requestAnimationFrame(() => {
@@ -901,6 +965,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragOver(event: DragEvent, item: ListDataSourceDataItem<T>): void {
+    if (!this.#dragItem) {
+      return;
+    }
+
     event.preventDefault();
 
     const { draggableRows, dropFilter } = this;
@@ -928,7 +996,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
         // If the cursor is in the top half of the row, make this row the drop target
         this.dataSource?.reorder(
-          this.#dragItem!,
+          this.#dragItem,
           item,
           event.clientY < top + height / 2 ? 'before' : 'after'
         );
@@ -947,6 +1015,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupDragOver(event: DragEvent, item: ListDataSourceGroupItem<T>): void {
     if (
+      !this.#dragItem ||
       !(
         this.draggableRows === 'between' ||
         (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
@@ -973,6 +1042,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragEnd(event: DragEvent, item: ListDataSourceItem<T>): void {
+    if (!this.#dragItem) {
+      return;
+    }
+
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
     event
@@ -998,15 +1071,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDrop(event: DragEvent, item: ListDataSourceDataItem<T>): void {
+    if (!this.#dragItem) {
+      return;
+    }
+
     if (this.draggableRows === 'on-grid') {
-      this.dropEvent.emit({ grid: this, item: this.#dragItem!, position: 'on-grid' });
+      this.dropEvent.emit({ grid: this, item: this.#dragItem, position: 'on-grid' });
     } else if (
       this.draggableRows === 'on-top' ||
       (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
     ) {
       this.dropEvent.emit({
         grid: this,
-        item: this.#dragItem!,
+        item: this.#dragItem,
         relativeItem: item.data,
         position: 'on-top'
       });
@@ -1022,7 +1099,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       const proceeded = this.dropEvent.emit({
         grid: this,
-        item: this.#dragItem!,
+        item: this.#dragItem,
         relativeItem: item.data,
         position
       });
@@ -1039,6 +1116,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupDrop(event: DragEvent, item: ListDataSourceGroupItem<T>): void {
     if (
+      !this.#dragItem ||
       !(
         this.draggableRows === 'between' ||
         (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
@@ -1067,12 +1145,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (
       this.dropEvent.emit({
         grid: this,
-        item: this.#dragItem!,
+        item: this.#dragItem,
         relativeItem: relativeItem.data,
         position
       })
     ) {
-      this.dataSource?.reorder(this.#dragItem!, relativeItem, position);
+      this.dataSource?.reorder(this.#dragItem, relativeItem, position);
     }
     this.requestUpdate();
   }
@@ -1399,6 +1477,30 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #getGroupHeaderClasses(): string[] {
+    const columns = this.#getStickyStartColumns();
+
+    if (!columns.length) {
+      return [];
+    }
+
+    return [
+      `group-sticky-start-${columns.at(-1)?.stickyOrder ?? (columns.length > 1 ? 'last' : 'first')}`
+    ];
+  }
+
+  #getGroupHeaderStyles(): string | undefined {
+    const columns = this.#getStickyStartColumns();
+
+    if (!columns.length) {
+      return undefined;
+    }
+
+    const inlineSize = columns.reduce((acc, col) => acc + this.#getColumnWidth(col), 0);
+
+    return `--sl-grid-group-header-sticky-inline-size: ${inlineSize}px;`;
+  }
+
   /** Returns the left offset, taking any sticky columns into account. */
   #getStickyColumnOffset(index: number): number {
     let columns: Array<GridColumn<T>>;
@@ -1409,7 +1511,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       columns = this.#columnDefinitions.slice(0, index);
     }
 
-    return columns.filter(col => !col.hidden).reduce((acc, { width = 0 }) => acc + width, 0);
+    return columns
+      .filter(col => !col.hidden)
+      .reduce((acc, col) => acc + this.#getColumnWidth(col), 0);
+  }
+
+  #getStickyStartColumns(): Array<GridColumn<T>> {
+    return this.#columnDefinitions.filter(
+      col => !col.hidden && col.sticky && col.stickyPosition === 'start'
+    );
+  }
+
+  #getColumnWidth(col: GridColumn<T>): number {
+    return col.width || 100;
   }
 
   #removeColumn(col: GridColumn): void {

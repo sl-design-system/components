@@ -188,7 +188,8 @@ export const Lazy: Story = {
 export const Mobile: Story = {
   parameters: {
     viewport: {
-      defaultViewport: 'mobile'
+      value: 'mobile',
+      isRotated: false
     }
   },
   args: {

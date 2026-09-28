@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "customConditions": [],
     "declaration": false,
     "emitDeclarationOnly": false,
     "esModuleInterop": true,

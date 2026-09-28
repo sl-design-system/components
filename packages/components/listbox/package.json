@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/listbox",
-  "version": "0.2.1",
-  "status": "draft",
+  "version": "0.2.3",
+  "status": "preview",
   "description": "Listbox components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -24,8 +24,14 @@
   "type": "module",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./src/index.ts",
-    "./register.js": "./src/register.ts",
+    ".": {
+      "@sl-design-system/source": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./register.js": {
+      "@sl-design-system/source": "./src/register.ts",
+      "default": "./dist/register.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -42,9 +48,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/icon": "^1.4.3",
-    "@sl-design-system/shared": "^0.12.3",
-    "@sl-design-system/virtual-list": "^0.2.0"
+    "@sl-design-system/icon": "^1.4.5",
+    "@sl-design-system/shared": "^0.14.1",
+    "@sl-design-system/virtual-list": "^0.2.3"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.10",

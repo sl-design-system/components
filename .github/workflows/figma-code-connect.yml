@@ -88,14 +88,13 @@ jobs:
           $SUMMARY"
 
             if [ -f "$FULL_REPORT_PATH" ]; then
+              FULL_REPORT=$(sed '/^$/d' "$FULL_REPORT_PATH" | head -n 50)
               BODY="$BODY
 
           <details>
           <summary>View full report</summary>
 
-          \`\`\`md
-          $(cat "$FULL_REPORT_PATH")
-          \`\`\`
+              $FULL_REPORT
           </details>"
             fi
           else

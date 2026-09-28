@@ -24,6 +24,15 @@ jobs:
       )
     runs-on: ubuntu-latest
     steps:
+      - name: Log workflow trigger
+        run: |
+          echo "event_name=${{ github.event_name }}"
+          echo "workflow_run_conclusion=${{ github.event.workflow_run.conclusion || 'n/a' }}"
+          echo "workflow_run_head_sha=${{ github.event.workflow_run.head_sha || github.sha }}"
+          echo "head_repo=${{ github.event.workflow_run.head_repository.full_name || github.repository }}"
+          echo "repo=${{ github.repository }}"
+          echo "run_id=${{ github.run_id }}"
+
       - name: Checkout the trusted workflow SHA
         uses: actions/checkout@v6
         with:

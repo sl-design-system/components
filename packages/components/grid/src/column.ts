@@ -246,14 +246,16 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerAriaLabel(): string | undefined {
-    return typeof this.header === 'string' || !!this.path || !!this.formControlColumnLabel
-      ? this.headerLabelText || undefined
-      : undefined;
+    // Use aria-labelledby instead of aria-label to avoid duplication
+    return undefined;
   }
 
   /** @internal */
   get headerAriaLabelledBy(): string | undefined {
-    return undefined;
+    // Use aria-labelledby to point to the rendered label span when we have a header or path
+    return typeof this.header === 'string' || !!this.path || !!this.formControlColumnLabel
+      ? `${this.headerCellId}-label`
+      : undefined;
   }
 
   /** @internal Text label used for header announcements and form-control labels. */
@@ -298,30 +300,20 @@ export class GridColumn<T = any> extends LitElement {
    */
   renderHeaderLabel(): string | undefined | TemplateResult {
     const className = this.hideHeaderText ? 'visually-hidden' : undefined,
-      hideFromAccessibilityTree =
-        !!this.headerAriaLabel || (!!this.path && this.groupHeaderLabels.length > 0),
       labelId =
         typeof this.header === 'string' || !!this.path ? `${this.headerCellId}-label` : undefined;
 
     if (this.header) {
       if (typeof this.header === 'string') {
         return html`
-          <span
-            aria-hidden=${ifDefined(hideFromAccessibilityTree ? 'true' : undefined)}
-            class=${ifDefined(className)}
-            id=${ifDefined(labelId)}
-            >${this.header}</span
-          >
+          <span class=${ifDefined(className)} id=${ifDefined(labelId)}>${this.header}</span>
         `;
       }
 
       return this.header(this);
     } else if (this.path) {
       return html`
-        <span
-          aria-hidden=${ifDefined(hideFromAccessibilityTree ? 'true' : undefined)}
-          class=${ifDefined(className)}
-          id=${ifDefined(labelId)}
+        <span class=${ifDefined(className)} id=${ifDefined(labelId)}
           >${getNameByPath(this.path)}</span
         >
       `;

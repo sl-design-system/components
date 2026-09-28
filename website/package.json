@@ -49,6 +49,7 @@
       },
       "dependencies": [
         "analyze",
+        "..:build:themes:setup",
         "..:build:themes:styles",
         "build:ts"
       ],

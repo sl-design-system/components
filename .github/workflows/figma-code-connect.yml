@@ -1,10 +1,11 @@
 name: Figma Code Connect
 
 on:
+  pull_request:
+    branches: ['main']
+    types: [opened, synchronize, reopened, ready_for_review]
+
   workflow_dispatch:
-  workflow_run:
-    workflows: ['Figma Code Connect (PR validation)']
-    types: [completed]
 
 permissions:
   actions: read
@@ -18,25 +19,19 @@ jobs:
   preview:
     if: >
       github.event_name == 'workflow_dispatch' ||
-      (
-        github.event.workflow_run.conclusion == 'success' &&
-        github.event.workflow_run.head_repository.full_name == github.repository
-      )
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Log workflow trigger
         run: |
           echo "event_name=${{ github.event_name }}"
-          echo "workflow_run_conclusion=${{ github.event.workflow_run.conclusion || 'n/a' }}"
-          echo "workflow_run_head_sha=${{ github.event.workflow_run.head_sha || github.sha }}"
-          echo "head_repo=${{ github.event.workflow_run.head_repository.full_name || github.repository }}"
+          echo "head_repo=${{ github.event.pull_request.head.repo.full_name || github.repository }}"
           echo "repo=${{ github.repository }}"
           echo "run_id=${{ github.run_id }}"
 
-      - name: Checkout the trusted workflow SHA
+      - name: Checkout code
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
           persist-credentials: false
 
       - uses: actions/setup-node@v6
@@ -65,15 +60,15 @@ jobs:
             cat scripts/connect-figma-components/figma-connect-report.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - if: always() && github.event_name != 'workflow_dispatch'
+      - if: always() && github.event_name == 'pull_request'
         uses: peter-evans/find-comment@v3
         id: fc
         with:
-          issue-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
           body-includes: '### 🧩 Figma Code Connect'
 
-      - if: always() && github.event_name != 'workflow_dispatch'
+      - if: always() && github.event_name == 'pull_request'
         name: Build comment body
         id: comment
         env:
@@ -109,11 +104,11 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - if: always() && github.event_name != 'workflow_dispatch'
+      - if: always() && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v4
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          issue-number: ${{ github.event.pull_request.number }}
           body: ${{ steps.comment.outputs.body }}
           edit-mode: replace
 

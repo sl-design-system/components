@@ -6,10 +6,19 @@ import { validateSnippet } from './validate-snippet.mjs';
 
 const inputArgs = process.argv.slice(2),
   showAll = inputArgs.includes('--all'),
+  summaryReportPath = getSummaryReportPath(inputArgs),
   reportPath = getReportPath(inputArgs),
   args = stripWrapperArgs(inputArgs),
   hyperlink = (label, url) => `\x1b]8;;${url}\x07${label}\x1b]8;;\x07`,
   batchCases = new Map();
+
+function getSummaryReportPath(args) {
+  const reportArg = args.find(argument => argument.startsWith('--report-summary='));
+  if (reportArg) return reportArg.slice('--report-summary='.length);
+
+  const reportIndex = args.indexOf('--report-summary');
+  return reportIndex === -1 ? undefined : args[reportIndex + 1];
+}
 
 function getReportPath(args) {
   const reportArg = args.find(argument => argument.startsWith('--report='));
@@ -24,8 +33,13 @@ function stripWrapperArgs(args) {
 
   for (let index = 0; index < args.length; index += 1) {
     const argument = args[index];
-    if (argument === '--all' || argument.startsWith('--report=')) continue;
-    if (argument === '--report') {
+    if (
+      argument === '--all' ||
+      argument.startsWith('--report=') ||
+      argument.startsWith('--report-summary=')
+    )
+      continue;
+    if (argument === '--report' || argument === '--report-summary') {
       index += 1;
       continue;
     }
@@ -110,6 +124,26 @@ function markdownList(label, items) {
     .map(item => `${label} ${markdownEscape(item)}`);
 }
 
+function writeSummaryReport(filePath, annotated, failures) {
+  const warnings = annotated.filter(({ warnings }) => warnings.length > 0),
+    invalidCode = annotated.filter(({ invalidCode }) => invalidCode.length > 0);
+
+  const report = [
+    '# Figma Code Connect Preview Summary',
+    '',
+    '## Summary',
+    '',
+    `- Mappings checked: ${annotated.length}`,
+    `- Issues: ${failures.length > 0 ? '❌' : ''} ${failures.length}`,
+    `- Mappings with warnings: ${warnings.length > 0 ? '⚠️' : ''} ${warnings.length}`,
+    `- Mappings with invalid design system code: ${invalidCode.length > 0 ? '❌' : ''} ${invalidCode.length}`,
+    '',
+    `Generated: ${new Date().toISOString()}`
+  ].join('\n');
+
+  writeFileSync(resolve(process.cwd(), filePath), report);
+}
+
 function writeReport(filePath, annotated, failures) {
   const warnings = annotated.filter(({ warnings }) => warnings.length > 0),
     invalidCode = annotated.filter(({ invalidCode }) => invalidCode.length > 0),
@@ -143,23 +177,11 @@ function writeReport(filePath, annotated, failures) {
     });
 
   const report = [
-    '# Figma Code Connect Preview Report',
-    '',
-    `Generated: ${new Date().toISOString()}`,
-    '',
-    '## Summary',
-    '',
-    `- Mappings checked: ${annotated.length}`,
-    `- Issues: ${failures.length}`,
-    `- Mappings with warnings: ${warnings.length}`,
-    `- Mappings with invalid design system code: ${invalidCode.length}`,
-    '',
-    '## Results',
-    '',
     '| | Component | File | Notice |',
     '| --- | --- | --- | --- |',
     ...(rows.length > 0 ? rows : ['| PASS | No mapping issues found |  |  |']),
-    ''
+    '',
+    `Generated: ${new Date().toISOString()}`
   ].join('\n');
 
   writeFileSync(resolve(process.cwd(), filePath), report);
@@ -209,6 +231,11 @@ child.on('close', code => {
 
   if (displayedResults.length === 0) {
     console.log('No mapping issues found.');
+  }
+
+  if (summaryReportPath) {
+    writeSummaryReport(summaryReportPath, annotated, failures);
+    console.log(`Summary report written to ${summaryReportPath}`);
   }
 
   if (reportPath) {

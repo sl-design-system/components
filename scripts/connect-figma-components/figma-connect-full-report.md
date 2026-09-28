@@ -1,16 +1,3 @@
-# Figma Code Connect Preview Report
-
-Generated: 2026-09-23T14:44:08.434Z
-
-## Summary
-
-- Mappings checked: 67
-- Issues: 2
-- Mappings with warnings: 38
-- Mappings with invalid design system code: 1
-
-## Results
-
 |     | Component                                                                                                                            | File                             | Notice                                                                                                                                                                                                                                                                                                                                |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 🟡  | [accordion](https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=7689-21467)                                   | src/accordion.figma.ts           | ⚠️ Figma property "Type" is emitted as code attribute "icon-type"                                                                                                                                                                                                                                                                     |

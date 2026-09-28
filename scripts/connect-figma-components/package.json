@@ -8,7 +8,7 @@
     "connect:publish": "figma connect publish",
     "connect:unpublish": "figma connect unpublish",
     "connect:test": "node preview-errors.mjs",
-    "connect:test:report": "node preview-errors.mjs --report figma-connect-report.md",
+    "connect:test:report": "node preview-errors.mjs --report-summary figma-connect-summary-report.md --report figma-connect-full-report.md",
     "connect:lint-names": "node lint-mapping-names.mjs"
   },
   "devDependencies": {

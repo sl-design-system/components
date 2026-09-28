@@ -57,8 +57,8 @@ jobs:
       - name: Publish report to job summary
         if: always()
         run: |
-          if [ -f scripts/connect-figma-components/figma-connect-report.md ]; then
-            cat scripts/connect-figma-components/figma-connect-report.md >> "$GITHUB_STEP_SUMMARY"
+          if [ -f scripts/connect-figma-components/figma-connect-summary-report.md ]; then
+            cat scripts/connect-figma-components/figma-connect-summary-report.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - if: always() && github.event_name == 'pull_request'
@@ -73,26 +73,31 @@ jobs:
         name: Build comment body
         id: comment
         env:
-          REPORT_PATH: scripts/connect-figma-components/figma-connect-report.md
+          SUMMARY_REPORT_PATH: scripts/connect-figma-components/figma-connect-summary-report.md
+          FULL_REPORT_PATH: scripts/connect-figma-components/figma-connect-full-report.md
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           EXISTING_BODY: ${{ steps.fc.outputs.comment-body }}
         run: |
           BODY="### 🧩 Figma Code Connect
           - [View workflow run]($RUN_URL)"
 
-          if [ -f "$REPORT_PATH" ]; then
-            SUMMARY=$(sed '/^$/d' "$REPORT_PATH" | head -n 20)
+          if [ -f "$SUMMARY_REPORT_PATH" ]; then
+            SUMMARY=$(sed '/^$/d' "$SUMMARY_REPORT_PATH" | head -n 20)
             BODY="$BODY
 
-          $SUMMARY
+          $SUMMARY"
+
+            if [ -f "$FULL_REPORT_PATH" ]; then
+              BODY="$BODY
 
           <details>
           <summary>View full report</summary>
 
           \`\`\`md
-          $(cat "$REPORT_PATH")
+          $(cat "$FULL_REPORT_PATH")
           \`\`\`
           </details>"
+            fi
           else
             BODY="$BODY
 
@@ -118,5 +123,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: figma-code-connect-report
-          path: scripts/connect-figma-components/figma-connect-report.md
+          path: scripts/connect-figma-components/figma-connect-full-report.md
           if-no-files-found: warn

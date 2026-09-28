@@ -485,8 +485,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <table
         part="table"
         aria-colcount=${this.#headerRows.at(-1)?.filter(col => !col.hidden).length || 0}
-        aria-rowcount=${this.dataSource?.items.length || 0}
-        role="table">
+        aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -506,8 +505,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           this.scrollbar
             ? html`
                 <tfoot>
-                  <tr class="scrollbar" role="row">
-                    <td role="cell">
+                  <tr class="scrollbar">
+                    <td>
                       <sl-scrollbar scroller="tbody"></sl-scrollbar>
                     </td>
                   </tr>
@@ -600,7 +599,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return html`
       ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
-          <tr role="row">
+          <tr>
             ${columns.map(col => col.renderHeaderRow(rowIndex))}
           </tr>
         `
@@ -650,8 +649,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         aria-rowindex=${index + 1}
         aria-selected=${ariaSelected}
         index=${index}
-        part=${parts.join(' ')}
-        role="row">
+        part=${parts.join(' ')}>
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
@@ -683,9 +681,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         aria-rowindex=${index + 1}
         .draggable=${groupDraggable}
         part="group"
-        role="row"
         index=${index}>
-        <td part="group-header" role="cell">
+        <td part="group-header">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
@@ -1497,7 +1494,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
 
       const parentHeaderIds = parentGroup
-        ? [...parentGroup.groupHeaderIds, parentGroup.headerLabelId].filter(
+        ? [...parentGroup.groupHeaderIds, parentGroup.headerCellId].filter(
             (value): value is string => !!value
           )
         : [];
@@ -1506,7 +1503,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             (value): value is string => !!value
           )
         : [];
-
       col.groupHeaderIds = parentHeaderIds;
       col.groupHeaderLabels = parentHeaderLabels;
       col.columnIndex = currentIndex;

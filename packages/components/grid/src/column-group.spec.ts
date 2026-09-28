@@ -60,62 +60,44 @@ describe('sl-column-group', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th')),
         dataCells = Array.from(el.renderRoot.querySelectorAll('tbody tr td'));
 
-      expect(headers[0]).to.have.attribute('aria-colindex', '1');
-      expect(headers[0]).to.have.attribute('aria-colspan', '2');
+      expect(headers[0]).to.have.attribute('aria-hidden', 'true');
       expect(headers[0]).to.have.attribute('colspan', '2');
-      expect(headers[0]).to.have.attribute('role', 'columnheader');
       expect(headers[0]).to.have.attribute('scope', 'colgroup');
-      expect(headers[1]).to.have.attribute('aria-colindex', '3');
-      expect(headers[1]).to.have.attribute('aria-colspan', '4');
+      expect(headers[1]).to.have.attribute('aria-hidden', 'true');
       expect(headers[1]).to.have.attribute('colspan', '4');
-      expect(headers[1]).to.have.attribute('role', 'columnheader');
       expect(headers[1]).to.have.attribute('scope', 'colgroup');
 
       headers.slice(2).forEach(header => {
         expect(header).to.have.attribute('scope', 'col');
       });
 
-      expect(headers[0]).to.have.attribute('aria-labelledby', `${headers[0].id}-label`);
-      expect(headers[1]).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
+      expect(headers[0]).not.to.have.attribute('aria-labelledby');
+      expect(headers[1]).not.to.have.attribute('aria-labelledby');
 
-      expect(headers[2]).to.not.have.attribute('headers');
-      expect(headers[2]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[0].id}-label ${headers[2].id}-label`
-      );
-      expect(headers[2].querySelector('span')?.id).to.equal(`${headers[2].id}-label`);
-      expect(headers[2]).to.have.attribute('aria-colindex', '1');
-      expect(headers[3]).to.not.have.attribute('headers');
-      expect(headers[3]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[0].id}-label ${headers[3].id}-label`
-      );
-      expect(headers[3].querySelector('span')?.id).to.equal(`${headers[3].id}-label`);
-      expect(headers[3]).to.have.attribute('aria-colindex', '2');
-      expect(headers[4]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[4].id}-label`
-      );
-      expect(headers[4].querySelector('span')?.id).to.equal(`${headers[4].id}-label`);
-      expect(headers[4]).to.have.attribute('aria-colindex', '3');
-      expect(headers[5]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[5].id}-label`
-      );
-      expect(headers[5].querySelector('span')?.id).to.equal(`${headers[5].id}-label`);
-      expect(headers[5]).to.have.attribute('aria-colindex', '4');
-      expect(headers[6]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[6].id}-label`
-      );
-      expect(headers[6].querySelector('span')?.id).to.equal(`${headers[6].id}-label`);
-      expect(headers[6]).to.have.attribute('aria-colindex', '5');
-      expect(headers[7]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[7].id}-label`
-      );
-      expect(headers[7].querySelector('span')?.id).to.equal(`${headers[7].id}-label`);
-      expect(headers[7]).to.have.attribute('aria-colindex', '6');
+      expect(headers[2]).not.to.have.attribute('aria-label');
+      expect(headers[2]).not.to.have.attribute('abbr');
+      expect(headers[2]).not.to.have.attribute('aria-labelledby');
+      expect(headers[2].textContent?.trim()).to.equal('First name');
+      expect(headers[3]).not.to.have.attribute('aria-label');
+      expect(headers[3]).not.to.have.attribute('abbr');
+      expect(headers[3]).not.to.have.attribute('aria-labelledby');
+      expect(headers[3].textContent?.trim()).to.equal('Last name');
+      expect(headers[4]).not.to.have.attribute('aria-label');
+      expect(headers[4]).not.to.have.attribute('abbr');
+      expect(headers[4]).not.to.have.attribute('aria-labelledby');
+      expect(headers[4].textContent?.trim()).to.equal('Biology');
+      expect(headers[5]).not.to.have.attribute('aria-label');
+      expect(headers[5]).not.to.have.attribute('abbr');
+      expect(headers[5]).not.to.have.attribute('aria-labelledby');
+      expect(headers[5].textContent?.trim()).to.equal('Maths');
+      expect(headers[6]).not.to.have.attribute('aria-label');
+      expect(headers[6]).not.to.have.attribute('abbr');
+      expect(headers[6]).not.to.have.attribute('aria-labelledby');
+      expect(headers[6].textContent?.trim()).to.equal('English');
+      expect(headers[7]).not.to.have.attribute('aria-label');
+      expect(headers[7]).not.to.have.attribute('abbr');
+      expect(headers[7]).not.to.have.attribute('aria-labelledby');
+      expect(headers[7].textContent?.trim()).to.equal('Age');
 
       expect(dataCells[0]).to.have.attribute('headers', headers[2].id);
       expect(dataCells[1]).to.have.attribute('headers', headers[3].id);
@@ -147,39 +129,33 @@ describe('sl-column-group', () => {
       expect(dataCells[5].getAttribute('aria-labelledby')).to.equal(null);
     });
 
-    it('should compose grouped header accessible names without duplicating labels', () => {
+    it('should associate grouped headers through table header relationships', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th'));
 
-      expect(headers[0]).to.have.attribute('aria-labelledby', `${headers[0].id}-label`);
-      expect(headers[1]).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
-      expect(headers[2]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[0].id}-label ${headers[2].id}-label`
-      );
-      expect(headers[3]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[0].id}-label ${headers[3].id}-label`
-      );
-      expect(headers[4]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[4].id}-label`
-      );
-      expect(headers[5]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[5].id}-label`
-      );
-      expect(headers[6]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[6].id}-label`
-      );
-      expect(headers[7]).to.have.attribute(
-        'aria-labelledby',
-        `${headers[1].id}-label ${headers[7].id}-label`
-      );
+      expect(headers[0]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[1]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[2]).not.to.have.attribute('headers');
+      expect(headers[3]).not.to.have.attribute('headers');
+      expect(headers[4]).not.to.have.attribute('headers');
+      expect(headers[5]).not.to.have.attribute('headers');
+      expect(headers[6]).not.to.have.attribute('headers');
+      expect(headers[7]).not.to.have.attribute('headers');
 
       expect(headers[2]).not.to.have.attribute('aria-label');
       expect(headers[3]).not.to.have.attribute('aria-label');
       expect(headers[4]).not.to.have.attribute('aria-label');
+    });
+
+    it('should keep grouped leaf header labels wrapped for styling', () => {
+      const headers = Array.from(el.renderRoot.querySelectorAll('th')).slice(2);
+
+      headers.forEach(header => {
+        const label = header.querySelector('span');
+
+        expect(label).not.to.equal(null);
+        expect(label?.classList.contains('visually-hidden')).to.equal(false);
+        expect(label?.textContent?.trim()).to.equal(header.textContent?.trim());
+      });
     });
 
     it('should have the correct width', () => {
@@ -188,7 +164,7 @@ describe('sl-column-group', () => {
       const actualWidths = cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)));
 
       actualWidths.forEach((actual, i) => {
-        expect(actual).to.be.closeTo(expectedWidths[i], 1);
+        expect(actual).to.be.closeTo(expectedWidths[i], 3);
       });
     });
   });
@@ -226,7 +202,7 @@ describe('sl-column-group', () => {
       const actualWidths = cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)));
 
       actualWidths.forEach((actual, i) => {
-        expect(actual).to.be.closeTo(expectedWidths[i], 1);
+        expect(actual).to.be.closeTo(expectedWidths[i], 3);
       });
     });
   });

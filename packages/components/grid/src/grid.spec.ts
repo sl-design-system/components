@@ -136,14 +136,10 @@ describe('sl-grid', () => {
     it('should scope group headers and leaf headers correctly', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th'));
 
-      expect(headers[0]).to.have.attribute('role', 'columnheader');
       expect(headers[0]).to.have.attribute('scope', 'colgroup');
-      expect(headers[0]).to.have.attribute('aria-colindex', '1');
-      expect(headers[0]).to.have.attribute('aria-colspan', '2');
-      expect(headers[1]).to.have.attribute('role', 'columnheader');
+      expect(headers[0]).to.have.attribute('aria-hidden', 'true');
       expect(headers[1]).to.have.attribute('scope', 'colgroup');
-      expect(headers[1]).to.have.attribute('aria-colindex', '3');
-      expect(headers[1]).to.have.attribute('aria-colspan', '3');
+      expect(headers[1]).to.have.attribute('aria-hidden', 'true');
       headers.slice(2).forEach(header => {
         expect(header).to.have.attribute('scope', 'col');
       });
@@ -155,18 +151,28 @@ describe('sl-grid', () => {
         countryHeaderId = headers[6].id,
         cells = Array.from(el.renderRoot.querySelectorAll('tbody td'));
 
-      expect(headers[0]).to.have.attribute('aria-labelledby', `${headers[0].id}-label`);
-      expect(headers[1]).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
-      expect(headers[2]).to.not.have.attribute('headers');
-      expect(headers[2]).to.have.attribute('aria-labelledby', `${headers[2].id}-label`);
-      expect(headers[3]).to.not.have.attribute('headers');
-      expect(headers[3]).to.have.attribute('aria-labelledby', `${headers[3].id}-label`);
-      expect(headers[4]).to.not.have.attribute('headers');
-      expect(headers[4]).to.have.attribute('aria-labelledby', `${headers[4].id}-label`);
-      expect(headers[5]).to.not.have.attribute('headers');
-      expect(headers[5]).to.have.attribute('aria-labelledby', `${headers[5].id}-label`);
-      expect(headers[6]).to.not.have.attribute('headers');
-      expect(headers[6]).to.have.attribute('aria-labelledby', `${headers[6].id}-label`);
+      expect(headers[0]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[1]).to.have.attribute('aria-hidden', 'true');
+      expect(headers[2]).not.to.have.attribute('headers');
+      expect(headers[2]).to.have.attribute('aria-label', 'First name');
+      expect(headers[2]).not.to.have.attribute('abbr');
+      expect(headers[2]).not.to.have.attribute('aria-labelledby');
+      expect(headers[3]).not.to.have.attribute('headers');
+      expect(headers[3]).to.have.attribute('aria-label', 'Last name');
+      expect(headers[3]).not.to.have.attribute('abbr');
+      expect(headers[3]).not.to.have.attribute('aria-labelledby');
+      expect(headers[4]).not.to.have.attribute('headers');
+      expect(headers[4]).to.have.attribute('aria-label', 'Name');
+      expect(headers[4]).not.to.have.attribute('abbr');
+      expect(headers[4]).not.to.have.attribute('aria-labelledby');
+      expect(headers[5]).not.to.have.attribute('headers');
+      expect(headers[5]).to.have.attribute('aria-label', 'City');
+      expect(headers[5]).not.to.have.attribute('abbr');
+      expect(headers[5]).not.to.have.attribute('aria-labelledby');
+      expect(headers[6]).not.to.have.attribute('headers');
+      expect(headers[6]).to.have.attribute('aria-label', 'Country');
+      expect(headers[6]).not.to.have.attribute('abbr');
+      expect(headers[6]).not.to.have.attribute('aria-labelledby');
 
       expect(cells[0]).to.have.attribute('headers', firstNameHeaderId);
       expect(cells[1]).to.have.attribute('headers', lastNameHeaderId);

@@ -246,26 +246,14 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerAriaLabel(): string | undefined {
-    const labels = [...this.groupHeaderLabels, this.headerLabelText].filter(Boolean);
-
-    return labels.length &&
-      (typeof this.header === 'string' || !!this.path || !!this.formControlColumnLabel)
-      ? labels.join(' ')
-      : undefined;
-  }
-
-  /** @internal */
-  get headerLabelId(): string | undefined {
-    return typeof this.header === 'string' || !!this.path
-      ? `${this.headerCellId}-label`
+    return typeof this.header === 'string' || !!this.path || !!this.formControlColumnLabel
+      ? this.headerLabelText || undefined
       : undefined;
   }
 
   /** @internal */
   get headerAriaLabelledBy(): string | undefined {
-    const ids = [...this.groupHeaderIds, this.headerLabelId].filter(Boolean);
-
-    return ids.length ? ids.join(' ') : undefined;
+    return undefined;
   }
 
   /** @internal Text label used for header announcements and form-control labels. */
@@ -292,13 +280,11 @@ export class GridColumn<T = any> extends LitElement {
 
     return html`
       <th
-        aria-colindex=${String(this.columnIndex)}
         aria-label=${ifDefined(this.headerAriaLabelledBy ? undefined : this.headerAriaLabel)}
         aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
-        role="columnheader"
         scope="col">
         ${this.renderHeaderLabel()}
       </th>
@@ -312,15 +298,30 @@ export class GridColumn<T = any> extends LitElement {
    */
   renderHeaderLabel(): string | undefined | TemplateResult {
     const className = this.hideHeaderText ? 'visually-hidden' : undefined,
-      labelId = this.headerLabelId;
+      hideFromAccessibilityTree =
+        !!this.headerAriaLabel || (!!this.path && this.groupHeaderLabels.length > 0),
+      labelId =
+        typeof this.header === 'string' || !!this.path ? `${this.headerCellId}-label` : undefined;
 
     if (this.header) {
-      return typeof this.header === 'string'
-        ? html`<span class=${ifDefined(className)} id=${ifDefined(labelId)}>${this.header}</span>`
-        : this.header(this);
+      if (typeof this.header === 'string') {
+        return html`
+          <span
+            aria-hidden=${ifDefined(hideFromAccessibilityTree ? 'true' : undefined)}
+            class=${ifDefined(className)}
+            id=${ifDefined(labelId)}
+            >${this.header}</span
+          >
+        `;
+      }
+
+      return this.header(this);
     } else if (this.path) {
       return html`
-        <span class=${ifDefined(className)} id=${ifDefined(labelId)}
+        <span
+          aria-hidden=${ifDefined(hideFromAccessibilityTree ? 'true' : undefined)}
+          class=${ifDefined(className)}
+          id=${ifDefined(labelId)}
           >${getNameByPath(this.path)}</span
         >
       `;
@@ -351,8 +352,7 @@ export class GridColumn<T = any> extends LitElement {
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
           id=${ifDefined(cellId)}
-          part=${parts.join(' ')}
-          role="cell">
+          part=${parts.join(' ')}>
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
@@ -364,8 +364,7 @@ export class GridColumn<T = any> extends LitElement {
           class=${ifDefined(classes.join(' ') || undefined)}
           headers=${this.headerIds}
           id=${ifDefined(cellId)}
-          part=${parts.join(' ')}
-          role="cell">
+          part=${parts.join(' ')}>
           ${data}
         </td>
       `;

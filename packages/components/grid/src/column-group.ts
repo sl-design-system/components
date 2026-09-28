@@ -1,6 +1,5 @@
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -42,12 +41,11 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
 
     return html`
       <th
+        aria-hidden="true"
         aria-colindex=${String(this.columnIndex)}
         aria-colspan=${String(Math.max(this.columnSpan, 1))}
-        aria-labelledby=${ifDefined(this.headerLabelId)}
         colspan=${Math.max(this.columnSpan, 1)}
         id=${this.headerCellId}
-        role="columnheader"
         scope="colgroup">
         ${this.renderHeaderLabel()}
       </th>

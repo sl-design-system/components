@@ -46,6 +46,9 @@ jobs:
           FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
         run: yarn install --immutable
 
+      - name: Generate component metadata
+        run: node scripts/build-metadata.js
+
       - name: Run Code Connect preview
         working-directory: scripts/connect-figma-components
         env:

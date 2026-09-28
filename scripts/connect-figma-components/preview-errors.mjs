@@ -129,8 +129,6 @@ function writeSummaryReport(filePath, annotated, failures) {
     invalidCode = annotated.filter(({ invalidCode }) => invalidCode.length > 0);
 
   const report = [
-    '# Figma Code Connect Preview Summary',
-    '',
     '## Summary',
     '',
     `- Mappings checked: ${annotated.length}`,
@@ -145,9 +143,7 @@ function writeSummaryReport(filePath, annotated, failures) {
 }
 
 function writeReport(filePath, annotated, failures) {
-  const warnings = annotated.filter(({ warnings }) => warnings.length > 0),
-    invalidCode = annotated.filter(({ invalidCode }) => invalidCode.length > 0),
-    sorted = [...annotated].sort((a, b) =>
+  const sorted = [...annotated].sort((a, b) =>
       componentName(a.result, a.batchCase).localeCompare(
         componentName(b.result, b.batchCase),
         undefined,

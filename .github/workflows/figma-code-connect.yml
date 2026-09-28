@@ -76,37 +76,26 @@ jobs:
           SUMMARY_REPORT_PATH: scripts/connect-figma-components/figma-connect-summary-report.md
           FULL_REPORT_PATH: scripts/connect-figma-components/figma-connect-full-report.md
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          EXISTING_BODY: ${{ steps.fc.outputs.comment-body }}
         run: |
-          BODY="### 🧩 Figma Code Connect
-          - [View workflow run]($RUN_URL)"
+          DELIMITER="EOF_$(date +%s%N)"
+          {
+            printf 'body<<%s\n' "$DELIMITER"
+            printf '### 🧩 Figma Code Connect\n- [View workflow run](%s)\n\n' "$RUN_URL"
 
-          if [ -f "$SUMMARY_REPORT_PATH" ]; then
-            SUMMARY=$(sed '/^$/d' "$SUMMARY_REPORT_PATH" | head -n 20)
-            BODY="$BODY
-
-          $SUMMARY"
+            if [ -f "$SUMMARY_REPORT_PATH" ]; then
+              cat "$SUMMARY_REPORT_PATH"
+              printf '\n'
+            else
+              printf '%s\n\n' '- No report generated.'
+            fi
 
             if [ -f "$FULL_REPORT_PATH" ]; then
-              FULL_REPORT=$(sed '/^$/d' "$FULL_REPORT_PATH" | head -n 50)
-              BODY="$BODY
-
-          <details>
-          <summary>View full report</summary>
-
-              $FULL_REPORT
-          </details>"
+              printf '<details>\n<summary>View full report</summary>\n\n'
+              cat "$FULL_REPORT_PATH"
+              printf '\n\n</details>\n'
             fi
-          else
-            BODY="$BODY
 
-          - No report generated."
-          fi
-
-          {
-            echo "body<<EOF"
-            echo "$BODY"
-            echo "EOF"
+            printf '%s\n' "$DELIMITER"
           } >> "$GITHUB_OUTPUT"
 
       - if: always() && github.event_name == 'pull_request'

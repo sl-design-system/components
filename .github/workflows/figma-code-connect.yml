@@ -27,7 +27,7 @@ jobs:
       - name: Checkout the trusted workflow SHA
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow.run.head_sha }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
           persist-credentials: false
 
       - uses: actions/setup-node@v6

@@ -7,8 +7,8 @@ import {
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
+import { Infotip } from '@sl-design-system/infotip';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
-import { Tooltip } from '@sl-design-system/tooltip';
 import { type Meta, type StoryObj } from '@storybook/web-components-vite';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
@@ -261,10 +261,11 @@ export const Header: Story = {
         path="firstName"
         .header=${() => html`
           <span>First name</span>
-          <sl-icon id="info-icon" name="info"></sl-icon>
-          <sl-tooltip for="info-icon">Some information about the first name</sl-tooltip>
+          <sl-infotip describes="First name" size="md">
+            Some information about the first name
+          </sl-infotip>
         `}
-        .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}>
+        .scopedElements=${{ 'sl-icon': Icon, 'sl-infotip': Infotip }}>
       </sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>

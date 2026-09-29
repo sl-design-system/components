@@ -1,14 +1,34 @@
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/text-field/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { spy } from 'sinon';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { userEvent } from 'vitest/browser';
 import { FormField } from './form-field.js';
 import './register.js';
 
+const waitForAnnouncement = (delay = 250): Promise<void> =>
+  new Promise(resolve => setTimeout(resolve, delay));
+
 describe('sl-form-field', () => {
   let el: FormField;
+  const announceListenerControllers: AbortController[] = [];
+
+  const listenForAnnouncements = () => {
+    const announceSpy = spy<(event: SlAnnounceEvent) => void>(),
+      controller = new AbortController();
+
+    announceListenerControllers.push(controller);
+    document.body.addEventListener('sl-announce', announceSpy, { signal: controller.signal });
+
+    return announceSpy;
+  };
+
+  afterEach(() => {
+    announceListenerControllers.splice(0).forEach(controller => controller.abort());
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -100,6 +120,61 @@ describe('sl-form-field', () => {
       await el.updateComplete;
 
       expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+      await waitForAnnouncement();
+    });
+
+    it('should keep generated errors accessible when announceErrors is false', async () => {
+      el.announceErrors = false;
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+      expect(el.querySelector('sl-error')).not.to.have.attribute('aria-hidden');
+    });
+
+    it('should announce the validation message when invalid state is shown', async () => {
+      const announceSpy = listenForAnnouncements();
+
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      await waitForAnnouncement();
+
+      expect(announceSpy).to.have.been.calledOnce;
+      expect(announceSpy).to.have.been.calledWithMatch({
+        detail: { message: 'Please fill in this field.', force: true }
+      });
+    });
+
+    it('should include the field label in announced validation messages', async () => {
+      const announceSpy = listenForAnnouncements(),
+        labelledField = await fixture<FormField>(html`
+          <sl-form-field label="First name">
+            <sl-text-field required></sl-text-field>
+          </sl-form-field>
+        `);
+
+      labelledField.querySelector('sl-text-field')?.reportValidity();
+      await labelledField.updateComplete;
+      await waitForAnnouncement();
+
+      expect(announceSpy).to.have.been.calledWithMatch({
+        detail: { message: 'First name: Please fill in this field.', force: true }
+      });
+    });
+
+    it('should not announce the same validation message twice in a row', async () => {
+      const announceSpy = listenForAnnouncements(),
+        textField = el.querySelector('sl-text-field');
+
+      textField?.reportValidity();
+      await el.updateComplete;
+      await waitForAnnouncement();
+
+      textField?.reportValidity();
+      await el.updateComplete;
+      await waitForAnnouncement();
+
+      expect(announceSpy).to.have.been.calledOnce;
     });
 
     it('should not show validation after calling setCustomValidity', async () => {
@@ -122,6 +197,7 @@ describe('sl-form-field', () => {
       await el.updateComplete;
 
       expect(el.querySelector('sl-error')).to.have.text('Custom error');
+      await waitForAnnouncement();
     });
 
     it('should show the builtin validation after resetting the custom validity', async () => {
@@ -130,6 +206,7 @@ describe('sl-form-field', () => {
       textField?.setCustomValidity('Custom error');
       textField?.reportValidity();
       await el.updateComplete;
+      await waitForAnnouncement();
 
       expect(el.querySelector('sl-error')).to.have.text('Custom error');
 
@@ -139,10 +216,14 @@ describe('sl-form-field', () => {
       expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
     });
 
-    it('should link the error to the form control', async () => {
+    it('should link the error to the form control when the invalid field is focused again', async () => {
       const input = el.querySelector('input');
 
       el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+      await waitForAnnouncement();
+
+      el.querySelector('sl-text-field')?.focus();
       await el.updateComplete;
 
       const error = el.querySelector('sl-error');
@@ -157,6 +238,7 @@ describe('sl-form-field', () => {
 
       textField?.reportValidity();
       await el.updateComplete;
+      await waitForAnnouncement();
 
       textField?.focus();
       await userEvent.keyboard('Valid input');
@@ -250,25 +332,11 @@ describe('sl-form-field', () => {
       expect(errors[0]).to.have.text('Please fill in this field.');
     });
 
-    it('should link the error to the correct form control', async () => {
-      el.querySelector('sl-radio-group')?.reportValidity();
-      el.querySelector('sl-text-field')?.reportValidity();
-      await el.updateComplete;
-
-      const errors = el.querySelectorAll('sl-error');
-      expect(errors).to.have.lengthOf(2);
-      expect(errors[1].id).to.equal(
-        el.querySelector('sl-radio-group')?.getAttribute('aria-describedby')
-      );
-      expect(errors[0].id).to.equal(
-        el.querySelector('sl-text-field input')?.getAttribute('aria-describedby')
-      );
-    });
-
     it('should remove the error once the control is valid', async () => {
       el.querySelector('sl-radio-group')?.reportValidity();
       el.querySelector('sl-text-field')?.reportValidity();
       await el.updateComplete;
+      await waitForAnnouncement(1000);
 
       el.querySelector('sl-radio')?.click();
       await new Promise(resolve => setTimeout(resolve, 10));

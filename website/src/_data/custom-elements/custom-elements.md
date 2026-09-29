@@ -1,11 +1,3 @@
-# `../packages/components/accordion/src/accordion-item.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                      | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/accordion/src/accordion-item.scss.ts |         |
-
 # `../packages/components/accordion/src/accordion-item.ts`:
 
 ## class: `AccordionItem`, `sl-accordion-item`
@@ -70,14 +62,6 @@
 | ---- | --------------- | ------------- | ------------------------------------------------------ | ------- |
 | `js` | `AccordionItem` | AccordionItem | ../packages/components/accordion/src/accordion-item.ts |         |
 
-# `../packages/components/accordion/src/accordion.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/accordion/src/accordion.scss.ts |         |
-
 # `../packages/components/accordion/src/index.ts`:
 
 ## Exports
@@ -111,14 +95,6 @@
 | Kind | Name       | Declaration | Module                                           | Package |
 | ---- | ---------- | ----------- | ------------------------------------------------ | ------- |
 | `js` | `announce` | announce    | ../packages/components/announcer/src/announce.ts |         |
-
-# `../packages/components/announcer/src/announcer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/announcer/src/announcer.scss.ts |         |
 
 # `../packages/components/announcer/src/announcer.ts`:
 
@@ -156,14 +132,6 @@
 | Kind                        | Name           | Declaration | Module                                          | Package |
 | --------------------------- | -------------- | ----------- | ----------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-announcer` | Announcer   | /packages/components/announcer/src/announcer.js |         |
-
-# `../packages/components/avatar/src/avatar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/avatar/src/avatar.scss.ts |         |
 
 # `../packages/components/avatar/src/avatar.ts`:
 
@@ -261,14 +229,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-avatar` | Avatar      | /packages/components/avatar/src/avatar.js |         |
 
-# `../packages/components/badge/src/badge.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/badge/src/badge.scss.ts |         |
-
 # `../packages/components/badge/src/badge.ts`:
 
 ## class: `Badge`, `sl-badge`
@@ -326,14 +286,6 @@
 | Kind                        | Name       | Declaration | Module                                  | Package |
 | --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
 | `custom-element-definition` | `sl-badge` | Badge       | /packages/components/badge/src/badge.js |         |
-
-# `../packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
 
 # `../packages/components/breadcrumbs/src/breadcrumbs.ts`:
 
@@ -409,14 +361,6 @@
 | --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-breadcrumbs` | Breadcrumbs | /packages/components/breadcrumbs/src/breadcrumbs.js |         |
 
-# `../packages/components/button-bar/src/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
-
 # `../packages/components/button-bar/src/button-bar.ts`:
 
 ## class: `ButtonBar`, `sl-button-bar`
@@ -482,14 +426,6 @@
 | Kind                        | Name            | Declaration | Module                                            | Package |
 | --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
-
-# `../packages/components/button/src/button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/button/src/button.scss.ts |         |
 
 # `../packages/components/button/src/button.ts`:
 
@@ -582,14 +518,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
 
-# `../packages/components/calendar/src/calendar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/calendar/src/calendar.scss.ts |         |
-
 # `../packages/components/calendar/src/calendar.ts`:
 
 ## class: `Calendar`, `sl-calendar`
@@ -662,14 +590,6 @@
 | `js` | `*`  | *           | packages/components/calendar/src/calendar.js   |         |
 | `js` | `*`  | *           | packages/components/calendar/src/month-view.js |         |
 
-# `../packages/components/calendar/src/month-view.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/calendar/src/month-view.scss.ts |         |
-
 # `../packages/components/calendar/src/register.ts`:
 
 ## Exports
@@ -678,38 +598,6 @@
 | --------------------------- | --------------- | ----------- | ----------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-calendar`   | Calendar    | /packages/components/calendar/src/calendar.js   |         |
 | `custom-element-definition` | `sl-month-view` | MonthView   | /packages/components/calendar/src/month-view.js |         |
-
-# `../packages/components/calendar/src/select-day.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/calendar/src/select-day.scss.ts |         |
-
-# `../packages/components/calendar/src/select-month.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/calendar/src/select-month.scss.ts |         |
-
-# `../packages/components/calendar/src/select-year.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/calendar/src/select-year.scss.ts |         |
-
-# `../packages/components/callout/src/callout.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/callout/src/callout.scss.ts |         |
 
 # `../packages/components/callout/src/callout.ts`:
 
@@ -772,14 +660,6 @@
 | Kind                        | Name         | Declaration | Module                                      | Package |
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-callout` | Callout     | /packages/components/callout/src/callout.js |         |
-
-# `../packages/components/card/src/card.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/card/src/card.scss.ts |         |
 
 # `../packages/components/card/src/card.ts`:
 
@@ -859,14 +739,6 @@
 | Kind                        | Name      | Declaration | Module                                | Package |
 | --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
 | `custom-element-definition` | `sl-card` | Card        | /packages/components/card/src/card.js |         |
-
-# `../packages/components/checkbox/src/checkbox-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
 # `../packages/components/checkbox/src/checkbox-group.ts`:
 
@@ -955,14 +827,6 @@
 | ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
 | `js` | `CheckboxGroup` | CheckboxGroup | ../packages/components/checkbox/src/checkbox-group.ts |         |
 
-# `../packages/components/checkbox/src/checkbox.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/checkbox/src/checkbox.scss.ts |         |
-
 # `../packages/components/checkbox/src/index.ts`:
 
 ## Exports
@@ -980,14 +844,6 @@
 | --------------------------- | ------------------- | ------------- | --------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
-
-# `../packages/components/combobox/src/combobox.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/combobox/src/combobox.scss.ts |         |
 
 # `../packages/components/combobox/src/combobox.ts`:
 
@@ -1107,30 +963,6 @@
 | ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Combobox` | Combobox    | ../packages/components/combobox/src/combobox.ts |         |
 
-# `../packages/components/combobox/src/create-custom-option.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                           | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/combobox/src/create-custom-option.scss.ts |         |
-
-# `../packages/components/combobox/src/custom-option.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                    | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/combobox/src/custom-option.scss.ts |         |
-
-# `../packages/components/combobox/src/grouped-option.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/combobox/src/grouped-option.scss.ts |         |
-
 # `../packages/components/combobox/src/index.ts`:
 
 ## Exports
@@ -1142,14 +974,6 @@
 | `js` | `OptionGroup` | OptionGroup |                                              | @sl-design-system/listbox |
 | `js` | `*`           | *           | packages/components/combobox/src/combobox.js |                           |
 
-# `../packages/components/combobox/src/no-match.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/combobox/src/no-match.scss.ts |         |
-
 # `../packages/components/combobox/src/register.ts`:
 
 ## Exports
@@ -1157,14 +981,6 @@
 | Kind                        | Name          | Declaration | Module                                        | Package |
 | --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-combobox` | Combobox    | /packages/components/combobox/src/combobox.js |         |
-
-# `../packages/components/combobox/src/selected-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/combobox/src/selected-group.scss.ts |         |
 
 # `../packages/components/data-source/src/array-list-data-source.ts`:
 
@@ -1370,14 +1186,6 @@
 | `js` | `*`  | *           | packages/components/data-source/src/fetch-list-data-source.js |         |
 | `js` | `*`  | *           | packages/components/data-source/src/list-data-source.js       |         |
 
-# `../packages/components/date-field/src/date-field.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/date-field/src/date-field.scss.ts |         |
-
 # `../packages/components/date-field/src/date-field.ts`:
 
 ## class: `DateField`, `sl-date-field`
@@ -1399,38 +1207,38 @@
 
 ### Fields
 
-| Name                  | Privacy | Type                                         | Default     | Description                                                                                                                                                                                                                                                                                                                                                 | Inherited From   |
-| --------------------- | ------- | -------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `calendar`            |         | `Calendar \| null`                           |             | The calendar element. This will return an instance of the calendar when the dialog is shown or&#xA;always when the calendar is slotted. Otherwise it will return undefined.                                                                                                                                                                                 |                  |
-| `customValidity`      |         | `string \| undefined`                        |             | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                                   | FormControlMixin |
-| `dirty`               |         | `boolean`                                    | `false`     | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                             | FormControlMixin |
-| `disabled`            |         | `boolean \| undefined`                       |             | Whether the date field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                    |                  |
-| `firstDayOfWeek`      |         | `number \| undefined`                        | `1`         | The first day of the week; 0 for Sunday, 1 for Monday.                                                                                                                                                                                                                                                                                                      |                  |
-| `form`                |         | `HTMLFormElement \| null`                    |             | The form associated with the control.                                                                                                                                                                                                                                                                                                                       | FormControlMixin |
-| `formValue`           |         | `unknown`                                    |             | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                    | FormControlMixin |
-| `labels`              |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |             | The labels associated with the control.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `locale`              |         | `string`                                     |             | The component's locale.                                                                                                                                                                                                                                                                                                                                     | LocaleMixin      |
-| `max`                 |         | `Date \| undefined`                          | `undefined` | The maximum date selectable in the calendar.                                                                                                                                                                                                                                                                                                                |                  |
-| `min`                 |         | `Date \| undefined`                          | `undefined` | The minimum date selectable in the calendar.                                                                                                                                                                                                                                                                                                                |                  |
-| `month`               |         | `Date \| undefined`                          |             | The current month to display.                                                                                                                                                                                                                                                                                                                               |                  |
-| `name`                |         | `string \| undefined`                        |             | The name of the form control.                                                                                                                                                                                                                                                                                                                               | FormControlMixin |
-| `nativeFormValue`     |         | `FormValue`                                  |             | Returns the form value as used in a native `<form>`. This is always a string, File, FormData&#xA;or null.                                                                                                                                                                                                                                                   | FormControlMixin |
-| `placeholder`         |         | `string \| undefined`                        | `undefined` | Placeholder text shown when there is no value and the field is not focused.                                                                                                                                                                                                                                                                                 |                  |
-| `readonly`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is readonly.                                                                                                                                                                                                                                                                                                                         |                  |
-| `requireConfirmation` |         | `boolean \| undefined`                       |             | When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to&#xA;confirm their date selection before it is applied. Custom action controls can still close the&#xA;picker with `hide-picker`. If such an action should also commit a value without using&#xA;"Confirm", its click handler needs to set the value itself. |                  |
-| `required`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is a required field.                                                                                                                                                                                                                                                                                                                 |                  |
-| `selectOnly`          |         | `boolean \| undefined`                       | `false`     | Whether the component is select only. This means you cannot type in the inputs, but you can&#xA;still pick a date via the dialog.                                                                                                                                                                                                                           |                  |
-| `shape`               |         | `DateFieldShape \| undefined`                | `'rect'`    | The shape of the date field.                                                                                                                                                                                                                                                                                                                                |                  |
-| `showValid`           |         | `boolean`                                    | `false`     | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                              | FormControlMixin |
-| `showValidity`        |         | `'valid' \| 'invalid' \| undefined`          |             | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                         | FormControlMixin |
-| `showWeekNumbers`     |         | `boolean \| undefined`                       | `false`     | Shows the week numbers.                                                                                                                                                                                                                                                                                                                                     |                  |
-| `size`                |         | `DateFieldSize \| undefined`                 | `'md'`      | The size of the date field.                                                                                                                                                                                                                                                                                                                                 |                  |
-| `touched`             |         | `boolean`                                    | `false`     | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                                 | FormControlMixin |
-| `valid`               |         | `boolean`                                    |             | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
-| `validationMessage`   |         | `string`                                     |             | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead.     | FormControlMixin |
-| `validity`            |         | `ValidityState`                              |             | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                               | FormControlMixin |
-| `validityState`       |         | `'valid' \| 'invalid' \| 'pending'`          |             | Returns the current validity state.                                                                                                                                                                                                                                                                                                                         | FormControlMixin |
-| `value`               |         | `unknown \| undefined`                       |             | The selected date in the calendar.                                                                                                                                                                                                                                                                                                                          | FormControlMixin |
+| Name                  | Privacy | Type                                         | Default     | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| --------------------- | ------- | -------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `calendar`            |         | `Calendar \| null`                           |             | The calendar element. This will return an instance of the calendar when the dialog is shown or&#xA;always when the calendar is slotted. Otherwise it will return undefined.                                                                                                                                                                             |                  |
+| `customValidity`      |         | `string \| undefined`                        |             | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `dirty`               |         | `boolean`                                    | `false`     | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | FormControlMixin |
+| `disabled`            |         | `boolean \| undefined`                       |             | Whether the date field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                |                  |
+| `firstDayOfWeek`      |         | `number \| undefined`                        | `1`         | The first day of the week; 0 for Sunday, 1 for Monday.                                                                                                                                                                                                                                                                                                  |                  |
+| `form`                |         | `HTMLFormElement \| null`                    |             | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `formValue`           |         | `unknown`                                    |             | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
+| `labels`              |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |             | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `locale`              |         | `string`                                     |             | The component's locale.                                                                                                                                                                                                                                                                                                                                 | LocaleMixin      |
+| `max`                 |         | `Date \| undefined`                          | `undefined` | The maximum date selectable in the calendar.                                                                                                                                                                                                                                                                                                            |                  |
+| `min`                 |         | `Date \| undefined`                          | `undefined` | The minimum date selectable in the calendar.                                                                                                                                                                                                                                                                                                            |                  |
+| `month`               |         | `Date \| undefined`                          |             | The current month to display.                                                                                                                                                                                                                                                                                                                           |                  |
+| `name`                |         | `string \| undefined`                        |             | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `nativeFormValue`     |         | `FormValue`                                  |             | Returns the form value as used in a native `<form>`. This is always a string, File, FormData&#xA;or null.                                                                                                                                                                                                                                               | FormControlMixin |
+| `placeholder`         |         | `string \| undefined`                        | `undefined` | Placeholder text shown when there is no value and the field is not focused.                                                                                                                                                                                                                                                                             |                  |
+| `readonly`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is readonly.                                                                                                                                                                                                                                                                                                                     |                  |
+| `requireConfirmation` |         | `boolean \| undefined`                       |             | When set, a "Confirm" button will be shown in the dialog, and the user will need to click it to&#xA;confirm their date selection.                                                                                                                                                                                                                       |                  |
+| `required`            |         | `boolean \| undefined`                       | `false`     | Whether the date field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
+| `selectOnly`          |         | `boolean \| undefined`                       | `false`     | Whether the component is select only. This means you cannot type in the inputs, but you can&#xA;still pick a date via the dialog.                                                                                                                                                                                                                       |                  |
+| `shape`               |         | `DateFieldShape \| undefined`                | `'rect'`    | The shape of the date field.                                                                                                                                                                                                                                                                                                                            |                  |
+| `showValid`           |         | `boolean`                                    | `false`     | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | FormControlMixin |
+| `showValidity`        |         | `'valid' \| 'invalid' \| undefined`          |             | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `showWeekNumbers`     |         | `boolean \| undefined`                       | `false`     | Shows the week numbers.                                                                                                                                                                                                                                                                                                                                 |                  |
+| `size`                |         | `DateFieldSize \| undefined`                 | `'md'`      | The size of the date field.                                                                                                                                                                                                                                                                                                                             |                  |
+| `touched`             |         | `boolean`                                    | `false`     | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
+| `valid`               |         | `boolean`                                    |             | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage`   |         | `string`                                     |             | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`            |         | `ValidityState`                              |             | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `validityState`       |         | `'valid' \| 'invalid' \| 'pending'`          |             | Returns the current validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `value`               |         | `unknown \| undefined`                       |             | The selected date in the calendar.                                                                                                                                                                                                                                                                                                                      | FormControlMixin |
 
 ### Methods
 
@@ -1477,13 +1285,6 @@
 | `name`                 | name                | FormControlMixin |
 | `show-validity`        | showValidity        | FormControlMixin |
 
-### Slots
-
-| Name       | Description                                                                                                                                 |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-|            | Optional action controls rendered below the calendar. Add `hide-picker` to a control to close the picker automatically after it is clicked. |
-| `calendar` | Optional custom calendar content.                                                                                                           |
-
 <hr/>
 
 ## Exports
@@ -1507,14 +1308,6 @@
 | Kind                        | Name            | Declaration | Module                                            | Package |
 | --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-date-field` | DateField   | /packages/components/date-field/src/date-field.js |         |
-
-# `../packages/components/dialog/src/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
 
 # `../packages/components/dialog/src/dialog.ts`:
 
@@ -1615,14 +1408,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
 
-# `../packages/components/drawer/src/drawer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
-
 # `../packages/components/drawer/src/drawer.ts`:
 
 ## class: `Drawer`, `sl-drawer`
@@ -1717,14 +1502,6 @@
 | ---- | --------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
 
-# `../packages/components/editor/src/editor.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
-
 # `../packages/components/editor/src/editor.ts`:
 
 ## class: `Editor`, `sl-editor`
@@ -1817,14 +1594,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
 
-# `../packages/components/ellipsize-text/src/ellipsize-text.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                           | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/ellipsize-text/src/ellipsize-text.scss.ts |         |
-
 # `../packages/components/ellipsize-text/src/ellipsize-text.ts`:
 
 ## class: `EllipsizeText`, `sl-ellipsize-text`
@@ -1870,14 +1639,6 @@
 | Kind                        | Name                | Declaration   | Module                                                    | Package |
 | --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-ellipsize-text` | EllipsizeText | /packages/components/ellipsize-text/src/ellipsize-text.js |         |
-
-# `../packages/components/emoji/src/emoji-browser.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/emoji/src/emoji-browser.scss.ts |         |
 
 # `../packages/components/emoji/src/emoji-browser.ts`:
 
@@ -1950,14 +1711,6 @@
 | Kind                        | Name               | Declaration  | Module                                          | Package |
 | --------------------------- | ------------------ | ------------ | ----------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-emoji-browser` | EmojiBrowser | /packages/components/emoji/src/emoji-browser.js |         |
-
-# `../packages/components/form/src/error.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/error.scss.ts |         |
 
 # `../packages/components/form/src/error.ts`:
 
@@ -2114,22 +1867,6 @@
 | ---- | ---------------- | -------------- | -------------------------------------------------- | ------- |
 | `js` | `FormController` | FormController | ../packages/components/form/src/form-controller.ts |         |
 
-# `../packages/components/form/src/form-field.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/form-field.scss.ts |         |
-
-# `../packages/components/form/src/form-validation-errors.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                         | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/form-validation-errors.scss.ts |         |
-
 # `../packages/components/form/src/form-validation-errors.ts`:
 
 ## class: `FormValidationErrors`, `sl-form-validation-errors`
@@ -2163,22 +1900,6 @@
 | ---- | ---------------------- | -------------------- | --------------------------------------------------------- | ------- |
 | `js` | `FormValidationErrors` | FormValidationErrors | ../packages/components/form/src/form-validation-errors.ts |         |
 
-# `../packages/components/form/src/form.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/form.scss.ts |         |
-
-# `../packages/components/form/src/hint.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/hint.scss.ts |         |
-
 # `../packages/components/form/src/index.ts`:
 
 ## Exports
@@ -2193,14 +1914,6 @@
 | `js` | `*`  | *           | packages/components/form/src/form.js                   |         |
 | `js` | `*`  | *           | packages/components/form/src/hint.js                   |         |
 | `js` | `*`  | *           | packages/components/form/src/label.js                  |         |
-
-# `../packages/components/form/src/label.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/label.scss.ts |         |
 
 # `../packages/components/form/src/register.ts`:
 
@@ -2474,30 +2187,6 @@
 | ---- | ----------------- | --------------- | ----------------------------------------------- | ------- |
 | `js` | `GridColumnGroup` | GridColumnGroup | ../packages/components/grid/src/column-group.ts |         |
 
-# `../packages/components/grid/src/filter.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/grid/src/filter.scss.ts |         |
-
-# `../packages/components/grid/src/grid.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/grid/src/grid.scss.ts |         |
-
-# `../packages/components/grid/src/group-header.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/grid/src/group-header.scss.ts |         |
-
 # `../packages/components/grid/src/index.ts`:
 
 ## Exports
@@ -2529,14 +2218,6 @@
 | `custom-element-definition` | `sl-grid-selection-column`   | GridSelectionColumn  | /packages/components/grid/src/selection-column.js   |         |
 | `custom-element-definition` | `sl-grid-sort-column`        | GridSortColumn       | /packages/components/grid/src/sort-column.js        |         |
 | `custom-element-definition` | `sl-grid-text-field-column`  | GridTextFieldColumn  | /packages/components/grid/src/text-field-column.js  |         |
-
-# `../packages/components/grid/src/sorter.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/grid/src/sorter.scss.ts |         |
 
 # `../packages/components/grid/src/stories/story-utils.ts`:
 
@@ -2571,14 +2252,6 @@
 | ---- | ------------------------- | ----------------------- | ---------------------------------------- | ------- |
 | `js` | `waitForGridToRenderData` | waitForGridToRenderData | ../packages/components/grid/src/utils.ts |         |
 | `js` | `waitForAriaForwarding`   | waitForAriaForwarding   | ../packages/components/grid/src/utils.ts |         |
-
-# `../packages/components/icon/src/icon.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
 
 # `../packages/components/icon/src/icon.ts`:
 
@@ -2654,14 +2327,6 @@
 | ---- | ---- | ----------- | ------------------------------------------ | ------- |
 | `js` | `*`  | *           | packages/components/infotip/src/infotip.js |         |
 
-# `../packages/components/infotip/src/infotip.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/infotip/src/infotip.scss.ts |         |
-
 # `../packages/components/infotip/src/register.ts`:
 
 ## Exports
@@ -2677,14 +2342,6 @@
 | Kind | Name | Declaration | Module                                                   | Package |
 | ---- | ---- | ----------- | -------------------------------------------------------- | ------- |
 | `js` | `*`  | *           | packages/components/inline-message/src/inline-message.js |         |
-
-# `../packages/components/inline-message/src/inline-message.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                           | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/inline-message/src/inline-message.scss.ts |         |
 
 # `../packages/components/inline-message/src/register.ts`:
 
@@ -2721,38 +2378,6 @@
 | `js` | `*`  | *           | packages/components/listbox/src/option-group.js        |         |
 | `js` | `*`  | *           | packages/components/listbox/src/option-group-header.js |         |
 
-# `../packages/components/listbox/src/listbox.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/listbox/src/listbox.scss.ts |         |
-
-# `../packages/components/listbox/src/option-group-header.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                         | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/listbox/src/option-group-header.scss.ts |         |
-
-# `../packages/components/listbox/src/option-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/listbox/src/option-group.scss.ts |         |
-
-# `../packages/components/listbox/src/option.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/listbox/src/option.scss.ts |         |
-
 # `../packages/components/listbox/src/register.ts`:
 
 ## Exports
@@ -2774,38 +2399,6 @@
 | `js` | `*`  | *           | packages/components/menu/src/menu-item.js       |         |
 | `js` | `*`  | *           | packages/components/menu/src/menu-item-group.js |         |
 
-# `../packages/components/menu/src/menu-button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu-button.scss.ts |         |
-
-# `../packages/components/menu/src/menu-item-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu-item-group.scss.ts |         |
-
-# `../packages/components/menu/src/menu-item.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu-item.scss.ts |         |
-
-# `../packages/components/menu/src/menu.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu.scss.ts |         |
-
 # `../packages/components/menu/src/register.ts`:
 
 ## Exports
@@ -2825,14 +2418,6 @@
 | ---- | ---- | ----------- | -------------------------------------------------------- | ------- |
 | `js` | `*`  | *           | packages/components/message-dialog/src/message-dialog.js |         |
 
-# `../packages/components/message-dialog/src/message-dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                           | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/message-dialog/src/message-dialog.scss.ts |         |
-
 # `../packages/components/message-dialog/src/register.ts`:
 
 ## Exports
@@ -2848,14 +2433,6 @@
 | Kind | Name | Declaration | Module                                               | Package |
 | ---- | ---- | ----------- | ---------------------------------------------------- | ------- |
 | `js` | `*`  | *           | packages/components/number-field/src/number-field.js |         |
-
-# `../packages/components/number-field/src/number-field.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                       | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/number-field/src/number-field.scss.ts |         |
 
 # `../packages/components/number-field/src/register.ts`:
 
@@ -2875,22 +2452,6 @@
 | `js` | `*`  | *           | packages/components/paginator/src/page-size.js |         |
 | `js` | `*`  | *           | packages/components/paginator/src/status.js    |         |
 
-# `../packages/components/paginator/src/page-size.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/paginator/src/page-size.scss.ts |         |
-
-# `../packages/components/paginator/src/paginator.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/paginator/src/paginator.scss.ts |         |
-
 # `../packages/components/paginator/src/register.ts`:
 
 ## Exports
@@ -2901,14 +2462,6 @@
 | `custom-element-definition` | `sl-paginator-page-size` | PaginatorPageSize | /packages/components/paginator/src/page-size.js |         |
 | `custom-element-definition` | `sl-paginator-status`    | PaginatorStatus   | /packages/components/paginator/src/status.js    |         |
 
-# `../packages/components/paginator/src/status.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/paginator/src/status.scss.ts |         |
-
 # `../packages/components/panel/src/index.ts`:
 
 ## Exports
@@ -2916,14 +2469,6 @@
 | Kind | Name | Declaration | Module                                 | Package |
 | ---- | ---- | ----------- | -------------------------------------- | ------- |
 | `js` | `*`  | *           | packages/components/panel/src/panel.js |         |
-
-# `../packages/components/panel/src/panel.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/panel/src/panel.scss.ts |         |
 
 # `../packages/components/panel/src/register.ts`:
 
@@ -2941,14 +2486,6 @@
 | ---- | ---- | ----------- | ------------------------------------------ | ------- |
 | `js` | `*`  | *           | packages/components/popover/src/popover.js |         |
 
-# `../packages/components/popover/src/popover.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/popover/src/popover.scss.ts |         |
-
 # `../packages/components/popover/src/register.ts`:
 
 ## Exports
@@ -2964,14 +2501,6 @@
 | Kind | Name | Declaration | Module                                               | Package |
 | ---- | ---- | ----------- | ---------------------------------------------------- | ------- |
 | `js` | `*`  | *           | packages/components/progress-bar/src/progress-bar.js |         |
-
-# `../packages/components/progress-bar/src/progress-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                       | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/progress-bar/src/progress-bar.scss.ts |         |
 
 # `../packages/components/progress-bar/src/register.ts`:
 
@@ -2989,22 +2518,6 @@
 | ---- | ---- | ----------- | -------------------------------------------------- | ------- |
 | `js` | `*`  | *           | packages/components/radio-group/src/radio.js       |         |
 | `js` | `*`  | *           | packages/components/radio-group/src/radio-group.js |         |
-
-# `../packages/components/radio-group/src/radio-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/radio-group/src/radio-group.scss.ts |         |
-
-# `../packages/components/radio-group/src/radio.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/radio-group/src/radio.scss.ts |         |
 
 # `../packages/components/radio-group/src/register.ts`:
 
@@ -3031,14 +2544,6 @@
 | --------------------------- | -------------- | ----------- | ----------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-scrollbar` | Scrollbar   | /packages/components/scrollbar/src/scrollbar.js |         |
 
-# `../packages/components/scrollbar/src/scrollbar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/scrollbar/src/scrollbar.scss.ts |         |
-
 # `../packages/components/search-field/src/index.ts`:
 
 ## Exports
@@ -3054,14 +2559,6 @@
 | Kind                        | Name              | Declaration | Module                                                | Package |
 | --------------------------- | ----------------- | ----------- | ----------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-search-field` | SearchField | /packages/components/search-field/src/search-field.js |         |
-
-# `../packages/components/search-field/src/search-field.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                       | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/search-field/src/search-field.scss.ts |         |
 
 # `../packages/components/select/src/index.ts`:
 
@@ -3081,30 +2578,6 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-select` | Select      | /packages/components/select/src/select.js |         |
-
-# `../packages/components/select/src/select-button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select-button.scss.ts |         |
-
-# `../packages/components/select/src/select.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select.scss.ts |         |
-
-# `../packages/components/shared/src/breakpoints.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/shared/src/breakpoints.scss.ts |         |
 
 # `../packages/components/shared/src/browser.ts`:
 
@@ -3386,14 +2859,6 @@
 | --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
 
-# `../packages/components/skeleton/src/skeleton.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
-
 # `../packages/components/spinner/src/index.ts`:
 
 ## Exports
@@ -3410,14 +2875,6 @@
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-spinner` | Spinner     | /packages/components/spinner/src/spinner.js |         |
 
-# `../packages/components/spinner/src/spinner.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/spinner/src/spinner.scss.ts |         |
-
 # `../packages/components/switch/src/index.ts`:
 
 ## Exports
@@ -3433,14 +2890,6 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
-
-# `../packages/components/switch/src/switch.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/switch/src/switch.scss.ts |         |
 
 # `../packages/components/tabs/src/index.ts`:
 
@@ -3462,30 +2911,6 @@
 | `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
 | `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
 
-# `../packages/components/tabs/src/tab-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tabs/src/tab-group.scss.ts |         |
-
-# `../packages/components/tabs/src/tab-panel.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tabs/src/tab-panel.scss.ts |         |
-
-# `../packages/components/tabs/src/tab.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tabs/src/tab.scss.ts |         |
-
 # `../packages/components/tag/src/index.ts`:
 
 ## Exports
@@ -3504,22 +2929,6 @@
 | `custom-element-definition` | `sl-tag-list` | TagList     | /packages/components/tag/src/tag-list.js |         |
 | `custom-element-definition` | `sl-tag`      | Tag         | /packages/components/tag/src/tag.js      |         |
 
-# `../packages/components/tag/src/tag-list.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tag/src/tag-list.scss.ts |         |
-
-# `../packages/components/tag/src/tag.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/tag/src/tag.scss.ts |         |
-
 # `../packages/components/text-area/src/index.ts`:
 
 ## Exports
@@ -3535,22 +2944,6 @@
 | Kind                        | Name           | Declaration | Module                                          | Package |
 | --------------------------- | -------------- | ----------- | ----------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-text-area` | TextArea    | /packages/components/text-area/src/text-area.js |         |
-
-# `../packages/components/text-area/src/text-area.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/text-area/src/text-area.scss.ts |         |
-
-# `../packages/components/text-field/src/field-button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/text-field/src/field-button.scss.ts |         |
 
 # `../packages/components/text-field/src/field-button.ts`:
 
@@ -3610,14 +3003,6 @@
 | `custom-element-definition` | `sl-field-button` | FieldButton | /packages/components/text-field/src/field-button.js |         |
 | `custom-element-definition` | `sl-text-field`   | TextField   | /packages/components/text-field/src/text-field.js   |         |
 
-# `../packages/components/text-field/src/text-field.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/text-field/src/text-field.scss.ts |         |
-
 # `../packages/components/time-field/src/index.ts`:
 
 ## Exports
@@ -3633,14 +3018,6 @@
 | Kind                        | Name            | Declaration | Module                                            | Package |
 | --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-time-field` | TimeField   | /packages/components/time-field/src/time-field.js |         |
-
-# `../packages/components/time-field/src/time-field.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/time-field/src/time-field.scss.ts |         |
 
 # `../packages/components/toggle-button/src/index.ts`:
 
@@ -3658,14 +3035,6 @@
 | --------------------------- | ------------------ | ------------ | ------------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-toggle-button` | ToggleButton | /packages/components/toggle-button/src/toggle-button.js |         |
 
-# `../packages/components/toggle-button/src/toggle-button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                         | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/toggle-button/src/toggle-button.scss.ts |         |
-
 # `../packages/components/toggle-group/src/index.ts`:
 
 ## Exports
@@ -3681,14 +3050,6 @@
 | Kind                        | Name              | Declaration | Module                                                | Package |
 | --------------------------- | ----------------- | ----------- | ----------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-toggle-group` | ToggleGroup | /packages/components/toggle-group/src/toggle-group.js |         |
-
-# `../packages/components/toggle-group/src/toggle-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                       | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/toggle-group/src/toggle-group.scss.ts |         |
 
 # `../packages/components/tool-bar/src/attribute-propagation.ts`:
 
@@ -3742,22 +3103,6 @@
 | `custom-element-definition` | `sl-tool-bar`         | ToolBar        | /packages/components/tool-bar/src/tool-bar.js         |         |
 | `custom-element-definition` | `sl-tool-bar-divider` | ToolBarDivider | /packages/components/tool-bar/src/tool-bar-divider.js |         |
 
-# `../packages/components/tool-bar/src/tool-bar-divider.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                       | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/tool-bar/src/tool-bar-divider.scss.ts |         |
-
-# `../packages/components/tool-bar/src/tool-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tool-bar/src/tool-bar.scss.ts |         |
-
 # `../packages/components/tooltip/src/index.ts`:
 
 ## Exports
@@ -3773,14 +3118,6 @@
 | Kind                        | Name         | Declaration | Module                                      | Package |
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
-
-# `../packages/components/tooltip/src/tooltip.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tooltip/src/tooltip.scss.ts |         |
 
 # `../packages/components/tree/src/flat-tree-data-source.ts`:
 
@@ -3840,14 +3177,6 @@
 | ---- | -------------------- | ------------------ | -------------------------------------------------------- | ------- |
 | `js` | `FlatTreeDataSource` | FlatTreeDataSource | ../packages/components/tree/src/flat-tree-data-source.ts |         |
 
-# `../packages/components/tree/src/indent-guides.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tree/src/indent-guides.scss.ts |         |
-
 # `../packages/components/tree/src/index.ts`:
 
 ## Exports
@@ -3866,22 +3195,6 @@
 | Kind                        | Name      | Declaration | Module                                | Package |
 | --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tree` | Tree        | /packages/components/tree/src/tree.js |         |
-
-# `../packages/components/tree/src/tree-node.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tree/src/tree-node.scss.ts |         |
-
-# `../packages/components/tree/src/tree.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tree/src/tree.scss.ts |         |
 
 # `../packages/components/tree/src/tree.stories-utils.ts`:
 
@@ -3920,15 +3233,7 @@
 | --------------------------- | ----------------- | ----------- | ----------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-virtual-list` | VirtualList | /packages/components/virtual-list/src/virtual-list.js |         |
 
-# `../packages/components/virtual-list/src/virtual-list.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                       | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/virtual-list/src/virtual-list.scss.ts |         |
-
-# `/Users/kacper.mikocki/components/packages/components/accordion/src/accordion.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts`:
 
 ## class: `Accordion`, `sl-accordion`
 
@@ -3969,11 +3274,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                          | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `Accordion` | Accordion   | /Users/kacper.mikocki/components/packages/components/accordion/src/accordion.ts |         |
+| Kind | Name        | Declaration | Module                                                                                      | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Accordion` | Accordion   | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/calendar/src/month-view.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.ts`:
 
 ## class: `MonthView`, `sl-month-view`
 
@@ -4068,11 +3373,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                          | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `MonthView` | MonthView   | /Users/kacper.mikocki/components/packages/components/calendar/src/month-view.ts |         |
+| Kind | Name        | Declaration | Module                                                                                      | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MonthView` | MonthView   | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/month-view.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/calendar/src/select-day.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.ts`:
 
 ## class: `SelectDay`
 
@@ -4132,11 +3437,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                          | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectDay` | SelectDay   | /Users/kacper.mikocki/components/packages/components/calendar/src/select-day.ts |         |
+| Kind | Name        | Declaration | Module                                                                                      | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectDay` | SelectDay   | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-day.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/calendar/src/select-month.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.ts`:
 
 ## class: `SelectMonth`
 
@@ -4194,11 +3499,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                            | Package |
-| ---- | ------------- | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectMonth` | SelectMonth | /Users/kacper.mikocki/components/packages/components/calendar/src/select-month.ts |         |
+| Kind | Name          | Declaration | Module                                                                                        | Package |
+| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectMonth` | SelectMonth | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-month.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/calendar/src/select-year.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.ts`:
 
 ## class: `SelectYear`
 
@@ -4252,11 +3557,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                           | Package |
-| ---- | ------------ | ----------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectYear` | SelectYear  | /Users/kacper.mikocki/components/packages/components/calendar/src/select-year.ts |         |
+| Kind | Name         | Declaration | Module                                                                                       | Package |
+| ---- | ------------ | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectYear` | SelectYear  | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/select-year.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts`:
 
 ## Variables
 
@@ -4315,18 +3620,18 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                     | Package |
-| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------- | ------- |
-| `js` | `getWeekdayNames`    | getWeekdayNames    | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
-| `js` | `getWeekNumber`      | getWeekNumber      | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
-| `js` | `createCalendar`     | createCalendar     | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
-| `js` | `createPeriod`       | createPeriod       | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
-| `js` | `createMonth`        | createMonth        | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
-| `js` | `createWeek`         | createWeek         | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
-| `js` | `createDay`          | createDay          | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
-| `js` | `indicatorConverter` | indicatorConverter | /Users/kacper.mikocki/components/packages/components/calendar/src/utils.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                 | Package |
+| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `getWeekdayNames`    | getWeekdayNames    | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| `js` | `getWeekNumber`      | getWeekNumber      | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| `js` | `createCalendar`     | createCalendar     | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| `js` | `createPeriod`       | createPeriod       | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| `js` | `createMonth`        | createMonth        | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| `js` | `createWeek`         | createWeek         | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| `js` | `createDay`          | createDay          | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
+| `js` | `indicatorConverter` | indicatorConverter | /Users/diana.broeders/Projects/design-system/packages/components/calendar/src/utils.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/checkbox/src/checkbox.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts`:
 
 ## class: `Checkbox`, `sl-checkbox`
 
@@ -4438,11 +3743,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                        | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | /Users/kacper.mikocki/components/packages/components/checkbox/src/checkbox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/combobox/src/create-custom-option.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts`:
 
 ## class: `CreateCustomOption`
 
@@ -4480,11 +3785,11 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                    | Package |
-| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `CreateCustomOption` | CreateCustomOption | /Users/kacper.mikocki/components/packages/components/combobox/src/create-custom-option.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                                | Package |
+| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CreateCustomOption` | CreateCustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/combobox/src/custom-option.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts`:
 
 ## class: `CustomOption`
 
@@ -4522,11 +3827,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                             | Package |
-| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `CustomOption` | CustomOption | /Users/kacper.mikocki/components/packages/components/combobox/src/custom-option.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                         | Package |
+| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CustomOption` | CustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/combobox/src/grouped-option.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts`:
 
 ## class: `GroupedOption`
 
@@ -4566,11 +3871,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                              | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `GroupedOption` | GroupedOption | /Users/kacper.mikocki/components/packages/components/combobox/src/grouped-option.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                          | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GroupedOption` | GroupedOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/combobox/src/no-match.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts`:
 
 ## class: `NoMatch`
 
@@ -4596,11 +3901,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                        | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `NoMatch` | NoMatch     | /Users/kacper.mikocki/components/packages/components/combobox/src/no-match.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `NoMatch` | NoMatch     | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/combobox/src/selected-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts`:
 
 ## class: `SelectedGroup`
 
@@ -4641,19 +3946,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                              | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectedGroup` | SelectedGroup | /Users/kacper.mikocki/components/packages/components/combobox/src/selected-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                          | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectedGroup` | SelectedGroup | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/data-source/src/data-source.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts`:
 
 ## class: `DataSource`
 
 ### Superclass
 
-| Name          | Module                                                                              | Package |
-| ------------- | ----------------------------------------------------------------------------------- | ------- |
-| `EventTarget` | /Users/kacper.mikocki/components/packages/components/data-source/src/data-source.ts |         |
+| Name          | Module                                                                                          | Package |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
 
 ### Fields
 
@@ -4677,20 +3982,20 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                              | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/kacper.mikocki/components/packages/components/data-source/src/data-source.ts |         |
-| `js` | `DataSource`            | DataSource            | /Users/kacper.mikocki/components/packages/components/data-source/src/data-source.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                          | Package |
+| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
+| `js` | `DataSource`            | DataSource            | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/data-source/src/list-data-source.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts`:
 
 ## class: `ListDataSource`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `DataSource` | //Users/kacper.mikocki/components/packages/components/data-source/src/data-source.js |         |
+| Name         | Module                                                                                           | Package |
+| ------------ | ------------------------------------------------------------------------------------------------ | ------- |
+| `DataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.js |         |
 
 ### Fields
 
@@ -4766,15 +4071,15 @@
 
 ## Exports
 
-| Kind | Name                                 | Declaration                        | Module                                                                                   | Package |
-| ---- | ------------------------------------ | ---------------------------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE` | LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/kacper.mikocki/components/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `ListDataSourcePlaceholder`          | ListDataSourcePlaceholder          | /Users/kacper.mikocki/components/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `isListDataSourceDataItem`           | isListDataSourceDataItem           | /Users/kacper.mikocki/components/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `isListDataSourceGroupItem`          | isListDataSourceGroupItem          | /Users/kacper.mikocki/components/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `ListDataSource`                     | ListDataSource                     | /Users/kacper.mikocki/components/packages/components/data-source/src/list-data-source.ts |         |
+| Kind | Name                                 | Declaration                        | Module                                                                                               | Package |
+| ---- | ------------------------------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE` | LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSourcePlaceholder`          | ListDataSourcePlaceholder          | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `isListDataSourceDataItem`           | isListDataSourceDataItem           | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `isListDataSourceGroupItem`          | isListDataSourceGroupItem          | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSource`                     | ListDataSource                     | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/date-field/src/utils.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts`:
 
 ## Functions
 
@@ -4791,16 +4096,16 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                       | Package |
-| ---- | ------------------- | ----------------- | ---------------------------------------------------------------------------- | ------- |
-| `js` | `getDateFormat`     | getDateFormat     | /Users/kacper.mikocki/components/packages/components/date-field/src/utils.ts |         |
-| `js` | `getDateUnitName`   | getDateUnitName   | /Users/kacper.mikocki/components/packages/components/date-field/src/utils.ts |         |
-| `js` | `getDateUnitLetter` | getDateUnitLetter | /Users/kacper.mikocki/components/packages/components/date-field/src/utils.ts |         |
-| `js` | `getDateTemplate`   | getDateTemplate   | /Users/kacper.mikocki/components/packages/components/date-field/src/utils.ts |         |
-| `js` | `getMonthName`      | getMonthName      | /Users/kacper.mikocki/components/packages/components/date-field/src/utils.ts |         |
-| `js` | `parseDateString`   | parseDateString   | /Users/kacper.mikocki/components/packages/components/date-field/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                   | Package |
+| ---- | ------------------- | ----------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `getDateFormat`     | getDateFormat     | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
+| `js` | `getDateUnitName`   | getDateUnitName   | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
+| `js` | `getDateUnitLetter` | getDateUnitLetter | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
+| `js` | `getDateTemplate`   | getDateTemplate   | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
+| `js` | `getMonthName`      | getMonthName      | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
+| `js` | `parseDateString`   | parseDateString   | /Users/diana.broeders/Projects/design-system/packages/components/date-field/src/utils.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/editor/src/keymap.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts`:
 
 ## Functions
 
@@ -4813,12 +4118,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                    | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | /Users/kacper.mikocki/components/packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | /Users/kacper.mikocki/components/packages/components/editor/src/keymap.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts`:
 
 ## Functions
 
@@ -4843,24 +4148,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                        | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/kacper.mikocki/components/packages/components/editor/src/list-utils.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                    | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/editor/src/schema.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts`:
 
 ## Variables
 
@@ -4884,16 +4189,16 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                    | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | /Users/kacper.mikocki/components/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | /Users/kacper.mikocki/components/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/kacper.mikocki/components/packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | /Users/kacper.mikocki/components/packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | /Users/kacper.mikocki/components/packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | /Users/kacper.mikocki/components/packages/components/editor/src/schema.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `isEmpty`            | isEmpty            | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/editor/src/utils.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts`:
 
 ## Functions
 
@@ -4906,12 +4211,12 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                   | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | /Users/kacper.mikocki/components/packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | /Users/kacper.mikocki/components/packages/components/editor/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                               | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `createContentNode` | createContentNode | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/emoji/src/emoji-service.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts`:
 
 ## class: `EmojiService`
 
@@ -4928,11 +4233,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                          | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiService` | EmojiService | /Users/kacper.mikocki/components/packages/components/emoji/src/emoji-service.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                      | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EmojiService` | EmojiService | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/form/src/form-field.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts`:
 
 ## class: `FormField`, `sl-form-field`
 
@@ -4991,12 +4296,12 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                      | Package |
-| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/kacper.mikocki/components/packages/components/form/src/form-field.ts |         |
-| `js` | `FormField`        | FormField        | /Users/kacper.mikocki/components/packages/components/form/src/form-field.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                  | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
+| `js` | `FormField`        | FormField        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/form/src/form.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts`:
 
 ## class: `Form`, `sl-form`
 
@@ -5010,7 +4315,6 @@
 
 | Name             | Privacy | Type                               | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Inherited From |
 | ---------------- | ------- | ---------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `announceErrors` |         | `boolean`                          | `true`  | Whether field-level validation messages are announced via the live-region announcer.&#xA;&#xA;Enabled by default. When you use aggregated validation messaging (with `<sl-inline-message>`),&#xA;set `announce-errors="false"` to avoid duplicate screen reader announcements.                                                                                                                                                                                                                                                                                   |                |
 | `controls`       |         | `Array<HTMLElement & FormControl>` | `[]`    | The controls in the form; not necessarily the same amount as the fields.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
 | `dirty`          |         | `boolean`                          |         | A form is marked dirty when the user has modified a form control.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
 | `disabled`       |         | `boolean \| undefined`             |         | Will disable the entire form when true.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                |
@@ -5046,20 +4350,19 @@
 | Name               | Field          | Inherited From |
 | ------------------ | -------------- | -------------- |
 | `disabled`         | disabled       |                |
-| `announce-errors`  | announceErrors |                |
 | `validate-on-blur` | validateOnBlur |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                | Package |
-| ---- | --------------- | ------------- | --------------------------------------------------------------------- | ------- |
-| `js` | `SlResetEvent`  | SlResetEvent  | /Users/kacper.mikocki/components/packages/components/form/src/form.ts |         |
-| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/kacper.mikocki/components/packages/components/form/src/form.ts |         |
-| `js` | `Form`          | Form          | /Users/kacper.mikocki/components/packages/components/form/src/form.ts |         |
+| Kind | Name            | Declaration   | Module                                                                            | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `SlResetEvent`  | SlResetEvent  | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
+| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
+| `js` | `Form`          | Form          | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/form/src/hint.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts`:
 
 ## class: `Hint`, `sl-hint`
 
@@ -5091,11 +4394,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------- | ------- |
-| `js` | `Hint` | Hint        | /Users/kacper.mikocki/components/packages/components/form/src/hint.ts |         |
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Hint` | Hint        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/form/src/label.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts`:
 
 ## class: `Label`, `sl-label`
 
@@ -5134,11 +4437,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                 | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------- | ------- |
-| `js` | `Label` | Label       | /Users/kacper.mikocki/components/packages/components/form/src/label.ts |         |
+| Kind | Name    | Declaration | Module                                                                             | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Label` | Label       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/format-date/src/format.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts`:
 
 ## Functions
 
@@ -5150,11 +4453,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                         | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------ | ------- |
-| `js` | `format` | format      | /Users/kacper.mikocki/components/packages/components/format-date/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                     | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/format-number/src/format.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts`:
 
 ## Functions
 
@@ -5166,11 +4469,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                           | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `format` | format      | /Users/kacper.mikocki/components/packages/components/format-number/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                       | Package |
+| ---- | -------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/column.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts`:
 
 ## class: `GridColumn`, `sl-grid-column`
 
@@ -5244,20 +4547,20 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                  | Package |
-| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------- | ------- |
-| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/kacper.mikocki/components/packages/components/grid/src/column.ts |         |
-| `js` | `GridColumn`          | GridColumn          | /Users/kacper.mikocki/components/packages/components/grid/src/column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                              | Package |
+| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
+| `js` | `GridColumn`          | GridColumn          | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/drag-handle-column.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts`:
 
 ## class: `GridDragHandleColumn`, `sl-grid-drag-handle-column`
 
 ### Superclass
 
-| Name         | Module                                                                   | Package |
-| ------------ | ------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/kacper.mikocki/components/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5323,19 +4626,19 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                              | Package |
-| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/kacper.mikocki/components/packages/components/grid/src/drag-handle-column.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                          | Package |
+| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/filter-column.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts`:
 
 ## class: `GridFilterColumn`, `sl-grid-filter-column`
 
 ### Superclass
 
-| Name             | Module                                                                        | Package |
-| ---------------- | ----------------------------------------------------------------------------- | ------- |
-| `GridSortColumn` | //Users/kacper.mikocki/components/packages/components/grid/src/sort-column.js |         |
+| Name             | Module                                                                                    | Package |
+| ---------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `GridSortColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.js |         |
 
 ### Fields
 
@@ -5416,11 +4719,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                         | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------ | ------- |
-| `js` | `GridFilterColumn` | GridFilterColumn | /Users/kacper.mikocki/components/packages/components/grid/src/filter-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                     | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `GridFilterColumn` | GridFilterColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/filter.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilter`
 
@@ -5467,13 +4770,13 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                  | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------- | ------- |
-| `js` | `SlFilterChangeEvent`   | SlFilterChangeEvent   | /Users/kacper.mikocki/components/packages/components/grid/src/filter.ts |         |
-| `js` | `SlFilterRegisterEvent` | SlFilterRegisterEvent | /Users/kacper.mikocki/components/packages/components/grid/src/filter.ts |         |
-| `js` | `GridFilter`            | GridFilter            | /Users/kacper.mikocki/components/packages/components/grid/src/filter.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                              | Package |
+| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFilterChangeEvent`   | SlFilterChangeEvent   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
+| `js` | `SlFilterRegisterEvent` | SlFilterRegisterEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
+| `js` | `GridFilter`            | GridFilter            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/grid.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts`:
 
 ## class: `Grid`, `sl-grid`
 
@@ -5554,17 +4857,17 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                | Package |
-| ---- | ------------------------ | ---------------------- | --------------------------------------------------------------------- | ------- |
-| `js` | `SlActiveRowChangeEvent` | SlActiveRowChangeEvent | /Users/kacper.mikocki/components/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragStartEvent`       | SlDragStartEvent       | /Users/kacper.mikocki/components/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragEndEvent`         | SlDragEndEvent         | /Users/kacper.mikocki/components/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDropEvent`            | SlDropEvent            | /Users/kacper.mikocki/components/packages/components/grid/src/grid.ts |         |
-| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/kacper.mikocki/components/packages/components/grid/src/grid.ts |         |
-| `js` | `SlStateChangeEvent`     | SlStateChangeEvent     | /Users/kacper.mikocki/components/packages/components/grid/src/grid.ts |         |
-| `js` | `Grid`                   | Grid                   | /Users/kacper.mikocki/components/packages/components/grid/src/grid.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                            | Package |
+| ---- | ------------------------ | ---------------------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `SlActiveRowChangeEvent` | SlActiveRowChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragStartEvent`       | SlDragStartEvent       | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragEndEvent`         | SlDragEndEvent         | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDropEvent`            | SlDropEvent            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| `js` | `SlStateChangeEvent`     | SlStateChangeEvent     | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| `js` | `Grid`                   | Grid                   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/group-header.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts`:
 
 ## class: `GridGroupHeader`
 
@@ -5611,19 +4914,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                        | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `GridGroupHeader` | GridGroupHeader | /Users/kacper.mikocki/components/packages/components/grid/src/group-header.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                    | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridGroupHeader` | GridGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/select-column.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts`:
 
 ## class: `GridSelectColumn`, `sl-grid-select-column`
 
 ### Superclass
 
-| Name         | Module                                                                   | Package |
-| ------------ | ------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/kacper.mikocki/components/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5691,19 +4994,19 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                         | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------ | ------- |
-| `js` | `GridSelectColumn` | GridSelectColumn | /Users/kacper.mikocki/components/packages/components/grid/src/select-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                     | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `GridSelectColumn` | GridSelectColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/selection-column.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts`:
 
 ## class: `GridSelectionColumn`, `sl-grid-selection-column`
 
 ### Superclass
 
-| Name         | Module                                                                   | Package |
-| ------------ | ------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/kacper.mikocki/components/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5771,19 +5074,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                            | Package |
-| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/kacper.mikocki/components/packages/components/grid/src/selection-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                        | Package |
+| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/sort-column.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts`:
 
 ## class: `GridSortColumn`, `sl-grid-sort-column`
 
 ### Superclass
 
-| Name         | Module                                                                   | Package |
-| ------------ | ------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/kacper.mikocki/components/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5853,11 +5156,11 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                       | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------- | ------- |
-| `js` | `GridSortColumn` | GridSortColumn | /Users/kacper.mikocki/components/packages/components/grid/src/sort-column.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                   | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSortColumn` | GridSortColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/sorter.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
 
@@ -5906,21 +5209,21 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                  | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------- | ------- |
-| `js` | `SlSorterChangeEvent`   | SlSorterChangeEvent   | /Users/kacper.mikocki/components/packages/components/grid/src/sorter.ts |         |
-| `js` | `SlSorterRegisterEvent` | SlSorterRegisterEvent | /Users/kacper.mikocki/components/packages/components/grid/src/sorter.ts |         |
-| `js` | `GridSorter`            | GridSorter            | /Users/kacper.mikocki/components/packages/components/grid/src/sorter.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                              | Package |
+| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSorterChangeEvent`   | SlSorterChangeEvent   | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
+| `js` | `SlSorterRegisterEvent` | SlSorterRegisterEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
+| `js` | `GridSorter`            | GridSorter            | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/text-field-column.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts`:
 
 ## class: `GridTextFieldColumn`, `sl-grid-text-field-column`
 
 ### Superclass
 
-| Name         | Module                                                                   | Package |
-| ------------ | ------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/kacper.mikocki/components/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -5986,11 +5289,11 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                             | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/kacper.mikocki/components/packages/components/grid/src/text-field-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                         | Package |
+| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/grid/src/view-model.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts`:
 
 ## class: `GridViewModel`
 
@@ -6028,12 +5331,12 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                      | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------- | ------- |
-| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/kacper.mikocki/components/packages/components/grid/src/view-model.ts |         |
-| `js` | `GridViewModel`      | GridViewModel      | /Users/kacper.mikocki/components/packages/components/grid/src/view-model.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                  | Package |
+| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
+| `js` | `GridViewModel`      | GridViewModel      | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/infotip/src/infotip.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/infotip/src/infotip.ts`:
 
 ## class: `Infotip`, `sl-infotip`
 
@@ -6089,11 +5392,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                      | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------- | ------- |
-| `js` | `Infotip` | Infotip     | /Users/kacper.mikocki/components/packages/components/infotip/src/infotip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Infotip` | Infotip     | /Users/diana.broeders/Projects/design-system/packages/components/infotip/src/infotip.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/inline-message/src/inline-message.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts`:
 
 ## class: `InlineMessage`, `sl-inline-message`
 
@@ -6143,12 +5446,12 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                    | Package |
-| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlDismissEvent` | SlDismissEvent | /Users/kacper.mikocki/components/packages/components/inline-message/src/inline-message.ts |         |
-| `js` | `InlineMessage`  | InlineMessage  | /Users/kacper.mikocki/components/packages/components/inline-message/src/inline-message.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                                | Package |
+| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlDismissEvent` | SlDismissEvent | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
+| `js` | `InlineMessage`  | InlineMessage  | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/link/src/link.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/link/src/link.ts`:
 
 ## class: `Link`, `sl-link`
 
@@ -6205,11 +5508,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------- | ------- |
-| `js` | `Link` | Link        | /Users/kacper.mikocki/components/packages/components/link/src/link.ts |         |
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Link` | Link        | /Users/diana.broeders/Projects/design-system/packages/components/link/src/link.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/listbox/src/listbox.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts`:
 
 ## class: `Listbox`, `sl-listbox`
 
@@ -6261,11 +5564,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                      | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------- | ------- |
-| `js` | `Listbox` | Listbox     | /Users/kacper.mikocki/components/packages/components/listbox/src/listbox.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Listbox` | Listbox     | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/listbox/src/option-group-header.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts`:
 
 ## class: `OptionGroupHeader`
 
@@ -6291,11 +5594,11 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                  | Package |
-| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/kacper.mikocki/components/packages/components/listbox/src/option-group-header.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                              | Package |
+| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/listbox/src/option-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts`:
 
 ## class: `OptionGroup`, `sl-option-group`
 
@@ -6327,11 +5630,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                           | Package |
-| ---- | ------------- | ----------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroup` | OptionGroup | /Users/kacper.mikocki/components/packages/components/listbox/src/option-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                       | Package |
+| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroup` | OptionGroup | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/listbox/src/option.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts`:
 
 ## class: `Option`, `sl-option`
 
@@ -6375,11 +5678,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                     | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------- | ------- |
-| `js` | `Option` | Option      | /Users/kacper.mikocki/components/packages/components/listbox/src/option.ts |         |
+| Kind | Name     | Declaration | Module                                                                                 | Package |
+| ---- | -------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `Option` | Option      | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/menu/src/menu-button.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts`:
 
 ## class: `MenuButton`, `sl-menu-button`
 
@@ -6449,11 +5752,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                       | Package |
-| ---- | ------------ | ----------- | ---------------------------------------------------------------------------- | ------- |
-| `js` | `MenuButton` | MenuButton  | /Users/kacper.mikocki/components/packages/components/menu/src/menu-button.ts |         |
+| Kind | Name         | Declaration | Module                                                                                   | Package |
+| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuButton` | MenuButton  | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/menu/src/menu-item-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts`:
 
 ## class: `MenuItemGroup`, `sl-menu-item-group`
 
@@ -6488,11 +5791,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                           | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItemGroup` | MenuItemGroup | /Users/kacper.mikocki/components/packages/components/menu/src/menu-item-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                       | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItemGroup` | MenuItemGroup | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/menu/src/menu-item.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts`:
 
 ## class: `MenuItem`, `sl-menu-item`
 
@@ -6551,11 +5854,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                     | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItem` | MenuItem    | /Users/kacper.mikocki/components/packages/components/menu/src/menu-item.ts |         |
+| Kind | Name       | Declaration | Module                                                                                 | Package |
+| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItem` | MenuItem    | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/menu/src/menu.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts`:
 
 ## class: `Menu`, `sl-menu`
 
@@ -6605,11 +5908,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------- | ------- |
-| `js` | `Menu` | Menu        | /Users/kacper.mikocki/components/packages/components/menu/src/menu.ts |         |
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Menu` | Menu        | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/message-dialog/src/message-dialog.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts`:
 
 ## class: `MessageDialog`, `sl-message-dialog`
 
@@ -6656,11 +5959,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                    | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `MessageDialog` | MessageDialog | /Users/kacper.mikocki/components/packages/components/message-dialog/src/message-dialog.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                                | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MessageDialog` | MessageDialog | /Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/number-field/src/number-field.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts`:
 
 ## class: `NumberField`, `sl-number-field`
 
@@ -6791,11 +6094,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberField` | NumberField | /Users/kacper.mikocki/components/packages/components/number-field/src/number-field.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberField` | NumberField | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/number-field/src/number-parser.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts`:
 
 ## class: `NumberParser`
 
@@ -6818,11 +6121,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                 | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberParser` | NumberParser | /Users/kacper.mikocki/components/packages/components/number-field/src/number-parser.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                             | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberParser` | NumberParser | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/paginator/src/page-size.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts`:
 
 ## class: `PaginatorPageSize`, `sl-paginator-page-size`
 
@@ -6864,11 +6167,11 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                          | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/kacper.mikocki/components/packages/components/paginator/src/page-size.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                      | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/paginator/src/paginator.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts`:
 
 ## class: `Paginator`, `sl-paginator`
 
@@ -6917,11 +6220,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                          | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `Paginator` | Paginator   | /Users/kacper.mikocki/components/packages/components/paginator/src/paginator.ts |         |
+| Kind | Name        | Declaration | Module                                                                                      | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Paginator` | Paginator   | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/paginator/src/status.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts`:
 
 ## class: `PaginatorStatus`, `sl-paginator-status`
 
@@ -6953,11 +6256,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                       | Package |
-| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorStatus` | PaginatorStatus | /Users/kacper.mikocki/components/packages/components/paginator/src/status.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                   | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `PaginatorStatus` | PaginatorStatus | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/panel/src/panel.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts`:
 
 ## class: `Panel`, `sl-panel`
 
@@ -7045,11 +6348,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                  | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------- | ------- |
-| `js` | `Panel` | Panel       | /Users/kacper.mikocki/components/packages/components/panel/src/panel.ts |         |
+| Kind | Name    | Declaration | Module                                                                              | Package |
+| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Panel` | Panel       | /Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/popover/src/popover.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
 
@@ -7090,11 +6393,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                      | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | /Users/kacper.mikocki/components/packages/components/popover/src/popover.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | /Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/progress-bar/src/progress-bar.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts`:
 
 ## class: `ProgressBar`, `sl-progress-bar`
 
@@ -7147,11 +6450,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `ProgressBar` | ProgressBar | /Users/kacper.mikocki/components/packages/components/progress-bar/src/progress-bar.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ProgressBar` | ProgressBar | /Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/radio-group/src/radio-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts`:
 
 ## class: `RadioGroup`, `sl-radio-group`
 
@@ -7239,11 +6542,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                              | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | /Users/kacper.mikocki/components/packages/components/radio-group/src/radio-group.ts |         |
+| Kind | Name         | Declaration | Module                                                                                          | Package |
+| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/radio-group/src/radio.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
 
@@ -7316,11 +6619,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                        | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | /Users/kacper.mikocki/components/packages/components/radio-group/src/radio.ts |         |
+| Kind | Name    | Declaration | Module                                                                                    | Package |
+| ---- | ------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/scrollbar/src/scrollbar.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts`:
 
 ## class: `Scrollbar`, `sl-scrollbar`
 
@@ -7361,11 +6664,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                          | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `Scrollbar` | Scrollbar   | /Users/kacper.mikocki/components/packages/components/scrollbar/src/scrollbar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                      | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Scrollbar` | Scrollbar   | /Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/search-field/src/search-field.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts`:
 
 ## class: `SearchField`, `sl-search-field`
 
@@ -7479,12 +6782,12 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSearchEvent` | SlSearchEvent | /Users/kacper.mikocki/components/packages/components/search-field/src/search-field.ts |         |
-| `js` | `SearchField`   | SearchField   | /Users/kacper.mikocki/components/packages/components/search-field/src/search-field.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                            | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSearchEvent` | SlSearchEvent | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
+| `js` | `SearchField`   | SearchField   | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/select/src/select-button.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts`:
 
 ## class: `SelectButton`
 
@@ -7549,11 +6852,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                           | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectButton` | SelectButton | /Users/kacper.mikocki/components/packages/components/select/src/select-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                       | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectButton` | SelectButton | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/select/src/select.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts`:
 
 ## class: `Select`, `sl-select`
 
@@ -7662,11 +6965,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                    | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------- | ------- |
-| `js` | `Select` | Select      | /Users/kacper.mikocki/components/packages/components/select/src/select.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Select` | Select      | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/controllers/anchor.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts`:
 
 ## class: `AnchorController`
 
@@ -7692,11 +6995,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `AnchorController` | AnchorController | /Users/kacper.mikocki/components/packages/components/shared/src/controllers/anchor.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                            | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorController` | AnchorController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/controllers/events.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts`:
 
 ## class: `EventsController`
 
@@ -7718,11 +7021,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventsController` | EventsController | /Users/kacper.mikocki/components/packages/components/shared/src/controllers/events.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                            | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventsController` | EventsController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/controllers/focus-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts`:
 
 ## class: `FocusGroupController`
 
@@ -7773,11 +7076,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                     | Package |
-| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `FocusGroupController` | FocusGroupController | /Users/kacper.mikocki/components/packages/components/shared/src/controllers/focus-group.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `FocusGroupController` | FocusGroupController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/controllers/media.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/media.ts`:
 
 ## class: `MediaController`
 
@@ -7802,11 +7105,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                               | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `MediaController` | MediaController | /Users/kacper.mikocki/components/packages/components/shared/src/controllers/media.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                           | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `MediaController` | MediaController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/media.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/controllers/new-focus-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/new-focus-group.ts`:
 
 ## class: `NewFocusGroupController`
 
@@ -7843,19 +7146,19 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                         | Package |
-| ---- | ------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NewFocusGroupController` | NewFocusGroupController | /Users/kacper.mikocki/components/packages/components/shared/src/controllers/new-focus-group.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                                     | Package |
+| ---- | ------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NewFocusGroupController` | NewFocusGroupController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/new-focus-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/controllers/roving-tabindex.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts`:
 
 ## class: `RovingTabindexController`
 
 ### Superclass
 
-| Name                   | Module                                                                                      | Package |
-| ---------------------- | ------------------------------------------------------------------------------------------- | ------- |
-| `FocusGroupController` | //Users/kacper.mikocki/components/packages/components/shared/src/controllers/focus-group.js |         |
+| Name                   | Module                                                                                                  | Package |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `FocusGroupController` | //Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.js |         |
 
 ### Fields
 
@@ -7905,11 +7208,11 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                         | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RovingTabindexController` | RovingTabindexController | /Users/kacper.mikocki/components/packages/components/shared/src/controllers/roving-tabindex.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                                     | Package |
+| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RovingTabindexController` | RovingTabindexController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/controllers/shortcut.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts`:
 
 ## class: `ShortcutController`
 
@@ -7928,11 +7231,11 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                  | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `ShortcutController` | ShortcutController | /Users/kacper.mikocki/components/packages/components/shared/src/controllers/shortcut.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                              | Package |
+| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ShortcutController` | ShortcutController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/converters/date-list.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date-list.ts`:
 
 ## Variables
 
@@ -7944,11 +7247,11 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                  | Package |
-| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `dateListConverter` | dateListConverter | /Users/kacper.mikocki/components/packages/components/shared/src/converters/date-list.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                              | Package |
+| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `dateListConverter` | dateListConverter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date-list.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/converters/date.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date.ts`:
 
 ## Variables
 
@@ -7960,11 +7263,11 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                             | Package |
-| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `dateConverter` | dateConverter | /Users/kacper.mikocki/components/packages/components/shared/src/converters/date.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `dateConverter` | dateConverter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/converters/date.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/decorators/base.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
@@ -7982,11 +7285,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                             | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | /Users/kacper.mikocki/components/packages/components/shared/src/decorators/base.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                         | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/decorators/event.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts`:
 
 ## class: `EventEmitter`
 
@@ -8016,12 +7319,12 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                              | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | /Users/kacper.mikocki/components/packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | /Users/kacper.mikocki/components/packages/components/shared/src/decorators/event.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                          | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/decorators/observe.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
 
@@ -8033,11 +7336,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | /Users/kacper.mikocki/components/packages/components/shared/src/decorators/observe.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/directives/anchor.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
 
@@ -8065,68 +7368,68 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                               | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `AnchorDirective` | AnchorDirective | /Users/kacper.mikocki/components/packages/components/shared/src/directives/anchor.ts |         |
-| `js` | `anchor`          | anchor          | /Users/kacper.mikocki/components/packages/components/shared/src/directives/anchor.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                           | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `AnchorDirective` | AnchorDirective | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
+| `js` | `anchor`          | anchor          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/events/blur.ts`:
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                                                         | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------ | ------- |
-| `js` | `SlBlurEvent` | SlBlurEvent | /Users/kacper.mikocki/components/packages/components/shared/src/events/blur.ts |         |
-
-# `/Users/kacper.mikocki/components/packages/components/shared/src/events/cancel.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                           | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `SlCancelEvent` | SlCancelEvent | /Users/kacper.mikocki/components/packages/components/shared/src/events/cancel.ts |         |
+| Kind | Name          | Declaration | Module                                                                                     | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlBlurEvent` | SlBlurEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/events/change.ts`:
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                                                           | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `SlChangeEvent` | SlChangeEvent | /Users/kacper.mikocki/components/packages/components/shared/src/events/change.ts |         |
-
-# `/Users/kacper.mikocki/components/packages/components/shared/src/events/clear.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/cancel.ts`:
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                          | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------- | ------- |
-| `js` | `SlClearEvent` | SlClearEvent | /Users/kacper.mikocki/components/packages/components/shared/src/events/clear.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                       | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlCancelEvent` | SlCancelEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/cancel.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/events/focus.ts`:
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                                          | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFocusEvent` | SlFocusEvent | /Users/kacper.mikocki/components/packages/components/shared/src/events/focus.ts |         |
-
-# `/Users/kacper.mikocki/components/packages/components/shared/src/events/select.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                           | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSelectEvent` | SlSelectEvent | /Users/kacper.mikocki/components/packages/components/shared/src/events/select.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                       | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlChangeEvent` | SlChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/events/toggle.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                           | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `SlToggleEvent` | SlToggleEvent | /Users/kacper.mikocki/components/packages/components/shared/src/events/toggle.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                      | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlClearEvent` | SlClearEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/mixins/element-internals.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts`:
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                      | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFocusEvent` | SlFocusEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts |         |
+
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                       | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSelectEvent` | SlSelectEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts |         |
+
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                       | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlToggleEvent` | SlToggleEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts |         |
+
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/element-internals.ts`:
 
 ## mixin: `ElementInternalsMixin`
 
@@ -8140,11 +7443,11 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                      | Package |
-| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ElementInternalsMixin` | ElementInternalsMixin | /Users/kacper.mikocki/components/packages/components/shared/src/mixins/element-internals.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                                  | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ElementInternalsMixin` | ElementInternalsMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/element-internals.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/mixins/forward-aria.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts`:
 
 ## mixin: `ForwardAriaMixin`
 
@@ -8165,11 +7468,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                 | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `ForwardAriaMixin` | ForwardAriaMixin | /Users/kacper.mikocki/components/packages/components/shared/src/mixins/forward-aria.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                             | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ForwardAriaMixin` | ForwardAriaMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/forward-aria.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/path.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts`:
 
 ## Functions
 
@@ -8184,14 +7487,14 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                  | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | /Users/kacper.mikocki/components/packages/components/shared/src/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | /Users/kacper.mikocki/components/packages/components/shared/src/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | /Users/kacper.mikocki/components/packages/components/shared/src/path.ts |         |
-| `js` | `setValueByPath`  | setValueByPath  | /Users/kacper.mikocki/components/packages/components/shared/src/path.ts |         |
+| Kind | Name              | Declaration     | Module                                                                              | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| `js` | `setValueByPath`  | setValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/popover.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts`:
 
 ## Functions
 
@@ -8204,12 +7507,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                     | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------------------- | ------- |
-| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/kacper.mikocki/components/packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover` | positionPopover | /Users/kacper.mikocki/components/packages/components/shared/src/popover.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                 | Package |
+| ---- | ----------------- | --------------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover` | positionPopover | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/string.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts`:
 
 ## Functions
 
@@ -8229,19 +7532,19 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                    | Package |
-| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------- | ------- |
-| `js` | `camelize`                 | camelize                 | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `capitalize`               | capitalize               | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `classify`                 | classify                 | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `dasherize`                | dasherize                | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `decamelize`               | decamelize               | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `humanize`                 | humanize                 | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `underscore`               | underscore               | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `getCharacterPluralSuffix` | getCharacterPluralSuffix | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
-| `js` | `getPluralCategory`        | getPluralCategory        | /Users/kacper.mikocki/components/packages/components/shared/src/string.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `camelize`                 | camelize                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `capitalize`               | capitalize               | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `classify`                 | classify                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`                | dasherize                | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `decamelize`               | decamelize               | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `humanize`                 | humanize                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `underscore`               | underscore               | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `getCharacterPluralSuffix` | getCharacterPluralSuffix | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `getPluralCategory`        | getPluralCategory        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/shared/src/vendor/tinykeys.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts`:
 
 ## Functions
 
@@ -8255,13 +7558,13 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                             | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `parseKeybinding`          | parseKeybinding          | /Users/kacper.mikocki/components/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/kacper.mikocki/components/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `tinykeys`                 | tinykeys                 | /Users/kacper.mikocki/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                         | Package |
+| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `parseKeybinding`          | parseKeybinding          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `tinykeys`                 | tinykeys                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/skeleton/src/skeleton.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts`:
 
 ## class: `Skeleton`, `sl-skeleton`
 
@@ -8289,11 +7592,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                        | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | /Users/kacper.mikocki/components/packages/components/skeleton/src/skeleton.ts |         |
+| Kind | Name       | Declaration | Module                                                                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | /Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/spinner/src/spinner.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts`:
 
 ## class: `Spinner`, `sl-spinner`
 
@@ -8325,11 +7628,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                      | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------- | ------- |
-| `js` | `Spinner` | Spinner     | /Users/kacper.mikocki/components/packages/components/spinner/src/spinner.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Spinner` | Spinner     | /Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/switch/src/switch.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts`:
 
 ## class: `Switch`, `sl-switch`
 
@@ -8437,11 +7740,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                    | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------- | ------- |
-| `js` | `Switch` | Switch      | /Users/kacper.mikocki/components/packages/components/switch/src/switch.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Switch` | Switch      | /Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tabs/src/tab-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
 
@@ -8507,12 +7810,12 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                     | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------- | ------- |
-| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/kacper.mikocki/components/packages/components/tabs/src/tab-group.ts |         |
-| `js` | `TabGroup`         | TabGroup         | /Users/kacper.mikocki/components/packages/components/tabs/src/tab-group.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                 | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
+| `js` | `TabGroup`         | TabGroup         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tabs/src/tab-panel.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
 
@@ -8532,11 +7835,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                     | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | /Users/kacper.mikocki/components/packages/components/tabs/src/tab-panel.ts |         |
+| Kind | Name       | Declaration | Module                                                                                 | Package |
+| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tabs/src/tab.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts`:
 
 ## class: `Tab`, `sl-tab`
 
@@ -8575,11 +7878,11 @@
 
 ## Exports
 
-| Kind | Name  | Declaration | Module                                                               | Package |
-| ---- | ----- | ----------- | -------------------------------------------------------------------- | ------- |
-| `js` | `Tab` | Tab         | /Users/kacper.mikocki/components/packages/components/tabs/src/tab.ts |         |
+| Kind | Name  | Declaration | Module                                                                           | Package |
+| ---- | ----- | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tag/src/tag-list.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts`:
 
 ## class: `TagList`, `sl-tag-list`
 
@@ -8623,11 +7926,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                   | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------ | ------- |
-| `js` | `TagList` | TagList     | /Users/kacper.mikocki/components/packages/components/tag/src/tag-list.ts |         |
+| Kind | Name      | Declaration | Module                                                                               | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `TagList` | TagList     | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tag/src/tag.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts`:
 
 ## class: `Tag`, `sl-tag`
 
@@ -8694,12 +7997,12 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                              | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------- | ------- |
-| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/kacper.mikocki/components/packages/components/tag/src/tag.ts |         |
-| `js` | `Tag`           | Tag           | /Users/kacper.mikocki/components/packages/components/tag/src/tag.ts |         |
+| Kind | Name            | Declaration   | Module                                                                          | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------- | ------- |
+| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
+| `js` | `Tag`           | Tag           | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/text-area/src/text-area.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts`:
 
 ## class: `TextArea`, `sl-text-area`
 
@@ -8804,11 +8107,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                          | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `TextArea` | TextArea    | /Users/kacper.mikocki/components/packages/components/text-area/src/text-area.ts |         |
+| Kind | Name       | Declaration | Module                                                                                      | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextArea` | TextArea    | /Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/text-field/src/text-field.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts`:
 
 ## class: `TextField`, `sl-text-field`
 
@@ -8927,11 +8230,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                            | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `TextField` | TextField   | /Users/kacper.mikocki/components/packages/components/text-field/src/text-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextField` | TextField   | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/time-field/src/time-field.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/time-field/src/time-field.ts`:
 
 ## class: `TimeField`, `sl-time-field`
 
@@ -9040,11 +8343,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                            | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `TimeField` | TimeField   | /Users/kacper.mikocki/components/packages/components/time-field/src/time-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TimeField` | TimeField   | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/time-field.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/time-field/src/utils.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts`:
 
 ## Functions
 
@@ -9059,14 +8362,14 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                       | Package |
-| ---- | ------------------- | ----------------- | ---------------------------------------------------------------------------- | ------- |
-| `js` | `getTimeFormat`     | getTimeFormat     | /Users/kacper.mikocki/components/packages/components/time-field/src/utils.ts |         |
-| `js` | `getTimeUnitName`   | getTimeUnitName   | /Users/kacper.mikocki/components/packages/components/time-field/src/utils.ts |         |
-| `js` | `getTimeUnitLetter` | getTimeUnitLetter | /Users/kacper.mikocki/components/packages/components/time-field/src/utils.ts |         |
-| `js` | `getTimeTemplate`   | getTimeTemplate   | /Users/kacper.mikocki/components/packages/components/time-field/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                   | Package |
+| ---- | ------------------- | ----------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `getTimeFormat`     | getTimeFormat     | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
+| `js` | `getTimeUnitName`   | getTimeUnitName   | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
+| `js` | `getTimeUnitLetter` | getTimeUnitLetter | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
+| `js` | `getTimeTemplate`   | getTimeTemplate   | /Users/diana.broeders/Projects/design-system/packages/components/time-field/src/utils.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/toggle-button/src/toggle-button.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts`:
 
 ## class: `ToggleButton`, `sl-toggle-button`
 
@@ -9136,11 +8439,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                  | Package |
-| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleButton` | ToggleButton | /Users/kacper.mikocki/components/packages/components/toggle-button/src/toggle-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                              | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleButton` | ToggleButton | /Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/toggle-group/src/toggle-group.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts`:
 
 ## class: `ToggleGroup`, `sl-toggle-group`
 
@@ -9180,33 +8483,33 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleGroup` | ToggleGroup | /Users/kacper.mikocki/components/packages/components/toggle-group/src/toggle-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleGroup` | ToggleGroup | /Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tool-bar/src/mapping.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts`:
 
 ## Functions
 
-| Name                  | Description | Parameters               | Return                                 |
-| --------------------- | ----------- | ------------------------ | -------------------------------------- |
-| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton`                    |
-| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`                        |
-| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`                      |
-| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton \| ToolBarItemMenu` |
+| Name                  | Description | Parameters               | Return              |
+| --------------------- | ----------- | ------------------------ | ------------------- |
+| `mapButtonToItem`     |             | `button: Button`         | `ToolBarItemButton` |
+| `mapElementsToItems`  |             | `elements: Element[]`    | `ToolBarItem[]`     |
+| `mapMenuButtonToItem` |             | `menuButton: MenuButton` | `ToolBarItemMenu`   |
+| `mapMenuItemToItem`   |             | `menuItem: MenuItem`     | `ToolBarItemButton` |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                       | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------- | ------- |
-| `js` | `mapButtonToItem`     | mapButtonToItem     | /Users/kacper.mikocki/components/packages/components/tool-bar/src/mapping.ts |         |
-| `js` | `mapMenuButtonToItem` | mapMenuButtonToItem | /Users/kacper.mikocki/components/packages/components/tool-bar/src/mapping.ts |         |
-| `js` | `mapMenuItemToItem`   | mapMenuItemToItem   | /Users/kacper.mikocki/components/packages/components/tool-bar/src/mapping.ts |         |
-| `js` | `mapElementsToItems`  | mapElementsToItems  | /Users/kacper.mikocki/components/packages/components/tool-bar/src/mapping.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                   | Package |
+| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `mapButtonToItem`     | mapButtonToItem     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
+| `js` | `mapMenuButtonToItem` | mapMenuButtonToItem | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
+| `js` | `mapMenuItemToItem`   | mapMenuItemToItem   | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
+| `js` | `mapElementsToItems`  | mapElementsToItems  | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/mapping.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts`:
 
 ## Functions
 
@@ -9226,19 +8529,19 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                        | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `calculateVisibility`     | calculateVisibility     | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `applyVisibility`         | applyVisibility         | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `revealAllItems`          | revealAllItems          | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `measureItemWidths`       | measureItemWidths       | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `measureMenuButtonWidth`  | measureMenuButtonWidth  | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `measureConstrainedWidth` | measureConstrainedWidth | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `getContentBoxWidth`      | getContentBoxWidth      | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `isFitContent`            | isFitContent            | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
-| `js` | `hasWrapperOverflow`      | hasWrapperOverflow      | /Users/kacper.mikocki/components/packages/components/tool-bar/src/overflow.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                    | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `calculateVisibility`     | calculateVisibility     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `applyVisibility`         | applyVisibility         | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `revealAllItems`          | revealAllItems          | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `measureItemWidths`       | measureItemWidths       | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `measureMenuButtonWidth`  | measureMenuButtonWidth  | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `measureConstrainedWidth` | measureConstrainedWidth | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `getContentBoxWidth`      | getContentBoxWidth      | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `isFitContent`            | isFitContent            | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
+| `js` | `hasWrapperOverflow`      | hasWrapperOverflow      | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/overflow.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tool-bar/src/tool-bar-divider.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts`:
 
 ## class: `ToolBarDivider`, `sl-tool-bar-divider`
 
@@ -9264,11 +8567,11 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBarDivider` | ToolBarDivider | /Users/kacper.mikocki/components/packages/components/tool-bar/src/tool-bar-divider.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                            | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBarDivider` | ToolBarDivider | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tool-bar/src/tool-bar.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts`:
 
 ## class: `ToolBar`, `sl-tool-bar`
 
@@ -9329,11 +8632,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                        | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBar` | ToolBar     | /Users/kacper.mikocki/components/packages/components/tool-bar/src/tool-bar.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBar` | ToolBar     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tooltip/src/tooltip.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
 
@@ -9386,11 +8689,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                      | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------- | ------- |
-| `js` | `Tooltip` | Tooltip     | /Users/kacper.mikocki/components/packages/components/tooltip/src/tooltip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Tooltip` | Tooltip     | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tree/src/indent-guides.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts`:
 
 ## class: `IndentGuides`
 
@@ -9424,19 +8727,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                         | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------ | ------- |
-| `js` | `IndentGuides` | IndentGuides | /Users/kacper.mikocki/components/packages/components/tree/src/indent-guides.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                     | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `IndentGuides` | IndentGuides | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tree/src/nested-tree-data-source.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts`:
 
 ## class: `NestedTreeDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                             | Package |
-| ---------------- | ---------------------------------------------------------------------------------- | ------- |
-| `TreeDataSource` | //Users/kacper.mikocki/components/packages/components/tree/src/tree-data-source.js |         |
+| Name             | Module                                                                                         | Package |
+| ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `TreeDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.js |         |
 
 ### Fields
 
@@ -9491,11 +8794,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                   | Package |
-| ---- | ---------------------- | -------------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/kacper.mikocki/components/packages/components/tree/src/nested-tree-data-source.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                               | Package |
+| ---- | ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tree/src/tree-data-source.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts`:
 
 ## class: `TreeDataSource`
 
@@ -9543,11 +8846,11 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                            | Package |
-| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `TreeDataSource` | TreeDataSource | /Users/kacper.mikocki/components/packages/components/tree/src/tree-data-source.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                        | Package |
+| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeDataSource` | TreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tree/src/tree-node.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts`:
 
 ## class: `TreeNode`
 
@@ -9614,11 +8917,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                     | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------- | ------- |
-| `js` | `TreeNode` | TreeNode    | /Users/kacper.mikocki/components/packages/components/tree/src/tree-node.ts |         |
+| Kind | Name       | Declaration | Module                                                                                 | Package |
+| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeNode` | TreeNode    | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/tree/src/tree.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts`:
 
 ## class: `Tree`, `sl-tree`
 
@@ -9660,11 +8963,11 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------- | ------- |
-| `js` | `Tree` | Tree        | /Users/kacper.mikocki/components/packages/components/tree/src/tree.ts |         |
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Tree` | Tree        | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/virtual-list/src/virtual-list.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtual-list.ts`:
 
 ## class: `VirtualList`, `sl-virtual-list`
 
@@ -9719,11 +9022,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `VirtualList` | VirtualList | /Users/kacper.mikocki/components/packages/components/virtual-list/src/virtual-list.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `VirtualList` | VirtualList | /Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtual-list.ts |         |
 
-# `/Users/kacper.mikocki/components/packages/components/virtual-list/src/virtualizer-controller.ts`:
+# `/Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtualizer-controller.ts`:
 
 ## class: `VirtualizerController`
 
@@ -9746,6 +9049,6 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `VirtualizerController` | VirtualizerController | /Users/kacper.mikocki/components/packages/components/virtual-list/src/virtualizer-controller.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                                      | Package |
+| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `VirtualizerController` | VirtualizerController | /Users/diana.broeders/Projects/design-system/packages/components/virtual-list/src/virtualizer-controller.ts |         |

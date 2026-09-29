@@ -28,7 +28,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import './register.js';
 import { type ToggleGroup, ToggleGroupFill } from './toggle-group.js';
 
-type Props = Pick<ToggleGroup, 'disabled' | 'fill' | 'multiple' | 'shape' | 'size'> & {
+type Props = Pick<ToggleGroup, 'chips' | 'disabled' | 'fill' | 'multiple' | 'shape' | 'size'> & {
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -55,10 +55,14 @@ Icon.register(
 export default {
   title: 'Actions/Toggle group',
   args: {
+    chips: false,
     disabled: false,
     multiple: false
   },
   argTypes: {
+    chips: {
+      control: 'boolean'
+    },
     size: {
       control: 'inline-radio',
       options: ['md', 'lg']
@@ -75,9 +79,10 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ disabled, fill, multiple, shape, size, slot }) => {
+  render: ({ chips, disabled, fill, multiple, shape, size, slot }) => {
     return html`
       <sl-toggle-group
+        ?chips=${chips}
         ?disabled=${disabled}
         ?multiple=${multiple}
         fill=${ifDefined(fill)}
@@ -131,6 +136,19 @@ export const Multiple: Story = {
         <sl-icon name="far-underline" slot="default"></sl-icon>
         <sl-icon name="fas-underline" slot="pressed"></sl-icon>
       </sl-toggle-button>
+    `
+  }
+};
+
+export const Chips: Story = {
+  args: {
+    chips: true,
+    multiple: true,
+    shape: 'pill',
+    slot: () => html`
+      <sl-toggle-button>Science</sl-toggle-button>
+      <sl-toggle-button pressed>Math</sl-toggle-button>
+      <sl-toggle-button>History</sl-toggle-button>
     `
   }
 };
@@ -380,7 +398,11 @@ export const AllFunctionalVariants: Story = {
 
 export const All: Story = {
   render: () => {
-    const renderRow = (options: { fill: ToggleGroupFill; content?: 'button' | 'text' }) => {
+    const renderRow = (options: {
+      chips?: boolean;
+      content?: 'button' | 'text';
+      fill: ToggleGroupFill;
+    }) => {
       const buttons = (buttonoptions: string[]) => {
         return html`
           <sl-toggle-button tooltip="Bold" ?pressed=${buttonoptions.includes('pressed')}>
@@ -403,74 +425,162 @@ export const All: Story = {
           <sl-toggle-button>Write</sl-toggle-button>
         `;
       };
+
+      const rowLabel = [options.fill, options.chips ? 'chips' : undefined]
+        .filter(Boolean)
+        .join(' + ');
+
+      const cellWrapper = (content: TemplateResult) => html`
+        <div class="cell-stack">${content}</div>
+      `;
+
       return html`
         <tr>
-          <th>${options.fill}</th>
+          <th>${rowLabel}</th>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} size="sm">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill" size="sm">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
+            ${cellWrapper(html`
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                size="sm">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                shape="pill"
+                size="sm">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+            `)}
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="sm">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              disabled
-              fill=${ifDefined(options.fill)}
-              shape="pill"
-              size="sm">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
+            ${cellWrapper(html`
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                disabled
+                size="sm">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                disabled
+                fill=${ifDefined(options.fill)}
+                shape="pill"
+                size="sm">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+            `)}
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)}>
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
+            ${cellWrapper(html`
+              <sl-toggle-group ?chips=${options.chips} multiple fill=${ifDefined(options.fill)}>
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                shape="pill">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+            `)}
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled>
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
-            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
+            ${cellWrapper(html`
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                disabled>
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                disabled
+                fill=${ifDefined(options.fill)}
+                shape="pill">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+            `)}
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} size="lg">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill" size="lg">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
+            ${cellWrapper(html`
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                size="lg">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                shape="pill"
+                size="lg">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+            `)}
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="lg">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              disabled
-              fill=${ifDefined(options.fill)}
-              shape="pill"
-              size="lg">
-              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
-            </sl-toggle-group>
+            ${cellWrapper(html`
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                fill=${ifDefined(options.fill)}
+                disabled
+                size="lg">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+              <sl-toggle-group
+                ?chips=${options.chips}
+                multiple
+                disabled
+                fill=${ifDefined(options.fill)}
+                shape="pill"
+                size="lg">
+                ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+              </sl-toggle-group>
+            `)}
           </td>
         </tr>
       `;
     };
     return html`
       <style>
-        sl-toggle-group {
-          margin-bottom: 4px;
+        table {
+          border-collapse: separate;
+          border-spacing: 0 var(--sl-size-100);
+        }
+
+        table + table {
+          margin-block-start: var(--sl-size-400);
+        }
+
+        th,
+        td {
+          padding-inline-end: var(--sl-size-400);
+          text-align: start;
+          vertical-align: top;
+        }
+
+        th:last-child,
+        td:last-child {
+          padding-inline-end: 0;
+        }
+
+        .cell-stack {
+          display: flex;
+          flex-direction: column;
+          gap: var(--sl-size-200);
+          align-items: flex-start;
         }
       </style>
       <table>
@@ -487,6 +597,14 @@ export const All: Story = {
           fill: 'outline'
         })}
         ${renderRow({
+          fill: 'solid'
+        })}
+        ${renderRow({
+          chips: true,
+          fill: 'outline'
+        })}
+        ${renderRow({
+          chips: true,
           fill: 'solid'
         })}
       </table>
@@ -506,6 +624,16 @@ export const All: Story = {
           content: 'text'
         })}
         ${renderRow({
+          fill: 'solid',
+          content: 'text'
+        })}
+        ${renderRow({
+          chips: true,
+          fill: 'outline',
+          content: 'text'
+        })}
+        ${renderRow({
+          chips: true,
           fill: 'solid',
           content: 'text'
         })}

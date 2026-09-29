@@ -23,6 +23,15 @@
   }
 }
 
+:host([chips]) {
+  border: 0;
+  gap: var(--sl-size-200);
+}
+
+:host([chips][disabled]) {
+  background: transparent;
+}
+
 :host([shape='pill']) {
   --_border-radius: var(--sl-size-borderRadius-full);
   --_pill-compensation: calc(var(--sl-space-150) - var(--sl-space-125));
@@ -79,6 +88,37 @@
     --_group-compensation-start: -0.5px;
     --_group-compensation-end: var(--_pill-compensation);
   }
+}
+
+:host([chips]) ::slotted(sl-toggle-button) {
+  --_border-compensation: var(--_border-width);
+  --_button-border-radius: var(--sl-size-borderRadius-default);
+  --_group-compensation-end: 0;
+  --_group-compensation-start: 0;
+
+  &::after {
+    display: none;
+  }
+}
+
+:host([chips][fill='outline']) ::slotted(sl-toggle-button) {
+  --_border-width: var(--sl-size-borderWidth-action);
+}
+
+:host([chips]) ::slotted(sl-toggle-button:first-of-type),
+:host([chips]) ::slotted(sl-toggle-button:last-of-type) {
+  --_button-border-radius: var(--sl-size-borderRadius-default);
+  --_group-compensation-end: 0;
+  --_group-compensation-start: 0;
+}
+
+:host([chips][shape='pill']) ::slotted(sl-toggle-button) {
+  --_button-border-radius: var(--sl-size-borderRadius-full);
+}
+
+:host([chips][shape='pill']) ::slotted(sl-toggle-button:first-of-type),
+:host([chips][shape='pill']) ::slotted(sl-toggle-button:last-of-type) {
+  --_button-border-radius: var(--sl-size-borderRadius-full);
 }
 
 ::slotted(sl-toggle-button:first-of-type) {

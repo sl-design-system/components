@@ -61,6 +61,13 @@ export class ToggleGroup extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
+   * If set, the toggle buttons are rendered with spacing between them.
+   *
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true }) chips?: boolean;
+
+  /**
    * By default, only a single toggle button inside the group can be active. This means that the
    * group will automatically deactivate the other buttons when one is toggled.
    *

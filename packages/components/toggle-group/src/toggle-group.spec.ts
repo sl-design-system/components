@@ -39,11 +39,23 @@ describe('sl-toggle-group', () => {
       expect(el.disabled).not.to.be.true;
     });
 
+    it('should not use chips by default', () => {
+      expect(el).not.to.have.attribute('chips');
+      expect(el.chips).not.to.be.true;
+    });
+
     it('should be disabled when set', async () => {
       el.disabled = true;
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+    });
+
+    it('should enable chips when set', async () => {
+      el.chips = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('chips');
     });
 
     it('should not have a size', () => {

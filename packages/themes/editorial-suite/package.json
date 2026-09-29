@@ -16,7 +16,11 @@
   "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
-    ".": "./index.js",
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    },
     "./global.css": "./global.css",
     "./light.css": "./light.css",
     "./light.min.css": "./light.min.css",

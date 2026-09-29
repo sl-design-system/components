@@ -176,6 +176,20 @@
     ]
   },
   {
+    "templateFile": "./link.figma.batch.ts",
+    "components": [
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=19630-58561",
+        "id": "link"
+      },
+      {
+        "url": "https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0?node-id=19629-3720",
+        "id": "link",
+        "shape": "pill"
+      }
+    ]
+  },
+  {
     "templateFile": "./panel.figma.batch.ts",
     "components": [
       {

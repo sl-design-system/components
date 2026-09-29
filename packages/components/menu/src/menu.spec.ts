@@ -1,3 +1,4 @@
+import '@sl-design-system/switch/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
 import { type SinonSpy, spy } from 'sinon';
@@ -234,6 +235,25 @@ describe('sl-menu', () => {
         expect(el).not.to.match(':popover-open');
 
         document.body.removeChild(outsideButton);
+      });
+
+      it('should close the menu when focus moves outside to an sl-switch component', async () => {
+        const outsideSwitch = document.createElement('sl-switch');
+        const firstItem = el.querySelector('sl-menu-item')!;
+
+        firstItem.focus();
+
+        document.body.appendChild(outsideSwitch);
+        await outsideSwitch.updateComplete; // Wait for the switch to be ready
+
+        expect(el).to.match(':popover-open');
+
+        outsideSwitch.focus();
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el).not.to.match(':popover-open');
+
+        document.body.removeChild(outsideSwitch);
       });
 
       it('should not close the menu when focus moves between menu items', async () => {
@@ -768,6 +788,55 @@ describe('sl-menu', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         expect(submenu).to.match(':popover-open');
+      });
+    });
+
+    describe('arrow right through multiple submenu levels', () => {
+      let level1Item: MenuItem, level2Menu: Menu, level2Item: MenuItem, level3Menu: Menu;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-menu>
+            <sl-menu-item>
+              Level 1
+              <sl-menu slot="submenu">
+                <sl-menu-item>
+                  Level 2
+                  <sl-menu slot="submenu">
+                    <sl-menu-item>Level 3 item 1</sl-menu-item>
+                    <sl-menu-item>Level 3 item 2</sl-menu-item>
+                  </sl-menu>
+                </sl-menu-item>
+              </sl-menu>
+            </sl-menu-item>
+          </sl-menu>
+        `);
+
+        el.showPopover();
+        await el.updateComplete;
+
+        level1Item = el.querySelector('sl-menu-item')!;
+        level2Menu = level1Item.querySelector('sl-menu')!;
+        level2Item = level2Menu.querySelector('sl-menu-item')!;
+        level3Menu = level2Item.querySelector('sl-menu')!;
+
+        level1Item.focus();
+      });
+
+      it('should focus the deepest submenu item and keep every level open', async () => {
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(level2Menu).to.match(':popover-open');
+        expect(document.activeElement).to.equal(level2Item);
+
+        await userEvent.keyboard('{ArrowRight}');
+        await new Promise(resolve => setTimeout(resolve, 50));
+
+        expect(el).to.match(':popover-open');
+        expect(level2Menu).to.match(':popover-open');
+        expect(level3Menu).to.match(':popover-open');
+        expect(document.activeElement).to.equal(level3Menu.querySelector('sl-menu-item'));
       });
     });
 

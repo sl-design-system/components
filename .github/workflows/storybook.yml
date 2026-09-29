@@ -4,8 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - 'packages/tokens/src/figma/**'
     types: [opened, synchronize, reopened, closed]
 
   push:

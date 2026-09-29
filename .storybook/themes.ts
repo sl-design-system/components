@@ -180,14 +180,18 @@ export const themes: Theme[] = [
   }
 ];
 
-const resources: { mode?: HTMLLinkElement; fonts?: HTMLLinkElement[]; global?: HTMLLinkElement } =
-  {};
+const resources: {
+  mode?: HTMLLinkElement;
+  fonts?: HTMLLinkElement[];
+  global?: HTMLLinkElement;
+  typography?: HTMLLinkElement;
+} = {};
 
 let currentThemeId: string | undefined;
 let currentMode: Mode | undefined;
 
-export const updateTheme = async (themeId: string, mode: Mode = 'light'): Promise<void> => {
-  if (currentThemeId === themeId && currentMode === mode) {
+export const updateTheme = async (themeId: string): Promise<void> => {
+  if (currentThemeId === themeId) {
     return;
   }
 
@@ -197,15 +201,18 @@ export const updateTheme = async (themeId: string, mode: Mode = 'light'): Promis
   }
 
   currentThemeId = themeId;
-  currentMode = mode;
 
   resources.mode ??= document.head.appendChild(document.createElement('link'));
-  resources.mode.href = `/themes/${themeId}/${mode}.css`;
+  resources.mode.href = `/themes/${themeId}/theme.css`;
   resources.mode.rel = 'stylesheet';
 
   resources.global ??= document.head.appendChild(document.createElement('link'));
   resources.global.href = `/themes/${themeId}/global.css`;
   resources.global.rel = 'stylesheet';
+
+  resources.typography ??= document.head.appendChild(document.createElement('link'));
+  resources.typography.href = `/themes/${themeId}/typography.css`;
+  resources.typography.rel = 'stylesheet';
 
   resources.fonts?.forEach(font => font.remove());
   if (theme.fonts) {

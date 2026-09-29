@@ -23,3 +23,12 @@ Here's an overview of the common keyboard interactions associated with a form:
 </div>
 
 </section>
+
+<section>
+
+## Validation announcements
+
+By default, `<sl-form>` announces field validation errors through the live region helper. If your form also shows an aggregated error summary (with `sl-inline-message`), set `announce-errors="false"` on `<sl-form>` to avoid duplicate announcements.
+
+</section>
+

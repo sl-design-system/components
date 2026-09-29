@@ -71,7 +71,7 @@ export class ComponentStatus extends LitElement {
                 .componentName}/CHANGELOG.md"
               target="_blank"
             >
-              <sl-icon name="github"></sl-icon>
+              <sl-icon name="fab-github"></sl-icon>
               View changelog
             </a>
             <a
@@ -79,7 +79,7 @@ export class ComponentStatus extends LitElement {
               href="https://github.com/sl-design-system/components/tree/main/packages/components/${this.componentName}"
               target="_blank"
             >
-              <sl-icon name="github"></sl-icon>
+              <sl-icon name="fab-github"></sl-icon>
               View code
             </a>
             <a
@@ -88,7 +88,7 @@ export class ComponentStatus extends LitElement {
                 .storybookComponentName}"
               target="_blank"
             >
-              <sl-icon name="storybook"></sl-icon>
+              <sl-icon name="fab-storybook"></sl-icon>
               View Storybook
             </a>
           </sl-button-bar>

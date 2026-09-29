@@ -1,0 +1,135 @@
+{
+  "angle-down": {
+    "fa-icon": "angle-down"
+  },
+  "arrow-left": {
+    "fa-icon": "arrow-left"
+  },
+  "arrow-right": {
+    "fa-icon": "arrow-right"
+  },
+  "arrow-up-right-from-square": {
+    "fa-icon": "arrow-up-right-from-square"
+  },
+  "breadcrumb-separator": {
+    "fa-icon": "slash-forward"
+  },
+  "calendar": {
+    "fa-icon": "calendar"
+  },
+  "caret-down-solid": {
+    "fa-icon": "caret-down",
+    "style": "solid"
+  },
+  "caret-left-solid": {
+    "fa-icon": "caret-left",
+    "style": "solid"
+  },
+  "caret-right-solid": {
+    "fa-icon": "caret-right",
+    "style": "solid"
+  },
+  "check": {
+    "fa-icon": "check"
+  },
+  "check-solid": {
+    "fa-icon": "check",
+    "style": "solid"
+  },
+  "chevron-down": {
+    "fa-icon": "chevron-down"
+  },
+  "chevron-left": {
+    "fa-icon": "chevron-left"
+  },
+  "chevron-right": {
+    "fa-icon": "chevron-right"
+  },
+  "circle-check-solid": {
+    "fa-icon": "circle-check",
+    "style": "solid"
+  },
+  "circle-exclamation-solid": {
+    "fa-icon": "circle-exclamation",
+    "style": "solid"
+  },
+  "circle-solid": {
+    "fa-icon": "circle",
+    "style": "solid"
+  },
+  "circle-xmark": {
+    "fa-icon": "circle-xmark"
+  },
+  "circle-xmark-solid": {
+    "fa-icon": "circle-xmark",
+    "style": "solid"
+  },
+  "clock": {
+    "fa-icon": "clock"
+  },
+  "dash-solid": {
+    "fa-icon": "dash",
+    "style": "solid"
+  },
+  "diamond-exclamation-solid": {
+    "fa-icon": "diamond-exclamation",
+    "style": "solid"
+  },
+  "envelope": {
+    "fa-icon": "envelope"
+  },
+  "ellipsis": {
+    "fa-icon": "ellipsis"
+  },
+  "ellipsis-vertical": {
+    "fa-icon": "ellipsis-vertical"
+  },
+  "face-smile": {
+    "fa-icon": "face-smile"
+  },
+  "fav": {
+    "fa-icon": "star"
+  },
+  "grip-lines": {
+    "fa-icon": "grip-lines"
+  },
+  "home-blank": {
+    "fa-icon": "home-blank"
+  },
+  "menu": {
+    "fa-icon": "bars"
+  },
+  "minus": {
+    "fa-icon": "minus"
+  },
+  "mobile": {
+    "fa-icon": "mobile"
+  },
+  "octagon-exclamation-solid": {
+    "fa-icon": "octagon-exclamation",
+    "style": "solid"
+  },
+  "octagon-xmark-solid": {
+    "fa-icon": "octagon-xmark",
+    "style": "solid"
+  },
+  "pinata": {
+    "fa-icon": "pinata"
+  },
+  "plus": {
+    "fa-icon": "plus"
+  },
+  "search": {
+    "fa-icon": "magnifying-glass"
+  },
+  "square-arrow-up-right": {
+    "fa-icon": "square-arrow-up-right"
+  },
+  "triangle-exclamation-solid": {
+    "fa-icon": "triangle-exclamation",
+    "style": "solid"
+  },
+  "xmark": {
+    "fa-icon": "xmark"
+  }
+}

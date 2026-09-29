@@ -76,6 +76,11 @@ describe('sl-tab-group', () => {
       expect(tablist).to.have.attribute('role', 'tablist');
     });
 
+    it('should have tabindex="-1" on the scroller container', () => {
+      const scroller = el.renderRoot.querySelector('[part="scroller"]');
+      expect(scroller).to.have.attribute('tabindex', '-1');
+    });
+
     it('should not have a menu button', async () => {
       await el.updateComplete;
       const menuButton = el.renderRoot.querySelector('sl-menu-button');

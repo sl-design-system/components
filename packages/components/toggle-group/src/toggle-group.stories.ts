@@ -65,7 +65,7 @@ export default {
     },
     size: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: ['sm', 'md', 'lg']
     },
     fill: {
       control: 'inline-radio',

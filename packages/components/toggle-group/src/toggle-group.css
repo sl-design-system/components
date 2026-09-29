@@ -93,8 +93,8 @@
 :host([chips]) ::slotted(sl-toggle-button) {
   --_border-compensation: var(--_border-width);
   --_button-border-radius: var(--sl-size-borderRadius-default);
-  --_group-compensation-end: 0;
-  --_group-compensation-start: 0;
+  --_group-compensation-end: 0px;
+  --_group-compensation-start: 0px;
 
   &::after {
     display: none;
@@ -108,8 +108,8 @@
 :host([chips]) ::slotted(sl-toggle-button:first-of-type),
 :host([chips]) ::slotted(sl-toggle-button:last-of-type) {
   --_button-border-radius: var(--sl-size-borderRadius-default);
-  --_group-compensation-end: 0;
-  --_group-compensation-start: 0;
+  --_group-compensation-end: 0px;
+  --_group-compensation-start: 0px;
 }
 
 :host([chips][shape='pill']) ::slotted(sl-toggle-button) {

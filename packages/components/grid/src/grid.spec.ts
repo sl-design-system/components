@@ -144,7 +144,9 @@ describe('sl-grid', () => {
         expect(header).to.have.attribute('scope', 'col');
       });
 
-      const firstNameHeaderId = headers[2].id,
+      const nameGroupHeaderId = headers[0].id,
+        schoolGroupHeaderId = headers[1].id,
+        firstNameHeaderId = headers[2].id,
         lastNameHeaderId = headers[3].id,
         schoolNameHeaderId = headers[4].id,
         cityHeaderId = headers[5].id,
@@ -153,24 +155,35 @@ describe('sl-grid', () => {
 
       expect(headers[0]).to.have.attribute('aria-hidden', 'true');
       expect(headers[1]).to.have.attribute('aria-hidden', 'true');
+
+      // aria-labelledby is now on the span inside the th, pointing only to the group header label
+      const firstNameSpan = headers[2].querySelector('span');
+      expect(firstNameSpan).to.have.attribute('aria-labelledby', `${nameGroupHeaderId}-label`);
       expect(headers[2]).not.to.have.attribute('headers');
-      expect(headers[2]).to.have.attribute('aria-labelledby', `${firstNameHeaderId}-label`);
       expect(headers[2]).not.to.have.attribute('abbr');
       expect(headers[2]).not.to.have.attribute('aria-label');
+
+      const lastNameSpan = headers[3].querySelector('span');
+      expect(lastNameSpan).to.have.attribute('aria-labelledby', `${nameGroupHeaderId}-label`);
       expect(headers[3]).not.to.have.attribute('headers');
-      expect(headers[3]).to.have.attribute('aria-labelledby', `${lastNameHeaderId}-label`);
       expect(headers[3]).not.to.have.attribute('abbr');
       expect(headers[3]).not.to.have.attribute('aria-label');
+
+      const schoolNameSpan = headers[4].querySelector('span');
+      expect(schoolNameSpan).to.have.attribute('aria-labelledby', `${schoolGroupHeaderId}-label`);
       expect(headers[4]).not.to.have.attribute('headers');
-      expect(headers[4]).to.have.attribute('aria-labelledby', `${schoolNameHeaderId}-label`);
       expect(headers[4]).not.to.have.attribute('abbr');
       expect(headers[4]).not.to.have.attribute('aria-label');
+
+      const citySpan = headers[5].querySelector('span');
+      expect(citySpan).to.have.attribute('aria-labelledby', `${schoolGroupHeaderId}-label`);
       expect(headers[5]).not.to.have.attribute('headers');
-      expect(headers[5]).to.have.attribute('aria-labelledby', `${cityHeaderId}-label`);
       expect(headers[5]).not.to.have.attribute('abbr');
       expect(headers[5]).not.to.have.attribute('aria-label');
+
+      const countrySpan = headers[6].querySelector('span');
+      expect(countrySpan).to.have.attribute('aria-labelledby', `${schoolGroupHeaderId}-label`);
       expect(headers[6]).not.to.have.attribute('headers');
-      expect(headers[6]).to.have.attribute('aria-labelledby', `${countryHeaderId}-label`);
       expect(headers[6]).not.to.have.attribute('abbr');
       expect(headers[6]).not.to.have.attribute('aria-label');
 

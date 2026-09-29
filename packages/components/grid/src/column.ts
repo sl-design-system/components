@@ -252,10 +252,13 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerAriaLabelledBy(): string | undefined {
-    // Use aria-labelledby to point to the rendered label span when we have a header or path
-    return typeof this.header === 'string' || !!this.path || !!this.formControlColumnLabel
-      ? `${this.headerCellId}-label`
-      : undefined;
+    // Only include parent group header label spans when on a grouped column
+    // The column's own label text will be the visible text in the span
+    if (this.groupHeaderIds.length > 0) {
+      return this.groupHeaderIds.map(id => `${id}-label`).join(' ');
+    }
+
+    return undefined;
   }
 
   /** @internal Text label used for header announcements and form-control labels. */
@@ -283,7 +286,6 @@ export class GridColumn<T = any> extends LitElement {
     return html`
       <th
         aria-label=${ifDefined(this.headerAriaLabelledBy ? undefined : this.headerAriaLabel)}
-        aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
@@ -306,14 +308,22 @@ export class GridColumn<T = any> extends LitElement {
     if (this.header) {
       if (typeof this.header === 'string') {
         return html`
-          <span class=${ifDefined(className)} id=${ifDefined(labelId)}>${this.header}</span>
+          <span
+            class=${ifDefined(className)}
+            id=${ifDefined(labelId)}
+            aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
+            >${this.header}</span
+          >
         `;
       }
 
       return this.header(this);
     } else if (this.path) {
       return html`
-        <span class=${ifDefined(className)} id=${ifDefined(labelId)}
+        <span
+          class=${ifDefined(className)}
+          id=${ifDefined(labelId)}
+          aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
           >${getNameByPath(this.path)}</span
         >
       `;

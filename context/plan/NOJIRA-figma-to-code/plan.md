@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T23:40:00Z
+updated: 2026-10-01T00:20:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -152,6 +152,31 @@ hard, all three are prerequisites nobody had written down:
    `get_code_connect_map` call hung for over five minutes. The blocker is the server's
    responsiveness, not the naming — and since Code Connect resolution is the pipeline's cheapest and
    most authoritative step, an unresponsive desktop server blocks the smoke run outright.
+
+**Blocker 3 is now cleared too, and clearing it produced a finding.** The remote Figma server,
+once authenticated, answered `get_code_connect_map` on the same node **in seconds** — the call that
+had hung for over twenty-five minutes against the desktop and Docker-gateway servers. It also takes
+a `fileKey`, so it addresses any file without the desktop application having that file open.
+
+That **contradicts the pipeline's own documented choice**. Its analyst agent instructs: use
+`figma-desktop` for `get_code_connect_map` because the remote one is "unreliable", and use the
+remote server only for the screenshot. On this evidence the opposite holds — and the consequence is
+not small, because Code Connect resolution is the step every node passes through.
+
+Two things follow. The smoke run is unblocked. And **switching the pipeline's data calls from
+desktop to remote is a strong candidate for the first measured increment of slice 2**: it is a
+small change, it plausibly moves generation speed (R8) by a large factor, it removes the
+desktop-application dependency that stops anything running unattended, and it is exactly the shape
+of change the bench exists to adjudicate — plausible, cheap, and currently unproven.
+
+One caveat on the evidence: this is one environment at one moment. The desktop server may be
+misconfigured here rather than slow in general, which the smoke run should establish rather than
+assume.
+
+**And the mappings are published and resolving.** The same call returned
+`<sl-button fill="outline" variant="primary">` with a nested `<sl-icon name="far-universal-access">`
+— resolved property values, nested instances, labelled `SL Design System`. The question of whether
+`scripts/connect-figma-components` had reached Figma is answered: it has.
 
 **Blockers 1 and 2 are now cleared.** The plugin is installed from the local directory
 (`claude plugin marketplace add ./` then `claude plugin install implement-design@sl-design-system`),

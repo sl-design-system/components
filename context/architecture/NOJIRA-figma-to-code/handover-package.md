@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T15:00:00Z
-updated: 2026-09-30T16:40:00Z
+updated: 2026-10-01T01:40:00Z
 tags: [architecture, package, schema, resumability, verification]
 ---
 
@@ -284,6 +284,46 @@ against fixtures rather than by inspecting each output. Every package produced a
 correct by construction. This is the concrete payoff of making the data the source rather than the
 HTML.
 
+### Why near-pixel-identity is not the target, and what is
+
+A reasonable expectation is that generating from Figma's own data should reproduce the design
+almost exactly — 99.9% and upwards. It will not, and setting that as the bar would make a working
+pipeline look broken.
+
+**Structured data determines intent. It does not determine rasterisation.** Five differences are
+irreducible, none of them a defect:
+
+- **Text.** Figma has its own text layout engine and the browser has another. Same font, same size,
+  same weight — different line breaking, different letter fitting, different hinting, different
+  subpixel placement. Two engines do not agree to the pixel on text, ever.
+- **Anti-aliasing** of curves, corner radii and borders differs between renderers.
+- **Effects.** Shadows, blurs and blend modes composite differently.
+- **Images** are resampled by different algorithms.
+- **The design system component itself.** When Code Connect resolves a node to `<sl-button>`, the
+  browser renders the *real component*, which can legitimately differ from what the designer drew.
+
+So the target is not one number. It is the **tiered tolerance already specified**: a layout
+container at 0% because it is a solid rectangle and genuinely can be exact; a design system
+instance under 0.5%; an icon under 1%; **text under 5%, which is not slack but the honest floor two
+text engines impose**; shadow and blur excluded outright. A single "percent similar" figure invites
+exactly the impossible expectation and hides which class failed.
+
+**And a pixel difference has three possible causes, only one of which is a pipeline bug.**
+Distinguishing them is what makes the measurement useful rather than merely alarming:
+
+| Cause | What it means | Who acts |
+|---|---|---|
+| The pipeline got it wrong | a real defect — wrong token, wrong spacing, missing element | pipeline |
+| Renderer difference | within tolerance by design; outside it means the tier is miscalibrated | nobody, or the bench |
+| **The Figma component has drifted from the code component** | the library and the implementation disagree | **the design system team** |
+
+The third is not a pipeline failure at all, and it may be the most valuable thing the comparison
+produces: a systematic difference appearing on *every* instance of one component, across several
+corpus cases, is the design system telling you its Figma library and its code have diverged. No
+structural check can see that — the snippet is correct, the properties are valid, and the rendering
+is still wrong. It is the exact mirror of the overridden-instance case, and it is why the screenshot
+comparison cannot be dropped in favour of checking the data alone.
+
 ## Key decisions
 
 - **Many files, one index, node id as the join key** — so a consumer reads what answers its
@@ -298,6 +338,9 @@ HTML.
   after a failure is a path that will not work when needed.
 - **Property conformance stays where it already runs** — in CI against the element manifest, on
   every pull request, rather than being rebuilt at extraction time.
+- **Pixel comparison is scored per element class, never as one similarity figure** — and a
+  difference is triaged into pipeline defect, renderer difference, or design-system drift before it
+  is called a failure.
 - **Mapping completeness becomes a check** — every Figma property is read or declared ignored,
   which is node accounting applied to a component.
 

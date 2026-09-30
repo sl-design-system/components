@@ -8234,6 +8234,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/sl-ecosystem@workspace:packages/themes/sl-ecosystem":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/sl-ecosystem@workspace:packages/themes/sl-ecosystem"
+  dependencies:
+    "@sl-design-system/icon": "npm:1.4.5"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/spinner@npm:^2.0.3, @sl-design-system/spinner@workspace:packages/components/spinner":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/spinner@workspace:packages/components/spinner"
@@ -8303,14 +8311,6 @@ __metadata:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.10
     lit: ^3.1.4
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/teacher-assistant@workspace:packages/themes/teacher-assistant":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/teacher-assistant@workspace:packages/themes/teacher-assistant"
-  dependencies:
-    "@sl-design-system/icon": "npm:1.4.5"
   languageName: unknown
   linkType: soft
 

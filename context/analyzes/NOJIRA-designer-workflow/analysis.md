@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T09:40:00Z
-updated: 2026-09-30T09:40:00Z
+updated: 2026-09-30T11:55:00Z
 tags: [design-to-code, designers, figma, prototypes, cost, workflow, testing]
 references:
   - git+ssh://git@bitbucket.org/sl-technology/sl-aipdlc-toolkit.git   # sl-prototype, sl-plan-design, sl-ds-html-to-figma skills, read 2026-09-30
@@ -118,6 +118,23 @@ needs a full design seat. Any plan that assumes developers can push prototypes b
 their existing seats is wrong by construction, and it fails at the point of use rather than at
 procurement.
 
+**A stronger version of the same constraint has since been stated: developers are not expected to
+hold a Figma seat at all.** Not a Dev seat, not a full one. That moves the finding from "some flows
+are unavailable to some people" to something structural:
+
+- Every Figma-touching step — extraction, token reading, comparison against the design, the whole
+  fidelity measurement — is **designer-side or CI-side work**. A developer cannot run any of it.
+- The handover artifact is the developer's **only** channel to the design. Anything not in it does
+  not reach them.
+- A developer cannot verify what they receive, and cannot re-check it later. What would normally be
+  a review step has no one able to perform it on the receiving side.
+
+The consequences for what the handover must contain are worked out in
+[`A-NOJIRA-pipeline-staging`](../NOJIRA-pipeline-staging/analysis.md) — in short, the Figma
+extraction must ship alongside the HTML rather than staying behind as a cache, and the package needs
+a tool-generated fidelity attestation, because a self-report nobody downstream can audit stops
+carrying information.
+
 The actual seat inventory and its cost are not established here — see Open questions.
 
 ### F5 — An independent artifact already ranks completeness above pixel comparison
@@ -189,8 +206,18 @@ cannot be obtained by building anything.
 
 ## Conclusion / recommendation
 
-**Do not choose a single handover contract.** The three directions answer different questions and
-differ in cost by an order of magnitude. Publish them as three named flows with an explicit
+**One flow is now the primary one, and the other two remain available around it.** The intended
+working model has been stated: a designer revises or creates a design and exports it to HTML; a
+developer takes that HTML and implements it, without Figma access. That is the Figma → HTML
+direction, split at the point where the work changes hands, and it is what the pipeline should be
+built for.
+
+The other two directions do not disappear. HTML → Figma brings a fast prototype back into
+maintainable design work, and the prototype-folder flow supports exploration before anything is
+settled. They remain available for the work they suit.
+
+**Within that, do not choose a single handover format across all work.** The three directions answer
+different questions and differ in cost by an order of magnitude. Publish them as three named flows with an explicit
 when-to-use, so a team picks by what the work is: settled design in Figma, prototype needing to
 become maintainable design work, or exploration where nothing is settled yet. A single
 organisation-wide format would pay the highest price on the work that needs it least, and F4 means it

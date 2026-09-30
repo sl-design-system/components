@@ -3,6 +3,9 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Reframed A-NOJIRA-pipeline-staging and A-NOJIRA-designer-workflow around the handover
+  boundary: the developer holds no Figma seat, so the artifact is a shipped package with a
+  tool-generated attestation, and the two stages are separately distributed — marcin.ludwig
 - Added A-NOJIRA-pipeline-staging (analyzes/NOJIRA-pipeline-staging) — the two-stage split and
   the intermediate-artifact decision — marcin.ludwig
 - Added A-NOJIRA-requirement-backlog (analyzes/NOJIRA-requirement-backlog) — the 31 inherited

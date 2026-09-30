@@ -9,8 +9,8 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T11:30:00Z
-updated: 2026-09-30T11:30:00Z
-tags: [architecture, pipeline, intermediate-representation, traceability, design-to-code]
+updated: 2026-09-30T11:55:00Z
+tags: [architecture, pipeline, intermediate-representation, traceability, handover, design-to-code]
 references:
   - git+ssh://git@bitbucket.org/sl-technology/sl-aipdlc-toolkit.git   # sl-ds-html-to-figma, evidence on what survives a DOM round trip, read 2026-09-30
 ---
@@ -19,13 +19,15 @@ references:
 
 ## Key questions
 
-1. Should the pipeline be split into **Figma → HTML** and **HTML → application**, with a durable
-   artifact between them, rather than going from a design to finished components in one pass?
+1. Should the work be split into **Figma → HTML**, run by a designer, and **HTML → application**,
+   run by a developer, with a durable artifact handed across between them — rather than going from a
+   design to finished components in one pass?
 2. If it is split, what is the artifact between the stages? Rendered HTML, the cached Figma
    extraction, or something else?
 3. The stated worry: once an artifact becomes the source of truth, any deviation in it degrades
    everything downstream. Is that avoided by making the first stage accurate enough, or does it need
-   something structural?
+   something structural? Sharpened by the fact that **the developer receiving the artifact has no
+   Figma access and therefore cannot check it against anything**.
 4. What does the split change about work already planned?
 
 Out of scope: how the second stage maps onto an application architecture. That becomes answerable
@@ -51,11 +53,20 @@ decisions — the component decomposition — is the largest single source of ru
 that it is made unreviewed because the approval checkpoint the pipeline's own vision specified was
 removed.
 
-The proposal examined here is to split the run: first produce HTML that reproduces the design as
-closely as possible, with all the caching, validation and comparison against Figma already planned;
-then treat that HTML as the input to a separate stage that fits it to an application — mapping it
-onto the architecture, checking whether a similar design already exists in code, diffing against it
-where it does and building fresh where it does not.
+The proposal examined here splits that run in two, **along the line where the work changes hands**:
+
+- A **designer** makes or revises a design and exports it to HTML. This is the stage that caches,
+  validates and compares against Figma.
+- A **developer** takes that HTML and implements it in their application — mapping it onto the
+  architecture, checking whether a similar design already exists in the code, diffing against it
+  where it does and building fresh where it does not.
+
+The decisive constraint is that **the developer has no Figma dev seat**. They cannot open the
+design, cannot re-read a value, and cannot check the HTML against what it came from. Everything they
+receive, they receive in the handover or not at all.
+
+This is not merely a pipeline with two stages. It is two tools, with two audiences, separated by an
+organisational boundary — and that boundary is what most of the analysis below turns on.
 
 ## Findings
 
@@ -95,6 +106,11 @@ Four properties make it a good intermediate artifact, and no other candidate has
 - **It is diffable against what already exists.** Stage two's "is a similar design already in the
   code?" compares rendered markup against rendered markup — and that is the machinery the
   measurement layer is already building.
+
+A fifth reason, and the decisive one given the handover boundary: **HTML is the only candidate that
+is meaningful to someone who cannot open the design**. A developer with no Figma seat can render it,
+read it, and diff it against their own code. A Figma extraction alone would arrive as data about a
+file they cannot see.
 
 There is also precedent in-house: `sl-ds-html-to-figma` runs this pivot in reverse, rendering a page
 headlessly and mapping the resulting DOM onto design system components and token variables. The
@@ -172,6 +188,39 @@ No existing plan is invalidated. The measurement plan's goal, approach and scope
 unchanged. What changes is the roadmap: slice 2 now has a shape, and the intermediate artifact's
 definition becomes its first task.
 
+### F7 — The consumer cannot reach the source, which changes what the artifact must contain
+
+Everything above assumed the artifact's reader could, in principle, go back to Figma. They cannot.
+Three consequences follow, and the first two were not visible while the split was read as a purely
+technical one.
+
+**The companion is not optional, and it must travel.** The retained Figma extraction was recommended
+above as provenance — a way to re-derive and re-check. For a developer with no seat there is nothing
+to re-derive *from*: the companion is the only channel through which bound variables, instance
+properties and hug/fill intent reach them at all. So it is not a cache that stays on the designer's
+machine; it is **part of the handover package**, shipped beside the HTML. A design system team's
+"identical mapping" goal depends on it arriving, because instance properties exist nowhere else in
+what the developer receives.
+
+**The package needs a quality attestation, produced by the tool.** The developer cannot verify
+fidelity and must decide whether to trust the HTML. So the measurement that stage one performs has
+to be *shipped with the output*: the score, the coverage figure, and a named list of known
+deviations. Without it, "is this HTML right?" is a question the receiving side has no way to ask.
+
+There is a structural incentive here worth naming plainly. When the party producing an artifact is
+the only party able to check it, under-reporting deviations has no consequence. The attestation must
+therefore be **generated by the tool as part of the run, not written by the person running it** —
+not because anyone would cheat, but because a self-report nobody can audit stops carrying
+information regardless of intent.
+
+**The two stages are separately distributed, to different audiences.** Stage one is designer-facing
+tooling and needs Figma access; stage two is developer-facing and must work with none. They are two
+installable units with different prerequisites, not one pipeline with a seam. That bears directly on
+the open marketplace question recorded in
+[`A-NOJIRA-requirement-backlog`](../NOJIRA-requirement-backlog/analysis.md) — and it means the
+Figma-facing half of the measurement harness runs on the designer's side or in CI, never on the
+developer's.
+
 ## What would change our mind
 
 - **Stage-one fidelity turns out to be low.** If the baseline shows the first stage cannot reliably
@@ -196,8 +245,8 @@ better architecture than the single pass, and it fixes by construction the attri
 makes the current pipeline unrepeatable. It also puts the architecture decision — the highest-variance
 step — into a stage where a human review gate is natural rather than an interruption.
 
-**The artifact is a pair, not a choice.** The question as posed — HTML or cached Figma data — should
-be answered "both, joined by node id":
+**The artifact is a package, not a choice, and not a single file.** The question as posed — HTML or
+cached Figma data — should be answered "both, joined by node id, shipped together":
 
 - **Annotated HTML** is the *presentational* truth: what renders, what is pixel-compared against
   Figma, what a person opens in a browser, what stage two diffs against existing components. It
@@ -206,20 +255,29 @@ be answered "both, joined by node id":
   element.
 - **The retained Figma extraction** is the *intent* companion: bound variables, instance properties,
   bounding boxes, and the hug/fill/fixed layout modes that HTML cannot express at all. It is not a
-  cache to be discarded after stage one; it is half the source of truth.
+  cache to be discarded after stage one; it is half the source of truth, and because the developer
+  has no Figma access it is **the only channel by which that intent reaches them**. It ships.
+- **A tool-generated fidelity attestation**: the score, the coverage figure and the named deviations
+  from the run that produced the package. The receiving side cannot check the work and must be able
+  to see what it is trusting.
 
 The node id is the join key, and it is what makes provenance real rather than nominal. That single
 attribute is also, separately, the missing prerequisite for change detection and the update cycle —
 neither can regenerate only what changed without knowing which output came from which node.
 
-**Answering the cascade worry directly:** the defence is that pairing, not stage-one accuracy. With
-provenance retained, any part of the intermediate artifact can be re-derived and re-checked forever,
-so a stage-one error stays a correctable defect with a measurable size. Accuracy still matters and
-should still be maximised — but it is the thing that reduces frequency, not the thing that prevents
-irreversibility. Build the second and you can afford to iterate on the first.
+**Answering the cascade worry directly:** the defence is the package, not stage-one accuracy. With
+provenance and an attestation travelling alongside, a stage-one error arrives as a *visible*,
+sized defect rather than as an invisible fact — and the designer, who does have Figma access, can
+re-derive and reissue. Accuracy still matters and should still be maximised, but it is the thing
+that reduces frequency, not the thing that prevents irreversibility.
+
+The handover boundary makes this sharper, not softer. When the only party who can detect an error is
+upstream of the person it will hurt, the error budget is spent silently. Shipping the evidence is
+what keeps the boundary honest.
 
 **Sequence.** Slice 1 stays exactly as planned and gains a second purpose: its baseline is the
-evidence that decides whether stage-one output is good enough to be trusted as truth. Defining the
+evidence that decides whether stage-one output is good enough to be trusted as truth *by someone who
+cannot check it* — which is a higher bar than trusting it yourself. Defining the
 intermediate artifact — the annotation scheme and the companion's schema — becomes the first task of
 slice 2, written against what the baseline shows. Stage two's architecture mapping follows, and much
 of its "does this already exist?" capability is a second consumer of slice 1's comparison machinery
@@ -240,7 +298,15 @@ load-bearing contract in the architecture on the least evidence.
    turns out to work from the structured data alone, HTML demotes to a verification artifact and the
    architecture simplifies.
 4. **What is "close enough to Figma" as a number?** The precondition for HTML-as-truth needs a
-   threshold, and it cannot be chosen before the baseline exists.
+   threshold, and it cannot be chosen before the baseline exists. With the handover boundary it is
+   also the number a developer is implicitly trusting, so it should be stated in the attestation
+   rather than held internally.
+5. **How is the package delivered and versioned?** A repository, a branch, an attachment on a ticket.
+   It crosses a team boundary, so it needs a location and a way to tell one revision from the next —
+   the designer will reissue it when the design changes.
+6. **What does the developer do when the HTML is wrong?** They cannot fix it against the design and
+   cannot verify a fix. The route back to the designer is part of the flow, not an exception to it,
+   and nothing currently describes it.
 
 ## Leads to
 

@@ -2,24 +2,24 @@
 type: use-case
 schema_version: 1
 id: UC-NOJIRA-figma-to-code-01
-title: The harness reads a corpus registry and refuses one it does not understand
+title: The bench reads a corpus registry and refuses one it does not understand
 description: Proves the registry contract holds before anything depends on it
 jira: null
 resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T12:25:00Z
 tags: [harness, registry]
 tests_task: T-NOJIRA-figma-to-code-01
 ---
 
-# The harness reads a corpus registry and refuses one it does not understand
+# The bench reads a corpus registry and refuses one it does not understand
 
 > Verifies [T-NOJIRA-figma-to-code-01](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-01-harness-skeleton.md).
 
 ## Preconditions
-The harness exists at `tools/design-fidelity-harness/` and runs from the repo root. Three registry fixtures are available: empty, valid two-entry, and one declaring an unknown schema version.
+The bench exists at `tools/sl-bench/` and runs from the repo root. Three registry fixtures are available: empty, valid two-entry, and one declaring an unknown schema version.
 
 ## Scenario
 Run `list` against each of the three fixtures in turn.

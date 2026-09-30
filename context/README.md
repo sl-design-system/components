@@ -23,9 +23,9 @@ speaks Polish — a validator enforces it.
 ## The two tracks
 
 **Track 1 — measurement.** Nothing about the generation pipeline can be improved until a change to
-it can be shown to help. Slice 1 builds coverage, two fidelity dimensions, run-to-run variance and
-per-run cost over a frozen Figma corpus, and publishes a baseline — **without modifying the pipeline
-at all**. Approved and decomposed into thirteen tasks.
+it can be shown to help. Slice 1 builds `tools/sl-bench`: coverage, two fidelity dimensions, run-to-run
+variance, per-run cost, and comparison across configurations and over time, against a frozen Figma
+corpus — **without modifying the pipeline at all**. Approved and decomposed into fourteen tasks.
 
 **Track 1b — requirement triage.** Runs alongside slice 1 and needs no baseline. The 31
 requirements inherited from the previous attempt are roughly a third shorter than they look: nine

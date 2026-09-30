@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T10:10:00Z
+updated: 2026-09-30T12:25:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -57,14 +57,14 @@ Four principles, taken from the analysis:
 The deliberate consequence of principle 4: this plan is itself the first demonstration of the
 incremental method it establishes. Its acceptance criteria are narrow on purpose.
 
-**Two decisions taken at approval.** The harness is a **sibling tool under `tools/`**, not part of
+**Two decisions taken at approval.** The bench is a **sibling tool under `tools/`** (named `sl-bench` by Amendment 2), not part of
 the `implement-design` plugin: it must be able to measure any generator — the plugin today, the
 prior `sl-ds-*` skill set, whatever replaces either — and keeping it outside the plugin is what
 keeps "measure from outside" true rather than aspirational. The corpus lives in a **new Figma file
 owned by the design system team**, holding copies of nodes lifted from the product files, so the
 product teams cannot edit it out from under a baseline.
 
-Measuring without modifying is possible because the pipeline already persists what the harness
+Measuring without modifying is possible because the pipeline already persists what the bench
 needs: the structural node tree, the Code Connect map, the design context and the reference
 screenshot are written to the run folder on every run. The harness reads that folder and the
 rendered page; it does not instrument the agents.
@@ -75,7 +75,7 @@ exercises it. That rule is what prevents the backlog from being re-adopted whole
 
 ## Scope
 
-**In scope.** The harness as a sibling tool under `tools/`; the corpus registry and its freezing
+**In scope.** The bench as a sibling tool under `tools/`; the corpus registry and its freezing
 procedure; deterministic Figma node-tree extraction;
 node-accounting coverage metric; design-system adoption and intake report as a skill; the runner and
 its result schema; repeated-run variance; DOM position accuracy; per-component pixel comparison with
@@ -91,7 +91,7 @@ Choosing which pipeline improvements to make, which is what the baseline is for.
 
 Tasks to be created in `work/NOJIRA-figma-to-code/` once this plan is approved:
 
-- `T-NOJIRA-figma-to-code-01` — Harness location decision and skeleton; corpus registry format
+- `T-NOJIRA-figma-to-code-01` — Bench location and skeleton (`tools/sl-bench/`); corpus registry format
 - `T-NOJIRA-figma-to-code-02` — Frozen corpus: select and freeze the initial cases, document the freeze
 - `T-NOJIRA-figma-to-code-03` — Deterministic Figma node-tree extraction shared by coverage and intake
 - `T-NOJIRA-figma-to-code-04` — Coverage metric: node accounting and its report
@@ -104,6 +104,7 @@ Tasks to be created in `work/NOJIRA-figma-to-code/` once this plan is approved:
 - `T-NOJIRA-figma-to-code-11` — Requirement registry format, seeded from the prior attempt's list
 - `T-NOJIRA-figma-to-code-12` — Baseline run and published result
 - `T-NOJIRA-figma-to-code-13` — Cost and model-tier accounting (added by Amendment 1)
+- `T-NOJIRA-figma-to-code-14` — Experiment comparison across configurations and over time (added by Amendment 2)
 
 Each task carries a use case in `tests/NOJIRA-figma-to-code/` naming the corpus case that proves it.
 That link is the document-level expression of the plan's core rule: one requirement, one test case,
@@ -116,7 +117,7 @@ one measured delta.
 | The corpus Figma file is edited mid-effort | Results stop being comparable and degrade silently rather than failing loudly | Freeze by copying into a file the design teams do not own; record the last-modified stamp with every result and fail the run when it changes |
 | Figma and browser renderers differ systematically | The pixel dimension produces noise rather than signal | Tiered tolerances by element class; if it still fails, the analysis already names the fallback — DOM geometry only, one dimension replaced, plan intact |
 | Code Connect scaffolds block ingestion on real product designs | Some corpus cases cannot run at all | Select initial cases that avoid the 14 unmapped components; exercise the others in as-is mode, which does not require a mapping |
-| The harness itself accretes requirements | The plan reproduces the failure it was written to prevent | Acceptance is fixed at two fidelity dimensions; anything further is a separate plan against a measured gap |
+| The bench itself accretes requirements | The plan reproduces the failure it was written to prevent | Acceptance is fixed at two fidelity dimensions; anything further is a separate plan against a measured gap |
 | Measurement is built but never used to gate changes | The numbers become decoration | The next plan's acceptance is expressed as a score delta against this baseline, which makes the gate structural rather than cultural |
 
 **Dependencies.** Figma MCP access, with the desktop server for Code Connect resolution.
@@ -143,6 +144,11 @@ dependency for strict-mode cases, not a blocker for this plan.
    validates clean.
 8. Every result records what the run cost — tokens by model tier and by pipeline stage — so a tier
    or effort change can be evaluated as a cost delta against a score delta rather than on intuition.
+9. Two runs made under different conditions — a different model, a newer model, an added pipeline
+   step — can be compared directly, with the difference reported against the measured spread so that
+   noise is not read as improvement.
+10. Nothing in the result schema or the runner assumes the thing being measured is the Figma-to-HTML
+    stage. A second stage plugs in as another target, not as a fork of the tool.
 
 ## Approval
 
@@ -203,6 +209,51 @@ decisions within a stage. That will show *that* a stage is expensive, never *whi
 made it so. Finer attribution was deliberately left out as the kind of instrumentation this slice
 exists to avoid, and reverting that call costs nothing — the per-stage figure is a strict subset of
 anything finer we might add later.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-09-30
+
+### Amendment 2 — 2026-09-30, after approval
+
+**What changed.** Two things, both about what the measurement tool *is*.
+
+**It is a bench, not a baseline run.** The purpose stated when this plan was written was to measure
+the current pipeline once and publish the number. The standing need is larger: compare quality
+across conditions — a different model, a model newly released, a pipeline step added — and see
+whether each moved anything. That needs results **retained and comparable over time**, not a single
+snapshot. Added as `T-NOJIRA-figma-to-code-14` and as a ninth acceptance criterion. It is a small
+addition given what already exists: the result schema records the pipeline commit and the cost, and
+repeated runs already produce a spread. What is missing is keeping them and diffing two.
+
+The spread is what makes the comparison honest. Without it, swapping a model and seeing 91.2 become
+92.4 reads as an improvement; with it, if the spread is ±3 that difference is nothing. **A
+comparison that does not quote the spread is not evidence**, and this is the tool people will reach
+for exactly when they want to justify a change.
+
+**It serves both halves of the pipeline, not one.** The work is being split into a designer-facing
+stage that produces HTML from a design and a developer-facing stage that fits that HTML to an
+application. One measurement tool covers both — the same coverage, geometry and cost machinery
+pointed at a different target. Added as a tenth acceptance criterion rather than as a task, because
+the second stage does not exist yet and building an adapter for an absent consumer is speculative.
+What is required now is only that nothing in the runner or the schema hard-codes the first stage.
+
+**A rename follows.** `tools/design-fidelity-harness/`, named when the tool measured one stage
+against a design, no longer describes it. It becomes **`tools/sl-bench/`** — stage-neutral, and
+"bench" carries both meanings that apply: a benchmark, and a workbench for running experiments. The
+rename lands in `T-01`, before anything is created under the old name.
+
+**What did not change.** Fidelity is still two dimensions. The pipeline is still not modified. The
+corpus, the coverage metric, the intake report and the baseline are all untouched. Accessibility
+validation of the produced HTML is a dimension this bench will eventually carry — it is named in
+[`A-NOJIRA-pipeline-staging`](../../analyzes/NOJIRA-pipeline-staging/analysis.md) — and it is
+deliberately **not** added here: it belongs to the slice that builds the HTML stage, and adding a
+dimension before there is a thing to measure it on is the pattern this plan exists to break.
+
+**Judgement to be aware of.** Retaining results over time invites treating the stored history as
+authoritative. It is not: a result is only comparable to another taken against the same frozen
+corpus, and a corpus refresh invalidates comparisons across it. `T-14` records the corpus freeze
+stamp with every result so an invalid comparison fails rather than quietly misleads — but that guard
+is only as good as the discipline of reading it.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-09-30

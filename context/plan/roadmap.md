@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T11:55:00Z
+updated: 2026-09-30T12:25:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -26,7 +26,7 @@ analysis documents.
 
 | # | Slice | Plan | Status | One-line scope |
 |---|---|---|---|---|
-| 1 | Measurement layer | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md) | approved · `phase: approved` | Coverage, two fidelity dimensions, run-to-run variance, per-run cost by model tier, design intake report, published baseline. Pipeline unchanged. |
+| 1 | Measurement layer | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md) | approved · `phase: approved` | `tools/sl-bench` — coverage, two fidelity dimensions, run-to-run variance, per-run cost by model tier, comparison across configurations and over time, design intake report, published baseline. Pipeline unchanged. The bench serves **both** halves of the pipeline, which is why its name and its result schema are stage-neutral. |
 | 1b | Requirement triage | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | proposed · `phase: conceptual` | **Runs in parallel with slice 1, not after it.** Turn the inherited 31-item list into a true one: confirm the nine already satisfied, defer three behind the consumer trigger, hand accessibility to its own initiative, convert five into registry entries, decide the four that conflict with the pipeline's autonomy design, publish the remaining eight in argued order. |
 | 2 | Stage split and the intermediate artifact | not written yet | — | Split the run into **Figma → HTML** and **HTML → application**, with a durable artifact between them ([A-NOJIRA-pipeline-staging](../analyzes/NOJIRA-pipeline-staging/analysis.md)). Its first task defines that artifact — annotated HTML paired with the retained Figma extraction, joined by node id — written against what the baseline shows stage one actually preserves. Absorbs the increment candidates: per-node geometry, freezing the decomposition decision, moving computable checks out of prompts. Ordering from slice 1b. |
 | 3 | Stage two — fitting HTML to the application | not written yet | — | Map the artifact onto the application's architecture, detect whether a similar design already exists in code and diff against it, build fresh where it does not. Much of the "does this already exist?" capability is a second consumer of slice 1's comparison machinery rather than new work. This is where the architecture review gate belongs. |
@@ -110,6 +110,30 @@ Two consequences worth reading off the diagram: the two stages are **separately 
 designer-facing tooling that needs Figma, developer-facing tooling that must work without it — and
 the route **back** from developer to designer, for when the HTML is wrong, is part of this flow
 rather than an exception to it. Nothing describes that route yet.
+
+## Third track — HTML back to Figma
+
+Accessibility fixes and visual corrections will be made on the HTML, and will then need to reach
+Figma so the design and the build do not diverge. A skill for this exists in the organisation's
+toolkit (`sl-ds-html-to-figma`); it works but is not good enough to rely on. Improving it is a third
+track, not part of either stage, and it is not planned yet.
+
+It is also where the constraint from
+[A-NOJIRA-designer-workflow](../analyzes/NOJIRA-designer-workflow/analysis.md) bites hardest: the
+reverse direction **writes** to Figma, and a Dev seat is read-only. Whoever runs it needs a full
+design seat.
+
+## How the package gets built and delivered — undecided, two candidates
+
+Both end with the same output: HTML plus its metadata document. That is why the choice can be
+deferred without blocking the package format.
+
+- **Cloud build.** The designer triggers it, everything is computed centrally, the artifact is
+  downloadable or viewable. One environment, one run, and extra gates such as the accessibility
+  check attach naturally.
+- **Local build, then upload.** The designer generates on their own machine and distributes —
+  manually, or by triggering a pipeline to upload. Lower latency and no infrastructure, at the cost
+  of reproducibility and of a natural place to hang gates.
 
 ## Not a slice, but decided
 

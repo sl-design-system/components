@@ -3,6 +3,11 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Amendment 2 on P-NOJIRA-figma-to-code: the measurement tool is a bench serving both halves of
+  the pipeline, renamed tools/sl-bench, with comparison across configurations and over time;
+  added T-NOJIRA-figma-to-code-14 + UC-14, reconciled T-01 and T-06 — marcin.ludwig
+- Corrected A-NOJIRA-pipeline-staging: developers do have Figma access; added versioned
+  packages, the metadata document, and HTML-stage accessibility validation — marcin.ludwig
 - Reframed A-NOJIRA-pipeline-staging and A-NOJIRA-designer-workflow around the handover
   boundary: the developer holds no Figma seat, so the artifact is a shipped package with a
   tool-generated attestation, and the two stages are separately distributed — marcin.ludwig

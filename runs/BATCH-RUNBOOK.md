@@ -43,6 +43,18 @@ http://localhost:6010/iframe.html?id=<storyId>&viewMode=story&globals=theme:<the
 http://localhost:6010/index.json    # authoritative list of story ids
 ```
 
+Capture with the harness's own script rather than a shared browser — eighteen runs cannot take
+turns with one:
+
+```sh
+node runs/harness/shoot.mjs --story <id> --out <run>/testing/<name>.png \
+  --theme <theme> --width <w> --height <h> [--full]
+```
+
+It writes the image plus a `.json` report — console errors, failed requests, and per custom
+element whether it registered, has a shadow root and a non-zero box — and **exits non-zero when
+nothing rendered**. A capture is not evidence until that verdict says `rendered`.
+
 The theme per product is in the harness README and is recorded in each run's `progress.json`,
 because it changes every measured pixel. MyPortal (A3, A7) has no resolved theme package and falls
 back to `sanoma-learning` — any colour or type difference there may be the theme rather than the

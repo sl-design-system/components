@@ -45,6 +45,25 @@ component's `<img src="/assets/…">` normally 404s. That is left visible as a S
 rather than hidden behind a placeholder: a harness that quietly substitutes content would make the
 fidelity score describe the harness instead of the run.
 
+## Capturing — `shoot.mjs`
+
+Stage 4 must not drive a shared browser: eighteen runs capturing at once would contend for one
+instance, and a fidelity number that moves with who clicked last is not a measurement. Each
+capture launches and closes its own Chromium instead.
+
+```sh
+node runs/harness/shoot.mjs --story <id> --out <file.png> \
+  [--theme <id>] [--width 1280] [--height 1024] [--full] [--wait 1500]
+```
+
+It writes `<file.png>` and `<file.png>.json`. The report carries the console errors, the failed
+requests, and for every custom element on the page whether it is **registered**, whether it has a
+**shadow root** and its **box size** — then a `verdict`, and a non-zero exit when nothing rendered.
+
+That check exists because of the failure mode it was written against. An element that never
+registered is still in the DOM: the story loads, nothing throws, the capture succeeds, and the
+image is of an empty page. Presence proves nothing; a shadow root and a non-zero box do.
+
 ## Theme per run
 
 The theme is a **run parameter**, recorded in `progress.json`, because it changes every measured
@@ -66,8 +85,10 @@ is settled.
 
 ## Validated on
 
-`examples/lit/src/_runs/sanna-login-1/` (the first reference run), 2026-09-30. The page renders:
-the component registers, its shadow DOM builds, `sl-link` and the theme's typography and canvas
-colour paint. Three defects surfaced in the process, all in the generated code rather than the
+`examples/lit/src/_runs/sanna-login-1/` (the first reference run), 2026-09-30. With the component
+module loaded, the page renders: it registers, its shadow DOM builds, and `sl-link` and the
+theme's typography and canvas colour paint. Run through its own story it does **not** — which is
+the first of the defects below, and `shoot.mjs` reports it as `nothing-rendered` rather than
+returning a blank image as if it were a result. Three defects surfaced in the process, all in the generated code rather than the
 harness, and all recorded in
 [`smoke-run-findings.md`](../../context/analyzes/NOJIRA-figma-to-code/smoke-run-findings.md).

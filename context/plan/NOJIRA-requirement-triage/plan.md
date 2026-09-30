@@ -6,21 +6,18 @@ title: Triage the inherited requirement backlog into a true one
 description: Confirm what is already satisfied, scope out what belongs elsewhere, convert measurements into registry entries, decide the autonomy question, and publish one ordered backlog
 jira: null
 resource: null
-status: proposed
-phase: conceptual
+status: approved
+phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T10:40:00Z
-updated: 2026-09-30T11:05:00Z
+updated: 2026-09-30T13:15:00Z
 tags: [requirements, backlog, triage, planning, handover]
 source_analysis: A-NOJIRA-requirement-backlog
 slice: requirement-triage
 depends_on: []
-approved_by: null
-approved_date: null
-open_questions:
-  - Autonomy versus checkpoints — evidence on both sides, needs a decision record
-  - Who owns the three deferred items when the consumer trigger fires
-  - Which marketplace hosts the pipeline when it is distributed
+approved_by: marcin.ludwig
+approved_date: 2026-09-30
+open_questions: []
 ---
 
 # Triage the inherited requirement backlog into a true one
@@ -135,15 +132,25 @@ can be accepted.
 
 ## Approval
 
-**This section must be filled before creating tasks in `work/` (phase gate).**
-
-- Approved by: <!-- name -->
-- Approved date: <!-- YYYY-MM-DD -->
-- Open questions resolved: <!-- All three are carried, none blocks the work. Autonomy versus
-     checkpoints is carried into `T-05` by design — it is a decision this work produces, not a
-     precondition for starting it. The owner of the deferred items is carried into `T-02`. The
-     marketplace choice is carried out of this plan entirely: it is cheap now, expensive after
-     consumers pin a source, and it belongs to whoever owns distribution. -->
-- Outstanding concerns: <!-- none, or list -->
+- Approved by: marcin.ludwig
+- Approved date: 2026-09-30
+- Open questions resolved:
+  - **Autonomy versus checkpoints** — *carried into `T-NOJIRA-requirement-triage-05`.* This is a
+    decision the work produces, not a precondition for starting it. Four requirements hang on it and
+    the evidence already runs both ways: the removed decomposition checkpoint is a known variance
+    source, and the prior attempt scored the interactivity requirements as met while still producing
+    output that was not repeatable.
+  - **Who owns the three deferred items when the trigger fires** — *carried into
+    `T-NOJIRA-requirement-triage-02`.* Naming the trigger is done; naming the person is part of
+    recording the deferral, since a deferral nobody is watching is a silent removal.
+  - **Which marketplace hosts the pipeline when it is distributed** — *carried out of this plan.* It
+    is not this plan's question: it belongs to whoever owns distribution, and it stays recorded as an
+    open question of
+    [`A-NOJIRA-requirement-backlog`](../../analyzes/NOJIRA-requirement-backlog/analysis.md) so it is
+    not lost by being out of scope here.
+- Outstanding concerns: `T-05` cannot produce an accepted decision record until
+  [`A-NOJIRA-figma-to-code`](../../analyzes/NOJIRA-figma-to-code/analysis.md) reaches
+  `status: done` — the ADR gate requires an approved analysis. That is a sequencing constraint
+  inside the task, not a reason to hold the plan.
 
 To approve: set `phase: approved`, `approved_by`, `approved_date` in frontmatter, and clear `open_questions: []` — in the **same commit** as this sign-off (CONVENTIONS § 4.1).

@@ -3,6 +3,7 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Approved P-NOJIRA-requirement-triage and added T-NOJIRA-requirement-triage-01..06 — marcin.ludwig
 - Stated the Figma seat constraint precisely across A-NOJIRA-pipeline-staging and
   A-NOJIRA-designer-workflow: no Dev seat means no Figma MCP, so visual verification is
   available to developers and structured verification is not — marcin.ludwig

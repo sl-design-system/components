@@ -64,6 +64,41 @@ That check exists because of the failure mode it was written against. An element
 registered is still in the DOM: the story loads, nothing throws, the capture succeeds, and the
 image is of an empty page. Presence proves nothing; a shadow root and a non-zero box do.
 
+## The Stage 3 gate — `typecheck.mjs`
+
+The pipeline defines its Stage 3 gate as `tsc` exit 0. **In this repository that is unreachable.**
+Two errors in `packages/components/grid/src/grid.ts` are committed upstream, unrelated to anything
+generated, and fail every run before it begins:
+
+```
+grid.ts(1180,5): error TS2322: Type 'number' is not assignable to type 'Timeout'.
+grid.ts(1361,5): error TS2322: Type 'number' is not assignable to type 'Timeout'.
+```
+
+A gate nobody can pass is not a gate — it is an invitation to route around it. One wave-1 run did
+exactly that, with a `.d.ts` stub that turned the check green while the missing module it was
+masking was still missing.
+
+`typecheck.mjs` asks the question the gate meant: **did the generated code introduce an error?**
+
+```sh
+node runs/harness/typecheck.mjs --scope examples/lit/src/_runs/<case-slug>
+```
+
+Any error inside the scope fails. Any error outside it fails as well, unless it is in
+`typecheck-baseline.json` — generated code can perfectly well break another package, and that must
+not slip through on a technicality. A baseline error that has _disappeared_ is reported rather
+than quietly accepted, because a shrunk baseline means somebody edited shared code.
+
+Re-record only on a clean tree, and only deliberately:
+
+```sh
+node runs/harness/typecheck.mjs --record-baseline
+```
+
+It refuses to record an error that lives under `examples/lit/src/_runs/`, since baking a generated
+error into the baseline would blind the gate to that error for good.
+
 ## Theme per run
 
 The theme is a **run parameter**, recorded in `progress.json`, because it changes every measured

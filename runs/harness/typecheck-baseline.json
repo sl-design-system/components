@@ -1,0 +1,7 @@
+{
+  "project": "examples/lit/tsconfig.json",
+  "errors": [
+    "packages/components/grid/src/grid.ts(1180,5): error TS2322: Type 'number' is not assignable to type 'Timeout'.",
+    "packages/components/grid/src/grid.ts(1361,5): error TS2322: Type 'number' is not assignable to type 'Timeout'."
+  ]
+}

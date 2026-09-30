@@ -131,6 +131,14 @@ install it, never stub the module, never draw a replacement — one wave-1 run s
 hand-drawn inline SVG, which puts invented artwork into something that is about to be
 pixel-compared.
 
+**The Stage 3 gate is unreachable as the pipeline defines it, so the batch redefines it.** `tsc`
+exit 0 cannot happen here: two errors in `packages/components/grid/src/grid.ts` are committed
+upstream and unrelated to anything generated. Runs use
+`node runs/harness/typecheck.mjs --scope examples/lit/src/_runs/<case-slug>` instead, which fails
+on any error in the generated code and on any _new_ error elsewhere, while tolerating the two
+recorded baseline errors. This is the root cause of the item below — the workaround appeared
+because the gate could not be satisfied honestly.
+
 **A stub must never be what makes a gate pass.** A wave-1 implementer wrote a local `.d.ts` to
 mask the missing Font Awesome module; `tsc` went green and the Stage 3 gate reported clean. The
 stub was removed afterwards, but the gate had already been satisfied by exactly the thing it

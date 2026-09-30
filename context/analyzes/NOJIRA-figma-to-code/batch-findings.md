@@ -108,3 +108,41 @@ see [`runs/harness/README.md`](../../../runs/harness/README.md).
 A8 was captured before this was known, under a theme guessed from the team label, so its colour
 measurements describe the wrong theme. Its `progress.json` records that rather than letting the
 numbers stand.
+
+---
+
+## Gates that do not apply to the thing they are gating
+
+Three, and each looked like a passing gate rather than an absent one.
+
+**The type check is shared, so parallel runs fail each other.** Every run compiles through one
+`examples/lit/tsconfig.json`. A sibling's half-written component surfaced as `TS4114` errors inside
+another run's gate and failed it on code that run never touched. The gate now attributes an error
+to whichever run's directory it lives in, reports it, and charges it to nobody else. Worth stating
+plainly: **the first version of this gate, written to stop runs routing around it, was itself a
+mechanism for one run to break another.**
+
+**Lint and format never ran at all.** Generated code lands in `examples/lit/src/_runs/`, which is
+gitignored, so the pre-commit hook that formats and lints every other file in the repository skips
+it entirely. `eslint-plugin-lit` and `stylelint-config-standard` are not installed either. Every
+convention the reviewer checks by reading, the toolchain could have checked mechanically — and did
+not, for any run.
+
+**The theme ships a font it never loads.** In `itslearning`, `--sl-text-new-*-fontFamily` resolves
+to `'Open Sans'`, while the theme's Typekit delivers only `lato`. Token-correct markup therefore
+renders in the browser's default serif, beside `sl-panel`, which uses the older
+`--sl-text-fontFamily: Lato` and renders correctly. The Figma design's own font is Lato.
+
+That last one deserves care, because it inverts the usual advice: **following the token guidance
+produces worse fidelity than using the raw value from Figma.** The same fault appeared
+independently in `sanoma-pro`. A bench that scores "uses the right token" and a bench that scores
+"looks like the design" disagree here, and the disagreement is the theme's fault rather than the
+run's.
+
+### A corollary about token searches
+
+Two runs independently reported a missing token that existed: `--sl-elevation-surface-raised-default`
+(`#ffffff`), missed because both swept only `--sl-color-background-*`. **A namespace-scoped search
+manufactures phantom gaps** — the token was in a different namespace because it carries a different
+meaning, which is exactly when a search by prefix fails. Hint 3 told runs to search before
+declaring a value unbound; it now has to say search _by value_, not by name.

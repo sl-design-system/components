@@ -71,6 +71,8 @@ if (argv.includes('--record-baseline')) {
   exit(0);
 }
 
+const RUNS = 'examples/lit/src/_runs/';
+
 const scope = arg('scope');
 
 if (!scope) {
@@ -82,7 +84,12 @@ const baseline = existsSync(BASELINE)
     ? new Set(JSON.parse(readFileSync(BASELINE, 'utf8')).errors)
     : new Set(),
   inScope = errors.filter(line => line.startsWith(scope)),
-  outOfScope = errors.filter(line => !line.startsWith(scope)),
+  // Every run shares one tsconfig and the batch runs them in parallel, so without this a sibling
+  // run's half-written component counts as a regression here and fails a gate on code this run
+  // never touched. Runs failing each other was observed, not hypothesised. Errors belonging to
+  // another run's directory are attributed to that run and reported, never charged to this one.
+  otherRuns = errors.filter(line => line.startsWith(RUNS) && !line.startsWith(scope)),
+  outOfScope = errors.filter(line => !line.startsWith(scope) && !line.startsWith(RUNS)),
   regressions = outOfScope.filter(line => !baseline.has(line)),
   vanished = [...baseline].filter(line => !errors.includes(line));
 
@@ -90,6 +97,9 @@ const report = {
   scope,
   totalErrors: errors.length,
   inScope,
+  // Not this run's responsibility and not its failure; listed so a run never reports a clean
+  // tree while the shared project is broken in a sibling's directory.
+  errorsInOtherRuns: otherRuns,
   regressionsOutsideScope: regressions,
   baselineErrorsStillPresent: outOfScope.length - regressions.length,
   baselineErrorsNoLongerReported: vanished,

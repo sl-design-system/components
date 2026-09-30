@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-10-01T02:10:00Z
-updated: 2026-10-01T09:00:00Z
+updated: 2026-10-01T14:00:00Z
 tags: [measurement, fidelity, scoring, bench]
 ---
 
@@ -29,19 +29,19 @@ than inferring it from acceptance criteria.
 
 ### The five dimensions
 
-| # | Dimension | Answers | Deterministic? |
-|---|---|---|---|
-| 1 | **Coverage** | was the whole design transferred | fully |
-| 2 | **DOM position** | is everything the right size, in the right place | fully |
-| 3 | **Pixel comparison** | does it look right | fully, within tiered tolerances |
-| 4 | **Cost** | what did the run consume | fully |
-| 5 | **Variance** | how much does the answer move between identical runs | it *is* the measure of movement |
+| #   | Dimension            | Answers                                              | Deterministic?                  |
+| --- | -------------------- | ---------------------------------------------------- | ------------------------------- |
+| 1   | **Coverage**         | was the whole design transferred                     | fully                           |
+| 2   | **DOM position**     | is everything the right size, in the right place     | fully                           |
+| 3   | **Pixel comparison** | does it look right                                   | fully, within tiered tolerances |
+| 4   | **Cost**             | what did the run consume                             | fully                           |
+| 5   | **Variance**         | how much does the answer move between identical runs | it _is_ the measure of movement |
 
 The first three are quality, the fourth is price, and the fifth is what makes the other four
 readable. A mean without a spread cannot distinguish an improvement from noise, which is the
 question this whole effort exists to answer.
 
-### The emission boundary — which decides what is generated *and* what is measured
+### The emission boundary — which decides what is generated _and_ what is measured
 
 Everything below depends on one rule, and getting it wrong makes every number meaningless. A
 screen with 318 instance nodes has six components on it; the other 312 are those six components'
@@ -58,36 +58,36 @@ of them is written as markup.
   emitted normally.
 
 That second branch is not an edge case. On the screen measured above, a local `footer` component
-had no code equivalent, so it was passed through — and the four design-system link buttons *inside*
+had no code equivalent, so it was passed through — and the four design-system link buttons _inside_
 it did resolve and were emitted. Had the rule been "only instances not nested in another instance",
 those four buttons would have been silently dropped.
 
 **Three buckets, and every node lands in exactly one:**
 
-| Bucket | What it is | Emitted? | Measured how |
-|---|---|---|---|
-| **Emitted component** | an instance where descent stopped because a snippet resolved | yes, as the snippet | position + pixels, by node id |
-| **Passed-through container** | an instance or frame with no code equivalent | as plain markup | position + pixels, by node id |
-| **Absorbed internal** | anything beneath an emitted component | no — the component renders it | **coverage only** |
+| Bucket                       | What it is                                                   | Emitted?                      | Measured how                  |
+| ---------------------------- | ------------------------------------------------------------ | ----------------------------- | ----------------------------- |
+| **Emitted component**        | an instance where descent stopped because a snippet resolved | yes, as the snippet           | position + pixels, by node id |
+| **Passed-through container** | an instance or frame with no code equivalent                 | as plain markup               | position + pixels, by node id |
+| **Absorbed internal**        | anything beneath an emitted component                        | no — the component renders it | **coverage only**             |
 
-This is also the coverage accounting: an absorbed internal is *accounted for* — it is covered by its
+This is also the coverage accounting: an absorbed internal is _accounted for_ — it is covered by its
 parent — without ever appearing in the output. A node that is neither emitted, passed through, nor
 absorbed is unaccounted, and that is the omission coverage exists to catch.
 
 **Two consequences that would otherwise produce false failures.**
 
-*Position is measured at the boundary, not below it.* An absorbed internal has no DOM counterpart of
+_Position is measured at the boundary, not below it._ An absorbed internal has no DOM counterpart of
 its own to compare against: the code component's shadow DOM is structured however its author chose,
 and there is no reason it should mirror the Figma component's layer tree. Comparing them would
 generate noise proportional to how well-built the component is. So geometry is compared for emitted
 components and passed-through content only — which is also why the correspondence problem is
 smaller than it first appears: six comparisons, not 318.
 
-*Token compliance is measured at the boundary too.* Most bound variables in a subtree sit inside
+_Token compliance is measured at the boundary too._ Most bound variables in a subtree sit inside
 components, and those are the component's own styling — they must **not** appear in generated CSS.
 Comparing every bound variable in the Figma subtree against the tokens in generated CSS would show
 a enormous false mismatch. Only tokens on passed-through containers and on emitted components'
-*own* properties are the generator's responsibility.
+_own_ properties are the generator's responsibility.
 
 ### Coverage — the cheapest and the one nothing else replaces
 
@@ -138,11 +138,11 @@ failed**, which is why the score is always reported per class.
 A difference has three possible causes and only one is a pipeline defect. Triaging them is what
 makes the number useful:
 
-| Cause | Meaning | Who acts |
-|---|---|---|
-| Pipeline error | wrong token, wrong spacing, missing element | pipeline |
-| Renderer difference | within tolerance by design; outside it, the tier is miscalibrated | nobody, or the bench |
-| **Figma component drifted from the code component** | the library and the implementation disagree | **the design system team** |
+| Cause                                               | Meaning                                                           | Who acts                   |
+| --------------------------------------------------- | ----------------------------------------------------------------- | -------------------------- |
+| Pipeline error                                      | wrong token, wrong spacing, missing element                       | pipeline                   |
+| Renderer difference                                 | within tolerance by design; outside it, the tier is miscalibrated | nobody, or the bench       |
+| **Figma component drifted from the code component** | the library and the implementation disagree                       | **the design system team** |
 
 The third is the mirror of the overridden-instance case: there the structure is wrong while the
 appearance is right; here the appearance is wrong while the structure is right. A systematic
@@ -181,11 +181,26 @@ Every result carries its identity: the pipeline commit, the corpus freeze stamp,
 and the tier and effort per stage. A comparison across different freeze stamps is **refused**, not
 answered — the corpus changed, so there is no delta to report.
 
+### What renders the case under test
+
+The pipeline boots the repository's Storybook to render what it generated. For the bench that is
+the wrong instrument, and the smoke run showed why concretely: the repo-wide Storybook loads every
+component story, 33 of which import Font Awesome Pro packages from a private registry. The run was
+blocked at Stage 4 by a credential that **nothing in the case under test needs** — the example app
+depends on Font Awesome not at all, and neither does the generated code.
+
+A measurement harness that can be blocked by an unrelated dependency of an unrelated story is not
+a measurement harness. The bench should render the case under test in a **minimal harness** that
+loads only that case: faster to boot, unaffected by the rest of the repository, and deterministic
+in a way a shared Storybook with hundreds of stories cannot be. It also removes a whole class of
+false failure, where a red run means somebody else's story broke.
+
 ## Key decisions
 
 - **The emission boundary is where a Code Connect snippet resolves** — descend through anything
   that does not resolve, stop at anything that does.
 - **Position and token compliance are measured at that boundary**, never on absorbed internals.
+- **The bench renders in a minimal harness**, not the repository's Storybook — an unrelated story's dependency must never be able to fail a measurement.
 - **Coverage before fidelity**, because omission is invisible to everything else.
 - **Tolerances tiered by element class**, never one similarity figure.
 - **A difference is triaged into three causes** before it is called a failure.

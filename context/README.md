@@ -17,6 +17,7 @@ speaks Polish — a validator enforces it.
 | The whole sequence, both tracks, at a glance | [`plan/roadmap.md`](plan/roadmap.md) |
 | What a designer hands over, what it costs, how the flow gets tested | [`A-NOJIRA-designer-workflow`](analyzes/NOJIRA-designer-workflow/analysis.md) |
 | Where the pipeline architecture is heading, and why | [`A-NOJIRA-pipeline-staging`](analyzes/NOJIRA-pipeline-staging/analysis.md) |
+| How the handover package is laid out, written safely, and verified | [`ARCH-handover-package`](architecture/NOJIRA-figma-to-code/handover-package.md) |
 | What happened to the 31 inherited requirements | [`A-NOJIRA-requirement-backlog`](analyzes/NOJIRA-requirement-backlog/analysis.md) → [`P-NOJIRA-requirement-triage`](plan/NOJIRA-requirement-triage/plan.md) |
 | What was tried before and what it cost | [`foundation/prior-art-ds-skills.md`](foundation/prior-art-ds-skills.md) → `reference/prior-art-ds-skills/` |
 

@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T11:30:00Z
-updated: 2026-09-30T14:20:00Z
+updated: 2026-09-30T15:00:00Z
 tags: [architecture, pipeline, intermediate-representation, traceability, handover, design-to-code]
 references:
   - git+ssh://git@bitbucket.org/sl-technology/sl-aipdlc-toolkit.git   # sl-ds-html-to-figma, evidence on what survives a DOM round trip, read 2026-09-30
@@ -468,6 +468,10 @@ load-bearing contract in the architecture on the least evidence.
    fix — is part of this flow, not an exception to it, and nothing currently describes it.
 
 ## Leads to
+
+- Design doc: [`ARCH-handover-package`](../../architecture/NOJIRA-figma-to-code/handover-package.md)
+  — the package layout, the atomic write protocol, and the five-check verification chain that this
+  analysis's conclusions imply.
 
 - No plan yet. Slice 2 is written against the baseline, and its first task defines the intermediate
   artifact. See [`plan/roadmap.md`](../../plan/roadmap.md).

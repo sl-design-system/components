@@ -70,8 +70,7 @@ describe('sl-toggle-group', () => {
     });
 
     it('should describe single selection with aria-description', () => {
-      expect(el).to.have.attribute('aria-description', 'Select one');
-      expect(el.ariaDescription).to.equal('Select one');
+      expect(el.internals.ariaDescription).to.equal('Select one');
     });
 
     it('should not override an explicit role', async () => {
@@ -89,6 +88,27 @@ describe('sl-toggle-group', () => {
 
       expect(el).not.to.have.attribute('role');
       expect(el.internals.role).to.equal('group');
+    });
+
+    it('should not override an explicit aria-description attribute', async () => {
+      el = await fixture(
+        html`<sl-toggle-group aria-description="Custom description"></sl-toggle-group>`
+      );
+
+      expect(el).to.have.attribute('aria-description', 'Custom description');
+      expect(el.internals.ariaDescription).to.equal('Select one');
+    });
+
+    it('should preserve explicit aria-description when properties change', async () => {
+      el = await fixture(
+        html`<sl-toggle-group aria-description="Custom description"></sl-toggle-group>`
+      );
+
+      el.multiple = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-description', 'Custom description');
+      expect(el.internals.ariaDescription).to.equal('Select one or more');
     });
 
     it('should propagate disabled to the buttons', async () => {
@@ -166,8 +186,7 @@ describe('sl-toggle-group', () => {
     });
 
     it('should describe multiple selection with aria-description', () => {
-      expect(el).to.have.attribute('aria-description', 'Select one or more');
-      expect(el.ariaDescription).to.equal('Select one or more');
+      expect(el.internals.ariaDescription).to.equal('Select one or more');
     });
 
     it('should allow multiple buttons to be pressed at the same time', async () => {

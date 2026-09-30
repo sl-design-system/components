@@ -151,7 +151,7 @@ export class ToggleGroup extends LitElement {
   }
 
   #updateAriaDescription(): void {
-    this.ariaDescription = this.multiple
+    this.internals.ariaDescription = this.multiple
       ? msg('Select one or more', { id: 'sl.toggleGroup.selectOneOrMore' })
       : msg('Select one', { id: 'sl.toggleGroup.selectOne' });
   }

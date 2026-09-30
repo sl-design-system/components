@@ -29,63 +29,30 @@ Result: 545 screens → 410 full pages → **51 visually distinct families**.
 
 ## List A — verified by eye, ready to freeze
 
-Each was rendered and looked at. Type, shape and team all vary.
+Eleven cases, each rendered and looked at. See the review page linked above for the images.
 
-### Kampus — [Subchapter feed page](https://www.figma.com/design/73YHtIYl0UHXH8ST4J7VKI/New-content-view?node-id=5311-37116)
+| # | Team | Screen | Role in the corpus |
+|---|---|---|---|
+| A1 | Kampus | Subchapter feed page | clean, richest — 83 component types |
+| A2 | NSP | class overview | clean, largest — 10 936 nodes |
+| A3 | MyPortal | Chapter / Digital Exercises | rich product page, moderate override |
+| A4 | Sesame | My Groups | override extreme — 91% |
+| A5 | ETSL | Metadata usage | widget dashboard, partial coverage 82% |
+| A6 | Itsl-Collab | Shared folder – teacher view | rich, 71 component types |
+| A7 | MyPortal | Materials / Overviews | detached candidates + 64% override |
+| A8 | NSP | Group list | detached candidates (12) |
+| A9 | SANNA | Login 1 | simplest clean page — the sanity case |
+| A10 | ETSL | FAM – Users | data table page: filters, table, row actions, pagination |
+| A11 | Sesame | Learning materials | mobile, 360 wide — the only responsive case |
 
-learning-materials page — sidebar table of contents, top bar, content feed  
-`1280×720` · 1803 nodes · 83 component types · lib **99%** · ovr **11%** · det **1** · 81 variant(s) collapsed into this family
+Two entries were replaced after review. **ETSL `Part 1`** was a fragment — the search area of a page,
+not a page — and is replaced by `FAM – Users`, found by surveying four more of ETSL's 21 pages.
+**Kampus `1920`** was a cover and is out; the mobile slot it left is filled by Sesame's 360-wide
+page instead.
 
-**Role in the corpus:** clean, richest (83 component types)
-
-### MyPortal — [Chapter / Digital Exercises / Exercises](https://www.figma.com/design/1yroCKkROktqhRCP2wwlzB/MyPortal-Designs-2025?node-id=25124-56828)
-
-chapter page with a modal over it — dense product screen  
-`1440×1024` · 2147 nodes · 75 component types · lib **97%** · ovr **32%** · det **16** · 20 variant(s) collapsed into this family
-
-**Role in the corpus:** override-heavy, rich
-
-### Folio — [Display - Percentage LG 2](https://www.figma.com/design/o7lKWrw5sG8SZDs5QMTRH4/Folio-Designs?node-id=3762-114498)
-
-results grid per student with a popover — data-table shaped  
-`1440×1024` · 1024 nodes · 50 component types · lib **100%** · ovr **30%** · det **1** · 8 variant(s) collapsed into this family
-
-**Role in the corpus:** table-heavy, moderate override
-
-### Sesame — [My Groups](https://www.figma.com/design/UBr399hnydpNF9P5Jb2vfx/MySesame-Redesign?node-id=2847-14994)
-
-groups table: filters, row selection, bulk action bar, context menu  
-`1280×1796` · 822 nodes · 39 component types · lib **98%** · ovr **91%** · det **3** · 25 variant(s) collapsed into this family
-
-**Role in the corpus:** override-extreme (91%)
-
-### ETSL — [Metadata usage widget](https://www.figma.com/design/S5QgDy8X9eqhvECPANSZMM/Editorial-Suite-designs?node-id=17214-103584)
-
-functional-management dashboard of widgets — densest page found  
-`1440×2032` · 1856 nodes · 49 component types · lib **82%** · ovr **49%** · det **0** · 5 variant(s) collapsed into this family
-
-**Role in the corpus:** partial coverage (82%), dashboard
-
-### NSP — [home](https://www.figma.com/design/sSrpLCZm302ces3khoBGls/NS-fundaments?node-id=2095-44291)
-
-class cards grid plus a task panel with placeholders  
-`1280×877` · 464 nodes · 32 component types · lib **93%** · ovr **62%** · det **8** · 1 variant(s) collapsed into this family
-
-**Role in the corpus:** simple page, high override
-
-### Sesame — [Learning materials](https://www.figma.com/design/UBr399hnydpNF9P5Jb2vfx/MySesame-Redesign?node-id=340-41853)
-
-mobile page, 360 wide — the only mobile candidate found  
-`1280×800` · 561 nodes · 31 component types · lib **98%** · ovr **93%** · det **0** · 3 variant(s) collapsed into this family
-
-**Role in the corpus:** mobile / responsive
-
-### Kampus — [1920](https://www.figma.com/design/73YHtIYl0UHXH8ST4J7VKI/New-content-view?node-id=I9340-43907;9337-39835)
-
-chapter card grid, image-heavy  
-`1366×720` · 520 nodes · 38 component types · lib **82%** · ovr **0%** · det **0** · 5 variant(s) collapsed into this family
-
-**Role in the corpus:** partial coverage, zero override
+**A9 is the deliberate floor case.** A login screen is simple, and that is the point: if the
+pipeline cannot reproduce the simplest clean page in the corpus, no score on the harder ones means
+anything. It is also the first case to drop if it proves to teach nothing.
 
 ---
 

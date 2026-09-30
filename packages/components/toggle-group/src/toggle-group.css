@@ -10,7 +10,7 @@
   border: var(--_group-border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
   display: inline-flex;
-  gap: var(--_border-width);
+  gap: 0;
 }
 
 :host([disabled]) {
@@ -43,6 +43,14 @@
 
 :host([shape='pill'][size='lg']) {
   --_pill-compensation: calc(var(--sl-space-200) - var(--sl-space-175));
+}
+
+:host(:not([chips])) ::slotted(sl-toggle-button:not(:last-of-type)) {
+  border-inline-end: var(--_group-border-width) solid var(--_border-color);
+}
+
+:host(:not([chips])) ::slotted(sl-toggle-button)::after {
+  display: none;
 }
 
 ::slotted(sl-toggle-button) {

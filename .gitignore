@@ -15,6 +15,7 @@ Thumbs.db
 # Dependencies
 node_modules/
 .yarn/install-state.gz
+package-lock.json
 
 # Build output
 .claude/implement-design

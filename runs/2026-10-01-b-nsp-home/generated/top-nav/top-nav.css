@@ -1,0 +1,114 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar must span the full width of its
+     container, so `block` is an intentional change, not boilerplate. */
+  display: block;
+}
+
+nav {
+  align-items: stretch;
+  background: var(--sl-elevation-surface-raised-default);
+  /* 56px bar height. An exact token does exist: --sl-size-700. */
+  block-size: var(--sl-size-700);
+  border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-400);
+  display: flex;
+  justify-content: space-between;
+  /* The nav bar's own inset is asymmetric, not the page's 48px content gutter: measured from
+     the design as 8px leading / 16px trailing. */
+  padding-inline-start: var(--sl-space-100);
+  padding-inline-end: var(--sl-size-200);
+}
+
+.start {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-400);
+}
+
+.end {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-150);
+}
+
+.logo {
+  align-items: center;
+  background: var(--sl-color-background-primary-bold);
+  block-size: var(--sl-size-400);
+  border-radius: var(--sl-size-borderRadius-lg);
+  color: var(--sl-color-foreground-primary-onBold);
+  display: flex;
+  flex-shrink: 0;
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  inline-size: var(--sl-size-400);
+  justify-content: center;
+}
+
+.links {
+  /* Stretches to `.start`'s full (nav-height) cross-axis size so the active-link underline in
+     `li::after` below can reach the bar's bottom edge, overriding `.start`'s own
+     `align-items: center` (which centers the logo). */
+  align-items: stretch;
+  align-self: stretch;
+  display: flex;
+  gap: var(--sl-size-300);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.links li {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.links a {
+  color: var(--sl-color-foreground-plain);
+  /* Longhands, not the `font:` shorthand: the shorthand would replace the inherited family
+     with the token's single unquoted family and no generic fallback, which renders serif
+     whenever the webfont has not loaded. */
+  font-size: var(--sl-size-text-new-body-md);
+  line-height: var(--sl-size-lineHeight-250);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  text-decoration: none;
+}
+
+.links li:has(a[aria-current='page']) a {
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+}
+
+/* The active-link underline is decorative CSS, not a rendered element; `aria-current="page"`
+   on the anchor is what conveys the active state to assistive tech. */
+.links li:has(a[aria-current='page'])::after {
+  background: var(--sl-color-palette-grey-800);
+  block-size: var(--sl-space-new-2xs);
+  content: '';
+  inset-block-end: 0;
+  inset-inline: 0;
+  position: absolute;
+}
+
+sl-search-field {
+  /* No token corresponds to this component-specific field width; hardcoded per spec. */
+  inline-size: 220px;
+}
+
+.profile {
+  align-items: center;
+  background: var(--sl-color-background-disabled);
+  block-size: var(--sl-size-450);
+  border: none;
+  border-radius: var(--sl-size-borderRadius-full);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-space-100);
+  inline-size: var(--sl-size-800);
+  justify-content: center;
+  padding: 0;
+}
+
+.profile sl-icon {
+  --sl-icon-size: var(--sl-size-icon-font-md);
+
+  color: var(--sl-color-foreground-plain);
+}

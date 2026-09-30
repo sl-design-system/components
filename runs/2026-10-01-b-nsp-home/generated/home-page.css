@@ -1,0 +1,77 @@
+:host {
+  /* Root page element: must be block so its two full-width children (the nav bar and the
+     content area below it) stack vertically, and so the grey page background shows through. */
+  display: block;
+  background: var(--sl-color-palette-grey-100);
+}
+
+.content {
+  display: grid;
+  /* The design's two fixed column widths (712px "Classes" / 440px "Task list"); no --sl-size-*
+     token reaches either value and a grid track needs an explicit length, so these are
+     hardcoded per spec (same precedent as `top-nav.css`'s 220px search-field width). */
+  grid-template-columns: 712px 440px;
+  /* 32px column gap. */
+  gap: var(--sl-size-400);
+  /* 32px above the headings. */
+  padding-block-start: var(--sl-size-400);
+  /* 48px inline gutters. */
+  padding-inline: var(--sl-size-600);
+}
+
+.section-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  /* 16px gap between the heading row and the card grid below it. */
+  margin-block-end: var(--sl-space-200);
+}
+
+/* The two `<h2>`s are intentionally NOT vertically aligned with each other: "Classes" shares its
+   row with the 36px-tall "Create class" button (`.section-header`), while "Task list" sits alone
+   — reproducing the design rather than forcing the columns to align. */
+h2 {
+  color: var(--sl-color-foreground-plain);
+  /* Set as longhands, not the `font:` shorthand. The shorthand would replace the inherited
+     font-family with `'Open Sans'` alone — with no fallback stack — and that face is not
+     loaded in the harness, so the headings fell back to the default serif. */
+  font-size: var(--sl-size-text-new-heading-lg);
+  line-height: var(--sl-size-lineHeight-400);
+  /* `font` is a shorthand that resets font-weight to normal; set it explicitly so the heading
+     renders semibold. */
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  margin: 0;
+}
+
+.tasks h2 {
+  /* 16px gap between the heading and the task list below it, same as `.section-header`'s. */
+  margin-block-end: var(--sl-space-200);
+}
+
+.card-grid {
+  display: grid;
+  /* 224px cards, 3 per row; reuses the exact composition `sl-nsp-class-card` sizes itself to
+     (2 * --sl-size-1000 + --sl-size-800 = 224px) so the grid tracks match the cards exactly.
+     `auto-fill` reproduces the documented 3-across layout at 1280px without inventing a
+     breakpoint for narrower widths. */
+  grid-template-columns: repeat(auto-fill, calc(2 * var(--sl-size-1000) + var(--sl-size-800)));
+  /* 20px gutters, both directions. */
+  gap: var(--sl-size-250);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  /* 20px gap between stacked placeholder blocks. */
+  gap: var(--sl-size-250);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-list ::slotted(li) {
+  list-style: none;
+}

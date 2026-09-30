@@ -1,0 +1,85 @@
+:host {
+  /* Fixed-width tile placed by the page's card grid (`repeat(auto-fill, 224px)`).
+     It DOES stretch vertically: in the design every card in a row shares one height, so a
+     card without the "No method added" row still reaches the row's baseline. */
+  display: block;
+  block-size: 100%;
+}
+
+article {
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-400);
+  border-radius: var(--sl-size-borderRadius-lg);
+  /* 224px: no --sl-size-* token reaches this width directly (scale tops out per-step at 80px);
+     composed from three existing tokens (80 + 80 + 64 = 224) rather than a hardcoded pixel. */
+  inline-size: calc(2 * var(--sl-size-1000) + var(--sl-size-800));
+  /* Fill the host so equal-height row siblings share the card's own background/border. */
+  block-size: 100%;
+  box-sizing: border-box;
+  /* Clips the media slot's square corners to the card's own border-radius, so the media region
+     reads flush with the top corners as the design shows. */
+  overflow: hidden;
+}
+
+.media {
+  align-items: center;
+  background: var(--sl-color-background-neutral-bold);
+  /* 101px: no --sl-size-* token reaches this height; composed from three existing tokens
+     (80 + 20 + 1 = 101) rather than a hardcoded pixel. */
+  block-size: calc(var(--sl-size-1000) + var(--sl-size-250) + var(--sl-size-010));
+  display: flex;
+  justify-content: center;
+}
+
+.media sl-icon {
+  --sl-icon-size: var(--sl-size-icon-font-2xl);
+
+  color: var(--sl-color-foreground-subtlest);
+}
+
+::slotted(img) {
+  block-size: 100%;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  /* 20px measured from the Figma reference (body box ~145px = 20 padding + 20 title + 20 +
+     24 badge + 20 + 20 status + 20 padding). --sl-size-250 is the 20px token; --sl-size-500 is
+     a false friend here (the Figma variable dump calls this value "Size/500", but in this
+     theme --sl-size-500 is 40px). */
+  gap: var(--sl-size-250);
+  padding: var(--sl-size-250);
+}
+
+h3 {
+  color: var(--sl-color-foreground-bold);
+  font-size: var(--sl-size-text-new-heading-md);
+  /* --sl-size-text-new-* is a font-size-only token (unlike the --sl-text-new-* shorthand family),
+     but it still doesn't carry weight - set it explicitly so the title renders semibold. */
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: var(--sl-size-lineHeight-250);
+  margin-block: 0;
+}
+
+sl-badge {
+  align-self: flex-start;
+}
+
+.status {
+  align-items: center;
+  color: var(--sl-color-foreground-primary-bold);
+  display: flex;
+  font-size: var(--sl-size-text-new-body-md);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  gap: var(--sl-space-100);
+  line-height: var(--sl-size-lineHeight-250);
+}
+
+.status sl-icon {
+  --sl-icon-size: var(--sl-size-icon-font-md);
+
+  color: var(--sl-color-foreground-info-bold);
+}

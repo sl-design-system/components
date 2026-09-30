@@ -1,0 +1,111 @@
+Currently selected nodes:
+- 2095:44291: home
+
+<frame id="2095:44291" name="home" x="1592" y="348" width="1280" height="877">
+  <instance id="2095:44292" name="Navigation" x="0" y="0" width="1280" height="56" />
+  <frame id="2095:44293" name="main wrapper" x="0" y="56" width="1280" height="622">
+    <frame id="2095:44294" name="content-area-wrapper" x="0" y="0" width="1280" height="622">
+      <frame id="2095:44295" name="content-area" x="48" y="0" width="1184" height="622">
+        <frame id="2095:44296" name="cards" x="0" y="32" width="1184" height="570">
+          <frame id="2095:44297" name="card" x="0" y="0" width="712" height="570">
+            <frame id="2095:44298" name="Frame 58" x="0" y="0" width="712" height="36">
+              <text id="2095:44299" name="Classes" x="0" y="2" width="85" height="32" />
+              <instance id="2095:44300" name="sl-button-rectangular" x="580" y="0" width="132" height="36" />
+            </frame>
+            <frame id="2095:44301" name="Frame 57" x="0" y="56" width="712" height="514">
+              <frame id="2095:44443" name="Frame 77" x="0" y="0" width="224" height="247">
+                <instance id="2095:44444" name="media/Responsive" x="0" y="0" width="224" height="101" />
+                <frame id="2095:44445" name="Frame 78" x="0" y="116" width="224" height="111">
+                  <frame id="2095:44446" name="Frame 79" x="20" y="0" width="184" height="72">
+                    <text id="2095:44447" name="5B English" x="0" y="0" width="184" height="32" />
+                    <instance id="2095:44448" name="card-slot-header-badges" x="0" y="40" width="106" height="32" />
+                  </frame>
+                  <frame id="2095:44449" name="content" x="20" y="87" width="224" height="24">
+                    <frame id="2095:44450" name="icon" x="0" y="0" width="16" height="24">
+                      <instance id="2095:44451" name="sl-icon" x="0" y="0" width="16" height="20" />
+                    </frame>
+                    <frame id="2095:44452" name="text" x="24" y="2" width="200" height="20">
+                      <frame id="2095:44453" name="Title" x="0" y="0" width="200" height="20">
+                        <text id="2095:44454" name="title" x="0" y="0" width="200" height="20" />
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="2095:44455" name="Frame 78" x="244" y="0" width="224" height="247">
+                <instance id="2095:44456" name="media/Responsive" x="0" y="0" width="224" height="101" />
+                <frame id="2095:44457" name="Frame 78" x="0" y="116" width="224" height="111">
+                  <frame id="2095:44458" name="Frame 79" x="20" y="0" width="184" height="72">
+                    <text id="2095:44459" name="5A English" x="0" y="0" width="184" height="32" />
+                    <instance id="2095:44460" name="card-slot-header-badges" x="0" y="40" width="106" height="32" />
+                  </frame>
+                  <frame id="2095:44461" name="content" x="20" y="87" width="224" height="24">
+                    <frame id="2095:44462" name="icon" x="0" y="0" width="16" height="24">
+                      <instance id="2095:44463" name="sl-icon" x="0" y="0" width="16" height="20" />
+                    </frame>
+                    <frame id="2095:44464" name="text" x="24" y="2" width="200" height="20">
+                      <frame id="2095:44465" name="Title" x="0" y="0" width="200" height="20">
+                        <text id="2095:44466" name="title" x="0" y="0" width="200" height="20" />
+                      </frame>
+                    </frame>
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="2095:44467" name="Frame 79" x="488" y="0" width="224" height="247">
+                <instance id="2095:44468" name="media/Responsive" x="0" y="0" width="224" height="101" />
+                <frame id="2095:44469" name="Frame 78" x="0" y="116" width="224" height="72">
+                  <frame id="2095:44470" name="Frame 79" x="20" y="0" width="184" height="72">
+                    <text id="2095:44471" name="5C English" x="0" y="0" width="184" height="32" />
+                    <instance id="2095:44472" name="card-slot-header-badges" x="0" y="40" width="98" height="32" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="2095:44530" name="Frame 80" x="0" y="267" width="224" height="247">
+                <instance id="2095:44531" name="media/Responsive" x="0" y="0" width="224" height="101" />
+                <frame id="2095:44532" name="Frame 78" x="0" y="116" width="224" height="72">
+                  <frame id="2095:44533" name="Frame 79" x="20" y="0" width="184" height="72">
+                    <text id="2095:44534" name="6A English" x="0" y="0" width="184" height="32" />
+                    <instance id="2095:44535" name="card-slot-header-badges" x="0" y="40" width="98" height="32" />
+                  </frame>
+                </frame>
+              </frame>
+              <frame id="2095:44552" name="Frame 81" x="244" y="267" width="224" height="247">
+                <instance id="2095:44553" name="media/Responsive" x="0" y="0" width="224" height="101" />
+                <frame id="2095:44554" name="Frame 78" x="0" y="116" width="224" height="72">
+                  <frame id="2095:44555" name="Frame 79" x="20" y="0" width="184" height="72">
+                    <text id="2095:44556" name="6B English" x="0" y="0" width="184" height="32" />
+                    <instance id="2095:44557" name="card-slot-header-badges" x="0" y="40" width="98" height="32" />
+                  </frame>
+                </frame>
+              </frame>
+            </frame>
+          </frame>
+          <frame id="2095:44306" name="Frame 66" x="744" y="0" width="440" height="428">
+            <text id="2095:44307" name="Task list" x="0" y="0" width="90" height="32" />
+            <instance id="2095:44308" name="Content-block" x="0" y="52" width="440" height="112">
+              <slot id="I2095:44308;2095:40594" name="Slot" x="20" y="16" width="400" height="80">
+                <frame id="I2095:44308;2095:40606" name="Placeholder" x="0" y="0" width="400" height="80">
+                  <text id="I2095:44308;2095:40607" name="Placeholder text" x="24" y="32" width="352" height="16" />
+                </frame>
+              </slot>
+            </instance>
+            <instance id="2095:44309" name="Content-block" x="0" y="184" width="440" height="112">
+              <slot id="I2095:44309;2095:40594" name="Slot" x="20" y="16" width="400" height="80">
+                <frame id="I2095:44309;2095:40606" name="Placeholder" x="0" y="0" width="400" height="80">
+                  <text id="I2095:44309;2095:40607" name="Placeholder text" x="24" y="32" width="352" height="16" />
+                </frame>
+              </slot>
+            </instance>
+            <instance id="2095:44310" name="Content-block" x="0" y="316" width="440" height="112">
+              <slot id="I2095:44310;2095:40594" name="Slot" x="20" y="16" width="400" height="80">
+                <frame id="I2095:44310;2095:40606" name="Placeholder" x="0" y="0" width="400" height="80">
+                  <text id="I2095:44310;2095:40607" name="Placeholder text" x="24" y="32" width="352" height="16" />
+                </frame>
+              </slot>
+            </instance>
+          </frame>
+        </frame>
+      </frame>
+    </frame>
+  </frame>
+</frame>

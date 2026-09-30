@@ -1,0 +1,64 @@
+:host {
+  /*
+   * The app bar lays out the brand mark and the right-hand actions in a single full-bleed row;
+   * this is an intentional override, not reflexive boilerplate.
+   */
+  align-items: center;
+  background: var(--sl-elevation-surface-base-default);
+  display: flex;
+  justify-content: space-between;
+  /*
+   * TODO: the design's ~70px bar height has no exact matching token. Approximated with the
+   * nearest spacing token (--sl-space-200, 16px) on top of the ~40px logo/control height, which
+   * comes out to ~72px - close to, but not pixel-exact with, the measured 70px.
+   */
+  padding-block: var(--sl-space-200);
+  padding-inline: var(--sl-space-700);
+}
+
+.logo {
+  align-items: center;
+  background: var(--sl-color-background-primary-bold);
+  block-size: var(--sl-size-500);
+  border-radius: var(--sl-size-borderRadius-lg);
+  color: var(--sl-color-foreground-primary-onBold);
+  display: flex;
+  /*
+   * This theme does not declare a combined `--sl-text-new-heading-lg` font shorthand - only the
+   * longhands below exist (confirmed against packages/themes/sanoma-pro/theme.css) - and the
+   * heading scale has no `-fontWeight` longhand, so the weight comes from the `typeset` token.
+   */
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  inline-size: var(--sl-size-500);
+  justify-content: center;
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-100);
+}
+
+.bell {
+  display: inline-flex;
+  position: relative;
+}
+
+.bell sl-badge {
+  inset-block-start: calc(var(--sl-size-050) * -1);
+  inset-inline-end: calc(var(--sl-size-050) * -1);
+  pointer-events: none;
+  position: absolute;
+}
+
+.account::part(button) {
+  background: var(--sl-color-background-neutral-subtlest);
+}
+
+.bell-icon {
+  block-size: var(--sl-size-icon-font-md);
+  inline-size: var(--sl-size-icon-font-md);
+}

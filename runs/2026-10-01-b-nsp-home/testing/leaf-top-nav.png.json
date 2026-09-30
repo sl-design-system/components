@@ -1,0 +1,26 @@
+{
+  "story": "runs-b-nsp-home-top-nav--basic",
+  "theme": "sanoma-learning",
+  "url": "http://localhost:6010/iframe.html?id=runs-b-nsp-home-top-nav--basic&viewMode=story&globals=theme:sanoma-learning",
+  "viewport": {
+    "width": 1280,
+    "height": 400
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/b-nsp-home/testing/leaf-top-nav.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-nsp-top-nav",
+        "defined": true,
+        "hasShadowRoot": true,
+        "width": 1248,
+        "height": 57
+      }
+    ],
+    "bodyHeight": 400
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "verdict": "rendered"
+}

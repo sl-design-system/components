@@ -1,0 +1,48 @@
+{
+  "story": "examples-group-list-page--basic",
+  "theme": "sanoma-pro",
+  "url": "http://localhost:6010/iframe.html?id=examples-group-list-page--basic&viewMode=story&globals=theme:sanoma-pro",
+  "viewport": {
+    "width": 1280,
+    "height": 1024
+  },
+  "fullPage": true,
+  "screenshot": ".implement-design/a8-nsp-group-list/testing/story-basic.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-group-list-page",
+        "defined": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 996
+      }
+    ],
+    "bodyHeight": 1024
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failedRequests": [
+    "404 http://localhost:6010/assets/a8-nsp-group-list/cover-h5a.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/cover-v5b.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/cover-v6c.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/cover-v4a.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/cover-h4a.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/live-lesson-h4a.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/account-avatar.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/student-1.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/student-2.png",
+    "404 http://localhost:6010/assets/a8-nsp-group-list/student-3.png"
+  ],
+  "verdict": "rendered"
+}

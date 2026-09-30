@@ -1,0 +1,26 @@
+{
+  "story": "runs-b-nsp-home-home-page--no-classes",
+  "theme": "sanoma-pro",
+  "url": "http://localhost:6010/iframe.html?id=runs-b-nsp-home-home-page--no-classes&viewMode=story&globals=theme:sanoma-pro",
+  "viewport": {
+    "width": 1280,
+    "height": 877
+  },
+  "fullPage": false,
+  "screenshot": ".implement-design/b-nsp-home/testing/story-no-classes.png",
+  "rendered": {
+    "elements": [
+      {
+        "tag": "sl-nsp-home-page",
+        "defined": true,
+        "hasShadowRoot": true,
+        "width": 1280,
+        "height": 513
+      }
+    ],
+    "bodyHeight": 877
+  },
+  "consoleErrors": [],
+  "failedRequests": [],
+  "verdict": "rendered"
+}

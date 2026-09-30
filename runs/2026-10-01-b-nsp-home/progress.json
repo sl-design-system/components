@@ -1,0 +1,127 @@
+{
+  "case": "B-NSP-2095-44291 / b-nsp-home",
+  "pipelineCommit": "28b11db550a11275919f7882f0e77ed6bc5cc9f5",
+  "theme": "sanoma-learning",
+  "figmaFileVersion": null,
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T00:11:00",
+      "note": "remote figma; get_code_connect_map timed out on subtrees, per-node fallback used"
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T00:20:22",
+      "openQuestions": 32,
+      "tokens": 18243,
+      "note": "32 open questions, all defaults recorded in manifest.md"
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T00:29:56",
+      "typeCheck": "clean",
+      "components": 4,
+      "note": "orchestrator fixed 3 token defects post-hoc (size-500=40px not 20px; 56px->size-700; 48px->size-600)",
+      "gate": "runs/harness/typecheck.mjs --scope examples/lit/src/_runs/b-nsp-home -> verdict clean, 0 in-scope errors, 0 regressions, 2 tolerated baseline errors. No .d.ts stub used."
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T00:47:25",
+      "verdict": "NEEDS_WORK -> repaired (1 iteration)",
+      "tokens": 118758,
+      "repaired": [
+        "top-nav padding-inline 48px -> 8px start / 16px end (asymmetric, measured)",
+        "class-card .body padding+gap 16/12 -> 20/20; card height 222px -> 247px vs design 246px"
+      ],
+      "residual": [
+        "nav right edge 1253 vs design 1263 (10px; profile pill sub-element, not re-looped)"
+      ],
+      "recapturedUnder": "sanoma-learning (all captures under sanoma-pro discarded and retaken)"
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T00:49:49",
+      "tokens": 77503,
+      "note": "example scope: stories only (no tests/docs/changeset/i18n). 9 variant stories added across home-page and class-card; all captures verdict=rendered.",
+      "scopeDeviation": "authors spawned for home-page and class-card only; top-nav and placeholder-block have no meaningful additional variants (placeholder-block has zero properties)"
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T01:01:11",
+      "tokens": 108909,
+      "critical": 5,
+      "criticalFixed": 5,
+      "minor": 17,
+      "note": "C1 profile button had no accessible name (sl-avatar with image-only suppresses display-name, so the name was the initials 'LS') - fixed with aria-label. C2/C3 duplicate + mis-ordered imports - fixed. C4 two dead comments referencing the deleted icons.ts - fixed. C5 the reviewer CORRECTED ME: `plus` and `info` ARE registered by the theme; my earlier grep only matched quoted keys in icons.ts and missed the unquoted ones. `plus` restored in the Create class button.",
+      "minorFixedToo": [
+        "M15 shared mutable DEFAULT_CLASSES array as a property default",
+        "M7 raw hex in a story"
+      ],
+      "minorRemaining": "15 items carried to the report as PR comments"
+    }
+  },
+  "themeMappingFinding": {
+    "coordinatorInstructed": "max",
+    "themeActuallyUsed": "sanoma-learning",
+    "disagreesWithCoordinator": true,
+    "toolOnMyDesign": {
+      "command": "node runs/harness/theme-match.mjs .implement-design/b-nsp-home/figma-variable-defs.json",
+      "best": "sanoma-learning",
+      "confident": false,
+      "marginOverSecond": 1,
+      "absoluteAgreement": 0.476,
+      "note": "INCONCLUSIVE - three-way tie (sanoma-learning / sanoma-pro / sanoma-utbildning all 10/21). It does not rank `max` in the top three."
+    },
+    "strongerDirectMeasurement": {
+      "method": "Resolved every hex-valued colour token from figma-variable-defs.json through each theme's full brand-light var() indirection chain and compared exact values.",
+      "results": {
+        "sanoma-learning": "21/21",
+        "sanoma-pro": "17/21",
+        "sanoma-utbildning": "15/21",
+        "magister": "11/21",
+        "tig": "7/21",
+        "max": "5/21",
+        "kampus": "5/21"
+      },
+      "discriminators": {
+        "color/foreground/primary/bold": {
+          "design": "#1727b6",
+          "sanoma-learning": "#1727b6",
+          "max": "#0a6165",
+          "sanoma-pro": "#006000"
+        },
+        "color/background/primary/bold": {
+          "design": "#3366ff",
+          "sanoma-learning": "#3366ff",
+          "max": "#057c80",
+          "sanoma-pro": "#02831c"
+        },
+        "color/foreground/info/bold": {
+          "design": "#1727b6",
+          "sanoma-learning": "#1727b6",
+          "max": "#135877",
+          "sanoma-pro": "#245566"
+        }
+      }
+    },
+    "visualConfirmation": "Under sanoma-learning the logo tile, Create class button and 'No method added' text render the design's blue exactly. testing/home-page.png",
+    "batchLevelImplication": "The coordinator's `max` came from a different NSP file (a8-nsp-group-list). Two NSP designs in this batch need two different themes, so a per-TEAM theme mapping cannot be correct in principle - it has to be derived per FILE from its own variable defs."
+  },
+  "stage4Discrepancies": [
+    "`users` glyph (student-count badge) and `image` glyph (card media area) absent - genuinely not in the theme's icons.ts. Left out per runbook; not drawn, not stubbed.",
+    "`circle-info` glyph (No method added row) absent. The theme does register a different `info` glyph - a plausible but not identical stand-in; left out rather than substituted, flagged for a human decision.",
+    "Avatar renders initials ('LS') instead of the design's photo - the pipeline has no asset-export step, so avatarUrl is left undefined rather than 404ing.",
+    "Media placeholder grey is --sl-color-background-neutral-bold, ~1 step lighter than the design's flatter mid-grey. Token chosen over pixel-matching.",
+    "RESIDUAL: nav trailing edge sits 10px short of the design (profile pill width). 1 of 3 repair iterations used.",
+    "CORRECTED: `plus` was wrongly on this list - it IS theme-registered and is now rendered.",
+    "NOT A CODE DEFECT: the green-vs-blue colour family was entirely the wrong theme (sanoma-pro). Under the correct sanoma-learning the colours match the design exactly."
+  ],
+  "orchestratorFixes": [
+    "size token trap: manifest listed --sl-size-500 as 20 (Figma Size/500=20) but the theme token is 40px. Fixed placeholder padding to --sl-size-250.",
+    "56px nav height and 48px gutters were briefed as 'no token exists'; --sl-size-700 and --sl-size-600 are exact. Fixed.",
+    "ScopedElementsMixin on the root gave it a private registry; the 3 children self-registered globally only, so they rendered as inert unknown elements (page host 120px tall, nav+cards+blocks all missing). Fixed by listing them in scopedElements.",
+    "`font:` shorthand built from --sl-text-new-typeset-fontFamily-* pins a single family with no generic fallback -> serif when the Typekit webfont is unavailable. Converted to longhands in home-page h2, top-nav links, placeholder-block.",
+    "Cards in a row did not share a height (5C shorter than 5B/5A); design rows are equal-height. Added block-size:100%."
+  ],
+  "i18nExtractRun": false
+}

@@ -1,0 +1,108 @@
+:host {
+  /* Block-level so the card fills the available width, as the design requires. */
+  display: block;
+}
+
+article {
+  align-items: center;
+  background: var(--sl-elevation-surface-raised-default);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-primary-bold);
+  border-radius: var(--sl-size-borderRadius-xl);
+  display: flex;
+  gap: var(--sl-space-new-xl);
+  /* Measured off the Figma reference: card border box 1170x229 design px, photo 129x182,
+     so padding-block is 24 (24 + 182 + 24 = 230). --sl-space-new-xl (= --sl-space-300 = 24px)
+     is also in the design's own bound variable set, so it is the right token on both counts. */
+  padding: var(--sl-space-new-xl);
+}
+
+.photo {
+  /* Measured off the Figma reference: the photo is PORTRAIT 129x182 design px (aspect ~0.709),
+     not a square. No --sl-size-* token reaches this range (the scale tops out at
+     --sl-size-1000 = 80px), so the width is composed from two existing size tokens
+     (80 + 48 = 128px) and the height is carried by aspect-ratio. Recorded as a token-scale gap:
+     the system has no size token for media boxes in the 120-190px range. */
+  aspect-ratio: 129 / 182;
+  block-size: auto;
+  border-radius: var(--sl-size-borderRadius-default);
+  flex-shrink: 0;
+  inline-size: calc(var(--sl-size-1000) + var(--sl-size-600));
+  object-fit: cover;
+}
+
+.details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+h3 {
+  color: var(--sl-color-foreground-primary-bold);
+  /* There is no bare --sl-text-new-heading-lg shorthand in this theme (only the -fontFamily/
+     -fontSize/-lineHeight longhands exist) -- a font: shorthand referencing it would resolve to
+     an invalid declaration and silently drop. Use the longhands, with weight from the typeset
+     token since heading families ship no -fontWeight longhand of their own. */
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+  margin-block: 0;
+}
+
+.subject {
+  color: var(--sl-color-foreground-accent-grey-subtlest);
+  /* Same gap as h3 above -- no bare --sl-text-new-body-md shorthand exists; use the longhands.
+     This family does ship its own -fontWeight longhand, so prefer that over the typeset token. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+  margin-block: var(--sl-space-050) 0;
+}
+
+.joined {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-100);
+  margin-block-start: var(--sl-space-300);
+}
+
+.joined span {
+  color: var(--sl-color-foreground-accent-grey-subtlest);
+  /* Same --sl-text-new-body-md longhand gap as .subject above. */
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+.avatars {
+  display: flex;
+  list-style: none;
+  margin-block: 0;
+  padding-inline-start: 0;
+}
+
+.avatars li:not(:first-child) {
+  /* Overlaps each avatar by half its own (size="sm") picture diameter. */
+  margin-inline-start: calc(var(--sl-size-300) / -2);
+}
+
+.avatars sl-avatar::part(picture) {
+  /* Ring in the card's own surface colour so overlapping avatars stay visually separated. */
+  box-shadow: 0 0 0 var(--sl-size-025) var(--sl-elevation-surface-raised-default);
+}
+
+.actions {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  /* Measured gap between the stacked action buttons in the reference is 15 design px;
+     --sl-space-new-lg (= --sl-space-200 = 16px) is the nearest exact token. */
+  gap: var(--sl-space-new-lg);
+  /* Design is ~208px wide; no single --sl-size-* token reaches that far, so this is composed
+     from existing size tokens (2 * 80px + 48px = 208px, an exact match). Flagged as a token gap
+     for the orchestrator, since the scale has no token for a component width in this range. */
+  inline-size: calc(2 * var(--sl-size-1000) + var(--sl-size-600));
+}

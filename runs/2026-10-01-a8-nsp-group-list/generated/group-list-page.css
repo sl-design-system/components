@@ -1,0 +1,98 @@
+:host {
+  /* Block-level so the page fills the available width; LitElement defaults to `inline`, which
+     would not let the app bar and body content span the viewport. */
+  background: var(--sl-elevation-surface-base-default);
+  display: block;
+}
+
+.body {
+  padding-block: var(--sl-space-500) var(--sl-space-700);
+  padding-inline: var(--sl-space-700);
+}
+
+h1 {
+  color: var(--sl-color-foreground-primary-bold);
+  margin-block: 0;
+  /*
+   * This theme does not declare a combined `--sl-text-new-heading-xl` font shorthand - only the
+   * longhands below exist (confirmed against packages/themes/sanoma-pro/theme.css) - and the
+   * heading scale has no `-fontWeight` longhand, so the weight comes from the `typeset` token.
+   */
+  font-family: var(--sl-text-new-heading-xl-fontFamily);
+  font-size: var(--sl-text-new-heading-xl-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: var(--sl-text-new-heading-xl-lineHeight);
+}
+
+.subtext {
+  color: var(--sl-color-foreground-plain);
+  margin-block: var(--sl-space-050) 0;
+  /* This family ships its own `-fontWeight` longhand; prefer that over the typeset token. */
+  font-family: var(--sl-text-new-body-lg-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-body-lg-fontWeight);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+}
+
+section {
+  margin-block-start: var(--sl-space-500);
+}
+
+.section-label {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-space-100);
+  margin-block-end: var(--sl-space-200);
+}
+
+h2 {
+  color: var(--sl-color-foreground-primary-bold);
+  margin-block: 0;
+  /* Same longhand gap as h1 above - no bare `--sl-text-new-heading-lg` shorthand exists. */
+  font-family: var(--sl-text-new-heading-lg-fontFamily);
+  font-size: var(--sl-text-new-heading-lg-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: var(--sl-text-new-heading-lg-lineHeight);
+}
+
+/* The "My groups" h2 has no preceding badge, so it's a direct child of its section (unlike the
+   "Live now" h2, which sits inside .section-label) - style its own gap to the grid below it. */
+section > h2 {
+  margin-block-end: var(--sl-space-200);
+}
+
+ul {
+  display: grid;
+  gap: var(--sl-space-200);
+  grid-template-columns: repeat(2, 1fr);
+  list-style: none;
+  margin-block: 0;
+  padding-inline-start: 0;
+}
+
+sl-card {
+  /* The design's ~80px-wide book-cover thumbnail - an exact match for --sl-size-1000. */
+  --sl-card-media-size: var(--sl-size-1000);
+}
+
+/*
+ * card.css sets `slot.title::slotted(a[href]) { color: ...plain !important; }` (see
+ * packages/components/card/src/card.css) so its default link color always wins over a plain
+ * override. Matching it with `!important` plus higher selector specificity (via `:host`) is the
+ * only way to get the design's dark, bold heading color onto the card's title link.
+ */
+:host sl-card a[role='heading'][href] {
+  color: var(--sl-color-foreground-bold) !important;
+  font-family: var(--sl-text-new-heading-md-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+}
+
+sl-card span[slot='body'] {
+  color: var(--sl-color-foreground-accent-grey-subtlest);
+  font-family: var(--sl-text-new-body-md-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize);
+  font-weight: var(--sl-text-new-body-md-fontWeight);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}

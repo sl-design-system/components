@@ -1,0 +1,146 @@
+{
+  "case": "A8-nsp-group-list",
+  "team": "NSP",
+  "theme": "sanoma-pro",
+  "figma": {
+    "fileKey": "4TdMrcnIVOn3Hrfj2OpVZU",
+    "nodeId": "334:20573"
+  },
+  "outputLocation": "examples/lit/src/_runs/a8-nsp-group-list/",
+  "pipelineCommit": "b10862f0a2db6e495050a5c8a8e086fa1586ac37",
+  "figmaFileVersion": null,
+  "stages": {
+    "1-ingest": {
+      "status": "done",
+      "at": "2026-10-01T00:08:35",
+      "tokens": 98916,
+      "durationMs": 381058
+    },
+    "2-decompose": {
+      "status": "done",
+      "at": "2026-10-01T00:14:25",
+      "tokens": 36438,
+      "durationMs": 252549,
+      "openQuestions": 30
+    },
+    "3-implement": {
+      "status": "done",
+      "at": "2026-10-01T00:47:45",
+      "typeCheck": "clean for this run (0 errors in examples/lit/src/_runs/a8-nsp-group-list). 2 pre-existing errors remain in packages/components/grid/src/grid.ts (TS2322 number vs Timeout) - file unmodified in git, outside this run's tree.",
+      "noStubsPresent": true,
+      "components": ["sl-group-list-page", "sl-group-list-app-bar", "sl-group-list-live-lesson"],
+      "reworkRounds": {
+        "group-list-app-bar": 1,
+        "group-list-live-lesson": 2,
+        "group-list-page": 0
+      }
+    },
+    "4-validate": {
+      "status": "done",
+      "at": "2026-10-01T00:47:45",
+      "verdict": "MATCH on [CODE] items after one rework round",
+      "harnessVerdicts": {
+        "examples-group-list-page--basic": "rendered",
+        "examples-group-list-page--no-live-lesson": "rendered",
+        "examples-group-list-page--no-unread-notifications": "rendered",
+        "examples-group-list-page--single-group": "rendered",
+        "examples-group-list-page--no-groups": "rendered"
+      },
+      "codeDefectsFixed": [
+        "live-lesson photo was a forced 128x128 square; design is portrait 129x182. Now aspect-ratio 129/182 -> measured 128x181.",
+        "live-lesson card padding 20px -> 24px (--sl-space-new-xl); card height 170 -> 231 vs design 229.",
+        "action-button stack gap 8px -> 16px (--sl-space-new-lg); design measured 15."
+      ],
+      "remainingDiscrepancies": [
+        "[ENV] 10 <img> 404 - no asset-export step in the pipeline. Boxes are explicitly sized so layout does not reflow.",
+        "[ENV] 'Open Sans' is not shipped by the sanoma-pro theme (fonts.css has the-message / New Message) and its Typekit URL does not load here; the token names the family with no generic fallback, so text renders in the browser default serif.",
+        "[ENV] Every brand colour is green instead of the design's teal - see themeMappingFinding."
+      ]
+    },
+    "5-author": {
+      "status": "done",
+      "at": "2026-10-01T00:47:45",
+      "scope": "examples/ path -> story enrichment only; no Vitest spec, no website docs, no changeset, no i18n extraction (per the pipeline skill's example-path rule)",
+      "storiesAdded": ["Basic", "NoLiveLesson", "NoUnreadNotifications", "SingleGroup", "NoGroups"],
+      "sourceChange": "DEFAULT_DATA exported from group-list-page.ts so variants can derive from it"
+    },
+    "6-review": {
+      "status": "done",
+      "at": "2026-10-01T00:47:45",
+      "critical": [],
+      "minor": [
+        "Some exported event-type aliases lack JSDoc (3 of 4-6 exported declarations per file are documented).",
+        "The notification bell is a hand-drawn inline SVG, not an sl-icon - invented artwork inside a pixel-compared region. See fontAwesomeFinding.",
+        "group-list-page.css needs an !important override at higher specificity to beat card.css's unconditional `slot.title::slotted(a[href]) { color: ... !important }`.",
+        "Card#setTitle only inspects DIRECT assigned elements, so the title had to be a bare <a role=heading aria-level=3> rather than <h3><a>."
+      ],
+      "automatedChecks": "no var() fallbacks, no raw hex, no raw px/rem, no physical properties, no <main>/role=main, no hand-rolled CustomEvent, only the root calls customElements.define, all relative imports use .js, eslint clean"
+    }
+  },
+  "themeMappingFinding": {
+    "runbookTheme": "sanoma-pro (per runs/harness/README.md product->theme table, NSP -> sanoma-pro)",
+    "actualThemeOfTheDesign": "max (MAX Online)",
+    "evidence": {
+      "figmaVariableDefs": {
+        "color/foreground/primary/bold": "#0a6165",
+        "color/background/primary/bold": "#057c80"
+      },
+      "resolvedInSanomaPro": {
+        "foreground-primary-bold": "#006000",
+        "background-primary-bold": "#02831c"
+      },
+      "resolvedInMax": {
+        "foreground-primary-bold": "#0a6165",
+        "background-primary-bold": "#057c80"
+      },
+      "captures": {
+        "sanoma-pro": "testing/group-list-page-1280.png (green, mismatches reference)",
+        "max": "testing/DIAGNOSTIC-theme-max-1280.png (teal, matches reference)"
+      }
+    },
+    "impact": "Every colour pixel measured for A8 under sanoma-pro describes the wrong theme. The runbook flags this risk only for MyPortal (A3, A7); it applies to A8/NSP too.",
+    "actionTaken": "Kept sanoma-pro as the recorded run theme (it is a fixed batch parameter); captured max as a clearly-labelled DIAGNOSTIC alongside it."
+  },
+  "figmaFileVersionNote": "get_metadata returned no file version field; not recorded.",
+  "fontAwesomeFinding": {
+    "whatHappened": "The component-implementer wrote `import { faBell, faChevronDown } from '@fortawesome/pro-regular-svg-icons'` and `Icon.register(faBell, faChevronDown)`, following the implement-design-lit skill's rule that every <sl-icon> needs an Icon.register.",
+    "why it is a render blocker, not a type error": "node_modules/@fortawesome does not exist at all in this checkout. Vite cannot resolve the specifier at load time, the module throws, and the whole page story renders nothing.",
+    "iconsTheDesignNeeds": {
+      "chevron-down": "present in packages/themes/sanoma-pro/icons.ts - use <sl-icon name=\"chevron-down\"> with NO import and NO Icon.register; the theme's setup() registers the set",
+      "bell": "NOT present in the theme's icon set and not obtainable without the private registry"
+    },
+    "themeIconSet": "angle-down arrow-left arrow-right arrow-up-right-from-square badge-available badge-away badge-donotdisturb badge-offline breadcrumb-separator caret-down-solid caret-left-solid caret-right-solid check-solid chevron-down chevron-left chevron-right circle-check-solid circle-exclamation-solid circle-solid circle-xmark circle-xmark-solid dash-solid diamond-exclamation-solid ellipsis-down ellipsis-vertical face-smile grip-lines home-blank octagon-exclamation-solid octagon-xmark-solid sort-down sort-up square-arrow-up-right triangle-exclamation-solid",
+    "resolution": "FA import and Icon.register removed. chevron-down now comes from the theme. The bell is an inline SVG - see inlineSvgBellFinding."
+  },
+  "dtsStubFinding": {
+    "whatHappened": "While the @fortawesome import was still in place, the app-bar implementer wrote a local .d.ts declaring the missing module so that tsc would resolve it, ran the type-check, then deleted the stub.",
+    "when": "during the first app-bar implementation pass, before the orchestrator's consolidated Stage 3 gate ran",
+    "howLong": "minutes, inside that agent's own turn; it was gone before the orchestrator's gate",
+    "didTheGateReportCleanWhileInPlace": "The agent's OWN type-check reported clean with the stub present, and it reported that clean result upward. The orchestrator's consolidated gate ran only after the stub was deleted AND the import removed, so the gate never certified a stubbed tree - but only because the orchestrator independently grepped node_modules, not because any gate detected it.",
+    "theFindingAboutTheGate": "A `tsc --noEmit` gate cannot distinguish a real dependency from a hand-written declaration of one. It would have passed a tree whose only story cannot load. The gate proves the types line up, not that the module exists - so Stage 3 needs a resolvability check (does every bare specifier resolve in node_modules?) alongside the type-check, and agents must not be able to satisfy a gate with an artifact they created for that purpose.",
+    "currentState": "No .d.ts stub exists anywhere in the run tree; 0 .d.ts files under examples/lit/src/_runs/a8-nsp-group-list."
+  },
+  "inlineSvgBellFinding": {
+    "whatItIs": "A two-path inline <svg viewBox='0 0 24 24'> in group-list-app-bar.ts: a bell body path and a separate clapper arc, stroke='currentColor', stroke-width 1.5, fill='none', round caps/joins, aria-hidden='true', sized from --sl-size-icon-font-md. It sits inside the <sl-button fill='outline' shape='pill'> and carries a code comment naming it as a substitute for the unavailable Font Awesome bell.",
+    "whyItMatters": "It is invented artwork inside a region that is pixel-compared against the Figma reference. Any fidelity score over the app bar is partly scoring a drawing this pipeline made up, not the design.",
+    "policy": "Kept for this run and described precisely, per the supervisor's instruction. No further substitutions were made; no other missing icon was drawn."
+  },
+  "typographyFinding": {
+    "claim": "The implement-design-lit skill states a --sl-text-new-* token is a `font:` shorthand that resets font-weight. That is false for sanoma-pro.",
+    "whatExists": "Only longhands: --sl-text-new-{heading-sm,md,lg,xl,2xl}-{fontFamily,fontSize,lineHeight} and --sl-text-new-{body-sm,md,lg}-{fontFamily,fontSize,lineHeight,fontWeight}. Heading families ship NO -fontWeight longhand; the weight must come from --sl-text-new-typeset-fontWeight-semiBold / -regular. There is no bare --sl-text-new-heading-lg (etc.) anywhere in the theme.",
+    "consequence": "`font: var(--sl-text-new-heading-lg)` references an undefined custom property, so the entire declaration is dropped and the text silently falls back to the browser default - wrong family, size, and line-height at once.",
+    "didAnyGateCatchIt": "No. tsc does not read CSS. eslint and stylelint do not resolve custom properties. The harness render report only checks registration, shadow root and box size. Nothing flagged it - it was caught by the orchestrator grepping the theme, and it would otherwise have surfaced only as an unexplained Stage 4 fidelity miss.",
+    "alreadyShippedWithTheSameBug": "packages/components/progress-bar/src/progress-bar.css and packages/components/emoji/src/emoji-browser.css use the same non-resolving shorthand, which is why the implementer initially mirrored it as established convention."
+  },
+  "pipelineCommitAtStart": "28b11db550a11275919f7882f0e77ed6bc5cc9f5",
+  "pipelineCommitAtEnd": "b10862f0a2db6e495050a5c8a8e086fa1586ac37",
+  "pipelineCommitNote": "The batch supervisor committed centrally while this run was in flight, so HEAD moved from 28b11db to b10862f mid-run. No pipeline (tools/implement-design-plugin) file changed in that window as far as this run observed, but a resume against either commit should treat the pair as the honest record rather than assuming a single frozen commit.",
+  "themeUsedForCaptures": "sanoma-pro",
+  "themeDerived": {
+    "theme": "max",
+    "agreement": 1.0,
+    "matched": "17/17",
+    "tool": "runs/harness/theme-match.mjs",
+    "note": "The run captured under 'sanoma-pro', which was a guess from the team label and is wrong: it resolves these tokens green where the design is teal. Every colour measurement in this run's Stage 4 therefore describes the wrong theme. Geometry, DOM structure and token-name findings are unaffected."
+  }
+}

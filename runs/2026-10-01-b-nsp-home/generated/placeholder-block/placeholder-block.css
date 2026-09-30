@@ -1,0 +1,37 @@
+:host {
+  /* Block-level so the card fills the width the parent's stacking layout gives it, as the
+     design requires (the design's own 440px width is the parent's column width, not this
+     component's concern). */
+  display: block;
+  background: var(--sl-elevation-surface-raised-default);
+  /* --sl-color-background-input-plain would be semantically wrong here (an input background);
+     the manifest confirms --sl-elevation-surface-raised-default as the correct white surface. */
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-palette-grey-400);
+  border-radius: var(--sl-size-borderRadius-lg);
+  /* Design is exactly 112px tall; no single --sl-size-* token reaches that far (the scale tops
+     out at --sl-size-1000 = 80px), so it's composed from two existing tokens (80px + 32px = 112px,
+     an exact match) rather than a hardcoded pixel value. Flagged as a token gap for the
+     orchestrator. */
+  block-size: calc(var(--sl-size-1000) + var(--sl-size-400));
+  box-sizing: border-box;
+  padding: var(--sl-size-250); /* 20px. NOT --sl-size-500: Figma names the value Size/500=20, but the theme token --sl-size-500 is 40px. */
+}
+
+.inner {
+  align-items: center;
+  block-size: 100%;
+  border: var(--sl-size-borderWidth-default) dashed var(--sl-color-palette-grey-400);
+  border-radius: var(--sl-size-borderRadius-md);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  display: flex;
+  /* Typography set on this flat-tree ancestor (not `::slotted()`) so it's inherited by both
+     the default slot's plain-text fallback ("Placeholder") and any consumer-slotted element.
+     font-family is deliberately NOT pinned: the token is a single family with no generic
+     fallback, so setting it renders serif whenever the webfont has not loaded. */
+  font-size: var(--sl-size-text-new-body-md);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  inline-size: 100%;
+  justify-content: center;
+  line-height: var(--sl-size-lineHeight-250);
+}

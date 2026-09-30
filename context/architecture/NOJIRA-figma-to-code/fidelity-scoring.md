@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-10-01T02:10:00Z
-updated: 2026-10-01T02:10:00Z
+updated: 2026-10-01T09:00:00Z
 tags: [measurement, fidelity, scoring, bench]
 ---
 
@@ -40,6 +40,54 @@ than inferring it from acceptance criteria.
 The first three are quality, the fourth is price, and the fifth is what makes the other four
 readable. A mean without a spread cannot distinguish an improvement from noise, which is the
 question this whole effort exists to answer.
+
+### The emission boundary — which decides what is generated *and* what is measured
+
+Everything below depends on one rule, and getting it wrong makes every number meaningless. A
+screen with 318 instance nodes has six components on it; the other 312 are those six components'
+own internals. The two are not a rounding difference — they answer different questions and only one
+of them is written as markup.
+
+**The rule.** Walk the Figma tree. At each `INSTANCE`:
+
+- **It resolves to a code component** (Code Connect returns a snippet) → **emit the snippet and stop
+  descending.** Everything beneath it is the component's own business; the code component renders
+  its internals itself, and writing them out would duplicate them.
+- **It does not resolve** — a local component, an unmapped one, a detached frame → **emit nothing
+  for the node itself, keep descending**, and treat it as a layout container whose children are
+  emitted normally.
+
+That second branch is not an edge case. On the screen measured above, a local `footer` component
+had no code equivalent, so it was passed through — and the four design-system link buttons *inside*
+it did resolve and were emitted. Had the rule been "only instances not nested in another instance",
+those four buttons would have been silently dropped.
+
+**Three buckets, and every node lands in exactly one:**
+
+| Bucket | What it is | Emitted? | Measured how |
+|---|---|---|---|
+| **Emitted component** | an instance where descent stopped because a snippet resolved | yes, as the snippet | position + pixels, by node id |
+| **Passed-through container** | an instance or frame with no code equivalent | as plain markup | position + pixels, by node id |
+| **Absorbed internal** | anything beneath an emitted component | no — the component renders it | **coverage only** |
+
+This is also the coverage accounting: an absorbed internal is *accounted for* — it is covered by its
+parent — without ever appearing in the output. A node that is neither emitted, passed through, nor
+absorbed is unaccounted, and that is the omission coverage exists to catch.
+
+**Two consequences that would otherwise produce false failures.**
+
+*Position is measured at the boundary, not below it.* An absorbed internal has no DOM counterpart of
+its own to compare against: the code component's shadow DOM is structured however its author chose,
+and there is no reason it should mirror the Figma component's layer tree. Comparing them would
+generate noise proportional to how well-built the component is. So geometry is compared for emitted
+components and passed-through content only — which is also why the correspondence problem is
+smaller than it first appears: six comparisons, not 318.
+
+*Token compliance is measured at the boundary too.* Most bound variables in a subtree sit inside
+components, and those are the component's own styling — they must **not** appear in generated CSS.
+Comparing every bound variable in the Figma subtree against the tokens in generated CSS would show
+a enormous false mismatch. Only tokens on passed-through containers and on emitted components'
+*own* properties are the generator's responsibility.
 
 ### Coverage — the cheapest and the one nothing else replaces
 
@@ -135,6 +183,9 @@ answered — the corpus changed, so there is no delta to report.
 
 ## Key decisions
 
+- **The emission boundary is where a Code Connect snippet resolves** — descend through anything
+  that does not resolve, stop at anything that does.
+- **Position and token compliance are measured at that boundary**, never on absorbed internals.
 - **Coverage before fidelity**, because omission is invisible to everything else.
 - **Tolerances tiered by element class**, never one similarity figure.
 - **A difference is triaged into three causes** before it is called a failure.

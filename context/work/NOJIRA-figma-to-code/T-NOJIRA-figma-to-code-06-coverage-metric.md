@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-04
+id: T-NOJIRA-figma-to-code-06
 title: Coverage metric — node accounting
 description: Classify every node as mapped, rendered, explicitly skipped or unaccounted, and report the unaccounted ones by name
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [coverage, measurement]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-03]
+depends_on: [T-NOJIRA-figma-to-code-02]
 ---
 
 # Coverage metric — node accounting
@@ -40,4 +40,4 @@ it. This metric is deterministic, cheap, and catches the worst failure class.
 ## Verification
 Run against a corpus case, then delete one rendered section from the generated output and re-run.
 Coverage must fall and the report must name the deleted section.
-- Use case: `UC-NOJIRA-figma-to-code-04` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-04-omission-is-detected.md`
+- Use case: `UC-NOJIRA-figma-to-code-06` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-06-omission-is-detected.md`

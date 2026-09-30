@@ -92,19 +92,31 @@ Choosing which pipeline improvements to make, which is what the baseline is for.
 Tasks to be created in `work/NOJIRA-figma-to-code/` once this plan is approved:
 
 - `T-NOJIRA-figma-to-code-01` — Bench location and skeleton (`tools/sl-bench/`); corpus registry format
-- `T-NOJIRA-figma-to-code-02` — Frozen corpus: select and freeze the initial cases, document the freeze
-- `T-NOJIRA-figma-to-code-03` — Deterministic Figma node-tree extraction shared by coverage and intake
-- `T-NOJIRA-figma-to-code-04` — Coverage metric: node accounting and its report
-- `T-NOJIRA-figma-to-code-05` — Design intake report as a skill: adoption, detached instances, unmapped-component demand ranking
-- `T-NOJIRA-figma-to-code-06` — Runner command and result schema
-- `T-NOJIRA-figma-to-code-07` — Repeated-run mode and variance reporting
-- `T-NOJIRA-figma-to-code-08` — Fidelity: DOM position accuracy
-- `T-NOJIRA-figma-to-code-09` — Fidelity: per-component pixel comparison with tiered tolerances
-- `T-NOJIRA-figma-to-code-10` — Strict and as-is modes over one measurement
-- `T-NOJIRA-figma-to-code-11` — Requirement registry format, seeded from the prior attempt's list
-- `T-NOJIRA-figma-to-code-12` — Baseline run and published result
-- `T-NOJIRA-figma-to-code-13` — Cost and model-tier accounting (added by Amendment 1)
-- `T-NOJIRA-figma-to-code-14` — Experiment comparison across configurations and over time (added by Amendment 2)
+- `T-NOJIRA-figma-to-code-02` — Deterministic Figma node-tree extraction shared by coverage and intake
+- `T-NOJIRA-figma-to-code-03` — Design intake report as a skill: adoption, detached instances, unmapped-component demand ranking
+- `T-NOJIRA-figma-to-code-04` — Frozen corpus: select and freeze the initial cases, document the freeze
+- `T-NOJIRA-figma-to-code-05` — Requirement registry format, seeded from the prior attempt's list
+- `T-NOJIRA-figma-to-code-06` — Coverage metric: node accounting and its report
+- `T-NOJIRA-figma-to-code-07` — Runner command and result schema
+- `T-NOJIRA-figma-to-code-08` — Repeated-run mode and variance reporting
+- `T-NOJIRA-figma-to-code-09` — Cost and model-tier accounting (added by Amendment 1)
+- `T-NOJIRA-figma-to-code-10` — Fidelity: DOM position accuracy
+- `T-NOJIRA-figma-to-code-11` — Fidelity: per-component pixel comparison with tiered tolerances
+- `T-NOJIRA-figma-to-code-12` — Strict and as-is modes over one measurement
+- `T-NOJIRA-figma-to-code-13` — Experiment comparison across configurations and over time (added by Amendment 2)
+- `T-NOJIRA-figma-to-code-14` — Baseline run and published result
+
+**The numbers are the execution order.** Every task depends only on lower-numbered ones, so they can
+be worked straight through. Two orderings are load-bearing rather than incidental and were corrected
+when this list was sequenced:
+
+- **The intake report (03) comes before the corpus freeze (04).** The analysis states that corpus
+  cases cannot be chosen without knowing how much of a given design uses the design system; an
+  earlier draft of this breakdown had them the other way round, which would have meant hand-picking
+  the corpus and then measuring adoption afterwards.
+- **The registry (05) sits early** even though nothing in this plan needs it until late, because
+  `T-NOJIRA-requirement-triage-04` in the parallel track is blocked on it. Left at its natural
+  position it would have stalled the other track almost to the end.
 
 Each task carries a use case in `tests/NOJIRA-figma-to-code/` naming the corpus case that proves it.
 That link is the document-level expression of the plan's core rule: one requirement, one test case,
@@ -160,19 +172,19 @@ dependency for strict-mode cases, not a blocker for this plan.
     executed by `T-NOJIRA-figma-to-code-01`.
   - **Who owns the frozen corpus and how it is protected** — *answered.* A new Figma file owned by
     the design system team, holding copies of nodes taken from the product files. Executed by
-    `T-NOJIRA-figma-to-code-02`, which also records the freeze procedure and the last-modified
+    `T-NOJIRA-figma-to-code-04`, which also records the freeze procedure and the last-modified
     guard.
   - **Whether increments target the plugin, the prior skill set, or both** — *carried.* This is
-    settled by what the baseline shows, which is the output of `T-NOJIRA-figma-to-code-12`. Deciding
+    settled by what the baseline shows, which is the output of `T-NOJIRA-figma-to-code-14`. Deciding
     it now would be guessing; it belongs to the slice 2 plan.
   - **How mapping work and pipeline work are sequenced** — *carried.* A standing coordination matter
     with the Code Connect work, not a precondition for this slice: strict-mode cases need the
-    mappings, as-is mode does not, and `T-NOJIRA-figma-to-code-02` selects initial cases that avoid
-    the fourteen unmapped components.
+    mappings, as-is mode does not, and `T-NOJIRA-figma-to-code-04` selects initial cases that avoid
+    the fourteen unmapped components, informed by the intake report that now precedes it.
   - **Whether a Jira ticket is created** — *carried.* Administrative. If a ticket appears, every id
     in this initiative is renamed from `NOJIRA-figma-to-code` to its key and the cross-links updated.
 - Outstanding concerns: the fidelity dimension rests on Figma and browser renderers agreeing within
-  the tiered tolerances. If they do not, `T-NOJIRA-figma-to-code-09` is the task that will surface
+  the tiered tolerances. If they do not, `T-NOJIRA-figma-to-code-11` is the task that will surface
   it, and the analysis already names the fallback — DOM geometry alone, one dimension replaced
   rather than the plan invalidated.
 
@@ -182,9 +194,9 @@ Recorded because an approved plan that changes quietly is worse than one that wa
 
 **What changed.** The plan now measures a third axis: **what a run cost**. Every result records
 tokens by model tier and by pipeline stage alongside the score and its spread — added as
-`T-NOJIRA-figma-to-code-13` and as an eighth acceptance criterion.
-`T-NOJIRA-figma-to-code-12` extends to publish cost per case in the baseline, and
-`T-NOJIRA-figma-to-code-11` extends so a model-judged requirement records the tier and effort it was
+`T-NOJIRA-figma-to-code-09` and as an eighth acceptance criterion.
+`T-NOJIRA-figma-to-code-14` extends to publish cost per case in the baseline, and
+`T-NOJIRA-figma-to-code-05` extends so a model-judged requirement records the tier and effort it was
 validated at.
 
 The reason is a standing requirement that had not been written down: use the cheapest model and the
@@ -221,7 +233,7 @@ anything finer we might add later.
 the current pipeline once and publish the number. The standing need is larger: compare quality
 across conditions — a different model, a model newly released, a pipeline step added — and see
 whether each moved anything. That needs results **retained and comparable over time**, not a single
-snapshot. Added as `T-NOJIRA-figma-to-code-14` and as a ninth acceptance criterion. It is a small
+snapshot. Added as `T-NOJIRA-figma-to-code-13` and as a ninth acceptance criterion. It is a small
 addition given what already exists: the result schema records the pipeline commit and the cost, and
 repeated runs already produce a spread. What is missing is keeping them and diffing two.
 

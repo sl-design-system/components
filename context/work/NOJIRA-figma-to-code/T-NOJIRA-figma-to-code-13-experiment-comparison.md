@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-14
+id: T-NOJIRA-figma-to-code-13
 title: Experiment comparison across configurations and over time
 description: Retain results and compare two runs made under different conditions, reporting the difference against the measured spread so noise is not read as improvement
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T12:25:00Z
-updated: 2026-09-30T12:25:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [measurement, experiments, regression, tooling]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-07, T-NOJIRA-figma-to-code-13]
+depends_on: [T-NOJIRA-figma-to-code-08, T-NOJIRA-figma-to-code-09]
 ---
 
 # Experiment comparison across configurations and over time
@@ -49,7 +49,7 @@ they already like.
 Run one corpus case with repetition, change one stage's model tier, run again, and compare. Confirm
 the verdict, the spreads and the cost delta. Then refresh a corpus case and confirm the comparison
 against a pre-refresh run is refused rather than answered.
-- Use case: `UC-NOJIRA-figma-to-code-14` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-14-noise-is-not-improvement.md`
+- Use case: `UC-NOJIRA-figma-to-code-13` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-13-noise-is-not-improvement.md`
 
 ## Notes / work log
 Added by Amendment 2. The stored history is not authoritative on its own: results are comparable

@@ -45,7 +45,7 @@ Its one immediately actionable recommendation is a **rehearsal**: take one real 
 whole path with a real designer and record where it stalled. That needs no build, and it is the only
 evidence in this initiative that money cannot buy.
 
-The two tracks meet at one point: the intake report (`T-NOJIRA-figma-to-code-05`) is the instrument
+The two tracks meet at one point: the intake report (`T-NOJIRA-figma-to-code-03`) is the instrument
 for measuring design system adoption, and the designer analysis extends its remit from Figma files to
 canvas-built prototypes.
 

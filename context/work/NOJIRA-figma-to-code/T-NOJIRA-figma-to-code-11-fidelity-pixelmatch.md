@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-09
+id: T-NOJIRA-figma-to-code-11
 title: "Fidelity dimension: per-component pixel comparison"
 description: Element-level pixel diff with tolerances tiered by element class, retaining diff images for inspection
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [fidelity, measurement, visual]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-08]
+depends_on: [T-NOJIRA-figma-to-code-10]
 ---
 
 # Fidelity dimension: per-component pixel comparison
@@ -45,4 +45,4 @@ abandoned.
 Run against the corpus, inspect the diff images by eye, and confirm the tier applied to a text
 element differs from the one applied to a layout container. Change one colour token in the generated
 output and confirm the affected element fails.
-- Use case: `UC-NOJIRA-figma-to-code-09` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-09-tiered-tolerance-holds.md`
+- Use case: `UC-NOJIRA-figma-to-code-11` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-11-tiered-tolerance-holds.md`

@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-13
+id: T-NOJIRA-figma-to-code-09
 title: Cost and model-tier accounting
 description: Record what every run cost, by model tier and pipeline stage, so a tier or effort downgrade can be evaluated as a cost delta against a score delta
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T10:10:00Z
-updated: 2026-09-30T10:10:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [cost, model-routing, measurement]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-06]
+depends_on: [T-NOJIRA-figma-to-code-07]
 ---
 
 # Cost and model-tier accounting
@@ -34,7 +34,7 @@ cost is an improvement.** Nothing today can express that.
 - [ ] Record the tier and effort setting each stage actually ran at — the configured value is not evidence, since an override or a fallback can change it silently
 - [ ] Aggregate cost across repeated runs the same way scores are aggregated, with its own spread — cost varies per run too, and a cost comparison against a single run is as misleading as a score comparison against one
 - [ ] Report cost alongside score in the human-readable summary, not in a separate place a reader has to go looking for
-- [ ] Extend `T-NOJIRA-figma-to-code-11`'s registry so a model-judged requirement records the tier and effort it was validated at, making a later downgrade a visible change to that entry rather than an invisible one
+- [ ] Extend `T-NOJIRA-figma-to-code-05`'s registry so a model-judged requirement records the tier and effort it was validated at, making a later downgrade a visible change to that entry rather than an invisible one
 - [ ] Document the downgrade experiment as a procedure: swap one stage's tier, re-run with repetition, compare both deltas, keep or revert
 
 ## Acceptance criteria
@@ -48,7 +48,7 @@ cost is an improvement.** Nothing today can express that.
 Run a corpus case with repetition and confirm cost appears per tier and per stage with its spread.
 Then downgrade one stage to a cheaper tier, re-run, and confirm the report shows the score delta and
 the cost delta together and states whether the score moved beyond its spread.
-- Use case: `UC-NOJIRA-figma-to-code-13` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-13-downgrade-is-decidable.md`
+- Use case: `UC-NOJIRA-figma-to-code-09` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-09-downgrade-is-decidable.md`
 
 ## Notes / work log
 Added by Amendment 1 to the plan. Cost is recorded per run and per stage, deliberately not attributed

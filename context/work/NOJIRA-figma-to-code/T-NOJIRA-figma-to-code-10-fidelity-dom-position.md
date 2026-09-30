@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-08
+id: T-NOJIRA-figma-to-code-10
 title: "Fidelity dimension: DOM position accuracy"
 description: Compare each rendered element against the Figma bounding box it came from, within a stated tolerance
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [fidelity, measurement]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-03, T-NOJIRA-figma-to-code-06]
+depends_on: [T-NOJIRA-figma-to-code-02, T-NOJIRA-figma-to-code-07]
 ---
 
 # Fidelity dimension: DOM position accuracy
@@ -42,4 +42,4 @@ against container, inset on four sides, shared edges across rows are all arithme
 ## Verification
 Run against a corpus case, then shift one element by a known offset in CSS and confirm the report
 names that element with the expected delta.
-- Use case: `UC-NOJIRA-figma-to-code-08` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-08-position-drift-is-localised.md`
+- Use case: `UC-NOJIRA-figma-to-code-10` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-10-position-drift-is-localised.md`

@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-03
+id: UC-NOJIRA-figma-to-code-02
 title: Extracting the same unchanged node twice produces identical bytes
 description: Proves the ingest layer contributes no variance of its own
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [ingest, determinism]
-tests_task: T-NOJIRA-figma-to-code-03
+tests_task: T-NOJIRA-figma-to-code-02
 ---
 
 # Extracting the same unchanged node twice produces identical bytes
 
-> Verifies [T-NOJIRA-figma-to-code-03](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-03-node-tree-extraction.md).
+> Verifies [T-NOJIRA-figma-to-code-02](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-02-node-tree-extraction.md).
 
 ## Preconditions
 Node-tree extraction is implemented and a corpus case is registered and frozen.

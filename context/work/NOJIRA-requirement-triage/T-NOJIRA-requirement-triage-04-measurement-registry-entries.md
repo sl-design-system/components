@@ -13,7 +13,7 @@ created: 2026-09-30T13:15:00Z
 updated: 2026-09-30T13:15:00Z
 tags: [requirements, measurement, registry]
 source_plan: P-NOJIRA-requirement-triage
-depends_on: [T-NOJIRA-figma-to-code-11]
+depends_on: [T-NOJIRA-figma-to-code-05]
 ---
 
 # Convert the five measurement requirements into registry entries
@@ -47,4 +47,4 @@ Attempt to mark one of the five done. The registry should have no way to express
 measured property has no done state — if it does, the conversion was cosmetic.
 
 ## Notes / work log
-Depends on the registry existing (T-NOJIRA-figma-to-code-11). Everything else in this plan can run before it.
+Depends on the registry existing (T-NOJIRA-figma-to-code-05). Everything else in this plan can run before it.

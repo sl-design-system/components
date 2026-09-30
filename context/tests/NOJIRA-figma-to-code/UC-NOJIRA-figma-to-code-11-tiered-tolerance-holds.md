@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-09
+id: UC-NOJIRA-figma-to-code-11
 title: Text and layout containers are scored under different tiers, and a colour change fails
 description: Proves tiered tolerance separates real defects from renderer noise
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [fidelity, visual]
-tests_task: T-NOJIRA-figma-to-code-09
+tests_task: T-NOJIRA-figma-to-code-11
 ---
 
 # Text and layout containers are scored under different tiers, and a colour change fails
 
-> Verifies [T-NOJIRA-figma-to-code-09](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-09-fidelity-pixelmatch.md).
+> Verifies [T-NOJIRA-figma-to-code-11](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-11-fidelity-pixelmatch.md).
 
 ## Preconditions
 Per-component pixel comparison is implemented, with diff images retained.

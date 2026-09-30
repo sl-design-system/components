@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-12
+id: T-NOJIRA-figma-to-code-14
 title: Baseline run and published result
 description: Measure the existing pipeline over the frozen corpus with repetition and publish the numbers every later slice is judged against
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T10:10:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [baseline, measurement, milestone]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-07, T-NOJIRA-figma-to-code-09, T-NOJIRA-figma-to-code-10, T-NOJIRA-figma-to-code-13]
+depends_on: [T-NOJIRA-figma-to-code-08, T-NOJIRA-figma-to-code-09, T-NOJIRA-figma-to-code-11, T-NOJIRA-figma-to-code-12]
 ---
 
 # Baseline run and published result
@@ -45,4 +45,4 @@ what could be improved, but a measurement of where it stands and how much it mov
 ## Verification
 Run the full corpus with repetition, publish, and verify the empty-diff claim with `git diff`
 against the slice start commit.
-- Use case: `UC-NOJIRA-figma-to-code-12` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-12-baseline-is-anchored.md`
+- Use case: `UC-NOJIRA-figma-to-code-14` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-14-baseline-is-anchored.md`

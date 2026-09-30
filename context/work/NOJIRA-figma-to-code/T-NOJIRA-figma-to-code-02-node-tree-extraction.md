@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-03
+id: T-NOJIRA-figma-to-code-02
 title: Deterministic Figma node-tree extraction
 description: Normalise the Figma calls into one stable node-tree artifact shared by the coverage metric and the intake report
 jira: null
@@ -10,7 +10,7 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [figma, ingest, determinism]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-01]
@@ -43,4 +43,4 @@ involved at any point.
 ## Verification
 Extract twice and diff the artifacts — the diff must be empty. Extract a node containing a
 deliberately detached instance and confirm it is classified as detached.
-- Use case: `UC-NOJIRA-figma-to-code-03` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-03-extraction-is-byte-stable.md`
+- Use case: `UC-NOJIRA-figma-to-code-02` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-02-extraction-is-byte-stable.md`

@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-08
+id: UC-NOJIRA-figma-to-code-10
 title: A known CSS offset shows up as a named element with the expected delta
 description: Proves the geometry dimension localises a failure rather than reporting a diffuse score
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [fidelity, measurement]
-tests_task: T-NOJIRA-figma-to-code-08
+tests_task: T-NOJIRA-figma-to-code-10
 ---
 
 # A known CSS offset shows up as a named element with the expected delta
 
-> Verifies [T-NOJIRA-figma-to-code-08](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-08-fidelity-dom-position.md).
+> Verifies [T-NOJIRA-figma-to-code-10](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-10-fidelity-dom-position.md).
 
 ## Preconditions
 DOM position accuracy is implemented and a corpus case scores above zero on it.

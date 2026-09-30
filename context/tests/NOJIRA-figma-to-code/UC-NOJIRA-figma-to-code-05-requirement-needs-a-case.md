@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-11
+id: UC-NOJIRA-figma-to-code-05
 title: A requirement with no corpus case cannot be activated
 description: Proves the one-requirement-one-case rule is enforced by a check rather than remembered by a person
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [process, governance]
-tests_task: T-NOJIRA-figma-to-code-11
+tests_task: T-NOJIRA-figma-to-code-05
 ---
 
 # A requirement with no corpus case cannot be activated
 
-> Verifies [T-NOJIRA-figma-to-code-11](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-11-requirement-registry.md).
+> Verifies [T-NOJIRA-figma-to-code-05](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-05-requirement-registry.md).
 
 ## Preconditions
 The registry is implemented and seeded with the thirty-one requirements from the prior attempt, all at proposed.

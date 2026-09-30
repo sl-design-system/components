@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-04
+id: UC-NOJIRA-figma-to-code-06
 title: Deleting a rendered section lowers coverage and names the section
 description: Proves coverage catches the failure class pixel comparison is blind to
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [coverage]
-tests_task: T-NOJIRA-figma-to-code-04
+tests_task: T-NOJIRA-figma-to-code-06
 ---
 
 # Deleting a rendered section lowers coverage and names the section
 
-> Verifies [T-NOJIRA-figma-to-code-04](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-04-coverage-metric.md).
+> Verifies [T-NOJIRA-figma-to-code-06](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-06-coverage-metric.md).
 
 ## Preconditions
 Coverage is implemented and a corpus case has been generated and rendered successfully.

@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-10
+id: UC-NOJIRA-figma-to-code-12
 title: The same case scored strict and as-is yields two separate results with different verdicts
 description: Proves the two audiences are served without averaging their criteria into a number that serves neither
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [modes, design-system]
-tests_task: T-NOJIRA-figma-to-code-10
+tests_task: T-NOJIRA-figma-to-code-12
 ---
 
 # The same case scored strict and as-is yields two separate results with different verdicts
 
-> Verifies [T-NOJIRA-figma-to-code-10](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-10-strict-and-as-is-modes.md).
+> Verifies [T-NOJIRA-figma-to-code-12](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-12-strict-and-as-is-modes.md).
 
 ## Preconditions
 Both modes are implemented. One corpus case deliberately contains a component instance with no design system mapping.

@@ -3,6 +3,9 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Renumbered T-NOJIRA-figma-to-code-01..14 into execution order; corrected two orderings —
+  the intake report now precedes the corpus freeze, and the registry moved early to unblock
+  the parallel track — marcin.ludwig
 - Approved P-NOJIRA-requirement-triage and added T-NOJIRA-requirement-triage-01..06 — marcin.ludwig
 - Stated the Figma seat constraint precisely across A-NOJIRA-pipeline-staging and
   A-NOJIRA-designer-workflow: no Dev seat means no Figma MCP, so visual verification is
@@ -10,7 +13,7 @@ Structural changes to this context — append-only, newest on top (CONVENTIONS �
 - Accessibility becomes its own plan rather than part of the HTML stage — marcin.ludwig
 - Amendment 2 on P-NOJIRA-figma-to-code: the measurement tool is a bench serving both halves of
   the pipeline, renamed tools/sl-bench, with comparison across configurations and over time;
-  added T-NOJIRA-figma-to-code-14 + UC-14, reconciled T-01 and T-06 — marcin.ludwig
+  added T-NOJIRA-figma-to-code-13 + UC-14, reconciled T-01 and T-06 — marcin.ludwig
 - Corrected A-NOJIRA-pipeline-staging: developers do have Figma access; added versioned
   packages, the metadata document, and HTML-stage accessibility validation — marcin.ludwig
 - Reframed A-NOJIRA-pipeline-staging and A-NOJIRA-designer-workflow around the handover
@@ -24,7 +27,7 @@ Structural changes to this context — append-only, newest on top (CONVENTIONS �
 - Added context/README.md — the entry point for the knowledge base — marcin.ludwig
 - Added AGENTS.md at the repository root pointing agents at context/ — marcin.ludwig
 - Amendment 1 on P-NOJIRA-figma-to-code: cost and model-tier accounting as a third measured
-  axis; added T-NOJIRA-figma-to-code-13 + UC-13, reconciled T-11 and T-12 — marcin.ludwig
+  axis; added T-NOJIRA-figma-to-code-09 + UC-13, reconciled T-11 and T-12 — marcin.ludwig
 - Moved the prior-art snapshot from tools/ to reference/ — it is evidence for comparison,
   not tooling to run — marcin.ludwig
 - Added A-NOJIRA-designer-workflow (analyzes/NOJIRA-designer-workflow) — marcin.ludwig

@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-11
+id: T-NOJIRA-figma-to-code-05
 title: Requirement registry, seeded from the prior attempt
 description: The record that makes one requirement, one test case, one measured delta enforceable rather than aspirational
 jira: null
@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T10:10:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [process, requirements, governance]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-01]
@@ -45,4 +45,4 @@ distinction is enforced by a check rather than remembered by a person.
 ## Verification
 Seed the registry, attempt to activate an entry with no case and confirm the refusal, then activate
 one with a case and confirm the delta is recorded.
-- Use case: `UC-NOJIRA-figma-to-code-11` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-11-requirement-needs-a-case.md`
+- Use case: `UC-NOJIRA-figma-to-code-05` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-05-requirement-needs-a-case.md`

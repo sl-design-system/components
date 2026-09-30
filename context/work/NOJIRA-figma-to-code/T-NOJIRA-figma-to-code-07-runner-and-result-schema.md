@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-06
+id: T-NOJIRA-figma-to-code-07
 title: Runner command and result schema
 description: One command that runs a case end to end and writes a versioned, machine-readable result
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T12:25:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [harness, tooling]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-04]
+depends_on: [T-NOJIRA-figma-to-code-04, T-NOJIRA-figma-to-code-06]
 ---
 
 # Runner command and result schema
@@ -41,4 +41,4 @@ contract every later slice writes its acceptance against, so it is versioned fro
 ## Verification
 Run the full corpus, then run it again with one case deliberately broken. Confirm the broken case
 is reported and the others still produce results. Check no process survives the run.
-- Use case: `UC-NOJIRA-figma-to-code-06` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-06-run-all-is-resilient.md`
+- Use case: `UC-NOJIRA-figma-to-code-07` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-07-run-all-is-resilient.md`

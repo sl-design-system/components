@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-05
+id: T-NOJIRA-figma-to-code-03
 title: Design intake report as a skill
 description: Read-only report on how much of a Figma design uses the design system, what is detached, and which unmapped components recur across teams
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [intake, adoption, skill, design-system]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-03]
+depends_on: [T-NOJIRA-figma-to-code-02]
 ---
 
 # Design intake report as a skill
@@ -43,4 +43,4 @@ Read-only by construction: this skill never generates code and never writes into
 ## Verification
 Run against five team files from the analysis inventory. Verify by hand, on one file, that the
 detached-instance count matches what Figma itself reports.
-- Use case: `UC-NOJIRA-figma-to-code-05` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-05-adoption-report-is-actionable.md`
+- Use case: `UC-NOJIRA-figma-to-code-03` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-03-adoption-report-is-actionable.md`

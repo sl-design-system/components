@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-13
+id: UC-NOJIRA-figma-to-code-09
 title: Downgrading a stage to a cheaper model produces a decidable result
 description: Proves cost and quality can be read against each other, which is what makes model-tier choices evidence-based
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T10:10:00Z
 updated: 2026-09-30T10:10:00Z
 tags: [cost, model-routing, measurement]
-tests_task: T-NOJIRA-figma-to-code-13
+tests_task: T-NOJIRA-figma-to-code-09
 ---
 
 # Downgrading a stage to a cheaper model produces a decidable result
 
-> Verifies [T-NOJIRA-figma-to-code-13](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-13-cost-and-model-tier-accounting.md).
+> Verifies [T-NOJIRA-figma-to-code-09](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-09-cost-and-model-tier-accounting.md).
 
 ## Preconditions
 Cost accounting is implemented, the corpus is frozen, and a baseline with repetition exists for at

@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-10
+id: T-NOJIRA-figma-to-code-12
 title: Strict and as-is scoring modes over one measurement
 description: One measurement pipeline, two pass conditions, serving the design system team and product developers without blending their criteria
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [modes, measurement, design-system]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-04]
+depends_on: [T-NOJIRA-figma-to-code-06]
 ---
 
 # Strict and as-is scoring modes over one measurement
@@ -43,4 +43,4 @@ be read against the wrong criterion.
 ## Verification
 Score one corpus case containing a deliberately unmapped component in both modes and compare the
 two results.
-- Use case: `UC-NOJIRA-figma-to-code-10` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-10-modes-do-not-blend.md`
+- Use case: `UC-NOJIRA-figma-to-code-12` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-12-modes-do-not-blend.md`

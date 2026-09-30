@@ -163,7 +163,7 @@ was intended"* — is a warning written from experience.
 
 The consequence for the design system team is direct. Adoption cannot be inferred from setup. It has
 to be measured on the artifact, which is exactly the intake report already planned as
-`T-NOJIRA-figma-to-code-05`; this finding extends its remit from Figma files to canvas-built
+`T-NOJIRA-figma-to-code-03`; this finding extends its remit from Figma files to canvas-built
 prototypes, which are a second population where adoption is assumed rather than known.
 
 ### F7 — Rules for testing a design flow already exist, and they are about human validation, not code
@@ -234,7 +234,7 @@ cannot write. Any flow requiring a write to Figma is available only to full seat
 stated where the flow is chosen rather than discovered when a skill halts.
 
 **Measure design system adoption on the artifact, in both populations.** F6 shows setup does not imply
-use, and the intake report planned as `T-NOJIRA-figma-to-code-05` is the instrument. Extend its remit
+use, and the intake report planned as `T-NOJIRA-figma-to-code-03` is the instrument. Extend its remit
 to canvas-built prototypes, which is a second population where adoption is currently assumed.
 
 **Split "testing the flow" into two activities that are currently conflated.**

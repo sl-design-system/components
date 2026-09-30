@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-07
+id: UC-NOJIRA-figma-to-code-08
 title: Repeated runs report spread alongside the mean, and an unstable case is labelled before it is scored
 description: Proves repeatability itself is measured, which is the point of the whole slice
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [determinism, measurement]
-tests_task: T-NOJIRA-figma-to-code-07
+tests_task: T-NOJIRA-figma-to-code-08
 ---
 
 # Repeated runs report spread alongside the mean, and an unstable case is labelled before it is scored
 
-> Verifies [T-NOJIRA-figma-to-code-07](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-07-variance-reporting.md).
+> Verifies [T-NOJIRA-figma-to-code-08](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-08-variance-reporting.md).
 
 ## Preconditions
 Repeated-run mode is implemented and the corpus is frozen and registered.

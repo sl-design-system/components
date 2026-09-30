@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-05
+id: UC-NOJIRA-figma-to-code-03
 title: The intake report gives both audiences a number they can act on
 description: Proves the design-system adoption figure and the unmapped-component demand ranking are trustworthy
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
 updated: 2026-09-30T08:20:00Z
 tags: [intake, adoption]
-tests_task: T-NOJIRA-figma-to-code-05
+tests_task: T-NOJIRA-figma-to-code-03
 ---
 
 # The intake report gives both audiences a number they can act on
 
-> Verifies [T-NOJIRA-figma-to-code-05](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-05-intake-report-skill.md).
+> Verifies [T-NOJIRA-figma-to-code-03](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-03-intake-report-skill.md).
 
 ## Preconditions
 The intake skill is implemented. Access to at least five of the eleven team Figma files from the analysis inventory.

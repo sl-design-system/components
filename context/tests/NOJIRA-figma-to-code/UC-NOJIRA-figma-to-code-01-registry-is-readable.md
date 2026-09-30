@@ -16,7 +16,7 @@ tests_task: T-NOJIRA-figma-to-code-01
 
 # The bench reads a corpus registry and refuses one it does not understand
 
-> Verifies [T-NOJIRA-figma-to-code-01](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-01-harness-skeleton.md).
+> Verifies [T-NOJIRA-figma-to-code-01](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-01-bench-skeleton.md).
 
 ## Preconditions
 The bench exists at `tools/sl-bench/` and runs from the repo root. Three registry fixtures are available: empty, valid two-entry, and one declaring an unknown schema version.

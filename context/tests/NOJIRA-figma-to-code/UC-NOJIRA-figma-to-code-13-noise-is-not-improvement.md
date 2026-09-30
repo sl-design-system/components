@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-14
+id: UC-NOJIRA-figma-to-code-13
 title: A difference inside the spread is reported as indistinguishable, not as an improvement
 description: Proves the bench cannot be used to justify a change that did nothing
 jira: null
@@ -11,12 +11,12 @@ owner: marcin.ludwig
 created: 2026-09-30T12:25:00Z
 updated: 2026-09-30T12:25:00Z
 tags: [measurement, experiments]
-tests_task: T-NOJIRA-figma-to-code-14
+tests_task: T-NOJIRA-figma-to-code-13
 ---
 
 # A difference inside the spread is reported as indistinguishable, not as an improvement
 
-> Verifies [T-NOJIRA-figma-to-code-14](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-14-experiment-comparison.md).
+> Verifies [T-NOJIRA-figma-to-code-13](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-13-experiment-comparison.md).
 
 ## Preconditions
 Repeated-run mode and cost accounting are implemented, and at least one corpus case has a retained

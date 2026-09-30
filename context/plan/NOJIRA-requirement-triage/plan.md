@@ -108,7 +108,7 @@ makes a process stop being used.
 | Triage is treated as the work | Time goes into curating a list instead of improving the pipeline | Six tasks, all document-sized, running in parallel with the measurement slice rather than blocking it |
 
 **Dependencies.** `T-04` writes into the requirement registry created by
-`T-NOJIRA-figma-to-code-11`. `T-05` needs [`A-NOJIRA-figma-to-code`](../../analyzes/NOJIRA-figma-to-code/analysis.md)
+`T-NOJIRA-figma-to-code-05`. `T-05` needs [`A-NOJIRA-figma-to-code`](../../analyzes/NOJIRA-figma-to-code/analysis.md)
 at `status: done`, because the ADR gate requires an approved analysis before a decision built on it
 can be accepted.
 

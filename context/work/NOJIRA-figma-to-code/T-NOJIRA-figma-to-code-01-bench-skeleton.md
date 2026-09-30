@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T12:25:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [harness, tooling, foundation]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: []

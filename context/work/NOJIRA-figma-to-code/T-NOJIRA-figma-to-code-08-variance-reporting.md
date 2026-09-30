@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-07
+id: T-NOJIRA-figma-to-code-08
 title: Repeated-run mode and variance reporting
 description: Run the same input N times and report the spread alongside the mean, making repeatability itself a measured quantity
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T13:45:00Z
 tags: [determinism, measurement]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-06]
+depends_on: [T-NOJIRA-figma-to-code-07]
 ---
 
 # Repeated-run mode and variance reporting
@@ -40,4 +40,4 @@ on the report, no one can tell an improvement from noise.
 ## Verification
 Run `--repeat 3` on all corpus cases. Confirm the spread is computed per metric and that the
 individual runs are retained and openable.
-- Use case: `UC-NOJIRA-figma-to-code-07` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-07-variance-is-reported.md`
+- Use case: `UC-NOJIRA-figma-to-code-08` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-08-variance-is-reported.md`

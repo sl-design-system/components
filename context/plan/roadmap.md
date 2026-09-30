@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T13:15:00Z
+updated: 2026-09-30T16:40:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -110,6 +110,23 @@ Two consequences worth reading off the diagram: the two stages are **separately 
 designer-facing tooling that needs Figma, developer-facing tooling that must work without it — and
 the route **back** from developer to designer, for when the HTML is wrong, is part of this flow
 rather than an exception to it. Nothing describes that route yet.
+
+## Fifth track — design-system conformance of a design
+
+[A-NOJIRA-ds-conformance](../analyzes/NOJIRA-ds-conformance/analysis.md). "Unresolved by Code
+Connect" hides five different situations that belong to four different people: a missing mapping, a
+detached instance, a component that could have been from the design system and was not, and a
+genuine gap in the library. Classifying and routing them is the design system team's instrument.
+
+Its own plan, sequenced after the measurement slice and building on the intake report's traversal.
+Kept separate deliberately: it carries a heuristic layer of varying confidence and a different
+audience, and folding it into a slice whose acceptance is deliberately narrow is the pattern this
+roadmap exists to avoid.
+
+Sequenced by confidence rather than by value — missing mappings and library gaps fall out of the
+traversal nearly free, detached instances need a structural matcher built from the mappings
+themselves, and similarity matching comes last, reported with its uncertainty and never used as a
+gate.
 
 ## Fourth track — accessibility
 

@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T15:00:00Z
-updated: 2026-09-30T16:10:00Z
+updated: 2026-09-30T16:40:00Z
 tags: [architecture, package, schema, resumability, verification]
 ---
 
@@ -146,6 +146,29 @@ such as `"shape": "pill"`), and 14 empty scaffolds awaiting mappings.
 | Knows | attribute names, types, enum values, inheritance | Figma property names, Figma inner structure, the Figma↔code vocabulary, the defaults |
 | Which side | the code only | the bridge |
 | When it runs | never — it is read | at resolution, against a live instance |
+
+### How Code Connect is used, per node
+
+It is the **first** question asked of every node in stage one, because a resolved node costs a
+lookup and an unresolved one costs inference. Three outcomes:
+
+1. **Resolved** — take the snippet as it comes back. The mapping program has already run in Figma.
+2. **`null` but identifiable** — the node is named `sl-*`, a child carries a snippet, or a peer
+   instance of the same component resolves. The plugin already treats these as connected and the
+   heuristic should stay.
+3. **Genuinely unresolved** — inference begins, and so does the question of what that means.
+
+**What happens on the third outcome is governed by the scoring mode, not by a fixed policy.** In
+strict mode an unresolved component instance is a defect and the run halts with the node list — the
+current behaviour, and right when the fix is to publish a mapping. In as-is mode the node is
+reproduced from its design properties, counted, and reported as part of the non-design-system
+fraction — right when the design legitimately contains things the library does not cover.
+
+The mode governs **what stops the run, never what gets measured**: the same design scored strictly
+and as-is produces the same diagnosis and differs only in its verdict. Why a node is unresolved —
+missing mapping, detached instance, avoidable non-use, or a genuine library gap — is classified in
+both, and is the subject of
+[`A-NOJIRA-ds-conformance`](../../analyzes/NOJIRA-ds-conformance/analysis.md).
 
 ### Code Connect and the metadata answer disjoint questions
 

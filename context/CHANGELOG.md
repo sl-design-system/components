@@ -3,6 +3,8 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Added A-NOJIRA-ds-conformance (analyzes/NOJIRA-ds-conformance) — the five reasons a node fails
+  to resolve, which are detectable, and who each belongs to; its own track — marcin.ludwig
 - ARCH-handover-package: Code Connect and the structured extraction answer disjoint questions;
   unmapped nodes are the main cost and variance driver, which gives the intake report a second
   purpose as a cost forecast — marcin.ludwig

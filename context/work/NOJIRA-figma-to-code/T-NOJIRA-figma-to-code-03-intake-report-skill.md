@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T17:40:00Z
+updated: 2026-09-30T21:10:00Z
 tags: [intake, adoption, skill, design-system]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-02]
@@ -44,6 +44,8 @@ that one addresses a file by URL. Confirm which before assuming this skill can b
 of links.
 
 ## Steps
+- [ ] Implement the three filters a trial run proved necessary, because structure alone selects fragments and duplicates: **frame width must match a real viewport** (±8px) with height ≥600, which removes widgets, boards and thumbnails; **at least ten distinct component types** with instance density 0.08–0.6, which removes covers, annotation frames and component variants; and **deduplication by component histogram** (cosine >0.85 within a team), which collapses variants differing only by a colour, a note or one element
+- [ ] Treat the classification as a shortlist, never a verdict — a trial run's top candidates included a wireframe with placeholder boxes, a page of designer guidance with no instances, and a thumbnail. Only looking at them caught it, so the report should render what it proposes
 - [ ] Use exactly two calls per design — structure and the Code Connect map — and never `get_design_context`, which is the expensive one and answers a question the report does not ask
 - [ ] Cache every response to disk on first fetch, keyed by file and node, so re-running a survey costs nothing
 - [ ] Build the report on the shared node-tree artifact — the same traversal as coverage, counting different things
@@ -56,6 +58,7 @@ of links.
 ## Acceptance criteria
 - [ ] The skill runs against a Figma URL and produces the report without generating or modifying any code
 - [ ] Run against at least five of the eleven team files, it produces per-file adoption figures and one cross-file ranking
+- [ ] The report proposes candidates with a rendered image, not only numbers
 - [ ] The Code Connect resolution rate appears as its own figure, not folded into a general adoption number
 - [ ] The ranking distinguishes a component appearing many times in one file from one appearing across many teams — demand is breadth, not volume
 

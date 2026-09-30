@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T19:00:00Z
+updated: 2026-09-30T20:10:00Z
 tags: [figma, design-to-code, design-system, code-connect, quality, determinism, tooling]
 references:
   - https://github.com/sl-design-system/components/pull/3423   # implement-design plugin, read 2026-09-30
@@ -113,6 +113,10 @@ everything else in this analysis:
   [`A-NOJIRA-ds-conformance`](../NOJIRA-ds-conformance/analysis.md), F3b). At these rates it is not
   an edge case; on some screens it is the majority of instances. This is the strongest evidence yet
   that the rendering check cannot be dropped in favour of structural checks alone.
+
+The candidates the survey produced — both lists, with clickable links to every screen and the
+per-team profiles — are in
+[`corpus-candidates.md`](corpus-candidates.md) beside this analysis.
 
 One measurement caveat: without the `team_library_content:read` scope, "resolves to a published
 library" cannot be narrowed to "resolves to *our* library". A team using a second library would be

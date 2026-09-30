@@ -3,6 +3,9 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Roadmap: what each track produces, and the bias towards scripts over skills — marcin.ludwig
+- A-NOJIRA-ds-conformance F3b: an overridden instance resolves normally and emits a clean
+  snippet that does not match the design — invisible to every structural check — marcin.ludwig
 - Added A-NOJIRA-ds-conformance (analyzes/NOJIRA-ds-conformance) — the five reasons a node fails
   to resolve, which are detectable, and who each belongs to; its own track — marcin.ludwig
 - ARCH-handover-package: Code Connect and the structured extraction answer disjoint questions;

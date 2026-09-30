@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T16:40:00Z
+updated: 2026-09-30T17:10:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -48,6 +48,31 @@ evidence in this initiative that money cannot buy.
 The two tracks meet at one point: the intake report (`T-NOJIRA-figma-to-code-03`) is the instrument
 for measuring design system adoption, and the designer analysis extends its remit from Figma files to
 canvas-built prototypes.
+
+## What each track produces
+
+A deliberate bias runs through all of it: **everything that can be a script is a script.** A script
+runs identically every time, costs no tokens, and is testable. A skill is for the places where
+judgement is genuinely needed, or where the entry point has to be conversational — and a skill
+should be a thin orchestrator over scripts rather than a place where work happens.
+
+| Track | Produces | Kind |
+|---|---|---|
+| 1 — measurement | `tools/sl-bench` — one CLI with `list` / `run` / `compare` / `test`, and the metrics beneath it | tool (scripts) |
+| | the design intake report | **1 skill** — a developer or designer points it at a Figma URL |
+| | corpus registry, requirement registry, published baseline | artifacts |
+| 1b — triage | nine confirmations, three deferral records, an accessibility handoff, five registry entries, one ADR, one published backlog | documents only, no code |
+| 2 — stage split | Figma → structured artifact | **1 skill** (extraction; orchestrates scripts, judgement only where the source is ambiguous) |
+| | structured artifact → HTML | **library, no skill** — a pure function, so it is code and tested with fixtures |
+| | the package schemas | schema files + fixtures |
+| 3 — stage two | package → application code: architecture mapping, reuse detection, diff against what exists | **1 skill** + scripts for the comparison, which reuses the bench's machinery |
+| 3 — HTML → Figma | improvements to the existing `sl-ds-html-to-figma` | existing skill, extended |
+| 4 — accessibility | validation of the produced HTML; design-time guidance | script (the check) + **1 skill** (the guidance) |
+| 5 — conformance | classification and routing of unresolved nodes; the detached-instance signature matcher | scripts, most likely extending the intake skill rather than a new one |
+
+Roughly **four new skills across the whole programme**, and one existing one extended. Everything
+else is scripts, schemas and documents. If that count grows, it is worth asking what judgement the
+new skill is supposed to supply that a script could not.
 
 ## Gating rule between slices
 

@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T16:40:00Z
-updated: 2026-09-30T16:40:00Z
+updated: 2026-09-30T17:10:00Z
 tags: [design-system, conformance, code-connect, detached, adoption]
 references:
   - https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0   # the library the mappings target, read 2026-09-30
@@ -74,6 +74,7 @@ design data, and the proportion between them sets both the cost and the variance
 | 1 | Instance of a design system component, mapping exists | nobody | it works |
 | 2 | Instance of a design system component, **mapping missing** | design system team | publish the mapping — the fourteen scaffolds |
 | 3 | **Detached** instance — was a design system component, no longer is | designer, or the design system team | re-attach if unchanged; if changed, decide whether the change is a needed variant |
+| 3b | **Overridden** instance — still an instance, with local changes the mapping does not read | designer | reset the override, or ask for a variant that supports it |
 | 4 | Not a design system component, **but an equivalent exists** | designer | use the component |
 | 5 | Not a design system component, **no equivalent exists** | design system team | a gap in the library — roadmap input |
 
@@ -104,6 +105,39 @@ Once a candidate is recognised, the follow-up question splits it in two:
 - **Detached and modified** → a deliberate deviation. The useful output is not "this is wrong" but
   *what changed*, which is a geometry and pixel comparison against the component — the same
   machinery the bench already builds, pointed at a different reference.
+
+### F3b — Detached and overridden are different things, and the second one is worse
+
+"The designer detached it, or changed something" covers two states Figma treats quite differently,
+and conflating them hides the more dangerous one.
+
+| | Detached instance | Overridden instance |
+|---|---|---|
+| Still an instance? | No — it became a frame | **Yes**, with local changes on top |
+| Component identity | lost | retained |
+| Code Connect returns | nothing | **a snippet, as if nothing had happened** |
+| Recoverable in Figma | not by resetting — it must be swapped | yes, reset the overrides |
+
+A designer reporting that re-attaching is easy was most likely describing the **overridden** case,
+where "reset all changes" restores the instance. Detaching is not reversible that way. This should
+be confirmed with them, because the two lead to opposite conclusions.
+
+**The overridden case is the more dangerous of the two, and the earlier analysis missed it.** A
+detached instance announces itself by resolving to nothing. An overridden one resolves normally and
+the mapping emits a clean snippet — because a mapping reads the component's *declared properties*,
+not arbitrary local changes. A designer who recoloured a fill, hid a layer or retyped a label
+inside an instance produces a snippet that is structurally valid, passes every conformance check,
+and does not match the design.
+
+That is the "looks right, wrong underneath" class inverted: here the structure is right and the
+appearance is wrong. It is invisible to checks 1, 3 and 3c, and it is exactly what the pixel
+comparison catches — which is the clearest argument yet for why the structural and rendering checks
+are both needed and neither substitutes for the other.
+
+Whether overrides are visible in the fetched data at all is the open question. If they are, an
+overridden instance can be flagged at extraction, cheaply, and the designer told which override the
+code will not carry. If they are not, the pixel diff is the only detector and the finding arrives
+later and less precisely.
 
 ### F4 — Category 4 is a different and much weaker problem, and should be scoped as such
 
@@ -195,15 +229,20 @@ questions only the API can answer, and both are cheap to confirm and expensive t
 ## Open questions
 
 1. **Does Figma retain any marker on a detached instance?** Decides whether F3 needs structural
-   matching at all.
-2. **Do layer names survive detachment in practice**, in these teams' files? Determines the recall
+   matching at all. A designer's report that re-attaching is easy probably describes the
+   *overridden* case rather than the detached one (F3b) — worth confirming with them directly,
+   since the two lead to opposite conclusions.
+2. **Are instance overrides visible in the fetched data?** If yes, an overridden instance can be
+   flagged at extraction and the designer told which change the code will not carry. If no, the
+   pixel comparison is the only detector and the finding arrives later and less precisely.
+3. **Do layer names survive detachment in practice**, in these teams' files? Determines the recall
    of the signature approach, and is answerable by looking at two or three real designs.
-3. **What should as-is mode emit for an unresolved node** — plain markup reproducing the design, or
+4. **What should as-is mode emit for an unresolved node** — plain markup reproducing the design, or
    a placeholder the developer must complete? Reproducing is more useful and risks looking finished
    when it is not.
-4. **Who receives the routed findings, and how?** Four audiences implies four destinations, and a
+5. **Who receives the routed findings, and how?** Four audiences implies four destinations, and a
    report that lands nowhere is the same as no report.
-5. **Does the design system team want category 5 as roadmap input**, or does gap collection already
+6. **Does the design system team want category 5 as roadmap input**, or does gap collection already
    happen elsewhere?
 
 ## Leads to

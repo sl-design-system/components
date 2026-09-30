@@ -3,6 +3,10 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Stated the Figma seat constraint precisely across A-NOJIRA-pipeline-staging and
+  A-NOJIRA-designer-workflow: no Dev seat means no Figma MCP, so visual verification is
+  available to developers and structured verification is not — marcin.ludwig
+- Accessibility becomes its own plan rather than part of the HTML stage — marcin.ludwig
 - Amendment 2 on P-NOJIRA-figma-to-code: the measurement tool is a bench serving both halves of
   the pipeline, renamed tools/sl-bench, with comparison across configurations and over time;
   added T-NOJIRA-figma-to-code-14 + UC-14, reconciled T-01 and T-06 — marcin.ludwig

@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T12:25:00Z
+updated: 2026-09-30T12:55:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -111,6 +111,11 @@ designer-facing tooling that needs Figma, developer-facing tooling that must wor
 the route **back** from developer to designer, for when the HTML is wrong, is part of this flow
 rather than an exception to it. Nothing describes that route yet.
 
+## Fourth track — accessibility
+
+Its own plan, dependent on the HTML stage but not part of it. See *Not a slice, but decided* below
+for why the three pieces of accessibility work are kept apart.
+
 ## Third track — HTML back to Figma
 
 Accessibility fixes and visual corrections will be made on the HTML, and will then need to reach
@@ -142,9 +147,16 @@ developers can run it against their own repositories. Two marketplaces could hos
 the organisation's toolkit, where an empty `sl-design` plugin is already reserved. The choice is
 cheap now and expensive once consumers pin a source.
 
-**Accessibility.** R30 and R31 leave for their own initiative, with their own analysis and owner.
-Accessibility cannot be retrofitted onto generated code, so absorbing it would change the pipeline's
-shape rather than lengthen a list.
+**Accessibility.** Its own plan, not a part of either stage. Three distinct pieces of work that are
+easy to conflate and should not be: automated validation of the produced HTML, whose result belongs
+in the package metadata and can gate a pipeline; the designer review and approval that follows it,
+which is process rather than tooling; and accessibility in the generated application code — R30 and
+R31 — which is behaviour and mostly not automatable.
+
+It may **depend** on the HTML stage, since the artifact it validates has to exist first. A
+dependency is not a reason to merge plans: accessibility brings its own conformance question, its
+own tooling and a human sign-off, and folding that into a slice whose acceptance is deliberately
+narrow would give it a second discipline of a different shape.
 
 ## Parallel, not a slice
 

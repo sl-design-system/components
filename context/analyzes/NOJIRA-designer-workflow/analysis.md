@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T09:40:00Z
-updated: 2026-09-30T11:55:00Z
+updated: 2026-09-30T12:55:00Z
 tags: [design-to-code, designers, figma, prototypes, cost, workflow, testing]
 references:
   - git+ssh://git@bitbucket.org/sl-technology/sl-aipdlc-toolkit.git   # sl-prototype, sl-plan-design, sl-ds-html-to-figma skills, read 2026-09-30
@@ -118,16 +118,22 @@ needs a full design seat. Any plan that assumes developers can push prototypes b
 their existing seats is wrong by construction, and it fails at the point of use rather than at
 procurement.
 
-**A stronger version of the same constraint has since been stated: developers are not expected to
-hold a Figma seat at all.** Not a Dev seat, not a full one. That moves the finding from "some flows
-are unavailable to some people" to something structural:
+**The constraint has since been stated precisely, and it is sharper than a budget line.**
+Developers will **not** hold a Dev seat — it is separately paid. They *will* have Figma access:
+they can open a file, look at it, and export an image.
 
-- Every Figma-touching step — extraction, token reading, comparison against the design, the whole
-  fidelity measurement — is **designer-side or CI-side work**. A developer cannot run any of it.
-- The handover artifact is the developer's **only** channel to the design. Anything not in it does
-  not reach them.
-- A developer cannot verify what they receive, and cannot re-check it later. What would normally be
-  a review step has no one able to perform it on the receiving side.
+The line runs through Dev Mode, because the Figma MCP server is a Dev Mode feature. So the
+developer has **visual access without programmatic access**, and that has three structural
+consequences:
+
+- Every Figma-MCP step — design context, Code Connect resolution, variable definitions, the whole
+  fidelity measurement — is **designer-side or CI-side work**. A developer cannot run any of it,
+  regardless of being able to see the file.
+- Structured intent reaches them through the handover artifact or not at all. Looking at a design
+  shows what it looks like, never that an instance was `variant=primary, size=lg` or that a spacing
+  value came from a particular token.
+- They can verify visually and cannot verify structurally — which means the errors they will not
+  catch are precisely the ones that look right and are wrong underneath.
 
 The consequences for what the handover must contain are worked out in
 [`A-NOJIRA-pipeline-staging`](../NOJIRA-pipeline-staging/analysis.md) — in short, the Figma

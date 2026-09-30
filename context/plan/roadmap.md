@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T10:40:00Z
+updated: 2026-09-30T11:05:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -27,9 +27,9 @@ analysis documents.
 | # | Slice | Plan | Status | One-line scope |
 |---|---|---|---|---|
 | 1 | Measurement layer | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md) | approved · `phase: approved` | Coverage, two fidelity dimensions, run-to-run variance, per-run cost by model tier, design intake report, published baseline. Pipeline unchanged. |
-| 1b | Requirement triage | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | proposed · `phase: conceptual` | **Runs in parallel with slice 1, not after it.** Turn the inherited 31-item list into a true one: confirm the nine already satisfied, retire two to other backlogs, convert five into registry entries, decide the four that conflict with the pipeline's autonomy design, publish the remaining eleven in argued order. |
+| 1b | Requirement triage | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | proposed · `phase: conceptual` | **Runs in parallel with slice 1, not after it.** Turn the inherited 31-item list into a true one: confirm the nine already satisfied, defer three behind the consumer trigger, hand accessibility to its own initiative, convert five into registry entries, decide the four that conflict with the pipeline's autonomy design, publish the remaining eight in argued order. |
 | 2 | Pipeline increments | not written yet | — | One requirement at a time against the baseline. First candidates from the analysis: per-node geometry carried into the manifest, freezing the decomposition decision in a reviewable artifact, moving the computable finish checks out of the validation prompt into a script. Its ordering comes from slice 1b, not from the inherited list. |
-| 3 | The remaining open requirements | not written yet | — | The eleven that survive triage, admitted one at a time and only with a corpus case attached. Accessibility (R30, R31) is likely a separate initiative rather than part of this one. |
+| 3 | The remaining open requirements | not written yet | — | The eight that survive triage, admitted one at a time and only with a corpus case attached. |
 | 4 | Caching and change detection | not written yet | — | Skip unchanged designs, diff against the previous run. Explicitly deferred: it is an efficiency concern, and efficiency before correctness hides variance. |
 
 ## Second track — the designer handover contract
@@ -61,9 +61,21 @@ depends on, and it is document work that can be owned by a different person at t
 
 The 31 requirements from the prior attempt are re-scored in
 [A-NOJIRA-requirement-backlog](../analyzes/NOJIRA-requirement-backlog/analysis.md): nine already
-satisfied here, two belonging to other backlogs, five that are measurements rather than features,
-four in conflict with the pipeline's design, eleven genuinely open. They do not appear as a slice of
-their own — slice 1b establishes which are real and slice 3 works what remains.
+satisfied here, three deferred behind a named trigger, five that are measurements rather than
+features, four in conflict with the pipeline's design, two gone to a separate accessibility
+initiative, and **eight genuinely open now**. They do not appear as a slice of their own — slice 1b
+establishes which are real and slice 3 works what remains.
+
+## Not a slice, but decided
+
+**Distribution.** The pipeline is developed here and distributed later as an installable plugin, so
+developers can run it against their own repositories. Two marketplaces could host it — this one, or
+the organisation's toolkit, where an empty `sl-design` plugin is already reserved. The choice is
+cheap now and expensive once consumers pin a source.
+
+**Accessibility.** R30 and R31 leave for their own initiative, with their own analysis and owner.
+Accessibility cannot be retrofitted onto generated code, so absorbing it would change the pipeline's
+shape rather than lengthen a list.
 
 ## Parallel, not a slice
 

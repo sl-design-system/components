@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T10:40:00Z
-updated: 2026-09-30T10:40:00Z
+updated: 2026-09-30T11:05:00Z
 tags: [requirements, backlog, triage, design-to-code, planning]
 references:
   - https://github.com/sl-design-system/components/pull/3423   # implement-design plugin, the pipeline re-scored against, read 2026-09-30
@@ -74,19 +74,29 @@ Nine items, two of which (R22, R23) were considered the hardest open problems in
 and are satisfied here not by effort but by a packaging and factoring decision made for other
 reasons.
 
-### F2 — Two are out of scope for this initiative, and carrying them costs attention
+### F2 — Three are deferred with a named trigger, not out of scope
 
-**R14 (design system installation, Nexus token, package setup)** is a consumer-onboarding concern.
-This repository *is* the design system; there is nothing here to install. It is real work for teams
-adopting the design system and belongs to whoever owns adoption, not to design-to-code.
+An earlier draft of this analysis scored R14 (design system installation) and R24 (multi-ecosystem
+support) as belonging to someone else's backlog, on the reading that this repository *is* the design
+system and there is nothing here to install. That reading was wrong about the destination.
 
-**R24 (multi-ecosystem — NX, plain CLI)** is likewise a property of the consuming project. This
-repository is a yarn workspace and the pipeline targets it or an example within it. The requirement
-becomes live only if and when the pipeline is pointed at consumer repositories — which is itself an
-open question (see Open questions).
+The pipeline is being **developed here and distributed later**: once it works, it ships as a plugin
+that installs into consuming repositories — MAX, Kampus, and the rest — so every developer can run
+it against their own project. That makes three requirements real, but not yet:
 
-Neither is wrong. Both are someone else's backlog, and leaving them in this one makes a twelve-item
-list look like a fourteen-item one.
+| # | Requirement | Why it is not work now, and what makes it work |
+|---|---|---|
+| R6 | Theme override generation | Inside this repository the design system's own theme applies and there is nothing to override. In a consuming project there is: this was the prior attempt's **number one** defect — correct token names resolving to the generic palette instead of the project's. Triggered the first time the pipeline targets a repository with its own brand theme. |
+| R14 | Design system installation | Nothing to install here. A consuming project needs the registry configured, the packages installed and the theme imported before anything can be generated. Triggered by the first consumer installation. |
+| R24 | Multi-ecosystem support | This repository is a yarn workspace; consuming projects are not. Triggered by the first consumer repository whose structure differs. |
+
+R4 (setup verification) splits the same way: satisfied for runs inside this repository, open for the
+consumer case.
+
+**Deferred with a named trigger is a different disposition from out of scope**, and the difference
+matters at handover. An out-of-scope item is gone and nobody watches it. A deferred one has a
+condition written next to it, so it returns on its own when the condition is met instead of being
+rediscovered as a defect.
 
 ### F3 — Five stop being features and become measurements
 
@@ -149,9 +159,10 @@ grounds that efficiency before correctness hides variance.
 
 ### F6 — The re-score shrinks the backlog by roughly two thirds
 
-Nine satisfied, two out of scope, five converted to measurements, four converted to a decision. What
-remains as buildable work is **eleven items**, one of which is already scheduled and two of which
-(R30, R31) probably belong to a separate initiative.
+Nine satisfied, three deferred behind a named trigger, five converted to measurements, four
+converted to a decision, and two (R30, R31) moved to a separate accessibility initiative. What
+remains as buildable work **now** is **eight items**: R25, R2, R3, R16, R17, R21, the font half of
+R13, and R29 — one of which (R7, caching) is already scheduled into slice 4.
 
 A new owner handed 31 items would spend their first weeks establishing what this analysis
 establishes now. That is the cheapest saving available in the whole handover, and unlike the rest of
@@ -167,6 +178,25 @@ notes then record that several of those components had never been run.
 A claim of "satisfied" that turns out to be wrong is worse than an open item, because nobody looks
 at it again. The nine claims are cheap to confirm and should be confirmed before the backlog is
 handed to anyone.
+
+### F8 — Distribution is already solved mechanically, and there is an empty slot waiting for this
+
+Two plugin marketplaces are in play. This repository is one: `implement-design` is published from it
+and installs in Claude Code, Copilot CLI and VS Code. The organisation's toolkit repository is the
+other, publishing four plugins — `sl-aipdlc`, `sl-fe`, `sl-be` and **`sl-design`**, described as
+*"Systems, tokens and handoff — keeping intent intact between the frame and the build."*
+
+`sl-design` currently contains a plugin manifest and **no skills at all**. It is a reserved, empty
+slot, and it is the obvious eventual home for the design-to-code work. Nothing conflicts today
+precisely because it is empty.
+
+So the distribution mechanism needs no invention; what it needs is a decision about which
+marketplace hosts the pipeline when it is ready to leave this repository — the design system's own,
+or the organisation's. That decision is cheap now and expensive once consumers have pinned a
+source. It is not urgent, and it should not be forgotten.
+
+It also strengthens F1's reading of R22: multi-agent support is not merely satisfied, it is the
+mechanism by which everything else eventually reaches developers.
 
 ## What would change our mind
 
@@ -195,8 +225,9 @@ Four actions, in this order:
 argument into evidence. Anything that fails confirmation returns to the open list with a note
 saying why — which is more valuable than having never claimed it.
 
-**2. Retire the two out-of-scope items explicitly, with a named owner elsewhere.** Silent removal
-is how a requirement comes back six months later.
+**2. Record the three deferred items with their trigger written next to them.** Not retired — they
+become live the first time the pipeline runs against a repository that is not this one, and a
+written condition is what makes them return by themselves rather than resurfacing as a defect.
 
 **3. Record the five measurement conversions as registry entries, not as tasks.** They belong in the
 requirement registry that slice 1 builds, where a measured property is what an entry *is*.
@@ -205,13 +236,16 @@ requirement registry that slice 1 builds, where a measured property is what an e
 and the decision has evidence on both sides. It should be made once, written down as a decision
 record, and the four either adopted in a specific form or retired.
 
-**Sequence the remaining eleven by evidence, not by number.** R6 and R25 are the two the prior
-attempt identified as producing visibly wrong output, and both should be near the front — but R6's
-relevance is conditional on the consumer-repository question, which must be answered first because
-it also moves three other items. R2, R3, R21, R29 and the font half of R13 are ordinary work,
+**Sequence the remaining eight by evidence, not by number.** R25 is the one of them the prior
+attempt identified as producing visibly wrong output, and it should be near the front. R6 is the
+other such defect but is now deferred: it cannot be exercised until the pipeline targets a project
+with its own theme, and building a theme generator with no theme to generate against is untestable
+work. R2, R3, R21, R29 and the font half of R13 are ordinary work,
 sequenceable once the baseline shows what actually hurts. R16 and R17 are a pair and neither is
-urgent while the design system and the pipeline live in the same repository. R30 and R31 should be
-scoped as their own initiative rather than absorbed.
+urgent while the design system and the pipeline live in the same repository — though the
+distribution decision in F8 is what eventually makes R16 matter, since a consumer pinned to a
+published pipeline is exactly who a breaking design system change hurts. R30 and R31 leave for their
+own initiative.
 
 **Do not write plans for the eleven yet, beyond the triage.** Two of the four actions above produce
 information that changes their ordering, and the baseline produces more. Writing eleven plans now
@@ -219,15 +253,22 @@ would be the same mistake at a different altitude.
 
 ## Open questions
 
-1. **Does the pipeline target consuming repositories, or only this one?** The most consequential
-   question here: it moves R6, R14, R24 and part of R4 between scopes, and it changes what "correct
-   output" means, because a consuming application has its own brand theme.
-2. **Is accessibility (R30, R31) part of this initiative or its own?** It cannot be retrofitted onto
-   generated code, so the answer changes the pipeline's shape rather than just adding items.
-3. **Autonomy versus checkpoints** — the F4 decision. Evidence exists on both sides; it needs a
-   decision record, and the baseline sharpens but does not settle it.
-4. **Who owns R14 and R24 once they leave this backlog?** Retiring them without a destination is how
-   they return.
+1. **Does the pipeline target consuming repositories?** — *Answered.* Yes, eventually: developed
+   here, then distributed as an installable plugin so developers can run it against MAX, Kampus and
+   the rest. Recorded in F2, which reclassifies R6, R14 and R24 as deferred behind that trigger
+   rather than out of scope.
+2. **Is accessibility part of this initiative?** — *Answered.* No. R30 and R31 become their own
+   initiative with their own analysis, plan and owner. Accessibility cannot be retrofitted onto
+   generated code, so absorbing it would change the pipeline's shape rather than lengthen a list;
+   and the toolkit already ships an audit skill for a running application, so the real gap is
+   design-time guidance rather than auditing.
+3. **Autonomy versus checkpoints** — open. Evidence on both sides (F4). Needs a decision record; the
+   baseline sharpens it but does not settle it. Carried into the triage plan.
+4. **Which marketplace hosts the pipeline when it is distributed** — open (F8). The design system's
+   own, or the organisation's toolkit, where an empty `sl-design` plugin is already reserved. Cheap
+   now, expensive once consumers have pinned a source.
+5. **When does the consumer trigger fire, and who owns the three deferred items then?** Naming the
+   condition is done; naming the owner is not.
 
 ## Leads to
 

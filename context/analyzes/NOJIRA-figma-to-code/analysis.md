@@ -9,11 +9,11 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T20:10:00Z
+updated: 2026-10-01T11:00:00Z
 tags: [figma, design-to-code, design-system, code-connect, quality, determinism, tooling]
 references:
-  - https://github.com/sl-design-system/components/pull/3423   # implement-design plugin, read 2026-09-30
-  - https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0   # SLDS Components 2.0, Code Connect source of truth, read 2026-09-30
+  - https://github.com/sl-design-system/components/pull/3423 # implement-design plugin, read 2026-09-30
+  - https://www.figma.com/design/CHpKrPIdXdbV2u7X8vizKI/Components-2.0 # SLDS Components 2.0, Code Connect source of truth, read 2026-09-30
 ---
 
 # Figma-to-code pipeline — why it is not repeatable and how to make it measurable
@@ -26,8 +26,8 @@ references:
    produce the same visual result twice. Where does that variance originate?
 3. How do we state, as a number, whether a design was transferred correctly — and how badly it
    failed when it did not?
-4. The design system team needs an *identical* Figma-to-code component mapping. Product
-   developers need their *existing* designs ported as they are, including the parts that do not
+4. The design system team needs an _identical_ Figma-to-code component mapping. Product
+   developers need their _existing_ designs ported as they are, including the parts that do not
    use the design system. Can one pipeline serve both, and what does "correct" mean for each?
 5. How do we add capability incrementally without repeating the failure mode of the previous
    attempt — 31 requirements implemented at once, with no way to tell which of them worked?
@@ -41,24 +41,24 @@ itself.
 Going in, we believed:
 
 - **H1.** The repeatability problem lives in visual validation — the diff step is too weak, so
-  wrong output is accepted. *Findings F3 contradict this: validation is the last place the
-  variance appears, not where it is introduced.*
-- **H2.** More explicit rules in the agent prompts produce more consistent output. *F4 and F5
+  wrong output is accepted. _Findings F3 contradict this: validation is the last place the
+  variance appears, not where it is introduced._
+- **H2.** More explicit rules in the agent prompts produce more consistent output. _F4 and F5
   contradict this: rule count in a prompt and output consistency are not correlated, and both
-  prior attempts degraded as rules accumulated.*
-- **H3.** A single fidelity score can express "was this design transferred correctly". *F6
+  prior attempts degraded as rules accumulated._
+- **H3.** A single fidelity score can express "was this design transferred correctly". _F6
   contradicts this for the design system team's use case: a design that deliberately does not use
-  the design system scores badly on mapping while being a perfectly correct port.*
+  the design system scores badly on mapping while being a perfectly correct port._
 
 ## Context & background
 
 Three efforts are running in parallel against the same problem, with no shared measurement:
 
-| Workstream | Owner | Where | Proven to what degree |
-|---|---|---|---|
-| `implement-design` plugin (Figma → Lit/Angular, 6-stage agent pipeline) | Jeroen Zwartepoorte | `tools/implement-design-plugin/` | Landed 2026-06-26 in one commit; no substantive change since; no run artifacts retained |
-| Figma Code Connect mappings + snippet validation + CI report | Diana Broeders | `scripts/connect-figma-components/`, `.github/workflows/figma-code-connect.yml` | Active, iterating weekly; runs on every PR |
-| `ds-*`/`sdl-*` (v1) and `sl-ds-*` (v2) skill sets | marcin.ludwig | `reference/prior-art-ds-skills/` (vendored 2026-09-30; registered at `foundation/prior-art-ds-skills.md`) | v1 specification-only; v2 run on two real designs, 12% pixel difference on first run |
+| Workstream                                                              | Owner               | Where                                                                                                     | Proven to what degree                                                                   |
+| ----------------------------------------------------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `implement-design` plugin (Figma → Lit/Angular, 6-stage agent pipeline) | Jeroen Zwartepoorte | `tools/implement-design-plugin/`                                                                          | Landed 2026-06-26 in one commit; no substantive change since; no run artifacts retained |
+| Figma Code Connect mappings + snippet validation + CI report            | Diana Broeders      | `scripts/connect-figma-components/`, `.github/workflows/figma-code-connect.yml`                           | Active, iterating weekly; runs on every PR                                              |
+| `ds-*`/`sdl-*` (v1) and `sl-ds-*` (v2) skill sets                       | marcin.ludwig       | `reference/prior-art-ds-skills/` (vendored 2026-09-30; registered at `foundation/prior-art-ds-skills.md`) | v1 specification-only; v2 run on two real designs, 12% pixel difference on first run    |
 
 The prior attempt's own handover document lists **31 requirements** with a coverage matrix and a
 table of **10 unresolved problems**. That document is the single most useful input to this
@@ -69,26 +69,26 @@ so the evidence behind every finding below can be opened without a second checko
 Eleven product teams have supplied Figma files. Design-system adoption across them is unknown and
 almost certainly uneven:
 
-| Team | Figma file | File key | Node | Addressable? |
-|---|---|---|---|---|
-| NSP | New-Secondary | `4TdMrcnIVOn3Hrfj2OpVZU` | `260-8709` | yes |
-| NSP | Hypothesis-1 | `FVU1yVCdjrnULq7omrlSRm` | `3-3076` | yes |
-| NSP | NS-fundaments | `sSrpLCZm302ces3khoBGls` | `3-3076` | yes |
-| ETSL | Editorial-Suite-designs | `S5QgDy8X9eqhvECPANSZMM` | — | **no node given** |
-| Kampus | New content view (blended) | `73YHtIYl0UHXH8ST4J7VKI` | `12035-132465` | yes |
-| MAX | — | — | — | **team link, not a file** |
-| SANNA | SANNA — Ready for Development | `Mzc8BuOvMxOJGAQtv0h64M` | `1100-356642` | yes |
-| My Portal / NPM | MyPortal — Designs 2025 | `1yroCKkROktqhRCP2wwlzB` | `14799-135216` | yes — **the two links are the same file and node** |
-| NPM UI Kit | UI Kit LMV 6.0 — Reflow | `q9bC7JSvMa5KbucoUVLZji` | `7619-10736` | yes |
-| Sesame | MySesame Redesign | `UBr399hnydpNF9P5Jb2vfx` | `4893-24653` | yes — given twice, one node |
-| Folio | Folio Designs | `o7lKWrw5sG8SZDs5QMTRH4` | `3736-52358`, `323-57440` | yes (two nodes) |
-| Folio | — | — | — | **team link, not a file** |
-| It's learning | Course-files | `mONnHPTYNNaBwV3cFUHIYv` | `1-2` | yes — but `1-2` is a page root, not a screen |
-| It's learning | Bookmarks | `ya00uFyX1rjxYWF0dlOsoT` | `1-2` | as above |
-| It's learning | AI-use-resources | `qXkwhZSMq8H1uDUuzyYsR7` | `1-2` | as above |
-| It's learning | Page-tool | `lhTrQi6C15bEYhItdLj6UB` | `1-2` | as above |
-| It's learning | Collaboration-folder | `Q3gzx1pCseyKnFNDUOOjCw` | `1-2` | as above |
-| TEAS / Curiosity | AI Speech Coach — Designs | `LA6R23eqMcJYxVE7zgdCw0` | `0-1` | yes — `0-1` is the document root |
+| Team             | Figma file                    | File key                 | Node                      | Addressable?                                       |
+| ---------------- | ----------------------------- | ------------------------ | ------------------------- | -------------------------------------------------- |
+| NSP              | New-Secondary                 | `4TdMrcnIVOn3Hrfj2OpVZU` | `260-8709`                | yes                                                |
+| NSP              | Hypothesis-1                  | `FVU1yVCdjrnULq7omrlSRm` | `3-3076`                  | yes                                                |
+| NSP              | NS-fundaments                 | `sSrpLCZm302ces3khoBGls` | `3-3076`                  | yes                                                |
+| ETSL             | Editorial-Suite-designs       | `S5QgDy8X9eqhvECPANSZMM` | —                         | **no node given**                                  |
+| Kampus           | New content view (blended)    | `73YHtIYl0UHXH8ST4J7VKI` | `12035-132465`            | yes                                                |
+| MAX              | —                             | —                        | —                         | **team link, not a file**                          |
+| SANNA            | SANNA — Ready for Development | `Mzc8BuOvMxOJGAQtv0h64M` | `1100-356642`             | yes                                                |
+| My Portal / NPM  | MyPortal — Designs 2025       | `1yroCKkROktqhRCP2wwlzB` | `14799-135216`            | yes — **the two links are the same file and node** |
+| NPM UI Kit       | UI Kit LMV 6.0 — Reflow       | `q9bC7JSvMa5KbucoUVLZji` | `7619-10736`              | yes                                                |
+| Sesame           | MySesame Redesign             | `UBr399hnydpNF9P5Jb2vfx` | `4893-24653`              | yes — given twice, one node                        |
+| Folio            | Folio Designs                 | `o7lKWrw5sG8SZDs5QMTRH4` | `3736-52358`, `323-57440` | yes (two nodes)                                    |
+| Folio            | —                             | —                        | —                         | **team link, not a file**                          |
+| It's learning    | Course-files                  | `mONnHPTYNNaBwV3cFUHIYv` | `1-2`                     | yes — but `1-2` is a page root, not a screen       |
+| It's learning    | Bookmarks                     | `ya00uFyX1rjxYWF0dlOsoT` | `1-2`                     | as above                                           |
+| It's learning    | AI-use-resources              | `qXkwhZSMq8H1uDUuzyYsR7` | `1-2`                     | as above                                           |
+| It's learning    | Page-tool                     | `lhTrQi6C15bEYhItdLj6UB` | `1-2`                     | as above                                           |
+| It's learning    | Collaboration-folder          | `Q3gzx1pCseyKnFNDUOOjCw` | `1-2`                     | as above                                           |
+| TEAS / Curiosity | AI Speech Coach — Designs     | `LA6R23eqMcJYxVE7zgdCw0` | `0-1`                     | yes — `0-1` is the document root                   |
 
 Triaging the list before spending a single Figma call removes about a third of it: **two entries are
 team links** carrying no file key and cannot be queried at all; **one duplicate** (My Portal and NPM
@@ -114,12 +114,21 @@ everything else in this analysis:
   an edge case; on some screens it is the majority of instances. This is the strongest evidence yet
   that the rendering check cannot be dropped in favour of structural checks alone.
 
+**The pipeline has since been run** — see
+[`smoke-run-findings.md`](smoke-run-findings.md). It reaches Stage 4 and halts there on a missing
+registry credential, having produced two type-clean components in 372,844 tokens and 27 minutes on
+the simplest case in the corpus. Three findings bear on this analysis: the decomposition stage
+raised nine open questions and answered all nine silently, which is F3's variance mechanism
+observed rather than inferred; a Code Connect mapping proved **valid and semantically wrong**, a
+failure class no check in the chain covers; and every one of the five values the manifest flagged
+as needing a token turned out to have an exact token already.
+
 The candidates the survey produced — both lists, with clickable links to every screen and the
 per-team profiles — are in
 [`corpus-candidates.md`](corpus-candidates.md) beside this analysis.
 
 One measurement caveat: without the `team_library_content:read` scope, "resolves to a published
-library" cannot be narrowed to "resolves to *our* library". A team using a second library would be
+library" cannot be narrowed to "resolves to _our_ library". A team using a second library would be
 counted as design-system adoption.
 
 ## Findings
@@ -130,8 +139,8 @@ All three efforts target the same transformation and none of them produces a com
 quality figure.
 
 The `implement-design` plugin's validation stage returns `MATCH` or `NEEDS_WORK`, decided by a
-model looking at two images. Its own vision document names the weakness: *"visual diffing is hard
-to make precise without a dedicated image-comparison model"*. The Code Connect work does produce a
+model looking at two images. Its own vision document names the weakness: _"visual diffing is hard
+to make precise without a dedicated image-comparison model"_. The Code Connect work does produce a
 machine-checked pass/fail, but only over snippet validity, not over rendered output. The `sl-ds-*`
 skill set does compute a composite fidelity score, but it lives in a different repository and has
 been run against two designs.
@@ -156,13 +165,13 @@ Tracing where a decision stops being reproducible:
 
 1. **Ingestion produces prose.** The manifest schema's only structured output is a flat,
    deduplicated token list. Per-node geometry — padding, gap, widths, alignment, order — is
-   returned by the Figma design-context call, written to disk as raw output, and then *not carried
-   into the manifest*. No downstream agent is instructed to read it as a specification.
+   returned by the Figma design-context call, written to disk as raw output, and then _not carried
+   into the manifest_. No downstream agent is instructed to read it as a specification.
    The implementer therefore reconstructs layout from a screenshot and a prose description.
-2. **The decomposition checkpoint was removed.** The vision document specifies *"presented to the
-   user for a quick approval/redirect before any code is written"*. The shipped skill states
-   *"standalone, no approval gate"* and *"for each open question, pick a sensible default and
-   proceed"*. Component-tree shape determines shadow-DOM boundaries, which determine CSS, which
+2. **The decomposition checkpoint was removed.** The vision document specifies _"presented to the
+   user for a quick approval/redirect before any code is written"_. The shipped skill states
+   _"standalone, no approval gate"_ and _"for each open question, pick a sensible default and
+   proceed"_. Component-tree shape determines shadow-DOM boundaries, which determine CSS, which
    determines appearance. This is the highest-variance decision in the pipeline and it is both
    unreviewed and unrecorded.
 3. **The verdict is a judgement, not a measurement.** No pixel difference, no threshold, no
@@ -205,7 +214,7 @@ budget for the checks that genuinely need judgement.** Rules in a prompt compete
 rules in a script do not.
 
 Diana's snippet validator is the same principle already working one layer down: because it parses
-the custom-elements manifest, a Code Connect snippet *cannot* reference an attribute the component
+the custom-elements manifest, a Code Connect snippet _cannot_ reference an attribute the component
 does not have. A contract replaces trust.
 
 ### F6 — Two audiences, two definitions of "correct", one pipeline
@@ -249,7 +258,7 @@ comparison does.
 The question of whether a research skill is needed is answered by the existing toolkit:
 `sl-analysis` has an INVESTIGATION mode that spawns parallel research subagents and a mandatory
 anti-bias cross-check, and `sl-system-map` covers exploring a running application. This analysis was
-produced with that path. What is missing is not research capability but a *measurement* capability,
+produced with that path. What is missing is not research capability but a _measurement_ capability,
 which is a different kind of tool and is the subject of the recommendation below.
 
 ## What would change our mind
@@ -279,7 +288,7 @@ repeats by default.
 Four recommendations follow.
 
 **1. Build the measurement layer first, changing nothing in the pipeline.** Two numbers, not one:
-*coverage* (is every node accounted for — mapped, rendered, or explicitly skipped) and *fidelity*
+_coverage_ (is every node accounted for — mapped, rendered, or explicitly skipped) and _fidelity_
 (does what was rendered match). Coverage comes first because it is deterministic, cheap, and
 catches omissions that pixel comparison cannot see. Report variance across repeated runs of the
 same input as a first-class figure alongside the score — variance, not the mean, is the metric

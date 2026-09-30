@@ -10,18 +10,19 @@ speaks Polish — a validator enforces it.
 
 ## Start here
 
-| If you want to know… | Read |
-|---|---|
-| Why any of this exists, and what is actually wrong today | [`A-NOJIRA-figma-to-code`](analyzes/NOJIRA-figma-to-code/analysis.md) |
-| What is being built first, and what is deliberately not | [`P-NOJIRA-figma-to-code`](plan/NOJIRA-figma-to-code/plan.md) |
-| The whole sequence, both tracks, at a glance | [`plan/roadmap.md`](plan/roadmap.md) |
-| What a designer hands over, what it costs, how the flow gets tested | [`A-NOJIRA-designer-workflow`](analyzes/NOJIRA-designer-workflow/analysis.md) |
-| Where the pipeline architecture is heading, and why | [`A-NOJIRA-pipeline-staging`](analyzes/NOJIRA-pipeline-staging/analysis.md) |
-| How a run is scored — the five dimensions and what each is blind to | [`ARCH-fidelity-scoring`](architecture/NOJIRA-figma-to-code/fidelity-scoring.md) |
-| How the handover package is laid out, written safely, and verified | [`ARCH-handover-package`](architecture/NOJIRA-figma-to-code/handover-package.md) |
-| What to do with a node the design system does not resolve | [`A-NOJIRA-ds-conformance`](analyzes/NOJIRA-ds-conformance/analysis.md) |
-| What happened to the 31 inherited requirements | [`A-NOJIRA-requirement-backlog`](analyzes/NOJIRA-requirement-backlog/analysis.md) → [`P-NOJIRA-requirement-triage`](plan/NOJIRA-requirement-triage/plan.md) |
-| What was tried before and what it cost | [`foundation/prior-art-ds-skills.md`](foundation/prior-art-ds-skills.md) → `reference/prior-art-ds-skills/` |
+| If you want to know…                                                | Read                                                                                                                                                        |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Why any of this exists, and what is actually wrong today            | [`A-NOJIRA-figma-to-code`](analyzes/NOJIRA-figma-to-code/analysis.md)                                                                                       |
+| What is being built first, and what is deliberately not             | [`P-NOJIRA-figma-to-code`](plan/NOJIRA-figma-to-code/plan.md)                                                                                               |
+| The whole sequence, both tracks, at a glance                        | [`plan/roadmap.md`](plan/roadmap.md)                                                                                                                        |
+| What a designer hands over, what it costs, how the flow gets tested | [`A-NOJIRA-designer-workflow`](analyzes/NOJIRA-designer-workflow/analysis.md)                                                                               |
+| Where the pipeline architecture is heading, and why                 | [`A-NOJIRA-pipeline-staging`](analyzes/NOJIRA-pipeline-staging/analysis.md)                                                                                 |
+| How a run is scored — the five dimensions and what each is blind to | [`ARCH-fidelity-scoring`](architecture/NOJIRA-figma-to-code/fidelity-scoring.md)                                                                            |
+| How the handover package is laid out, written safely, and verified  | [`ARCH-handover-package`](architecture/NOJIRA-figma-to-code/handover-package.md)                                                                            |
+| What to do with a node the design system does not resolve           | [`A-NOJIRA-ds-conformance`](analyzes/NOJIRA-ds-conformance/analysis.md)                                                                                     |
+| What the first real run of the pipeline found                       | [`smoke-run-findings.md`](analyzes/NOJIRA-figma-to-code/smoke-run-findings.md)                                                                              |
+| What happened to the 31 inherited requirements                      | [`A-NOJIRA-requirement-backlog`](analyzes/NOJIRA-requirement-backlog/analysis.md) → [`P-NOJIRA-requirement-triage`](plan/NOJIRA-requirement-triage/plan.md) |
+| What was tried before and what it cost                              | [`foundation/prior-art-ds-skills.md`](foundation/prior-art-ds-skills.md) → `reference/prior-art-ds-skills/`                                                 |
 
 ## The two tracks
 

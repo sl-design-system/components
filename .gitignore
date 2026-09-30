@@ -60,3 +60,7 @@ packages/themes/**/*.js
 packages/themes/**/*.js.map
 packages/themes/**/*.scss
 !packages/themes/eslint.config.js
+
+# /implement-design pipeline — disposable run artifacts and generated output
+.implement-design/
+examples/lit/src/_runs/

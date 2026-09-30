@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T21:10:00Z
+updated: 2026-10-01T02:10:00Z
 tags: [intake, adoption, skill, design-system]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-02]
@@ -52,6 +52,7 @@ of links.
 - [ ] Report per design: the fraction of instances resolving to a design system component, the detached-instance count, the ratio of bound variables to local styles, and the unmapped components by name
 - [ ] Aggregate across designs into a ranking of unmapped components by how many distinct files and teams they appear in
 - [ ] Package it as a skill so a developer can point it at their own Figma URL without knowing anything about the harness
+- [ ] Count **top-level instances separately from nested ones**, and never report one figure as though it were the other. A trial measurement got this wrong: a screen reported as having 318 instances has **six** — the other 312 are the internals of those six. The two answer different questions (how many components a developer places, versus how much of the tree is component-derived) and conflating them makes the number unreadable
 - [ ] Report the proportion of instances that Code Connect resolves as a distinct figure, and label it for what it also is: a forecast of what a run of that design will cost and how much it will vary, since every unresolved instance moves a decision from lookup to inference
 - [ ] Present the output so a non-developer can read it — the design system team is an audience for this report, not only engineers
 

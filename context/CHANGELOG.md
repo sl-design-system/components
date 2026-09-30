@@ -2,6 +2,11 @@
 
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
+## 2026-10-01
+- Added ARCH-fidelity-scoring (architecture/NOJIRA-figma-to-code) — the scoring method in one
+  place — marcin.ludwig
+- Corrected the instance-count metric: it includes nested instances — marcin.ludwig
+
 ## 2026-09-30
 - Triaged the design inventory at zero Figma cost, and recorded the desktop-MCP constraint
   measured against T-03: the server reads the open file, so a survey cannot run unattended

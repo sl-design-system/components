@@ -78,6 +78,9 @@ anything. It is also the first case to drop if it proves to teach nothing.
   candidate at all under these filters — worth checking whether its designs are simply
   smaller, or whether the filters are too strict for it.
 - **MAX and the Folio team link** remain unsurveyed; both need the `projects:read` scope.
+- **`instances` counts nested instances too.** A screen reported with 318 instances has six
+  top-level ones; the rest are their internals. Read it as how much of the tree is
+  component-derived, not as a component count.
 - **`lib` still means *a* published library, not *ours*** — needs `team_library_content:read`.
 - The representativeness sample (List B, two per team) should be rebuilt from the 51
   families rather than from the first pass.

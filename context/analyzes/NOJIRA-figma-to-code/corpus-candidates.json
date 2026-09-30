@@ -835,6 +835,7 @@
   ],
   "measurementCaveats": [
     "libraryPct means a published library, not necessarily ours — needs team_library_content:read to narrow",
-    "detachedCandidates is a name-match heuristic built from the 34 layer names the Code Connect mappings navigate"
+    "detachedCandidates is a name-match heuristic built from the 34 layer names the Code Connect mappings navigate",
+    "instances counts EVERY instance node including those nested inside other instances, so it is far larger than the number of components a developer would say is on the screen — one case measured 318 by this count and 6 top-level. Read it as 'how much of the tree is component-derived', not as a component count."
   ]
 }

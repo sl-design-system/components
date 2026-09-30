@@ -1,0 +1,652 @@
+{
+  "$schema": "composition-patterns/v1",
+  "description": "Valid SLDS component composition patterns for structural validation",
+  "version": "1.0.0",
+  "patterns": [
+    {
+      "parent": "sl-button",
+      "validChildren": [
+        "sl-icon",
+        "sl-spinner"
+      ],
+      "notes": "Atomic action control. Only supporting visuals such as icons or a loading spinner should be nested."
+    },
+    {
+      "parent": "sl-button-bar",
+      "validChildren": [
+        "sl-button",
+        "sl-toggle-button",
+        "sl-menu-button"
+      ],
+      "notes": "Use for grouped actions with shared spacing and alignment."
+    },
+    {
+      "parent": "sl-card",
+      "validChildren": [
+        "sl-avatar",
+        "sl-badge",
+        "sl-icon",
+        "sl-inline-message",
+        "sl-progress-bar",
+        "sl-tag-list",
+        "sl-button-bar",
+        "sl-menu-button",
+        "sl-skeleton"
+      ],
+      "notes": "Card is a flexible surface. Keep child composition shallow and use slots/regions consistently."
+    },
+    {
+      "parent": "sl-checkbox",
+      "validChildren": [],
+      "notes": "Atomic checkbox control. Do not nest additional SLDS controls inside the checkbox."
+    },
+    {
+      "parent": "sl-checkbox-group",
+      "validChildren": [
+        "sl-checkbox"
+      ],
+      "notes": "A checkbox group should contain only related sl-checkbox options.",
+      "type": "container"
+    },
+    {
+      "parent": "sl-dialog",
+      "validChildren": [
+        "sl-inline-message",
+        "sl-form",
+        "sl-card",
+        "sl-progress-bar",
+        "sl-button-bar",
+        "sl-spinner",
+        "sl-message-dialog"
+      ],
+      "notes": "Modal container for short tasks, confirmations, and focused flows."
+    },
+    {
+      "parent": "sl-drawer",
+      "validChildren": [
+        "sl-inline-message",
+        "sl-form",
+        "sl-card",
+        "sl-progress-bar",
+        "sl-button-bar",
+        "sl-spinner",
+        "sl-grid",
+        "sl-panel"
+      ],
+      "notes": "Side-sheet container suited to contextual editing and more spacious overlays."
+    },
+    {
+      "parent": "sl-form",
+      "validChildren": [
+        "sl-form-field",
+        "sl-inline-message",
+        "sl-button-bar"
+      ],
+      "notes": "sl-form wraps labeled fields, optional form-level feedback, and action groups."
+    },
+    {
+      "parent": "sl-form-field",
+      "validChildren": [
+        "sl-text-field",
+        "sl-text-area",
+        "sl-select",
+        "sl-checkbox",
+        "sl-checkbox-group",
+        "sl-radio-group",
+        "sl-switch",
+        "sl-search-field",
+        "sl-combobox",
+        "sl-date-field",
+        "sl-number-field",
+        "sl-time-field"
+      ],
+      "notes": "Each form-field should wrap one control or one control-group plus its label, hint, and validation state.",
+      "type": "container"
+    },
+    {
+      "parent": "sl-icon",
+      "validChildren": [],
+      "notes": "Standalone visual primitive with no structural child relationship."
+    },
+    {
+      "parent": "sl-inline-message",
+      "validChildren": [
+        "sl-button",
+        "sl-button-bar"
+      ],
+      "notes": "Inline feedback can include one action or a compact action group."
+    },
+    {
+      "parent": "sl-menu",
+      "validChildren": [
+        "sl-menu-item"
+      ],
+      "notes": "sl-menu owns a list of menu items. Keep non-item content outside unless you are intentionally building custom menu chrome."
+    },
+    {
+      "parent": "sl-menu-item",
+      "validChildren": [
+        "sl-icon",
+        "sl-badge",
+        "sl-menu"
+      ],
+      "notes": "Menu items may include decorative/supporting elements and can host a submenu where supported.",
+      "type": "sub-component"
+    },
+    {
+      "parent": "sl-menu-button",
+      "validChildren": [
+        "sl-menu",
+        "sl-icon"
+      ],
+      "notes": "Use sl-menu-button as the trigger/container for a menu, optionally with an icon in the trigger.",
+      "type": "sub-component"
+    },
+    {
+      "parent": "sl-popover",
+      "validChildren": [
+        "sl-card",
+        "sl-menu",
+        "sl-form",
+        "sl-inline-message",
+        "sl-button-bar",
+        "sl-progress-bar",
+        "sl-panel",
+        "sl-callout",
+        "sl-infotip"
+      ],
+      "notes": "Popover hosts lightweight anchored content. If the content becomes application-level, consider dialog or drawer instead."
+    },
+    {
+      "parent": "sl-progress-bar",
+      "validChildren": [],
+      "notes": "Progress bar is a leaf component that should not contain nested SLDS children."
+    },
+    {
+      "parent": "sl-radio",
+      "validChildren": [],
+      "notes": "Atomic radio control; related options should be grouped by sl-radio-group.",
+      "type": "sub-component"
+    },
+    {
+      "parent": "sl-radio-group",
+      "validChildren": [
+        "sl-radio"
+      ],
+      "notes": "A radio group should contain only mutually exclusive sl-radio options.",
+      "type": "container"
+    },
+    {
+      "parent": "sl-select",
+      "validChildren": [
+        "sl-option"
+      ],
+      "notes": "Select options must be declared as sl-option children."
+    },
+    {
+      "parent": "sl-option",
+      "validChildren": [
+        "sl-icon"
+      ],
+      "notes": "Option rows may include an icon, but they should not wrap other interactive components.",
+      "type": "sub-component"
+    },
+    {
+      "parent": "sl-skeleton",
+      "validChildren": [],
+      "notes": "Loading placeholder component with no meaningful children."
+    },
+    {
+      "parent": "sl-spinner",
+      "validChildren": [],
+      "notes": "Spinner is a standalone status indicator."
+    },
+    {
+      "parent": "sl-switch",
+      "validChildren": [],
+      "notes": "Atomic binary setting control."
+    },
+    {
+      "parent": "sl-tab-group",
+      "validChildren": [
+        "sl-tab",
+        "sl-tab-panel"
+      ],
+      "notes": "Tabs require both triggers and panels in a coordinated one-to-one structure.",
+      "type": "container"
+    },
+    {
+      "parent": "sl-tab",
+      "validChildren": [
+        "sl-icon",
+        "sl-badge"
+      ],
+      "notes": "Tab trigger may include an icon or badge alongside its label.",
+      "type": "sub-component"
+    },
+    {
+      "parent": "sl-tab-panel",
+      "validChildren": [
+        "sl-form",
+        "sl-card",
+        "sl-grid",
+        "sl-inline-message",
+        "sl-button-bar",
+        "sl-tag-list",
+        "sl-search-field",
+        "sl-panel"
+      ],
+      "notes": "Panels host the actual content for each tab and can contain higher-level page building blocks.",
+      "type": "container"
+    },
+    {
+      "parent": "sl-text-field",
+      "validChildren": [
+        "sl-icon"
+      ],
+      "notes": "Text field may expose prefix/suffix icon composition only."
+    },
+    {
+      "parent": "sl-text-area",
+      "validChildren": [],
+      "notes": "Textarea is a leaf input and should not contain SLDS children."
+    },
+    {
+      "parent": "sl-toggle-button",
+      "validChildren": [
+        "sl-icon",
+        "sl-spinner"
+      ],
+      "notes": "Toggle button behaves like a button with state; only supporting visuals should be nested."
+    },
+    {
+      "parent": "sl-toggle-group",
+      "validChildren": [
+        "sl-toggle-button"
+      ],
+      "notes": "Toggle group should contain only toggle buttons."
+    },
+    {
+      "parent": "sl-tooltip",
+      "validChildren": [],
+      "notes": "Tooltip content is text or lightweight markup; treat it as a leaf in SLDS-only nesting validation."
+    },
+    {
+      "parent": "sl-avatar",
+      "validChildren": [
+        "sl-icon"
+      ],
+      "notes": "Avatar may fall back to an icon when no image or initials are available."
+    },
+    {
+      "parent": "sl-badge",
+      "validChildren": [
+        "sl-icon"
+      ],
+      "notes": "Badges may include a compact icon, but avoid turning them into complex containers."
+    },
+    {
+      "parent": "sl-breadcrumbs",
+      "validChildren": [],
+      "notes": "Breadcrumbs usually contain links/text rather than other SLDS components from this rule set."
+    },
+    {
+      "parent": "sl-grid",
+      "validChildren": [],
+      "notes": "Data grid structure is primarily API/configuration-driven rather than nested SLDS child components."
+    },
+    {
+      "parent": "sl-paginator",
+      "validChildren": [],
+      "notes": "Paginator is a standalone navigation control, usually placed next to or below other content."
+    },
+    {
+      "parent": "sl-search-field",
+      "validChildren": [
+        "sl-icon"
+      ],
+      "notes": "Search field may include supporting icon composition but should otherwise stay atomic."
+    },
+    {
+      "parent": "sl-tag",
+      "validChildren": [
+        "sl-icon",
+        "sl-avatar"
+      ],
+      "notes": "Tags can host compact leading visuals such as an icon or avatar."
+    },
+    {
+      "parent": "sl-tag-list",
+      "validChildren": [
+        "sl-tag"
+      ],
+      "notes": "Tag list should contain sl-tag items only.",
+      "type": "container"
+    },
+    {
+      "parent": "sl-accordion",
+      "validChildren": [
+        "sl-accordion-item"
+      ],
+      "notes": "Accordion groups collapsible sections. Compose content through sl-accordion-item children."
+    },
+    {
+      "parent": "sl-accordion-item",
+      "type": "sub-component",
+      "validChildren": [
+        "sl-form",
+        "sl-card",
+        "sl-grid",
+        "sl-inline-message",
+        "sl-button-bar",
+        "sl-search-field",
+        "sl-panel"
+      ],
+      "notes": "Accordion items contain the actual content for each collapsible section."
+    },
+    {
+      "parent": "sl-calendar",
+      "validChildren": [],
+      "notes": "Calendar is a self-contained date browsing and selection surface."
+    },
+    {
+      "parent": "sl-callout",
+      "validChildren": [
+        "sl-button",
+        "sl-button-bar",
+        "sl-icon"
+      ],
+      "notes": "Callout can include supporting actions or an icon, but keep the message content concise."
+    },
+    {
+      "parent": "sl-combobox",
+      "validChildren": [],
+      "notes": "Combobox manages its text entry and popup suggestion behavior internally."
+    },
+    {
+      "parent": "sl-date-field",
+      "validChildren": [],
+      "notes": "Date field is an atomic input control for date values."
+    },
+    {
+      "parent": "sl-editor",
+      "validChildren": [],
+      "notes": "Editor owns its internal editing surface; surround it with external layout or toolbars instead of nesting SLDS children inside."
+    },
+    {
+      "parent": "sl-format-date",
+      "validChildren": [],
+      "notes": "Format-date is a read-only formatting primitive."
+    },
+    {
+      "parent": "sl-format-number",
+      "validChildren": [],
+      "notes": "Format-number is a read-only formatting primitive."
+    },
+    {
+      "parent": "sl-infotip",
+      "validChildren": [],
+      "notes": "Infotip is a lightweight help surface and should be treated as a leaf component."
+    },
+    {
+      "parent": "sl-listbox",
+      "validChildren": [
+        "sl-option",
+        "sl-option-group"
+      ],
+      "notes": "Listbox should contain options or grouped options only."
+    },
+    {
+      "parent": "sl-option-group",
+      "type": "container",
+      "validChildren": [
+        "sl-option"
+      ],
+      "notes": "Option groups organize related listbox options under a shared heading."
+    },
+    {
+      "parent": "sl-message-dialog",
+      "validChildren": [
+        "sl-inline-message",
+        "sl-button-bar",
+        "sl-spinner"
+      ],
+      "notes": "Message dialog is a focused overlay for short descriptive content and a compact set of actions."
+    },
+    {
+      "parent": "sl-number-field",
+      "validChildren": [],
+      "notes": "Number field is an atomic numeric input control."
+    },
+    {
+      "parent": "sl-panel",
+      "validChildren": [
+        "sl-inline-message",
+        "sl-form",
+        "sl-card",
+        "sl-grid",
+        "sl-button-bar",
+        "sl-search-field"
+      ],
+      "notes": "Panel is a flexible surface for grouped content, forms, or structured data."
+    },
+    {
+      "parent": "sl-time-field",
+      "validChildren": [],
+      "notes": "Time field is an atomic input control for time values."
+    },
+    {
+      "parent": "sl-tool-bar",
+      "validChildren": [
+        "sl-button",
+        "sl-button-bar",
+        "sl-toggle-button",
+        "sl-toggle-group",
+        "sl-search-field",
+        "sl-select",
+        "sl-combobox",
+        "sl-menu-button",
+        "sl-popover",
+        "sl-tool-bar-divider"
+      ],
+      "notes": "Toolbar groups closely related actions, filters, and lightweight controls in one horizontal command region."
+    },
+    {
+      "parent": "sl-tool-bar-divider",
+      "type": "sub-component",
+      "validChildren": [],
+      "notes": "Toolbar divider is a structural separator and should not contain nested content."
+    },
+    {
+      "parent": "sl-tree",
+      "validChildren": [],
+      "notes": "Tree manages hierarchical nodes internally and should be treated as a leaf at the page-composition level."
+    }
+  ],
+  "antiPatterns": [
+    {
+      "pattern": "sl-button inside sl-button",
+      "reason": "Nested interactive elements violate accessibility rules and create conflicting click targets.",
+      "suggestion": "Use sl-button-bar for grouped actions or place the secondary action beside the primary button."
+    },
+    {
+      "pattern": "Multiple input controls inside one sl-form-field",
+      "reason": "Labels, hints, and validation messages become ambiguous when one field wraps several unrelated controls.",
+      "suggestion": "Create one sl-form-field per control or use a proper group component such as sl-checkbox-group or sl-radio-group."
+    },
+    {
+      "pattern": "sl-option outside sl-select",
+      "reason": "Options are only meaningful in the context of a select control.",
+      "suggestion": "Move the option under sl-select or switch to sl-menu/sl-menu-item for freeform action lists."
+    },
+    {
+      "pattern": "Standalone sl-radio elements used as a checklist",
+      "reason": "Radios imply mutual exclusivity and should be grouped semantically.",
+      "suggestion": "Wrap related radios in sl-radio-group, or use sl-checkbox/sl-checkbox-group for multi-select choices."
+    },
+    {
+      "pattern": "sl-checkbox-group containing sl-radio children",
+      "reason": "Checkbox and radio semantics conflict and confuse assistive technologies.",
+      "suggestion": "Use sl-checkbox inside sl-checkbox-group or replace the container with sl-radio-group."
+    },
+    {
+      "pattern": "Mismatched counts of sl-tab and sl-tab-panel in one sl-tab-group",
+      "reason": "Tabs and panels must map one-to-one for keyboard navigation and screen reader labeling to work correctly.",
+      "suggestion": "Keep the number and order of tabs and panels synchronized."
+    },
+    {
+      "pattern": "sl-menu-item containing another interactive control",
+      "reason": "A menu item is already an interactive command surface; nested controls create broken focus and activation behavior.",
+      "suggestion": "Represent the action directly as a menu item, or move complex controls into a popover/dialog."
+    },
+    {
+      "pattern": "sl-tooltip used as the only label for a form control",
+      "reason": "Tooltips are supplemental and may not be discoverable on touch devices or by keyboard/screen-reader users.",
+      "suggestion": "Use sl-form-field for the primary label and keep the tooltip for optional extra help."
+    },
+    {
+      "pattern": "Nested overlays such as sl-dialog inside sl-dialog or sl-drawer inside sl-drawer",
+      "reason": "Stacked overlays make focus management, escape behavior, and user orientation fragile.",
+      "suggestion": "Use a single overlay with progressive disclosure, tabs, or step-based content."
+    }
+  ],
+  "layoutPatterns": [
+    {
+      "name": "Form layout",
+      "structure": [
+        "sl-form > sl-form-field > input-component",
+        "sl-form > sl-button-bar"
+      ],
+      "spacing": "var(--sl-size-300) gap between fields and var(--sl-size-500) before actions",
+      "notes": "Standard data-entry layout. Fields stack vertically and actions align as one grouped footer."
+    },
+    {
+      "name": "Validated form",
+      "structure": [
+        "sl-form > sl-inline-message",
+        "sl-form > sl-form-field > input-component",
+        "sl-form > sl-button-bar"
+      ],
+      "spacing": "var(--sl-size-300) between message and first field, then var(--sl-size-300) between fields",
+      "notes": "Use when the form needs top-level status or submit feedback above the fields."
+    },
+    {
+      "name": "Confirmation dialog",
+      "structure": [
+        "sl-dialog > content",
+        "sl-dialog > sl-button-bar"
+      ],
+      "spacing": "var(--sl-size-400) content padding with var(--sl-size-300) between message and actions",
+      "notes": "Best for short confirm/cancel flows, optionally with an sl-inline-message for destructive context."
+    },
+    {
+      "name": "Drawer edit flow",
+      "structure": [
+        "sl-drawer > sl-form > sl-form-field > input-component",
+        "sl-drawer > sl-button-bar"
+      ],
+      "spacing": "var(--sl-size-400) vertical spacing in the drawer body",
+      "notes": "Use a drawer for side-by-side editing without fully interrupting the page context."
+    },
+    {
+      "name": "Searchable data listing",
+      "structure": [
+        "sl-tool-bar > sl-search-field + sl-tag-list + sl-menu-button",
+        "content(sl-grid)",
+        "footer(sl-paginator)"
+      ],
+      "spacing": "var(--sl-size-300) within the toolbar and var(--sl-size-400) between toolbar, grid, and paginator",
+      "notes": "Typical list-management page with search, active filters, overflow actions, a data grid, and pagination."
+    },
+    {
+      "name": "Tabbed workspace",
+      "structure": [
+        "sl-tab-group > sl-tab",
+        "sl-tab-group > sl-tab-panel > sl-card|sl-grid|sl-form"
+      ],
+      "spacing": "var(--sl-size-400) between high-level sections inside each panel",
+      "notes": "Use tabs for parallel views that share a page context but differ in underlying content blocks."
+    },
+    {
+      "name": "Profile summary card",
+      "structure": [
+        "sl-card > header(sl-avatar + metadata + sl-badge)",
+        "sl-card > body",
+        "sl-card > sl-button-bar"
+      ],
+      "spacing": "var(--sl-size-300) between header elements and var(--sl-size-400) between card regions",
+      "notes": "Good for user, teacher, or product summary panels with identity, status, and quick actions."
+    },
+    {
+      "name": "Filter bar",
+      "structure": [
+        "sl-tool-bar > sl-search-field + sl-select + sl-tag-list",
+        "actions(sl-button-bar)"
+      ],
+      "spacing": "var(--sl-size-200) to var(--sl-size-300) between controls",
+      "notes": "Supports faceted filtering where selected filters are surfaced as removable tags."
+    },
+    {
+      "name": "Overflow action menu",
+      "structure": [
+        "sl-menu-button > sl-menu > sl-menu-item"
+      ],
+      "spacing": "Compact menu item spacing controlled by the menu itself",
+      "notes": "Use for secondary actions that should not take permanent space in the main layout."
+    },
+    {
+      "name": "Loading surface",
+      "structure": [
+        "sl-card > sl-skeleton",
+        "replacement(sl-skeleton -> final component tree)"
+      ],
+      "spacing": "Match the final layout spacing so loading and loaded states occupy similar space",
+      "notes": "Prefer skeletons for content placeholders and sl-spinner for indefinite blocking operations."
+    },
+    {
+      "name": "Breadcrumb page header",
+      "structure": [
+        "header(sl-breadcrumbs)",
+        "content(sl-panel|sl-card|sl-grid)"
+      ],
+      "spacing": "var(--sl-size-200) between breadcrumbs and the page title region, then var(--sl-size-400) before the primary content",
+      "notes": "Use breadcrumbs above the main page content to show hierarchy and provide quick backtracking."
+    },
+    {
+      "name": "Toolbar command row",
+      "structure": [
+        "sl-tool-bar > sl-button|sl-toggle-group|sl-search-field|sl-menu-button",
+        "content(primary work surface)"
+      ],
+      "spacing": "var(--sl-size-200) to var(--sl-size-300) between toolbar items with var(--sl-size-400) below the toolbar",
+      "notes": "Use for command-heavy views where primary actions, filters, and overflow actions should stay aligned in one row."
+    },
+    {
+      "name": "Paginated data set",
+      "structure": [
+        "sl-tool-bar > sl-search-field + sl-button-bar + sl-menu-button",
+        "content(sl-grid|list)",
+        "footer(sl-paginator)"
+      ],
+      "spacing": "var(--sl-size-300) within the toolbar and var(--sl-size-400) between toolbar, results, and paginator",
+      "notes": "Common pattern for searchable, pageable data views or result lists."
+    },
+    {
+      "name": "Accordion sections",
+      "structure": [
+        "sl-accordion > sl-accordion-item > content(sl-form|sl-card|sl-grid|sl-panel)"
+      ],
+      "spacing": "Use the accordion item rhythm and keep var(--sl-size-300) to var(--sl-size-400) inside each expanded section",
+      "notes": "Best for progressive disclosure when the page contains multiple related sections that should collapse independently."
+    },
+    {
+      "name": "Tabs page sections",
+      "structure": [
+        "sl-tab-group > sl-tab",
+        "sl-tab-group > sl-tab-panel > sl-card|sl-grid|sl-form|sl-panel"
+      ],
+      "spacing": "var(--sl-size-400) between major content blocks inside each tab panel",
+      "notes": "Use tab-group composition for peer sections that share the same page context but need separate panels."
+    }
+  ]
+}

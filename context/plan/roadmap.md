@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T09:50:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -30,6 +30,22 @@ analysis documents.
 | 2 | Pipeline increments | not written yet | — | One requirement at a time against the baseline. First candidates from the analysis: per-node geometry carried into the manifest, freezing the decomposition decision in a reviewable artifact, moving the computable finish checks out of the validation prompt into a script. |
 | 3 | Requirement backlog | not written yet | — | The remaining items from the prior attempt's 31-requirement list, admitted one at a time and only with a corpus case attached. |
 | 4 | Caching and change detection | not written yet | — | Skip unchanged designs, diff against the previous run. Explicitly deferred: it is an efficiency concern, and efficiency before correctness hides variance. |
+
+## Second track — the designer handover contract
+
+[A-NOJIRA-designer-workflow](../analyzes/NOJIRA-designer-workflow/analysis.md) asks a different
+question: what a designer hands over, what each direction costs, and how the working model itself
+gets tested. It concludes with **no plan yet, deliberately** — three of its four questions depend on
+figures not yet in hand (Figma seat inventory, API limits, and the per-run cost of the forward
+direction, which slice 1 produces as a by-product).
+
+Its one immediately actionable recommendation is a **rehearsal**: take one real ticket through the
+whole path with a real designer and record where it stalled. That needs no build, and it is the only
+evidence in this initiative that money cannot buy.
+
+The two tracks meet at one point: the intake report (`T-NOJIRA-figma-to-code-05`) is the instrument
+for measuring design system adoption, and the designer analysis extends its remit from Figma files to
+canvas-built prototypes.
 
 ## Gating rule between slices
 

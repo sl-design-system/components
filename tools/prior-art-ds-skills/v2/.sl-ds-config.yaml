@@ -1,0 +1,145 @@
+# DS Agents Configuration
+# Place this file at your project root to configure the design-to-code pipeline.
+# All values shown are defaults — only override what you need to change.
+#
+# This file configures:
+# - sl-ds-mapper: Figma-to-SLDS component mapping
+# - sl-ds-compose: structural composition validation
+# - quality, accessibility, and repair agents
+# - cache and security behavior
+
+sl-ds-agents:
+  # Schema/config version used by the DS agents runtime.
+  version: "1.0"
+
+  # Optional explicit SLDS version.
+  # When omitted, the agents auto-detect the installed version from package.json
+  # and the active lockfile.
+  # slds_version: "2.0.1"
+
+  # Framework target for generated implementation code.
+  # Current supported value: "angular".
+  framework: "angular"
+
+  # Optional overrides for the knowledge assets used by sl-ds-mapper and sl-ds-compose.
+  # Leave commented to use the built-in defaults bundled with the agents.
+  # knowledge:
+  #   # Curated Figma-to-SLDS mapping file.
+  #   figma_mapping: "agents/knowledge/figma-to-slds-mapping.json"
+  #   # Structural parent/child validation rules.
+  #   composition_patterns: "agents/knowledge/composition-patterns.json"
+
+  # Project detection and repository-specific overrides.
+  # Common optional keys:
+  #   root: "."
+  #   nx_enabled: true
+  #   theme: "sanoma-learning"
+  project: {}
+
+  # Pipeline execution controls shared by orchestration agents.
+  pipeline:
+    # Default execution mode:
+    # - automatic: continue automatically when confidence is high enough
+    # - approval: pause between major steps for manual review
+    mode: "automatic"
+
+    # Confidence score below which the pipeline must pause for review.
+    confidence_threshold: 40
+
+    # Maximum number of automated repair or retry loops per pipeline run.
+    max_repair_cycles: 3
+
+    # Token budget available to each repair loop.
+    repair_token_budget: 30000
+
+    # Create work-in-progress commits after each major pipeline step.
+    wip_commits: true
+
+    # Prefix used for automated WIP commit messages.
+    commit_prefix: "wip(sl-ds)"
+
+  # Weighted quality gates used by review and verification agents.
+  quality:
+    # Minimum weighted composite score required for a successful run.
+    composite_threshold: 95
+
+    # Minimum per-group floor score. A run fails if any quality group falls below
+    # its floor, even when the weighted composite score passes.
+    floor_threshold: 90
+
+    # Relative weights and minimum floors for each scoring group.
+    groups:
+      # Information architecture, component selection, and structural decisions.
+      architecture: { weight: 22, floor: 90 }
+      # Code correctness, maintainability, and framework best practices.
+      code_quality: { weight: 23, floor: 90 }
+      # Match between implementation and design intent.
+      visual_fidelity: { weight: 25, floor: 90 }
+      # WCAG compliance, semantics, keyboard support, and screen-reader UX.
+      accessibility: { weight: 18, floor: 90 }
+      # Alignment with SLDS conventions and long-term system health.
+      ds_maintainability: { weight: 12, floor: 90 }
+
+  # Prototype generation settings used before full integration.
+  prototype:
+    # Default prototype output mode:
+    # - A: HTML-first prototype
+    # - B: Angular-first prototype
+    default_mode: "A"
+
+    # Angular prototype strategy:
+    # - B1: CDN/runtime-light demo
+    # - B2: standard Angular project structure
+    angular_variant: "B2"
+
+  # Accessibility baseline and agent-specific behavior.
+  accessibility:
+    # Compliance target applied across audits and generated fixes.
+    standard: "WCAG22-AA"
+
+    # Optional additional compliance frameworks.
+    # Example: ["EN-301-549"]
+    additional: []
+
+    # Per-agent accessibility settings.
+    agents:
+      a11y-audit:
+        # Severity threshold that fails the audit.
+        fail_on: "critical"
+        # Output format for generated audit reports.
+        report_format: "markdown"
+
+      a11y-impl:
+        # Automatically apply safe accessibility fixes when possible.
+        auto_fix: true
+        # Pattern library used by generated accessibility code fixes.
+        patterns: "angular"
+
+      a11y-test:
+        # Include manual validation steps in the generated test plan.
+        include_manual: true
+        # Representative assistive technology and device matrix.
+        device_matrix:
+          - "VoiceOver+Safari"
+          - "NVDA+Chrome"
+          - "TalkBack+Android"
+
+  # Local cache and run history settings.
+  cache:
+    # Directory used for cached Figma payloads, normalized specs, and run artifacts.
+    directory: ".sl-ds-cache"
+
+    # Number of historical run logs to retain locally.
+    log_retention: 10
+
+    # Figma cache time-to-live in seconds.
+    # Use 0 to rely on lastModified checks instead of expiring by age.
+    figma_ttl: 0
+
+  # Security safeguards applied during generation and repair.
+  security:
+    # Run a secret scan before creating commits or patches.
+    secret_scan: true
+
+    # Redact tokens, secrets, and other credential-like values from logs.
+    redact_tokens: true

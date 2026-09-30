@@ -1,0 +1,1306 @@
+{
+  "$schema": "figma-to-slds-mapping/v1",
+  "description": "Curated mapping from Figma component names to SLDS web components",
+  "version": "1.0.0",
+  "mappings": [
+    {
+      "figmaPatterns": [
+        "Button",
+        "Btn",
+        "CTA",
+        "Action Button"
+      ],
+      "confidence": 97,
+      "propertyMap": {
+        "Primary": {
+          "variant": "primary"
+        },
+        "Secondary": {
+          "variant": "default"
+        },
+        "Danger": {
+          "variant": "danger"
+        },
+        "Ghost": {
+          "fill": "ghost"
+        },
+        "Outline": {
+          "fill": "outline"
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        }
+      },
+      "notes": "Most common mapping. Figma variants often use Button/Primary/Large; icon-only buttons still map to sl-button with an sl-icon child.",
+      "sldsTag": "sl-button"
+    },
+    {
+      "figmaPatterns": [
+        "Button Group",
+        "Button Bar",
+        "Button Row",
+        "Actions"
+      ],
+      "confidence": 92,
+      "propertyMap": {
+        "Horizontal": {
+          "orientation": "horizontal"
+        },
+        "Vertical": {
+          "orientation": "vertical"
+        },
+        "Start": {
+          "align": "start"
+        },
+        "Center": {
+          "align": "center"
+        },
+        "End": {
+          "align": "end"
+        }
+      },
+      "notes": "Usually represented as an auto-layout row of actions. Use when adjacent buttons share spacing and alignment rules.",
+      "sldsTag": "sl-button-bar"
+    },
+    {
+      "figmaPatterns": [
+        "Card",
+        "Tile",
+        "Summary Card"
+      ],
+      "confidence": 94,
+      "propertyMap": {
+        "Elevated": {
+          "variant": "elevated"
+        },
+        "Flat": {
+          "variant": "flat"
+        },
+        "Clickable": {
+          "clickable": true
+        },
+        "With Media": {
+          "slot": "image"
+        },
+        "With Footer": {
+          "slot": "footer"
+        }
+      },
+      "notes": "Designers switch between Card, Tile, and Panel. Header, media, and footer treatments are usually composition concerns rather than one prop.",
+      "sldsTag": "sl-card"
+    },
+    {
+      "figmaPatterns": [
+        "Checkbox",
+        "Check box",
+        "Tickbox",
+        "Check"
+      ],
+      "confidence": 96,
+      "propertyMap": {
+        "Checked": {
+          "checked": true
+        },
+        "Unchecked": {
+          "checked": false
+        },
+        "Indeterminate": {
+          "indeterminate": true
+        },
+        "Disabled": {
+          "disabled": true
+        },
+        "Required": {
+          "required": true
+        }
+      },
+      "notes": "A single binary choice. If the design shows several checkboxes under one label, prefer sl-checkbox-group.",
+      "sldsTag": "sl-checkbox"
+    },
+    {
+      "figmaPatterns": [
+        "Checkbox Group",
+        "Checkboxes",
+        "Checklist",
+        "Multi Select Checklist"
+      ],
+      "confidence": 91,
+      "propertyMap": {
+        "Inline": {
+          "orientation": "horizontal"
+        },
+        "Stacked": {
+          "orientation": "vertical"
+        },
+        "Required": {
+          "required": true
+        },
+        "Error": {
+          "validationState": "invalid"
+        }
+      },
+      "notes": "Use for related multi-select options. Figma often models this as a labeled stack of individual checkboxes.",
+      "sldsTag": "sl-checkbox-group"
+    },
+    {
+      "figmaPatterns": [
+        "Dialog",
+        "Modal",
+        "Modal Dialog",
+        "Popup"
+      ],
+      "confidence": 95,
+      "propertyMap": {
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Open": {
+          "open": true
+        },
+        "With Footer Actions": {
+          "slot": "footer"
+        }
+      },
+      "notes": "Good match for blocking overlays. If the design slides from an edge instead of centering, map to sl-drawer instead.",
+      "sldsTag": "sl-dialog"
+    },
+    {
+      "figmaPatterns": [
+        "Drawer",
+        "Side Panel",
+        "Slide-over",
+        "Off-canvas"
+      ],
+      "confidence": 92,
+      "propertyMap": {
+        "Start": {
+          "placement": "start"
+        },
+        "End": {
+          "placement": "end"
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        }
+      },
+      "notes": "Used for contextual editing or secondary flows. Figma names often emphasize motion rather than the component name.",
+      "sldsTag": "sl-drawer"
+    },
+    {
+      "figmaPatterns": [
+        "Form",
+        "Input Form",
+        "Data Entry Form",
+        "Form Layout"
+      ],
+      "confidence": 90,
+      "propertyMap": {
+        "Stacked": {
+          "layout": "stacked"
+        },
+        "Two Column": {
+          "layout": "two-column"
+        },
+        "Dense": {
+          "density": "compact"
+        },
+        "Disabled": {
+          "disabled": true
+        }
+      },
+      "notes": "Maps the overall form wrapper, not an individual field. Designers often use auto-layout frames named by the business process.",
+      "sldsTag": "sl-form"
+    },
+    {
+      "figmaPatterns": [
+        "Form Field",
+        "Field Wrapper",
+        "Labeled Field",
+        "Input Row"
+      ],
+      "confidence": 84,
+      "propertyMap": {
+        "Required": {
+          "required": true
+        },
+        "Optional": {
+          "optional": true
+        },
+        "Hint": {
+          "helpText": true
+        },
+        "Error": {
+          "validationState": "invalid"
+        }
+      },
+      "notes": "Best for labeled control wrappers with help text or validation. A plain text input without label chrome maps more directly to sl-text-field.",
+      "sldsTag": "sl-form-field"
+    },
+    {
+      "figmaPatterns": [
+        "Icon",
+        "Glyph",
+        "Symbol",
+        "Pictogram"
+      ],
+      "confidence": 95,
+      "propertyMap": {
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Positive": {
+          "color": "success"
+        },
+        "Warning": {
+          "color": "warning"
+        }
+      },
+      "notes": "Usually a direct translation. Confirm whether decorative icons should be hidden from assistive technology in implementation.",
+      "sldsTag": "sl-icon"
+    },
+    {
+      "figmaPatterns": [
+        "Inline Message",
+        "Inline Alert",
+        "Notice"
+      ],
+      "confidence": 86,
+      "propertyMap": {
+        "Info": {
+          "variant": "info"
+        },
+        "Success": {
+          "variant": "success"
+        },
+        "Warning": {
+          "variant": "warning"
+        },
+        "Error": {
+          "variant": "error"
+        },
+        "Dismissible": {
+          "dismissible": true
+        }
+      },
+      "notes": "Use for inline status and feedback. Full-page banners or toast notifications may need custom composition around this component.",
+      "sldsTag": "sl-inline-message"
+    },
+    {
+      "figmaPatterns": [
+        "Menu",
+        "Dropdown Menu",
+        "Context Menu",
+        "Action List"
+      ],
+      "confidence": 90,
+      "propertyMap": {
+        "Default": {
+          "selection": "none"
+        },
+        "Single Select": {
+          "selection": "single"
+        },
+        "Multi Select": {
+          "selection": "multiple"
+        },
+        "Dense": {
+          "density": "compact"
+        }
+      },
+      "notes": "Designers often name the whole overlay menu instead of its trigger. Pair with sl-menu-button when a button opens the list.",
+      "sldsTag": "sl-menu"
+    },
+    {
+      "figmaPatterns": [
+        "Menu Item",
+        "Action Item",
+        "Command",
+        "List Item"
+      ],
+      "confidence": 90,
+      "propertyMap": {
+        "Default": {
+          "type": "default"
+        },
+        "Checkbox": {
+          "type": "checkbox"
+        },
+        "Radio": {
+          "type": "radio"
+        },
+        "Selected": {
+          "selected": true
+        },
+        "Disabled": {
+          "disabled": true
+        }
+      },
+      "notes": "Usually a child of sl-menu. Prefix icons and trailing badges are composition details rather than separate variants.",
+      "sldsTag": "sl-menu-item"
+    },
+    {
+      "figmaPatterns": [
+        "Menu Button",
+        "Dropdown Button",
+        "Split Button",
+        "Actions Button"
+      ],
+      "confidence": 86,
+      "propertyMap": {
+        "Default": {
+          "variant": "default"
+        },
+        "Primary": {
+          "variant": "primary"
+        },
+        "Icon Only": {
+          "iconOnly": true
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Large": {
+          "size": "lg"
+        }
+      },
+      "notes": "Best match when a button reveals a menu. If the Figma design shows a plain icon trigger plus freeform content, sl-popover may be a better fit.",
+      "sldsTag": "sl-menu-button"
+    },
+    {
+      "figmaPatterns": [
+        "Popover",
+        "Floating Panel",
+        "Info Popover",
+        "Overlay Card"
+      ],
+      "confidence": 85,
+      "propertyMap": {
+        "Top": {
+          "placement": "top"
+        },
+        "Bottom": {
+          "placement": "bottom"
+        },
+        "Start": {
+          "placement": "start"
+        },
+        "End": {
+          "placement": "end"
+        },
+        "Open": {
+          "open": true
+        },
+        "No Arrow": {
+          "arrow": false
+        }
+      },
+      "notes": "Use for anchored, lightweight overlays. In Figma this is often just an overlay frame with no explicit component naming.",
+      "sldsTag": "sl-popover"
+    },
+    {
+      "figmaPatterns": [
+        "Progress Bar",
+        "Loading Bar",
+        "Completion Bar",
+        "Stepper Progress"
+      ],
+      "confidence": 93,
+      "propertyMap": {
+        "0%": {
+          "value": 0
+        },
+        "50%": {
+          "value": 50
+        },
+        "100%": {
+          "value": 100
+        },
+        "Indeterminate": {
+          "indeterminate": true
+        },
+        "Success": {
+          "variant": "success"
+        }
+      },
+      "notes": "Reliable mapping for linear progress. Circular loading indicators should map to sl-spinner instead.",
+      "sldsTag": "sl-progress-bar"
+    },
+    {
+      "figmaPatterns": [
+        "Radio",
+        "Radio Button",
+        "Single Choice",
+        "Option Dot"
+      ],
+      "confidence": 96,
+      "propertyMap": {
+        "Checked": {
+          "checked": true
+        },
+        "Unchecked": {
+          "checked": false
+        },
+        "Disabled": {
+          "disabled": true
+        },
+        "Required": {
+          "required": true
+        }
+      },
+      "notes": "Atomic single-choice option. For real choices, expect to wrap these in sl-radio-group.",
+      "sldsTag": "sl-radio"
+    },
+    {
+      "figmaPatterns": [
+        "Radio Group",
+        "Choice Group",
+        "Single Select Group",
+        "Option Group"
+      ],
+      "confidence": 92,
+      "propertyMap": {
+        "Inline": {
+          "orientation": "horizontal"
+        },
+        "Stacked": {
+          "orientation": "vertical"
+        },
+        "Required": {
+          "required": true
+        },
+        "Error": {
+          "validationState": "invalid"
+        }
+      },
+      "notes": "Use when the design shows several mutually exclusive options under one label or hint text.",
+      "sldsTag": "sl-radio-group"
+    },
+    {
+      "figmaPatterns": [
+        "Select",
+        "Dropdown",
+        "Picklist"
+      ],
+      "confidence": 90,
+      "propertyMap": {
+        "Single": {
+          "multiple": false
+        },
+        "Multiple": {
+          "multiple": true
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Clearable": {
+          "clearable": true
+        }
+      },
+      "notes": "Common fuzzy mapping because designers rarely distinguish select from generic dropdowns. Searchable dropdowns may need sl-search-field plus composition.",
+      "sldsTag": "sl-select"
+    },
+    {
+      "figmaPatterns": [
+        "Option",
+        "Select Option",
+        "Dropdown Item",
+        "Choice"
+      ],
+      "confidence": 88,
+      "propertyMap": {
+        "Default": {
+          "selected": false
+        },
+        "Selected": {
+          "selected": true
+        },
+        "Disabled": {
+          "disabled": true
+        },
+        "With Description": {
+          "hasSubtitle": true
+        }
+      },
+      "notes": "Only valid inside sl-select. In Figma, options are often detached components used solely for prototyping the menu state.",
+      "sldsTag": "sl-option"
+    },
+    {
+      "figmaPatterns": [
+        "Skeleton",
+        "Loading Placeholder",
+        "Shimmer",
+        "Content Loader"
+      ],
+      "confidence": 90,
+      "propertyMap": {
+        "Text": {
+          "effect": "text"
+        },
+        "Avatar": {
+          "effect": "avatar"
+        },
+        "Rectangular": {
+          "effect": "rect"
+        },
+        "Animated": {
+          "animation": "pulse"
+        }
+      },
+      "notes": "Use for perceived loading placeholders. Designers often mock real content and annotate it as a skeleton state rather than naming the layer directly.",
+      "sldsTag": "sl-skeleton"
+    },
+    {
+      "figmaPatterns": [
+        "Spinner",
+        "Loading Spinner",
+        "Busy Indicator",
+        "Loader"
+      ],
+      "confidence": 95,
+      "propertyMap": {
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Inline": {
+          "inline": true
+        },
+        "Inverse": {
+          "variant": "inverse"
+        }
+      },
+      "notes": "Strong mapping for circular loading indicators. If the design communicates completion percentage, prefer sl-progress-bar.",
+      "sldsTag": "sl-spinner"
+    },
+    {
+      "figmaPatterns": [
+        "Switch",
+        "Toggle Switch",
+        "On/Off",
+        "Toggle"
+      ],
+      "confidence": 93,
+      "propertyMap": {
+        "On": {
+          "checked": true
+        },
+        "Off": {
+          "checked": false
+        },
+        "Disabled": {
+          "disabled": true
+        },
+        "Required": {
+          "required": true
+        }
+      },
+      "notes": "Designers frequently label this simply as Toggle. Distinguish it from sl-toggle-button when the control looks like a button instead of a track.",
+      "sldsTag": "sl-switch"
+    },
+    {
+      "figmaPatterns": [
+        "Tabs",
+        "Tab Group",
+        "Tabbed Navigation",
+        "Segmented Tabs"
+      ],
+      "confidence": 94,
+      "propertyMap": {
+        "Top": {
+          "placement": "top"
+        },
+        "Start": {
+          "placement": "start"
+        },
+        "Bottom": {
+          "placement": "bottom"
+        },
+        "End": {
+          "placement": "end"
+        },
+        "Manual Activation": {
+          "activation": "manual"
+        }
+      },
+      "notes": "Map the full tabs container here. Individual tab triggers and panels should be modeled as sl-tab and sl-tab-panel in composition.",
+      "sldsTag": "sl-tab-group"
+    },
+    {
+      "figmaPatterns": [
+        "Tab",
+        "Tab Label",
+        "Tab Trigger",
+        "Navigation Tab"
+      ],
+      "confidence": 92,
+      "propertyMap": {
+        "Default": {
+          "active": false
+        },
+        "Active": {
+          "active": true
+        },
+        "Disabled": {
+          "disabled": true
+        },
+        "With Badge": {
+          "slot": "suffix"
+        }
+      },
+      "notes": "Use for the clickable tab trigger only. Figma often duplicates these as instances inside a tabs frame.",
+      "sldsTag": "sl-tab"
+    },
+    {
+      "figmaPatterns": [
+        "Tab Panel",
+        "Tab Content",
+        "Tabbed Section",
+        "Panel Content"
+      ],
+      "confidence": 90,
+      "propertyMap": {
+        "Visible": {
+          "hidden": false
+        },
+        "Hidden": {
+          "hidden": true
+        },
+        "Padded": {
+          "padding": "md"
+        }
+      },
+      "notes": "Represents the content area paired to a tab. Designers usually name this by page section rather than by component.",
+      "sldsTag": "sl-tab-panel"
+    },
+    {
+      "figmaPatterns": [
+        "Text Field",
+        "Text Input",
+        "Input",
+        "Single-line Input"
+      ],
+      "confidence": 89,
+      "propertyMap": {
+        "Text": {
+          "type": "text"
+        },
+        "Email": {
+          "type": "email"
+        },
+        "Password": {
+          "type": "password"
+        },
+        "Number": {
+          "type": "number"
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Disabled": {
+          "disabled": true
+        }
+      },
+      "notes": "Frequent fuzzy match because many designers use Input as the component name. If the control includes label, hint, or error text, add sl-form-field around it.",
+      "sldsTag": "sl-text-field"
+    },
+    {
+      "figmaPatterns": [
+        "Textarea",
+        "Text Area",
+        "Multiline Input",
+        "Comment Box"
+      ],
+      "confidence": 96,
+      "propertyMap": {
+        "Resize None": {
+          "resize": "none"
+        },
+        "Resize Vertical": {
+          "resize": "vertical"
+        },
+        "Short": {
+          "rows": 3
+        },
+        "Tall": {
+          "rows": 6
+        },
+        "Disabled": {
+          "disabled": true
+        }
+      },
+      "notes": "Straightforward mapping for multiline text entry. Figma often encodes height instead of a textarea-specific variant.",
+      "sldsTag": "sl-text-area"
+    },
+    {
+      "figmaPatterns": [
+        "Toggle Button",
+        "Icon Toggle",
+        "Selectable Button",
+        "State Button"
+      ],
+      "confidence": 88,
+      "propertyMap": {
+        "Selected": {
+          "pressed": true
+        },
+        "Unselected": {
+          "pressed": false
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Icon Only": {
+          "iconOnly": true
+        }
+      },
+      "notes": "Use when the visual treatment is button-like but stateful. Do not confuse with sl-switch, which communicates a setting rather than an action.",
+      "sldsTag": "sl-toggle-button"
+    },
+    {
+      "figmaPatterns": [
+        "Toggle Group",
+        "Segmented Control",
+        "Option Toggle Group",
+        "Pill Switcher"
+      ],
+      "confidence": 88,
+      "propertyMap": {
+        "Single Select": {
+          "selection": "single"
+        },
+        "Multi Select": {
+          "selection": "multiple"
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Large": {
+          "size": "lg"
+        }
+      },
+      "notes": "Typically a set of adjacent toggle buttons. In Figma, segmented controls are often built from repeated button instances.",
+      "sldsTag": "sl-toggle-group"
+    },
+    {
+      "figmaPatterns": [
+        "Tooltip",
+        "Hint",
+        "Helper Tooltip",
+        "Hover Hint"
+      ],
+      "confidence": 95,
+      "propertyMap": {
+        "Top": {
+          "placement": "top"
+        },
+        "Bottom": {
+          "placement": "bottom"
+        },
+        "Start": {
+          "placement": "start"
+        },
+        "End": {
+          "placement": "end"
+        },
+        "Rich": {
+          "variant": "rich"
+        }
+      },
+      "notes": "Strong mapping for supplemental help content. Tooltips should not be the only place critical information exists.",
+      "sldsTag": "sl-tooltip"
+    },
+    {
+      "figmaPatterns": [
+        "Avatar",
+        "Profile Image",
+        "User Avatar",
+        "Person Image"
+      ],
+      "confidence": 94,
+      "propertyMap": {
+        "Image": {
+          "image": true
+        },
+        "Initials": {
+          "initials": true
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Circle": {
+          "shape": "circle"
+        },
+        "Square": {
+          "shape": "square"
+        }
+      },
+      "notes": "Direct mapping for identity visuals. Designers often swap between photo, initials, and placeholder states in variants.",
+      "sldsTag": "sl-avatar"
+    },
+    {
+      "figmaPatterns": [
+        "Badge",
+        "Status Badge",
+        "Pill",
+        "Counter"
+      ],
+      "confidence": 92,
+      "propertyMap": {
+        "Info": {
+          "variant": "info"
+        },
+        "Success": {
+          "variant": "success"
+        },
+        "Warning": {
+          "variant": "warning"
+        },
+        "Danger": {
+          "variant": "danger"
+        },
+        "Neutral": {
+          "variant": "neutral"
+        }
+      },
+      "notes": "Use for compact status, count, or emphasis labels. If the element is removable or filter-like, it is usually closer to sl-tag.",
+      "sldsTag": "sl-badge"
+    },
+    {
+      "figmaPatterns": [
+        "Breadcrumbs",
+        "Breadcrumb",
+        "Trail",
+        "Navigation Trail"
+      ],
+      "confidence": 93,
+      "propertyMap": {
+        "Two Levels": {
+          "maxItems": 2
+        },
+        "Three Levels": {
+          "maxItems": 3
+        },
+        "Collapsed": {
+          "collapse": true
+        },
+        "With Home": {
+          "home": true
+        }
+      },
+      "notes": "Maps the whole breadcrumb trail. Individual crumb items are usually plain links/text rather than separate SLDS components in this repo.",
+      "sldsTag": "sl-breadcrumbs"
+    },
+    {
+      "figmaPatterns": [
+        "Data Grid",
+        "Data Table",
+        "Table",
+        "Grid",
+        "List View"
+      ],
+      "confidence": 90,
+      "propertyMap": {},
+      "notes": "Best match for structured tabular data. Use sl-grid for data-heavy layouts; columns and richer behaviors are usually configured separately from the Figma shape.",
+      "sldsTag": "sl-grid"
+    },
+    {
+      "figmaPatterns": [
+        "Pagination",
+        "Paginator",
+        "Page Controls",
+        "Pager"
+      ],
+      "confidence": 92,
+      "propertyMap": {
+        "Small": {
+          "size": "sm"
+        },
+        "Medium": {
+          "size": "md"
+        },
+        "Large": {
+          "size": "lg"
+        },
+        "Simple": {
+          "variant": "simple"
+        },
+        "Full": {
+          "variant": "full"
+        }
+      },
+      "notes": "Use for next/previous and page navigation controls. Often appears beneath tables, grids, or search results.",
+      "sldsTag": "sl-paginator"
+    },
+    {
+      "figmaPatterns": [
+        "Search",
+        "Search Field",
+        "Search Input",
+        "Quick Search"
+      ],
+      "confidence": 94,
+      "propertyMap": {
+        "Default": {
+          "type": "search"
+        },
+        "With Clear": {
+          "clearable": true
+        },
+        "Loading": {
+          "loading": true
+        },
+        "Small": {
+          "size": "sm"
+        },
+        "Large": {
+          "size": "lg"
+        }
+      },
+      "notes": "Prefer this over sl-text-field when the design clearly communicates search semantics, magnifier iconography, or result filtering.",
+      "sldsTag": "sl-search-field"
+    },
+    {
+      "figmaPatterns": [
+        "Tag",
+        "Chip",
+        "Label Chip",
+        "Filter Chip"
+      ],
+      "confidence": 90,
+      "propertyMap": {
+        "Default": {
+          "removable": false
+        },
+        "Removable": {
+          "removable": true
+        },
+        "Selected": {
+          "selected": true
+        },
+        "Neutral": {
+          "variant": "neutral"
+        },
+        "Brand": {
+          "variant": "brand"
+        }
+      },
+      "notes": "Maps compact categorical tokens. If multiple chips appear as a managed collection, pair with sl-tag-list.",
+      "sldsTag": "sl-tag"
+    },
+    {
+      "figmaPatterns": [
+        "Tag List",
+        "Chip Group",
+        "Selected Filters",
+        "Token List"
+      ],
+      "confidence": 88,
+      "propertyMap": {
+        "Wrapping": {
+          "wrap": true
+        },
+        "Single Line": {
+          "wrap": false
+        },
+        "Removable": {
+          "removable": true
+        },
+        "Compact": {
+          "density": "compact"
+        }
+      },
+      "notes": "Useful for lists of tags, selected filters, or tokens. Designers often draw this as a wrapping auto-layout container rather than a named component.",
+      "sldsTag": "sl-tag-list"
+    },
+    {
+      "figmaPatterns": [
+        "Accordion",
+        "Accordion Group",
+        "Collapsible Sections",
+        "Expansion Panel"
+      ],
+      "sldsTag": "sl-accordion",
+      "confidence": 93,
+      "propertyMap": {},
+      "notes": "Use for collapsible content sections where each panel reveals more detail without leaving the page context."
+    },
+    {
+      "figmaPatterns": [
+        "Calendar",
+        "Date Picker",
+        "Scheduler Calendar",
+        "Month View"
+      ],
+      "sldsTag": "sl-calendar",
+      "confidence": 91,
+      "propertyMap": {},
+      "notes": "Maps calendar-style date selection and browsing patterns. Prefer sl-date-field when the design is primarily an input field."
+    },
+    {
+      "figmaPatterns": [
+        "Callout",
+        "Call Out",
+        "Highlighted Notice",
+        "Emphasis Message"
+      ],
+      "sldsTag": "sl-callout",
+      "confidence": 90,
+      "propertyMap": {},
+      "notes": "Use for prominent, themed messaging blocks that need more visual emphasis than a standard inline message."
+    },
+    {
+      "figmaPatterns": [
+        "Combobox",
+        "Combo Box",
+        "Autocomplete",
+        "Typeahead"
+      ],
+      "sldsTag": "sl-combobox",
+      "confidence": 93,
+      "propertyMap": {},
+      "notes": "Best fit for searchable or freeform selection inputs that combine text entry with option suggestions."
+    },
+    {
+      "figmaPatterns": [
+        "Date Field",
+        "Date Input",
+        "Date Entry",
+        "Date Form Field"
+      ],
+      "sldsTag": "sl-date-field",
+      "confidence": 92,
+      "propertyMap": {},
+      "notes": "Use when the design shows a dedicated date input control rather than a full calendar surface."
+    },
+    {
+      "figmaPatterns": [
+        "Editor",
+        "Rich Text Editor",
+        "WYSIWYG",
+        "Content Editor"
+      ],
+      "sldsTag": "sl-editor",
+      "confidence": 88,
+      "propertyMap": {},
+      "notes": "Maps rich text editing surfaces. Formatting controls may be composed with sl-tool-bar around the editor."
+    },
+    {
+      "figmaPatterns": [
+        "Formatted Date",
+        "Localized Date",
+        "Date Display",
+        "Date Value"
+      ],
+      "sldsTag": "sl-format-date",
+      "confidence": 89,
+      "propertyMap": {},
+      "notes": "Use for read-only date output that should be localized or consistently formatted."
+    },
+    {
+      "figmaPatterns": [
+        "Formatted Number",
+        "Localized Number",
+        "Number Display",
+        "Numeric Value"
+      ],
+      "sldsTag": "sl-format-number",
+      "confidence": 89,
+      "propertyMap": {},
+      "notes": "Use for read-only numeric output that should respect locale or formatting conventions."
+    },
+    {
+      "figmaPatterns": [
+        "Infotip",
+        "Info Tip",
+        "Help Tip",
+        "Inline Help"
+      ],
+      "sldsTag": "sl-infotip",
+      "confidence": 90,
+      "propertyMap": {},
+      "notes": "Good fit for contextual help content that stays visible or discoverable near the related UI."
+    },
+    {
+      "figmaPatterns": [
+        "Listbox",
+        "List Box",
+        "Selection List",
+        "Option List"
+      ],
+      "sldsTag": "sl-listbox",
+      "confidence": 91,
+      "propertyMap": {},
+      "notes": "Use for explicit option lists and picker panels, especially when options are displayed as a dedicated list."
+    },
+    {
+      "figmaPatterns": [
+        "Message Dialog",
+        "Alert Dialog",
+        "Prompt Dialog",
+        "Confirm Message"
+      ],
+      "sldsTag": "sl-message-dialog",
+      "confidence": 90,
+      "propertyMap": {},
+      "notes": "Use for focused message, alert, or confirmation flows where the dialog content is primarily descriptive text and actions."
+    },
+    {
+      "figmaPatterns": [
+        "Number Field",
+        "Numeric Input",
+        "Number Input",
+        "Quantity Field"
+      ],
+      "sldsTag": "sl-number-field",
+      "confidence": 92,
+      "propertyMap": {},
+      "notes": "Best fit for numeric data entry with number-specific affordances."
+    },
+    {
+      "figmaPatterns": [
+        "Panel",
+        "Content Panel",
+        "Information Panel",
+        "Details Panel"
+      ],
+      "sldsTag": "sl-panel",
+      "confidence": 90,
+      "propertyMap": {},
+      "notes": "Use for grouped content regions or detail panes that behave like a distinct surface, separate from sl-card and sl-drawer."
+    },
+    {
+      "figmaPatterns": [
+        "Time Field",
+        "Time Input",
+        "Time Entry",
+        "Time Form Field"
+      ],
+      "sldsTag": "sl-time-field",
+      "confidence": 91,
+      "propertyMap": {},
+      "notes": "Use when the design shows a dedicated time input control rather than a general text field."
+    },
+    {
+      "figmaPatterns": [
+        "Toolbar",
+        "Tool Bar",
+        "Action Toolbar",
+        "Command Bar",
+        "Formatting Toolbar"
+      ],
+      "sldsTag": "sl-tool-bar",
+      "confidence": 91,
+      "propertyMap": {},
+      "notes": "Maps grouped action bars that combine buttons, toggles, search, or overflow actions in one horizontal control strip."
+    },
+    {
+      "figmaPatterns": [
+        "Tree",
+        "Tree View",
+        "Hierarchy",
+        "Expandable Tree"
+      ],
+      "sldsTag": "sl-tree",
+      "confidence": 91,
+      "propertyMap": {},
+      "notes": "Use for hierarchical navigation and expandable node structures."
+    }
+  ],
+  "unmappable": [
+    {
+      "figmaPatterns": [
+        "Custom Chart",
+        "Graph",
+        "Data Visualization"
+      ],
+      "reason": "No SLDS chart component exists.",
+      "suggestion": "Use a third-party charting library and apply SLDS tokens for color, spacing, and typography."
+    },
+    {
+      "figmaPatterns": [
+        "Map",
+        "Location Map",
+        "Geo View"
+      ],
+      "reason": "SLDS does not provide mapping or geospatial widgets.",
+      "suggestion": "Integrate a map SDK and wrap it in a project-specific component styled with SLDS primitives."
+    },
+    {
+      "figmaPatterns": [
+        "File Upload",
+        "Dropzone",
+        "Drag and Drop Upload"
+      ],
+      "reason": "No upload/dropzone component exists in the listed SLDS inventory.",
+      "suggestion": "Build a custom upload flow using native input[type=file], sl-button, sl-inline-message, and progress indicators."
+    },
+    {
+      "figmaPatterns": [
+        "Kanban Board",
+        "Board",
+        "Swimlane"
+      ],
+      "reason": "A draggable board layout is outside the shipped SLDS component scope.",
+      "suggestion": "Create a custom board using SLDS cards, tags, and buttons, plus a drag-and-drop utility."
+    },
+    {
+      "figmaPatterns": [
+        "Timeline",
+        "Gantt",
+        "Roadmap"
+      ],
+      "reason": "Temporal visualization and planning widgets are not covered by current SLDS components.",
+      "suggestion": "Use a specialized timeline library and wrap it with SLDS cards, badges, and filters."
+    }
+  ]
+}

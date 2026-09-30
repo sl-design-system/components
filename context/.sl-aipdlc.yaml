@@ -5,4 +5,5 @@ mode: embedded                # standalone | embedded
 context_root: .             # relative to this file — always the marker's directory
 schema_version: 1           # contract version the documents follow
 pr_destination_branch: main   # where the MCP writer opens pull requests against
-foundation_pins: []         # pinned foundation-bundle refs, e.g. security-baseline@1.2.0
+foundation_pins:            # pinned foundation-bundle refs, e.g. security-baseline@1.2.0
+  - prior-art-ds-skills@2026-09-30   # frozen snapshot of the ds-*/sdl-* and sl-ds-* skill sets

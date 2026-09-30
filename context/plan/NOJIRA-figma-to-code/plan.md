@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-10-01T00:20:00Z
+updated: 2026-10-01T01:00:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -168,6 +168,13 @@ desktop to remote is a strong candidate for the first measured increment of slic
 small change, it plausibly moves generation speed (R8) by a large factor, it removes the
 desktop-application dependency that stops anything running unattended, and it is exactly the shape
 of change the bench exists to adjudicate — plausible, cheap, and currently unproven.
+
+**Figma's documentation settles the server choice.** It states that the remote server is *strongly
+recommended*, connects without the desktop application, and provides the broadest feature set; the
+desktop server is positioned for specific organization and government needs. And the rate limits
+are **identical for both** — 600 tool calls per day and 20 per minute on an Organization plan with
+a Dev or Full seat — so there is no quota argument for preferring the desktop server. That removes
+the main reason one might have kept it.
 
 One caveat on the evidence: this is one environment at one moment. The desktop server may be
 misconfigured here rather than slow in general, which the smoke run should establish rather than

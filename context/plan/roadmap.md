@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T17:10:00Z
+updated: 2026-09-30T22:30:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -73,6 +73,26 @@ should be a thin orchestrator over scripts rather than a place where work happen
 Roughly **four new skills across the whole programme**, and one existing one extended. Everything
 else is scripts, schemas and documents. If that count grows, it is worth asking what judgement the
 new skill is supposed to supply that a script could not.
+
+## The working rhythm
+
+Once the baseline exists, every slice after it runs the same loop, and the loop is the method:
+
+```
+pick ONE requirement  →  implement it  →  bench run, --repeat 3  →  compare against the baseline
+                                                                      │
+                    ┌─────────────────────────────────────────────────┤
+                    │                                                 │
+        score moved beyond the spread              score moved less than the spread
+        and cost did not get worse                 or cost got worse for nothing
+                    │                                                 │
+              keep · record the delta                          revert · record why
+              raise the threshold                              the entry stays proposed
+```
+
+Before that loop can start, three things happen in order: a **smoke run** of the current pipeline by
+hand (reconnaissance — does it even complete), then **slice 1** task by task, then the **baseline**.
+The loop is not available earlier, because a delta needs something to be a delta against.
 
 ## Gating rule between slices
 

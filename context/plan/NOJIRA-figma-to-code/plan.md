@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T14:20:00Z
+updated: 2026-09-30T22:30:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -316,6 +316,40 @@ so they will need updating whenever a metric legitimately changes — and a gold
 without being read is a test that has stopped testing. The alternative, asserting field by field,
 lets a changed number through unnoticed, which is the failure this amendment exists to prevent. The
 trade is deliberate; the discipline it requires is reading the diff.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-09-30
+
+### Amendment 4 — 2026-09-30, after approval
+
+**What changed.** Two things about how the work proceeds, neither touching the tasks.
+
+**A smoke run comes before `T-01`.** Take two or three corpus screens, run the existing pipeline by
+hand, and keep the run folders. It is reconnaissance, not measurement: does a run complete at all,
+does it halt on an unmapped component, how long does it take, and what does the output look like.
+Nobody knows — there is not one retained run folder on disk. If the pipeline cannot complete on a
+real product screen today, the sequencing below is built on sand and should change before any of it
+is written. Half a day, no code, and it is the cheapest risk to retire.
+
+**Two testing cadences, deliberately not merged.** Conflating them makes the fast one slow and the
+slow one useless:
+
+| | What it answers | When |
+|---|---|---|
+| Unit, integration and calibration tests | is the code correct | every commit, in CI, fast |
+| A bench run over the corpus with repetition | did quality actually move | once per increment, slow and costly |
+
+Running the corpus on every commit would make the feedback loop unusable and teach nothing a unit
+test does not; running only unit tests per increment would leave the question the whole plan exists
+to answer unasked.
+
+**What did not change.** No task is added, removed or reordered. The numbers are still the execution
+order.
+
+**Judgement to be aware of.** The smoke run is a spike, so it is recorded here rather than as a task
+— the same treatment the corpus survey got. The risk is that a spike's findings evaporate because
+nothing owns them; the mitigation is that its output feeds `T-04`'s case selection and the plan's
+own risk table, both of which are written down.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-09-30

@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T08:02:22Z
+updated: 2026-09-30T08:20:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -26,7 +26,7 @@ analysis documents.
 
 | # | Slice | Plan | Status | One-line scope |
 |---|---|---|---|---|
-| 1 | Measurement layer | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md) | proposed · `phase: conceptual` | Coverage, two fidelity dimensions, run-to-run variance, design intake report, published baseline. Pipeline unchanged. |
+| 1 | Measurement layer | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md) | approved · `phase: approved` | Coverage, two fidelity dimensions, run-to-run variance, design intake report, published baseline. Pipeline unchanged. |
 | 2 | Pipeline increments | not written yet | — | One requirement at a time against the baseline. First candidates from the analysis: per-node geometry carried into the manifest, freezing the decomposition decision in a reviewable artifact, moving the computable finish checks out of the validation prompt into a script. |
 | 3 | Requirement backlog | not written yet | — | The remaining items from the prior attempt's 31-requirement list, admitted one at a time and only with a corpus case attached. |
 | 4 | Caching and change detection | not written yet | — | Skip unchanged designs, diff against the previous run. Explicitly deferred: it is an efficiency concern, and efficiency before correctness hides variance. |

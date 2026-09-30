@@ -6,23 +6,18 @@ title: Measurement layer for the Figma-to-code pipeline
 description: Build coverage, fidelity and design-intake measurement over the existing pipeline without changing it, producing a baseline and its run-to-run variance
 jira: null
 resource: null
-status: proposed
-phase: conceptual
+status: approved
+phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T08:02:22Z
+updated: 2026-09-30T08:20:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
 depends_on: []
-approved_by: null
-approved_date: null
-open_questions:
-  - Where the harness lives — inside the implement-design plugin or as a sibling tool usable against any generator
-  - Who owns the frozen corpus Figma file and how it is protected from edits
-  - Whether increments target the existing plugin, the prior skill set, or both behind one measurement layer
-  - How mapping work and pipeline work are sequenced given they are mutually blocking
-  - Whether a Jira ticket is created, which would rename every item in this initiative
+approved_by: marcin.ludwig
+approved_date: 2026-09-30
+open_questions: []
 ---
 
 # Measurement layer for the Figma-to-code pipeline
@@ -62,6 +57,13 @@ Four principles, taken from the analysis:
 The deliberate consequence of principle 4: this plan is itself the first demonstration of the
 incremental method it establishes. Its acceptance criteria are narrow on purpose.
 
+**Two decisions taken at approval.** The harness is a **sibling tool under `tools/`**, not part of
+the `implement-design` plugin: it must be able to measure any generator — the plugin today, the
+prior `sl-ds-*` skill set, whatever replaces either — and keeping it outside the plugin is what
+keeps "measure from outside" true rather than aspirational. The corpus lives in a **new Figma file
+owned by the design system team**, holding copies of nodes lifted from the product files, so the
+product teams cannot edit it out from under a baseline.
+
 Measuring without modifying is possible because the pipeline already persists what the harness
 needs: the structural node tree, the Code Connect map, the design context and the reference
 screenshot are written to the run folder on every run. The harness reads that folder and the
@@ -73,7 +75,8 @@ exercises it. That rule is what prevents the backlog from being re-adopted whole
 
 ## Scope
 
-**In scope.** Corpus registry and its freezing procedure; deterministic Figma node-tree extraction;
+**In scope.** The harness as a sibling tool under `tools/`; the corpus registry and its freezing
+procedure; deterministic Figma node-tree extraction;
 node-accounting coverage metric; design-system adoption and intake report as a skill; the runner and
 its result schema; repeated-run variance; DOM position accuracy; per-component pixel comparison with
 tiered tolerances; strict versus as-is mode declaration; a published baseline for the current
@@ -140,15 +143,26 @@ dependency for strict-mode cases, not a blocker for this plan.
 
 ## Approval
 
-**This section must be filled before creating tasks in `work/` (phase gate).**
-
-- Approved by: <!-- name -->
-- Approved date: <!-- YYYY-MM-DD -->
-- Open questions resolved: <!-- Each of the five in frontmatter: answer here, or name the task that
-     carries it. Questions 1 and 2 must be answered before T-01 and T-02 respectively — they decide
-     where code goes and whether results are comparable at all. Questions 3, 4 and 5 may be carried:
-     3 is settled by what the baseline shows, 4 is a standing coordination matter with the mapping
-     work, and 5 is administrative. -->
-- Outstanding concerns: <!-- none, or list -->
-
-To approve: set `phase: approved`, `approved_by`, `approved_date` in frontmatter, and clear `open_questions: []` — in the **same commit** as this sign-off (CONVENTIONS § 4.1).
+- Approved by: marcin.ludwig
+- Approved date: 2026-09-30
+- Open questions resolved:
+  - **Where the harness lives** — *answered.* A sibling tool under `tools/`, so it can measure any
+    generator and not only the `implement-design` plugin. Recorded in `## Approach` and `## Scope`;
+    executed by `T-NOJIRA-figma-to-code-01`.
+  - **Who owns the frozen corpus and how it is protected** — *answered.* A new Figma file owned by
+    the design system team, holding copies of nodes taken from the product files. Executed by
+    `T-NOJIRA-figma-to-code-02`, which also records the freeze procedure and the last-modified
+    guard.
+  - **Whether increments target the plugin, the prior skill set, or both** — *carried.* This is
+    settled by what the baseline shows, which is the output of `T-NOJIRA-figma-to-code-12`. Deciding
+    it now would be guessing; it belongs to the slice 2 plan.
+  - **How mapping work and pipeline work are sequenced** — *carried.* A standing coordination matter
+    with the Code Connect work, not a precondition for this slice: strict-mode cases need the
+    mappings, as-is mode does not, and `T-NOJIRA-figma-to-code-02` selects initial cases that avoid
+    the fourteen unmapped components.
+  - **Whether a Jira ticket is created** — *carried.* Administrative. If a ticket appears, every id
+    in this initiative is renamed from `NOJIRA-figma-to-code` to its key and the cross-links updated.
+- Outstanding concerns: the fidelity dimension rests on Figma and browser renderers agreeing within
+  the tiered tolerances. If they do not, `T-NOJIRA-figma-to-code-09` is the task that will surface
+  it, and the analysis already names the fallback — DOM geometry alone, one dimension replaced
+  rather than the plan invalidated.

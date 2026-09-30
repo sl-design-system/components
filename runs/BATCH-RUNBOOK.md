@@ -86,7 +86,7 @@ For each run:
 2. Carry the four Stage 0 answers above; **do not ask the user anything**.
 3. Record every decomposer open question **with the default chosen** — the first run produced nine
    on the simplest screen, and they are the main variance source.
-4. On a blocker, record it and stop that run. **One run failing must not stop the batch.**
+4. Write `progress.json` after every stage (see _Resuming a stage that failed_). On a blocker, record it there with its reason and stop that run. **One run failing must not stop the batch** — and a run that stopped must be resumable without repeating what already succeeded.
 5. Promote the finished run to `runs/<date>-<case-id>-<slug>/`, including a `generated/` snapshot
    of the code, and commit. Commits need `FONT_AWESOME_AUTH_TOKEN=dummy` because the pre-commit
    hook expands the variable.
@@ -104,6 +104,57 @@ no future run depends on somebody remembering.
   their internals. Count what a developer would place.
 - **`(unbound — needs a token)` is usually wrong.** On the first run all five flagged values had
   exact tokens already. Search the theme for an exact match before approximating.
+
+## Resuming a stage that failed
+
+The pipeline has **no resume protocol** — its skill describes none, and nothing records how far a
+run got. But every stage's output does land on disk, so the material to resume from exists. What is
+missing is the bookkeeping, and adding it costs almost nothing.
+
+**Each run agent writes `progress.json` into its run folder**, updated after every stage:
+
+```json
+{
+  "case": "A1-kampus-subchapter-feed",
+  "pipelineCommit": "<git rev-parse HEAD>",
+  "figmaFileVersion": "<from the file's metadata>",
+  "stages": {
+    "1-ingest": { "status": "done", "at": "…", "tokens": 78410 },
+    "2-decompose": { "status": "done", "at": "…" },
+    "3-implement": { "status": "done", "at": "…", "typeCheck": "clean" },
+    "4-validate": { "status": "blocked", "at": "…", "reason": "render harness returned 500" },
+    "5-author": { "status": "not-reached" },
+    "6-review": { "status": "not-reached" }
+  }
+}
+```
+
+That makes a later pass mechanical: read every `progress.json`, select the runs whose Stage 3 is
+`done` and Stage 4 is not, and re-run **only** Stage 4 onward for those.
+
+**What each stage needs in order to be resumable:**
+
+| Resume at | Needs                                       | Where it is                                                    |
+| --------- | ------------------------------------------- | -------------------------------------------------------------- |
+| Stage 2   | the manifest                                | `manifest.md`                                                  |
+| Stage 3   | manifest + decomposition                    | `manifest.md` (both sections)                                  |
+| Stage 4   | the generated code, plus a working renderer | `generated/` snapshot, restored into `examples/lit/src/_runs/` |
+| Stage 5–6 | Stage 4's verdict and captures              | `testing/`                                                     |
+
+The `generated/` snapshot is therefore not only evidence — **it is the resume source**. The live
+tree under `examples/lit/src/_runs/` is gitignored and a clean checkout wipes it, so a resume
+restores from the snapshot rather than regenerating.
+
+**One thing a resume must refuse.** If the pipeline commit has changed since the stage that
+succeeded, the resumed run is half old and half new, and its numbers no longer describe either.
+`progress.json` records the commit precisely so that a resume across a different one **fails
+loudly** instead of quietly producing a mongrel baseline. Same discipline as the corpus freeze
+stamp, for the same reason.
+
+This is a small, local implementation of a decision already recorded in
+[`A-NOJIRA-pipeline-staging`](../context/analyzes/NOJIRA-pipeline-staging/analysis.md)
+F11 — checkpoint per artifact, resume and normal execution on one code path. The batch is a chance
+to find out whether that design holds before it is built into anything.
 
 ## What to record per run
 

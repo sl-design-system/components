@@ -48,7 +48,7 @@ export default {
 export const Basic: Story = {};
 
 export const Mobile: Story = {
-  globals: {
+  parameters: {
     viewport: {
       value: 'mobile',
       isRotated: false

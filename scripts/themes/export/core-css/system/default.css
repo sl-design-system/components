@@ -1,17 +1,11 @@
 body {
-  --sl-animation-button-duration: var(--sl-animation-duration-normal);
-  --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
-  --sl-animation-duration-fast: 90ms;
-  --sl-animation-duration-normal: 200ms;
-  --sl-animation-duration-slow: 500ms;
-  --sl-animation-easing-ease-in-out: ease-in-out;
   --sl-color-black: #000000;
   --sl-color-transparent: #00000000;
   --sl-color-white: #ffffff;
-  --sl-elevation-shadow-overflow: 0px 0px var(--sl-size-200) 0px var(--sl-color-shadow-overflow1);
+  --sl-elevation-shadow-overflow: var(--sl-size-200) var(--sl-color-shadow-overflow1);
   --sl-elevation-shadow-overlay:
-    0px var(--sl-size-075) var(--sl-size-150) -3px var(--sl-color-shadow-overlay1),
-    0px var(--sl-size-150) var(--sl-size-200) 0px var(--sl-color-shadow-overlay2);
+    var(--sl-size-075) var(--sl-size-150) -3 var(--sl-color-shadow-overlay1),
+    var(--sl-size-150) var(--sl-size-200) var(--sl-color-shadow-overlay2);
   --sl-elevation-shadow-sm:
     var(--sl-size-010) var(--sl-size-010) var(--sl-color-shadow-overlay1),
     3px var(--sl-size-025) var(--sl-color-shadow-overlay2);

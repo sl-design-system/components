@@ -12,7 +12,7 @@
 '@sl-design-system/sanoma-learning': major
 '@sl-design-system/sanoma-pro': major
 '@sl-design-system/sanoma-utbildning': major
-'@sl-design-system/teacher-assistant': major
+'@sl-design-system/sl-ecosystem': major
 '@sl-design-system/teas': major
 '@sl-design-system/tig': major
 ---

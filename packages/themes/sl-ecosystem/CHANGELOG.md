@@ -1,4 +1,6 @@
-# @sl-design-system/teacher-assistant
+# @sl-design-system/sl-ecosystem
+
+This package was previously published as `@sl-design-system/teacher-assistant`.
 
 ## 0.0.4
 

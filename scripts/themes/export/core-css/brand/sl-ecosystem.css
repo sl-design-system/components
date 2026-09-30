@@ -1,4 +1,4 @@
-[data-brand='teacher-assistant'] {
+[data-brand='sl-ecosystem'] {
   --sl-brand-icon-typeset-fontWeight-regular: var(--sl-icon-typeset-fontWeight-icon-regular);
   --sl-brand-icon-typeset-fontWeight-solid: var(--sl-icon-typeset-fontWeight-icon-solid);
   --sl-brand-light-color-background-accent-blue-bold: var(--sl-brand-light-color-palette-blue-400);
@@ -177,19 +177,19 @@
     --sl-brand-light-color-background-accent-green-subtlest
   );
   --sl-brand-light-color-background-primary-bold: var(
-    --sl-brand-light-color-background-accent-purple-bold
+    --sl-subtheme-light-color-background-primary-bold
   );
   --sl-brand-light-color-background-primary-interactive-bold: var(
-    --sl-brand-light-color-background-accent-purple-interactive-bold
+    --sl-subtheme-light-color-background-primary-interactive-bold
   );
   --sl-brand-light-color-background-primary-interactive-plain: var(
-    --sl-brand-light-color-background-accent-purple-interactive-plain
+    --sl-subtheme-light-color-background-primary-interactive-plain
   );
   --sl-brand-light-color-background-primary-subtle: var(
-    --sl-brand-light-color-background-accent-purple-subtle
+    --sl-subtheme-light-color-background-primary-subtle
   );
   --sl-brand-light-color-background-primary-subtlest: var(
-    --sl-brand-light-color-background-accent-purple-subtlest
+    --sl-subtheme-light-color-background-primary-subtlest
   );
   --sl-brand-light-color-background-secondary-bold: var(
     --sl-brand-light-color-background-accent-purple-subtle
@@ -219,7 +219,7 @@
     --sl-brand-light-color-background-accent-purple-subtle
   );
   --sl-brand-light-color-background-selected-subtlest: var(
-    --sl-brand-light-color-background-accent-purple-subtlest
+    --sl-subtheme-light-color-background-selected-subtlest
   );
   --sl-brand-light-color-background-subtle: var(
     --sl-brand-light-color-background-accent-grey-subtle
@@ -293,12 +293,8 @@
   --sl-brand-light-color-border-positive-plain: var(
     --sl-brand-light-color-border-accent-green-plain
   );
-  --sl-brand-light-color-border-primary-bold: var(
-    --sl-brand-light-color-border-accent-purple-plain
-  );
-  --sl-brand-light-color-border-primary-plain: var(
-    --sl-brand-light-color-border-accent-purple-plain
-  );
+  --sl-brand-light-color-border-primary-bold: var(--sl-subtheme-light-color-border-primary-bold);
+  --sl-brand-light-color-border-primary-plain: var(--sl-subtheme-light-color-border-primary-plain);
   --sl-brand-light-color-border-secondary-bold: var(
     --sl-brand-light-color-border-accent-purple-bold
   );
@@ -375,9 +371,7 @@
     --sl-brand-light-color-palette-yellow-600
   );
   --sl-brand-light-color-foreground-bold: var(--sl-brand-light-color-foreground-accent-grey-bold);
-  --sl-brand-light-color-foreground-brand: var(
-    --sl-brand-light-color-foreground-accent-purple-plain
-  );
+  --sl-brand-light-color-foreground-brand: var(--sl-subtheme-light-color-foreground-brand);
   --sl-brand-light-color-foreground-caution-bold: var(
     --sl-brand-light-color-foreground-accent-orange-bold
   );
@@ -429,10 +423,10 @@
     --sl-brand-light-color-foreground-accent-green-plain
   );
   --sl-brand-light-color-foreground-primary-bold: var(
-    --sl-brand-light-color-foreground-accent-purple-plain
+    --sl-subtheme-light-color-foreground-primary-bold
   );
   --sl-brand-light-color-foreground-primary-onBold: var(
-    --sl-brand-light-color-foreground-accent-purple-onBold
+    --sl-subtheme-light-color-foreground-primary-onBold
   );
   --sl-brand-light-color-foreground-secondary-bold: var(
     --sl-brand-light-color-foreground-accent-purple-bold
@@ -563,14 +557,16 @@
   --sl-brand-light-color-shadow-overlay2: #1914181f;
   --sl-brand-light-color-skeleton-plain: var(--sl-brand-light-color-palette-grey-100);
   --sl-brand-light-color-skeleton-subtle: var(--sl-brand-light-color-palette-grey-050);
-  --sl-brand-light-elevation-surface-base-default: var(--sl-brand-light-color-palette-grey-050);
+  --sl-brand-light-elevation-surface-base-default: var(
+    --sl-subtheme-light-elevation-surface-base-default
+  );
   --sl-brand-light-elevation-surface-raised-alternative: var(
     --sl-brand-light-color-palette-grey-100
   );
   --sl-brand-light-elevation-surface-raised-default: var(--sl-brand-light-color-palette-grey-000);
   --sl-brand-light-elevation-surface-raised-inverted: var(--sl-brand-light-color-palette-grey-900);
   --sl-brand-light-elevation-surface-raised-primary: var(
-    --sl-brand-light-color-background-primary-bold
+    --sl-subtheme-light-color-background-primary-bold
   );
   --sl-brand-light-elevation-surface-raised-sunken: var(--sl-brand-light-color-palette-grey-050);
   --sl-brand-light-elevation-surface-shadow: var(--sl-brand-light-color-palette-grey-900);
@@ -618,35 +614,35 @@
   --sl-brand-size-text-new-heading-sm: var(--sl-size-font-175);
   --sl-brand-size-text-new-heading-xl: var(--sl-size-font-400);
   --sl-brand-space-offset-default: var(--sl-space-075);
-  --sl-brand-text-new-body-lg-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-body-lg-fontFamily: 'The Message Text Beta03 Condensed';
   --sl-brand-text-new-body-lg-fontSize: 16px;
   --sl-brand-text-new-body-lg-fontWeight: 400;
   --sl-brand-text-new-body-lg-lineHeight: 24px;
-  --sl-brand-text-new-body-md-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-body-md-fontFamily: 'The Message Text Beta03 Condensed';
   --sl-brand-text-new-body-md-fontSize: 14px;
   --sl-brand-text-new-body-md-fontWeight: 400;
   --sl-brand-text-new-body-md-lineHeight: 20px;
-  --sl-brand-text-new-body-sm-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-body-sm-fontFamily: 'The Message Text Beta03 Condensed';
   --sl-brand-text-new-body-sm-fontSize: 12px;
   --sl-brand-text-new-body-sm-fontWeight: 400;
   --sl-brand-text-new-body-sm-lineHeight: 16px;
-  --sl-brand-text-new-heading-2xl-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-2xl-fontFamily: 'The Message Beta03';
   --sl-brand-text-new-heading-2xl-fontSize: 48px;
   --sl-brand-text-new-heading-2xl-fontWeight: SemiBold;
   --sl-brand-text-new-heading-2xl-lineHeight: 48px;
-  --sl-brand-text-new-heading-lg-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-lg-fontFamily: 'The Message Beta03';
   --sl-brand-text-new-heading-lg-fontSize: 24px;
   --sl-brand-text-new-heading-lg-fontWeight: SemiBold;
   --sl-brand-text-new-heading-lg-lineHeight: 32px;
-  --sl-brand-text-new-heading-md-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-md-fontFamily: 'The Message Beta03';
   --sl-brand-text-new-heading-md-fontSize: 16px;
   --sl-brand-text-new-heading-md-fontWeight: SemiBold;
   --sl-brand-text-new-heading-md-lineHeight: 20px;
-  --sl-brand-text-new-heading-sm-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-sm-fontFamily: 'The Message Beta03';
   --sl-brand-text-new-heading-sm-fontSize: 14px;
   --sl-brand-text-new-heading-sm-fontWeight: SemiBold;
   --sl-brand-text-new-heading-sm-lineHeight: 20px;
-  --sl-brand-text-new-heading-xl-fontFamily: 'New Message';
+  --sl-brand-text-new-heading-xl-fontFamily: 'The Message Beta03';
   --sl-brand-text-new-heading-xl-fontSize: 32px;
   --sl-brand-text-new-heading-xl-fontWeight: SemiBold;
   --sl-brand-text-new-heading-xl-lineHeight: 40px;
@@ -654,21 +650,21 @@
   --sl-brand-text-new-icon-outline-fontWeight: regular;
   --sl-brand-text-new-icon-solid-fontFamily: 'Font Awesome 7 Pro';
   --sl-brand-text-new-icon-solid-fontWeight: solid;
-  --sl-brand-text-new-input-lg-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-input-lg-fontFamily: 'The Message Text Beta03 Condensed';
   --sl-brand-text-new-input-lg-fontSize: 14px;
   --sl-brand-text-new-input-lg-lineHeight: 32px;
-  --sl-brand-text-new-input-md-fontFamily: 'New Message Text Condensed';
+  --sl-brand-text-new-input-md-fontFamily: 'The Message Text Beta03 Condensed';
   --sl-brand-text-new-input-md-fontSize: 14px;
   --sl-brand-text-new-input-md-lineHeight: 24px;
-  --sl-brand-text-new-typeset-fontFamily-body: 'New Message Text Condensed';
-  --sl-brand-text-new-typeset-fontFamily-heading: 'New Message';
+  --sl-brand-text-new-typeset-fontFamily-body: 'The Message Text Beta03 Condensed';
+  --sl-brand-text-new-typeset-fontFamily-heading: 'The Message Beta03';
   --sl-brand-text-new-typeset-fontFamily-icon: 'Font Awesome 7 Pro';
   --sl-brand-text-new-typeset-fontWeight-regular: var(--sl-fontWeight-400);
   --sl-brand-text-new-typeset-fontWeight-semiBold: var(--sl-fontWeight-600);
-  --sl-caption-fontFamily: 'New Message';
-  --sl-display-fontFamily: 'New Message';
-  --sl-heading-fontFamily: 'New Message';
-  --sl-label-fontFamily: 'New Message';
-  --sl-text-fontFamily: 'New Message Text Condensed';
-  --sl-title-fontFamily: 'New Message';
+  --sl-caption-fontFamily: 'The Message Beta03';
+  --sl-display-fontFamily: 'The Message Beta03';
+  --sl-heading-fontFamily: 'The Message Beta03';
+  --sl-label-fontFamily: 'The Message Beta03';
+  --sl-text-fontFamily: 'The Message Text Beta03 Condensed';
+  --sl-title-fontFamily: 'The Message Beta03';
 }

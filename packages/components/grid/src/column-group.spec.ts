@@ -74,46 +74,34 @@ describe('sl-column-group', () => {
       expect(headers[0]).not.to.have.attribute('aria-labelledby');
       expect(headers[1]).not.to.have.attribute('aria-labelledby');
 
-      expect(headers[2]).not.to.have.attribute('aria-label');
-      expect(headers[2]).not.to.have.attribute('abbr');
       expect(headers[2]).not.to.have.attribute('aria-labelledby');
-      const span2 = headers[2].querySelector('span');
-      expect(span2).to.have.attribute('aria-labelledby', `${headers[0].id}-label`);
+      expect(headers[2]).not.to.have.attribute('abbr');
+      expect(headers[2]).to.have.attribute('aria-label', 'Name First name');
       expect(headers[2].textContent?.trim()).to.equal('First name');
 
-      expect(headers[3]).not.to.have.attribute('aria-label');
-      expect(headers[3]).not.to.have.attribute('abbr');
       expect(headers[3]).not.to.have.attribute('aria-labelledby');
-      const span3 = headers[3].querySelector('span');
-      expect(span3).to.have.attribute('aria-labelledby', `${headers[0].id}-label`);
+      expect(headers[3]).not.to.have.attribute('abbr');
+      expect(headers[3]).to.have.attribute('aria-label', 'Name Last name');
       expect(headers[3].textContent?.trim()).to.equal('Last name');
 
-      expect(headers[4]).not.to.have.attribute('aria-label');
-      expect(headers[4]).not.to.have.attribute('abbr');
       expect(headers[4]).not.to.have.attribute('aria-labelledby');
-      const span4 = headers[4].querySelector('span');
-      expect(span4).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
+      expect(headers[4]).not.to.have.attribute('abbr');
+      expect(headers[4]).to.have.attribute('aria-label', 'Grades Biology');
       expect(headers[4].textContent?.trim()).to.equal('Biology');
 
-      expect(headers[5]).not.to.have.attribute('aria-label');
-      expect(headers[5]).not.to.have.attribute('abbr');
       expect(headers[5]).not.to.have.attribute('aria-labelledby');
-      const span5 = headers[5].querySelector('span');
-      expect(span5).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
+      expect(headers[5]).not.to.have.attribute('abbr');
+      expect(headers[5]).to.have.attribute('aria-label', 'Grades Maths');
       expect(headers[5].textContent?.trim()).to.equal('Maths');
 
-      expect(headers[6]).not.to.have.attribute('aria-label');
-      expect(headers[6]).not.to.have.attribute('abbr');
       expect(headers[6]).not.to.have.attribute('aria-labelledby');
-      const span6 = headers[6].querySelector('span');
-      expect(span6).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
+      expect(headers[6]).not.to.have.attribute('abbr');
+      expect(headers[6]).to.have.attribute('aria-label', 'Grades English');
       expect(headers[6].textContent?.trim()).to.equal('English');
 
-      expect(headers[7]).not.to.have.attribute('aria-label');
-      expect(headers[7]).not.to.have.attribute('abbr');
       expect(headers[7]).not.to.have.attribute('aria-labelledby');
-      const span7 = headers[7].querySelector('span');
-      expect(span7).to.have.attribute('aria-labelledby', `${headers[1].id}-label`);
+      expect(headers[7]).not.to.have.attribute('abbr');
+      expect(headers[7]).to.have.attribute('aria-label', 'Grades Age');
       expect(headers[7].textContent?.trim()).to.equal('Age');
 
       expect(dataCells[0]).to.have.attribute('headers', headers[2].id);
@@ -158,20 +146,16 @@ describe('sl-column-group', () => {
       expect(headers[6]).not.to.have.attribute('headers');
       expect(headers[7]).not.to.have.attribute('headers');
 
-      expect(headers[2]).not.to.have.attribute('aria-label');
-      expect(headers[3]).not.to.have.attribute('aria-label');
-      expect(headers[4]).not.to.have.attribute('aria-label');
+      expect(headers[2]).to.have.attribute('aria-label', 'Name First name');
+      expect(headers[3]).to.have.attribute('aria-label', 'Name Last name');
+      expect(headers[4]).to.have.attribute('aria-label', 'Grades Biology');
     });
 
-    it('should keep grouped leaf header labels wrapped for styling', () => {
+    it('should not wrap grouped leaf header labels in spans', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('th')).slice(2);
 
       headers.forEach(header => {
-        const label = header.querySelector('span');
-
-        expect(label).not.to.equal(null);
-        expect(label?.classList.contains('visually-hidden')).to.equal(false);
-        expect(label?.textContent?.trim()).to.equal(header.textContent?.trim());
+        expect(header.querySelector('span')).not.to.exist;
       });
     });
 

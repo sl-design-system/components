@@ -246,16 +246,10 @@ export class GridColumn<T = any> extends LitElement {
 
   /** @internal */
   get headerAriaLabel(): string | undefined {
-    // Use aria-labelledby instead of aria-label to avoid duplication
-    return undefined;
-  }
+    const label = [...this.groupHeaderLabels, this.headerLabelText].filter(Boolean).join(' ');
 
-  /** @internal */
-  get headerAriaLabelledBy(): string | undefined {
-    // Only include parent group header label spans when on a grouped column
-    // The column's own label text will be the visible text in the span
-    if (this.groupHeaderIds.length > 0) {
-      return this.groupHeaderIds.map(id => `${id}-label`).join(' ');
+    if (label) {
+      return label;
     }
 
     return undefined;
@@ -285,7 +279,7 @@ export class GridColumn<T = any> extends LitElement {
 
     return html`
       <th
-        aria-label=${ifDefined(this.headerAriaLabelledBy ? undefined : this.headerAriaLabel)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         class=${ifDefined(classes.join(' ') || undefined)}
         id=${this.headerCellId}
         part=${parts.join(' ')}
@@ -301,32 +295,14 @@ export class GridColumn<T = any> extends LitElement {
    * override this if you only want to change the classes, contents or parts of the header.
    */
   renderHeaderLabel(): string | undefined | TemplateResult {
-    const className = this.hideHeaderText ? 'visually-hidden' : undefined,
-      labelId =
-        typeof this.header === 'string' || !!this.path ? `${this.headerCellId}-label` : undefined;
-
     if (this.header) {
       if (typeof this.header === 'string') {
-        return html`
-          <span
-            class=${ifDefined(className)}
-            id=${ifDefined(labelId)}
-            aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
-            >${this.header}</span
-          >
-        `;
+        return this.hideHeaderText ? undefined : this.header;
       }
 
       return this.header(this);
     } else if (this.path) {
-      return html`
-        <span
-          class=${ifDefined(className)}
-          id=${ifDefined(labelId)}
-          aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
-          >${getNameByPath(this.path)}</span
-        >
-      `;
+      return this.hideHeaderText ? undefined : getNameByPath(this.path);
     }
 
     return undefined;

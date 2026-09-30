@@ -82,8 +82,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
 
     return html`
       <th
-        aria-label=${ifDefined(this.headerAriaLabelledBy ? undefined : this.headerAriaLabel)}
-        aria-labelledby=${ifDefined(this.headerAriaLabelledBy)}
+        aria-label=${ifDefined(this.headerAriaLabel)}
         aria-sort=${ifDefined(this.ariaSorting)}
         id=${this.headerCellId}
         part=${parts.join(' ')}

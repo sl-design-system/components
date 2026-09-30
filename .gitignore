@@ -61,6 +61,6 @@ packages/themes/**/*.js.map
 packages/themes/**/*.scss
 !packages/themes/eslint.config.js
 
-# /implement-design pipeline — disposable run artifacts and generated output
-.implement-design/
+# /implement-design pipeline: the live generated working tree. Scratch, like .implement-design/
+# above. A run worth keeping is promoted to runs/ and committed there — see runs/README.md.
 examples/lit/src/_runs/

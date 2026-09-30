@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T23:40:00Z
+updated: 2026-10-01T12:00:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -24,14 +24,14 @@ analysis documents.
 
 ## Slices
 
-| # | Slice | Plan | Status | One-line scope |
-|---|---|---|---|---|
-| 1 | Measurement layer | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md) | approved · `phase: approved` | `tools/sl-bench` — coverage, two fidelity dimensions, run-to-run variance, per-run cost by model tier, comparison across configurations and over time, design intake report, published baseline. Pipeline unchanged. The bench serves **both** halves of the pipeline, which is why its name and its result schema are stage-neutral. |
-| 1b | Requirement triage | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | approved · `phase: approved` | **Runs in parallel with slice 1, not after it.** Turn the inherited 31-item list into a true one: confirm the nine already satisfied, defer three behind the consumer trigger, hand accessibility to its own initiative, convert five into registry entries, decide the four that conflict with the pipeline's autonomy design, publish the remaining eight in argued order. |
-| 2 | Stage split and the intermediate artifact | not written yet | — | Split the run into **Figma → HTML** and **HTML → application**, with a durable artifact between them ([A-NOJIRA-pipeline-staging](../analyzes/NOJIRA-pipeline-staging/analysis.md)). Its first task defines that artifact — annotated HTML paired with the retained Figma extraction, joined by node id — written against what the baseline shows stage one actually preserves. Absorbs the increment candidates: per-node geometry, freezing the decomposition decision, moving computable checks out of prompts. Ordering from slice 1b. |
-| 3 | Stage two — fitting HTML to the application | not written yet | — | Map the artifact onto the application's architecture, detect whether a similar design already exists in code and diff against it, build fresh where it does not. Much of the "does this already exist?" capability is a second consumer of slice 1's comparison machinery rather than new work. This is where the architecture review gate belongs. |
-| 4 | The remaining open requirements | not written yet | — | The eight that survive triage, admitted one at a time and only with a corpus case attached. |
-| 5 | Caching and change detection | not written yet | — | Skip unchanged designs, diff against the previous run. Deferred on two grounds: efficiency before correctness hides variance, and it is not buildable at all until the node-id join key from slice 2 exists — regenerating only what changed requires knowing which output came from which node. |
+| #   | Slice                                       | Plan                                                             | Status                       | One-line scope                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| --- | ------------------------------------------- | ---------------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1   | Measurement layer                           | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md)           | approved · `phase: approved` | `tools/sl-bench` — coverage, two fidelity dimensions, run-to-run variance, per-run cost by model tier, comparison across configurations and over time, design intake report, published baseline. Pipeline unchanged. The bench serves **both** halves of the pipeline, which is why its name and its result schema are stage-neutral.                                                                                                                                                                                                      |
+| 1b  | Requirement triage                          | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | approved · `phase: approved` | **Runs in parallel with slice 1, not after it.** Turn the inherited 31-item list into a true one: confirm the nine already satisfied, defer three behind the consumer trigger, hand accessibility to its own initiative, convert five into registry entries, decide the four that conflict with the pipeline's autonomy design, publish the remaining eight in argued order.                                                                                                                                                               |
+| 2   | Stage split and the intermediate artifact   | not written yet                                                  | —                            | Split the run into **Figma → HTML** and **HTML → application**, with a durable artifact between them ([A-NOJIRA-pipeline-staging](../analyzes/NOJIRA-pipeline-staging/analysis.md)). Its first task defines that artifact — annotated HTML paired with the retained Figma extraction, joined by node id — written against what the baseline shows stage one actually preserves. Absorbs the increment candidates: per-node geometry, freezing the decomposition decision, moving computable checks out of prompts. Ordering from slice 1b. |
+| 3   | Stage two — fitting HTML to the application | not written yet                                                  | —                            | Map the artifact onto the application's architecture, detect whether a similar design already exists in code and diff against it, build fresh where it does not. Much of the "does this already exist?" capability is a second consumer of slice 1's comparison machinery rather than new work. This is where the architecture review gate belongs.                                                                                                                                                                                        |
+| 4   | The remaining open requirements             | not written yet                                                  | —                            | The eight that survive triage, admitted one at a time and only with a corpus case attached.                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| 5   | Caching and change detection                | not written yet                                                  | —                            | Skip unchanged designs, diff against the previous run. Deferred on two grounds: efficiency before correctness hides variance, and it is not buildable at all until the node-id join key from slice 2 exists — regenerating only what changed requires knowing which output came from which node.                                                                                                                                                                                                                                           |
 
 ## Second track — the designer handover contract
 
@@ -56,19 +56,19 @@ runs identically every time, costs no tokens, and is testable. A skill is for th
 judgement is genuinely needed, or where the entry point has to be conversational — and a skill
 should be a thin orchestrator over scripts rather than a place where work happens.
 
-| Track | Produces | Kind |
-|---|---|---|
-| 1 — measurement | `tools/sl-bench` — one CLI with `list` / `run` / `compare` / `test`, and the metrics beneath it | tool (scripts) |
-| | the design intake report | **1 skill** — a developer or designer points it at a Figma URL |
-| | corpus registry, requirement registry, published baseline | artifacts |
-| 1b — triage | nine confirmations, three deferral records, an accessibility handoff, five registry entries, one ADR, one published backlog | documents only, no code |
-| 2 — stage split | Figma → structured artifact | **1 skill** (extraction; orchestrates scripts, judgement only where the source is ambiguous) |
-| | structured artifact → HTML | **library, no skill** — a pure function, so it is code and tested with fixtures |
-| | the package schemas | schema files + fixtures |
-| 3 — stage two | package → application code: architecture mapping, reuse detection, diff against what exists | **1 skill** + scripts for the comparison, which reuses the bench's machinery |
-| 3 — HTML → Figma | improvements to the existing `sl-ds-html-to-figma` | existing skill, extended |
-| 4 — accessibility | validation of the produced HTML; design-time guidance | script (the check) + **1 skill** (the guidance) |
-| 5 — conformance | classification and routing of unresolved nodes; the detached-instance signature matcher | scripts, most likely extending the intake skill rather than a new one |
+| Track             | Produces                                                                                                                    | Kind                                                                                         |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| 1 — measurement   | `tools/sl-bench` — one CLI with `list` / `run` / `compare` / `test`, and the metrics beneath it                             | tool (scripts)                                                                               |
+|                   | the design intake report                                                                                                    | **1 skill** — a developer or designer points it at a Figma URL                               |
+|                   | corpus registry, requirement registry, published baseline                                                                   | artifacts                                                                                    |
+| 1b — triage       | nine confirmations, three deferral records, an accessibility handoff, five registry entries, one ADR, one published backlog | documents only, no code                                                                      |
+| 2 — stage split   | Figma → structured artifact                                                                                                 | **1 skill** (extraction; orchestrates scripts, judgement only where the source is ambiguous) |
+|                   | structured artifact → HTML                                                                                                  | **library, no skill** — a pure function, so it is code and tested with fixtures              |
+|                   | the package schemas                                                                                                         | schema files + fixtures                                                                      |
+| 3 — stage two     | package → application code: architecture mapping, reuse detection, diff against what exists                                 | **1 skill** + scripts for the comparison, which reuses the bench's machinery                 |
+| 3 — HTML → Figma  | improvements to the existing `sl-ds-html-to-figma`                                                                          | existing skill, extended                                                                     |
+| 4 — accessibility | validation of the produced HTML; design-time guidance                                                                       | script (the check) + **1 skill** (the guidance)                                              |
+| 5 — conformance   | classification and routing of unresolved nodes; the detached-instance signature matcher                                     | scripts, most likely extending the intake skill rather than a new one                        |
 
 Roughly **four new skills across the whole programme**, and one existing one extended. Everything
 else is scripts, schemas and documents. If that count grows, it is worth asking what judgement the
@@ -124,7 +124,7 @@ establishes which are real and slice 3 works what remains.
 
 ## The shape the pipeline is heading towards
 
-One run today goes from a Figma node to finished components, deciding both what the design *is* and
+One run today goes from a Figma node to finished components, deciding both what the design _is_ and
 how it should be structured as code. Those are different questions with different evidence, and
 conflating them is why a bad result cannot be attributed to a cause.
 
@@ -151,7 +151,7 @@ The package has three parts and **none of them is optional**. HTML renders, so i
 pixel-compared and opened in a browser. The retained Figma extraction carries what HTML cannot
 express at all — bound variables, instance properties, hug/fill/fixed layout intent — and since the
 developer cannot reach Figma, it is the only channel by which that intent travels; our own
-reverse-direction skill has to *infer* which containers can become auto-layout, which is the
+reverse-direction skill has to _infer_ which containers can become auto-layout, which is the
 in-house evidence that this intent does not survive a DOM round trip. The attestation carries the
 fidelity score and the named deviations, generated by the tool rather than written by hand, because
 the side receiving it cannot check the work.
@@ -165,6 +165,22 @@ Two consequences worth reading off the diagram: the two stages are **separately 
 designer-facing tooling that needs Figma, developer-facing tooling that must work without it — and
 the route **back** from developer to designer, for when the HTML is wrong, is part of this flow
 rather than an exception to it. Nothing describes that route yet.
+
+## Sixth track — speed and cost, deliberately last
+
+The first real run took **372,844 tokens and about 27 minutes** to produce two components on the
+simplest screen in the corpus, before any visual validation. The inherited R8 target was 1–2
+minutes per screen with 10 as a ceiling. For scale, the prior `ds-*`/`sdl-*` attempt ran 40–60
+minutes, so this is already better — the target was the thing that was unrealistic.
+
+Optimising this is its own analysis and its own plan, and it comes **after** the quality work, for
+the reason the whole programme is built on: an optimisation you cannot measure is a guess, and one
+measured against an unstable baseline is worse than a guess. Once a rerun produces a number with a
+spread, a speed change becomes the same experiment as any other — swap it, rerun, read the cost
+delta against the score delta. The bench already records cost per tier per stage precisely so this
+track has something to work with when it starts.
+
+Not planned yet, and deliberately not started.
 
 ## Fifth track — design-system conformance of a design
 
@@ -185,7 +201,7 @@ gate.
 
 ## Fourth track — accessibility
 
-Its own plan, dependent on the HTML stage but not part of it. See *Not a slice, but decided* below
+Its own plan, dependent on the HTML stage but not part of it. See _Not a slice, but decided_ below
 for why the three pieces of accessibility work are kept apart.
 
 ## Third track — HTML back to Figma

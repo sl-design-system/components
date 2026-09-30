@@ -1,0 +1,99 @@
+:host {
+  /*
+   * Renders the design's elevated "frame": a two-column, rounded, shadowed surface. Grid is
+   * intentional here — it lays out the content column and the decorative photo column
+   * side-by-side, in DOM/reading order.
+   */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Outer padding family: the 16px gap between the two columns. */
+  gap: var(--sl-space-200);
+  background: var(--sl-elevation-surface-base-default);
+  /*
+   * No border-radius token was given for the frame itself; used the standard raised-surface
+   * radius (matches panel/card/dialog) since the screenshot shows visibly rounded corners.
+   */
+  border-radius: var(--sl-size-borderRadius-default);
+  /*
+   * TODO: the manifest calls out the multi-layer "Large" drop-shadow style, but no
+   * `--sl-elevation-shadow-lg` token exists — only `overflow`, `overlay` and `sm` are defined.
+   * Approximated with `--sl-elevation-shadow-overlay`, the nearest multi-layer/raised-surface
+   * shadow token.
+   */
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  /* Outer padding family: the 24px inset between the frame's edge and its content. */
+  padding: var(--sl-size-300);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  /* Pins the wordmark to the top, the form in the middle, and the footer to the bottom. */
+  justify-content: space-between;
+  min-block-size: 100%;
+}
+
+.media {
+  /*
+   * The 24px corner radius on the photo (node 71:13362) has no bound Figma variable — but it's
+   * an EXACT match for `--sl-size-300` (24px), suggesting the designer used a raw value where a
+   * token already existed.
+   */
+  border-radius: var(--sl-size-300);
+  overflow: hidden;
+}
+
+.media img {
+  block-size: 100%;
+  display: block;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+/*
+ * The forwarded `heading`/`subheading` slots carry their own default (design) content, since the
+ * `<sl-login-form>`'s own fallback content never shows once something — even an empty forwarding
+ * `<slot>` — is assigned to its named slot. Style that default content to match the child's own
+ * `h1`/`p` styling (see login-form.css) so the story renders identically whether or not a
+ * consumer provides its own heading/subheading content.
+ */
+h1,
+::slotted(h1) {
+  margin-block: 0;
+  color: var(--sl-color-foreground-bold);
+  font: var(--sl-text-new-heading-2xl);
+  font-weight: var(--sl-fontWeight-600);
+}
+
+p,
+::slotted(p) {
+  margin-block: 0;
+  color: var(--sl-color-foreground-plain);
+  font: var(--sl-text-new-heading-md);
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+}
+
+nav[aria-label='Legal'] ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /*
+   * The 32px gap between footer links (node I72:10150;173:3540) has no bound Figma variable —
+   * but it's an EXACT match for `--sl-space-400` (32px), suggesting the designer used a raw
+   * value where a token already existed.
+   */
+  gap: var(--sl-space-400);
+}
+
+nav[aria-label='Legal'] a {
+  color: var(--sl-color-foreground-primary-bold);
+  font: var(--sl-text-new-body-md);
+  /* --sl-text-new-* is a font shorthand that resets font-weight to normal; set it explicitly. */
+  font-weight: var(--sl-fontWeight-600);
+}

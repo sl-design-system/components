@@ -8,6 +8,11 @@ Reconnaissance, not measurement: the question is whether a run completes and wha
 good the output is. Findings are recorded as they are observed, so a run that halts still leaves
 evidence.
 
+**Kept at** [`runs/2026-10-01-a9-sanna-login/`](../../../runs/2026-10-01-a9-sanna-login/) — the
+manifest, every raw Figma call, the reference image and a snapshot of the generated code. Promoted
+from the pipeline's own scratch folder, which stays ignored: a run costs hundreds of thousands of
+tokens, so the ones worth comparing against are committed rather than re-run.
+
 **Setup:** remote `figma` server (against the pipeline's own recommendation — see below), Lit, no
 i18n, output to a gitignored `examples/lit/src/_runs/` subtree.
 
@@ -60,6 +65,16 @@ Three nodes could have blocked the run and did not:
 - `71:13346` is `hidden="true"` and was excluded entirely. Right for generation — and it means
   hidden nodes need a documented skip rule in the coverage metric, or they will count as
   unaccounted and depress coverage for no reason.
+
+### An artifact is named `.json` and is not JSON
+
+The pipeline tells its analyst to write `get_metadata`'s output to `figma-metadata.json`. On the
+remote server that call returns **plain text** — the response opens `Currently selected nodes:`.
+The artifact carries a `.json` extension over content no parser will accept, and the repository's
+own pre-commit formatter is what surfaced it, by failing on the file.
+
+Small, and worth fixing where it is cheap: anything downstream that trusts the extension breaks,
+and the bench is exactly that kind of consumer.
 
 ### Two token problems, both the kind the measurement exists to catch
 

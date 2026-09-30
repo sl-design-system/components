@@ -1,0 +1,45 @@
+:host {
+  /* Stacks the heading group and the form; the design has no wrapping container for this content. */
+  display: flex;
+  flex-direction: column;
+}
+
+.heading-group {
+  display: flex;
+  flex-direction: column;
+  /*
+   * TODO: the 40px gap between headline and subhead has no bound Figma variable.
+   * Approximated with the nearest token, --sl-space-500 (40px).
+   */
+  gap: var(--sl-space-500);
+}
+
+h1,
+::slotted(h1) {
+  margin-block: 0;
+  color: var(--sl-color-foreground-bold);
+  /* --sl-text-new-* is a font shorthand that resets font-weight to normal; set it explicitly. */
+  font: var(--sl-text-new-heading-2xl);
+  font-weight: var(--sl-fontWeight-600);
+}
+
+p,
+::slotted(p) {
+  margin-block: 0;
+  color: var(--sl-color-foreground-plain);
+  font: var(--sl-text-new-heading-md);
+}
+
+sl-form {
+  /*
+   * TODO: the 80px gap between the heading block and the input block has no bound Figma variable.
+   * Approximated with the nearest token, --sl-space-1000 (80px).
+   */
+  margin-block-start: var(--sl-space-1000);
+
+  /*
+   * NOTE: the 24px gap between the select and the "Sign in" button also has no bound Figma
+   * variable. No override is added here because <sl-form> already lays out its children in a
+   * column with a default `gap: var(--sl-size-300)` (24px), which happens to match exactly.
+   */
+}

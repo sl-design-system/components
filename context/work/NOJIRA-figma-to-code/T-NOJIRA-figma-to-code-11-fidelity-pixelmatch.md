@@ -2,7 +2,7 @@
 type: task
 schema_version: 1
 id: T-NOJIRA-figma-to-code-11
-title: "Fidelity dimension: per-component pixel comparison"
+title: 'Fidelity dimension: per-component pixel comparison'
 description: Element-level pixel diff with tolerances tiered by element class, retaining diff images for inspection
 jira: null
 resource: null
@@ -10,7 +10,7 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T13:45:00Z
+updated: 2026-10-01T12:00:00Z
 tags: [fidelity, measurement, visual]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-10]
@@ -21,6 +21,7 @@ depends_on: [T-NOJIRA-figma-to-code-10]
 > From [P-NOJIRA-figma-to-code](../../plan/NOJIRA-figma-to-code/plan.md).
 
 ## Objective
+
 The second dimension, catching what geometry cannot: colour, typography, icon rendering, and
 anything drawn rather than laid out.
 
@@ -29,7 +30,21 @@ hinting noise or misses real defects; text, icons, shadows and layout containers
 different acceptable variation, and treating them alike is why naive pixel comparison gets
 abandoned.
 
+## The reference image does not match the frame — measured
+
+On the first real run the Figma frame was **1512 × 982** and the cached reference PNG was
+**1024 × 715**. Those are different aspect ratios, 1.540 against 1.432, so the image is not a
+scaled rendering of the frame bounds — it is cropped to something else, most likely rendered
+content extent.
+
+A comparison that assumes the reference maps onto the frame would align two different rectangles
+and blame the pipeline for the difference. **The correspondence has to be captured, not assumed**:
+record the reference's own bounds and scale alongside it at capture time, and refuse to compare
+when they are missing rather than guessing.
+
 ## Steps
+
+- [ ] Record the reference image's own bounds and scale at capture time, and refuse the comparison when they are absent rather than assuming it matches the frame
 - [ ] Capture element-level screenshots rather than whole pages, so a diff localises to a component
 - [ ] Apply thresholds tiered by element class — layout container, design system instance, icon, text, decorative background — and treat shadow and blur regions as excluded zones
 - [ ] Retain the diff image for every comparison, passing or failing, so a human can always look
@@ -37,12 +52,15 @@ abandoned.
 - [ ] Record which tier each element was scored under, so a lenient result cannot be mistaken for a strict one
 
 ## Acceptance criteria
+
 - [ ] Each element is scored against its class tier, and the report states which tier applied
 - [ ] Diff images are retained for every comparison and referenced from the result
 - [ ] A dimension mismatch is reported as a distinct failure kind, never as a low similarity score
 
 ## Verification
+
 Run against the corpus, inspect the diff images by eye, and confirm the tier applied to a text
 element differs from the one applied to a layout container. Change one colour token in the generated
 output and confirm the affected element fails.
+
 - Use case: `UC-NOJIRA-figma-to-code-11` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-11-tiered-tolerance-holds.md`

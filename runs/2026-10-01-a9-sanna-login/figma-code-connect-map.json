@@ -1,0 +1,62 @@
+{
+  "71:13441": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-form-field label=\"Select location\">\n      <sl-select\n        \n        \n         placeholder=\"Placeholder\"\n        \n         value=\"Belgium\"\n      >\n        <!-- Insert options here -->\n      </sl-select>\n    </sl-form-field>\n  "
+  },
+  "71:13442": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      \n      shape=\"pill\"\n      \n      \n      variant=\"primary\"\n    >\n      \n      Sign in\n      \n    </sl-button>\n  "
+  },
+  "0:189": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      Privacy Notice\n      \n    </sl-button>\n  "
+  },
+  "0:206": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      Terms and conditions\n      \n    </sl-button>\n  "
+  },
+  "0:223": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      Other link\n      \n    </sl-button>\n  "
+  },
+  "0:240": {
+    "source": "",
+    "version": "unknown",
+    "label": "SL Design System",
+    "hasTemplate": true,
+    "snippetImports": [],
+    "snippetNestedFunctions": [],
+    "snippet": "\n    <sl-button\n      \n      \n      fill=\"link\"\n      shape=\"pill\"\n      size=\"sm\"\n      \n      variant=\"primary\"\n    >\n      \n      AI Transparency Statement\n      \n    </sl-button>\n  "
+  },
+  "0:101": {
+    "componentName": null,
+    "source": "https://github.com/sl-design-system/components/blob/main/packages/components/form/src/label.ts",
+    "version": "unknown",
+    "hasTemplate": false
+  }
+}

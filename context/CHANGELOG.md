@@ -4,6 +4,15 @@ Structural changes to this context — append-only, newest on top (CONVENTIONS �
 
 ## 2026-10-01
 
+- Kept runs are promoted to runs/ and committed; the pipeline's own scratch folders stay
+  ignored, since not every run is a reference — marcin.ludwig
+- T-02 extended: node classification and token-name resolution become deterministic, and
+  raw-value-with-token is distinguished from raw-value-without — marcin.ludwig
+- T-11 and T-04 extended: the reference image's bounds and scale are captured and frozen,
+  never assumed — marcin.ludwig
+- ARCH-handover-package: added check 3d, whether the mapped component is the right one
+- Roadmap: speed and cost as a sixth track, deliberately after the quality work
+
 - Added smoke-run-findings.md — the first real run of the pipeline — marcin.ludwig
 - Added ARCH-fidelity-scoring (architecture/NOJIRA-figma-to-code) — the scoring method in one
   place — marcin.ludwig

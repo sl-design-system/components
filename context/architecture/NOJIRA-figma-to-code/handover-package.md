@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T15:00:00Z
-updated: 2026-10-01T01:40:00Z
+updated: 2026-10-01T12:00:00Z
 tags: [architecture, package, schema, resumability, verification]
 ---
 
@@ -139,13 +139,13 @@ Three forms exist: 28 single mappings, 12 batch templates driven by
 `components.figma.batch.json` (one template serving several Figma nodes, with per-node overrides
 such as `"shape": "pill"`), and 14 empty scaffolds awaiting mappings.
 
-| | `custom-elements.json` | `*.figma.ts` |
-|---|---|---|
-| What it is | data — a declaration of what the code component accepts | a program that resolves one Figma instance into a snippet |
-| Produced by | generated from source by `build-metadata.js` | hand-authored per component |
-| Knows | attribute names, types, enum values, inheritance | Figma property names, Figma inner structure, the Figma↔code vocabulary, the defaults |
-| Which side | the code only | the bridge |
-| When it runs | never — it is read | at resolution, against a live instance |
+|              | `custom-elements.json`                                  | `*.figma.ts`                                                                         |
+| ------------ | ------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| What it is   | data — a declaration of what the code component accepts | a program that resolves one Figma instance into a snippet                            |
+| Produced by  | generated from source by `build-metadata.js`            | hand-authored per component                                                          |
+| Knows        | attribute names, types, enum values, inheritance        | Figma property names, Figma inner structure, the Figma↔code vocabulary, the defaults |
+| Which side   | the code only                                           | the bridge                                                                           |
+| When it runs | never — it is read                                      | at resolution, against a live instance                                               |
 
 ### How Code Connect is used, per node
 
@@ -175,7 +175,7 @@ both, and is the subject of
 Whether the mappings replace the structured artifact is settled by what each one can say.
 
 **Code Connect answers "what component is this, with which properties".** A single
-`get_code_connect_map` call over the subtree returns, per node, the *already-resolved* snippet —
+`get_code_connect_map` call over the subtree returns, per node, the _already-resolved_ snippet —
 `<sl-button variant="success" size="lg">Label</sl-button>`. The mapping program has run, the
 vocabulary translation has been applied, and the defaults have been folded in. For those nodes
 there is nothing left to infer.
@@ -191,12 +191,12 @@ covers**: not raw Figma property values plus a translation table to apply later,
 snippet and the node id. That is smaller, and it is authoritative in a way a re-derivation could
 never be — the team that owns the mapping already decided.
 
-| Question | Answered by | Covers |
-|---|---|---|
-| Which component, which properties | Code Connect map | component instances that have a mapping |
-| Where, how big, what spacing, hug or fill | the structured extraction | every node |
-| Which token produced a value | the extraction plus the token dictionary | every node |
-| What it should look like | the reference image | the whole frame |
+| Question                                  | Answered by                              | Covers                                  |
+| ----------------------------------------- | ---------------------------------------- | --------------------------------------- |
+| Which component, which properties         | Code Connect map                         | component instances that have a mapping |
+| Where, how big, what spacing, hug or fill | the structured extraction                | every node                              |
+| Which token produced a value              | the extraction plus the token dictionary | every node                              |
+| What it should look like                  | the reference image                      | the whole frame                         |
 
 ### Cost — Code Connect is the cheapest answer available, and unmapped nodes are the expensive ones
 
@@ -207,12 +207,12 @@ or not we lean on it. Calls are not where the cost is.
 **Tokens are**, and that is where the difference is stark. There are two ways to answer "what
 component is this and with what properties":
 
-| | Model infers it from node data | Code Connect lookup |
-|---|---|---|
-| Model involvement | reads the node, reasons, decides | none — the answer is a string |
-| Token cost | proportional to the node data it must read | effectively zero |
-| Determinism | varies per run | identical every run |
-| Authority | a guess that looks confident | the mapping the team wrote and CI validates |
+|                   | Model infers it from node data             | Code Connect lookup                         |
+| ----------------- | ------------------------------------------ | ------------------------------------------- |
+| Model involvement | reads the node, reasons, decides           | none — the answer is a string               |
+| Token cost        | proportional to the node data it must read | effectively zero                            |
+| Determinism       | varies per run                             | identical every run                         |
+| Authority         | a guess that looks confident               | the mapping the team wrote and CI validates |
 
 This is the same principle as moving a check out of a prompt and into a script, applied to the
 single most frequent decision the pipeline makes. **Every node that gains a mapping moves from
@@ -234,15 +234,16 @@ The question "where do we check that properties match?" has five answers, becaus
 distinct things that can disagree. Putting a check in the wrong place is how an error surfaces to
 the person least able to fix it.
 
-| # | Check | Where it runs | What it catches | Status |
-|---|---|---|---|---|
-| 1 | Code Connect mapping ↔ `custom-elements.json` | CI, on every pull request | A mapping referencing an attribute the component does not have, inherited attributes included | **Exists** — Diana's snippet validator |
-| 2 | Figma ↔ extraction | Stage one, at extraction | A misread or dropped node; non-determinism. Verified by extracting twice and diffing bytes | Planned (`T-02`) |
-| 3 | Emitted snippet ↔ `custom-elements.json` | CI, on every pull request | An attribute the component does not have, a boolean carrying a value, an enum value outside the declared set | **Exists** — Diana's snippet validator |
-| 3b | Figma property name ↔ code attribute name | CI, on every pull request | A mis-wiring: one Figma property feeding the wrong attribute, with an allowlist for deliberate exceptions | **Exists** — Diana's mapping-name validator |
-| 3c | **Figma property surface ↔ what the mapping reads** | Nowhere | A Figma property the mapping never reads, so it is silently dropped from every snippet | **Missing — the real gap** |
-| 4 | Extraction ↔ generated HTML | Mostly discharged by testing the generator; plus a cheap runtime assertion | A generator bug: an element whose attributes do not match its instance record | Planned |
-| 5 | HTML ↔ Figma reference | Stage one verification | Wrong colour, spacing, typography, position, omitted region | Planned (`T-06`, `T-10`, `T-11`) |
+| #   | Check                                               | Where it runs                                                              | What it catches                                                                                                                                                               | Status                                      |
+| --- | --------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| 1   | Code Connect mapping ↔ `custom-elements.json`       | CI, on every pull request                                                  | A mapping referencing an attribute the component does not have, inherited attributes included                                                                                 | **Exists** — Diana's snippet validator      |
+| 2   | Figma ↔ extraction                                  | Stage one, at extraction                                                   | A misread or dropped node; non-determinism. Verified by extracting twice and diffing bytes                                                                                    | Planned (`T-02`)                            |
+| 3   | Emitted snippet ↔ `custom-elements.json`            | CI, on every pull request                                                  | An attribute the component does not have, a boolean carrying a value, an enum value outside the declared set                                                                  | **Exists** — Diana's snippet validator      |
+| 3b  | Figma property name ↔ code attribute name           | CI, on every pull request                                                  | A mis-wiring: one Figma property feeding the wrong attribute, with an allowlist for deliberate exceptions                                                                     | **Exists** — Diana's mapping-name validator |
+| 3c  | **Figma property surface ↔ what the mapping reads** | Nowhere                                                                    | A Figma property the mapping never reads, so it is silently dropped from every snippet                                                                                        | **Missing**                                 |
+| 3d  | **Is the mapped component the right one at all**    | Nowhere                                                                    | A mapping that is attribute-valid and semantically wrong — the first real run found footer _links_ mapped to `sl-button`, which renders a native `<button>` and has no `href` | **Missing — found by a human building it**  |
+| 4   | Extraction ↔ generated HTML                         | Mostly discharged by testing the generator; plus a cheap runtime assertion | A generator bug: an element whose attributes do not match its instance record                                                                                                 | Planned                                     |
+| 5   | HTML ↔ Figma reference                              | Stage one verification                                                     | Wrong colour, spacing, typography, position, omitted region                                                                                                                   | Planned (`T-06`, `T-10`, `T-11`)            |
 
 Two things are worth drawing out.
 
@@ -253,8 +254,8 @@ validated separately. Both run on every pull request. Between them, a mapping ca
 attribute the component does not have, and cannot quietly wire the wrong property to it.
 
 **What is genuinely missing is completeness — check 3c.** Every existing check validates what a
-mapping *emits*. Nothing enumerates the Figma component's property surface and asks what the
-mapping *never read*. If a Figma component gains a property, or has one the template was never
+mapping _emits_. Nothing enumerates the Figma component's property surface and asks what the
+mapping _never read_. If a Figma component gains a property, or has one the template was never
 written for, it is silently absent from every snippet and no check fires: the emitted attributes
 are all valid, the names all correspond, and the result is quietly incomplete.
 
@@ -263,10 +264,31 @@ identical-mapping goal stated as a check. The remedy is to require each mapping 
 every property the component exposes — read it, or declare it deliberately ignored — which is the
 same node-accounting discipline the coverage metric applies to a design, pointed at a component.
 
-Two further things nothing checks, both worth naming because neither is mechanical:
+**Check 3d is the one a human found.** Every automated check passed on that mapping: `fill`,
+`shape`, `size` and `variant` are legal `sl-button` attributes, and each Figma property fed the
+attribute its name implies. Nothing asks whether `sl-button` is the right component for something
+that navigates. It is a third sibling to the two failure modes already recorded — the overridden
+instance has the structure wrong and the appearance right, the drifted component has the appearance
+wrong and the structure right, and here **both are right and the semantics are wrong**.
+
+How to catch it, in increasing cost:
+
+- **A generated review table, read once by a person.** Every mapping listed with its Figma
+  component, its code component, the element that component actually renders, and the property
+  translation. The whole set is 56 rows; reading it once is an afternoon, and it catches
+  wrong-component and wrong-vocabulary together. Re-read only the rows that change. This is the
+  primary control and it should exist before any automation is attempted.
+- **A capability assertion in the mapping.** The mapping declares what it renders as — a button, an
+  anchor, an input — and a check compares that against what the Figma component's own interaction
+  data implies. Cheap once the declaration exists; the cost is adding the declaration to 56 files.
+- **Figma prototype links as a signal.** A node wired to navigate in a prototype is a link. Where
+  that data exists it is strong evidence, and where it does not its absence proves nothing — so it
+  can only ever flag, never gate.
+
+Two further things nothing checks mechanically:
 
 - **Whether the vocabulary translation is right.** That `Positive` should mean `success` and not
-  `info` is a judgement. It cannot be validated, but it can be *surfaced*: a generated table of
+  `info` is a judgement. It cannot be validated, but it can be _surfaced_: a generated table of
   every Figma value to code value across all mappings is cheap to produce and reviewable by the
   design system team in one sitting, which is how a wrong translation gets caught.
 - **The fourteen scaffolds.** No mapping means no snippet, and the pipeline halts rather than
@@ -300,7 +322,7 @@ irreducible, none of them a defect:
 - **Effects.** Shadows, blurs and blend modes composite differently.
 - **Images** are resampled by different algorithms.
 - **The design system component itself.** When Code Connect resolves a node to `<sl-button>`, the
-  browser renders the *real component*, which can legitimately differ from what the designer drew.
+  browser renders the _real component_, which can legitimately differ from what the designer drew.
 
 So the target is not one number. It is the **tiered tolerance already specified**: a layout
 container at 0% because it is a solid rectangle and genuinely can be exact; a design system
@@ -311,14 +333,14 @@ exactly the impossible expectation and hides which class failed.
 **And a pixel difference has three possible causes, only one of which is a pipeline bug.**
 Distinguishing them is what makes the measurement useful rather than merely alarming:
 
-| Cause | What it means | Who acts |
-|---|---|---|
-| The pipeline got it wrong | a real defect — wrong token, wrong spacing, missing element | pipeline |
-| Renderer difference | within tolerance by design; outside it means the tier is miscalibrated | nobody, or the bench |
-| **The Figma component has drifted from the code component** | the library and the implementation disagree | **the design system team** |
+| Cause                                                       | What it means                                                          | Who acts                   |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------- |
+| The pipeline got it wrong                                   | a real defect — wrong token, wrong spacing, missing element            | pipeline                   |
+| Renderer difference                                         | within tolerance by design; outside it means the tier is miscalibrated | nobody, or the bench       |
+| **The Figma component has drifted from the code component** | the library and the implementation disagree                            | **the design system team** |
 
 The third is not a pipeline failure at all, and it may be the most valuable thing the comparison
-produces: a systematic difference appearing on *every* instance of one component, across several
+produces: a systematic difference appearing on _every_ instance of one component, across several
 corpus cases, is the design system telling you its Figma library and its code have diverged. No
 structural check can see that — the snippet is correct, the properties are valid, and the rendering
 is still wrong. It is the exact mirror of the overridden-instance case, and it is why the screenshot

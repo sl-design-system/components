@@ -99,24 +99,37 @@ node runs/harness/typecheck.mjs --record-baseline
 It refuses to record an error that lives under `examples/lit/src/_runs/`, since baking a generated
 error into the baseline would blind the gate to that error for good.
 
-## Theme per run
+## Theme per run — derived, not guessed
 
-The theme is a **run parameter**, recorded in `progress.json`, because it changes every measured
-pixel. Mapping used by the batch:
+The theme is a **run parameter** recorded in `progress.json`, because it changes every measured
+pixel. The batch's first mapping was a guess from the team label, and **at least one entry was
+wrong**: NSP was mapped to `sanoma-pro`, which resolves those tokens green, while the design's own
+variables are teal — the exact values `packages/themes/max` resolves them to.
 
-| Product                                          | `globals=theme:`                              |
-| ------------------------------------------------ | --------------------------------------------- |
-| Kampus                                           | `kampus`                                      |
-| NSP                                              | `sanoma-pro`                                  |
-| SANNA                                            | `teacher-assistant`                           |
-| ETSL (Editorial Suite)                           | `editorial-suite`                             |
-| Itsl-Bookmk / Itsl-Collab / Itsl-Course / Sesame | `itslearning`                                 |
-| MyPortal                                         | `sanoma-learning` — **unresolved**, see below |
+So derive it from the design instead:
 
-MyPortal has no obvious theme package. `sanoma-learning` is the design system's base theme and the
-Storybook default, so it is the honest fallback — but any colour or type difference on A3 and A7
-may be the theme rather than the run, and must not be read as a fidelity result until the mapping
-is settled.
+```sh
+node runs/harness/theme-match.mjs <run>/figma-variable-defs.json
+```
+
+The design carries the answer already. Figma reports token _names_ with the values it resolved
+them to, and every theme declares the same names as custom properties, so the comparison is name
+for name — much stronger than matching stray hex values, which coincide across themes by accident.
+
+Two known pairings check out: SANNA → `teacher-assistant` (3× the runner-up) and NSP → `max`
+(6×), the latter agreeing with an independent capture made while investigating A8.
+
+| Product                                     | theme                                                  |
+| ------------------------------------------- | ------------------------------------------------------ |
+| SANNA                                       | `teacher-assistant` — derived                          |
+| NSP                                         | `max` — derived; **not** `sanoma-pro`, which was wrong |
+| Kampus / ETSL / Itsl-\* / Sesame / MyPortal | derive per run; the label is not evidence              |
+
+**Absolute agreement is poor even when the pairing is right** — 0.60 for SANNA, 0.35 for NSP. The
+identification rests on the margin over second place, not on the score. That low agreement is a
+finding rather than noise: the design and the theme package disagree about tokens they both claim
+to define, which is the same class of problem as a design that has drifted from the library, and
+it bears directly on what a fidelity score can honestly mean.
 
 ## Validated on
 

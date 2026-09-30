@@ -55,10 +55,17 @@ It writes the image plus a `.json` report — console errors, failed requests, a
 element whether it registered, has a shadow root and a non-zero box — and **exits non-zero when
 nothing rendered**. A capture is not evidence until that verdict says `rendered`.
 
-The theme per product is in the harness README and is recorded in each run's `progress.json`,
-because it changes every measured pixel. MyPortal (A3, A7) has no resolved theme package and falls
-back to `sanoma-learning` — any colour or type difference there may be the theme rather than the
-run.
+**Derive the theme from the design, do not take it from the product label.** The original mapping
+in this runbook was a guess and NSP was wrong in it — mapped to `sanoma-pro`, which resolves green,
+against a teal design that matches `max` exactly.
+
+```sh
+node runs/harness/theme-match.mjs <run>/figma-variable-defs.json
+```
+
+Record the derived theme, the margin over the runner-up and the absolute agreement in
+`progress.json`. A run captured under the wrong theme measures the wrong theme, and no amount of
+pixel comparison afterwards can tell you that is what happened.
 
 ## Nesting works — measured, not assumed
 

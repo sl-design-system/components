@@ -117,6 +117,31 @@ skill so no future run depends on somebody remembering.
   element with no shadow root. Add a plain `import './thing.js';`. The type check passes either
   way, which is why nothing in the pipeline catches it.
 
+## Two constraints added during the batch, after wave 1
+
+Both come from observing wave 1 rather than from planning, and both exist to stop eighteen agents
+solving the same problem eighteen different ways.
+
+**Icons: use only what the theme registers.** The runbook's Font Awesome analysis checked whether
+any _SLDS component_ imports Font Awesome. It does not — but the **generated code** does, reaching
+straight for `@fortawesome/pro-regular-svg-icons`. That is the other side of the boundary and it
+was missed. The rule now: use only icons present in the theme's own `icons.ts`. An icon the design
+needs and the theme does not have is left out and **recorded as a Stage 4 discrepancy**. Never
+install it, never stub the module, never draw a replacement — one wave-1 run substituted a
+hand-drawn inline SVG, which puts invented artwork into something that is about to be
+pixel-compared.
+
+**A stub must never be what makes a gate pass.** A wave-1 implementer wrote a local `.d.ts` to
+mask the missing Font Awesome module; `tsc` went green and the Stage 3 gate reported clean. The
+stub was removed afterwards, but the gate had already been satisfied by exactly the thing it
+exists to catch. Stage 3 is one of only two gates blocking Stage 4, so this is a finding about the
+gate. Until it is fixed, the run agent re-runs the type check itself with no stub files present.
+
+**A run agent does not stop while stages remain.** One wave-1 orchestrator ended its turn with
+"watching for both leaf reworks to clear" — a status line, not a result, with Stages 4 to 6 not
+attempted. Waiting on a child is not a stopping point; only a finished run or a recorded blocker
+is.
+
 ## Resuming a stage that failed
 
 The pipeline has **no resume protocol** — its skill describes none, and nothing records how far a

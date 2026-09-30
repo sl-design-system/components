@@ -3,6 +3,9 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- ARCH-handover-package: Code Connect and the structured extraction answer disjoint questions;
+  unmapped nodes are the main cost and variance driver, which gives the intake report a second
+  purpose as a cost forecast — marcin.ludwig
 - Corrected ARCH-handover-package: the Code Connect mappings are executable programs, not a
   second element manifest; property conformance already runs in CI, and the real gap is
   mapping completeness (check 3c) — marcin.ludwig

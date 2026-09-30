@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T15:00:00Z
-updated: 2026-09-30T15:40:00Z
+updated: 2026-09-30T16:10:00Z
 tags: [architecture, package, schema, resumability, verification]
 ---
 
@@ -146,6 +146,64 @@ such as `"shape": "pill"`), and 14 empty scaffolds awaiting mappings.
 | Knows | attribute names, types, enum values, inheritance | Figma property names, Figma inner structure, the Figma↔code vocabulary, the defaults |
 | Which side | the code only | the bridge |
 | When it runs | never — it is read | at resolution, against a live instance |
+
+### Code Connect and the metadata answer disjoint questions
+
+Whether the mappings replace the structured artifact is settled by what each one can say.
+
+**Code Connect answers "what component is this, with which properties".** A single
+`get_code_connect_map` call over the subtree returns, per node, the *already-resolved* snippet —
+`<sl-button variant="success" size="lg">Label</sl-button>`. The mapping program has run, the
+vocabulary translation has been applied, and the defaults have been folded in. For those nodes
+there is nothing left to infer.
+
+**It says nothing about anything else.** Where a node sits, how large it is, what its gaps and
+padding are, whether it hugs or fills, what colour a plain frame has, how the instances are
+arranged relative to one another — none of that is in the map, and for every node that is not a
+component instance the map returns nothing at all. On a real screen those are the majority: frames,
+groups, text and layout containers, which is precisely where the layout lives.
+
+So the metadata is not replaced. What changes is **what it has to carry for the nodes Code Connect
+covers**: not raw Figma property values plus a translation table to apply later, but the resolved
+snippet and the node id. That is smaller, and it is authoritative in a way a re-derivation could
+never be — the team that owns the mapping already decided.
+
+| Question | Answered by | Covers |
+|---|---|---|
+| Which component, which properties | Code Connect map | component instances that have a mapping |
+| Where, how big, what spacing, hug or fill | the structured extraction | every node |
+| Which token produced a value | the extraction plus the token dictionary | every node |
+| What it should look like | the reference image | the whole frame |
+
+### Cost — Code Connect is the cheapest answer available, and unmapped nodes are the expensive ones
+
+The Figma call count barely moves: a stage-one run makes roughly five calls — structure, Code
+Connect map, design context, variable definitions, screenshot — and the map is one of them whether
+or not we lean on it. Calls are not where the cost is.
+
+**Tokens are**, and that is where the difference is stark. There are two ways to answer "what
+component is this and with what properties":
+
+| | Model infers it from node data | Code Connect lookup |
+|---|---|---|
+| Model involvement | reads the node, reasons, decides | none — the answer is a string |
+| Token cost | proportional to the node data it must read | effectively zero |
+| Determinism | varies per run | identical every run |
+| Authority | a guess that looks confident | the mapping the team wrote and CI validates |
+
+This is the same principle as moving a check out of a prompt and into a script, applied to the
+single most frequent decision the pipeline makes. **Every node that gains a mapping moves from
+inference to lookup** — cheaper, deterministic, and correct by someone's deliberate decision rather
+than by a model's reading.
+
+That reframes the fourteen unmapped scaffolds. They are not only a coverage problem that halts
+runs; they are **the main cost and variance driver in stage one**. Extending the mappings is the
+highest-leverage work available, and it is already owned.
+
+It also gives the intake report a second purpose beyond design-system adoption: the proportion of a
+design's instances that Code Connect resolves **predicts what a run of that design will cost and
+how much it will vary**. Measuring adoption and forecasting cost turn out to be the same
+measurement.
 
 ### Verification chain — five checks, five places
 

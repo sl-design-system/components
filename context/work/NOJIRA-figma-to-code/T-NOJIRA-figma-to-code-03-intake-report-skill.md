@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T13:45:00Z
+updated: 2026-09-30T16:10:00Z
 tags: [intake, adoption, skill, design-system]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-02]
@@ -33,11 +33,13 @@ Read-only by construction: this skill never generates code and never writes into
 - [ ] Report per design: the fraction of instances resolving to a design system component, the detached-instance count, the ratio of bound variables to local styles, and the unmapped components by name
 - [ ] Aggregate across designs into a ranking of unmapped components by how many distinct files and teams they appear in
 - [ ] Package it as a skill so a developer can point it at their own Figma URL without knowing anything about the harness
+- [ ] Report the proportion of instances that Code Connect resolves as a distinct figure, and label it for what it also is: a forecast of what a run of that design will cost and how much it will vary, since every unresolved instance moves a decision from lookup to inference
 - [ ] Present the output so a non-developer can read it — the design system team is an audience for this report, not only engineers
 
 ## Acceptance criteria
 - [ ] The skill runs against a Figma URL and produces the report without generating or modifying any code
 - [ ] Run against at least five of the eleven team files, it produces per-file adoption figures and one cross-file ranking
+- [ ] The Code Connect resolution rate appears as its own figure, not folded into a general adoption number
 - [ ] The ranking distinguishes a component appearing many times in one file from one appearing across many teams — demand is breadth, not volume
 
 ## Verification

@@ -46,14 +46,40 @@ This is not a workaround to be undone later — it is the bench's own decision, 
 [`ARCH-fidelity-scoring`](../context/architecture/NOJIRA-figma-to-code/fidelity-scoring.md): a
 measurement an unrelated story's dependency can block is not a measurement.
 
-**Validate the harness on the SANNA code that already exists** before starting the batch. If it
-does not work, the fallback is explicit: runs complete Stages 1–3, record the Stage 4 blocker, and
-Stage 4 onward waits for a real token.
+**The supervisor builds and validates this harness once, before the batch starts** — on the SANNA
+code that already exists. The eighteen run agents must **not** each rediscover the workaround:
+eighteen agents improvising around a credential is eighteen chances to do it differently, which is
+the variance this whole effort exists to remove. They receive a working render command and use it.
+
+If the harness cannot be made to work, the fallback is explicit and applies to the whole batch:
+runs complete Stages 1–3, record the Stage 4 blocker, and Stage 4 onward waits for a real token.
+
+## Nesting works — measured, not assumed
+
+Probed before committing to the architecture: a `general-purpose` agent **can** spawn its own
+subagent and receive its result. So each run agent can drive the plugin's own stage agents, which
+means the batch measures the real pipeline rather than an imitation of it.
+
+The probe also produced a number worth budgeting for. A subagent that used **no tools** and replied
+with a single word still consumed **~35,500 tokens** — the fixed cost of standing an agent up. The
+per-stage figures from the first run already include their own baseline, so what the orchestrator
+layer adds is roughly 18 × 35k ≈ 0.6M on top.
+
+**Budget estimate for the batch: 8–12M tokens.** The first run cost ~373k on a 894-node screen;
+NSP `class overview` has 10,936 nodes and will cost several times that. Worth watching rather than
+assuming.
 
 ## Per-run procedure
 
 One orchestrator subagent per design, each running its own six stages, so the supervising context
-holds 18 results rather than a hundred. For each:
+holds 18 results rather than a hundred.
+
+**What the supervisor does once, up front:** builds and validates the render harness, and confirms
+the Figma remote server is authenticated. **What each agent is given:** its case (file key, node
+id, name), the four Stage 0 answers, the three prompt hints below, the path to this runbook, and
+the exact command that renders a story. Nothing it has to work out for itself.
+
+For each run:
 
 1. Create `.implement-design/<file-slug>-N/` and run the pipeline per
    `tools/implement-design-plugin/skills/implement-design/SKILL.md`.

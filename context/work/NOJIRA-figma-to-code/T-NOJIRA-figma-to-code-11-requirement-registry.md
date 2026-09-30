@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T10:10:00Z
 tags: [process, requirements, governance]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-01]
@@ -34,11 +34,13 @@ distinction is enforced by a check rather than remembered by a person.
 - [ ] Implement the gate: a requirement cannot be set active without at least one corpus case, and the harness refuses a registry that violates it
 - [ ] Record the measured delta on every promotion to active, so a requirement can later be justified or retired on evidence
 - [ ] Default new entries to computed rather than model-judged, and require a written reason when an entry is model-judged — every check moved out of a prompt permanently removes variance
+- [ ] Record on every model-judged entry the model tier and effort setting it was validated at, so a later downgrade is a visible change to that entry rather than a silent one (Amendment 1)
 
 ## Acceptance criteria
 - [ ] The registry contains the thirty-one seeded requirements, all proposed
 - [ ] Attempting to activate a requirement with no corpus case fails with a clear message
 - [ ] An active requirement carries the score delta it produced
+- [ ] A model-judged entry names the tier and effort it was validated at
 
 ## Verification
 Seed the registry, attempt to activate an entry with no case and confirm the refusal, then activate

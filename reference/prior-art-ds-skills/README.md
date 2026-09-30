@@ -5,11 +5,20 @@ Figma-to-code generation for this design system. It was vendored here so this re
 self-sufficient: everything needed to understand why the current approach looks the way it does is
 in the repository, not on one person's machine.
 
-It sits under `tools/` rather than inside `context/` for a mechanical reason: the sl-aipdlc
-validator checks every markdown file under the context root and has no exclusion mechanism, so 193
-skill and agent files written to a different contract would fail it on every run. The context
-registers this snapshot as an external stub at
+It sits in `reference/` — deliberately **not** in `tools/`, and **not** in `context/`.
+
+Not `tools/`, because everything there is meant to be run: the `implement-design` plugin is
+installable, and the measurement harness will be executable. Nothing here is. These skills are
+evidence for comparison, not a component of the system, and a reader who finds them under `tools/`
+would reasonably assume otherwise.
+
+Not `context/`, for a mechanical reason: the sl-aipdlc validator checks every markdown file under
+the context root and has no exclusion mechanism, so 193 skill and agent files written to a different
+contract would fail it on every run. The context registers this snapshot as an external stub at
 `context/foundation/prior-art-ds-skills.md`.
+
+**The skills that get developed are the ones in this repository** — `tools/implement-design-plugin/`
+and what the measurement work adds. Nothing here is extended, fixed, or installed.
 
 Source: `sanoma-agents`, directory `agents/`. The two version folders were hidden there
 (`.agents-v1`, `.agents-v2`) and are un-hidden here as `v1/` and `v2/` so they are discoverable.

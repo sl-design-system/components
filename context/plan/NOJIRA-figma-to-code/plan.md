@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T10:10:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -103,6 +103,7 @@ Tasks to be created in `work/NOJIRA-figma-to-code/` once this plan is approved:
 - `T-NOJIRA-figma-to-code-10` — Strict and as-is modes over one measurement
 - `T-NOJIRA-figma-to-code-11` — Requirement registry format, seeded from the prior attempt's list
 - `T-NOJIRA-figma-to-code-12` — Baseline run and published result
+- `T-NOJIRA-figma-to-code-13` — Cost and model-tier accounting (added by Amendment 1)
 
 Each task carries a use case in `tests/NOJIRA-figma-to-code/` naming the corpus case that proves it.
 That link is the document-level expression of the plan's core rule: one requirement, one test case,
@@ -140,6 +141,8 @@ dependency for strict-mode cases, not a blocker for this plan.
    corpus case, or proposed and carrying none.
 7. Every task has a use case in `tests/` that states which corpus case proves it, and the context
    validates clean.
+8. Every result records what the run cost — tokens by model tier and by pipeline stage — so a tier
+   or effort change can be evaluated as a cost delta against a score delta rather than on intuition.
 
 ## Approval
 
@@ -166,3 +169,40 @@ dependency for strict-mode cases, not a blocker for this plan.
   the tiered tolerances. If they do not, `T-NOJIRA-figma-to-code-09` is the task that will surface
   it, and the analysis already names the fallback — DOM geometry alone, one dimension replaced
   rather than the plan invalidated.
+
+### Amendment 1 — 2026-09-30, after approval
+
+Recorded because an approved plan that changes quietly is worse than one that was never approved.
+
+**What changed.** The plan now measures a third axis: **what a run cost**. Every result records
+tokens by model tier and by pipeline stage alongside the score and its spread — added as
+`T-NOJIRA-figma-to-code-13` and as an eighth acceptance criterion.
+`T-NOJIRA-figma-to-code-12` extends to publish cost per case in the baseline, and
+`T-NOJIRA-figma-to-code-11` extends so a model-judged requirement records the tier and effort it was
+validated at.
+
+The reason is a standing requirement that had not been written down: use the cheapest model and the
+lowest effort setting that does the job, and reserve the expensive tiers for work that genuinely
+needs reasoning. Today that cannot be acted on, because downgrading a stage and asking "did anything
+get worse" has no answer — the pipeline reports neither quality nor cost. With both recorded, a tier
+change becomes an experiment: swap the tier, re-run with repetition, read the score delta against the
+cost delta. **A change that leaves the score inside the measured spread while halving the cost is an
+improvement**, and there is currently no way to state that, let alone prove it.
+
+The prior attempt already tried this and left no evidence: its handover scores model-tier routing as
+delivered in the newer version and absent in the older one, with no measurement of what the routing
+bought or what it cost. That is the gap this amendment closes.
+
+**What did not change.** The goal, the approach and the scope boundary all stand. Fidelity is still
+two dimensions and not five. The pipeline is still not modified — cost is read from what a run
+already reports, exactly as coverage and fidelity are. Sequencing is unchanged: the new task hangs
+off the result schema and blocks nothing.
+
+**Judgement to be aware of.** Cost is recorded per run and per stage, not attributed to individual
+decisions within a stage. That will show *that* a stage is expensive, never *which* of its choices
+made it so. Finer attribution was deliberately left out as the kind of instrumentation this slice
+exists to avoid, and reverting that call costs nothing — the per-stage figure is a strict subset of
+anything finer we might add later.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-09-30

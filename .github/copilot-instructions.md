@@ -1,5 +1,9 @@
 # GitHub Copilot Instructions
 
+> **Knowledge base:** analyses, plans and tasks for work in progress live in [`context/`](../context/README.md),
+> in a validated format. Read `context/README.md` before proposing a plan or starting work that may
+> already be documented. [`AGENTS.md`](../AGENTS.md) at the repository root covers how to work with it.
+
 We use GitHub for hosting our code and managing issues.
 
 When using the GitHub MCP server, always limit the requests to the "sl-design-system" organization on GitHub. If not specified explicitly, use the "components" repository.

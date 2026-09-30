@@ -5,21 +5,22 @@ id: ARCH-prior-art-ds-skills
 title: Prior art — the ds-*/sdl-* and sl-ds-* skill sets
 description: Frozen snapshot of the two earlier Figma-to-code automation attempts, vendored into this repo as read-only evidence
 jira: null
-resource: https://github.com/sl-design-system/components/tree/main/tools/prior-art-ds-skills
+resource: https://github.com/sl-design-system/components/tree/main/reference/prior-art-ds-skills
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T09:40:00Z
-updated: 2026-09-30T09:40:00Z
+updated: 2026-09-30T10:10:00Z
 tags: [prior-art, design-to-code, foundation, snapshot]
 location: external
 ---
 
 # Prior art — the `ds-*`/`sdl-*` and `sl-ds-*` skill sets
 
-> **External material.** The snapshot itself lives at `tools/prior-art-ds-skills/` in this same
-> repository — outside the context root, because the validator checks every markdown file beneath
-> the context and 193 skill files written to a different contract would fail it on every run. This
-> stub exists so the context still registers the material and it stays greppable from here.
+> **External material.** The snapshot itself lives at `reference/prior-art-ds-skills/` in this same
+> repository. Outside the context root, because the validator checks every markdown file beneath the
+> context and 193 skill files written to a different contract would fail it on every run — and in
+> `reference/` rather than `tools/`, because nothing here is meant to be run. This stub exists so the
+> context still registers the material and it stays greppable from here.
 
 ## Summary
 

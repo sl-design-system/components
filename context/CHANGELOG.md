@@ -3,9 +3,15 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Added context/README.md — the entry point for the knowledge base — marcin.ludwig
+- Added AGENTS.md at the repository root pointing agents at context/ — marcin.ludwig
+- Amendment 1 on P-NOJIRA-figma-to-code: cost and model-tier accounting as a third measured
+  axis; added T-NOJIRA-figma-to-code-13 + UC-13, reconciled T-11 and T-12 — marcin.ludwig
+- Moved the prior-art snapshot from tools/ to reference/ — it is evidence for comparison,
+  not tooling to run — marcin.ludwig
 - Added A-NOJIRA-designer-workflow (analyzes/NOJIRA-designer-workflow) — marcin.ludwig
 - Added ARCH-prior-art-ds-skills (foundation/prior-art-ds-skills.md) — external stub for the
-  frozen skill-set snapshot vendored to tools/prior-art-ds-skills/ — marcin.ludwig
+  frozen skill-set snapshot vendored to reference/prior-art-ds-skills/ — marcin.ludwig
 - Pinned prior-art-ds-skills@2026-09-30 in .sl-aipdlc.yaml — marcin.ludwig
 - Added A-NOJIRA-figma-to-code (analyzes/NOJIRA-figma-to-code) — marcin.ludwig
 - Added P-NOJIRA-figma-to-code (plan/NOJIRA-figma-to-code), approved same day — marcin.ludwig

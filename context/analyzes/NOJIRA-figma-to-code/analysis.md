@@ -58,12 +58,12 @@ Three efforts are running in parallel against the same problem, with no shared m
 |---|---|---|---|
 | `implement-design` plugin (Figma → Lit/Angular, 6-stage agent pipeline) | Jeroen Zwartepoorte | `tools/implement-design-plugin/` | Landed 2026-06-26 in one commit; no substantive change since; no run artifacts retained |
 | Figma Code Connect mappings + snippet validation + CI report | Diana Broeders | `scripts/connect-figma-components/`, `.github/workflows/figma-code-connect.yml` | Active, iterating weekly; runs on every PR |
-| `ds-*`/`sdl-*` (v1) and `sl-ds-*` (v2) skill sets | marcin.ludwig | `tools/prior-art-ds-skills/` (vendored 2026-09-30; registered at `foundation/prior-art-ds-skills.md`) | v1 specification-only; v2 run on two real designs, 12% pixel difference on first run |
+| `ds-*`/`sdl-*` (v1) and `sl-ds-*` (v2) skill sets | marcin.ludwig | `reference/prior-art-ds-skills/` (vendored 2026-09-30; registered at `foundation/prior-art-ds-skills.md`) | v1 specification-only; v2 run on two real designs, 12% pixel difference on first run |
 
 The prior attempt's own handover document lists **31 requirements** with a coverage matrix and a
 table of **10 unresolved problems**. That document is the single most useful input to this
 analysis, because it is an honest record of what was attempted and what it cost. It is now in this
-repository as `tools/prior-art-ds-skills/HANDOVER-2026-06-15.md`, alongside both frozen skill sets,
+repository as `reference/prior-art-ds-skills/HANDOVER-2026-06-15.md`, alongside both frozen skill sets,
 so the evidence behind every finding below can be opened without a second checkout.
 
 Eleven product teams have supplied Figma files. Design-system adoption across them is unknown and

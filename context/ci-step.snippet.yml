@@ -1,0 +1,22 @@
+# CI step snippet for an EMBEDDED context (a context directory inside a product repo).
+# Add this step to your product repo's existing pipeline — do NOT replace the pipeline.
+# Replace <CONTEXT_DIR> with your context root (the directory holding .sl-aipdlc.yaml).
+#
+# Notes:
+#   - The code-boundary rule is deliberately absent: it applies to standalone knowledge
+#     repos only (a product repo is expected to contain code).
+#   - Validation and the language check are scoped to the context root, so product
+#     markdown elsewhere in the repo is never flagged.
+#   - Requires a secured repository variable TOOLKIT_TOKEN (Repositories Read on the toolkit).
+- step:
+    name: Validate knowledge context (sl-aipdlc-toolkit)
+    script:
+      # ADR gate (CONVENTIONS § 18), scoped to the context root.
+      - bash <CONTEXT_DIR>/scripts/check-adr-gate.sh <CONTEXT_DIR>
+      - pip install --quiet uv
+      - git config --global url."https://x-token-auth:${TOOLKIT_TOKEN}@bitbucket.org/".insteadOf "https://bitbucket.org/"
+      - 'git ls-remote "https://bitbucket.org/sl-technology/sl-aipdlc-toolkit.git" HEAD >/dev/null || { echo "ERROR - cannot reach sl-aipdlc-toolkit; verify the TOOLKIT_TOKEN variable value and that the token has Repositories Read"; exit 1; }'
+      # Pinned to a toolkit release for reproducible CI (bump deliberately to adopt a new contract).
+      - export TOOLKIT="git+https://bitbucket.org/sl-technology/sl-aipdlc-toolkit.git@v2.0.0"
+      - uvx --from "$TOOLKIT" sl-aipdlc validate <CONTEXT_DIR>
+      - uvx --from "$TOOLKIT" sl-aipdlc check-language <CONTEXT_DIR>

@@ -1,0 +1,8 @@
+# sl-aipdlc context marker — anchors this knowledge context for the toolkit tooling.
+# Tools discover this file by walking up from any path and scope all checks to the
+# declared context root. Do not move it away from the context root.
+mode: embedded                # standalone | embedded
+context_root: .             # relative to this file — always the marker's directory
+schema_version: 1           # contract version the documents follow
+pr_destination_branch: main   # where the MCP writer opens pull requests against
+foundation_pins: []         # pinned foundation-bundle refs, e.g. security-baseline@1.2.0

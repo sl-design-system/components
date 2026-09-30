@@ -1,5 +1,8 @@
 # Corpus candidates — survey of 2026-09-30 (revised after review)
 
+> **Visual review page:** <https://claude.ai/code/artifact/9817634e-3ff8-4317-9960-d06d8e3b4f25> —
+> every candidate rendered, with its metrics and a link to the frame in Figma.
+
 Input to `T-NOJIRA-figma-to-code-04`. The first pass selected on structure alone and produced
 fragments, wireframes, covers and near-duplicate variants. This pass adds three filters and a
 visual check.
@@ -12,7 +15,11 @@ visual check.
 2. **At least 10 distinct component types**, and instance density between 0.08 and 0.6. Removes
    covers, annotation frames and component variants: a full page draws on many components, a
    fragment on a handful.
-3. **Deduplicate by component histogram** (cosine > 0.85 within a team = the same screen). This is
+3. **Full-frame overlay detection** — a rectangle or boolean shape covering the frame at reduced
+   opacity is a designer's marking, not part of the design. 43 frames excluded on this, including
+   the grey sheet over the MyPortal page and the `highlight` layer at 52% opacity that sits on
+   **every** Folio full page.
+4. **Deduplicate by component histogram** (cosine > 0.85 within a team = the same screen). This is
    what collapsed 410 frames into 51 distinct families, and it catches variants that differ only
    by a colour, a note or one element — which name-matching never would.
 

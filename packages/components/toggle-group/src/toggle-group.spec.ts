@@ -1,4 +1,5 @@
 import '@sl-design-system/icon/register.js';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import '@sl-design-system/toggle-button/register.js';
 import { fixture } from '@sl-design-system/vitest-browser-lit';
 import { html } from 'lit';
@@ -68,6 +69,11 @@ describe('sl-toggle-group', () => {
       expect(el.internals.role).to.equal('group');
     });
 
+    it('should describe single selection with aria-description', () => {
+      expect(el).to.have.attribute('aria-description', 'Select one');
+      expect(el.ariaDescription).to.equal('Select one');
+    });
+
     it('should not override an explicit role', async () => {
       el = await fixture(html`<sl-toggle-group role="toolbar"></sl-toggle-group>`);
 
@@ -86,7 +92,9 @@ describe('sl-toggle-group', () => {
     });
 
     it('should propagate disabled to the buttons', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       el.disabled = true;
       await el.updateComplete;
@@ -102,7 +110,9 @@ describe('sl-toggle-group', () => {
     });
 
     it('should propagate size to the buttons', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       el.size = 'lg';
       await el.updateComplete;
@@ -111,7 +121,9 @@ describe('sl-toggle-group', () => {
     });
 
     it('should only allow one button to be pressed at a time', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       await userEvent.click(buttons[0]);
       await el.updateComplete;
@@ -153,8 +165,15 @@ describe('sl-toggle-group', () => {
       expect(el.multiple).to.be.true;
     });
 
+    it('should describe multiple selection with aria-description', () => {
+      expect(el).to.have.attribute('aria-description', 'Select one or more');
+      expect(el.ariaDescription).to.equal('Select one or more');
+    });
+
     it('should allow multiple buttons to be pressed at the same time', async () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+      const buttons = Array.from(el.children).filter(
+        (button): button is ToggleButton => button instanceof ToggleButton
+      );
 
       await userEvent.click(buttons[0]);
       await el.updateComplete;

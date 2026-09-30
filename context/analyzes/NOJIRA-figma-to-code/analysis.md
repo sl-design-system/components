@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T09:40:00Z
+updated: 2026-09-30T17:40:00Z
 tags: [figma, design-to-code, design-system, code-connect, quality, determinism, tooling]
 references:
   - https://github.com/sl-design-system/components/pull/3423   # implement-design plugin, read 2026-09-30
@@ -69,21 +69,35 @@ so the evidence behind every finding below can be opened without a second checko
 Eleven product teams have supplied Figma files. Design-system adoption across them is unknown and
 almost certainly uneven:
 
-| Team | Figma file | Node |
-|---|---|---|
-| NSP | New-Secondary (`4TdMrcnIVOn3Hrfj2OpVZU`) | `260-8709` |
-| NSP | Hypothesis-1 (`FVU1yVCdjrnULq7omrlSRm`) | `3-3076` |
-| NSP | NS-fundaments (`sSrpLCZm302ces3khoBGls`) | `3-3076` |
-| ETSL | Editorial-Suite-designs (`S5QgDy8X9eqhvECPANSZMM`) | file-level |
-| Kampus | New content view / blended (`73YHtIYl0UHXH8ST4J7VKI`) | `12035-132465` |
-| MAX | team file (`1149032477855418739`) | team-level |
-| SANNA | SANNA — Ready for Development (`Mzc8BuOvMxOJGAQtv0h64M`) | `1100-356642` |
-| My Portal / NPM | MyPortal — Designs 2025 (`1yroCKkROktqhRCP2wwlzB`) | `14799-135216` |
-| NPM UI Kit | UI Kit LMV 6.0 — Reflow (`q9bC7JSvMa5KbucoUVLZji`) | `7619-10736` |
-| Sesame | MySesame Redesign (`UBr399hnydpNF9P5Jb2vfx`) | `4893-24653` |
-| Folio (Bingel DC) | Folio Designs (`o7lKWrw5sG8SZDs5QMTRH4`) | `3736-52358`, `323-57440` |
-| It's learning | Course-files, Bookmarks, AI-use-resources, Page-tool, Collaboration-folder | `1-2` each |
-| TEAS / Curiosity | AI Speech Coach — Designs (`LA6R23eqMcJYxVE7zgdCw0`) | `0-1` |
+| Team | Figma file | File key | Node | Addressable? |
+|---|---|---|---|---|
+| NSP | New-Secondary | `4TdMrcnIVOn3Hrfj2OpVZU` | `260-8709` | yes |
+| NSP | Hypothesis-1 | `FVU1yVCdjrnULq7omrlSRm` | `3-3076` | yes |
+| NSP | NS-fundaments | `sSrpLCZm302ces3khoBGls` | `3-3076` | yes |
+| ETSL | Editorial-Suite-designs | `S5QgDy8X9eqhvECPANSZMM` | — | **no node given** |
+| Kampus | New content view (blended) | `73YHtIYl0UHXH8ST4J7VKI` | `12035-132465` | yes |
+| MAX | — | — | — | **team link, not a file** |
+| SANNA | SANNA — Ready for Development | `Mzc8BuOvMxOJGAQtv0h64M` | `1100-356642` | yes |
+| My Portal / NPM | MyPortal — Designs 2025 | `1yroCKkROktqhRCP2wwlzB` | `14799-135216` | yes — **the two links are the same file and node** |
+| NPM UI Kit | UI Kit LMV 6.0 — Reflow | `q9bC7JSvMa5KbucoUVLZji` | `7619-10736` | yes |
+| Sesame | MySesame Redesign | `UBr399hnydpNF9P5Jb2vfx` | `4893-24653` | yes — given twice, one node |
+| Folio | Folio Designs | `o7lKWrw5sG8SZDs5QMTRH4` | `3736-52358`, `323-57440` | yes (two nodes) |
+| Folio | — | — | — | **team link, not a file** |
+| It's learning | Course-files | `mONnHPTYNNaBwV3cFUHIYv` | `1-2` | yes — but `1-2` is a page root, not a screen |
+| It's learning | Bookmarks | `ya00uFyX1rjxYWF0dlOsoT` | `1-2` | as above |
+| It's learning | AI-use-resources | `qXkwhZSMq8H1uDUuzyYsR7` | `1-2` | as above |
+| It's learning | Page-tool | `lhTrQi6C15bEYhItdLj6UB` | `1-2` | as above |
+| It's learning | Collaboration-folder | `Q3gzx1pCseyKnFNDUOOjCw` | `1-2` | as above |
+| TEAS / Curiosity | AI Speech Coach — Designs | `LA6R23eqMcJYxVE7zgdCw0` | `0-1` | yes — `0-1` is the document root |
+
+Triaging the list before spending a single Figma call removes about a third of it: **two entries are
+team links** carrying no file key and cannot be queried at all; **one duplicate** (My Portal and NPM
+are the same file and node); **one file has no node**; and **seven point at a page or document root**
+rather than at a screen, so a survey of them would measure a whole page and not a candidate.
+
+That leaves roughly **twelve addressable design nodes**, of which about seven are known screens.
+Recorded here because corpus selection starts from this list, and starting from the raw one would
+have spent calls establishing what reading the URLs already says.
 
 ## Findings
 

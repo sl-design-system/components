@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T16:10:00Z
+updated: 2026-09-30T17:40:00Z
 tags: [intake, adoption, skill, design-system]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: [T-NOJIRA-figma-to-code-02]
@@ -28,7 +28,24 @@ the mapping backlog is ranked by evidence instead of alphabetically.
 
 Read-only by construction: this skill never generates code and never writes into the pipeline.
 
+## Constraint measured before this was planned
+
+The Figma MCP server available here is the **desktop** one: it reads the file currently open in the
+Figma application, and takes no file key. Two observations from probing it:
+
+- Calling `get_metadata` with **no node id** lists the document's top-level pages and is very cheap.
+  That is the right first probe for any file, and it is how a screen gets chosen without guessing.
+- Calling it on a page that is not loaded in the application returned an **empty canvas** — most
+  likely because Figma loads pages lazily. Content appears to require the page to be open.
+
+So a survey across many files **cannot run unattended from here**. Either each file is opened in the
+desktop application in turn, or the remote Figma server is authenticated and used instead, since
+that one addresses a file by URL. Confirm which before assuming this skill can be pointed at a list
+of links.
+
 ## Steps
+- [ ] Use exactly two calls per design — structure and the Code Connect map — and never `get_design_context`, which is the expensive one and answers a question the report does not ask
+- [ ] Cache every response to disk on first fetch, keyed by file and node, so re-running a survey costs nothing
 - [ ] Build the report on the shared node-tree artifact — the same traversal as coverage, counting different things
 - [ ] Report per design: the fraction of instances resolving to a design system component, the detached-instance count, the ratio of bound variables to local styles, and the unmapped components by name
 - [ ] Aggregate across designs into a ranking of unmapped components by how many distinct files and teams they appear in

@@ -3,6 +3,9 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Triaged the design inventory at zero Figma cost, and recorded the desktop-MCP constraint
+  measured against T-03: the server reads the open file, so a survey cannot run unattended
+  — marcin.ludwig
 - Roadmap: what each track produces, and the bias towards scripts over skills — marcin.ludwig
 - A-NOJIRA-ds-conformance F3b: an overridden instance resolves normally and emits a clean
   snippet that does not match the design — invisible to every structural check — marcin.ludwig

@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T11:30:00Z
-updated: 2026-09-30T12:55:00Z
+updated: 2026-09-30T14:20:00Z
 tags: [architecture, pipeline, intermediate-representation, traceability, handover, design-to-code]
 references:
   - git+ssh://git@bitbucket.org/sl-technology/sl-aipdlc-toolkit.git   # sl-ds-html-to-figma, evidence on what survives a DOM round trip, read 2026-09-30
@@ -280,6 +280,84 @@ Three distinct things, kept apart deliberately:
 Collapsing the first into the third is the more expensive mistake: validating an artifact does not
 discharge behaviour, and claiming otherwise buys a false sense of coverage.
 
+### F10 — The structured data is the source and the HTML is derived from it, not the other way round
+
+An earlier section of this analysis called the two halves of the package "a pair, joined by node
+id". That framing is too flat, and a better one has since been proposed: produce the **structured
+data first**, and generate the HTML **from** it.
+
+The difference is not bookkeeping. It decides where variance can enter.
+
+| | HTML generated directly from Figma | HTML generated from a structured artifact |
+|---|---|---|
+| Figma → structured | — | Largely mechanical: the MCP calls already return structured data; the work is normalisation |
+| structured → HTML | — | **A pure function.** Deterministic code, same input always the same output |
+| Where a model is involved | Throughout, including layout reconstruction | Only where the source is genuinely ambiguous — and Code Connect answers most of that |
+| Variance surface | The whole transformation | One step, and the smaller one |
+
+**Generating HTML from JSON with ordinary code collapses the variance surface to a single step.**
+That is a larger gain than any amount of prompt discipline can produce, because a pure function does
+not have run-to-run variance at all — it has bugs, which are a different and far more tractable
+problem. It is also testable in the way code is testable: a fixture in, a known file out.
+
+Three consequences follow.
+
+**Regeneration becomes free and exact.** "A design change produces a new package, not a patched one"
+stops being a discipline anyone has to maintain and becomes the cheapest available option.
+
+**"What changed" becomes a diff of structured data**, not a diff of markup. Two JSON documents
+compare cleanly; two rendered HTML files compare badly, because an unrelated layout shift moves
+everything after it.
+
+**The HTML stops being a source of truth and becomes a rendering of one.** The cascade worry that
+prompted this whole line of thinking is answered more strongly than by provenance alone: an error in
+the HTML is either a bug in a pure function — reproducible, fixable once, fixed for every package
+ever produced — or it is already present in the structured data, where it is visible and diffable.
+
+The package still ships all of it: the structured data, the HTML derived from it, the reference
+image and the metadata. What changes is which one is authoritative, and therefore which one a fix is
+applied to. **Never patch the HTML; fix the data or fix the generator.**
+
+### F11 — Context exhaustion is a design constraint, and the same structure that fixes determinism fixes it
+
+A run can exhaust the model's context part-way. The prior attempt recorded this as an unresolved
+problem: its resume protocol worked only at phase boundaries, so an interruption during a phase
+restarted that phase from the beginning.
+
+The fix is not a resume protocol bolted on afterwards. It is a consequence of the structure F10
+already argues for: **if every step writes a schema-conformant artifact to disk before the next step
+begins, resumption is reading what exists and skipping those steps.** The checkpoint granularity is
+the artifact, not the phase — which is precisely where the prior attempt's version fell short.
+
+Three requirements follow for anything built here:
+
+- **Every step's output is a file, written before the next step starts.** A step that holds its
+  result in context has no checkpoint.
+- **Every artifact declares its schema version**, so a resumed run refuses stale or half-written
+  input rather than building on it.
+- **Re-running a step whose artifact already exists is a no-op** unless forced. That makes resume
+  and normal execution the same code path, which is the only version of resume that stays working —
+  a separate resume path is exercised only when something has already gone wrong.
+
+This is R21 from the inherited backlog, which the triage keeps as genuinely open. It should not be
+treated as a late hardening task: retrofitting checkpoints onto a pipeline that passes state in
+context is a rewrite, while designing for it costs nothing at the start.
+
+### F12 — Schemas belong in schema files, not in prose
+
+A related point about how this work is documented. Much of what remains to be specified is object
+shapes: the structured artifact, the metadata document, the result schema, the corpus registry.
+
+Describing an object shape in prose creates a second source of truth that drifts from the first
+within weeks, and it cannot be validated. So the division should be explicit: **decisions and
+reasoning in prose, shapes in schema files.** A task document says which schema a step produces and
+why it is shaped that way; the schema itself is a file in the repository, versioned, with tests and
+fixtures against it.
+
+That is not an argument against the prose documents. It is an argument about what belongs in them —
+an analysis that argued its case in JSON would be unreadable, and a schema written in paragraphs is
+unusable.
+
 ## What would change our mind## What would change our mind
 
 - **Stage-one fidelity turns out to be low.** If the baseline shows the first stage cannot reliably
@@ -307,12 +385,13 @@ step — into a stage where a human review gate is natural rather than an interr
 **The artifact is a package, not a choice, and not a single file.** The question as posed — HTML or
 cached Figma data — should be answered "both, joined by node id, shipped together":
 
-- **Annotated HTML** is the *presentational* truth: what renders, what is pixel-compared against
-  Figma, what a person opens in a browser, what stage two diffs against existing components. It
-  should be written to carry what it can — `sl-*` custom elements where Code Connect resolves,
-  `var()` token references rather than literal values, and a `data-figma-node` attribute on every
-  element.
-- **The retained Figma extraction** is the *intent* companion: bound variables, instance properties,
+- **The structured artifact is the source** (F10). It is produced first, and the HTML is generated
+  from it by deterministic code. A fix goes here or into the generator — never into the HTML.
+- **Annotated HTML**, derived: what renders, what is pixel-compared against Figma, what a person
+  opens in a browser, what stage two diffs against existing components. It carries `sl-*` custom
+  elements where Code Connect resolves, `var()` token references rather than literal values, and a
+  `data-figma-node` attribute on every element.
+- **The Figma extraction** behind the structured artifact is the *intent* record: bound variables, instance properties,
   bounding boxes, and the hug/fill/fixed layout modes that HTML cannot express at all. It is not a
   cache to be discarded after stage one; it is half the source of truth, and because the developer
   has no Figma access it is **the only channel by which that intent reaches them**. It ships.

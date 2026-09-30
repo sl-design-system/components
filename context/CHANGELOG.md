@@ -3,6 +3,12 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Amendment 3 on P-NOJIRA-figma-to-code: the bench is tested like an instrument — calibration
+  fixtures per metric, an end-to-end suite (T-14), baseline moved to T-15 and blocked on it
+  — marcin.ludwig
+- A-NOJIRA-pipeline-staging F10-F12: the structured artifact is the source and HTML is derived
+  from it by deterministic code; checkpointing per artifact makes resume and normal execution
+  one code path; schemas belong in schema files, not prose — marcin.ludwig
 - Renumbered T-NOJIRA-figma-to-code-01..14 into execution order; corrected two orderings —
   the intake report now precedes the corpus freeze, and the registry moved early to unblock
   the parallel track — marcin.ludwig

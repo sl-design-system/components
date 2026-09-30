@@ -10,7 +10,7 @@ status: todo
 independent: true
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T13:45:00Z
+updated: 2026-09-30T14:20:00Z
 tags: [harness, tooling, foundation]
 source_plan: P-NOJIRA-figma-to-code
 depends_on: []
@@ -32,12 +32,14 @@ decided once, here, before anything depends on it.
 - [ ] Version the registry schema explicitly so a later change is a visible migration rather than a silent reinterpretation
 - [ ] Implement `list` — read the registry and print the registered cases with their mode and freeze stamp
 - [ ] Wire the tool into the repo so it runs from the root without a build step
+- [ ] Stand up the test infrastructure with the skeleton — a runner, a place for fixtures, and the convention that every metric brings unit tests plus a known-answer calibration fixture (Amendment 3). Test setup is part of standing up a tool, not a later phase
 - [ ] Add a README stating what the bench measures, what it deliberately does not, and that it never modifies the pipeline it measures
 
 ## Acceptance criteria
 - [ ] `yarn bench list` runs from the repo root and prints the registered cases, or a clear empty-registry message
 - [ ] The registry schema is documented and versioned; an unparseable or unknown-version registry fails loudly rather than being partially read
 - [ ] The tool has no import path into `tools/implement-design-plugin/`
+- [ ] `yarn bench test` runs and passes against the skeleton, so no later task has to introduce testing as a new idea
 
 ## Verification
 Run `yarn bench list` against an empty registry and against a hand-written two-entry registry.

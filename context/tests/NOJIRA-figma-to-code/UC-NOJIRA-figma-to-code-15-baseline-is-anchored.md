@@ -1,7 +1,7 @@
 ---
 type: use-case
 schema_version: 1
-id: UC-NOJIRA-figma-to-code-14
+id: UC-NOJIRA-figma-to-code-15
 title: The published baseline states what it measured and proves the pipeline was untouched
 description: Proves the baseline is usable as the gate for slice 2
 jira: null
@@ -9,14 +9,14 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T08:20:00Z
+updated: 2026-09-30T14:20:00Z
 tags: [baseline, milestone]
-tests_task: T-NOJIRA-figma-to-code-14
+tests_task: T-NOJIRA-figma-to-code-15
 ---
 
 # The published baseline states what it measured and proves the pipeline was untouched
 
-> Verifies [T-NOJIRA-figma-to-code-14](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-14-publish-baseline.md).
+> Verifies [T-NOJIRA-figma-to-code-14](../../work/NOJIRA-figma-to-code/T-NOJIRA-figma-to-code-15-publish-baseline.md).
 
 ## Preconditions
 Every preceding task is done and the corpus is frozen.

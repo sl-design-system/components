@@ -1,7 +1,7 @@
 ---
 type: task
 schema_version: 1
-id: T-NOJIRA-figma-to-code-14
+id: T-NOJIRA-figma-to-code-15
 title: Baseline run and published result
 description: Measure the existing pipeline over the frozen corpus with repetition and publish the numbers every later slice is judged against
 jira: null
@@ -10,10 +10,10 @@ status: todo
 independent: false
 owner: marcin.ludwig
 created: 2026-09-30T08:20:00Z
-updated: 2026-09-30T13:45:00Z
+updated: 2026-09-30T14:20:00Z
 tags: [baseline, measurement, milestone]
 source_plan: P-NOJIRA-figma-to-code
-depends_on: [T-NOJIRA-figma-to-code-08, T-NOJIRA-figma-to-code-09, T-NOJIRA-figma-to-code-11, T-NOJIRA-figma-to-code-12]
+depends_on: [T-NOJIRA-figma-to-code-08, T-NOJIRA-figma-to-code-09, T-NOJIRA-figma-to-code-11, T-NOJIRA-figma-to-code-12, T-NOJIRA-figma-to-code-14]
 ---
 
 # Baseline run and published result
@@ -32,6 +32,7 @@ what could be improved, but a measurement of where it stands and how much it mov
 - [ ] Publish mean and spread per case and per dimension, with the diff artifacts retained and linked
 - [ ] Publish the cost per case — tokens by model tier and by pipeline stage, with its spread — so slice 2 can argue a tier change on evidence
 - [ ] Record the exact pipeline commit measured, so the baseline is anchored to a known state
+- [ ] Do not publish until the bench's own integration test is green — numbers from an unverified instrument are worse than no numbers, because they are quoted
 - [ ] Confirm and state that the pipeline was not modified — an empty diff over `tools/implement-design-plugin/` across the whole slice
 - [ ] Write a short reading of the result: where the pipeline is strong, where it is weak, and which cases are unstable enough that their mean should not be quoted
 - [ ] Carry the outstanding concern from the plan: if the tiered tolerances cannot absorb the renderer difference, say so here and record that the fidelity dimension falls back to geometry alone
@@ -45,4 +46,4 @@ what could be improved, but a measurement of where it stands and how much it mov
 ## Verification
 Run the full corpus with repetition, publish, and verify the empty-diff claim with `git diff`
 against the slice start commit.
-- Use case: `UC-NOJIRA-figma-to-code-14` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-14-baseline-is-anchored.md`
+- Use case: `UC-NOJIRA-figma-to-code-15` — `../../tests/NOJIRA-figma-to-code/UC-NOJIRA-figma-to-code-15-baseline-is-anchored.md`

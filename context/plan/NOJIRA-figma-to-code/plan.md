@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T12:25:00Z
+updated: 2026-09-30T14:20:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -104,7 +104,8 @@ Tasks to be created in `work/NOJIRA-figma-to-code/` once this plan is approved:
 - `T-NOJIRA-figma-to-code-11` — Fidelity: per-component pixel comparison with tiered tolerances
 - `T-NOJIRA-figma-to-code-12` — Strict and as-is modes over one measurement
 - `T-NOJIRA-figma-to-code-13` — Experiment comparison across configurations and over time (added by Amendment 2)
-- `T-NOJIRA-figma-to-code-14` — Baseline run and published result
+- `T-NOJIRA-figma-to-code-14` — Integration and behaviour tests for the bench itself (added by Amendment 3)
+- `T-NOJIRA-figma-to-code-15` — Baseline run and published result
 
 **The numbers are the execution order.** Every task depends only on lower-numbered ones, so they can
 be worked straight through. Two orderings are load-bearing rather than incidental and were corrected
@@ -154,12 +155,15 @@ dependency for strict-mode cases, not a blocker for this plan.
    corpus case, or proposed and carrying none.
 7. Every task has a use case in `tests/` that states which corpus case proves it, and the context
    validates clean.
-8. Every result records what the run cost — tokens by model tier and by pipeline stage — so a tier
+8. Every metric ships with unit tests and a **known-answer calibration fixture** — a fixture whose
+   correct output is known by construction — and no metric is accepted on the strength of looking
+   plausible on a real design.
+9. Every result records what the run cost — tokens by model tier and by pipeline stage — so a tier
    or effort change can be evaluated as a cost delta against a score delta rather than on intuition.
-9. Two runs made under different conditions — a different model, a newer model, an added pipeline
+10. Two runs made under different conditions — a different model, a newer model, an added pipeline
    step — can be compared directly, with the difference reported against the measured spread so that
    noise is not read as improvement.
-10. Nothing in the result schema or the runner assumes the thing being measured is the Figma-to-HTML
+11. Nothing in the result schema or the runner assumes the thing being measured is the Figma-to-HTML
     stage. A second stage plugs in as another target, not as a fork of the tool.
 
 ## Approval
@@ -266,6 +270,52 @@ authoritative. It is not: a result is only comparable to another taken against t
 corpus, and a corpus refresh invalidates comparisons across it. `T-14` records the corpus freeze
 stamp with every result so an invalid comparison fails rather than quietly misleads — but that guard
 is only as good as the discipline of reading it.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-09-30
+
+### Amendment 3 — 2026-09-30, after approval
+
+**What changed.** The bench gets tested like the instrument it is.
+
+Nothing in the original breakdown covered testing the measurement code itself — fourteen tasks
+building metrics, none establishing that the metrics are right. That is the worst place to have
+the gap: **a measurement tool that is wrong is worse than no measurement tool, because its output
+is a number and numbers get quoted.** A pipeline defect makes an ugly screen somebody notices; a
+bench defect makes a confident figure nobody questions, and every decision taken against it
+inherits the error.
+
+Three additions:
+
+- **A cross-cutting acceptance criterion** (the new eighth): every metric ships with unit tests and
+  a **known-answer calibration fixture** — a synthetic node tree and DOM whose correct coverage,
+  deltas and diff are known by construction. This is how an instrument is checked: against a
+  standard, not against a real design where nobody knows the right answer either. It is cross-
+  cutting rather than a task because a metric merged without its test is one nobody retrofits.
+- **`T-NOJIRA-figma-to-code-01` extends** to stand up the test infrastructure and the fixture
+  convention alongside the skeleton. Test setup is part of standing up a tool, not a later phase.
+- **`T-NOJIRA-figma-to-code-14`** adds the end-to-end integration test — the whole bench against a
+  stubbed Figma and a static page, no network, asserted against a golden file — plus the failure
+  paths, which are what a real run actually hits. The baseline moves to `15` and is blocked on this
+  suite being green.
+
+**On behaviour specifications.** Written for the **verdict and gate rules only** — "a delta inside
+the spread is reported as indistinguishable", "a comparison across corpus freeze stamps is refused",
+"a requirement with no case cannot be activated". Those are rules the design system team and
+designers should be able to read and dispute without reading code, and that is the whole reason the
+format earns its cost. They are **not** written for the arithmetic: there the assertion is numeric
+and the reader is a script, so the format adds ceremony and nothing else. Answering "should we do
+BDD?" with a blanket yes is how a test suite becomes something people stop reading.
+
+**What did not change.** Fidelity is still two dimensions, the pipeline is still not modified, and
+the corpus, coverage, intake report and baseline are untouched in substance. The execution order
+still holds: every task depends only on lower-numbered ones.
+
+**Judgement to be aware of.** Golden-file assertions catch every change, including intended ones,
+so they will need updating whenever a metric legitimately changes — and a golden file updated
+without being read is a test that has stopped testing. The alternative, asserting field by field,
+lets a changed number through unnoticed, which is the failure this amendment exists to prevent. The
+trade is deliberate; the discipline it requires is reading the diff.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-09-30

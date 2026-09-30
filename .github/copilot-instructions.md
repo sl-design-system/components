@@ -39,7 +39,7 @@ All components are built using Lit and TypeScript. All components follow the fol
 
 - Use JavaScript imports with `.js` extensions so the code also runs in the browser
 - Use TypeScript for type annotations and interfaces
-- Styling belongs in `<component-name>.scss` files which the build automatically transforms to `<component-name>scss.ts` files
+- Styling belongs in plain `<component-name>.css` files, imported with an import attribute — `import styles from './<component-name>.css' with { type: 'css' };`. There is no style build step and no `.scss`; a rolldown plugin turns the import into a `CSSStyleSheet` for Storybook, Vitest and the build alike, and `.css` edits hot-reload in the running dev server
 - Public properties should come before public properties
 - Public methods should come before private methods
 

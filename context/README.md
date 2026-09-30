@@ -16,6 +16,7 @@ speaks Polish — a validator enforces it.
 | What is being built first, and what is deliberately not | [`P-NOJIRA-figma-to-code`](plan/NOJIRA-figma-to-code/plan.md) |
 | The whole sequence, both tracks, at a glance | [`plan/roadmap.md`](plan/roadmap.md) |
 | What a designer hands over, what it costs, how the flow gets tested | [`A-NOJIRA-designer-workflow`](analyzes/NOJIRA-designer-workflow/analysis.md) |
+| What happened to the 31 inherited requirements | [`A-NOJIRA-requirement-backlog`](analyzes/NOJIRA-requirement-backlog/analysis.md) → [`P-NOJIRA-requirement-triage`](plan/NOJIRA-requirement-triage/plan.md) |
 | What was tried before and what it cost | [`foundation/prior-art-ds-skills.md`](foundation/prior-art-ds-skills.md) → `reference/prior-art-ds-skills/` |
 
 ## The two tracks
@@ -24,6 +25,12 @@ speaks Polish — a validator enforces it.
 it can be shown to help. Slice 1 builds coverage, two fidelity dimensions, run-to-run variance and
 per-run cost over a frozen Figma corpus, and publishes a baseline — **without modifying the pipeline
 at all**. Approved and decomposed into thirteen tasks.
+
+**Track 1b — requirement triage.** Runs alongside slice 1 and needs no baseline. The 31
+requirements inherited from the previous attempt are roughly a third shorter than they look: nine
+are already satisfied here, two belong to other backlogs, five are measurements rather than
+features, and four contradict the pipeline's autonomy design and need a decision rather than an
+implementation. This track confirms that and publishes the real, ordered list.
 
 **Track 2 — the designer handover contract.** Which of the three existing directions a piece of work
 should use, what each costs, and how the working model is tested as distinct from the generated code.

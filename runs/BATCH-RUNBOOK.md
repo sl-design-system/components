@@ -23,36 +23,30 @@ The 19 unique reference nodes are listed with file keys, node ids and links in
 | i18n             | **off**                               | its Stage 3 gate can halt a run for reasons unrelated to fidelity                                 |
 | Output location  | `examples/lit/src/_runs/<case-slug>/` | inside the tsconfig include and gitignored                                                        |
 
-## The Stage 4 blocker and how to get past it without a licence
+## The Stage 4 blocker — resolved, 2026-09-30
 
-`yarn start` boots the repository-wide Storybook, which loads every component story; 33 of them
-import Font Awesome Pro packages from a private registry, and no token is available. Nothing is
-cached locally, so a full install cannot succeed either.
+Two causes, not one. The runbook anticipated Font Awesome; it did not anticipate that **no local
+workspace was linked into `node_modules/`**, which is what actually stopped the server. Both are
+removable without a credential. Details and evidence:
+[`runs/harness/README.md`](harness/README.md).
 
-**It is avoidable.** Verified: `sl-button`, `sl-form`, `sl-select`, `sl-icon` and `sl-link` import
-Font Awesome in **no** non-test file and declare it in **no** `package.json`. The example workspace
-(`@sl-design-system/lit-examples`) does not depend on it at all. Only stories, specs and the emoji
-browser do.
+**The harness is built and validated. Run agents must not rebuild it, and must not start a
+Storybook of their own.** One server serves every run, and picks up new run folders as they
+appear.
 
-So build a **minimal render harness** that loads only the case under test:
+```sh
+runs/harness/start.sh            # supervisor starts this once, before the batch
+```
 
-1. `FONT_AWESOME_AUTH_TOKEN=dummy yarn workspaces focus @sl-design-system/lit-examples` plus the
-   component workspaces used. The dummy satisfies yarn's variable expansion; nothing actually
-   resolves from the private registry for these workspaces.
-2. A minimal Vite (or Storybook) config whose story glob covers **only** `examples/lit/src/_runs/**`.
-3. Point the visual validator at that, not at `yarn start`.
+```
+http://localhost:6010/iframe.html?id=<storyId>&viewMode=story&globals=theme:<theme>
+http://localhost:6010/index.json    # authoritative list of story ids
+```
 
-This is not a workaround to be undone later — it is the bench's own decision, recorded in
-[`ARCH-fidelity-scoring`](../context/architecture/NOJIRA-figma-to-code/fidelity-scoring.md): a
-measurement an unrelated story's dependency can block is not a measurement.
-
-**The supervisor builds and validates this harness once, before the batch starts** — on the SANNA
-code that already exists. The eighteen run agents must **not** each rediscover the workaround:
-eighteen agents improvising around a credential is eighteen chances to do it differently, which is
-the variance this whole effort exists to remove. They receive a working render command and use it.
-
-If the harness cannot be made to work, the fallback is explicit and applies to the whole batch:
-runs complete Stages 1–3, record the Stage 4 blocker, and Stage 4 onward waits for a real token.
+The theme per product is in the harness README and is recorded in each run's `progress.json`,
+because it changes every measured pixel. MyPortal (A3, A7) has no resolved theme package and falls
+back to `sanoma-learning` — any colour or type difference there may be the theme rather than the
+run.
 
 ## Nesting works — measured, not assumed
 
@@ -76,7 +70,7 @@ holds 18 results rather than a hundred.
 
 **What the supervisor does once, up front:** builds and validates the render harness, and confirms
 the Figma remote server is authenticated. **What each agent is given:** its case (file key, node
-id, name), the four Stage 0 answers, the three prompt hints below, the path to this runbook, and
+id, name), the four Stage 0 answers, the four prompt hints below, the path to this runbook, and
 the exact command that renders a story. Nothing it has to work out for itself.
 
 For each run:
@@ -91,11 +85,12 @@ For each run:
    of the code, and commit. Commits need `FONT_AWESOME_AUTH_TOKEN=dummy` because the pre-commit
    hook expands the variable.
 
-## Three prompt hints the first run needed — and what they really mean
+## Four prompt hints, and what needing them really means
 
-These were passed by hand and made the difference. Pass them again, **and note that needing to is
-itself the finding**: `T-NOJIRA-figma-to-code-02` exists to move all three into the extraction so
-no future run depends on somebody remembering.
+The first three were passed by hand on the first run and made the difference. The fourth comes
+from validating the render harness. Pass all four, **and note that needing to is itself the
+finding**: `T-NOJIRA-figma-to-code-02` exists to move them into the extraction and the framework
+skill so no future run depends on somebody remembering.
 
 - **`hasTemplate: false`** is a third state between resolved and `null` — a mapping identifying a
   component without emitting a snippet. Treat it as identified, not as unconnected. Without this
@@ -104,6 +99,11 @@ no future run depends on somebody remembering.
   their internals. Count what a developer would place.
 - **`(unbound — needs a token)` is usually wrong.** On the first run all five flagged values had
   exact tokens already. Search the theme for an exact match before approximating.
+- **The story must import the component for its side effect.** The first run wrote
+  `import { type Thing } from './thing.js'`; the inline `type` modifier erases the import, the
+  module never runs, and `customElements.define` never happens — so Storybook renders an unknown
+  element with no shadow root. Add a plain `import './thing.js';`. The type check passes either
+  way, which is why nothing in the pipeline catches it.
 
 ## Resuming a stage that failed
 

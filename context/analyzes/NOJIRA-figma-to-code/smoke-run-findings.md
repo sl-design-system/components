@@ -217,6 +217,69 @@ pipeline end to end without that credential, and no document said so before toda
 
 ---
 
+## Stage 4 — unblocked without the credential, and three defects it immediately found
+
+Written 2026-09-30, before the eighteen-run batch, because Stage 4 had to work for any of it to
+mean anything. The blocker turned out to be **two** blockers, and the one nobody had named was the
+one actually stopping the server.
+
+### Font Awesome was never the whole reason
+
+The missing credential is real, but a dummy token gets past it. What stops the server after that
+is that **no local workspace is linked into `node_modules/`** — only `packages/components/*` was
+ever installed. All thirty-one others (every theme package, `locales`, and the Vite plugin that
+implements `import … with { type: 'css' }`) had no symlink, so their bare specifiers did not
+resolve. The earlier note about `@sl-design-system/eslint-config` was the first of thirty-one, read
+as if it were the whole story.
+
+Both causes are removable without a credential. `runs/harness/link-workspaces.mjs` recreates the
+symlinks a complete install would have made — it only links directories that already exist, so
+nothing is fetched. `.storybook-runs/` is the repository's own Storybook configuration with the
+story glob narrowed to `examples/lit/src/_runs/**`, which leaves the Font Awesome stories out of
+the graph rather than working around them. `.storybook/preview.ts` is reused unchanged, so the
+harness renders with the same themes, polyfills and locales the design system ships.
+
+With both in place the SANNA page renders. **R14 is therefore still a precondition for `yarn
+start`, but no longer a precondition for measuring fidelity** — which is what the earlier entry
+implied and what would have delayed the batch indefinitely.
+
+### The generated story never registers its component
+
+The story's only reference to the component is
+`import { type LoginPage } from './login-page.js'`. Registration is a module side effect at the
+bottom of `login-page.ts`, and the inline `type` modifier means the import is erased at transform
+time — so the module never executes. Storybook renders `<sl-login-page>` as an unknown element:
+present in the DOM, zero by zero pixels, no shadow root.
+
+The story even carries a comment asserting the opposite — _"Importing the component registers
+`sl-login-page` globally (guarded) as a side effect"_ — which is the interesting part. **The type
+check passes, the code reads as correct, and it renders nothing.** No gate in the pipeline can see
+this, because the only symptom is visual and Stage 4 is where visual symptoms are looked for. Every
+run will produce it until the framework skill says to import for effect.
+
+### There is no asset step
+
+The component references `/assets/wordmark.svg` and `/assets/hero.jpg`. Nothing exports them from
+Figma and nothing serves them, so both 404 and the layout collapses to 132px tall. The harness
+serves `runs/harness/assets/` at `/assets` as the one agreed location, and otherwise leaves the
+404 visible: a harness that substituted a placeholder would make the fidelity score describe the
+harness rather than the run.
+
+### The mock data fetch leaves the form empty
+
+The decomposer's default for open question 2 was "root owns the data with a typed mock and a fetch
+goes here comment". In practice the root fetches `/api/locations`, gets a 404, and renders no
+select and no sign-in button — the two interactive elements of the screen. The default is
+defensible as code and **removes the component's main content from anything that measures it**.
+A fidelity score taken now would grade a screen the design does not contain.
+
+Together these three are one finding worth stating once: **Stages 1–3 can pass every gate they
+have and still produce something that does not appear on screen.** Type-check clean, conventions
+followed, comments confident, nothing rendered. That is precisely the gap the bench exists to
+close, and it was invisible until something rendered the output.
+
+---
+
 ## What the smoke run answered
 
 **Does a run complete?** Stages 1 through 3 yes, cleanly, with a passing type-check gate. Stage 4

@@ -132,6 +132,24 @@ const preview: Preview = {
 
       return story();
     },
+    (story, { globals }) => {
+      const { theme = 'sanoma-learning', subtheme } = globals as {
+          theme?: string;
+          subtheme?: string;
+        },
+        body = document.body;
+
+      body
+        .getAttributeNames()
+        .filter(name => name.endsWith('-subthemes'))
+        .forEach(name => body.removeAttribute(name));
+
+      if (subtheme && themes.find(({ id }) => id === theme)?.subthemes?.includes(subtheme)) {
+        body.setAttribute(`data-${theme}-subthemes`, subtheme);
+      }
+
+      return story();
+    },
     (story, { globals: { viewport } }) => {
       document.documentElement.setAttribute('data-Device', viewport.value || 'desktop');
       return story();
@@ -178,6 +196,17 @@ const preview: Preview = {
           { value: 'dark', icon: 'moon', title: 'Dark mode' }
         ]
       }
+    },
+    // No toolbar here: the subtheme selector is rendered by manager.ts, only for themes with subthemes
+    subtheme: {
+      name: 'Subtheme',
+      description: 'Subtheme of the current theme',
+      // Read by manager.ts, so the manager doesn't have to import (and bundle) themes.ts
+      subthemes: Object.fromEntries(
+        themes
+          .filter(({ subthemes }) => subthemes?.length)
+          .map(({ id, subthemes }) => [id, subthemes])
+      )
     },
     locale: {
       name: 'Locale',

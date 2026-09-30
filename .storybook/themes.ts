@@ -4,6 +4,7 @@ export interface Theme {
   id: string;
   name: string;
   fonts: string[];
+  subthemes?: string[];
   setup(): Promise<void>;
 }
 
@@ -152,6 +153,7 @@ export const themes: Theme[] = [
     id: 'sl-ecosystem',
     name: 'SL Ecosystem',
     fonts: ['/themes/sl-ecosystem/fonts.css'],
+    subthemes: ['blue', 'green', 'orange', 'purple', 'teal'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sl-ecosystem');
 

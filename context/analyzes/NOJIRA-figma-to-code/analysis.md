@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T17:40:00Z
+updated: 2026-09-30T19:00:00Z
 tags: [figma, design-to-code, design-system, code-connect, quality, determinism, tooling]
 references:
   - https://github.com/sl-design-system/components/pull/3423   # implement-design plugin, read 2026-09-30
@@ -98,6 +98,25 @@ rather than at a screen, so a survey of them would measure a whole page and not 
 That leaves roughly **twelve addressable design nodes**, of which about seven are known screens.
 Recorded here because corpus selection starts from this list, and starting from the raw one would
 have spent calls establishing what reading the URLs already says.
+
+**A survey has since been run** over five of these files via the Figma REST API — the desktop MCP
+server cannot do this, as it reads only the file open in the application. Three results bear on
+everything else in this analysis:
+
+- **Every node the teams supplied is a page or a board, not a screen.** They run to 33,000, 73,000
+  and 98,000 nodes. Real screens sit two levels below, and 230 unique ones were found in five files.
+- **Design system adoption is high.** Most screens resolve 95–100% of their component instances to a
+  published library. The concern that product designs largely ignore the design system is not borne
+  out by the files examined — which makes strict mode viable far more often than expected.
+- **Override rates run from 1% to 94% and are the dominant risk.** An overridden instance resolves
+  normally and emits a clean snippet that does not match the design (see
+  [`A-NOJIRA-ds-conformance`](../NOJIRA-ds-conformance/analysis.md), F3b). At these rates it is not
+  an edge case; on some screens it is the majority of instances. This is the strongest evidence yet
+  that the rendering check cannot be dropped in favour of structural checks alone.
+
+One measurement caveat: without the `team_library_content:read` scope, "resolves to a published
+library" cannot be narrowed to "resolves to *our* library". A team using a second library would be
+counted as design-system adoption.
 
 ## Findings
 

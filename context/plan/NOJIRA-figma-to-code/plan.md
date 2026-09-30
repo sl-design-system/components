@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T22:30:00Z
+updated: 2026-09-30T23:10:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -132,6 +132,29 @@ one measured delta.
 | Code Connect scaffolds block ingestion on real product designs | Some corpus cases cannot run at all | Select initial cases that avoid the 14 unmapped components; exercise the others in as-is mode, which does not require a mapping |
 | The bench itself accretes requirements | The plan reproduces the failure it was written to prevent | Acceptance is fixed at two fidelity dimensions; anything further is a separate plan against a measured gap |
 | Measurement is built but never used to gate changes | The numbers become decoration | The next plan's acceptance is expressed as a score delta against this baseline, which makes the gate structural rather than cultural |
+
+**Three blockers found on the first attempt at the smoke run**, before it could start. None is
+hard, all three are prerequisites nobody had written down:
+
+1. **The plugin is not installed.** It ships from this repository as a marketplace plugin but is
+   not in the local plugin set, so `/implement-design` does not exist yet. Install it, or point at
+   the working copy with `--plugin-dir ./tools/implement-design-plugin`.
+2. **The MCP server names do not match.** Every agent's `tools:` frontmatter names
+   `mcp__figma__*`, `mcp__figma-desktop__*` and `mcp__playwright__*`. This environment provides
+   `mcp__MCP_DOCKER__*` for Figma and a differently-named Playwright. The agents' tool allowlists
+   will not resolve, so either the servers are registered under the expected names or the plugin is
+   adjusted. **This is exactly the class of thing the smoke run exists to surface**, and it would
+   have been discovered halfway through `T-15` otherwise.
+3. **`get_code_connect_map` is very slow on the desktop server** — a single call against one
+   component node had not returned after five minutes. If that holds for a real screen, it bears on
+   run duration (R8) and on whether the desktop server is usable unattended at all. Worth timing
+   deliberately during the smoke run rather than discovering it as a hang.
+
+**On the coupling question:** the pipeline does **not** read `scripts/connect-figma-components`
+directly — there is no import path between them. The link is indirect: mappings are authored there,
+published to Figma, and the pipeline reads them back through `get_code_connect_map`. So the
+mappings only reach the pipeline **once published**, and whether the current set is published is a
+separate fact to establish.
 
 **Dependencies.** Figma MCP access, with the desktop server for Code Connect resolution.
 A runnable Storybook in this repository for rendering. Diana's mapping work is a parallel

@@ -1,0 +1,840 @@
+{
+  "$schema": "draft — the registry format is defined by T-NOJIRA-figma-to-code-01",
+  "schemaVersion": "0.1.0-draft",
+  "producedBy": "corpus survey spike, 2026-09-30",
+  "warning": "Candidate list, not a registry. frozenCopy and mode are unset until T-NOJIRA-figma-to-code-04 copies the nodes into the design-system-owned Figma file and assigns a scoring mode. Measurements are from the live files and will drift.",
+  "fidelityCorpus": [
+    {
+      "id": "A1",
+      "team": "Kampus",
+      "name": "Subchapter feed page",
+      "role": "clean, richest — 83 component types",
+      "source": {
+        "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
+        "fileName": "New-content-view",
+        "nodeId": "5311:37116",
+        "url": "https://www.figma.com/design/73YHtIYl0UHXH8ST4J7VKI/New-content-view?node-id=5311-37116"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 720,
+        "nodes": 1803,
+        "instances": 705,
+        "componentTypes": 83,
+        "libraryPct": 99,
+        "localPct": 0,
+        "overridePct": 11,
+        "detachedCandidates": 1
+      }
+    },
+    {
+      "id": "A2",
+      "team": "NSP",
+      "name": "class overview",
+      "role": "clean, largest — 10 936 nodes",
+      "source": {
+        "fileKey": "sSrpLCZm302ces3khoBGls",
+        "fileName": "NS-fundaments",
+        "nodeId": "2422:87039",
+        "url": "https://www.figma.com/design/sSrpLCZm302ces3khoBGls/NS-fundaments?node-id=2422-87039"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1003,
+        "nodes": 10936,
+        "instances": 3735,
+        "componentTypes": 42,
+        "libraryPct": 99,
+        "localPct": 0,
+        "overridePct": 1,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "A3",
+      "team": "MyPortal",
+      "name": "Chapter / Digital Exercises / Exercises",
+      "role": "rich product page, moderate override",
+      "source": {
+        "fileKey": "1yroCKkROktqhRCP2wwlzB",
+        "fileName": "MyPortal-Designs-2025",
+        "nodeId": "25124:56828",
+        "url": "https://www.figma.com/design/1yroCKkROktqhRCP2wwlzB/MyPortal-Designs-2025?node-id=25124-56828"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 1024,
+        "nodes": 2147,
+        "instances": 806,
+        "componentTypes": 75,
+        "libraryPct": 97,
+        "localPct": 2,
+        "overridePct": 32,
+        "detachedCandidates": 16
+      }
+    },
+    {
+      "id": "A4",
+      "team": "Sesame",
+      "name": "My Groups",
+      "role": "override extreme — 91%",
+      "source": {
+        "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+        "fileName": "MySesame-Redesign",
+        "nodeId": "2847:14994",
+        "url": "https://www.figma.com/design/UBr399hnydpNF9P5Jb2vfx/MySesame-Redesign?node-id=2847-14994"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1796,
+        "nodes": 822,
+        "instances": 271,
+        "componentTypes": 39,
+        "libraryPct": 98,
+        "localPct": 1,
+        "overridePct": 91,
+        "detachedCandidates": 3
+      }
+    },
+    {
+      "id": "A5",
+      "team": "ETSL",
+      "name": "Metadata usage widget",
+      "role": "widget dashboard, partial coverage 82%",
+      "source": {
+        "fileKey": "S5QgDy8X9eqhvECPANSZMM",
+        "fileName": "Editorial-Suite-designs",
+        "nodeId": "17214:103584",
+        "url": "https://www.figma.com/design/S5QgDy8X9eqhvECPANSZMM/Editorial-Suite-designs?node-id=17214-103584"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 2032,
+        "nodes": 1856,
+        "instances": 745,
+        "componentTypes": 49,
+        "libraryPct": 82,
+        "localPct": 17,
+        "overridePct": 49,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "A6",
+      "team": "Itsl-Collab",
+      "name": "Shared folder - teacher view",
+      "role": "rich, 71 component types",
+      "source": {
+        "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+        "fileName": "Collaboration-folder",
+        "nodeId": "4200:13792",
+        "url": "https://www.figma.com/design/Q3gzx1pCseyKnFNDUOOjCw/Collaboration-folder?node-id=4200-13792"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1335,
+        "nodes": 859,
+        "instances": 334,
+        "componentTypes": 71,
+        "libraryPct": 96,
+        "localPct": 3,
+        "overridePct": 28,
+        "detachedCandidates": 1
+      }
+    },
+    {
+      "id": "A7",
+      "team": "MyPortal",
+      "name": "Materials /Overviews",
+      "role": "detached candidates + 64% override",
+      "source": {
+        "fileKey": "1yroCKkROktqhRCP2wwlzB",
+        "fileName": "MyPortal-Designs-2025",
+        "nodeId": "15878:180439",
+        "url": "https://www.figma.com/design/1yroCKkROktqhRCP2wwlzB/MyPortal-Designs-2025?node-id=15878-180439"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 1890,
+        "nodes": 974,
+        "instances": 351,
+        "componentTypes": 55,
+        "libraryPct": 94,
+        "localPct": 5,
+        "overridePct": 64,
+        "detachedCandidates": 24
+      }
+    },
+    {
+      "id": "A8",
+      "team": "NSP",
+      "name": "Group list",
+      "role": "detached candidates (12)",
+      "source": {
+        "fileKey": "4TdMrcnIVOn3Hrfj2OpVZU",
+        "fileName": "New-Secondary",
+        "nodeId": "334:20573",
+        "url": "https://www.figma.com/design/4TdMrcnIVOn3Hrfj2OpVZU/New-Secondary?node-id=334-20573"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1024,
+        "nodes": 620,
+        "instances": 252,
+        "componentTypes": 34,
+        "libraryPct": 96,
+        "localPct": 3,
+        "overridePct": 40,
+        "detachedCandidates": 12
+      }
+    },
+    {
+      "id": "A9",
+      "team": "SANNA",
+      "name": "Login 1",
+      "role": "simplest clean page — the sanity case: if this is not right, nothing else matters",
+      "source": {
+        "fileKey": "Mzc8BuOvMxOJGAQtv0h64M",
+        "fileName": "SANNA-Ready-for-Development",
+        "nodeId": "71:13345",
+        "url": "https://www.figma.com/design/Mzc8BuOvMxOJGAQtv0h64M/SANNA-Ready-for-Development?node-id=71-13345"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1512,
+        "height": 982,
+        "nodes": 894,
+        "instances": 318,
+        "componentTypes": 32,
+        "libraryPct": 99,
+        "localPct": 0,
+        "overridePct": 9,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "A10",
+      "team": "ETSL",
+      "name": "FAM - Users",
+      "role": "data table page — filters, table, row actions, pagination",
+      "source": {
+        "fileKey": "S5QgDy8X9eqhvECPANSZMM",
+        "fileName": "Editorial-Suite-designs",
+        "nodeId": "17264:29098",
+        "url": "https://www.figma.com/design/S5QgDy8X9eqhvECPANSZMM/Editorial-Suite-designs?node-id=17264-29098"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 837,
+        "nodes": 1512,
+        "instances": 604,
+        "componentTypes": 61,
+        "libraryPct": 91,
+        "localPct": 8,
+        "overridePct": 39,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "A11",
+      "team": "Sesame",
+      "name": "Learning materials",
+      "role": "mobile, 360 wide — the only responsive case",
+      "source": {
+        "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+        "fileName": "MySesame-Redesign",
+        "nodeId": "116:19049",
+        "url": "https://www.figma.com/design/UBr399hnydpNF9P5Jb2vfx/MySesame-Redesign?node-id=116-19049"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 360,
+        "height": 1871,
+        "nodes": 395,
+        "instances": 32,
+        "componentTypes": 13,
+        "libraryPct": 100,
+        "localPct": 0,
+        "overridePct": 81,
+        "detachedCandidates": 0
+      }
+    }
+  ],
+  "representativenessSample": [
+    {
+      "id": "A10",
+      "team": "ETSL",
+      "name": "FAM - Users",
+      "role": "data table page — filters, table, row actions, pagination",
+      "source": {
+        "fileKey": "S5QgDy8X9eqhvECPANSZMM",
+        "fileName": "Editorial-Suite-designs",
+        "nodeId": "17264:29098",
+        "url": "https://www.figma.com/design/S5QgDy8X9eqhvECPANSZMM/Editorial-Suite-designs?node-id=17264-29098"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 837,
+        "nodes": 1512,
+        "instances": 604,
+        "componentTypes": 61,
+        "libraryPct": 91,
+        "localPct": 8,
+        "overridePct": 39,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "A5",
+      "team": "ETSL",
+      "name": "Metadata usage widget",
+      "role": "widget dashboard, partial coverage 82%",
+      "source": {
+        "fileKey": "S5QgDy8X9eqhvECPANSZMM",
+        "fileName": "Editorial-Suite-designs",
+        "nodeId": "17214:103584",
+        "url": "https://www.figma.com/design/S5QgDy8X9eqhvECPANSZMM/Editorial-Suite-designs?node-id=17214-103584"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 2032,
+        "nodes": 1856,
+        "instances": 745,
+        "componentTypes": 49,
+        "libraryPct": 82,
+        "localPct": 17,
+        "overridePct": 49,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "B-Itsl-Bookmk-4549-8339",
+      "team": "Itsl-Bookmk",
+      "name": "Deleted course - content",
+      "role": null,
+      "source": {
+        "fileKey": "ya00uFyX1rjxYWF0dlOsoT",
+        "fileName": "Bookmarks",
+        "nodeId": "4549:8339",
+        "url": "https://www.figma.com/design/ya00uFyX1rjxYWF0dlOsoT/Bookmarks?node-id=4549-8339"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1082,
+        "nodes": 885,
+        "instances": 392,
+        "componentTypes": 58,
+        "libraryPct": 100,
+        "localPct": 0,
+        "overridePct": 35,
+        "detachedCandidates": 10
+      }
+    },
+    {
+      "id": "B-Itsl-Bookmk-4886-12955",
+      "team": "Itsl-Bookmk",
+      "name": "course files",
+      "role": null,
+      "source": {
+        "fileKey": "ya00uFyX1rjxYWF0dlOsoT",
+        "fileName": "Bookmarks",
+        "nodeId": "4886:12955",
+        "url": "https://www.figma.com/design/ya00uFyX1rjxYWF0dlOsoT/Bookmarks?node-id=4886-12955"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 768,
+        "nodes": 478,
+        "instances": 195,
+        "componentTypes": 43,
+        "libraryPct": 100,
+        "localPct": 0,
+        "overridePct": 11,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "B-Itsl-Collab-5006-43051",
+      "team": "Itsl-Collab",
+      "name": "Add element [3rd implementation]",
+      "role": null,
+      "source": {
+        "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+        "fileName": "Collaboration-folder",
+        "nodeId": "5006:43051",
+        "url": "https://www.figma.com/design/Q3gzx1pCseyKnFNDUOOjCw/Collaboration-folder?node-id=5006-43051"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 768,
+        "nodes": 458,
+        "instances": 120,
+        "componentTypes": 40,
+        "libraryPct": 100,
+        "localPct": 0,
+        "overridePct": 20,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "A6",
+      "team": "Itsl-Collab",
+      "name": "Shared folder - teacher view",
+      "role": "rich, 71 component types",
+      "source": {
+        "fileKey": "Q3gzx1pCseyKnFNDUOOjCw",
+        "fileName": "Collaboration-folder",
+        "nodeId": "4200:13792",
+        "url": "https://www.figma.com/design/Q3gzx1pCseyKnFNDUOOjCw/Collaboration-folder?node-id=4200-13792"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1335,
+        "nodes": 859,
+        "instances": 334,
+        "componentTypes": 71,
+        "libraryPct": 96,
+        "localPct": 3,
+        "overridePct": 28,
+        "detachedCandidates": 1
+      }
+    },
+    {
+      "id": "B-Itsl-Course-4007-3161",
+      "team": "Itsl-Course",
+      "name": "course files",
+      "role": null,
+      "source": {
+        "fileKey": "mONnHPTYNNaBwV3cFUHIYv",
+        "fileName": "Course-files",
+        "nodeId": "4007:3161",
+        "url": "https://www.figma.com/design/mONnHPTYNNaBwV3cFUHIYv/Course-files?node-id=4007-3161"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 768,
+        "nodes": 519,
+        "instances": 214,
+        "componentTypes": 44,
+        "libraryPct": 96,
+        "localPct": 3,
+        "overridePct": 11,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "B-Kampus-5308-32158",
+      "team": "Kampus",
+      "name": "Chapter page – Notes side panel – With n",
+      "role": null,
+      "source": {
+        "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
+        "fileName": "New-content-view",
+        "nodeId": "5308:32158",
+        "url": "https://www.figma.com/design/73YHtIYl0UHXH8ST4J7VKI/New-content-view?node-id=5308-32158"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 720,
+        "nodes": 1038,
+        "instances": 385,
+        "componentTypes": 73,
+        "libraryPct": 90,
+        "localPct": 9,
+        "overridePct": 14,
+        "detachedCandidates": 1
+      }
+    },
+    {
+      "id": "A1",
+      "team": "Kampus",
+      "name": "Subchapter feed page",
+      "role": "clean, richest — 83 component types",
+      "source": {
+        "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
+        "fileName": "New-content-view",
+        "nodeId": "5311:37116",
+        "url": "https://www.figma.com/design/73YHtIYl0UHXH8ST4J7VKI/New-content-view?node-id=5311-37116"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 720,
+        "nodes": 1803,
+        "instances": 705,
+        "componentTypes": 83,
+        "libraryPct": 99,
+        "localPct": 0,
+        "overridePct": 11,
+        "detachedCandidates": 1
+      }
+    },
+    {
+      "id": "A3",
+      "team": "MyPortal",
+      "name": "Chapter / Digital Exercises / Exercises",
+      "role": "rich product page, moderate override",
+      "source": {
+        "fileKey": "1yroCKkROktqhRCP2wwlzB",
+        "fileName": "MyPortal-Designs-2025",
+        "nodeId": "25124:56828",
+        "url": "https://www.figma.com/design/1yroCKkROktqhRCP2wwlzB/MyPortal-Designs-2025?node-id=25124-56828"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 1024,
+        "nodes": 2147,
+        "instances": 806,
+        "componentTypes": 75,
+        "libraryPct": 97,
+        "localPct": 2,
+        "overridePct": 32,
+        "detachedCandidates": 16
+      }
+    },
+    {
+      "id": "A7",
+      "team": "MyPortal",
+      "name": "Materials /Overviews",
+      "role": "detached candidates + 64% override",
+      "source": {
+        "fileKey": "1yroCKkROktqhRCP2wwlzB",
+        "fileName": "MyPortal-Designs-2025",
+        "nodeId": "15878:180439",
+        "url": "https://www.figma.com/design/1yroCKkROktqhRCP2wwlzB/MyPortal-Designs-2025?node-id=15878-180439"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1440,
+        "height": 1890,
+        "nodes": 974,
+        "instances": 351,
+        "componentTypes": 55,
+        "libraryPct": 94,
+        "localPct": 5,
+        "overridePct": 64,
+        "detachedCandidates": 24
+      }
+    },
+    {
+      "id": "A2",
+      "team": "NSP",
+      "name": "class overview",
+      "role": "clean, largest — 10 936 nodes",
+      "source": {
+        "fileKey": "sSrpLCZm302ces3khoBGls",
+        "fileName": "NS-fundaments",
+        "nodeId": "2422:87039",
+        "url": "https://www.figma.com/design/sSrpLCZm302ces3khoBGls/NS-fundaments?node-id=2422-87039"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1003,
+        "nodes": 10936,
+        "instances": 3735,
+        "componentTypes": 42,
+        "libraryPct": 99,
+        "localPct": 0,
+        "overridePct": 1,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "B-NSP-2095-44291",
+      "team": "NSP",
+      "name": "home",
+      "role": null,
+      "source": {
+        "fileKey": "sSrpLCZm302ces3khoBGls",
+        "fileName": "NS-fundaments",
+        "nodeId": "2095:44291",
+        "url": "https://www.figma.com/design/sSrpLCZm302ces3khoBGls/NS-fundaments?node-id=2095-44291"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 877,
+        "nodes": 464,
+        "instances": 190,
+        "componentTypes": 32,
+        "libraryPct": 93,
+        "localPct": 6,
+        "overridePct": 62,
+        "detachedCandidates": 8
+      }
+    },
+    {
+      "id": "B-SANNA-174-232051",
+      "team": "SANNA",
+      "name": "Account creation",
+      "role": null,
+      "source": {
+        "fileKey": "Mzc8BuOvMxOJGAQtv0h64M",
+        "fileName": "SANNA-Ready-for-Development",
+        "nodeId": "174:232051",
+        "url": "https://www.figma.com/design/Mzc8BuOvMxOJGAQtv0h64M/SANNA-Ready-for-Development?node-id=174-232051"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1512,
+        "height": 982,
+        "nodes": 506,
+        "instances": 186,
+        "componentTypes": 23,
+        "libraryPct": 99,
+        "localPct": 0,
+        "overridePct": 31,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "A9",
+      "team": "SANNA",
+      "name": "Login 1",
+      "role": "simplest clean page — the sanity case: if this is not right, nothing else matters",
+      "source": {
+        "fileKey": "Mzc8BuOvMxOJGAQtv0h64M",
+        "fileName": "SANNA-Ready-for-Development",
+        "nodeId": "71:13345",
+        "url": "https://www.figma.com/design/Mzc8BuOvMxOJGAQtv0h64M/SANNA-Ready-for-Development?node-id=71-13345"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1512,
+        "height": 982,
+        "nodes": 894,
+        "instances": 318,
+        "componentTypes": 32,
+        "libraryPct": 99,
+        "localPct": 0,
+        "overridePct": 9,
+        "detachedCandidates": 0
+      }
+    },
+    {
+      "id": "B-Sesame-2142-48093",
+      "team": "Sesame",
+      "name": "Group details",
+      "role": null,
+      "source": {
+        "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+        "fileName": "MySesame-Redesign",
+        "nodeId": "2142:48093",
+        "url": "https://www.figma.com/design/UBr399hnydpNF9P5Jb2vfx/MySesame-Redesign?node-id=2142-48093"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 2392,
+        "nodes": 950,
+        "instances": 352,
+        "componentTypes": 53,
+        "libraryPct": 98,
+        "localPct": 1,
+        "overridePct": 82,
+        "detachedCandidates": 2
+      }
+    },
+    {
+      "id": "A4",
+      "team": "Sesame",
+      "name": "My Groups",
+      "role": "override extreme — 91%",
+      "source": {
+        "fileKey": "UBr399hnydpNF9P5Jb2vfx",
+        "fileName": "MySesame-Redesign",
+        "nodeId": "2847:14994",
+        "url": "https://www.figma.com/design/UBr399hnydpNF9P5Jb2vfx/MySesame-Redesign?node-id=2847-14994"
+      },
+      "frozenCopy": {
+        "fileKey": null,
+        "nodeId": null,
+        "lastModified": null
+      },
+      "mode": null,
+      "observedAtSurvey": {
+        "width": 1280,
+        "height": 1796,
+        "nodes": 822,
+        "instances": 271,
+        "componentTypes": 39,
+        "libraryPct": 98,
+        "localPct": 1,
+        "overridePct": 91,
+        "detachedCandidates": 3
+      }
+    }
+  ],
+  "notRepresented": [
+    {
+      "team": "Folio",
+      "reason": "all 24 full pages carry a layer named 'highlight' at 52% opacity across the whole frame — a designer marking, not part of the design"
+    },
+    {
+      "team": "TEAS",
+      "reason": "no full page at all passed the filters; unclear whether its designs are smaller or the filters are too strict"
+    },
+    {
+      "team": "MAX",
+      "reason": "only a team link, which cannot be expanded without the projects:read scope"
+    }
+  ],
+  "measurementCaveats": [
+    "libraryPct means a published library, not necessarily ours — needs team_library_content:read to narrow",
+    "detachedCandidates is a name-match heuristic built from the 34 layer names the Code Connect mappings navigate"
+  ]
+}

@@ -1,5 +1,8 @@
 # Corpus candidates — survey of 2026-09-30 (revised after review)
 
+> **Machine-readable:** [`corpus-candidates.json`](corpus-candidates.json) — the same two lists as
+> data, which is what the corpus registry is built from.
+>
 > **Visual review page:** <https://claude.ai/code/artifact/9817634e-3ff8-4317-9960-d06d8e3b4f25> —
 > every candidate rendered, with its metrics and a link to the frame in Figma.
 

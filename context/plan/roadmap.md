@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T22:30:00Z
+updated: 2026-09-30T23:40:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -93,6 +93,16 @@ pick ONE requirement  →  implement it  →  bench run, --repeat 3  →  compar
 Before that loop can start, three things happen in order: a **smoke run** of the current pipeline by
 hand (reconnaissance — does it even complete), then **slice 1** task by task, then the **baseline**.
 The loop is not available earlier, because a delta needs something to be a delta against.
+
+### When the bench runs again
+
+Fixed up front, so it is structural rather than remembered: a requirement lands · a model, tier or
+effort setting changes · the pipeline changes for any other reason · a new model is released · the
+corpus is refreshed (which invalidates comparison rather than producing a delta) · **and on a
+schedule with nothing changed at all**, which is the only one that catches drift nobody caused.
+
+Always the whole corpus, never only the case believed to be affected — a change that fixes one
+screen and breaks another is exactly what this is for.
 
 ## Gating rule between slices
 

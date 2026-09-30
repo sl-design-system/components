@@ -10,7 +10,7 @@ status: approved
 phase: approved
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T23:10:00Z
+updated: 2026-09-30T23:40:00Z
 tags: [figma, design-to-code, measurement, determinism, tooling]
 source_analysis: A-NOJIRA-figma-to-code
 slice: measurement-layer
@@ -106,6 +106,7 @@ Tasks to be created in `work/NOJIRA-figma-to-code/` once this plan is approved:
 - `T-NOJIRA-figma-to-code-13` — Experiment comparison across configurations and over time (added by Amendment 2)
 - `T-NOJIRA-figma-to-code-14` — Integration and behaviour tests for the bench itself (added by Amendment 3)
 - `T-NOJIRA-figma-to-code-15` — Baseline run and published result
+- `T-NOJIRA-figma-to-code-16` — Rerun policy and its automation (added by Amendment 5)
 
 **The numbers are the execution order.** Every task depends only on lower-numbered ones, so they can
 be worked straight through. Two orderings are load-bearing rather than incidental and were corrected
@@ -145,10 +146,20 @@ hard, all three are prerequisites nobody had written down:
    will not resolve, so either the servers are registered under the expected names or the plugin is
    adjusted. **This is exactly the class of thing the smoke run exists to surface**, and it would
    have been discovered halfway through `T-15` otherwise.
-3. **`get_code_connect_map` is very slow on the desktop server** — a single call against one
-   component node had not returned after five minutes. If that holds for a real screen, it bears on
-   run duration (R8) and on whether the desktop server is usable unattended at all. Worth timing
-   deliberately during the smoke run rather than discovering it as a hang.
+3. **The Figma desktop MCP server is not answering.** Registered under the expected name it reports
+   *connected, tools fetch failed — request timed out*, and the Docker-gateway Figma server this
+   session had been using has since failed to connect at all. That is why a single
+   `get_code_connect_map` call hung for over five minutes. The blocker is the server's
+   responsiveness, not the naming — and since Code Connect resolution is the pipeline's cheapest and
+   most authoritative step, an unresponsive desktop server blocks the smoke run outright.
+
+**Blockers 1 and 2 are now cleared.** The plugin is installed from the local directory
+(`claude plugin marketplace add ./` then `claude plugin install implement-design@sl-design-system`),
+and `figma`, `figma-desktop` and `playwright` are registered under the names the agents expect —
+so the pipeline is tested as it is, rather than adjusted to fit the environment. `playwright`
+connects; `figma` (remote) needs an interactive OAuth sign-in; `figma-desktop` is the open blocker
+above. **Newly registered servers load at session start, so a restart is needed before they are
+usable.**
 
 **On the coupling question:** the pipeline does **not** read `scripts/connect-figma-components`
 directly — there is no import path between them. The link is indirect: mappings are authored there,
@@ -373,6 +384,36 @@ order.
 — the same treatment the corpus survey got. The risk is that a spike's findings evaporate because
 nothing owns them; the mitigation is that its output feeds `T-04`'s case selection and the plan's
 own risk table, both of which are written down.
+
+- Amended by: marcin.ludwig
+- Amendment approved: 2026-09-30
+
+### Amendment 5 — 2026-09-30, after approval
+
+**What changed.** Adds `T-NOJIRA-figma-to-code-16`, which fixes **when the bench runs again** and
+makes running it one action.
+
+The rerun was implied everywhere and stated nowhere, which is the same shape of gap as the
+untested bench that Amendment 3 closed. A measurement discipline that depends on somebody
+remembering to measure is not a discipline: the rerun that gets skipped is the one after a change
+you are confident about under time pressure, and that is also the one most likely to find
+something.
+
+Six triggers, one of which is easy to miss: **a scheduled rerun with nothing changed at all.** It
+is the only trigger that catches drift the team did not cause — the model provider updates a model,
+Figma changes a renderer, a dependency shifts. Without it an unexplained regression surfaces later
+and gets attributed to whatever was touched most recently, which is both wrong and expensive.
+
+The task lands after the baseline deliberately: there is nothing to compare against before it, and
+automating a comparison never run by hand is how automation ends up measuring the wrong thing.
+
+**What did not change.** No existing task is touched and the execution order still holds — 16
+depends on 13 and 15, both lower.
+
+**Judgement to be aware of.** The CI check **flags rather than blocks**. A hard block on a slow,
+expensive job teaches people to route around it, and a routed-around gate is worse than an honest
+flag. If flagging proves too weak, tightening it is one line; recovering from a gate people have
+learned to bypass is not.
 
 - Amended by: marcin.ludwig
 - Amendment approved: 2026-09-30

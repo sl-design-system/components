@@ -102,11 +102,8 @@ error into the baseline would blind the gate to that error for good.
 ## Theme per run — derived, not guessed
 
 The theme is a **run parameter** recorded in `progress.json`, because it changes every measured
-pixel. The batch's first mapping was a guess from the team label, and **at least one entry was
-wrong**: NSP was mapped to `sanoma-pro`, which resolves those tokens green, while the design's own
-variables are teal — the exact values `packages/themes/max` resolves them to.
-
-So derive it from the design instead:
+pixel. The batch's first mapping was a guess from the team label, and it was wrong twice over —
+once in the mapping itself, once in the assumption underneath it.
 
 ```sh
 node runs/harness/theme-match.mjs <run>/figma-variable-defs.json
@@ -114,22 +111,25 @@ node runs/harness/theme-match.mjs <run>/figma-variable-defs.json
 
 The design carries the answer already. Figma reports token _names_ with the values it resolved
 them to, and every theme declares the same names as custom properties, so the comparison is name
-for name — much stronger than matching stray hex values, which coincide across themes by accident.
+for name — far stronger than matching stray hex values, which coincide across themes by accident.
 
-Two known pairings check out: SANNA → `teacher-assistant` (3× the runner-up) and NSP → `max`
-(6×), the latter agreeing with an independent capture made while investigating A8.
+Three known pairings now resolve at **100% agreement**: SANNA → `teacher-assistant` (10/10),
+NSP `Group list` → `max` (17/17), NSP `home` → `sanoma-learning` (21/21).
 
-| Product                                     | theme                                                  |
-| ------------------------------------------- | ------------------------------------------------------ |
-| SANNA                                       | `teacher-assistant` — derived                          |
-| NSP                                         | `max` — derived; **not** `sanoma-pro`, which was wrong |
-| Kampus / ETSL / Itsl-\* / Sesame / MyPortal | derive per run; the label is not evidence              |
+**A per-team mapping cannot be right in principle.** Those last two are both NSP, and they are
+different themes. The product label is not evidence; the file is. Derive per design, every time.
 
-**Absolute agreement is poor even when the pairing is right** — 0.60 for SANNA, 0.35 for NSP. The
-identification rests on the margin over second place, not on the score. That low agreement is a
-finding rather than noise: the design and the theme package disagree about tokens they both claim
-to define, which is the same class of problem as a design that has drifted from the library, and
-it bears directly on what a fidelity score can honestly mean.
+Getting there took two corrections to this tool, and both wrong versions looked convincing:
+
+- declarations wrap across lines (`--a: var(\n  --b\n);`), so the value must be flattened before
+  a `var()` reference can be read out of it;
+- after flattening, the reference reads `var( --b )` with spaces, and a pattern demanding
+  `var(--` matches none of them.
+
+Either bug left every indirection unresolved while still producing a plausible ranking — 0.48
+agreement and a three-way tie where the right answer matches all 21 tokens. **A scoring tool that
+is broken does not return an error; it returns a number.** That is worth remembering for the
+fidelity score itself.
 
 ## Validated on
 

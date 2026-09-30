@@ -33,13 +33,19 @@ if (!defsPath) {
 const loadTheme = file => {
   const declarations = new Map();
 
+  // Declarations wrap across lines — `--a: var(\n  --b\n);` is common in these files — so the
+  // value has to be flattened before anything tries to read a `var()` reference out of it.
+  // Missing this made the resolver fail silently on exactly the indirections that matter, and the
+  // tool reported a three-way tie where the right answer matches every single token.
   for (const [, name, value] of readFileSync(file, 'utf8').matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g))
-    if (!declarations.has(name)) declarations.set(name, value.trim());
+    if (!declarations.has(name)) declarations.set(name, value.replace(/\s+/g, ' ').trim());
 
   const resolve = (value, depth = 0) => {
     if (depth > 10) return value;
 
-    const reference = value.match(/^var\((--[\w-]+)(?:\s*,\s*(.+))?\)$/);
+    // Whitespace inside `var( --name )` is normal once a wrapped declaration has been flattened;
+    // requiring `var(--` matched none of them and quietly left every indirection unresolved.
+    const reference = value.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*(.+?))?\s*\)$/);
     if (!reference) return value;
 
     const target = declarations.get(reference[1]);
@@ -97,17 +103,20 @@ console.log(
       defs: defsPath,
       colorTokensInDesign: colorTokens.length,
       best: results[0]?.theme ?? null,
-      // What identifies a theme is the *margin* over the runner-up, not the absolute score.
-      // Absolute agreement is poor even for a known-correct pairing — the theme packages do not
-      // reproduce everything Figma resolved — so a 0.9 bar would reject every correct answer.
-      // A best that beats second place several times over is still a clear identification.
       marginOverSecond: results[1]
         ? Number((results[0].score / Math.max(results[1].score, 0.001)).toFixed(1))
         : null,
+      // A correct pairing matches *every* colour token — all three known-good pairings do. So the
+      // test is exactness and uniqueness, not distance from the runner-up: a theme that agrees on
+      // all of them, and is alone in doing so, has been identified even when another theme agrees
+      // on most. An earlier margin-based rule was tuned against a broken resolver and would now
+      // reject a perfect match that happens to have a close second.
       confident:
-        results.length > 1 && results[0].compared >= 5 && results[0].score >= 2 * results[1].score,
-      // Low absolute agreement is a finding in its own right, not noise to round away: it means
-      // the design and the theme package disagree about tokens they both claim to define.
+        results[0]?.compared >= 5 &&
+        results[0]?.score === 1 &&
+        !results.slice(1).some(other => other.score === 1),
+      // Anything short of 1 means the design and the theme disagree about tokens they both claim
+      // to define — worth reporting rather than rounding away.
       absoluteAgreement: results[0]?.score ?? null,
       ranking: results.slice(0, 5)
     },

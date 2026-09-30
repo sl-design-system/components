@@ -55,9 +55,10 @@ It writes the image plus a `.json` report — console errors, failed requests, a
 element whether it registered, has a shadow root and a non-zero box — and **exits non-zero when
 nothing rendered**. A capture is not evidence until that verdict says `rendered`.
 
-**Derive the theme from the design, do not take it from the product label.** The original mapping
-in this runbook was a guess and NSP was wrong in it — mapped to `sanoma-pro`, which resolves green,
-against a teal design that matches `max` exactly.
+**Derive the theme from the design, never from the product label.** The original mapping here was
+a guess, and the deeper error was the shape of it: two NSP designs in this corpus resolve to two
+_different_ themes (`max` and `sanoma-learning`, each at 100% token agreement). A per-team mapping
+cannot be correct in principle.
 
 ```sh
 node runs/harness/theme-match.mjs <run>/figma-variable-defs.json

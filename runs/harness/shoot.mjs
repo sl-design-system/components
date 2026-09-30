@@ -58,23 +58,55 @@ await page.waitForTimeout(wait);
 
 // A custom element that never registered still occupies the DOM, so "is it there" proves nothing.
 // What distinguishes a rendered component from an unknown tag is a shadow root and a non-zero box.
+//
+// And the check has to descend into shadow roots. A root that uses `ScopedElementsMixin` owns a
+// private registry, so a child that registered itself *globally* is unknown inside it: the root
+// registers, paints, reports a healthy box — and its children are inert. One run lost its whole
+// navigation and every card that way while the page still looked like a successful render.
 const rendered = await page.evaluate(() => {
+  const found = [];
+
+  const walk = (node, depth) => {
+    if (depth > 20) return;
+
+    for (const element of node.querySelectorAll('*')) {
+      const tag = element.tagName.toLowerCase();
+
+      if (tag.includes('-')) {
+        const { width, height } = element.getBoundingClientRect();
+
+        found.push({
+          tag,
+          depth,
+          // Deciding this correctly took three attempts, and the two wrong ones each looked right.
+          //
+          // `customElements.get` consults only the *global* registry, but this design system uses
+          // `ScopedElementsMixin`, which registers children in a private one — so that question
+          // reports correctly upgraded children as broken.
+          //
+          // Constructor identity (`element.constructor !== HTMLElement`) fails differently: the
+          // scoped-registry polyfill replaces the global `HTMLElement` binding, so even an element
+          // the browser never upgraded compares unequal to it, and everything looks fine.
+          //
+          // The class *name* survives both. An element that was never upgraded is literally an
+          // `HTMLElement`; an upgraded one carries its own class name. This holds because the
+          // harness only ever runs an unminified dev server.
+          upgraded: element.constructor.name !== 'HTMLElement' || !!element.shadowRoot,
+          inGlobalRegistry: !!customElements.get(tag),
+          hasShadowRoot: !!element.shadowRoot,
+          width: Math.round(width),
+          height: Math.round(height)
+        });
+      }
+
+      if (element.shadowRoot) walk(element.shadowRoot, depth + 1);
+    }
+  };
+
   const root = document.querySelector('#storybook-root');
-  const elements = [...(root?.querySelectorAll('*') ?? [])]
-    .filter(element => element.tagName.includes('-'))
-    .map(element => {
-      const { width, height } = element.getBoundingClientRect();
+  if (root) walk(root, 0);
 
-      return {
-        tag: element.tagName.toLowerCase(),
-        defined: !!customElements.get(element.tagName.toLowerCase()),
-        hasShadowRoot: !!element.shadowRoot,
-        width: Math.round(width),
-        height: Math.round(height)
-      };
-    });
-
-  return { elements, bodyHeight: document.body.scrollHeight };
+  return { elements: found, bodyHeight: document.body.scrollHeight };
 });
 
 await mkdir(dirname(resolve(out)), { recursive: true });
@@ -93,9 +125,19 @@ const report = {
   failedRequests: [...new Set(failedRequests)],
   // An unregistered element is the failure mode that looks like success: the story loads, nothing
   // throws, and the capture is of an empty page. Say so here rather than leaving it to be noticed.
-  verdict: rendered.elements.some(element => element.defined && element.hasShadowRoot)
-    ? 'rendered'
-    : 'nothing-rendered'
+  //
+  // `rendered` therefore requires that *every* custom element in the tree resolved, not just the
+  // top one. A root that paints while its children are unknown is the more dangerous case,
+  // because the capture looks plausible.
+  notUpgraded: rendered.elements.filter(element => !element.upgraded).map(element => element.tag),
+  collapsed: rendered.elements
+    .filter(element => element.upgraded && element.width === 0)
+    .map(element => element.tag),
+  verdict: !rendered.elements.some(element => element.upgraded && element.hasShadowRoot)
+    ? 'nothing-rendered'
+    : rendered.elements.some(element => !element.upgraded)
+      ? 'children-not-upgraded'
+      : 'rendered'
 };
 
 await writeFile(`${out}.json`, JSON.stringify(report, null, 2));

@@ -9,7 +9,7 @@ resource: null
 status: draft
 owner: marcin.ludwig
 created: 2026-09-30T15:00:00Z
-updated: 2026-09-30T15:00:00Z
+updated: 2026-09-30T15:40:00Z
 tags: [architecture, package, schema, resumability, verification]
 ---
 
@@ -112,6 +112,41 @@ One addition beyond crash recovery: each manifest entry records the **checksum o
 inputs**. A step whose output exists but whose input has changed is stale, not done — which is what
 makes a re-run after a design change regenerate only the affected slices.
 
+### What the Code Connect mappings actually are
+
+`scripts/connect-figma-components/` is easy to mistake for a second copy of `custom-elements.json`.
+It is not data at all — **each `*.figma.ts` is an executable program**, one per component, and it is
+the only place in the system where the Figma vocabulary and the code vocabulary are connected.
+
+A mapping runs against a real selected instance: it navigates that instance's internal structure
+(`findInstance('Button-Variants')`, then `'Button-Base'`), reads each property it cares about, and
+emits the snippet. Two things in it exist nowhere else:
+
+- **The vocabulary translation.** Figma's `Variant` value `Positive` becomes the code's `success`;
+  `Caution` becomes `warning`; `Negative` becomes `danger`. The element manifest can confirm that
+  `success` is a legal value of `variant`; nothing but this file knows that `Positive` is the Figma
+  word for it. That correspondence is irreducibly human knowledge.
+- **The defaults.** "The default fill is solid", "the default variant is secondary" — encoded as
+  the fallback when a Figma property is absent, which is what keeps the emitted snippet minimal.
+
+And the mappings **assert rather than assume**. The shared helpers — `checkInstance`, `checkEnum`,
+`checkStringProperty`, `checkBooleanProperty` — throw when a property is missing or an expected
+inner instance cannot be found. That means **a designer renaming a layer or a property in Figma
+makes the mapping fail loudly instead of silently emitting a wrong snippet.** It is drift detection
+at the source, and it was already built.
+
+Three forms exist: 28 single mappings, 12 batch templates driven by
+`components.figma.batch.json` (one template serving several Figma nodes, with per-node overrides
+such as `"shape": "pill"`), and 14 empty scaffolds awaiting mappings.
+
+| | `custom-elements.json` | `*.figma.ts` |
+|---|---|---|
+| What it is | data — a declaration of what the code component accepts | a program that resolves one Figma instance into a snippet |
+| Produced by | generated from source by `build-metadata.js` | hand-authored per component |
+| Knows | attribute names, types, enum values, inheritance | Figma property names, Figma inner structure, the Figma↔code vocabulary, the defaults |
+| Which side | the code only | the bridge |
+| When it runs | never — it is read | at resolution, against a live instance |
+
 ### Verification chain — five checks, five places
 
 The question "where do we check that properties match?" has five answers, because there are five
@@ -122,18 +157,39 @@ the person least able to fix it.
 |---|---|---|---|---|
 | 1 | Code Connect mapping ↔ `custom-elements.json` | CI, on every pull request | A mapping referencing an attribute the component does not have, inherited attributes included | **Exists** — Diana's snippet validator |
 | 2 | Figma ↔ extraction | Stage one, at extraction | A misread or dropped node; non-determinism. Verified by extracting twice and diffing bytes | Planned (`T-02`) |
-| 3 | Extraction ↔ `custom-elements.json` | Stage one, immediately after extraction | A resolved instance property that does not exist on the code component, or holds a value outside its type | **Missing — the gap** |
+| 3 | Emitted snippet ↔ `custom-elements.json` | CI, on every pull request | An attribute the component does not have, a boolean carrying a value, an enum value outside the declared set | **Exists** — Diana's snippet validator |
+| 3b | Figma property name ↔ code attribute name | CI, on every pull request | A mis-wiring: one Figma property feeding the wrong attribute, with an allowlist for deliberate exceptions | **Exists** — Diana's mapping-name validator |
+| 3c | **Figma property surface ↔ what the mapping reads** | Nowhere | A Figma property the mapping never reads, so it is silently dropped from every snippet | **Missing — the real gap** |
 | 4 | Extraction ↔ generated HTML | Mostly discharged by testing the generator; plus a cheap runtime assertion | A generator bug: an element whose attributes do not match its instance record | Planned |
 | 5 | HTML ↔ Figma reference | Stage one verification | Wrong colour, spacing, typography, position, omitted region | Planned (`T-06`, `T-10`, `T-11`) |
 
 Two things are worth drawing out.
 
-**Check 3 is the one that is missing, and it is the design system team's goal stated as a check.**
-"The Figma component maps identically to the code component" means precisely: the properties the
-Figma instance carries resolve to attributes the code component actually has, with values it
-actually accepts. It belongs at extraction, not later — failing there costs a designer a message,
-while the same failure discovered in stage two costs a developer a debugging session against a
-design they cannot inspect programmatically.
+**A correction.** An earlier draft of this document recorded check 3 as missing. It is not: the
+emitted snippet is already validated against the element manifest in CI, including inherited
+attributes, boolean misuse and enum values, and the Figma-to-attribute name correspondence is
+validated separately. Both run on every pull request. Between them, a mapping cannot emit an
+attribute the component does not have, and cannot quietly wire the wrong property to it.
+
+**What is genuinely missing is completeness — check 3c.** Every existing check validates what a
+mapping *emits*. Nothing enumerates the Figma component's property surface and asks what the
+mapping *never read*. If a Figma component gains a property, or has one the template was never
+written for, it is silently absent from every snippet and no check fires: the emitted attributes
+are all valid, the names all correspond, and the result is quietly incomplete.
+
+That is exactly the "looks right, wrong underneath" class, and it is the design system team's
+identical-mapping goal stated as a check. The remedy is to require each mapping to account for
+every property the component exposes — read it, or declare it deliberately ignored — which is the
+same node-accounting discipline the coverage metric applies to a design, pointed at a component.
+
+Two further things nothing checks, both worth naming because neither is mechanical:
+
+- **Whether the vocabulary translation is right.** That `Positive` should mean `success` and not
+  `info` is a judgement. It cannot be validated, but it can be *surfaced*: a generated table of
+  every Figma value to code value across all mappings is cheap to produce and reviewable by the
+  design system team in one sitting, which is how a wrong translation gets caught.
+- **The fourteen scaffolds.** No mapping means no snippet, and the pipeline halts rather than
+  guessing — the right behaviour, and a coverage problem rather than a correctness one.
 
 **Checks 3 and 5 catch disjoint classes, which is why neither replaces the other.** A rendering
 check cannot see that a `div` should have been an `sl-card` when the two render identically, nor
@@ -159,21 +215,25 @@ HTML.
   regeneration after a design change possible at all.
 - **Idempotent steps, one code path for resume and normal execution** — a resume path used only
   after a failure is a path that will not work when needed.
-- **Property conformance checked at extraction, against the element manifest** — as early as the
-  information exists, and on the side that can fix it.
+- **Property conformance stays where it already runs** — in CI against the element manifest, on
+  every pull request, rather than being rebuilt at extraction time.
+- **Mapping completeness becomes a check** — every Figma property is read or declared ignored,
+  which is node accounting applied to a component.
 
 ## Open questions / risks
 
 1. **How fine is the split?** The layout above separates five concerns. Fewer files are simpler to
    write; more files keep reads smaller. The right granularity should follow from what the bench and
    the generator actually read, which is known once both exist.
-2. **Does the extraction reach component instance property values at all?** The whole of check 3
-   depends on the Figma MCP exposing resolved instance properties, not merely the component
-   identity. This needs confirming before the check is planned; if it does not, the design system
-   team's identical-mapping goal needs a different instrument.
-3. **What happens when check 3 fails?** Halting is right for a component the pipeline cannot
-   represent, and probably wrong for a single unexpected property value. The threshold is a policy
-   decision and should be explicit rather than emergent.
+2. **Can a mapping's Figma property surface be enumerated at all?** Check 3c depends on being able
+   to ask Figma what properties a component exposes and compare that against what the mapping's
+   source reads. The reading half is already solved — the mapping-name validator walks the
+   TypeScript AST to find which property feeds which attribute, so the same pass can list what is
+   read. The asking half needs the Figma API to expose a component's property definitions; confirm
+   before planning the check.
+3. **What happens when check 3c fails?** An unread property is sometimes deliberate — a Figma
+   property with no code equivalent. So the check should demand a declaration, not absence: read it
+   or list it as ignored, with the ignore list reviewed rather than growing quietly.
 4. **Where does the package physically live**, and how is a revision addressed? Named as an open
    question in the staging analysis; it constrains nothing here, since the layout is the same
    wherever it is served from.

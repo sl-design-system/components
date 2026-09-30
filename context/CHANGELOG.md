@@ -3,6 +3,9 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Corrected ARCH-handover-package: the Code Connect mappings are executable programs, not a
+  second element manifest; property conformance already runs in CI, and the real gap is
+  mapping completeness (check 3c) — marcin.ludwig
 - Added ARCH-handover-package (architecture/NOJIRA-figma-to-code) — package layout, atomic
   write protocol, and the five-check verification chain — marcin.ludwig
 - Amendment 3 on P-NOJIRA-figma-to-code: the bench is tested like an instrument — calibration

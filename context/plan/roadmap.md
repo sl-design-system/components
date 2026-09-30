@@ -9,7 +9,7 @@ resource: null
 status: current
 owner: marcin.ludwig
 created: 2026-09-30T08:02:22Z
-updated: 2026-09-30T11:05:00Z
+updated: 2026-09-30T11:30:00Z
 tags: [figma, design-to-code, roadmap]
 ---
 
@@ -28,9 +28,10 @@ analysis documents.
 |---|---|---|---|---|
 | 1 | Measurement layer | [P-NOJIRA-figma-to-code](NOJIRA-figma-to-code/plan.md) | approved · `phase: approved` | Coverage, two fidelity dimensions, run-to-run variance, per-run cost by model tier, design intake report, published baseline. Pipeline unchanged. |
 | 1b | Requirement triage | [P-NOJIRA-requirement-triage](NOJIRA-requirement-triage/plan.md) | proposed · `phase: conceptual` | **Runs in parallel with slice 1, not after it.** Turn the inherited 31-item list into a true one: confirm the nine already satisfied, defer three behind the consumer trigger, hand accessibility to its own initiative, convert five into registry entries, decide the four that conflict with the pipeline's autonomy design, publish the remaining eight in argued order. |
-| 2 | Pipeline increments | not written yet | — | One requirement at a time against the baseline. First candidates from the analysis: per-node geometry carried into the manifest, freezing the decomposition decision in a reviewable artifact, moving the computable finish checks out of the validation prompt into a script. Its ordering comes from slice 1b, not from the inherited list. |
-| 3 | The remaining open requirements | not written yet | — | The eight that survive triage, admitted one at a time and only with a corpus case attached. |
-| 4 | Caching and change detection | not written yet | — | Skip unchanged designs, diff against the previous run. Explicitly deferred: it is an efficiency concern, and efficiency before correctness hides variance. |
+| 2 | Stage split and the intermediate artifact | not written yet | — | Split the run into **Figma → HTML** and **HTML → application**, with a durable artifact between them ([A-NOJIRA-pipeline-staging](../analyzes/NOJIRA-pipeline-staging/analysis.md)). Its first task defines that artifact — annotated HTML paired with the retained Figma extraction, joined by node id — written against what the baseline shows stage one actually preserves. Absorbs the increment candidates: per-node geometry, freezing the decomposition decision, moving computable checks out of prompts. Ordering from slice 1b. |
+| 3 | Stage two — fitting HTML to the application | not written yet | — | Map the artifact onto the application's architecture, detect whether a similar design already exists in code and diff against it, build fresh where it does not. Much of the "does this already exist?" capability is a second consumer of slice 1's comparison machinery rather than new work. This is where the architecture review gate belongs. |
+| 4 | The remaining open requirements | not written yet | — | The eight that survive triage, admitted one at a time and only with a corpus case attached. |
+| 5 | Caching and change detection | not written yet | — | Skip unchanged designs, diff against the previous run. Deferred on two grounds: efficiency before correctness hides variance, and it is not buildable at all until the node-id join key from slice 2 exists — regenerating only what changed requires knowing which output came from which node. |
 
 ## Second track — the designer handover contract
 
@@ -65,6 +66,32 @@ satisfied here, three deferred behind a named trigger, five that are measurement
 features, four in conflict with the pipeline's design, two gone to a separate accessibility
 initiative, and **eight genuinely open now**. They do not appear as a slice of their own — slice 1b
 establishes which are real and slice 3 works what remains.
+
+## The shape the pipeline is heading towards
+
+One run today goes from a Figma node to finished components, deciding both what the design *is* and
+how it should be structured as code. Those are different questions with different evidence, and
+conflating them is why a bad result cannot be attributed to a cause.
+
+Slice 2 splits them:
+
+```
+Figma ──▶ [stage 1] ──▶ annotated HTML  +  retained Figma extraction ──▶ [stage 2] ──▶ application
+           mechanical      (joined by node id — the provenance link)       architecture
+           autonomous                                                      review gate here
+           judged on fidelity                                              judged on fit and reuse
+```
+
+The artifact between them is a **pair, not a choice**. HTML renders, so it can be pixel-compared and
+opened in a browser; the retained Figma extraction carries what HTML cannot express at all — bound
+variables, instance properties, and hug/fill/fixed layout intent. Our own reverse-direction skill
+has to *infer* which containers can become auto-layout, which is the in-house evidence that this
+intent does not survive a DOM round trip.
+
+Keeping both is also the answer to the cascade risk: an intermediate artifact that discards its
+provenance turns every stage-one error into a permanent one, because nothing downstream can tell an
+error from a decision. Accuracy reduces how often that starts; provenance is what makes it
+reversible.
 
 ## Not a slice, but decided
 

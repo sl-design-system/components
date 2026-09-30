@@ -16,6 +16,7 @@ speaks Polish — a validator enforces it.
 | What is being built first, and what is deliberately not | [`P-NOJIRA-figma-to-code`](plan/NOJIRA-figma-to-code/plan.md) |
 | The whole sequence, both tracks, at a glance | [`plan/roadmap.md`](plan/roadmap.md) |
 | What a designer hands over, what it costs, how the flow gets tested | [`A-NOJIRA-designer-workflow`](analyzes/NOJIRA-designer-workflow/analysis.md) |
+| Where the pipeline architecture is heading, and why | [`A-NOJIRA-pipeline-staging`](analyzes/NOJIRA-pipeline-staging/analysis.md) |
 | What happened to the 31 inherited requirements | [`A-NOJIRA-requirement-backlog`](analyzes/NOJIRA-requirement-backlog/analysis.md) → [`P-NOJIRA-requirement-triage`](plan/NOJIRA-requirement-triage/plan.md) |
 | What was tried before and what it cost | [`foundation/prior-art-ds-skills.md`](foundation/prior-art-ds-skills.md) → `reference/prior-art-ds-skills/` |
 

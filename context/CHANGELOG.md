@@ -3,6 +3,8 @@
 Structural changes to this context — append-only, newest on top (CONVENTIONS § 6).
 
 ## 2026-09-30
+- Added A-NOJIRA-pipeline-staging (analyzes/NOJIRA-pipeline-staging) — the two-stage split and
+  the intermediate-artifact decision — marcin.ludwig
 - Added A-NOJIRA-requirement-backlog (analyzes/NOJIRA-requirement-backlog) — the 31 inherited
   requirements re-scored against this repository — marcin.ludwig
 - Added P-NOJIRA-requirement-triage (plan/NOJIRA-requirement-triage) — marcin.ludwig

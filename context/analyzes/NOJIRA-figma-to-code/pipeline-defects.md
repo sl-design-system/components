@@ -148,6 +148,19 @@ switched off. Existing requirement R21; `A-NOJIRA-pipeline-staging` F11 proposes
 - **Nested instance ids are rejected** by the remote server (`must be in the format "123:456"`),
   which looks like absence unless you know.
 
+## The reference screenshot does not match the frame it references
+
+**Observed:** `get_screenshot` returned **1280×727** for a 1280×720 frame — roughly 8px of canvas
+bleed. Nothing documents it, and every raw pixel comparison inherits the offset as a phantom
+vertical shift on every measurement in the run. B-Kampus caught it, normalised, and saved
+`reference-normalised.png` beside the original.
+
+This was flagged on the very first run as "the reference screenshot does not correspond to the
+frame" and is still unaddressed. It is the most basic possible defect in a fidelity bench: **the
+ground truth is the wrong size**, so every number computed against it is wrong by a constant
+nobody measured. Normalising must happen once, in the harness, not per run — otherwise some runs
+normalise and some do not, and their scores are not comparable.
+
 ## Artifacts the pipeline writes wrongly
 
 - **`figma-metadata.json` contains XML.** Renamed four times across the batch; the repository's own

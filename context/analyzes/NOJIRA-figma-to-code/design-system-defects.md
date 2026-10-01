@@ -47,30 +47,40 @@ grep -rE -- "--sl-text-new-body-md\s*:" packages/themes/*/theme.css   # zero hit
 **Why nobody caught it:** stylelint does not resolve custom properties, TypeScript never reads
 CSS, and the result looks like a styling choice rather than a fault.
 
-## D2 — No theme loads the font it names
+## D2 — Themes name their font under a name the font provider does not register
 
-Four themes examined, four wrong.
+**Corrected 2026-10-01.** An earlier version of this entry said the themes ship no `fonts.css` and
+therefore load no font. That is the wrong diagnosis and would have sent someone to write a file
+that is not needed. The font loads. **The theme asks for it by a name that does not exist.**
 
-| Theme               | Fault                                                               |
-| ------------------- | ------------------------------------------------------------------- |
-| `kampus`            | names `'Open Sans'`; ships **no `fonts.css` at all**                |
-| `itslearning`       | names `'Open Sans'`; its Typekit delivers only Lato; no `fonts.css` |
-| `teacher-assistant` | three tokens hardcode `'Open Sans'`; `fonts.css` never loads it     |
-| `sanoma-pro`        | names `'Open Sans'`, which is not shipped                           |
+Typekit registers families under lowercase hyphenated names. `packages/themes/kampus/theme.css`
+contains **both spellings**:
 
-Eight sibling themes **do** ship a `fonts.css`, so the omission is uneven rather than a convention.
-Three of the designs in the corpus name **Lato** as their own font, and two themes have a working
-Lato token in the older `--sl-text-*` namespace sitting beside the broken new one.
+| Spelling      | Occurrences | Resolves |
+| ------------- | ----------: | -------- |
+| `'Open Sans'` |          29 | **no**   |
+| `'open-sans'` |          18 | yes      |
 
-Consequence: **every text pixel the batch captured rendered in a fallback face**, usually the
-browser's default serif. And the uncomfortable corollary for anyone writing guidance —
+Measured in the browser, not inferred: a string set in `'Open Sans'` renders **218.5px wide**,
+identical to the same string in a deliberately nonexistent family; in `open-sans` it renders
+**247.4px**. The twenty-nine are the broken ones, and they are the whole `--sl-text-new-*`
+namespace — so **every element styled with the current token set renders in the fallback serif**,
+while the older `--sl-*` namespace beside it works.
 
-> Following the token guidance currently produces **worse** fidelity than ignoring it. A component
-> that writes `font-family: Lato` from the design renders correctly; one that uses the semantic
-> token renders serif.
+`itslearning` has the same shape: 29 × `'Open Sans'` against 18 × `Lato`, where the kit serves
+Lato and the design's own font is Lato.
 
-That is a design system problem presenting as an implementation problem, and it will keep teaching
-implementers the wrong lesson until it is fixed.
+**The fix is a spelling change in the theme**, not a new asset. That is a much cheaper repair than
+the one the earlier diagnosis implied, and it is worth checking every theme for the same pair —
+the broken spelling sits in the newer namespace in both files examined, which suggests it entered
+with the new token generation rather than being a one-off.
+
+Until it is fixed, the corollary for guidance stands and is worth stating plainly to anyone
+writing implementation rules:
+
+> Following the current token guidance produces **worse** fidelity than ignoring it. A component
+> that writes the family from the design renders correctly; one that uses the semantic token
+> renders serif.
 
 ## D3 — The Figma size scale and the theme size scale disagree under the same names
 
@@ -155,6 +165,14 @@ markup outside the component.
 Worth deciding deliberately: either the default is a documented reading level, or the tokens
 should not resolve at all without the attribute. Today a consumer gets a value that looks
 plausible and is not the one any design was drawn against.
+
+## D11b — The older size namespace collapses without a `[data-user-group]` ancestor
+
+Widening D11a: it is not one token. In `kampus` the **entire** older size namespace indirects
+through a `-userGroup` layer declared only under `[data-user-group='early' | 'developing' |
+'advanced']`, with `superuser` on bare `body`. A consumer that does not set the attribute gets the
+unconditional declaration — measured at **12px where the design expects 18**, which shipped as
+12px card titles until Stage 4 caught it.
 
 ## D11 — The toolchain cannot lint or format what it is supposed to
 

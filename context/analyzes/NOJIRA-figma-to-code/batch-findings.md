@@ -470,3 +470,47 @@ What follows for the bench:
   — so a run can be measured against what was possible rather than against zero;
 - `theme-match`'s agreement number predicts that floor, which makes it a useful input to the
   score rather than only a setup step.
+
+---
+
+## How much of a design is reachable with tokens: the first real number
+
+B-Kampus counted it properly. Of **14 distinct colours in the design, 5 have an exact token and 9
+have none.** The largest unavoidable delta is **31.8** (note text `#29292B` against `#3b3b3e`),
+then 25.0 (nav pill), 22.2 (badge), 20.0 (highlight).
+
+So for this design the best achievable score using only tokens is bounded well away from perfect,
+and the residual belongs to the design-theme pairing rather than to the run. **A batch ranking
+that does not normalise for this will rank designs drawn on legacy libraries below designs drawn
+on ours, and call it implementation quality.**
+
+This is the number the per-design floor needs, and it is cheap to compute: it falls out of the
+same comparison `theme-match` already does.
+
+## Two frames of one file: what converged and what did not
+
+A1 and B-Kampus are different frames of the same Kampus file, decomposed independently by
+different agents. The comparison is one of the questions the batch existed to answer.
+
+**Converged exactly, without coordination:** the `ToolId` vocabulary and the header-action
+vocabulary are identical in both. Two independent runs reading the same source produced the same
+names for the same things, which is the encouraging half.
+
+**Genuinely incompatible:**
+
+- A1's app-header takes **scalar props** where the conventions require a cohesive model object.
+  The two cannot share an implementation without A1 changing.
+- A1's `badges: Partial<Record<ToolId, number>>` **cannot express the design's bare dot badge** —
+  a badge with no number. The type is wrong for a state the design contains, and only the second
+  frame reveals it.
+- A1 **hand-drew five toolbar glyphs**, which the icon rule later forbade. Its toolbar is
+  therefore not measurable against a reference, and that is a consequence of the rule arriving
+  mid-batch rather than a fault of the run.
+
+**And the overlap everyone expected did not exist:** A1 never minted a subchapter card at all.
+
+The useful conclusion is narrower than "two runs agree" or "two runs diverge". **Vocabulary
+converges; interface shape does not.** Names are read off the design, which both agents saw;
+API shape comes from conventions and from which states the frame happens to show, and a single
+frame does not show enough to get the shape right. That is an argument for deriving component
+contracts from **all** frames that use a component, not from the first one processed.

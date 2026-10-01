@@ -6,13 +6,13 @@ whether it is exact.
 
 ## Colour — exact matches (use these, no discussion)
 
-| Design                    | Token                                                                                                                                            | Resolves to |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| `#643695` brand purple    | `--sl-color-foreground-primary-bold` (text/icon) · `--sl-color-border-primary-bold` (border) · `--sl-color-palette-purple-700` (background wash) | `#643695`   |
-| `#FFFFFF`                 | `--sl-color-background-plain`                                                                                                                    | `#ffffff`   |
-| `#0E0E0F` near-black text | `--sl-color-foreground-bold`                                                                                                                     | `#0e0e0f`   |
-| `#F5F5F6` card grey       | `--sl-color-background-neutral-bold`                                                                                                             | `#f5f5f6`   |
-| `#F9963B`                 | `--sl-color-palette-orange-300`                                                                                                                  | `#f9963b`   |
+| Design                    | Token                                                                                                                                                             | Resolves to |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `#643695` brand purple    | `--sl-color-foreground-primary-bold` (text/icon) · `--sl-color-border-primary-bold` (border) · `--sl-color-palette-purple-700` (background wash)                  | `#643695`   |
+| `#FFFFFF`                 | `--sl-elevation-surface-base-default` (page/panel ground) · `--sl-elevation-surface-raised-default` (card surface) · `--sl-color-background-input-plain` (inputs) | `#ffffff`   |
+| `#0E0E0F` near-black text | `--sl-color-foreground-bold`                                                                                                                                      | `#0e0e0f`   |
+| `#F5F5F6` card grey       | `--sl-color-background-neutral-bold`                                                                                                                              | `#f5f5f6`   |
+| `#F9963B`                 | `--sl-color-palette-orange-300`                                                                                                                                   | `#f9963b`   |
 
 ## Colour — NO token at this value anywhere in any theme; use the nearest and record it
 
@@ -131,3 +131,23 @@ value. Figma's `Size/500` is 20; the CSS `--sl-size-500` is **40px**.
 | 56     | `--sl-size-700` · `--sl-space-700` — the header height                                  |
 | 64     | `--sl-size-800`                                                                         |
 | 72, 74 | **no token** — the notes-panel header height (72) and left-toolbar width (74) have none |
+
+## CORRECTION (post-implementation) — `--sl-color-background-plain` does not exist
+
+This document originally named `--sl-color-background-plain` for every white surface. **That token
+is declared in no theme in this repository**, including kampus. An undefined `var()` makes the
+browser drop the whole declaration, so it would have silently produced transparent surfaces with
+no error from `tsc`, no error from the linters, and a render report that still said `rendered`.
+
+`runs/harness/check-tokens.mjs` caught it mechanically, and three of the five implementers caught
+it independently by grepping the theme. The white tokens that actually exist in kampus:
+
+| Use                  | Token                                   |
+| -------------------- | --------------------------------------- |
+| page / panel ground  | `--sl-elevation-surface-base-default`   |
+| raised card surface  | `--sl-elevation-surface-raised-default` |
+| input field ground   | `--sl-color-background-input-plain`     |
+| inverted bold ground | `--sl-color-background-inverted-bold`   |
+
+The error was the orchestrator's, not any implementer's — it originated in this file and was
+carried into all five implementer briefs.

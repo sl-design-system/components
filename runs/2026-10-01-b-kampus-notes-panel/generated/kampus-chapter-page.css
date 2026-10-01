@@ -1,0 +1,73 @@
+:host {
+  /*
+   * Custom elements default to `display: inline`; this page stacks the full-width header bar
+   * above the toolbar/panel/content row, which this component lays out itself (it has no
+   * light-DOM children for a consumer to arrange). The reference design is a fixed 1280x720
+   * frame with no responsive behaviour specified, so both dimensions below are measured layout
+   * pixels, not spacing-scale tokens (see token-map.md's "Layout dimensions vs spacing steps").
+   */
+  display: flex;
+  flex-direction: column;
+  inline-size: 1280px;
+  block-size: 720px;
+  overflow: hidden;
+
+  /* Page ground, #FFFFFF. `--sl-color-background-plain` does not exist in any theme (see
+     token-map.md's CORRECTION) — this is the token the correction names for page/panel ground. */
+  background: var(--sl-elevation-surface-base-default);
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  /* Without this, a flex child's default `min-block-size: auto` would refuse to shrink below its
+     content's natural height, defeating the panel/content column's own internal scrolling. */
+  min-block-size: 0;
+}
+
+.content-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  /* Measured ~846px (1280 - 74 rail - 360 panel); no token reaches this layout width, see
+     token-map.md. Fills the remaining space instead of a fixed inline-size so the column still
+     fills the row when the panel is closed. */
+  min-inline-size: 0;
+  overflow-y: auto;
+
+  /* Stage 4 round 2 (measured): the column's own block padding is NOT 24px top/bottom — the
+     chapter header sits flush against the column's top edge (abs y=56, directly below the 56px
+     header bar) with zero inset of its own; the visual gap above the breadcrumb text comes
+     entirely from `sl-bknp-chapter-header`'s own 64px breadcrumb-row box line-height centring,
+     not from page-level padding. Only the inline inset is 24px (giving the grid its measured
+     798px content width); a non-zero `padding-block-start` here double-counted that gap and
+     pushed the whole column 24px low. A small bottom inset is kept for scroll comfort — it isn't
+     measured since the design's scroll end is not visible in the reference. */
+  padding-block: 0 var(--sl-size-300);
+  padding-inline: var(--sl-size-300);
+  /* 16px between the chapter header and the grid — matches `sl-bknp-chapter-header`'s own
+     internal row-to-row rhythm (its `:host` gap is also `--sl-size-200`), not the grid's own
+     24px card gutter. Using 24px here (this rule's previous value) added the remaining 8px of
+     the Stage 4 round 2 32px-too-low defect (24 top padding + 8px gap excess = 32). */
+  gap: var(--sl-size-200);
+
+  /* #F5F5F6, exact — the content column's own ground, distinct from the white rail/notes-panel
+     surfaces either side of it (Stage 4 round 1 measured defect: the column was rendering on the
+     page's white `--sl-elevation-surface-base-default` ground, so the white subchapter cards had
+     no contrast against it). Reuses the same token the cards/note cards already use for this
+     exact grey (see `kampus-subchapter-card.css` / `kampus-notes-panel.css`'s `.card`). */
+  background: var(--sl-color-background-neutral-bold);
+}
+
+.subchapter-grid {
+  display: grid;
+  /* Natural track width (3 tracks across the 798px inset content column, 24px gaps: 250px per
+     track) — reproduces the measured 250px card width used by `kampus-subchapter-card.css`
+     without hardcoding it again here. The final (third) row's two cards are left-aligned by
+     grid auto-placement's own left-to-right fill — no extra CSS needed. */
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sl-size-300); /* 24px, measured */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,98 @@
+:host {
+  /* Custom elements default to `display: inline`; this bar must span the full width of the page
+     chrome and lay its three sections out in a row, so `flex` is an intentional change. */
+  align-items: stretch;
+  background: var(--sl-color-palette-purple-700);
+  block-size: var(--sl-size-700); /* 56px, the measured bar height */
+  color: var(--sl-color-white);
+  display: flex;
+  padding-inline: var(--sl-size-300);
+}
+
+.home {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  gap: var(--sl-size-100);
+  /* Layout dimension, not a spacing step: the home segment is a fixed-width region (icon + "My
+     page" left-aligned within it), not a shrink-to-fit item — the reference's nav group starts at
+     the measured x=444; since the bar's own `padding-inline` already accounts for 24px
+     (`--sl-size-300`), this box reserves the remaining 420px so `nav` starts at the right point
+     instead of packing against the label. */
+  inline-size: 420px;
+  text-decoration: none;
+}
+
+nav {
+  align-items: stretch;
+  display: flex;
+  flex: 1 0 auto;
+}
+
+nav ul {
+  align-items: stretch;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: flex;
+}
+
+nav a,
+.home span {
+  /* FONT-FAMILY: the --sl-text-new-*-fontFamily tokens in this theme all resolve to
+     'Open Sans' (with a space), which matches NO loaded @font-face. The Typekit sheet the
+     kampus theme loads registers the family as 'open-sans' (hyphenated), which only the
+     older --sl-*-fontFamily namespace names. Verified by canvas text measurement in the
+     live story: 'Open Sans' measures identically to a nonexistent family (218.5px) while
+     'open-sans' measures 247.4px. Using the new-namespace token silently renders the
+     browser's default serif. check-tokens cannot catch this - the token resolves fine, it
+     is its VALUE that names a face nobody registered. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize); /* 14px, exact */
+  /* `--sl-text-new-body-md-lineHeight` is 20px; the design's 24px line-height for this style
+     ("UI/Button" 14/24/600) has no token at the 14px step, so the nearest exact 24px match is
+     borrowed from the body-lg step instead — recorded as a discrepancy. */
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold); /* 600 */
+  line-height: var(--sl-text-new-body-lg-lineHeight); /* 24px, exact */
+}
+
+nav a {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  padding-inline: var(--sl-size-300);
+  text-decoration: none;
+}
+
+/* The active nav entry is a filled block spanning the bar's full height, not an underline — `li`
+   stretches to the bar's height (`:host` + `nav` + `ul` all set `align-items: stretch`), and this
+   flex anchor stretches with it. */
+nav a.active {
+  /* Measured #7C51A9 against the bar's own #643695; no theme step lands on that exact value —
+     purple-500 (#8A4FCE) and purple-700 (#643695, the bar fill itself) are both farther off than
+     purple-600 (#743CB4, Δ≈25), so purple-600 is the nearest available step. Recorded, not
+     patched with a raw hex. */
+  background: var(--sl-color-palette-purple-600);
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-300);
+}
+
+.action {
+  display: inline-flex;
+  position: relative;
+}
+
+.action .count {
+  inset-block-start: calc(var(--sl-size-050) * -1);
+  inset-inline-end: calc(var(--sl-size-050) * -1);
+  pointer-events: none;
+  position: absolute;
+}

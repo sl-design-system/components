@@ -1,53 +1,57 @@
+import '@sl-design-system/badge/register.js';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import styles from './kampus-left-toolbar.css' with { type: 'css' };
 
 declare global {
-  interface HTMLElementTagNameMap {
-    'sl-kampus-left-toolbar': KampusLeftToolbar;
+  interface GlobalEventHandlersEventMap {
+    'sl-bknp-tool-select': SlBknpToolSelectEvent;
   }
 
-  interface GlobalEventHandlersEventMap {
-    'sl-kampus-tool-select': SlKampusToolSelectEvent;
+  interface HTMLElementTagNameMap {
+    'sl-bknp-left-toolbar': BknpLeftToolbar;
   }
 }
 
-/** The stable id of one of the five entries in the chapter tool rail. */
-export type KampusToolId = 'contents' | 'edit-content' | 'assignments' | 'notes' | 'access-key';
+/** The identifier of a tool in the chapter tool rail. */
+export type BknpToolId = 'contents' | 'edit-content' | 'assignments' | 'notes' | 'access-key';
 
-/**
- * A badge overlay for one rail entry. `count` absent renders a bare dot marker (e.g. "Edit
- * content" has unread activity but no number); `count` present renders a numbered circle (e.g.
- * "Assignments" reads "1").
- */
-export interface KampusToolBadge {
-  toolId: KampusToolId;
+/** A badge overlaid on a tool's (currently empty) glyph slot. */
+export interface BknpToolBadge {
+  /** The tool this badge belongs to. */
+  toolId: BknpToolId;
+
+  /** The number to show in the badge; when absent, a bare dot marker is shown instead. */
   count?: number;
 }
 
-/** The data this rail needs from its data-owning parent. */
+/** The data this component needs to render the chapter tool rail. */
 export interface ToolRailModel {
+  /** The URL of the current user's profile photo. */
   userPhotoUrl: string;
+
+  /** The accessible alternative text for the user's profile photo. */
   userPhotoAlt: string;
-  activeToolId: KampusToolId;
-  badges: KampusToolBadge[];
+
+  /** The id of the currently active tool. */
+  activeToolId: BknpToolId;
+
+  /** Badges to overlay on specific tools (e.g. unread/count indicators). */
+  badges: BknpToolBadge[];
 }
 
-/** The detail of the `sl-kampus-tool-select` event. */
-export type SlKampusToolSelectEvent = CustomEvent<{ toolId: KampusToolId }>;
+/** Emitted when the user picks a different tool in the rail. */
+export type SlBknpToolSelectEvent = CustomEvent<{ toolId: BknpToolId }>;
 
-/**
- * Structural/presentation config owned by this component (not model input): the rail's five
- * fixed entries, in design order. Captions only — no `icon` field, because the kampus theme's
- * 55-icon set (see `token-map.md` for this run) has no glyph for "contents", "edit-content",
- * "assignments", "notes" or "access-key". Per this batch's icon rule a missing icon is left out
- * and recorded as a Stage 4 discrepancy — never a `@fortawesome` import (not installed; throws
- * at load and blanks the page) and never a hand-drawn inline-SVG substitute (invented artwork in
- * a pixel-compared region corrupts the measurement — a recorded finding from an earlier run in
- * this batch).
- */
-const TOOLS: ReadonlyArray<{ id: KampusToolId; caption: string }> = [
+/** Structural config: the five tools, in display order, with their fixed captions. */
+interface ToolDef {
+  id: BknpToolId;
+  caption: string;
+}
+
+const TOOLS: ToolDef[] = [
   { id: 'contents', caption: 'Contents' },
   { id: 'edit-content', caption: 'Edit content' },
   { id: 'assignments', caption: 'Assignments' },
@@ -56,95 +60,104 @@ const TOOLS: ReadonlyArray<{ id: KampusToolId; caption: string }> = [
 ];
 
 /**
- * The 74px-wide vertical tool rail below the Kampus chapter page header: a user photo, then
- * five stacked entries (Contents, Edit content, Assignments, Notes, Access key), each a caption
- * below a reserved icon slot (see the module doc above for why the slot is currently empty),
- * with an optional badge overlay. Presentational — the page passes in `model` (user photo,
- * active entry, badges) and handles the emitted `sl-kampus-tool-select` event to update its own
- * active-tool state.
+ * The left-hand chapter tool rail: a user photo above five tool entries
+ * (contents, edit content, assignments, notes, access key), the active one
+ * highlighted. Switches a panel rather than navigating, so each entry is a
+ * `<button>`, not a link.
+ *
+ * None of the five tool glyphs exists in the kampus theme's icon set, so this
+ * component intentionally renders each entry caption-only — see the class's
+ * `render()` for where a glyph would go.
  *
  * ```html
- * <sl-kampus-left-toolbar
- *   .model=${{
- *     userPhotoUrl: '/assets/kampus/user.jpg',
- *     userPhotoAlt: 'Matti Meikäläinen',
- *     activeToolId: 'notes',
- *     badges: [{ toolId: 'edit-content' }, { toolId: 'assignments', count: 1 }]
- *   }}
- * ></sl-kampus-left-toolbar>
+ * <sl-bknp-left-toolbar .model=${model}></sl-bknp-left-toolbar>
  * ```
  *
- * @fires sl-kampus-tool-select - Emitted when a rail entry is activated, with the selected entry's id.
+ * @fires sl-bknp-tool-select - Emitted when the user picks a tool in the rail.
  */
-export class KampusLeftToolbar extends LitElement {
+export class BknpLeftToolbar extends LitElement {
   /** @internal */
-  static override styles = styles;
+  static override styles: CSSResultGroup = styles;
 
-  /** @internal Emits when a rail entry is activated. */
-  @event({ name: 'sl-kampus-tool-select' }) toolSelectEvent!: EventEmitter<SlKampusToolSelectEvent>;
-
-  /** The user photo, the active entry, and which entries carry a badge. */
+  /**
+   * The data needed to render the rail: the user photo and the active/badged tools.
+   */
   @property({ attribute: false }) model?: ToolRailModel;
 
+  /** @internal */
+  @event({ name: 'sl-bknp-tool-select' }) toolSelectEvent!: EventEmitter<SlBknpToolSelectEvent>;
+
   override render(): TemplateResult {
-    const userPhotoUrl = this.model?.userPhotoUrl,
-      userPhotoAlt = this.model?.userPhotoAlt,
-      activeToolId = this.model?.activeToolId,
-      badges = this.model?.badges ?? [];
+    if (!this.model) {
+      return html`${nothing}`;
+    }
+
+    const { userPhotoUrl, userPhotoAlt, activeToolId, badges } = this.model;
 
     return html`
+      <img
+        class="user-photo"
+        src=${userPhotoUrl}
+        alt=${userPhotoAlt}
+        width="74"
+        height="80"
+      />
       <nav aria-label="Chapter tools">
-        ${userPhotoUrl
-          ? html`
-              <!-- No asset-export step in this pipeline: this 404s in the harness by design (see
-                   IMPL-BRIEF.md, correction G2). Explicit width/height keep the layout from
-                   reflowing when it does. -->
-              <img class="user-photo" src=${userPhotoUrl} alt=${userPhotoAlt ?? ''} width="74" height="80" />
-            `
-          : nothing}
         <ul>
-          ${TOOLS.map(tool => {
-            const active = tool.id === activeToolId;
-            const badge = badges.find(b => b.toolId === tool.id);
-            const accessibleName = badge
-              ? badge.count !== undefined
-                ? `${tool.caption}, ${badge.count}`
-                : `${tool.caption}, new`
-              : tool.caption;
-
-            return html`
-              <li>
-                <button
-                  type="button"
-                  class=${active ? 'active' : ''}
-                  aria-pressed=${active ? 'true' : 'false'}
-                  aria-label=${accessibleName}
-                  @click=${() => this.#onToolClick(tool.id)}
-                >
-                  <span class="icon-slot">
-                    <!-- Intentionally empty — see the module doc: the theme has no icon for this
-                         entry. Reserved so the row keeps the height it would have with an icon. -->
-                    ${badge
-                      ? badge.count !== undefined
-                        ? html`<span class="badge" aria-hidden="true">${badge.count}</span>`
-                        : html`<span class="badge dot" aria-hidden="true"></span>`
-                      : nothing}
-                  </span>
-                  <span class="caption">${tool.caption}</span>
-                </button>
-              </li>
-            `;
-          })}
+          ${TOOLS.map(tool => this.#renderTool(tool, activeToolId, badges))}
         </ul>
       </nav>
     `;
   }
 
-  #onToolClick(toolId: KampusToolId): void {
+  #renderTool(tool: ToolDef, activeToolId: BknpToolId, badges: BknpToolBadge[]): TemplateResult {
+    const active = tool.id === activeToolId;
+    const badge = badges.find(({ toolId }) => toolId === tool.id);
+
+    return html`
+      <li>
+        <button
+          type="button"
+          class=${classMap({ active })}
+          aria-pressed=${active ? 'true' : nothing}
+          aria-label=${this.#ariaLabel(tool, badge)}
+          @click=${() => this.#onSelect(tool.id)}
+        >
+          <span class="glyph" aria-hidden="true">
+            <!--
+              Intentionally empty: the kampus theme's 55-icon set has no glyph for
+              "contents" / "edit-content" / "assignments" / "notes" / "access-key".
+              The box is kept at the glyph's normal size so the rail's vertical
+              rhythm matches the design even with no icon rendered.
+            -->
+            ${badge
+              ? badge.count != null
+                ? html`<sl-badge class="badge" color="orange" size="sm" aria-hidden="true">${badge.count}</sl-badge>`
+                : html`<span class="dot" aria-hidden="true"></span>`
+              : nothing}
+          </span>
+          <span class="caption">${tool.caption}</span>
+        </button>
+      </li>
+    `;
+  }
+
+  #onSelect(toolId: BknpToolId): void {
     this.toolSelectEvent.emit({ toolId });
+  }
+
+  #ariaLabel(tool: ToolDef, badge?: BknpToolBadge): string {
+    if (!badge) {
+      return tool.caption;
+    }
+
+    return badge.count != null ? `${tool.caption}, ${badge.count} new` : `${tool.caption}, new`;
   }
 }
 
-if (!customElements.get('sl-kampus-left-toolbar')) {
-  customElements.define('sl-kampus-left-toolbar', KampusLeftToolbar);
+// Guarded global define — this run mints `sl-bknp-*` tags; see the resume addendum
+// in IMPL-BRIEF.md for why (a sibling run already minted an unprefixed/differently
+// prefixed `left-toolbar` from the same Figma component).
+if (!customElements.get('sl-bknp-left-toolbar')) {
+  customElements.define('sl-bknp-left-toolbar', BknpLeftToolbar);
 }

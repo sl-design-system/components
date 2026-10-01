@@ -64,7 +64,7 @@ x≈347 y≈154 is a Figma annotation and is deliberately **not** implemented ·
 | header bar       | `#643695` | `--sl-color-palette-purple-700`                 |
 | note card fill   | `#F5F5F6` | `--sl-color-background-neutral-bold` (exact)    |
 | note body text   | `#29292B` | nearest per `token-map.md`, record              |
-| panel ground     | `#FFFFFF` | `--sl-color-background-plain`                   |
+| panel ground     | `#FFFFFF` | `--sl-elevation-surface-base-default`           |
 | highlight marker | `#FFEF99` | `--sl-color-background-highlight`, record delta |
 | annotation badge | `#F9963B` | not implemented (annotation)                    |
 
@@ -110,3 +110,61 @@ No raw hex. No `var()` fallbacks. No physical properties — use logical (`inlin
 `padding-inline`, `margin-block`). No hand-rolled `CustomEvent` — use `@event` / `EventEmitter`
 from `@sl-design-system/shared`. All relative imports end in `.js`. JSDoc every exported
 declaration.
+
+---
+
+# RESUME ADDENDUM (2026-10-01) — read this, it changes tag names
+
+## Every tag this run mints is prefixed `sl-bknp-`
+
+The sibling run **A1 `Subchapter feed`** is a different frame of the _same_ Figma file and it has
+already shipped. It and this run decomposed the same shared page chrome, and both minted a
+`left-toolbar` from the same Figma component with **different APIs**. Because the conventions
+require a _guarded_ `customElements.define`, a name collision does not throw — whichever module
+loads first wins, and the other frame silently gets the wrong component wearing its own attribute
+names. A1 namespaced its own toolbar to `sl-a1-kampus-left-toolbar` for exactly this reason, but
+left `sl-kampus-app-header` and `sl-kampus-toc-sidebar` unprefixed.
+
+So: **prefix every tag, class and event this run mints.**
+
+| Component       | Tag                       | Class                |
+| --------------- | ------------------------- | -------------------- |
+| root            | `sl-bknp-chapter-page`    | `BknpChapterPage`    |
+| header nav      | `sl-bknp-header-nav`      | `BknpHeaderNav`      |
+| left toolbar    | `sl-bknp-left-toolbar`    | `BknpLeftToolbar`    |
+| notes panel     | `sl-bknp-notes-panel`     | `BknpNotesPanel`     |
+| chapter header  | `sl-bknp-chapter-header`  | `BknpChapterHeader`  |
+| subchapter card | `sl-bknp-subchapter-card` | `BknpSubchapterCard` |
+
+**Event names are prefixed too** — `sl-bknp-tool-select`, `sl-bknp-nav-select`,
+`sl-bknp-header-action`, `sl-bknp-notes-close`, `sl-bknp-notes-see-all`,
+`sl-bknp-notes-filter-change`, `sl-bknp-note-edit`, `sl-bknp-chapter-navigate`,
+`sl-bknp-chapter-actions`, `sl-bknp-student-view-change`, `sl-bknp-subchapter-actions`.
+
+Already registered globally by A1 — **do not use any of these**: `sl-a1-kampus-left-toolbar`,
+`sl-kampus-app-header`, `sl-kampus-toc-sidebar`, `sl-subchapter-feed-page`,
+`sl-subchapter-feed-header`, `sl-subchapter-feed-list`, `sl-feed-section-heading`,
+`sl-theory-card`, `sl-exercise-card`. Interface/type names are compile-time only and do not
+collide across modules, but prefix the **event** names since those share one
+`GlobalEventHandlersEventMap`.
+
+## A1 hand-drew its toolbar icons. This run does not.
+
+A1's `kampus-left-toolbar.ts` renders five hand-authored inline `<svg>` glyphs with a comment
+saying the theme has no icon for them. **That is the thing the batch rule forbids** — invented
+artwork inside a pixel-compared region means the fidelity score is partly scoring a drawing the
+pipeline made up. This run **omits** every missing glyph and records it. Do not copy A1's approach
+even though it is sitting right there in a sibling folder and looks like established local
+practice.
+
+## Two more checks before you are done
+
+```sh
+node runs/harness/typecheck.mjs  --scope examples/lit/src/_runs/b-kampus-notes-panel
+node runs/harness/check-tokens.mjs --scope examples/lit/src/_runs/b-kampus-notes-panel --theme kampus
+```
+
+`check-tokens` is new and it is the only thing that catches a `var(--sl-…)` naming a custom
+property the theme does not define — which drops the whole declaration silently, with no error
+anywhere. Expect text to render in a **fallback face**: Kampus ships no `fonts.css`, so Open Sans
+is simply unavailable. That is an `[ENV]` discrepancy, not something to patch.

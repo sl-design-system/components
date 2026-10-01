@@ -1,0 +1,115 @@
+/*
+ * :host sets `display: flex` intentionally: the rail stacks the user photo
+ * above the tool list, which this component must lay out itself (it has no
+ * light-DOM children for a consumer to arrange).
+ */
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  /* 74px rail width — a measured layout dimension, no matching token (see token-map.md). */
+  inline-size: 74px;
+
+  /* Fills the block-size given by the page layout (measured ~664px below the 56px header). */
+  block-size: 100%;
+
+  /* `--sl-color-background-plain` does not exist in this (or any) theme — see token-map.md's
+     measured colour table. `--sl-color-background-input-plain` is the nearest token that still
+     resolves to pure #ffffff; recorded as a substitution. */
+  background-color: var(--sl-color-background-input-plain);
+
+  /* Inferred divider between the rail and the content column; nearest token per token-map.md. */
+  border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-accent-grey-faint);
+}
+
+.user-photo {
+  /* 74×80 — measured layout dimensions, no matching token; explicit width/height attributes
+     on the <img> (in the template) avoid reflow once the asset 404s (no asset-export step). */
+  inline-size: 100%;
+  block-size: 80px;
+  object-fit: cover;
+}
+
+nav {
+  flex: 1;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sl-size-050);
+
+  /* ~70px per item — a measured layout dimension, no matching token. */
+  block-size: 70px;
+  inline-size: 100%;
+
+  padding-inline: var(--sl-size-050);
+  border: none;
+  background: none;
+  color: var(--sl-color-foreground-primary-bold);
+  cursor: pointer;
+}
+
+button.active {
+  background-color: var(--sl-color-palette-purple-100);
+
+  /* Design: inset 0 -4px 0 #643695 — exact brand purple; -4px === --sl-size-050. */
+  box-shadow: inset 0 calc(var(--sl-size-050) * -1) 0 var(--sl-color-border-primary-bold);
+}
+
+.glyph {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Reserves the glyph's normal footprint even though no icon is rendered (see the
+     render()-level comment: none of the five tools has a matching theme icon), so the
+     rail's vertical rhythm matches the design. */
+  inline-size: var(--sl-size-new-icon-lg);
+  block-size: var(--sl-size-new-icon-lg);
+}
+
+.dot {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  inline-size: var(--sl-size-100);
+  block-size: var(--sl-size-100);
+  border-radius: var(--sl-size-borderRadius-full);
+  background-color: var(--sl-color-palette-orange-500);
+}
+
+.badge {
+  position: absolute;
+  inset-block-start: calc(var(--sl-size-050) * -1);
+  inset-inline-end: calc(var(--sl-size-050) * -1);
+}
+
+.caption {
+  /* FONT-FAMILY: the --sl-text-new-*-fontFamily tokens in this theme all resolve to
+     'Open Sans' (with a space), which matches NO loaded @font-face. The Typekit sheet the
+     kampus theme loads registers the family as 'open-sans' (hyphenated), which only the
+     older --sl-*-fontFamily namespace names. Verified by canvas text measurement in the
+     live story: 'Open Sans' measures identically to a nonexistent family (218.5px) while
+     'open-sans' measures 247.4px. Using the new-namespace token silently renders the
+     browser's default serif. check-tokens cannot catch this - the token resolves fine, it
+     is its VALUE that names a face nobody registered. */
+  font-family: var(--sl-caption-fontFamily);
+  font-size: var(--sl-typography-caption-md-fontSize);
+  font-weight: var(--sl-typography-caption-md-fontWeight);
+  line-height: var(--sl-typography-caption-md-lineHeight);
+  letter-spacing: var(--sl-typography-caption-md-letterSpacing);
+  text-align: center;
+}

@@ -1,0 +1,132 @@
+/* The three strips (breadcrumb, title, student view) stack vertically as one contiguous unit -
+   the default inline display wouldn't do that, so this is an intentional change. */
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-200); /* measured 16px */
+}
+
+/* ---- Breadcrumb row (798 x 64) --------------------------------------------------------- */
+
+.breadcrumb-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-block-size: var(--sl-size-800); /* measured 64px */
+}
+
+/* `sl-breadcrumbs` sets no font properties on its slotted `<a>` elements at all, so this is a
+   normal (non-!important) inheritance-based override targeting the anchors we render into its
+   default slot. */
+sl-breadcrumbs a {
+  /* FONT-FAMILY: the --sl-text-new-*-fontFamily tokens in this theme all resolve to
+     'Open Sans' (with a space), which matches NO loaded @font-face. The Typekit sheet the
+     kampus theme loads registers the family as 'open-sans' (hyphenated), which only the
+     older --sl-*-fontFamily namespace names. Verified by canvas text measurement in the
+     live story: 'Open Sans' measures identically to a nonexistent family (218.5px) while
+     'open-sans' measures 247.4px. Using the new-namespace token silently renders the
+     browser's default serif. check-tokens cannot catch this - the token resolves fine, it
+     is its VALUE that names a face nobody registered. */
+  font-family: var(--sl-text-fontFamily);
+  font-size: var(--sl-text-new-body-md-fontSize); /* measured 14px - exact */
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold); /* measured 600 - exact */
+  line-height: var(--sl-text-new-body-md-lineHeight); /* measured 20px - exact */
+}
+
+/*
+  `sl-breadcrumbs` colours its slotted links via its own `::slotted(a[href]) { color: ... !important }`
+  rule (muted grey idle, plain/dark for the current crumb) - that `!important` cannot be beaten
+  without fighting the component, so the design's purple "Start page" link is left as the
+  component's default muted colour and recorded as a Stage 4 discrepancy.
+*/
+
+/*
+  `sl-breadcrumbs` also draws its own `breadcrumb-separator` icon between crumbs - in this theme
+  that glyph is a grey forward slash, where the reference design shows a purple chevron. This is
+  the composed component's own built-in rendering (not something this component controls), so it
+  is recorded as a Stage 4 discrepancy rather than re-tweaked here.
+*/
+
+.nav-buttons {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sl-size-100); /* measured gap between the two round buttons */
+}
+
+/* The round prev/next buttons are pixel-pinned to the brief's exact purple (`palette-purple-700`,
+   #643695) rather than the `primary` semantic's bold background (which resolves to purple-600 in
+   this theme, not the measured colour). Styling the exposed `button` part keeps the markup a
+   plain `<sl-button>`, no wrapper `<div>`. Icon colour uses the semantic "on bold" foreground
+   token, which already resolves to white in this theme. */
+sl-button.nav-button::part(button) {
+  background: var(--sl-color-palette-purple-700);
+  block-size: var(--sl-size-500); /* measured ~40px */
+  border: none;
+  color: var(--sl-color-foreground-primary-onBold);
+  inline-size: var(--sl-size-500); /* measured ~40px */
+}
+
+/* ---- Title row (798 x 40) --------------------------------------------------------------- */
+
+.title-row {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-100);
+  min-block-size: var(--sl-size-500); /* measured 40px - exact */
+}
+
+h1 {
+  color: var(--sl-color-foreground-bold);
+  /* FONT-FAMILY: the --sl-text-new-*-fontFamily tokens in this theme all resolve to
+     'Open Sans' (with a space), which matches NO loaded @font-face. The Typekit sheet the
+     kampus theme loads registers the family as 'open-sans' (hyphenated), which only the
+     older --sl-*-fontFamily namespace names. Verified by canvas text measurement in the
+     live story: 'Open Sans' measures identically to a nonexistent family (218.5px) while
+     'open-sans' measures 247.4px. Using the new-namespace token silently renders the
+     browser's default serif. check-tokens cannot catch this - the token resolves fine, it
+     is its VALUE that names a face nobody registered. */
+  font-family: var(--sl-heading-fontFamily);
+  /* No token is exactly 30px; nearest is the 32px heading-xl step. 2px delta recorded. */
+  font-size: var(--sl-text-new-heading-xl-fontSize);
+  /* Heading tokens carry no `-fontWeight` of their own - take the bold weight separately. */
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-heading-xl-lineHeight);
+  margin: 0;
+}
+
+/* Shared footprint for the two small icon-only actions next to the title (link/permalink and
+   the "..." actions menu), sized and coloured like a small ghost icon button. */
+.icon-button {
+  align-items: center;
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-primary-bold);
+  display: inline-flex;
+  justify-content: center;
+}
+
+/* The permalink action is a plain `<a>` (it carries a real `href`, not a click event), styled to
+   match the footprint of the neighbouring `sl-button` actions trigger. The design shows a
+   link/chain glyph here; the kampus theme's 55-icon set has no matching icon, so no glyph is
+   rendered (see the component's render() comment) - the button and its aria-label stand alone. */
+.permalink {
+  block-size: calc(1lh + var(--sl-size-050));
+  inline-size: calc(1lh + var(--sl-size-050));
+  text-decoration: none;
+}
+
+.permalink:hover {
+  background: var(--sl-color-background-primary-interactive-plain);
+}
+
+.permalink:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
+}
+
+/* ---- Student view row (198 x 24) --------------------------------------------------------- */
+
+.student-view-row {
+  align-items: center;
+  display: flex;
+  min-block-size: var(--sl-size-300); /* measured 24px - exact */
+}

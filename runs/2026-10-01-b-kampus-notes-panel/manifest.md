@@ -57,20 +57,20 @@ _Single breakpoint: 1280px._ No sibling frames at other widths, no constraint an
 
 ### Color — design value → nearest kampus theme token
 
-| Figma variable                                                 | Value     | Kampus theme token                          | Exact? |
-| -------------------------------------------------------------- | --------- | ------------------------------------------- | ------ |
-| `Primary/$kampus-color-purple-7`, `Primary/Default`            | `#643695` | `--sl-brand-light-color-palette-purple-700` | yes    |
-| `Neutrals/$kampus-color-white`, `Neutrals/Full White`          | `#FFFFFF` | `--sl-color-background-plain`               | yes    |
-| `Neutrals/$kampus-color-gray-9`                                | `#0E0E0F` | present in theme (5×)                       | yes    |
-| `Neutrals/$kampus-color-gray-1`, `grays/gray-1`                | `#F5F5F6` | present in theme                            | yes    |
-| `Specials/$kampus-color-interactive-5`                         | `#F9963B` | present in theme                            | yes    |
-| `Neutrals/$kampus-color-gray-8`                                | `#29292B` | **absent from every theme**                 | no     |
-| `Neutrals/$kampus-color-gray-7`                                | `#444548` | **absent from every theme**                 | no     |
-| `Neutrals/$kampus-color-gray-6`                                | `#6D6E73` | **absent from every theme**                 | no     |
-| `Neutrals/$kampus-color-gray-3`, `grays/gray-3`                | `#CECFD2` | **absent from every theme**                 | no     |
-| `$color-ui-lightgrey`                                          | `#DFE3E6` | **absent from every theme**                 | no     |
-| `Primary/$kampus-color-purple-1`                               | `#F0ECF5` | **absent from every theme**                 | no     |
-| `Dashboard/kampus-color-orange-8`, `Dashboard/SU Not assessed` | `#DB7109` | **absent from every theme**                 | no     |
+| Figma variable                                                 | Value     | Kampus theme token                                        | Exact? |
+| -------------------------------------------------------------- | --------- | --------------------------------------------------------- | ------ |
+| `Primary/$kampus-color-purple-7`, `Primary/Default`            | `#643695` | `--sl-brand-light-color-palette-purple-700`               | yes    |
+| `Neutrals/$kampus-color-white`, `Neutrals/Full White`          | `#FFFFFF` | `--sl-elevation-surface-base-default` / `-raised-default` | yes    |
+| `Neutrals/$kampus-color-gray-9`                                | `#0E0E0F` | present in theme (5×)                                     | yes    |
+| `Neutrals/$kampus-color-gray-1`, `grays/gray-1`                | `#F5F5F6` | present in theme                                          | yes    |
+| `Specials/$kampus-color-interactive-5`                         | `#F9963B` | present in theme                                          | yes    |
+| `Neutrals/$kampus-color-gray-8`                                | `#29292B` | **absent from every theme**                               | no     |
+| `Neutrals/$kampus-color-gray-7`                                | `#444548` | **absent from every theme**                               | no     |
+| `Neutrals/$kampus-color-gray-6`                                | `#6D6E73` | **absent from every theme**                               | no     |
+| `Neutrals/$kampus-color-gray-3`, `grays/gray-3`                | `#CECFD2` | **absent from every theme**                               | no     |
+| `$color-ui-lightgrey`                                          | `#DFE3E6` | **absent from every theme**                               | no     |
+| `Primary/$kampus-color-purple-1`                               | `#F0ECF5` | **absent from every theme**                               | no     |
+| `Dashboard/kampus-color-orange-8`, `Dashboard/SU Not assessed` | `#DB7109` | **absent from every theme**                               | no     |
 
 **Rule for implementers:** where the column says _yes_, use the theme token. Where it says _no_, search `packages/themes/kampus/theme.css` for the nearest semantic token and use it, recording the substitution. Do **not** hardcode the hex.
 

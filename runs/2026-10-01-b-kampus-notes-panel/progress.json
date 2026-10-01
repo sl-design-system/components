@@ -1,7 +1,7 @@
 {
   "case": "B-Kampus-5308-32158",
   "team": "Kampus",
-  "name": "Chapter page \u2013 Notes side panel \u2013 With notes",
+  "name": "Chapter page – Notes side panel – With notes",
   "figma": {
     "fileKey": "73YHtIYl0UHXH8ST4J7VKI",
     "nodeId": "5308:32158",
@@ -63,20 +63,159 @@
       "note": "Every open question came back with a chosen default, as asked. The decomposer also volunteered a cross-run compatibility section (H) that was not in the schema."
     },
     "3-implement": {
-      "status": "blocked",
-      "at": "2026-10-01T01:30:00",
-      "level0Launched": 4,
-      "level0Pending": ["sl-kampus-subchapter-card (concurrency limit)"],
-      "reason": "Account weekly usage limit reached during Stage 3 (resets 2026-10-04 20:00 Europe/Warsaw). Leaf implementers died mid-write; left-toolbar never populated."
+      "status": "done",
+      "at": "2026-10-01",
+      "components": 6,
+      "tags": [
+        "sl-bknp-chapter-page",
+        "sl-bknp-header-nav",
+        "sl-bknp-left-toolbar",
+        "sl-bknp-notes-panel",
+        "sl-bknp-chapter-header",
+        "sl-bknp-subchapter-card"
+      ],
+      "gates": {
+        "typecheck": "clean - 0 in-scope errors, 0 regressions outside scope, 2 tolerated baseline errors in packages/components/grid/src/grid.ts",
+        "checkTokens": "clean - 0 missing, 0 shorthandTrap, 0 hostSettable"
+      },
+      "noStubsPresent": true,
+      "fontAwesomeImports": 0,
+      "handDrawnSvgs": 0,
+      "tokenCost": {
+        "leaves": 607985,
+        "root": 113739,
+        "total": 721724
+      }
     },
     "4-validate": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01",
+      "repairRounds": 3,
+      "method": "The reference PNG from get_screenshot is 1280x727 of a 1296x736 render - it carries ~8px of canvas bleed on every side. Comparing raw produces a phantom 6-8px offset on EVERY measurement. Normalised (crop bleed, rescale) to testing/reference-normalised.png; all numbers are against that.",
+      "storyVerdicts": {
+        "runs-b-kampus-notes-panel-chapter-page--basic": "rendered",
+        "runs-b-kampus-notes-panel-chapter-page--no-notes": "rendered",
+        "runs-b-kampus-notes-panel-chapter-page--single-note-group": "rendered",
+        "runs-b-kampus-notes-panel-chapter-page--nothing-pending": "rendered",
+        "runs-b-kampus-notes-panel-chapter-page--no-locked-subchapters": "rendered",
+        "runs-b-kampus-notes-panel-chapter-page--all-subchapters-locked": "rendered",
+        "runs-b-kampus-notes-panel-chapter-page--deep-breadcrumb": "rendered"
+      },
+      "finalMeasuredTable": [
+        {
+          "element": "header bar height",
+          "ref": 53,
+          "built": 56,
+          "delta": 3
+        },
+        {
+          "element": "notes filter checkbox top",
+          "ref": 126,
+          "built": 132,
+          "delta": 6
+        },
+        {
+          "element": "notes panel left edge",
+          "ref": 81,
+          "built": 75,
+          "delta": -6
+        },
+        {
+          "element": "subchapter card-1 title strip top",
+          "ref": 418,
+          "built": 418,
+          "delta": 0
+        },
+        {
+          "element": "subchapter card-1 title strip bottom",
+          "ref": 442,
+          "built": 443,
+          "delta": 1
+        },
+        {
+          "element": "first note-card grey band top",
+          "ref": 211,
+          "built": 222,
+          "delta": 11
+        },
+        {
+          "element": "nav pill start x",
+          "ref": 444,
+          "built": 444,
+          "delta": 0
+        }
+      ],
+      "colourChecks": {
+        "content ground": "ref #F5F5F6 = built #F5F5F6",
+        "card gap": "ref #F5F5F6 = built #F5F5F6",
+        "header purple": "ref #643695 = built #643695"
+      },
+      "defectsFixed": [
+        "D1 active nav pill 320px too far left -> start now exact at x=444",
+        "D2 notes filter row 50px low -> 6px",
+        "D2b first note card 87px low -> 11px",
+        "D3 Notes heading rendering at body size -> corrected",
+        "D4 note-card 1px border missing -> added (--sl-color-border-accent-grey-faint #cfd0d2 vs design #CECFD2)",
+        "D5 subchapter grid 32px low -> 0px",
+        "D6 student-view switch/label order reversed -> corrected",
+        "D7 content column ground white -> #F5F5F6, exact",
+        "D8 subchapter card title rendering at 12px/16px -> 16px/24px (see collapsedTokenFinding)",
+        "D9 WHOLE PAGE rendering in fallback serif -> Open Sans now renders (see fontFamilyFinding)"
+      ],
+      "residualDiscrepancies": [
+        "[GEOM] first note card 11px low; notes filter row 6px low; header bar 3px tall. All under 12px.",
+        "[GEOM] active nav pill 163px wide vs 181 - 18px narrow. Start position exact.",
+        "[COLOUR] pill fill --sl-color-palette-purple-600 #743cb4 vs design #7C51A9, delta 25. No token is closer; the design value sits BETWEEN purple-600 and purple-500 (#8a4fce).",
+        "[COLOUR] highlight marker --sl-color-background-highlight #fff7c5 vs design #FFEF99, delta 45. Chose the semantic token over the nearer-by-value palette-yellow-150 (#fff085, delta 20).",
+        "[COLOUR] note body text --sl-color-background-interactive-bold #3b3b3e vs design #29292B, delta 31.8 - the largest unavoidable delta on the page, and a BACKGROUND-role token used for text because no foreground-role token is closer.",
+        "[TYPE] subchapter card title 16px vs design 18px; notes panel heading 16/20 vs design 18/24. No un-gated token in this theme resolves to 18px.",
+        "[TYPE] h1 32px vs design 30px - no token is exactly 30.",
+        "[ENV] 9 image 404s under /assets/ - no asset-export step. Every img has explicit aspect-ratio so nothing reflows; the alt text paints in place of the photo and is visually noisy.",
+        "[ICON] 16 glyphs omitted and NOT drawn: bell, help, account, all 5 left-toolbar glyphs, note edit pencil, title permalink, fullscreen expand.",
+        "[COMPONENT] sl-breadcrumbs draws its own separator - a grey '/' in this theme where the design has a purple chevron.",
+        "[COMPONENT] sl-breadcrumbs forces slotted anchor colour with !important, so 'Start page' renders grey where the design has it purple. Declined to counter-!important.",
+        "[CORRECT] The orange number-1 annotation at x~347 y~154 is absent. It is a Figma annotation marker, not UI."
+      ]
     },
     "5-author": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01",
+      "scope": "examples/ path -> story enrichment only. No Vitest spec, no website docs, no changeset, no i18n extraction, per the pipeline skill's example-path rule.",
+      "storiesAdded": [
+        "NoNotes",
+        "SingleNoteGroup",
+        "NothingPending",
+        "NoLockedSubchapters",
+        "AllSubchaptersLocked",
+        "DeepBreadcrumb"
+      ],
+      "note": "The root's notesPanelOpen/studentView/activeToolId are @state (private), so no story can exercise a closed panel or student-view-on without an implementation change. Variants therefore vary `data` only. DeepBreadcrumb exists specifically to exercise sl-breadcrumbs' built-in collapse, which is the component's behaviour and not this run's.",
+      "allSevenStoriesVerdict": "rendered"
     },
     "6-review": {
-      "status": "not-reached"
+      "status": "done",
+      "at": "2026-10-01",
+      "method": "Read-through against tools/implement-design-plugin/skills/implement-design/component-conventions.md plus mechanical checks.",
+      "automatedChecks": {
+        "rawHexInCss": 0,
+        "varFallbacks": 0,
+        "physicalProperties": 0,
+        "mainOrBannerLandmarks": 0,
+        "handRolledCustomEvent": 0,
+        "relativeImportsMissingJs": 0,
+        "customElementsDefine": "6, all guarded by customElements.get",
+        "fortawesomeImports": 0,
+        "handDrawnSvg": 0,
+        "dtsStubs": 0
+      },
+      "critical": [],
+      "minor": [
+        "The root exposes notesPanelOpen/studentView/activeToolId only as private @state, so three of the design's interactive states are unreachable from a story or a consumer. Worth promoting to public reflected properties.",
+        "BknpNavId omits 'my-page', so the home link emits no event and cannot be the active item. A1 DID include it; A1's vocabulary is the better one here.",
+        "The three glyph-less header buttons keep sl-button's default non-icon-only padding, so they are visibly wider than the search button.",
+        "Note body text uses a background-role token (--sl-color-background-interactive-bold) for a foreground purpose because no foreground token is nearer.",
+        "The 404'd cover images paint long alt strings in place of photos, which is correct accessibility behaviour but visually noisy in every capture."
+      ]
     }
   },
   "theme": "kampus",
@@ -101,10 +240,18 @@
     "absoluteAgreement": 0.364,
     "marginOverSecond": 2,
     "confidence": "Best by a clear margin and the only theme carrying the design's brand purple #643695 as --sl-brand-light-color-palette-purple-700. BUT absolute agreement is 0.364, NOT the 1.0 every other known pairing achieves.",
-    "finding": "THE DESIGN HAS DRIFTED FROM EVERY THEME. Its entire neutral ramp (#29292B, #444548, #6D6E73, #CECFD2, #DFE3E6) and its purple-1 (#F0ECF5) and orange (#DB7109) exist in NO theme in the repo. Only the brand purple and three greys survive. This is the first design in the batch where the derivation procedure's precondition (design uses SLDS token names) does not hold."
+    "finding": "THE DESIGN HAS DRIFTED FROM EVERY THEME. Its entire neutral ramp (#29292B, #444548, #6D6E73, #CECFD2, #DFE3E6) and its purple-1 (#F0ECF5) and orange (#DB7109) exist in NO theme in the repo. Only the brand purple and three greys survive. This is the first design in the batch where the derivation procedure's precondition (design uses SLDS token names) does not hold.",
+    "confirmedAtResume": {
+      "tool": "runs/harness/theme-match.mjs",
+      "confident": false,
+      "hexAgreement": 0.42,
+      "chosen": "kampus",
+      "alsoUsedBy": "a1-kampus-subchapter-feed",
+      "honestStatement": "The evidence for kampus is WEAK and is being recorded as weak. theme-match reports confident:false because the design binds a legacy Kampus Figma library's variable names, not SLDS names, so there is almost nothing for a name-to-name comparison to work with. kampus is chosen because it is the best of a bad set (4/11 on direct hex, next best 2/11), it uniquely carries the brand purple #643695, and the sibling run on the same file chose it too. This is NOT the 1.0 agreement the four known pairings achieve."
+    }
   },
   "codeConnectFinding": {
-    "pipelineVerdict": "BLOCKED_ON_CODE_CONNECT \u2014 design-analyst returned this after 21 probes.",
+    "pipelineVerdict": "BLOCKED_ON_CODE_CONNECT — design-analyst returned this after 21 probes.",
     "orchestratorAction": "OVERRODE the halt and continued the pipeline.",
     "verification": "Independent re-probe by the orchestrator on 5308:32162 also returned {}. The analyst probed frame level, all 12 major region ids, AND 5 MAIN-COMPONENT ids (11360:135408 Icon-button, 12026:147754 Button, 5306:67658 Checkbox-with-text, 1702:18965 Simple-toggle, 1001:2105 number-tag). All {}. get_design_context corroborates: every region returns reconstructed React+Tailwind divs with raw hex, no <sl-*> anywhere.",
     "soIsHint1Wrong": "No. Hint 1 (hasTemplate:false is a third state) and the empty-subtree caveat are both real, but neither applies here. There are no hasTemplate:false entries and no non-empty per-node results. This file has ZERO Code Connect registrations.",
@@ -163,17 +310,229 @@
       "whyItMatters": "The mixin's private registry silently inerts any unlisted tag - it emptied b-nsp-home's page in wave 1. Avoiding the mixin removes the whole failure class rather than relying on a complete map."
     }
   ],
-  "pipelineCommitAtPromotion": "0280f091915bac0de8906386cd151adefd6375c0",
-  "blocked": {
-    "stage": "3-implement",
-    "reason": "Account weekly usage limit reached during Stage 3 (resets 2026-10-04 20:00 Europe/Warsaw). Leaf implementers died mid-write; left-toolbar never populated.",
-    "kind": "environment-quota",
-    "resumableFrom": "3-implement",
-    "resumeGuard": "Refuse the resume if `git rev-parse HEAD:tools/implement-design-plugin` differs from pipelineTree.hash. A run half one pipeline and half another describes neither. HEAD itself is not the test."
-  },
   "pipelineTree": {
     "hash": "2176d63902204219ed29b22e775e902747248deb",
-    "path": "tools/implement-design-plugin",
-    "note": "The resume guard must compare THIS, not HEAD. HEAD moved eleven commits while the batch ran \u2014 harness fixes, findings, promoted runs \u2014 and none of it touched the pipeline. Guarding on HEAD would refuse every resume for changes that cannot affect a run."
+    "verifiedAtResume": true,
+    "note": "Matches the guard value 2176d6390220 given at resume. Pipeline unchanged since the run stopped, so the resume is not a mongrel."
+  },
+  "pipelineCommitAtResume": "5f340f144bd548129b494ebf7e5d762f09c3733c",
+  "interruption": {
+    "cause": "Weekly account limit hit mid-Stage-3. Four leaf implementers were in flight; all died.",
+    "diskStateFound": "Exactly one partial file: left-toolbar/kampus-left-toolbar.ts (5962 bytes), no .css, written by an implementer that died mid-write. No other component had reached disk.",
+    "actionTaken": "Deleted the whole run tree rather than building on the partial file, and relaunched all five leaf implementers from scratch. A half-written file is worse than a missing one."
+  },
+  "tagNamespacing": {
+    "problem": "A1 and this run both minted a left-toolbar from the SAME Figma component with DIFFERENT APIs. The conventions require a GUARDED customElements.define, so a collision does not throw - whichever module loads first wins and the other frame silently gets the wrong component wearing its own attribute names.",
+    "a1Mitigation": "A1 namespaced only its toolbar, to sl-a1-kampus-left-toolbar. It left sl-kampus-app-header and sl-kampus-toc-sidebar unprefixed.",
+    "thisRunMitigation": "Every tag, class and EVENT name this run mints is prefixed sl-bknp- / Bknp. Event names matter as much as tags because they share one GlobalEventHandlersEventMap.",
+    "tags": [
+      "sl-bknp-chapter-page",
+      "sl-bknp-header-nav",
+      "sl-bknp-left-toolbar",
+      "sl-bknp-notes-panel",
+      "sl-bknp-chapter-header",
+      "sl-bknp-subchapter-card"
+    ],
+    "findingAboutTheConvention": "A guarded define is the right call for idempotent re-registration but it converts a cross-run name collision from a loud error into a silent mis-render. Nothing in the pipeline detects it: tsc is per-module, the harness render report only checks that a tag registered and has a box, and it WOULD have one - just the wrong component's. The batch needs a registry-collision check, or the pipeline needs to namespace tags by run automatically."
+  },
+  "a1Overlap": {
+    "question": "Do two frames from one Figma file produce compatible component boundaries?",
+    "answer": "PARTIALLY - the vocabularies converged exactly, the architecture did not.",
+    "converged": {
+      "ToolId": "IDENTICAL. A1: 'contents'|'edit-content'|'assignments'|'notes'|'access-key'. Mine: the same five, same kebab-case. Independently derived from the same captions.",
+      "HeaderActionId": "IDENTICAL. A1 AppHeaderActionId and my BknpHeaderAction are both 'search'|'notifications'|'help'|'account'.",
+      "componentSet": "Both independently identified the same shared chrome: a purple app header, a 5-item left tool rail, and a breadcrumb+title masthead."
+    },
+    "diverged": {
+      "AppNavId": "A1 has FOUR entries including 'my-page'; mine has THREE and treats 'My page' as a separate home affordance outside the nav list. A genuine disagreement about what the nav contains.",
+      "toolbarModelShape": "A1 ToolbarModel {activeToolId?, badges?: Partial<Record<ToolId,number>>}; mine ToolRailModel {userPhotoUrl, userPhotoAlt, activeToolId, badges: BknpToolBadge[]}. A1 omits the user photo entirely and its Record<ToolId,number> CANNOT express the design's bare dot badge (a badge with no count). Mine can, via optional count.",
+      "headerApiStyle": "A1's app-header takes SCALAR props (activeNavId, notificationCount as separate reflected @propertys). Mine takes ONE cohesive HeaderNavModel object. The conventions explicitly mandate the cohesive model, so A1 diverges from the conventions here and I follow them. This is the clearest case where the two runs could NOT share an implementation without one of them changing.",
+      "typeLocation": "A1 centralises contracts in a shared models.ts; my decomposition co-locates each type with its owning component.",
+      "ScopedElementsMixin": "A1 uses it on app-header; this run bans it outright."
+    },
+    "theDecisiveDifference": {
+      "what": "ICONS. A1 hand-drew five inline <svg> glyphs for the toolbar, with a code comment noting the theme has no icons for them. This run omits all five and records them as discrepancies.",
+      "why it matters": "This is not a style difference - it is a violation of the batch's explicit rule that invented artwork must never enter a pixel-compared region. A1's toolbar region is therefore not measurable: any fidelity score over it is partly scoring a drawing the pipeline made up. The two toolbars are not interchangeable at all, and the discrepancy is in A1's favour visually and against it scientifically.",
+      "secondOrderRisk": "A1's hand-drawn version sits in a sibling folder and reads as established local practice. An implementer told to 'mirror a neighbour' would copy the violation. I had to warn each implementer explicitly not to."
+    },
+    "couldTheyShareAnImplementation": "The left toolbar: yes in principle - identical ToolId vocabulary, and the model shapes are reconcilable (A1's Record would need to become an array to express the dot badge). The app header: no, not without one side changing, because scalar-props vs cohesive-model is a direct conventions conflict. The subchapter card: untested here - A1 built theory-card/exercise-card for feed items instead, so it never minted a subchapter card at all, which means the batch's most-anticipated shared unit was never actually shared."
+  },
+  "implementerFindings": {
+    "header-nav": {
+      "status": "done",
+      "tokens": 126178,
+      "durationMs": 412574,
+      "iconsOmitted": ["bell/notifications", "help (?)", "account/profile"],
+      "iconsUsed": ["home-blank", "search"],
+      "correctedTheOrchestrator": {
+        "myBriefSaid": "the 'My page' home segment sits on a slightly darker purple block ending at x=448",
+        "implementerMeasured": "pixels x=0..445 are uniformly #643695; the only background change in the bar is the active pill starting at x~446",
+        "whoWasRight": "the implementer. It sampled the reference PNG instead of trusting my prose and implemented what it measured.",
+        "lesson": "My briefing prose introduced a defect that no gate would have caught - it would have shipped as an invented darker block inside a pixel-compared region. The implementer caught it only because it independently measured ground truth. Worth noting that the orchestrator is now a source of fidelity error, not just the analyst."
+      },
+      "typographyScaleFinding": {
+        "what": "No single --sl-text-new-* step has BOTH 14px font-size and 24px line-height, which is what the design's UI/Button style needs.",
+        "resolution": "font-size from body-md (14, exact), line-height from body-lg (24, exact) - mixing two steps of the scale.",
+        "why it matters": "The theme's type scale does not contain the design's type pairs. Not a missing token - a structurally different scale. Any run implementing this design has to mix steps or miss one dimension."
+      },
+      "tokenSubstitutions": [
+        {
+          "design": "#643695 bar fill",
+          "token": "--sl-color-palette-purple-700",
+          "resolved": "#643695",
+          "exact": true
+        },
+        {
+          "design": "#7A4FA7 active pill (measured)",
+          "token": "--sl-color-palette-purple-600",
+          "resolved": "#743CB4",
+          "exact": false,
+          "delta": 24
+        },
+        {
+          "design": "#DB7109 badge",
+          "token": "sl-badge color=\"orange\" preset",
+          "resolved": "preset family",
+          "exact": false
+        }
+      ],
+      "apiGap": "BknpNavId covers only the three nav tabs, so 'My page' renders as a plain href='#' and emits nothing. If the host needs the home click, the contract needs a fourth id or a separate event. Note A1 DID include 'my-page' in its AppNavId - so A1's vocabulary is the better one here and mine is the narrower.",
+      "visualConsequenceOfOmittedIcons": "The three icon-less buttons keep sl-button's default non-icon-only padding, so they are visibly wider than the search button. Recorded rather than hand-styled to fake a square footprint."
+    },
+    "left-toolbar": {
+      "status": "done",
+      "tokens": 111862,
+      "iconsOmitted": ["contents", "edit-content", "assignments", "notes", "access-key"],
+      "note": "ALL FIVE of this component's glyphs are absent from the theme. Rendered caption-only with the glyph box kept at --sl-size-new-icon-lg so the rail's vertical rhythm survives. A1 hand-drew all five; this run drew none.",
+      "caughtOrchestratorError": "--sl-color-background-plain does not exist; substituted --sl-color-background-input-plain.",
+      "inferredNotSpecified": "Added a faint vertical divider between the white rail and the grey content column, visible in the screenshot but not in my brief. Flagged as inferred.",
+      "deferredToMyBriefOverItsOwnMeasurement": "I said the user photo is ~74x80; it measured ~93-98 tall and deferred to my number. Flagged for Stage 4. This is the opposite of what header-nav did, and header-nav was right to trust its own measurement."
+    },
+    "chapter-header": {
+      "status": "done",
+      "tokens": 119481,
+      "iconsOmitted": ["link/chain permalink glyph"],
+      "iconsUsed": ["chevron-left", "chevron-right", "ellipsis"],
+      "caughtOrchestratorError": "flagged the --sl-color-background-plain finding in the sibling file",
+      "sldsApiDiscoveries": {
+        "sl-breadcrumbs": "Takes plain <a> light-DOM children. Sets its own role=navigation + aria-label='Breadcrumb trail'. AUTOMATICALLY sets aria-current='page' on the last slotted crumb via an internal MutationObserver - no manual wiring. Sets NO font-size/family/line-height on slotted anchors, so typography had to be supplied by the consumer. Its slotted-anchor COLOUR rule uses !important.",
+        "sl-switch": "Emits sl-change, and the detail is the control's formValue (value ?? true when checked, null when unchecked) - NOT a boolean. Had to read event.target.checked instead of event.detail."
+      },
+      "reachedPastPublicApi": "NO - and that is the finding. sl-breadcrumbs forces its slotted link colour with !important, so the design's purple 'Start page' link cannot be honoured without the consumer fighting back with its own !important. The implementer declined to, per the 'do not fight the component' guidance, and recorded it as a Stage 4 discrepancy instead."
+    },
+    "subchapter-card": {
+      "status": "done",
+      "tokens": 121329,
+      "iconsUsed": ["ellipsis"],
+      "caughtOrchestratorError": "check-tokens returned verdict 'invented-tokens' on its first run for --sl-color-background-plain; swapped to --sl-elevation-surface-raised-default.",
+      "crossRunConstraintHonoured": "No inline-size/block-size on the host; only block-size:100% to fill the parent's track, plus aspect-ratio 250/186 on the cover so the 404'd img cannot reflow. Documented in a code comment.",
+      "correctedTheBrief": "My brief said 'square top corners' on the cover; it pixel-checked and found the WHOLE card has zero radius, and applied none anywhere.",
+      "opacityToken": "--sl-opacity-new-700 = 0.48 for the locked variant (design ~0.50, delta 0.02) - the same token packages/components/card uses for a dimmed state."
+    },
+    "notes-panel": {
+      "status": "done",
+      "tokens": 129135,
+      "iconsOmitted": ["pencil/edit"],
+      "iconsUsed": ["xmark"],
+      "caughtOrchestratorError": "independently found --sl-color-background-plain missing; chose --sl-elevation-surface-raised-default.",
+      "deliberateChoice": "Note-card heights (132/90/60) were NOT hardcoded - height is content-driven, which is more robust against the Open Sans fallback-face discrepancy. Forcing exact px against a different font's metrics risks clipping.",
+      "worstSubstitution": "#29292B body text -> --sl-color-background-interactive-bold (#3b3b3e), delta 32. A BACKGROUND-role token used for text because no foreground-role token is closer. Ugly but recorded."
+    }
+  },
+  "harnessFindings": [
+    {
+      "tool": "runs/harness/check-tokens.mjs",
+      "finding": "Earlier it reported `tokensReferenced: 0, clean` on trees referencing plenty, because the field counted only unresolvable references - a clean result was indistinguishable from not having looked. Now fixed: reports filesScanned/referencesSeen. Final run on this tree: filesScanned 14, referencesSeen 131, unresolvedReferences 0, verdict clean."
+    },
+    {
+      "tool": "get_screenshot",
+      "finding": "Returns the node padded with canvas bleed (1280x727 for a 1280x720 frame, from a 1296x736 render). Any run diffing against it raw inherits a phantom 6-8px offset on every measurement. Nothing in the pipeline mentions normalising it."
+    }
+  ],
+  "orchestratorIntroducedDefects": [
+    {
+      "defect": "token-map.md, IMPL-BRIEF.md and manifest.md all named `--sl-color-background-plain` for every white surface. The token is declared in NO theme in the repo.",
+      "blastRadius": "Carried into all five implementer briefs.",
+      "caughtBy": "runs/harness/check-tokens.mjs mechanically, AND independently by three of the five implementers grepping the theme.",
+      "whyItMattered": "An undefined var() makes the browser drop the whole declaration. tsc passes, linters pass, the render report still says 'rendered' - the surfaces are just transparent. Exactly the failure shape check-tokens was written for; its own docstring names this very token as a repeat offender.",
+      "fixed": "All three docs corrected; a CORRECTION section appended to token-map.md naming the four white tokens that do exist."
+    },
+    {
+      "defect": "My header-nav brief asserted the 'My page' segment sits on a slightly darker purple block.",
+      "caughtBy": "The header-nav implementer sampled the reference PNG and found x=0..445 uniformly #643695.",
+      "whyItMattered": "Had it been followed, an invented darker block would have shipped inside a pixel-compared region. No gate would have caught it."
+    },
+    {
+      "defect": "My subchapter-card brief said 'square top corners' on the cover.",
+      "caughtBy": "That implementer pixel-checked and found the whole card has zero radius."
+    },
+    {
+      "defect": "My left-toolbar brief said the user photo is ~74x80.",
+      "caughtBy": "Nobody. That implementer measured ~93-98 tall and DEFERRED TO MY NUMBER.",
+      "status": "UNRESOLVED - carried into Stage 4 as a suspected height error.",
+      "lesson": "Three implementers overrode my prose with their own measurement; one deferred to it. The pipeline has no rule about which wins, so the outcome depends on the agent's disposition."
+    }
+  ],
+  "typeScaleFinding": {
+    "discoveredIndependentlyBy": ["header-nav", "notes-panel"],
+    "what": "No single --sl-text-new-* step pairs the font-size the design wants with the line-height it wants. header-nav needed 14/24 and had to take fontSize from body-md and lineHeight from body-lg. notes-panel needed 16/20 and had to take fontSize from body-lg and lineHeight from body-md.",
+    "whyItMatters": "This is not a missing token. The theme's type scale is STRUCTURALLY DIFFERENT from the design's - the design's size/line-height pairs are not points on the kampus ramp. Every implementer hits it and each invents its own cross-family pairing, so the resolution is unstable across agents. Two of five hit it here; a run with more text would hit it more.",
+    "noGateCatchesIt": "check-tokens passes - both longhands exist and resolve. Only the pixel diff would show it, and only if the fallback face were not already shifting metrics."
+  },
+  "paletteReachability": {
+    "question": "How much of this design's palette can the kampus theme actually express?",
+    "method": "For each distinct colour the design uses (12 bound Figma variables + 2 measured from the reference PNG), resolved every kampus token through its full var() chain and took the nearest by Euclidean RGB distance.",
+    "exactMatches": 5,
+    "noExactToken": 9,
+    "total": 14,
+    "exact": ["#643695 brand purple", "#FFFFFF", "#0E0E0F", "#F5F5F6", "#F9963B"],
+    "largestUnavoidableDelta": {
+      "value": 31.8,
+      "colour": "#29292B note body text",
+      "nearest": "--sl-color-background-interactive-bold #3b3b3e"
+    },
+    "otherNotableGaps": [
+      {
+        "c": "#7C51A9 nav pill",
+        "d": 25.0
+      },
+      {
+        "c": "#DB7109 badge orange",
+        "d": 22.2
+      },
+      {
+        "c": "#FFEF99 highlight",
+        "d": 20.0
+      },
+      {
+        "c": "#F0ECF5 rail active",
+        "d": 7.3
+      },
+      {
+        "c": "#DFE3E6",
+        "d": 6.6
+      },
+      {
+        "c": "#6D6E73",
+        "d": 6.0
+      }
+    ],
+    "conclusion": "EXACT COLOUR FIDELITY IS UNREACHABLE FOR THIS DESIGN BY CONSTRUCTION. Only 5 of 14 colours have a token; the other 9 sit between ramp steps, four of them by more than 20 units. This is the direct, measurable consequence of the 0.42 theme agreement recorded at Stage 1: the design was drawn against a legacy Kampus Figma library whose palette is not the SLDS kampus ramp. A pixel-fidelity score for this design is therefore bounded well below 100% no matter how good the implementation is, and the residual is a property of the design-theme pairing, not of the run. Any batch-level fidelity comparison that does not normalise for this will rank this design unfairly against designs drawn on SLDS tokens."
+  },
+  "collapsedTokenFinding": {
+    "what": "--sl-label-md-fontSize and --sl-text-sm-fontSize LOOK like the 18px step and are declared as such, but resolve to 12px in the browser.",
+    "mechanism": ":root declares --sl-label-md-fontSize: var(--sl-label-md-fontSize-userGroup). --sl-label-md-fontSize-userGroup is declared ONLY under [data-user-group='early'|'developing'|'advanced'] and one `body` rule. Nothing sets that attribute, so at :root the substitution is invalid at computed-value time and the whole --sl-label-* family collapses.",
+    "measured": "getComputedStyle(document.body) on the live story: --sl-label-md-fontSize = 12px, --sl-text-sm-fontSize = 12px. Card titles were rendering at 12px/16px where the design wants 18/24.",
+    "whyNoGateCaughtIt": "check-tokens asks whether a token is DECLARED. This one is declared - it just resolves to nothing useful. A token existing is not a token resolving correctly, and only a live getComputedStyle distinguishes them.",
+    "scopeOfTheProblem": "Every --sl-{label,text,title,heading,display,caption}-*-{fontSize,lineHeight} token in kampus goes through the same -userGroup indirection. The entire older type-size namespace is unusable. Only --sl-text-new-* and --sl-typography-* carry flat values.",
+    "fix": "Card title moved to --sl-text-new-body-lg-* (16/24). No un-gated token resolves to 18px, so a 2px delta was accepted in place of a silent 6px one."
+  },
+  "fontFamilyFinding": {
+    "what": "The ENTIRE --sl-text-new-*-fontFamily namespace in kampus names 'Open Sans' (with a space). No loaded @font-face has that family name. The Typekit sheet the theme loads registers the family as 'open-sans' (hyphenated), which only the OLDER --sl-*-fontFamily namespace names.",
+    "measured": "Canvas text measurement in the live story, 18px, string 'Chapter 1 Vastaa kysymyksiin': 'Open Sans' = 218.5px, identical to a deliberately nonexistent family (218.5px) and to serif (218.5px). 'open-sans' = 247.4px. document.fonts lists 'open-sans 400 loaded' and 'open-sans 700 loaded'.",
+    "consequence": "Every component that followed the manifest's own guidance and used --sl-text-new-*-fontFamily rendered the whole page in the browser's default SERIF. I had recorded this as an [ENV] 'Kampus ships no fonts.css' discrepancy and that was WRONG - the font loads fine, the theme just names it incorrectly in one of its two namespaces.",
+    "fix": "All six font-family declarations swapped to the older namespace (--sl-text-fontFamily, --sl-heading-fontFamily, --sl-caption-fontFamily). Size, line-height and weight stay on --sl-text-new-* / --sl-typography-*, which are correct.",
+    "whyNoGateCaughtIt": "check-tokens verifies the token resolves - it does, to the string 'Open Sans'. Nothing verifies that a font-family VALUE names a face that is actually registered. This is mechanically checkable (compare each family token against document.fonts) and currently is not checked.",
+    "generalLesson": "kampus has two parallel token namespaces that disagree: the new one has correct sizes but a broken family name, the old one has a correct family name but sizes that collapse through -userGroup. Neither namespace is wholly usable; correct typography requires taking family from one and metrics from the other. No documentation says so."
   }
 }

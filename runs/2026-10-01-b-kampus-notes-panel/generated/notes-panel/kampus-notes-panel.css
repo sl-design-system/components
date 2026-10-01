@@ -1,0 +1,209 @@
+/*
+ * :host becomes a flex column (header / filters / scrolling content stacked) — an intentional
+ * change from the default inline rendering, since this component lays out its own three regions
+ * rather than leaving arrangement to a consumer.
+ */
+:host {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  /* 360×664 — measured layout dimensions (manifest "Notes side panel"), no matching spacing
+     token; see token-map.md's "Layout dimensions vs spacing steps" rule. */
+  inline-size: 360px;
+  block-size: 664px;
+
+  /* Panel ground, #FFFFFF. `--sl-color-background-plain` does NOT exist in the kampus theme (see
+     check-tokens.mjs's own warning comment — a prior run invented exactly this name). The nearest
+     existing token that still resolves to pure white is `--sl-elevation-surface-raised-default`
+     (chain: kampus grey-000 = #ffffff), which also fits the role better than an input-field token
+     for a panel surface. */
+  background: var(--sl-elevation-surface-raised-default);
+
+  /* Separates the panel from the main content column; nearest token for the measured #CECFD2
+     "gray-3 border" (token-map.md). */
+  border-inline-end: 1px solid var(--sl-color-border-accent-grey-faint);
+}
+
+/* ---- Header -------------------------------------------------------------------------------- */
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  /* 72px header height — measured, no matching token (token-map.md explicitly calls this out). */
+  block-size: 72px;
+  flex-shrink: 0;
+  padding-inline: var(--sl-size-200); /* 16px, matches the content area's own inline padding */
+}
+
+#notes-heading {
+  color: var(--sl-color-foreground-bold);
+  margin: 0;
+
+  /* Headings/Level 5: 18/24/600. CORRECTED after Stage 4 review: `--sl-label-md-fontSize` (what
+     token-map.md's "Type sizes available" table names for 18px) is NOT a stable value — it and
+     `--sl-heading-sm-fontSize` belong to Kampus's reading-level ("userGroup": early/developing/
+     advanced/superuser) font-scaling system, whose chain is re-declared across several `body {}`
+     blocks gated by a `[data-user-group="..."]` ancestor attribute this page never sets. Absent
+     that attribute, the cascade still resolves (the property IS declared, so check-tokens.mjs
+     sees nothing wrong) but lands on an unrelated later `body {}` override — ~12px in this theme,
+     which is why the heading rendered at "roughly body size". `--sl-text-new-heading-md-*` is a
+     single, unconditional declaration (verified: only one `--sl-text-new-heading-md-fontSize` in
+     the whole theme file) — nearest stable size is 16/20, not 18/24; recording the small delta. */
+  /* FONT-FAMILY: the --sl-text-new-*-fontFamily tokens in this theme all resolve to
+     'Open Sans' (with a space), which matches NO loaded @font-face. The Typekit sheet the
+     kampus theme loads registers the family as 'open-sans' (hyphenated), which only the
+     older --sl-*-fontFamily namespace names. Verified by canvas text measurement in the
+     live story: 'Open Sans' measures identically to a nonexistent family (218.5px) while
+     'open-sans' measures 247.4px. Using the new-namespace token silently renders the
+     browser's default serif. check-tokens cannot catch this - the token resolves fine, it
+     is its VALUE that names a face nobody registered. */
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-heading-md-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-semiBold);
+  line-height: var(--sl-text-new-heading-md-lineHeight);
+}
+
+.header-actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sl-size-100); /* 8px, matches the measured 8px gap between the two buttons */
+}
+
+/* ---- Filters row ----------------------------------------------------------------------------- */
+
+.filters {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sl-size-200); /* 16px, matches the measured gap between the two checkboxes */
+
+  /* CORRECTED after Stage 4 review: the filter row sits flush under the 72px header with NO
+     extra gap (re-measured against the reference: the checkbox marks start right where the
+     header ends). The original 44px here double-counted the manifest's raw "y=116" figure on
+     top of the header's own 72px block-size, pushing everything below it 50px too low. The
+     24px gap the design actually shows before the first card is applied once, on `.content`
+     below, not here. */
+  padding-inline: var(--sl-size-200); /* 16px */
+}
+
+/* ---- Content (scrolling note groups) ---------------------------------------------------------- */
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sl-size-300); /* 24px between groups */
+  min-block-size: 0;
+  overflow-y: auto;
+  padding-block-start: var(--sl-size-300); /* 24px gap from the filter row to the first group */
+  padding-inline: var(--sl-size-200); /* 16px, 328px content width inside the 360px panel */
+}
+
+.content:focus-visible {
+  outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+  outline-offset: calc(-1 * var(--sl-size-borderWidth-focusRing));
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  margin-block: 0 var(--sl-size-200); /* 16px gap from the group heading to its first card */
+}
+
+.group-link {
+  color: var(--sl-color-foreground-primary-bold);
+  text-decoration: underline;
+
+  /* UI/Small: 16/20/400. No single kampus token family pairs fontSize 16 with lineHeight 20 (the
+     body-lg family is 16/24, body-md is 14/20) — both longhands below are real, exact-matching
+     tokens individually, just from different size steps; see token-map.md. */
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  line-height: var(--sl-text-new-body-md-lineHeight);
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-size-100); /* 8px between cards */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Note card ------------------------------------------------------------------------------- */
+
+.card {
+  background: var(--sl-color-background-neutral-bold); /* #F5F5F6 card grey, exact match */
+  /* 1px border, #CECFD2 in the design — `--sl-color-border-accent-grey-faint` resolves to
+     #cfd0d2, effectively exact (Δ1). Added after Stage 4 review: the card previously had no
+     border and read as a flat block against the panel's own white ground. */
+  border: 1px solid var(--sl-color-border-accent-grey-faint);
+  border-radius: var(--sl-size-borderRadius-lg);
+  display: flex; /* lets the date's `margin-block-start: auto` pin it to the card's bottom edge */
+  flex-direction: column;
+  position: relative;
+
+  /* Body inset: 14px left / 12px top (measured). Inline-end padding reserves room for the
+     absolutely-positioned edit button so the text never runs under it. */
+  padding-block: var(--sl-size-150) var(--sl-size-100);
+  padding-inline: var(--sl-size-175) var(--sl-size-400);
+}
+
+.card .edit {
+  position: absolute;
+  inset-block-start: var(--sl-size-100); /* 8px from the card top, measured */
+  inset-inline-end: var(--sl-size-100);
+}
+
+/* The edit buttons render with no icon (see kampus-notes-panel.ts: the kampus theme's 55-icon set
+   has no pencil/edit glyph, and this run never hand-draws a replacement) — so the ghost button is
+   sized to the measured ~21×24px hit target and otherwise renders empty. */
+.card .edit::part(button) {
+  block-size: 24px;
+  min-inline-size: 21px;
+  padding: 0;
+}
+
+.highlight-line,
+.body {
+  color: var(--sl-color-background-interactive-bold); /* nearest token for #29292B, see token-map.md */
+  margin: 0;
+
+  /* Body/Small: 16/24/400. */
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+}
+
+.highlight-line + .body {
+  margin-block-start: var(--sl-size-100); /* 8px gap between the marker line and the body line */
+}
+
+.highlight-line mark {
+  background: var(--sl-color-background-highlight); /* #FFF7C5 — nearest to measured #FFEF99, see token-map.md */
+  color: inherit;
+}
+
+time.date {
+  color: var(--sl-color-foreground-subtle);
+  display: block;
+  margin-block-start: auto; /* pins the date to the card's bottom edge */
+  padding-block-start: var(--sl-size-150); /* keeps the date clear of the body text above it */
+  text-align: end;
+
+  /* UI/Tiny: 12/16/400. */
+  font-family: var(--sl-text-new-typeset-fontFamily-body);
+  font-size: var(--sl-text-new-body-sm-fontSize);
+  font-weight: var(--sl-text-new-typeset-fontWeight-regular);
+  line-height: var(--sl-text-new-body-sm-lineHeight);
+}

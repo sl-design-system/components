@@ -1,0 +1,107 @@
+:host {
+  /*
+   * CROSS-RUN COMPATIBILITY: no fixed inline-size/block-size here, intentionally.
+   * The sibling run A1 ("Subchapter feed") places a lookalike card in a differently-sized
+   * track from the same Figma file; baking in this frame's 250px/264px column width would make
+   * the two runs' cards incompatible with each other's grids. The host fills whatever
+   * grid/flex track its parent gives it - block-size: 100% only participates in a track the
+   * parent already sized, it does not impose one.
+   */
+  block-size: 100%;
+  display: block;
+}
+
+article {
+  /* token-map.md names --sl-color-background-plain for this run's white surfaces, but that
+     custom property does not exist in packages/themes/kampus/theme.css (confirmed by grep and
+     by check-tokens.mjs) - it silently drops the whole declaration if used. Using
+     --sl-elevation-surface-raised-default instead: it resolves to the same #ffffff and is the
+     established "raised card surface" token used by the sibling b-nsp-home/class-card. */
+  background: var(--sl-elevation-surface-raised-default);
+  block-size: 100%;
+  border-radius: var(--sl-size-borderRadius-none);
+  /* Available variant: solid surface + the brief's measured shadow (F7 correction - no token
+     matches this shadow's geometry, the colour token is the closest semantic fit). Removed
+     entirely for the locked variant below. */
+  box-shadow: 0 2px 8px var(--sl-color-shadow-overflow1);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+}
+
+/* `display: contents` lets the anchor's own children (the cover image and the title) become
+   direct grid items of `article`, so the title can share a grid row with the ellipsis button
+   that sits outside the anchor - without an extra wrapper div. */
+.cover-link {
+  display: contents;
+}
+
+.cover {
+  /* 250x186 measured from the reference (row 1/2 cards); an aspect-ratio - not a fixed
+     block-size - keeps the photo's proportions correct at ANY track width the host is given
+     (see the :host comment), and gives the 404'd <img> (no asset-export step in this pipeline)
+     a stable box so the layout never reflows when it fails to load. */
+  aspect-ratio: 250 / 186;
+  background: var(--sl-color-background-neutral-bold);
+  display: block;
+  grid-column: 1 / -1;
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+.title {
+  color: var(--sl-color-foreground-bold);
+  /* Design wants New look & feel 2023/h4: 18/24/700.
+     --sl-label-md-fontSize/-lineHeight LOOK like the 18/24 pair and are declared as such, but
+     they resolve through `var(--sl-label-md-fontSize-userGroup)`, and -userGroup is only ever
+     declared under [data-user-group='...'] (and one `body` rule). The :root declaration is
+     therefore invalid at computed-value time, and the whole --sl-label-* family collapses:
+     measured in the browser they compute to 12px/16px, not 18/24. Verified with
+     getComputedStyle on the live story. --sl-text-sm-* collapses the same way.
+     No un-gated token in this theme resolves to 18px, so the nearest safe step is body-lg
+     (16/24). Recorded as a 2px font-size delta rather than a silently 6px-too-small title. */
+  /* FONT-FAMILY: the --sl-text-new-*-fontFamily tokens in this theme all resolve to
+     'Open Sans' (with a space), which matches NO loaded @font-face. The Typekit sheet the
+     kampus theme loads registers the family as 'open-sans' (hyphenated), which only the
+     older --sl-*-fontFamily namespace names. Verified by canvas text measurement in the
+     live story: 'Open Sans' measures identically to a nonexistent family (218.5px) while
+     'open-sans' measures 247.4px. Using the new-namespace token silently renders the
+     browser's default serif. check-tokens cannot catch this - the token resolves fine, it
+     is its VALUE that names a face nobody registered. */
+  font-family: var(--sl-heading-fontFamily);
+  font-size: var(--sl-text-new-body-lg-fontSize);
+  font-weight: var(--sl-fontWeight-700);
+  line-height: var(--sl-text-new-body-lg-lineHeight);
+  margin: 0;
+  /* Padding-block, together with the title's own line-height, composes the ~65px band measured
+     in the design (20 + 24(ish) + 20 = 64) - there is no single token for a fixed band height,
+     and the design binds no size variables here at all, so the band is left to size itself from
+     content + padding rather than being pinned to a raw pixel. */
+  padding-block: var(--sl-size-250);
+  padding-inline-start: var(--sl-size-200);
+}
+
+.actions {
+  align-self: center;
+  margin-inline-end: var(--sl-size-200);
+}
+
+/* Locked variant: dashed border (replacing the shadow), no shadow, ~50% opacity on the whole
+   card, grey title. Driven by the host's reflected `locked` attribute, set from `model.locked`
+   in `willUpdate`. */
+:host([locked]) article {
+  /* #DFE3E6 has no token anywhere in any theme; token-map.md's resolved nearest is
+     --sl-color-background-accent-grey-bold (#e5e5e8, Δ7) - a background-role token reused here
+     for its colour value, since no border-role token comes closer. */
+  border: var(--sl-size-borderWidth-default) dashed var(--sl-color-background-accent-grey-bold);
+  box-shadow: none;
+  /* No token resolves to exactly 0.5; --sl-opacity-new-700 (0.48) is the nearest step on the
+     --sl-opacity-new-* ladder (…0.32, 0.48, 0.64…) - same token `packages/components/card`'s own
+     disabled state reaches for. Recorded Δ0.02. */
+  opacity: var(--sl-opacity-new-700);
+}
+
+:host([locked]) .title {
+  color: var(--sl-color-foreground-disabled);
+}

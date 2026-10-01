@@ -198,11 +198,18 @@ The `generated/` snapshot is therefore not only evidence — **it is the resume 
 tree under `examples/lit/src/_runs/` is gitignored and a clean checkout wipes it, so a resume
 restores from the snapshot rather than regenerating.
 
-**One thing a resume must refuse.** If the pipeline commit has changed since the stage that
-succeeded, the resumed run is half old and half new, and its numbers no longer describe either.
-`progress.json` records the commit precisely so that a resume across a different one **fails
-loudly** instead of quietly producing a mongrel baseline. Same discipline as the corpus freeze
-stamp, for the same reason.
+**One thing a resume must refuse** — and the test is narrower than it first looked. If the
+pipeline has changed since the stage that succeeded, the resumed run is half old and half new and
+its numbers describe neither, so `progress.json` records a stamp and a resume across a different
+one **fails loudly**.
+
+The first version of this stamped `git rev-parse HEAD`, which is wrong, and trying to use it is
+what showed why: HEAD moved eleven commits during the batch — harness fixes, findings, promoted
+runs — while `tools/implement-design-plugin/` was touched **zero** times. Guarding on HEAD refuses
+every resume for changes that cannot affect a run, and a guard that always fires gets switched off.
+
+So the stamp is the **pipeline tree hash**: `git rev-parse HEAD:tools/implement-design-plugin`.
+It changes when the pipeline changes and at no other time.
 
 This is a small, local implementation of a decision already recorded in
 [`A-NOJIRA-pipeline-staging`](../context/analyzes/NOJIRA-pipeline-staging/analysis.md)

@@ -169,6 +169,11 @@
     "reason": "Account weekly usage limit reached during Stage 3 (resets 2026-10-04 20:00 Europe/Warsaw). Leaf implementers died mid-write; left-toolbar never populated.",
     "kind": "environment-quota",
     "resumableFrom": "3-implement",
-    "resumeGuard": "A resume must fail loudly if HEAD has moved since pipelineCommitAtPromotion: a run that is half one pipeline and half another describes neither."
+    "resumeGuard": "Refuse the resume if `git rev-parse HEAD:tools/implement-design-plugin` differs from pipelineTree.hash. A run half one pipeline and half another describes neither. HEAD itself is not the test."
+  },
+  "pipelineTree": {
+    "hash": "2176d63902204219ed29b22e775e902747248deb",
+    "path": "tools/implement-design-plugin",
+    "note": "The resume guard must compare THIS, not HEAD. HEAD moved eleven commits while the batch ran \u2014 harness fixes, findings, promoted runs \u2014 and none of it touched the pipeline. Guarding on HEAD would refuse every resume for changes that cannot affect a run."
   }
 }

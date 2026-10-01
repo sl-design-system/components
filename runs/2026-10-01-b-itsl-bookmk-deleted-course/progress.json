@@ -111,5 +111,10 @@
     "message": "Weekly account usage limit reached; resets Oct 4 at 8pm (Europe/Warsaw). Four parallel implementer subagents all died on it within the same minute.",
     "resumableFrom": "Stage 3. manifest.md holds both the design manifest and the full decomposition (5 components, verbatim shared types, per-component geometry specs, all 20 open questions with defaults), which is exactly what the runbook lists as the Stage 3 resume input. THEME-FACTS.md holds the run-specific hard constraints. Delete the two partial component folders and re-run Stage 3 from the manifest.",
     "mustRefuseResumeIf": "pipelineCommit differs from cdae07695a8204b29ae71954c7011fb348ca3ddc"
+  },
+  "pipelineTree": {
+    "hash": "2176d63902204219ed29b22e775e902747248deb",
+    "path": "tools/implement-design-plugin",
+    "note": "The resume guard must compare THIS, not HEAD. HEAD moved eleven commits while the batch ran \u2014 harness fixes, findings, promoted runs \u2014 and none of it touched the pipeline. Guarding on HEAD would refuse every resume for changes that cannot affect a run."
   }
 }

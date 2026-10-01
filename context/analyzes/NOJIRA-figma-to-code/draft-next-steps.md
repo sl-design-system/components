@@ -15,6 +15,11 @@ Drafts: [`draft-discrepancy-registry.md`](draft-discrepancy-registry.md),
 
 **Why first:** every other piece reads or writes it, so getting it wrong is rework everywhere.
 
+**Now analysed:** [A-NOJIRA-figma-metadata-contract](../NOJIRA-figma-metadata-contract/analysis.md)
+enumerates the requirements, and reaches one conclusion this draft did not anticipate — the registry
+should **not** be written first, because without a node-to-element link every key in it is a
+heuristic.
+
 **How it is kept honest:** the schema has to express what the nineteen runs already found, and those
 runs are on disk. A retrofit is the test — if it cannot record Kampus's unreachable palette, A10's
 variable modes, the `::part()` specificity hazard and the `24 + 8 = 32` decomposition, it is wrong,
